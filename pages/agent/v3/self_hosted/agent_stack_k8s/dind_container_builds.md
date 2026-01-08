@@ -10,7 +10,7 @@ This setup allows your Buildkite jobs to execute standard Docker operations (lik
 
 ## Using Docker-in-Docker as a sidecar container
 
-The following pipeline example demonstrates how to build a container image using Docker-in-Docker with the Buildkite Kubernetes plugin's [`sidecars` feature](https://buildkite.com/docs/agent/v3/agent-stack-k8s/sidecars), and sharing the Docker socket using Volume mounts.
+The following pipeline example demonstrates how to build a container image using Docker-in-Docker with the Buildkite Kubernetes plugin's [`sidecars` feature](https://buildkite.com/docs/agent/v3/self-hosted/agent-stack-k8s/sidecars), and sharing the Docker socket using Volume mounts.
 
 ```yaml
   - label: "Testing the sidecar approach"
@@ -48,7 +48,7 @@ This section describes the key components for configuring Docker-in-Docker with 
 
 ## Security considerations
 
-Running Docker-in-Docker requires privileged containers. It is recommended to use Docker-in-Docker in trusted environments. Consider alternatives like [BuildKit](/docs/agent/v3/agent-stack-k8s/buildkit-container-builds) for enhanced security.
+Running Docker-in-Docker requires privileged containers. It is recommended to use Docker-in-Docker in trusted environments. Consider alternatives like [BuildKit](/docs/agent/v3/self-hosted/agent-stack-k8s/buildkit-container-builds) for enhanced security.
 
 ## Troubleshooting
 

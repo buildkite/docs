@@ -258,9 +258,9 @@ Optional attributes:
 
 ## Container image attributes
 
-The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), or [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), or [Buildkite hosted agents](/docs/pipelines/hosted-agents).
 
-- If you are running your Buildkite Agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
+- If you are running your Buildkite Agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/v3/self-hosted/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
 
 - If you are using Buildkite hosted agents, support for the `image` attribute is experimental and subject to change.
 
@@ -268,7 +268,7 @@ The `image` attribute can be used with either the [Agent Stack for Kubernetes](/
   <tr>
     <td><code>image</code></td>
     <td>
-      A fully qualified image reference string. The <a href="/docs/agent/v3/agent-stack-k8s">Agent Stack for Kubernetes</a> controller will configure the <a href="/docs/agent/v3/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images">custom image</a> for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
+      A fully qualified image reference string. The <a href="/docs/agent/v3/self-hosted/agent-stack-k8s">Agent Stack for Kubernetes</a> controller will configure the <a href="/docs/agent/v3/self-hosted/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images">custom image</a> for the <code>command</code> container of this job. The value is available in the <code>BUILDKITE_IMAGE</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
       <em>Example:</em> <code>"alpine:latest"</code>
     </td>
   </tr>

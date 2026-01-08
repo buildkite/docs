@@ -50,7 +50,7 @@ You can deploy ephemeral agents per job for maximum isolation and rapid scaling,
 - Requires cluster expertise and ongoing platform maintenance
 - Limited access to large persistent disk caches per job
 
-Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
+Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s).
 
 ### Buildkite hosted agents
 
@@ -74,7 +74,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 
 There is no need to settle on a single architecture within your Buildkite organization as you utilize different stacks based on the needs and knowledge level in your teams.
 
-For example, a popular approach among Buildkite users is to have a self-managed agent fleet that is based on either [Kubernetes](/docs/agent/v3/agent-stack-k8s) or cloud compute instances ([AWS](/docs/agent/v3/aws) or [Google Cloud Platform](https://buildkite.com/docs/agent/v3/gcp)), as well as on [Buildkite macOS hosted agents](https://buildkite.com/docs/pipelines/hosted-agents/macos) due to ease of management, clean development environments, and [optimized caching](/docs/pipelines/hosted-agents/cache-volumes) the latter provide. Different teams in those Buildkite organizations can utilize the stacks that are better suited to their needs.
+For example, a popular approach among Buildkite users is to have a self-managed agent fleet that is based on either [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) or cloud compute instances ([AWS](/docs/agent/v3/aws) or [Google Cloud Platform](https://buildkite.com/docs/agent/v3/gcp)), as well as on [Buildkite macOS hosted agents](https://buildkite.com/docs/pipelines/hosted-agents/macos) due to ease of management, clean development environments, and [optimized caching](/docs/pipelines/hosted-agents/cache-volumes) the latter provide. Different teams in those Buildkite organizations can utilize the stacks that are better suited to their needs.
 
 Similarly, in terms of agent fleet scaling, instead of choosing between using static or autoscaling agents exclusively, you can:
 
@@ -97,7 +97,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 ## Right-sizing of your agent fleet
 
 - Monitor queue times with [cluster insights](/docs/pipelines/clusters#cluster-insights) and [Buildkite Agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
-- Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)).
+- Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
 - Configure [graceful termination](/docs/agent/v3#signal-handling) to allow jobs to complete.
 - To be able to duplicate your fleet of agents in an easy way, favor agent images and configurations that are able to run in more than one environment. For example, you can have a single Docker image that contains the latest Buildkite Agent binary, a selection of development and deployment tools, and a config that reads information such as queues or tags from environment variables. You could then run such image as Kubernetes agents, ECS agents, or in a Docker setup on a virtual machine.

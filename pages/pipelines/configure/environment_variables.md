@@ -241,7 +241,7 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 For a list of variables and configuration flags, you can set on your agent, see the Buildkite agent's [start command documentation](/docs/agent/v3/cli-start).
 
 > 📘
-> When using the [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) controller, environment variables declared as part of a PodSpec will also take precedence when the Kubernetes job is created. Learn more about this in [Kubernetes PodSpec generation](/docs/agent/v3/agent-stack-k8s/podspec#kubernetes-podspec-generation).
+> When using the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) controller, environment variables declared as part of a PodSpec will also take precedence when the Kubernetes job is created. Learn more about this in [Kubernetes PodSpec generation](/docs/agent/v3/self-hosted/agent-stack-k8s/podspec#kubernetes-podspec-generation).
 
 ### Job runtime environment
 

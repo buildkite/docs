@@ -6,7 +6,7 @@ If you're experiencing any issues with Buildkite Agent Stack for Kubernetes cont
 
 Increasing the verbosity of Buildkite Agent Stack for Kubernetes controller's logs can be accomplished by enabling debug mode. Once enabled, the logs will emit individual, detailed actions performed by the controller while obtaining jobs from Buildkite's API, processing configurations to generate a Kubernetes PodSpec and creating a new Kubernetes Job. Debug mode can help to identify processing delays or incorrect job processing issues.
 
-Debug mode can be enabled during the [installation](/docs/agent/v3/agent-stack-k8s/installation) (Helm chart deployment) of the Buildkite Agent Stack for Kubernetes controller via the command line:
+Debug mode can be enabled during the [installation](/docs/agent/v3/self-hosted/agent-stack-k8s/installation) (Helm chart deployment) of the Buildkite Agent Stack for Kubernetes controller via the command line:
 
 ```bash
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \

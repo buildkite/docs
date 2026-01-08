@@ -14,7 +14,7 @@ Instead, if an attempt is made to modify the `command` or `args` values for thes
 If modifying the commands of these containers is something you want to do, consider other potential solutions:
 
 - To override checkout behaviour, consider writing a `checkout` hook, or disabling the checkout container entirely with `checkout: skip: true`.
-- To run additional containers without `buildkite-agent` in them, consider using a [sidecar](/docs/agent/v3/agent-stack-k8s/sidecars).
+- To run additional containers without `buildkite-agent` in them, consider using a [sidecar](/docs/agent/v3/self-hosted/agent-stack-k8s/sidecars).
 
 > 📘
 > Buildkite is continually looking into adding ways to make the Buildkite Agent Stack for Kubernetes more flexible while ensuring core functionality is maintained.

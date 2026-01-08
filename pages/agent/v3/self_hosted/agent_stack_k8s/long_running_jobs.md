@@ -30,4 +30,4 @@ steps:
       jobActiveDeadlineSeconds: 43500
 ```
 
-Additional information on configuring `jobActiveDeadlineSeconds` can be found in the `--job-active-deadline-seconds` flag description of the [Flags](/docs/agent/v3/agent-stack-k8s/controller-configuration#flags) section, on the [Controller configuration](/docs/agent/v3/agent-stack-k8s/controller-configuration) page.
+Additional information on configuring `jobActiveDeadlineSeconds` can be found in the `--job-active-deadline-seconds` flag description of the [Flags](/docs/agent/v3/self-hosted/agent-stack-k8s/controller-configuration#flags) section, on the [Controller configuration](/docs/agent/v3/self-hosted/agent-stack-k8s/controller-configuration) page.

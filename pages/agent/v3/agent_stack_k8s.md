@@ -38,7 +38,7 @@ When a matching job is returned from the Agent REST API, the controller creates 
 
 ## Get started with the Agent Stack for Kubernetes
 
-Learn more about how to set up the Buildkite Agent Stack for Kubernetes from the [Installation](/docs/agent/v3/agent-stack-k8s/installation) page.
+Learn more about how to set up the Buildkite Agent Stack for Kubernetes from the [Installation](/docs/agent/v3/self-hosted/agent-stack-k8s/installation) page.
 
 ## Development and contributing
 

@@ -26,7 +26,7 @@ The Buildkite Agent's jobs can be run within a Kubernetes cluster on AWS.
 
 Before you start, you will require your own Kubernetes cluster running on AWS. Learn more about this from [Kubernetes on AWS](https://aws.amazon.com/kubernetes/).
 
-Once your Kubernetes cluster is running in AWS, you can then set up the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run in this cluster. Learn more about how to set up the Agent Stack for Kubernetes on the [Installation](/docs/agent/v3/agent-stack-k8s/installation) page of this documentation.
+Once your Kubernetes cluster is running in AWS, you can then set up the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) to run in this cluster. Learn more about how to set up the Agent Stack for Kubernetes on the [Installation](/docs/agent/v3/self-hosted/agent-stack-k8s/installation) page of this documentation.
 
 ## Installing the agent on your own AWS instances
 

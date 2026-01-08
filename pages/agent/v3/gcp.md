@@ -16,7 +16,7 @@ The Buildkite Agent's jobs can be run within a Kubernetes cluster on GCP.
 
 To start, you will need your own Kubernetes cluster running on GCP. Learn more in [Google Kubernetes Engine (GKE) documentation](https://cloud.google.com/kubernetes-engine).
 
-Once your Kubernetes cluster is running on GCP, you can then set up the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s) to run in this cluster. Learn more about how to set up the Agent Stack for Kubernetes in the [Agent Stack for Kubernetes installation documentation](/docs/agent/v3/agent-stack-k8s/installation).
+Once your Kubernetes cluster is running on GCP, you can then set up the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) to run in this cluster. Learn more about how to set up the Agent Stack for Kubernetes in the [Agent Stack for Kubernetes installation documentation](/docs/agent/v3/self-hosted/agent-stack-k8s/installation).
 
 ## Installing the agent on your own GCP instances
 
@@ -106,6 +106,6 @@ To continue exploring the possibilities of using the Buildkite Agent on Google C
 - [Elastic CI Stack for GCP overview](/docs/agent/v3/gcp/elastic-ci-stack/elastic-ci-stack)
 - [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
 - [Configuration parameters](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
-- [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s)
+- [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)
 - [Agent configuration](/docs/agent/v3/configuration)
 - [Agent hooks](/docs/agent/v3/hooks)

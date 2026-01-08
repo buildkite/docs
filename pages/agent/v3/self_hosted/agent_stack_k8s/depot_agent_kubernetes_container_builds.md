@@ -4,7 +4,7 @@ toc_include_h3: true
 
 # Container builds with Depot
 
-[Depot](https://depot.dev/) provides remote builders that accelerate Docker builds by running them on dedicated build infrastructure. You can use Depot to build container images on agents that are auto-scaled by the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s), offloading build workloads from your Kubernetes cluster to Depot's optimized build infrastructure.
+[Depot](https://depot.dev/) provides remote builders that accelerate Docker builds by running them on dedicated build infrastructure. You can use Depot to build container images on agents that are auto-scaled by the [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s), offloading build workloads from your Kubernetes cluster to Depot's optimized build infrastructure.
 
 > 🚧 Warning!
 > The Depot installation method uses `curl | sh`, which executes scripts directly. Review the installation script before using it in production environments. Consider downloading and verifying the script separately, or installing [Depot CLI](https://github.com/depot/cli) in your base agent image for better security control.

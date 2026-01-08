@@ -31,7 +31,7 @@ This Kubernetes Secret can be referenced by the Buildkite Agent Stack for Kubern
 
 ### Provide a Kubernetes Secret through a configuration file
 
-Using [`pod-spec-patch`](/docs/agent/v3/agent-stack-k8s/container-resource-limits#using-the-podspec-patch-in-the-controller-values-yaml-configuration-file), you can specify the Kubernetes Secret containing your SSH private key in your configuration values YAML file using `envFrom`:
+Using [`pod-spec-patch`](/docs/agent/v3/self-hosted/agent-stack-k8s/container-resource-limits#using-the-podspec-patch-in-the-controller-values-yaml-configuration-file), you can specify the Kubernetes Secret containing your SSH private key in your configuration values YAML file using `envFrom`:
 
 ```yaml
 # values.yaml

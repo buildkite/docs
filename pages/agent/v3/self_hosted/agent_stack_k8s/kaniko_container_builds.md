@@ -32,7 +32,7 @@ Follow the instruction provided in [One-time package registry setup](/docs/agent
 
 #### Create an agent hook to get OIDC token and set up Docker config
 
-For the Kaniko executor container to be able to push the image it built to Buildkite Package Registry, Kaniko executor container needs to get an OIDC token using `buildkite-agent get oidc-token` and set up the Docker config. To achieve this, an [agent hook](/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins#agent-hooks) is needed. Below is the script for the necessary agent hook:
+For the Kaniko executor container to be able to push the image it built to Buildkite Package Registry, Kaniko executor container needs to get an OIDC token using `buildkite-agent get oidc-token` and set up the Docker config. To achieve this, an [agent hook](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins#agent-hooks) is needed. Below is the script for the necessary agent hook:
 
 ```yaml
 #!/bin/sh

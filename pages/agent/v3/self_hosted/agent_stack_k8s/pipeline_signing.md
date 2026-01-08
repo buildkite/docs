@@ -57,4 +57,4 @@ config:
         secretName: my-verification-key
 ```
 
-Learn more about configuring JWKS key pairs for signing/verification on the [Agent configuration](/docs/agent/v3/agent-stack-k8s/agent-configuration#pipeline-signing) page.
+Learn more about configuring JWKS key pairs for signing/verification on the [Agent configuration](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-configuration#pipeline-signing) page.

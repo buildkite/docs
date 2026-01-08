@@ -26,7 +26,7 @@ config:
 
 > 📘
 > If `no-command-eval` or `no-plugins` are set to `true`, the Kubernetes plugin may still be able to override everything, since it is interpreted by the Agent Stack for Kubernetes controller and not the Buildkite Agent itself.
-> To avoid being overridden, the `no-command-eval` or `no-plugins` options should be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/agent-stack-k8s/securing-the-stack) option.
+> To avoid being overridden, the `no-command-eval` or `no-plugins` options should be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/v3/self-hosted/agent-stack-k8s/securing-the-stack) option.
 
 ## Pipeline signing
 
