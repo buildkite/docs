@@ -12,7 +12,7 @@ How to prevent job failure caused by the Docker Hub rates limits depends on exac
 
 ## Elastic CI Stack for AWS, authenticating with a paid Docker Hub account
 
-If you're using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), you can authenticate with Docker Hub by adding the [two key environment variables](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support) to your secrets bucket and accessing them from your build.
+If you're using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), you can authenticate with Docker Hub by adding the [two key environment variables](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support) to your secrets bucket and accessing them from your build.
 
 Add your Docker Hub credentials to one of the following two environment hooks, which are downloaded at the start of each job:
 

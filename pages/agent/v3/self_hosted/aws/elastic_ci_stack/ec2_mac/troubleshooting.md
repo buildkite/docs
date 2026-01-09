@@ -14,13 +14,13 @@ Zones of your VPC subnets. This error is likely to be a temporary one, wait for 
 Auto Scaling group to attempt to scale out again and see if the error persists.
 
 * Your launch template's AMI may not have been associated with a Customer
-Managed License in AWS License Manager. Ensure you [associate your AMI](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup#step-3-associate-your-ami-with-a-self-managed-license-in-aws-license-manager)
+Managed License in AWS License Manager. Ensure you [associate your AMI](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-mac/setup#step-3-associate-your-ami-with-a-self-managed-license-in-aws-license-manager)
 and any new AMIs with a Customer managed license. Ensure the License
 configuration has a **License type** of `Cores`.
 
 ## My instances don't start the buildkite-agent
 
-Ensure your AMI has been [configured to auto-login as the `ec2-user`](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup#step-2-build-an-ami)
+Ensure your AMI has been [configured to auto-login as the `ec2-user`](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-mac/setup#step-2-build-an-ami)
 in the GUI.
 
 ## How do I enable use of Xcode and the iOS simulator?

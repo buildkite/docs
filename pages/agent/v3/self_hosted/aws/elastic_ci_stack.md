@@ -9,7 +9,7 @@ The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
 
 ## Architecture
 
-For an overview of the architecture of the Elastic CI Stack for AWS, see [Architecture](/docs/agent/v3/aws/elastic-ci-stack-architecture).
+For an overview of the architecture of the Elastic CI Stack for AWS, see [Architecture](/docs/agent/v3/self-hosted/aws/elastic-ci-stack-architecture).
 
 ## Features
 
@@ -188,7 +188,7 @@ Congratulations on running your first Elastic CI Stack for AWS build on Buildkit
 Get started with Buildkite Elastic CI Stack for AWS for:
 
 * Linux and Windows
-    - [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup)
-    - [Setup with Terraform](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform)
+    - [Setup with CloudFormation](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup)
+    - [Setup with Terraform](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/terraform)
 * Mac
-    - [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup)
+    - [Setup with CloudFormation](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-mac/setup)

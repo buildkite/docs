@@ -16,7 +16,7 @@ This page will explain how to use the Kaniko executor to perform the following:
 
 ### Kaniko image availability
 
-Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. There are several options available for running Kaniko in Docker. Refer to the [Kaniko image availability options](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko_container_builds#running-kaniko-in-docker-kaniko-image-availability) for more details.
+Google has deprecated support for the Kaniko project and no longer publishes new images to `gcr.io/kaniko-project/`. However, [Chainguard has forked the project](https://github.com/chainguard-dev/kaniko) and continues to provide support and create new releases. There are several options available for running Kaniko in Docker. Refer to the [Kaniko image availability options](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko_container_builds#running-kaniko-in-docker-kaniko-image-availability) for more details.
 
 ### Build an image and push to Buildkite Package Registries
 
@@ -28,7 +28,7 @@ This section covers using the Kaniko executor for building container images and 
 
 #### One-time package registry setup and OIDC policy
 
-Follow the instruction provided in [One-time package registry setup](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds#one-time-package-registry-setup) to set up a [Buildkite Package Registry](/docs/package-registries) and the necessary OIDC policy.
+Follow the instruction provided in [One-time package registry setup](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/kaniko-container-builds#one-time-package-registry-setup) to set up a [Buildkite Package Registry](/docs/package-registries) and the necessary OIDC policy.
 
 #### Create an agent hook to get OIDC token and set up Docker config
 

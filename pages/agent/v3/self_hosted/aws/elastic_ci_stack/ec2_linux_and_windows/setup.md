@@ -3,7 +3,7 @@
 This guide leads you through getting started with the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) for Linux and Windows using [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html).
 
 > 📘 Prefer Terraform?
-> This guide uses AWS CloudFormation. For the Terraform setup instructions, see the [Terraform setup guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
+> This guide uses AWS CloudFormation. For the Terraform setup instructions, see the [Terraform setup guide](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
 The Elastic CI Stack for AWS lets you launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/clusters) in your own AWS account.
 
@@ -67,7 +67,7 @@ steps:
 
 For more information, see [Buildkite Agent job queues](/docs/agent/v3/targeting/queues), specifically [Targeting a queue](/docs/agent/v3/targeting/queues#targeting-a-queue).
 
-Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) for more details.
+Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) for more details.
 
 Once you're ready, check these three checkboxes:
 
@@ -136,5 +136,5 @@ To gain a better understanding of how Elastic CI Stack for AWS works and how to 
 
 - [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
 - [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
-- [Configuration parameters for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters)
-- [Using AWS Secrets Manager](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#using-aws-secrets-manager-in-the-elastic-ci-stack-for-aws)
+- [Configuration parameters for Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters)
+- [Using AWS Secrets Manager](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#using-aws-secrets-manager-in-the-elastic-ci-stack-for-aws)

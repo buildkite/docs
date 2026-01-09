@@ -32,7 +32,7 @@ Run multiple agents per an instance to maximize cost efficiency and enable heavy
 - Cost inefficiency at low utilization if agents are under-used
 - Slower agent spin-up times compared to other agent architectures
 
-Learn more in [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
+Learn more in [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack).
 
 ### Containers (Kubernetes, ECS)
 

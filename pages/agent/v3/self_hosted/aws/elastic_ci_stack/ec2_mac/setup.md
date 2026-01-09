@@ -31,13 +31,13 @@ See also the [Amazon EC2 Mac instances user guide](https://docs.aws.amazon.com/A
 
 ## Step 1: Choose a VPC layout
 
-Before deploying this template you must [choose a VPC subnet design](/docs/agent/v3/aws/architecture/vpc), and which VPC security groups your instances will belong to.
+Before deploying this template you must [choose a VPC subnet design](/docs/agent/v3/self-hosted/aws/architecture/vpc), and which VPC security groups your instances will belong to.
 
 Depending on your threat model, you may find running instances in your default
 VPC's public subnets with a public IP address suitable. Otherwise, you may wish
 to explore options like separate public/private subnets with a NAT Gateway, and
 a bastion instance or a VPN to access the private instances over SSH and VNC.
-See the [AWS VPC Design documentation](/docs/agent/v3/aws/architecture/vpc) for more
+See the [AWS VPC Design documentation](/docs/agent/v3/self-hosted/aws/architecture/vpc) for more
 details, and the [AWS VPC quick start](https://aws.amazon.com/quickstart/architecture/vpc/)
 for a ready-made CloudFormation template.
 

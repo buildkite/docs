@@ -127,7 +127,7 @@ The [Buildkite agent](/docs/agent/v3) replaces your Bamboo _Remote Agents_. You 
 
 In Bamboo, you can target specific agents for your jobs using their _Capabilities_, and in Buildkite, you target them using [meta-data](/docs/agent/v3/cli-meta-data).
 
-Like _Elastic Bamboo_, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
+Like _Elastic Bamboo_, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
 
 ## Authentication and permissions
 

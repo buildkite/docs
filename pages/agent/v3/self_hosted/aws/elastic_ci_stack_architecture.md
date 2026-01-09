@@ -53,9 +53,9 @@ When a bootstrap script is defined within input configuration, this is ran after
 
 ## IAM and security
 
-The stack creates several IAM roles to grant access to resources required for the stack to function as intended. For a detailed breakdown of the specific permissions and JSON policy examples, see [IAM policy examples](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles-iam-policy-examples).
+The stack creates several IAM roles to grant access to resources required for the stack to function as intended. For a detailed breakdown of the specific permissions and JSON policy examples, see [IAM policy examples](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles-iam-policy-examples).
 
-Custom IAM roles can be used, depending on how the stack is deployed. For Terraform, all roles created by the stack can be skipped in favour of a custom role. For AWS CloudFormation, an instance role can be provided to allow a shared role across all clusters created. See [Using custom IAM roles](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles) for more information.
+Custom IAM roles can be used, depending on how the stack is deployed. For Terraform, all roles created by the stack can be skipped in favour of a custom role. For AWS CloudFormation, an instance role can be provided to allow a shared role across all clusters created. See [Using custom IAM roles](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles) for more information.
 
 ### KMS keys
 The stack optionally creates an AWS KMS key when the `PipelineSigningKMSKey` (AWS CloudFormation) or `pipeline_signing_kms_key` (Terraform) is selected to support [pipeline signing](/docs/agent/v3/signed-pipelines).

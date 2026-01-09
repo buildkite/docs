@@ -154,7 +154,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 ### Executors
 
-While the Buildkite migration tool will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents)—a fully-managed solution offered by Buildkite.
+While the Buildkite migration tool will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents)—a fully-managed solution offered by Buildkite.
 
 <table class="responsive-table">
   <thead>

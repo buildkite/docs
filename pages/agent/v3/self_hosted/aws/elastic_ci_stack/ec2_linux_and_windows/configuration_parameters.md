@@ -7,7 +7,7 @@ toc: false
 The Elastic CI Stack for AWS can be configured using parameters in AWS CloudFormation or variables in Terraform. This page provides a complete reference of all available configuration options.
 
 > 📘 Deployment method
-> If you're using AWS CloudFormation, see the [AWS CloudFormation setup guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup). If you're using Terraform, see the [Terraform deployment guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
+> If you're using AWS CloudFormation, see the [AWS CloudFormation setup guide](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup). If you're using Terraform, see the [Terraform deployment guide](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
 The following tables list all of the available configuration parameters. For CloudFormation deployments, these are parameters in the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/aws-stack.yml). For Terraform deployments, these are variables in the [Terraform module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws).
 

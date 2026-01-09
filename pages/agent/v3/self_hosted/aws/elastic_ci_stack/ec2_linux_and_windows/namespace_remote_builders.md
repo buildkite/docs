@@ -6,9 +6,9 @@ Namespace remote builders offload the CPU and memory-intensive container build w
 
 ## How it works
 
-When using Namespace remote Docker builders with the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup):
+When using Namespace remote Docker builders with the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup):
 
-1. The stack instance authenticates with Namespace using [Buildkite OIDC](/docs/pipelines/security/oidc) or [AWS Cognito](https://aws.amazon.com/cognito/) (learn more in [Authentication](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/namespace-remote-builders#authentication)).
+1. The stack instance authenticates with Namespace using [Buildkite OIDC](/docs/pipelines/security/oidc) or [AWS Cognito](https://aws.amazon.com/cognito/) (learn more in [Authentication](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/namespace-remote-builders#authentication)).
 1. The CLI for Namespace (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) on the instance to target the remote builders.
 1. Namespace runs the build workload remotely while the Buildkite Agent continues orchestrating the pipeline.
 1. Built images are pushed to Namespace's registry (`nscr.io`) or any other registry you configure.
@@ -24,7 +24,7 @@ When using Namespace remote Docker builders with the [Elastic CI Stack for AWS](
 > 📘
 > The Namespace CLI is only available for Linux. Windows instances are not currently supported.
 
-Use a [bootstrap script](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#customizing-instances-with-a-bootstrap-script) to install the Namespace CLI on your Elastic CI Stack instances.
+Use a [bootstrap script](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#customizing-instances-with-a-bootstrap-script) to install the Namespace CLI on your Elastic CI Stack instances.
 
 Create the script with the following content and upload it to an S3 bucket, then set the `BootstrapScriptUrl` Elastic CI Stack parameter to the S3 URI:
 
@@ -100,7 +100,7 @@ Once the configuration is done, the instance profile credentials need to be exch
 
 Namespace handles authentication to its own registry when you run the `nsc docker login` command.
 
-The Elastic CI Stack for AWS includes an `environment` [hook](/docs/agent/v3/hooks#whats-a-hook) that can sign in to [Docker Hub](https://docs.docker.com/docker-hub/) or [Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) when you configure Docker and ECR credentials in the stack secrets bucket. See [Managing the Elastic CI Stack](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support) for more information.
+The Elastic CI Stack for AWS includes an `environment` [hook](/docs/agent/v3/hooks#whats-a-hook) that can sign in to [Docker Hub](https://docs.docker.com/docker-hub/) or [Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html) when you configure Docker and ECR credentials in the stack secrets bucket. See [Managing the Elastic CI Stack](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support) for more information.
 
 ## Complete pipeline examples
 

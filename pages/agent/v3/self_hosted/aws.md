@@ -8,17 +8,17 @@ The Buildkite Agent can be run on AWS using Buildkite's Elastic CI Stack for AWS
 
 ## Using the Elastic CI Stack for AWS
 
-The [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) is an autoscaling Buildkite Agent cluster that includes Docker, S3, and CloudWatch integration.
+The [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) is an autoscaling Buildkite Agent cluster that includes Docker, S3, and CloudWatch integration.
 
 You can use the Elastic CI Stack for AWS to test Linux or Windows projects, parallelize large test suites, run Docker containers or `docker-compose` integration tests, or perform any AWS ops related tasks.
 
 ### Setup with CloudFormation
 
-You can launch the Elastic CI Stack for AWS directly in your AWS account using a CloudFormation template. For setup instructions, see [Setup with CloudFormation](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/setup).
+You can launch the Elastic CI Stack for AWS directly in your AWS account using a CloudFormation template. For setup instructions, see [Setup with CloudFormation](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup).
 
 ### Setup with Terraform
 
-In addition to using CloudFormation, the Elastic CI Stack for AWS can also be deployed and managed using the Terraform module. For setup instructions, see [Setup with Terraform](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
+In addition to using CloudFormation, the Elastic CI Stack for AWS can also be deployed and managed using the Terraform module. For setup instructions, see [Setup with Terraform](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
 ## Using the Buildkite Agent Stack for Kubernetes on AWS
 
@@ -33,7 +33,7 @@ Once your Kubernetes cluster is running in AWS, you can then set up the [Buildki
 To run the Buildkite Agent on your own AWS EC2 instances, use the installer that matches your EC2 instance operating system:
 
 * For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
-* For macOS, use [installing the agent on your own AWS EC2 Mac instances](/docs/agent/v3/aws/self-serve-installation/ec2-mac)
+* For macOS, use [installing the agent on your own AWS EC2 Mac instances](/docs/agent/v3/self-hosted/aws/self-serve-installation/ec2-mac)
 
 ## Using the Elastic CI Stack for AWS for EC2 Mac CloudFormation template
 
@@ -41,4 +41,4 @@ To run the Buildkite Agent on your own AWS EC2 instances, use the installer that
 
 You can use an Elastic CI Stack for AWS for EC2 Mac deployment to build and test macOS, iOS, iPadOS, tvOS, and watchOS projects.
 
-Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/aws/elastic-ci-stack/ec2-mac/setup) documentation for instructions on preparing and deploying this template.
+Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-mac/setup) documentation for instructions on preparing and deploying this template.

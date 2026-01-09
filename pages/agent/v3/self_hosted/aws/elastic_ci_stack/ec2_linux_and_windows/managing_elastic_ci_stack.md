@@ -239,7 +239,7 @@ The below policy set is the minimum requirement for the Elastic CI Stack for AWS
 
 #### S3 secrets bucket
 
-When the [S3 secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) is enabled, the following statement is required:
+When the [S3 secrets bucket](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) is enabled, the following statement is required:
 
 ```json
 {

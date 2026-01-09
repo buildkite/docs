@@ -7,7 +7,7 @@ Running builds on a separate instance provides faster CPU, persistent cache stor
 This guide shows you how to provision an Amazon EC2 instance as a dedicated BuildKit builder and connect Elastic CI Stack for AWS agents to it.
 
 > 📘 Local BuildKit builds
-> If you want to run BuildKit builds directly on your Elastic CI Stack for AWS agents instead of a remote instance, see [BuildKit container builds](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds).
+> If you want to run BuildKit builds directly on your Elastic CI Stack for AWS agents instead of a remote instance, see [BuildKit container builds](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds).
 
 ## How it works
 
@@ -83,7 +83,7 @@ sudo systemctl status buildkitd.service
 
 ## Configure Elastic CI Stack for AWS agents
 
-Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis):
+Install `buildctl` on each Elastic CI Stack for AWS instance so your pipelines can connect to the remote builder. Bake the binary into your custom AMI using the [custom image guide](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis):
 
 ```bash
 export BUILDKIT_VERSION="v0.13.2"

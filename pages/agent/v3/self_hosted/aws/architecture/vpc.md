@@ -20,7 +20,7 @@ The [AWS VPC quick start](https://aws.amazon.com/quickstart/architecture/vpc/)
 provides a template for deploying a 2, 3, or 4 Availability Zone VPC with
 parameters for whether to create public and private subnets. Once deployed,
 these subnets can then be provided as parameters to the agent orchestration
-templates such as the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
+templates such as the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack).
 
 Use your organization's threat model to guide the selection of a solution that
 balances operational complexity against acceptable risk for your workload.

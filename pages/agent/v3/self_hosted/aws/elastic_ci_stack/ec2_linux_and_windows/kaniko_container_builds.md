@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Building Docker images
 
-[Kaniko](https://github.com/GoogleContainerTools/kaniko) builds container images from a Dockerfile without requiring a Docker daemon, making it ideal for CI/CD environments that lack or don't need privileged access. This guide shows you how to use Kaniko with [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic_ci_stack) to build and push images directly to [Buildkite Package Registries](/docs/package_registries).
+[Kaniko](https://github.com/GoogleContainerTools/kaniko) builds container images from a Dockerfile without requiring a Docker daemon, making it ideal for CI/CD environments that lack or don't need privileged access. This guide shows you how to use Kaniko with [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic_ci_stack) to build and push images directly to [Buildkite Package Registries](/docs/package_registries).
 
 Unlike traditional Docker builds, Kaniko runs as a container and executes each command in your Dockerfile in the user space. This approach eliminates the need for using [Docker-in-Docker](https://www.docker.com/resources/docker-in-docker-containerized-ci-workflows-dockercon-2023/) or privileged mode while maintaining full compatibility with the standard Dockerfiles. You can authenticate using short-lived [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) tokens (see the [example](#running-kaniko-in-docker-example-pipeline) below), leverage registry-based caching to speed up the builds, and push to any [Open Container Initiative (OCI)](https://opencontainers.org/)-compliant container registry.
 
@@ -49,7 +49,7 @@ Commit your changes. The step in your pipeline configuration will:
 - Push the image directly to the [Buildkite Package Registries](/docs/package_registries) using a short-lived OIDC token retrieved by the Buildkite Agent.
 
 > 📘 SSH repository requirements
-> If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
+> If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).
 
 ## Running Kaniko in Docker
 
@@ -366,7 +366,7 @@ This approach ensures your custom-built Kaniko images are authentic and haven't 
 When troubleshooting build issues, you can use the [Kaniko debug image](https://github.com/chainguard-dev/kaniko#debug-image) which includes additional debugging tools. The debug image contains utilities like `busybox` and `sh` for interactive debugging.
 
 > 🚧 Prerequisites for interactive debugging
-> To run interactive debugging commands on your [Elastic CI Stack for AWS EC2](/docs/agent/v3/aws/elastic-ci-stack) instances, you must have configured the `KeyName` CloudFormation stack parameter during stack deployment. This allows you to SSH into the instances as the `ec2-user` to run local Docker commands.
+> To run interactive debugging commands on your [Elastic CI Stack for AWS EC2](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) instances, you must have configured the `KeyName` CloudFormation stack parameter during stack deployment. This allows you to SSH into the instances as the `ec2-user` to run local Docker commands.
 
 For interactive debugging, you can run the debug image directly on your EC2 instance:
 
