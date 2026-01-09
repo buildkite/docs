@@ -31,7 +31,7 @@ agentToken: "<buildkite-cluster-agent-token>"
 > 📘
 > If using version 0.27.0 and earlier of the Agent Stack for Kubernetes controller, see [Early versions of the controller](#early-versions-of-the-controller) (below) for details on additional configuration requirements.
 
-<%= render_markdown partial: 'agent/v3/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
 
 Both of these deployment methods:
 
@@ -93,7 +93,7 @@ config:
     - queue=kubernetes
 ```
 
-<%= render_markdown partial: 'agent/v3/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/agent_stack_k8s/deploy_helm_chart_using_a_yaml_configuration_file' %>
 
 ## Other installation methods
 
