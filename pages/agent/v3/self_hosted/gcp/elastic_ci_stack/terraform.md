@@ -57,7 +57,7 @@ When using the default base image, each machine includes:
 - [gcloud CLI](https://cloud.google.com/sdk/gcloud) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools
 
-You can build a [custom image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
+You can build a [custom image](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
 
 For more details on what versions are installed, see the corresponding [Packer templates](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/packer).
 
@@ -487,4 +487,4 @@ terraform destroy
 To gain a better understanding of how Elastic CI Stack for GCP works and how to use it most effectively and securely, check out the following resources:
 
 - [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp)
-- [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
+- [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters)

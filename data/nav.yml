@@ -256,6 +256,25 @@
                   children:
                     - name: "On AWS EC2 Mac instances"
                       path: "agent/v3/self-hosted/aws/self-serve-installation/ec2-mac"
+            - name: "Running on Google Cloud"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/self-hosted/gcp"
+                - name: "Architectural considerations"
+                  children:
+                    - name: "VPC design"
+                      path: "agent/v3/self-hosted/gcp/architecture/vpc"
+                - name: "Elastic CI Stack"
+                  pill: "preview"
+                  children:
+                    - name: "Overview"
+                      path: "agent/v3/self-hosted/gcp/elastic-ci-stack/elastic-ci-stack"
+                    - name: "Terraform"
+                      path: "agent/v3/self-hosted/gcp/elastic-ci-stack/terraform"
+                    - name: "Configuration"
+                      path: "agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters"
+                    - name: "Troubleshooting"
+                      path: "agent/v3/self-hosted/gcp/elastic-ci-stack/troubleshooting"
         - name: "Installation"
           path: "agent/v3/installation"
         - name: "Configuration"
@@ -274,25 +293,6 @@
           path: "agent/v3/signed-pipelines"
         - name: "Tracing"
           path: "agent/v3/tracing"
-        - name: "Running on Google Cloud"
-          children:
-            - name: "Overview"
-              path: "agent/v3/gcp"
-            - name: "Architectural considerations"
-              children:
-                - name: "VPC design"
-                  path: "agent/v3/gcp/architecture/vpc"
-            - name: "Elastic CI Stack"
-              pill: "preview"
-              children:
-                - name: "Overview"
-                  path: "agent/v3/gcp/elastic-ci-stack/elastic-ci-stack"
-                - name: "Terraform"
-                  path: "agent/v3/gcp/elastic-ci-stack/terraform"
-                - name: "Configuration"
-                  path: "agent/v3/gcp/elastic-ci-stack/configuration-parameters"
-                - name: "Troubleshooting"
-                  path: "agent/v3/gcp/elastic-ci-stack/troubleshooting"
         - name: "Agent installers"
           children:
             - name: "Ubuntu"

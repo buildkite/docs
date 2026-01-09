@@ -4,11 +4,11 @@ The Buildkite Agent can be run on Google Cloud Platform (GCP) using Buildkite's 
 
 ## Using the Elastic CI Stack for GCP Terraform module
 
-The [Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/elastic-ci-stack) is a Terraform module for an autoscaling Buildkite Agent cluster. The agent instances include Docker, Cloud Storage, and Cloud Logging integration. You can build a [custom image](/docs/agent/v3/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
+The [Elastic CI Stack for GCP](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/elastic-ci-stack) is a Terraform module for an autoscaling Buildkite Agent cluster. The agent instances include Docker, Cloud Storage, and Cloud Logging integration. You can build a [custom image](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
 
 You can use an Elastic CI Stack for GCP deployment to test Linux projects, parallelize large test suites, run Docker containers or docker-compose integration tests, or perform any tasks related to GCP ops.
 
-You can deploy an instance of the Elastic CI Stack for GCP by following the [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform).
+You can deploy an instance of the Elastic CI Stack for GCP by following the [Terraform setup guide](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform).
 
 ## Using the Buildkite Agent Stack for Kubernetes on GCP
 
@@ -103,9 +103,9 @@ ${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
 
 To continue exploring the possibilities of using the Buildkite Agent on Google Cloud Platform, you will benefit from visiting the following documentation pages:
 
-- [Elastic CI Stack for GCP overview](/docs/agent/v3/gcp/elastic-ci-stack/elastic-ci-stack)
-- [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
-- [Configuration parameters](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
+- [Elastic CI Stack for GCP overview](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/elastic-ci-stack)
+- [Terraform setup guide](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform)
+- [Configuration parameters](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters)
 - [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)
 - [Agent configuration](/docs/agent/v3/configuration)
 - [Agent hooks](/docs/agent/v3/hooks)

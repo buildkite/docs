@@ -32,7 +32,7 @@ The Buildkite Elastic CI Stack for GCP supports:
 
 ## Get started with the Elastic CI Stack for GCP
 
-You can get started with the Buildkite Elastic CI Stack for GCP using Terraform. Follow the [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform).
+You can get started with the Buildkite Elastic CI Stack for GCP using Terraform. Follow the [Terraform setup guide](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform).
 
 ## Architecture comparison
 
@@ -81,6 +81,6 @@ By following these conventions, you get a scalable, repeatable, and source-contr
 To gain a better understanding of how Elastic CI Stack for GCP works and how to use it most effectively and securely, check out the following resources:
 
 - [GitHub repo for Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp)
-- [Terraform setup guide](/docs/agent/v3/gcp/elastic-ci-stack/terraform)
-- [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/gcp/elastic-ci-stack/configuration-parameters)
-- [Architecture overview](/docs/agent/v3/gcp/architecture/vpc)
+- [Terraform setup guide](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform)
+- [Configuration parameters for Elastic CI Stack for GCP](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters)
+- [Architecture overview](/docs/agent/v3/self-hosted/gcp/architecture/vpc)
