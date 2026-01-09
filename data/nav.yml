@@ -285,6 +285,10 @@
                   path: "agent/v3/agent-stack-k8s/depot-agent-kubernetes-container-builds"
             - name: "Troubleshooting"
               path: "agent/v3/agent-stack-k8s/troubleshooting"
+            - name: "Migrate from Elastic CI Stack for AWS"
+              children:
+                - name: "Docker registry auth"
+                  path: "agent/v3/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-registry-auth"
         - name: "Agent installers"
           children:
             - name: "Ubuntu"
