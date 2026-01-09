@@ -268,7 +268,7 @@
                   pill: "preview"
                   children:
                     - name: "Overview"
-                      path: "agent/v3/self-hosted/gcp/elastic-ci-stack/elastic-ci-stack"
+                      path: "agent/v3/self-hosted/gcp/elastic-ci-stack"
                     - name: "Terraform"
                       path: "agent/v3/self-hosted/gcp/elastic-ci-stack/terraform"
                     - name: "Configuration"
