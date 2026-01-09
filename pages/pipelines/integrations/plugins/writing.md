@@ -237,9 +237,9 @@ Next, add a `README.md` file to introduce the plugin to the world:
 
 ## Developing a plugin with a feature branch
 
-When developing plugins, it is useful to have a quick feedback loop between making a change in your plugin code, and seeing the effects in a Buildkite pipeline. Let's say you're developing your feature on `my-org/plugin#dev-branch`. *By default*, if a Buildkite agent sees that it needs the plugin `my-org/plugin#dev-branch`, and it already has a checkout matching that, it will *not* pull any changes from the Git repository. But if you *do* want to see changes reflected immediately, set [`plugins-always-clone-fresh`](/docs/agent/v3/configuration#plugins-always-clone-fresh) to `true`.
+When developing plugins, it is useful to have a quick feedback loop between making a change in your plugin code, and seeing the effects in a Buildkite pipeline. Let's say you're developing your feature on `my-org/plugin#dev-branch`. _By default_, if a Buildkite Agent sees that it needs the plugin `my-org/plugin#dev-branch`, and it already has a checkout matching that, it will _not_ pull any changes from the Git repository. But if you _do_ want to see changes reflected immediately, set [`plugins-always-clone-fresh`](/docs/agent/v3/configuration#plugins-always-clone-fresh) to `true`.
 
-One way to try this is to add the following step to the Buildkite pipeline where you're testing your plugin.  Configuring `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH` on only one step means that other plugins, which are unlikely to be changing in the meantime, won't get unnecessarily cloned on every step invocation. You need agent version v3.37.0 or above to use `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH`.
+One way to try this is to add the following step to the Buildkite pipeline where you're testing your plugin. Configuring `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH` on only one step means that other plugins, which are unlikely to be changing in the meantime, won't get unnecessarily cloned on every step invocation. You need agent version v3.37.0 or above to use `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH`.
 
 ```yml
 steps:
@@ -333,7 +333,7 @@ Vendored plugins run after non-vendored plugins and don't have access to all the
 
 ## Cross-platform plugins
 
-Plugins can support multiple operating systems by including platform-specific hook scripts. The Buildkite agent automatically selects the appropriate hook file based on the operating system it's running on.
+Plugins can support multiple operating systems by including platform-specific hook scripts. The Buildkite Agent automatically selects the appropriate hook file based on the operating system it's running on.
 
 ### How hook file selection works
 
@@ -345,9 +345,7 @@ On Windows, the agent searches for hook files in the following order:
 1. `hooks/<hook-name>.exe`
 1. `hooks/<hook-name>` (no file extension, for Bash for Windows)
 
-On Linux and macOS, the agent only looks for no file extension hook files:
-
-1. `hooks/<hook-name>`
+On Linux and macOS, the agent only looks for no file extension hook files (for example, `hooks/<hook-name>`).
 
 The agent uses the first matching file it finds.
 
