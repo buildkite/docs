@@ -343,9 +343,9 @@ On Windows, the agent searches for hook files in the following order:
 1. `hooks/<hook-name>.cmd`
 1. `hooks/<hook-name>.ps1`
 1. `hooks/<hook-name>.exe`
-1. `hooks/<hook-name>` (extensionless, for Bash for Windows)
+1. `hooks/<hook-name>` (no file extension, for Bash for Windows)
 
-On Linux and macOS, the agent only looks for extensionless hook files:
+On Linux and macOS, the agent only looks for no file extension hook files:
 
 1. `hooks/<hook-name>`
 
@@ -358,7 +358,7 @@ To support both Windows and Unix-like systems, include both hook variants in you
 ```
 my-plugin/
 ├── hooks/
-│   ├── post-checkout      # Linux and macOS (extensionless, executable)
+│   ├── post-checkout      # Linux and macOS (no file extension, executable)
 │   └── post-checkout.bat  # Windows Batch script
 ├── plugin.yml
 └── README.md
