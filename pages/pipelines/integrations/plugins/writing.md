@@ -331,6 +331,62 @@ steps:
 
 Vendored plugins run after non-vendored plugins and don't have access to all the same hooks. See [the documentation about job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) to learn more.
 
+## Cross-platform plugins
+
+Plugins can support multiple operating systems by including platform-specific hook scripts. The Buildkite agent automatically selects the appropriate hook file based on the operating system it's running on.
+
+### How hook file selection works
+
+On Windows, the agent searches for hook files in the following order:
+
+1. `hooks/<hook-name>.bat`
+1. `hooks/<hook-name>.cmd`
+1. `hooks/<hook-name>.ps1`
+1. `hooks/<hook-name>.exe`
+1. `hooks/<hook-name>` (extensionless, for Bash for Windows)
+
+On Linux and macOS, the agent only looks for extensionless hook files:
+
+1. `hooks/<hook-name>`
+
+The agent uses the first matching file it finds.
+
+### Writing a cross-platform plugin
+
+To support both Windows and Unix-like systems, include both hook variants in your plugin:
+
+```
+my-plugin/
+├── hooks/
+│   ├── post-checkout      # Linux and macOS (extensionless, executable)
+│   └── post-checkout.bat  # Windows Batch script
+├── plugin.yml
+└── README.md
+```
+
+The agent running the job selects the appropriate file automatically. You don't need separate plugins for different operating systems.
+
+### Example hooks
+
+A Linux/macOS hook (`hooks/post-checkout`):
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+echo "Running on Unix-like system"
+export MY_VAR="value"
+```
+
+An equivalent Windows hook (`hooks/post-checkout.bat`):
+
+```batch
+@ECHO OFF
+
+echo Running on Windows
+SET MY_VAR=value
+```
+
 ## Plugin tools
 
 The following tools can be helpful when creating and maintaining your own Buildkite plugins:
