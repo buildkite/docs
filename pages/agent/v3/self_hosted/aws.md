@@ -32,7 +32,7 @@ Once your Kubernetes cluster is running in AWS, you can then set up the [Buildki
 
 To run the Buildkite Agent on your own AWS EC2 instances, use the installer that matches your EC2 instance operating system:
 
-* For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
+* For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/self-hosted/installing/redhat)
 * For macOS, use [installing the agent on your own AWS EC2 Mac instances](/docs/agent/v3/self-hosted/aws/self-serve-installation/ec2-mac)
 
 ## Using the Elastic CI Stack for AWS for EC2 Mac CloudFormation template

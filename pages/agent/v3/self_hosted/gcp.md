@@ -26,12 +26,12 @@ For example, to install on an Ubuntu-based instance:
 
 1. Launch an instance using the latest Ubuntu LTS image [through the console](https://console.cloud.google.com/compute/instancesAdd)
 1. Connect using SSH (via the console SSH button or `gcloud compute ssh`)
-1. Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu)
+1. Follow the [setup instructions for Ubuntu](/docs/agent/v3/self-hosted/installing/ubuntu)
 
 For other Linux distributions, see:
 
-- [Debian](/docs/agent/v3/debian)
-- [Red Hat/CentOS](/docs/agent/v3/redhat)
+- [Debian](/docs/agent/v3/self-hosted/installing/debian)
+- [Red Hat/CentOS](/docs/agent/v3/self-hosted/installing/redhat)
 
 ### Configuring agents for production use
 

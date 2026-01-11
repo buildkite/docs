@@ -79,12 +79,12 @@ To install and run an agent in your own self-hosted infrastructure (including yo
 1. Follow the instructions for where you want to install the agent.
 
     To install locally, see:
-    * [macOS](/docs/agent/v3/macos#installation)
-    * [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
-    * [Linux](/docs/agent/v3/linux#installation)
-    * [Docker](/docs/agent/v3/docker#running-using-docker)
+    * [macOS](/docs/agent/v3/self-hosted/installing/macos#installation)
+    * [Windows](/docs/agent/v3/self-hosted/installing/windows#automated-install-with-powershell)
+    * [Linux](/docs/agent/v3/self-hosted/installing/linux#installation)
+    * [Docker](/docs/agent/v3/self-hosted/installing/docker#running-using-docker)
 
-    Or see [all installation options](/docs/agent/v3/installation).
+    Or see [all installation options](/docs/agent/v3/self-hosted/installing).
 
     Ensure you configure the agent token, which connects the agent to your Buildkite account.
 

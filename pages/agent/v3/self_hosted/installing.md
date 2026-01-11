@@ -1,4 +1,4 @@
-# How to install Buildkite Agent
+# Installing the Buildkite Agent
 
 The Buildkite agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
 

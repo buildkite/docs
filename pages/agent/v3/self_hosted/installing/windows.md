@@ -125,7 +125,7 @@ On Windows, all commands run as the invoking user.
 
 You can use Buildkite on Windows through WSL2, but it has limitations. At present (12 January 2022), hooks and plugins both have issues. We recommend using CMD (default) or PowerShell 5.x instead.
 
-To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
+To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/self-hosted/installing/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
 
 > 📘
 > Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.

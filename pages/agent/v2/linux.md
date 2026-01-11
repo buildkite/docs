@@ -1,7 +1,7 @@
 # Installing Buildkite Agent on Linux
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/linux">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/installing/linux">see the latest version of this document</a>.
 
 You can install Buildkite Agent on most Linux based systems (including macOS).
 

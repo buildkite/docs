@@ -39,7 +39,7 @@ steps:
 
 ## Cloning private repositories
 
-As is the case with standalone [Buildkite Agent installations](/docs/agent/v3/installation), to access and clone private repositories, you need to make [Git credentials](/docs/agent/v3/self-hosted/agent-stack-k8s/git-credentials) available for the agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
+As is the case with standalone [Buildkite Agent installations](/docs/agent/v3/self-hosted/installing), to access and clone private repositories, you need to make [Git credentials](/docs/agent/v3/self-hosted/agent-stack-k8s/git-credentials) available for the agent to use. These credentials can be in the form of a SSH key for cloning over `ssh://` or with a `.git-credentials` file for cloning over `https://`.
 
 ## Kubernetes node selection
 

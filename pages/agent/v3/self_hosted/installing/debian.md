@@ -97,7 +97,7 @@ On Debian, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 
-<%= render_markdown partial: 'agent/v3/linux_multiple_agents' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/installing/linux_multiple_agents' %>
 
 ## Upgrading
 
@@ -109,4 +109,4 @@ On Debian, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Systemd modifications
 
-<%= render_markdown partial: 'agent/v3/linux_systemd_modifications' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/installing/linux_systemd_modifications' %>

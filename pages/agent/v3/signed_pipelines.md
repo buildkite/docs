@@ -53,7 +53,7 @@ You'll need to generate a [JSON Web Key Set (JWKS)](https://datatracker.ietf.org
 
 ### Step 1: Generate a key pair
 
-Luckily, the agent has you covered! A JWKS generation tool is built into the agent, which you can use to generate a key pair. To use it, you'll need to [install the agent on your machine](/docs/agent/v3/installation), and then run:
+Luckily, the agent has you covered! A JWKS generation tool is built into the agent, which you can use to generate a key pair. To use it, you'll need to [install the agent on your machine](/docs/agent/v3/self-hosted/installing), and then run:
 
 ```bash
 buildkite-agent tool keygen --alg <algorithm> --key-id <key-id>
