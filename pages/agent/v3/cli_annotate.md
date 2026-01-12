@@ -37,6 +37,27 @@ steps:
 
 <%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
 
+## Annotation ordering
+
+Annotations are ordered by priority (highest to lowest) and then by most recently created. Priority can be set with the `--priority` option when creating the annotation with `buildkite-agent annotate`. Priority ranges from `1` to `10`, with `10` being the highest priority and `1` being the lowest. If priority is not set, the default priority is `3`. If two annotations have the same priority, the one created most recently will be displayed first.
+
+This is an example pipeline that showcases how to use priority to order annotations:
+
+```yaml
+steps:
+  - label:  "\:console\: Annotation Test"
+    command: |
+      buildkite-agent annotate 'Example 1 (Priority 1)' --context 'first' --priority 1
+      buildkite-agent annotate 'Example 2 (Priority 10)' --style 'info' --context 'second' --priority 10
+      buildkite-agent annotate 'Example 3 (Priority 4)' --style 'warning' --context 'third' --priority 4
+      buildkite-agent annotate 'Example 4 (Priority 4)' --style 'error' --context 'fourth' --priority 4
+      buildkite-agent annotate 'Example 5 (Priority 3, Default)' --style 'success' --context 'fifth'
+```
+
+Which would produce the following ordering:
+
+<%= image "annotations-priority.png", alt: "Screenshot of annotations with different priorities" %>
+
 ## Supported Markdown syntax
 
 Buildkite Pipelines uses CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
