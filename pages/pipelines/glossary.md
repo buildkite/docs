@@ -95,5 +95,6 @@ A step can be in one of the following states:
 - `running` - the step is currently running.
 - `failing` - the step is in the process of failing.
 - `finished` - the step has completed execution.
+- `canceled` - the step has been canceled.
 
 To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).
