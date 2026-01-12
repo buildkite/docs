@@ -8,7 +8,7 @@ See the [Using build meta-data](/docs/pipelines/configure/build-meta-data) guide
 
 Use this command in your build scripts to save string data in the Buildkite meta-data store.
 
-<%= render 'agent/v3/help/meta_data_set' %>
+<%= render 'agent/v3/cli/help/meta_data_set' %>
 
 Meta-data values are restricted to a maximum of 100 kilobytes. Keys and values larger than 1 kilobyte are discouraged. Please use [artifacts](/docs/agent/v3/cli-artifact) for large data which needs to uploaded and downloaded.
 
@@ -16,12 +16,12 @@ Meta-data values are restricted to a maximum of 100 kilobytes. Keys and values l
 
 Use this command in your build scripts to get a previously saved value from the Buildkite meta-data store.
 
-<%= render 'agent/v3/help/meta_data_get' %>
+<%= render 'agent/v3/cli/help/meta_data_get' %>
 
 ## Checking if data exists
 
-<%= render 'agent/v3/help/meta_data_exists' %>
+<%= render 'agent/v3/cli/help/meta_data_exists' %>
 
 ## Listing keys
 
-<%= render 'agent/v3/help/meta_data_keys' %>
+<%= render 'agent/v3/cli/help/meta_data_keys' %>

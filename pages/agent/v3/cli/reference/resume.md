@@ -4,4 +4,4 @@ The Buildkite Agent's `resume` command is used to manually resume a paused Build
 
 ## Resuming an agent
 
-<%= render 'agent/v3/help/resume' %>
+<%= render 'agent/v3/cli/help/resume' %>

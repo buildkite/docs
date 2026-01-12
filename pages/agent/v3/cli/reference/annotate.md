@@ -12,7 +12,7 @@ There is no limit to the amount of annotations you can create, but the maximum b
 
 Options for the `annotate` command can be found in the `buildkite-agent` cli help:
 
-<%= render 'agent/v3/help/annotate' %>
+<%= render 'agent/v3/cli/help/annotate' %>
 
 ## Removing an annotation
 

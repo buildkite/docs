@@ -9,8 +9,8 @@ The Buildkite Agent's `tool` subcommands are used for performing tasks that are 
 ## Generate a JSON Web Key Set
 <!-- vale on -->
 
-<%= render 'agent/v3/help/tool_keygen' %>
+<%= render 'agent/v3/cli/help/tool_keygen' %>
 
 ## Sign a pipeline
 
-<%= render 'agent/v3/help/tool_sign' %>
+<%= render 'agent/v3/cli/help/tool_sign' %>

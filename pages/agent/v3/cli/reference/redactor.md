@@ -6,4 +6,4 @@ However, sometimes a job will source something sensitive through a side channel 
 
 ## Adding a value to the redactor
 
-<%= render 'agent/v3/help/redactor_add' %>
+<%= render 'agent/v3/cli/help/redactor_add' %>

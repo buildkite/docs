@@ -10,7 +10,7 @@ Use this command in your build scripts to update the step attributes. The follow
 * `notify`
 * `priority`
 
-<%= render 'agent/v3/help/step_update' %>
+<%= render 'agent/v3/cli/help/step_update' %>
 
 ## Getting a step
 
@@ -32,7 +32,7 @@ Use this command in your build scripts to get the value of a particular attribut
 * `timeout`
 * `type`
 
-<%= render 'agent/v3/help/step_get' %>
+<%= render 'agent/v3/cli/help/step_get' %>
 
 ## Getting the outcome of a step
 
@@ -75,4 +75,4 @@ Use this command to programmatically cancel all jobs for a step. It is possible 
 
 Force canceling a step can be used to cancel lost or hung jobs before their agents would otherwise be marked as lost.
 
-<%= render 'agent/v3/help/step_cancel' %>
+<%= render 'agent/v3/cli/help/step_cancel' %>

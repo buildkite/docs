@@ -26,7 +26,7 @@ step's command has completed based on a file pattern (see the
 [Using build artifacts guide](/docs/builds/artifacts) for details).
 
 
-<%= render 'agent/v3/help/artifact_upload' %>
+<%= render 'agent/v3/cli/help/artifact_upload' %>
 
 
 ### Artifact upload examples
@@ -86,7 +86,7 @@ Learn more about Buildkite's glob syntax from the [Glob pattern syntax](/docs/pi
 
 Use this command in your build scripts to download artifacts.
 
-<%= render 'agent/v3/help/artifact_download' %>
+<%= render 'agent/v3/cli/help/artifact_download' %>
 
 ### Artifact download examples
 
@@ -144,7 +144,7 @@ If you want to download an artifact from outside a build, you can use the [Artif
 
 Return a list of artifacts that match a query.
 
-<%= render 'agent/v3/help/artifact_search' %>
+<%= render 'agent/v3/cli/help/artifact_search' %>
 
 
 ## Parallelized steps
@@ -162,7 +162,7 @@ buildkite-agent artifact <download or search> "artifacts/path/*" . --build $BUIL
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
 
 
-<%= render 'agent/v3/help/artifact_shasum' %>
+<%= render 'agent/v3/cli/help/artifact_shasum' %>
 
 
 ## Using your private AWS S3 bucket

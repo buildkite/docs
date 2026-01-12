@@ -4,7 +4,7 @@ The Buildkite Agent's `start` command is used to manually start an agent and reg
 
 ## Starting an agent
 
-<%= render 'agent/v3/help/start' %>
+<%= render 'agent/v3/cli/help/start' %>
 
 ## Setting tags
 

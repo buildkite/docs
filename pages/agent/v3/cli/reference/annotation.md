@@ -10,4 +10,4 @@ The `buildkite-agent annotation remove` command removes an existing annotation a
 
 Options for the `annotation remove` command can be found in the `buildkite-agent` cli help:
 
-<%= render 'agent/v3/help/annotation_remove' %>
+<%= render 'agent/v3/cli/help/annotation_remove' %>

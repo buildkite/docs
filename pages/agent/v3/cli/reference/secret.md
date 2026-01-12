@@ -4,4 +4,4 @@ The `buildkite-agent secret get` command allows you to query and retrieve secret
 
 ## Getting a secret
 
-<%= render "agent/v3/help/secret_get" %>
+<%= render "agent/v3/cli/help/secret_get" %>

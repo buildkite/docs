@@ -5,4 +5,4 @@ your agent.
 
 ## Running the bootstrap
 
-<%= render 'agent/v3/help/bootstrap' %>
+<%= render 'agent/v3/cli/help/bootstrap' %>

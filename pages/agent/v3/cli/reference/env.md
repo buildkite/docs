@@ -8,16 +8,16 @@ From version 3.115.2 of the Buildkite Agent, jobs can inspect and modify their e
 
 This command is used internally by the agent and isn't recommended for use in your builds.
 
-<%= render 'agent/v3/help/env_dump' %>
+<%= render 'agent/v3/cli/help/env_dump' %>
 
 ## Getting a job's environment variables
 
-<%= render 'agent/v3/help/env_get' %>
+<%= render 'agent/v3/cli/help/env_get' %>
 
 ## Setting a job's environment variables
 
-<%= render 'agent/v3/help/env_set' %>
+<%= render 'agent/v3/cli/help/env_set' %>
 
 ## Removing environment variables from a job
 
-<%= render 'agent/v3/help/env_unset' %>
+<%= render 'agent/v3/cli/help/env_unset' %>

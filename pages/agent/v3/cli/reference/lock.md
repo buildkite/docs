@@ -11,23 +11,23 @@ Each type of `lock` subcommand makes use of a `[key]` value, which is an arbitra
 
 ## Inspecting the state of a lock
 
-<%= render 'agent/v3/help/lock_get' %>
+<%= render 'agent/v3/cli/help/lock_get' %>
 
 ## Acquiring a lock
 
-<%= render 'agent/v3/help/lock_acquire' %>
+<%= render 'agent/v3/cli/help/lock_acquire' %>
 
 ## Releasing a previously-acquired lock
 
-<%= render 'agent/v3/help/lock_release' %>
+<%= render 'agent/v3/cli/help/lock_release' %>
 
 ## Starting a do-once section
 
-<%= render 'agent/v3/help/lock_do' %>
+<%= render 'agent/v3/cli/help/lock_do' %>
 
 ## Completing a do-once section
 
-<%= render 'agent/v3/help/lock_done' %>
+<%= render 'agent/v3/cli/help/lock_done' %>
 
 ## Usage within a pipeline
 

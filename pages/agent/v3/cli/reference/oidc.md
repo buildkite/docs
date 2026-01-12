@@ -14,7 +14,7 @@ Learn more about how to restrict your Buildkite Agents' access to deployment env
 
 ## Request OIDC token
 
-<%= render "agent/v3/help/oidc_request_token" %>
+<%= render "agent/v3/cli/help/oidc_request_token" %>
 
 ## OIDC URLs
 

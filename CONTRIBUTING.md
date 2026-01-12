@@ -156,7 +156,7 @@ At the time of writing, there are only three icons available — agent, reposito
 
 ### Update Buildkite Agent CLI docs
 
-The [Buildkite Agent command-line interface (CLI) reference docs](https://buildkite.com/docs/agent/v3/cli-reference) consists of a series of pages where each page describes how each of the agent's `buildkite-agent` CLI commands works and is used.
+The [Buildkite Agent command-line interface (CLI) reference docs](https://buildkite.com/docs/agent/v3/cli/reference) consists of a series of pages where each page describes how each of the agent's `buildkite-agent` CLI commands works and is used.
 
 Each command's docs page should have a **Usage**, **Description**, **Example**, and **Options** section appearing somewhere on the page.
 

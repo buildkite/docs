@@ -4,4 +4,4 @@ The Buildkite Agent's `stop` command is used to manually stop a running Buildkit
 
 ## Stopping an agent
 
-<%= render 'agent/v3/help/stop' %>
+<%= render 'agent/v3/cli/help/stop' %>
