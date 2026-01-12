@@ -95,7 +95,7 @@ Also note that the `PS512` and `ES512` algorithms are nondeterministic, which me
 
 #### Algorithm options
 
-When using signed pipelines, we recommend having multiple disjoint pools of agents, each using a different [queue](/docs/agent/v3/targeting/queues). One pool should be the _uploaders_ and have access to the private keys. Another pool should be the _runners_ and have access to the public keys. This creates a security boundary between the agents that upload and sign pipelines and the agents that run jobs and verify signatures.
+When using signed pipelines, we recommend having multiple disjoint pools of agents, each using a different [queue](/docs/agent/v3/queues). One pool should be the _uploaders_ and have access to the private keys. Another pool should be the _runners_ and have access to the public keys. This creates a security boundary between the agents that upload and sign pipelines and the agents that run jobs and verify signatures.
 
 Regarding your specific algorithm choice, any of the supported signing algorithms are fine and will be secure. If you're not sure which one to use, `EdDSA` is proven to be secure, has a modern design, wasn't designed by a Nation State Actor, and produces nice short signatures. It's also the default when running `buildkite-agent tool keygen`.
 

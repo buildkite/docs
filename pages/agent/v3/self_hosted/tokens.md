@@ -302,7 +302,7 @@ where:
 
 ## Scope of access
 
-An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/v3/targeting/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
+An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/v3/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
 
 ## Agent token lifetime
 

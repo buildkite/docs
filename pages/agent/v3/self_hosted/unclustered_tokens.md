@@ -108,7 +108,7 @@ Once a token is revoked, no new agents will be able to start with that token. Re
 
 ## Scope of access
 
-Unclustered agent tokens are specific to each Buildkite organization (created before February 26, 2024), and can be used to register an agent with any [unclustered queue](/docs/agent/v3/targeting/queues). Unclustered agent tokens can not be shared between organizations.
+Unclustered agent tokens are specific to each Buildkite organization (created before February 26, 2024), and can be used to register an agent with any [unclustered queue](/docs/agent/v3/queues). Unclustered agent tokens can not be shared between organizations.
 
 ## Additional agent tokens
 

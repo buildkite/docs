@@ -1,6 +1,6 @@
 # Environment and dependency management
 
-This page covers best practices for containerized builds, dependency management, handling of secrets, and environment configuration using [Buildkite Agents](/docs/agent/v3), [queues](/docs/agent/v3/targeting/queues), [plugins](/docs/pipelines/integrations/plugins), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
+This page covers best practices for containerized builds, dependency management, handling of secrets, and environment configuration using [Buildkite Agents](/docs/agent/v3), [queues](/docs/agent/v3/queues), [plugins](/docs/pipelines/integrations/plugins), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ## Build containerization for consistency
 
@@ -54,7 +54,7 @@ env:
 
 ## Optimizing agent hosts and queues for environment needs
 
-- Match your agent infrastructure to your environment requirements by creating specialized [queues](/docs/agent/v3/targeting/queues) and minimizing host-level dependencies.
+- Match your agent infrastructure to your environment requirements by creating specialized [queues](/docs/agent/v3/queues) and minimizing host-level dependencies.
 - Create queues that map to specific environments, for example the OS, CPU/RAM, GPU, network access, trust boundary, and so on.
 - Keep system dependencies in containers when possible.
 - If host-level tooling is required, pin versions and manage via [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach.

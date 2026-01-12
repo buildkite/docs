@@ -4,7 +4,7 @@ The _internal container registry_ is a feature of [Buildkite hosted agents](/doc
 
 ## Internal container registry overview
 
-Once a [Buildkite cluster has been set up](/docs/pipelines/security/clusters/manage#setting-up-clusters), and its first [hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue) has been created, an internal container registry is created for this cluster, which you can use to manage [Open Container Initiative (OCI)](https://opencontainers.org/) images built by your pipelines on Buildkite hosted agents.
+Once a [Buildkite cluster has been set up](/docs/pipelines/security/clusters/manage#setting-up-clusters), and its first [hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) has been created, an internal container registry is created for this cluster, which you can use to manage [Open Container Initiative (OCI)](https://opencontainers.org/) images built by your pipelines on Buildkite hosted agents.
 
 To use the internal container registry, you'll need to reference the pre-defined environment variable `$BUILDKITE_HOSTED_REGISTRY_URL` for the registry in Docker commands you use in your pipelines. The value of this environment variable defines the location for your cluster's internal container registry.
 

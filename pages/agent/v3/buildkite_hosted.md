@@ -37,7 +37,7 @@ Buildkite hosted agents also provides the following assurances:
 
 ## How Buildkite hosted agents work
 
-When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue), this action begins the process of starting the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
+When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue), this action begins the process of starting the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
 
 The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
 

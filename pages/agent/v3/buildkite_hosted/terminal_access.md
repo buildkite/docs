@@ -6,7 +6,7 @@ The Buildkite hosted agents feature provides you with _terminal/console access_ 
 - Test the behavior of different scripts (because they may not be well-documented).
 - Debug issues that are not reproducible in your local environment.
 
-This can be useful when migrating your pipelines across to [queues](/docs/agent/v3/targeting/queues/managing) on Buildkite hosted agents.
+This can be useful when migrating your pipelines across to [queues](/docs/agent/v3/queues/managing) on Buildkite hosted agents.
 
 ## Use terminal access on hosted agents
 

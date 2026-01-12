@@ -29,7 +29,7 @@ buildkite-agent start --spawn 5
 
 This will start a single process, but can run up to 5 different jobs at the same time.
 
-The start command can also be run multiple times with different configurations. For example, to change the [queue](/docs/agent/v3/targeting/queues):
+The start command can also be run multiple times with different configurations. For example, to change the [queue](/docs/agent/v3/queues):
 
 ```bash
 buildkite-agent start --tags queue=test
@@ -146,7 +146,7 @@ In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-
 - [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization's scheduled jobs count, agents count, and details about each agent.
 - [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you're able to fetch each pipeline's job count, and information about each agent.
 - [Agent priorities](/docs/agent/v3/self-hosted/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
-- [Agent queues](/docs/agent/v3/targeting/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
+- [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
 - [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization's Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.

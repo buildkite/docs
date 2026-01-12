@@ -70,4 +70,4 @@ If your branch pattern contains any special characters like `!` or `*`, then enc
 
 ## Alternative methods
 
-[Queues](/docs/agent/v3/targeting/queues) are another way to control what work is done. You can use queues to determine which pipelines and steps run on particular agents.
+[Queues](/docs/agent/v3/queues) are another way to control what work is done. You can use queues to determine which pipelines and steps run on particular agents.

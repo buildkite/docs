@@ -40,7 +40,7 @@ An ephemeral agent is a Buildkite Agent that only operates for the duration in w
 - `--disconnect-after-job`
 - `--disconnect-after-idle-timeout`
 
-Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/targeting/queues/managing/pausing-and-resuming).
+Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/queues/managing/pausing-and-resuming).
 
 ## Hook
 
@@ -74,7 +74,7 @@ To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 A queue defines agents on which pipeline builds can run their jobs. Queues are configured within a [cluster](#cluster), where each queue defines a particular group of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
-To learn more, see [Manage queues](/docs/agent/v3/targeting/queues/managing) and [Buildkite Agent job queues](/docs/agent/v3/targeting/queues).
+To learn more, see [Manage queues](/docs/agent/v3/queues/managing) and [Buildkite Agent job queues](/docs/agent/v3/queues).
 
 ## Step
 

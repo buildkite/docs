@@ -24,7 +24,7 @@ When setting up a queue, you can choose between configuring it with Buildkite Ag
 
 Learn more about how to set up and create a queue using either self-hosted agents (known as a [self-hosted queue](#create-a-self-hosted-queue)) or Buildkite hosted agents (known as a [Buildkite hosted queue](#create-a-buildkite-hosted-queue)).
 
-Be aware that it is not possible to create a queue that uses a mix of self-hosted and Buildkite hosted agents. If you do need to use a combination of these different agent types for your pipeline builds, create separate self-hosted and Buildkite hosted queues for these agents and use [agent or queue tags](/docs/agent/v3/targeting/queues#setting-an-agents-queue), or a combination of both, to target the appropriate queues.
+Be aware that it is not possible to create a queue that uses a mix of self-hosted and Buildkite hosted agents. If you do need to use a combination of these different agent types for your pipeline builds, create separate self-hosted and Buildkite hosted queues for these agents and use [agent or queue tags](/docs/agent/v3/queues#setting-an-agents-queue), or a combination of both, to target the appropriate queues.
 
 Furthermore, once a queue has been created, it is not possible to change its type from a self-hosted to a Buildkite hosted queue, or vice versa. If you do need to change your type of agent infrastructure, use a queue with the appropriate hosted queue type, or create a new queue to suit your new agent infrastructure.
 
@@ -39,7 +39,7 @@ When you [create a new cluster](/docs/pipelines/security/clusters/manage#create-
 Multiple self-hosted agents can connect to your self-hosted queue by ensuring that the agent is configured to use both of the following:
 
 - The [cluster's agent token](/docs/agent/v3/self-hosted/tokens#using-and-storing-tokens)
-- The [agent tag](/docs/agent/v3/targeting/queues#setting-an-agents-queue) targeting your self-hosted queue
+- The [agent tag](/docs/agent/v3/queues#setting-an-agents-queue) targeting your self-hosted queue
 
 ### Using the Buildkite interface
 
@@ -288,7 +288,7 @@ To resume a queue:
 
 ### Pause and resume an individual agent
 
-You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/v3/targeting/queues/managing/pausing-and-resuming).
+You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/v3/queues/managing/pausing-and-resuming).
 
 ## Queue metrics
 

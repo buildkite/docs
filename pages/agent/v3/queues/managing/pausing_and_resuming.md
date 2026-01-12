@@ -1,6 +1,6 @@
 # Pause and resume an agent
 
-You can _pause_ an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. This is similar to [pausing and resuming queues](/docs/agent/v3/targeting/queues/managing#pause-and-resume-a-queue), but instead, applies to individual agents.
+You can _pause_ an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. This is similar to [pausing and resuming queues](/docs/agent/v3/queues/managing#pause-and-resume-a-queue), but instead, applies to individual agents.
 
 _Pausing_ an agent is a useful alternative to _stopping_ an agent, especially when resources are tied to the lifetime of the agent, such as a cloud instance configured to terminate when the agent exits. By pausing an agent, you can investigate problems in its environment more easily, without the worry of jobs being dispatched to it. Pausing is also useful when performing maintenance on an agent's environment, where idleness would be preferred, especially for maintenance operations that would affect the reliability or speed of jobs if they ran at the same time. Some examples of maintenance operations that could benefit from pausing an agent include:
 

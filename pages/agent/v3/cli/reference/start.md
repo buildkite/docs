@@ -61,7 +61,7 @@ If you specify multiple tags, your build will only run on agents that have **all
 
 ## The queue tag
 
-The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](/docs/agent/v3/targeting/queues) for more information about using queues.
+The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](/docs/agent/v3/queues) for more information about using queues.
 
 If you specify a `queue` and [agent `tags`](#agent-targeting), your build will only run on agents that match **all** of the specified criteria.
 
