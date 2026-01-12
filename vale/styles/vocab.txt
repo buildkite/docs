@@ -217,6 +217,7 @@ keyless
 kotlin
 kubeconfig
 kubectl
+kubelet
 kustomize
 Kuzco
 launchd
