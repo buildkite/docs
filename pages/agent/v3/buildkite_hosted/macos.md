@@ -8,7 +8,7 @@ Buildkite's macOS hosted agents are:
 
 Learn more about:
 
-- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/clusters), as well as [Manage queues](/docs/agent/v3/targeting/queues/managing).
+- Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/security/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/security/clusters), as well as [Manage queues](/docs/agent/v3/targeting/queues/managing).
 
 - How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue).
 
@@ -278,7 +278,7 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 
 To find the [Homebrew package](#homebrew-packages) version used by your macOS hosted agent:
 
-1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/clusters/manage-clusters) containing the [macOS Buildkite hosted agent queue](/docs/agent/v3/targeting/queues/managing) > your macOS hosted agent.
+1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/security/clusters/manage) containing the [macOS Buildkite hosted agent queue](/docs/agent/v3/targeting/queues/managing) > your macOS hosted agent.
 1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
 
 ## Security

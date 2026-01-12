@@ -48,7 +48,7 @@ To maintain a secure plugin ecosystem, implement these practices:
 
 - Use the [agent's plugin restrictions](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) to allowlist approved plugins.
 - Set the [`no-plugins`](/docs/agent/v3/self-hosted/configure#no-plugins) option to disable plugins entirely on sensitive agents.
-- Implement different plugin policies for different [clusters](/docs/pipelines/clusters) based on security requirements.
+- Implement different plugin policies for different [clusters](/docs/pipelines/security/clusters) based on security requirements.
 - Use separate Git repositories for different security domains.
 - Implement code review processes for all plugin changes.
 - Regularly audit plugin permissions, access patterns, and usage across your organization to identify potential security risks or optimization opportunities.

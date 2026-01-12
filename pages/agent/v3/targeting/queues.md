@@ -17,7 +17,7 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 ```
 
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
-> Your [clusters](/docs/pipelines/clusters/manage-clusters) and [queues](/docs/agent/v3/targeting/queues/managing) should already be configured before starting your agents to target these queues.
+> Your [clusters](/docs/pipelines/security/clusters/manage) and [queues](/docs/agent/v3/targeting/queues/managing) should already be configured before starting your agents to target these queues.
 
 ### Setting up queues for unclustered agents
 
@@ -38,7 +38,7 @@ If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli/re
 
 > 📘 Clusters without a default queue configured
 > If you start your agent without explicitly specifying an [existing queue in your cluster](/docs/agent/v3/targeting/queues/managing#setting-up-queues) _and_ a default queue is not configured in this cluster, then your agent will fail to start.
-> You must either explicitly specify an existing queue within in your [cluster](/docs/pipelines/clusters/manage-clusters) when starting the agent, or have a default queue already configured in this cluster for the agent to start successfully.
+> You must either explicitly specify an existing queue within in your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default queue already configured in this cluster for the agent to start successfully.
 
 ## Targeting a queue
 

@@ -252,7 +252,7 @@ In order to create a JWT that can be exchanged for an installation access token,
 - In your GitHub App's **General settings**, scroll to **Private keys**
 - Click the **Generate a private key** button
 - This will download a `.pem` file of the newly generated private key
-- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/clusters) containing the Buildkite Agents that require access to your private repositories
+- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/security/clusters) containing the Buildkite Agents that require access to your private repositories
     + Add the contents of the `.pem` file as the secret's _Value_
 
 > 📘 Private key Buildkite Secret

@@ -116,17 +116,17 @@ You can also create, edit, and revoke other agent tokens from the cluster’s **
 
 Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens).
 
-Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) privileges.
+Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
 
-Learn more about this entire process from the detailed [Migrate from unclustered to clustered agents](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents) guide, which guides you through the individual processes of:
+Learn more about this entire process from the detailed [Migrate from unclustered to clustered agents](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents) guide, which guides you through the individual processes of:
 
-1. [Assessing your current environment](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#assessing-your-current-environment).
-1. Deciding on an [agent migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#migration-strategies), noting that an initial [single-cluster migration strategy](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#single-cluster-migration-overview) may likely provide the least friction.
-1. Understanding the [technical considerations](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations) of the agent migration process.
-1. The [agent migration process](/docs/pipelines/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-process) itself.
+1. [Assessing your current environment](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents#assessing-your-current-environment).
+1. Deciding on an [agent migration strategy](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents#migration-strategies), noting that an initial [single-cluster migration strategy](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents#single-cluster-migration-overview) may likely provide the least friction.
+1. Understanding the [technical considerations](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents#technical-considerations) of the agent migration process.
+1. The [agent migration process](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents#agent-migration-process) itself.
 
 ## Restrict an agent token's access by IP address
 

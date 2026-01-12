@@ -3,7 +3,7 @@
 Clusters is a Buildkite Pipelines feature used to manage and organize agents and queues, and provides the following benefits:
 
 - Allows [teams](/docs/platform/team-management/permissions) to self-manage their Buildkite agent pools.
-- Allows [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) and [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to create isolated sets of agents and pipelines within the one Buildkite organization.
+- Allows [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) and [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to create isolated sets of agents and pipelines within the one Buildkite organization.
 - Helps make agents and queues more discoverable across your Buildkite organization.
 - Provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on [Enterprise](https://buildkite.com/pricing/) plans only).
 - Allows easier agent management through [queue pausing](/docs/agent/v3/targeting/queues/managing#pause-and-resume-a-queue).
@@ -35,10 +35,10 @@ When your organization grows, the most common patterns seen for cluster configur
 
 You can create as many clusters as you require for your setup. However, keep in mind that different clusters generally do not share pipelines.
 
-Learn more about working with clusters in [Manage clusters](/docs/pipelines/clusters/manage-clusters).
+Learn more about working with clusters in [Manage clusters](/docs/pipelines/security/clusters/manage).
 
 > 📘 Pipeline triggering and artifact access
-> Pipelines associated with one cluster cannot trigger or access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering or artifact access between pipelines in different clusters.
+> Pipelines associated with one cluster cannot trigger or access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/security/clusters/rules) has been created to explicitly allow triggering or artifact access between pipelines in different clusters.
 
 Be aware that if you are using the the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) to run your Buildkite Agents in a Kubernetes environment (with Kubernetes clusters), a Kubernetes cluster is unrelated to a Buildkite cluster.
 

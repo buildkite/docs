@@ -83,9 +83,9 @@ Similarly, in terms of agent fleet scaling, instead of choosing between using st
 
 ## Structuring clusters and queues
 
-You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/targeting/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted)) before rolling them out broadly across your Buildkite organization.
+You should organize [clusters](/docs/pipelines/security/clusters) as security boundaries and [queues](/docs/agent/v3/targeting/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted)) before rolling them out broadly across your Buildkite organization.
 
-Learn more about using clusters and queues in [Managing clusters](/docs/pipelines/clusters/manage-clusters) and [Managing queues](/docs/agent/v3/targeting/queues/managing).
+Learn more about using clusters and queues in [Managing clusters](/docs/pipelines/security/clusters/manage) and [Managing queues](/docs/agent/v3/targeting/queues/managing).
 
 ## Agent lifecycle
 
@@ -96,7 +96,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 
 ## Right-sizing of your agent fleet
 
-- Monitor queue times with [cluster insights](/docs/pipelines/clusters#cluster-insights) and [Buildkite Agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
+- Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and [Buildkite Agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
 - Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
 - Configure [graceful termination](/docs/agent/v3#signal-handling) to allow jobs to complete.

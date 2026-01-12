@@ -1,6 +1,6 @@
 # Manage rules
 
-This page provides details on how to manage [rules](/docs/pipelines/rules) within your Buildkite organization.
+This page provides details on how to manage [rules](/docs/pipelines/security/clusters/rules) within your Buildkite organization.
 
 ## Create a rule
 
@@ -14,13 +14,13 @@ To create a new rule using the Buildkite interface:
 
 1. In the **Pipelines** section, select **Rules** > **New Rule** to open its page.
 
-1. For **Rule Type**, select the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
+1. For **Rule Type**, select the [type of rule](/docs/pipelines/security/clusters/rules#rule-types) to be created, that is, either **pipeline.trigger_build.pipeline** or **pipeline.artifacts_read.pipeline**.
 
 1. Specify a short **Description** for the rule.
 
 1. In the **Rule Document** field:
-    * Specify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
-    * Specify any optional conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline.
+    * Specify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/security/clusters/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/security/clusters/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+    * Specify any optional conditions that must be met for the source pipeline to [trigger](/docs/pipelines/security/clusters/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/security/clusters/rules#conditions-artifacts) its target pipeline.
 
 1. Select **Create Rule**.
 
@@ -51,7 +51,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-- `rule` is the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
+- `rule` is the [type of rule](/docs/pipelines/security/clusters/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
 
 - `description` (optional) is a short description for the rule.
 
@@ -70,7 +70,7 @@ where:
           -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
-- `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline. Some example values could include:
+- `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/security/clusters/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/security/clusters/rules#conditions-artifacts) its target pipeline. Some example values could include:
 
     * `source.build.creator.teams includes 'core'`
     * `source.build.branch == 'main'`
@@ -118,7 +118,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-- `type` is the [type of rule](/docs/pipelines/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
+- `type` is the [type of rule](/docs/pipelines/security/clusters/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
 
 - `description` (optional) is a short description for the rule.
 
@@ -167,7 +167,7 @@ where:
         }
         ```
 
-- `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline. Some example values could include:
+- `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/security/clusters/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/security/clusters/rules#conditions-artifacts) its target pipeline. Some example values could include:
 
     * `source.build.creator.teams includes 'core'`
     * `source.build.branch == 'main'`
@@ -193,8 +193,8 @@ To edit an existing rule using the Buildkite interface:
 1. If required, modify the rule's short **Description**, or clear this field to remove this value.
 
 1. In the **Rule Document** field:
-    * Modify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
-    * Modify any optional `conditions` that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline. To remove a condition, remove its specific value from the array, or to remove all conditions, remove the entire `conditions` array.
+    * Modify the relevant values (either a pipeline UUID or a pipeline slug) for both the `source_pipeline` and `target_pipeline` pipelines, of your [**pipeline.trigger_build.pipeline**](/docs/pipelines/security/clusters/rules#rule-types-pipeline-dot-trigger-build-dot-pipeline) or [**pipeline.artifacts_read.pipeline**](/docs/pipelines/security/clusters/rules#rule-types-pipeline-dot-artifacts-read-dot-pipeline) rule. You can find the UUID values for these pipelines on the pipelines' respective **Settings** page under the **GraphQL API integration** section.
+    * Modify any optional `conditions` that must be met for the source pipeline to [trigger](/docs/pipelines/security/clusters/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/security/clusters/rules#conditions-artifacts) its target pipeline. To remove a condition, remove its specific value from the array, or to remove all conditions, remove the entire `conditions` array.
 
 1. Select **Save Rule**.
 
@@ -321,7 +321,7 @@ where:
           }
           ```
 
-- `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/rules#conditions-artifacts) its target pipeline. Some example values could include:
+- `conditions` (optional) is an array of conditions that must be met for the source pipeline to [trigger](/docs/pipelines/security/clusters/rules#conditions-trigger) or [access artifacts built by](/docs/pipelines/security/clusters/rules#conditions-artifacts) its target pipeline. Some example values could include:
 
     * `source.build.creator.teams includes 'core'`
     * `source.build.branch == 'main'`

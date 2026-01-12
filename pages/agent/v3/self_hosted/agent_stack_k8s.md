@@ -21,7 +21,7 @@ When a matching job is returned from the Agent REST API, the controller creates 
 ## Before you start
 
 - A Kubernetes cluster.
-- A [Buildkite cluster](/docs/pipelines/clusters/manage-clusters) and an [agent token](/docs/agent/v3/self-hosted/tokens#create-a-token) for this cluster.
+- A [Buildkite cluster](/docs/pipelines/security/clusters/manage) and an [agent token](/docs/agent/v3/self-hosted/tokens#create-a-token) for this cluster.
 
 <!-- vale off -->
 

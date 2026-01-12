@@ -2,7 +2,7 @@
 
 This guide helps you to get started with the [Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp) using [Terraform](https://www.terraform.io/).
 
-Elastic CI Stack for GCP allows you to launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/clusters) in your own GCP project.
+Elastic CI Stack for GCP allows you to launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/security/clusters) in your own GCP project.
 
 ## Before you start
 

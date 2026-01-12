@@ -10,7 +10,7 @@ The Agent Stack for Kubernetes controller can expose Prometheus metrics for moni
 1. Create a PodMonitor resource for scraping.
 
 > 📘
-> The instructions that follow assume that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/clusters). If you're using a different Prometheus setup, you'll need to configure scraping manually.
+> The instructions that follow assume that you have [Prometheus Operator](https://prometheus-operator.dev/) installed in your [cluster](/docs/pipelines/security/clusters). If you're using a different Prometheus setup, you'll need to configure scraping manually.
 
 ### Enabling metrics port exposure
 

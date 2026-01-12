@@ -1,6 +1,6 @@
 # Secrets
 
-[Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) is an encrypted key-value store secrets management service. Secrets are scoped within a [Buildkite cluster](/docs/pipelines/clusters) and can be accessed by agents within that cluster using the [`buildkite-agent secret get` command](/docs/agent/v3/cli/reference/secret) or by defining `secrets` within a pipeline YAML configuration. Access to secrets is controlled through [access policies](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
+[Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) is an encrypted key-value store secrets management service. Secrets are scoped within a [Buildkite cluster](/docs/pipelines/security/clusters) and can be accessed by agents within that cluster using the [`buildkite-agent secret get` command](/docs/agent/v3/cli/reference/secret) or by defining `secrets` within a pipeline YAML configuration. Access to secrets is controlled through [access policies](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
 
 ## Secret data model
 

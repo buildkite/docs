@@ -1,12 +1,12 @@
 # Migrate from unclustered to clustered agents
 
-Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability. Learn more about clusters from the [Clusters overview](/docs/pipelines/clusters) page.
+Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability. Learn more about clusters from the [Clusters overview](/docs/pipelines/security/clusters) page.
 
 Therefore, if your Buildkite pipelines are still operating in an unclustered agent environment, you should migrate these pipelines across to operating with clustered agents. This guide provides details on how to migrate your unclustered agents across to clustered ones.
 
 Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens).
 
-Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) privileges.
+Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
@@ -37,7 +37,7 @@ See [Agent migration process](#agent-migration-process) for the full migration p
 
 ## Key benefits of clusters
 
-- **Enhanced security boundaries**: Clusters provide hard security boundaries between different environments. However, you can use [rules](/docs/pipelines/rules) to create exceptions that allow controlled interaction between clusters when needed.
+- **Enhanced security boundaries**: Clusters provide hard security boundaries between different environments. However, you can use [rules](/docs/pipelines/security/clusters/rules) to create exceptions that allow controlled interaction between clusters when needed.
 
 - **Improved observability**: Clusters provide access to [cluster insights](/docs/pipelines/insights/clusters) (for customers on [Enterprise](https://buildkite.com/pricing/) plans), providing better metrics and visibility into your build infrastructure such as queue wait times and job pass rates. All plans have access to [queue metrics](/docs/pipelines/insights/queue-metrics).
 
@@ -92,12 +92,12 @@ Consider the following factors that might increase the complexity of moving your
 - **Use of agent tags across different queues**: Agent tags in clusters are scoped to the specific cluster they belong to, unlike in unclustered environments where tags can be used across multiple queues for targeting purposes.
     * Pipeline configurations that target agents using tags across queues will need to be updated.
     * You may need to standardize tagging conventions within each cluster.
-    * Cross-cluster targeting patterns will require redesign using [rules](/docs/pipelines/rules) to allow specific exceptions.
+    * Cross-cluster targeting patterns will require redesign using [rules](/docs/pipelines/security/clusters/rules) to allow specific exceptions.
 
 - **Pipelines that trigger other pipelines**: Pipelines across different clusters will not be able to trigger each other by default, requiring additional configuration if you split interconnected pipelines into separate clusters.
-    * You'll need to create [rules](/docs/pipelines/rules) to allow cross-cluster pipeline triggering.
+    * You'll need to create [rules](/docs/pipelines/security/clusters/rules) to allow cross-cluster pipeline triggering.
     * Consider grouping pipelines that interact frequently into the same cluster (at least initially, to simplify the agent moving process).
-    * Triggers between clusters may have different behavior than within the same scope (for instance, [rules](/docs/pipelines/rules) allows [conditionals](/docs/pipelines/configure/conditionals)).
+    * Triggers between clusters may have different behavior than within the same scope (for instance, [rules](/docs/pipelines/security/clusters/rules) allows [conditionals](/docs/pipelines/configure/conditionals)).
 
 - **Shared infrastructure or configuration between different teams or environments**: When different environments share infrastructure or configurations, sharing these resources across separate clusters adds complexity to the entire agent migration process.
     * Shared resources like caches, artifacts, or Docker images may need reconfiguring.
@@ -288,7 +288,7 @@ The following table lists the differences between the former unclustered agent t
 ### Pipeline relationships
 
 - As part of [evaluating the complexity of the agent migration process](#assessing-your-current-environment-evaluate-complexity-of-the-agent-migration-process), be aware of which of your pipelines trigger others.
-- You'll need to create [rules](/docs/pipelines/rules) to allow cross-cluster pipeline interactions, such as triggering or reading cross-cluster artifacts.
+- You'll need to create [rules](/docs/pipelines/security/clusters/rules) to allow cross-cluster pipeline interactions, such as triggering or reading cross-cluster artifacts.
 - Consider how to structure your clusters to minimize the need for cross-cluster triggers, but also maintain meaningful boundaries.
 
 ## Agent migration process
@@ -322,9 +322,9 @@ This section outlines the complete migration process from unclustered to cluster
 
 ### Create your clusters and queues
 
-1. Create the [appropriate clusters](/docs/pipelines/clusters/manage-clusters#setting-up-clusters) within your Buildkite organization.
+1. Create the [appropriate clusters](/docs/pipelines/security/clusters/manage#setting-up-clusters) within your Buildkite organization.
 
-    You can [create clusters](/docs/pipelines/clusters/manage-clusters#create-a-cluster) using the [Buildkite interface](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-buildkite-interface), or [REST](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-rest-api) or [GraphQL](/docs/pipelines/clusters/manage-clusters#create-a-cluster-using-the-graphql-api) APIs.
+    You can [create clusters](/docs/pipelines/security/clusters/manage#create-a-cluster) using the [Buildkite interface](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-buildkite-interface), or [REST](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-rest-api) or [GraphQL](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-graphql-api) APIs.
 
 1. Define the [appropriate queues](/docs/agent/v3/targeting/queues/managing#setting-up-queues) within each cluster.
 
@@ -340,7 +340,7 @@ This section outlines the complete migration process from unclustered to cluster
     * [self-hosted queues](/docs/agent/v3/targeting/queues/managing#create-a-self-hosted-queue) (using the [Buildkite interface](/docs/agent/v3/targeting/queues/managing#create-a-self-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/v3/targeting/queues/managing#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/v3/targeting/queues/managing#create-a-self-hosted-queue-using-the-graphql-api) APIs), or
     * [Buildkite hosted queues](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue) (also using the [Buildkite interface](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue-using-the-graphql-api) APIs).
 
-1. Configure the necessary permissions for each cluster. As part of this process, consider how you'll set up [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
+1. Configure the necessary permissions for each cluster. As part of this process, consider how you'll set up [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
 If you'll be:
 
@@ -396,7 +396,7 @@ Move all the pipelines that were associated with your unclustered agents to thei
 
 1. Configure cross-cluster interactions if needed:
    1. Navigate to your Buildkite organization's **Settings** > **Rules** to access its [**Rules** page](https://buildkite.com/organizations/~/rules).
-   1. Create [rules](/docs/pipelines/rules) to allow specific cross-cluster interactions.
+   1. Create [rules](/docs/pipelines/security/clusters/rules) to allow specific cross-cluster interactions.
    1. Test that these new rules function as expected.
 
 1. Update any CI/CD automation that interacts with these pipelines.

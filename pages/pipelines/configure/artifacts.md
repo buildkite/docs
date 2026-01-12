@@ -91,7 +91,7 @@ The `buildkite-agent artifact download` command supports several options and env
 For complete usage instructions, read the [`buildkite-agent artifact download`](/docs/agent/v3/cli/reference/artifact#downloading-artifacts) documentation.
 
 > 📘 Pipeline artifact access
-> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow artifact access between pipelines in different clusters.
+> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/security/clusters/rules) has been created to explicitly allow artifact access between pipelines in different clusters.
 
 ### Example: download one artifact
 

@@ -4,7 +4,7 @@ _Buildkite secrets_ is an encrypted key-value store secrets management service o
 
 Buildkite secrets:
 
-- Are scoped within a given [cluster](/docs/pipelines/clusters), and are accessible to all agents within that cluster only, since each cluster has its own unique secrets encryption key. The secrets are decrypted by the Buildkite control plane and then sent to the agent.
+- Are scoped within a given [cluster](/docs/pipelines/security/clusters), and are accessible to all agents within that cluster only, since each cluster has its own unique secrets encryption key. The secrets are decrypted by the Buildkite control plane and then sent to the agent.
 
 - Are available to both [Buildkite hosted](/docs/agent/v3/buildkite-hosted) as well as self-hosted agents.
 
@@ -14,7 +14,7 @@ In addition to being scoped within a cluster, access to Buildkite secrets is man
 
 ## Create a secret
 
-Buildkite secrets can only be created by [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
+Buildkite secrets can only be created by [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 ### Using the Buildkite interface
 
@@ -34,7 +34,7 @@ To create a new Buildkite secret using the Buildkite interface:
 
 ## Update a secret's value
 
-Buildkite secrets can only be updated by [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
+Buildkite secrets can only be updated by [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 ### Using the Buildkite interface
 

@@ -37,14 +37,14 @@ You need at least one agent configured within its own queue and cluster to run b
 
 You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
-Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
+Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/security/clusters/manage) (for example, **Default cluster**) you can connect this agent to.
 
 > 📘
 > If you're unable to access the Buildkite hosted agent feature or create one in your cluster, please contact support at support@buildkite.com to request access to this feature. Otherwise, you can set yourself up with a [self-hosted agent](#set-up-an-agent-install-and-run-a-self-hosted-agent) instead.
 
 To create a hosted agent:
 
-1. Navigate to the [cluster](/docs/pipelines/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
+1. Navigate to the [cluster](/docs/pipelines/security/clusters/manage) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
 1. Follow the [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
@@ -64,7 +64,7 @@ Your Buildkite hosted agent, as the new default queue, is now ready to use. You 
 
 Before installing and running a self-hosted agent, ensure you have:
 
-- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
+- a [cluster](/docs/pipelines/security/clusters/manage) (for example, **Default cluster**) you can connect this agent to,
 - a [queue](/docs/agent/v3/targeting/queues/managing#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
 - the value of an [agent token](/docs/agent/v3/self-hosted/tokens) (for example, **Initial agent token**), which you can configure for the agent.
 

@@ -2,7 +2,7 @@
 
 _Rules_ is a Buildkite feature that can do the following:
 
-<%= render_markdown partial: 'pipelines/rules_summary' %>
+<%= render_markdown partial: 'pipelines/security/clusters/rules_summary' %>
 
 > 📘
 > The _rules_ feature is currently in development, and is enabled on an opt-in basis for early access. To enable rules for your organization, please contact Buildkite's Support team at support@buildkite.com.
@@ -18,7 +18,7 @@ Buildkite Pipelines supports two types of rules that allow one pipeline build to
 
 This rule type allows one pipeline to trigger another, where:
 
-- Both pipelines are in the same or different [clusters](/docs/pipelines/clusters).
+- Both pipelines are in the same or different [clusters](/docs/pipelines/security/clusters).
 - One pipeline is public and another is private.
 
 > 📘
@@ -97,7 +97,7 @@ In the `pipeline.trigger_build.pipeline` rule the available variables for condit
 > 📘
 > Conditions are shown in error messages when access is denied.
 
-Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
+Learn more about creating rules in [Manage rules](/docs/pipelines/security/clusters/rules/manage).
 
 #### Example use case: cross-cluster pipeline triggering
 
@@ -109,7 +109,7 @@ However, a `pipeline.trigger_build.pipeline` rule would allow a trigger step in 
 
 This rule type allows one pipeline to access (that is, with read-only permissions) the artifacts built by another, where:
 
-- Both pipelines are in the same or different [clusters](/docs/pipelines/clusters).
+- Both pipelines are in the same or different [clusters](/docs/pipelines/security/clusters).
 - One pipeline is public and another is private.
 
 **Rule Document** format:
@@ -187,7 +187,7 @@ In the `pipeline.read_artifacts.pipeline` rule the available variables for condi
 > 📘
 > Conditions are shown in error messages when access is denied.
 
-Learn more about creating rules in [Manage rules](/docs/pipelines/rules/manage).
+Learn more about creating rules in [Manage rules](/docs/pipelines/security/clusters/rules/manage).
 
 #### Example use case: sharing assets between clusters
 

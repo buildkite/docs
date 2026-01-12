@@ -27,11 +27,11 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td></tr>
   <tr>
     <th><a href="#events-agent-blocked">Agent Blocked</a></th>
-    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
   <tr>
     <th><a href="#events-cluster-token-registration-blocked">Cluster Token Registration Blocked</a></th>
-    <td>An attempted agent registration is blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+    <td>An attempted agent registration is blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
   <tr>
     <th><a href="#audit-event-logged">Audit Event Logged</a></th>

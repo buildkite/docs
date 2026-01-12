@@ -92,6 +92,6 @@ The `my-image:latest` image will also be built on the Buildkite hosted agent.
 
 ## Additional volumes
 
-If your Buildkite organization doesn't have access to the [remote Docker builders](#remote-docker-builders-overview) feature, then new [volumes](/docs/agent/v3/buildkite-hosted/cache-volumes) will appear in your [cluster](/docs/pipelines/clusters)'s volumes list—one for each unique Git repository used by a pipeline. The naming convention for these volumes is based on your cloud-based Git service's account and repository name, and begins with "buildkite-local-builder-". For example, **buildkite-local-builder-my-account-my-repository**.
+If your Buildkite organization doesn't have access to the [remote Docker builders](#remote-docker-builders-overview) feature, then new [volumes](/docs/agent/v3/buildkite-hosted/cache-volumes) will appear in your [cluster](/docs/pipelines/security/clusters)'s volumes list—one for each unique Git repository used by a pipeline. The naming convention for these volumes is based on your cloud-based Git service's account and repository name, and begins with "buildkite-local-builder-". For example, **buildkite-local-builder-my-account-my-repository**.
 
 You can view all of your current cluster's volumes through its **Cached Storage > Volumes** page.

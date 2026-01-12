@@ -1,6 +1,6 @@
 # Queues
 
-[Queues](/docs/agent/v3/targeting/queues/managing) define discrete groups of agents within a [Buildkite cluster](/docs/pipelines/clusters). Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
+[Queues](/docs/agent/v3/targeting/queues/managing) define discrete groups of agents within a [Buildkite cluster](/docs/pipelines/security/clusters). Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
 ## Queue data model
 
