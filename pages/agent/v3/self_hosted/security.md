@@ -1,4 +1,4 @@
-# Securing your Buildkite Agent
+# Buildkite Agent security
 
 In cases where a Buildkite Agent is being deployed into a sensitive environment, there are a few default settings which may be adjusted and techniques that may be used.
 
@@ -55,7 +55,7 @@ As plugins execute in the same way as local hooks, they can pose a potential sec
 
 You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/self-hosted/configure#no-plugins) setting.
 
-If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#sign-pipelines).
+If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/self-hosted/security#sign-pipelines).
 
 ### Disable command evaluation
 
@@ -147,7 +147,7 @@ But also remember that some [environment variables may be essential](/docs/pipel
 
 ## Sign pipelines
 
-You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/signed-pipelines).
+You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/self-hosted/signed-pipelines).
 
 ## Customize the bootstrap
 

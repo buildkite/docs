@@ -3,11 +3,11 @@
 > 📘 Minimum version requirement
 > To implement the configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required.
 
-The Buildkite Agent Stack for Kubernetes controller supports Buildkite's [signed pipelines](/docs/agent/v3/signed-pipelines) feature. A JWKS key pair is stored as Kubernetes Secrets and mounted to the `agent` and user-defined command containers.
+The Buildkite Agent Stack for Kubernetes controller supports Buildkite's [signed pipelines](/docs/agent/v3/self-hosted/signed-pipelines) feature. A JWKS key pair is stored as Kubernetes Secrets and mounted to the `agent` and user-defined command containers.
 
 ## Generating a JWKS key pair
 
-Using the `buildkite-agent` CLI, [generate a JWKS key pair](https://buildkite.com/docs/agent/v3/signed-pipelines#self-managed-key-creation-step-1-generate-a-key-pair):
+Using the `buildkite-agent` CLI, [generate a JWKS key pair](https://buildkite.com/docs/agent/v3/self-hosted/signed-pipelines#self-managed-key-creation-step-1-generate-a-key-pair):
 
 ```shell
 buildkite-agent tool keygen --alg EdDSA --key-id my-jwks-key

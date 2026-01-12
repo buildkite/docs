@@ -61,17 +61,17 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Set [granular command authorization controls](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
+- Set [granular command authorization controls](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
 - Configure automated regular credential rotation, such as setting automatic [expiration dates](/docs/agent/v3/self-hosted/tokens#agent-token-lifetime) on your agent tokens to limit their window of opportunity to be compromised.
 - [Upgrade your Buildkite Agents](/docs/agent/v3/self-hosted/install#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers. Ensure that your deployment environment is secure by installing minimal operating systems, disabling inbound SSH access, and enforcing strict network egress controls.
 - Isolate pipelines with sensitive builds to run on dedicated agent pools within their own [cluster](/docs/pipelines/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments—for example, open-source repositories with unverified code.
-- Enable [pipeline signing](/docs/agent/v3/signed-pipelines) and verification mechanisms.
+- Enable [pipeline signing](/docs/agent/v3/self-hosted/signed-pipelines) and verification mechanisms.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
-- [Disable command evaluation](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
+- [Disable command evaluation](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
 - Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/v3/cli-start#no-plugins) to prevent the agent from loading any plugins.
-- Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/securing).
+- Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/self-hosted/security).
 
 > 📘 On better Buildkite Agent security
 > For small teams with limited experience in hosting and hardening infrastructure, [Buildkite hosted agents](/docs/pipelines/hosted-agents) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent governance, risk, and compliance (GRC) requirements that mandate enhanced security postures, should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over security configurations and compliance controls.
@@ -114,7 +114,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
   * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
 - Implement artifact signing using Buildkite's [SLSA provenance](/docs/package-registries/security/slsa-provenance) feature, or alternatively using [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and establish verification processes before deployment to document artifact provenance and detect tampering.
-- Enforce [KMS signing](/docs/agent/v3/signed-pipelines#aws-kms-managed-key-setup) of your pipelines.
+- Enforce [KMS signing](/docs/agent/v3/self-hosted/signed-pipelines#aws-kms-managed-key-setup) of your pipelines.
 
 ## Consistent pipeline-as-code approach
 
