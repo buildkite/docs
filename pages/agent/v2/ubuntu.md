@@ -63,17 +63,17 @@ deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://
 
 ## SSH key configuration
 
-<%= render_markdown partial: 'agent/v2/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/v2/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH keys](/docs/agent/v2/ssh-keys) documentation for more details.
 
 ## File locations
 
-<%= render_markdown partial: 'agent/v2/self_hosted/install/apt_locations' %>
+<%= render_markdown partial: 'agent/apt_locations' %>
 
 ## Configuration
 
-<%= render_markdown partial: 'agent/v2/self_hosted/install/apt_configuration' %>
+<%= render_markdown partial: 'agent/apt_configuration' %>
 
 ## Running multiple agents
 
@@ -106,4 +106,4 @@ sudo tail -f /var/log/upstart/buildkite-agent-2.log
 
 ## Upgrading
 
-<%= render_markdown partial: 'agent/v2/self_hosted/install/apt_upgrading' %>
+<%= render_markdown partial: 'agent/apt_upgrading' %>
