@@ -288,6 +288,8 @@
               children:
                 - name: "Amazon ECR authentication"
                   path: "agent/v3/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/ecr"
+                - name: "Secrets"
+                  path: "agent/v3/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/secrets"
         - name: "Agent installers"
           children:
             - name: "Ubuntu"
