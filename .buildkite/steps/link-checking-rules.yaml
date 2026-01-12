@@ -62,6 +62,7 @@ link_checking_exemptions:
       - https://cd.apps.argoproj.io/swagger-ui
       - https://docs.cursor.com/
       - https://developer.hashicorp.com/terraform/registry/modules/publish
+      - https://docs.windsurf.com/windsurf/cascade/mcp
 
   - name: surprising-fragment-failures
     description: Surprisingly, these links fail because of missing anchors, not authentication.

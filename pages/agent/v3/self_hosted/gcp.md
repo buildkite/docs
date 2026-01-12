@@ -103,7 +103,7 @@ ${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
 
 To continue exploring the possibilities of using the Buildkite Agent on Google Cloud Platform, you will benefit from visiting the following documentation pages:
 
-- [Elastic CI Stack for GCP overview](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/elastic-ci-stack)
+- [Elastic CI Stack for GCP overview](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack)
 - [Terraform setup guide](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform)
 - [Configuration parameters](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters)
 - [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)
