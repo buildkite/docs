@@ -112,16 +112,16 @@
       children:
         - name: "Overview"
           path: "agent/v3"
-        - name: "Targeting agents"
+        - name: "Queues"
           children:
-            - name: "Queues"
-              path: "agent/v3/targeting/queues"
+            - name: "Overview"
+              path: "agent/v3/queues"
             - name: "Managing queues"
               children:
                 - name: "Overview"
-                  path: "agent/v3/targeting/queues/managing"
+                  path: "agent/v3/queues/managing"
                 - name: "Pausing and resuming"
-                  path: "agent/v3/targeting/queues/managing/pausing-and-resuming"
+                  path: "agent/v3/queues/managing/pausing-and-resuming"
         - name: "Self-hosted agents"
           children:
             - name: "Tokens"
