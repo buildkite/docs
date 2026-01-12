@@ -38,7 +38,7 @@ Use this command in your build scripts to get the value of a particular attribut
 
 If you're only interested in whether a step passed or failed, perhaps to use conditional logic inside your build script, you can use the same approach as above in [Getting a step](#getting-a-step).
 
-For example, the following pipeline has one step that fails (`one`), and another that passes (`two`). After the `wait`, the next two steps print the `outcome` attribute of steps `one` and `two`, and the last step [annotates the build](/docs/agent/v3/cli-annotate#creating-an-annotation) if step `one` fails. Note that `step get` needs the `key` of the step to identify it, not the `label`.
+For example, the following pipeline has one step that fails (`one`), and another that passes (`two`). After the `wait`, the next two steps print the `outcome` attribute of steps `one` and `two`, and the last step [annotates the build](/docs/agent/v3/cli/reference/annotate#creating-an-annotation) if step `one` fails. Note that `step get` needs the `key` of the step to identify it, not the `label`.
 
 The `outcome` is `passed`, `hard_failed`, `soft_failed`, or `errored`. A "hard fail" is a non-zero exit status that fails the build. A ["soft fail"](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) is a non-zero exit status that does not fail the build. An "errored" step outcome is reserved for infrastructure issues, such as timeouts, cancellations or expired jobs.
 

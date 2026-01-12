@@ -16,7 +16,7 @@ Options for the `annotate` command can be found in the `buildkite-agent` cli hel
 
 ## Removing an annotation
 
-Annotations can be removed using [the `buildkite-agent annotation remove` command](/docs/agent/v3/cli-annotation).
+Annotations can be removed using [the `buildkite-agent annotation remove` command](/docs/agent/v3/cli/reference/annotation).
 
 ## Annotation styles
 

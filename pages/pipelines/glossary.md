@@ -34,7 +34,7 @@ To learn more, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelin
 
 ## Ephemeral agent
 
-An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/v3/cli-start):
+An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/v3/cli/reference/start):
 
 - `--acquire-job`
 - `--disconnect-after-job`

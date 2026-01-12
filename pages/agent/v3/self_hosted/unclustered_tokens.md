@@ -17,7 +17,7 @@ Your Buildkite organization's unclustered agent tokens page, accessible through 
 
 ## Using and storing tokens
 
-An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/self-hosted/configure), or provided using the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_TOKEN`.
+An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/v3/cli/reference/start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/self-hosted/configure), or provided using the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_TOKEN`.
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
@@ -120,7 +120,7 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 
 ### Job tokens
 
-Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite Agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data), and [pipeline](/docs/agent/v3/cli-pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
+Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite Agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/v3/cli/reference/annotate), [artifact](/docs/agent/v3/cli/reference/artifact), [meta-data](/docs/agent/v3/cli/reference/meta-data), and [pipeline](/docs/agent/v3/cli/reference/pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
 
 You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further scope the lifetime of job tokens.
 
@@ -155,7 +155,7 @@ When an agent starts, it follows the token exchange process:
   <tr>
     <td>Job token (internal)</td>
     <td>Buildkite Agent API when job is accepted</td>
-    <td>Local Job API access for CLI commands (including <a href="/docs/agent/v3/cli-annotate">annotate</a>,  <a href="/docs/agent/v3/cli-artifact">artifact</a>,  <a href="/docs/agent/v3/cli-meta-data">meta-data</a>, and  <a href="/docs/agent/v3/cli-pipeline">pipeline</a> commands).</td>
+    <td>Local Job API access for CLI commands (including <a href="/docs/agent/v3/cli/reference/annotate">annotate</a>,  <a href="/docs/agent/v3/cli/reference/artifact">artifact</a>,  <a href="/docs/agent/v3/cli/reference/meta-data">meta-data</a>, and  <a href="/docs/agent/v3/cli/reference/pipeline">pipeline</a> commands).</td>
     <td>Until the job finishes.</td>
   </tr>
 </table>

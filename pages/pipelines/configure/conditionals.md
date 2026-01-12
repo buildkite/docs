@@ -203,7 +203,7 @@ The following expressions are supported by the `if` attribute.
  </table>
 
 > 🚧 Formatting regular expressions
-> When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
+> When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
 
 ### Variables
 

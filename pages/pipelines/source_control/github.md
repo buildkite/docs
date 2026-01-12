@@ -96,7 +96,7 @@ To enable merge queue builds, edit the GitHub settings for the pipeline and sele
 
 Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
 
-To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli-pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
 
 For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
@@ -145,7 +145,7 @@ In a setup for a repository containing one codebase and one `pipeline.yml`, this
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
-When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/v3/cli-pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
+When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
 
 ### Step level
 

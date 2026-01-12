@@ -69,7 +69,7 @@ For AWS environments, using the environment variable approach is recommended as 
 
 ### Depot CLI installation
 
-Depot integrates with Docker via a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed on your EC2 agents to enable remote builds. You can install it in your [agent bootstrap script](/docs/agent/v3/cli-bootstrap#running-the-bootstrap-usage) or as part of your build steps.
+Depot integrates with Docker via a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed on your EC2 agents to enable remote builds. You can install it in your [agent bootstrap script](/docs/agent/v3/cli/reference/bootstrap#running-the-bootstrap-usage) or as part of your build steps.
 
 Install the Depot CLI in your agent bootstrap script:
 

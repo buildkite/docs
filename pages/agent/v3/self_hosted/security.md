@@ -75,7 +75,7 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 > 🚧 Custom hooks and environment variables
 > If you have a custom `command` hook, using `no-command-eval` will have no effect on your command execution. See [Allowing a list of plugins](#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) and [Custom bootstrap scripts](#customize-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
 > <p>
-> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands via environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/v3/cli-start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
+> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands via environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/v3/cli/reference/start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
 
 ### Disable local hooks
 

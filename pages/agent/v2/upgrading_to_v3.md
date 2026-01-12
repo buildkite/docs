@@ -27,8 +27,8 @@ You can test your updated agents in parallel to your existing agents by using ag
 Added:
 
 * [Plugins](/docs/pipelines/integrations/plugins) for sharing functionality between pipelines and customizing how agents behave
-* [Variable interpolation](/docs/agent/v3/cli-pipeline) in `pipeline.yml`
-* [Build annotations](/docs/agent/v3/cli-annotate)
+* [Variable interpolation](/docs/agent/v3/cli/reference/pipeline) in `pipeline.yml`
+* [Build annotations](/docs/agent/v3/cli/reference/annotate)
 * [pre-exit hook](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)
 
 Changed:
@@ -36,7 +36,7 @@ Changed:
 * Agent meta-data has been renamed to "tags"
 * Much better Windows support, including .BAT hooks support
 * Checkout clean no longer ignores files in `.gitignore`
-* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](/docs/agent/v3/cli-bootstrap). This means it's written in Go and cross-platform.
+* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](/docs/agent/v3/cli/reference/bootstrap). This means it's written in Go and cross-platform.
 
 Deprecated:
 
@@ -103,7 +103,7 @@ steps:
 
 Previously we didn't support environment variable interpolation, such as `${MY_VARIABLE_NAME}` or `$MY_VARIABLE_NAME`. If you have any of these in your `pipeline.yml`, they will now be interpolated. To render the literal text, you will need to escape the dollar signs, for example `$$MY_VARIABLE_NAME`.
 
-See the [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) for more details.
+See the [environment variable substitution](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution) for more details.
 
 ### Checkout clean no longer ignores files in .gitignore
 

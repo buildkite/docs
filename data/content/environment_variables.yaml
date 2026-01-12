@@ -33,7 +33,7 @@ variables:
     default_value: "https://agent.buildkite.com/v3"
   - name: BUILDKITE_AGENT_EXPERIMENT
     desc: |
-      A list of the [experimental agent features](/docs/agent/v3#experimental-features) that are currently enabled. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/self-hosted/configure).
+      A list of the [experimental agent features](/docs/agent/v3#experimental-features) that are currently enabled. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli/reference/start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/self-hosted/configure).
     modifiable: false
     example: "experiment1,experiment2"
   - name: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
@@ -48,7 +48,7 @@ variables:
     example: "1a222222-e999-3636-8ddd-802222222222"
   - name: BUILDKITE_AGENT_META_DATA_*
     desc: |
-      The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/self-hosted/configure). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
+      The value of each [agent tag](/docs/agent/v3/cli/reference/start#setting-tags). The tag name is appended to the end of the variable name. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/self-hosted/configure). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
     modifiable: false
     example: '"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue", "BUILDKITE_AGENT_META_DATA_QUEUE=some-queue"'
   - name: BUILDKITE_AGENT_NAME
@@ -462,15 +462,15 @@ variables:
     example: "0"
   - name: BUILDKITE_S3_ACCESS_KEY_ID
     desc: |
-      The access key ID for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+      The access key ID for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
     example: "AKIAIOSFODNN7EXAMPLE"
   - name: BUILDKITE_S3_ACCESS_URL
     desc: |
-      The access URL for your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), if you are using a proxy. The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+      The access URL for your [private S3 bucket](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket), if you are using a proxy. The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
     example: "https://buildkite-artifacts.example.com/"
   - name: BUILDKITE_S3_ACL
     desc: |
-      The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+      The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
       Must be one of the following values which map to [S3 Canned ACL grants](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl).
     values:
@@ -483,15 +483,15 @@ variables:
     default_value: "public-read"
   - name: BUILDKITE_S3_DEFAULT_REGION
     desc: |
-      The region of your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+      The region of your [private S3 bucket](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
     default_value: "us-east-1"
   - name: BUILDKITE_S3_SECRET_ACCESS_KEY
     desc: |
-      The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks.
+      The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks.
     example: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
   - name: BUILDKITE_S3_SSE_ENABLED
     desc: |
-      Whether to enable encryption for the artifacts in your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+      Whether to enable encryption for the artifacts in your [private S3 bucket](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
     default_value: "false"
   - name: BUILDKITE_SHELL
     desc: |

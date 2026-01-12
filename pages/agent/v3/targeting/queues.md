@@ -6,7 +6,7 @@ Common use cases for queues include deployment agents, and pools of agents for s
 
 ## Setting an agent's queue
 
-An agent's queue is configured using an [agent tag](/docs/agent/v3/cli-start#setting-tags) as a [queue tag](/docs/agent/v3/cli-start#the-queue-tag). This configuration can be set at the [command line](/docs/agent/v3/cli-start) when starting the agent, the agent's [configuration file](/docs/agent/v3/self-hosted/configure), or through an environment variable.
+An agent's queue is configured using an [agent tag](/docs/agent/v3/cli/reference/start#setting-tags) as a [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag). This configuration can be set at the [command line](/docs/agent/v3/cli/reference/start) when starting the agent, the agent's [configuration file](/docs/agent/v3/self-hosted/configure), or through an environment variable.
 
 Agents can only be configured to listen on a single queue within a cluster.
 
@@ -34,7 +34,7 @@ buildkite-agent start --token "UNCLUSTERED-AGENT-TOKEN-VALUE" --tags "queue=deve
 
 ## The default queue
 
-If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli-start#setting-tags) the [queue tag](/docs/agent/v3/cli-start#the-queue-tag) (for example, `queue=linux-medium-x86`), the agent will accept jobs from the default queue as if you had set (that is, `queue=default`).
+If you don't configure a queue for your agent by [setting](/docs/agent/v3/cli/reference/start#setting-tags) the [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag) (for example, `queue=linux-medium-x86`), the agent will accept jobs from the default queue as if you had set (that is, `queue=default`).
 
 > 📘 Clusters without a default queue configured
 > If you start your agent without explicitly specifying an [existing queue in your cluster](/docs/agent/v3/targeting/queues/managing#setting-up-queues) _and_ a default queue is not configured in this cluster, then your agent will fail to start.

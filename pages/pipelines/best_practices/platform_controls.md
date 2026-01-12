@@ -201,7 +201,7 @@ Never ignore failing steps without a clear follow-up plan. Silent failures erode
 
 ## Build context and visibility with annotations
 
-Use [annotations](/docs/agent/v3/cli-annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help developer teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
+Use [annotations](/docs/agent/v3/cli/reference/annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help developer teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
 
 Platform teams can standardize annotation patterns across pipelines to include:
 

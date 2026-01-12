@@ -131,7 +131,7 @@ Learn more about [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines
 - Monitor queue saturation, wait times (p50/p95/p99), retry rates, and failure rates. You can use [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) to collect these metrics. Learn more about [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
 - Right-size agents and use spot instances for non-critical workloads.
 - Pre-bake [dependencies](/docs/pipelines/configure/dependencies) and cache within trust boundaries (for example, use S3/GCS with expiry).
-- Emit structured logs (JSON) with correlation IDs and use [Buildkite annotations](/docs/agent/v3/cli-annotate) for summaries.
+- Emit structured logs (JSON) with correlation IDs and use [Buildkite annotations](/docs/agent/v3/cli/reference/annotate) for summaries.
 - Document runbooks for common failure scenarios.
 
 ## Frequently asked questions (FAQ)

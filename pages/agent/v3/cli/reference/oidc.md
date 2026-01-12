@@ -10,7 +10,7 @@ Refer to the following documentation for more information:
 Learn more about how to restrict your Buildkite Agents' access to deployment environments like AWS, from the OIDC in [Buildkite Pipelines](/docs/pipelines/security/oidc) and with [AWS](/docs/pipelines/security/oidc/aws) documentation pages, as well as the [Buildkite Package Registries](/docs/package-registries/security/oidc) documentation page.
 
 > 📘
-> From version 3.104.0 of the Buildkite Agent, OIDC tokens are automatically redacted from build logs by default, with an optional `skip-redaction` flag to disable this behavior when needed. This behavior is similar to the [buildkite-agent secret get](/docs/agent/v3/cli-secret) command for redacting the token.
+> From version 3.104.0 of the Buildkite Agent, OIDC tokens are automatically redacted from build logs by default, with an optional `skip-redaction` flag to disable this behavior when needed. This behavior is similar to the [buildkite-agent secret get](/docs/agent/v3/cli/reference/secret) command for redacting the token.
 
 ## Request OIDC token
 
@@ -256,7 +256,7 @@ The following optional claims can be added, whose values are automatically gener
   <tr>
     <td><code>agent_tag:<var>NAME</var></code></td>
     <td>
-      <p>An <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a></p>
+      <p>An <a href="/docs/agent/v3/cli/reference/start#setting-tags">agent tag</a></p>
       <p><em>Example:</em> <code>agent_tag:queue</code></p>
     </td>
   </tr>

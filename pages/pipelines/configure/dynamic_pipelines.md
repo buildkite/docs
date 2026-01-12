@@ -46,7 +46,7 @@ steps:
 
 ## Dynamic pipeline templates
 
-If you need the ability to use pipelines from a central catalog, or enforce certain configuration rules, you can either use dynamic pipelines and the [`pipeline upload`](/docs/agent/v3/cli-pipeline#uploading-pipelines) command to make this happen or [write custom plugins](/docs/pipelines/integrations/plugins) and share them across your organization.
+If you need the ability to use pipelines from a central catalog, or enforce certain configuration rules, you can either use dynamic pipelines and the [`pipeline upload`](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) command to make this happen or [write custom plugins](/docs/pipelines/integrations/plugins) and share them across your organization.
 
 To use dynamic pipelines and the pipeline upload command, you'd make a pipeline that looks something like this:
 

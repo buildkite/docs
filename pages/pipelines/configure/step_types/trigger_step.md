@@ -186,7 +186,7 @@ Optional `build` attributes:
 
 ## Environment variables
 
-You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
+You can use [environment variable substitution](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution) to set attribute values:
 
 ```yml
 - trigger: "app-deploy"

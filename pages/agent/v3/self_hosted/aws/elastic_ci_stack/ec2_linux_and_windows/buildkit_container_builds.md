@@ -193,7 +193,7 @@ steps:
 
 ### ECR push with build arguments
 
-You can pass build arguments to customize your build based on Buildkite [metadata](/docs/agent/v3/cli-meta-data) or [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables).
+You can pass build arguments to customize your build based on Buildkite [metadata](/docs/agent/v3/cli/reference/meta-data) or [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables).
 
 ```yaml
 steps:

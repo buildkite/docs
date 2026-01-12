@@ -18,7 +18,7 @@ There are two ways to scale your build agents: horizontally across multiple mach
 
 ### Multiple agents on one machine
 
-The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/self-hosted/install) section. But the simplest example is to use the [`spawn` option](/docs/agent/v3/cli-start#spawn) when starting the agent:
+The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/self-hosted/install) section. But the simplest example is to use the [`spawn` option](/docs/agent/v3/cli/reference/start#spawn) when starting the agent:
 
 ```bash
 # After running the standard install instructions...

@@ -69,7 +69,7 @@ steps:
     command: buildkite-agent pipeline upload
 ```
 
-When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be [uploaded to Buildkite](/docs/agent/v3/cli-pipeline#uploading-pipelines) and will appear during the build.
+When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be [uploaded to Buildkite](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) and will appear during the build.
 
 > 📘
 > When using WSL2 or PowerShell Core, you cannot add a `buildkite-agent pipeline upload` command step directly in the YAML steps editor. To work around this, there are two options:
@@ -309,14 +309,14 @@ And your deployment pipeline's upload command could be:
 buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml
 ```
 
-For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/v3/cli-pipeline#uploading-pipelines) documentation.
+For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) documentation.
 
 ## Targeting specific agents
 
 To run [command steps](/docs/pipelines/configure/step-types/command-step) only on specific agents:
 
-1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli-start#setting-tags)
-1. In the pipeline command step, [set the agent property](/docs/agent/v3/cli-start#agent-targeting) in the command step
+1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli/reference/start#setting-tags)
+1. In the pipeline command step, [set the agent property](/docs/agent/v3/cli/reference/start#agent-targeting) in the command step
 
 For example to run commands only on agents running on macOS:
 
@@ -330,4 +330,4 @@ steps:
 
 ## Further documentation
 
-You can also upload pipelines from the command line using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli-pipeline) for a full list of the available parameters.
+You can also upload pipelines from the command line using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli/reference/pipeline) for a full list of the available parameters.

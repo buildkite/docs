@@ -75,7 +75,7 @@ Optional attributes:
   <tr id="agents">
     <td><code>agents</code></td>
     <td>
-      A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step.<br/>
+      A map of <a href="/docs/agent/v3/cli/reference/start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli/reference/start#agent-targeting">target specific agents</a> for this step.<br/>
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
@@ -89,7 +89,7 @@ Optional attributes:
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/glob-pattern-syntax">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
+      The <a href="/docs/pipelines/configure/glob-pattern-syntax">glob path</a> or paths of <a href="/docs/agent/v3/cli/reference/artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br/>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>

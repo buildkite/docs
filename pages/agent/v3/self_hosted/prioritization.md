@@ -20,7 +20,7 @@ When selecting from a pool of agents of the same priority level, Buildkite's job
 
 ### Job targeting constraints
 
-Jobs can be targeted to specific agents using [agent tags](/docs/agent/v3/cli-start#setting-tags) that define queues, and other capabilities.
+Jobs can be targeted to specific agents using [agent tags](/docs/agent/v3/cli/reference/start#setting-tags) that define queues, and other capabilities.
 
 ## Setting agent priority
 
@@ -57,7 +57,7 @@ Agent priority allows you to apply sophisticated load balancing strategies withi
 
 ### Common load balancing
 
-Distributing jobs evenly across multiple machines can be accomplished with the `--spawn-with-priority` command-line [option](/docs/agent/v3/cli-start#spawn-with-priority):
+Distributing jobs evenly across multiple machines can be accomplished with the `--spawn-with-priority` command-line [option](/docs/agent/v3/cli/reference/start#spawn-with-priority):
 
 **Machine A:**
 

@@ -37,7 +37,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog), [Snyk](https://snyk.io/), [Aqua Trivy](https://www.aquasec.com/products/trivy/) (also available as a [Trivy Buildkite plugin](https://buildkite.com/resources/plugins/equinixmetal-buildkite/trivy-buildkite-plugin/)), or cloud security services across your software supply chain.
 - Use [pipeline templates](/docs/pipelines/governance/templates) (a Buildkite [Enterprise](https://buildkite.com/pricing/) plan-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/v3/self-hosted/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
-- Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli-annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
+- Track dependencies using [Buildkite Annotations](/docs/agent/v3/cli/reference/annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
 - Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 
 ## Secrets management
@@ -52,7 +52,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Establish environment-specific [cluster](/docs/pipelines/clusters/manage-clusters) and [queue](/docs/agent/v3/targeting/queues/managing) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
 - Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
 - Use additional secret scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
-- Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/v3/cli-pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
+- Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/v3/cli/reference/pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
 - Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/v3/self-hosted/tokens#revoke-a-token) using the REST API for rapid containment.
 
 ## Buildkite Agent security
@@ -70,7 +70,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
 - Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
-- Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/v3/cli-start#no-plugins) to prevent the agent from loading any plugins.
+- Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/v3/cli/reference/start#no-plugins) to prevent the agent from loading any plugins.
 - Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/self-hosted/security).
 
 > 📘 On better Buildkite Agent security
@@ -110,9 +110,9 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 - Enforce encryption at rest and in transit when storing and transferring build artifacts.
 - Use cloud storage for storing build artifacts. You can use [Buildkite Package Registries](/docs/package-registries/) or other supported private cloud storage options:
-  * [AWS S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
-  * [Google Cloud Storage buckets](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
-  * [Azure Blob containers](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
+  * [AWS S3 buckets](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket)
+  * [Google Cloud Storage buckets](/docs/agent/v3/cli/reference/artifact#using-your-private-google-cloud-bucket)
+  * [Azure Blob containers](/docs/agent/v3/cli/reference/artifact#using-your-private-azure-blob-container)
 - Implement artifact signing using Buildkite's [SLSA provenance](/docs/package-registries/security/slsa-provenance) feature, or alternatively using [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and establish verification processes before deployment to document artifact provenance and detect tampering.
 - Enforce [KMS signing](/docs/agent/v3/self-hosted/signed-pipelines#aws-kms-managed-key-setup) of your pipelines.
 

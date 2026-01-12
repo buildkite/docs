@@ -21,7 +21,7 @@ In Elastic CI Stack for AWS, the build context is the checked-out repository on 
 If your `docker-compose.yml` references files outside the repository directory, ensure they are:
 
 - Included in your repository
-- Available through [Buildkite artifact uploads](/docs/agent/v3/cli-artifact#uploading-artifacts) from previous steps
+- Available through [Buildkite artifact uploads](/docs/agent/v3/cli/reference/artifact#uploading-artifacts) from previous steps
 - Accessible via network mounts or external storage
 
 For build caching or sharing artifacts across builds, use:

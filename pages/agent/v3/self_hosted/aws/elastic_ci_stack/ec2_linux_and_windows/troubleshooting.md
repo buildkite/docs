@@ -104,7 +104,7 @@ For better resilience, you can use step retries to automatically retry a job tha
 
 If you have multiple stacks, check that they listen to unique queues—determined by the `BuildkiteQueue` parameter. Each Elastic CI Stack for AWS you launch through CloudFormation should have a unique value for this parameter. Otherwise, each scales out independently to service all the jobs on the queue, but the jobs will be distributed amongst them. This will mean that your stacks are over-provisioned.
 
-This could also happen if you have agents that are not part of an Elastic CI Stack for AWS [started with a tag](/docs/agent/v3/cli-start#tags) of the form `queue=<name of queue>`. Any agents started like this will compete with a stack for jobs, but the stack will scale out as if this competition did not exist.
+This could also happen if you have agents that are not part of an Elastic CI Stack for AWS [started with a tag](/docs/agent/v3/cli/reference/start#tags) of the form `queue=<name of queue>`. Any agents started like this will compete with a stack for jobs, but the stack will scale out as if this competition did not exist.
 
 ## Instances fail to boot Buildkite Agent
 

@@ -478,7 +478,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.artifacts",
         "supported": "Partially",
-        "notes": "Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit `buildkite-agent artifact download` [command](/docs/agent/v3/cli-artifact#downloading-artifacts) is run beforehand within the generated Buildkite Pipelines command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the `artifact_paths` [key](/docs/pipelines/configure/step-types/command-step). Each file found matching (or via glob syntax) will be uploaded to Buildkite's [Artifact storage](/docs/agent/v3/cli-artifact) that can be obtained in later steps."
+        "notes": "Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit `buildkite-agent artifact download` [command](/docs/agent/v3/cli/reference/artifact#downloading-artifacts) is run beforehand within the generated Buildkite Pipelines command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the `artifact_paths` [key](/docs/pipelines/configure/step-types/command-step). Each file found matching (or via glob syntax) will be uploaded to Buildkite's [Artifact storage](/docs/agent/v3/cli/reference/artifact) that can be obtained in later steps."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.caches",
@@ -508,7 +508,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.docker",
         "supported": "No",
-        "notes": "The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider [tagging](/docs/agent/v3/cli-start#tags) agents with `docker=true` to ensure Buildkite Pipelines command steps requiring hosts with Docker installed and configured to accept and run specific jobs."
+        "notes": "The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider [tagging](/docs/agent/v3/cli/reference/start#tags) agents with `docker=true` to ensure Buildkite Pipelines command steps requiring hosts with Docker installed and configured to accept and run specific jobs."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.fail-fast",
@@ -533,7 +533,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.oidc",
         "supported": "Yes",
-        "notes": "Open ID Connect configuration that will be applied for this Bitbucket pipeline step. The generated command step in the corresponding Buildkite pipeline will [request](/docs/agent/v3/cli-oidc#request-oidc-token) an OIDC token and export it into the job environment as `BITBUCKET_STEP_OIDC_TOKEN` (to be passed to `sts` to assume an AWS role for example)."
+        "notes": "Open ID Connect configuration that will be applied for this Bitbucket pipeline step. The generated command step in the corresponding Buildkite pipeline will [request](/docs/agent/v3/cli/reference/oidc#request-oidc-token) an OIDC token and export it into the job environment as `BITBUCKET_STEP_OIDC_TOKEN` (to be passed to `sts` to assume an AWS role for example)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.runs-on",
@@ -653,7 +653,7 @@ Bitbucket Pipelines' [Custom (manual) pipeline variables](https://support.atlass
       {
         "key": "pipelines.&lt;start-condition&gt;.variables",
         "supported": "Partially",
-        "notes": "Custom variables that are passed to Bitbucket pipeline steps. Each variable defined in a Bitbucket pipeline step is translated to a Buildkite [input step](/docs/pipelines/configure/step-types/input-step) with/without defaults and allowed values specified below. <br/><br/> Variables that are translated into the corresponding [input step](/docs/pipelines/configure/step-types/input-step) within the generated Buildkite pipeline will require to be fetched in subsequent steps through a `buildkite-agent meta-data get` [command](/docs/agent/v3/cli-meta-data#getting-data)."
+        "notes": "Custom variables that are passed to Bitbucket pipeline steps. Each variable defined in a Bitbucket pipeline step is translated to a Buildkite [input step](/docs/pipelines/configure/step-types/input-step) with/without defaults and allowed values specified below. <br/><br/> Variables that are translated into the corresponding [input step](/docs/pipelines/configure/step-types/input-step) within the generated Buildkite pipeline will require to be fetched in subsequent steps through a `buildkite-agent meta-data get` [command](/docs/agent/v3/cli/reference/meta-data#getting-data)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.variables.name",
