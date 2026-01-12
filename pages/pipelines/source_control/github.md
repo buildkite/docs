@@ -267,14 +267,14 @@ After creating the GitHub App, you can install this app into your account. To in
 
 ### Generating tokens
 
-The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks).
 
 #### Configure agent hook
 
 > 📘 OpenSSL package requirement
 > The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite Agent performing the checkout.
 
-In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
+In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/self-hosted/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 
 ```bash
 #!/usr/bin/env bash

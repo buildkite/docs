@@ -71,7 +71,7 @@ resource "buildkite_pipeline" "svc_a" {
 
 ## Secrets management
 
-- Fetch secrets at runtime via [agent hooks](/docs/agent/v3/hooks) (`environment`, `pre-command`) from AWS Secrets Manager, GCP Secret Manager, or Vault.
+- Fetch secrets at runtime via [agent hooks](/docs/agent/v3/self-hosted/hooks) (`environment`, `pre-command`) from AWS Secrets Manager, GCP Secret Manager, or Vault.
 - Use OIDC plugins: [AWS Assume Role plugin](https://buildkite.com/resources/plugins/cultureamp/aws-assume-role-buildkite-plugin/) or [GCP Workload Identity Federation Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/gcp-workload-identity-federation-buildkite-plugin/).
 - Scope secrets by environment and queue. Never give CI builds access to production credentials.
 - Use different IAM roles per queue and enable audit logging (using AWS CloudTrail or GCP Audit Logs).
@@ -87,7 +87,7 @@ resource "buildkite_pipeline" "svc_a" {
     * `production-deploy` - restricted, long-lived, audit-logged
 
 - Prefer ephemeral agents for hermetic builds, and autoscale on queue depth. Maintain purpose-built base images (`builder`, `security-scanner`, `mobile`) and rebuild often (for example, weekly).
-- Use [agent hooks](/docs/agent/v3/hooks) to load credentials, validate requirements, and clean up.
+- Use [agent hooks](/docs/agent/v3/self-hosted/hooks) to load credentials, validate requirements, and clean up.
 
 ## Dynamic pipelines
 

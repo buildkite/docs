@@ -45,7 +45,7 @@ When running agents on individual Compute Engine instances, consider:
 
 ## Uploading artifacts to Google Cloud Storage
 
-You can upload the [artifacts](/docs/pipelines/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/v3/hooks) (note that this cannot be set via the Buildkite web interface, API, or during pipeline upload):
+You can upload the [artifacts](/docs/pipelines/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/v3/self-hosted/hooks) (note that this cannot be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```shell
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
@@ -108,4 +108,4 @@ To continue exploring the possibilities of using the Buildkite Agent on Google C
 - [Configuration parameters](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters)
 - [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)
 - [Agent configuration](/docs/agent/v3/self-hosted/configure)
-- [Agent hooks](/docs/agent/v3/hooks)
+- [Agent hooks](/docs/agent/v3/self-hosted/hooks)

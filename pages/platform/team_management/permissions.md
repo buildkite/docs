@@ -100,7 +100,7 @@ You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR
 > 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
-For example, the following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
+For example, the following [`environment` hook](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)
 prevents anyone from outside of the ops team from running a build on the agent:
 
 ```bash

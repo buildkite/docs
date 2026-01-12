@@ -148,4 +148,4 @@ During the generation of the Kubernetes `podSpec`, the `podSpec` receives some o
 
 Be aware that currently, environment variables defined as part of a `podSpec` take higher precedence over environment variables set using the `env` keyword in the pipeline.yaml file.
 
-If you have a need for a more flexible environment variable setup, use [Agent hooks](/docs/agent/v3/hooks) to implement a precedence rule suite to your organization.
+If you have a need for a more flexible environment variable setup, use [Agent hooks](/docs/agent/v3/self-hosted/hooks) to implement a precedence rule suite to your organization.

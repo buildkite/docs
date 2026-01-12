@@ -167,7 +167,7 @@ Most configuration options can be specified as environment variables when starti
 BUILDKITE_AGENT_TAGS="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
-These variables cannot be modified through the Buildkite web interface, API or using pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/hooks).
+These variables cannot be modified through the Buildkite web interface, API or using pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/self-hosted/hooks).
 
 ## Agent Naming
 

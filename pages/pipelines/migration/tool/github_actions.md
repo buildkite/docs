@@ -83,7 +83,7 @@ You might need to adjust the converted Buildkite pipeline output to ensure it is
 
 | <div style="width: 100px;">Key</div> | Supported | Notes |
 | --- | ---------- | ----- |
-| `defaults.run` | No | Buildkite pipeline definitions allow for common pipeline configurations to be applied with [YAML anchors](/docs/plugins/using#using-yaml-anchors-with-plugins), as well as setting up customised [agent](/docs/agent/v3/hooks#agent-lifecycle-hooks) and [job](/docs/agent/v3/hooks#job-lifecycle-hooks) lifecycle hooks. |
+| `defaults.run` | No | Buildkite pipeline definitions allow for common pipeline configurations to be applied with [YAML anchors](/docs/plugins/using#using-yaml-anchors-with-plugins), as well as setting up customised [agent](/docs/agent/v3/self-hosted/hooks#agent-lifecycle-hooks) and [job](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks) lifecycle hooks. |
 {: class="responsive-table"}
 
 ## Environment

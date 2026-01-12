@@ -473,7 +473,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.after-script",
         "supported": "No",
-        "notes": "The actions that a Bitbucket pipeline will undertake after the commands in the `script` key are run. For similar behavior in Buildkite Pipelines, use a [repository-level](/docs/agent/v3/hooks#hook-locations-repository-hooks) `pre-exit` hook running at the latter end of the [job lifecycle](/docs/agent/v3/hooks#job-lifecycle-hooks)."
+        "notes": "The actions that a Bitbucket pipeline will undertake after the commands in the `script` key are run. For similar behavior in Buildkite Pipelines, use a [repository-level](/docs/agent/v3/self-hosted/hooks#hook-locations-repository-hooks) `pre-exit` hook running at the latter end of the [job lifecycle](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.artifacts",

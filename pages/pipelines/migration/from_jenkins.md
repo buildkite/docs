@@ -541,7 +541,7 @@ Explore these Buildkite resources to learn more about Buildkite's features and f
 - [Buildkite Agent overview](/docs/agent/v3/cli-step) page for more information about the Buildkite Agent guidance on how to configure it.
 - [Plugins directory](https://buildkite.com/resources/plugins/) for a catalog of Buildkite- as well as community-developed plugins to enhance your pipeline functionality.
 - [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to learn more about how to generate pipeline definitions at build-time with the power, and how to facilitate this feature with the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
-- [Buildkite Agent hooks](/docs/agent/v3/hooks) to extend or override the default behavior of Buildkite Agents at different stages of its lifecycle.
+- [Buildkite Agent hooks](/docs/agent/v3/self-hosted/hooks) to extend or override the default behavior of Buildkite Agents at different stages of its lifecycle.
 - [Using conditions](/docs/pipelines/configure/conditionals) to run pipeline builds or steps, only when specific conditions have been met.
 - [Annotations](/docs/agent/v3/cli-annotate) that allow you to add additional information to your build result pages using Markdown.
 - [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) overview pages, which lead to details on how to manage secrets within your Buildkite infrastructure, as managing [permissions](/docs/pipelines/security/permissions) for your teams and Buildkite pipelines themselves.
