@@ -59,7 +59,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stac
 **Pros:**
 
 - Fully managed infrastructure with zero operational overhead
-- Built-in caching for [Git mirrors](/docs/agent/v3/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes) for temporary data storage
+- Built-in caching for [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes) for temporary data storage
 - Isolated clusters that provide strong security boundaries
 - Per-minute billing with automatic scaling for bursty workloads
 - Ideal for highly parallel test suites
@@ -89,7 +89,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 
 ## Agent lifecycle
 
-- Long-running agents provide caching benefits ([Git mirrors](/docs/agent/v3/git-mirrors), [dependencies](/docs/pipelines/configure/dependencies)):
+- Long-running agents provide caching benefits ([Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors), [dependencies](/docs/pipelines/configure/dependencies)):
   * Retire oldest agents first during scale-down
   * Add telemetry to detect flaky agents
 - Ephemeral agents reduce attack surface and configuration drift. [Buildkite hosted agents](/docs/pipelines/hosted-agents/linux#agent-images) support repository caches and shared volumes.

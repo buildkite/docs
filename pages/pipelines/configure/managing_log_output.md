@@ -182,7 +182,7 @@ The default environment variable name patterns are:
 
 With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
 
-You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
+You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/self-hosted/configure#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
 
 ```sh
 redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_SOME_VALUE, FOO"

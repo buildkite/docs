@@ -33,7 +33,7 @@ The `environment` hook is a shell script that is sourced at the beginning of a j
 It runs within the job's shell, so you can use it to conditionally run commands and export secrets within the job.
 
 By default, the `environment` hook file is stored in the agent's `hooks` directory.
-The path to this directory varies by platform; read the [installation instructions](/docs/agent/v3/self-hosted/installing) for the path on your platform.
+The path to this directory varies by platform; read the [installation instructions](/docs/agent/v3/self-hosted/install) for the path on your platform.
 The path can also be overridden by the [`hooks-path`](/docs/agent/v3/hooks#hook-locations-agent-hooks) setting.
 
 For example, to expose a Test Engine API token to a specific pipeline, create an `environment` script in your agent's `hooks` directory that checks for the pipeline slug before exporting the secret:

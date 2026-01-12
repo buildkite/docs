@@ -4,7 +4,7 @@ The Buildkite Agent is supported on macOS 11 (Big Sur) or newer using Homebrew o
 
 ## Installation
 
-We recommend installing the agent using [Homebrew](http://brew.sh/) so you can use the [Buildkite formula repository](https://github.com/buildkite/homebrew-buildkite). If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/self-hosted/installing/linux) install instructions.
+We recommend installing the agent using [Homebrew](http://brew.sh/) so you can use the [Buildkite formula repository](https://github.com/buildkite/homebrew-buildkite). If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/self-hosted/install/linux) install instructions.
 
 To install the agent using Homebrew:
 
@@ -68,7 +68,7 @@ The typical paths for Mac computers with Intel processors are:
 
 ## Configuration
 
-See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+See the [configuration documentation](/docs/agent/v3/self-hosted/configure) for an explanation of each configuration setting.
 
 ## Which user the agent runs as
 
@@ -108,7 +108,7 @@ tail -f ~/.buildkite-agent/log/buildkite-agent.log
 
 Launching and managing multiple agents can be done using `launchd`.
 
-If you need the same configuration on each agent, either configure the `launchd` service to use the [`--spawn` flag](/docs/agent/v3/cli-start#starting-an-agent-options) on the `buildkite-agent`, or the [`spawn` setting](/docs/agent/v3/configuration#spawn) in the `buildkite-agent.cfg` file.
+If you need the same configuration on each agent, either configure the `launchd` service to use the [`--spawn` flag](/docs/agent/v3/cli-start#starting-an-agent-options) on the `buildkite-agent`, or the [`spawn` setting](/docs/agent/v3/self-hosted/configure#spawn) in the `buildkite-agent.cfg` file.
 
 Using the existing agent `plist`, add the spawn flag to the `ProgramArguments` and change the number to how many agents you want to run.
 

@@ -22,7 +22,7 @@ can access the instance.
 	1. Disable **Require password** in **System Preferences** > **Security & Privacy** > **General**.
 	1. Set system sleep in **System Preferences** > **Energy Saver** > **Turn display off after** to **Never**.
 	1. Disable the screen saver in **System Preferences** > **Desktop & Screen Saver** > **Show screen saver after**.
-1. Follow the [macOS installation guide](/docs/agent/v3/self-hosted/installing/macos#installation)
+1. Follow the [macOS installation guide](/docs/agent/v3/self-hosted/install/macos#installation)
 instructions to install the Buildkite agent using Homebrew and configure
 starting on login.
 1. Verify that the Buildkite agent has connected to buildkite.com with your

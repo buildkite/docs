@@ -18,7 +18,7 @@ If you didn't install the agent using the above packages, update the agent like 
 
 ## Upgrading from a 2.0 agent
 
-To upgrade, install the new 3.0 agent using one of the [standard installation methods](/docs/agent/v3/self-hosted/installing). To make installation easier, there are packages for each of the major operating systems.
+To upgrade, install the new 3.0 agent using one of the [standard installation methods](/docs/agent/v3/self-hosted/install). To make installation easier, there are packages for each of the major operating systems.
 
 You can test your updated agents in parallel to your existing agents by using agent tags to create a new queue for 3.0 builds.
 

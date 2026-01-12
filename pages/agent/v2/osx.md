@@ -1,7 +1,7 @@
 # Installing Buildkite Agent on macOS
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/installing/macos">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/install/macos">see the latest version of this document</a>.
 
 The Buildkite Agent can be installed on macOS 10.9 or higher using Homebrew or our installer script, and supports pre-release versions of both OS X and Xcode.
 

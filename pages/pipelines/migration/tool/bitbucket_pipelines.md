@@ -57,7 +57,7 @@ Bitbucket Pipelines' [`clone` property](https://support.atlassian.com/bitbucket-
 
 | <div style="width: 50px;">Key</div>  | Supported | Notes |
 | --- | --- | --- |
-| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/configuration) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` used in a Bitbucket pipeline will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
+| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/self-hosted/configure) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` used in a Bitbucket pipeline will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
 {: class="responsive-table"}
 
 ## Definitions
@@ -498,7 +498,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.clone",
         "supported": "Partially",
-        "notes": "Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite Agent via [configuration](/docs/agent/v3/configuration) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) – or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property)."
+        "notes": "Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite Agent via [configuration](/docs/agent/v3/self-hosted/configure) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) – or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.deployment",

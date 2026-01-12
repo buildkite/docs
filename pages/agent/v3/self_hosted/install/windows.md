@@ -44,7 +44,7 @@ See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for 
 
 ## Configuration
 
-The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/self-hosted/configure) for an explanation of each configuration setting.
 
 There are two options to be aware of for this initial setup:
 
@@ -125,7 +125,7 @@ On Windows, all commands run as the invoking user.
 
 You can use Buildkite on Windows through WSL2, but it has limitations. At present (12 January 2022), hooks and plugins both have issues. We recommend using CMD (default) or PowerShell 5.x instead.
 
-To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/self-hosted/installing/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
+To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/self-hosted/install/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
 
 > 📘
 > Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.

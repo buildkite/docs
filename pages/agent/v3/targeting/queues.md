@@ -6,7 +6,7 @@ Common use cases for queues include deployment agents, and pools of agents for s
 
 ## Setting an agent's queue
 
-An agent's queue is configured using an [agent tag](/docs/agent/v3/cli-start#setting-tags) as a [queue tag](/docs/agent/v3/cli-start#the-queue-tag). This configuration can be set at the [command line](/docs/agent/v3/cli-start) when starting the agent, the agent's [configuration file](/docs/agent/v3/configuration), or through an environment variable.
+An agent's queue is configured using an [agent tag](/docs/agent/v3/cli-start#setting-tags) as a [queue tag](/docs/agent/v3/cli-start#the-queue-tag). This configuration can be set at the [command line](/docs/agent/v3/cli-start) when starting the agent, the agent's [configuration file](/docs/agent/v3/self-hosted/configure), or through an environment variable.
 
 Agents can only be configured to listen on a single queue within a cluster.
 

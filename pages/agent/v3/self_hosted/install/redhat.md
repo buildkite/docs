@@ -87,7 +87,7 @@ See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for 
 
 ## Configuration
 
-The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/self-hosted/configure) for an explanation of each configuration setting.
 
 ## Which user the agent runs as
 
@@ -95,7 +95,7 @@ On Red Hat, the Buildkite Agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 
-<%= render_markdown partial: 'agent/v3/self_hosted/installing/linux_multiple_agents' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/linux_multiple_agents' %>
 
 ## Upgrading
 
@@ -105,4 +105,4 @@ sudo yum clean expire-cache && sudo yum update buildkite-agent
 
 ## Systemd modifications
 
-<%= render_markdown partial: 'agent/v3/self_hosted/installing/linux_systemd_modifications' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/linux_systemd_modifications' %>

@@ -22,7 +22,7 @@ ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
 
 If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
 
-Automatic ssh-keyscan can be disabled by setting [`no-ssh-keyscan`](/docs/agent/v3/configuration#no-ssh-keyscan):
+Automatic ssh-keyscan can be disabled by setting [`no-ssh-keyscan`](/docs/agent/v3/self-hosted/configure#no-ssh-keyscan):
 
 - Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
 - Command line flag: `--no-ssh-keyscan`
@@ -53,7 +53,7 @@ repository on GitHub.
 
 As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
 
-You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
+You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/self-hosted/configure#no-plugins) setting.
 
 If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#sign-pipelines).
 
@@ -66,7 +66,7 @@ Once disabled your build steps will need to be checked into your repository as s
 
 This option is intended to protect your infrastructure from a scenario where Buildkite itself gets compromised, and subsequently sends malicious commands to your agents. It is not designed, nor effective at protecting against malicious actors with commit access to your repositories.
 
-Command line evaluation can be disabled by setting [`no-command-eval`](/docs/agent/v3/configuration#no-command-eval):
+Command line evaluation can be disabled by setting [`no-command-eval`](/docs/agent/v3/self-hosted/configure#no-command-eval):
 
 - Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
 - Command line flag: `--no-command-eval`
@@ -86,7 +86,7 @@ run within a Docker container or a chroot environment), you should also disable
 local hooks so that your security measures cannot be evaded with local hooks.
 Disabling local hooks also disables plugins from all sources.
 
-You can disable local hooks with the [`no-local-hooks`](/docs/agent/v3/configuration#no-local-hooks)
+You can disable local hooks with the [`no-local-hooks`](/docs/agent/v3/self-hosted/configure#no-local-hooks)
 setting.
 
 If local hooks are disabled and one is in the checkout, the job will fail.
@@ -152,7 +152,7 @@ You can sign the steps your pipeline runs for extra security. This allows the ag
 ## Customize the bootstrap
 
 The Buildkite Agent comes with a default bootstrap handler, but can be
-[configured](/docs/agent/v3/configuration#bootstrap-script) to run your own
+[configured](/docs/agent/v3/self-hosted/configure#bootstrap-script) to run your own
 instead. Providing your own bootstrap provides the highest level of security and
 control of your agent. You can use it to customize your agent, sanitize command
 output, and implement your own security logic.

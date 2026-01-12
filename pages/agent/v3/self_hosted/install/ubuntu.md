@@ -83,7 +83,7 @@ You can override this default user through a [systemd modification](#systemd-mod
 
 ## Running multiple agents
 
-<%= render_markdown partial: 'agent/v3/self_hosted/installing/linux_multiple_agents' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/linux_multiple_agents' %>
 
 ## Upgrading
 
@@ -95,4 +95,4 @@ You can override this default user through a [systemd modification](#systemd-mod
 
 ## Systemd modifications
 
-<%= render_markdown partial: 'agent/v3/self_hosted/installing/linux_systemd_modifications' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/linux_systemd_modifications' %>

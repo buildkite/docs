@@ -28,10 +28,10 @@ Configure Git mirroring using the `--git-mirrors-path` flag on agents. This flag
 
 Use these agent configuration options:
 
-- [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
-- [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
-- [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
-- [git-mirrors-skip-update](/docs/agent/v3/configuration#git-mirrors-skip-update)
+- [git-clone-mirror-flags](/docs/agent/v3/self-hosted/configure#git-clone-mirror-flags)
+- [git-mirrors-lock-timeout](/docs/agent/v3/self-hosted/configure#git-mirrors-lock-timeout)
+- [git-mirrors-path](/docs/agent/v3/self-hosted/configure#git-mirrors-path)
+- [git-mirrors-skip-update](/docs/agent/v3/self-hosted/configure#git-mirrors-skip-update)
 
 ## Git submodules
 

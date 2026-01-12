@@ -26,12 +26,12 @@ For example, to install on an Ubuntu-based instance:
 
 1. Launch an instance using the latest Ubuntu LTS image [through the console](https://console.cloud.google.com/compute/instancesAdd)
 1. Connect using SSH (via the console SSH button or `gcloud compute ssh`)
-1. Follow the [setup instructions for Ubuntu](/docs/agent/v3/self-hosted/installing/ubuntu)
+1. Follow the [setup instructions for Ubuntu](/docs/agent/v3/self-hosted/install/ubuntu)
 
 For other Linux distributions, see:
 
-- [Debian](/docs/agent/v3/self-hosted/installing/debian)
-- [Red Hat/CentOS](/docs/agent/v3/self-hosted/installing/redhat)
+- [Debian](/docs/agent/v3/self-hosted/install/debian)
+- [Red Hat/CentOS](/docs/agent/v3/self-hosted/install/redhat)
 
 ### Configuring agents for production use
 
@@ -107,5 +107,5 @@ To continue exploring the possibilities of using the Buildkite Agent on Google C
 - [Terraform setup guide](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/terraform)
 - [Configuration parameters](/docs/agent/v3/self-hosted/gcp/elastic-ci-stack/configuration-parameters)
 - [Buildkite Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)
-- [Agent configuration](/docs/agent/v3/configuration)
+- [Agent configuration](/docs/agent/v3/self-hosted/configure)
 - [Agent hooks](/docs/agent/v3/hooks)

@@ -124,7 +124,7 @@ If running self-hosted Buildkite Agents, you'll need to consider the following:
 
 You'll continue to adjust the agent configuration as you monitor performance to optimize build times and resource usage for your needs.
 
-See the [Installation](/docs/agent/v3/self-hosted/installing/) guides when you're ready to install an agent and follow the instructions for your infrastructure type.
+See the [Installation](/docs/agent/v3/self-hosted/install/) guides when you're ready to install an agent and follow the instructions for your infrastructure type.
 
 ## Pipeline translation fundamentals
 

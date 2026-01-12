@@ -18,7 +18,7 @@ There are two ways to scale your build agents: horizontally across multiple mach
 
 ### Multiple agents on one machine
 
-The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/self-hosted/installing) section. But the simplest example is to use the [`spawn` option](/docs/agent/v3/cli-start#spawn) when starting the agent:
+The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/self-hosted/install) section. But the simplest example is to use the [`spawn` option](/docs/agent/v3/cli-start#spawn) when starting the agent:
 
 ```bash
 # After running the standard install instructions...
@@ -41,7 +41,7 @@ buildkite-agent start --tags queue=deploy
 #### Coordinating multiple agents
 
 > 🛠️ Experimental feature
-> To use it, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
+> To use it, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
 > This requires Agent v3.47.0 or later.
 
 Multiple agents on a single host can sometimes interfere with one another. For example, a pipeline might contain commands like `docker prune` or `apt upgrade`, but these commands fail if another job runs the same command at the same time.
@@ -66,7 +66,7 @@ buildkite-agent lock release "docker prune" "${token}"
 
 The secret to fast builds is running as many build agents as you can. The best way to do that is to have many machines running build agents. These machines can be anything ranging from your laptop, a few spare computers in your office, to a fleet of thousands of cloud compute instances.
 
-The Buildkite agent should run on any hardware and any cloud compute provider. It is built to be flexible, and can be composed in any way that suits the platform, infrastructure, or workload. The [installation instructions](/docs/agent/v3/self-hosted/installing) demonstrate how to run the Buildkite agent across various platforms.
+The Buildkite agent should run on any hardware and any cloud compute provider. It is built to be flexible, and can be composed in any way that suits the platform, infrastructure, or workload. The [installation instructions](/docs/agent/v3/self-hosted/install) demonstrate how to run the Buildkite agent across various platforms.
 
 For example, you could start several [Google Cloud Compute instances](/docs/agent/v3/self-hosted/gcp), then install and start build agents. These instructions can be automated using infrastructure as code tools like [Terraform](https://www.terraform.io), and then [add auto-scaling rules](#auto-scaling-your-build-agents) so you always have enough capacity.
 

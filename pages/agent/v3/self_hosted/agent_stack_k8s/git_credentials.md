@@ -1,6 +1,6 @@
 # Git credentials
 
-Similarly to a standalone [Buildkite Agent installation](/docs/agent/v3/self-hosted/installing), to access and clone private Git repositories, Git credentials must be made available for the Agent to use. These credentials can be in the form of an SSH key for cloning over `ssh://`, or using a `.git-credentials` file for cloning over `https://`.
+Similarly to a standalone [Buildkite Agent installation](/docs/agent/v3/self-hosted/install), to access and clone private Git repositories, Git credentials must be made available for the Agent to use. These credentials can be in the form of an SSH key for cloning over `ssh://`, or using a `.git-credentials` file for cloning over `https://`.
 
 ## Cloning repositories using SSH keys
 

@@ -3,7 +3,7 @@
 > 📘 Minimum version requirement
 > To implement the agent configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required.
 
-The `agent-config` block within `values.yaml` can be used to set a subset of the [Buildkite Agent configuration](/docs/agent/v3/configuration) options.
+The `agent-config` block within `values.yaml` can be used to set a subset of the [Buildkite Agent configuration](/docs/agent/v3/self-hosted/configure) options.
 
 ```yaml
 # values.yaml
