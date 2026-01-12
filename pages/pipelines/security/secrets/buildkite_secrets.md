@@ -6,7 +6,7 @@ Buildkite secrets:
 
 - Are scoped within a given [cluster](/docs/pipelines/clusters), and are accessible to all agents within that cluster only, since each cluster has its own unique secrets encryption key. The secrets are decrypted by the Buildkite control plane and then sent to the agent.
 
-- Are available to both [Buildkite hosted](/docs/pipelines/hosted-agents) as well as self-hosted agents.
+- Are available to both [Buildkite hosted](/docs/agent/v3/buildkite-hosted) as well as self-hosted agents.
 
 ## Access control
 

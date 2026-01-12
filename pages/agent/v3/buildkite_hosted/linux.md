@@ -32,7 +32,7 @@ If you need extra large instances, or longer running hosted agents (over 8 hours
 
 Linux hosted agents can operate concurrently when running your Buildkite pipeline jobs.
 
-<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
+<%= render_markdown partial: 'agent/v3/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
 The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Linux Concurrency** that applies to your plan.
 
@@ -42,7 +42,7 @@ When concurrency limits are exceeded, additional jobs will be queued until suffi
 
 ## Security
 
-<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
+<%= render_markdown partial: 'agent/v3/buildkite_hosted/hosted_agents_security_explanation' %>
 
 ## Agent images
 

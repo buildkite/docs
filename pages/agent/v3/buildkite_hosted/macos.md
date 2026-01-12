@@ -12,7 +12,7 @@ Learn more about:
 
 - How to configure a macOS hosted agent in [Create a Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue).
 
-- How to use macOS hosted agents to [build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
+- How to use macOS hosted agents to [build iOS apps](/docs/agent/v3/buildkite-hosted/macos/getting-started-with-ios).
 
 - The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
 
@@ -34,7 +34,7 @@ If you have specific needs for Intel architecture machines, or longer running ho
 
 macOS hosted agents can operate concurrently when running your Buildkite pipeline jobs.
 
-<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_concurrency_explanation' %>
+<%= render_markdown partial: 'agent/v3/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
 The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Mac M4 Concurrency** that applies to your plan.
 
@@ -46,7 +46,7 @@ When concurrency limits are exceeded, additional jobs will be queued until suffi
 
 All standard macOS [Tahoe](#macos-tahoe), [Sequoia](#macos-sequoia) and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Support at support@buildkite.com.
 
-While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/pipelines/hosted-agents/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/pipelines/hosted-agents/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/pipelines/hosted-agents/cache-volumes).
+While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/agent/v3/buildkite-hosted/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/agent/v3/buildkite-hosted/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
@@ -283,6 +283,6 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 
 ## Security
 
-<%= render_markdown partial: 'pipelines/hosted_agents/hosted_agents_security_explanation' %>
+<%= render_markdown partial: 'agent/v3/buildkite_hosted/hosted_agents_security_explanation' %>
 
-Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/pipelines/hosted-agents#how-buildkite-hosted-agents-work).
+Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/agent/v3/buildkite-hosted#how-buildkite-hosted-agents-work).

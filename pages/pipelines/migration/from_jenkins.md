@@ -106,7 +106,7 @@ With a basic understanding of the differences between Buildkite and Jenkins, if 
 Buildkite Agents:
 
 - Are where your builds, tests, and deployments run.
-- Can either run as [Buildkite hosted agents](/docs/pipelines/hosted-agents), or on your infrastructure (known as _self-hosted_), providing flexibility and control over the environment and resources. Operating agents in a self-hosted environment is similar in approach to hosting nodes in Jenkins.
+- Can either run as [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), or on your infrastructure (known as _self-hosted_), providing flexibility and control over the environment and resources. Operating agents in a self-hosted environment is similar in approach to hosting nodes in Jenkins.
 
 If running self-hosted Buildkite Agents, you'll need to consider the following:
 

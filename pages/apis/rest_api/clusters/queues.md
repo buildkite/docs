@@ -227,7 +227,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configures this queue to use <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+      Configures this queue to use <a href="/docs/agent/v3/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
       <br>
       <em>Example:</em>
       <br/>
@@ -298,7 +298,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configures this queue to use <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+      Configures this queue to use <a href="/docs/agent/v3/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/targeting/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
       <br>
       <em>Example:</em>
       <br/>

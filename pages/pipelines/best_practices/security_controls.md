@@ -74,7 +74,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/v3/self-hosted/security).
 
 > 📘 On better Buildkite Agent security
-> For small teams with limited experience in hosting and hardening infrastructure, [Buildkite hosted agents](/docs/pipelines/hosted-agents) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent governance, risk, and compliance (GRC) requirements that mandate enhanced security postures, should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over security configurations and compliance controls.
+> For small teams with limited experience in hosting and hardening infrastructure, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent governance, risk, and compliance (GRC) requirements that mandate enhanced security postures, should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over security configurations and compliance controls.
 
 ## API access token compromise
 
@@ -99,7 +99,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 - For [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), implement a [zero trust architecture (ZTA)](https://www.ibm.com/think/topics/zero-trust) with least-privilege egress rules.
 - Monitor network traffic for anomalies or suspicious connection attempts from build agents.
-- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/pipelines/hosted-agents) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/self-hosted/gcp).
+- Consider taking your infrastructure fully into the cloud with the help of [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) or by running your agents in [AWS](/docs/agent/v3/aws) or in [Google Cloud](/docs/agent/v3/self-hosted/gcp).
 - Harden your cloud infrastructure perimeter using [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) or [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html) for the AWS services, or [Private Google Access](https://cloud.google.com/vpc/docs/private-google-access) for Google Cloud.
 
 ## Artifact storage and integrity

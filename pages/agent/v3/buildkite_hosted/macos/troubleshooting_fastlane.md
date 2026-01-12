@@ -1,6 +1,6 @@
 # Troubleshooting fastlane
 
-This guide is for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically when [using Buildkite Pipelines to build iOS apps](/docs/pipelines/hosted-agents/macos/getting-started-with-ios).
+This guide is for troubleshooting some common [fastlane](https://fastlane.tools/) issues in iOS development, specifically when [using Buildkite Pipelines to build iOS apps](/docs/agent/v3/buildkite-hosted/macos/getting-started-with-ios).
 
 ## Essential debugging steps
 

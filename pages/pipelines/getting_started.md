@@ -22,7 +22,7 @@ If you're already familiar with Buildkite Pipelines' architectures, continue on,
 
 ## Set up an agent
 
-The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which provides the quickest method to get up and running with Pipelines.
+The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), which provides the quickest method to get up and running with Pipelines.
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
@@ -35,7 +35,7 @@ You need at least one agent configured within its own queue and cluster to run b
 
 ### Create a Buildkite hosted agent
 
-You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
 

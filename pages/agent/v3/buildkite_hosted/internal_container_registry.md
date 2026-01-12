@@ -1,6 +1,6 @@
 # Internal container registry
 
-The _internal container registry_ is a feature of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which allows you to house Docker images built by your pipelines.
+The _internal container registry_ is a feature of [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), which allows you to house Docker images built by your pipelines.
 
 ## Internal container registry overview
 
@@ -8,9 +8,9 @@ Once a [Buildkite cluster has been set up](/docs/pipelines/clusters/manage-clust
 
 To use the internal container registry, you'll need to reference the pre-defined environment variable `$BUILDKITE_HOSTED_REGISTRY_URL` for the registry in Docker commands you use in your pipelines. The value of this environment variable defines the location for your cluster's internal container registry.
 
-The main advantage of using your internal container registry over [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) is that unlike cache volumes, the internal cache volume's storage is _deterministic_, which means that any commands you use in your pipelines to interact with this registry will interact directly with the relevant data stored in this registry. This is in contrast to the [non-deterministic nature of cache volumes](/docs/pipelines/hosted-agents/cache-volumes#lifecycle-non-deterministic-nature), where commands to retrieve data from your cache volume may instead retrieve it from a different source.
+The main advantage of using your internal container registry over [cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes) is that unlike cache volumes, the internal cache volume's storage is _deterministic_, which means that any commands you use in your pipelines to interact with this registry will interact directly with the relevant data stored in this registry. This is in contrast to the [non-deterministic nature of cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature), where commands to retrieve data from your cache volume may instead retrieve it from a different source.
 
-You can use built-in tools in your Buildkite hosted agents, such as [Docker Engine](https://docs.docker.com/engine/), as well as those you can include in an [agent image](/docs/pipelines/hosted-agents/linux#agent-images) through a Dockerfile for Linux hosted agents, such as [Crane](https://michaelsauter.github.io/crane/index.html) or [skopeo](https://github.com/containers/skopeo), or to interact with your internal container registry.
+You can use built-in tools in your Buildkite hosted agents, such as [Docker Engine](https://docs.docker.com/engine/), as well as those you can include in an [agent image](/docs/agent/v3/buildkite-hosted/linux#agent-images) through a Dockerfile for Linux hosted agents, such as [Crane](https://michaelsauter.github.io/crane/index.html) or [skopeo](https://github.com/containers/skopeo), or to interact with your internal container registry.
 
 ## Using your internal container registry
 

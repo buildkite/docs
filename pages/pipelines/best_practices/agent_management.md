@@ -54,12 +54,12 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stac
 
 ### Buildkite hosted agents
 
-[Buildkite hosted agents](/docs/pipelines/hosted-agents) provide fully managed infrastructure with isolated clusters and minimal operational overhead.
+[Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) provide fully managed infrastructure with isolated clusters and minimal operational overhead.
 
 **Pros:**
 
 - Fully managed infrastructure with zero operational overhead
-- Built-in caching for [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/pipelines/hosted-agents/cache-volumes#container-cache-volumes) for temporary data storage
+- Built-in caching for [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) and containers, as well as attachable [Cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes#container-cache-volumes) for temporary data storage
 - Isolated clusters that provide strong security boundaries
 - Per-minute billing with automatic scaling for bursty workloads
 - Ideal for highly parallel test suites
@@ -74,7 +74,7 @@ Learn more in [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stac
 
 There is no need to settle on a single architecture within your Buildkite organization as you utilize different stacks based on the needs and knowledge level in your teams.
 
-For example, a popular approach among Buildkite users is to have a self-managed agent fleet that is based on either [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) or cloud compute instances ([AWS](/docs/agent/v3/aws) or [Google Cloud Platform](/docs/agent/v3/self-hosted/gcp)), as well as on [Buildkite macOS hosted agents](/docs/pipelines/hosted-agents/macos) due to ease of management, clean development environments, and [optimized caching](/docs/pipelines/hosted-agents/cache-volumes) the latter provide. Different teams in those Buildkite organizations can utilize the stacks that are better suited to their needs.
+For example, a popular approach among Buildkite users is to have a self-managed agent fleet that is based on either [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) or cloud compute instances ([AWS](/docs/agent/v3/aws) or [Google Cloud Platform](/docs/agent/v3/self-hosted/gcp)), as well as on [Buildkite macOS hosted agents](/docs/agent/v3/buildkite-hosted/macos) due to ease of management, clean development environments, and [optimized caching](/docs/agent/v3/buildkite-hosted/cache-volumes) the latter provide. Different teams in those Buildkite organizations can utilize the stacks that are better suited to their needs.
 
 Similarly, in terms of agent fleet scaling, instead of choosing between using static or autoscaling agents exclusively, you can:
 
@@ -83,7 +83,7 @@ Similarly, in terms of agent fleet scaling, instead of choosing between using st
 
 ## Structuring clusters and queues
 
-You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/targeting/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/pipelines/hosted-agents)) before rolling them out broadly across your Buildkite organization.
+You should organize [clusters](/docs/pipelines/clusters) as security boundaries and [queues](/docs/agent/v3/targeting/queues) for workload routing. Use separate queues and a small subset of agents to trial new architectures (for example, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted)) before rolling them out broadly across your Buildkite organization.
 
 Learn more about using clusters and queues in [Managing clusters](/docs/pipelines/clusters/manage-clusters) and [Managing queues](/docs/agent/v3/targeting/queues/managing).
 
@@ -92,7 +92,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 - Long-running agents provide caching benefits ([Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors), [dependencies](/docs/pipelines/configure/dependencies)):
   * Retire oldest agents first during scale-down
   * Add telemetry to detect flaky agents
-- Ephemeral agents reduce attack surface and configuration drift. [Buildkite hosted agents](/docs/pipelines/hosted-agents/linux#agent-images) support repository caches and shared volumes.
+- Ephemeral agents reduce attack surface and configuration drift. [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted/linux#agent-images) support repository caches and shared volumes.
 
 ## Right-sizing of your agent fleet
 
@@ -113,7 +113,7 @@ Opt for building out your agent architecture in such a way that a single host or
 Build security into agent infrastructure from the start. Follow least privilege principles and integrate proper secret management. It's recommended that you:
 
 - Store secrets in hooks or cloud secret stores. You can find more on proper secrets management in Buildkite Pipelines in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and [Secrets management](/docs/pipelines/best-practices/secrets-management)
-- Use short-lived tokens and [ephemeral agents](/docs/pipelines/hosted-agents/linux#agent-images)
+- Use short-lived tokens and [ephemeral agents](/docs/agent/v3/buildkite-hosted/linux#agent-images)
 - Enforce infrastructure-as-code ([Terraform](/docs/package-registries/ecosystems/terraform), CloudFormation)
 
 For more information on agent security, see [Buildkite Agent security](/docs/pipelines/best-practices/security-controls#buildkite-agent-security).

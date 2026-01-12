@@ -2,7 +2,7 @@
 
 Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, the [git-ssh-checkout-buildkite-plugin](https://github.com/buildkite-plugins/git-ssh-checkout-buildkite-plugin) plugin is available to provide this capability.
 
-To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration).
+To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/v3/buildkite-hosted/pipeline-migration).
 
 ## GitHub private repositories
 
@@ -19,7 +19,7 @@ Buildkite hosted agents provides a feature for temporarily caching access tokens
 
 Buildkite caches these GitHub access tokens for 50 minutes, where they remain encrypted on the Buildkite platform. This feature allows your hosted agents to use these GitHub access tokens and avoid hitting your GitHub rate limit, since these tokens can be re-used in subsequent builds.
 
-There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
 ## Public repositories
 

@@ -18,7 +18,7 @@ Breaking down your infrastructure into individual queues like this makes it easi
 
 ## Agent infrastructure
 
-Buildkite provides support for managing [Buildkite Agents](/docs/agent/v3) either in your own self-hosted infrastructure, or [Buildkite's own hosted infrastructure](/docs/pipelines/hosted-agents).
+Buildkite provides support for managing [Buildkite Agents](/docs/agent/v3) either in your own self-hosted infrastructure, or [Buildkite's own hosted infrastructure](/docs/agent/v3/buildkite-hosted).
 
 When setting up a queue, you can choose between configuring it with Buildkite Agents running in either of these types of infrastructure.
 
@@ -124,7 +124,7 @@ where:
 
 ## Create a Buildkite hosted queue
 
-Buildkite hosted queues use [Buildkite's hosted agent infrastructure](/docs/pipelines/hosted-agents) to run your pipeline builds. New Buildkite hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [Buildkite interface](#create-a-buildkite-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-buildkite-hosted-queue-using-the-graphql-api).
+Buildkite hosted queues use [Buildkite's hosted agent infrastructure](/docs/agent/v3/buildkite-hosted) to run your pipeline builds. New Buildkite hosted queues can be created by a [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [Buildkite interface](#create-a-buildkite-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-buildkite-hosted-queue-using-the-graphql-api).
 
 When you create a Buildkite hosted queue, you can choose the machine type (Linux or macOS) and the capacity (small, medium, large, or extra large), known as the _instance shape_, of the Buildkite hosted agents that will run your builds.
 
@@ -140,7 +140,7 @@ To create a new Buildkite hosted queue using the Buildkite interface:
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
 1. In the **Select your agent infrastructure** section, select **Hosted** for your agent infrastructure.
-1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/pipelines/hosted-agents/linux) or [**macOS**](/docs/pipelines/hosted-agents/macos)).
+1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/agent/v3/buildkite-hosted/linux) or [**macOS**](/docs/agent/v3/buildkite-hosted/macos)).
 1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.
 1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium** or **Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
 1. Select **Create Queue**.
@@ -174,7 +174,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
 
     ```json
     "hostedAgents": {
@@ -236,7 +236,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/pipelines/hosted-agents), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
+- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
 
     ```graphql
     hostedAgents: {

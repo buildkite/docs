@@ -12,12 +12,12 @@ To complete this tutorial, you'll need to have done the following:
 
 ## Set up your hosted agent
 
-You can use [macOS hosted agents](/docs/pipelines/hosted-agents/macos) to build iOS apps, which you can get up and running by following the procedure in this section.
+You can use [macOS hosted agents](/docs/agent/v3/buildkite-hosted/macos) to build iOS apps, which you can get up and running by following the procedure in this section.
 
 > 📘 Already running an agent
 > If you already have a Buildkite hosted queue for macOS hosted agents, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
-You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents/overview) for [macOS](/docs/pipelines/hosted-agents/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted/overview) for [macOS](/docs/agent/v3/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 To create your macOS hosted agent:
 
@@ -78,5 +78,5 @@ That's it! You've successfully configured a Buildkite hosted macOS agent, built 
 
 Learn more about how to deploy apps like FlappyKite to the iOS App Store, which you can integrate into your pipeline builds, from the following resources:
 
-- The [fastlane documentation on iOS App Store deployment](https://docs.fastlane.tools/getting-started/ios/appstore-deployment/), as well as [fastlane's Code Signing Guide Guide](https://docs.fastlane.tools/codesigning/getting-started/), and Buildkite's own [fastlane troubleshooting guide](/docs/pipelines/hosted-agents/macos/troubleshooting-fastlane).
+- The [fastlane documentation on iOS App Store deployment](https://docs.fastlane.tools/getting-started/ios/appstore-deployment/), as well as [fastlane's Code Signing Guide Guide](https://docs.fastlane.tools/codesigning/getting-started/), and Buildkite's own [fastlane troubleshooting guide](/docs/agent/v3/buildkite-hosted/macos/troubleshooting-fastlane).
 - The [Submit your iOS apps to the App Store](https://developer.apple.com/ios/submit/) page of the Apple Developer site.

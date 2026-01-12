@@ -12,7 +12,7 @@ An additional process is required for private private repositories, see below fo
 
 To set your pipeline to use the **GitHub** service:
 
-1. Ensure you have followed the instructions in [GitHub private repositories](/docs/pipelines/hosted-agents/code-access#github-private-repositories) (on the [Hosted agents code access](/docs/pipelines/hosted-agents/code-access) page) for your pipeline's GitHub repository.
+1. Ensure you have followed the instructions in [GitHub private repositories](/docs/agent/v3/buildkite-hosted/code-access#github-private-repositories) (on the [Hosted agents code access](/docs/agent/v3/buildkite-hosted/code-access) page) for your pipeline's GitHub repository.
 1. Navigate to your pipeline settings.
 1. Select GitHub from the left menu.
 1. Remove the existing repository, or select the **choose another repository or URL** link.

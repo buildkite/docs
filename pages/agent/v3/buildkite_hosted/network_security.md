@@ -10,7 +10,7 @@ The rest of this page provides details on how to obtain relevant IP addresses, w
 
 ## Buildkite hosted agent IP address ranges
 
-While [Buildkite hosted agents are ephemeral by nature](/docs/pipelines/hosted-agents#how-buildkite-hosted-agents-work), they connect to the Buildkite platform through an IP address range, which you can use to configure allowlist settings in your network configurations.
+While [Buildkite hosted agents are ephemeral by nature](/docs/agent/v3/buildkite-hosted#how-buildkite-hosted-agents-work), they connect to the Buildkite platform through an IP address range, which you can use to configure allowlist settings in your network configurations.
 
 ### Viewing your hosted agents' IP addresses
 

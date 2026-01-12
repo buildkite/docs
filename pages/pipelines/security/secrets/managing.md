@@ -1,6 +1,6 @@
 # Managing pipeline secrets
 
-This page provides guidance on best practices for managing your secrets in a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture) with self-hosted agents in your own infrastructure, or using [Buildkite hosted agents](/docs/pipelines/hosted-agents). These secrets may be required by your Buildkite pipelines to access 3rd party systems as part of your build or deployment processes. However, these best practice guidelines help ensure that your secrets stay safely within your infrastructure and are never stored in, or sent to Buildkite.
+This page provides guidance on best practices for managing your secrets in a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture) with self-hosted agents in your own infrastructure, or using [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted). These secrets may be required by your Buildkite pipelines to access 3rd party systems as part of your build or deployment processes. However, these best practice guidelines help ensure that your secrets stay safely within your infrastructure and are never stored in, or sent to Buildkite.
 
 ## Using a secrets storage service
 
@@ -8,7 +8,7 @@ The best practice for managing secrets with Buildkite is to house your secrets w
 
 Buildkite provides various [plugins](/docs/pipelines/integrations/plugins) that integrate reading and exposing secrets to your build steps using secrets storage services, such as the following. If a plugin for the service you use is not listed below or in the [Buildkite plugins directory](https://buildkite.com/resources/plugins), please contact support.
 
-A secrets storage service can be used with either self-hosted agents in your own infrastructure, as part of a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture), or with [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+A secrets storage service can be used with either self-hosted agents in your own infrastructure, as part of a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture), or with [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
 <table>
     <thead>

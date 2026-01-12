@@ -258,7 +258,7 @@ Optional attributes:
 
 ## Container image attributes
 
-The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), or [Buildkite hosted agents](/docs/pipelines/hosted-agents).
+The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent/v3), or [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
 - If you are running your Buildkite Agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/v3/self-hosted/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
 

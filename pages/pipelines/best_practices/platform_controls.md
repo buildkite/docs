@@ -15,7 +15,7 @@ The platform team also manages the scripts that read these YAML configuration fi
 
 ## Agent infrastructure administration
 
-Platform teams with [organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) decide on agent resource allocation (CPU, RAM, etc.) before agents start picking up jobs. This applies whether you use [hosted agents](/docs/pipelines/hosted-agents), [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), or cloud deployments ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/self-hosted/gcp), [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)).
+Platform teams with [organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) decide on agent resource allocation (CPU, RAM, etc.) before agents start picking up jobs. This applies whether you use [hosted agents](/docs/agent/v3/buildkite-hosted), [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), or cloud deployments ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/self-hosted/gcp), [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)).
 
 ## Pipeline templates as a platform control tool
 
