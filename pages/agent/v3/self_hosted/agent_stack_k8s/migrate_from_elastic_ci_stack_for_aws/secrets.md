@@ -1,6 +1,6 @@
 # Migrating secrets
 
-When migrating from the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) to the Buildkite Agent Stack for Kubernetes ([agent-stack-k8s](https://github.com/buildkite/agent-stack-k8s)), you need to establish a new approach for managing secrets that were previously stored in S3 buckets. The Elastic CI Stack for AWS automatically retrieves secrets from S3 and makes them available to jobs. This functionality needs to be replaced when moving to Kubernetes.
+When migrating from the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) to the Buildkite Agent Stack for Kubernetes ([agent-stack-k8s](https://github.com/buildkite/agent-stack-k8s)), you need to establish a new approach for managing secrets that were previously stored in S3 buckets. The Elastic CI Stack for AWS automatically retrieves secrets from S3 and makes them available to jobs. This functionality needs to be replaced when moving to Kubernetes.
 
 This guide covers three approaches for migrating secrets when moving to Kubernetes and provides detailed examples for each.
 
@@ -14,7 +14,7 @@ The Elastic CI Stack for AWS uses an S3 bucket to store secrets that are automat
 - Individual secret files (`/secret-files/*`)
 - Pipeline-specific variants of the above (`/{pipeline-slug}/...`)
 
-For complete details about S3 secrets in the Elastic CI Stack for AWS, refer to the [S3 secrets bucket](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) documentation.
+For complete details about S3 secrets in the Elastic CI Stack for AWS, refer to the [S3 secrets bucket](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) documentation.
 
 ## Migration approaches
 
@@ -22,7 +22,7 @@ When migrating to the Buildkite Agent Stack for Kubernetes, here are three appro
 
 - Keeping your existing S3 bucket and using the `elastic-ci-stack-s3-secrets-hooks` repository to retrieve secrets
 - Moving secrets into [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) and exposing them through controller configuration
-- Moving secrets into [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and referencing them in your pipeline YAML or through the [agent CLI](/docs/agent/v3/cli-reference)
+- Moving secrets into [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and referencing them in your pipeline YAML or through the [agent CLI](/docs/agent/v3/cli/reference)
 
 Each approach has different characteristics:
 
@@ -43,7 +43,7 @@ This approach uses the [`elastic-ci-stack-s3-secrets-hooks`](https://github.com/
 - Existing S3 secrets bucket from Elastic CI Stack for AWS
 - AWS credentials with read access to the S3 bucket
 - Kubernetes cluster with [Agent Stack for Kubernetes](https://github.com/buildkite/agent-stack-k8s) version 0.16.0 or later installed
-  + For earlier versions, see the [agent hooks documentation](/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins#agent-hooks-in-earlier-versions) for alternative configuration
+  + For earlier versions, see the [agent hooks documentation](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins#agent-hooks-in-earlier-versions) for alternative configuration
 
 ### Implementation
 
@@ -97,7 +97,7 @@ kubectl create secret generic aws-credentials \
 Configure the Agent Stack for Kubernetes controller to mount the hooks, binaries, and provide AWS credentials. Add this to your `values.yaml`:
 
 > 📘 Version requirement
-> The `agent-config` configuration requires Agent Stack for Kubernetes version 0.16.0 or later. For earlier versions, see the [agent hooks documentation](/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins#agent-hooks-in-earlier-versions).
+> The `agent-config` configuration requires Agent Stack for Kubernetes version 0.16.0 or later. For earlier versions, see the [agent hooks documentation](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins#agent-hooks-in-earlier-versions).
 
 ```yaml
 # values.yaml
@@ -172,7 +172,7 @@ This approach works well as a temporary migration step or when you need to maint
 
 ## Migrate to Kubernetes secrets
 
-This approach provides a Kubernetes-native secrets management solution as it migrates secrets from S3 into native Kubernetes Secrets and exposes them to jobs using controller configuration or the [`kubernetes` plugin](/docs/agent/v3/agent-stack-k8s/running-builds#defining-steps-kubernetes-plugin).
+This approach provides a Kubernetes-native secrets management solution as it migrates secrets from S3 into native Kubernetes Secrets and exposes them to jobs using controller configuration or the [`kubernetes` plugin](/docs/agent/v3/self-hosted/agent-stack-k8s/running-builds#defining-steps-kubernetes-plugin).
 
 ### Prerequisites
 
@@ -231,7 +231,7 @@ steps:
           name: git-ssh-credentials
 ```
 
-For complete details on Git credentials, refer to the [Git credentials](/docs/agent/v3/agent-stack-k8s/git-credentials) documentation.
+For complete details on Git credentials, refer to the [Git credentials](/docs/agent/v3/self-hosted/agent-stack-k8s/git-credentials) documentation.
 
 ### Migrating environment variables
 
@@ -564,7 +564,7 @@ steps:
 
 ### Using secrets with the agent CLI
 
-Retrieve secrets using the `buildkite-agent secret` [CLI command](/docs/agent/v3/cli-secret) within your build steps:
+Retrieve secrets using the `buildkite-agent secret` [CLI command](/docs/agent/v3/cli/reference/secret) within your build steps:
 
 ```yaml
 # pipeline.yaml
@@ -634,10 +634,10 @@ This approach works well when using multiple agent platforms (Kubernetes, AWS, o
 
 ## Related resources
 
-- [S3 secrets bucket in Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket)
-- [Git credentials in agent-stack-k8s](/docs/agent/v3/agent-stack-k8s/git-credentials)
-- [Kubernetes PodSpec in agent-stack-k8s](/docs/agent/v3/agent-stack-k8s/podspec)
+- [S3 secrets bucket in Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket)
+- [Git credentials in agent-stack-k8s](/docs/agent/v3/self-hosted/agent-stack-k8s/git-credentials)
+- [Kubernetes PodSpec in agent-stack-k8s](/docs/agent/v3/self-hosted/agent-stack-k8s/podspec)
 - [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets)
 - [Using secrets in jobs](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job)
-- [`buildkite-agent secret` CLI](/docs/agent/v3/cli-secret)
+- [`buildkite-agent secret` CLI](/docs/agent/v3/cli/reference/secret)
 - [`elastic-ci-stack-s3-secrets-hooks` repository](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks)
