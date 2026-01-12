@@ -63,17 +63,17 @@ deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://
 
 ## SSH key configuration
 
-<%= render_markdown partial: 'agent/v3/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 
 ## File locations
 
-<%= render_markdown partial: 'agent/v3/apt_locations' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/apt_locations' %>
 
 ## Configuration
 
-<%= render_markdown partial: 'agent/v3/apt_configuration' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/apt_configuration' %>
 
 ## Default operating system user running the agent
 
@@ -87,11 +87,11 @@ You can override this default user through a [systemd modification](#systemd-mod
 
 ## Upgrading
 
-<%= render_markdown partial: 'agent/v3/apt_upgrading' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/apt_upgrading' %>
 
 ## Alternative keyservers
 
-<%= render_markdown partial: 'agent/v3/alternative_keyservers' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/alternative_keyservers' %>
 
 ## Systemd modifications
 

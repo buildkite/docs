@@ -70,7 +70,7 @@ sudo tail -f /var/log/messages
 
 ## SSH key configuration
 
-<%= render_markdown partial: 'agent/v3/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/v3/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH keys](/docs/agent/v3/self-hosted/ssh-keys) documentation for more details.
 

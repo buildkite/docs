@@ -47,7 +47,7 @@ sudo tail -f /var/log/buildkite-agent.log
 
 ## SSH key configuration
 
-<%= render_markdown partial: 'agent/v2/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/v2/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH keys](/docs/agent/v2/ssh-keys) documentation for more details.
 
