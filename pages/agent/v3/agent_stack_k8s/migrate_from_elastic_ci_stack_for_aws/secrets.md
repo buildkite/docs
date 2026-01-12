@@ -21,7 +21,7 @@ For complete details about S3 secrets in the Elastic CI Stack for AWS, refer to 
 When migrating to the Buildkite Agent Stack for Kubernetes, here are three approaches to consider for handling secrets:
 
 - Keeping your existing S3 bucket and using the `elastic-ci-stack-s3-secrets-hooks` repository to retrieve secrets
-- Moving secrets into Kubernetes Secrets and exposing them through controller configuration
+- Moving secrets into [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) and exposing them through controller configuration
 - Moving secrets into [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and referencing them in your pipeline YAML or through the [agent CLI](/docs/agent/v3/cli-reference)
 
 Each approach has different characteristics:
@@ -172,7 +172,7 @@ This approach works well as a temporary migration step or when you need to maint
 
 ## Migrate to Kubernetes secrets
 
-This approach provides a Kubernetes-native secrets management solution as it migrates secrets from S3 into native Kubernetes Secrets and exposes them to jobs using controller configuration or the `kubernetes` plugin.
+This approach provides a Kubernetes-native secrets management solution as it migrates secrets from S3 into native Kubernetes Secrets and exposes them to jobs using controller configuration or the [`kubernetes` plugin](/docs/agent/v3/agent-stack-k8s/running-builds#defining-steps-kubernetes-plugin).
 
 ### Prerequisites
 
