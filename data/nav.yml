@@ -932,6 +932,8 @@
           path: "platform/integrations/slack-workspace"
     - name: "Service quotas"
       path: "platform/service-quotas"
+    - name: "Usage limits"
+      path: "platform/usage-limits"
 - name: "APIs"
   path: "apis"
   children:
