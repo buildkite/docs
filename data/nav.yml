@@ -197,6 +197,8 @@
                   path: "agent/v3/self-hosted/agent-stack-k8s/troubleshooting"
                 - name: "Migrate from Elastic CI Stack for AWS"
                   children:
+                    - name: "Amazon ECR authentication"
+                      path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/ecr"
                     - name: "Docker registry authentication"
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-login"
                     - name: "Secrets"
