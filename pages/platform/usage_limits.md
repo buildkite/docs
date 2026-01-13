@@ -135,14 +135,14 @@ These quotas apply to all plans by default but can be customized per organizatio
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
-### Hardcoded limits not tied to billing
+### Hard-coded limits not tied to billing
 
 These limits are enforced in code but have NO billing plan variation:
 
 | Limit | Value | Location | Description |
 | --- | --- | --- | --- |
-| Max Organizations per User | 20 | `Organization::Creator` | User can create max 20 orgs total |
-| Max Orgs per Day | 4 | `Organization::Creator` | User can create max 4 orgs per day |
+| Max Organizations per User | 20 | `Organization::Creator` | User can create max 20 organizations total |
+| Max Organizations per Day | 4 | `Organization::Creator` | User can create max 4 organizations per day |
 | Max Triggers per Pipeline | 10 | `Pipeline::Trigger` | Webhook triggers per pipeline |
 | Max Unverified Emails | 5 | `User::Email::Creator` | Unverified emails per user |
 | Max Portal Secrets | 2 | `Portal::Secret::Creator` | Secrets per portal |
@@ -160,7 +160,7 @@ These limits are enforced in code but have NO billing plan variation:
 | Asset Upload Max Files | 10 | `Asset::Uploader` | Files per upload |
 | Asset Upload Max Size | 10 MB | `Asset::Uploader` | Per file |
 
-### Billing Limits - enforcement status
+### Billing limits - enforcement status
 
 #### Actively enforced billing limits
 
