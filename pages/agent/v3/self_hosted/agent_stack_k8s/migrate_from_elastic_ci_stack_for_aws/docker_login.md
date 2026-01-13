@@ -5,7 +5,7 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 The Agent Stack for Kubernetes requires explicit configuration in your pipeline YAML. The `docker-login` plugin must be added to each step that needs registry access, and credentials must be managed as Kubernetes Secrets.
 
 > 📘 Amazon ECR registries
-> For Amazon ECR registries, see [Amazon ECR authentication](/docs/agent/v3/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/ecr) instead. The `ecr` plugin provides a better experience for ECR by automatically handling authentication and credential refresh.
+> For Amazon ECR registries, see [Amazon ECR authentication](/docs/agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/ecr) instead. The `ecr` plugin provides a better experience for ECR by automatically handling authentication and credential refresh.
 
 ## Migrating to Agent Stack for Kubernetes
 
