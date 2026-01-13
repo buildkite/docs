@@ -49,7 +49,7 @@ steps:
           fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent docs"
-    if_changed: pages/agent/v3/help/*.md
+    if_changed: pages/agent/v3/cli/help/*.md
     command: ./scripts/update-agent-help.sh
     agents:
       queue: hosted-m

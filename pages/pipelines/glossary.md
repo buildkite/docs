@@ -22,7 +22,7 @@ A build is a single run of a pipeline. You can trigger a build in various ways, 
 
 A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
 
-To learn more, see the [Clusters overview](/docs/pipelines/clusters).
+To learn more, see the [Clusters overview](/docs/pipelines/security/clusters).
 
 ## Dynamic pipeline
 
@@ -34,19 +34,19 @@ To learn more, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelin
 
 ## Ephemeral agent
 
-An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/v3/cli-start):
+An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/v3/cli/reference/start):
 
 - `--acquire-job`
 - `--disconnect-after-job`
 - `--disconnect-after-idle-timeout`
 
-Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/pausing-and-resuming).
+Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/queues/managing/pausing-and-resuming).
 
 ## Hook
 
 A hook is a method of customizing the behavior of Buildkite through lifecycle events. They let you run scripts at different points of the agent or job lifecycle. Using hooks, you can extend the functionality of Buildkite and automate tasks specific to your workflow and requirements.
 
-To learn more, see [Hooks](/docs/agent/v3/hooks).
+To learn more, see [Hooks](/docs/agent/v3/self-hosted/hooks).
 
 ## Job
 
@@ -74,7 +74,7 @@ To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 A queue defines agents on which pipeline builds can run their jobs. Queues are configured within a [cluster](#cluster), where each queue defines a particular group of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
-To learn more, see [Manage queues](/docs/pipelines/clusters/manage-queues) and [Buildkite Agent job queues](/docs/agent/v3/queues).
+To learn more, see [Manage queues](/docs/agent/v3/queues/managing) and [Buildkite Agent job queues](/docs/agent/v3/queues).
 
 ## Step
 

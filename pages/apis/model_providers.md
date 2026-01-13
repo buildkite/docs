@@ -26,7 +26,7 @@ To connect to a model provider:
 
 1. Choose your **Authentication Method**—[**Buildkite Hosted Token**](#connect-to-a-model-provider-buildkite-hosted-token) or [**Bring Your Own Token (BYO)**](#connect-to-a-model-provider-bring-your-own-token), depending on your security requirements and preferences.
 
-    Your pipelines can then authenticate using existing Buildkite [job tokens](/docs/agent/v3/tokens#additional-agent-tokens-job-tokens), which are accessible through the environment variable `$BUILDKITE_AGENT_ACCESS_TOKEN`.
+    Your pipelines can then authenticate using existing Buildkite [job tokens](/docs/agent/v3/self-hosted/tokens#additional-agent-tokens-job-tokens), which are accessible through the environment variable `$BUILDKITE_AGENT_ACCESS_TOKEN`.
 
 Learn more about integrating the Anthropic model on the [Anthropic model provider](/docs/apis/model-providers/anthropic) page.
 
@@ -53,7 +53,7 @@ For organizations with existing model provider relationships or specific securit
 Once configured, integrate AI capabilities into your build workflows using the Buildkite Agent API.
 
 > 📘
-> When using this authentication method option, remember to use existing Buildkite [job tokens](/docs/agent/v3/tokens#additional-agent-tokens-job-tokens) to authenticate the Buildkite Agent to your model provider, and not your model provider's API access token.
+> When using this authentication method option, remember to use existing Buildkite [job tokens](/docs/agent/v3/self-hosted/tokens#additional-agent-tokens-job-tokens) to authenticate the Buildkite Agent to your model provider, and not your model provider's API access token.
 
 ### Buildkite model provider API endpoints
 
