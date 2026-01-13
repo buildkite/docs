@@ -57,7 +57,7 @@ Bitbucket Pipelines' [`clone` property](https://support.atlassian.com/bitbucket-
 
 | <div style="width: 50px;">Key</div>  | Supported | Notes |
 | --- | --- | --- |
-| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/configuration) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` used in a Bitbucket pipeline will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
+| `clone` | Partially | Clone options for all steps of a Bitbucket pipeline. The majority of these options need to be set on a Buildkite Agent itself through its [configuration of properties](/docs/agent/v3/self-hosted/configure) such as the clone flags (`git-clone-flags` or `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) - or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. <br/><br/> Sparse-checkout properties of `code-mode`, `enabled`, and `patterns` used in a Bitbucket pipeline will be translated to the respective properties within the [sparse-checkout-buildkite-plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). <br/><br/> `clone` properties in a Bitbucket pipeline have higher precedence over these global properties. |
 {: class="responsive-table"}
 
 ## Definitions
@@ -473,12 +473,12 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.after-script",
         "supported": "No",
-        "notes": "The actions that a Bitbucket pipeline will undertake after the commands in the `script` key are run. For similar behavior in Buildkite Pipelines, use a [repository-level](/docs/agent/v3/hooks#hook-locations-repository-hooks) `pre-exit` hook running at the latter end of the [job lifecycle](/docs/agent/v3/hooks#job-lifecycle-hooks)."
+        "notes": "The actions that a Bitbucket pipeline will undertake after the commands in the `script` key are run. For similar behavior in Buildkite Pipelines, use a [repository-level](/docs/agent/v3/self-hosted/hooks#hook-locations-repository-hooks) `pre-exit` hook running at the latter end of the [job lifecycle](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.artifacts",
         "supported": "Partially",
-        "notes": "Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit `buildkite-agent artifact download` [command](/docs/agent/v3/cli-artifact#downloading-artifacts) is run beforehand within the generated Buildkite Pipelines command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the `artifact_paths` [key](/docs/pipelines/configure/step-types/command-step). Each file found matching (or via glob syntax) will be uploaded to Buildkite's [Artifact storage](/docs/agent/v3/cli-artifact) that can be obtained in later steps."
+        "notes": "Build artifacts that will be required for steps later in the Bitbucket pipeline (by default, not obtained unless an explicit `buildkite-agent artifact download` [command](/docs/agent/v3/cli/reference/artifact#downloading-artifacts) is run beforehand within the generated Buildkite Pipelines command step). Artifacts that are specified (whether one specific file, or multiple) will be set within the generated command step within the `artifact_paths` [key](/docs/pipelines/configure/step-types/command-step). Each file found matching (or via glob syntax) will be uploaded to Buildkite's [Artifact storage](/docs/agent/v3/cli/reference/artifact) that can be obtained in later steps."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.caches",
@@ -498,7 +498,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.clone",
         "supported": "Partially",
-        "notes": "Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite Agent via [configuration](/docs/agent/v3/configuration) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) – or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property)."
+        "notes": "Clone options for a specific step of a Bitbucket pipeline. The majority of these options should be set directly on a Buildkite Agent via [configuration](/docs/agent/v3/self-hosted/configure) of properties such as the clone flags (`git-clone-flags`, `git-clone-mirror-flags` if utilizing a Git mirror), fetch flags (`git-fetch-flags`) – or changing the entire checkout process in a customized [plugin](/docs/pipelines/integrations/plugins/writing) overriding the default agent `checkout` hook. Sparse checkout options are supported (with the `sparse-checkout` sub-property)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.deployment",
@@ -508,7 +508,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.docker",
         "supported": "No",
-        "notes": "The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider [tagging](/docs/agent/v3/cli-start#tags) agents with `docker=true` to ensure Buildkite Pipelines command steps requiring hosts with Docker installed and configured to accept and run specific jobs."
+        "notes": "The availability of Docker in a specific Bitbucket pipeline step. This will depend on the agent configuration that the corresponding Buildkite command step is being targeted to run the job. Consider [tagging](/docs/agent/v3/cli/reference/start#tags) agents with `docker=true` to ensure Buildkite Pipelines command steps requiring hosts with Docker installed and configured to accept and run specific jobs."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.fail-fast",
@@ -533,7 +533,7 @@ Bitbucket Pipelines' [`step` property options](https://support.atlassian.com/bit
       {
         "key": "pipelines.&lt;start-condition&gt;.step.oidc",
         "supported": "Yes",
-        "notes": "Open ID Connect configuration that will be applied for this Bitbucket pipeline step. The generated command step in the corresponding Buildkite pipeline will [request](/docs/agent/v3/cli-oidc#request-oidc-token) an OIDC token and export it into the job environment as `BITBUCKET_STEP_OIDC_TOKEN` (to be passed to `sts` to assume an AWS role for example)."
+        "notes": "Open ID Connect configuration that will be applied for this Bitbucket pipeline step. The generated command step in the corresponding Buildkite pipeline will [request](/docs/agent/v3/cli/reference/oidc#request-oidc-token) an OIDC token and export it into the job environment as `BITBUCKET_STEP_OIDC_TOKEN` (to be passed to `sts` to assume an AWS role for example)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.step.runs-on",
@@ -653,7 +653,7 @@ Bitbucket Pipelines' [Custom (manual) pipeline variables](https://support.atlass
       {
         "key": "pipelines.&lt;start-condition&gt;.variables",
         "supported": "Partially",
-        "notes": "Custom variables that are passed to Bitbucket pipeline steps. Each variable defined in a Bitbucket pipeline step is translated to a Buildkite [input step](/docs/pipelines/configure/step-types/input-step) with/without defaults and allowed values specified below. <br/><br/> Variables that are translated into the corresponding [input step](/docs/pipelines/configure/step-types/input-step) within the generated Buildkite pipeline will require to be fetched in subsequent steps through a `buildkite-agent meta-data get` [command](/docs/agent/v3/cli-meta-data#getting-data)."
+        "notes": "Custom variables that are passed to Bitbucket pipeline steps. Each variable defined in a Bitbucket pipeline step is translated to a Buildkite [input step](/docs/pipelines/configure/step-types/input-step) with/without defaults and allowed values specified below. <br/><br/> Variables that are translated into the corresponding [input step](/docs/pipelines/configure/step-types/input-step) within the generated Buildkite pipeline will require to be fetched in subsequent steps through a `buildkite-agent meta-data get` [command](/docs/agent/v3/cli/reference/meta-data#getting-data)."
       },
       {
         "key": "pipelines.&lt;start-condition&gt;.variables.name",

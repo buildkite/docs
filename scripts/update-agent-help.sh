@@ -22,9 +22,9 @@ echo "Installing buildkite-agent ${AGENT_VERSION} to ${AGENT}"
 
 go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
 
-echo "Installing cli2md"
-go install -buildvcs=false ./scripts/cli2md
-CLI2MD="${INSTALL_PATH}/cli2md"
+echo "Installing agent_cli2md"
+go install -buildvcs=false ./scripts/agent_cli2md
+CLI2MD="${INSTALL_PATH}/agent_cli2md"
 
 commands=(
   "annotate"
@@ -66,7 +66,7 @@ commands=(
 base_dir="$(git rev-parse --show-toplevel)"
 
 for command in "${commands[@]}"; do
-  file="${base_dir}/pages/agent/v3/help/_${command//[- ]/_}.md"
+  file="${base_dir}/pages/agent/v3/cli/help/_${command//[- ]/_}.md"
   if [[ ! -f "${file}" ]]; then
     echo "File ${file} doesn't exist"
     exit 1

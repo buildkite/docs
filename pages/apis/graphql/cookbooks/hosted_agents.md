@@ -1,6 +1,6 @@
 # Hosted agents
 
-A collection of common tasks with [Hosted agents](/docs/pipelines/hosted-agents) using the GraphQL API.
+A collection of common tasks with [Hosted agents](/docs/agent/v3/buildkite-hosted) using the GraphQL API.
 
 <%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 

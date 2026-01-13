@@ -1,6 +1,6 @@
 default: false
 
-# Need to figure out how to make exceptions for pages/agent/v3/help/_*
+# Need to figure out how to make exceptions for pages/agent/v3/cli/help/_*
 #MD002:
   # Heading level
   #level: 1

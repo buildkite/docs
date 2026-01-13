@@ -12,7 +12,7 @@ How to prevent job failure caused by the Docker Hub rates limits depends on exac
 
 ## Elastic CI Stack for AWS, authenticating with a paid Docker Hub account
 
-If you're using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), you can authenticate with Docker Hub by adding the [two key environment variables](/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support) to your secrets bucket and accessing them from your build.
+If you're using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), you can authenticate with Docker Hub by adding the [two key environment variables](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support) to your secrets bucket and accessing them from your build.
 
 Add your Docker Hub credentials to one of the following two environment hooks, which are downloaded at the start of each job:
 
@@ -31,9 +31,9 @@ DOCKER_LOGIN_PASSWORD="the-password"
 
 ## Other Buildkite agents authenticating with a paid Docker Hub account
 
-All agents check the local file system for [hook scripts to execute during a job](/docs/agent/v3/hooks).
+All agents check the local file system for [hook scripts to execute during a job](/docs/agent/v3/self-hosted/hooks).
 
-A [pre-command hook](/docs/agent/v3/hooks#job-lifecycle-hooks) script like this is one option for authenticating with Docker Hub, and can be configured to fetch credentials from the system you use to store them in:
+A [pre-command hook](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks) script like this is one option for authenticating with Docker Hub, and can be configured to fetch credentials from the system you use to store them in:
 
 ```bash
 #!/bin/bash
@@ -46,7 +46,7 @@ docker login --username "the-user-name" --password-stdin << "the-password"
 
 The [docker-login plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin/) can perform the authentication in only the steps that need it.
 
-Start by setting the password in an [agent environment hook](/docs/agent/v3/hooks):
+Start by setting the password in an [agent environment hook](/docs/agent/v3/self-hosted/hooks):
 
     #!/bin/bash
 

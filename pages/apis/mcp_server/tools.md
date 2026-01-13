@@ -62,7 +62,7 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
 
 ### Buildkite clusters
 
-These MCP tools are used to retrieve details about the [clusters](/docs/pipelines/clusters/manage-clusters) and their [queues](/docs/pipelines/clusters/manage-queues) configured in your Buildkite organization. Learn more about clusters in [Clusters overview](/docs/pipelines/clusters).
+These MCP tools are used to retrieve details about the [clusters](/docs/pipelines/security/clusters/manage) and their [queues](/docs/agent/v3/queues/managing) configured in your Buildkite organization. Learn more about clusters in [Clusters overview](/docs/pipelines/security/clusters).
 
 <table>
   <thead>

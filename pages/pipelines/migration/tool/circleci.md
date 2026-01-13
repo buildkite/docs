@@ -84,7 +84,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 | <div style="width: 80px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
-| `executors` | Yes | The `executor` key defined at the top level in a CircleCI workflow is mapped to the use of the `executor` key specified within a specific `job`. Supported execution environments include `machine`, `docker`, `macos`, and `windows`. Further information can be found in the [Jobs > Executors](/docs/pipelines/migration/tool/circleci#jobs-executors) table below. The execution environment in Buildkite Pipelines is specified with each environment's applied [tags](/docs/agent/v3/cli-start#setting-tags) in their generated [command step](/docs/pipelines/configure/step-types/command-step), which can be [targeted](/docs/pipelines/configure/defining-steps#targeting-specific-agents) when creating builds. |
+| `executors` | Yes | The `executor` key defined at the top level in a CircleCI workflow is mapped to the use of the `executor` key specified within a specific `job`. Supported execution environments include `machine`, `docker`, `macos`, and `windows`. Further information can be found in the [Jobs > Executors](/docs/pipelines/migration/tool/circleci#jobs-executors) table below. The execution environment in Buildkite Pipelines is specified with each environment's applied [tags](/docs/agent/v3/cli/reference/start#setting-tags) in their generated [command step](/docs/pipelines/configure/step-types/command-step), which can be [targeted](/docs/pipelines/configure/defining-steps#targeting-specific-agents) when creating builds. |
 {: class="responsive-table"}
 
 ## Jobs
@@ -114,7 +114,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
       {
         "key": "jobs.&lt;name&gt;.parallelism",
         "supported": "No",
-        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli-start#setting-tags) targeting)."
+        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli/reference/start#setting-tags) targeting)."
       },
       {
         "key": "jobs.&lt;name&gt;.parameters",
@@ -124,7 +124,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
       {
         "key": "jobs.&lt;name&gt;.shell",
         "supported": "No",
-        "notes": "The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the Buildkite Agent itself, or by defining the [`shell` option](/docs/agent/v3/cli-start#shell) when starting a Buildkite Agent, which sets the shell command used to interpret all build commands."
+        "notes": "The `shell` property sets the default shell that is used across all commands within all steps. This should be configured on the Buildkite Agent itself, or by defining the [`shell` option](/docs/agent/v3/cli/reference/start#shell) when starting a Buildkite Agent, which sets the shell command used to interpret all build commands."
       },
       {
         "key": "jobs.&lt;name&gt;.steps",
@@ -154,7 +154,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 ### Executors
 
-While the Buildkite migration tool will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/configuration) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/pipelines/hosted-agents)—a fully-managed solution offered by Buildkite.
+While the Buildkite migration tool will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/self-hosted/configure) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted)—a fully-managed solution offered by Buildkite.
 
 <table class="responsive-table">
   <thead>

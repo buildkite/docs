@@ -1,6 +1,6 @@
 # Agent tokens
 
-An agent token is used to [connect agents to a Buildkite cluster](/docs/pipelines/clusters/manage-clusters#connect-agents-to-a-cluster).
+An agent token is used to [connect agents to a Buildkite cluster](/docs/pipelines/security/clusters/manage#connect-agents-to-a-cluster).
 
 ## Token data model
 

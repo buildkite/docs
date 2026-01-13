@@ -9,7 +9,7 @@ The clusters API endpoint lets you create and manage [clusters](#clusters) in yo
 
 ## Clusters
 
-A [Buildkite cluster](/docs/pipelines/clusters) is an isolated set of agents and pipelines within an organization.
+A [Buildkite cluster](/docs/pipelines/security/clusters) is an isolated set of agents and pipelines within an organization.
 
 ### Cluster data model
 

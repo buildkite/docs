@@ -1,7 +1,7 @@
 # Installing Buildkite Agent on Linux
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/linux">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/install/linux">see the latest version of this document</a>.
 
 You can install Buildkite Agent on most Linux based systems (including macOS).
 
@@ -19,7 +19,7 @@ Then, start the agent:
 ~/.buildkite-agent/bin/buildkite-agent start
 ```
 
-Alternatively you can follow the [manual installation instructions](installation).
+Alternatively you can follow the [manual installation instructions](/docs/agent/v2/installation#manual-installation).
 
 ## SSH key configuration
 

@@ -211,7 +211,7 @@ Access policies can be tailored to fit a wide range of security and workflow req
 
 ## Add an access policy
 
-A Buildkite secret's access policy can only be added (and modified) by [cluster maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
+A Buildkite secret's access policy can only be added (and modified) by [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster in which to create the new Buildkite secret.
