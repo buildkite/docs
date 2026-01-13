@@ -15,7 +15,7 @@ The platform team also manages the scripts that read these YAML configuration fi
 
 ## Agent infrastructure administration
 
-Platform teams with [organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) decide on agent resource allocation (CPU, RAM, etc.) before agents start picking up jobs. This applies whether you use [hosted agents](/docs/pipelines/hosted-agents), [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), or cloud deployments ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/gcp), [Kubernetes](/docs/agent/v3/agent-stack-k8s)).
+Platform teams with [organization administrator permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) decide on agent resource allocation (CPU, RAM, etc.) before agents start picking up jobs. This applies whether you use [hosted agents](/docs/agent/v3/buildkite-hosted), [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), or cloud deployments ([AWS](/docs/agent/v3/aws), [GCP](/docs/agent/v3/self-hosted/gcp), [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)).
 
 ## Pipeline templates as a platform control tool
 
@@ -70,7 +70,7 @@ Platform teams should implement comprehensive telemetry and observability soluti
 
 You can turn Buildkite into a first‑class source of operational truth for your CI fleet by combining in‑product metrics with open telemetry streams, your preferred observability backend, and Buildkite’s real‑time event feeds.
 
-Ensure all pipelines report metrics to your centralized [monitoring](/docs/agent/v3/monitoring) system for:
+Ensure all pipelines report metrics to your centralized [monitoring](/docs/agent/v3/self-hosted/monitoring) system for:
 
 - Build success/failure rates
 - Queue wait times
@@ -201,7 +201,7 @@ Never ignore failing steps without a clear follow-up plan. Silent failures erode
 
 ## Build context and visibility with annotations
 
-Use [annotations](/docs/agent/v3/cli-annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help developer teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
+Use [annotations](/docs/agent/v3/cli/reference/annotate) to provide build context and link to relevant documentation or monitoring systems. Annotations help developer teams quickly understand build failures, access troubleshooting resources, and find related operational data without leaving the Buildkite interface.
 
 Platform teams can standardize annotation patterns across pipelines to include:
 

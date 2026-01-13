@@ -10,7 +10,7 @@ To natively implement sparse checkout in Buildkite Pipelines, you can use the [S
 
 ## Git mirrors
 
-[Git mirrors](/docs/agent/v3/git-mirrors) are one of the most effective ways to speed up Git checkouts in Buildkite Pipelines. Instead of fetching the entire repository from your remote Git server every time, agents maintain a single local bare mirror of each repository on the host machine.
+[Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) are one of the most effective ways to speed up Git checkouts in Buildkite Pipelines. Instead of fetching the entire repository from your remote Git server every time, agents maintain a single local bare mirror of each repository on the host machine.
 
 When a build runs, the Buildkite Agent performs a fast local clone from the mirror by using `git clone --reference` flag, significantly reducing checkout times, especially for large repositories or those with extensive histories. Submodules also benefit from this optimization by referencing the mirror during their checkout process.
 

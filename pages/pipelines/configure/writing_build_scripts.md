@@ -98,7 +98,7 @@ The first step in debugging your build script is to view the environment variabl
 
 There may be additional environment variables available in your build job that
 don't appear in this list, such as ones set by your
-[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
+[job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks).
 To debug these, you can print them using `echo $SOME_VAR` before the command
 you're wanting to run. For example:
 

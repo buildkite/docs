@@ -13,7 +13,7 @@
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",
     "validate-environment-variables-yaml": "npx --package ajv-cli ajv validate -s \"data/content/environment_variables.schema.yaml\" -d \"data/content/environment_variables.yaml\"",
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
-    "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/v3/help/*\"",
+    "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/v3/cli/help/*\"",
     "prepare": "husky install",
     "prettier-check": "prettier -c \"app/frontend/**/*.{js,scss}\"",
     "prettier-fix": "prettier -w \"app/frontend/**/*.{js,scss}\""

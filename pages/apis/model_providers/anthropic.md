@@ -35,7 +35,7 @@ https://agent.buildkite.com/v3/ai/anthropic/v1/messages
 
 ## Authentication methods
 
-The Anthropic model provider supports two authentication header formats, both of which use a [job token](/docs/agent/v3/tokens#additional-agent-tokens-job-tokens) for authentication.
+The Anthropic model provider supports two authentication header formats, both of which use a [job token](/docs/agent/v3/self-hosted/tokens#additional-agent-tokens-job-tokens) for authentication.
 
 ### Authorization header (standard Agent API)
 

@@ -40,7 +40,7 @@ env:
     * [Custom Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) that overrides the default agent checkout by setting a custom `refspec` and then doing a `git lfs pull`.
 
 - An agent checkout hook can be used to replicate some of the default checkout options used by GitHub Actions which include `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
-- [Git mirrors](/docs/agent/v3/git-mirrors) can also be used for checkout optimization, but it doesn't offer a considerable improvement in terms of checkout speed.
+- [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) can also be used for checkout optimization, but it doesn't offer a considerable improvement in terms of checkout speed.
 
 Understanding these differences helps you optimize your checkout strategy when migrating from GitHub Actions to Buildkite Pipelines, whether that means matching GitHub Actions' faster defaults or taking advantage of Buildkite's flexibility to customize the checkout behavior for your specific needs.
 

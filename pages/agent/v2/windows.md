@@ -1,7 +1,7 @@
 # Installing Buildkite Agent on Windows
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/windows">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/install/windows">see the latest version of this document</a>.
 
 The Buildkite Agent can be installed on both 64bit and 32bit editions of Windows XP and later.
 

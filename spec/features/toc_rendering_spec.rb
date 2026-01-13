@@ -9,7 +9,7 @@ RSpec.feature "toc rendering" do
     end
   end
   
-  describe "/docs/agent/v3/installation" do
+  describe "/docs/agent/v3/self-hosted/install" do
     it "does not have a TOC" do
       expect(page).to have_no_css(".Toc")
     end

@@ -8,7 +8,7 @@ A Buildkite Agent's OIDC tokens assert claims about the slugs of the pipeline it
 
 Such tokens are also short-lived to further mitigate the risk of compromising the security of your Buildkite registries, should the token accidentally be leaked.
 
-The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli-oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be used by a Buildkite registry to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
+The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli/reference/oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be used by a Buildkite registry to determine (through its OIDC policy) if the organization, pipeline and any other metadata associated with the pipeline and its job are permitted to publish/upload packages to this registry.
 
 ## OIDC token requirements
 
@@ -16,20 +16,20 @@ All Buildkite registries defined with an OIDC policy, require the following clai
 
 | Claim | Value |
 | ----- | ----- |
-| [`iat` (issued at)](/docs/agent/v3/cli-oidc#iat) | Must be a UNIX timestamp in the past. |
-| [`nbf` (not before)](/docs/agent/v3/cli-oidc#nbf) (Optional) | If present, must be a UNIX timestamp in the past. |
-| [`exp` (expiration time)](/docs/agent/v3/cli-oidc#exp) | Must be a UNIX timestamp in the future. The OIDC token's lifespan—that is, the `exp` minus the `iat` timestamp values—cannot be greater than 5 minutes. |
-| [`aud` (audience)](/docs/agent/v3/cli-oidc#aud) | Must be equal to the registry's canonical URL, which has the format `https://packages.buildkite.com/{org.slug}/{registry.slug}`. |
+| [`iat` (issued at)](/docs/agent/v3/cli/reference/oidc#iat) | Must be a UNIX timestamp in the past. |
+| [`nbf` (not before)](/docs/agent/v3/cli/reference/oidc#nbf) (Optional) | If present, must be a UNIX timestamp in the past. |
+| [`exp` (expiration time)](/docs/agent/v3/cli/reference/oidc#exp) | Must be a UNIX timestamp in the future. The OIDC token's lifespan—that is, the `exp` minus the `iat` timestamp values—cannot be greater than 5 minutes. |
+| [`aud` (audience)](/docs/agent/v3/cli/reference/oidc#aud) | Must be equal to the registry's canonical URL, which has the format `https://packages.buildkite.com/{org.slug}/{registry.slug}`. |
 
 When generating an OIDC token from:
 
-- A [Buildkite Agent](/docs/agent/v3/cli-oidc), the [`--audience` option](/docs/agent/v3/cli-oidc#audience) must explicitly be specified with the required value, whereas `iat`, `nbf` and `exp` claims will automatically be included in the token.
+- A [Buildkite Agent](/docs/agent/v3/cli/reference/oidc), the [`--audience` option](/docs/agent/v3/cli/reference/oidc#audience) must explicitly be specified with the required value, whereas `iat`, `nbf` and `exp` claims will automatically be included in the token.
 
 - Another OIDC identity provider, ensure that its OIDC tokens contain these required claims. This should be the case by default, but if not, consult the relevant documentation for your OIDC identity provider on how to include these claims in the OIDC tokens it issues.
 
 ## Define an OIDC policy for a registry
 
-You can specify an OIDC policy for your Buildkite registry, which defines the criteria for which OIDC tokens, from the [Buildkite Agent](/docs/agent/v3/cli-oidc) or another OIDC identity provider, will be accepted by your registry and authenticate a package publication/upload action from that system.
+You can specify an OIDC policy for your Buildkite registry, which defines the criteria for which OIDC tokens, from the [Buildkite Agent](/docs/agent/v3/cli/reference/oidc) or another OIDC identity provider, will be accepted by your registry and authenticate a package publication/upload action from that system.
 
 To define an OIDC policy for one or more Buildkite pipeline jobs in a registry:
 
@@ -105,9 +105,9 @@ The following OIDC policy for a Buildkite registry contains two [_statements_](#
 
 The first statement allows OIDC tokens representing a pipeline's job being built by a Buildkite Agent, but only when all of the following is true for the tokens' claims:
 
-- The [organization slug](/docs/agent/v3/cli-oidc#organization-slug) is `your-org`
-- The [pipeline slug](/docs/agent/v3/cli-oidc#pipeline-slug) is either `one-pipeline` or `another-pipeline`
-- The [build branch](/docs/agent/v3/cli-oidc#build-branch) is either `main` or matches a `feature/*` branch
+- The [organization slug](/docs/agent/v3/cli/reference/oidc#organization-slug) is `your-org`
+- The [pipeline slug](/docs/agent/v3/cli/reference/oidc#pipeline-slug) is either `one-pipeline` or `another-pipeline`
+- The [build branch](/docs/agent/v3/cli/reference/oidc#build-branch) is either `main` or matches a `feature/*` branch
 
 Tokens allowed by this statement can read and write packages in the registry.
 
@@ -144,7 +144,7 @@ Currently, only OIDC tokens from the following token issuers are supported.
 
 | Token issuer name | The token issuer (`iss`) value | Relevant documentation link |
 | ----------------- | ------------------------------ | --------------------------- |
-| Buildkite | `https://agent.buildkite.com` | [Buildkite Agent `oidc` command](/docs/agent/v3/cli-oidc) |
+| Buildkite | `https://agent.buildkite.com` | [Buildkite Agent `oidc` command](/docs/agent/v3/cli/reference/oidc) |
 | GitHub Actions | `https://token.actions.githubusercontent.com` | [GitHub Actions OIDC Tokens](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect) |
 | CircleCI | `https://oidc.circleci.com/org/$ORG` where `$ORG` is your organization name | [CircleCI OIDC Tokens](https://circleci.com/docs/openid-connect-tokens) |
 
@@ -205,7 +205,7 @@ Configuring a Buildkite pipeline [`command` step](/docs/pipelines/configure/step
 
 ### Part 1: Request an OIDC token from Buildkite
 
-To do this, use the following [`buildkite-agent oidc` command](/docs/agent/v3/cli-oidc):
+To do this, use the following [`buildkite-agent oidc` command](/docs/agent/v3/cli/reference/oidc):
 
 ```bash
 buildkite-agent oidc request-token --audience "https://packages.buildkite.com/{org.slug}/{registry.slug}" --lifetime 300

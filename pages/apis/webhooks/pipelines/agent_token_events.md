@@ -9,7 +9,7 @@
 <tbody>
   <tr>
     <th><code>cluster_token.registration_blocked</code></th>
-    <td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+    <td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
 </tbody>
 </table>

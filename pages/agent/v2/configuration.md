@@ -1,7 +1,7 @@
 # Buildkite Agent configuration
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/configuration">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/configure">see the latest version of this document</a>.
 
 Every agent installer comes with a configuration file. You can also customize many of the configuration values using environment variables.
 
