@@ -6,7 +6,7 @@ You can also override this configured token by passing in a different token valu
 BUILDKITE_API_TOKEN=$another_token_value bk package push organization-slug/registry-slug ./path/to/my/file.ext
 ```
 
-If you have [installed the Buildkite CLI](/docs/platform/cli/installation) to your [self-hosted agents](/docs/agent/v3/installation), you can also do the following:
+If you have [installed the Buildkite CLI](/docs/platform/cli/installation) to your [self-hosted agents](/docs/agent/v3/self-hosted/install), you can also do the following:
 
 - Use the `bk` command from within your Buildkite pipelines.
 

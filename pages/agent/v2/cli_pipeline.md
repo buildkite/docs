@@ -1,7 +1,7 @@
 # buildkite-agent pipeline
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_pipeline">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli/reference/pipeline">see the latest version of this document</a>.
 
 The Buildkite Agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
 
@@ -52,7 +52,7 @@ The pipeline can be written as YAML or JSON, but YAML is more common for its rea
 
 ## Environment variable substitution
 
-In Buildkite Agent versions 3.0 and above, the `pipeline upload` command supports [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) using the syntax `$VAR` and `${VAR}`.
+In Buildkite Agent versions 3.0 and above, the `pipeline upload` command supports [environment variable substitution](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution) using the syntax `$VAR` and `${VAR}`.
 
 If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent's environment variable substitution using bash:
 

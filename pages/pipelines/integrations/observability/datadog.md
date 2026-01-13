@@ -53,7 +53,7 @@ The following configurations provide additional customization options to enhance
 
 ### Setting custom tags
 
-To create custom tags for filtering the CI Pipeline Visibility results, you can use [`buildkite-agent meta-data set` command](/docs/agent/v3/cli-meta-data). Here is an example of how a tag can be set through a YAML pipeline configuration:
+To create custom tags for filtering the CI Pipeline Visibility results, you can use [`buildkite-agent meta-data set` command](/docs/agent/v3/cli/reference/meta-data). Here is an example of how a tag can be set through a YAML pipeline configuration:
 
 ```yaml
 steps:

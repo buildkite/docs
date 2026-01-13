@@ -74,4 +74,4 @@ You can send traces from the Buildkite Agent to Honeycomb with the help of OpenT
 
     Replace `<api_key>` with your actual Honeycomb API key.
 
-    For more details, see the [OpenTelemetry tracing documentation](/docs/agent/v3/tracing#using-opentelemetry-tracing-sending-opentelemetry-traces-to-honeycomb).
+    For more details, see the [OpenTelemetry tracing documentation](/docs/agent/v3/self-hosted/tracing#using-opentelemetry-tracing-sending-opentelemetry-traces-to-honeycomb).

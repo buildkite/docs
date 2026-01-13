@@ -6,7 +6,7 @@ Plugins can be used in pipeline [command steps](/docs/pipelines/configure/step-t
 
 To add a plugin to a [command step](/docs/pipelines/configure/step-types/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
 
-When multiple plugins are listed in the same step, they will run in the [order of the hooks](/docs/agent/v3/hooks#job-lifecycle-hooks), and within each hook, in the order they were listed in the step.
+When multiple plugins are listed in the same step, they will run in the [order of the hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks), and within each hook, in the order they were listed in the step.
 
 ```yml
 steps:
@@ -38,9 +38,9 @@ Although there's no `command` attribute in the above example, this is still
 considered a command step, so all command attributes are available for use.
 
 It is possible to define multiple hooks of the same type in both a
-[plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks) and the
-[agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks) location.
-See [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)
+[plugins](/docs/agent/v3/self-hosted/hooks#hook-locations-plugin-hooks) and the
+[agent hooks](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks) location.
+See [job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)
 for the overall order of hooks, and the relative order of invocation for each
 location.
 
@@ -237,7 +237,7 @@ steps:
 
 ## Disabling plugins
 
-To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins).
+To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins).
 
-To disable plugins entirely, set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
+To disable plugins entirely, set the [`no-plugins`](/docs/agent/v3/self-hosted/configure#no-plugins)
 option.
