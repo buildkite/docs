@@ -5,11 +5,9 @@ Usage limits outlines the usage quotas per product, based on the set limits and 
 Limits can only be overridden for Enterprise-tier users, in case that is possible.
 
 > 📘 Overriding usage limits
-> If you are on the Enterprise-tier subscription plan and need to override a service limit, reach out to Buildkite Support to inquiry whether it is possible.
+> If you are on the Enterprise-tier subscription plan and need to override a service limit, reach out to your dedicated TAM or Buildkite Support to inquiry whether it is possible.
 
-
-
-# Service quotas
+## Service quotas
 
 Service quotas are put in place to ensure that Buildkite can provide a reliable service to all customers. These quotas are scoped to your organization, and can be increased by emailing Support at [support@buildkite.com](mailto:support@buildkite.com) and providing details about your use case.
 
