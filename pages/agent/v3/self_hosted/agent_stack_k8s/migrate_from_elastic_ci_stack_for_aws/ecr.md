@@ -65,7 +65,7 @@ config:
           name: aws-credentials
 ```
 
-With the credentials configured at the controller level, they credentials are automatically available to all job containers. Add the `ecr` plugin to your pipeline steps:
+With the credentials configured at the controller level, the credentials are automatically available to all job containers. Add the `ecr` plugin to your pipeline steps:
 
 ```yaml
 # pipeline.yaml
@@ -151,7 +151,7 @@ Once configured at the cluster level, the kubelet automatically authenticates to
 
 ### Using Docker registry secrets
 
-If you cannot configure the kubelet credential provider, an alternative can be to create a Kubernetes secret with ECR credentials:
+If you cannot configure the kubelet credential provider, you can create a Kubernetes secret with ECR credentials:
 
 ```bash
 kubectl create secret docker-registry ecr-credentials \
