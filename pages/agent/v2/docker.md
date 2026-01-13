@@ -1,7 +1,7 @@
 # Running Buildkite Agent with Docker
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/docker">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/install/docker">see the latest version of this document</a>.
 
 You can run the Buildkite Agent inside a Docker container using the official Docker images.
 

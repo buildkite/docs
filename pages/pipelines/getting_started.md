@@ -22,7 +22,7 @@ If you're already familiar with Buildkite Pipelines' architectures, continue on,
 
 ## Set up an agent
 
-The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/pipelines/hosted-agents), which provides the quickest method to get up and running with Pipelines.
+The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The agent polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines, as well as part of [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), which provides the quickest method to get up and running with Pipelines.
 
 Buildkite agents connect to Buildkite through a [_cluster_](/docs/pipelines/glossary#cluster). Clusters provide a mechanism to organize your pipelines and agents together, such that the pipelines associated with a given cluster can _only_ be built by the agents (defined within [_queues_](/docs/pipelines/glossary#queue)) in the same cluster.
 
@@ -35,18 +35,18 @@ You need at least one agent configured within its own queue and cluster to run b
 
 ### Create a Buildkite hosted agent
 
-You can create the first [Buildkite hosted agent](/docs/pipelines/hosted-agents) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
-Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to.
+Before creating your Buildkite hosted agent, ensure you have a [cluster](/docs/pipelines/security/clusters/manage) (for example, **Default cluster**) you can connect this agent to.
 
 > 📘
 > If you're unable to access the Buildkite hosted agent feature or create one in your cluster, please contact support at support@buildkite.com to request access to this feature. Otherwise, you can set yourself up with a [self-hosted agent](#set-up-an-agent-install-and-run-a-self-hosted-agent) instead.
 
 To create a hosted agent:
 
-1. Navigate to the [cluster](/docs/pipelines/clusters/manage-clusters) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
+1. Navigate to the [cluster](/docs/pipelines/security/clusters/manage) you want to run your pipeline in. To do this, select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster (for example, **Default cluster**) to which the hosted agent will be added.
-1. Follow the [Create a Buildkite hosted queue](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
+1. Follow the [Create a Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
     * In the **Select your agent infrastructure** section, select **Hosted**.
@@ -64,9 +64,9 @@ Your Buildkite hosted agent, as the new default queue, is now ready to use. You 
 
 Before installing and running a self-hosted agent, ensure you have:
 
-- a [cluster](/docs/pipelines/clusters/manage-clusters) (for example, **Default cluster**) you can connect this agent to,
-- a [queue](/docs/pipelines/clusters/manage-queues#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
-- the value of an [agent token](/docs/agent/v3/tokens) (for example, **Initial agent token**), which you can configure for the agent.
+- a [cluster](/docs/pipelines/security/clusters/manage) (for example, **Default cluster**) you can connect this agent to,
+- a [queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) (for example, with the key **default**) to which the agent will be associated with, and
+- the value of an [agent token](/docs/agent/v3/self-hosted/tokens) (for example, **Initial agent token**), which you can configure for the agent.
 
     Be aware that since [hosted agents](#set-up-an-agent-create-a-buildkite-hosted-agent) are managed by Buildkite, there is no need to create agent tokens for these types of agents.
 
@@ -79,12 +79,12 @@ To install and run an agent in your own self-hosted infrastructure (including yo
 1. Follow the instructions for where you want to install the agent.
 
     To install locally, see:
-    * [macOS](/docs/agent/v3/macos#installation)
-    * [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
-    * [Linux](/docs/agent/v3/linux#installation)
-    * [Docker](/docs/agent/v3/docker#running-using-docker)
+    * [macOS](/docs/agent/v3/self-hosted/install/macos#installation)
+    * [Windows](/docs/agent/v3/self-hosted/install/windows#automated-install-with-powershell)
+    * [Linux](/docs/agent/v3/self-hosted/install/linux#installation)
+    * [Docker](/docs/agent/v3/self-hosted/install/docker#running-using-docker)
 
-    Or see [all installation options](/docs/agent/v3/installation).
+    Or see [all installation options](/docs/agent/v3/self-hosted/install).
 
     Ensure you configure the agent token, which connects the agent to your Buildkite account.
 

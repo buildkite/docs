@@ -48,7 +48,7 @@ env:
   API_ENDPOINT: "https://api.myapp.com/prod"
 ```
 
-- Use step-level `env`, pipeline `env`, or [hooks](/docs/agent/v3/hooks) to set values.
+- Use step-level `env`, pipeline `env`, or [hooks](/docs/agent/v3/self-hosted/hooks) to set values.
 - Keep secrets out of `pipeline.yml` and repositories—use a secrets manager or [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 - Be aware of the OS's limits for environment size; opt for using files instead of variables for large payloads.
 
@@ -70,7 +70,7 @@ Proper script hygiene prevents silent failures and makes debugging easier. Write
     * Consider only using `set -x` for debugging
 - Don't assume shell init files; explicitly configure shell behavior in your [build scripts](/docs/pipelines/configure/writing-build-scripts).
 - [Fail fast](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs) with clear exit codes.
-- Surface summaries via [Buildkite annotations](/docs/agent/v3/cli-annotate) for quick feedback.
+- Surface summaries via [Buildkite annotations](/docs/agent/v3/cli/reference/annotate) for quick feedback.
 
 ## Reproducible Docker builds in pipelines
 
@@ -120,7 +120,7 @@ See more on governance in [Governance overview](/docs/pipelines/governance).
 
 Monitor and measure your build environments to identify optimization opportunities and track performance over time.
 
-- Emit key build-time environment facts as [annotations](/docs/agent/v3/cli-annotate):
+- Emit key build-time environment facts as [annotations](/docs/agent/v3/cli/reference/annotate):
     * Image digest and source
     * Toolchain versions
     * Cache hit ratios

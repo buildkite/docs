@@ -31,7 +31,7 @@ If using bot users (unregistered users who are not part of any team) to trigger 
 If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
 
 > 📘 Pipeline triggering
-> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/rules) has been created to explicitly allow triggering between pipelines in different clusters.
+> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/security/clusters/rules) has been created to explicitly allow triggering between pipelines in different clusters.
 
 ## Trigger step attributes
 
@@ -186,7 +186,7 @@ Optional `build` attributes:
 
 ## Environment variables
 
-You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
+You can use [environment variable substitution](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution) to set attribute values:
 
 ```yml
 - trigger: "app-deploy"

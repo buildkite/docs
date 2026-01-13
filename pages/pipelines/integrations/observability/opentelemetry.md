@@ -229,7 +229,7 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 
 ## OpenTelemetry tracing from Buildkite agent
 
-See [Tracing in the Buildkite Agent](/docs/agent/v3/tracing#using-opentelemetry-tracing).
+See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/tracing#using-opentelemetry-tracing).
 
 ### Required agent flags / environment variables
 
@@ -297,7 +297,7 @@ Propagating trace spans from the OpenTelemetry Notification service requires Bui
 
 ### Propagating traces from Buildkite Agents to commands
 
-Trace contexts are propagated automatically from a Buildkite Agent to all its child processes. See [Tracing in the Buildkite Agent](/docs/agent/v3/tracing#using-opentelemetry-tracing-trace-context-propagation).
+Trace contexts are propagated automatically from a Buildkite Agent to all its child processes. See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/tracing#using-opentelemetry-tracing-trace-context-propagation).
 
 ### Buildkite hosted agents
 

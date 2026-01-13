@@ -26,4 +26,4 @@ Learn more about how to set up this architecture in [Install and run a self-host
 
 Buildkite also provides a _managed_ solution, offered through its _Buildkite hosted agents_ feature, where both the control plane of Buildkite Pipelines and its build environment are provided and handled by Buildkite. This solution is useful when you need to get a build environment up and running quickly or you have limited resources to implement a hybrid architecture, or both.
 
-Learn more about this feature in [Buildkite hosted agents](/docs/pipelines/hosted-agents), and how to set up this architecture in [Create a Buildkite hosted agent](/docs/pipelines/getting-started#set-up-an-agent-create-a-buildkite-hosted-agent) of the main [Getting started](/docs/pipelines/getting-started) tutorial.
+Learn more about this feature in [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), and how to set up this architecture in [Create a Buildkite hosted agent](/docs/pipelines/getting-started#set-up-an-agent-create-a-buildkite-hosted-agent) of the main [Getting started](/docs/pipelines/getting-started) tutorial.

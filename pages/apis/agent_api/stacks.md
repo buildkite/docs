@@ -5,7 +5,7 @@ toc: true
 # Stack API
 
 The Stack API provides endpoints for implementing a stack reliably.
-These endpoints require [Agent tokens](/docs/agent/v3/tokens) for authentication.
+These endpoints require [Agent tokens](/docs/agent/v3/self-hosted/tokens) for authentication.
 
 A stack is defined as a software process that has these two abilities simultaneously:
 

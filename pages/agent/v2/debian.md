@@ -1,7 +1,7 @@
 # Installing Buildkite Agent on Debian
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/debian">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/install/debian">see the latest version of this document</a>.
 
 The Buildkite Agent can be installed on Debian versions 7.x and 8.x using our signed apt repository.
 

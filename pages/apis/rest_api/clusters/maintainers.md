@@ -1,6 +1,6 @@
 # Cluster maintainers
 
-Cluster maintainers permissions can be assigned to a list of [Users or teams](/docs/platform/team-management/permissions), or both. This grants assignees the ability to manage the [Buildkite clusters they maintain](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster).
+Cluster maintainers permissions can be assigned to a list of [Users or teams](/docs/platform/team-management/permissions), or both. This grants assignees the ability to manage the [Buildkite clusters they maintain](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster).
 
 ## Cluster maintainer data model
 
@@ -13,7 +13,7 @@ Cluster maintainers permissions can be assigned to a list of [Users or teams](/d
 
 ## List cluster maintainers
 
-Returns a list of [maintainers](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) on a [cluster](/docs/pipelines/clusters).
+Returns a list of [maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) on a [cluster](/docs/pipelines/security/clusters).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -73,7 +73,7 @@ Success response: `200 OK`
 
 ## Create a cluster maintainer
 
-Assigns [cluster maintainer](/docs/pipelines/clusters/manage-clusters#manage-maintainers-on-a-cluster) permissions to a [user or team](/docs/platform/team-management/permissions).
+Assigns [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions to a [user or team](/docs/platform/team-management/permissions).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
