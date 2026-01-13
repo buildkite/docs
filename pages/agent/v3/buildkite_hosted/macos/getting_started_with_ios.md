@@ -17,7 +17,7 @@ You can use [macOS hosted agents](/docs/agent/v3/buildkite-hosted/macos) to buil
 > 📘 Already running an agent
 > If you already have a Buildkite hosted queue for macOS hosted agents, skip to the [next step on creating a pipeline](#create-a-pipeline).
 
-You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted/overview) for [macOS](/docs/agent/v3/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted) for [macOS](/docs/agent/v3/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 To create your macOS hosted agent:
 

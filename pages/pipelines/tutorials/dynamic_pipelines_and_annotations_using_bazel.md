@@ -31,7 +31,7 @@ Buildkite Pipelines requires an [agent](/docs/agent/v3) running Bazel to build t
 
 Unlike [Linux hosted agents](/docs/agent/v3/buildkite-hosted/linux), which would require you to install Bazel or Bazelisk on the agent (for example, using an [agent image](/docs/agent/v3/buildkite-hosted/linux#agent-images)), and implement other configurations to ensure that Bazel runs successfully on the agent (for example, ensuring Bazel runs as a non-root user), [macOS hosted agents](/docs/agent/v3/buildkite-hosted/macos) already come pre-installed with Bazelisk and ready to run Bazel.
 
-You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted/overview) for [macOS](/docs/agent/v3/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted) for [macOS](/docs/agent/v3/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 > 📘
 > If you're unable to access the Buildkite hosted agent feature or create one in your cluster, please contact support at support@buildkite.com to request access to this feature. Otherwise, you can set yourself up with a [self-hosted agent](#set-up-an-agent-set-up-a-self-hosted-agent) instead.
