@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/aws/architecture/securing-your-setup",                                         to: redirect("/docs/agent/v3/self-hosted/aws/architecture/securing-your-setup")
   get "/docs/agent/v3/aws/architecture/vpc",                                                         to: redirect("/docs/agent/v3/self-hosted/aws/architecture/vpc")
   get "/docs/agent/v3/aws/elastic-ci-stack",                                                         to: redirect("/docs/agent/v3/self-hosted/aws/elastic-ci-stack")
-  get "/docs/agent/v3/aws/elastic-ci-stack-architecture",                                            to: redirect("/docs/agent/v3/self-hosted/aws/elastic-ci-stack-architecture")
+  get "/docs/agent/v3/aws/elastic-ci-stack-architecture",                                            to: redirect("/docs/agent/v3/self-hosted/aws/elastic-ci-stack/architecture")
   get "/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildah-container-builds",          to: redirect("/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/buildah-container-builds")
   get "/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds",         to: redirect("/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/buildkit-container-builds")
   get "/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/cloudformation-service-role",       to: redirect("/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup#cloudformation-service-role")
