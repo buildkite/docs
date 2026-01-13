@@ -1,8 +1,8 @@
 # Amazon ECR authentication
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) pre-configures the [`ecr` plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) to run automatically as a local agent hook through the `pre-command` hook. This provides automatic authentication to Amazon ECR before each job runs, with no configuration required in your pipeline YAML.
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) pre-configures the [`ecr` plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) to run automatically as a local agent [hook](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins) through the `pre-command` hook. This provides automatic authentication to Amazon ECR before each job runs, with no configuration required in your pipeline YAML.
 
-When using Agent Stack for Kubernetes, you need to add the `ecr` plugin to each pipeline step that needs ECR access and ensure AWS credentials are available to your jobs.
+When using Agent Stack for Kubernetes, you need to add the `ecr` plugin to each pipeline [step](/docs/pipelines/configure/defining-steps) that needs ECR access and ensure AWS credentials are available to your jobs.
 
 > 📘 Other Docker registries
 > For Docker Hub, Google Container Registry, or other Docker registries, see [Docker registry authentication](/docs/agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-login) instead. The `docker-login` plugin provides authentication for non-ECR registries.
@@ -13,7 +13,7 @@ When migrating to Agent Stack for Kubernetes, you need to explicitly configure t
 
 ### Provide AWS credentials to your Pods
 
-The `ecr` plugin requires AWS credentials to be available in your job Pods. You can provide these credentials using IAM Roles for Service Accounts (recommended for EKS clusters), AWS credentials stored as Kubernetes Secrets, or the `aws-assume-role-with-web-identity` plugin with Buildkite OIDC tokens.
+The `ecr` plugin requires AWS credentials to be available in your job Pods. You can provide these credentials using IAM Roles for Service Accounts (recommended for EKS clusters), AWS credentials stored as Kubernetes Secrets, or the [`aws-assume-role-with-web-identity` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin/) with [Buildkite OIDC](/docs/pipelines/security/oidc) tokens.
 
 To learn more about all available configuration options for the `ecr` plugin, see the plugin's [README](https://github.com/buildkite-plugins/ecr-buildkite-plugin#options).
 
@@ -21,7 +21,7 @@ To learn more about all available configuration options for the `ecr` plugin, se
 
 IAM Roles for Service Accounts (IRSA) is the recommended approach for EKS clusters. IRSA allows your Kubernetes Pods to assume AWS IAM roles automatically. AWS handles credential rotation, so you don't need to manage tokens manually. For more information, see the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) on IAM Roles for Service Accounts.
 
-First, create a Kubernetes [service account](https://kubernetes.io/docs/concepts/security/service-accounts/) with the IAM role annotation:
+To start using IRSA, first, create a Kubernetes [service account](https://kubernetes.io/docs/concepts/security/service-accounts/) with the IAM role annotation:
 
 ```yaml
 # serviceaccount.yaml
@@ -65,7 +65,7 @@ config:
           name: aws-credentials
 ```
 
-With the credentials configured at the controller level, they're automatically available to all job containers. Add the `ecr` plugin to your pipeline steps:
+With the credentials configured at the controller level, they credentials are automatically available to all job containers. Add the `ecr` plugin to your pipeline steps:
 
 ```yaml
 # pipeline.yaml
@@ -88,11 +88,11 @@ steps:
 > 📘 Container image requirements
 > The `ecr` plugin requires both the AWS CLI and Docker to be available in your container. You'll need a custom image that includes both tools.
 
-#### Using the aws-assume-role-with-web-identity plugin
+#### Using the AWS assume-role-with-web-identity plugin
 
-The [`aws-assume-role-with-web-identity` plugin](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) uses Buildkite OIDC tokens to assume an AWS IAM role without storing AWS credentials. You won't need to manage long-lived credentials in Kubernetes Secrets.
+The [AWS assume-role-with-web-identity plugin](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) uses Buildkite OIDC tokens to assume an AWS IAM role without storing AWS credentials. You won't need to manage long-lived credentials in Kubernetes Secrets.
 
-Before using this plugin, you must configure an OIDC identity provider in AWS with a provider URL of `https://agent.buildkite.com` and an audience of `sts.amazonaws.com`. See the plugin's [AWS configuration documentation](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin#aws-configuration-with-terraform) for detailed setup instructions.
+Before using this plugin, you must configure an OIDC identity provider in AWS with a provider URL of `https://agent.buildkite.com` and an audience of `sts.amazonaws.com`. See the plugin's [AWS configuration documentation](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin/) for detailed setup instructions.
 
 Add the plugin before the `ecr` plugin in your pipeline:
 
@@ -121,7 +121,7 @@ steps:
 
 ## Using imagePullSecrets for pulling container images
 
-If you need Kubernetes to authenticate when pulling private container images from ECR for your job Pods, configure authentication for the kubelet. This is separate from the `ecr` plugin, which handles authentication for Docker commands that run inside your job containers.
+If you need Kubernetes to be able to authenticate when pulling private container images from ECR for your job Pods, configure authentication for the [kubelet](https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/). It is separate from the `ecr` plugin, which handles authentication for Docker commands that run inside your job containers.
 
 Kubernetes provides two approaches for kubelet authentication to ECR. You can use the kubelet credential provider, which dynamically retrieves credentials without storing them in your cluster (recommended), or create a Docker registry secret with static credentials that expire after 12 hours.
 
@@ -162,7 +162,7 @@ kubectl create secret docker-registry ecr-credentials \
 ```
 
 > 📘 Token expiry
-> ECR tokens expire after 12 hours. You'll need to refresh this secret periodically using a Kubernetes CronJob that runs every few hours to fetch a new token and update the secret. For more information about CronJobs, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/).
+> ECR tokens expire after 12 hours. You'll need to refresh this secret periodically using a Kubernetes CronJob that runs every few hours to fetch a new token and update the secret. For more information about CronJobs, see the [Kubernetes documentation on CronJobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/).
 
 #### Configure imagePullSecrets in your pipeline
 
@@ -196,4 +196,4 @@ config:
       - name: ecr-credentials
 ```
 
-This automatically adds the image pull secret to all job Pods without requiring per-pipeline configuration.
+This configuration automatically adds the image pull secret to all job Pods without requiring per-pipeline configuration.
