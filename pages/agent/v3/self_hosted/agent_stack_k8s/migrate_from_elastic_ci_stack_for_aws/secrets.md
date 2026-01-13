@@ -518,7 +518,7 @@ Kubernetes Secrets provide native integration with your cluster but require:
 
 This approach works well when committing fully to Kubernetes-native tooling and when secrets are environment-specific.
 
-## Migrate to Buildkite secrets
+## Migrate to Buildkite Secrets
 
 This approach migrates S3 secrets to [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), which provides centralized secrets storage accessible across different agent platforms.
 
