@@ -2,16 +2,18 @@
 
 Usage limits outlines the usage quotas per product, based on the set limits and subscription tier.
 
-Limits can only be overridden for Enterprise-tier users, in case that is possible.
-
 > 📘 Overriding usage limits
-> If you are on the Enterprise-tier subscription plan and need to override a service limit, reach out to your dedicated TAM or Buildkite Support to inquiry whether it is possible.
+> If you are on the Enterprise-tier subscription plan and need to override a service limit, reach out to your dedicated TAM or Buildkite Support to inquire if it is possible.
 
 ## Buildkite product limits by plan (subscription tier)
 
+The Trial Plan, Developer Plan, and Personal Plan are considered to be “limited plans” with restricted features.
+The Pro Plan has no specific restrictions in terms of features, but usage limits apply.
+The Enterprise Plan is the most customizable plan with usage limits that can be potentially be expanded based on the use case.
+
 ### Plan-based limits (billing plans)
 
-| Resource | Free/Developer | Personal | Team | Business | Pro | Enterprise |
+| Resource | Developer | Personal | Team | Business | Pro | Enterprise |
 | --- | --- | --- | --- | --- | --- | --- |
 | **Job Minutes** | 5,000-10,000/mo | - | 20,000 base | 40,000 base | 40,000 base | 100,000+ base |
 | **Test Executions** | 100,000-175,000/mo | - | 250,000 base | 500,000 base | 500,000 base | 1,000,000+ base |
@@ -20,14 +22,13 @@ Limits can only be overridden for Enterprise-tier users, in case that is possibl
 
 ### Plan-variable service quotas
 
-| Quota | Free/Personal Plan | Paid/Enterprise |
+| Quota | Personal Plan | Paid/Enterprise |
 | --- | --- | --- |
 | **Build Retention** | 90 days | 365 days |
 | **Clusters per Org** | 1 (limited plans only) | Unlimited |
 | **Invitations** | 20 (free) | 100 (paid), 2000 (managed/enterprise) |
 | **Job Timeout** | **4 hours max** | Unlimited |
 | **Test Engine Workflows per Suite** | 1 | 3 (Pro/Enterprise) |
-
 
 ### Hosted agents limits
 
@@ -36,7 +37,7 @@ Limits can only be overridden for Enterprise-tier users, in case that is possibl
 | Plan Type | Linux Concurrency | macOS Concurrency |
 | --- | --- | --- |
 | Personal | 3 | - |
-| Trial/Free | 10 | 3 |
+| Trial | 10 | 3 |
 | Paid | 20 | 5 |
 | Staff | 1 | 1 |
 
@@ -45,16 +46,15 @@ Limits can only be overridden for Enterprise-tier users, in case that is possibl
 | Plan Type | Linux Minutes | macOS Minutes |
 | --- | --- | --- |
 | Personal | 550 | - |
-| Trial/Free | 2,000 | 3,000 |
+| Trial | 2,000 | 3,000 |
 | Paid | 900,000 | 250,000 |
 
 ### Model provider spend limits (in USD)
 
-| Provider | Free Period | Paying Customers | Maximum Override |
+| Provider | Trial Period | Paying Customers | Maximum Override |
 | --- | --- | --- | --- |
 | **Anthropic** | $50 | $1,000 | $50,000 |
 | **OpenAI** | $50 | $1,000 | $50,000 |
-
 
 ### Universal service quotas
 
@@ -135,31 +135,6 @@ These quotas apply to all plans by default but can be customized per organizatio
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
-### Hard-coded limits not tied to billing
-
-These limits are enforced in code but have NO billing plan variation:
-
-| Limit | Value | Location | Description |
-| --- | --- | --- | --- |
-| Max Organizations per User | 20 | `Organization::Creator` | User can create max 20 organizations total |
-| Max Organizations per Day | 4 | `Organization::Creator` | User can create max 4 organizations per day |
-| Max Triggers per Pipeline | 10 | `Pipeline::Trigger` | Webhook triggers per pipeline |
-| Max Unverified Emails | 5 | `User::Email::Creator` | Unverified emails per user |
-| Max Portal Secrets | 2 | `Portal::Secret::Creator` | Secrets per portal |
-| Max IP Addresses per Token | 24 | `Cluster::Token` | IP allowlist entries |
-| Max Allowed Teams per Step | 100 | `Build::PipelineConfig::StepInputAllowedTeams` | Teams for manual unlock steps |
-| Max Cache Size | 128 GB | `Build::PipelineConfig::StepCommandCache` | Cache size for hosted agents |
-| Max GraphQL Query Depth | 15 | `API::Graph::Query` | Query nesting depth |
-| Max GraphQL Complexity | 50,000 | `API::Graph::Query` | Query complexity score |
-| Max Annotation Replacements | 10 | `Annotation::Renderer` | Image/link replacements |
-| Max Concurrency Key Length | 200 | `ConcurrencyGroup` | Concurrency group key length |
-| Max Audit Search Terms | 3 | `Audit::Event::Search` | Search term limit |
-| Test Ownership File Size | 1 MB | `Analytics::TestOwnershipFile` | CODEOWNERS file max |
-| Multipart Max Artifacts | 30 | `Artifact::Creator` | Per upload batch |
-| Multipart Max Parts | 10 | `Artifact::Creator` | Per artifact |
-| Asset Upload Max Files | 10 | `Asset::Uploader` | Files per upload |
-| Asset Upload Max Size | 10 MB | `Asset::Uploader` | Per file |
-
 ### Billing limits - enforcement status
 
 #### Actively enforced billing limits
@@ -217,6 +192,31 @@ These features are available based on plan but the code doesn’t actively block
 | Priority Support | Not a code feature |
 | Chat Support | Not a code feature |
 | Account Manager | Not a code feature |
+
+## Hard-coded limits not tied to billing
+
+The following limits are limits tied to rational use of the Buildkite platform and are not tied to the billing plan.
+
+| Limit | Value | Location | Description |
+| --- | --- | --- | --- |
+| Max Organizations per User | 20 | `Organization::Creator` | User can create max 20 organizations total |
+| Max Organizations per Day | 4 | `Organization::Creator` | User can create max 4 organizations per day |
+| Max Triggers per Pipeline | 10 | `Pipeline::Trigger` | Webhook triggers per pipeline |
+| Max Unverified Emails | 5 | `User::Email::Creator` | Unverified emails per user |
+| Max Portal Secrets | 2 | `Portal::Secret::Creator` | Secrets per portal |
+| Max IP Addresses per Token | 24 | `Cluster::Token` | IP allowlist entries |
+| Max Allowed Teams per Step | 100 | `Build::PipelineConfig::StepInputAllowedTeams` | Teams for manual unlock steps |
+| Max Cache Size | 128 GB | `Build::PipelineConfig::StepCommandCache` | Cache size for hosted agents |
+| Max GraphQL Query Depth | 15 | `API::Graph::Query` | Query nesting depth |
+| Max GraphQL Complexity | 50,000 | `API::Graph::Query` | Query complexity score |
+| Max Annotation Replacements | 10 | `Annotation::Renderer` | Image/link replacements |
+| Max Concurrency Key Length | 200 | `ConcurrencyGroup` | Concurrency group key length |
+| Max Audit Search Terms | 3 | `Audit::Event::Search` | Search term limit |
+| Test Ownership File Size | 1 MB | `Analytics::TestOwnershipFile` | CODEOWNERS file max |
+| Multipart Max Artifacts | 30 | `Artifact::Creator` | Per upload batch |
+| Multipart Max Parts | 10 | `Artifact::Creator` | Per artifact |
+| Asset Upload Max Files | 10 | `Asset::Uploader` | Files per upload |
+| Asset Upload Max Size | 10 MB | `Asset::Uploader` | Per file |
 
 ## Service quotas
 
@@ -316,8 +316,3 @@ The following table lists Buildkite's default service quota values.
     <% end %>
   </tbody>
 </table>
-
-## Notes
-
-- **Limited Plans**: Free Plan, Developer Plan, and Personal Plan are considered “limited plans” with restricted features
-- **Legacy Plans**: Team, Business, Pro, and Enterprise plans shown above are legacy plans; new Platform plans are now the default.
