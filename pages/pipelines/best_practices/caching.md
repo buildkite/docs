@@ -144,7 +144,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 - Expect some non‑determinism with ephemeral volumes; Bazel will re‑download missing pieces. Keep remote cache as the source of truth.
 - Co‑locate compute and cache to reduce latency.
 - Keep images lean; preinstall `Bazelisk` and critical toolchains.
-- Manage credentials via [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) or your KMS - do not hard-code them into `.bazelrc`.
+- Manage credentials via [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or your KMS - do not hard-code them into `.bazelrc`.
 
 ## Git Large File Storage (LFS) caching
 
