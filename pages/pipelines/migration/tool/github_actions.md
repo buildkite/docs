@@ -1,12 +1,12 @@
 # GitHub Actions
 
-The [Buildkite pipeline conversion tool](/docs/pipelines/migration/tool) helps you convert your GitHub Actions workflows into Buildkite pipelines. Because GitHub Actions workflows can include complex combinations of jobs, steps, matrix strategies, and reusable actions, an AI Large Language Model (LLM) is used to get the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/migration/tool) helps you convert your GitHub Actions workflows into Buildkite pipelines. Because GitHub Actions workflows can include complex combinations of jobs, steps, matrix strategies, and reusable actions, an AI Large Language Model (LLM) is used to get the best results in the translation process.
 
 The LLM analyzes the GitHub Actions workflow to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
 
-The goal of the Buildkite pipeline conversion tool is to give you a starting point, so you can see how patterns you're used to in GitHub Actions would function in Buildkite Pipelines. In cases where GitHub Actions features don't have a direct Buildkite Pipelines equivalent, the pipeline conversion tool includes comments with suggestions about possible solutions.
+The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in GitHub Actions would function in Buildkite Pipelines. In cases where GitHub Actions features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions.
 
-## Using the Buildkite pipeline conversion tool with GitHub Actions
+## Using the Buildkite pipeline converter with GitHub Actions
 
 To start converting a GitHub Actions workflow into Buildkite Pipelines format:
 
@@ -17,7 +17,7 @@ To start converting a GitHub Actions workflow into Buildkite Pipelines format:
 
 ## How the translation works
 
-Here are some examples of translations that the pipeline conversion tool will perform:
+Here are some examples of translations that the pipeline converter will perform:
 
 - **Jobs** become Buildkite [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. Multiple `run` steps within a job are combined into a single `command` array. Job dependencies (`needs`) become `depends_on` attributes.
 

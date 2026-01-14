@@ -18,7 +18,7 @@
         - name: "Build page"
           path: "pipelines/build-page"
           pill: "new"
-        - name: Conversion tool
+        - name: Pipeline converter
           children:
             - name: "Overview"
               path: "pipelines/migration/tool"
