@@ -403,29 +403,17 @@ Expose individual secrets as environment variables:
 # values.yaml
 config:
   default-checkout-params:
-    env:
-    - name: DATABASE_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: database-password
-          key: DATABASE_PASSWORD
-    - name: API_TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: api-token
-          key: API_TOKEN
+    envFrom:
+    - secretRef:
+        name: database-password
+    - secretRef:
+        name: api-token
   default-command-params:
-    env:
-    - name: DATABASE_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: database-password
-          key: DATABASE_PASSWORD
-    - name: API_TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: api-token
-          key: API_TOKEN
+    envFrom:
+    - secretRef:
+        name: database-password
+    - secretRef:
+        name: api-token
 ```
 
 Alternatively, create a single Secret containing multiple files:
