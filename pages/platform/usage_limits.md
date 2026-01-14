@@ -32,6 +32,8 @@ The Enterprise Plan is the most customizable plan with usage limits that can be 
 
 ### Hosted agents limits
 
+The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
+
 #### Concurrency limits
 
 | Plan Type | Linux Concurrency | macOS Concurrency |
@@ -118,7 +120,7 @@ These quotas apply to all plans by default but can be customized per organizatio
 
 ### Integration service limits
 
-| Service | Default per Org |
+| Service | Default per organization |
 | --- | --- |
 | Slack Services | 50 |
 | Webhook Services | 15 |
@@ -130,57 +132,36 @@ These quotas apply to all plans by default but can be customized per organizatio
 
 ### Hosted agents cache volume limits
 
-| Volume Type | Default Size |
+| Volume type | Default size |
 | --- | --- |
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
-### Billing limits - enforcement status
+### Service limits - enforcement status
+
+When a service limit is reached, you might be notified and/or limitations might take effect. Here is what you should expect when you are reaching the limits.
 
 #### Actively enforced billing limits
 
-| Billing Resource | Enforcement Location | Behavior |
-| --- | --- | --- |
-| **Job Minutes** | `QueueManager::JobDispatcher` | Jobs stop dispatching when limit reached |
-| **Test Executions** | `Analytics::API::UploadsController` | Uploads rejected with 403 Forbidden |
-| **Packages Storage** | `API::Packages::BaseController` | Package uploads blocked |
-| **Users (Personal Plan)** | `Billing::Context.reached_users_limit?` | Invitations blocked |
-| **Job Concurrency (Personal)** | `PlatformLimiter` | Jobs queued/limited |
-| **Job Timeout (Limited Plans)** | `Build::JobsCreator`, `Build::PipelineConfig` | Capped at 4 hours |
-| **Clusters (Limited Plans)** | `ClustersPerOrganization` quota | Limited to 1 cluster |
+| Billing resource | Behavior |
+| --- | --- |
+| **Job Minutes** | Jobs stop dispatching when limit reached |
+| **Test Executions** | Uploads rejected with 403 Forbidden |
+| **Packages Storage** | Package uploads blocked |
+| **Users (Personal Plan)** | Invitations blocked |
+| **Job Concurrency (Personal)** | Jobs queued/limited |
+| **Job Timeout (Limited Plans)** | Capped at 4 hours |
+| **Clusters (Limited Plans)** | Limited to 1 cluster |
 
 #### Billing limits - soft enforcement (warnings or notifications)
 
 | Billing Resource | What Happens |
 | --- | --- |
-| **Job Minutes** | `UsageMailer` sends warning emails at 80%, 90%, 100% thresholds |
+| **Job Minutes** | Warning emails will be sent to Organization Admins at 80%, 90%, 100% thresholds |
 | **Test Executions** | Warning emails only |
 | **Users** | Warning emails for approaching limits |
 
-#### Billing limits defined but without hard enforcement
-
-| Billing Resource | Notes |
-| --- | --- |
-| **SUITE_MONITORS** (legacy) | Defined in plans but no enforcement code found |
-| **AGENTS** (legacy) | Defined in legacy plans, no enforcement |
-| **BUILDS_PER_MONTH** (legacy) | Defined in legacy plans, no enforcement |
-
-### Plan features vs code enforcement
-
-#### Features with code enforcement
-
-| Feature | Enforcement |
-| --- | --- |
-| SSO | `available?` check gates access |
-| SCIM | Provider availability check |
-| Teams Permissions | `teams_enabled?` check |
-| API IP Allowlist | `allowed_api_ip_addresses` check |
-| S3 Build Exports | `build_export_location` check |
-| GitHub Enterprise | Project provider check |
-| Custom SAML | SSO adapter check |
-| Test Engine Workflows | Quota limit per suite |
-
-#### Features without direct enforcement (UI-only gating)
+## Features without direct enforcement (UI-only gating)
 
 These features are available based on plan but the code doesn’t actively block usage if feature is removed:
 
@@ -189,34 +170,31 @@ These features are available based on plan but the code doesn’t actively block
 | Audit Logging | UI hidden but data still collected |
 | Pipeline Templates | Can still use existing templates |
 | Cluster Insights | Dashboard visibility only |
-| Priority Support | Not a code feature |
-| Chat Support | Not a code feature |
-| Account Manager | Not a code feature |
 
 ## Hard-coded limits not tied to billing
 
 The following limits are limits tied to rational use of the Buildkite platform and are not tied to the billing plan.
 
-| Limit | Value | Location | Description |
-| --- | --- | --- | --- |
-| Max Organizations per User | 20 | `Organization::Creator` | User can create max 20 organizations total |
-| Max Organizations per Day | 4 | `Organization::Creator` | User can create max 4 organizations per day |
-| Max Triggers per Pipeline | 10 | `Pipeline::Trigger` | Webhook triggers per pipeline |
-| Max Unverified Emails | 5 | `User::Email::Creator` | Unverified emails per user |
-| Max Portal Secrets | 2 | `Portal::Secret::Creator` | Secrets per portal |
-| Max IP Addresses per Token | 24 | `Cluster::Token` | IP allowlist entries |
-| Max Allowed Teams per Step | 100 | `Build::PipelineConfig::StepInputAllowedTeams` | Teams for manual unlock steps |
-| Max Cache Size | 128 GB | `Build::PipelineConfig::StepCommandCache` | Cache size for hosted agents |
-| Max GraphQL Query Depth | 15 | `API::Graph::Query` | Query nesting depth |
-| Max GraphQL Complexity | 50,000 | `API::Graph::Query` | Query complexity score |
-| Max Annotation Replacements | 10 | `Annotation::Renderer` | Image/link replacements |
-| Max Concurrency Key Length | 200 | `ConcurrencyGroup` | Concurrency group key length |
-| Max Audit Search Terms | 3 | `Audit::Event::Search` | Search term limit |
-| Test Ownership File Size | 1 MB | `Analytics::TestOwnershipFile` | CODEOWNERS file max |
-| Multipart Max Artifacts | 30 | `Artifact::Creator` | Per upload batch |
-| Multipart Max Parts | 10 | `Artifact::Creator` | Per artifact |
-| Asset Upload Max Files | 10 | `Asset::Uploader` | Files per upload |
-| Asset Upload Max Size | 10 MB | `Asset::Uploader` | Per file |
+| Limit | Value | Description |
+| --- | --- | --- |
+| Max Organizations per User | 20 | User can create max 20 organizations total |
+| Max Organizations per Day | 4 | User can create max 4 organizations per day |
+| Max Triggers per Pipeline | 10 | Webhook triggers per pipeline |
+| Max Unverified Emails | 5 | Unverified emails per user |
+| Max Portal Secrets | 2 | Secrets per portal |
+| Max IP Addresses per Token | 24 | IP allowlist entries |
+| Max Allowed Teams per Step | 100 | Teams for manual unlock steps |
+| Max Cache Size | 128 GB | Cache size for hosted agents |
+| Max GraphQL Query Depth | 15 | Query nesting depth |
+| Max GraphQL Complexity | 50,000 | Query complexity score |
+| Max Annotation Replacements | 10 | Image/link replacements |
+| Max Concurrency Key Length | 200 | Concurrency group key length |
+| Max Audit Search Terms | 3 | Search term limit |
+| Test Ownership File Size | 1 MB | CODEOWNERS file max |
+| Multipart Max Artifacts | 30 | Per upload batch |
+| Multipart Max Parts | 10 | Per artifact |
+| Asset Upload Max Files | 10 | Files per upload |
+| Asset Upload Max Size | 10 MB | Per file |
 
 ## Service quotas
 
