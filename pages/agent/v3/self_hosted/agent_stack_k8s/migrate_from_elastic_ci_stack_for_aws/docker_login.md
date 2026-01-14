@@ -1,15 +1,15 @@
 # Docker registry authentication
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) pre-configures the [`docker-login` plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) to run automatically as a local agent hook through the `pre-command` hook. This provides automatic authentication to Docker registries before each job runs, with no configuration required in your pipeline YAML.
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) pre-configures the [`docker-login` plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) to run automatically as a local [agent hook](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins) through the `pre-command` hook. This provides automatic authentication to Docker registries before each job runs, with no configuration required in your pipeline YAML.
 
-The Agent Stack for Kubernetes requires explicit configuration in your pipeline YAML. The `docker-login` plugin must be added to each step that needs registry access, and credentials must be managed as Kubernetes Secrets.
+The Agent Stack for Kubernetes requires explicit configuration in your pipeline YAML. The `docker-login` plugin must be added to each [pipeline step](/docs/pipelines/configure/defining-steps) that needs registry access, and credentials must be managed as Kubernetes Secrets.
 
 > 📘 Amazon ECR registries
 > For Amazon ECR registries, see [Amazon ECR authentication](/docs/agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/ecr) instead. The `ecr` plugin provides a better experience for ECR by automatically handling authentication and credential refresh.
 
 ## Migrating to Agent Stack for Kubernetes
 
-To learn more about all available configuration options for the `docker-login` plugin, see the plugin's [README](https://github.com/buildkite-plugins/docker-login-buildkite-plugin#configurations).
+Learn more about all available configuration options for the `docker-login` plugin, in the plugin's [Configurations section of its README](https://github.com/buildkite-plugins/docker-login-buildkite-plugin#configurations).
 
 ### Store credentials as a generic secret
 
