@@ -534,7 +534,7 @@
               path: "pipelines/security/secrets/managing"
             - name: "Risk considerations"
               path: "pipelines/security/secrets/risk-considerations"
-            - name: "Buildkite Secrets"
+            - name: "Buildkite secrets"
               children:
                 - name: "Overview"
                   path: "pipelines/security/secrets/buildkite-secrets"

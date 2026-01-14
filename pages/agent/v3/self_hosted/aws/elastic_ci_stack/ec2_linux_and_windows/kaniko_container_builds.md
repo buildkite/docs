@@ -301,7 +301,7 @@ Note that this verification uses Google's official public key and only applies t
 
 If you build your own Kaniko images from the Chainguard fork, you can also sign them for enhanced security. This process involves generating a key pair, signing your images, and verifying them before use.
 
-Generate a key pair and store in Buildkite Secrets by running the following command:
+Generate a key pair and store in Buildkite secrets by running the following command:
 
 ```bash
 # Generate signing key pair
@@ -318,7 +318,7 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
 1. Sign your custom image after building:
 
     ```bash
-    # Pull the private key from Buildkite Secrets
+    # Pull the private key from Buildkite secrets
     buildkite-agent secret get "kaniko-signing-private-key" > cosign.key
 
     # Sign your custom image and push signature to registry
@@ -326,10 +326,10 @@ Then [create the secrets](/docs/pipelines/security/secrets/buildkite-secrets#cre
       sign --key cosign.key your-registry/kaniko:latest
     ```
 
-1. Verify your custom Kaniko image before using the following commands. These commands retrieve the public signing key from Buildkite Secrets and use Cosign to verify that your custom Kaniko image's signature is valid and the image hasn't been modified.
+1. Verify your custom Kaniko image before using the following commands. These commands retrieve the public signing key from Buildkite secrets and use Cosign to verify that your custom Kaniko image's signature is valid and the image hasn't been modified.
 
     ```bash
-    # Pull the public key from Buildkite Secrets
+    # Pull the public key from Buildkite secrets
     buildkite-agent secret get "kaniko-signing-public-key" > cosign.pub
 
     # Verify your custom image

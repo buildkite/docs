@@ -247,7 +247,7 @@ After the GitHub App has been configured with the settings outlined above, click
 
 #### Generate authentication keys
 
-In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite Agent. To generate a private key:
+In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite Agent. To generate a private key:
 
 - In your GitHub App's **General settings**, scroll to **Private keys**
 - Click the **Generate a private key** button
