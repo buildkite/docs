@@ -37,7 +37,8 @@ Rails.application.config.content_security_policy do |policy|
     "https://cdn.emojicom.io/",
     "https://beacon-v2.helpscout.net",
     "https://rum.browser-intake-datadoghq.com",
-    "https://www.datadoghq-browser-agent.com"
+    "https://www.datadoghq-browser-agent.com",
+    "https://js.posthog.com/",
   )
 
   # Allow @vite/client to hot reload javascript changes in development
@@ -64,6 +65,9 @@ Rails.application.config.content_security_policy do |policy|
     # helpscout beacon sends data to two places
     "https://beacon-v2.helpscout.net",
     "https://d3hb14vkzrxvla.cloudfront.net",
+
+    #posthog
+    "https://us.i.posthog.com",
   )
 
   # Allow @vite/client to hot reload changes in development

@@ -49,7 +49,7 @@ env:
 ```
 
 - Use step-level `env`, pipeline `env`, or [hooks](/docs/agent/v3/self-hosted/hooks) to set values.
-- Keep secrets out of `pipeline.yml` and repositories—use a secrets manager or [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets).
+- Keep secrets out of `pipeline.yml` and repositories—use a secrets manager or [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 - Be aware of the OS's limits for environment size; opt for using files instead of variables for large payloads.
 
 ## Optimizing agent hosts and queues for environment needs
