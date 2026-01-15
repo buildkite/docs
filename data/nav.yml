@@ -21,7 +21,7 @@
         - name: Pipeline converter
           children:
             - name: "Overview"
-              path: "pipelines/migration/tool"
+              path: "pipelines/migration/converter"
             - name: "GitHub Actions"
               path: "pipelines/migration/tool/github-actions"
             - name: "Jenkins"
