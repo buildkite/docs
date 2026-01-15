@@ -88,7 +88,7 @@ Use the `vale off` syntax before a phrase that needs to be bypassed by the linte
 
 ### Content reuse (snippets/partials)
 
-You can use snippets or partials to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
+You can use snippets (also known as partials) to reuse the same fragment of text in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
 Add snippet files to appropriate locations within the `/pages` directory, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
@@ -109,7 +109,9 @@ Therefore, a reference to the `_agent_events_table.md` file stored within the `w
 `<%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>`
 
 > [!WARNING]
-> Do not use H2, H3-level headings in the first line of a snippet because this results in the generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
+> **The snippets/partials feature currently has the following limitations**
+> - Headings are not supported. Using H2, H3-level headings within the snippet content can lead to incorrect anchor links being generated for them. Additionally, using any heading level within a snippet prevents these headings from appearing in the **On this page** feature. Instead, add the heading to the main document just before you add a snippet render link, with the snippet only containing the text content you want to reuse.
+> - Snippets don't support conditional content. You cannot use variables to represent conditional content within a snippet. If you have content in a snippet where some of its content (such as a small number of words) needs to be changed depending on where the snippet is used, for example, a product name, you'll either need to create multiple snippets for each usage and reference them accordingly on their respective pages, or alternatively, write the content directly into their respective pages.
 
 ### Custom elements
 
