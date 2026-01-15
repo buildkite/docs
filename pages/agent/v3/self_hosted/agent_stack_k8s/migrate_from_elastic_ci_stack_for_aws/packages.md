@@ -108,11 +108,7 @@ steps:
     command: "make build"
     agents:
       queue: kubernetes
-    plugins:
-      - kubernetes:
-          podSpec:
-            containers:
-              - image: my-registry/buildkite-agent-custom:latest
+    image: my-registry/buildkite-agent-custom:latest
 ```
 
 ### Using agent hooks
