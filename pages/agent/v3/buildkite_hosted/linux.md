@@ -102,8 +102,8 @@ You can create an agent image:
 
 Once you have [created an agent image](#agent-images-create-an-agent-image), you can use it by either:
 
-- [Setting it as the default image for a queue](#agent-images-use-an-agent-image-set-a-default-image-for-a-queue) in the Buildkite UI, or
-- [Specifying the image in your pipeline YAML](#agent-images-use-an-agent-image-specify-an-image-in-pipeline-yaml), which allows different steps to use different images within the same queue.
+- Setting it as the default image for a queue in the Buildkite UI, or
+- Specifying the image in your pipeline YAML, which allows different steps to use different images within the same queue.
 
 #### Set a default image for a queue
 
