@@ -332,4 +332,4 @@ Generate your SonarCloud token from **My Account > Security > Generate Tokens** 
 - [SonarQube documentation](https://docs.sonarqube.org/latest/)
 - [SonarCloud documentation](https://docs.sonarcloud.io/)
 - [SonarScanner CLI reference](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
-- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documentation page.
+- [Buildkite secrets Management](/docs/pipelines/security/secrets/managing) documentation page.

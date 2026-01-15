@@ -101,3 +101,12 @@ var getFirstSource = function() {
     });
   }}();
  <% end %>
+
+ <%= javascript_tag nonce: true do %>
+  posthog.init('phc_kWwDKH5l2vAyPIMlS1b43tfE1fvgwVuWv1F1xVjcpBm', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2025-11-30',
+    person_profiles: 'always',  // track anonymous docs visitors
+})
+posthog.register({ app: 'docs' })
+  <% end %>
