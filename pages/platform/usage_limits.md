@@ -1,9 +1,32 @@
 # Usage limits
 
-The usage limits outlined on this page list platform limits outlined per-product.
+The page outlines usage and service limits based on platform limits and limits based on your subscription tier. The available subscription tiers are:
+
+- Personal (free plan with low usage limits)
+- Trial (30 days of Pro Plan trial)
+- Pro
+- Enterprise
+
+You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
 > 📘 Overriding usage limits
-> If you are on the Enterprise-tier Plan and need to override a service limit, reach out to your dedicated TAM or Buildkite Support Team to inquire if it is possible.
+> If you are on the Enterprise-tier Plan and need to override a platform limit, reach out to your dedicated TAM or Buildkite Support Team to inquire if it is possible.
+
+## Organization-level limits
+
+| Quota | Default | Maximum |
+| --- | --- | --- |
+| Teams per Org | 250 | - |
+| Queues per Cluster | 50 | Unlimited |
+| Stacks | 30 | - |
+
+## Security limits
+
+| Quota | Default |
+| --- | --- |
+| Max OIDC Lifetime | 2 hours |
+
+## Limits in Buildkite Pipelines
 
 ### Plan-variable service quotas
 
@@ -11,8 +34,8 @@ The usage limits outlined on this page list platform limits outlined per-product
 | --- | --- | --- | --- |
 | **Build Retention** | 90 days | 90 | 365 days |
 | **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
-| **Invitations** | 0 | 100 |  2000 |
-| **Job Timeout** | **4 hours max** | Unlimited | Unlimited |
+| **User invitations** | 0 | 100 |  2000 |
+| **Job timeout** | 4 hours | Unlimited | Unlimited |
 | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
 
 ### Hosted agents limits
@@ -25,7 +48,8 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | --- | --- | --- |
 | Personal | 3 | - |
 | Trial | 10 | 3 |
-| Pro/Enterprise | 20 | 5 |
+| Pro | 20 | 5 |
+| Enterprise| Custom | Custom |
 
 #### Minutes limits (per month)
 
@@ -35,18 +59,25 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | Trial | 2,000 | 3,000 |
 | Paid | 900,000 | 250,000 |
 
-### Model provider spend limits (in USD)
+#### Hosted agents cache volume limits
+
+| Volume type | Limit |
+| --- | --- |
+| Container Cache Volume | 50 GB |
+| Git Mirror Volume | 5 GB |
+
+## Model provider spend limits (in USD)
 
 | Provider | Trial Period | Pro/Enterprise |
 | --- | --- | --- |
 | **Anthropic** | $50 | $1,000 |
 | **OpenAI** | $50 | $1,000 |
 
-### Universal service quotas
+## Universal service quotas
 
 These quotas apply to all plans by default but can be customized per organization.
 
-#### Build and job limits
+### Build and job limits
 
 | Quota | Default | Maximum |
 | --- | --- | --- |
@@ -55,42 +86,28 @@ These quotas apply to all plans by default but can be customized per organizatio
 | Step Uploads per Build | 500 | - |
 | Matrix Jobs per Step | 50 | - |
 
-#### Artifact limits
+### Artifact limits
 
-| Quota | Default | Maximum |
-| --- | --- | --- |
-| Artifacts per Job | 5,000 | - |
-| Single Artifact Size | 10 GB | - |
-| Artifact Batch Size | 50 GB | - |
-| Artifact Retention | 180 days | 180 days |
+| Quota | Default |
+| --- | --- |
+| Artifacts per Job | 5,000 |
+| Single Artifact Size | 10 GB |
+| Artifact Batch Size | 50 GB |
+| Artifact Retention | 180 days |
 
-#### Log limits
+### Log limits
 
-| Quota | Default | Maximum |
-| --- | --- | --- |
-| Log Size per Job | 1 GB | 100 GB |
-| Log Chunk Interval | 1 second | 60 seconds |
+| Quota | Default |
+| --- | --- |
+| Log Size per Job | 1 GB |
+| Log Chunk Interval | 1 second |
 
-#### Organization limits
-
-| Quota | Default | Maximum |
-| --- | --- | --- |
-| Teams per Org | 250 | - |
-| Queues per Cluster | 50 | Unlimited |
-| Stacks | 30 | - |
-
-#### Trigger limits
+### Trigger limits
 
 | Quota | Default |
 | --- | --- |
 | Max Trigger Build Depth | 10 |
 | Triggered Builds per Build | 250 |
-
-#### Security limits
-
-| Quota | Default |
-| --- | --- |
-| Max OIDC Lifetime | 2 hours |
 
 ### API rate limits
 
@@ -113,25 +130,6 @@ These quotas apply to all plans by default but can be customized per organizatio
 | Datadog Pipeline Visibility | 5 |
 | AWS EventBridge Services | 1 |
 | Linear Services | 1 |
-
-### Hosted agents cache volume limits
-
-| Volume type | Default size |
-| --- | --- |
-| Container Cache Volume | 50 GB |
-| Git Mirror Volume | 5 GB |
-
-#### Actively enforced billing limits
-
-| Billing resource | Behavior |
-| --- | --- |
-| **Job Minutes** | Jobs stop dispatching when limit reached |
-| **Test Executions** | Uploads rejected with 403 Forbidden |
-| **Packages Storage** | Package uploads blocked |
-| **Users (Personal Plan)** | Invitations blocked |
-| **Job Concurrency (Personal)** | Jobs queued/limited |
-| **Job Timeout (Limited Plans)** | Capped at 4 hours |
-| **Clusters (Limited Plans)** | Limited to 1 cluster |
 
 ## Hard-coded limits not tied to billing
 
