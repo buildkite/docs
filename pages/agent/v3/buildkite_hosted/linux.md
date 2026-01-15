@@ -100,7 +100,14 @@ You can create an agent image:
 
 ### Use an agent image
 
-Once you have [created an agent image](#agent-images-create-an-agent-image), you can set it as the default image for any Buildkite hosted queues based on Linux architecture within this cluster. Once you do this for such a Buildkite hosted queue, any agents in the queue will use this agent image in new jobs.
+Once you have [created an agent image](#agent-images-create-an-agent-image), you can use it by either:
+
+- [Setting it as the default image for a queue](#agent-images-use-an-agent-image-set-a-default-image-for-a-queue) in the Buildkite UI, or
+- [Specifying the image in your pipeline YAML](#agent-images-use-an-agent-image-specify-an-image-in-pipeline-yaml), which allows different steps to use different images within the same queue.
+
+#### Set a default image for a queue
+
+You can set an agent image as the default for a Buildkite hosted queue based on Linux architecture. Any agents in the queue will use this image in new jobs, unless overridden in the pipeline YAML.
 
 To set a Buildkite hosted queue to use a custom Linux agent image:
 
@@ -112,6 +119,47 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 1. Select **Save settings** to save this update.
 
 <%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
+
+#### Specify an image in pipeline YAML
+
+You can specify an agent image directly in your pipeline YAML using the `image` attribute under `agents`. The image name must match the name of an agent image you have [created](#agent-images-create-an-agent-image) in the cluster.
+
+To set a default image for all steps in a pipeline, add the `image` attribute at the root level:
+
+```yaml
+agents:
+  queue: "hosted-linux"
+  image: "DevOps Agent Image"
+
+steps:
+  - label: "Build"
+    command: "make build"
+```
+{: codeblock-file="pipeline.yml"}
+
+You can also override the image for individual steps, allowing different steps to use different images within the same queue:
+
+```yaml
+agents:
+  queue: "hosted-linux"
+  image: "DevOps Agent Image"
+
+steps:
+  # Uses "DevOps Agent Image" from root-level agents
+  - label: "Build"
+    command: "make build"
+
+  # Overrides root-level image
+  - label: "Run integration tests"
+    command: "make integration-test"
+    agents:
+      image: "Default Agent Image"
+
+  # Uses "DevOps Agent Image" from root-level agents
+  - label: "Deploy"
+    command: "make deploy"
+```
+{: codeblock-file="pipeline.yml"}
 
 ### Delete an agent image
 
