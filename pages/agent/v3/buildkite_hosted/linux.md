@@ -100,14 +100,14 @@ You can create an agent image:
 
 ### Use an agent image
 
-Once you have [created an agent image](#agent-images-create-an-agent-image), you can use it by either:
+Once you have [created an agent image](#agent-images-create-an-agent-image), you can use it by doing either of the following:
 
-- Setting it as the default image for a queue in the Buildkite UI, or
-- Specifying the image in your pipeline YAML, which allows different steps to use different images within the same queue.
+- [Setting it as the default image for a queue](#set-a-default-image-for-a-queue) in the Buildkite interface.
+- [Specifying the image in your pipeline YAML](#specify-an-image-in-your-pipeline-yaml), which allows different steps to use different images within the same queue.
 
-#### Set a default image for a queue
+<h4 id="set-a-default-image-for-a-queue">Set a default image for a queue</h4>
 
-You can set an agent image as the default for a Buildkite hosted queue based on Linux architecture. Any agents in the queue will use this image in new jobs, unless overridden in the pipeline YAML.
+You can set an agent image as the default for a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) based on Linux architecture. Any agents in the queue will use this image in new jobs, unless overridden in the pipeline YAML.
 
 To set a Buildkite hosted queue to use a custom Linux agent image:
 
@@ -120,9 +120,9 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 
 <%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Hosted agents queue image setting displayed in the Buildkite UI" %>
 
-#### Specify an image in pipeline YAML
+<h4 id="specify-an-image-in-your-pipeline-yaml">Specify an image in your pipeline YAML</h4>
 
-You can specify an agent image directly in your pipeline YAML using the `image` attribute under `agents`. The image name must match the name of an agent image you have [created](#agent-images-create-an-agent-image) in the cluster.
+You can specify an agent image directly in your pipeline YAML using the `image` attribute under `agents`. The image name must match the name of an [agent image you have created](#agent-images-create-an-agent-image) in the cluster.
 
 To set a default image for all steps in a pipeline, add the `image` attribute at the root level:
 
