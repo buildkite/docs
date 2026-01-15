@@ -80,21 +80,29 @@ To learn more, see [Manage queues](/docs/agent/v3/queues/managing) and [Buildkit
 
 A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following types:
 
-- Command step - runs one or more shell commands on one or more agents.
-- Wait step - pauses a build until all previous jobs have completed.
-- Block step - pauses a build until unblocked.
-- Input step - collects information from a user.
-- Trigger step - creates a build on another pipeline.
-- Group step - displays a group of sub-steps as one parent step.
+- **Command step:** Runs one or more shell commands on one or more agents.
+- **Wait step:** Pauses a build until all previous jobs have completed.
+- **Block step:** Pauses a build until unblocked.
+- **Input step:** Collects information from a user.
+- **Trigger step:** Creates a build on another pipeline.
+- **Group step:** Displays a group of sub-steps as one parent step.
 
-A step can be in one of the following states:
+A step can be in one of the following internal states when the step is due to run, or is currently running:
 
-- `ignored` - the step is ignored due to a conditional evaluation.
-- `waiting_for_dependencies` - the step is waiting for its dependencies to complete.
-- `ready` - the step is ready to run but hasn't started yet.
-- `running` - the step is currently running.
-- `failing` - the step is in the process of failing.
-- `finished` - the step has completed execution.
-- `canceled` - the step has been canceled.
+- `ignored`: The step is ignored due to a conditional evaluation.
+- `waiting_for_dependencies`: The step is waiting for its dependencies to complete.
+- `ready`: The step is ready to run but hasn't started yet.
+- `running`: The step is currently running.
+- `failing`: The step is in the process of failing.
+- `finished`: The step has completed execution—usually follows either the `running` or `failing` state.
+- `canceled`: The step has been canceled—follows the `waiting_for_dependencies`, `ready`, `running`, or `failing` state.
+
+Once a step's run has completed with a state of `finished`, the step's outcome can be one of the following states:
+
+- `neutral`: The passing or failure of the step's outcome is irrelevant (for example, the outcome of a wait step).
+- `passed`: The step's outcome is considered successful.
+- `soft_failed`: The step's outcome is considered successful, but with a warning.
+- `hard_failed`: The step's outcome is considered failed.
+- `errored`: The step's outcome is considered failed because something happened to abort the step early.
 
 To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).
