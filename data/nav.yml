@@ -18,6 +18,18 @@
         - name: "Build page"
           path: "pipelines/build-page"
           pill: "new"
+        - name: Pipeline converter
+          children:
+            - name: "Overview"
+              path: "pipelines/migration/pipeline-converter"
+            - name: "GitHub Actions"
+              path: "pipelines/migration/converter/github-actions"
+            - name: "Jenkins"
+              path: "pipelines/migration/converter/jenkins"
+            - name: "CircleCI"
+              path: "pipelines/migration/converter/circleci"
+            - name: "Bitbucket Pipelines"
+              path: "pipelines/migration/converter/bitbucket-pipelines"
         - name: "Glossary"
           path: "pipelines/glossary"
     # If you're adding a source control provider you probably want to update
@@ -41,29 +53,17 @@
           path: "pipelines/source-control/phabricator"
         - name: "Other Git servers"
           path: "pipelines/source-control/git"
-    - name: Migration
+    - name: "Migration"
       children:
-        - name: Overview
-          path: pipelines/migration
-        - name: Migration tool
-          children:
-            - name: "Overview"
-              path: "pipelines/migration/tool"
-            - name: "GitHub Actions"
-              path: "pipelines/migration/tool/github-actions"
-            - name: "Jenkins"
-              path: "pipelines/migration/tool/jenkins"
-            - name: "CircleCI"
-              path: "pipelines/migration/tool/circleci"
-            - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/tool/bitbucket-pipelines"
-        - name: From Jenkins
-          path: pipelines/migration/from-jenkins
-        - name: From GitHub Actions
-          path: pipelines/migration/from-githubactions
-        - name: From Bamboo
-          path: pipelines/migration/from-bamboo
-    - name: Best practices
+        - name: "Overview"
+          path: "pipelines/migration"
+        - name: "From Jenkins"
+          path: "pipelines/migration/from-jenkins"
+        - name: "From GitHub Actions"
+          path: "pipelines/migration/from-githubactions"
+        - name: "From Bamboo"
+          path: "pipelines/migration/from-bamboo"
+    - name: "Best practices"
       children:
         - name: "Overview"
           path: "pipelines/best-practices/overview"
