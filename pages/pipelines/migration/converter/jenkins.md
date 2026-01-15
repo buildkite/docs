@@ -12,7 +12,7 @@ The goal of the pipeline converter is to give you a starting point or framework 
 
 To start converting a Jenkins pipeline into Buildkite Pipelines format:
 
-1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/migrate/) in a new browser tab.
 1. Ensure that **Jenkins** is selected at the top of the left panel.
 1. Copy your Jenkins pipeline configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.

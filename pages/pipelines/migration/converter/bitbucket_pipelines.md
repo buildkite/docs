@@ -44,7 +44,7 @@ steps:
 
 The Buildkite pipeline converter interface should look similar to this:
 
-<%= image "migration-tool-bitbucket.png", alt: "Converting a Bitbucket pipeline in Buildkite pipeline converter's web UI" %>
+<%= image "pipeline-converter-bitbucket.png", alt: "Converting a Bitbucket pipeline in Buildkite pipeline converter's web UI" %>
 
 You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 

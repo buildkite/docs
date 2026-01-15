@@ -21,7 +21,7 @@ The Buildkite pipeline converter:
 
 To get started with the Buildkite pipeline converter, use its [interactive web version](https://buildkite.com/resources/migrate/), also known as the _Buildkite migration interactive web tool_.
 
-<%= image "migration-tool-web.png", alt: "Buildkite migration tool's web UI" %>
+<%= image "pipeline-converter-web.png", alt: "Buildkite pipeline converter's web UI" %>
 
 To start translating your existing pipeline or workflow configuration into a Buildkite pipeline:
 
