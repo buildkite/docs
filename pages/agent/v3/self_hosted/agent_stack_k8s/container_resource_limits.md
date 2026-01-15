@@ -82,6 +82,40 @@ config:
         instance-type: "large"
 ```
 
+### Default resource class
+
+> 📘 Minimum version requirement
+> To configure a default resource class, version 0.37.0 or later of the Agent Stack for Kubernetes controller is required.
+
+You can specify a default resource class that applies to jobs without an explicit `resource_class` agent tag. This ensures all jobs receive resource requests and limits, even when pipeline steps don't specify a resource class.
+
+Configure the default using the `default-resource-class-name` key, which must reference a named resource class from `resource-classes`:
+
+```yaml
+# values.yaml
+config:
+  resource-classes:
+    small:
+      resource:
+        requests:
+          cpu: "500m"
+          memory: "512Mi"
+    large:
+      resource:
+        requests:
+          cpu: "2"
+          memory: "4Gi"
+
+  default-resource-class-name: "small"
+```
+
+With this configuration:
+
++ Jobs without a `resource_class` agent tag receive the `small` resource class
++ Jobs that explicitly specify `resource_class: large` (or any other defined class) use that class instead
+
+The controller validates that `default-resource-class-name` references an existing resource class at startup. If the specified class doesn't exist in `resource-classes`, the controller fails to start with an error.
+
 
 ## Using the PodSpec patch in the controller values YAML configuration file
 
