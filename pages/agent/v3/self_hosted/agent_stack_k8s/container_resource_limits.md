@@ -32,10 +32,10 @@ config:
         zone: "us-west-2a"
 ```
 
-+ **resource** (optional): [Kubernetes ResourceRequirements object](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) that will be applied to the command container
-  * **requests**: Resource requests (CPU, memory, etc.)
-  * **limits**: Resource limits (CPU, memory, etc.)
-+ **nodeSelector** (optional): Key-value pairs for [Kubernetes node selection](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+- **resource** (optional): [Kubernetes ResourceRequirements object](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) that will be applied to the command container.
+  * **requests**: Resource requests (CPU, memory, etc).
+  * **limits**: Resource limits (CPU, memory, etc).
+- **nodeSelector** (optional): Key-value pairs for [Kubernetes node selection](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector).
 
 ### Usage
 
@@ -89,7 +89,7 @@ config:
 
 You can specify a default resource class that applies to jobs without an explicit `resource_class` agent tag. This ensures all jobs receive resource requests and limits, even when pipeline steps don't specify a resource class.
 
-Configure the default using the `default-resource-class-name` key, which must reference a named resource class from `resource-classes`:
+Configure this default using the `default-resource-class-name` key, which must reference a named resource class from `resource-classes`:
 
 ```yaml
 # values.yaml
@@ -111,8 +111,8 @@ config:
 
 With this configuration:
 
-+ Jobs without a `resource_class` agent tag receive the `small` resource class
-+ Jobs that explicitly specify `resource_class: large` (or any other defined class) use that class instead
+- Jobs without a `resource_class` agent tag receive the `small` resource class.
+- Jobs that explicitly specify `resource_class: large` (or any other defined class) use that class instead.
 
 The controller validates that `default-resource-class-name` references an existing resource class at startup. If the specified class doesn't exist in `resource-classes`, the controller fails to start with an error.
 
