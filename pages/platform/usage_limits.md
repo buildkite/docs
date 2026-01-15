@@ -1,34 +1,19 @@
 # Usage limits
 
-Usage limits outlines the usage quotas per product, based on the set limits and subscription tier.
+The usage limits outlined on this page list platform limits outlined per-product.
 
 > 📘 Overriding usage limits
-> If you are on the Enterprise-tier subscription plan and need to override a service limit, reach out to your dedicated TAM or Buildkite Support to inquire if it is possible.
-
-## Buildkite product limits by plan (subscription tier)
-
-The Trial Plan, Developer Plan, and Personal Plan are considered to be “limited plans” with restricted features.
-The Pro Plan has no specific restrictions in terms of features, but usage limits apply.
-The Enterprise Plan is the most customizable plan with usage limits that can be potentially be expanded based on the use case.
-
-### Plan-based limits (billing plans)
-
-| Resource | Developer | Personal | Team | Business | Pro | Enterprise |
-| --- | --- | --- | --- | --- | --- | --- |
-| **Job Minutes** | 5,000-10,000/mo | - | 20,000 base | 40,000 base | 40,000 base | 100,000+ base |
-| **Test Executions** | 100,000-175,000/mo | - | 250,000 base | 500,000 base | 500,000 base | 1,000,000+ base |
-| **Users** | Unlimited | 1 | Per-user pricing | Per-user pricing | Per-user pricing | 30+ included |
-| **Job Concurrency** | Unlimited | **3** | Unlimited | Unlimited | Unlimited | Unlimited |
+> If you are on the Enterprise-tier Plan and need to override a service limit, reach out to your dedicated TAM or Buildkite Support Team to inquire if it is possible.
 
 ### Plan-variable service quotas
 
-| Quota | Personal Plan | Paid/Enterprise |
-| --- | --- | --- |
-| **Build Retention** | 90 days | 365 days |
-| **Clusters per Org** | 1 (limited plans only) | Unlimited |
-| **Invitations** | 20 (free) | 100 (paid), 2000 (managed/enterprise) |
-| **Job Timeout** | **4 hours max** | Unlimited |
-| **Test Engine Workflows per Suite** | 1 | 3 (Pro/Enterprise) |
+| Quota | Personal Plan | Pro | Enterprise |
+| --- | --- | --- | --- |
+| **Build Retention** | 90 days | 90 | 365 days |
+| **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
+| **Invitations** | 0 | 100 |  2000 |
+| **Job Timeout** | **4 hours max** | Unlimited | Unlimited |
+| **Test Engine Workflows per Suite** | 1 | 3 | 3 |
 
 ### Hosted agents limits
 
@@ -40,8 +25,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | --- | --- | --- |
 | Personal | 3 | - |
 | Trial | 10 | 3 |
-| Paid | 20 | 5 |
-| Staff | 1 | 1 |
+| Pro/Enterprise | 20 | 5 |
 
 #### Minutes limits (per month)
 
@@ -53,10 +37,10 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 
 ### Model provider spend limits (in USD)
 
-| Provider | Trial Period | Paying Customers | Maximum Override |
-| --- | --- | --- | --- |
-| **Anthropic** | $50 | $1,000 | $50,000 |
-| **OpenAI** | $50 | $1,000 | $50,000 |
+| Provider | Trial Period | Pro/Enterprise |
+| --- | --- | --- |
+| **Anthropic** | $50 | $1,000 |
+| **OpenAI** | $50 | $1,000 |
 
 ### Universal service quotas
 
@@ -93,7 +77,7 @@ These quotas apply to all plans by default but can be customized per organizatio
 | --- | --- | --- |
 | Teams per Org | 250 | - |
 | Queues per Cluster | 50 | Unlimited |
-| Stacks (Agent Templates) | 30 | - |
+| Stacks | 30 | - |
 
 #### Trigger limits
 
@@ -137,10 +121,6 @@ These quotas apply to all plans by default but can be customized per organizatio
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
-### Service limits - enforcement status
-
-When a service limit is reached, you might be notified and/or limitations might take effect. Here is what you should expect when you are reaching the limits.
-
 #### Actively enforced billing limits
 
 | Billing resource | Behavior |
@@ -152,24 +132,6 @@ When a service limit is reached, you might be notified and/or limitations might 
 | **Job Concurrency (Personal)** | Jobs queued/limited |
 | **Job Timeout (Limited Plans)** | Capped at 4 hours |
 | **Clusters (Limited Plans)** | Limited to 1 cluster |
-
-#### Billing limits - soft enforcement (warnings or notifications)
-
-| Billing Resource | What Happens |
-| --- | --- |
-| **Job Minutes** | Warning emails will be sent to Organization Admins at 80%, 90%, 100% thresholds |
-| **Test Executions** | Warning emails only |
-| **Users** | Warning emails for approaching limits |
-
-## Features without direct enforcement (UI-only gating)
-
-These features are available based on plan but the code doesn’t actively block usage if feature is removed:
-
-| Feature | Notes |
-| --- | --- |
-| Audit Logging | UI hidden but data still collected |
-| Pipeline Templates | Can still use existing templates |
-| Cluster Insights | Dashboard visibility only |
 
 ## Hard-coded limits not tied to billing
 
