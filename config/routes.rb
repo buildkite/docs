@@ -311,6 +311,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/managing-log-output",                                                         to: redirect("/docs/pipelines/configure/managing-log-output")
   get "/docs/pipelines/managing-priorities",                                                         to: redirect("/docs/pipelines/configure/workflows/managing-priorities")
   get "/docs/pipelines/migrate-from-jenkins",                                                        to: redirect("/docs/pipelines/migration/from-jenkins")
+  get "/docs/pipelines/migration/tool"                                                               to: redirect("/docs/pipelines/migration/converter")
   get "/docs/pipelines/migration-overview",                                                          to: redirect("/docs/pipelines/migration")
   get "/docs/pipelines/notifications",                                                               to: redirect("/docs/pipelines/configure/notifications")
   get "/docs/pipelines/parallel-builds",                                                             to: redirect("/docs/pipelines/implementation/parallel-builds")
