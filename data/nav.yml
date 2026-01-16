@@ -116,12 +116,8 @@
           children:
             - name: "Overview"
               path: "agent/v3/queues"
-            - name: "Managing queues"
-              children:
-                - name: "Overview"
-                  path: "agent/v3/queues/managing"
-                - name: "Pausing and resuming"
-                  path: "agent/v3/queues/managing/pausing-and-resuming"
+            - name: "Managing"
+              path: "agent/v3/queues/managing"
         - name: "Self-hosted agents"
           children:
             - name: "Tokens"
@@ -310,6 +306,8 @@
                   path: "agent/v3/self-hosted/configure/git-mirrors"
             - name: "Hooks"
               path: "agent/v3/self-hosted/hooks"
+            - name: "Pausing and resuming"
+              path: "agent/v3/self-hosted/pausing-and-resuming"
             - name: "Prioritization"
               path: "agent/v3/self-hosted/prioritization"
             - name: "Monitoring and observing"

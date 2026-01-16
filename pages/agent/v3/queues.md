@@ -6,7 +6,7 @@ Common use cases for queues include deployment agents, and pools of agents for s
 
 ## Setting an agent's queue
 
-An agent's queue is configured using an [agent tag](/docs/agent/v3/cli/reference/start#setting-tags) as a [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag). This configuration can be set at the [command line](/docs/agent/v3/cli/reference/start) when starting the agent, the agent's [configuration file](/docs/agent/v3/self-hosted/configure), or through an environment variable.
+An agent's queue is configured using an [agent tag](/docs/agent/v3/cli/reference/start#setting-tags) as a [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag). This configuration can be set at the [command line when starting the agent](/docs/agent/v3/cli/reference/start), the agent's [configuration file](/docs/agent/v3/self-hosted/configure), or through an environment variable.
 
 Agents can only be configured to listen on a single queue within a cluster.
 
@@ -18,19 +18,6 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
 > Your [clusters](/docs/pipelines/security/clusters/manage) and [queues](/docs/agent/v3/queues/managing) should already be configured before starting your agents to target these queues.
-
-### Setting up queues for unclustered agents
-
-> 🚧 This section documents a deprecated Buildkite feature
-> Learn more about unclustered agents and their tokens in [Unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens).
-
-For unclustered agents, queues are configured when starting a Buildkite agent. An unclustered agent can listen on a single queue or on multiple queues. For multiple queues, add as many extra `queue` tags as are required.
-
-In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this unclustered agent to listen on both the `development` and `testing` queues:
-
-```
-buildkite-agent start --token "UNCLUSTERED-AGENT-TOKEN-VALUE" --tags "queue=development,queue=testing"
-```
 
 ## The default queue
 
@@ -61,3 +48,16 @@ steps:
 ## Alternative methods
 
 [Branch patterns](/docs/pipelines/configure/workflows/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
+
+## Setting up queues for unclustered agents
+
+> 🚧 This section documents a deprecated Buildkite feature
+> Learn more about unclustered agents and their tokens in [Unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens).
+
+For unclustered agents, queues are configured when starting a Buildkite agent. An unclustered agent can listen on a single queue or on multiple queues. For multiple queues, add as many extra `queue` tags as are required.
+
+In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this unclustered agent to listen on both the `development` and `testing` queues:
+
+```
+buildkite-agent start --token "UNCLUSTERED-AGENT-TOKEN-VALUE" --tags "queue=development,queue=testing"
+```
