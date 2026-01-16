@@ -161,6 +161,8 @@
                   path: "agent/v3/self-hosted/agent-stack-k8s/sidecars"
                 - name: "Kubernetes PodSpec"
                   path: "agent/v3/self-hosted/agent-stack-k8s/podspec"
+                - name: "Custom images"
+                  path: "agent/v3/self-hosted/agent-stack-k8s/custom-images"
                 - name: "Pod templates"
                   path: "agent/v3/self-hosted/agent-stack-k8s/pod-template"
                 - name: "Container resource limits"
