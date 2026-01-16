@@ -96,7 +96,7 @@ The plugin requires the following Argo CD authentication environment variables:
 - `ARGOCD_USERNAME` - Argo CD username (can also be set in plugin configuration).
 - `ARGOCD_PASSWORD` - Argo CD password (must be set via environment variable).
 
-For production deployments, use a secure secret management solution like [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), HashiCorp Vault, or AWS Secrets Manager to fetch the `ARGOCD_PASSWORD` before your deployment steps.
+For production deployments, use a secure secret management solution like [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), HashiCorp Vault, or AWS Secrets Manager to fetch the `ARGOCD_PASSWORD` before your deployment steps.
 
 ### Production deployment with auto-rollback
 

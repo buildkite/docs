@@ -345,7 +345,7 @@ When user namespace remapping is enabled, Docker containers run as user `100000-
 
 ### Secret management
 
-Never include secrets directly in Dockerfiles or build arguments, as they may be persisted in image layers or build history. Instead, use BuildKit's `--secret` flag with secrets retrieved from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) or the Buildkite environment.
+Never include secrets directly in Dockerfiles or build arguments, as they may be persisted in image layers or build history. Instead, use BuildKit's `--secret` flag with secrets retrieved from [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or the Buildkite environment.
 
 The Elastic CI Stack for AWS provides isolated Docker configurations per job through the `DOCKER_CONFIG` environment variable, ensuring Docker credentials are not leaked between jobs.
 

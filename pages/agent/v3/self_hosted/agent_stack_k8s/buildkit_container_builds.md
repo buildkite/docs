@@ -93,7 +93,7 @@ steps:
                 emptyDir: {}
             containers:
               - name: main
-                image: moby/buildkit:latest-rootless
+                image: moby/buildkit:rootless
                 env:
                   - name: BUILDKITD_FLAGS
                     value: ""
@@ -138,7 +138,7 @@ steps:
                 emptyDir: {}
             containers:
               - name: main
-                image: moby/buildkit:latest-rootless
+                image: moby/buildkit:rootless
                 volumeMounts:
                   - name: buildkit-cache
                     mountPath: "/home/user/.local/share/buildkit"
@@ -160,7 +160,7 @@ The following table highlights the key differences between privileged and rootle
 
 | Feature                      | Privileged               | Rootless (Non-Privileged)       | Rootless (Strict)                 |
 | ---------------------------- | ------------------------ | ------------------------------- | --------------------------------- |
-| **Container image**          | `moby/buildkit:latest`   | `moby/buildkit:latest-rootless` | `moby/buildkit:latest-rootless`   |
+| **Container image**          | `moby/buildkit:latest`   | `moby/buildkit:rootless` | `moby/buildkit:rootless`   |
 | **Runs as user**             | root (0)                 | user (1000)                     | user (1000)                       |
 | **Privileged access**        | Yes (`privileged: true`) | No                              | No                                |
 | **BuildKit process sandbox** | Enabled                  | Enabled                         | Disabled\*                        |
@@ -179,7 +179,7 @@ This section covers the key components and configuration options for running Bui
 ### Container images
 
 - **`moby/buildkit:latest`**: full-featured image designed to run as root with privileged access.
-- **`moby/buildkit:latest-rootless`**: specially built image that can run as a regular user through rootless container approach.
+- **`moby/buildkit:rootless`**: specially built image that can run as a regular user through rootless container approach.
 
 ### Security contexts
 
@@ -277,7 +277,7 @@ This section describes common issues for BuildKit and the ways of solving these 
 Use appropriate image:
 
 - **Privileged** builds: `moby/buildkit:latest`.
-- **Non-privileged/Rootless** builds: `moby/buildkit:latest-rootless`.
+- **Non-privileged/Rootless** builds: `moby/buildkit:rootless`.
 
 ### Rootless build failures
 

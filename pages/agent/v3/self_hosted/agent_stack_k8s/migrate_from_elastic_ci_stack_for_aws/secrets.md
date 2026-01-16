@@ -22,11 +22,11 @@ When migrating to the Buildkite Agent Stack for Kubernetes, here are three appro
 
 - Keeping your existing S3 bucket and using the `elastic-ci-stack-s3-secrets-hooks` repository to retrieve secrets
 - Moving secrets into [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/) and exposing them through controller configuration
-- Moving secrets into [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and referencing them in your pipeline YAML or through the [agent CLI](/docs/agent/v3/cli/reference)
+- Moving secrets into [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and referencing them in your pipeline YAML or through the [agent CLI](/docs/agent/v3/cli/reference)
 
 Each approach has different characteristics:
 
-| Consideration | S3 with Hooks | Kubernetes Secrets | Buildkite Secrets |
+| Consideration | S3 with Hooks | Kubernetes Secrets | Buildkite secrets |
 |--------------|---------------|-------------------|-------------------|
 | **Migration effort** | Low (reuse existing S3 bucket) | Medium (requires secret extraction and creation) | Medium (requires secret migration to Buildkite Pipelines) |
 | **Operational complexity** | Medium (requires AWS credentials, hook configuration) | Low (native Kubernetes) | Low (managed by Buildkite Pipelines) |
@@ -506,23 +506,23 @@ Kubernetes Secrets provide native integration with your cluster but require:
 
 This approach works well when committing fully to Kubernetes-native tooling and when secrets are environment-specific.
 
-## Migrate to Buildkite Secrets
+## Migrate to Buildkite secrets
 
-This approach migrates S3 secrets to [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), which provides centralized secrets storage accessible across different agent platforms.
+This approach migrates S3 secrets to [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), which provides centralized secrets storage accessible across different agent platforms.
 
 ### Prerequisites
 
 - Buildkite organization with Secrets feature enabled
-- Cluster configured with Buildkite Secrets access
+- Cluster configured with Buildkite secrets access
 - [Agent Stack for Kubernetes](https://github.com/buildkite/agent-stack-k8s) installed
 
 ### Migrating secrets to Buildkite
 
-For each secret in S3, create a corresponding Buildkite Secret. Learn how to [create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) in the Buildkite Secrets documentation.
+For each secret in S3, create a corresponding Buildkite Secret. Learn how to [create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) in the Buildkite secrets documentation.
 
 ### Using secrets in pipeline YAML
 
-Reference Buildkite Secrets directly in your pipeline YAML using the `secrets` key:
+Reference Buildkite secrets directly in your pipeline YAML using the `secrets` key:
 
 ```yaml
 # pipeline.yaml
@@ -611,9 +611,9 @@ config:
 
 ### Considerations
 
-Buildkite Secrets provide centralized management but require:
+Buildkite secrets provide centralized management but require:
 
-- Buildkite Secrets feature enabled for your organization
+- Buildkite secrets feature enabled for your organization
 - Migration of all secrets to Buildkite platform
 - Configuration of access policies for secret access control
 - Pipeline updates to reference secrets using the `secrets:` key or `buildkite-agent secret get` command
@@ -625,7 +625,7 @@ This approach works well when using multiple agent platforms (Kubernetes, AWS, o
 - [S3 secrets bucket in Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket)
 - [Git credentials in agent-stack-k8s](/docs/agent/v3/self-hosted/agent-stack-k8s/git-credentials)
 - [Kubernetes PodSpec in agent-stack-k8s](/docs/agent/v3/self-hosted/agent-stack-k8s/podspec)
-- [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets)
+- [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets)
 - [Using secrets in jobs](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job)
 - [`buildkite-agent secret` CLI](/docs/agent/v3/cli/reference/secret)
 - [`elastic-ci-stack-s3-secrets-hooks` repository](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks)

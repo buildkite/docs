@@ -139,8 +139,6 @@ This builds a Debian 12-based image with:
 - Disk space monitoring and self-protection
 - Centralized logging with Ops Agent
 
-For more details, see [packer/README.md](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/blob/main/packer/README.md).
-
 ## Deploying the stack
 
 This section walks through the deployment process step by step, from obtaining your agent token to initializing and applying your Terraform configuration.

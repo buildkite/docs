@@ -40,7 +40,7 @@ An ephemeral agent is a Buildkite Agent that only operates for the duration in w
 - `--disconnect-after-job`
 - `--disconnect-after-idle-timeout`
 
-Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/queues/managing/pausing-and-resuming).
+Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/self-hosted/pausing-and-resuming).
 
 ## Hook
 
@@ -78,23 +78,33 @@ To learn more, see [Manage queues](/docs/agent/v3/queues/managing) and [Buildkit
 
 ## Step
 
-A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following types:
+A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following [step types](/docs/pipelines/configure/step-types):
 
-- Command step - runs one or more shell commands on one or more agents.
-- Wait step - pauses a build until all previous jobs have completed.
-- Block step - pauses a build until unblocked.
-- Input step - collects information from a user.
-- Trigger step - creates a build on another pipeline.
-- Group step - displays a group of sub-steps as one parent step.
+- Command step: Runs one or more shell commands on one or more agents.
+- Wait step: Pauses a build until all previous jobs have completed.
+- Block step: Pauses a build until it's manually unblocked.
+- Input step: Pauses a build until information has been collected from a user.
+- Trigger step: Creates a build on another pipeline.
+- Group step: Displays a group of sub-steps as one parent step.
 
-A step can be in one of the following states:
+A step can be in one of the following internal _states_, which the [Buildkite agent can retrieve](/docs/agent/v3/cli/reference/step#getting-a-step), when the step is ready to run, or is currently running:
 
-- `ignored` - the step is ignored due to a conditional evaluation.
-- `waiting_for_dependencies` - the step is waiting for its dependencies to complete.
-- `ready` - the step is ready to run but hasn't started yet.
-- `running` - the step is currently running.
-- `failing` - the step is in the process of failing.
-- `finished` - the step has completed execution.
-- `canceled` - the step has been canceled.
+- `ignored`: The step is ignored due to a conditional evaluation.
+- `waiting_for_dependencies`: The step is waiting for its dependencies to complete.
+- `ready`: The step is ready to run but hasn't started yet.
+- `running`: The step is currently running.
+- `failing`: The step is in the process of failing.
+- `finished`: The step has completed execution—usually follows either the `running` or `failing` state.
+- `canceled`: The step has been canceled—follows the `waiting_for_dependencies`, `ready`, `running`, or `failing` state.
+
+Once a step's run has completed with a state of `finished`, the [step's outcome](/docs/agent/v3/cli/reference/step#getting-the-outcome-of-a-step) can be one of the following states:
+
+- `neutral`: The passing or failure of the step's outcome is not relevant (for example, the outcome of a wait step).
+- `passed`: The step's outcome is considered successful.
+- `soft_failed`: The step's outcome is considered successful, but with a warning.
+- `hard_failed`: The step's outcome is considered failed.
+- `errored`: The step's outcome is considered failed because something happened to abort the step early.
+
+A block or input step tracks the state of the build and its steps that ran before it, which can be `failed`, `passed`, or `running`.
 
 To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps).
