@@ -26,8 +26,8 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 If you don't assign a self-hosted agent to a [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) by [setting](/docs/agent/v3/cli/reference/start#setting-tags) the agent's [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag) (for example, `queue=linux-medium-x86`) when it is started, the agent will automatically be assigned to your configured _default_ self-hosted queue (for example, `queue=default`) and accept jobs from that queue.
 
 > 📘 Clusters without a default self-hosted queue configured
-> If you start a self-hosted agent without explicitly specifying an existing self-hosted queue in your cluster _and_ a default [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) is not configured in this cluster, or your default queue is set to a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue), then your agent will fail to start.
-> You must either explicitly specify an existing self-hosted queue within in your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default self-hosted queue already configured in this cluster for the agent to start successfully.
+> If you start a self-hosted agent without explicitly specifying an existing self-hosted queue in your cluster _and_ a default [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) is not configured in this cluster, or your default queue is set to a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue), then your agent will fail to connect to the Buildkite platform.
+> You must either explicitly specify an existing self-hosted queue within in your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default self-hosted queue already configured in this cluster for the agent to connect successfully.
 
 ## Targeting a queue from a pipeline
 
