@@ -199,6 +199,8 @@
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-login"
                     - name: "Secrets"
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/secrets"
+                    - name: "Docker daemon access"
+                      path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-daemon"
             - name: "Run on AWS"
               children:
                 - name: "Overview"
