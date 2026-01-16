@@ -40,6 +40,8 @@ When a matching job is returned from the Agent REST API, the controller creates 
 
 Learn more about how to set up the Buildkite Agent Stack for Kubernetes from the [Installation](/docs/agent/v3/agent-stack-k8s/installation) page.
 
+If you're migrating from the Elastic CI Stack for AWS, see the [Migrating from Elastic CI Stack](/docs/agent/v3/agent-stack-k8s/migration-from-elastic-ci-stack) guide for important information about architectural differences, particularly around agent hook execution and plugins.
+
 ## Development and contributing
 
 Since the Buildkite Agent Stack for K8s is open source, you can make your own contributions to this project. Learn more about how to do this from in [Agent Stack K8s Development](https://github.com/buildkite/agent-stack-k8s/blob/main/DEVELOPMENT.md).

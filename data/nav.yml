@@ -247,6 +247,8 @@
               path: "agent/v3/agent-stack-k8s/pipeline-signing"
             - name: "Agent hooks and plugins"
               path: "agent/v3/agent-stack-k8s/agent-hooks-and-plugins"
+            - name: "Migrating from Elastic CI Stack"
+              path: "agent/v3/agent-stack-k8s/migration-from-elastic-ci-stack"
             - name: "Pipeline validation"
               path: "agent/v3/agent-stack-k8s/pipeline-validation"
             - name: "Job metadata"
