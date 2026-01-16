@@ -29,9 +29,9 @@ If you don't assign a self-hosted agent to a [self-hosted queue](/docs/agent/v3/
 > If you start a self-hosted agent without explicitly specifying an existing self-hosted queue in your cluster _and_ a default [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) is not configured in this cluster, or your default queue is set to a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue), then your agent will fail to start.
 > You must either explicitly specify an existing self-hosted queue within in your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default self-hosted queue already configured in this cluster for the agent to start successfully.
 
-## Targeting a queue
+## Targeting a queue from a pipeline
 
-Target specific queues (either [self-hosted](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) or [Buildkite hosted](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) ones) using the `agents` attribute on your pipeline steps or at the root level for the entire pipeline.
+Target specific queues (either [self-hosted](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) or [Buildkite hosted](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) ones) using the `agents` attribute on your pipeline steps, or at the root level for the entire pipeline.
 
 For example, the following pipeline would run on the `priority` queue as determined by the root level `agents` attribute (and ignores the agents running the `default` queue). The `tests.sh` build step matches only agents running on the `linux-medium-x86` queue.
 
@@ -47,7 +47,7 @@ steps:
       queue: "linux-medium-x86"
 ```
 
-## Alternative methods
+### Alternative methods
 
 [Branch patterns](/docs/pipelines/configure/workflows/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
 
