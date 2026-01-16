@@ -23,7 +23,7 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 
 ### The default self-hosted queue
 
-If you don't assign a self-hosted agent to a [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) by [setting](/docs/agent/v3/cli/reference/start#setting-tags) the agent's [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag) (for example, `queue=linux-medium-x86`) when it is started, the agent will accept jobs from the default self-hosted queue as if you had set (for example, `queue=default`).
+If you don't assign a self-hosted agent to a [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) by [setting](/docs/agent/v3/cli/reference/start#setting-tags) the agent's [queue tag](/docs/agent/v3/cli/reference/start#the-queue-tag) (for example, `queue=linux-medium-x86`) when it is started, the agent will automatically be assigned to your configured _default_ self-hosted queue (for example, `queue=default`) and accept jobs from that queue.
 
 > 📘 Clusters without a default self-hosted queue configured
 > If you start a self-hosted agent without explicitly specifying an existing self-hosted queue in your cluster _and_ a default [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) is not configured in this cluster, or your default queue is set to a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue), then your agent will fail to start.
