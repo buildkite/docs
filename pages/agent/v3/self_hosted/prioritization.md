@@ -152,3 +152,7 @@ The configuration described in the previous section creates a spillover system t
 1. When these dedicated agents are all busy, "release" jobs can spillover to flexible agents that have agent tags for both `build_type=normal` and `build_type=release`.
 1. Higher priority "release" jobs will always be processed before lower priority "normal" jobs, regardless of which jobs were created first.
 1. Flexible agents return to handling "normal" jobs when there is sufficient dedicated agent capacity for high-priority "release" jobs.
+
+## Retry agent affinity
+
+When a job fails, and you retry it, Buildkite will retry it on the same agent if possible. This is known as "agent affinity". You can configure agent affinity for retries in your queue's settings. Agent affinity can be configured to prefer the same agent, or to prefer the warmest agent (the agent that has been running the longest). You can also configure agent affinity to prefer the agent with the most free resources. You can configure agent affinity for retries in your pipeline configuration.
