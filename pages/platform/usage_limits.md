@@ -57,7 +57,6 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | --- | --- | --- |
 | Personal | 550 | - |
 | Trial | 2,000 | 3,000 |
-| Paid | 900,000 | 250,000 |
 
 #### Hosted agents cache volume limits
 
