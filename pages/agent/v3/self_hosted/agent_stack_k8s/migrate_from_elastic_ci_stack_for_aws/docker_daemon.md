@@ -1,10 +1,10 @@
 # Docker daemon access
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) includes Docker pre-installed in the instance images. Jobs can execute Docker commands directly using the local Docker daemon at `/var/run/docker.sock` without additional configuration.
+The [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) includes Docker pre-installed in the instance images. Jobs can execute Docker commands directly using the local Docker daemon at `/var/run/docker.sock` without additional configuration.
 
-When migrating to Agent Stack for Kubernetes, Docker is not available by default. Kubernetes does not provide a Docker daemon on cluster nodes, so you need to configure Docker access explicitly for jobs that require Docker commands like `docker build` or `docker push`.
+When migrating to [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s), Docker is not available by default. Kubernetes does not provide a Docker daemon on cluster nodes, so you need to configure Docker access explicitly for jobs that require Docker commands like `docker build` or `docker push`.
 
-This guide covers two approaches for providing Docker daemon access in Kubernetes and helps you choose the right approach for your migration.
+This guide covers two approaches for providing Docker daemon access in Kubernetes and helps you choose the right approach for your migration scenario.
 
 ## Docker access approaches in Kubernetes
 
@@ -66,7 +66,7 @@ The sidecar configuration requires several key components:
 
 #### Controller-level configuration
 
-You can configure the Docker daemon sidecar at the controller level to apply it to all jobs without modifying individual pipelines:
+You can also configure the Docker daemon sidecar at the controller level to apply it to all jobs without modifying individual pipelines:
 
 ```yaml
 # values.yaml
@@ -93,7 +93,7 @@ With this controller-level configuration, all jobs processed by the controller a
 
 ### Using a Unix socket instead of TCP
 
-Instead of connecting over TCP, you can configure the daemon to use a Unix socket in a shared volume. This approach provides better security as the socket is not exposed over the network.
+Instead of connecting over TCP, you can configure the daemon to use a Unix socket in a shared volume. This approach provides better security as the socket is not exposed over the network. Use the following configuration:
 
 ```yaml
 # pipeline.yaml
@@ -169,15 +169,15 @@ config:
 
 ### Considerations for the sidecar approach
 
-The sidecar approach maximizes isolation by running a dedicated Docker daemon for each job. This increases startup time and resource usage per job. Build caches and images are ephemeral and discarded when jobs complete. Each daemon requires privileged container permissions.
+The sidecar approach maximizes job isolation by running a dedicated Docker daemon for each job. This increases startup time and resource usage per job. Build caches and images are ephemeral and are discarded when jobs complete. Each daemon requires privileged container permissions.
 
 This approach works well when strong isolation between jobs is required or when you want to minimize cluster-level configuration changes during migration.
 
-For more details about configuring Docker-in-Docker with sidecars, see the [Docker-in-Docker container builds](/docs/agent/v3/self-hosted/agent-stack-k8s/dind-container-builds) documentation.
+For more details about configuring Docker-in-Docker with sidecars, see [Docker-in-Docker container builds](/docs/agent/v3/self-hosted/agent-stack-k8s/dind-container-builds).
 
 ## Using a Docker daemon DaemonSet
 
-The DaemonSet approach runs a single Docker daemon on each cluster node, similar to how Docker runs in Elastic CI Stack for AWS. Multiple jobs on the same node share the same daemon, which provides better resource efficiency and persistent build caches.
+The DaemonSet approach runs a single Docker daemon on each cluster node, similar to how Docker runs in [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack). Multiple jobs on the same node share the same daemon, which provides better resource efficiency and persistent build caches.
 
 ### Implementation
 
@@ -310,7 +310,7 @@ spec:
 
 ### Considerations for the DaemonSet approach
 
-The DaemonSet approach shares a single Docker daemon across all jobs on each node, improving resource efficiency. Jobs have lower isolation since they share the daemon. Deploying DaemonSets requires cluster-level permissions. Persistent caches can improve performance but need storage management. Daemons run continuously, consuming resources even when idle, and network configuration is more complex than the sidecar approach.
+The DaemonSet approach shares a single Docker daemon across all jobs on each node, providing optimized resource efficiency. Jobs have lower isolation since they share the daemon. Deploying DaemonSets requires cluster-level permissions. Persistent caches can improve performance but need storage management. Daemons run continuously, consuming resources even when idle, and network configuration is more complex than the sidecar approach.
 
 This approach works well when you need to optimize resource usage across many concurrent builds or want to maintain persistent build caches similar to the Elastic CI Stack for AWS.
 
@@ -318,9 +318,9 @@ This approach works well when you need to optimize resource usage across many co
 
 If your use case allows, consider alternatives that do not require privileged containers:
 
-- [BuildKit](/docs/agent/v3/self-hosted/agent-stack-k8s/buildkit-container-builds) provides enhanced security and performance for building container images
-- [Kaniko](/docs/agent/v3/self-hosted/agent-stack-k8s/kaniko-container-builds) builds container images without requiring privileged access
-- [Buildah](/docs/agent/v3/self-hosted/agent-stack-k8s/buildah-container-builds) builds OCI-compliant images without a daemon
+- [BuildKit](/docs/agent/v3/self-hosted/agent-stack-k8s/buildkit-container-builds) provides enhanced security and performance for building container images.
+- [Kaniko](/docs/agent/v3/self-hosted/agent-stack-k8s/kaniko-container-builds) builds container images without requiring privileged access.
+- [Buildah](/docs/agent/v3/self-hosted/agent-stack-k8s/buildah-container-builds) builds OCI-compliant images without a daemon.
 
 These alternatives provide better security posture in Kubernetes environments where privileged containers are restricted or discouraged.
 
