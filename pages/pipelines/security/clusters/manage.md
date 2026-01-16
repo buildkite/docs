@@ -108,7 +108,7 @@ where:
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/v3/self-hosted/tokens).
 
-Once you have [created your required agent token/s](/docs/agent/v3/self-hosted/tokens#create-a-token), [use them](/docs/agent/v3/self-hosted/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#setting-an-agents-queue).
+Once you have [created your required agent token/s](/docs/agent/v3/self-hosted/tokens#create-a-token), [use them](/docs/agent/v3/self-hosted/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s **Agent tokens**.
 

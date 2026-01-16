@@ -26,7 +26,7 @@ When a matching job is returned from the Agent REST API, the controller creates 
 <!-- vale off -->
 
 - (Optional) Create a unique [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) for this Buildkite cluster.
-  * If [queue tags are not explicitly specified when the agent is started](/docs/agent/v3/queues#setting-an-agents-queue), then the controller will pull jobs from the [default queue](/docs/agent/v3/queues#the-default-queue). You can define the queue name to be whatever suits your requirements to query the API for scheduled jobs assigned to that queue. However, the examples used throughout this documentation assume the queue name of **kubernetes**.
+  * If [queue tags are not explicitly specified when the agent is started](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue), then the controller will pull jobs from the [default queue](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue-the-default-self-hosted-queue). You can define the queue name to be whatever suits your requirements to query the API for scheduled jobs assigned to that queue. However, the examples used throughout this documentation assume the queue name of **kubernetes**.
 - Helm version v3.8.0 or newer (as support for OCI-based registries is required).
 
 <!-- vale on -->
