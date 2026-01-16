@@ -137,6 +137,7 @@ dogstatsd
 dotenv
 DSCs
 ecr
+emptyDir
 enqueued
 Entra
 enum
@@ -188,6 +189,7 @@ Homebrew
 heroku
 Honeycomb
 hostname
+hostPath
 http
 httpd
 httplog

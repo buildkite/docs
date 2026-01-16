@@ -114,7 +114,7 @@ The Buildkite pipeline converter supports the use of [YAML aliases in CircleCI p
       {
         "key": "jobs.&lt;name&gt;.parallelism",
         "supported": "No",
-        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli/reference/start#setting-tags) targeting)."
+        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue) and [tags](/docs/agent/v3/cli/reference/start#setting-tags) targeting)."
       },
       {
         "key": "jobs.&lt;name&gt;.parameters",
