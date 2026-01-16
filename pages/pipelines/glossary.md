@@ -40,7 +40,7 @@ An ephemeral agent is a Buildkite Agent that only operates for the duration in w
 - `--disconnect-after-job`
 - `--disconnect-after-idle-timeout`
 
-Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/queues/managing/pausing-and-resuming).
+Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/self-hosted/pausing-and-resuming).
 
 ## Hook
 
