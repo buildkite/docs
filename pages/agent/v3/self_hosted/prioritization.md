@@ -155,4 +155,11 @@ The configuration described in the previous section creates a spillover system t
 
 ## Retry agent affinity
 
-When a job fails, and you retry it, Buildkite will retry it on the same agent if possible. This is known as "agent affinity". You can configure agent affinity for retries in your queue's settings. Agent affinity can be configured to prefer the same agent, or to prefer the warmest agent (the agent that has been running the longest). You can also configure agent affinity to prefer the agent with the most free resources. You can configure agent affinity for retries in your pipeline configuration.
+When a job fails on a self-hosted queue, and you retry it, Buildkite Pipelines will (by default) retry the job on any agent that recently finished job, such as the same agent that ran this failed job.
+
+There may be scenarios where you might want to retry the job on a different agent, such as a flaky test, where environment settings that could have caused the job to fail would not be present. Therefore, you can configure your self-hosted queue to instead retry a job on a different agent, if such an agent is available.
+
+This type of configuration is known as _agent affinity_, which has the following settings:
+
+- Prefer warmest agent: The default setting, where jobs are retried on any agent that recently finished a job.
+- Prefer different: Retry jobs on any agent which is different to the one that ran the previous attempt, if they're available.
