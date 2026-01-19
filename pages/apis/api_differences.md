@@ -13,6 +13,7 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "ACCESS TOKEN", "access-token" %> [Display the information about the access token currently in use](/docs/apis/rest-api/access-token#get-the-current-token).
 * <%= pill "ACCESS TOKEN", "access-token" %> [Revoke the current access token](/docs/apis/rest-api/access-token#revoke-the-current-token).
 * <%= pill "BUILDS", "builds" %> [Create annotations on a build](/docs/apis/rest-api/annotations).
+* <%= pill "BUILDS", "builds" %> [Get the `group_key` field for jobs that belong to group steps](/docs/apis/rest-api/builds#get-a-build) (only available through builds endpoints, not individual job endpoints).
 * <%= pill "JOBS", "jobs" %> [Get an output of job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output).
 * <%= pill "JOBS", "jobs" %> [Retry data for jobs](/docs/apis/rest-api/jobs#retry-a-job).
 * <%= pill "META", "meta" %> [Get a list of IPs from which Buildkite sends webhooks](/docs/apis/rest-api/meta#get-meta-information).
