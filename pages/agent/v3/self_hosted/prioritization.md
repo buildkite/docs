@@ -163,3 +163,5 @@ This type of configuration is known as _agent affinity_, which has the following
 
 - **Prefer Warmest Agent**: The default setting, where jobs are retried on the agents that most recently finished a job (that is, the _warmest_ agent).
 - **Prefer Different Agent**: Retry jobs on any agent which is different to the one that ran the previous attempt, if they're available. If no other different agents are available, the job will be retried on the warmest agent.
+
+It is also possible to configure a self-hosted queue's retry agent affinity setting when [updating the queue using the REST API](/docs/apis/rest-api/clusters/queues#update-a-queue).
