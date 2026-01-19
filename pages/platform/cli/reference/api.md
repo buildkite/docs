@@ -42,6 +42,7 @@ bk api [<endpoint>] [flags]
 | `-X`, `--method=STRING` | HTTP method to use |
 | `--analytics` | Use the Test Analytics endpoint |
 | `--debug` | Enable debug output for REST API calls |
+| `--verbose` | Enable verbose output (currently only provides information about rate limit exceeded retries) |
 
 ## Examples
 
