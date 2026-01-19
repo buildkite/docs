@@ -138,12 +138,14 @@ The following usage limits apply on the Buildkite organization level, regardless
 
 ## Plan-variable service quotas
 
-Product | Quota | Personal Plan | Pro | Enterprise |
-Pipelines | --- | --- | --- | --- |
-Pipelines | **Build retention** | 90 days | 90 | 365 days |
-Pipelines | **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
-Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
-Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
+| Product | Quota | Personal Plan | Pro | Enterprise |
+| --- | --- | --- | --- | --- |
+| Pipelines | **Build retention** | 90 days | 90 | 365 days |
+| Pipelines | **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
+| Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
+| Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
+
+## Buildkite Pipelines limits
 
 ## Hosted agents limits
 
@@ -187,15 +189,17 @@ These quotas apply to all plans by default but can be customized per organizatio
 
 ## API rate limits
 
-| API | Default (requests/min) |
-| --- | --- |
-| GraphQL API | 20,000 |
-| REST API | 200 |
-| Portal API | 200 |
-| Test Splitting API | 10,000 |
-| Artifact Create/Update | 600 |
+| Product | API | Default (requests/min) |
+| --- | --- | --- |
+| All products | GraphQL API | 20,000 |
+| All products | REST API | 200 |
+| All products | Portal API | 200 |
+| Pipelines | Artifact Create/Update | 600 |
+| Test Engine | Test Splitting API | 10,000 |
 
 ## Integration service limits
+
+Integration service limits apply to all of the Buildkite products.
 
 | Service | Default per organization |
 | --- | --- |
