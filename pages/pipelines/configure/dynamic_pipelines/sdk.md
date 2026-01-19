@@ -11,6 +11,7 @@ Currently, the Buildkite SDK supports the following languages:
 - [Python](#python)
 - [Go](#go)
 - [Ruby](#ruby)
+- [C#](#c-sharp)
 
 Each of the **Installing** sub-sections below assume that your local environment already has the required language tools installed.
 
@@ -211,6 +212,54 @@ steps:
 ### API documentation
 
 For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](https://buildkite.com/docs/sdk/ruby/).
+
+## C Sharp
+
+This section explains how to install and use the Buildkite SDK for [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) (.NET) projects.
+
+### Installing
+
+To install the Buildkite SDK for [.NET](https://dotnet.microsoft.com/) to your local development environment, run this command:
+
+```bash
+dotnet add package Buildkite.Sdk
+```
+
+### Using
+
+The following code example demonstrates how to import the Buildkite SDK into a simple C# script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
+
+```csharp
+using Buildkite.Sdk;
+using Buildkite.Sdk.Schema;
+
+var pipeline = new Pipeline();
+
+pipeline.AddStep(new CommandStep
+{
+    Label = "some-label",
+    Command = "echo 'Hello, world!'"
+});
+
+// JSON output
+// Console.WriteLine(pipeline.ToJson());
+// YAML output
+Console.WriteLine(pipeline.ToYaml());
+```
+{: codeblock-file="DynamicPipeline.cs"}
+
+When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
+
+```yaml
+# For example, in your pipeline's Settings > Steps:
+steps:
+  - label: "\:pipeline\: Run dynamic pipeline steps"
+    command: dotnet run --project .buildkite/DynamicPipeline.csproj | buildkite-agent pipeline upload
+```
+
+### API documentation
+
+For more detailed API documentation on the Buildkite SDK for C#, consult the [Buildkite SDK's C# API documentation](https://buildkite.com/docs).
 
 ## Developing the Buildkite SDK
 
