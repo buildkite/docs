@@ -115,7 +115,7 @@ Whenever a job fails, the volume versions attached to the agent instance are aba
 
 ### Non-deterministic nature
 
-Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command in a Buildkite pipeline to retrieve data or an image from a volume (for example, a previously built Docker image in the [container cache volume](#container-cache-volumes) with a `docker pull` command), then the command may instead retrieve the data or image from a different source, such as the [remote Docker builder's](/docs/agent/v3/buildkite-hosted/remote-docker-builders) [local storage/file system](/docs/agent/v3/buildkite-hosted/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
+Volumes, by their very nature, only provide _non-deterministic_ access to their data. This means that when you issue a command in a Buildkite pipeline to retrieve data or an image from a volume (for example, a previously built Docker image in the [container cache volume](#container-cache-volumes) with a `docker pull` command), then the command may instead retrieve the data or image from a different source, such as the [remote Docker builder's](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) [local storage/file system](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders#benefits-of-using-remote-docker-builders-improved-cache-hit-rates-and-reproducibility), which could be very fast, or Docker Hub, which could be very slow by comparison due to bandwidth limitations.
 
 This behavior results from a volume's data availability, which depends on the following factors:
 
@@ -182,7 +182,7 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 ## Viewing and deleting volumes
 
-Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/v3/buildkite-hosted/remote-docker-builders#additional-volumes) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
+Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders#additional-volumes) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
 
 To view a list of volumes and delete one:
 
