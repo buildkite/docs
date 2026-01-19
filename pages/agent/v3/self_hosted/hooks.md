@@ -217,6 +217,6 @@ See the dedicated [Using agent hooks and plugins](/docs/agent/v3/self-hosted/age
 
 ## Hooks on Buildkite hosted agents
 
-Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/agent/v3/buildkite-hosted/linux#agent-images-using-agent-hooks).
+Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/agent/v3/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks).
 
 Currently, [Buildkite hosted agents for macOS](/docs/agent/v3/buildkite-hosted/macos) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
