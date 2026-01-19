@@ -1,5 +1,7 @@
 # Agent tokens
 
+This endpoint manages agent tokens within a [cluster](/docs/apis/rest-api/clusters).
+
 An agent token is used to [connect agents to a Buildkite cluster](/docs/pipelines/security/clusters/manage#connect-agents-to-a-cluster).
 
 ## Token data model

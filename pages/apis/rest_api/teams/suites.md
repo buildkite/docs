@@ -1,5 +1,7 @@
 # Team suites API
 
+This endpoint manages test suite associations with a [team](/docs/apis/rest-api/teams).
+
 The team suites API endpoint allows users to review, create, update, and delete test suites associated with a team in your organization.
 
 ## Team suite data model

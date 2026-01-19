@@ -1,5 +1,7 @@
 # Team members API
 
+This endpoint manages members of a [team](/docs/apis/rest-api/teams).
+
 The team members API endpoint allows users to review, create, update, and delete members associated with a team in your organization.
 
 ## Team member data model
