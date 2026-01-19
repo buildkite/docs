@@ -325,7 +325,13 @@
             - name: "Overview"
               path: "agent/v3/buildkite-hosted"
             - name: "Linux hosted agents"
-              path: "agent/v3/buildkite-hosted/linux"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/buildkite-hosted/linux"
+                - name: "Custom base images"
+                  path: "agent/v3/buildkite-hosted/linux/custom-base-images"
+                - name: "Remote Docker builders"
+                  path: "agent/v3/buildkite-hosted/linux/remote-docker-builders"
             - name: "macOS hosted agents"
               children:
                 - name: "Overview"
@@ -342,8 +348,6 @@
               path: "agent/v3/buildkite-hosted/terminal-access"
             - name: "Cache volumes"
               path: "agent/v3/buildkite-hosted/cache-volumes"
-            - name: "Remote Docker builders"
-              path: "agent/v3/buildkite-hosted/remote-docker-builders"
             - name: "Internal container registry"
               path: "agent/v3/buildkite-hosted/internal-container-registry"
             - name: "Network security"
