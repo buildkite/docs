@@ -48,10 +48,71 @@ The following table lists Buildkite's default service quota values.
         default_value: "250 teams"
       },
       {
+        title: "Number of queues per cluster",
+        description: "Default number of queues that can be created on a single cluster.",
+        default_value: "50"
+      },
+            {
+        title: "Number of stacks per organization",
+        description: "Default number of stacks that can be created per organization.",
+        default_value: "30"
+      },
+      {
+        title: "Maximum OIDC lifetime",
+        description: "The default maximum lifetime for OIDC.",
+        default_value: "2 hours"
+      },
+      {
         title: "Webhook services per organization",
         description: "The maximum number of Webhook services that can be added to an organization.",
         default_value: "15 services"
       },
+      {
+        title: "Log size per job",
+        description: "The maximum file-size of a job's log (uploaded by an agent to Buildkite in chunks).",
+        default_value: "1,024 MiB"
+      },
+      {
+        title: "Log chunk interval",
+        description: "The time interval between the log chunks",
+        default_value: "1 second"
+      }
+    ].sort_by { |quota| quota[:title] }.each do |quota| %>
+      <tr>
+        <td>
+          <strong><%= quota[:title] %></strong>
+         </td>
+        <td>
+          <p><%= quota[:description] %></p>
+          Default: <strong><%= quota[:default_value] %></strong>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+## Plan-variable service quotas
+
+| Product | Quota | Personal Plan | Pro | Enterprise |
+| --- | --- | --- | --- | --- |
+| Pipelines | **Build retention** | 90 days | 90 days | 365 days |
+| Pipelines | **Clusters per organization** | 1 | Unlimited | Unlimited |
+| Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
+| Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
+
+## Buildkite Pipelines limits
+
+The following table lists Buildkite Pipelines' default service quota values.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Service quota type</th>
+      <th style="width:75%">Description and default limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
       {
         title: "Artifact retention",
         description: "The maximum time we'll store artifacts for, in days, before assuming it has been deleted by an S3 Lifecycle rule, which must be configured separately.",
@@ -125,27 +186,6 @@ The following table lists Buildkite's default service quota values.
     <% end %>
   </tbody>
 </table>
-
-## Organization-level limits
-
-The following usage limits apply on the Buildkite organization level, regardless of the Buildkite products that you are using.
-
-| Quota | Maximum |
-| --- | --- |
-| Number of queues per Cluster | 50 |
-| Stacks | 30 |
-| Max OIDC Lifetime | 2 hours |
-
-## Plan-variable service quotas
-
-| Product | Quota | Personal Plan | Pro | Enterprise |
-| --- | --- | --- | --- | --- |
-| Pipelines | **Build retention** | 90 days | 90 | 365 days |
-| Pipelines | **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
-| Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
-| Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
-
-## Buildkite Pipelines limits
 
 ## Hosted agents limits
 
