@@ -1,6 +1,6 @@
-# Usage limits
+# Service limits
 
-The page outlines usage and service limits based on platform limits and limits based on your subscription tier. The available subscription tiers are:
+The page outlines and service limits based on the Buildkite's platform limits and usage limits based on your subscription tier. The available subscription tiers are:
 
 - Personal (free plan with low usage limits)
 - Trial (30 days of Pro Plan trial)
@@ -10,23 +10,18 @@ The page outlines usage and service limits based on platform limits and limits b
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
 > 📘 Overriding usage limits
-> If you are on the Enterprise-tier Plan and need to override a platform limit, reach out to your dedicated TAM or Buildkite Support Team to inquire if it is possible.
+> If you are on the Enterprise Plan and need to override a platform limit, reach out to your dedicated TAM or Buildkite Support Team to inquire if it is possible.
 
 ## Organization-level limits
 
-| Quota | Default | Maximum |
-| --- | --- | --- |
-| Teams per Org | 250 | - |
-| Queues per Cluster | 50 | Unlimited |
-| Stacks | 30 | - |
+The following usage limits apply on the Buildkite organization level, regardless of the Buildkite products that you are using.
 
-## Security limits
-
-| Quota | Default |
+| Quota | Maximum |
 | --- | --- |
+| Number of teams per an organization | 250 |
+| Number of queues per Cluster | 50 |
+| Stacks | 30 |
 | Max OIDC Lifetime | 2 hours |
-
-## Limits in Buildkite Pipelines
 
 ### Plan-variable service quotas
 
