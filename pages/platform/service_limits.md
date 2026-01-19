@@ -13,7 +13,7 @@ You can find out more about the available plans and what is included in them in 
 
 Service quotas are put in place to ensure that Buildkite can provide a reliable service to all customers. These quotas are scoped to your organization.
 
-> 📘 Overriding usage limits
+> 📘 Overriding service quotas
 > If you are on the Enterprise Plan, service quotas might be increased. Reach out to your dedicated TAM or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
 
 The following table lists Buildkite's default service quota values.
@@ -78,9 +78,19 @@ The following table lists Buildkite's default service quota values.
         default_value: "10 builds"
       },
       {
+        title: "Triggered builds per build",
+        description: "The maximum number of triggered builds per a single build.",
+        default_value: "250 builds"
+      },
+      {
+        title: "Matrix jobs per step",
+        description: "The maximum number of matrix jobs in a pipeline step.",
+        default_value: "50 jobs"
+      },
+      {
         title: "Artifacts per job",
         description: "The maximum number of artifacts that can be uploaded to Buildkite per job.",
-        default_value: "250,000 artifacts"
+        default_value: "5000 artifacts"
       },
       {
         title: "Artifact file size",
@@ -96,6 +106,11 @@ The following table lists Buildkite's default service quota values.
         title: "Log size per job",
         description: "The maximum file-size of a job's log (uploaded by an agent to Buildkite in chunks).",
         default_value: "1,024 MiB"
+      },
+      {
+        title: "Log chunk interval",
+        description: "The time interval between the log chunks",
+        default_value: "1 second"
       }
     ].sort_by { |quota| quota[:title] }.each do |quota| %>
       <tr>
@@ -117,26 +132,24 @@ The following usage limits apply on the Buildkite organization level, regardless
 
 | Quota | Maximum |
 | --- | --- |
-| Number of teams per an organization | 250 |
 | Number of queues per Cluster | 50 |
 | Stacks | 30 |
 | Max OIDC Lifetime | 2 hours |
 
-### Plan-variable service quotas
+## Plan-variable service quotas
 
-| Quota | Personal Plan | Pro | Enterprise |
-| --- | --- | --- | --- |
-| **Build Retention** | 90 days | 90 | 365 days |
-| **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
-| **User invitations** | 0 | 100 |  2000 |
-| **Job timeout** | 4 hours | Unlimited | Unlimited |
-| **Test Engine Workflows per Suite** | 1 | 3 | 3 |
+Product | Quota | Personal Plan | Pro | Enterprise |
+Pipelines | --- | --- | --- | --- |
+Pipelines | **Build retention** | 90 days | 90 | 365 days |
+Pipelines | **Clusters per Org** | 1 (limited plans only) | Unlimited | Unlimited |
+Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
+Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
 
-### Hosted agents limits
+## Hosted agents limits
 
 The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
-#### Concurrency limits
+### Concurrency limits
 
 | Plan Type | Linux Concurrency | macOS Concurrency |
 | --- | --- | --- |
@@ -145,64 +158,34 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | Pro | 20 | 5 |
 | Enterprise| Custom | Custom |
 
-#### Minutes limits (per month)
+### Minutes limits (per month)
 
 | Plan Type | Linux Minutes | macOS Minutes |
 | --- | --- | --- |
 | Personal | 550 | - |
 | Trial | 2,000 | 3,000 |
 
-#### Hosted agents cache volume limits
+### Hosted agents cache volume limits
 
 | Volume type | Limit |
 | --- | --- |
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
-## Model provider spend limits (in USD)
+## Model provider spend limits
 
 | Provider | Trial Period | Pro/Enterprise |
 | --- | --- | --- |
 | **Anthropic** | $50 | $1,000 |
 | **OpenAI** | $50 | $1,000 |
 
+Note that the prices are provided in USD.
+
 ## Universal service quotas
 
 These quotas apply to all plans by default but can be customized per organization.
 
-### Build and job limits
-
-| Quota | Default | Maximum |
-| --- | --- | --- |
-| Jobs per Build | 4,000 | 70,000 |
-| Jobs per Upload | 500 | - |
-| Step Uploads per Build | 500 | - |
-| Matrix Jobs per Step | 50 | - |
-
-### Artifact limits
-
-| Quota | Default |
-| --- | --- |
-| Artifacts per Job | 5,000 |
-| Single Artifact Size | 10 GB |
-| Artifact Batch Size | 50 GB |
-| Artifact Retention | 180 days |
-
-### Log limits
-
-| Quota | Default |
-| --- | --- |
-| Log Size per Job | 1 GB |
-| Log Chunk Interval | 1 second |
-
-### Trigger limits
-
-| Quota | Default |
-| --- | --- |
-| Max Trigger Build Depth | 10 |
-| Triggered Builds per Build | 250 |
-
-### API rate limits
+## API rate limits
 
 | API | Default (requests/min) |
 | --- | --- |
@@ -212,7 +195,7 @@ These quotas apply to all plans by default but can be customized per organizatio
 | Test Splitting API | 10,000 |
 | Artifact Create/Update | 600 |
 
-### Integration service limits
+## Integration service limits
 
 | Service | Default per organization |
 | --- | --- |
