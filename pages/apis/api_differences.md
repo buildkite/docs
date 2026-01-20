@@ -21,6 +21,8 @@ On this page, we've collected the known limitation where some API features are o
 
 ## Features only available in the GraphQL API
 
+<!-- vale off -->
+
 - <%= pill "AGENTS", "agents" %> [Get a list of agent token IDs (agent tokens are currently only available via GraphQL)](/docs/apis/graphql/cookbooks/agents#get-a-list-of-unclustered-agent-token-ids).
 - <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/cookbooks/builds#get-all-environment-variables-set-on-a-build).
 - <%= pill "BUILDS", "builds" %> [Increase the next build number](/docs/apis/graphql/cookbooks/builds#increase-the-next-build-number).
@@ -37,6 +39,8 @@ On this page, we've collected the known limitation where some API features are o
 - <%= pill "PIPELINES", "pipelines" %> Filter results from pipeline listings.
 - <%= pill "PIPELINES", "pipelines" %> Create and manage pipeline schedules.
 - <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/cookbooks/organizations#create-a-user-add-them-to-a-team-and-set-user-permissions).
+
+<!-- vale on -->
 
 ## Known missing API features
 
