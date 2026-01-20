@@ -237,13 +237,21 @@ var pipeline = new Pipeline();
 
 pipeline.AddStep(new CommandStep
 {
-    Label = "some-label",
-    Command = "echo 'Hello, world!'"
+    Label = "\:hammer\: Build",
+    Command = "dotnet build"
 });
 
-// JSON output
+pipeline.AddStep(new WaitStep());
+
+pipeline.AddStep(new CommandStep
+{
+    Label = "\:test_tube\: Test",
+    Command = "dotnet test"
+});
+
+// JSON output for `buildkite-agent pipeline upload`
 // Console.WriteLine(pipeline.ToJson());
-// YAML output
+// YAML output for `buildkite-agent pipeline upload`
 Console.WriteLine(pipeline.ToYaml());
 ```
 {: codeblock-file="DynamicPipeline.cs"}
@@ -255,6 +263,70 @@ When you're ready to upload your output JSON or YAML steps to Buildkite Pipeline
 steps:
   - label: "\:pipeline\: Run dynamic pipeline steps"
     command: dotnet run --project .buildkite/DynamicPipeline.csproj | buildkite-agent pipeline upload
+```
+
+<h4 id="command-steps">Command steps</h4>
+
+```csharp
+pipeline.AddStep(new CommandStep
+{
+    Label = "\:dotnet\: Build",
+    Key = "build",
+    Command = "dotnet build --configuration Release",
+    Agents = new AgentsObject { ["queue"] = "linux" },
+    TimeoutInMinutes = 30
+});
+```
+
+<h4 id="block-steps">Block steps</h4>
+
+```csharp
+pipeline.AddStep(new BlockStep
+{
+    Block = "\:rocket\: Deploy to Production?",
+    Prompt = "Are you sure?"
+});
+```
+
+<h4 id="wait-steps">Wait steps</h4>
+
+```csharp
+pipeline.AddStep(new WaitStep());
+pipeline.AddStep(new WaitStep { ContinueOnFailure = true });
+```
+
+<h4 id="trigger-steps">Trigger steps</h4>
+
+```csharp
+pipeline.AddStep(new TriggerStep
+{
+    Trigger = "deploy-pipeline",
+    Build = new TriggerBuild { Branch = "main" }
+});
+```
+
+<h4 id="group-steps">Group steps</h4>
+
+```csharp
+pipeline.AddStep(new GroupStep
+{
+    Group = "\:test_tube\: Tests",
+    Steps = new List<IGroupStep>
+    {
+        new CommandStep { Label = "Unit", Command = "dotnet test" },
+        new CommandStep { Label = "Integration", Command = "dotnet test --filter Integration" }
+    }
+});
+```
+
+<h4 id="environment-variables">Environment variables</h4>
+
+```csharp
+using Buildkite.Sdk;
+
+var branch = EnvironmentVariable.Branch;
+var commit = EnvironmentVariable.Commit;
+var buildNumber = EnvironmentVariable.BuildNumber;
 ```
 
 ### API documentation
