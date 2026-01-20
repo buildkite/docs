@@ -9,94 +9,18 @@ The page outlines and service limits based on the Buildkite's platform limits an
 
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
-## Platform-level limits
-
-
-
-## Organization-level limits
-
-Organization-level limits are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
-
 > 📘 Overriding the limits
-> If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated TAM or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
+> If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated technical account manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
 
-The following table lists the default values for Buildkite's organization-level limits.
+## Buildkite Pipelines
 
-<table>
-  <thead>
-    <tr>
-      <th style="width:25%">Service limit type</th>
-      <th style="width:75%">Description and default limit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% [
-      {
-        title: "Invitations per organization",
-        description: "The maximum number of pending invitations for an organization.",
-        default_value: "20 invitations"
-      },
-      {
-        title: "REST API rate limit per organization",
-        description: "The number of requests an organization can make to Organization endpoints on the REST API, per minute.",
-        default_value: "200 requests/min"
-      },
-      {
-        title: "Slack services per organization",
-        description: "The maximum number of Slack services that can be added to an organization.",
-        default_value: "50 services"
-      },
-      {
-        title: "Teams per organization",
-        description: "The maximum number of teams that an organization can have.",
-        default_value: "250 teams"
-      },
-      {
-        title: "Number of queues per cluster",
-        description: "Default number of queues that can be created on a single cluster.",
-        default_value: "50"
-      },
-            {
-        title: "Number of stacks per organization",
-        description: "Default number of stacks that can be created per organization.",
-        default_value: "30"
-      },
-      {
-        title: "Maximum OIDC lifetime",
-        description: "The default maximum lifetime for OIDC.",
-        default_value: "2 hours"
-      },
-      {
-        title: "Webhook services per organization",
-        description: "The maximum number of Webhook services that can be added to an organization.",
-        default_value: "15 services"
-      },
-    ].sort_by { |limit| limit[:title] }.each do |limit| %>
-      <tr>
-        <td>
-          <strong><%= limit[:title] %></strong>
-         </td>
-        <td>
-          <p><%= limit[:description] %></p>
-          Default: <strong><%= limit[:default_value] %></strong>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-## Plan-variable service limits
+The following table lists Buildkite Pipelines' default service limits.
 
 | Product | Limit | Personal Plan | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
 | Pipelines | **Build retention** | 90 days | 90 days | 365 days |
 | Pipelines | **Clusters per organization** | 1 | Unlimited | Unlimited |
 | Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
-| Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
-
-## Buildkite Pipelines limits
-
-The following table lists Buildkite Pipelines' default service limit values.
 
 <table>
   <thead>
@@ -219,12 +143,99 @@ Note that the prices are provided in USD.
 
 ## Test Engine limits
 
+| Product | Limit | Personal Plan | Pro | Enterprise |
+| --- | --- | --- | --- | --- |
+| Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
+
+
+| Product | API | Default (requests/min) |
+| --- | --- | --- |
+| Test Engine | Test Splitting API | 10,000 |
+
+| Limit | Value | Description |
+| --- | --- | --- |
+| Test Ownership File Size | 1 MB | CODEOWNERS file max |
+
 ## Package Registries limits
 
+The limits in Package Registries apply based on the subscription tier:
 
+| Plan | Limit | Type |
+| --- | --- | --- |
+| Personal | 1 GB | Hard limit |
+| Free (legacy) | 2 GB | Hard limit |
+| Pro | GraphQL API | Usage-based limit |
+| Enterprise | 20 GB | Usage-based limit |
+| Managed Enterprise Annual | 240 GB | Usage-based limit |
 
+## Platform and organization-level limits
 
+Organization-level limits are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
 
+The following table lists the default values for Buildkite's organization-level limits.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Service limit type</th>
+      <th style="width:75%">Description and default limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        title: "Invitations per organization",
+        description: "The maximum number of pending invitations for an organization.",
+        default_value: "20 invitations"
+      },
+      {
+        title: "REST API rate limit per organization",
+        description: "The number of requests an organization can make to Organization endpoints on the REST API, per minute.",
+        default_value: "200 requests/min"
+      },
+      {
+        title: "Slack services per organization",
+        description: "The maximum number of Slack services that can be added to an organization.",
+        default_value: "50 services"
+      },
+      {
+        title: "Teams per organization",
+        description: "The maximum number of teams that an organization can have.",
+        default_value: "250 teams"
+      },
+      {
+        title: "Number of queues per cluster",
+        description: "Default number of queues that can be created on a single cluster.",
+        default_value: "50"
+      },
+            {
+        title: "Number of stacks per organization",
+        description: "Default number of stacks that can be created per organization.",
+        default_value: "30"
+      },
+      {
+        title: "Maximum OIDC lifetime",
+        description: "The default maximum lifetime for OIDC.",
+        default_value: "2 hours"
+      },
+      {
+        title: "Webhook services per organization",
+        description: "The maximum number of Webhook services that can be added to an organization.",
+        default_value: "15 services"
+      },
+    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+      <tr>
+        <td>
+          <strong><%= limit[:title] %></strong>
+         </td>
+        <td>
+          <p><%= limit[:description] %></p>
+          Default: <strong><%= limit[:default_value] %></strong>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## Universal service limits
 
@@ -238,7 +249,6 @@ These limits apply to all plans by default but can be customized per organizatio
 | All products | REST API | 200 |
 | All products | Portal API | 200 |
 | Pipelines | Artifact Create/Update | 600 |
-| Test Engine | Test Splitting API | 10,000 |
 
 ## Integration service limits
 
@@ -273,7 +283,6 @@ The following limits are limits tied to rational use of the Buildkite platform a
 | Max Annotation Replacements | 10 | Image/link replacements |
 | Max Concurrency Key Length | 200 | Concurrency group key length |
 | Max Audit Search Terms | 3 | Search term limit |
-| Test Ownership File Size | 1 MB | CODEOWNERS file max |
 | Multipart Max Artifacts | 30 | Per upload batch |
 | Multipart Max Parts | 10 | Per artifact |
 | Asset Upload Max Files | 10 | Files per upload |
