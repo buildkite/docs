@@ -121,6 +121,36 @@ The following table lists Buildkite Pipelines' default service limits.
         default_value: "600"
       },
       {
+        title: "Slack services per organization",
+        description: "The maximum number of Slack services that can be added to an organization.",
+        default_value: "50 services"
+      },
+      {
+        title: "Webhook services per organization",
+        description: "The maximum number of Webhook services that can be added to an organization.",
+        default_value: "15 services"
+      },
+      {
+        title: "Event Log API services per organization",
+        description: "The maximum number of Event Log API services that can be added to an organization.",
+        default_value: "15 services"
+      },
+      {
+        title: "OpenTelemetry Tracing services per organization",
+        description: "The maximum number of OpenTelemetry Tracing services that can be added to an organization.",
+        default_value: "5 services"
+      },
+      {
+        title: "Datadog Pipeline Visibility services per organization",
+        description: "The maximum number of Datadog Pipeline Visibility services that can be added to an organization.",
+        default_value: "5 services"
+      },
+      {
+        title: "AWS EventBridge services per organization",
+        description: "The maximum number of AWS EventBridge services that can be added to an organization.",
+        default_value: "1 service"
+      },
+      {
         title: "Anthropic spend",
         description: "Model provider spend limits for Anthropic, per month in USD.",
         default_value: "$50 on Trial plan, $1,000 on Pro and Enterprise"
@@ -207,6 +237,11 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
         description: "The maximum size for CODEOWNERS files.",
         default_value: "1 MB"
       },
+      {
+        title: "Linear services per organization",
+        description: "The maximum number of Linear integrations that can be added to an organization.",
+        default_value: "1 service"
+      },
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
         <td>
@@ -221,14 +256,9 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
   </tbody>
 </table>
 
-
-
-
-
-
 ## Package Registries limits
 
-The limits in Package Registries apply based on the subscription tier:
+The following table lists the default values for Package Registries limits. The limits in Package Registries are based on the subscription tier:
 
 <table>
   <thead>
@@ -280,9 +310,7 @@ The limits in Package Registries apply based on the subscription tier:
 
 ## Platform and organization-level limits
 
-Organization-level limits are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
-
-The following table lists the default values for Buildkite's organization-level limits.
+Platform and organization-level limits are applied to all Buildkite products and are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
 
 <table>
   <thead>
@@ -314,11 +342,6 @@ The following table lists the default values for Buildkite's organization-level 
         default_value: "200 requests/min"
       },
       {
-        title: "Slack services per organization",
-        description: "The maximum number of Slack services that can be added to an organization.",
-        default_value: "50 services"
-      },
-      {
         title: "Teams per organization",
         description: "The maximum number of teams that an organization can have.",
         default_value: "250 teams"
@@ -327,12 +350,7 @@ The following table lists the default values for Buildkite's organization-level 
         title: "Maximum OIDC lifetime",
         description: "The default maximum lifetime for OIDC.",
         default_value: "2 hours"
-      },
-      {
-        title: "Webhook services per organization",
-        description: "The maximum number of Webhook services that can be added to an organization.",
-        default_value: "15 services"
-      },
+      }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
         <td>
@@ -346,18 +364,6 @@ The following table lists the default values for Buildkite's organization-level 
     <% end %>
   </tbody>
 </table>
-
-## Integration service limits
-
-Integration service limits apply to all of the Buildkite products.
-
-| Service | Default per organization |
-| --- | --- |
-| Event Log API Services | 15 |
-| OpenTelemetry Tracing Services | 5 |
-| Datadog Pipeline Visibility | 5 |
-| AWS EventBridge Services | 1 |
-| Linear Services | 1 |
 
 ## Hard-coded limits not tied to billing
 
