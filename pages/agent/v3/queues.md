@@ -54,7 +54,7 @@ steps:
 ## Setting up queues for unclustered agents
 
 > 🚧 This section documents a deprecated Buildkite feature
-> Learn more about unclustered agents and their tokens in [Unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens).
+> Learn more about unclustered agents and their tokens in [Working with unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens).
 
 For unclustered agents, queues are configured when starting a Buildkite agent. An unclustered agent can listen on a single queue or on multiple queues. For multiple queues, add as many extra `queue` tags as are required.
 

@@ -122,9 +122,6 @@
           children:
             - name: "Tokens"
               path: "agent/v3/self-hosted/tokens"
-            - name: "Unclustered tokens"
-              pill: "deprecated"
-              path: "agent/v3/self-hosted/unclustered-tokens"
             - name: "SSH keys"
               path: "agent/v3/self-hosted/ssh-keys"
             - name: "GitHub SSH keys"

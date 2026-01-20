@@ -4,7 +4,7 @@ A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/gettin
 
 A user who is a Buildkite organization administrator or a [maintainer of a cluster](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) within the organization can manage agent tokens for that cluster.
 
-If you are managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/self-hosted/unclustered-tokens) instead.
+If you are managing agents in an unclustered environment, refer to [Working with unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens) instead.
 
 ## The initial agent token
 
@@ -321,7 +321,7 @@ An expired agent token will prevent agents configured with this token from being
 
 ## Additional agent tokens
 
-In addition to the initial agent token, the Buildkite Agent automatically generates and manages two internal types of tokens during its operation. These tokens are session tokens and job tokens.
+In addition to the agent token, the Buildkite Agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
 
 ### Session tokens
 
@@ -337,10 +337,10 @@ You can set a default or maximum [command timeout](/docs/pipelines/configure/bui
 
 When an agent starts, it follows the token exchange process:
 
-1. The agent connects to the Buildkite Agent API to register itself using its configured **agent token** (`BUILDKITE_AGENT_TOKEN`).
-1. The Agent API generates and returns a **session token** to the agent.
+1. The agent connects to the Buildkite Agent API to register itself using its configured _agent token_ (`BUILDKITE_AGENT_TOKEN`).
+1. The Agent API generates and returns a [session token](#additional-agent-tokens-session-tokens) to the agent.
 1. The agent uses this session token to poll for available jobs and manage its connection to Buildkite.
-1. When the agent accepts a job, Buildkite generates a **job token** specific to that job.
+1. When the agent accepts a job, Buildkite generates a [job token](#additional-agent-tokens-job-tokens) specific to that job.
 
 <table>
   <tr>
@@ -370,4 +370,156 @@ When an agent starts, it follows the token exchange process:
 </table>
 
 >📘 Job tokens are not supported in agents prior to v3.39.0
+> Agents prior to v3.39.0 use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
+
+## Working with unclustered agent tokens
+
+> 🚧 This section documents a deprecated Buildkite feature
+> _It is not be possible to create and work with unclustered agents for any Buildkite organizations created after the official release of clusters on February 26, 2024._ Therefore, unclustered agent tokens are not relevant to these organizations, including this section of the Agent tokens page.
+> Previously, agents only connected directly to Buildkite using a token which was created and managed by the processes described in this page section. These tokens are now a deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines to a [cluster](/docs/pipelines/security/clusters).
+> _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Learn more about how to manage agent tokens for clusters from the top of this main [Agent tokens](/docs/agent/v3/self-hosted/tokens) page and how to [migrate your unclustered agents across to a cluster](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents).
+
+Any Buildkite organization created before February 26, 2024 has an **Unclustered** area for managing _unclustered agents_, accessible through **Agents** (from the global navigation) > **Unclustered** of the Buildkite interface, where an _unclustered agent_ refers to any agent that is not associated with a cluster.
+
+A Buildkite agent requires a token to connect to Buildkite and register for work. If you need to connect an _unclustered agent_ to Buildkite, then you need to create an _unclustered agent token_ to do so.
+
+
+### The default token
+
+Your Buildkite organization's unclustered agent tokens page, accessible through **Agents** (from the global navigation) > **Unclustered** > **Agent Tokens**, may have the **Default agent registration token**, which is the original default token when your organization was created. If you had previously saved this token's value in a safe place, this token can be used for testing and development. However, it's recommended that you [create new, specific tokens](#working-with-unclustered-agent-tokens-create-a-token) for each new environment.
+
+### Using and storing tokens
+
+The requirements for using and storing unclustered agent tokens are similar to those for [agent tokens associated with a cluster](#using-and-storing-tokens).
+
+### Create a token
+
+New unclustered agent tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
+
+For example:
+
+```graphql
+mutation {
+  agentTokenCreate(input: {
+    organizationID: "organization-id",
+    description: "A description"
+  }) {
+    tokenValue
+    agentTokenEdge {
+      node {
+        id
+      }
+    }
+  }
+}
+```
+
+> 📘 An unclustered agent token's value is only displayed once
+> As soon as the unclustered agent token's value is displayed, copy its value and save it in a secure location.
+> If you forget to do this, you'll need to create a new token to obtain its value.
+
+You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
+
+```graphql
+query GetOrgID {
+  organization(slug: "organization-slug") {
+    id
+  }
+}
+```
+
+<!--alex ignore clearly-->
+
+The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the **Agent tokens** page of the **Agents** (from the global navigation) > **Unclustered** area.
+
+It is possible to create multiple unclustered agent tokens using the GraphQL API.
+
+### Revoke a token
+
+Unclustered agent tokens can be revoked using the [GraphQL API](/docs/apis/graphql/cookbooks/agents#revoke-an-unclustered-agent-token) query with the `agentTokenRevoke ` mutation.
+
+You need to pass your unclustered agent token as the ID in the mutation.
+
+First, you can retrieve a list of agent token IDs using this query:
+
+```graphql
+query GetAgentTokenID {
+  organization(slug: "organization-slug") {
+    agentTokens(first:50) {
+      edges {
+        node {
+          id
+          uuid
+          description
+        }
+      }
+    }
+  }
+}
+```
+
+Then, using the token ID, revoke the unclustered agent token:
+
+```graphql
+mutation {
+  agentTokenRevoke(input: {
+    id: "token-id",
+    reason: "A reason"
+  }) {
+    agentToken {
+      description
+      revokedAt
+      revokedReason
+    }
+  }
+}
+```
+
+Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
+
+### Scope of access
+
+Unclustered agent tokens are specific to each Buildkite organization (created before February 26, 2024), and can be used to register an agent with any [unclustered queue](/docs/agent/v3/queues#setting-up-queues-for-unclustered-agents). Unclustered agent tokens can not be shared between Buildkite organizations.
+
+### Additional agent tokens
+
+In addition to the unclustered agent token (and as is the case for [agent tokens associated with a cluster](#additional-agent-tokens)), the Buildkite Agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
+
+#### Token exchange process
+
+When an agent starts, it follows the token exchange process:
+
+1. The agent connects to the Buildkite Agent API to register itself using its configured _unclustered agent token_ (`BUILDKITE_AGENT_TOKEN`).
+1. The Agent API generates and returns a _session token_ to the agent.
+1. The agent uses this session token to poll for available jobs and manage its connection to Buildkite.
+1. When the agent accepts a job, Buildkite generates a _job token_ specific to that job.
+
+<table>
+  <tr>
+    <th>Token type</th>
+    <th>Generated by</th>
+    <th>Use</th>
+    <th>Lifetime</th>
+  </tr>
+  <tr>
+    <td>Unclustered agent token</td>
+    <td>Buildkite organization administrator</td>
+    <td>Initial agent registration and authentication.</td>
+    <td>Forever unless manually revoked.</td>
+  </tr>
+  <tr>
+    <td>Session token (internal)</td>
+    <td>Buildkite Agent API during registration</td>
+    <td>Agent lifecycle APIs, polling for jobs, and starting jobs.</td>
+    <td>Until the agent disconnects.</td>
+  </tr>
+  <tr>
+    <td>Job token (internal)</td>
+    <td>Buildkite Agent API when job is accepted</td>
+    <td>Local Job API access for CLI commands (including <a href="/docs/agent/v3/cli/reference/annotate">annotate</a>,  <a href="/docs/agent/v3/cli/reference/artifact">artifact</a>,  <a href="/docs/agent/v3/cli/reference/meta-data">meta-data</a>, and  <a href="/docs/agent/v3/cli/reference/pipeline">pipeline</a> commands).</td>
+    <td>Until the job finishes.</td>
+  </tr>
+</table>
+
+> 📘 Job tokens not supported in agents prior to v3.39.0
 > Agents prior to v3.39.0 use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
