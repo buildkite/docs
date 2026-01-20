@@ -1,6 +1,6 @@
 # Amazon ECR authentication
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) pre-configures the [`ecr` plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) to run automatically as a local [agent hook](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins) through the `pre-command` hook. This provides automatic authentication to Amazon ECR before each job runs, with no configuration required in your pipeline YAML.
+The [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) pre-configures the [`ecr` plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin) to run automatically as a local [agent hook](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins) through the `pre-command` hook. This provides automatic authentication to Amazon ECR before each job runs, with no configuration required in your pipeline YAML.
 
 When using Agent Stack for Kubernetes, you need to add the `ecr` plugin to each [pipeline step](/docs/pipelines/configure/defining-steps) that needs ECR access and ensure AWS credentials are available to your jobs.
 
