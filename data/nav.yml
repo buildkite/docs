@@ -949,8 +949,8 @@
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
-    - name: "Service limits"
-      path: "platform/service-limits"
+    - name: "Platform limits"
+      path: "platform/limits"
 - name: "APIs"
   path: "apis"
   children:

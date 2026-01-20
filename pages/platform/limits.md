@@ -1,4 +1,4 @@
-# Service limits
+# Platform limits
 
 The page outlines and service limits based on the Buildkite's platform limits and usage limits based on your subscription tier. The available subscription tiers are:
 
