@@ -26,6 +26,7 @@ The `bk job` command allows you to manage jobs within builds from the command li
 | --- | --- |
 | `bk job cancel` | Cancel a job. |
 | `bk job list` | List jobs. |
+| `bk job log` | Get logs for a job. |
 | `bk job retry` | Retry a job. |
 | `bk job unblock` | Unblock a job. |
 
@@ -148,6 +149,49 @@ Get JSON output for bulk operations:
 
 ```bash
 bk job list --queue test-queue -o json
+```
+
+## Log job
+
+Get logs for a job.
+
+```bash
+bk job log <job-id> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<job-id>` | Job UUID to get logs for |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-b`, `--build-number=STRING` | The build number |
+| `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug} |
+| `--debug` | Enable debug output for REST API calls |
+| `--no-timestamps` | Strip timestamp prefixes from log output |
+
+### Examples
+
+Get a job's logs by UUID (requires --pipeline and --build):
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123
+```
+
+If inside a git repository with a configured pipeline:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 -b 123
+```
+
+Strip timestamp prefixes from output:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123 --no-timestamps
 ```
 
 ## Retry a job

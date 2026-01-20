@@ -104,8 +104,6 @@ gcloud logging read "resource.type=gce_instance AND severity>=ERROR" \
   --project PROJECT_ID
 ```
 
-For more information on logging, see [LOGGING.md](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/blob/main/LOGGING.md).
-
 ## Accessing Elastic CI Stack for GCP instances directly
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly.

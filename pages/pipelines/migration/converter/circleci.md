@@ -1,14 +1,14 @@
 # CircleCI
 
-The [Buildkite migration tool](/docs/pipelines/migration/tool) helps you convert your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite migration tool's currently supported, partially supported, and unsupported CircleCI keys when translating from CircleCI pipeline configurations to Buildkite pipelines.
+The [Buildkite pipeline converter](/docs/pipelines/migration/tool) helps you convert your CircleCI pipelines into Buildkite pipelines. This page lists the Buildkite pipeline converter's currently supported, partially supported, and unsupported CircleCI keys when translating from CircleCI pipeline configurations to Buildkite pipelines.
 
 For any partially supported and unsupported **Key**s listed in the tables on this page, you should follow the instructions provided in their relevant **Notes**, for details on how to successfully complete their translation into a working Buildkite pipeline.
 
-## Using the Buildkite migration tool with CircleCI
+## Using the Buildkite pipeline converter with CircleCI
 
 To start converting your CircleCI pipeline configurations into Buildkite Pipelines format:
 
-1. Open the [Buildkite migration interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/convert/) in a new browser tab.
 1. Select **CircleCI** at the top of the left panel.
 1. Copy your CircleCI pipeline configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
@@ -36,7 +36,7 @@ workflows:
       - build
 ```
 
-The Buildkite migration tool should translate this to the following output:
+The Buildkite pipeline converter should translate this to the following output:
 
 ```yml
 ---
@@ -53,13 +53,13 @@ steps:
   key: build
 ```
 
-The Buildkite migration tool interface should look similar to this:
+The Buildkite pipeline converter interface should look similar to this:
 
-<%= image "migration-tool-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite migration tool's web UI" %>
+<%= image "pipeline-converter-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite pipeline converter's web UI" %>
 
 You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 
-The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipeline configurations](https://circleci.com/docs/guides/getting-started/introduction-to-yaml-configurations/#anchors-and-aliases), which are reusable configuration snippets that can applied to specific points in a pipeline configuration. A YAML alias is defined by an `&` (anchor, for example, `&tests`) within the top-level `aliases` key and substituted into a CircleCI pipeline configuration with an `*` (for example, `*tests`). A configuration defined by an alias is respected and parsed at its specified section in the pipeline configuration. Also note that more complex (for example, multi-line) anchors defined as a YAML alias in a CircleCI pipeline configuration are expanded upon their translation into Buildkite pipeline format.
+The Buildkite pipeline converter supports the use of [YAML aliases in CircleCI pipeline configurations](https://circleci.com/docs/guides/getting-started/introduction-to-yaml-configurations/#anchors-and-aliases), which are reusable configuration snippets that can applied to specific points in a pipeline configuration. A YAML alias is defined by an `&` (anchor, for example, `&tests`) within the top-level `aliases` key and substituted into a CircleCI pipeline configuration with an `*` (for example, `*tests`). A configuration defined by an alias is respected and parsed at its specified section in the pipeline configuration. Also note that more complex (for example, multi-line) anchors defined as a YAML alias in a CircleCI pipeline configuration are expanded upon their translation into Buildkite pipeline format.
 
 > 📘
 > Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.
@@ -114,7 +114,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
       {
         "key": "jobs.&lt;name&gt;.parallelism",
         "supported": "No",
-        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#setting-an-agents-queue) and [tags](/docs/agent/v3/cli/reference/start#setting-tags) targeting)."
+        "notes": "A `parallelism` parameter (if greater than `1` is defined) will create a separate execution environment and will run the `steps` of the specific `job` in parallel. In Buildkite Pipelines, a similar `parallelism` key can be set to a [command step](/docs/pipelines/configure/step-types/command-step), which will run the defined `command` over separate jobs (sharing the same agent [queues](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue) and [tags](/docs/agent/v3/cli/reference/start#setting-tags) targeting)."
       },
       {
         "key": "jobs.&lt;name&gt;.parameters",
@@ -154,7 +154,7 @@ The Buildkite migration tool supports the use of [YAML aliases in CircleCI pipel
 
 ### Executors
 
-While the Buildkite migration tool will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/self-hosted/configure) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted)—a fully-managed solution offered by Buildkite.
+While the Buildkite pipeline converter will translate the following listed executor types, to use the generated steps in your translated Buildkite pipeline, your targeted agents must have the relevant operating system (OS), as well as dependencies, and tooling (for example, Docker or XCode) available on them. Buildkite offers the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) as a fully scalable Buildkite Agent fleet on AWS with a suite of tooling installed by default. Additionally, customized agents can be [set up](/docs/agent/v3/self-hosted/configure) to target builds that requires a specific OS, tooling, or both. Or you can use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted)—a fully-managed solution offered by Buildkite.
 
 <table class="responsive-table">
   <thead>
@@ -216,7 +216,7 @@ While the Buildkite migration tool will translate the following listed executor 
 
 | <div style="width: 90px;">Key</div> | Supported | Notes |
 | --- | --- | --- |
-| `orbs` | No | Orbs are currently not supported by the Buildkite migration tool and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. In Buildkite Pipelines, reusable [plugins](/docs/plugins/directory) can provide a similar functionality for integrating various common (and third-party integration-related) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/), running a step within a [Docker container](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), running multiple Docker images through a [compose file](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/), triggering builds in a [monorepo setup](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/), to list a small number of these plugins. |
+| `orbs` | No | Orbs are currently not supported by the Buildkite pipeline converter and should be translated by hand if their equivalent functionality is required within a Buildkite pipeline. In Buildkite Pipelines, reusable [plugins](/docs/plugins/directory) can provide a similar functionality for integrating various common (and third-party integration-related) tasks throughout a Buildkite pipeline, such as [logging into ECR](https://buildkite.com/resources/plugins/buildkite-plugins/ecr-buildkite-plugin/), running a step within a [Docker container](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), running multiple Docker images through a [compose file](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/), triggering builds in a [monorepo setup](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/), to list a small number of these plugins. |
 | Docker `orbs` | Partially | Docker orbs are converted but their translation is only an approximation. It is recommended that you reconstruct any orb-related logic in a Buildkite pipeline instead based on the recommendations outlined in `orbs`. |
 {: class="responsive-table"}
 
@@ -271,7 +271,7 @@ While the Buildkite migration tool will translate the following listed executor 
       {
         "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.branches",
         "supported": "No",
-        "notes": "The `branches` that will be allowed or blocked for a singular `job`. At the moment, the Buildkite migration tool supports setting `filters` within `workflows`, and in particular, sub-properties `branches` and `tags`  in setting a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the generated pipeline."
+        "notes": "The `branches` that will be allowed or blocked for a singular `job`. At the moment, the Buildkite pipeline converter supports setting `filters` within `workflows`, and in particular, sub-properties `branches` and `tags`  in setting a [step conditional](/docs/pipelines/configure/conditionals#conditionals-in-steps) in the generated pipeline."
       },
       {
         "key": "workflows.&lt;name&gt;.jobs.&lt;name&gt;.filters",
@@ -301,7 +301,7 @@ While the Buildkite migration tool will translate the following listed executor 
       {
         "key": "workflows.&lt;name&gt;.when",
         "supported": "Yes",
-        "notes": "Conditional execution key that allows workflows to run under certain conditions, such as those based on pipeline parameters. The Buildkite migration tool allows for the specification using [logical operators `and`, `or`, and `not`](#logical-operators-helpers) in creating command conditionals, and maps basic `when` conditions to Buildkite's conditional steps, though complex nested conditions may require manual adjustment."
+        "notes": "Conditional execution key that allows workflows to run under certain conditions, such as those based on pipeline parameters. The Buildkite pipeline converter allows for the specification using [logical operators `and`, `or`, and `not`](#logical-operators-helpers) in creating command conditionals, and maps basic `when` conditions to Buildkite's conditional steps, though complex nested conditions may require manual adjustment."
       }
     ].select { |field| field[:key] }.each do |field| %>
       <tr>

@@ -4,7 +4,7 @@ Clusters create logical boundaries between different parts of your build infrast
 
 Therefore, if your Buildkite pipelines are still operating in an unclustered agent environment, you should migrate these pipelines across to operating with clustered agents. This guide provides details on how to migrate your unclustered agents across to clustered ones.
 
-Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens).
+Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens).
 
 Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
 
@@ -328,9 +328,9 @@ This section outlines the complete migration process from unclustered to cluster
 
 1. Define the [appropriate queues](/docs/agent/v3/queues/managing#setting-up-queues) within each cluster.
 
-    Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.), bearing in mind that basing the queue name on the [queue tag assigned to an agent when it was started](/docs/agent/v3/queues#setting-an-agents-queue) (in its unclustered environment), could reduce the complexity of the agent migration process.
+    Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.), bearing in mind that basing the queue name on the [queue tag assigned to an agent when it was started](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue) (in its unclustered environment), could reduce the complexity of the agent migration process.
 
-    If you have unclustered agents where any one of them was assigned to multiple queues (that is, if the [agent was started with multiple queue tags in its unclustered environment](/docs/agent/v3/queues#setting-an-agents-queue-setting-up-queues-for-unclustered-agents)), then create a new queue in its relevant cluster for each of these queue tags, or (based on **Migration considerations** under [Agent queue differences](#technical-considerations-agent-queue-differences) above), perhaps just for the important queue tags you wish to continue using in your clustered environment.
+    If you have unclustered agents where any one of them was assigned to multiple queues (that is, if the [agent was started with multiple queue tags in its unclustered environment](/docs/agent/v3/queues#setting-up-queues-for-unclustered-agents)), then create a new queue in its relevant cluster for each of these queue tags, or (based on **Migration considerations** under [Agent queue differences](#technical-considerations-agent-queue-differences) above), perhaps just for the important queue tags you wish to continue using in your clustered environment.
 
     If defining multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
 
@@ -365,7 +365,7 @@ This part of the agent migration process is only applicable for clustered agents
 
     As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), creating copies of your agents like this results in two instances of each agent—one running in your original unclustered environment and the other associated with its appropriate cluster. This allows you to fall back on your unclustered agents if you have issues getting any of your clustered agents to operate as expected, thereby minimizing downtime. Be aware that this situation is only temporary, since you'll eventually be [decommissioning your unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
 
-1. For each of your agents, ensure they are configured to start with their appropriate tags for targeting, _and_ set the queue that was [already defined in your cluster](#agent-migration-process-create-your-clusters-and-queues) (or the [default queue](/docs/agent/v3/queues#the-default-queue)), which will be selected for that agent. For example, the following code snippet shows how to [configure an agent](/docs/agent/v3/self-hosted/configure) from its [former unclustered environment that defined multiple queue tags](/docs/agent/v3/queues#setting-an-agents-queue-setting-up-queues-for-unclustered-agents), to instead target its single queue ([configured previously](#agent-migration-process-create-your-clusters-and-queues)) for its clustered environment:
+1. For each of your agents, ensure they are configured to start with their appropriate tags for targeting, _and_ set the queue that was [already defined in your cluster](#agent-migration-process-create-your-clusters-and-queues) (or the [default queue](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue-the-default-self-hosted-queue)), which will be selected for that agent. For example, the following code snippet shows how to [configure an agent](/docs/agent/v3/self-hosted/configure) from its [former unclustered environment that defined multiple queue tags](/docs/agent/v3/queues#setting-up-queues-for-unclustered-agents), to instead target its single queue ([configured previously](#agent-migration-process-create-your-clusters-and-queues)) for its clustered environment:
 
     ```bash
     # Before migration (unclustered) - multiple queues

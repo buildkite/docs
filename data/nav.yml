@@ -18,6 +18,18 @@
         - name: "Build page"
           path: "pipelines/build-page"
           pill: "new"
+        - name: Pipeline converter
+          children:
+            - name: "Overview"
+              path: "pipelines/migration/pipeline-converter"
+            - name: "GitHub Actions"
+              path: "pipelines/migration/converter/github-actions"
+            - name: "Jenkins"
+              path: "pipelines/migration/converter/jenkins"
+            - name: "CircleCI"
+              path: "pipelines/migration/converter/circleci"
+            - name: "Bitbucket Pipelines"
+              path: "pipelines/migration/converter/bitbucket-pipelines"
         - name: "Glossary"
           path: "pipelines/glossary"
     # If you're adding a source control provider you probably want to update
@@ -41,29 +53,17 @@
           path: "pipelines/source-control/phabricator"
         - name: "Other Git servers"
           path: "pipelines/source-control/git"
-    - name: Migration
+    - name: "Migration"
       children:
-        - name: Overview
-          path: pipelines/migration
-        - name: Migration tool
-          children:
-            - name: "Overview"
-              path: "pipelines/migration/tool"
-            - name: "GitHub Actions"
-              path: "pipelines/migration/tool/github-actions"
-            - name: "Jenkins"
-              path: "pipelines/migration/tool/jenkins"
-            - name: "CircleCI"
-              path: "pipelines/migration/tool/circleci"
-            - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/tool/bitbucket-pipelines"
-        - name: From Jenkins
-          path: pipelines/migration/from-jenkins
-        - name: From GitHub Actions
-          path: pipelines/migration/from-githubactions
-        - name: From Bamboo
-          path: pipelines/migration/from-bamboo
-    - name: Best practices
+        - name: "Overview"
+          path: "pipelines/migration"
+        - name: "From Jenkins"
+          path: "pipelines/migration/from-jenkins"
+        - name: "From GitHub Actions"
+          path: "pipelines/migration/from-githubactions"
+        - name: "From Bamboo"
+          path: "pipelines/migration/from-bamboo"
+    - name: "Best practices"
       children:
         - name: "Overview"
           path: "pipelines/best-practices/overview"
@@ -116,19 +116,12 @@
           children:
             - name: "Overview"
               path: "agent/v3/queues"
-            - name: "Managing queues"
-              children:
-                - name: "Overview"
-                  path: "agent/v3/queues/managing"
-                - name: "Pausing and resuming"
-                  path: "agent/v3/queues/managing/pausing-and-resuming"
+            - name: "Managing"
+              path: "agent/v3/queues/managing"
         - name: "Self-hosted agents"
           children:
             - name: "Tokens"
               path: "agent/v3/self-hosted/tokens"
-            - name: "Unclustered tokens"
-              pill: "deprecated"
-              path: "agent/v3/self-hosted/unclustered-tokens"
             - name: "SSH keys"
               path: "agent/v3/self-hosted/ssh-keys"
             - name: "GitHub SSH keys"
@@ -205,6 +198,8 @@
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/packages"
                     - name: "Secrets"
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/secrets"
+                    - name: "Docker daemon access"
+                      path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-daemon"
             - name: "Run on AWS"
               children:
                 - name: "Overview"
@@ -312,6 +307,8 @@
                   path: "agent/v3/self-hosted/configure/git-mirrors"
             - name: "Hooks"
               path: "agent/v3/self-hosted/hooks"
+            - name: "Pausing and resuming"
+              path: "agent/v3/self-hosted/pausing-and-resuming"
             - name: "Prioritization"
               path: "agent/v3/self-hosted/prioritization"
             - name: "Monitoring and observing"
@@ -327,7 +324,13 @@
             - name: "Overview"
               path: "agent/v3/buildkite-hosted"
             - name: "Linux hosted agents"
-              path: "agent/v3/buildkite-hosted/linux"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/buildkite-hosted/linux"
+                - name: "Custom base images"
+                  path: "agent/v3/buildkite-hosted/linux/custom-base-images"
+                - name: "Remote Docker builders"
+                  path: "agent/v3/buildkite-hosted/linux/remote-docker-builders"
             - name: "macOS hosted agents"
               children:
                 - name: "Overview"
@@ -344,8 +347,6 @@
               path: "agent/v3/buildkite-hosted/terminal-access"
             - name: "Cache volumes"
               path: "agent/v3/buildkite-hosted/cache-volumes"
-            - name: "Remote Docker builders"
-              path: "agent/v3/buildkite-hosted/remote-docker-builders"
             - name: "Internal container registry"
               path: "agent/v3/buildkite-hosted/internal-container-registry"
             - name: "Network security"

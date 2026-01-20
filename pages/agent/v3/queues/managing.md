@@ -24,7 +24,7 @@ When setting up a queue, you can choose between configuring it with Buildkite Ag
 
 Learn more about how to set up and create a queue using either self-hosted agents (known as a [self-hosted queue](#create-a-self-hosted-queue)) or Buildkite hosted agents (known as a [Buildkite hosted queue](#create-a-buildkite-hosted-queue)).
 
-Be aware that it is not possible to create a queue that uses a mix of self-hosted and Buildkite hosted agents. If you do need to use a combination of these different agent types for your pipeline builds, create separate self-hosted and Buildkite hosted queues for these agents and use [agent or queue tags](/docs/agent/v3/queues#setting-an-agents-queue), or a combination of both, to target the appropriate queues.
+Be aware that it is not possible to create a queue that uses a mix of self-hosted and Buildkite hosted agents. If you do need to use a combination of these different agent types for your pipeline builds, create separate self-hosted and Buildkite hosted queues for these agents and use [agent or queue tags](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue), or a combination of both, to target the appropriate queues.
 
 Furthermore, once a queue has been created, it is not possible to change its type from a self-hosted to a Buildkite hosted queue, or vice versa. If you do need to change your type of agent infrastructure, use a queue with the appropriate hosted queue type, or create a new queue to suit your new agent infrastructure.
 
@@ -39,7 +39,7 @@ When you [create a new cluster](/docs/pipelines/security/clusters/manage#create-
 Multiple self-hosted agents can connect to your self-hosted queue by ensuring that the agent is configured to use both of the following:
 
 - The [cluster's agent token](/docs/agent/v3/self-hosted/tokens#using-and-storing-tokens)
-- The [agent tag](/docs/agent/v3/queues#setting-an-agents-queue) targeting your self-hosted queue
+- The [agent tag](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue) targeting your self-hosted queue
 
 ### Using the Buildkite interface
 
@@ -51,6 +51,9 @@ To create a new self-hosted agent queue using the Buildkite interface:
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
 1. In the **Select your agent infrastructure** section, select **Self hosted** for your agent infrastructure.
+
+    **Note:** In the **Retry Agent Affinity** section, leave the default **Prefer Warmest Agent** setting unchanged. To learn more about this setting, see [Retry agent affinity](/docs/agent/v3/self-hosted/prioritization#retry-agent-affinity). You can always change this setting later through your self-hosted queue's **Settings** tab.
+
 1. Select **Create Queue**.
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
@@ -288,7 +291,7 @@ To resume a queue:
 
 ### Pause and resume an individual agent
 
-You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/v3/queues/managing/pausing-and-resuming).
+You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/v3/self-hosted/pausing-and-resuming).
 
 ## Queue metrics
 
