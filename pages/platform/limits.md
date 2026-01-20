@@ -26,11 +26,6 @@ The following table lists Buildkite Pipelines' default service limits.
   <tbody>
     <% [
       {
-        title: "Artifact retention",
-        description: "The maximum time we'll store artifacts for, in days, before assuming it has been deleted by an S3 Lifecycle rule, which must be configured separately.",
-        default_value: "180 days"
-      },
-      {
         title: "Jobs per build",
         description: "The maximum number of jobs that can be created in a single pipeline build (including job retries).",
         default_value: "4,000 jobs"
@@ -91,6 +86,11 @@ The following table lists Buildkite Pipelines' default service limits.
         default_value: "50 GiB"
       },
       {
+        title: "Artifact retention",
+        description: "The maximum time we'll store artifacts for, in days, before assuming it has been deleted by an S3 Lifecycle rule, which must be configured separately.",
+        default_value: "180 days"
+      },
+      {
         title: "Log size per job",
         description: "The maximum file-size of a job's log (uploaded by an agent to Buildkite in chunks).",
         default_value: "1,024 MiB"
@@ -114,6 +114,11 @@ The following table lists Buildkite Pipelines' default service limits.
         title: "Number of stacks per organization",
         description: "Default number of stacks that can be created per organization.",
         default_value: "30"
+      },
+      {
+        title: "Artifact Create/Update API calls",
+        description: "The number of Create or Update requests for artifacts per minute per organization.",
+        default_value: "600"
       },
       {
         title: "Anthropic spend",
@@ -168,17 +173,58 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 
 ## Test Engine limits
 
-| Product | Limit | Personal Plan | Pro | Enterprise |
-| --- | --- | --- | --- | --- |
-| Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Service limit type</th>
+      <th style="width:75%">Description and default limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        title: "Test Engine workflows per suite (Personal)",
+        description: "The maximum number of Test Engine workflows per suite on the Personal plan.",
+        default_value: "1 workflow"
+      },
+      {
+        title: "Test Engine workflows per suite (Pro)",
+        description: "The maximum number of Test Engine workflows per suite on the Pro plan.",
+        default_value: "3 workflows"
+      },
+      {
+        title: "Test Engine workflows per suite (Enterprise)",
+        description: "The maximum number of Test Engine workflows per suite on the Enterprise plan.",
+        default_value: "3 workflows"
+      },
+      {
+        title: "Test Splitting API rate limit",
+        description: "The number of requests that can be made to the Test Splitting API, per minute.",
+        default_value: "10,000 requests/min"
+      },
+      {
+        title: "Test ownership file size",
+        description: "The maximum size for CODEOWNERS files.",
+        default_value: "1 MB"
+      },
+    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+      <tr>
+        <td>
+          <strong><%= limit[:title] %></strong>
+         </td>
+        <td>
+          <p><%= limit[:description] %></p>
+          Default: <strong><%= limit[:default_value] %></strong>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-| Product | API | Default (requests/min) |
-| --- | --- | --- |
-| Test Engine | Test Splitting API | 10,000 |
 
-| Limit | Value | Description |
-| --- | --- | --- |
-| Test Ownership File Size | 1 MB | CODEOWNERS file max |
+
+
+
 
 ## Package Registries limits
 
@@ -258,6 +304,16 @@ The following table lists the default values for Buildkite's organization-level 
         default_value: "200 requests/min"
       },
       {
+        title: "GraphQL API rate limit per organization",
+        description: "The number of requests an organization can make to Organization endpoints on the GraphQL API, per minute.",
+        default_value: "20,000 requests/min"
+      },
+      {
+        title: "Portal API rate limit per organization",
+        description: "The number of requests an organization can make to Organization endpoints on the Portal API, per minute.",
+        default_value: "200 requests/min"
+      },
+      {
         title: "Slack services per organization",
         description: "The maximum number of Slack services that can be added to an organization.",
         default_value: "50 services"
@@ -290,15 +346,6 @@ The following table lists the default values for Buildkite's organization-level 
     <% end %>
   </tbody>
 </table>
-
-## API rate limits
-
-| Product | API | Default (requests/min) |
-| --- | --- | --- |
-| All products | GraphQL API | 20,000 |
-| All products | REST API | 200 |
-| All products | Portal API | 200 |
-| Pipelines | Artifact Create/Update | 600 |
 
 ## Integration service limits
 
