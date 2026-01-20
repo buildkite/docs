@@ -32,11 +32,9 @@ To start translating your existing pipeline or workflow configuration into a Bui
 
 ### Conversion errors
 
-If the pipeline configuration you are trying to convert to a Buildkite pipeline contains syntax or other errors, you might see the following **Conversion failed** message.
+If the pipeline configuration you are trying to convert to a Buildkite pipeline contains syntax or other errors, you might see a **Conversion failed** message.
 
-<%= image "conversion-failed.png", alt: "Error message in the Buildkite migration tool's web UI" %>
-
-In such cases, ensure that the original pipeline configuration you are translating to a Buildkite pipeline is a valid pipeline definition for the CI/CD platform you are migrating from.
+In this case, ensure that the original pipeline configuration you are translating to a Buildkite pipeline is a valid pipeline definition for the CI/CD platform you are migrating from.
 
 ## Next steps
 
