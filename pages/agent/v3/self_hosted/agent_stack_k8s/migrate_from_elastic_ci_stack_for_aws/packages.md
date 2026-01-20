@@ -1,6 +1,6 @@
 # Pre-installed packages
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) AMIs include pre-installed system packages and tools that your builds may depend on. When migrating to Agent Stack for Kubernetes, you need to ensure the required tools are available in your container images.
+The [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) AMIs include pre-installed system packages and tools that your builds may depend on. When migrating to Agent Stack for Kubernetes, you need to ensure the required tools are available in your container images.
 
 This guide covers the differences between the pre-installed packages in the Elastic CI Stack for AWS and the default Buildkite agent container image, and how to handle missing packages.
 
@@ -39,9 +39,9 @@ The Elastic CI Stack for AWS AMI includes the following packages:
 
 When a package your builds require is not available in the default agent image, you have three options:
 
-- Use a [Buildkite plugin](#using-plugins) that provides the functionality
-- Create a [custom container image](#using-custom-container-images) with the required packages
-- Install packages at runtime using an [agent hook](#using-agent-hooks)
+- Use a Buildkite [plugin](#handling-missing-packages-using-plugins) that provides the functionality.
+- Create a [custom container image](#handling-missing-packages-using-custom-container-images) with the required packages.
+- Install packages at runtime using an [agent hook](#handling-missing-packages-using-agent-hooks).
 
 ### Using plugins
 
