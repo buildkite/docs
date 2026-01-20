@@ -61,14 +61,29 @@ The following table lists Buildkite Pipelines' default service limits.
         default_value: "250 builds"
       },
       {
+        title: "Concurrency key length",
+        description: "The maximum length for concurrency group keys.",
+        default_value: "200 characters"
+      },
+      {
         title: "Build retention",
         description: "How long builds are stored with Buildkite after running.",
         default_value: "90 days on the Personal and Pro plans. 365 days for Enterprise"
       },
       {
+        title: "Teams per block step",
+        description: "The maximum number of teams allowed for manual unlock steps.",
+        default_value: "100 teams"
+      },
+      {
         title: "Matrix jobs per step",
         description: "The maximum number of matrix jobs in a pipeline step.",
         default_value: "50 jobs"
+      },
+      {
+        title: "Annotation replacements",
+        description: "The maximum number of image or link replacements per annotation.",
+        default_value: "10 replacements"
       },
       {
         title: "Artifacts per job",
@@ -84,6 +99,16 @@ The following table lists Buildkite Pipelines' default service limits.
         title: "Artifact batch total file size",
         description: "The maximum cumulative size of artifacts that can be uploaded to Buildkite from an agent in a single job using the <code>buildkite-agent artifact upload</code> command.",
         default_value: "50 GiB"
+      },
+      {
+        title: "Multipart upload artifacts",
+        description: "The maximum number of artifacts per upload batch.",
+        default_value: "30 artifacts"
+      },
+      {
+        title: "Multipart upload parts",
+        description: "The maximum number of parts per artifact.",
+        default_value: "10 parts"
       },
       {
         title: "Artifact retention",
@@ -109,6 +134,11 @@ The following table lists Buildkite Pipelines' default service limits.
         title: "Number of queues per cluster",
         description: "Default number of queues that can be created on a single cluster.",
         default_value: "50"
+      },
+      {
+        title: "Portal secrets",
+        description: "The maximum number of secrets per portal.",
+        default_value: "2 secrets"
       },
       {
         title: "Number of stacks per organization",
@@ -201,7 +231,13 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
+| Limit | Value | Description |
+| --- | --- | --- |
+| Max Cache Size | 128 GB | Cache size for hosted agents |
+
 ## Test Engine limits
+
+The following table lists the default values for Test Engine limits.
 
 <table>
   <thead>
@@ -241,7 +277,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
         title: "Linear services per organization",
         description: "The maximum number of Linear integrations that can be added to an organization.",
         default_value: "1 service"
-      },
+      }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
         <td>
@@ -293,7 +329,7 @@ The following table lists the default values for Package Registries limits. The 
         title: "Managed Enterprise Annual",
         description: "Allocated storage volume. Usage-based limit",
         default_value: "240 GB"
-      },
+      }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
         <td>
@@ -322,9 +358,29 @@ Platform and organization-level limits are applied to all Buildkite products and
   <tbody>
     <% [
       {
+        title: "Organizations per day",
+        description: "The maximum number of organizations a user can create per day.",
+        default_value: "4 organizations"
+      },
+      {
+        title: "Organizations per user",
+        description: "The maximum total number of organizations a user can create.",
+        default_value: "20 organizations"
+      },
+      {
+        title: "Unverified emails per user",
+        description: "The maximum number of unverified emails per user.",
+        default_value: "5 emails"
+      },
+      {
         title: "Invitations per organization",
         description: "The maximum number of pending invitations for an organization.",
         default_value: "20 invitations"
+      },
+      {
+        title: "Teams per organization",
+        description: "The maximum number of teams that an organization can have.",
+        default_value: "250 teams"
       },
       {
         title: "REST API rate limit per organization",
@@ -342,9 +398,24 @@ Platform and organization-level limits are applied to all Buildkite products and
         default_value: "200 requests/min"
       },
       {
-        title: "Teams per organization",
-        description: "The maximum number of teams that an organization can have.",
-        default_value: "250 teams"
+        title: "GraphQL query complexity",
+        description: "The maximum complexity score for GraphQL queries.",
+        default_value: "50,000"
+      },
+      {
+        title: "GraphQL query depth",
+        description: "The maximum nesting depth for GraphQL queries.",
+        default_value: "15 levels"
+      },
+      {
+        title: "Audit search terms",
+        description: "The maximum number of search terms for audit logs.",
+        default_value: "3 terms"
+      },
+      {
+        title: "IP addresses per token",
+        description: "The maximum number of IP allowlist entries per token.",
+        default_value: "24 addresses"
       },
       {
         title: "Maximum OIDC lifetime",
@@ -364,24 +435,3 @@ Platform and organization-level limits are applied to all Buildkite products and
     <% end %>
   </tbody>
 </table>
-
-## Hard-coded limits not tied to billing
-
-| Limit | Value | Description |
-| --- | --- | --- |
-| Max Organizations per User | 20 | User can create max 20 organizations total |
-| Max Organizations per Day | 4 | User can create max 4 organizations per day |
-| Max Unverified Emails | 5 | Unverified emails per user |
-| Max Portal Secrets | 2 | Secrets per portal |
-| Max IP Addresses per Token | 24 | IP allowlist entries |
-| Max Allowed Teams per Step | 100 | Teams for manual unlock steps |
-| Max Cache Size | 128 GB | Cache size for hosted agents |
-| Max GraphQL Query Depth | 15 | Query nesting depth |
-| Max GraphQL Complexity | 50,000 | Query complexity score |
-| Max Annotation Replacements | 10 | Image/link replacements |
-| Max Concurrency Key Length | 200 | Concurrency group key length |
-| Max Audit Search Terms | 3 | Search term limit |
-| Multipart Max Artifacts | 30 | Per upload batch |
-| Multipart Max Parts | 10 | Per artifact |
-| Asset Upload Max Files | 10 | Files per upload |
-| Asset Upload Max Size | 10 MB | Per file |
