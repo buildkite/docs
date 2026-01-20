@@ -26,6 +26,8 @@ where the `timestamp` value is the current [Unix time](https://en.wikipedia.org/
 
 ## Endpoints
 
+This section lists all available endpoints organized by resource type—from managing pipelines and builds to configuring teams, clusters, and agent infrastructure. Each endpoint includes its HTTP method, path structure, and links to detailed documentation with request/response examples and authentication requirements.
+
 ### Organizations
 
 Method | Endpoint | Description
