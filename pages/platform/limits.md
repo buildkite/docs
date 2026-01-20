@@ -16,15 +16,6 @@ You can find out more about the available plans and what is included in them in 
 
 The following table lists Buildkite Pipelines' default service limits.
 
-## Model provider spend limits
-
-| Provider | Trial Period | Pro/Enterprise |
-| --- | --- | --- |
-| **Anthropic** | $50 | $1,000 |
-| **OpenAI** | $50 | $1,000 |
-
-Note that the prices are provided in USD.
-
 <table>
   <thead>
     <tr>
@@ -111,8 +102,28 @@ Note that the prices are provided in USD.
       },
       {
         title: "Number of clusters",
-        description: "How many clusters can be created in a Buildkite organization",
+        description: "How many clusters can be created in a Buildkite organization.",
         default_value: "1 on the Personal plan. Unlimited on Pro and Enterprise"
+      },
+      {
+        title: "Number of queues per cluster",
+        description: "Default number of queues that can be created on a single cluster.",
+        default_value: "50"
+      },
+      {
+        title: "Number of stacks per organization",
+        description: "Default number of stacks that can be created per organization.",
+        default_value: "30"
+      },
+      {
+        title: "Anthropic spend",
+        description: "Model provider spend limits for Anthropic, per month in USD.",
+        default_value: "$50 on Trial plan, $1,000 on Pro and Enterprise"
+      },
+      {
+        title: "OpenAI spend",
+        description: "Model provider spend limits for OpenAI, per month in USD.",
+        default_value: "$50 on Trial plan, $1,000 on Pro and Enterprise"
       }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
@@ -221,7 +232,6 @@ The limits in Package Registries apply based on the subscription tier:
   </tbody>
 </table>
 
-
 ## Platform and organization-level limits
 
 Organization-level limits are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
@@ -258,16 +268,6 @@ The following table lists the default values for Buildkite's organization-level 
         default_value: "250 teams"
       },
       {
-        title: "Number of queues per cluster",
-        description: "Default number of queues that can be created on a single cluster.",
-        default_value: "50"
-      },
-            {
-        title: "Number of stacks per organization",
-        description: "Default number of stacks that can be created per organization.",
-        default_value: "30"
-      },
-      {
         title: "Maximum OIDC lifetime",
         description: "The default maximum lifetime for OIDC.",
         default_value: "2 hours"
@@ -291,10 +291,6 @@ The following table lists the default values for Buildkite's organization-level 
   </tbody>
 </table>
 
-## Universal service limits
-
-These limits apply to all plans by default but can be customized per organization.
-
 ## API rate limits
 
 | Product | API | Default (requests/min) |
@@ -310,7 +306,6 @@ Integration service limits apply to all of the Buildkite products.
 
 | Service | Default per organization |
 | --- | --- |
-| Webhook Services | 15 |
 | Event Log API Services | 15 |
 | OpenTelemetry Tracing Services | 5 |
 | Datadog Pipeline Visibility | 5 |
@@ -318,8 +313,6 @@ Integration service limits apply to all of the Buildkite products.
 | Linear Services | 1 |
 
 ## Hard-coded limits not tied to billing
-
-The following limits are limits tied to rational use of the Buildkite platform and are not tied to the billing plan.
 
 | Limit | Value | Description |
 | --- | --- | --- |
