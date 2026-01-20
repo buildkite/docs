@@ -1,6 +1,6 @@
 # Limits
 
-The page outlines and service limits based on the Buildkite's platform limits and usage limits based on your subscription tier. The available subscription tiers are:
+This page outlines product and platform usage limits based on the Buildkite platform's service limits and your subscription tier. The available subscription tiers are:
 
 - Personal (free plan with low usage limits)
 - Trial (30 days of Pro Plan trial)
@@ -37,7 +37,7 @@ The following table lists Buildkite Pipelines' default service limits.
       },
       {
         title: "Job timeout",
-        description: "Time period after which a running job will time out.",
+        description: "The time period after which a running job will time out.",
         default_value: "4 hours on the Personal plan. Unlimited for Pro and Enterprise"
       },
       {
@@ -67,7 +67,7 @@ The following table lists Buildkite Pipelines' default service limits.
       },
       {
         title: "Build retention",
-        description: "How long builds are stored with Buildkite after running.",
+        description: "How long builds are stored in Buildkite after running.",
         default_value: "90 days on the Personal and Pro plans. 365 days for Enterprise"
       },
       {
@@ -132,7 +132,7 @@ The following table lists Buildkite Pipelines' default service limits.
       },
       {
         title: "Number of queues per cluster",
-        description: "Default number of queues that can be created on a single cluster.",
+        description: "The default number of queues that can be created on a single cluster.",
         default_value: "50"
       },
       {
@@ -142,7 +142,7 @@ The following table lists Buildkite Pipelines' default service limits.
       },
       {
         title: "Number of stacks per organization",
-        description: "Default number of stacks that can be created per organization.",
+        description: "The default number of stacks that can be created per organization.",
         default_value: "30"
       },
       {
@@ -213,8 +213,8 @@ The following table lists Buildkite Pipelines' default service limits.
 
 The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) used in Buildkite Pipelines.
 
-| Trial | Personal | Pro | Enterprise |
-| --- | --- | --- | --- |
+| Limit type | Trial | Personal | Pro | Enterprise |
+| --- | --- | --- | --- | --- |
 | Linux Concurrency | 10| 3 | 20 | Custom |
 | macOS Concurrency | 3 | - | 5 | Custom |
 | Linux Minutes, per month | 2,000 | 550 | per usage | according to usage |
@@ -294,27 +294,27 @@ The following table lists the default values for Package Registries limits. The 
     <% [
       {
         title: "Personal plan",
-        description: "Allocated storage volume. Hard limit",
+        description: "Allocated storage volume. Hard limit.",
         default_value: "1 GB"
       },
       {
         title: "Free (legacy) plan",
-        description: "Allocated storage volume. Hard limit",
+        description: "Allocated storage volume. Hard limit.",
         default_value: "2 GB"
       },
       {
         title: "Pro plan",
-        description: "Allocated storage volume. Usage-based limit",
+        description: "Allocated storage volume. Usage-based limit.",
         default_value: "20 GB"
       },
       {
         title: "Enterprise plan",
-        description: "Allocated storage volume. Usage-based limit",
+        description: "Allocated storage volume. Usage-based limit.",
         default_value: "20 GB"
       },
       {
         title: "Managed Enterprise Annual",
-        description: "Allocated storage volume. Usage-based limit",
+        description: "Allocated storage volume. Usage-based limit.",
         default_value: "240 GB"
       }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
