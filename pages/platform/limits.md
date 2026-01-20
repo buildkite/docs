@@ -9,19 +9,23 @@ The page outlines and service limits based on the Buildkite's platform limits an
 
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
-## Service quotas
+## Platform-level limits
 
-Service quotas are put in place to ensure that Buildkite can provide a reliable service to all customers. These quotas are scoped to your organization.
 
-> 📘 Overriding service quotas
-> If you are on the Enterprise Plan, service quotas might be increased. Reach out to your dedicated TAM or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
 
-The following table lists Buildkite's default service quota values.
+## Organization-level limits
+
+Organization-level limits are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
+
+> 📘 Overriding the limits
+> If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated TAM or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
+
+The following table lists the default values for Buildkite's organization-level limits.
 
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Service quota type</th>
+      <th style="width:25%">Service limit type</th>
       <th style="width:75%">Description and default limit</th>
     </tr>
   </thead>
@@ -67,33 +71,23 @@ The following table lists Buildkite's default service quota values.
         description: "The maximum number of Webhook services that can be added to an organization.",
         default_value: "15 services"
       },
-      {
-        title: "Log size per job",
-        description: "The maximum file-size of a job's log (uploaded by an agent to Buildkite in chunks).",
-        default_value: "1,024 MiB"
-      },
-      {
-        title: "Log chunk interval",
-        description: "The time interval between the log chunks",
-        default_value: "1 second"
-      }
-    ].sort_by { |quota| quota[:title] }.each do |quota| %>
+    ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
         <td>
-          <strong><%= quota[:title] %></strong>
+          <strong><%= limit[:title] %></strong>
          </td>
         <td>
-          <p><%= quota[:description] %></p>
-          Default: <strong><%= quota[:default_value] %></strong>
+          <p><%= limit[:description] %></p>
+          Default: <strong><%= limit[:default_value] %></strong>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-## Plan-variable service quotas
+## Plan-variable service limits
 
-| Product | Quota | Personal Plan | Pro | Enterprise |
+| Product | Limit | Personal Plan | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
 | Pipelines | **Build retention** | 90 days | 90 days | 365 days |
 | Pipelines | **Clusters per organization** | 1 | Unlimited | Unlimited |
@@ -102,12 +96,12 @@ The following table lists Buildkite's default service quota values.
 
 ## Buildkite Pipelines limits
 
-The following table lists Buildkite Pipelines' default service quota values.
+The following table lists Buildkite Pipelines' default service limit values.
 
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Service quota type</th>
+      <th style="width:25%">Service limit type</th>
       <th style="width:75%">Description and default limit</th>
     </tr>
   </thead>
@@ -173,25 +167,25 @@ The following table lists Buildkite Pipelines' default service quota values.
         description: "The time interval between the log chunks",
         default_value: "1 second"
       }
-    ].sort_by { |quota| quota[:title] }.each do |quota| %>
+    ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
         <td>
-          <strong><%= quota[:title] %></strong>
+          <strong><%= limit[:title] %></strong>
          </td>
         <td>
-          <p><%= quota[:description] %></p>
-          Default: <strong><%= quota[:default_value] %></strong>
+          <p><%= limit[:description] %></p>
+          Default: <strong><%= limit[:default_value] %></strong>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-## Hosted agents limits
+### Hosted agents limits
 
 The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
-### Concurrency limits
+#### Concurrency limits
 
 | Plan Type | Linux Concurrency | macOS Concurrency |
 | --- | --- | --- |
@@ -200,14 +194,14 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | Pro | 20 | 5 |
 | Enterprise| Custom | Custom |
 
-### Minutes limits (per month)
+#### Minutes limits (per month)
 
 | Plan Type | Linux Minutes | macOS Minutes |
 | --- | --- | --- |
 | Personal | 550 | - |
 | Trial | 2,000 | 3,000 |
 
-### Hosted agents cache volume limits
+#### Hosted agents cache volume limits
 
 | Volume type | Limit |
 | --- | --- |
@@ -223,9 +217,18 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 
 Note that the prices are provided in USD.
 
-## Universal service quotas
+## Test Engine limits
 
-These quotas apply to all plans by default but can be customized per organization.
+## Package Registries limits
+
+
+
+
+
+
+## Universal service limits
+
+These limits apply to all plans by default but can be customized per organization.
 
 ## API rate limits
 
