@@ -146,6 +146,11 @@ The following table lists Buildkite Pipelines' default service limits.
         default_value: "30"
       },
       {
+        title: "Cache size for hosted agents",
+        description: "The maximum cache size for hosted agents.",
+        default_value: "128 GB"
+      },
+      {
         title: "Artifact Create/Update API calls",
         description: "The number of Create or Update requests for artifacts per minute per organization.",
         default_value: "600"
@@ -206,34 +211,16 @@ The following table lists Buildkite Pipelines' default service limits.
 
 ### Hosted agents limits
 
-The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
+The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) used in Buildkite Pipelines.
 
-#### Concurrency limits
-
-| Plan Type | Linux Concurrency | macOS Concurrency |
-| --- | --- | --- |
-| Personal | 3 | - |
-| Trial | 10 | 3 |
-| Pro | 20 | 5 |
-| Enterprise| Custom | Custom |
-
-#### Minutes limits (per month)
-
-| Plan Type | Linux Minutes | macOS Minutes |
-| --- | --- | --- |
-| Personal | 550 | - |
-| Trial | 2,000 | 3,000 |
-
-#### Hosted agents cache volume limits
-
-| Volume type | Limit |
-| --- | --- |
-| Container Cache Volume | 50 GB |
-| Git Mirror Volume | 5 GB |
-
-| Limit | Value | Description |
-| --- | --- | --- |
-| Max Cache Size | 128 GB | Cache size for hosted agents |
+| Trial | Personal | Pro | Enterprise |
+| --- | --- | --- | --- |
+| Linux Concurrency | 10| 3 | 20 | Custom |
+| macOS Concurrency | 3 | - | 5 | Custom |
+| Linux Minutes, per month | 2,000 | 550 | per usage | according to usage |
+| macOS Minutes, per month | 3,000 | not available | according to usage |
+| Container Cache Volume |  50 GB |  50 GB |  50 GB |  50 GB |
+| Git Mirror Volume |  5 GB |  5 GB |  5 GB |  5 GB |
 
 ## Test Engine limits
 
