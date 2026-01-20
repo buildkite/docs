@@ -16,12 +16,6 @@ You can find out more about the available plans and what is included in them in 
 
 The following table lists Buildkite Pipelines' default service limits.
 
-| Product | Limit | Personal Plan | Pro | Enterprise |
-| --- | --- | --- | --- | --- |
-| Pipelines | **Build retention** | 90 days | 90 days | 365 days |
-| Pipelines | **Clusters per organization** | 1 | Unlimited | Unlimited |
-| Pipelines | **Job timeout** | 4 hours | Unlimited | Unlimited |
-
 <table>
   <thead>
     <tr>
@@ -47,9 +41,19 @@ The following table lists Buildkite Pipelines' default service limits.
         default_value: "500 jobs"
       },
       {
+        title: "Job timeout",
+        description: "Time period after which a running job will time out.",
+        default_value: "4 hours on the Personal plan. Unlimited for Pro and Enterprise"
+      },
+      {
         title: "Pipeline uploads per build",
         description: "The maximum number of pipeline uploads that can be performed in a single build.",
         default_value: "500 pipeline uploads"
+      },
+      {
+        title: "Triggers per pipeline",
+        description: "The maximum number of webhook triggers per pipeline.",
+        default_value: "10"
       },
       {
         title: "Trigger build depth per pipeline",
@@ -60,6 +64,11 @@ The following table lists Buildkite Pipelines' default service limits.
         title: "Triggered builds per build",
         description: "The maximum number of triggered builds per a single build.",
         default_value: "250 builds"
+      },
+      {
+        title: "Build retention",
+        description: "How long builds are stored with Buildkite after running.",
+        default_value: "90 days on the Personal and Pro plans. 365 days for Enterprise"
       },
       {
         title: "Matrix jobs per step",
@@ -90,6 +99,11 @@ The following table lists Buildkite Pipelines' default service limits.
         title: "Log chunk interval",
         description: "The time interval between the log chunks",
         default_value: "1 second"
+      },
+      {
+        title: "Number of clusters",
+        description: "How many clusters can be created in a Buildkite organization",
+        default_value: "1 on the Personal plan. Unlimited on Pro and Enterprise"
       }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
@@ -256,7 +270,6 @@ Integration service limits apply to all of the Buildkite products.
 
 | Service | Default per organization |
 | --- | --- |
-| Slack Services | 50 |
 | Webhook Services | 15 |
 | Event Log API Services | 15 |
 | OpenTelemetry Tracing Services | 5 |
@@ -272,7 +285,6 @@ The following limits are limits tied to rational use of the Buildkite platform a
 | --- | --- | --- |
 | Max Organizations per User | 20 | User can create max 20 organizations total |
 | Max Organizations per Day | 4 | User can create max 4 organizations per day |
-| Max Triggers per Pipeline | 10 | Webhook triggers per pipeline |
 | Max Unverified Emails | 5 | Unverified emails per user |
 | Max Portal Secrets | 2 | Secrets per portal |
 | Max IP Addresses per Token | 24 | IP allowlist entries |
