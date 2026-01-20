@@ -19,7 +19,7 @@ The Buildkite pipeline converter:
 
 ## Interactive web-based version
 
-To get started with the Buildkite pipeline converter, use its [interactive web version](https://buildkite.com/resources/convert/), also known as the _Buildkite migration interactive web tool_.
+To get started with the Buildkite pipeline converter, use its [interactive web version](https://buildkite.com/resources/convert/).
 
 <%= image "pipeline-converter-web.png", alt: "Buildkite pipeline converter's web UI" %>
 
