@@ -227,7 +227,7 @@ dotnet add package Buildkite.Sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple C# script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple C# script, which then generates a Buildkite pipeline with a build [command step](/docs/pipelines/configure/step-types/command-step), a [wait step](#c-sharp-wait-steps), and a test command step, and then outputs these steps to either JSON or YAML format:
 
 ```csharp
 using Buildkite.Sdk;
@@ -265,7 +265,11 @@ steps:
     command: dotnet run --project .buildkite/DynamicPipeline.csproj | buildkite-agent pipeline upload
 ```
 
-<h4 id="command-steps">Command steps</h4>
+Also included in this section are examples of how to use the Buildkite SDK for C# with other step types, including a more complex [command step](#c-sharp-command-steps), a [block step](#c-sharp-block-steps), [wait step](#c-sharp-wait-steps), [trigger step](#c-sharp-trigger-steps), and [group step](#c-sharp-group-steps), as well as [environment variables](#c-sharp-environment-variables).
+
+<h4 id="c-sharp-command-steps">Command steps</h4>
+
+This code example demonstrates a more complex [command step](/docs/pipelines/configure/step-types/command-step) with additional options:
 
 ```csharp
 pipeline.AddStep(new CommandStep
@@ -278,7 +282,9 @@ pipeline.AddStep(new CommandStep
 });
 ```
 
-<h4 id="block-steps">Block steps</h4>
+<h4 id="c-sharp-block-steps">Block steps</h4>
+
+This code example demonstrates how to implement a [block step](/docs/pipelines/configure/step-types/block-step):
 
 ```csharp
 pipeline.AddStep(new BlockStep
@@ -288,14 +294,18 @@ pipeline.AddStep(new BlockStep
 });
 ```
 
-<h4 id="wait-steps">Wait steps</h4>
+<h4 id="c-sharp-wait-steps">Wait steps</h4>
+
+This code example demonstrates how to implement a [wait step](/docs/pipelines/configure/step-types/wait-step):
 
 ```csharp
 pipeline.AddStep(new WaitStep());
 pipeline.AddStep(new WaitStep { ContinueOnFailure = true });
 ```
 
-<h4 id="trigger-steps">Trigger steps</h4>
+<h4 id="c-sharp-trigger-steps">Trigger steps</h4>
+
+This code example demonstrates how to implement a [trigger step](/docs/pipelines/configure/step-types/trigger-step):
 
 ```csharp
 pipeline.AddStep(new TriggerStep
@@ -305,7 +315,9 @@ pipeline.AddStep(new TriggerStep
 });
 ```
 
-<h4 id="group-steps">Group steps</h4>
+<h4 id="c-sharp-group-steps">Group steps</h4>
+
+This code example demonstrates how to implement a [group step](/docs/pipelines/configure/step-types/group-step):
 
 ```csharp
 pipeline.AddStep(new GroupStep
@@ -319,7 +331,9 @@ pipeline.AddStep(new GroupStep
 });
 ```
 
-<h4 id="environment-variables">Environment variables</h4>
+<h4 id="c-sharp-environment-variables">Environment variables</h4>
+
+This code example demonstrates how to access [environment variables](/docs/pipelines/configure/environment-variables):
 
 ```csharp
 using Buildkite.Sdk;
