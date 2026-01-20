@@ -1,8 +1,37 @@
 # Buildkite Agent job queues
 
-Each [pipeline](/docs/pipelines/configure) has the ability to separate its jobs (define by the pipeline's steps) using queues. This allows you to isolate a set of jobs and/or agents, making sure that only specific agents will run jobs that are intended for them.
+Each [pipeline](/docs/pipelines/configure) has the ability to separate its jobs (define by the pipeline's steps) using queues. This allows you to isolate a set of jobs or agents, or both, making sure that only specific agents will run jobs that are intended for them.
+
+Buildkite Pipelines allows you to configure two types of queues:
+
+- [Self-hosted](/docs/agent/v3/queues/managing#create-a-self-hosted-queue), where you manage Buildkite agents in your own infrastructure.
+- [Buildkite hosted](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) queues, where Buildkite manages the agents for you as a fully-managed platform.
+
+Learn more about how to create and manage queues in [Managing queues](/docs/agent/v3/queues/managing).
 
 Common use cases for queues include deployment agents, and pools of agents for specific pipelines or teams.
+
+## Targeting a queue from a pipeline
+
+Target specific queues (either [self-hosted](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) or [Buildkite hosted](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) ones) using the `agents` attribute on your pipeline steps, or at the root level for the entire pipeline.
+
+For example, the following pipeline would run on the `priority` queue as determined by the root level `agents` attribute (and ignores the agents running the `default` queue). The `tests.sh` build step matches only agents running on the `linux-medium-x86` queue.
+
+```yaml
+agents:
+  queue: "priority"
+
+steps:
+  - command: echo "hello"
+
+  - command: tests.sh
+    agents:
+      queue: "linux-medium-x86"
+```
+
+### Alternative methods
+
+[Branch patterns](/docs/pipelines/configure/workflows/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
 
 ## Assigning a self-hosted agent to a queue
 
@@ -28,28 +57,6 @@ If you don't assign a self-hosted agent to a [self-hosted queue](/docs/agent/v3/
 > 📘 Clusters without a default self-hosted queue configured
 > If you start a self-hosted agent without explicitly specifying an existing self-hosted queue in your cluster _and_ a default [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) is not configured in this cluster, or your default queue is set to a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue), then your agent will fail to connect to the Buildkite platform.
 > You must either explicitly specify an existing self-hosted queue within in your [cluster](/docs/pipelines/security/clusters/manage) when starting the agent, or have a default self-hosted queue already configured in this cluster for the agent to connect successfully.
-
-## Targeting a queue from a pipeline
-
-Target specific queues (either [self-hosted](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) or [Buildkite hosted](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) ones) using the `agents` attribute on your pipeline steps, or at the root level for the entire pipeline.
-
-For example, the following pipeline would run on the `priority` queue as determined by the root level `agents` attribute (and ignores the agents running the `default` queue). The `tests.sh` build step matches only agents running on the `linux-medium-x86` queue.
-
-```yaml
-agents:
-  queue: "priority"
-
-steps:
-  - command: echo "hello"
-
-  - command: tests.sh
-    agents:
-      queue: "linux-medium-x86"
-```
-
-### Alternative methods
-
-[Branch patterns](/docs/pipelines/configure/workflows/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
 
 ## Setting up queues for unclustered agents
 
