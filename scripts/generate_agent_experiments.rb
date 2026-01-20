@@ -100,7 +100,23 @@ def parse_experiments_md(content)
 end
 
 def format_experiment_name(name)
-  name.split('-').map(&:capitalize).join(' ')
+  # Sentence case: only capitalize first word
+  # Acronyms stay uppercase only if they're the first word
+  words = name.split('-')
+
+  words.map.with_index do |word, i|
+    if i == 0
+      # First word: uppercase if acronym, otherwise capitalize
+      if %w[api pty ansi].include?(word.downcase)
+        word.upcase
+      else
+        word.capitalize
+      end
+    else
+      # All subsequent words: lowercase (even acronyms, per sentence case rules)
+      word.downcase
+    end
+  end.join(' ')
 end
 
 def generate_markdown(experiments_data, descriptions)
@@ -141,10 +157,12 @@ def generate_markdown(experiments_data, descriptions)
     output << "### #{format_experiment_name(name)}"
     output << ''
     if descriptions[name] && !descriptions[name].empty?
-      # Clean up the description - remove Status lines, clean formatting, and strip trailing spaces
+      # Clean up the description - remove Status lines, clean formatting, strip trailing spaces, and fix style issues
       desc = descriptions[name]
         .gsub(/\*\*Status:\*\*.*$/m, '')
         .gsub(/\n\n+/, "\n\n")
+        .gsub(/\bvia\b/, 'using')
+        .gsub(/\bdownloader\b/, 'download tool')
         .lines.map { |line| line.rstrip }.join("\n")
         .strip
       output << desc
