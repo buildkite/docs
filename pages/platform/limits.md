@@ -1,4 +1,4 @@
-# Platform limits
+# Limits
 
 The page outlines and service limits based on the Buildkite's platform limits and usage limits based on your subscription tier. The available subscription tiers are:
 
@@ -12,9 +12,18 @@ You can find out more about the available plans and what is included in them in 
 > 📘 Overriding the limits
 > If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated technical account manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
 
-## Buildkite Pipelines
+## Buildkite Pipelines limits
 
 The following table lists Buildkite Pipelines' default service limits.
+
+## Model provider spend limits
+
+| Provider | Trial Period | Pro/Enterprise |
+| --- | --- | --- |
+| **Anthropic** | $50 | $1,000 |
+| **OpenAI** | $50 | $1,000 |
+
+Note that the prices are provided in USD.
 
 <table>
   <thead>
@@ -146,21 +155,11 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 | Container Cache Volume | 50 GB |
 | Git Mirror Volume | 5 GB |
 
-## Model provider spend limits
-
-| Provider | Trial Period | Pro/Enterprise |
-| --- | --- | --- |
-| **Anthropic** | $50 | $1,000 |
-| **OpenAI** | $50 | $1,000 |
-
-Note that the prices are provided in USD.
-
 ## Test Engine limits
 
 | Product | Limit | Personal Plan | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
 | Test Engine | **Test Engine Workflows per Suite** | 1 | 3 | 3 |
-
 
 | Product | API | Default (requests/min) |
 | --- | --- | --- |
@@ -174,13 +173,54 @@ Note that the prices are provided in USD.
 
 The limits in Package Registries apply based on the subscription tier:
 
-| Plan | Limit | Type |
-| --- | --- | --- |
-| Personal | 1 GB | Hard limit |
-| Free (legacy) | 2 GB | Hard limit |
-| Pro | GraphQL API | Usage-based limit |
-| Enterprise | 20 GB | Usage-based limit |
-| Managed Enterprise Annual | 240 GB | Usage-based limit |
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Service limit type</th>
+      <th style="width:75%">Description and default limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        title: "Personal plan",
+        description: "Allocated storage volume. Hard limit",
+        default_value: "1 GB"
+      },
+      {
+        title: "Free (legacy) plan",
+        description: "Allocated storage volume. Hard limit",
+        default_value: "2 GB"
+      },
+      {
+        title: "Pro plan",
+        description: "Allocated storage volume. Usage-based limit",
+        default_value: "20 GB"
+      },
+      {
+        title: "Enterprise plan",
+        description: "Allocated storage volume. Usage-based limit",
+        default_value: "20 GB"
+      },
+      {
+        title: "Managed Enterprise Annual",
+        description: "Allocated storage volume. Usage-based limit",
+        default_value: "240 GB"
+      },
+    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+      <tr>
+        <td>
+          <strong><%= limit[:title] %></strong>
+         </td>
+        <td>
+          <p><%= limit[:description] %></p>
+          Default: <strong><%= limit[:default_value] %></strong>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 ## Platform and organization-level limits
 
