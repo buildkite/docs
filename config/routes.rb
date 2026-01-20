@@ -278,6 +278,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/emojis",                                                                      to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/example-pipelines",                                                           to: redirect("/docs/pipelines/configure/example-pipelines")
   get "/docs/pipelines/environment-variables",                                                       to: redirect("/docs/pipelines/configure/environment-variables")
+  get "/docs/agent/v3/self-hosted/github-ssh-keys",                                                  to: redirect("/docs/agent/v3/self-hosted/ssh-keys#ssh-keys-for-github")  
   get "/docs/pipelines/group-step",                                                                  to: redirect("/docs/pipelines/configure/step-types/group-step")
   get "/docs/pipelines/hosted-agents",                                                               to: redirect("/docs/agent/v3/buildkite-hosted")
   get "/docs/pipelines/hosted-agents/cache-volumes",                                                 to: redirect("/docs/agent/v3/buildkite-hosted/cache-volumes")

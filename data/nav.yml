@@ -127,8 +127,6 @@
               path: "agent/v3/self-hosted/unclustered-tokens"
             - name: "SSH keys"
               path: "agent/v3/self-hosted/ssh-keys"
-            - name: "GitHub SSH keys"
-              path: "agent/v3/self-hosted/github-ssh-keys"
             - name: "Run on Kubernetes"
               children:
                 - name: "Overview"
