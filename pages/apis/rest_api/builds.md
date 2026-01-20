@@ -81,8 +81,9 @@ curl -H "Authorization: Bearer $TOKEN" \
         "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
         "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
         "type": "script",
-        "name": ":package:",
-        "step_key": "package",
+        "name": "RSpec",
+        "step_key": "rspec",
+        "group_key": "tests",
         "step": {
           "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
           "signature": {
@@ -102,7 +103,7 @@ curl -H "Authorization: Bearer $TOKEN" \
         "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
         "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
         "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-        "command": "scripts/build.sh",
+        "command": "bundle exec rspec",
         "soft_failed": false,
         "exit_status": 0,
         "artifact_paths": "",
@@ -208,7 +209,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
   "number": 2,
   "state": "passed",
-  "cancel_reason": "reason for a canceled build",
+  "cancel_reason": null,
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -227,8 +228,9 @@ curl -H "Authorization: Bearer $TOKEN" \
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
       "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
       "type": "script",
-      "name": ":package:",
-      "step_key": "package",
+      "name": "RSpec",
+      "step_key": "rspec",
+      "group_key": "tests",
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
         "signature": {
@@ -244,11 +246,11 @@ curl -H "Authorization: Bearer $TOKEN" \
         }
       },
       "agent_query_rules": ["*"],
-      "state": "scheduled",
+      "state": "passed",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
       "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
       "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "command": "scripts/build.sh",
+      "command": "bundle exec rspec",
       "soft_failed": false,
       "exit_status": 0,
       "artifact_paths": "",
@@ -296,7 +298,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
-  "finished_at": "2015-05-09T21:05:59.874Z",
+  "finished_at": "2015-05-09T21:08:59.874Z",
   "meta_data": { },
   "pull_request": { },
   "rebuilt_from": {
@@ -335,6 +337,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
 Unlike [build states](/docs/pipelines/configure/notifications#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
+
+When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-step), the job object includes a `group_key` field. The value corresponds to the group step's `key` attribute, allowing you to identify which jobs belong to which logical groups in your pipeline.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
