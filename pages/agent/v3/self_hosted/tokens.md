@@ -483,7 +483,7 @@ Unclustered agent tokens are specific to each Buildkite organization (created be
 
 ### Additional agent tokens
 
-In addition to the unclustered agent token, like agent tokens associated with a cluster, the Buildkite Agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
+In addition to the unclustered agent token (and as is the case for [agent tokens associated with a cluster](#additional-agent-tokens)), the Buildkite Agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
 
 #### Token exchange process
 
