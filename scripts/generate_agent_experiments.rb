@@ -141,10 +141,11 @@ def generate_markdown(experiments_data, descriptions)
     output << "### #{format_experiment_name(name)}"
     output << ''
     if descriptions[name] && !descriptions[name].empty?
-      # Clean up the description - remove Status lines and clean formatting
+      # Clean up the description - remove Status lines, clean formatting, and strip trailing spaces
       desc = descriptions[name]
         .gsub(/\*\*Status:\*\*.*$/m, '')
         .gsub(/\n\n+/, "\n\n")
+        .lines.map { |line| line.rstrip }.join("\n")
         .strip
       output << desc
     else
