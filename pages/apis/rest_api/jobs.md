@@ -1,5 +1,8 @@
 # Jobs API
 
+A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
+
+A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
 
 ## Retry a job
 

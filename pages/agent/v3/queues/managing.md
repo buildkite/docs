@@ -51,6 +51,9 @@ To create a new self-hosted agent queue using the Buildkite interface:
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
 1. In the **Select your agent infrastructure** section, select **Self hosted** for your agent infrastructure.
+
+    **Note:** In the **Retry Agent Affinity** section, leave the default **Prefer Warmest Agent** setting unchanged. To learn more about this setting, see [Retry agent affinity](/docs/agent/v3/self-hosted/prioritization#retry-agent-affinity). You can always change this setting later through your self-hosted queue's **Settings** tab.
+
 1. Select **Create Queue**.
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.

@@ -8,58 +8,16 @@ For any partially supported and unsupported **Key**s listed in the tables on thi
 
 To start converting your CircleCI pipeline configurations into Buildkite Pipelines format:
 
-1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/convert/) in a new browser tab.
 1. Select **CircleCI** at the top of the left panel.
 1. Copy your CircleCI pipeline configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
 
-For example, when converting the following example CircleCI pipeline configuration:
-
-```yml
-version: 2.1
-
-jobs:
-  build:
-    docker:
-      - image: cimg/node:18.20
-
-    steps:
-      - checkout
-
-      - run:
-          name: Install dependencies
-          command: npm install
-
-workflows:
-  build-workflow:
-    jobs:
-      - build
-```
-
-The Buildkite pipeline converter should translate this to the following output:
-
-```yml
----
-steps:
-- commands:
-  - "# No need for checkout, the agent takes care of that"
-  - echo '~~~ Install dependencies'
-  - npm install
-  plugins:
-  - docker#v5.13.0:
-      image: cimg/node:18.20
-  agents:
-    executor_type: docker
-  key: build
-```
-
-The Buildkite pipeline converter interface should look similar to this:
-
-<%= image "pipeline-converter-circleci.png", alt: "Converting a CircleCI pipeline in Buildkite pipeline converter's web UI" %>
-
 You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 
-The Buildkite pipeline converter supports the use of [YAML aliases in CircleCI pipeline configurations](https://circleci.com/docs/guides/getting-started/introduction-to-yaml-configurations/#anchors-and-aliases), which are reusable configuration snippets that can applied to specific points in a pipeline configuration. A YAML alias is defined by an `&` (anchor, for example, `&tests`) within the top-level `aliases` key and substituted into a CircleCI pipeline configuration with an `*` (for example, `*tests`). A configuration defined by an alias is respected and parsed at its specified section in the pipeline configuration. Also note that more complex (for example, multi-line) anchors defined as a YAML alias in a CircleCI pipeline configuration are expanded upon their translation into Buildkite pipeline format.
+The Buildkite pipeline converter supports the use of [YAML aliases in CircleCI pipeline configurations](https://circleci.com/docs/guides/getting-started/introduction-to-yaml-configurations/#anchors-and-aliases), which are reusable configuration snippets that can applied to specific points in a pipeline configuration. A YAML alias is defined by an `&` (anchor, for example, `&tests`) within the top-level `aliases` key and substituted into a CircleCI pipeline configuration with an `*` (for example, `*tests`).
+
+A configuration defined by an alias is respected and parsed at its specified section in the pipeline configuration. Also note that more complex (for example, multi-line) anchors defined as a YAML alias in a CircleCI pipeline configuration are expanded upon their translation into Buildkite pipeline format.
 
 > 📘
 > Remember that not all the features of CircleCI can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitation of converting CircleCI pipelines to Buildkite Pipelines.

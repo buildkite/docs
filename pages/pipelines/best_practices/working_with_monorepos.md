@@ -4,10 +4,10 @@ A monorepo development strategy means that the code for multiple projects is sto
 
 ## Approaches to running monorepos
 
-All such approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, you can use either the [`--apply-if-changed` option](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/v3/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps, or the [Monorepo diff plugin](https://buildkite.com/resources/plugins/buildkite-plugins/monorepo-diff-buildkite-plugin/).
+All such approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, you can use either the [`--apply-if-changed` option](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/v3/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
 
 > 📘
-> In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a single pipeline that orchestrates other pipelines by triggering them, or as a single pipeline containing many steps. Both approaches have tradeoffs. Some users prefer the clean separation that triggering pipelines by another provides, while others prefer all their steps to run conditionally in a single pipeline. The Monorepo diff plugin supports either approach in structuring your pipelines.
+> In Buildkite Pipelines, you have the ability to structure your monorepo pipeline as a single pipeline that orchestrates other pipelines by triggering them, or as a single pipeline containing many steps. Both approaches have tradeoffs. Some users prefer the clean separation that triggering pipelines by another provides, while others prefer all their steps to run conditionally in a single pipeline.
 
 There are two preferred approaches to running monorepos with Buildkite Pipelines:
 

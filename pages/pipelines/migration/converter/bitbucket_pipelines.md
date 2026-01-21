@@ -11,40 +11,10 @@ For any partially supported and unsupported **Key**s listed in the tables on thi
 
 To start converting your Bitbucket pipeline into Buildkite Pipelines format:
 
-1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/convert/) in a new browser tab.
 1. Select **Bitbucket Pipelines** at the top of the left panel.
 1. Copy your Bitbucket pipeline configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
-
-For example, when converting the following example Bitbucket pipeline configuration:
-
-```yml
-image: node:18
-
-pipelines:
-  default:
-    - step:
-        name: Build
-        script:
-          - npm install
-```
-
-The Buildkite pipeline converter should translate this to the following output:
-
-```yml
----
-steps:
-- commands:
-  - npm install
-  plugins:
-  - docker#v5.13.0:
-      image: node:18
-  label: Build
-```
-
-The Buildkite pipeline converter interface should look similar to this:
-
-<%= image "pipeline-converter-bitbucket.png", alt: "Converting a Bitbucket pipeline in Buildkite pipeline converter's web UI" %>
 
 You might need to adjust the converted Buildkite pipeline output to ensure it is consistent with the [step configuration conventions](/docs/pipelines/configure/step-types) used in Buildkite Pipelines.
 

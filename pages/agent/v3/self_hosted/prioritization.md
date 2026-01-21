@@ -152,3 +152,16 @@ The configuration described in the previous section creates a spillover system t
 1. When these dedicated agents are all busy, "release" jobs can spillover to flexible agents that have agent tags for both `build_type=normal` and `build_type=release`.
 1. Higher priority "release" jobs will always be processed before lower priority "normal" jobs, regardless of which jobs were created first.
 1. Flexible agents return to handling "normal" jobs when there is sufficient dedicated agent capacity for high-priority "release" jobs.
+
+## Retry agent affinity
+
+When a job fails on a [self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue), and you retry it, Buildkite Pipelines will (by default) retry the job the agent that has most recently finished a job. Often, this can be the agent that ran the job that originally failed.
+
+There may be scenarios where you might want to retry the job on a different agent, such as a [flaky test](/docs/test-engine/glossary#flaky-test), where environment settings that could have caused the job to fail are unlikely to be present. Therefore, you can configure your self-hosted queue to instead retry the job on a different agent, where such an agent is available.
+
+This type of configuration is known as _agent affinity_, which has the following settings:
+
+- **Prefer Warmest Agent**: The default setting, where jobs are retried on the agents that most recently finished a job (that is, the _warmest_ agent).
+- **Prefer Different Agent**: Retry jobs on any agent which is different to the one that ran the previous attempt, if they're available. If no other different agents are available, the job will be retried on the warmest agent.
+
+It is also possible to configure a self-hosted queue's retry agent affinity setting when [updating the queue using the REST API](/docs/apis/rest-api/clusters/queues#update-a-queue).
