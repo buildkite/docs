@@ -1,4 +1,4 @@
-# Buildkite Agent job queues
+# Queues overview
 
 Each [pipeline](/docs/pipelines/configure) has the ability to separate its jobs (define by the pipeline's steps) using queues. This allows you to isolate a set of jobs or agents, or both, making sure that only specific agents will run jobs that are intended for them.
 
@@ -49,6 +49,8 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
 > Your [clusters](/docs/pipelines/security/clusters/manage) and [queues](/docs/agent/v3/queues/managing) should already be configured before starting your agents to target these queues.
+
+By default, Buildkite runs jobs on the first available agent within that queue, ordered by how recently that agent completed a job. However, you can alter this behavior by changing the _priority_ for some or all of your agents. Learn more about this in [Buildkite agent prioritization](/docs/agent/v3/self-hosted/prioritization).
 
 ### The default self-hosted queue
 
