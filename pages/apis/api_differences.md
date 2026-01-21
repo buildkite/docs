@@ -2,7 +2,6 @@
 
 Buildkite provides both a [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api), but there are some differences between the two. Some tasks can only be achieved using the GraphQL API or the REST API. For example, REST API is a good choice for Organization-level tasks and it also allows using granular access permissions, while GraphQL is more comprehensive and often can help you achieve things a single user would want to do in the Buildkite UI. We recommend using a mixture of both when required.
 
-
 The strengths of the GraphQL API are in complex data queries, and the strengths of the REST API are in creating and modifying records.
 
 On this page, we've collected the known limitation where some API features are only available with either REST or GraphQL.

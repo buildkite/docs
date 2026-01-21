@@ -1,5 +1,7 @@
 # Agents API
 
+The Buildkite Agents are small, reliable cross-platform build runners. Their main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
+
 ## Agent data model
 
 <table class="responsive-table">

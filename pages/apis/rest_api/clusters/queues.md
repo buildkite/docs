@@ -1,7 +1,5 @@
 # Queues
 
-This endpoint manages queues within a [cluster](/docs/apis/rest-api/clusters).
-
 [Queues](/docs/agent/v3/queues/managing) define discrete groups of agents within a [Buildkite cluster](/docs/pipelines/security/clusters). Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
 ## Queue data model

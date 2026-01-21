@@ -1,9 +1,8 @@
 # Artifacts API
 
+An artifact is a file uploaded by your agent during the execution of a build's job. The contents of the artifact can be retrieved using the `download_url` and the [artifact download API](#download-an-artifact).
 
 ## Artifact data model
-
-An artifact is a file uploaded by your agent during the execution of a build's job. The contents of the artifact can be retrieved using the `download_url` and the [artifact download API](#download-an-artifact).
 
 <table>
 <tbody>

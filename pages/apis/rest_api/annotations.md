@@ -1,9 +1,8 @@
 # Annotations API
 
+An annotation is a snippet of Markdown uploaded by your agent during the execution of a build's job. Annotations are created using the [`buildkite-agent annotate` command](/docs/agent/v3/cli/reference/annotate) from within a job.
 
 ## Annotation data model
-
-An annotation is a snippet of Markdown uploaded by your agent during the execution of a build's job. Annotations are created using the [`buildkite-agent annotate` command](/docs/agent/v3/cli/reference/annotate) from within a job.
 
 <table>
 <tbody>

@@ -1,7 +1,5 @@
 # Team pipelines API
 
-This endpoint manages pipeline associations with a [team](/docs/apis/rest-api/teams).
-
 The team pipelines API endpoint allows users to review, create, update, and delete pipelines associated with a team in your organization.
 
 ## Team pipeline data model

@@ -249,6 +249,6 @@ Error responses:
 
 ## Related endpoints
 
-- [Team members](/docs/apis/rest-api/teams/members) - Manage members of a team
-- [Team pipelines](/docs/apis/rest-api/teams/pipelines) - Assign pipelines to teams
-- [Team suites](/docs/apis/rest-api/teams/suites) - Assign test suites to teams
+- [Team members](/docs/apis/rest-api/teams/members) - manage members of a team
+- [Team pipelines](/docs/apis/rest-api/teams/pipelines) - assign pipelines to teams
+- [Team suites](/docs/apis/rest-api/teams/suites) - assign test suites to teams

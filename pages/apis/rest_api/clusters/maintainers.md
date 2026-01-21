@@ -1,7 +1,5 @@
 # Cluster maintainers
 
-This endpoint manages maintainers of a [cluster](/docs/apis/rest-api/clusters).
-
 Cluster maintainers permissions can be assigned to a list of [Users or teams](/docs/platform/team-management/permissions), or both. This grants assignees the ability to manage the [Buildkite clusters they maintain](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster).
 
 ## Cluster maintainer data model
