@@ -2,15 +2,107 @@
 
 This page outlines product and platform usage limits based on the Buildkite platform's service limits and your subscription tier. The available subscription tiers are:
 
-- Personal (free plan with low usage limits)
-- Trial (30 days of Pro Plan trial)
-- Pro
-- Enterprise
+- Personal plan
+- Trial plan
+- Pro plan
+- Enterprise plan
 
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
 > 📘 Overriding the limits
-> If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated technical account manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
+> If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
+
+## Platform and organization-level limits
+
+Platform and organization-level limits are applied to all Buildkite products and are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Service limit type</th>
+      <th style="width:75%">Description and default limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        title: "Organizations per day",
+        description: "The maximum number of organizations a user can create per day.",
+        default_value: "4 organizations"
+      },
+      {
+        title: "Organizations per user",
+        description: "The maximum total number of organizations a user can create.",
+        default_value: "20 organizations"
+      },
+      {
+        title: "Unverified emails per user",
+        description: "The maximum number of unverified emails per user.",
+        default_value: "5 emails"
+      },
+      {
+        title: "Invitations per organization",
+        description: "The maximum number of pending invitations for an organization.",
+        default_value: "20 invitations"
+      },
+      {
+        title: "Teams per organization",
+        description: "The maximum number of teams that an organization can have.",
+        default_value: "250 teams"
+      },
+      {
+        title: "REST API rate limit per organization",
+        description: "The number of requests an organization can make to Organization endpoints on the REST API, per minute.",
+        default_value: "200 requests/min"
+      },
+      {
+        title: "GraphQL API rate limit per organization",
+        description: "The number of requests an organization can make to Organization endpoints on the GraphQL API, per minute.",
+        default_value: "20,000 requests/min"
+      },
+      {
+        title: "Portal API rate limit per organization",
+        description: "The number of requests an organization can make to Organization endpoints on the Portal API, per minute.",
+        default_value: "200 requests/min"
+      },
+      {
+        title: "GraphQL query complexity",
+        description: "The maximum complexity score for GraphQL queries.",
+        default_value: "50,000"
+      },
+      {
+        title: "GraphQL query depth",
+        description: "The maximum nesting depth for GraphQL queries.",
+        default_value: "15 levels"
+      },
+      {
+        title: "Audit search terms",
+        description: "The maximum number of search terms for audit logs.",
+        default_value: "3 terms"
+      },
+      {
+        title: "IP addresses per token",
+        description: "The maximum number of IP allowlist entries per token.",
+        default_value: "24 addresses"
+      },
+      {
+        title: "Maximum OIDC lifetime",
+        description: "The default maximum lifetime for OIDC.",
+        default_value: "2 hours"
+      }
+    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+      <tr>
+        <td>
+          <strong><%= limit[:title] %></strong>
+         </td>
+        <td>
+          <p><%= limit[:description] %></p>
+          Default: <strong><%= limit[:default_value] %></strong>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## Buildkite Pipelines limits
 
@@ -316,98 +408,6 @@ The following table lists the default values for Package Registries limits. The 
         title: "Managed Enterprise Annual",
         description: "Allocated storage volume. Usage-based limit.",
         default_value: "240 GB"
-      }
-    ].sort_by { |limit| limit[:title] }.each do |limit| %>
-      <tr>
-        <td>
-          <strong><%= limit[:title] %></strong>
-         </td>
-        <td>
-          <p><%= limit[:description] %></p>
-          Default: <strong><%= limit[:default_value] %></strong>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-## Platform and organization-level limits
-
-Platform and organization-level limits are applied to all Buildkite products and are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
-
-<table>
-  <thead>
-    <tr>
-      <th style="width:25%">Service limit type</th>
-      <th style="width:75%">Description and default limit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% [
-      {
-        title: "Organizations per day",
-        description: "The maximum number of organizations a user can create per day.",
-        default_value: "4 organizations"
-      },
-      {
-        title: "Organizations per user",
-        description: "The maximum total number of organizations a user can create.",
-        default_value: "20 organizations"
-      },
-      {
-        title: "Unverified emails per user",
-        description: "The maximum number of unverified emails per user.",
-        default_value: "5 emails"
-      },
-      {
-        title: "Invitations per organization",
-        description: "The maximum number of pending invitations for an organization.",
-        default_value: "20 invitations"
-      },
-      {
-        title: "Teams per organization",
-        description: "The maximum number of teams that an organization can have.",
-        default_value: "250 teams"
-      },
-      {
-        title: "REST API rate limit per organization",
-        description: "The number of requests an organization can make to Organization endpoints on the REST API, per minute.",
-        default_value: "200 requests/min"
-      },
-      {
-        title: "GraphQL API rate limit per organization",
-        description: "The number of requests an organization can make to Organization endpoints on the GraphQL API, per minute.",
-        default_value: "20,000 requests/min"
-      },
-      {
-        title: "Portal API rate limit per organization",
-        description: "The number of requests an organization can make to Organization endpoints on the Portal API, per minute.",
-        default_value: "200 requests/min"
-      },
-      {
-        title: "GraphQL query complexity",
-        description: "The maximum complexity score for GraphQL queries.",
-        default_value: "50,000"
-      },
-      {
-        title: "GraphQL query depth",
-        description: "The maximum nesting depth for GraphQL queries.",
-        default_value: "15 levels"
-      },
-      {
-        title: "Audit search terms",
-        description: "The maximum number of search terms for audit logs.",
-        default_value: "3 terms"
-      },
-      {
-        title: "IP addresses per token",
-        description: "The maximum number of IP allowlist entries per token.",
-        default_value: "24 addresses"
-      },
-      {
-        title: "Maximum OIDC lifetime",
-        description: "The default maximum lifetime for OIDC.",
-        default_value: "2 hours"
       }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
