@@ -1,5 +1,30 @@
 # Agents API
 
+The Buildkite Agents are small, reliable cross-platform build runners. Their main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
+
+## Agent data model
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>id</code></th><td>UUID of the agent</td></tr>
+  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the agent</td></tr>
+  <tr><th><code>url</code></th><td>Canonical API URL of the agent</td></tr>
+  <tr><th><code>web_url</code></th><td>URL of the agent on Buildkite</td></tr>
+  <tr><th><code>name</code></th><td>Name of the agent</td></tr>
+  <tr><th><code>connection_state</code></th><td>Connection state: <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, or <code>stopped</code></td></tr>
+  <tr><th><code>hostname</code></th><td>Hostname of the machine running the agent</td></tr>
+  <tr><th><code>ip_address</code></th><td>IP address of the agent</td></tr>
+  <tr><th><code>user_agent</code></th><td>User agent string identifying the agent version and platform</td></tr>
+  <tr><th><code>version</code></th><td>Version of the Buildkite Agent</td></tr>
+  <tr><th><code>creator</code></th><td>User or token that registered the agent</td></tr>
+  <tr><th><code>created_at</code></th><td>When the agent was registered</td></tr>
+  <tr><th><code>job</code></th><td>Current job the agent is running (if any)</td></tr>
+  <tr><th><code>last_job_finished_at</code></th><td>When the agent last finished a job</td></tr>
+  <tr><th><code>priority</code></th><td>Priority value for job assignment</td></tr>
+  <tr><th><code>meta_data</code></th><td>Array of agent tags in <code>key=value</code> format</td></tr>
+</tbody>
+</table>
+
 ## List agents
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
