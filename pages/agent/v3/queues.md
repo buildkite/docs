@@ -50,7 +50,7 @@ buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-me
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
 > Your [clusters](/docs/pipelines/security/clusters/manage) and [queues](/docs/agent/v3/queues/managing) should already be configured before starting your agents to target these queues.
 
-By default, Buildkite runs jobs on the first available agent within that queue, ordered by how recently that agent completed a job. However, you can alter this behavior by changing the _priority_ for some or all of your agents. Learn more about this in [Buildkite agent prioritization](/docs/agent/v3/self-hosted/prioritization).
+By default, a pipeline's jobs run on the first available agent within a queue, ordered by how recently an agent within that queue completed a job. You can, however, alter this behavior by changing the _priority_ for some or all of your agents. Learn more about this in [Buildkite agent prioritization](/docs/agent/v3/self-hosted/prioritization).
 
 ### The default self-hosted queue
 
