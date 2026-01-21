@@ -307,12 +307,12 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 
 | Limit type | Trial | Personal | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
-| Linux Concurrency | 10| 3 | 20 | Custom |
-| macOS Concurrency | 3 | - | 5 | Custom |
-| Linux Minutes, per month | 2,000 | 550 | per usage | according to usage |
-| macOS Minutes, per month | 3,000 | not available | according to usage |
-| Container Cache Volume |  50 GB |  50 GB |  50 GB |  50 GB |
-| Git Mirror Volume |  5 GB |  5 GB |  5 GB |  5 GB |
+| **Linux concurrency** | 10| 3 | 20 | Custom |
+| **macOS concurrency** | 3 | - | 5 | Custom |
+| **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
+| **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
+| **Container cache volume** |  50 GB |  50 GB |  50 GB |  50 GB |
+| **Git mirror volume** |  5 GB |  5 GB |  5 GB |  5 GB |
 
 ## Test Engine limits
 
@@ -387,27 +387,17 @@ The following table lists the default values for Package Registries limits. The 
       {
         title: "Personal plan",
         description: "Allocated storage volume. Hard limit.",
-        default_value: "1 GB"
-      },
-      {
-        title: "Free (legacy) plan",
-        description: "Allocated storage volume. Hard limit.",
-        default_value: "2 GB"
+        default_value: "1 GB per month"
       },
       {
         title: "Pro plan",
         description: "Allocated storage volume. Usage-based limit.",
-        default_value: "20 GB"
+        default_value: "20 GB per month"
       },
       {
         title: "Enterprise plan",
         description: "Allocated storage volume. Usage-based limit.",
-        default_value: "20 GB"
-      },
-      {
-        title: "Managed Enterprise Annual",
-        description: "Allocated storage volume. Usage-based limit.",
-        default_value: "240 GB"
+        default_value: "Custom, with volume discount"
       }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
