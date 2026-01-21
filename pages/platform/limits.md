@@ -10,7 +10,7 @@ This page outlines product and platform usage limits based on the Buildkite plat
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
 > 📘 Overriding the limits
-> If you are on the Enterprise Plan, some of the organization-level limits might be increased. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if it is possible.
+> If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits it is possible.
 
 ## Platform and organization-level limits
 
@@ -106,7 +106,7 @@ Platform and organization-level limits are applied to all Buildkite products and
 
 ## Buildkite Pipelines limits
 
-The following table lists Buildkite Pipelines' default service limits.
+The following table lists the default service limits for [Buildkite Pipelines](/docs/pipelines).
 
 <table>
   <thead>
@@ -316,7 +316,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 
 ## Test Engine limits
 
-The following table lists the default values for Test Engine limits.
+The following table lists the default service limits for [Test Engine](/docs/test-engine).
 
 <table>
   <thead>
@@ -373,7 +373,7 @@ The following table lists the default values for Test Engine limits.
 
 ## Package Registries limits
 
-The following table lists the default values for Package Registries limits. The limits in Package Registries are based on the subscription tier:
+The following table lists the default service limits for [Package Registries](/docs/package-registries). The limits in Package Registries are based on the [subscription tier](https://buildkite.com/pricing/):
 
 <table>
   <thead>
