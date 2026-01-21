@@ -1,6 +1,6 @@
 # Custom images
 
-The Agent Stack for Kubernetes controller creates Pods with several containers, each with different purposes and image requirements. You can customize the images used for command containers to match your build environment needs.
+The [Agent Stack for Kubernetes controller](/docs/agent/v3/self-hosted/agent-stack-k8s) creates Pods with several containers, each with different purposes and image requirements. You can customize the images used for command containers to match your build environment needs.
 
 ## Container types and image requirements
 
@@ -19,7 +19,7 @@ The `copy-agent` init container copies the `buildkite-agent` binary and `tini-st
 
 ## Specifying custom images
 
-You can specify custom images for command containers using one of three methods.
+You can specify custom images for command containers using one of the three methods outlined below.
 
 ### Using the image attribute
 
@@ -93,7 +93,7 @@ Depending on your build requirements, you may want to include:
 - `curl` or `wget` for downloading artifacts or dependencies
 - Build tools specific to your language or framework
 
-### Using the Buildkite agent image as a base
+### Using the Buildkite Agent image as a base
 
 You can use `buildkite/agent` as a base image for custom images that need agent tooling pre-installed:
 
@@ -123,7 +123,7 @@ RUN apk add --no-cache \
 
 ## Customizing the checkout container
 
-The checkout container clones your repository before commands run. You can customize it to add tools like Git LFS or configure environment variables.
+The checkout container clones your repository before commands run. You can customize it to add tools like [Git LFS](https://git-lfs.com/) or configure environment variables.
 
 ### Controller-level configuration
 
@@ -215,6 +215,8 @@ steps:
 
 ## Troubleshooting
 
+This section covers some common issues you might run into when using custom images and how to solve these issues.
+
 ### Command fails with "sh: not found"
 
 The image doesn't have a shell at `/bin/sh`. Use an image with a shell installed, or modify your Dockerfile to include one.
@@ -235,4 +237,4 @@ Some plugins require specific binaries. For example:
 - AWS plugins may need the AWS CLI
 - Plugins using Bash features need `bash`
 
-Check the plugin documentation for its requirements.
+Check the plugin's documentation for the requirements.
