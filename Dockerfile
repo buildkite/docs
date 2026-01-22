@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.5-slim-bookworm@sha256:aa97c41012d81fa89ab5cf61409c3314665d024fd06c3af1ecea27865ffbd9c4
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:18-bookworm-slim@sha256:d2d8a6420c9fc6b7b403732d3a3c5395d016ebc4996f057aad1aded74202a476
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:22-bookworm-slim
 
 FROM $BASE_IMAGE AS builder
 
@@ -45,7 +45,7 @@ RUN echo "--- :bundler: Installing ruby gems" \
 FROM $NODE_IMAGE AS node-deps
 
 COPY package.json yarn.lock ./
-RUN echo "--- :yarn: Installing node packages" && yarn --ignore-engines
+RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
