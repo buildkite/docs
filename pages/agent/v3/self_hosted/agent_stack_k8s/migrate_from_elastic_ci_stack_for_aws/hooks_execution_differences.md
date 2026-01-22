@@ -1,32 +1,8 @@
-# Migrating from Elastic CI Stack for AWS
+# Hook execution differences
 
-When migrating from the Elastic CI Stack for AWS (EC2-based agents) to the Agent Stack for Kubernetes, there are important architectural differences that affect how agent hooks and the job lifecycle operate.
-
-## Architecture differences
-
-### Elastic CI Stack for AWS (EC2)
-
-On EC2 instances, the Buildkite agent runs as a single process on the instance:
-- All job phases (checkout and command) execute within the same agent process
-- All hooks run in the same execution context
-- Environment variables set in any hook are available to subsequent hooks
-- The `environment` hook runs once per job
-
-### Agent Stack for Kubernetes
-
-The Agent Stack for Kubernetes uses a multi-container pod architecture:
-- A `checkout` container clones the repository
-- Separate user-defined `command` container(s) execute the job commands
-- Each container has its own isolated execution context
-- Containers share only the workspace volume
-
-## Agent hook execution differences
-
-The primary migration consideration is how agent hooks behave differently in the Kubernetes controller compared to EC2 instances.
+The primary migration consideration when migrating from the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) to the Buildkite Agent Stack for Kubernetes ([agent-stack-k8s](https://github.com/buildkite/agent-stack-k8s)), is how agent hooks behave differently in the Kubernetes controller compared to EC2 instances. There is a different execution process unique to the Agent Stack for Kubernetes since the checkout and command phases run in **separate containers**.
 
 ### Separate container execution
-
-Since the checkout and command phases run in **separate containers**, there are execution differences that are unique to the Agent Stack for Kubernetes:
 
 **Checkout phase hooks** (`pre-checkout`, `checkout`, `post-checkout`):
 - Run only in the `checkout` container
