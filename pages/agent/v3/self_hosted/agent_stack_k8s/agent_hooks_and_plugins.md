@@ -88,9 +88,6 @@ steps:
 
 With jobs created by the Buildkite Agent Stack for Kubernetes controller, there are key differences with hook execution. The primary difference is with the `checkout` container and user-defined `command` containers.
 
-> 📘 Migrating from Elastic CI Stack for AWS?
-> If you're migrating from EC2-based agents, see the [Migrating from Elastic CI Stack](/docs/agent/v3/agent-stack-k8s/migration-from-elastic-ci-stack) guide for detailed information on how hook execution differs between EC2 instances and Kubernetes containers, including migration strategies and examples.
-
 - The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
 - Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
 - Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
