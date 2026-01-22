@@ -65,7 +65,7 @@ steps:
       queue: "windows"
 ```
 
-For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue from a pipeline](/docs/agent/v3/queues#targeting-a-queue-from-a-pipeline).
+For more information, see the [Queues overview](/docs/agent/v3/queues) page, specifically [Targeting a queue from a pipeline](/docs/agent/v3/queues#targeting-a-queue-from-a-pipeline).
 
 Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) for more details.
 
