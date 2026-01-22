@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th><code>created_from</code></th>
-            <td>Filters the results by builds created on or after the given time (in ISO 8601 format)<p
+            <td>Filters the results by builds created on or after the given time (in ISO 8601 format).<p
                     class="Docs__api-param-eg">
                     <em>Example:</em> <code>?created_from=<%= 5.days.ago.utc.iso8601 %></code>
                 </p>
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <th><code>created_to</code></th>
-            <td>Filters the results by builds created before the given time (in ISO 8601 format)<p
+            <td>Filters the results by builds created before the given time (in ISO 8601 format).<p
                     class="Docs__api-param-eg">
                     <em>Example:</em> <code>?created_to=<%= 1.month.from_now.utc.iso8601 %></code>
                 </p>
@@ -44,28 +44,28 @@
         </tr>
         <tr>
             <th><code>creator</code></th>
-            <td>Filters the results by the user who created the build<p class="Docs__api-param-eg">
+            <td>Filters the results by the user who created the build.<p class="Docs__api-param-eg">
                     <em>Example:</em> <code>?creator=5acb99cf-d349-4189-b361-d1b9f36d70d7</code>
                 </p>
             </td>
         </tr>
         <tr>
             <th><code>exclude_jobs</code></th>
-            <td>Exclude the jobs list in each builds details<p class="Docs__api-param-eg">
+            <td>Exclude the list of jobs from each build's details.<p class="Docs__api-param-eg">
                     <em>Example:</em> <code>?exclude_jobs=true</code>
                 </p>
             </td>
         </tr>
         <tr>
             <th><code>exclude_pipeline</code></th>
-            <td>Exclude the pipeline details from each builds details<p class="Docs__api-param-eg">
+            <td>Exclude the pipeline details from each build's details.<p class="Docs__api-param-eg">
                     <em>Example:</em> <code>?exclude_pipeline=true</code>
                 </p>
             </td>
         </tr>
         <tr>
             <th><code>finished_from</code></th>
-            <td>Filters the results by builds finished on or after the given time (in ISO 8601 format)<p
+            <td>Filters the results by builds finished on or after the given time (in ISO 8601 format).<p
                     class="Docs__api-param-eg">
                     <em>Example:</em> <code>?finished_from=<%= 2.days.ago.utc.iso8601 %></code>
                 </p>
@@ -73,7 +73,7 @@
         </tr>
         <tr>
             <th><code>include_retried_jobs</code></th>
-            <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll see only
+            <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll only see
                 the most recently run job for each step.<p class="Docs__api-param-eg">
                     <em>Example:</em> <code>?include_retried_jobs=true</code>
                 </p>
