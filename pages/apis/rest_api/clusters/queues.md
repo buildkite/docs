@@ -1,6 +1,6 @@
 # Queues
 
-[Queues](/docs/pipelines/clusters/manage-queues) define discrete groups of agents within a [Buildkite cluster](/docs/pipelines/clusters). Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
+[Queues](/docs/agent/v3/queues/managing) define discrete groups of agents within a [Buildkite cluster](/docs/pipelines/security/clusters). Pipelines in that cluster can target queues to run jobs on agents assigned to those queues.
 
 ## Queue data model
 
@@ -41,7 +41,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
     "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
     "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-    "agent_retry_affinity": "prefer-warmest",
+    "retry_agent_affinity": "prefer-warmest",
     "dispatch_paused": false,
     "dispatch_paused_by": null,
     "dispatch_paused_at": null,
@@ -79,7 +79,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "agent_retry_affinity": "prefer-warmest",
+  "retry_agent_affinity": "prefer-warmest",
   "dispatch_paused": false,
   "dispatch_paused_by": null,
   "dispatch_paused_at": null,
@@ -118,7 +118,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "agent_retry_affinity": "prefer-warmest",
+  "retry_agent_affinity": "prefer-warmest",
   "dispatch_paused": false,
   "dispatch_paused_by": null,
   "dispatch_paused_at": null,
@@ -227,7 +227,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configures this queue to use <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+      Configures this queue to use <a href="/docs/agent/v3/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
       <br>
       <em>Example:</em>
       <br/>
@@ -298,7 +298,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configures this queue to use <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/pipelines/clusters/manage-queues#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+      Configures this queue to use <a href="/docs/agent/v3/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
       <br>
       <em>Example:</em>
       <br/>
@@ -348,7 +348,7 @@ Error responses:
 
 ## Pause a queue
 
-[Pause a queue](/docs/pipelines/clusters/manage-queues#pause-and-resume-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+[Pause a queue](/docs/agent/v3/queues/managing#pause-and-resume-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

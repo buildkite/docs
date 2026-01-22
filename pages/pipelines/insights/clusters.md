@@ -9,7 +9,7 @@ The _cluster insights_ dashboard provides real-time visibility into your build i
 
 ## Before you start
 
-The dashboard is available to all users of your Buildkite organization, but requires your build infrastructure to be managed through [clusters](/docs/pipelines/clusters). If you're using [unclustered agents](/docs/agent/v3/unclustered-tokens) and want to access these insights, contact Buildkite support at support@buildkite.com to discuss migrating your workloads to clusters.
+The dashboard is available to all users of your Buildkite organization, but requires your build infrastructure to be managed through [clusters](/docs/pipelines/security/clusters). If you're using [unclustered agents](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens) and want to access these insights, contact Buildkite support at support@buildkite.com to discuss migrating your workloads to clusters.
 
 The shortcut to the cluster insights dashboard is https://buildkite.com/organizations/~/clusters/insights.
 

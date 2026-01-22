@@ -5,7 +5,7 @@ toc: false
 # How to install Buildkite Agent
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/installation">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/install">see the latest version of this document</a>.
 
 The Buildkite Agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
 

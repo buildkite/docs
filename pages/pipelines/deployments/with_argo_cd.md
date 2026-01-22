@@ -64,7 +64,7 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
 
 ## Using annotations to link to Argo CD
 
-With the help of Buildkite's build [annotations](/docs/agent/v3/cli-annotate), you can include a deployment link to the Argo CD interface after the build has finished running to review the deployment status. For example:
+With the help of Buildkite's build [annotations](/docs/agent/v3/cli/reference/annotate), you can include a deployment link to the Argo CD interface after the build has finished running to review the deployment status. For example:
 
 ```yaml
 steps:
@@ -81,7 +81,7 @@ The [Argo CD Deployment Buildkite Plugin](https://github.com/buildkite-plugins/a
 
 - Unlike Argo CD's basic rollback, the plugin can automatically detect deployment failures and roll back to the last known good state, or provide interactive rollback decisions with detailed context through the use of [block steps](/docs/pipelines/configure/step-types/block-step).
 - The plugin performs real-time continuous health monitoring during deployment with configurable intervals and timeouts via the Argo CD API. Basic CLI commands don't provide this capability.
-- Deployment observability features of the plugin include automatic log collection (including pod logs), artifact upload, and detailed [Buildkite annotations](/docs/agent/v3/cli-annotate) that provide deployment visibility.
+- Deployment observability features of the plugin include automatic log collection (including pod logs), artifact upload, and detailed [Buildkite annotations](/docs/agent/v3/cli/reference/annotate) that provide deployment visibility.
 - Production-ready safety features allow performing atomic deployments, setting configurable timeouts, and configuring Slack notifications for deployment events.
 
 ### Requirements for using the plugin
@@ -96,7 +96,7 @@ The plugin requires the following Argo CD authentication environment variables:
 - `ARGOCD_USERNAME` - Argo CD username (can also be set in plugin configuration).
 - `ARGOCD_PASSWORD` - Argo CD password (must be set via environment variable).
 
-For production deployments, use a secure secret management solution like [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), HashiCorp Vault, or AWS Secrets Manager to fetch the `ARGOCD_PASSWORD` before your deployment steps.
+For production deployments, use a secure secret management solution like [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), HashiCorp Vault, or AWS Secrets Manager to fetch the `ARGOCD_PASSWORD` before your deployment steps.
 
 ### Production deployment with auto-rollback
 

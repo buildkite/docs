@@ -96,7 +96,7 @@ To enable merge queue builds, edit the GitHub settings for the pipeline and sele
 
 Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
 
-To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli-pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
 
 For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
@@ -145,7 +145,7 @@ In a setup for a repository containing one codebase and one `pipeline.yml`, this
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
-When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/v3/cli-pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
+When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
 
 ### Step level
 
@@ -247,12 +247,12 @@ After the GitHub App has been configured with the settings outlined above, click
 
 #### Generate authentication keys
 
-In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite Agent. To generate a private key:
+In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite Agent. To generate a private key:
 
 - In your GitHub App's **General settings**, scroll to **Private keys**
 - Click the **Generate a private key** button
 - This will download a `.pem` file of the newly generated private key
-- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/clusters) containing the Buildkite Agents that require access to your private repositories
+- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/security/clusters) containing the Buildkite Agents that require access to your private repositories
     + Add the contents of the `.pem` file as the secret's _Value_
 
 > 📘 Private key Buildkite Secret
@@ -267,14 +267,14 @@ After creating the GitHub App, you can install this app into your account. To in
 
 ### Generating tokens
 
-The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks).
 
 #### Configure agent hook
 
 > 📘 OpenSSL package requirement
 > The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite Agent performing the checkout.
 
-In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
+In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/self-hosted/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 
 ```bash
 #!/usr/bin/env bash

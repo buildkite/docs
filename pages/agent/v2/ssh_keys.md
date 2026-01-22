@@ -1,7 +1,7 @@
 # Buildkite Agent SSH keys
 
 > 🚧 This page references the out-of-date Buildkite Agent v2.
-> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/ssh_keys">see the latest version of this document</a>.
+> For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/self-hosted/ssh-keys">see the latest version of this document</a>.
 
 If your agent needs to clone your repositories using git and SSH, you'll need to configure your agent with a valid SSH key.
 

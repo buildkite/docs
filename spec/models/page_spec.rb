@@ -7,7 +7,7 @@ RSpec.describe Page do
 
       allow(Dir).to receive(:glob).and_return([
         "docs/agent-api.md",
-        "docs/_apt_configuration.md"
+        "docs/self_hosted/install/_apt_configuration.md"
       ])
 
       expect(Page.all.size).to eql(1)

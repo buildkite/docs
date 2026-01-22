@@ -4,9 +4,9 @@ The rules API endpoint lets you create and manage rules in your organization.
 
 ## Rules
 
-[_Rules_](/docs/pipelines/rules) is a Buildkite feature that can do the following:
+[_Rules_](/docs/pipelines/security/clusters/rules) is a Buildkite feature that can do the following:
 
-<%= render_markdown partial: 'pipelines/rules_summary' %>
+<%= render_markdown partial: 'pipelines/security/clusters/rules_summary' %>
 
 ### List rules
 
@@ -130,7 +130,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>type</code></th>
-    <td>The rule type. Must match one of the <a href="/docs/pipelines/rules#rule-types">available rule types</a>.<br>
+    <td>The rule type. Must match one of the <a href="/docs/pipelines/security/clusters/rules#rule-types">available rule types</a>.<br>
     <em>Example:</em>
       <ul>
         <li><code>"pipeline.trigger_build.pipeline"</code><br/>or</li>

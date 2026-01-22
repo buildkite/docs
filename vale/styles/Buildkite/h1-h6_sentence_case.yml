@@ -157,6 +157,7 @@ exceptions:
   - Hugging Face
   - I
   - IAM
+  - IAM Roles for Service Accounts
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
@@ -218,6 +219,7 @@ exceptions:
   - pipeline.yml
   - pod_watcher
   - PodSpec
+  - podSpecPatch
   - PowerShell
   - Prometheus
   - pytest

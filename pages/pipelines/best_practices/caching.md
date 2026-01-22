@@ -8,11 +8,11 @@ Cache the following for faster builds:
 
 - Dependency directories for your language or build tool
 - Large files repeatedly downloaded from the Internet
-- Git mirrors by enabling [Git mirrors](/docs/agent/v3/git-mirrors) on your agents
+- Git mirrors by enabling [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) on your agents
 - Docker build layers using plugins like [Docker ECR Cache Buildkite plugin](https://github.com/seek-oss/docker-ecr-cache-buildkite-plugin) for ECR/GCR
 
 > 📘
-> Git mirrors on [Buildkite hosted agents](/docs/pipelines/hosted-agents) can be enabled with the help of [cache volumes](/docs/pipelines/hosted-agents/cache-volumes). Additionally, you can also enable [queue images](/docs/pipelines/hosted-agents/linux#agent-images).
+> Git mirrors on [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) can be enabled with the help of [cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes). Additionally, you can also enable [queue images](/docs/agent/v3/buildkite-hosted/linux#agent-images).
 
 Don't cache:
 
@@ -62,7 +62,7 @@ It's also recommended to:
 
 - Build images nightly to include system, framework, and image updates.
 - Store the images in [Buildkite Packages](https://buildkite.com/packages) or cloud provider registries.
-- For hosted agents, use [agent images](/docs/pipelines/hosted-agents/linux#agent-images).
+- For hosted agents, use [agent images](/docs/agent/v3/buildkite-hosted/linux#agent-images).
 
 ## Bazel caching
 
@@ -97,7 +97,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 ### Using Bazel caching with Buildkite
 
-- Using Bazel caching works both with hosted agents and self-hosted agents - but you need to ensure network access to the cache and provide credentials via the environment or pre-command [hooks](/docs/agent/v3/hooks).
+- Using Bazel caching works both with hosted agents and self-hosted agents - but you need to ensure network access to the cache and provide credentials via the environment or pre-command [hooks](/docs/agent/v3/self-hosted/hooks).
 - Teams commonly layer:
     * Local repository/repository cache in a persistent volume to skip external dependency fetches
     * Remote cache (for example, BuildBuddy or Bazel-remote) for cross-machine reuse
@@ -113,11 +113,11 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 - Make credentials available at build time via secure secret management and pre-step hooks.
 
 > 📘
-> Ephemeral agents without persistent volumes lose local caches between jobs. You can mitigate this by using [cache volumes](/docs/pipelines/hosted-agents/cache-volumes) and a robust remote cache.
+> Ephemeral agents without persistent volumes lose local caches between jobs. You can mitigate this by using [cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes) and a robust remote cache.
 
 ## Hosted agents caching
 
-[Cache volumes](/docs/pipelines/hosted-agents/cache-volumes) on [Buildkite hosted agents](/docs/pipelines/hosted-agents) are:
+[Cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes) on [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) are:
 
 - Best‑effort attachment, shared across steps, scoped to a pipeline
 - Well-suited for simple, fast, shared caching
@@ -125,14 +125,14 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 - Updated only on successful job completion and forked per job for safe concurrency.
 
 > 📘 Non-deterministic behavior
-> Cache volumes on Buildkite hosted agents are [non-deterministic by nature](/docs/pipelines/hosted-agents/cache-volumes#lifecycle-non-deterministic-nature) and allow for dependency caching and Git mirror caching.
-> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](/docs/pipelines/hosted-agents/remote-docker-builders) which allow you to have fast Docker builds and the [internal Docker registry](/docs/pipelines/hosted-agents/internal-container-registry).
+> Cache volumes on Buildkite hosted agents are [non-deterministic by nature](/docs/agent/v3/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature) and allow for dependency caching and Git mirror caching.
+> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) which allow you to have fast Docker builds and the [internal container registry](/docs/agent/v3/buildkite-hosted/internal-container-registry).
 
 - What to cache:
-    * Use cache volumes for “local” tool data that’s expensive to refetch between ephemeral jobs, e.g. Bazel repository cache and custom CLIs.
-    * Prefer a remote cache (e.g., BuildBuddy or Bazel-remote on AWS) for cross-machine reuse. Treat local volumes as best‑effort accelerators.
+    * Use cache volumes for local tool data that's expensive to refetch between ephemeral jobs, for example, Bazel repository cache and custom CLIs.
+    * Prefer a remote cache (for example, BuildBuddy or Bazel-remote on AWS) for cross-machine reuse. Treat local volumes as best‑effort accelerators.
 - Recommended caching patterns:
-    * Use Buildkite hosted agents + cache volumes mounted to Bazel’s repository cache path to avoid fetching the external dependencies twice.
+    * Use Buildkite hosted agents with cache volumes mounted to Bazel's repository cache path to avoid fetching the external dependencies twice.
     * Standardize cache config via a CI `bazelrc` emitted per job, injected alongside secrets in pre‑commands.
     * Use the [official Buildkite plugins](/docs/pipelines/integrations/plugins/directory) for caching (for example, the [Cache Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/)) when you need to persist directories by key to object storage (for example, S3).
 
@@ -144,14 +144,14 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 - Expect some non‑determinism with ephemeral volumes; Bazel will re‑download missing pieces. Keep remote cache as the source of truth.
 - Co‑locate compute and cache to reduce latency.
 - Keep images lean; preinstall `Bazelisk` and critical toolchains.
-- Manage credentials via [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) or your KMS - do not hard-code them into `.bazelrc`.
+- Manage credentials via [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or your KMS - do not hard-code them into `.bazelrc`.
 
 ## Git Large File Storage (LFS) caching
 
 Git LFS stores large files outside your repository in a separate storage location to keep clone sizes manageable, but downloading these objects during checkout can slow builds significantly. The strategies below help you minimize LFS download times:
 
 - Skip LFS on checkout - set `GIT_LFS_SKIP_SMUDGE=1` during checkout, then run targeted `git lfs fetch` and `git lfs checkout` only for required paths.
-- Mirror and prefetch - use [Git mirrors](/docs/agent/v3/git-mirrors) for base clones, then prefetch LFS objects with `git lfs fetch --recent` in a pre-command hook.
+- Mirror and prefetch - use [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) for base clones, then prefetch LFS objects with `git lfs fetch --recent` in a pre-command hook.
 - Cache volumes - mount `.git/lfs/objects` (and optionally `.git/lfs/tmp`) in a cache volume to reuse blobs between jobs. Expect occasional cache misses; the remote LFS server remains authoritative.
 
 > 📘

@@ -1,6 +1,6 @@
 # Using build meta-data
 
-In this guide, we'll walk through using the Buildkite agent's [meta-data command](/docs/agent/v3/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
+In this guide, we'll walk through using the Buildkite agent's [meta-data command](/docs/agent/v3/cli/reference/meta-data) to store and retrieve data between different steps in a build pipeline.
 
 Meta-data is intended to store data to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version.
 
@@ -120,4 +120,4 @@ This value will only be available for builds triggered by a webhook, and only as
 
 ## Further documentation
 
-See the [Buildkite agent build meta-data documentation](/docs/agent/v3/cli-meta-data) for a full list of options and details of Buildkite's meta-data support.
+See the [Buildkite agent build meta-data documentation](/docs/agent/v3/cli/reference/meta-data) for a full list of options and details of Buildkite's meta-data support.

@@ -22,7 +22,7 @@ curl https://agent.buildkite.com
 
 ## Authentication
 
-Unlike the [Buildkite REST API](/docs/apis/rest-api), which uses an [API access token](/docs/apis/rest-api#authentication), the agent REST API uses an [agent token](/docs/agent/v3/tokens) for authentication.
+Unlike the [Buildkite REST API](/docs/apis/rest-api), which uses an [API access token](/docs/apis/rest-api#authentication), the agent REST API uses an [agent token](/docs/agent/v3/self-hosted/tokens) for authentication.
 
 To authenticate using an agent token, set the `Authorization` HTTP header to the word `Token`, followed by a space, followed by the agent token. For example:
 

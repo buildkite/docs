@@ -79,7 +79,7 @@ Choose between two deployment approaches based on your infrastructure preference
 
 ### Pre-installed binary approach
 
-This approach uses the SonarScanner CLI binary installed directly on your Buildkite Agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/aws/elastic-ci-stack).
+This approach uses the SonarScanner CLI binary installed directly on your Buildkite Agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack).
 
 #### Update launch template userdata
 
@@ -332,4 +332,4 @@ Generate your SonarCloud token from **My Account > Security > Generate Tokens** 
 - [SonarQube documentation](https://docs.sonarqube.org/latest/)
 - [SonarCloud documentation](https://docs.sonarcloud.io/)
 - [SonarScanner CLI reference](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/)
-- [Buildkite Secrets Management](/docs/pipelines/security/secrets/managing) documentation page.
+- [Buildkite secrets Management](/docs/pipelines/security/secrets/managing) documentation page.

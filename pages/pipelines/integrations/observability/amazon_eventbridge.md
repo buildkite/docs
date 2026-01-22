@@ -27,11 +27,11 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td></tr>
   <tr>
     <th><a href="#events-agent-blocked">Agent Blocked</a></th>
-    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+    <td>An agent has been blocked. This happens when an agent's IP address is no longer included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
   <tr>
     <th><a href="#events-cluster-token-registration-blocked">Cluster Token Registration Blocked</a></th>
-    <td>An attempted agent registration is blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
+    <td>An attempted agent registration is blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td>
   </tr>
   <tr>
     <th><a href="#audit-event-logged">Audit Event Logged</a></th>
@@ -570,10 +570,10 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 
 | Signal Reason | Description |
 | --- | --- |
-| `agent_refused` | The agent refused to run the job, as it was not allowed by a [pre-bootstrap hook](/docs/agent/v3/securing#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) |
+| `agent_refused` | The agent refused to run the job, as it was not allowed by a [pre-bootstrap hook](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) |
 | `agent_stop` | The agent was stopped while the job was running |
 | `cancel` | The job was cancelled by a user |
-| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/signed-pipelines) |
+| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/self-hosted/signed-pipelines) |
 | `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
 
 <a id="events-job-activated"></a>
