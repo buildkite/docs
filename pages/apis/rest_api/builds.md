@@ -313,7 +313,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/pipeline_builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
