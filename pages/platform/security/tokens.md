@@ -40,7 +40,7 @@ Buildkite Agent [job tokens](/docs/agent/v3/self-hosted/tokens#additional-agent-
 
 ### Unclustered agent tokens
 
-Buildkite [unclustered agent tokens](/docs/agent/v3/self-hosted/unclustered-tokens) are also known as _Buildkite Agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
+Buildkite [unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens) are also known as _Buildkite Agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkar_`
 - Example: `bkar_*************************************************************************`

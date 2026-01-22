@@ -219,6 +219,7 @@ exceptions:
   - pipeline.yml
   - pod_watcher
   - PodSpec
+  - podSpecPatch
   - PowerShell
   - Prometheus
   - pytest

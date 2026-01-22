@@ -38,7 +38,7 @@ Rails.application.config.content_security_policy do |policy|
     "https://beacon-v2.helpscout.net",
     "https://rum.browser-intake-datadoghq.com",
     "https://www.datadoghq-browser-agent.com",
-    "https://js.posthog.com/",
+    "https://us-assets.i.posthog.com/",
   )
 
   # Allow @vite/client to hot reload javascript changes in development

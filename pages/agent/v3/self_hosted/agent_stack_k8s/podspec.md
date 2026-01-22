@@ -110,35 +110,7 @@ steps:
   - echo -n Hello!
 ```
 
-For versions of the  prior to 0.30.0, you can specify a different image to use for a step in a step level `podSpecPatch`. Previously this could be done with a step level `podSpec`.
-
-```yaml
-# pipeline.yaml
-agents:
-  queue: kubernetes
-steps:
-- name: Hello World!
-  commands:
-  - echo -n Hello!
-  - echo " World!"
-  plugins:
-  - kubernetes:
-      podSpecPatch:
-        containers:
-        - name: container-0
-          image: alpine:latest
-
-- name: Hello World from alpine!
-  commands:
-  - echo -n Hello
-  - echo " from alpine!"
-  plugins:
-  - kubernetes:
-      podSpecPatch:
-        containers:
-        - name: container-0      # <-- For the time being, specify this exactly as `container-0`.
-          image: alpine:latest   #     Currently under experimentation to make this more ergonomic.
-```
+For versions of the controller prior to 0.30.0, you can specify a different image using `podSpecPatch`. See [Custom images](/docs/agent/v3/self-hosted/agent-stack-k8s/custom-images) for detailed information on container types, image requirements, and configuration options.
 
 ### Environment variables precedence
 
