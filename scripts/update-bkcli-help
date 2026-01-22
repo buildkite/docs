@@ -7,7 +7,7 @@ set -euo pipefail
 
 # This picks the CLI version to generate docs for.
 # It should be a Git tag or commit hash.
-CLI_VERSION="v3.22.0"
+CLI_VERSION="v3.23.0"
 
 # Output directory for generated docs
 OUTPUT_DIR="$(git rev-parse --show-toplevel)/pages/platform/cli/reference"
