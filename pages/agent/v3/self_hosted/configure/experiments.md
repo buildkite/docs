@@ -132,7 +132,7 @@ After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This mak
 
 ## Promoted experiments
 
-The following features started as experiments before being promoted to fully supported features. Therefore, each of these features' behavior is now a part of Buildkite agent's default behavior, and there's no additional configuration required to use it.
+The following features started as experiments before being promoted to fully supported features. Therefore, each of these features' behavior is now a part of the Buildkite agent's default behavior, and there's no additional configuration required to use it.
 
 ### ANSI timestamps
 
