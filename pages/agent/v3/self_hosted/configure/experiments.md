@@ -21,7 +21,7 @@ experiment="experiment1,experiment2"
 If an experiment doesn't exist, no error will be raised.
 
 > 🚧
-> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using these experiments should be at your own risk. and without the expectation that they will work in future.
+> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.
 
 ## Available experiments
 
