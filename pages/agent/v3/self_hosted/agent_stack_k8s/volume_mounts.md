@@ -1,6 +1,6 @@
 # Volume mounts
 
-You can attach extra volume mounts (in addition to the `/workspace` one) to some or all of the pod containers. This can be useful when using [git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors), which are mounted as extra volumes.
+You can attach extra volume mounts (in addition to the `/workspace` one) to some or all of the pod containers. This can be useful when using [git mirrors](/docs/agent/v3/self-hosted/configure/experiments#promoted-experiments-git-mirrors), which are mounted as extra volumes.
 
 To attach extra volume mounts to _all_ containers (`checkout`, `agent`, `command`, `sidecar`, etc.), you can use the `kubernetes` plugin. For example:
 
