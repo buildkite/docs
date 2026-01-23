@@ -162,11 +162,11 @@ DELETE | `/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{uuid}` | [Delet
 
 Method | Endpoint | Description
 ------ | -------- | -----------
-GET | `/v2/organizations/{org.slug}/clusters` | [List clusters](/docs/apis/rest-api/clusters#list-clusters)
-GET | `/v2/organizations/{org.slug}/clusters/{id}` | [Get a cluster](/docs/apis/rest-api/clusters#get-a-cluster)
-POST | `/v2/organizations/{org.slug}/clusters` | [Create a cluster](/docs/apis/rest-api/clusters#create-a-cluster)
-PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/apis/rest-api/clusters#update-a-cluster)
-DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#delete-a-cluster)
+GET | `/v2/organizations/{org.slug}/clusters` | [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters)
+GET | `/v2/organizations/{org.slug}/clusters/{id}` | [Get a cluster](/docs/apis/rest-api/clusters#clusters-get-a-cluster)
+POST | `/v2/organizations/{org.slug}/clusters` | [Create a cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster)
+PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster)
+DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#clusters-delete-a-cluster)
 {: class="responsive-table"}
 
 ### Cluster queues
