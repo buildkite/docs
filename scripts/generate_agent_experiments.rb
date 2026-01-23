@@ -49,6 +49,7 @@ def parse_experiments_go(content)
   end
 
   # Parse Promoted experiments - extract version from standardPromotionMsg calls
+  # First, match from "Promoted = map"
   if content =~ /Promoted\s*=\s*map\[string\]string\{(.+?)^\s+\}/m
     promoted_block = $1
     # Match standardPromotionMsg(ConstName, "version")
@@ -133,13 +134,13 @@ def generate_markdown(experiments_data, descriptions)
   output << ''
   output << '# Agent experiments'
   output << ''
-  output << 'We frequently introduce new experimental features to the agent. Use the `--experiment` [flag](/docs/agent/v3/self-hosted/configure#experiment) to opt-in to them and test them out:'
+  output << 'Buildkite frequently introduces new experimental features to the agent. Use the [`--experiment` flag](/docs/agent/v3/self-hosted/configure#experiment) to opt-in to them and test them out:'
   output << ''
   output << '```'
   output << 'buildkite-agent start --experiment experiment1 --experiment experiment2'
   output << '```'
   output << ''
-  output << 'Or you can set them in your agent [configuration file](/docs/agent/v3/self-hosted/configure):'
+  output << 'Or you can set them in your [agent configuration file](/docs/agent/v3/self-hosted/configure):'
   output << ''
   output << '```'
   output << 'experiment="experiment1,experiment2"'
@@ -148,7 +149,7 @@ def generate_markdown(experiments_data, descriptions)
   output << 'If an experiment doesn\'t exist, no error will be raised.'
   output << ''
   output << '> 🚧'
-  output << '> Please note that there is every chance we will remove or change these experiments, so using them should be at your own risk and without the expectation that they will work in future!'
+  output << '> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using these experiments should be at your own risk. and without the expectation that they will work in future.'
   output << ''
   output << '## Available experiments'
   output << ''

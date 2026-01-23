@@ -6,13 +6,13 @@
 
 # Agent experiments
 
-We frequently introduce new experimental features to the agent. Use the `--experiment` [flag](/docs/agent/v3/self-hosted/configure#experiment) to opt-in to them and test them out:
+Buildkite frequently introduces new experimental features to the agent. Use the [`--experiment` flag](/docs/agent/v3/self-hosted/configure#experiment) to opt-in to them and test them out:
 
 ```
 buildkite-agent start --experiment experiment1 --experiment experiment2
 ```
 
-Or you can set them in your agent [configuration file](/docs/agent/v3/self-hosted/configure):
+Or you can set them in your [agent configuration file](/docs/agent/v3/self-hosted/configure):
 
 ```
 experiment="experiment1,experiment2"
@@ -21,7 +21,7 @@ experiment="experiment1,experiment2"
 If an experiment doesn't exist, no error will be raised.
 
 > 🚧
-> Please note that there is every chance we will remove or change these experiments, so using them should be at your own risk and without the expectation that they will work in future!
+> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using these experiments should be at your own risk. and without the expectation that they will work in future.
 
 ## Available experiments
 
