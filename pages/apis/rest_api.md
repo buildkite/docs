@@ -175,11 +175,12 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [List queues](/docs/apis/rest-api/clusters/queues#list-queues)
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Get a queue](/docs/apis/rest-api/clusters/queues#get-a-queue)
-POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a queue](/docs/apis/rest-api/clusters/queues#create-a-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a self-hosted queue](/docs/apis/rest-api/clusters/queues#create-a-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-queue)
 PUT | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Update a queue](/docs/apis/rest-api/clusters/queues#update-a-queue)
 DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Delete a queue](/docs/apis/rest-api/clusters/queues#delete-a-queue)
 POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch` | [Pause a queue](/docs/apis/rest-api/clusters/queues#pause-a-queue)
-POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/resume_dispatch` | [Resume a queue](/docs/apis/rest-api/clusters/queues#resume-a-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/resume_dispatch` | [Resume a paused queue](/docs/apis/rest-api/clusters/queues#resume-a-paused-queue)
 {: class="responsive-table"}
 
 ### Cluster agent tokens
@@ -208,7 +209,7 @@ DELETE | `/v2/organizations/{org.slug}/pipeline-templates/{uuid}` | [Delete a pi
 
 Method | Endpoint | Description
 ------ | -------- | -----------
-GET | `/v2/organizations/{org.slug}/rules` | [List rules](/docs/apis/rest-api/rules#list-rules)
+GET | `/v2/organizations/{org.slug}/rules` | [List rules](/docs/apis/rest-api/rules#rules-list-rules)
 GET | `/v2/organizations/{org.slug}/rules/{uuid}` | [Get a rule](/docs/apis/rest-api/rules#rules-get-a-rule)
 POST | `/v2/organizations/{org.slug}/rules` | [Create a rule](/docs/apis/rest-api/rules#rules-create-a-rule)
 DELETE | `/v2/organizations/{org.slug}/rules/{uuid}` | [Delete a rule](/docs/apis/rest-api/rules#rules-delete-a-rule)
