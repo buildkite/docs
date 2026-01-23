@@ -50,6 +50,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/jobeventcanceled" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventCanceled">
   <code>JobEventCanceled</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobeventchanged" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventChanged">
+  <code>JobEventChanged</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/jobeventfinished" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventFinished">
   <code>JobEventFinished</code>
 </a>

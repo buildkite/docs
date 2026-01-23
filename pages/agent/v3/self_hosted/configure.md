@@ -93,6 +93,10 @@ agent CLI help in https://github.com/buildkite/agent and run the generation scri
 </table>
 <!-- vale on -->
 
+### Experimental features
+
+Buildkite frequently introduces new experimental features to the agent, which can be enabled using the [`experiment` flag or the `$BUILDKITE_AGENT_EXPERIMENT` environment variable setting](#experiment). These features are not yet considered stable and may change or be removed in future versions of the agent. Learn more about these experimental features in [Agent experiments](/docs/agent/v3/self-hosted/configure/experiments).
+
 ## Deprecated configuration settings
 
 <table>
