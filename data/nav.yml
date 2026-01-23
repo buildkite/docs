@@ -18,6 +18,8 @@
         - name: "Build page"
           path: "pipelines/build-page"
           pill: "new"
+        - name: "Advantages"
+          path: "pipelines/advantages"
         - name: Pipeline converter
           children:
             - name: "Overview"
