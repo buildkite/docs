@@ -10,7 +10,7 @@ The goal of the Buildkite pipeline converter is to give you a starting point, so
 
 To start converting a GitHub Actions workflow into Buildkite Pipelines format:
 
-1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Open the [Buildkite pipeline conversion interactive web tool](https://buildkite.com/resources/convert/) in a new browser tab.
 1. Ensure that **GitHub Actions** is selected at the top of the left panel.
 1. Copy your GitHub Actions workflow configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.

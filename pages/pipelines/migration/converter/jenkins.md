@@ -1,18 +1,22 @@
 # Jenkins
 
-The [Buildkite pipeline converter](/docs/pipelines/migration/tool) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the Scripted and Declarative forms of Jenkins pipelines are supported. Because Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model (LLM).
+The [Buildkite pipeline converter](/docs/pipelines/migration/tool) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the Scripted and Declarative forms of Jenkins pipelines are supported.
+
+Since Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model (LLM).
 
 The LLM first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. Note that the AI model _does not_ use any submitted data for its own training.
 
 As with any of the other CI systems we translate from ([GitHub Actions](/docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)), there will be Jenkins pipeline features that don't have a direct equivalent in Buildkite Pipelines. In those cases, the pipeline converter will include comments in the output with suggestions about possible solutions you could explore.
 
-The goal of the pipeline converter is to give you a starting point or framework of a pipeline, so you can see how patterns you're used to in Jenkins would function in Buildkite. As such, the tool will not try to convert your build's shell scripts or other complex logic automatically. Instead, it will generate placeholder steps for those items, so that you can see the structure of the pipeline working in Buildkite. You can then flesh out the details of an equivalent pipeline functionality at your own convenience and pace.
+The goal of the pipeline converter is to give you a starting point or framework of a pipeline, so you can see how patterns you're used to in Jenkins would function in Buildkite. As such, the tool will not try to convert your build's shell scripts or other complex logic automatically.
+
+Instead, it will generate placeholder steps for those items, so that you can see the structure of the pipeline working in Buildkite. You can then flesh out the details of an equivalent pipeline functionality at your own convenience and pace.
 
 ## Using the Buildkite pipeline converter with Jenkins pipelines
 
 To start converting a Jenkins pipeline into Buildkite Pipelines format:
 
-1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/migrate/) in a new browser tab.
+1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
 1. Ensure that **Jenkins** is selected at the top of the left panel.
 1. Copy your Jenkins pipeline configuration and paste it into the left panel.
 1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.

@@ -83,6 +83,7 @@ Optional attributes:
     <td>
       A unique string to identify the step, block, or group.<br/>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
+      When set on a group step, all jobs within the group will include a <code>group_key</code> field in <a href="/docs/apis/rest-api/builds">REST API builds endpoint</a> responses with this value, allowing you to identify which jobs belong to this group.<br/>
       <em>Example:</em> <code>"test-suite"</code><br/>
       <em>Alias:</em> <code>identifier</code>
     </td>

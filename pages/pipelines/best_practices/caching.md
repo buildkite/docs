@@ -126,13 +126,13 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 > 📘 Non-deterministic behavior
 > Cache volumes on Buildkite hosted agents are [non-deterministic by nature](/docs/agent/v3/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature) and allow for dependency caching and Git mirror caching.
-> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](/docs/agent/v3/buildkite-hosted/remote-docker-builders) which allow you to have fast Docker builds and the [internal Docker registry](/docs/agent/v3/buildkite-hosted/internal-container-registry).
+> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) which allow you to have fast Docker builds and the [internal container registry](/docs/agent/v3/buildkite-hosted/internal-container-registry).
 
 - What to cache:
-    * Use cache volumes for “local” tool data that’s expensive to refetch between ephemeral jobs, e.g. Bazel repository cache and custom CLIs.
-    * Prefer a remote cache (e.g., BuildBuddy or Bazel-remote on AWS) for cross-machine reuse. Treat local volumes as best‑effort accelerators.
+    * Use cache volumes for local tool data that's expensive to refetch between ephemeral jobs, for example, Bazel repository cache and custom CLIs.
+    * Prefer a remote cache (for example, BuildBuddy or Bazel-remote on AWS) for cross-machine reuse. Treat local volumes as best‑effort accelerators.
 - Recommended caching patterns:
-    * Use Buildkite hosted agents + cache volumes mounted to Bazel’s repository cache path to avoid fetching the external dependencies twice.
+    * Use Buildkite hosted agents with cache volumes mounted to Bazel's repository cache path to avoid fetching the external dependencies twice.
     * Standardize cache config via a CI `bazelrc` emitted per job, injected alongside secrets in pre‑commands.
     * Use the [official Buildkite plugins](/docs/pipelines/integrations/plugins/directory) for caching (for example, the [Cache Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/)) when you need to persist directories by key to object storage (for example, S3).
 

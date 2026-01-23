@@ -26,6 +26,7 @@ The `bk job` command allows you to manage jobs within builds from the command li
 | --- | --- |
 | `bk job cancel` | Cancel a job. |
 | `bk job list` | List jobs. |
+| `bk job log` | Get logs for a job. |
 | `bk job retry` | Retry a job. |
 | `bk job unblock` | Unblock a job. |
 
@@ -82,12 +83,12 @@ bk job list [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | Filter by pipeline slug |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
+| `--output=""` | Output format. One of: json, yaml, text |
 | `--order-by=STRING` | Order results by field (start_time, duration) |
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
@@ -148,6 +149,49 @@ Get JSON output for bulk operations:
 
 ```bash
 bk job list --queue test-queue -o json
+```
+
+## Log job
+
+Get logs for a job.
+
+```bash
+bk job log <job-id> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<job-id>` | Job UUID to get logs for |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-b`, `--build-number=STRING` | The build number |
+| `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug} |
+| `--debug` | Enable debug output for REST API calls |
+| `--no-timestamps` | Strip timestamp prefixes from log output |
+
+### Examples
+
+Get a job's logs by UUID (requires --pipeline and --build):
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123
+```
+
+If inside a git repository with a configured pipeline:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 -b 123
+```
+
+Strip timestamp prefixes from output:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123 --no-timestamps
 ```
 
 ## Retry a job
@@ -218,4 +262,3 @@ Unblock with data from stdin:
 ```bash
 echo '{"field": "value"}' | bk job unblock 0190046e-e199-453b-a302-a21a4d649d31
 ```
-
