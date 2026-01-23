@@ -171,20 +171,20 @@ def generate_markdown(experiments_data, descriptions)
       output << '_No description available._'
     end
     output << ''
-    output << '> 🛠 Experimental feature'
-    output << "> To use it, set <code>experiment=\"#{name}\"</code> in your <a href=\"/docs/agent/v3/self-hosted/configure#experiment\"> agent configuration</a>."
+    output << '> 🛠'
+    output << "> To use this feature, set <code>experiment=\"#{name}\"</code> in your <a href=\"/docs/agent/v3/self-hosted/configure#experiment\">agent configuration</a>."
     output << ''
   end
 
   output << '## Promoted experiments'
   output << ''
-  output << 'The following features started as experiments before being promoted to fully supported features.'
+  output << "The following features started as experiments before being promoted to fully supported features. Therefore, each of these features' behavior is now a part of Buildkite agent's default behavior, and there's no additional configuration required to use it."
   output << ''
 
   promoted.each do |name, version|
     output << "### #{format_experiment_name(name)}"
     output << ''
-    output << "Promoted in [#{version}](https://github.com/buildkite/agent/releases/tag/#{version}). It's the default behavior, so there's no configuration required to use it."
+    output << "Promoted in [#{version}](https://github.com/buildkite/agent/releases/tag/#{version})."
     output << ''
   end
 

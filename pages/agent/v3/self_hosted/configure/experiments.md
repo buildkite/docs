@@ -32,8 +32,8 @@ This exposes a local API for interacting with the agent process.
 
 The API is exposed using a Unix Domain Socket. The path to the socket is not available using a environment variable - rather, there is a single (configurable) path on the system.
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Allow artifact path traversal
 
@@ -54,15 +54,15 @@ has a different effect depending on this experiment:
 - With `allow-artifact-path-traversal` disabled, `foo.txt` is downloaded to `./foo.txt`.
 - With `allow-artifact-path-traversal` enabled, `foo.txt` is downloaded to `../../foo.txt`.
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="allow-artifact-path-traversal"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="allow-artifact-path-traversal"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Descending spawn priority
 
 _No description available._
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="descending-spawn-priority"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="descending-spawn-priority"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Interpolation prefers runtime env
 
@@ -70,8 +70,8 @@ When interpolating the pipeline level environment block, a pipeline level enviro
 
 We previously made this the default behaviour of the agent (as of v3.63.0) but have since reverted it.
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="interpolation-prefers-runtime-env"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="interpolation-prefers-runtime-env"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Normalised upload paths
 
@@ -86,8 +86,8 @@ Take `buildkite-agent artifact upload coverage\report.xml` as an example:
 
 **Status**: a major improvement for Windows compatibility, we'd like this to be the standard behaviour in 4.0. 👍👍
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Override zero exit on cancel
 
@@ -98,15 +98,15 @@ non-zero status code. On Windows this is not true - the process exits with code 
 makes the job appear to be successful. (It successfully exited, no?) By overriding the status to 1,
 a cancelled job should appear as a failure, regardless of the OS the agent is running on.
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="override-zero-exit-on-cancel"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="override-zero-exit-on-cancel"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Propagate agent config vars
 
 _No description available._
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="propagate-agent-config-vars"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="propagate-agent-config-vars"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### PTY raw
 
@@ -118,8 +118,8 @@ We run commands in a PTY mostly (entirely?) so that the program detects a PTY an
 running in a terminal, using ANSI escapes to provide colours, progress meters etc. But we don't need
 the PTY to modify the stream. (Or do we? That's why this is an experiment)
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="pty-raw"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="pty-raw"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ### Resolve commit after checkout
 
@@ -127,49 +127,49 @@ After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This mak
 
 **Status**: broadly useful, we'd like this to be the standard behaviour in 4.0. 👍👍
 
-> 🛠 Experimental feature
-> To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment"> agent configuration</a>.
+> 🛠
+> To use this feature, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
 
 ## Promoted experiments
 
-The following features started as experiments before being promoted to fully supported features.
+The following features started as experiments before being promoted to fully supported features. Therefore, each of these features' behavior is now a part of Buildkite agent's default behavior, and there's no additional configuration required to use it.
 
 ### ANSI timestamps
 
-Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
 
 ### Avoid recursive trap
 
-Promoted in [v3.66.0](https://github.com/buildkite/agent/releases/tag/v3.66.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.66.0](https://github.com/buildkite/agent/releases/tag/v3.66.0).
 
 ### Flock file locks
 
-Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
 
 ### Git mirrors
 
-Promoted in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
 
 ### Inbuilt status page
 
-Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
 
 ### Isolated plugin checkout
 
-Promoted in [v3.67.0](https://github.com/buildkite/agent/releases/tag/v3.67.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.67.0](https://github.com/buildkite/agent/releases/tag/v3.67.0).
 
 ### Job api
 
-Promoted in [v3.64.0](https://github.com/buildkite/agent/releases/tag/v3.64.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.64.0](https://github.com/buildkite/agent/releases/tag/v3.64.0).
 
 ### Kubernetes exec
 
-Promoted in [v3.74.0](https://github.com/buildkite/agent/releases/tag/v3.74.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.74.0](https://github.com/buildkite/agent/releases/tag/v3.74.0).
 
 ### Polyglot hooks
 
-Promoted in [v3.85.0](https://github.com/buildkite/agent/releases/tag/v3.85.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.85.0](https://github.com/buildkite/agent/releases/tag/v3.85.0).
 
 ### Use zzglob
 
-Promoted in [v3.104.0](https://github.com/buildkite/agent/releases/tag/v3.104.0). It's the default behavior, so there's no configuration required to use it.
+Promoted in [v3.104.0](https://github.com/buildkite/agent/releases/tag/v3.104.0).
