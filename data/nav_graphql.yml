@@ -418,6 +418,8 @@
     path: apis/graphql/schemas/object/jobeventbuildstepuploadcreated
   - name: JobEventCanceled
     path: apis/graphql/schemas/object/jobeventcanceled
+  - name: JobEventChanged
+    path: apis/graphql/schemas/object/jobeventchanged
   - name: JobEventConnection
     path: apis/graphql/schemas/object/jobeventconnection
   - name: JobEventEdge
