@@ -190,7 +190,7 @@ GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens` | [List agent 
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Get an agent token](/docs/apis/rest-api/clusters/agent-tokens#get-a-token)
 POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens` | [Create an agent token](/docs/apis/rest-api/clusters/agent-tokens#create-a-token)
 PUT | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Update an agent token](/docs/apis/rest-api/clusters/agent-tokens#update-a-token)
-DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Delete an agent token](/docs/apis/rest-api/clusters/agent-tokens#delete-a-token)
+DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Revoke an agent token](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-token)
 {: class="responsive-table"}
 
 ### Pipeline templates
@@ -209,9 +209,9 @@ DELETE | `/v2/organizations/{org.slug}/pipeline-templates/{uuid}` | [Delete a pi
 Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/rules` | [List rules](/docs/apis/rest-api/rules#list-rules)
-GET | `/v2/organizations/{org.slug}/rules/{uuid}` | [Get a rule](/docs/apis/rest-api/rules#get-a-rule)
-POST | `/v2/organizations/{org.slug}/rules` | [Create a rule](/docs/apis/rest-api/rules#create-a-rule)
-DELETE | `/v2/organizations/{org.slug}/rules/{uuid}` | [Delete a rule](/docs/apis/rest-api/rules#delete-a-rule)
+GET | `/v2/organizations/{org.slug}/rules/{uuid}` | [Get a rule](/docs/apis/rest-api/rules#rules-get-a-rule)
+POST | `/v2/organizations/{org.slug}/rules` | [Create a rule](/docs/apis/rest-api/rules#rules-create-a-rule)
+DELETE | `/v2/organizations/{org.slug}/rules/{uuid}` | [Delete a rule](/docs/apis/rest-api/rules#rules-delete-a-rule)
 {: class="responsive-table"}
 
 ### Emojis
