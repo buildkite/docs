@@ -222,6 +222,7 @@ exceptions:
   - podSpecPatch
   - PowerShell
   - Prometheus
+  - PTY
   - pytest
   - QA
   - RBAC
