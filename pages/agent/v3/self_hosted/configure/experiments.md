@@ -25,7 +25,7 @@ If an experiment doesn't exist, no error will be raised.
 
 ## Available experiments
 
-### Agent api
+### Agent API
 
 This exposes a local API for interacting with the agent process.
 ...with primitives that can be used to solve local concurrency problems (such as multiple agents handling some shared local resource).
@@ -59,7 +59,6 @@ has a different effect depending on this experiment:
 
 ### Descending spawn priority
 
-_No description available._
 
 > 🛠
 > To use this feature, set <code>experiment="descending-spawn-priority"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
@@ -103,7 +102,6 @@ a cancelled job should appear as a failure, regardless of the OS the agent is ru
 
 ### Propagate agent config vars
 
-_No description available._
 
 > 🛠
 > To use this feature, set <code>experiment="propagate-agent-config-vars"</code> in your <a href="/docs/agent/v3/self-hosted/configure#experiment">agent configuration</a>.
@@ -158,7 +156,7 @@ Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
 
 Promoted in [v3.67.0](https://github.com/buildkite/agent/releases/tag/v3.67.0).
 
-### Job api
+### Job API
 
 Promoted in [v3.64.0](https://github.com/buildkite/agent/releases/tag/v3.64.0).
 

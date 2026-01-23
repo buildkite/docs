@@ -102,19 +102,21 @@ end
 
 def format_experiment_name(name)
   # Sentence case: only capitalize first word
-  # Acronyms stay uppercase only if they're the first word
+  # Acronyms stay uppercase anywhere they appear in a word
+  acronyms = %w[api pty ansi]
   words = name.split('-')
 
   words.map.with_index do |word, i|
-    if i == 0
-      # First word: uppercase if acronym, otherwise capitalize
-      if %w[api pty ansi].include?(word.downcase)
-        word.upcase
-      else
-        word.capitalize
-      end
+    lower_word = word.downcase
+    # Check if any acronym appears anywhere in the word
+    matching_acronym = acronyms.find { |acr| lower_word.include?(acr) }
+
+    if matching_acronym
+      # Replace the acronym portion with uppercase, keep rest appropriate case
+      lower_word.gsub(matching_acronym, matching_acronym.upcase)
+    elsif i == 0
+      word.capitalize
     else
-      # All subsequent words: lowercase (even acronyms, per sentence case rules)
       word.downcase
     end
   end.join(' ')
@@ -167,8 +169,6 @@ def generate_markdown(experiments_data, descriptions)
         .lines.map { |line| line.rstrip }.join("\n")
         .strip
       output << desc
-    else
-      output << '_No description available._'
     end
     output << ''
     output << '> 🛠'
