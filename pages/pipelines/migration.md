@@ -12,7 +12,7 @@ Using the Buildkite pipeline converter will accelerate your understanding of Bui
 
 You can immediately start experimenting with the Buildkite pipeline converter in its [interactive web-based app](https://buildkite.com/resources/convert/) form.
 
-<%= image "pipeline-converter-web-ui.png", alt: "Converting GitHub Actions pipeline to a Buildkite pipeline using Buildkite migration tool" %>
+<%= image "pipeline-converter-web-ui.png", alt: "Converting GitHub Actions pipeline to a Buildkite pipeline using Buildkite pipeline converter" %>
 
 ## Migration guides
 
