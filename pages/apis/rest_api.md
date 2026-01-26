@@ -175,8 +175,8 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [List queues](/docs/apis/rest-api/clusters/queues#list-queues)
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Get a queue](/docs/apis/rest-api/clusters/queues#get-a-queue)
-POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a self-hosted queue](/docs/apis/rest-api/clusters/queues#create-a-queue)
-POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a self-hosted queue](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-buildkite-hosted-queue)
 PUT | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Update a queue](/docs/apis/rest-api/clusters/queues#update-a-queue)
 DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Delete a queue](/docs/apis/rest-api/clusters/queues#delete-a-queue)
 POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch` | [Pause a queue](/docs/apis/rest-api/clusters/queues#pause-a-queue)
