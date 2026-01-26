@@ -142,7 +142,7 @@ def generate_markdown(experiments_data, descriptions)
   output << ''
   output << '1. Make changes to the relevant agent files in https://github.com/buildkite/agent'
   output << '   For content not in that repo, edit it in scripts/agent_experiments2md/agent_experiments2md.rb'
-  output << "2. Run './scripts/generate-agent-experiments.sh' from the docs repo root"
+  output << "2. Run './scripts/update-agent-experiments.sh' from the docs repo root"
   output << '-->'
   output << ''
   output << '# Agent experiments'

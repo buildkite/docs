@@ -12,7 +12,7 @@ To update this file:
 
 1. Make changes to the relevant agent files in https://github.com/buildkite/agent
    For content not in that repo, edit it in scripts/agent_experiments2md/agent_experiments2md.rb
-2. Run './scripts/generate-agent-experiments.sh' from the docs repo root
+2. Run './scripts/update-agent-experiments.sh' from the docs repo root
 -->
 
 # Agent experiments
