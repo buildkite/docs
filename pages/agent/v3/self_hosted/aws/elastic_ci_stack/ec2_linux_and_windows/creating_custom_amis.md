@@ -96,7 +96,7 @@ This [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/mai
       },
       {
         "command": "make packer-windows-amd64.output",
-        "description": "Build Windows Server 2019 (64-bit x86) AMI only"
+        "description": "Build Windows Server 2022 (64-bit x86) AMI only"
       }
     ].select { |field| field[:command] }.each do |field| %>
       <tr>
