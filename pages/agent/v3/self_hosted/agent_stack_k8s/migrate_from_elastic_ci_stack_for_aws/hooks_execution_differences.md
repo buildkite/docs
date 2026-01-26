@@ -109,6 +109,16 @@ When using `checkout: skip: true`:
 
 **Solution:** If your hooks depend on checkout hooks running, ensure they don't rely on this behavior when checkout is skipped, or move the logic to command-phase hooks.
 
+#### 4. Plugin permission issues with non-root users
+
+**On EC2 (works):**
+Plugins run with consistent user permissions throughout the job lifecycle. Command hooks have access to plugin resources without permission conflicts since the agent process runs with the same user context.
+
+**On Kubernetes (permission issues):**
+Plugins owned by root in agent-stack-k8s can cause permission issues when command containers run with non-root users. This results in plugin access failures when command-phase hooks attempt to execute or read plugin files.
+
+**Solution:** Adjust file permissions on plugin files to allow non-root users to access them. Set appropriate read and execute permissions to the files at the command container  (e.g., `chmod 755` for directories, `chmod 644` for files, or `chmod 755` for executable scripts).
+
 ## Testing your migration
 
 When migrating from Elastic CI Stack to Agent Stack for Kubernetes:
