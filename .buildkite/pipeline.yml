@@ -48,7 +48,7 @@ steps:
       - .buildkite/plugins/check-for-changes:
           fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
 
-  - label: ":go: Check generated agent docs"
+  - label: ":go: Check generated agent CLI docs"
     if_changed: pages/agent/v3/cli/help/*.md
     command: ./scripts/update-agent-help.sh
     agents:
@@ -59,27 +59,27 @@ steps:
       - .buildkite/plugins/check-for-changes:
           fail_message: "Do not edit agent CLI docs directly - use scripts/update-agent-help.sh"
 
-  - label: ":go: Check generated CLI docs"
+  - label: ":go: Check generated BK CLI docs"
     if_changed: pages/platform/cli/*.md
-    command: ./scripts/update-bkcli-help
+    command: ./scripts/update-bkcli-help.sh
     agents:
       queue: hosted-m
     plugins:
       - docker#v5.13.0:
           image: "golang:1.24"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help"
+          fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help.sh"
 
   - label: ":test_tube: Check generated agent experiments docs"
     if_changed: pages/agent/v3/self_hosted/configure/experiments.md
-    command: ruby scripts/generate_agent_experiments.rb > pages/agent/v3/self_hosted/configure/experiments.md
+    command: ./scripts/update-agent-experiments.sh
     agents:
       queue: hosted-m
     plugins:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit experiments.md directly - update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md and run scripts/generate_agent_experiments.rb"
+          fail_message: "Do not edit experiments.md directly - update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md and use scripts/update-agent-experiments.sh"
 
   - group: "Lint all the things"
     key: linting
