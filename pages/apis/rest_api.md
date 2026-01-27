@@ -183,7 +183,7 @@ POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dis
 POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/resume_dispatch` | [Resume a paused queue](/docs/apis/rest-api/clusters/queues#resume-a-paused-queue)
 {: class="responsive-table"}
 
-### Cluster agent tokens
+### Agent tokens
 
 Method | Endpoint | Description
 ------ | -------- | -----------
