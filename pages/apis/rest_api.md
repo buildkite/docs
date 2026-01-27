@@ -162,27 +162,28 @@ DELETE | `/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{uuid}` | [Delet
 
 Method | Endpoint | Description
 ------ | -------- | -----------
-GET | `/v2/organizations/{org.slug}/clusters` | [List clusters](/docs/apis/rest-api/clusters#list-clusters)
-GET | `/v2/organizations/{org.slug}/clusters/{id}` | [Get a cluster](/docs/apis/rest-api/clusters#get-a-cluster)
-POST | `/v2/organizations/{org.slug}/clusters` | [Create a cluster](/docs/apis/rest-api/clusters#create-a-cluster)
-PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/apis/rest-api/clusters#update-a-cluster)
-DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#delete-a-cluster)
+GET | `/v2/organizations/{org.slug}/clusters` | [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters)
+GET | `/v2/organizations/{org.slug}/clusters/{id}` | [Get a cluster](/docs/apis/rest-api/clusters#clusters-get-a-cluster)
+POST | `/v2/organizations/{org.slug}/clusters` | [Create a cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster)
+PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster)
+DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#clusters-delete-a-cluster)
 {: class="responsive-table"}
 
-### Cluster queues
+### Queues
 
 Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [List queues](/docs/apis/rest-api/clusters/queues#list-queues)
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Get a queue](/docs/apis/rest-api/clusters/queues#get-a-queue)
-POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a queue](/docs/apis/rest-api/clusters/queues#create-a-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a self-hosted queue](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues` | [Create a Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-buildkite-hosted-queue)
 PUT | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Update a queue](/docs/apis/rest-api/clusters/queues#update-a-queue)
 DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}` | [Delete a queue](/docs/apis/rest-api/clusters/queues#delete-a-queue)
 POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch` | [Pause a queue](/docs/apis/rest-api/clusters/queues#pause-a-queue)
-POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/resume_dispatch` | [Resume a queue](/docs/apis/rest-api/clusters/queues#resume-a-queue)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/resume_dispatch` | [Resume a paused queue](/docs/apis/rest-api/clusters/queues#resume-a-paused-queue)
 {: class="responsive-table"}
 
-### Cluster agent tokens
+### Agent tokens
 
 Method | Endpoint | Description
 ------ | -------- | -----------
@@ -190,7 +191,7 @@ GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens` | [List agent 
 GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Get an agent token](/docs/apis/rest-api/clusters/agent-tokens#get-a-token)
 POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens` | [Create an agent token](/docs/apis/rest-api/clusters/agent-tokens#create-a-token)
 PUT | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Update an agent token](/docs/apis/rest-api/clusters/agent-tokens#update-a-token)
-DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Delete an agent token](/docs/apis/rest-api/clusters/agent-tokens#delete-a-token)
+DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}` | [Revoke an agent token](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-token)
 {: class="responsive-table"}
 
 ### Pipeline templates
@@ -208,10 +209,10 @@ DELETE | `/v2/organizations/{org.slug}/pipeline-templates/{uuid}` | [Delete a pi
 
 Method | Endpoint | Description
 ------ | -------- | -----------
-GET | `/v2/organizations/{org.slug}/rules` | [List rules](/docs/apis/rest-api/rules#list-rules)
-GET | `/v2/organizations/{org.slug}/rules/{uuid}` | [Get a rule](/docs/apis/rest-api/rules#get-a-rule)
-POST | `/v2/organizations/{org.slug}/rules` | [Create a rule](/docs/apis/rest-api/rules#create-a-rule)
-DELETE | `/v2/organizations/{org.slug}/rules/{uuid}` | [Delete a rule](/docs/apis/rest-api/rules#delete-a-rule)
+GET | `/v2/organizations/{org.slug}/rules` | [List rules](/docs/apis/rest-api/rules#rules-list-rules)
+GET | `/v2/organizations/{org.slug}/rules/{uuid}` | [Get a rule](/docs/apis/rest-api/rules#rules-get-a-rule)
+POST | `/v2/organizations/{org.slug}/rules` | [Create a rule](/docs/apis/rest-api/rules#rules-create-a-rule)
+DELETE | `/v2/organizations/{org.slug}/rules/{uuid}` | [Delete a rule](/docs/apis/rest-api/rules#rules-delete-a-rule)
 {: class="responsive-table"}
 
 ### Emojis

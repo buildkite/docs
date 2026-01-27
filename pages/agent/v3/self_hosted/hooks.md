@@ -98,7 +98,7 @@ Polyglot hook usage comes with the following caveats:
 * Interpreted hooks are not supported on Windows.
 * Hooks must not have a file extension–except on Windows, where binary hooks must have the `.exe` extension.
 * For interpreted hooks, the specified interpreter must already be installed on the agent machine. The agent won't install the interpreter or any package dependencies for you.
-* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3#promoted-experiments-job-api).
+* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3/self-hosted/configure/experiments#promoted-experiments-job-api).
 
 ## Agent lifecycle hooks
 
