@@ -169,7 +169,7 @@ PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/ap
 DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#clusters-delete-a-cluster)
 {: class="responsive-table"}
 
-### Cluster queues
+### Queues
 
 Method | Endpoint | Description
 ------ | -------- | -----------
