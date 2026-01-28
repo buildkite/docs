@@ -148,6 +148,7 @@ Eventbridge
 EventBridge
 exfiltrated
 exfiltration
+explainshell
 fastfile
 fastlane
 fastlane's

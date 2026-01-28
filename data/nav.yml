@@ -303,6 +303,8 @@
               children:
                 - name: "Overview"
                   path: "agent/v3/self-hosted/configure"
+                - name: "Experiments"
+                  path: "agent/v3/self-hosted/configure/experiments"
                 - name: "Git mirrors"
                   path: "agent/v3/self-hosted/configure/git-mirrors"
             - name: "Hooks"
