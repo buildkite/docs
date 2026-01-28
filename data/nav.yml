@@ -124,10 +124,8 @@
           children:
             - name: "Tokens"
               path: "agent/v3/self-hosted/tokens"
-            - name: "SSH keys"
-              path: "agent/v3/self-hosted/ssh-keys"
-            - name: "GitHub SSH keys"
-              path: "agent/v3/self-hosted/github-ssh-keys"
+            - name: "Code access"
+              path: "agent/v3/self-hosted/code-access"
             - name: "Run on Kubernetes"
               children:
                 - name: "Overview"
