@@ -28,7 +28,7 @@ Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whe
 
 ### Security and control
 
-**Zero-trust architecture**: Your source code, secrets, and proprietary data never leave your infrastructure. Buildkite Pipelines's control plane orchestrates builds without ever accessing your code.
+**Zero-trust architecture**: Your source code, secrets, and proprietary data never leave your infrastructure. Buildkite Pipelines' control plane orchestrates builds without ever accessing your code.
 
 **Compliance-ready by default**: Because builds run in your environment, Buildkite Pipelines aligns with your existing compliance posture. No need to audit shared cloud runners or worry about data residency requirements.
 
@@ -52,7 +52,7 @@ Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whe
 
 ### Predictable economics
 
-**Transparent pricing**: No surprise bills from exceeding runner minutes or credit allocations. Buildkite Pipelines's pricing is based on agent concurrency, typically using the 95th percentile, so short bursts don't inflate costs.
+**Transparent pricing**: No surprise bills from exceeding runner minutes or credit allocations. Buildkite Pipelines' pricing is based on agent concurrency, typically using the 95th percentile, so short bursts don't inflate costs.
 
 **Infrastructure control**: Use your own compute (including spot instances or spare capacity) to optimize costs, or leverage Buildkite hosted agents for specialized workloads like macOS builds.
 
@@ -84,7 +84,7 @@ Buildkite Pipelines is the right choice when:
 
 Buildkite Pipelines delivers what modern software teams need: unlimited scale, exceptional speed, zero-compromise security, and the flexibility to build exactly the workflows your organization requires. It's purpose-built for teams who refuse to let their CI/CD system become a bottleneck to innovation.
 
-The following sections explore the advantages of migrating to Buildkite Pipelines from other specific CI/CD systems in detail. Each comparison examines architectural differences, migration considerations, and specific scenarios where Buildkite Pipelines's advantages become most apparent.
+The following sections explore the advantages of migrating to Buildkite Pipelines from other specific CI/CD systems in detail. Each comparison examines architectural differences, migration considerations, and specific scenarios where Buildkite Pipelines' advantages become most apparent.
 
 ## Advantages of migrating from Jenkins
 
