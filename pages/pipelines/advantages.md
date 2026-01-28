@@ -188,7 +188,7 @@ Buildkite [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) gener
 
 ### Better reliability
 
-GitHub Actions experiences frequent reliability issues that can block entire organizations. Buildkite maintains strong uptime, and since builds run on your infrastructure, you're not affected by multitenant cloud environment problems or noisy neighbors.
+GitHub Actions experiences frequent reliability issues that can block entire organizations. Buildkite maintains strong uptime, and since builds run on your infrastructure, you're not affected by multi-tenant cloud environment problems or noisy neighbors.
 
 ### Superior hosted machines
 

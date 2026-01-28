@@ -192,6 +192,7 @@ heroku
 Honeycomb
 hostname
 hostPath
+hotfixes
 http
 httpd
 httplog
