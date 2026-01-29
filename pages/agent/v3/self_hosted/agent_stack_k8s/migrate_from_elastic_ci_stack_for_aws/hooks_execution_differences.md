@@ -1,36 +1,34 @@
 # Hook execution differences
 
-The primary migration consideration when migrating from the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) to the Buildkite Agent Stack for Kubernetes ([agent-stack-k8s](https://github.com/buildkite/agent-stack-k8s)), is how agent hooks behave differently in the Kubernetes controller compared to EC2 instances. There is a different execution process unique to the Agent Stack for Kubernetes since the checkout and command phases run in **separate containers**.
+Agent hooks execute differently between the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) and the Buildkite Agent Stack for Kubernetes ([agent-stack-k8s](https://github.com/buildkite/agent-stack-k8s)). On EC2 instances, all hooks run in a single agent process. On the Agent Stack for Kubernetes, checkout and command phases run in **separate containers**. This separation significantly impacts how hooks can share state and communicate with each other.
 
-### Separate container execution
+## Separate container execution
 
-**Checkout phase hooks** (`pre-checkout`, `checkout`, `post-checkout`):
-- Run only in the `checkout` container
-- Have access to checkout-phase environment variables
-- Can modify files in the workspace (shared with command containers)
-- Cannot directly pass environment variables to command containers
+Hooks are categorized by their lifecycle phase. See [job lifecycle hooks](#job-lifecycle-hooks). On the Agent Stack for Kubernetes, they can be categorized as `checkout`, `command` and the `environment`. These phases execute in separate containers.
 
-**Command phase hooks** (`pre-command`, `command`, `post-command`):
-- Run only in the user-defined `command` container(s)
-- Do not have access to environment variables set during checkout hooks
-- Can access files created by checkout hooks (via shared workspace)
+**Checkout phase hooks** (`pre-checkout`, `checkout`, `post-checkout`)
 
-**Environment hook**:
-- Runs **multiple times** per job (once per container)
-- Executes in the checkout container first
-- Executes again in each command container
-- Each execution is isolated
+These hooks run only in the `checkout` container. They have access to checkout-phase environment variables and can modify files in the workspace (shared with command containers). However, environment variables set during this phase cannot be directly passed to command containers.
 
-> ⚠️ Critical difference from EC2
+**Command phase hooks** (`pre-command`, `command`, `post-command`)
+
+These hooks run only in the user-defined `command` container(s). They do not have access to environment variables set during checkout hooks, but can access files created by checkout hooks via the shared workspace.
+
+**Environment hook**
+
+This hook runs **multiple times** per job (once per container). It executes in the checkout container first, then executes again in each command container. Each execution is isolated.
+
+> 🚧 Critical difference from EC2
 > Environment variables set during the checkout phase (`pre-checkout`, `checkout`, `post-checkout` hooks) will **not** be available during the command phase (`pre-command`, `command`, `post-command` hooks). This is operationally different from how hooks are [sourced](/docs/agent/v3/hooks#hook-scopes) on EC2-based Elastic CI Stack agents.
 
-### Migration strategies
+## Migration strategies
 
 When migrating hooks that worked on the Elastic CI Stack for AWS, consider these approaches:
 
-#### 1. Sharing environment variables between phases
+### 1. Sharing environment variables between phases
 
 **On EC2 (works):**
+
 ```bash
 # .buildkite/hooks/post-checkout
 export MY_CUSTOM_VAR="value"
@@ -40,6 +38,7 @@ echo $MY_CUSTOM_VAR  # ✅ Available on EC2
 ```
 
 **On Kubernetes (does not work as expected):**
+
 ```bash
 # .buildkite/hooks/post-checkout
 export MY_CUSTOM_VAR="value"  # Only available in checkout container
@@ -49,6 +48,7 @@ echo $MY_CUSTOM_VAR  # ❌ Not available in command container
 ```
 
 **Solution:** Use pipeline-level environment variables or shared files
+
 ```bash
 # .buildkite/hooks/post-checkout
 echo "value" > /workspace/my_custom_var
@@ -59,6 +59,7 @@ echo $MY_CUSTOM_VAR  # ✅ Works on Kubernetes
 ```
 
 Or set at pipeline level:
+
 ```yaml
 steps:
   - label: "My step"
@@ -67,9 +68,10 @@ steps:
     command: echo $MY_CUSTOM_VAR
 ```
 
-#### 2. Environment hook runs once per container
+### 2. Environment hook runs once per container
 
 **On EC2 (runs once per job):**
+
 ```bash
 # .buildkite/hooks/environment
 echo "Running environment hook"  # Prints once
@@ -79,6 +81,7 @@ echo "Running environment hook"  # Prints once
 ```
 
 **On Kubernetes (runs once per container):**
+
 ```bash
 # .buildkite/hooks/environment
 echo "Running environment hook"  # Prints multiple times
@@ -89,15 +92,21 @@ echo "Running environment hook"  # Prints multiple times
 ```
 
 **Solution:** Add guards for operations that should only happen once
+
 ```bash
 # .buildkite/hooks/environment
-if [ "$BUILDKITE_PLUGIN_NAME" = "checkout" ] || [ -z "$BUILDKITE_PLUGIN_NAME" ]; then
+if [[ "$BUILDKITE_BOOTSTRAP_PHASES" == *"checkout"* ]]; then
   # Only run in checkout container
   echo "Running once in checkout container"
 fi
+
+if [[ "$BUILDKITE_BOOTSTRAP_PHASES" == *"command"* ]]; then
+  # Only run in command container
+  echo "Running hook in command container"
+fi
 ```
 
-#### 3. Checkout skip behavior
+### 3. Checkout skip behavior
 
 When using `checkout: skip: true`:
 
@@ -109,7 +118,7 @@ When using `checkout: skip: true`:
 
 **Solution:** If your hooks depend on checkout hooks running, ensure they don't rely on this behavior when checkout is skipped, or move the logic to command-phase hooks.
 
-#### 4. Plugin permission issues with non-root users
+### 4. Plugin permission issues with non-root users
 
 **On EC2 (works):**
 Plugins run with consistent user permissions throughout the job lifecycle. Command hooks have access to plugin resources without permission conflicts since the agent process runs with the same user context.
