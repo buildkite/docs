@@ -13,7 +13,7 @@ While GitHub Actions is a fully hosted CI/CD solution integrated directly into G
 - A software-as-a-service (SaaS) platform for visualization and management of CI/CD pipelines.
 - Agents for executing jobs—hosted by you, either on-premises or in the cloud.
 
-At a high level, Buildkite follows a similar architecture to GitHub Actions:
+At a high level, Buildkite Pipelines follows a similar architecture to GitHub Actions:
 
 - A central control plane that coordinates work and displays results through a web interface.
     * **GitHub Actions:** GitHub's hosted infrastructure.
@@ -22,13 +22,13 @@ At a high level, Buildkite follows a similar architecture to GitHub Actions:
     * **GitHub Actions:** _Runners_ (GitHub-hosted or self-hosted).
     * **Buildkite:** _Buildkite Agents_.
 
-However, while GitHub manages both components in GitHub Actions, Buildkite manages the control plane as a SaaS offering (through the Buildkite dashboard). This reduces the operational burden on your team, as Buildkite takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
+However, while GitHub manages both components in GitHub Actions, Buildkite Pipelines manages the control plane as a SaaS offering (through the Buildkite dashboard). This reduces the operational burden on your team, as Buildkite Pipelines takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
 
-The program that executes work is called an _agent_ in Buildkite (also known as the [_Buildkite Agent_](/docs/agent/v3)). An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The Buildkite Agent polls Buildkite for work, runs jobs, and reports results. You can install these agents on local machines, cloud servers, or other remote machines. The Buildkite Agent code is open-source, and is [accessible from GitHub](https://github.com/buildkite/agent).
+The program that executes work is called an _agent_ in Buildkite Pipelines (also known as the [_Buildkite Agent_](/docs/agent/v3)). An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The Buildkite Agent polls Buildkite for work, runs jobs, and reports results. You can install these agents on local machines, cloud servers, or other remote machines. The Buildkite Agent code is open-source, and is [accessible from GitHub](https://github.com/buildkite/agent).
 
-More recently, Buildkite has provided its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) feature (as an alternative to this self-hosted, hybrid architecture, described above), as a managed solution that suits smaller teams, including those wishing to get up and running with Pipelines more rapidly.
+More recently, Buildkite Pipelines has provided its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) feature (as an alternative to this self-hosted, hybrid architecture, described above), as a managed solution that suits smaller teams, including those wishing to get up and running with Pipelines more rapidly.
 
-See [Buildkite Pipelines architecture](/docs/pipelines/architecture) to learn more about how you can set up Buildkite to work with your organization.
+See [Buildkite Pipelines architecture](/docs/pipelines/architecture) to learn more about how you can set up Buildkite Pipelines to work with your organization.
 
 ### The difference in default checkout behaviors
 
@@ -79,7 +79,7 @@ You can learn more about checkout strategies for Buildkite Pipelines in [Git che
 
 Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own [self-hosted Buildkite Agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Self-hosted Buildkite Agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
-While Buildkite provides its own secrets management capabilities through the Buildkite platform, the Buildkite platform can also be configured so that it doesn't store your secrets. Furthermore, Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
+While Buildkite Pipelines provides its own secrets management capabilities through the Buildkite platform, the Buildkite platform can also be configured so that it doesn't store your secrets. Furthermore, Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
 See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) sections of these docs to learn more about how you can secure your Buildkite build environment, as well as manage secrets in your own infrastructure.
 
@@ -87,9 +87,9 @@ See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/secur
 
 When migrating your CI/CD pipelines from GitHub Actions to Buildkite, it's important to understand the differences in pipeline configuration concepts.
 
-Like GitHub Actions, Buildkite lets you create pipeline definitions in the web interface or one or more related files checked into a repository. Most people prefer the latter, which allows pipeline definitions to be kept with the code base it builds, managed in source control. The equivalent of a GitHub Actions workflow file (`.github/workflows/*.yml`) in Buildkite is a `pipeline.yml`. You'll learn more about these differences further on in the [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) section.
+Like GitHub Actions, Buildkite Pipelines lets you create pipeline definitions in the web interface or one or more related files checked into a repository. Most people prefer the latter, which allows pipeline definitions to be kept with the code base it builds, managed in source control. The equivalent of a GitHub Actions workflow file (`.github/workflows/*.yml`) in Buildkite Pipelines is a `pipeline.yml`. You'll learn more about these differences further on in the [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) section.
 
-In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. Buildkite uses similar terms in different ways, where a _pipeline_ is the core description of work.
+In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. Buildkite Pipelines uses similar terms in different ways, where a _pipeline_ is the core description of work.
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
@@ -104,7 +104,7 @@ Triggering a Buildkite pipeline creates a _build_, and any command steps are dis
 
 ### Try out Buildkite
 
-With a basic understanding of the differences between Buildkite and GitHub Actions, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started/) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+With a basic understanding of the differences between Buildkite Pipelines and GitHub Actions, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started/) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
 
 ## Provision agent infrastructure
 
@@ -133,7 +133,7 @@ See the [Installation](/docs/agent/v3/self-hosted/install/) guides when you're r
 
 ## Pipeline translation fundamentals
 
-A pipeline is a container for modeling and defining workflows. Both GitHub Actions and Buildkite can read a pipeline (configuration) file checked into a repository, which defines a workflow.
+A pipeline is a container for modeling and defining workflows. Both GitHub Actions and Buildkite Pipelines can read a pipeline (configuration) file checked into a repository, which defines a workflow.
 
 Before translating any workflow over from GitHub Actions to Buildkite, you should be aware of the following fundamental differences in how pipelines are written, and how their steps are executed and built by agents.
 
