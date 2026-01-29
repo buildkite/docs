@@ -19,7 +19,15 @@
           path: "pipelines/build-page"
           pill: "new"
         - name: "Advantages"
-          path: "pipelines/advantages"
+          children:
+            - name: "Advantages of Buildkite Pipelines"
+              path: "pipelines/advantages/pipelines-advantages"
+            - name: "Advantages over Jenkins"
+              path: "pipelines/advantages/buildkite-vs-jenkins"
+            - name: "Advantages over GitLab"
+              path: "pipelines/advantages/buildkite-vs-gitlab"
+            - name: "Advantages over GitHub Actions"
+              path: "pipelines/advantages/buildkite-vs-gha"
         - name: Pipeline converter
           children:
             - name: "Overview"
