@@ -10,7 +10,7 @@ GitHub Actions imposes a 256-job matrix cap per workflow run and self-hosted run
 
 GitHub Actions workflows are static once triggered. To add jobs based on what changed, you must dispatch new workflows or pre-declare everything up front, leading to wasted compute.
 
-Buildkite [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) generate or modify steps at runtime based on changed files, repository state, or any custom logic. Fan out tests only after builds succeed, skip unnecessary steps, or generate deployment steps based on what actually changed.
+With the help of Buildkite [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) you can generate or modify steps at runtime based on changed files, repository state, or any custom logic. Fan out tests only after builds succeed, skip unnecessary steps, or generate deployment steps based on what actually changed.
 
 ## Better reliability
 
@@ -39,10 +39,6 @@ GitHub Actions uses per-minute billing that can lead to unexpected costs as team
 ## Job routing and priorities
 
 Buildkite provides sophisticated job routing with queues, priorities, and concurrency controls. Urgent hotfixes can move ahead of long test suites, and risky deploys don't collide. GitHub Actions lacks this level of control.
-
-## When GitHub Actions may be sufficient
-
-GitHub Actions works well for small teams with simple build-and-test workflows who want everything in one vendor and don't need best-in-class CI/CD performance.
 
 ## Migration path
 

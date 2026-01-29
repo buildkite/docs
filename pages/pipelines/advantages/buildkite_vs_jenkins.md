@@ -20,6 +20,10 @@ Jenkins Groovy pipelines are powerful but complex, with pitfalls that can affect
 
 See more in [Pipeline design and structure](/docs/pipelines/design-and-structure).
 
+## Dynamic pipelines
+
+With the help of Buildkite [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) you can generate or modify steps at runtime based on changed files, repository state, or any custom logic. Fan out tests only after builds succeed, skip unnecessary steps, or generate deployment steps based on what actually changed.
+
 ## Fewer plugin dependencies
 
 Jenkins has 1,800+ plugins of varying quality. Plugin issues can destabilize entire controllers. Buildkite's core features are built in, and the [Buildkite plugins](/docs/pipelines/integrations/plugins) run on agents, isolating failures to individual builds.
