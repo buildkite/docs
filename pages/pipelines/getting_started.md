@@ -6,11 +6,73 @@ keywords: docs, pipelines, tutorials, getting started
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
 
-This getting started page is a tutorial that helps you understand Pipelines' fundamentals, by guiding you through the creation of a basic pipeline from an example.
+This getting started page is a tutorial that helps you understand Pipelines' fundamentals, by guiding you through the creation of a pipeline to automate builds of your own or an example project, which you could use as a starting point.
 
 ## Before you start
 
 <%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
+
+## Create a new pipeline
+
+A [_pipeline_](/docs/pipelines/glossary#pipeline) is what represents a CI/CD workflow in Buildkite Pipelines. You define each pipeline with a series of [_steps_](/docs/pipelines/glossary#step) to run. When you trigger a pipeline, you create a [_build_](/docs/pipelines/glossary#build), and steps are dispatched as [_jobs_](/docs/pipelines/glossary#job) to run on agents. Jobs are independent of each other and can run on different [agents](/docs/pipelines/glossary#agent).
+
+If you [signed up to a new Buildkite account](#before-you-start), you are taken to the **New Pipeline** page, and your most recently updated repository is selected in the **Repository** field. You can also select **Or try an example** to choose from an existing Buildkite example.
+
+<%= image "new-pipeline-page.png", alt: "The New Pipeline page" %>
+
+If you already have a Buildkite organization and user account, you can access the **New Pipeline** page by selecting **Pipelines** from the global navigation > **New pipeline**.
+
+To create a pipeline:
+
+1. Select **Add to Buildkite** for the appropriate example based on where your agent is running.
+    * For Bash:<br/>
+        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
+        (from the [Bash example](https://github.com/buildkite/bash-example/) GitHub repository)
+    * For PowerShell:<br/>
+        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
+        (from the [PowerShell example](https://github.com/buildkite/powershell-example/) GitHub repository)
+
+    **Note:** Both of these example pipelines result in the same behavior—the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
+
+1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
+
+1. If the **Team** field appears further down the page, this means that your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions). Therefore, choose the **Team** who will have access to this pipeline.
+
+1. Leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+
+    **Note:** If the **GitHub Webhook Setup** (or other webhook setup) page appears, just select **Skip Webhook Setup** to continue, as there is no need to set up a webhook as part of this tutorial.
+
+1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
+
+   1. In the **Message** field, enter a short description for the build. For example, **My first build**.
+   1. Select **Create Build**.
+
+The page for the build then opens and begins running:
+
+<%= image "getting-started-first-build.png", alt: "The build page" %>
+
+## Check the output
+
+After triggering the build, you can view the output as it runs and the full results when complete. The output for each step shows in the job list.
+
+Expand the row in the job list to view the output for a step. For example, selecting **Example Script** shows the following:
+
+<%= image "getting-started-log-output.png", alt: "The log output from the Example Script step" %>
+
+In the output, you'll see:
+
+- A pre-command hook ran and printed some text in the logs.
+- The agent checked out the repository.
+- The agent accessed different environment variables shown in the job environment.
+- The script ran and printed text to the logs and uploaded an image as an artifact of the build.
+
+Beyond the log, select one of the other tabs to see the artifacts, a timeline breakdown, and the environment variables.
+
+## Next steps
+
+That's it! You've installed an agent, run a build, and checked the output. 🎉
+
+Now try [creating your own pipeline](/docs/pipelines/create-your-own).
 
 ## Understand the architecture
 
@@ -89,59 +151,3 @@ To install and run an agent in your own self-hosted infrastructure (including yo
     Ensure you configure the agent token, which connects the agent to your Buildkite account.
 
 To confirm that your agent is running, and configured correctly with your credentials, go to [Agents](https://buildkite.com/organizations/~/agents). You should see a list of all agents linked to the account and their status.
-
-## Create a pipeline
-
-_Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipeline with a series of _steps_ to run. When you trigger a pipeline, you create a _build_, and steps are dispatched as _jobs_ to run on agents. Jobs are independent of each other and can run on different agents.
-
-To create a pipeline:
-
-1. Select **Add to Buildkite** for the appropriate example based on where your agent is running.
-    * For Bash:<br/>
-        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
-        (from the [Bash example](https://github.com/buildkite/bash-example/) GitHub repository)
-    * For PowerShell:<br/>
-        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
-        (from the [PowerShell example](https://github.com/buildkite/powershell-example/) GitHub repository)
-
-    **Note:** Both of these example pipelines result in the same behavior—the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
-
-1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
-
-1. If the **Team** field appears further down the page, this means that your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions). Therefore, choose the **Team** who will have access to this pipeline.
-
-1. Leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
-
-    **Note:** If the **GitHub Webhook Setup** (or other webhook setup) page appears, just select **Skip Webhook Setup** to continue, as there is no need to set up a webhook as part of this tutorial.
-
-1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
-
-   1. In the **Message** field, enter a short description for the build. For example, **My first build**.
-   1. Select **Create Build**.
-
-The page for the build then opens and begins running:
-
-<%= image "getting-started-first-build.png", alt: "The build page" %>
-
-## Check the output
-
-After triggering the build, you can view the output as it runs and the full results when complete. The output for each step shows in the job list.
-
-Expand the row in the job list to view the output for a step. For example, selecting **Example Script** shows the following:
-
-<%= image "getting-started-log-output.png", alt: "The log output from the Example Script step" %>
-
-In the output, you'll see:
-
-- A pre-command hook ran and printed some text in the logs.
-- The agent checked out the repository.
-- The agent accessed different environment variables shown in the job environment.
-- The script ran and printed text to the logs and uploaded an image as an artifact of the build.
-
-Beyond the log, select one of the other tabs to see the artifacts, a timeline breakdown, and the environment variables.
-
-## Next steps
-
-That's it! You've installed an agent, run a build, and checked the output. 🎉
-
-Now try [creating your own pipeline](/docs/pipelines/create-your-own).
