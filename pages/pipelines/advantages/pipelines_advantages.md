@@ -18,7 +18,7 @@ This philosophy manifests in three core principles:
 
 Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whether it's Jenkins, GitLab, GitHub Actions, CircleCI, or others—several fundamental advantages remain constant:
 
-### Unmatched scalability
+### Scalability
 
 **Lightweight agent architecture**: Buildkite Agents are lightweight software that can run anywhere, not full compute units that require complex provisioning. This enables massive concurrent job execution without infrastructure overhead.
 

@@ -46,6 +46,8 @@ GitHub Actions works well for small teams with simple build-and-test workflows w
 
 ## Migration path
 
-Use the [pipeline converter](/docs/pipelines/migration/pipeline-converter) to translate GitHub Actions workflows to Buildkite YAML. Key changes: `jobs` become `steps` with `key` attributes, `needs` becomes `depends_on`, `runs-on` maps to `agents` queues, and `actions/checkout` is removed since Buildkite checks out code automatically. See [GitHub Actions converter reference](/docs/pipelines/migration/converter/github-actions) for detailed mappings.
-
 Teams migrating from GitHub Actions typically see significant improvements in build times, reduced machine usage, and faster merge queues.
+
+To start converting your GitHub Actions pipelines to Buildkite Pipelines, follow the instructions in [Migrate from GitHub Actions](/docs/pipelines/migration/from-githubactions), then migrate pipeline by pipeline. They key changes you'll need to be mindful of: `jobs` become `steps` with `key` attributes, `needs` becomes `depends_on`, `runs-on` maps to `agents` queues, and `actions/checkout` is removed since Buildkite checks out code automatically.
+
+You can also try out the the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing Jenkins pipelines might look like converted to Buildkite Pipelines.

@@ -42,6 +42,8 @@ Many organizations use GitLab for source code management while using Buildkite P
 
 ## Migration path
 
+To start converting your existing GitLab pipelines to Buildkite Pipelines, use the following principles:
+
 1. Audit current setup: document variables, tags, routing logic, and performance benchmarks.
 1. Convert pipeline structure from serial stages to parallel steps with explicit dependencies.
 1. Map GitLab predefined variables to Buildkite equivalents.
