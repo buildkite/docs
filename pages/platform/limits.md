@@ -199,7 +199,7 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Artifact retention",
-        description: "The maximum time we'll store artifacts for, in days, before assuming it has been deleted by an S3 Lifecycle rule, which must be configured separately.",
+        description: "The maximum time we'll store artifacts for, in days.",
         default_value: "180 days"
       },
       {
