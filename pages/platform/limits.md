@@ -204,13 +204,8 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Log size per job",
-        description: "The maximum file-size of a job's log (uploaded by an agent to Buildkite in chunks).",
+        description: "The maximum file-size of a job's log.",
         default_value: "1,024 MiB"
-      },
-      {
-        title: "Log chunk interval",
-        description: "The time interval between the log chunks",
-        default_value: "1 second"
       },
       {
         title: "Number of clusters",
