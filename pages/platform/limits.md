@@ -164,7 +164,7 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Teams per block step",
-        description: "The maximum number of teams allowed for manual unlock steps.",
+        description: "The maximum number of allowed teams for manual unlock steps.",
         default_value: "100 teams"
       },
       {
