@@ -60,4 +60,4 @@ Once you have [configured at least one other private storage link](#link-your-pr
 
 1. Select **Change** to switch from using **Buildkite-hosted storage** (or a previously configured private storage link such as **s3://…** or **gs://…**) to your new private storage link. If this setting is currently configured to use a previously configured private storage link, the default storage can also be reverted back to using **Buildkite-hosted storage**.
 
-All [newly created source registries](/docs/package-registries/registries/manage#create-a-source-registry) will automatically use the default private storage location to house packages. Note that because [composite registries are virtual](/docs/package-registries/registries/manage#composite-registries), they do not allow you to specify a storage location. Therefore, packages pulled from [official public registries](/docs/package-registries/registries/manage#composite-registries) are always stored in Buildkite-hosted storage.
+All [newly created source registries](/docs/package-registries/registries/manage#create-a-source-registry) will automatically use the default private storage location to house packages.

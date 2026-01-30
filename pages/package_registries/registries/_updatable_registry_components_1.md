@@ -1,4 +1,4 @@
 - **Name**: be aware that changing this value will also change the URL, which in turn will break any existing installations that use this registry.
 - **Description**
-- **Emoji**: to change the emoji of the registry from the default provided when the [source](#create-a-source-registry) or [composite](#composite-registries-create-a-composite-registry) registry was created. The emoji appears next to the registry's name.
+- **Emoji**: to change the emoji of the registry from the default provided when the [source](#create-a-source-registry) registry was created. The emoji appears next to the registry's name.
 - **Color**: the background color for the emoji
