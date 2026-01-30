@@ -199,7 +199,7 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Artifact retention",
-        description: "The maximum time we'll store artifacts for, in days.",
+        description: "The maximum number of days artifacts are stored.",
         default_value: "180 days"
       },
       {
