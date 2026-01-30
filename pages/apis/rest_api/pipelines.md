@@ -10,6 +10,44 @@ This section of the REST API documentation also contains several other endpoints
 - [Clusters](/docs/apis/rest-api/clusters), including the management of [queues](/docs/apis/rest-api/clusters/queues), [agent tokens](/docs/apis/rest-api/clusters/agent-tokens), [cluster maintainers](/docs/apis/rest-api/clusters/maintainers), and [Buildkite secrets](/docs/apis/rest-api/clusters/secrets).
 - [Agents](/docs/apis/rest-api/agents) themselves.
 
+## Pipeline data model
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>id</code></th><td>UUID of the pipeline</td></tr>
+  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the pipeline</td></tr>
+  <tr><th><code>url</code></th><td>Canonical API URL of the pipeline</td></tr>
+  <tr><th><code>web_url</code></th><td>URL of the pipeline on Buildkite</td></tr>
+  <tr><th><code>name</code></th><td>Name of the pipeline</td></tr>
+  <tr><th><code>description</code></th><td>Description of the pipeline</td></tr>
+  <tr><th><code>slug</code></th><td>URL slug of the pipeline</td></tr>
+  <tr><th><code>repository</code></th><td>URL of the source code repository</td></tr>
+  <tr><th><code>cluster_id</code></th><td>UUID of the cluster the pipeline belongs to (if using clusters)</td></tr>
+  <tr><th><code>branch_configuration</code></th><td>Branch filter pattern for limiting which branches trigger builds</td></tr>
+  <tr><th><code>default_branch</code></th><td>Default branch for the pipeline</td></tr>
+  <tr><th><code>skip_queued_branch_builds</code></th><td>Whether to skip intermediate builds on the same branch (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>skip_queued_branch_builds_filter</code></th><td>Branch filter pattern for skip queued builds behavior</td></tr>
+  <tr><th><code>cancel_running_branch_builds</code></th><td>Whether to cancel running builds when a new build is created on the same branch (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>cancel_running_branch_builds_filter</code></th><td>Branch filter pattern for cancel running builds behavior</td></tr>
+  <tr><th><code>allow_rebuilds</code></th><td>Whether rebuilds are allowed (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>provider</code></th><td>Source control provider settings (includes <code>id</code>, <code>webhook_url</code>, and <code>settings</code>)</td></tr>
+  <tr><th><code>builds_url</code></th><td>API URL for the pipeline's builds</td></tr>
+  <tr><th><code>badge_url</code></th><td>URL for the pipeline's build status badge</td></tr>
+  <tr><th><code>created_by</code></th><td>User who created the pipeline</td></tr>
+  <tr><th><code>created_at</code></th><td>When the pipeline was created</td></tr>
+  <tr><th><code>archived_at</code></th><td>When the pipeline was archived (if archived)</td></tr>
+  <tr><th><code>env</code></th><td>Environment variables configured for the pipeline</td></tr>
+  <tr><th><code>scheduled_builds_count</code></th><td>Number of currently scheduled builds</td></tr>
+  <tr><th><code>running_builds_count</code></th><td>Number of currently running builds</td></tr>
+  <tr><th><code>scheduled_jobs_count</code></th><td>Number of currently scheduled jobs</td></tr>
+  <tr><th><code>running_jobs_count</code></th><td>Number of currently running jobs</td></tr>
+  <tr><th><code>waiting_jobs_count</code></th><td>Number of jobs waiting for agents</td></tr>
+  <tr><th><code>visibility</code></th><td>Visibility of the pipeline: <code>private</code> or <code>public</code></td></tr>
+  <tr><th><code>steps</code></th><td>Array of step configurations (for non-YAML pipelines)</td></tr>
+  <tr><th><code>configuration</code></th><td>YAML pipeline configuration (for YAML pipelines)</td></tr>
+</tbody>
+</table>
+
 ## List pipelines
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's pipelines.

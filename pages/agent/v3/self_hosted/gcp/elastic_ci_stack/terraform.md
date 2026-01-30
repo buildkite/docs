@@ -341,7 +341,7 @@ steps:
       environment: "production"
 ```
 
-For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues).
+For more information, see the [Queues overview](/docs/agent/v3/queues) page.
 
 ### Multiple queues
 

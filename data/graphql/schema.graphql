@@ -3385,6 +3385,42 @@ type JobEventCanceled implements JobEvent & Node {
   uuid: ID!
 }
 
+"""
+A job event for when a job's attributes have been updated
+"""
+type JobEventChanged implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+
+  """
+  The changes that were made to the job
+  """
+  changedChanges: JSON
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
 type JobEventConnection implements Connection {
   count: Int!
   edges: [JobEventEdge]

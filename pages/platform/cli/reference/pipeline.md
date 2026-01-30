@@ -27,7 +27,7 @@ The `bk pipeline` command allows you to manage pipelines from the command line.
 | `bk pipeline copy` | Copy an existing pipeline. |
 | `bk pipeline create` | Create a new pipeline. |
 | `bk pipeline list` | List pipelines. |
-| `bk pipeline migrate` | Migrate a CI/CD pipeline configuration to Buildkite format. |
+| `bk pipeline convert` | Convert a CI/CD pipeline configuration to Buildkite format. |
 | `bk pipeline validate` | Validate a pipeline YAML file. |
 | `bk pipeline view` | View a pipeline. |
 
@@ -50,10 +50,10 @@ bk pipeline copy [<pipeline>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-c`, `--cluster=STRING` | Cluster name or ID for the new pipeline (required for cross-org copies if target org uses clusters) |
-| `-o`, `--output="json"` | Output format: json, yaml, text |
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Show what would be copied without creating the pipeline |
+| `--output=""` | Output format: json, yaml, text |
 
 ### Examples
 
@@ -119,10 +119,10 @@ bk pipeline create <name> [flags]
 | --- | --- |
 | `-c`, `--cluster-id=STRING` | Cluster name or ID to assign the pipeline to |
 | `-d`, `--description=STRING` | Description of the pipeline |
-| `-o`, `--output="json"` | Outputs the created pipeline. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Repository URL |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
+| `--output=""` | Output format: json, yaml, text |
 
 ### Examples
 
@@ -169,8 +169,8 @@ bk pipeline list [flags]
 | Flag | Description |
 | --- | --- |
 | `-l`, `--limit=100` | Maximum number of pipelines to return (max: 3000) |
+| `--output=""` | Output format. One of: json, yaml, text |
 | `-n`, `--name=STRING` | Filter pipelines by name (supports partial matches, case insensitive) |
-| `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Filter pipelines by repository URL (supports partial matches, case insensitive) |
 | `--debug` | Enable debug output for REST API calls |
 
@@ -212,49 +212,49 @@ Use with other commands (e.g., get longest builds from matching pipelines):
 bk pipeline list --name pipeline | xargs -I {} bk build list --pipeline {} --since 48h --duration 1h
 ```
 
-## Migrate a pipeline
+## Convert pipeline
 
-Migrate a CI/CD pipeline configuration to Buildkite format.
+Convert a CI/CD pipeline configuration to Buildkite format.
 
 ```bash
-bk pipeline migrate --file=STRING [flags]
+bk pipeline convert --file=STRING [flags]
 ```
 
 ### Flags
 
 | Flag | Description |
 | --- | --- |
-| `-F`, `--file=STRING` | Path to the pipeline file to migrate (required) |
-| `-o`, `--output=STRING` | Custom path to save the migrated pipeline (default: .buildkite/pipeline.<vendor>.yml) |
+| `-F`, `--file=STRING` | Path to the pipeline file to convert (required) |
+| `-o`, `--output=STRING` | Custom path to save the converted pipeline (default: .buildkite/pipeline.<vendor>.yml) |
 | `-v`, `--vendor=STRING` | CI/CD vendor (auto-detected if not specified) |
-| `--ai` | Use AI-powered migration (recommended for Jenkins) |
+| `--ai` | Use AI-powered conversion (recommended for Jenkins) |
 | `--debug` | Enable debug output for REST API calls |
-| `--timeout=300` | Timeout in seconds (use 600+ for AI migrations) |
+| `--timeout=300` | Timeout in seconds (use 600+ for AI conversions) |
 
 ### Examples
 
-Migrate a GitHub Actions workflow:
+Convert a GitHub Actions workflow:
 
 ```bash
-bk pipeline migrate -F .github/workflows/ci.yml
+bk pipeline convert -F .github/workflows/ci.yml
 ```
 
-Migrate with explicit vendor specification:
+Convert with explicit vendor specification:
 
 ```bash
-bk pipeline migrate -F pipeline.yml --vendor circleci
+bk pipeline convert -F pipeline.yml --vendor circleci
 ```
 
-Migrate Jenkins pipeline with AI support:
+Convert Jenkins pipeline with AI support:
 
 ```bash
-bk pipeline migrate -F Jenkinsfile --ai
+bk pipeline convert -F Jenkinsfile --ai
 ```
 
 Save output to a file:
 
 ```bash
-bk pipeline migrate -F .github/workflows/ci.yml -o .buildkite/pipeline.yml
+bk pipeline convert -F .github/workflows/ci.yml -o .buildkite/pipeline.yml
 ```
 
 ## Validate a pipeline
@@ -310,8 +310,8 @@ bk pipeline view [<pipeline>] [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-o`, `--output="json"` | Output format. One of: json, yaml, text |
-| `-w`, `--web` | Open the pipeline in a web browser. |
+| `-w`, `--web` | Open the pipeline in a web browser |
+| `--output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples
@@ -339,4 +339,3 @@ Output as JSON:
 ```bash
 bk pipeline view my-pipeline -o json
 ```
-

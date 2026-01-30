@@ -4,7 +4,6 @@ The meta API endpoint provides information about Buildkite, including a list of 
 
 It does not require authentication.
 
-
 ## Get meta information
 
 Returns an object with properties describing Buildkite.

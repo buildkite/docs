@@ -122,10 +122,8 @@
           children:
             - name: "Tokens"
               path: "agent/v3/self-hosted/tokens"
-            - name: "SSH keys"
-              path: "agent/v3/self-hosted/ssh-keys"
-            - name: "GitHub SSH keys"
-              path: "agent/v3/self-hosted/github-ssh-keys"
+            - name: "Code access"
+              path: "agent/v3/self-hosted/code-access"
             - name: "Run on Kubernetes"
               children:
                 - name: "Overview"
@@ -158,6 +156,8 @@
                   path: "agent/v3/self-hosted/agent-stack-k8s/sidecars"
                 - name: "Kubernetes PodSpec"
                   path: "agent/v3/self-hosted/agent-stack-k8s/podspec"
+                - name: "Custom images"
+                  path: "agent/v3/self-hosted/agent-stack-k8s/custom-images"
                 - name: "Pod templates"
                   path: "agent/v3/self-hosted/agent-stack-k8s/pod-template"
                 - name: "Container resource limits"
@@ -303,6 +303,8 @@
               children:
                 - name: "Overview"
                   path: "agent/v3/self-hosted/configure"
+                - name: "Experiments"
+                  path: "agent/v3/self-hosted/configure/experiments"
                 - name: "Git mirrors"
                   path: "agent/v3/self-hosted/configure/git-mirrors"
             - name: "Hooks"

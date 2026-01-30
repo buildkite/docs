@@ -4,7 +4,7 @@ The Buildkite pipeline converter serves as a compatibility layer, enabling the c
 
 You can start the translation of your pipelines from other CI providers to Buildkite Pipelines by seeing how workflows from other CI/CD platforms map to the Buildkite Pipelines' concepts and architecture.
 
-Rather than serving as a complete automated migration solution, the Buildkite migration tool demonstrates how configurations from these other CI/CD platforms could be structured in a Buildkite pipeline configuration format.
+Rather than serving as a complete automated migration solution, the Buildkite pipeline converter demonstrates how configurations from these other CI/CD platforms could be structured in a Buildkite pipeline configuration format.
 
 The Buildkite pipeline converter:
 
@@ -17,7 +17,7 @@ The Buildkite pipeline converter:
 
 - Can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
-- Can be run using the [`bk pipeline migrate` command](/docs/platform/cli/reference/pipeline#migrate-a-pipeline) of the [Buildkite CLI](/docs/platform/cli).
+- Can be run using the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) of the [Buildkite CLI](/docs/platform/cli).
 
 ## Interactive web-based version
 
