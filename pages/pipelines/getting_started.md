@@ -32,15 +32,15 @@ If you signed up:
 
 ### Understanding the New Pipeline page
 
-The New Pipeline page has the following fields:
+The **New Pipeline** page has the following fields:
 
-- **Git scope**: Allows you to select from the following options:
-    * Your GitHub account or organization
-    * Some **Buildkite Examples** to start with.
-    * The **Use remote URL**, allows you to select a GitLab, Bitbucket, or any other remotely accessible Git repository. The **Manage accounts** option also allows you to configure connections to these repository providers.
-    * The **Connect GitHub account**, allows you to connect to a GitHub account, if you didn't sign up with GitHub.
-- **Repository**: Select the Git repository available to your selected Git scope. Upon selecting a repository, the **Checkout using** option appears, where you can select between **SSH** or **HTTPS**.
-- **Pipeline name**: Buildkite Pipelines automatically generates a name for your pipeline in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), which is based on your repository's name.
+- **Git scope**: Allows you to select from the following list of options:
+    * Your GitHub account or organization.
+    * A selection of **Buildkite Examples** to start with, which allows you to learn more about how Buildkite Pipelines builds projects for a variety of different use cases.
+    * The **Use remote URL**, allows you to select a GitLab, Bitbucket, or any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers.
+    * The **Connect GitHub account**, allows you to do just that. This option is useful if you signed up by email, and need to connect your GitHub account to the Buildkite platform.
+- **Repository**: Select the Git repository available to your selected **Git scope**. Upon selecting a repository, the **Checkout using** option appears, where you can select between **SSH** or **HTTPS**.
+- **Pipeline name**: Buildkite Pipelines automatically generates a name for your pipeline in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), which is based on your repository's name. However, you can change the name in this field.
 
 > 📘
 > Alternatively, if you're familiar with creating Buildkite pipelines and have already created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then select **Pipeline upload** from the **Template** drop-down of the **YAML Steps editor**, which generates a pipeline step that uploads the `.buildkite/pipeline.yml` pipeline file from this repository to Buildkite Pipelines, and uses the steps in that file to build your project.
