@@ -14,13 +14,31 @@ This getting started page is a tutorial that helps you understand Pipelines' fun
 
 ## Create a new pipeline
 
-A [_pipeline_](/docs/pipelines/glossary#pipeline) is what represents a CI/CD workflow in Buildkite Pipelines. You define each pipeline with a series of [_steps_](/docs/pipelines/glossary#step) to run. When you trigger a pipeline, you create a [_build_](/docs/pipelines/glossary#build), and steps are dispatched as [_jobs_](/docs/pipelines/glossary#job) to run on agents. Jobs are independent of each other and can run on different [agents](/docs/pipelines/glossary#agent).
+A [_pipeline_](/docs/pipelines/glossary#pipeline) is what represents a CI/CD workflow in Buildkite Pipelines. You define each pipeline with a series of [_steps_](/docs/pipelines/glossary#step) to run. When you trigger a pipeline, you create a [_build_](/docs/pipelines/glossary#build), and steps are dispatched as [_jobs_](/docs/pipelines/glossary#job), which are run on [agents](/docs/pipelines/glossary#agent). Jobs are independent of each other and can run on different agents.
 
-If you [signed up to a new Buildkite account](#before-you-start), you are taken to the **New Pipeline** page, and your most recently updated repository is selected in the **Repository** field. You can also select **Or try an example** to choose from an existing Buildkite example.
+If you [created a free, personal Buildkite account](#before-you-start), you are taken to the **New Pipeline** page, and your most recently updated repository is automatically selected in the **Repository** field.
 
-<%= image "new-pipeline-page.png", alt: "The New Pipeline page" %>
+If you're new to Buildkite Pipelines and want to learn more about creating them, select **Or try an example** to choose from an [existing Buildkite pipeline example](#create-a-new-pipeline-example-pipelines) that you can build.
 
-If you already have a Buildkite organization and user account, you can access the **New Pipeline** page by selecting **Pipelines** from the global navigation > **New pipeline**.
+<%= image "new-pipeline-page.png", alt: "New Pipeline page" %>
+
+> 📘
+> Alternatively, if you're familiar with creating Buildkite pipelines and have already created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then select **Pipeline upload** from the **Template** drop-down of the **YAML Steps editor**, which generates a pipeline step that uploads the `.buildkite/pipeline.yml` pipeline file from this repository to Buildkite Pipelines, and uses the steps in that file to build your project.
+> If you already have a Buildkite organization and user account, you can access the **New Pipeline** page by selecting **Pipelines** from the global navigation > **New pipeline**.
+
+### Example pipelines
+
+Important things to cover:
+
+- Nothing is committed to the repo
+- The YAML file in the UI comes from the repos' existing .buildkite/pipeline.yml file.
+- Explaining the New Pipeline dropdowns.
+
+On next page of 'Create your own pipeline':
+
+- Get rid of Continue running the agent
+- In 'Define the steps', mention that the use can convert their existing pipeline from another CI provider to Buildkite Pipelines, and link through to that section.
+- 
 
 To create a pipeline:
 
