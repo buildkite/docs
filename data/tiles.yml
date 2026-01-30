@@ -114,7 +114,7 @@ test_engine_guides:
       - text: "CI environment variables"
         url: "/docs/test-engine/test-collection/ci-environments"
 package_registries_features:
-  - title: "Manage source and composite registries"
+  - title: "Manage source registries"
     url: "/docs/package-registries/registries/manage"
     desc: "Create and manage private or public registries to securely store and share packages within your organization."
   - title: "Access control"
