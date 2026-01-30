@@ -16,11 +16,31 @@ This getting started page is a tutorial that helps you understand Pipelines' fun
 
 A [_pipeline_](/docs/pipelines/glossary#pipeline) is what represents a CI/CD workflow in Buildkite Pipelines. You define each pipeline with a series of [_steps_](/docs/pipelines/glossary#step) to run. When you trigger a pipeline, you create a [_build_](/docs/pipelines/glossary#build), and steps are dispatched as [_jobs_](/docs/pipelines/glossary#job), which are run on [agents](/docs/pipelines/glossary#agent). Jobs are independent of each other and can run on different agents.
 
-If you [created a free, personal Buildkite account](#before-you-start), you are taken to the **New Pipeline** page, and your most recently updated repository is automatically selected in the **Repository** field.
+If you signed up:
 
-If you're new to Buildkite Pipelines and want to learn more about creating them, select **Or try an example** to choose from an [existing Buildkite pipeline example](#create-a-new-pipeline-example-pipelines) that you can build.
+- With GitHub, the **New Pipeline** page's **Git scope** is set to your GitHub account, and its most recently updated repository is automatically selected in the **Repository** field.
+
+    **Note:**
+
+    * If you're new to Buildkite Pipelines and want to learn more about creating them, select **Or try an example** to choose from an [existing Buildkite pipeline example](#create-a-new-pipeline-example-pipelines) that you can build.
+
+    * If your GitHub account is new and contains no repositories, the **Starter pipeline** of the **Buildkite Examples** is automatically selected.
+
+- By email, the **New Pipeline** page presents the **Starter pipeline** of the **Buildkite Examples**.
 
 <%= image "new-pipeline-page.png", alt: "New Pipeline page" %>
+
+### Understanding the New Pipeline page
+
+The New Pipeline page has the following fields:
+
+- **Git scope**: Allows you to select from the following options:
+    * Your GitHub account or organization
+    * Some **Buildkite Examples** to start with.
+    * The **Use remote URL**, allows you to select a GitLab, Bitbucket, or any other remotely accessible Git repository. The **Manage accounts** option also allows you to configure connections to these repository providers.
+    * The **Connect GitHub account**, allows you to connect to a GitHub account, if you didn't sign up with GitHub.
+- **Repository**: Select the Git repository available to your selected Git scope. Upon selecting a repository, the **Checkout using** option appears, where you can select between **SSH** or **HTTPS**.
+- **Pipeline name**: Buildkite Pipelines automatically generates a name for your pipeline in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), which is based on your repository's name.
 
 > 📘
 > Alternatively, if you're familiar with creating Buildkite pipelines and have already created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then select **Pipeline upload** from the **Template** drop-down of the **YAML Steps editor**, which generates a pipeline step that uploads the `.buildkite/pipeline.yml` pipeline file from this repository to Buildkite Pipelines, and uses the steps in that file to build your project.
@@ -30,15 +50,15 @@ If you're new to Buildkite Pipelines and want to learn more about creating them,
 
 Important things to cover:
 
-- Nothing is committed to the repo
+- Nothing is committed to the repo.
 - The YAML file in the UI comes from the repos' existing .buildkite/pipeline.yml file.
+- Link to https://buildkite.com/resources/examples/
 - Explaining the New Pipeline dropdowns.
 
 On next page of 'Create your own pipeline':
 
 - Get rid of Continue running the agent
 - In 'Define the steps', mention that the use can convert their existing pipeline from another CI provider to Buildkite Pipelines, and link through to that section.
-- 
 
 To create a pipeline:
 
