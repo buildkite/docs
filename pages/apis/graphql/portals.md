@@ -46,7 +46,7 @@ To start creating a new portal:
 
 1. Save this portal token to somewhere secure, as you won't be able to access its value again through the Buildkite interface.
 
-    **Note:** This long-lived service token is scoped to the GraphQL operations defined in this portal. It executes these operations with administrator-level permissions, but cannot perform operations outside those you've explicitly defined.
+    **Note:** This long-lived service token is scoped to the GraphQL operations defined in this portal. The token executes these operations with administrator-level permissions, but cannot perform operations outside those you've explicitly defined.
 
 1. Make a request to your new endpoint. You can access it using the following `curl` command, replacing the organization slug with your own.
 
