@@ -1,14 +1,14 @@
 # Advantages of Buildkite Pipelines
 
-This page explains the differences between Buildkite Pipelines and other CI/CD tools as well as the advantages of migrating from these tools to Buildkite Pipelines.
+This section explains the differences between Buildkite Pipelines and other CI/CD tools.
 
-While most CI/CD systems try to be everything to everyone offering managed infrastructure, bundled features, and opinionated workflows, Buildkite Pipelines focuses on what matters most: delivering the fastest, most reliable, and most scalable builds possible while keeping your code and secrets secure.
+While most CI/CD systems try to be everything to everyone offering managed infrastructure, bundled features, and opinionated workflows, Buildkite Pipelines focuses on delivering the fastest, most reliable, and most scalable builds possible while keeping your code and secrets secure.
 
-Buildkite Pipelines was designed for a software-driven world where teams need to move fast, scale efficiently, and maintain control over their build environments. Rather than forcing you into a one-size-fits-all solution, Buildkite Pipelines provides composable building blocks that let platform teams design the exact workflows they need.
+Buildkite Pipelines was designed for teams that need to move fast, scale efficiently, and maintain control over their build environments. Rather than forcing you into a one-size-fits-all solution, Buildkite Pipelines provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design the exact workflows they need.
 
-This philosophy manifests in three core principles:
+This approach manifests in three core principles:
 
-**Hybrid architecture first**: Your code, secrets, and build environments stay on your infrastructure where you control them. Buildkite Pipelines provides the orchestration control plane, but execution happens where you want it — your cloud, your Kubernetes cluster, your data center, or Buildkite hosted agents.
+**Hybrid architecture first**: Your code, secrets, and build environments stay on your infrastructure where you control them. Buildkite Pipelines provides the orchestration control plane, but execution happens where you want it — your [Amazon](/docs/agent/v3/self-hosted/aws) or [Google](/docs/agent/v3/self-hosted/gcp) infrastructure, your [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) cluster, your [server or data center](/docs/agent/v3/self-hosted/install), or on [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
 **Software-driven flexibility**: Define your pipelines using actual code (Go, Python, TypeScript, Ruby) instead of being constrained by static YAML configurations. This means you can build sophisticated logic, reusable abstractions, and dynamic workflows that adapt at runtime.
 
@@ -16,7 +16,7 @@ This philosophy manifests in three core principles:
 
 ## Core advantages across all CI/CD systems
 
-Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whether it's Jenkins, GitLab, GitHub Actions, CircleCI, or others—several fundamental advantages remain constant:
+Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whether it's Jenkins, GitLab, GitHub Actions, CircleCI, or others, several fundamental advantages remain constant.
 
 ### Scalability
 
@@ -68,7 +68,7 @@ Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whe
 
 ## When Buildkite Pipelines excels
 
-Buildkite is not an all-in-one DevOps platform. It doesn't bundle source code management, project planning, security scanning, or deployment monitoring into a single product. This focused approach is a strength, not a limitation.
+Buildkite is not an all-in-one DevOps platform. It doesn't bundle source code management, project planning, security scanning, or deployment monitoring into a single product.
 
 By specializing in CI/CD, Buildkite integrates cleanly with your existing tools—whether that's GitHub, GitLab, or Bitbucket for source control; Datadog or New Relic for observability; or HashiCorp Vault for secrets management. You're not forced to replace your entire toolchain to get superior CI/CD performance.
 
@@ -84,4 +84,10 @@ Buildkite Pipelines is the right choice when:
 
 Buildkite Pipelines delivers what modern software teams need: unlimited scale, exceptional speed, zero-compromise security, and the flexibility to build exactly the workflows your organization requires. It's purpose-built for teams who refuse to let their CI/CD system become a bottleneck to innovation.
 
-The following pages in this section explore the advantages of migrating to Buildkite Pipelines from other specific CI/CD systems in detail. Each comparison examines architectural differences, migration considerations, and specific scenarios where Buildkite Pipelines' advantages become most apparent.
+The following pages in this section explore the advantages of migrating to Buildkite Pipelines from other specific CI/CD systems in detail:
+
+- [Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins)
+- [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab)
+- [GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha)
+
+Each comparison examines architectural differences, migration considerations, and specific scenarios where Buildkite Pipelines' advantages become most apparent.
