@@ -343,9 +343,13 @@ var commit = EnvironmentVariable.Commit;
 var buildNumber = EnvironmentVariable.BuildNumber;
 ```
 
+<!--
+
 ### API documentation
 
 For more detailed API documentation on the Buildkite SDK for C#, consult the [Buildkite SDK's C# API documentation](https://buildkite.com/docs).
+
+-->
 
 ## Developing the Buildkite SDK
 
