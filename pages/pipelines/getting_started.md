@@ -22,7 +22,7 @@ If you signed up:
 
     **Note:**
 
-    * If you're new to Buildkite Pipelines and want to learn more about creating them, select **Or try an example** to choose from an [existing Buildkite pipeline example](#create-a-new-pipeline-example-pipelines) that you can build.
+    * If you're new to Buildkite Pipelines and want to learn more about creating some pipelines, select **Or try an example** to examine the list of existing example pipelines you can build.
 
     * If your GitHub account is new and contains no repositories, the **Starter pipeline** of the **Buildkite Examples** is automatically selected.
 
@@ -53,12 +53,12 @@ The **New Pipeline** page has the following fields:
 - **Default Branch**: The repository branch that your pipeline will build, unless instructed otherwise. Leave this unchanged for this tutorial.
 - **Teams**: The Buildkite teams that have permission to build your pipeline.
 
-    **Note:** If you just [signed up to Buildkite Pipelines](#before-you-start), then this field won't be visible, as it's only shown once [teams](/docs/platform/team-management) have been configured in your Buildkite account/organization. If this field is shown, leave it unchanged for this tutorial.
+    **Note:** If you just [signed up to Pipelines](#before-you-start), then this field won't be visible, as it's only shown once [teams](/docs/platform/team-management) have been configured in your Buildkite account/organization. If this field is shown, leave it unchanged for this tutorial.
 
 - **Cluster**: The Buildkite cluster whose configured agents will build your pipeline. Leave this unchanged for this tutorial.
 - **YAML Steps editor**: This field allows you to define steps within your main Buildkite pipeline. To make things easier though, you can start with an initial pipeline from the **Template** dropdown. Using this dropdown, you can select from the **Helper templates**:
 
-    * **Hello world**: For a simple example of how to structure commands in Buildkite pipeline YAML.
+    * **Hello world**: For a simple example of how to structure commands in Buildkite pipeline YAML syntax.
     * **Pipeline upload**: To upload a Buildkite pipeline stored in your repository.
     * **Example templates**: This section lists pipelines which are used to build example projects available from the **Repository** field, when the **Git scope** has been set to **Buildkite Examples**.
 
@@ -70,21 +70,19 @@ The **New Pipeline** page has the following fields:
 
 Ensure you're already familiar with the **New Pipeline** page's functionality (described in [Understanding the New Pipeline page](#create-a-new-pipeline-understanding-the-new-pipeline-page)) before proceeding.
 
-If you're new to Buildkite Pipelines:
-
 1. Ensure **Buildkite Examples** is selected in **Git scope** and select **Starter pipeline**.
 1. In the **YAML Steps editor**, note the three steps that constitute this pipeline: `build`, `test`, and `deploy`, and the dependency order in which these steps' jobs will be run.
 
-    **Note:** Without analyzing the pipeline syntax in too much detail, note the annotation-related command that's part of the `deploy` step.
+    **Note:** Without analyzing the pipeline syntax in too much detail, take note the annotation-related command that's part of the `deploy` step.
 
 1. Select **Create and run** to create your first **Starter pipeline**. This button creates your **Starter pipeline** and runs its first build.
 1. Once your build has completed, check its **Annotations** tab, which displays the content of the repository's `.buildkite/annotation.md` file.
 
-Once you've seen how Buildkite builds a simple pipeline like **Starter pipeline**, try creating and building other pipelines from the **Buildkite Examples** provided, which suit the technologies you've been working with.
+Once you've seen how Buildkite Pipelines builds a simple pipeline like **Starter pipeline**, try creating and building other pipelines from the **Buildkite Examples** provided, which suit the technologies you've been working with.
 
 > 📘
-> For each repository of the **Buildkite Examples** selected in the **Repository** field, the pipeline shown is retrieved from the repository's `.buildkite/pipeline.yml file`.
-> Also be aware that Buildkite pipelines commits nothing to your repository, unless you explicitly instruct your pipeline to do so.
+> For each repository of the **Buildkite Examples** selected in the **Repository** field, the pipeline shown in the **YAML Steps editor** field is retrieved from that repository's `.buildkite/pipeline.yml` file.
+> Also be aware that a Buildkite pipeline commits nothing to your repository, unless you explicitly instruct your pipeline to do so.
 
 More Buildkite example repositories are available from the [Buildkite Resources Examples](https://buildkite.com/resources/examples/) page.
 
@@ -92,7 +90,7 @@ More Buildkite example repositories are available from the [Buildkite Resources 
 
 That's it! You've got yourself up and running with Buildkite Pipelines and have already created and built some new pipelines!
 
-As part of this setup process, behind the scenes, Buildkite Pipelines set you up with a few default configurations. These include the following:
+As part of this setup process, behind the scenes, Pipelines set you up with a few default configurations. These include the following:
 
 - A _Buildkite cluster_: Buildkite Pipelines requires that all of its pipelines are managed through a [Buildkite cluster](/docs/pipelines/glossary#cluster), which is a security feature that's used to organize queues. When a new Buildkite account/organization is created, a single cluster is created, called **Default cluster**. Learn more Buildkite clusters from the [Clusters overview](/docs/pipelines/security/clusters).
 - A _queue_: When the **Default cluster** is created, a default [queue](/docs/pipelines/glossary#queue), simply called **queue** is also created. When creating a personal Buildkite account, this queue is a _Buildkite hosted queue_, which runs _Buildkite hosted agents_. Learn more about queues from [Queues overview](/docs/agent/v3/queues) and Buildkite hosted agents from its [overview](/docs/agent/v3/buildkite-hosted) page.
