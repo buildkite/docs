@@ -16,11 +16,11 @@ This approach manifests in three core principles:
 
 ## Core advantages across all CI/CD systems
 
-Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whether it's Jenkins, GitLab, GitHub Actions, CircleCI, or others, several fundamental advantages remain constant.
+Regardless of which CI/CD system you're comparing Buildkite Pipelines to, whether it's Jenkins, GitLab, GitHub Actions, CircleCI, or others, several fundamental advantages remain constant.
 
 ### Scalability
 
-**Lightweight agent architecture**: Buildkite Agents are lightweight software that can run anywhere, not full compute units that require complex provisioning. This enables massive concurrent job execution without infrastructure overhead.
+**Lightweight agent architecture**: [Buildkite Agents](/docs/agent/v3) are lightweight software that can run anywhere, not full compute units that require complex provisioning. This enables massive concurrent job execution without infrastructure overhead.
 
 **No platform-imposed limits**: While other CI/CD systems restrict concurrency based on pricing tiers or infrastructure constraints, Buildkite Pipelines imposes no artificial restrictions. Add agents based on your actual workload needs, not vendor limitations.
 
@@ -38,9 +38,9 @@ Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whe
 
 **Faster feedback cycles**: Lightweight agents, sophisticated parallelization, and dynamic pipeline generation combine to deliver significantly faster build times.
 
-**Optimized for monorepos**: Buildkite handles large monorepo structures efficiently, with dynamic pipeline generation that can analyze dependencies and selectively build only what's changed.
+**Optimized for monorepos**: Buildkite Pipelines handles large monorepo structures efficiently, with dynamic pipeline generation that can analyze dependencies and selectively build only what's changed.
 
-**Efficient resource utilization**: Match compute to workload — dedicate fast agents to critical pipelines and smaller agents to less important tasks. No wasted compute on predetermined resource classes.
+**Efficient resource utilization**: You can match compute to workload and dedicate fast agents to critical pipelines and smaller agents to less important tasks. No wasted compute on predetermined resource classes.
 
 ### Dynamic pipelines
 
@@ -60,7 +60,7 @@ Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whe
 
 ### Developer experience
 
-**Fast onboarding**: Start with zero-config hosted agents and instant pipelines, then migrate to self-hosted infrastructure when needed—no multi-day setup processes required.
+**Fast onboarding**: Start with zero-config [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) and instant pipelines, then migrate to self-hosted infrastructure when needed—no multi-day setup processes required.
 
 **Clear visibility**: Rich build annotations, integrated test results, and transparent failure information keep developers informed without context switching.
 
@@ -70,7 +70,7 @@ Regardless of which CI/CD system you're comparing Buildkite Pipelines to — whe
 
 Buildkite is not an all-in-one DevOps platform. It doesn't bundle source code management, project planning, security scanning, or deployment monitoring into a single product.
 
-By specializing in CI/CD, Buildkite integrates cleanly with your existing tools—whether that's GitHub, GitLab, or Bitbucket for source control; Datadog or New Relic for observability; or HashiCorp Vault for secrets management. You're not forced to replace your entire toolchain to get superior CI/CD performance.
+By specializing in CI/CD, Buildkite integrates cleanly with your existing tools—whether that's GitHub, GitLab, or Bitbucket for source control; Datadog, Honeycomb, Amazon EventBridge, or OpenTelemetry for observability; or HashiCorp Vault for secrets management. You're not forced to replace your entire toolchain to get superior CI/CD performance.
 
 Buildkite Pipelines is the right choice when:
 
