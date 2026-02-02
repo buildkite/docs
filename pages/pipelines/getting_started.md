@@ -28,66 +28,80 @@ If you signed up:
 
 - By email, the **New Pipeline** page presents the **Starter pipeline** of the **Buildkite Examples**.
 
-<%= image "new-pipeline-page.png", alt: "New Pipeline page" %>
+Ensure you familiarize yourself with the **New Pipeline** page's functionality in [Understanding the New Pipeline page](#create-a-new-pipeline-understanding-the-new-pipeline-page) before proceeding to build some [example pipelines](#create-a-new-pipeline-example-pipelines).
 
 ### Understanding the New Pipeline page
+
+<%= image "new-pipeline-page.png", alt: "New Pipeline page" %>
 
 The **New Pipeline** page has the following fields:
 
 - **Git scope**: Allows you to select from the following list of options:
+
     * Your GitHub account or organization.
     * A selection of **Buildkite Examples** to start with, which allows you to learn more about how Buildkite Pipelines builds projects for a variety of different use cases.
-    * The **Use remote URL**, allows you to select a GitLab, Bitbucket, or any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers.
-    * The **Connect GitHub account**, allows you to do just that. This option is useful if you signed up by email, and need to connect your GitHub account to the Buildkite platform.
-- **Repository**: Select the Git repository available to your selected **Git scope**. Upon selecting a repository, the **Checkout using** option appears, where you can select between **SSH** or **HTTPS**.
-- **Pipeline name**: Buildkite Pipelines automatically generates a name for your pipeline in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), which is based on your repository's name. However, you can change the name in this field.
+    * The **Use remote URL**, allows you to select a **GitLab**, **Bitbucket**, or **Any account**, for any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers.
+    * The **Connect GitHub account**, allows you to do just that. This option is useful if you signed up by email, and need to connect your GitHub account to the Buildkite platform, and generates the [same **Install Buildkite** step as part of the GitHub sign-up process](#before-you-start).
+
+- **Repository**: Select the Git repository available to your selected **Git scope**. Upon selecting a repository:
+
+    * The **Checkout using** option appears, where you can select between **SSH** or **HTTPS**.
+    * If you selected a repository which is not one of the **Buildkite Examples**, then the **Build Triggers** section may appear, which shows the actions that trigger a build of this pipeline. You can disable this triggering by clearing the **Trigger builds when** checkbox.
+
+- **Pipeline name**: Buildkite Pipelines automatically generates a name for your pipeline, which is based on your repository's name. However, you can change this default name using this field.
+- **Description** ( _optional_ ): Enter a description for your pipeline, which will appear under the pipeline name on the main **Pipelines** page.
+- **Default Branch**: The repository branch that your pipeline will build, unless instructed otherwise. Leave this unchanged for this tutorial.
+- **Teams**: The Buildkite teams that have permission to build your pipeline.
+
+    **Note:** If you just [signed up to Buildkite Pipelines](#before-you-start), then this field won't be visible, as it's only shown once [teams](/docs/platform/team-management) have been configured in your Buildkite account/organization. If this field is shown, leave it unchanged for this tutorial.
+
+- **Cluster**: The Buildkite cluster whose configured agents will build your pipeline. Leave this unchanged for this tutorial.
+- **YAML Steps editor**: This field allows you to define steps within your main Buildkite pipeline. To make things easier though, you can start with an initial pipeline from the **Template** dropdown. Using this dropdown, you can select from the **Helper templates**:
+
+    * **Hello world**: For a simple example of how to structure commands in Buildkite pipeline YAML.
+    * **Pipeline upload**: To upload a Buildkite pipeline stored in your repository.
+    * **Example templates**: This section lists pipelines which are used to build example projects available from the **Repository** field, when the **Git scope** has been set to **Buildkite Examples**.
 
 > 📘
-> Alternatively, if you're familiar with creating Buildkite pipelines and have already created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then select **Pipeline upload** from the **Template** drop-down of the **YAML Steps editor**, which generates a pipeline step that uploads the `.buildkite/pipeline.yml` pipeline file from this repository to Buildkite Pipelines, and uses the steps in that file to build your project.
-> If you already have a Buildkite organization and user account, you can access the **New Pipeline** page by selecting **Pipelines** from the global navigation > **New pipeline**.
+> If you're already familiar with creating Buildkite pipelines and have created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then ensure the **Pipeline upload** option has been selected from the **Template** dropdown of the **YAML Steps editor**. This option generates a pipeline step within your main Buildkite pipeline, which uploads the rest of your pipeline (defined in the `.buildkite/pipeline.yml` file from your repository), and uses the steps in that file to build your project.
+> If you already have a Buildkite account/organization and user account, you can access the **New Pipeline** page by selecting **Pipelines** from the global navigation > **New pipeline**.
 
 ### Example pipelines
 
-Important things to cover:
+Ensure you're already familiar with the **New Pipeline** page's functionality (described in [Understanding the New Pipeline page](#create-a-new-pipeline-understanding-the-new-pipeline-page)) before proceeding.
 
-- Nothing is committed to the repo.
-- The YAML file in the UI comes from the repos' existing .buildkite/pipeline.yml file.
-- Link to https://buildkite.com/resources/examples/
-- Explaining the New Pipeline dropdowns.
+If you're new to Buildkite Pipelines:
+
+1. Ensure **Buildkite Examples** is selected in **Git scope** and select **Starter pipeline**.
+1. In the **YAML Steps editor**, note the three steps that constitute this pipeline: `build`, `test`, and `deploy`, and the dependency order in which these steps' jobs will be run.
+
+    **Note:** Without analyzing the pipeline syntax in too much detail, note the annotation-related command that's part of the `deploy` step.
+
+1. Select **Create and run** to create your first **Starter pipeline**. This button creates your **Starter pipeline** and runs its first build.
+1. Once your build has completed, check its **Annotations** tab, which displays the content of the repository's `.buildkite/annotation.md` file.
+
+Once you've seen how Buildkite builds a simple pipeline like **Starter pipeline**, try creating and building other pipelines from the **Buildkite Examples** provided, which suit the technologies you've been working with.
+
+> 📘
+> For each repository of the **Buildkite Examples** selected in the **Repository** field, the pipeline shown is retrieved from the repository's `.buildkite/pipeline.yml file`.
+> Also be aware that Buildkite pipelines commits nothing to your repository, unless you explicitly instruct your pipeline to do so.
+
+More Buildkite example repositories are available from the [Buildkite Resources Examples](https://buildkite.com/resources/examples/) page.
+
+## Next steps
+
+That's it! You've got yourself up and running with Buildkite Pipelines and have already created and built some new pipelines!
+
+As part of this setup process, Buildkite Pipelines has set you up with a few default configurations.
+
+These include:
+
+- A Buildkite cluster: Buildkite Pipelines requires that all of its 
 
 On next page of 'Create your own pipeline':
 
 - Get rid of Continue running the agent
 - In 'Define the steps', mention that the use can convert their existing pipeline from another CI provider to Buildkite Pipelines, and link through to that section.
-
-To create a pipeline:
-
-1. Select **Add to Buildkite** for the appropriate example based on where your agent is running.
-    * For Bash:<br/>
-        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
-        (from the [Bash example](https://github.com/buildkite/bash-example/) GitHub repository)
-    * For PowerShell:<br/>
-        <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a><br/>
-        (from the [PowerShell example](https://github.com/buildkite/powershell-example/) GitHub repository)
-
-    **Note:** Both of these example pipelines result in the same behavior—the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
-
-1. On the **New Pipeline** page, select the **Cluster** of the [agent you had previously set up](#set-up-an-agent).
-
-1. If the **Team** field appears further down the page, this means that your Buildkite organization already has the [teams feature enabled](/docs/platform/team-management/permissions#manage-teams-and-permissions). Therefore, choose the **Team** who will have access to this pipeline.
-
-1. Leave all fields with their pre-filled default values and select **Create Pipeline**. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
-
-    **Note:** If the **GitHub Webhook Setup** (or other webhook setup) page appears, just select **Skip Webhook Setup** to continue, as there is no need to set up a webhook as part of this tutorial.
-
-1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
-
-   1. In the **Message** field, enter a short description for the build. For example, **My first build**.
-   1. Select **Create Build**.
-
-The page for the build then opens and begins running:
-
-<%= image "getting-started-first-build.png", alt: "The build page" %>
 
 ## Check the output
 
