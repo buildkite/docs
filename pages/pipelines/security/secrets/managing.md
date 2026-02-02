@@ -1,6 +1,6 @@
 # Managing pipeline secrets
 
-This page provides guidance on best practices for managing your secrets in a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture) with self-hosted agents in your own infrastructure, or using [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted). These secrets may be required by your Buildkite pipelines to access 3rd party systems as part of your build or deployment processes. However, these best practice guidelines help ensure that your secrets stay safely within your infrastructure and are never stored in, or sent to Buildkite.
+This page provides guidance on best practices for managing your secrets in a [hybrid Buildkite architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) with self-hosted agents in your own infrastructure, or using [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted). These secrets may be required by your Buildkite pipelines to access 3rd party systems as part of your build or deployment processes. However, these best practice guidelines help ensure that your secrets stay safely within your infrastructure and are never stored in, or sent to Buildkite.
 
 ## Using a secrets storage service
 
