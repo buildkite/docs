@@ -1,6 +1,6 @@
 # Limits
 
-This page outlines product and platform usage limits based on the Buildkite platform's service limits and your subscription tier. The available subscription tiers are:
+This page outlines usage limits designed to protect your builds from unintentional resource issues and ensure reliable service for all customers. Limits vary by subscription tier:
 
 - Personal plan
 - Trial plan
@@ -9,12 +9,12 @@ This page outlines product and platform usage limits based on the Buildkite plat
 
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
-> 📘 Overriding the limits
-> If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits it is possible.
+> 📘 Adjusting limits
+> If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits is possible.
 
 ## Platform and organization-level limits
 
-Platform and organization-level limits are applied to all Buildkite products and are put in place to ensure that Buildkite can provide a reliable service to all customers. These limits are scoped to your organization.
+Platform and organization-level limits apply to all Buildkite products. These limits protect your organization from unintentional resource exhaustion and ensure reliable service for all customers. These limits are scoped to your organization.
 
 <table>
   <thead>
@@ -53,17 +53,17 @@ Platform and organization-level limits are applied to all Buildkite products and
       {
         title: "REST API rate limit per organization",
         description: "The number of requests an organization can make to Organization endpoints on the REST API, per minute.",
-        default_value: "200 requests/min"
+        default_value: "200 requests per minute"
       },
       {
         title: "GraphQL API rate limit per organization",
         description: "The number of requests an organization can make to Organization endpoints on the GraphQL API, per minute.",
-        default_value: "20,000 requests/min"
+        default_value: "20,000 requests per minute"
       },
       {
         title: "Portal API rate limit per organization",
         description: "The number of requests an organization can make to Organization endpoints on the Portal API, per minute.",
-        default_value: "200 requests/min"
+        default_value: "200 requests per minute"
       },
       {
         title: "GraphQL query complexity",
@@ -104,9 +104,9 @@ Platform and organization-level limits are applied to all Buildkite products and
   </tbody>
 </table>
 
-## Buildkite Pipelines limits
+## Pipelines limits
 
-The following table lists the default service limits for [Buildkite Pipelines](/docs/pipelines).
+The following table lists the default service limits for [Pipelines](/docs/pipelines).
 
 <table>
   <thead>
@@ -129,8 +129,8 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Job timeout",
-        description: "The time period after which a running job will time out.",
-        default_value: "4 hours on the Personal plan. Unlimited for Pro and Enterprise"
+        description: "The maximum time before a running job will time out.",
+        default_value: "4 hours on the Personal plan. Unlimited on Pro and Enterprise plans"
       },
       {
         title: "Pipeline uploads per build",
@@ -149,7 +149,7 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Triggered builds per build",
-        description: "The maximum number of triggered builds per a single build.",
+        description: "The maximum number of triggered builds per single build.",
         default_value: "250 builds"
       },
       {
@@ -159,8 +159,8 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Build retention",
-        description: "How long builds are stored in Buildkite after running.",
-        default_value: "90 days on the Personal and Pro plans. 365 days for Enterprise"
+        description: "The time period builds are stored in Buildkite after running.",
+        default_value: "90 days on the Personal and Pro plans, 365 days on the Enterprise plan"
       },
       {
         title: "Teams per block step",
@@ -209,8 +209,8 @@ The following table lists the default service limits for [Buildkite Pipelines](/
       },
       {
         title: "Number of clusters",
-        description: "How many clusters can be created in a Buildkite organization.",
-        default_value: "1 on the Personal plan. Unlimited on Pro and Enterprise"
+        description: "The maximum number of clusters that can be created in a Buildkite organization.",
+        default_value: "1 on the Personal plan, unlimited on Pro and Enterprise plans"
       },
       {
         title: "Number of queues per cluster",
@@ -297,7 +297,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/build
 
 | Limit type | Trial | Personal | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
-| **Linux concurrency** | 10| 3 | 20 | Custom |
+| **Linux concurrency** | 10 | 3 | 20 | Custom |
 | **macOS concurrency** | 3 | - | 5 | Custom |
 | **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
@@ -318,24 +318,14 @@ The following table lists the default service limits for [Test Engine](/docs/tes
   <tbody>
     <% [
       {
-        title: "Test Engine workflows per suite (Personal)",
-        description: "The maximum number of Test Engine workflows per suite on the Personal plan.",
-        default_value: "1 workflow"
-      },
-      {
-        title: "Test Engine workflows per suite (Pro)",
-        description: "The maximum number of Test Engine workflows per suite on the Pro plan.",
-        default_value: "3 workflows"
-      },
-      {
-        title: "Test Engine workflows per suite (Enterprise)",
-        description: "The maximum number of Test Engine workflows per suite on the Enterprise plan.",
-        default_value: "3 workflows"
+        title: "Test Engine workflows per suite",
+        description: "The maximum number of Test Engine workflows per suite.",
+        default_value: "1 workflow on the Personal plan, 3 workflows on the Pro and Enterprise plans"
       },
       {
         title: "Test Splitting API rate limit",
-        description: "The number of requests that can be made to the Test Splitting API, per minute.",
-        default_value: "10,000 requests/min"
+        description: "The number of requests that can be made to the Test Splitting API.",
+        default_value: "10,000 requests per minute"
       },
       {
         title: "Test ownership file size",
@@ -376,18 +366,18 @@ The following table lists the default service limits for [Package Registries](/d
     <% [
       {
         title: "Personal plan",
-        description: "Allocated storage volume. Hard limit.",
-        default_value: "1 GB per month"
+        description: "Allocated storage and bandwidth volume (combined).",
+        default_value: "1 GB per month (hard limit)"
       },
       {
         title: "Pro plan",
-        description: "Allocated storage volume. Usage-based limit.",
-        default_value: "20 GB per month"
+        description: "Allocated storage and bandwidth volume (combined).",
+        default_value: "20 GB included per organization per month, then usage-based billing"
       },
       {
         title: "Enterprise plan",
-        description: "Allocated storage volume. Usage-based limit.",
-        default_value: "Custom, with volume discount"
+        description: "Allocated storage and bandwidth volume (combined).",
+        default_value: "Custom allocation with volume pricing"
       }
     ].sort_by { |limit| limit[:title] }.each do |limit| %>
       <tr>
