@@ -21,7 +21,7 @@ Most Elastic CI Stack for AWS features are supported on both Linux and Windows. 
 
 - Amazon Linux 2023 (64-bit x86)
 - Amazon Linux 2023 (64-bit ARM, Graviton)
-- Windows Server 2019 (64-bit x86)
+- Windows Server 2022 (64-bit x86)
 
 If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any [other config values](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/templates/aws-stack.yml)), and then run the below command:
 
@@ -65,7 +65,7 @@ steps:
       queue: "windows"
 ```
 
-For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue from a pipeline](/docs/agent/v3/queues#targeting-a-queue-from-a-pipeline).
+For more information, see the [Queues overview](/docs/agent/v3/queues) page, specifically [Targeting a queue from a pipeline](/docs/agent/v3/queues#targeting-a-queue-from-a-pipeline).
 
 Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) for more details.
 

@@ -61,7 +61,7 @@ If you specify multiple tags, your build will only run on agents that have **all
 
 ## The queue tag
 
-The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](/docs/agent/v3/queues) for more information about using queues.
+The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [Queues overview](/docs/agent/v3/queues) page for more information about using queues.
 
 If you specify a `queue` and [agent `tags`](#agent-targeting), your build will only run on agents that match **all** of the specified criteria.
 
@@ -135,7 +135,7 @@ This means the first step in the example can only run on an agent with the hostn
 
 ## Run a single job
 
-`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then stops the agent when the job is complete.
+`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it will run the job, then the agent will be stopped when the job is complete. Jobs acquired via this method will ignore agent tags configured on a job.
 
 ### Getting the job ID for a single job
 

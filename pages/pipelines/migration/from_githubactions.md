@@ -48,4 +48,4 @@ You can learn more about checkout strategies for Buildkite Pipelines in [Git che
 
 ## Translate an example pipeline
 
-If you would like to get a hands-on understanding of the differences and how GitHub Actions workflows map onto Buildkite Pipelines, try out the [Buildkite migration tool for GitHub Actions](https://buildkite.com/docs/pipelines/migration/tool/github-actions).
+If you would like to get a hands-on understanding of the differences and how GitHub Actions workflows map onto Buildkite Pipelines, try out the [Buildkite pipeline converter](/docs/pipelines/migration/converter/github-actions).

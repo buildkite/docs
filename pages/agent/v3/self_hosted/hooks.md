@@ -98,7 +98,7 @@ Polyglot hook usage comes with the following caveats:
 * Interpreted hooks are not supported on Windows.
 * Hooks must not have a file extension–except on Windows, where binary hooks must have the `.exe` extension.
 * For interpreted hooks, the specified interpreter must already be installed on the agent machine. The agent won't install the interpreter or any package dependencies for you.
-* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3#promoted-experiments-job-api).
+* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3/self-hosted/configure/experiments#promoted-experiments-job-api).
 
 ## Agent lifecycle hooks
 
@@ -217,6 +217,6 @@ See the dedicated [Using agent hooks and plugins](/docs/agent/v3/self-hosted/age
 
 ## Hooks on Buildkite hosted agents
 
-Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/agent/v3/buildkite-hosted/linux#agent-images-using-agent-hooks).
+Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/agent/v3/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks).
 
 Currently, [Buildkite hosted agents for macOS](/docs/agent/v3/buildkite-hosted/macos) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.

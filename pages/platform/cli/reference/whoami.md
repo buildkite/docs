@@ -30,8 +30,8 @@ bk whoami [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-o`, `--output="json"` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
+| `--output=""` | Output format. One of: json, yaml, text |
 
 ## Examples
 
@@ -46,4 +46,3 @@ List the current token session in JSON format:
 ```bash
 bk whoami -o json
 ```
-

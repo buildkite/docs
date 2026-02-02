@@ -246,3 +246,9 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the team couldn't be deleted" }</code></td></tr>
 </tbody>
 </table>
+
+## Related endpoints
+
+- [Team members](/docs/apis/rest-api/teams/members) - manage members of a team
+- [Team pipelines](/docs/apis/rest-api/teams/pipelines) - assign pipelines to teams
+- [Team suites](/docs/apis/rest-api/teams/suites) - assign test suites to teams

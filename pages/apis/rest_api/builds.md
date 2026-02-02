@@ -1,10 +1,137 @@
 # Builds API
 
+A build is a single run of a pipeline. You can trigger a build in various ways, including through the dashboard, API, as the result of a webhook, on a schedule, or even from another pipeline using a trigger step.
+
 ## Build number vs build ID
 
 All builds have a _build ID_ (for example, `01908131-7d9f-495e-a17b-80ed31276810`), which is a unique value throughout the entire Buildkite platform, as well as a _build number_ (for example, `27`). A build number is unique to a pipeline, and its value is incremented with each build, although there may be occasional gaps.
 
 Note that some API request types on this page, especially those involving only a single build, require using a build number rather than a build ID.
+
+## Build data model
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>id</code></th><td>UUID of the build</td></tr>
+  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the build</td></tr>
+  <tr><th><code>url</code></th><td>Canonical API URL of the build</td></tr>
+  <tr><th><code>web_url</code></th><td>URL of the build on Buildkite</td></tr>
+  <tr><th><code>number</code></th><td>Build number within the pipeline (unique per pipeline, may have gaps)</td></tr>
+  <tr><th><code>state</code></th><td>Current state of the build: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>blocked</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>not_run</code>, <code>waiting</code>, or <code>waiting_failed</code></td></tr>
+  <tr><th><code>blocked</code></th><td>Whether the build is blocked waiting on a block step (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>cancel_reason</code></th><td>Reason provided when the build was canceled (if applicable)</td></tr>
+  <tr><th><code>message</code></th><td>Commit message or custom message for the build</td></tr>
+  <tr><th><code>commit</code></th><td>Git commit SHA being built</td></tr>
+  <tr><th><code>branch</code></th><td>Git branch being built</td></tr>
+  <tr><th><code>env</code></th><td>Environment variables passed to the build</td></tr>
+  <tr><th><code>source</code></th><td>How the build was triggered: <code>webhook</code>, <code>api</code>, <code>ui</code>, <code>trigger_job</code>, or <code>schedule</code></td></tr>
+  <tr><th><code>creator</code></th><td>User who created the build</td></tr>
+  <tr><th><code>jobs</code></th><td>Array of <a href="#job-data-model">Job</a> objects in the build</td></tr>
+  <tr><th><code>created_at</code></th><td>When the build was created</td></tr>
+  <tr><th><code>scheduled_at</code></th><td>When the build was scheduled</td></tr>
+  <tr><th><code>started_at</code></th><td>When the build's first job was started by an agent</td></tr>
+  <tr><th><code>finished_at</code></th><td>When the build finished (passed, failed, canceled)</td></tr>
+  <tr><th><code>meta_data</code></th><td>Key-value metadata associated with the build</td></tr>
+  <tr><th><code>pull_request</code></th><td>Pull request information if applicable</td></tr>
+  <tr><th><code>rebuilt_from</code></th><td>Build this was rebuilt from (if applicable)</td></tr>
+  <tr><th><code>pipeline</code></th><td>Pipeline the build belongs to</td></tr>
+</tbody>
+</table>
+
+## Job data model
+
+Jobs are the individual units of work within a build.
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>id</code></th><td>UUID of the job</td></tr>
+  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the job</td></tr>
+  <tr><th><code>type</code></th><td>Type of job: <code>script</code>, <code>waiter</code>, <code>manual</code>, or <code>trigger</code></td></tr>
+  <tr><th><code>name</code></th><td>Display name of the job (may include emoji)</td></tr>
+  <tr><th><code>step_key</code></th><td>Key identifier for the step if specified in the pipeline</td></tr>
+  <tr><th><code>step</code></th><td>Step information including signature details</td></tr>
+  <tr><th><code>agent_query_rules</code></th><td>Agent query rules used to route this job</td></tr>
+  <tr><th><code>state</code></th><td>Current state: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code></td></tr>
+  <tr><th><code>web_url</code></th><td>URL of the job on Buildkite</td></tr>
+  <tr><th><code>log_url</code></th><td>API URL for the job's log</td></tr>
+  <tr><th><code>raw_log_url</code></th><td>API URL for the job's raw log text</td></tr>
+  <tr><th><code>command</code></th><td>Command executed by the job</td></tr>
+  <tr><th><code>soft_failed</code></th><td>Whether the job soft-failed (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>exit_status</code></th><td>Exit code of the command (integer)</td></tr>
+  <tr><th><code>artifact_paths</code></th><td>Glob patterns for artifact upload</td></tr>
+  <tr><th><code>agent</code></th><td>Agent that ran the job (if assigned)</td></tr>
+  <tr><th><code>created_at</code></th><td>When the job was added to the build</td></tr>
+  <tr><th><code>scheduled_at</code></th><td>When the job was scheduled for execution</td></tr>
+  <tr><th><code>runnable_at</code></th><td>When the job became ready to be accepted by an agent</td></tr>
+  <tr><th><code>started_at</code></th><td>When the job was started by an agent</td></tr>
+  <tr><th><code>finished_at</code></th><td>When the job finished</td></tr>
+  <tr><th><code>retried</code></th><td>Whether this job was retried (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>retried_in_job_id</code></th><td>UUID of the retry job (if retried)</td></tr>
+  <tr><th><code>retries_count</code></th><td>Number of retries for this job</td></tr>
+  <tr><th><code>retry_type</code></th><td>Type of retry if applicable</td></tr>
+  <tr><th><code>parallel_group_index</code></th><td>Index within a parallel group (if parallel job)</td></tr>
+  <tr><th><code>parallel_group_total</code></th><td>Total jobs in the parallel group (if parallel job)</td></tr>
+  <tr><th><code>matrix</code></th><td>Matrix configuration values (if matrix job)</td></tr>
+  <tr><th><code>cluster_id</code></th><td>UUID of the cluster (if using clusters)</td></tr>
+  <tr><th><code>cluster_queue_id</code></th><td>UUID of the cluster queue (if using clusters)</td></tr>
+</tbody>
+</table>
+
+## Timestamp attributes
+
+There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
+
+The timestamps are available using both the GraphQL and REST APIs. They differ slightly between the build and job objects.
+
+Each <em>build</em> is provided with the following timestamps:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>The time the build was created. All builds from a <code>pipeline upload</code> have a <code>scheduled_at</code> copied from the job that did the uploading</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>The time the build was created.  For uploaded pipelines it is when the <code>pipeline upload</code> was run.</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>The time the build's first job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>The time the build is marked as finished (passed, failed, paused, canceled)</td>
+  </tr>
+</tbody>
+</table>
+
+Each <em>job</em> is provided with the same timestamps, but their values differ from those on each build:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>The time when the scheduler process processes the job. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>The time when the job was added to the build</td>
+  </tr>
+  <tr>
+    <th><code>runnable_at</code></th>
+    <td>The time when a job was ready to be accepted by an agent</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>The time the job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>The time the job is marked as finished (passed, failed, paused, canceled)</td>
+  </tr>
+</tbody>
+</table>
 
 ## List all builds
 
@@ -81,8 +208,9 @@ curl -H "Authorization: Bearer $TOKEN" \
         "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
         "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
         "type": "script",
-        "name": ":package:",
-        "step_key": "package",
+        "name": "RSpec",
+        "step_key": "rspec",
+        "group_key": "tests",
         "step": {
           "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
           "signature": {
@@ -102,7 +230,7 @@ curl -H "Authorization: Bearer $TOKEN" \
         "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
         "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
         "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-        "command": "scripts/build.sh",
+        "command": "bundle exec rspec",
         "soft_failed": false,
         "exit_status": 0,
         "artifact_paths": "",
@@ -185,7 +313,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/pipeline_builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -208,7 +336,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
   "number": 2,
   "state": "passed",
-  "cancel_reason": "reason for a canceled build",
+  "cancel_reason": null,
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -227,8 +355,9 @@ curl -H "Authorization: Bearer $TOKEN" \
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
       "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
       "type": "script",
-      "name": ":package:",
-      "step_key": "package",
+      "name": "RSpec",
+      "step_key": "rspec",
+      "group_key": "tests",
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
         "signature": {
@@ -244,11 +373,11 @@ curl -H "Authorization: Bearer $TOKEN" \
         }
       },
       "agent_query_rules": ["*"],
-      "state": "scheduled",
+      "state": "passed",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
       "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
       "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "command": "scripts/build.sh",
+      "command": "bundle exec rspec",
       "soft_failed": false,
       "exit_status": 0,
       "artifact_paths": "",
@@ -296,7 +425,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
-  "finished_at": "2015-05-09T21:05:59.874Z",
+  "finished_at": "2015-05-09T21:08:59.874Z",
   "meta_data": { },
   "pull_request": { },
   "rebuilt_from": {
@@ -335,6 +464,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
 Unlike [build states](/docs/pipelines/configure/notifications#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
+
+When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-step), the job object includes a `group_key` field. The value corresponds to the group step's `key` attribute, allowing you to identify which jobs belong to which logical groups in your pipeline.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
@@ -842,59 +973,3 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `write_builds`
 
 Success response: `200 OK`
-
-## Timestamp attributes
-
-There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
-
-The timestamps are available using both the GraphQL and REST APIs. They differ slightly between the build and job objects.
-
-Each <em>build</em> is provided with the following timestamps:
-
-<table>
-<tbody>
-  <tr>
-    <th><code>scheduled_at</code></th>
-    <td>The time the build was created. All builds from a <code>pipeline upload</code> have a <code>scheduled_at</code> copied from the job that did the uploading</td>
-  </tr>
-  <tr>
-    <th><code>created_at</code></th>
-    <td>The time the build was created.  For uploaded pipelines it is when the <code>pipeline upload</code> was run.</td>
-  </tr>
-  <tr>
-    <th><code>started_at</code></th>
-    <td>The time the build's first job was started by an agent</td>
-  </tr>
-  <tr>
-    <th><code>finished_at</code></th>
-    <td>The time the build is marked as finished (passed, failed, paused, canceled)</td>
-  </tr>
-</tbody>
-</table>
-
-Each <em>job</em> is provided with the same timestamps, but their values differ from those on each build:
-
-<table>
-<tbody>
-  <tr>
-    <th><code>scheduled_at</code></th>
-    <td>The time when the scheduler process processes the job. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
-  </tr>
-  <tr>
-    <th><code>created_at</code></th>
-    <td>The time when the job was added to the build</td>
-  </tr>
-  <tr>
-    <th><code>runnable_at</code></th>
-    <td>The time when a job was ready to be accepted by an agent</td>
-  </tr>
-  <tr>
-    <th><code>started_at</code></th>
-    <td>The time the job was started by an agent</td>
-  </tr>
-  <tr>
-    <th><code>finished_at</code></th>
-    <td>The time the job is marked as finished (passed, failed, paused, canceled)</td>
-  </tr>
-</tbody>
-</table>

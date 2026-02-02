@@ -220,8 +220,10 @@ exceptions:
   - pipeline.yml
   - pod_watcher
   - PodSpec
+  - podSpecPatch
   - PowerShell
   - Prometheus
+  - PTY
   - pytest
   - QA
   - RBAC
