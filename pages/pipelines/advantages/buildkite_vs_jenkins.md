@@ -1,5 +1,7 @@
 # Advantages of migrating from Jenkins
 
+Jenkins is the original open-source automation server that pioneered CI/CD. Buildkite Pipelines takes a different approach: instead of self-managing everything, it pairs a managed control plane with your own infrastructure to deliver the speed and reliability that modern engineering teams need.
+
 Jenkins has served the CI/CD community for over 20 years, but the architecture that enabled its flexibility creates operational challenges at scale.
 
 ## Managed control plane
