@@ -535,7 +535,7 @@
           children:
             - name: "Overview"
               path: "pipelines/security/secrets"
-            - name: "Managing secrets"
+            - name: "Managing"
               path: "pipelines/security/secrets/managing"
             - name: "Risk considerations"
               path: "pipelines/security/secrets/risk-considerations"

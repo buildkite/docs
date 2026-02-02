@@ -25,7 +25,7 @@ From the details page of a test (accessible through its test suite's **Test** pa
 - Specify a **New label**, select its **Label color**, and select **Save**.
 
 > 📘
-> To remove a label from a test, select **Add labels** from the test's details page, and from its drop-down, clear the checkbox next to the label.
+> To remove a label from a test, select **Add labels** from the test's details page, and from its dropdown, clear the checkbox next to the label.
 
 ### Using workflows
 

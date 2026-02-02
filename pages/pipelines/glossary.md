@@ -58,7 +58,7 @@ To learn more, see [Job states](/docs/pipelines/configure/defining-steps#job-sta
 
 ## Pipeline
 
-A pipeline is a container for modeling and defining workflows. They contain a series of steps to achieve goals like building, testing, and deploying software.
+A pipeline is a container for modeling and defining workflows. Pipelines contain a series of steps to achieve goals like building, testing, and deploying software.
 
 To learn more, see the [Pipeline overview](/docs/pipelines).
 
