@@ -2,7 +2,7 @@
 
 GitHub Actions is a workflow automation tool built into GitHub. Buildkite Pipelines takes a different approach: instead of bundling CI/CD as a platform feature, it focuses on doing CI/CD exceptionally well.
 
-GitHub Actions is easy to start with aas it is natively integrated into GitHub, making it a good choice for small teams. As organizations scale, however, its limitations become apparent: hard concurrency caps, static workflows, unpredictable costs, and reliability issues. Buildkite Pipelines is designed from the ground up for scale, speed, and reliability.
+GitHub Actions is easy to start with as it is natively integrated into GitHub, making it a good choice for small teams. As organizations scale, however, its limitations become apparent: hard concurrency caps, static workflows, unpredictable costs, and reliability issues. Buildkite Pipelines is designed from the ground up for scale, speed, and reliability.
 
 ## Unlimited scale vs. hard limits
 
