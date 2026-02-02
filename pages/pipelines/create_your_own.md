@@ -14,12 +14,6 @@ You'll also need the following:
 
 - A task you want to perform with the code. For example, run some tests or a script.
 
-## Continue running an agent
-
-We recommend you continue treating this tutorial as a chance to play and iterate. That means you can continue using the [agent you've already set up](/docs/pipelines/getting-started#set-up-an-agent).
-
-If you want to learn more about the agent and set up something more permanent, see [Agent overview](/docs/agent/v3).
-
 ## Define the steps
 
 Next, define the steps you want in your pipeline. These steps could be anything from building and testing your code, to deploying it. We recommend you start simple and iterate to add complexity, running the pipeline to verify it works as you go.
