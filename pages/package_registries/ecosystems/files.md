@@ -14,7 +14,7 @@ You can use two approaches to publish a file to your file source registry—[`cu
 
 ### Using curl
 
-The **Publish Instructions** for your files source registry includes a `curl` command you can use to upload a file to this registry. To view and copy this `curl` command:
+The **Publish Instructions** tab of your files source registry includes a `curl` command you can use to upload a file to this registry. To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your file source registry on this page.
