@@ -97,10 +97,6 @@ As part of this setup process, behind the scenes, Buildkite Pipelines set you up
 - A _Buildkite cluster_: Buildkite Pipelines requires that all of its pipelines are managed through a [Buildkite cluster](/docs/pipelines/glossary#cluster), which is a security feature that's used to organize queues. When a new Buildkite account/organization is created, a single cluster is created, called **Default cluster**. Learn more Buildkite clusters from the [Clusters overview](/docs/pipelines/security/clusters).
 - A _queue_: When the **Default cluster** is created, a default [queue](/docs/pipelines/glossary#queue), simply called **queue** is also created. When creating a personal Buildkite account, this queue is a _Buildkite hosted queue_, which runs _Buildkite hosted agents_. Learn more about queues from [Queues overview](/docs/agent/v3/queues) and Buildkite hosted agents from its [overview](/docs/agent/v3/buildkite-hosted) page.
 
+While creating a new personal Buildkite account automatically sets you up to run Buildkite hosted agents, Buildkite also supports self-hosted agents, which you can manage in your own infrastructure. Learn more about the differences between these agent architectures in [Buildkite Pipelines architecture](/docs/pipelines/architecture).
+
 Once you're familiar with building some Buildkite examples, next try [creating your own pipeline](/docs/pipelines/create-your-own).
-
-Last, while creating a new personal Buildkite account automatically sets you up to run Buildkite hosted agents, Buildkite also supports self-hosted agents, which you can manage in your own infrastructure. Learn more about the differences between these agent architectures in [Buildkite Pipelines architecture](/docs/pipelines/architecture).
-
-On next page of 'Create your own pipeline':
-
-- In 'Define the steps', mention that the use can convert their existing pipeline from another CI provider to Buildkite Pipelines, and link through to that section.
