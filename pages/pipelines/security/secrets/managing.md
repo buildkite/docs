@@ -23,7 +23,7 @@ A secrets storage service can be used with either self-hosted agents in your own
 
 ## Without a secrets storage service
 
-While using a [secrets storage service](#using-a-secrets-storage-service) is the best practice for managing your secrets, if you don't or cannot use such a service and you use self-hosted agents in your own infrastructure, as part of a [hybrid Buildkite architecture](/docs/pipelines/getting-started#understand-the-architecture), this section provides alternative approaches to managing your pipeline secrets.
+While using a [secrets storage service](#using-a-secrets-storage-service) is the best practice for managing your secrets, if you don't or cannot use such a service and you use self-hosted agents in your own infrastructure, as part of a [hybrid Buildkite architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture), this section provides alternative approaches to managing your pipeline secrets.
 
 ### Exporting secrets with environment hooks
 
