@@ -19,7 +19,7 @@ The **Publish Instructions** tab of your Alpine source registry includes a `curl
 This command provides:
 
 - The specific URL to publish a package to your specific Alpine source registry in Buildkite.
-- A temporary API access token required to publish packages to this source registry.
+- A temporary API access token to publish packages to this source registry.
 - The Alpine package file to be published.
 
 You can also create this command yourself using the following `curl` command (which you'll need to modify as required before submitting):

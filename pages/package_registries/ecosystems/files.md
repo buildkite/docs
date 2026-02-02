@@ -23,7 +23,7 @@ The **Publish Instructions** tab of your files source registry includes a `curl`
 This command provides:
 
 - The specific URL to publish a file to your specific file source registry in Buildkite.
-- A temporary API access token required to publish files to this source registry.
+- A temporary API access token to publish files to this source registry.
 - The file to be published.
 
 You can also create this command yourself using the following `curl` command (which you'll need to modify as required before submitting):
