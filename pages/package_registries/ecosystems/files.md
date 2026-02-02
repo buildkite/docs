@@ -3,9 +3,37 @@
 
 Buildkite Package Registries provides registry support for generic _files_ to cover some use cases where native package management either isn't required or isn't available.
 
-Once your **Files** source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry via the relevant `curl` command presented on your file registry details page.
+Once your **Files** source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry.
 
-To view and copy this `curl` command:
+## Filename format requirements
+
+Files uploaded to a Files registry must follow a specific naming convention that includes a [Semantic Version](https://semver.org/):
+
+```
+{BASENAME}-{SEMVER}.{EXT}
+```
+
+Where:
+
+- `{BASENAME}` is the base name of your file. It can contain letters, numbers, and hyphens.
+- `{SEMVER}` is a valid semantic version number (for example, `1.0.0`, `2.3.1-beta.1`, or `1.0.0+build.123`).
+- `{EXT}` is the file extension.
+
+Valid filename examples:
+
+- `my-app-1.0.0.zip`
+- `firmware-2.3.1-beta.1.bin`
+- `my-custom-app-1.0.0.ipa`
+
+If your filename doesn't match this format, the upload fails with an error: `Invalid filename format. Expected: {BASENAME}-{SEMVER}.{EXT}`
+
+## Publish a file
+
+You can use two approaches to publish a file to your file source registry—[`curl`](#publish-a-file-using-curl) or the [Buildkite CLI](#publish-a-file-using-the-buildkite-cli).
+
+### Using curl
+
+The Publish Instructions for your repo will include a `curl` command you can use to upload. To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your file source registry on this page.
@@ -17,13 +45,7 @@ This command provides:
 - The API access token required to publish files to this source registry.
 - The file to be published.
 
-## Publish a file
-
-You can use two approaches to publish a file to your file source registry—[`curl`](#publish-a-file-using-curl) or the [Buildkite CLI](#publish-a-file-using-the-buildkite-cli).
-
-### Using curl
-
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a file to your file source registry:
+You can also generate the command yourself. The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a file to your file source registry:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
@@ -41,12 +63,12 @@ where:
 
 <%= render_markdown partial: 'package_registries/ecosystems/path_to_file' %>
 
-For example, to upload the file `my-custom-app.ipa` from the current directory to the **My files** source registry in the **My organization** Buildkite organization, run the `curl` command:
+For example, to upload the file `my-custom-app-1.0.0.ipa` from the current directory to the **My files** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/my-organization/registries/my-files/packages \
   -H "Authorization: Bearer $REPLACE_WITH_YOUR_REGISTRY_WRITE_TOKEN" \
-  -F "file=@my-custom-app.ipa"
+  -F "file=@my-custom-app-1.0.0.ipa"
 ```
 
 ### Using the Buildkite CLI
