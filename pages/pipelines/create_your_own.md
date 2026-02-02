@@ -23,7 +23,7 @@ To define the steps:
 1. Decide the goal of the pipeline.
 1. Look for an [example pipeline]([/docs/pipelines/configure/example-pipelines](https://buildkite.com/resources/examples/)) closest to that goal or a [pipeline template](https://buildkite.com/pipelines/templates) relevant to your technology stack and use case. (You can copy parts of the pipeline definition as a starting point.)
 
-    **Note:** If you have a pipeline or workflow defined in another CI/CD platform, such as GitHub Actions, Jenkins, CircleCI, or BitBucket Pipelines, you can use the [Pipeline converter](/docs/pipelines/migration/pipeline-converter) to help you convert your pipeline or workflow syntax into Buildkite pipeline syntax.
+    **Note:** If you have a pipeline or workflow defined in another CI/CD platform, such as GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines, you can use the [Pipeline converter](/docs/pipelines/migration/pipeline-converter) to help you convert your pipeline or workflow syntax into Buildkite pipeline syntax.
 
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
 1. In `pipeline.yml`, define your pipeline steps. Here's an example:
