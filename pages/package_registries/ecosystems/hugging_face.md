@@ -28,7 +28,7 @@ These commands are used to:
 
 ### Detailed instructions
 
-You can also run these commands from the **Publish Instructions** tab yourself (modifying them as required before running), by following these detailed instructions.
+You can also run these commands yourself (modifying them as required before submitting them), by following these detailed instructions.
 
 #### Step 1: Ensure the Hugging Face model is cached locally
 
