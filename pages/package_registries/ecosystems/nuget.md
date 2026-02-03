@@ -12,8 +12,8 @@ The **Publish Instructions** tab of your NuGet source registry includes command/
 1. Select your NuGet source registry on this page.
 1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy its snippet and paste it into your command line tool or the appropriate file.
 1. The following subsections describe the processes in the code boxes above, serving the following use cases:
-    * [Single command](#publish-a-package-single-command) (**Quick start** section)—for rapid NuGet package publishing, using a temporary token.
-    * [Ongoing publishing](#publish-a-package-ongoing-publishing) (**Setup** section)—implements configurations for a more permanent NuGet package publishing solution.
+    * **Quick start** section—for rapid NuGet package publishing, using a temporary token. See [Single command](#publish-a-package-single-command) for detailed instructions on how to configure this command yourself.
+    * **Setup** section—implements configurations for a more permanent NuGet package publishing solution. See [Ongoing publishing](#publish-a-package-ongoing-publishing) for detailed instructions on how to configure these commands yourself.
 
 ### Single command
 

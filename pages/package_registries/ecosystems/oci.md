@@ -2,23 +2,25 @@
 
 Buildkite Package Registries provides registry support for Docker and other Open Container Initiative (OCI) images. Buildkite registries follow the [OCI Distribution Specification](https://github.com/opencontainers/distribution-spec) version 1.1.
 
-Once your OCI source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload images (generated from your application's build) to this registry via relevant `docker` commands presented on your OCI registry's details page.
+Once your OCI source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload images (generated from your application's build) to this registry using relevant `docker` commands.
 
-To view and copy these `docker` commands:
+## Publish an image
+
+The **Publish Instructions** tab of your OCI source registry includes command snippets you can use to publish container images to this registry. To view and copy the required commands:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your OCI source registry on this page.
 1. Select the **Publish Instructions** tab and on the resulting page, for each required `docker` command in code snippets provided, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it with the appropriate values to publish the image to this source registry.
 
-These Docker commands are used to:
+The code snippets are used to:
 
-- Log in to your Buildkite OCI source registry with the API access token.
+- Log in to your Buildkite OCI source registry with an API access token.
 - Tag your container image to be published.
-- Publish the image to this source registry.
+- Push the image to this source registry.
 
-## Publish an image
+### Detailed instructions
 
-The following steps describe the process above:
+You can also configure these files yourself (modifying the snippets as required), by following these detailed instructions.
 
 1. Copy the following `docker login` command, paste it into your terminal, and modify as required before running to log in to your OCI source registry:
 
