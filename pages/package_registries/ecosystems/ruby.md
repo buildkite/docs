@@ -2,26 +2,18 @@
 
 Buildkite Package Registries provides registry support for Ruby-based (RubyGems) packages.
 
-Once your Ruby source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via a single command, or by configuring your `~/.gem/credentials` and `gemspec` files with the code snippets presented on your Ruby registry's details page.
-
-To view and copy the required command or  `~/.gem/credentials` and `gemspec` configurations:
-
-1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Ruby source registry on this page.
-1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy the its snippet and paste it into your command line tool or the appropriate file.
-
-    These file configurations contain the following:
-    * `~/.gem/credentials`: the URL for your specific Ruby source registry in Buildkite and the API access token required to publish the package to this registry.
-    * `gemspec`: the URL for this source registry.
-
-1. You can then run the `gem build *.gemspec` and `gem push *.gem`, or `rake release` commands to publish the packages to this source registry.
+Once your Ruby source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry using a single command, or by configuring your `~/.gem/credentials` and `gemspec` files.
 
 ## Publish a package
 
-The following subsections describe the processes in the code boxes above, serving the following use cases:
+The **Publish Instructions** tab of your Ruby source registry includes command/code snippets you can use to publish a package to this registry with a single command, or to configure your environment for publishing packages to this registry on an ongoing basis. To view and copy the required command or `~/.gem/credentials` and `gemspec` configurations:
 
-- [Single command](#publish-a-package-single-command)—for rapid RubyGems package publishing, using a temporary token.
-- [Ongoing publishing](#publish-a-package-ongoing-publishing)—implements configurations for a more permanent RubyGems package publishing solution.
+1. Select **Package Registries** in the global navigation to access the **Registries** page.
+1. Select your Ruby source registry on this page.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy its snippet and paste it into your command line tool or the appropriate file.
+1. The following subsections describe the processes in the code boxes above, serving the following use cases:
+    * **Quick start** section—for rapid RubyGems package publishing, using a temporary token. See [Single command](#publish-a-package-single-command) for detailed instructions on how to configure this command yourself.
+    * **Setup** section—implements configurations for a more permanent RubyGems package publishing solution. See [Ongoing publishing](#publish-a-package-ongoing-publishing) for detailed instructions on how to configure these commands yourself.
 
 ### Single command
 

@@ -3,7 +3,7 @@
 This tutorial takes you through the process of creating dynamic pipelines and build annotations in Buildkite Pipelines, using [Bazel](https://www.bazel.build/) as the build tool. If you are not already familiar with:
 
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
-- The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first, which explains Buildkite Pipelines' [architecture](/docs/pipelines/getting-started#understand-the-architecture) and [agent setup](/docs/pipelines/getting-started#set-up-an-agent), and builds a simple pipeline.
+- The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first.
 
 The tutorial uses an [Bazel Monorepo Example](https://github.com/buildkite/bazel-monorepo-example) project, whose program `pipeline.py` within the `.buildkite/` directory is one of the first things run by Buildkite Pipelines when the pipeline commences its build. This Python program creates additional Buildkite pipeline steps (in JSON format) that are then uploaded to the same pipeline, which Buildkite continues to run as part of the same pipeline build. Buildkite pipelines that generate new pipeline steps dynamically like this are known as [_dynamic pipelines_](/docs/pipelines/configure/dynamic-pipelines).
 
@@ -59,7 +59,7 @@ Setting up a self-hosted agent for this tutorial requires you to first install a
 
 To set up a self-hosted agent for this tutorial:
 
-1. Ensure you have followed the [Install and run a self-hosted agent](/docs/pipelines/getting-started#set-up-an-agent-install-and-run-a-self-hosted-agent) instructions from the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial to get set up with your self-hosted agent.
+1. Ensure you have followed the [Create a self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) and relevant [Buildkite agent installation instructions](/docs/agent/v3/self-hosted/install) to get set up with your self-hosted agent.
 
 1. Install Bazel, by following the relevant instructions to install [Bazelisk (recommended)](https://bazel.build/install/bazelisk) or the relevant [Bazel package](https://bazel.build/install) to the same operating system environment that your self-hosted agent was installed to.
 

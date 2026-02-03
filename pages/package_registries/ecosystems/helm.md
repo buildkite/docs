@@ -2,9 +2,15 @@
 
 Buildkite Package Registries provides Helm registry support for distributing Helm charts. While this page is for standard Helm source registry publishing instructions, you can alternatively publish to an [Helm OCI-based source registry](/docs/package-registries/ecosystems/helm-oci).
 
-Once your Helm source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry via the relevant `curl` command presented on your Helm registry's details page.
+Once your Helm source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload charts (generated from `helm package` to create the package) to this registry.
 
-To view and copy this `curl` command:
+## Publish a chart
+
+You can use two approaches to publish a chart to your Helm source registry—[`curl`](#publish-a-chart-using-curl) or the [Buildkite CLI](#publish-a-chart-using-the-buildkite-cli).
+
+### Using curl
+
+The **Publish Instructions** tab of your Helm source registry includes a `curl` command you can use to upload a chart to this registry. To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm source registry on this page.
@@ -13,16 +19,10 @@ To view and copy this `curl` command:
 This command provides:
 
 - The specific URL to publish a chart to your specific Helm source registry in Buildkite.
-- The API access token required to publish charts to this source registry.
+- A temporary API access token to publish charts to this source registry.
 - The Helm chart (`.tgz`) to be published.
 
-## Publish a chart
-
-You can use two approaches to publish a chart to your Helm source registry—[`curl`](#publish-a-chart-using-curl) or the [Buildkite CLI](#publish-a-chart-using-the-buildkite-cli).
-
-### Using curl
-
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish a chart to your Helm source registry:
+You can also create this command yourself using the following `curl` command (which you'll need to modify as required before submitting):
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \
