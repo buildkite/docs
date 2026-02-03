@@ -40,8 +40,8 @@ The **New Pipeline** page has the following fields:
 
     * Your GitHub account or organization.
     * A selection of **Buildkite Examples** to start with, which allows you to learn more about how Buildkite Pipelines builds projects for a variety of different use cases.
-    * The **Use remote URL**, allows you to select a **GitLab**, **Bitbucket**, or **Any account**, for any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers.
-    * The **Connect GitHub account**, allows you to do just that. This option is useful if you signed up by email, and need to connect your GitHub account to the Buildkite platform, and generates the [same **Install Buildkite** step as part of the GitHub sign-up process](#before-you-start).
+    * The **Use remote URL** options allow you to select a **GitLab**, **Bitbucket**, or **Any account**, for any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers.
+    * The **Connect GitHub account** option allows you to do just that. This option is useful if you signed up by email, and need to connect your GitHub account to the Buildkite platform, and generates the [same **Install Buildkite** step as part of the GitHub sign-up process](#before-you-start).
 
 - **Repository**: Select the Git repository available to your selected **Git scope**. Upon selecting a repository:
 
@@ -90,7 +90,7 @@ More Buildkite example repositories are available from the [Buildkite Resources 
 
 That's it! You've got yourself up and running with Buildkite Pipelines and have already created and built some new pipelines!
 
-As part of this setup process, behind the scenes, Pipelines set you up with a few default configurations. These include the following:
+As part of this sign-up process, Pipelines set you up with a few default configurations behind the scenes. These include the following:
 
 - A _Buildkite cluster_: Buildkite Pipelines requires that all of its pipelines are managed through a [Buildkite cluster](/docs/pipelines/glossary#cluster), which is a security feature that's used to organize queues. When a new Buildkite account/organization is created, a single cluster is created, called **Default cluster**. Learn more Buildkite clusters from the [Clusters overview](/docs/pipelines/security/clusters).
 - A _queue_: When the **Default cluster** is created, a default [queue](/docs/pipelines/glossary#queue), simply called **queue** is also created. When creating a personal Buildkite account, this queue is a _Buildkite hosted queue_, which runs _Buildkite hosted agents_. Learn more about queues from [Queues overview](/docs/agent/v3/queues) and Buildkite hosted agents from its [overview](/docs/agent/v3/buildkite-hosted) page.
