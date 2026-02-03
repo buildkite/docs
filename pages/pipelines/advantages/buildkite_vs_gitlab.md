@@ -10,7 +10,7 @@ Buildkite Agents are lightweight software that can run anywhere with a simple ou
 
 ## Flexible pipelines vs. rigid stages
 
-GitLab pipelines use predefined stages (build, test, deploy) that enforce serial execution order. Jobs are grouped into stages and execute sequentially. Dynamic capabilities are limited to "child pipelines" that require project-level configuration.
+GitLab pipelines use predefined stages (build, test, deploy) that enforce serial execution order, with additional configuration needed to enable parallel jobs. Jobs are grouped into stages and execute sequentially. Dynamic capabilities are limited to "child pipelines" that require project-level configuration.
 
 Buildkite Pipelines has no predefined stages. You can use `depends_on` and `wait` steps to build custom DAGs with full flexibility. [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) generate steps on the fly during execution based on runtime conditions, repository state, or any custom logic.
 
@@ -47,3 +47,5 @@ To start converting your existing GitLab pipelines to Buildkite Pipelines, use t
 1. Start with non-production pipelines and run both systems in parallel to validate results.
 
 Teams typically see faster execution through better parallelization, reduced infrastructure complexity, more predictable costs, and simplified agent management after migration.
+
+If you would like to receive assistance in migrating from GitLab to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).

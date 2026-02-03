@@ -39,3 +39,5 @@ Jenkins is free to download but requires dedicated admin teams to manage the inf
 You can try out the the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing Jenkins pipelines might look like converted to Buildkite Pipelines.
 
 To start converting your Jenkins pipelines to Buildkite Pipelines, follow the instructions in [Migrate from Jenkins](/docs/pipelines/migration/from-jenkins), then migrate pipeline by pipeline. The main challenge you might face in the migration is cultural: shifting from sequential execution and shared workspaces to Buildkite's parallel-by-default, fresh-workspace model.
+
+If you would like to receive assistance in migrating from Jenkins to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).

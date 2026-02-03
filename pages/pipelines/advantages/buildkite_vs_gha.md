@@ -69,3 +69,5 @@ Buildkite provides rich logging with colors, links, and emojis that make build o
 You can try out the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing GitHub Actions pipelines might look converted to Buildkite Pipelines.
 
 To start converting your GitHub Actions pipelines to Buildkite Pipelines, follow the instructions in [Migrate from GitHub Actions](/docs/pipelines/migration/from-githubactions), then migrate pipeline by pipeline. The key changes you'll need to be mindful of: `jobs` become `steps` with `key` attributes, `needs` becomes `depends_on`, `runs-on` maps to `agents` queues, and `actions/checkout` is removed since Buildkite checks out code automatically.
+
+If you would like to receive assistance in migrating from GitHub Actions to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).
