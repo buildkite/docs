@@ -20,7 +20,7 @@ When a matching job is returned from the Agent REST API, the controller creates 
 
 ## Before you start
 
-- A Kubernetes cluster.
+- A Kubernetes cluster running version 1.29.0 or later (required for Buildkite Agent Stack for Kubernetes version 0.35.0 and later, which uses native sidecar containers). For older Kubernetes clusters, use Agent Stack for Kubernetes version 0.34.0 or older.
 - A [Buildkite cluster](/docs/pipelines/security/clusters/manage) and an [agent token](/docs/agent/v3/self-hosted/tokens#create-a-token) for this cluster.
 
 <!-- vale off -->

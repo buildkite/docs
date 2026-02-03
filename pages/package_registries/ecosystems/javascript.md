@@ -2,23 +2,25 @@
 
 Buildkite Package Registries provides registry support for JavaScript-based (Node.js npm) packages.
 
-Once your JavaScript source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files with the command/code snippets presented on your JavaScript registry's details page.
+Once your JavaScript source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files.
 
-To view and copy the required command/code snippet for your `~/.npmrc` and `package.json` configurations:
+## Publish a package
+
+The **Publish Instructions** tab of your JavaScript source registry includes command/code snippets you can use to configure your environment for publishing packages to this registry. To view and copy the required command or code snippets for your `~/.npmrc` and `package.json` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your JavaScript source registry on this page.
 1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy the its snippet and paste it into your command line tool or the appropriate file.
 
     These file configurations contain the following:
-    * `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and the API access token required to publish the package to this registry.
+    * `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and a temporary API access token required to publish the package to this registry.
     * `package.json`: the URL for this source registry.
 
 1. You can then run the `npm pack` and `npm publish` commands to publish the package to this source registry.
 
-## Publish a package
+### Detailed instructions
 
-The following steps describe the process above:
+You can also configure these files yourself (modifying the snippets as required), by following these detailed instructions.
 
 1. Copy the following `npm` command, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file:
 

@@ -2,9 +2,11 @@
 
 Buildkite Package Registries provides registry support for Maven-based Java packages.
 
-Once your Java source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files with the Maven XML snippets presented on your Java registry's details page.
+Once your Java source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.m2/settings.xml` and application's relevant `pom.xml` files.
 
-To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations:
+## Publish a package
+
+The **Publish Instructions** tab of your Java source registry includes Maven XML snippets you can use to configure your environment for publishing packages to this registry. To view and copy the required `~/.m2/settings.xml` and `pom.xml` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Java source registry on this page.
@@ -12,14 +14,14 @@ To view and copy the required  `~/.m2/settings.xml` and `pom.xml` configurations
 1. Use the copy icon at the top-right of each respective code box to copy the relevant XML snippets and paste it into its appropriate file.
 
     These file configurations contain the following:
-    * `~/.m2/settings.xml`: the ID for your specific Java source registry in Buildkite and the API access token required to publish the package to this registry.
+    * `~/.m2/settings.xml`: the ID for your specific Java source registry in Buildkite and a temporary API access token required to publish the package to this registry.
     * `pom.xml`: the ID and URL for this source registry.
 
 1. You can then run the `mvn deploy` command to publish the package to this source registry.
 
-## Publish a package
+### Detailed instructions
 
-The following steps describe the process above:
+You can also configure these files yourself (modifying the snippets as required), by following these detailed instructions.
 
 1. Copy the following XML snippet, paste it into your `~/.m2/settings.xml` file, and modify accordingly:
 

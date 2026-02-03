@@ -199,6 +199,7 @@ exceptions:
   - monitor
   - Namespace
   - NET
+  - New Pipeline
   - Node.js
   - nodeName
   - nodeSelector

@@ -225,7 +225,22 @@ The `github_commit_status` attribute supports the following options:
 
 - `context`: A string label to differentiate this status from other statuses. Defaults to `buildkite/[pipeline-slug]` for build-level notifications. For step-level notifications, the context is automatically generated based on the step.
 
-- `blocked_builds_as_pending`: A boolean value that determines how blocked builds are reported. When `true`, blocked builds are reported as "pending". When `false`, blocked builds are reported as "success". Defaults to `false`.
+- `blocked_builds_as_pending`: A boolean value that determines how blocked builds are reported. When `true`, blocked builds are reported as "pending". When `false`, blocked builds are reported as "success". Defaults to `false`. This option is only available for build-level notifications.
+
+To report blocked builds as pending:
+
+```yaml
+notify:
+  - github_commit_status:
+      context: "buildkite/deploy"
+      blocked_builds_as_pending: true
+
+steps:
+  - command: "tests.sh"
+  - block: "Deploy to production"
+  - command: "deploy.sh"
+```
+{: codeblock-file="pipeline.yml"}
 
 Build-level GitHub commit status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
 

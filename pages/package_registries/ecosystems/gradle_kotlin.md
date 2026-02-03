@@ -2,9 +2,11 @@
 
 Buildkite Package Registries provides registry support for Gradle-based Java packages (using the [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html)), using the Gradle Kotlin DSL. If you're using Gradle's Groovy DSL, refer to the [Gradle (Groovy)](/docs/package-registries/ecosystems/gradle-groovy) page.
 
-Once your Java source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle.kts` file with the Gradle snippet presented on your Java registry's details page.
+Once your Java source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `build.gradle.kts` file.
 
-To view and copy the required `build.gradle.kts` configurations:
+## Publish a package
+
+The **Publish Instructions** tab of your Java source registry includes a Gradle snippet you can use to configure your environment for publishing packages to this registry. To view and copy the required `build.gradle.kts` configuration:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Java source registry on this page.
@@ -16,9 +18,9 @@ To view and copy the required `build.gradle.kts` configurations:
 
 1. You can then run the `gradle publish` command to publish the package to this source registry.
 
-## Publish a package
+### Detailed instructions
 
-The following steps describe the process above:
+You can also configure this file yourself (modifying the snippet as required), by following these detailed instructions.
 
 1. Copy the following Gradle (Kotlin) snippet, paste it into your `build.gradle.kts` file, and modify accordingly:
 
