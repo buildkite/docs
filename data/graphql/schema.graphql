@@ -2345,6 +2345,16 @@ type ClusterQueueMetrics {
   connectedAgentsCount: Int!
 
   """
+  Number of failed jobs in the latest bucket
+  """
+  jobsFailedCount: Int!
+
+  """
+  Number of passed jobs in the latest bucket
+  """
+  jobsPassedCount: Int!
+
+  """
   Number of running jobs in the latest bucket
   """
   runningJobsCount: Int!
@@ -2353,6 +2363,11 @@ type ClusterQueueMetrics {
   The timestamp (start of the most recent time bucket, in UTC)
   """
   timestamp: DateTime!
+
+  """
+  Wait time statistics in seconds for the latest bucket
+  """
+  waitTimeSec: ClusterQueueWaitTime!
 
   """
   Number of waiting (scheduled) jobs in the latest bucket
@@ -2485,6 +2500,31 @@ type ClusterQueueUpdatePayload {
   """
   clientMutationId: String
   clusterQueue: ClusterQueue!
+}
+
+"""
+Wait time statistics in seconds for a cluster queue
+"""
+type ClusterQueueWaitTime {
+  """
+  Maximum wait time in seconds
+  """
+  max: Float!
+
+  """
+  Minimum wait time in seconds
+  """
+  min: Float!
+
+  """
+  Median (50th percentile) wait time in seconds
+  """
+  p50: Float!
+
+  """
+  95th percentile wait time in seconds
+  """
+  p95: Float!
 }
 
 """
