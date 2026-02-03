@@ -12,9 +12,9 @@ Buildkite Pipelines supports 100,000+ concurrent agents with no artificial limit
 
 ## Dynamic pipelines vs. static workflows
 
-GitHub Actions workflows are static once triggered. To add jobs based on what changed, you must dispatch new workflows or pre-declare everything up front, leading to wasted compute.
+GitHub Actions workflows are static once triggered. To add jobs based on what changed, you must dispatch new workflows or pre-declare everything up front, leading to wasted compute. Also, you can only nest workflow calls up to 10 levels of depth, and secret passing must be really explicit instead of allowing each pipeline to define what it needs.
 
-With the help of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), in Buildkite Pipelines you can generate or modify steps at runtime based on changed files, repository state, or any custom logic. This way, you can fan out tests only after builds succeed, skip unnecessary steps, or generate deployment steps based on what actually changed.
+In Buildkite Pipelines, with the help of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), you can generate or modify steps at runtime based on changed files, repository state, or any custom logic. This way, you can fan out tests only after builds succeed, skip unnecessary steps, or generate deployment steps based on what actually changed.
 
 ## Better reliability
 
