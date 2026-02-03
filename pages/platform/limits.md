@@ -90,7 +90,7 @@ Platform and organization-level limits apply to all Buildkite products. These li
         description: "The default maximum lifetime for OIDC.",
         default_value: "2 hours"
       }
-    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+    ].each do |limit| %>
       <tr>
         <td>
           <strong><%= limit[:title] %></strong>
@@ -277,7 +277,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
         description: "Model provider spend limits for OpenAI, per month in USD.",
         default_value: "$50 on Trial plan, $1,000 on Pro and Enterprise"
       }
-    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+    ].each do |limit| %>
       <tr>
         <td>
           <strong><%= limit[:title] %></strong>
@@ -337,7 +337,7 @@ The following table lists the default service limits for [Test Engine](/docs/tes
         description: "The maximum number of Linear integrations that can be added to an organization.",
         default_value: "1 service"
       }
-    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+    ].each do |limit| %>
       <tr>
         <td>
           <strong><%= limit[:title] %></strong>
@@ -379,7 +379,7 @@ The following table lists the default service limits for [Package Registries](/d
         description: "Allocated storage and bandwidth volume (combined).",
         default_value: "Custom allocation with volume pricing"
       }
-    ].sort_by { |limit| limit[:title] }.each do |limit| %>
+    ].each do |limit| %>
       <tr>
         <td>
           <strong><%= limit[:title] %></strong>
