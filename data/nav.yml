@@ -197,7 +197,7 @@
                     - name: "Pre-installed packages"
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/packages"
                     - name: "Hook execution differences"
-                      path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/hooks-execution-differences"
+                      path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/hook-execution-differences"
                     - name: "Secrets"
                       path: "agent/v3/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/secrets"
                     - name: "Docker daemon access"
