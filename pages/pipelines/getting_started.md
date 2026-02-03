@@ -6,7 +6,7 @@ keywords: docs, pipelines, tutorials, getting started
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
 
-This getting started page is a tutorial that helps you understand Pipelines' fundamentals, by guiding you through the creation of a pipeline to automate builds of your own or an example project, which you could use as a starting point.
+This getting started page is a tutorial that helps you understand Pipelines' fundamentals, by guiding you through the creation of a pipeline to automate builds of an example project, which you could use as a starting point to build your own project, or, if your have some familiarity with Buildkite, your own project.
 
 ## Before you start
 
@@ -56,10 +56,11 @@ The **New Pipeline** page has the following fields:
     **Note:** If you just [signed up to Pipelines](#before-you-start), then this field won't be visible, as it's only shown once [teams](/docs/platform/team-management) have been configured in your Buildkite account/organization. If this field is shown, leave it unchanged for this tutorial.
 
 - **Cluster**: The Buildkite cluster whose configured agents will build your pipeline. Leave this unchanged for this tutorial.
-- **YAML Steps editor**: This field allows you to define steps within your main Buildkite pipeline. To make things easier though, you can start with an initial pipeline from the **Template** dropdown. Using this dropdown, you can select from the **Helper templates**:
+- **YAML Steps editor**: This field allows you to define steps within your main Buildkite pipeline. To make things easier though, you can start with an initial pipeline from the **Template** dropdown. Using this dropdown, you can select from the following options:
 
-    * **Hello world**: For a simple example of how to structure commands in Buildkite pipeline YAML syntax.
-    * **Pipeline upload**: To upload a Buildkite pipeline stored in your repository.
+    * **Helper templates**:
+        - **Hello world**: For a simple example of how to structure commands in Buildkite pipeline YAML syntax.
+        - **Pipeline upload**: To upload a Buildkite pipeline stored in your repository.
     * **Example templates**: This section lists pipelines which are used to build example projects available from the **Repository** field, when the **Git scope** has been set to **Buildkite Examples**.
 
 > 📘
