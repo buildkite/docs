@@ -6,7 +6,7 @@ Once your NuGet source registry has been [created](/docs/package-registries/regi
 
 ## Publish a package
 
-The **Publish Instructions** tab of your NuGet source registry includes command/code snippets you can use to configure your environment for publishing packages to this registry. To view and copy the required command or `nuget.config` configurations:
+The **Publish Instructions** tab of your NuGet source registry includes command/code snippets you can use to publish a package to this registry with a single command, or to configure your environment for publishing packages to this registry on an ongoing basis. To view and copy the required command or `nuget.config` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your NuGet source registry on this page.

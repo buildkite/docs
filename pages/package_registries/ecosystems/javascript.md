@@ -6,7 +6,7 @@ Once your JavaScript source registry has been [created](/docs/package-registries
 
 ## Publish a package
 
-The **Publish Instructions** tab of your JavaScript source registry includes command/code snippets you can use to configure your environment for publishing packages to this registry. To view and copy the required command/code snippet for your `~/.npmrc` and `package.json` configurations:
+The **Publish Instructions** tab of your JavaScript source registry includes command/code snippets you can use to configure your environment for publishing packages to this registry. To view and copy the required command or code snippets for your `~/.npmrc` and `package.json` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your JavaScript source registry on this page.
