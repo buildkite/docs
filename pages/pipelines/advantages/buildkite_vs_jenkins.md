@@ -22,7 +22,7 @@ Adding Jenkins capacity means tuning controllers and executors. Buildkite Agents
 
 Jenkins Groovy pipelines are powerful but complex, with pitfalls that can affect controller stability. Buildkite uses YAML, which is easier to read and version-control.
 
-See more in [Pipeline design and structure](/docs/pipelines/design-and-structure).
+See more in [Pipeline design and structure](/docs/pipelines/best-practices/pipeline-design-and-structure).
 
 ## Dynamic pipelines
 
