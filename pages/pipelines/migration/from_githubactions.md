@@ -1,34 +1,19 @@
 # Migrate from GitHub Actions
 
-This page is for people who are familiar with or already use GitHub Actions, want to migrate to the Buildkite Pipelines, and have some questions regarding the key differences between these two CI/CD platforms.
+This guide helps GitHub Actions users migrate to Buildkite Pipelines, covering key differences between the platforms.
 
 ## Understand the differences
 
-There are many similar concepts between GitHub Actions and Buildkite Pipelines, but there are some differences to understand about the approaches.
-
 ### System architecture
 
-While GitHub Actions is a fully hosted CI/CD solution integrated directly into GitHub, Buildkite Pipelines uses a hybrid model:
+GitHub Actions is fully hosted by GitHub. Buildkite Pipelines uses a hybrid model:
 
-- A software-as-a-service (SaaS) platform for visualization and management of CI/CD pipelines.
-- Agents for executing jobs—hosted by you, either on-premises or in the cloud.
+- A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
+- [_Buildkite Agents_](/docs/agent/v3) for executing jobs—hosted by you or using [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture).
 
-At a high level, Buildkite Pipelines follows a similar architecture to GitHub Actions:
+This separation reduces operational burden—Buildkite handles platform maintenance while you control the build environment. The [open-source agent](https://github.com/buildkite/agent) can run on local machines, cloud servers, or containers.
 
-- A central control plane that coordinates work and displays results through a web interface.
-    * **GitHub Actions:** GitHub's hosted infrastructure.
-    * **Buildkite:** The _Buildkite dashboard_.
-- A program that executes the work it receives from the control plane.
-    * **GitHub Actions:** _Runners_ (GitHub-hosted or self-hosted).
-    * **Buildkite:** _Buildkite Agents_.
-
-However, while GitHub manages both components in GitHub Actions, Buildkite Pipelines manages the control plane as a SaaS offering (through the Buildkite dashboard). This reduces the operational burden on your team, as Buildkite Pipelines takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
-
-The program that executes work is called an _agent_ in Buildkite Pipelines (also known as the [_Buildkite Agent_](/docs/agent/v3)). An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The Buildkite Agent polls Buildkite for work, runs jobs, and reports results. You can install these agents on local machines, cloud servers, or other remote machines. The Buildkite Agent code is open-source, and is [accessible from GitHub](https://github.com/buildkite/agent).
-
-Buildkite Pipelines also provides its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) as a managed solution that suits smaller teams, including those wishing to get up and running with Buildkite Pipelines more rapidly.
-
-See [Buildkite Pipelines architecture](/docs/pipelines/architecture) to learn more about how you can set up Buildkite Pipelines to work with your organization.
+See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
 ### The difference in default checkout behaviors
 
@@ -53,11 +38,9 @@ See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/secur
 
 ### Pipeline configuration concepts
 
-When migrating your CI/CD pipelines from GitHub Actions to Buildkite, it's important to understand the differences in pipeline configuration concepts.
+Like GitHub Actions, Buildkite Pipelines lets you define pipelines in the web interface or in files checked into a repository. The equivalent of `.github/workflows/*.yml` is a `pipeline.yml` (typically in `.buildkite/`). See [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) for details.
 
-Like GitHub Actions, Buildkite Pipelines lets you create pipeline definitions in the web interface or one or more related files checked into a repository. Most people prefer the latter, which allows pipeline definitions to be kept with the code base it builds, managed in source control. The equivalent of a GitHub Actions workflow file (`.github/workflows/*.yml`) in Buildkite Pipelines is a `pipeline.yml`. You'll learn more about these differences further on in the [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) section.
-
-In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. Buildkite Pipelines uses similar terms in different ways, where a _pipeline_ is the core description of work.
+In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. In Buildkite, a _pipeline_ is the core description of work.
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
@@ -72,38 +55,24 @@ Triggering a Buildkite pipeline creates a _build_, and any command steps are dis
 
 ## Provision agent infrastructure
 
-Buildkite Agents:
+Buildkite Agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) or on your infrastructure (_self-hosted_), similar to GitHub Actions self-hosted runners.
 
-- Are where your builds, tests, and deployments run.
-- Can either run as [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), or on your infrastructure (known as _self-hosted_), providing flexibility and control over the environment and resources. Operating agents in a self-hosted environment is similar in approach to hosting self-hosted runners in GitHub Actions.
+For self-hosted agents, consider:
 
-If running self-hosted Buildkite Agents, you'll need to consider the following:
+- **Infrastructure type:** On-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes).
+- **Resource usage:** Evaluate CPU, memory, and disk requirements based on your current runner usage.
+- **Platform dependencies:** Ensure agents have required tools and libraries (note dependencies from `actions/setup-*` actions).
+- **Network:** Agents poll Buildkite's [agent API](/docs/apis/agent-api) over HTTPS—no incoming firewall access needed.
+- **Scaling:** Scale agents independently based on concurrent job requirements.
+- **Build isolation:** Use [agent tags](/docs/agent/v3/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
 
-- **Infrastructure type:** Agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing GitHub Actions runners, choose the infrastructure type that best suits your organization's needs and constraints.
-
-- **Resource usage:** Agent infrastructure is similar to the requirements for self-hosted runners in GitHub Actions. Evaluate your current runner resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite Agent infrastructure.
-
-- **Platform dependencies:** To run your pipelines, you'll need to ensure the agents have the necessary dependencies, such as programming languages, build tools, and libraries. Take note of the tools and dependencies used in your GitHub Actions workflows (via `actions/setup-*` actions or direct installation commands). This information will help you configure your Buildkite Agents.
-
-- **Network configurations:** Review the network configurations of your current runners, including firewalls, proxy settings, and network access to external resources. The Buildkite Agent works by polling Buildkite's [agent API](/docs/apis/agent-api) over HTTPS. There is no need to forward ports or provide incoming firewall access.
-
-- **Agent scaling:** Evaluate the number of concurrent jobs and the queue length in your GitHub Actions workflows to estimate the number of Buildkite Agents needed. Keep in mind that you can scale Buildkite Agents independently, allowing you to optimize resource usage and reduce build times.
-
-- **Build isolation and security:** Consider using separate agents for different projects or environments to ensure build isolation and security. You can use [agent tags](/docs/agent/v3/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
-
-You'll continue to adjust the agent configuration as you monitor performance to optimize build times and resource usage for your needs.
-
-See the [Installation](/docs/agent/v3/self-hosted/install/) guides when you're ready to install an agent and follow the instructions for your infrastructure type.
+See the [Installation](/docs/agent/v3/self-hosted/install/) guides for your infrastructure type.
 
 ## Pipeline translation fundamentals
 
-A pipeline is a container for modeling and defining workflows. Both GitHub Actions and Buildkite Pipelines can read a pipeline (configuration) file checked into a repository, which defines a workflow.
-
-Before translating any workflow over from GitHub Actions to Buildkite, you should be aware of the following fundamental differences in how pipelines are written, and how their steps are executed and built by agents.
+Before translating workflows, understand these key differences:
 
 ### Files and syntax
-
-This table outlines the fundamental differences in pipeline files and their syntax between GitHub Actions and Buildkite.
 
 | Pipeline aspect | GitHub Actions | Buildkite |
 |-----------------|----------------|-----------|
@@ -112,7 +81,7 @@ This table outlines the fundamental differences in pipeline files and their synt
 | **Expressions** | `${{ expression }}` syntax | Shell variables and Buildkite interpolation |
 | **Triggers** | Defined in workflow file (`on:` block) | Configured in Buildkite UI or API |
 
-Buildkite's pipeline syntax is simpler and more human-readable. Furthermore, you can generate pipeline definitions at build-time with the power and flexibility of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
+Buildkite's syntax is simpler. You can also generate pipeline definitions at build-time with [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ### Step execution
 
@@ -138,34 +107,9 @@ steps:
 
 ### Workspace state
 
-In GitHub Actions, all steps within a job share the same workspace. This means that dependencies installed in one step are automatically available in subsequent steps within the same job.
+In GitHub Actions, all steps within a job share the same workspace. In Buildkite, each step runs in a fresh workspace on potentially different agents—artifacts from previous steps aren't automatically available.
 
-```yaml
-# GitHub Actions: All steps in a job share the same workspace.
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm install  # Creates node_modules
-      - run: npm test     # Uses the node_modules installed above
-```
-
-In Buildkite Pipelines, each step is executed in a fresh workspace on potentially different agents. Therefore, artifacts from previously processed steps won't be automatically available in subsequent steps.
-
-```yaml
-# This won't work reliably in Buildkite
-steps:
-  - label: Install dependencies
-    command: npm install
-
-  - wait
-
-  - label: Run tests
-    command: npm test # May fail because node_modules might not be there
-```
-
-However, there are several options for sharing state between steps:
+Options for sharing state between steps:
 
 - **Reinstall per step:** Simple for fast-installing dependencies like `npm ci`.
 - **Buildkite artifacts:** Upload [build artifacts](/docs/pipelines/configure/artifacts) from one step for use in subsequent steps. Best for small files and build outputs.
@@ -174,13 +118,11 @@ However, there are several options for sharing state between steps:
 
 ### Agent targeting
 
-GitHub Actions uses a specification-based model with `runs-on` to select runners by labels. Conversely, Buildkite uses a pull-based agent targeting model, where agents poll queues for work using the `agents` attribute.
-
-This pull-based agent targeting model approach provides better security (no incoming connections to agents), easier scaling (through [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent)), and more resilient networking. However, this difference between GitHub Actions and Buildkite may require you to rethink your agent topology when [provisioning your agent infrastructure](#provision-agent-infrastructure).
+GitHub Actions uses `runs-on` to select runners by labels. Buildkite uses a pull-based model where agents poll queues for work using the `agents` attribute. This provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking.
 
 ## Translate an example GitHub Actions workflow
 
-This section guides you through the process of translating a GitHub Actions workflow example (which builds a [Node.js](https://nodejs.org/) app) into a Buildkite pipeline. This workflow demonstrates typical features found in many GitHub Actions workflows.
+This section translates a GitHub Actions workflow (building a Node.js app) into a Buildkite pipeline.
 
 ### Step 1: Understand the source workflow
 
@@ -314,29 +256,18 @@ Now, implement the [build matrix](/docs/pipelines/configure/workflows/build-matr
       - npm test
 ```
 
-Buildkite Pipelines' build matrix syntax is simpler than GitHub Actions — you only need to specify the values in an array under `matrix.setup`. The `{{matrix.node_version}}` template variable gets replaced at runtime, creating separate jobs for each Node.js version.
+The `{{matrix.node_version}}` template variable gets replaced at runtime, creating separate jobs for each Node.js version.
 
 ### Step 6: Implement artifact collection
 
-Now implement [build artifact](/docs/pipelines/configure/artifacts) collection to capture test coverage and build outputs using the [`artifact_paths` attribute](/docs/pipelines/configure/artifacts#upload-artifacts-with-a-command-step):
+Add [artifact collection](/docs/pipelines/configure/artifacts) using the `artifact_paths` attribute:
 
 ```yaml
-  - label: "\:test_tube\: Test (Node {{matrix.node_version}})"
-    key: test
-    matrix:
-      setup:
-        node_version:
-          - "18"
-          - "20"
-          - "22"
-    command:
-      - npm ci
-      - npm test
     artifact_paths:
       - coverage/**/* # Collect test coverage
 ```
 
-Buildkite Pipelines provides native artifact support so no separate upload action is required, just specify the glob patterns for the files you want to preserve.
+No separate upload action is required—just specify glob patterns.
 
 ### Step 7: Add caching
 
@@ -668,9 +599,7 @@ Be aware of common pipeline-translation mistakes, which might include:
 
 ## Next steps
 
-With a basic understanding of the differences between Buildkite Pipelines and GitHub Actions, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started/) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
-
-Explore these resources to learn more about Buildkite Pipelines's features and functionality, and how to enhance your Buildkite pipelines translated from GitHub Actions:
+Explore these resources to enhance your migrated pipelines:
 
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
 - [Buildkite Agent overview](/docs/agent/v3)
@@ -683,6 +612,6 @@ Explore these resources to learn more about Buildkite Pipelines's features and f
 - [Integrations](/docs/pipelines/integrations)
 - [Test Engine](/docs/test-engine) for test insights
 
-If you would like to get a hands-on understanding of the differences and how GitHub Actions workflows map onto Buildkite Pipelines, try out the [Buildkite pipeline converter](/docs/pipelines/migration/converter/github-actions).
+For hands-on practice, try the [Buildkite pipeline converter](/docs/pipelines/migration/converter/github-actions).
 
 For migration assistance, contact support@buildkite.com.
