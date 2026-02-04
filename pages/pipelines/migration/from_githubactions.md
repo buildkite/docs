@@ -581,7 +581,7 @@ GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summar
 This [example pipeline translation](#translate-an-example-github-actions-workflow) demonstrates several important advantages of Buildkite's approach:
 
 - **Simpler pipeline configuration:** Buildkite YAML is straightforward with fewer special syntax rules.
-- **Execution model:** Buildkite Pipelines's steps are parallel by default with explicit sequencing, similar to GitHub Actions jobs but applied at the step level.
+- **Execution model:** Buildkite Pipelines' steps are parallel by default with explicit sequencing, similar to GitHub Actions jobs but applied at the step level.
 - **Native features:** Buildkite Pipelines provides native artifact handling and build visualization without additional actions.
 - **Agent flexibility:** Full control over your build environment with self-hosted agents.
 
