@@ -4,7 +4,7 @@ This page is for people who are familiar with or already use GitHub Actions, wan
 
 ## Understand the differences
 
-Most of the concepts are similar between GitHub Actions and Buildkite Pipelines, but there are some differences to understand about the approaches.
+There are many similar concepts between GitHub Actions and Buildkite Pipelines, but there are some differences to understand about the approaches.
 
 ### System architecture
 
@@ -26,53 +26,21 @@ However, while GitHub manages both components in GitHub Actions, Buildkite Pipel
 
 The program that executes work is called an _agent_ in Buildkite Pipelines (also known as the [_Buildkite Agent_](/docs/agent/v3)). An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. The Buildkite Agent polls Buildkite for work, runs jobs, and reports results. You can install these agents on local machines, cloud servers, or other remote machines. The Buildkite Agent code is open-source, and is [accessible from GitHub](https://github.com/buildkite/agent).
 
-More recently, Buildkite Pipelines has provided its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) feature (as an alternative to this self-hosted, hybrid architecture, described above), as a managed solution that suits smaller teams, including those wishing to get up and running with Pipelines more rapidly.
+Buildkite Pipelines also provides its own [hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) as a managed solution that suits smaller teams, including those wishing to get up and running with Buildkite Pipelines more rapidly.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) to learn more about how you can set up Buildkite Pipelines to work with your organization.
 
 ### The difference in default checkout behaviors
 
-The Buildkite checkout process might appear slower (job and build times appearing slower) in a one-to-one migration comparison with GitHub Actions. This difference stems from default checkout strategies and Git configurations used by each platform.
+The Buildkite checkout process might appear slower in a one-to-one migration comparison with GitHub Actions due to different default checkout strategies.
 
-> 📘
-> While the following comparison focuses on GitHub Actions, if your current CI/CD platform uses shallow clones, skips LFS by default, or has other optimized checkout defaults, you'll likely notice similar differences when migrating to Buildkite Pipelines.
+GitHub Actions' `actions/checkout@v4` uses a shallow clone (`--depth=1`) and skips Git LFS by default. In Buildkite Pipelines:
 
-If you look at GitHub Actions' default checkout behavior, it:
+- Git LFS is enabled by default. Disable with `GIT_LFS_SKIP_SMUDGE=1`.
+- Agents check out the full repository. Configure shallow clones using the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
+- Additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
 
-- Uses a shallow clone with `--depth=1` so it only fetches what is necessary for the current commit or PR.
-- Automatically fetches PR references and tags — so doesn't require an extra git fetch process.
-- Skips Git LFS downloads unless `lfs: true` is set:
-
-```yaml
-- uses: actions/checkout@v4
-  with:
-    lfs: false # default
-    fetch-depth: 1 # default
-```
-
-As a result, in GitHub Actions, the checkout process running on all defaults will be faster because it is shallow and LFS-free, unless explicitly requested.
-
-Compared to GitHub Actions' default checkout behavior, in Buildkite Pipelines:
-
-- Git LFS is enabled by default. You can override this by setting an environment variable (`GIT_LFS_SKIP_SMUDGE=1`).
-
-```yaml
-env:
-  GIT_LFS_SKIP_SMUDGE: "1"
-```
-
-- Agent checks out the full working repository. Shallow clone can be configured using an environment variable or the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/).
-- Other Buildkite plugins you can use to override or customize the default checkout behavior are:
-
-    * [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) that performs a sparse checkout so that only selected paths are fetched and checked out, reducing time and bandwidth on large repositories.
-    * [Custom Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) that overrides the default agent checkout by setting a custom `refspec` and then doing a `git lfs pull`.
-
-- An agent checkout hook can be used to replicate some of the default checkout options used by GitHub Actions which include `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
-- [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) can also be used for checkout optimization, but it doesn't offer a considerable improvement in terms of checkout speed.
-
-Understanding these differences helps you optimize your checkout strategy when migrating from GitHub Actions to Buildkite Pipelines, whether that means matching GitHub Actions' faster defaults or taking advantage of Buildkite's flexibility to customize the checkout behavior for your specific needs.
-
-You can learn more about checkout strategies for Buildkite Pipelines in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
+Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
 
 ### Security
@@ -93,18 +61,14 @@ In GitHub Actions, the core description of work is a _workflow_ containing _jobs
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
-- **Command step:** Runs one or more shell commands on one or more agents.
-- **Wait step:** Pauses a build until all previous jobs have completed.
-- **Block step:** Pauses a build until unblocked.
-- **Input step:** Collects information from a user.
-- **Trigger step:** Creates a build on another pipeline.
-- **Group step:** Displays a group of sub-steps as one parent step.
+- **[Command step](/docs/pipelines/configure/step-types/command-step):** Runs one or more shell commands on one or more agents.
+- **[Wait step](/docs/pipelines/configure/step-types/wait-step):** Pauses a build until all previous jobs have completed.
+- **[Block step](/docs/pipelines/configure/step-types/block-step):** Pauses a build until unblocked.
+- **[Input step](/docs/pipelines/configure/step-types/input-step):** Collects information from a user.
+- **[Trigger step](/docs/pipelines/configure/step-types/trigger-step):** Creates a build on another pipeline.
+- **[Group step](/docs/pipelines/configure/step-types/group-step):** Displays a group of sub-steps as one parent step.
 
 Triggering a Buildkite pipeline creates a _build_, and any command steps are dispatched as _jobs_ to run on agents. A common practice is to define a pipeline with a single step that uploads the `pipeline.yml` file in the code repository. The `pipeline.yml` contains the full pipeline definition and can be generated dynamically.
-
-### Try out Buildkite
-
-With a basic understanding of the differences between Buildkite Pipelines and GitHub Actions, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started/) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
 
 ## Provision agent infrastructure
 
@@ -187,7 +151,7 @@ jobs:
       - run: npm test     # Uses the node_modules installed above
 ```
 
-In Buildkite, each step is executed in a fresh workspace on potentially different agents. Therefore, artifacts from previously processed steps won't be automatically available in subsequent steps.
+In Buildkite Pipelines, each step is executed in a fresh workspace on potentially different agents. Therefore, artifacts from previously processed steps won't be automatically available in subsequent steps.
 
 ```yaml
 # This won't work reliably in Buildkite
@@ -203,20 +167,9 @@ steps:
 
 However, there are several options for sharing state between steps:
 
-- **Reinstall per step:** Simple for fast-installing dependencies like `npm ci` (instead of `npm install`).
-
-    ```yaml
-    steps:
-      - label: Run tests
-        command:
-          - npm ci   # (Re-)installs node_modules
-          - npm test # node_modules will be available
-    ```
-
-- **Buildkite artifacts:** You can upload [build artifacts](/docs/pipelines/configure/artifacts) from one step, which can be used in a subsequently processed step. This works best with small files and build outputs.
-
-- **Cache plugin:** Similar to `actions/cache`, you can use the [Buildkite cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/), which is ideal for larger dependencies using cloud storage (S3, GCS).
-
+- **Reinstall per step:** Simple for fast-installing dependencies like `npm ci`.
+- **Buildkite artifacts:** Upload [build artifacts](/docs/pipelines/configure/artifacts) from one step for use in subsequent steps. Best for small files and build outputs.
+- **Cache plugin:** Similar to `actions/cache`, use the [Buildkite cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) for larger dependencies using cloud storage (S3, GCS).
 - **External storage:** Custom solutions for complex state management.
 
 ### Agent targeting
@@ -267,10 +220,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - uses: actions/upload-artifact@v4
-        with:
-          name: coverage-${{ matrix.node-version }}
-          path: coverage/
+      # ... artifact upload
 
   build:
     needs: [lint, test]
@@ -283,10 +233,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
+      # ... artifact upload
 ```
 
 ### Step 2: Create a basic Buildkite pipeline structure
@@ -347,11 +294,11 @@ Replace the placeholder commands with real commands. Since Buildkite assumes too
 ```
 
 > 📘
-> Buildkite agents should be pre-configured with required tools. Alternatively, use the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) with an appropriate image like `node:20`.
+> Buildkite Agents should be pre-configured with required tools. Alternatively, use the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) with an appropriate image like `node:20`.
 
 ### Step 5: Implement a build matrix
 
-Now implement the [build matrix](/docs/pipelines/configure/workflows/build-matrix) for Node.js 18, 20, and 22:
+Now, implement the [build matrix](/docs/pipelines/configure/workflows/build-matrix) for Node.js 18, 20, and 22:
 
 ```yaml
   - label: "\:test_tube\: Test (Node {{matrix.node_version}})"
@@ -367,7 +314,7 @@ Now implement the [build matrix](/docs/pipelines/configure/workflows/build-matri
       - npm test
 ```
 
-Buildkite's build matrix syntax is simpler than GitHub Actions—just specify the values in an array under `matrix.setup`. The `{{matrix.node_version}}` template variable gets replaced at runtime, creating separate jobs for each Node.js version.
+Buildkite Pipelines' build matrix syntax is simpler than GitHub Actions — you only need to specify the values in an array under `matrix.setup`. The `{{matrix.node_version}}` template variable gets replaced at runtime, creating separate jobs for each Node.js version.
 
 ### Step 6: Implement artifact collection
 
@@ -389,7 +336,7 @@ Now implement [build artifact](/docs/pipelines/configure/artifacts) collection t
       - coverage/**/* # Collect test coverage
 ```
 
-Buildkite provides native artifact support—no separate upload action required, just specify the glob patterns for files you want to preserve.
+Buildkite Pipelines provides native artifact support so no separate upload action is required, just specify the glob patterns for the files you want to preserve.
 
 ### Step 7: Add caching
 
@@ -544,7 +491,7 @@ These are configured in the Buildkite UI under Pipeline Settings, not in the YAM
 | `workflow_dispatch` | `input` step + "New Build" button/API |
 | `release` / `create` (tags) | UI → Build tags setting |
 
-For triggers not natively supported by Buildkite (`issues`, `issue_comment`, `workflow_run`, etc.), you can:
+For triggers not natively supported by Buildkite Pipelines (`issues`, `issue_comment`, `workflow_run`, etc.), you can:
 
 1. **Keep in GitHub Actions:** Best for GitHub-specific automation.
 2. **Configure webhook:** Set up an endpoint to call the Buildkite API.
@@ -552,7 +499,7 @@ For triggers not natively supported by Buildkite (`issues`, `issue_comment`, `wo
 
 ## Translating context variables
 
-GitHub Actions provides context objects (`github.*`, `runner.*`, `env.*`). Buildkite provides environment variables:
+GitHub Actions provides context objects (`github.*`, `runner.*`, `env.*`). Buildkite Pipelines provides environment variables:
 
 | GitHub Actions context | Buildkite environment variable |
 |------------------------|-------------------------------|
@@ -569,7 +516,7 @@ GitHub Actions provides context objects (`github.*`, `runner.*`, `env.*`). Build
 
 ## Translating conditionals
 
-GitHub Actions conditionals use the `if:` attribute with expressions. Buildkite also supports `if:` but with different syntax:
+GitHub Actions conditionals use the `if:` attribute with expressions. Buildkite Pipelines also supports `if:` but with different syntax:
 
 | GitHub Actions | Buildkite |
 |----------------|-----------|
@@ -659,7 +606,7 @@ steps:
 
 ## Translating job outputs
 
-GitHub Actions uses `$GITHUB_OUTPUT` and `jobs.<id>.outputs` to pass data between jobs. Buildkite uses meta-data:
+GitHub Actions uses `$GITHUB_OUTPUT` and `jobs.<id>.outputs` to pass data between jobs. Buildkite Pipelines uses meta-data:
 
 ```yaml
 # GitHub Actions
@@ -687,7 +634,7 @@ steps:
 
 ## Translating step summaries
 
-GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summary. Buildkite uses annotations:
+GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summary. Buildkite Pipelines uses annotations:
 
 ```yaml
 # GitHub Actions
@@ -698,13 +645,13 @@ GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summar
     - echo "## Build Complete" | buildkite-agent annotate --style "success"
 ```
 
-## Key differences and benefits of migrating to Buildkite
+## Key differences and benefits of migrating to Buildkite Pipelines
 
 This [example pipeline translation](#translate-an-example-github-actions-workflow) demonstrates several important advantages of Buildkite's approach:
 
 - **Simpler pipeline configuration:** Buildkite YAML is straightforward with fewer special syntax rules.
-- **Execution model:** Buildkite's steps are parallel by default with explicit sequencing, similar to GitHub Actions jobs but applied at the step level.
-- **Native features:** Buildkite provides native artifact handling and build visualization without additional actions.
+- **Execution model:** Buildkite Pipelines's steps are parallel by default with explicit sequencing, similar to GitHub Actions jobs but applied at the step level.
+- **Native features:** Buildkite Pipelines provides native artifact handling and build visualization without additional actions.
 - **Agent flexibility:** Full control over your build environment with self-hosted agents.
 
 For larger deployments, these differences become more significant:
@@ -721,19 +668,21 @@ Be aware of common pipeline-translation mistakes, which might include:
 
 ## Next steps
 
-Explore these Buildkite resources to learn more about Buildkite's features and functionality, and how to enhance your Buildkite pipelines translated from GitHub Actions:
+With a basic understanding of the differences between Buildkite Pipelines and GitHub Actions, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started/) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
 
-- [Defining your pipeline steps](/docs/pipelines/defining-steps) for an advanced guide on how to configure Buildkite pipeline steps.
-- [Buildkite Agent overview](/docs/agent/v3) page for more information about the Buildkite Agent and guidance on how to configure it.
-- [Plugins directory](https://buildkite.com/resources/plugins/) for a catalog of Buildkite- as well as community-developed plugins to enhance your pipeline functionality.
-- [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to learn more about how to generate pipeline definitions at build-time, and how to facilitate this feature with the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
-- [Buildkite Agent hooks](/docs/agent/v3/self-hosted/hooks) to extend or override the default behavior of Buildkite Agents at different stages of its lifecycle.
-- [Using conditions](/docs/pipelines/configure/conditionals) to run pipeline builds or steps only when specific conditions have been met.
-- [Annotations](/docs/agent/v3/cli/reference/annotate) that allow you to add additional information to your build result pages using Markdown.
-- [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) overview pages, which lead to details on how to manage secrets within your Buildkite infrastructure, as managing [permissions](/docs/pipelines/security/permissions) for your teams and Buildkite pipelines themselves.
-- [Integrations](/docs/pipelines/integrations) to integrate Buildkite's functionality with other third-party tools, for example, notifications that automatically let your team know about the success of your pipeline builds.
-- After configuring Buildkite Pipelines for your team, learn how to obtain actionable insights from the tests running in pipelines using [Test Engine](/docs/test-engine).
+Explore these resources to learn more about Buildkite Pipelines's features and functionality, and how to enhance your Buildkite pipelines translated from GitHub Actions:
 
-If you need further assistance with your GitHub Actions migration processes and plans, please don't hesitate to reach out to our Buildkite support team at support@buildkite.com. We're here to help you use Buildkite to build your dream CI/CD workflows.
+- [Defining your pipeline steps](/docs/pipelines/defining-steps)
+- [Buildkite Agent overview](/docs/agent/v3)
+- [Plugins directory](https://buildkite.com/resources/plugins/)
+- [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) and the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
+- [Buildkite Agent hooks](/docs/agent/v3/self-hosted/hooks)
+- [Using conditions](/docs/pipelines/configure/conditionals)
+- [Annotations](/docs/agent/v3/cli/reference/annotate)
+- [Security](/docs/pipelines/security), [Secrets](/docs/pipelines/security/secrets), and [permissions](/docs/pipelines/security/permissions)
+- [Integrations](/docs/pipelines/integrations)
+- [Test Engine](/docs/test-engine) for test insights
 
 If you would like to get a hands-on understanding of the differences and how GitHub Actions workflows map onto Buildkite Pipelines, try out the [Buildkite pipeline converter](/docs/pipelines/migration/converter/github-actions).
+
+For migration assistance, contact support@buildkite.com.
