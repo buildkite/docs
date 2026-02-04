@@ -2,9 +2,15 @@
 
 Buildkite Package Registries provides registry support for Red Hat-based (RPM) packages for Red Hat Linux operating systems.
 
-Once your Red Hat source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry via the relevant `curl` command presented on your Red Hat registry's details page.
+Once your Red Hat source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry.
 
-To view and copy this `curl` command:
+## Publish a package
+
+You can use two approaches to publish an RPM package to your Red Hat source registry—[`curl`](#publish-a-package-using-curl) or the [Buildkite CLI](#publish-a-package-using-the-buildkite-cli).
+
+### Using curl
+
+The **Publish Instructions** tab of your Red Hat source registry includes a `curl` command you can use to upload a package to this registry. To view and copy this `curl` command:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Red Hat source registry on this page.
@@ -13,16 +19,10 @@ To view and copy this `curl` command:
 This command provides:
 
 - The specific URL to publish a package to your specific Red Hat source registry in Buildkite.
-- The API access token required to publish packages to this source registry.
+- A temporary API access token to publish packages to this source registry.
 - The Red Hat (RPM) package file to be published.
 
-## Publish a package
-
-You can use two approaches to publish an RPM package to your Red Hat source registry—[`curl`](#publish-a-package-using-curl) or the [Buildkite CLI](#publish-a-package-using-the-buildkite-cli).
-
-### Using curl
-
-The following `curl` command (which you'll need to modify as required before submitting) describes the process above to publish an RPM package to your Red Hat source registry:
+You can also create this command yourself using the following `curl` command (which you'll need to modify as required before submitting):
 
 ```bash
 curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/registries/{registry.slug}/packages \

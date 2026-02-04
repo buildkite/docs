@@ -2,23 +2,25 @@
 
 Buildkite Package Registries provides registry support for JavaScript-based (Node.js npm) packages.
 
-Once your JavaScript source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files with the command/code snippets presented on your JavaScript registry's details page.
+Once your JavaScript source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload packages (generated from your application's build) to this registry by configuring your `~/.npmrc` and application's relevant `package.json` files.
 
-To view and copy the required command/code snippet for your `~/.npmrc` and `package.json` configurations:
+## Publish a package
+
+The **Publish Instructions** tab of your JavaScript source registry includes command/code snippets you can use to configure your environment for publishing packages to this registry. To view and copy the required command or code snippets for your `~/.npmrc` and `package.json` configurations:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your JavaScript source registry on this page.
 1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy the its snippet and paste it into your command line tool or the appropriate file.
 
     These file configurations contain the following:
-    * `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and the API access token required to publish the package to this registry.
+    * `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and a temporary API access token required to publish the package to this registry.
     * `package.json`: the URL for this source registry.
 
 1. You can then run the `npm pack` and `npm publish` commands to publish the package to this source registry.
 
-## Publish a package
+### Detailed instructions
 
-The following steps describe the process above:
+You can also configure these files yourself (modifying the snippets as required), by following these detailed instructions.
 
 1. Copy the following `npm` command, paste it into your terminal, and modify as required before running to update your `~/.npmrc` file:
 
@@ -60,9 +62,6 @@ A JavaScript package's details can be accessed from this registry through the **
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your JavaScript source registry on this page.
 1. On your JavaScript source registry page, select the package to display its details page.
-
-> 📘
-> If your JavaScript source registry is an upstream of a [composite registry](/docs/package-registries/registries/manage#composite-registries), you can also access a JavaScript package's details from this composite registry (listed on the **Registries** page) by selecting the relevant JavaScript composite registry > from the **Upstreams** tab, select the relevant JavaScript source registry, then its relevant package.
 
 <%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
@@ -122,34 +121,3 @@ where:
 <%= render_markdown partial: 'package_registries/org_slug' %>
 
 <%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
-
-### Installing a package from a composite registry
-
-If your JavaScript source registry is an upstream of a [composite registry](/docs/package-registries/registries/manage#composite-registries), you can install one of its packages using the code snippet details provided on the composite registry's **Setup & Usage** page. To do this:
-
-1. Select **Package Registries** in the global navigation to access the **Registries** page.
-1. Select your Python composite registry on this page.
-1. Select the **Setup & Usage** tab to display the **Usage Instructions** page.
-1. Configure the composite registry's URL in the `.npmrc` file. Learn more about this is [Composite registry configuration](#composite-registry-configuration), below.
-
-<h4 id="composite-registry-configuration">Composite registry configuration</h4>
-
-Open your `.npmrc` file and add the following lines to it:
-
-```npmrc
-# Set _authToken. `npm/` suffix must be omitted.
-//packages.buildkite.com/{org.slug}/{registry.slug}/:_authToken=$TOKEN
-
-# Set registry for all packages
-registry=https://packages.buildkite.com/{org.slug}/{registry.slug}/npm/
-```
-
-where:
-
-<%= render_markdown partial: 'package_registries/org_slug' %>
-
-<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
-
-- `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your JavaScript composite registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
-
-You can now install JavaScript packages from your composite registry using the abbreviated command `npm install package-name@version.number`.

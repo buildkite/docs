@@ -364,6 +364,8 @@
     path: apis/graphql/schemas/object/clusterqueuetoken
   - name: ClusterQueueUpdatePayload
     path: apis/graphql/schemas/object/clusterqueueupdatepayload
+  - name: ClusterQueueWaitTime
+    path: apis/graphql/schemas/object/clusterqueuewaittime
   - name: ClusterToken
     path: apis/graphql/schemas/object/clustertoken
   - name: ClusterUpdatePayload
@@ -862,6 +864,8 @@
     path: apis/graphql/schemas/scalar/boolean
   - name: DateTime
     path: apis/graphql/schemas/scalar/datetime
+  - name: Float
+    path: apis/graphql/schemas/scalar/float
   - name: ID
     path: apis/graphql/schemas/scalar/id
   - name: Int

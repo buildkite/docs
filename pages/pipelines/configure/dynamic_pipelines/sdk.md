@@ -11,6 +11,7 @@ Currently, the Buildkite SDK supports the following languages:
 - [Python](#python)
 - [Go](#go)
 - [Ruby](#ruby)
+- [C#](#c-sharp)
 
 Each of the **Installing** sub-sections below assume that your local environment already has the required language tools installed.
 
@@ -211,6 +212,144 @@ steps:
 ### API documentation
 
 For more detailed API documentation on the Buildkite SDK for Ruby, consult the [Buildkite SDK's Ruby API documentation](https://buildkite.com/docs/sdk/ruby/).
+
+## C Sharp
+
+This section explains how to install and use the Buildkite SDK for [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) (.NET) projects.
+
+### Installing
+
+To install the Buildkite SDK for [.NET](https://dotnet.microsoft.com/) to your local development environment, run this command:
+
+```bash
+dotnet add package Buildkite.Sdk
+```
+
+### Using
+
+The following code example demonstrates how to import the Buildkite SDK into a simple C# script, which then generates a Buildkite pipeline with a build [command step](/docs/pipelines/configure/step-types/command-step), a [wait step](#c-sharp-wait-steps), and a test command step, and then outputs these steps to either JSON or YAML format:
+
+```csharp
+using Buildkite.Sdk;
+using Buildkite.Sdk.Schema;
+
+var pipeline = new Pipeline();
+
+pipeline.AddStep(new CommandStep
+{
+    Label = "\:hammer\: Build",
+    Command = "dotnet build"
+});
+
+pipeline.AddStep(new WaitStep());
+
+pipeline.AddStep(new CommandStep
+{
+    Label = "\:test_tube\: Test",
+    Command = "dotnet test"
+});
+
+// JSON output for `buildkite-agent pipeline upload`
+// Console.WriteLine(pipeline.ToJson());
+// YAML output for `buildkite-agent pipeline upload`
+Console.WriteLine(pipeline.ToYaml());
+```
+{: codeblock-file="DynamicPipeline.cs"}
+
+When you're ready to upload your output JSON or YAML steps to Buildkite Pipelines, you can do so from a currently running pipeline step:
+
+```yaml
+# For example, in your pipeline's Settings > Steps:
+steps:
+  - label: "\:pipeline\: Run dynamic pipeline steps"
+    command: dotnet run --project .buildkite/DynamicPipeline.csproj | buildkite-agent pipeline upload
+```
+
+Also included in this section are examples of how to use the Buildkite SDK for C# with other step types, including a more complex [command step](#c-sharp-command-steps), a [block step](#c-sharp-block-steps), [wait step](#c-sharp-wait-steps), [trigger step](#c-sharp-trigger-steps), and [group step](#c-sharp-group-steps), as well as [environment variables](#c-sharp-environment-variables).
+
+<h4 id="c-sharp-command-steps">Command steps</h4>
+
+This code example demonstrates a more complex [command step](/docs/pipelines/configure/step-types/command-step) with additional options:
+
+```csharp
+pipeline.AddStep(new CommandStep
+{
+    Label = "\:dotnet\: Build",
+    Key = "build",
+    Command = "dotnet build --configuration Release",
+    Agents = new AgentsObject { ["queue"] = "linux" },
+    TimeoutInMinutes = 30
+});
+```
+
+<h4 id="c-sharp-block-steps">Block steps</h4>
+
+This code example demonstrates how to implement a [block step](/docs/pipelines/configure/step-types/block-step):
+
+```csharp
+pipeline.AddStep(new BlockStep
+{
+    Block = "\:rocket\: Deploy to Production?",
+    Prompt = "Are you sure?"
+});
+```
+
+<h4 id="c-sharp-wait-steps">Wait steps</h4>
+
+This code example demonstrates how to implement a [wait step](/docs/pipelines/configure/step-types/wait-step):
+
+```csharp
+pipeline.AddStep(new WaitStep());
+pipeline.AddStep(new WaitStep { ContinueOnFailure = true });
+```
+
+<h4 id="c-sharp-trigger-steps">Trigger steps</h4>
+
+This code example demonstrates how to implement a [trigger step](/docs/pipelines/configure/step-types/trigger-step):
+
+```csharp
+pipeline.AddStep(new TriggerStep
+{
+    Trigger = "deploy-pipeline",
+    Build = new TriggerBuild { Branch = "main" }
+});
+```
+
+<h4 id="c-sharp-group-steps">Group steps</h4>
+
+This code example demonstrates how to implement a [group step](/docs/pipelines/configure/step-types/group-step):
+
+```csharp
+pipeline.AddStep(new GroupStep
+{
+    Group = "\:test_tube\: Tests",
+    Steps = new List<IGroupStep>
+    {
+        new CommandStep { Label = "Unit", Command = "dotnet test" },
+        new CommandStep { Label = "Integration", Command = "dotnet test --filter Integration" }
+    }
+});
+```
+
+<h4 id="c-sharp-environment-variables">Environment variables</h4>
+
+This code example demonstrates how to access [environment variables](/docs/pipelines/configure/environment-variables):
+
+```csharp
+using Buildkite.Sdk;
+
+var branch = EnvironmentVariable.Branch;
+var commit = EnvironmentVariable.Commit;
+var buildNumber = EnvironmentVariable.BuildNumber;
+```
+
+<!--
+
+### API documentation
+
+For more detailed API documentation on the Buildkite SDK for C#, consult the [Buildkite SDK's C# API documentation](https://buildkite.com/docs).
+
+-->
 
 ## Developing the Buildkite SDK
 

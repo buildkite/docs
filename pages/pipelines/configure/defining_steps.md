@@ -8,9 +8,11 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 On the **Pipelines** page, select **New pipeline** to begin creating a new pipeline.
 
-The required fields are **Name** and **Git Repository**.
+The required fields are **Git scope**, **Repository** and **Pipeline name**.
 
-<%= image "new-pipeline-setup.png", width: 1768/2, height: 928/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
+<%= image "new-pipeline-page.png", width: 1768/2, height: 928/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
+
+Learn more about this page from [Understanding the New Pipeline page](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page).
 
 You can set up webhooks at this point, but this step is optional. These webhook setup instructions can be found in pipeline settings on your specific repository provider page.
 

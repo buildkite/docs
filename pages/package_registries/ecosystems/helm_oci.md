@@ -2,22 +2,22 @@
 
 Buildkite Package Registries provides Helm Open Container Initiative (OCI)-based registry support for distributing Helm charts. [Helm version 3.8.0](https://helm.sh/docs/topics/registries/) or newer is required as these versions provide support for OCI. While this page is for OCI-based Helm source registry publishing instructions, you can alternatively publish to a [standard Helm source registry](/docs/package-registries/ecosystems/helm).
 
-Once your Helm OCI source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload charts (generated from your application's build) to this registry via relevant `helm` commands presented on your Helm OCI registry's details page.
+Once your Helm OCI source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload charts (generated from your application's build) to this registry.
 
-To view and copy these `helm` commands:
+## Publish a chart
+
+The **Publish Instructions** tab of your Helm OCI source registry includes `helm` commands you can use to upload a chart to this registry. To view and copy these `helm` commands:
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your Helm OCI source registry on this page.
 1. Select the **Publish Instructions** tab and on the resulting page, for each required `helm` command in code snippets provided, copy the relevant code snippet (using the icon at the top-right of its code box), paste it into your terminal, and run it with the appropriate values to publish the chart to this source registry.
 
-These Helm commands are used to:
+These commands are used to:
 
-- Log in to your Buildkite Helm OCI source registry with an API access token.
+- Log in to your Buildkite Helm OCI source registry with a temporary API access token.
 - Publish a Helm chart to this source registry.
 
-## Publish a chart
-
-The following steps describe the process above:
+You can also run these commands yourself (modifying them as required before running):
 
 1. Copy the following `helm login` command, paste it into your terminal, and modify as required before running to log in to your Helm OCI source registry:
 

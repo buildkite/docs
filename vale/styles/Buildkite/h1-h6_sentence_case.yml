@@ -68,6 +68,7 @@ exceptions:
   - buildkite-agent
   - BuildNotify
   - BuildReactor
+  - C Sharp
   - C\+\+
   - CCMenu
   - CCTray
@@ -197,6 +198,7 @@ exceptions:
   - monitor
   - Namespace
   - NET
+  - New Pipeline
   - Node.js
   - nodeName
   - nodeSelector

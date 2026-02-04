@@ -348,6 +348,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/wait-step",                                                                   to: redirect("/docs/pipelines/configure/step-types/wait-step")
   get "/docs/pipelines/waterfall",                                                                   to: redirect("/docs/pipelines/insights/waterfall")
   get "/docs/pipelines/writing-build-scripts",                                                       to: redirect("/docs/pipelines/configure/writing-build-scripts")
+  get "/docs/platform/service-quotas",                                                               to: redirect("/docs/platform/limits")
   get "/docs/plugins",                                                                               to: redirect("/docs/pipelines/integrations/plugins")
   get "/docs/plugins/using",                                                                         to: redirect("/docs/pipelines/integrations/plugins/using")
   get "/docs/plugins/directory",                                                                     to: redirect("/docs/pipelines/integrations/plugins/directory")
