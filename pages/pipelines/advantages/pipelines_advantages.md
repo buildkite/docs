@@ -78,11 +78,11 @@ Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 **Sophisticated job routing**: Queue-based job routing with flexible tag matching ensures the right job lands on the right agent with the appropriate capabilities.
 
-## Clarity through intentional design
+### Clarity through intentional design
 
 The Buildkite UI provides immediate visibility into pipeline behavior and system health without overwhelming you. The interface is minimal and intentional, it stays out of the way unless something requires attention. Your teams get a CI system that supports their work instead of interrupting it.
 
-## AI-powered workflows
+### AI-powered workflows
 
 AI can speed up how you write and review code, but only if your delivery system stays clear, predictable, and aligned with your intent. Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture), and structured environment needed to run AI-powered delivery without putting reliability at risk.
 
@@ -90,7 +90,7 @@ Buildkite Pipelines supports agentic workflows allowing your pipelines to adapt 
 
 AI agents connect to your pipelines through the [Buildkite MCP server](/docs/apis/mcp-server) with precise, cached context that stays accurate and token-efficient. You decide what to automate, where the guardrails sit, and how insight returns to developers.
 
-## Integrations
+### Integrations
 
 Buildkite is not an all-in-one DevOps platform. It doesn't bundle source code management, project planning, security scanning, or deployment monitoring into a single product.
 
