@@ -4,33 +4,36 @@ This guide helps GitHub Actions users migrate to Buildkite Pipelines, covering k
 
 ## Understand the differences
 
+Most of the concepts will likely be familiar, but there are some differences to understand about the approaches.
+
 ### System architecture
 
-GitHub Actions is fully hosted by GitHub. Buildkite Pipelines uses a hybrid model:
+GitHub Actions is fully hosted by GitHub.
+
+Buildkite Pipelines uses a hybrid model:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
-- [_Buildkite Agents_](/docs/agent/v3) for executing jobs—hosted by you or using [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture).
-
-This separation reduces operational burden—Buildkite handles platform maintenance while you control the build environment. The [open-source agent](https://github.com/buildkite/agent) can run on local machines, cloud servers, or containers.
+- [Buildkite Agents](/docs/agent/v3) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure as the [Buildkite Agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
 ### The difference in default checkout behaviors
 
-The Buildkite checkout process might appear slower in a one-to-one migration comparison with GitHub Actions due to different default checkout strategies.
+The checkout process in Buildkite Pipelines might appear slower in a one-to-one migration comparison with GitHub Actions due to different default checkout strategies.
 
 GitHub Actions' `actions/checkout@v4` uses a shallow clone (`--depth=1`) and skips Git LFS by default. In Buildkite Pipelines:
 
 - Git LFS is enabled by default. Disable with `GIT_LFS_SKIP_SMUDGE=1`.
-- Agents check out the full repository. Configure shallow clones using the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
-- Additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
+- Agents check out the full repository. However, you can configure shallow clones using the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
+
+For checkout optimization in Buildkite Pipelines, you can also use additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
 
 Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
 
 ### Security
 
-Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own [self-hosted Buildkite Agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Self-hosted Buildkite Agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
+Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own Buildkite Agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite Agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
 While Buildkite Pipelines provides its own secrets management capabilities through the Buildkite platform, the Buildkite platform can also be configured so that it doesn't store your secrets. Furthermore, Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
@@ -40,7 +43,7 @@ See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/secur
 
 Like GitHub Actions, Buildkite Pipelines lets you define pipelines in the web interface or in files checked into a repository. The equivalent of `.github/workflows/*.yml` is a `pipeline.yml` (typically in `.buildkite/`). See [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) for details.
 
-In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. In Buildkite, a _pipeline_ is the core description of work.
+In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. In Buildkite, a [_pipeline_](/docs/pipelines/glossary#pipeline) is the core description of work.
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
@@ -51,22 +54,22 @@ A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/confi
 - **[Trigger step](/docs/pipelines/configure/step-types/trigger-step):** Creates a build on another pipeline.
 - **[Group step](/docs/pipelines/configure/step-types/group-step):** Displays a group of sub-steps as one parent step.
 
-Triggering a Buildkite pipeline creates a _build_, and any command steps are dispatched as _jobs_ to run on agents. A common practice is to define a pipeline with a single step that uploads the `pipeline.yml` file in the code repository. The `pipeline.yml` contains the full pipeline definition and can be generated dynamically.
+Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#build), and any command steps are dispatched as [_jobs_](/docs/pipelines/glossary#job) to run on agents. A common practice is to define a pipeline with a single step that uploads the `pipeline.yml` file in the code repository. The `pipeline.yml` contains the full pipeline definition and can be generated [dynamically](/docs/pipelines/configure/dynamic-pipelines).
 
 ## Provision agent infrastructure
 
-Buildkite Agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) or on your infrastructure (_self-hosted_), similar to GitHub Actions self-hosted runners.
+Buildkite Agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) or on your infrastructure (_self-hosted_)[/docs/pipelines/architecture#self-hosted-hybrid-architecture], similar to GitHub Actions self-hosted runners.
 
 For self-hosted agents, consider:
 
-- **Infrastructure type:** On-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes).
+- **Infrastructure type:** On-premises, cloud (AWS, GCP), or container platforms (Docker, Kubernetes).
 - **Resource usage:** Evaluate CPU, memory, and disk requirements based on your current runner usage.
 - **Platform dependencies:** Ensure agents have required tools and libraries (note dependencies from `actions/setup-*` actions).
-- **Network:** Agents poll Buildkite's [agent API](/docs/apis/agent-api) over HTTPS—no incoming firewall access needed.
+- **Network:** Agents poll Buildkite's [agent API](/docs/apis/agent-api) over HTTPS so no incoming firewall access needed.
 - **Scaling:** Scale agents independently based on concurrent job requirements.
 - **Build isolation:** Use [agent tags](/docs/agent/v3/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
 
-See the [Installation](/docs/agent/v3/self-hosted/install/) guides for your infrastructure type.
+See the the [Getting started](/docs/agent/v3/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide for Buildkite hosted agents or [Installation](/docs/agent/v3/self-hosted/install/) guides for your infrastructure type for self-hosted agents.
 
 ## Pipeline translation fundamentals
 
@@ -74,7 +77,7 @@ Before translating workflows, understand these key differences:
 
 ### Files and syntax
 
-| Pipeline aspect | GitHub Actions | Buildkite |
+| Pipeline aspect | GitHub Actions | Buildkite Pipelines |
 |-----------------|----------------|-----------|
 | **Configuration file** | `.github/workflows/*.yml` | `pipeline.yml` (typically in `.buildkite/`) |
 | **Syntax** | YAML with GitHub-specific expressions | YAML |
@@ -87,7 +90,9 @@ Buildkite's syntax is simpler. You can also generate pipeline definitions at bui
 
 By default, GitHub Actions runs jobs in parallel (unless you specify `needs`), while steps within a job run sequentially. Buildkite runs all steps in parallel by default on any available agents that can run them.
 
-To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block). For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
+To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block).
+
+For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
 
 ```yaml
 # Buildkite: Explicit sequencing is required to make steps run in sequence
@@ -107,7 +112,9 @@ steps:
 
 ### Workspace state
 
-In GitHub Actions, all steps within a job share the same workspace. In Buildkite, each step runs in a fresh workspace on potentially different agents—artifacts from previous steps aren't automatically available.
+In GitHub Actions, all steps within a job share the same workspace.
+
+In Buildkite, each step runs in a fresh workspace on potentially different agents—artifacts from previous steps aren't automatically available.
 
 Options for sharing state between steps:
 
@@ -118,7 +125,9 @@ Options for sharing state between steps:
 
 ### Agent targeting
 
-GitHub Actions uses `runs-on` to select runners by labels. Buildkite uses a pull-based model where agents poll queues for work using the `agents` attribute. This provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking.
+GitHub Actions uses `runs-on` to select runners by labels.
+
+Buildkite Pipelines uses a pull-based model where agents poll queues for work using the `agents` attribute. This provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking.
 
 ## Translate an example GitHub Actions workflow
 
@@ -204,7 +213,7 @@ Notice the immediate differences in this pipeline syntax from GitHub Actions:
 
 - No `on:` block—triggers are configured in the Buildkite UI or API.
 - No `actions/checkout`—Buildkite checks out code automatically.
-- Emoji support in labels using Buildkite's [emoji syntax](https://buildkite.com/docs/pipelines/emojis).
+- Emoji support in labels using Buildkite Pipelines [emoji syntax](https://buildkite.com/docs/pipelines/emojis).
 - Key assignment for dependency references.
 
 ### Step 3: Configure the step dependencies
@@ -221,11 +230,11 @@ The build step should run only after lint and test complete successfully. Config
       - echo "Build step placeholder"
 ```
 
-Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite's parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
+Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite Pipelines parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
 
 ### Step 4: Add the actual commands
 
-Replace the placeholder commands with real commands. Since Buildkite assumes tools are pre-installed on agents (or you use Docker), there's no equivalent to `actions/setup-node`:
+Replace the placeholder commands with real commands. Since Buildkite Pipelines assumes tools are pre-installed on agents (or you use Docker), there's no equivalent to `actions/setup-node`:
 
 ```yaml
   - label: "\:eslint\: Lint"
@@ -382,9 +391,9 @@ steps:
 
 ## Key mappings reference
 
-This table provides quick mappings between common GitHub Actions concepts and their Buildkite equivalents:
+This table provides quick mappings between common GitHub Actions concepts and their Buildkite Pipelines equivalents:
 
-| GitHub Actions | Buildkite |
+| GitHub Actions | Buildkite Pipelines |
 |----------------|-----------|
 | `jobs.<id>` | `steps` array item with `key: "<id>"` |
 | `jobs.<id>.name` | `label` |
@@ -405,7 +414,9 @@ This table provides quick mappings between common GitHub Actions concepts and th
 
 ## Translating triggers
 
-GitHub Actions supports many webhook event triggers through the `on:` block. Buildkite natively supports:
+GitHub Actions supports many webhook event triggers through the `on:` block.
+
+Buildkite Pipelines natively supports:
 
 - `push` (branches)
 - `pull_request`
@@ -430,9 +441,11 @@ For triggers not natively supported by Buildkite Pipelines (`issues`, `issue_com
 
 ## Translating context variables
 
-GitHub Actions provides context objects (`github.*`, `runner.*`, `env.*`). Buildkite Pipelines provides environment variables:
+GitHub Actions provides context objects (`github.*`, `runner.*`, `env.*`).
 
-| GitHub Actions context | Buildkite environment variable |
+Buildkite Pipelines provides environment variables:
+
+| GitHub Actions context | Buildkite Pipelines environment variable |
 |------------------------|-------------------------------|
 | `github.repository` | `BUILDKITE_REPO` or `BUILDKITE_PIPELINE_SLUG` |
 | `github.sha` | `BUILDKITE_COMMIT` |
@@ -447,10 +460,12 @@ GitHub Actions provides context objects (`github.*`, `runner.*`, `env.*`). Build
 
 ## Translating conditionals
 
-GitHub Actions conditionals use the `if:` attribute with expressions. Buildkite Pipelines also supports `if:` but with different syntax:
+GitHub Actions conditionals use the `if:` attribute with expressions.
 
-| GitHub Actions | Buildkite |
-|----------------|-----------|
+Buildkite Pipelines also supports `if:` but with different syntax:
+
+| GitHub Actions | Buildkite Pipelines |
+|----------------|-------------------|
 | `if: github.ref == 'refs/heads/main'` | `if: build.branch == "main"` |
 | `if: github.event_name == 'push'` | `if: build.source == "webhook"` |
 | `if: github.event_name == 'pull_request'` | `if: build.pull_request.id != null` |
@@ -462,8 +477,8 @@ For complex conditionals that can't be expressed in Buildkite's `if:` syntax, us
 
 Buildkite has native matrix support that maps directly to GitHub Actions' `strategy.matrix`:
 
-| GitHub Actions | Buildkite |
-|----------------|-----------|
+| GitHub Actions | Buildkite Pipelines |
+|----------------|-------------------|
 | `strategy.matrix` | `matrix.setup` |
 | `strategy.matrix.include` | `matrix.adjustments` (add combinations) |
 | `strategy.matrix.exclude` | `matrix.adjustments` with `skip: true` |
@@ -500,7 +515,7 @@ steps:
 
 GitHub Actions provides a `services` key that allows you to run containerized services (such as databases, caches, or message queues) alongside your job. These service containers are automatically started before your job runs and are accessible via their service name as a hostname.
 
-Buildkite Pipelines handles service containers differently. Instead of a built-in `services` key, Buildkite uses the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) to manage multi-container environments. This approach gives you full control over container orchestration using standard Docker Compose configuration files.
+Buildkite Pipelines handles service containers differently. Instead of a built-in `services` key, Buildkite Pipelines uses the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) to manage multi-container environments. This approach gives you full control over container orchestration using standard Docker Compose configuration files.
 
 To migrate your GitHub Actions services:
 
@@ -596,7 +611,7 @@ Buildkite Pipelines uses [annotations](/docs/agent/v3/cli/reference/annotate):
 This [example pipeline translation](#translate-an-example-github-actions-workflow) demonstrates several important advantages of Buildkite's approach:
 
 - **Simpler pipeline configuration:** Buildkite YAML is straightforward with fewer special syntax rules.
-- **Execution model:** Buildkite Pipelines' steps are parallel by default with explicit sequencing, similar to GitHub Actions jobs but applied at the step level.
+- **Execution model:** Buildkite Pipelines steps are parallel by default with explicit sequencing, similar to GitHub Actions jobs but applied at the step level.
 - **Native features:** Buildkite Pipelines provides native artifact handling and build visualization without additional actions.
 - **Agent flexibility:** Full control over your build environment with self-hosted agents.
 
