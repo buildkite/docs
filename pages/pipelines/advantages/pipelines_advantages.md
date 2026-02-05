@@ -12,13 +12,13 @@ Three core principles drive how Buildkite Pipelines works:
 
 You can mix and match agent [queues](/docs/agent/v3/queues) however you want for better flexibility, adaptability, redundancy, and reliability of your existing environment or whole infrastructure.
 
-**Software-driven flexibility**: Start with YAML pipelines. When you need more, write pipelines in actual code with the help of the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) (currently supporting Go, Python, TypeScript, Ruby, and C#). Build sophisticated logic, reusable abstractions, and dynamic workflows that adapt at runtime.
+**Software-driven flexibility**: Start with [YAML pipelines](/docs/pipelines/configure/defining-steps). When you need more, write pipelines in actual code with the help of the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) (currently supporting Go, Python, TypeScript, Ruby, and C#). Build sophisticated logic, reusable abstractions, and dynamic workflows that adapt at runtime.
 
-**Unlimited scale**: No artificial concurrency limits, no credit constraints, and no bottlenecked controllers. Buildkite Pipelines handles workloads from small teams to enterprise customers running 100,000+ concurrent agents.
+**Unlimited scale**: No artificial [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) limits, no credit constraints, and no bottlenecked controllers. Buildkite Pipelines handles workloads from small teams to enterprise customers running 100,000+ concurrent agents.
 
 ## Core advantages across all CI/CD systems
 
-Regardless of which CI/CD system you're comparing Buildkite Pipelines to, whether it's Jenkins, GitLab, GitHub Actions, CircleCI, or others, several fundamental advantages hold true.
+Regardless of which CI/CD system you're comparing Buildkite Pipelines to, whether it's [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), [GitHub Actions](/docs/pipelines/migration/from-githubactions), CircleCI, or others, several fundamental advantages hold true.
 
 ### Scalability
 
@@ -32,7 +32,7 @@ For teams wanting managed infrastructure without sacrificing performance, [Build
 
 **Superior performance**: Latest generation Mac and AMD Zen-based hardware delivers up to 3x faster performance compared to equivalent machines from other providers, powered by dedicated hardware and a proprietary low-latency virtualization layer.
 
-**Ephemeral, isolated environments**: Agents provision on demand and destroyed after each job. Clean, reproducible builds with hypervisor-level isolation between instances.
+**Ephemeral, isolated environments**: Agents provision on demand and destroyed after each job. Clean, reproducible builds with hypervisor-level [isolation](/docs/pipelines/security) between instances.
 
 **Cost-efficient pricing**: Per-second billing with no minimum charges, no rounding. [Caching](/docs/agent/v3/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/v3/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) are included at no additional cost.
 
@@ -40,7 +40,7 @@ For teams wanting managed infrastructure without sacrificing performance, [Build
 
 ### Security and control
 
-**Zero-trust architecture**: Your source code, secrets, and proprietary data never leave your infrastructure. Buildkite Pipelines orchestrates builds without ever accessing your code.
+**Zero-trust architecture**: Your source code, [secrets](/docs/pipelines/security/secrets), and proprietary data never leave your infrastructure. Buildkite Pipelines orchestrates builds without ever accessing your code.
 
 **Compliance-ready by default**: Builds run in your environment, so Buildkite Pipelines aligns with your existing compliance posture. No auditing shared cloud runners or worrying about data residency requirements. Learn more in [Governance](/docs/pipelines/governance)
 
@@ -48,7 +48,7 @@ For teams wanting managed infrastructure without sacrificing performance, [Build
 
 ### Speed and performance
 
-**Faster feedback cycles**: Lightweight agents and sophisticated parallelization combine to deliver build times significantly faster than in other CI/CD systems.
+**Faster feedback cycles**: Lightweight agents and sophisticated [parallelization](/docs/pipelines/best-practices/parallel-builds) combine to deliver build times significantly faster than in other CI/CD systems.
 
 **Optimized for monorepos**: Buildkite Pipelines handles large [monorepo](/docs/pipelines/best-practices/working-with-monorepos) structures efficiently, with dynamic pipeline generation that can analyze dependencies and selectively build only what changed.
 
@@ -56,7 +56,7 @@ For teams wanting managed infrastructure without sacrificing performance, [Build
 
 ### Dynamic pipelines
 
-**Runtime pipeline generation**: Generate or modify pipeline [steps](/docs/pipelines/configure/step-types) during execution based on runtime conditions, repository state, or any custom logic. This is true dynamic behavior instead of pre-declared conditional workflows.
+**Runtime pipeline generation**: Generate or modify pipeline [steps](/docs/pipelines/configure/step-types) during execution based on [runtime conditions](/docs/pipelines/configure/conditionals), repository state, or any custom logic. This is true dynamic behavior instead of pre-declared conditional workflows.
 
 **Context-aware adaptivity**: Pipelines can respond to context — so you can fan out tests only after builds succeed, skip unnecessary steps based on file changes, or generate deployment steps based on what actually changed.
 
@@ -64,17 +64,17 @@ Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ### Predictable economics
 
-**Transparent pricing**: No surprise bills from exceeding runner minutes or credit allocations. Buildkite Pipelines pricing is based on agent concurrency, typically using the 95th percentile, so short bursts don't inflate costs. Learn more in [Pricing](https://buildkite.com/pricing/).
+**Transparent pricing**: No surprise bills from exceeding runner minutes or credit allocations. Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency), typically using the 95th percentile, so short bursts don't inflate costs. Learn more in [Pricing](https://buildkite.com/pricing/).
 
 **Infrastructure control**: Leverage [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) for specialized workloads, for example, macOS builds. You can also use your own compute (including spot instances or spare capacity) to optimize costs.
 
-**Lower operational overhead**: Spend time optimizing build environments, not maintaining controllers, patching vulnerabilities, or managing plugin compatibility.
+**Lower operational overhead**: Spend time optimizing build environments, not maintaining controllers, patching vulnerabilities, or managing [plugin](/docs/pipelines/integrations/plugins) compatibility.
 
 ### Developer experience
 
 **Fast onboarding**: Start with zero-config [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) and instant pipelines.
 
-**Clear visibility**: Rich build [annotations](/docs/agent/v3/cli/reference/annotate), integrated test results, and transparent failure information keep developers informed without context switching.
+**Clear visibility**: Rich build [annotations](/docs/agent/v3/cli/reference/annotate), integrated [test results](/docs/test-engine), and transparent failure information keep developers informed without context switching.
 
 **Sophisticated job routing**: Queue-based job routing with flexible tag matching ensures the right job lands on the right agent with the appropriate capabilities.
 
@@ -84,7 +84,7 @@ The Buildkite UI provides immediate visibility into pipeline behavior and system
 
 ## AI-powered workflows
 
-AI can speed up how you write and review code, but only if your delivery system stays clear, predictable, and aligned with your intent. Buildkite Pipelines provides predictable behavior, and structured environment needed to run AI-powered delivery without putting reliability at risk.
+AI can speed up how you write and review code, but only if your delivery system stays clear, predictable, and aligned with your intent. Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture), and structured environment needed to run AI-powered delivery without putting reliability at risk.
 
 Buildkite Pipelines supports agentic workflows allowing your pipelines to adapt in real-time based on code changes, test results, or agent input while you stay in control of orchestration and automation.
 
