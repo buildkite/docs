@@ -11,21 +11,21 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: pipelineCreateWebhook – Mutations – GraphQL API
+title: pipelineDeleteWebhook – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  pipelineCreateWebhook
-  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelinecreatewebhookpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineCreateWebhookPayload">
-  <code>PipelineCreateWebhookPayload</code>
+  pipelineDeleteWebhook
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/pipelinedeletewebhookpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineDeleteWebhookPayload">
+  <code>PipelineDeleteWebhookPayload</code>
 </a>
 </span>
 </h1>
 <!-- vale on -->
 
 
-Create a webhook on the repository for a pipeline.  This mutation creates a webhook on the pipeline's source repository (e.g., GitHub) that will trigger builds when code is pushed. Requires a GitHub App integration to be configured for the organization.  Returns an error if a webhook already exists for the repository.
+Delete the webhook on the repository for a pipeline.  This mutation removes the webhook from the pipeline's source repository (e.g., GitHub) that triggers builds when code is pushed. Requires a GitHub App integration to be configured for the organization.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,6 +34,6 @@ Create a webhook on the repository for a pipeline.  This mutation creates a webh
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinecreatewebhookinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineCreateWebhookInput"><code>PipelineCreateWebhookInput!</code></a></h3><p>Parameters for PipelineCreateWebhook</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinedeletewebhookinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineDeleteWebhookInput"><code>PipelineDeleteWebhookInput!</code></a></h3><p>Parameters for PipelineDeleteWebhook</p></td></tr>
   </tbody>
 </table>
