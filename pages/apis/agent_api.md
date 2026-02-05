@@ -1,6 +1,6 @@
 # Agent REST API overview
 
-The agent REST API is used to retrieve agent metrics, register agents, deregister them, start jobs on agents, and finish jobs on them.
+The agent REST API is used to retrieve agent metrics, register agents, de-register them, start jobs on agents, and finish jobs on them.
 
 The agent REST API's publicly available endpoints include:
 
