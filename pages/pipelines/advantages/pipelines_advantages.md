@@ -94,7 +94,7 @@ AI agents connect to your pipelines through the [Buildkite MCP server](/docs/api
 
 Buildkite is not an all-in-one DevOps platform. It doesn't bundle source code management, project planning, security scanning, or deployment monitoring into a single product.
 
-By specializing in CI/CD, Buildkite integrates cleanly with your existing tools, whether that's GitHub, GitLab, or Bitbucket for source control; Datadog, Honeycomb, Amazon EventBridge, or OpenTelemetry for observability; HashiCorp Vault or AWS Secrets Manager for secrets management. You're not forced to replace your entire toolchain to get superior CI/CD performance.
+By specializing in CI/CD, Buildkite integrates cleanly with your existing tools, whether that's [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), or [Bitbucket](/docs/pipelines/source-control/bitbucket) for source control; [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), or [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) for observability; [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing) for secrets management. You're not forced to replace your entire toolchain to get superior CI/CD performance.
 
 ## Buildkite Pipelines compared to other CI/CD systems
 

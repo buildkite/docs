@@ -1,5 +1,6 @@
 ACLs
 addr
+agentic
 allow_any_instance_of
 allowlist
 allowlisted
