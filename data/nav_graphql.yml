@@ -134,6 +134,8 @@
     path: apis/graphql/schemas/mutation/pipelinecreatewebhook
   - name: pipelineDelete
     path: apis/graphql/schemas/mutation/pipelinedelete
+  - name: pipelineDeleteWebhook
+    path: apis/graphql/schemas/mutation/pipelinedeletewebhook
   - name: pipelineFavorite
     path: apis/graphql/schemas/mutation/pipelinefavorite
   - name: pipelineRotateWebhookURL
@@ -586,6 +588,8 @@
     path: apis/graphql/schemas/object/pipelinecreatewebhookpayload
   - name: PipelineDeletePayload
     path: apis/graphql/schemas/object/pipelinedeletepayload
+  - name: PipelineDeleteWebhookPayload
+    path: apis/graphql/schemas/object/pipelinedeletewebhookpayload
   - name: PipelineEdge
     path: apis/graphql/schemas/object/pipelineedge
   - name: PipelineFavoritePayload
@@ -676,6 +680,10 @@
     path: apis/graphql/schemas/object/repositoryprovidergithub
   - name: RepositoryProviderGithubEnterprise
     path: apis/graphql/schemas/object/repositoryprovidergithubenterprise
+  - name: RepositoryProviderGithubEnterpriseWebhook
+    path: apis/graphql/schemas/object/repositoryprovidergithubenterprisewebhook
+  - name: RepositoryProviderGithubWebhook
+    path: apis/graphql/schemas/object/repositoryprovidergithubwebhook
   - name: RepositoryProviderGitlab
     path: apis/graphql/schemas/object/repositoryprovidergitlab
   - name: RepositoryProviderGitlabCommunity
@@ -908,6 +916,8 @@
     path: apis/graphql/schemas/interface/repositoryprovider
   - name: RepositoryProviderSettings
     path: apis/graphql/schemas/interface/repositoryprovidersettings
+  - name: RepositoryProviderWebhook
+    path: apis/graphql/schemas/interface/repositoryproviderwebhook
   - name: SSOProvider
     path: apis/graphql/schemas/interface/ssoprovider
   - name: Step
@@ -1146,6 +1156,8 @@
     path: apis/graphql/schemas/input-object/pipelinecreatewebhookinput
   - name: PipelineDeleteInput
     path: apis/graphql/schemas/input-object/pipelinedeleteinput
+  - name: PipelineDeleteWebhookInput
+    path: apis/graphql/schemas/input-object/pipelinedeletewebhookinput
   - name: PipelineFavoriteInput
     path: apis/graphql/schemas/input-object/pipelinefavoriteinput
   - name: PipelineRepositoryInput
