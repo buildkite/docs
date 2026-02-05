@@ -6,7 +6,7 @@ toc: false
 
 Exposes a local/internal API for the currently running job, to query and mutate the state of this job through environment variables. This lets you write scripts, hooks, and plugins in languages other than Bash, using them to interact with the agent.
 
-This API uses a Unix Domain Socket, whose path is exposed to running jobs with the `BUILDKITE_AGENT_JOB_API_SOCKET` environment variable. Calls are authenticated using the Bearer HTTP Authorization scheme made available through a token in the `BUILDKITE_AGENT_JOB_API_TOKEN` environment variable.
+This API uses a Unix domain socket, whose path is exposed to running jobs with the `BUILDKITE_AGENT_JOB_API_SOCKET` environment variable. Calls are authenticated using the Bearer HTTP Authorization scheme made available through a token in the `BUILDKITE_AGENT_JOB_API_TOKEN` environment variable.
 
 The API provides the following endpoints:
 
@@ -27,7 +27,7 @@ curl --unix-socket "$BUILDKITE_AGENT_JOB_API_SOCKET" \
 
 where `http://job/...` is a placeholder hostname, which is required for the HTTP-over-Unix socket (`--unix-socket`), but is ignored.
 
-This would return a response similar to:
+This would return a response format similar to the following:
 
 ```json
 {
