@@ -498,7 +498,17 @@ steps:
 
 ## Translating services
 
-Convert GitHub Actions `services` to the Docker Compose plugin:
+GitHub Actions provides a `services` key that allows you to run containerized services (such as databases, caches, or message queues) alongside your job. These service containers are automatically started before your job runs and are accessible via their service name as a hostname.
+
+Buildkite Pipelines handles service containers differently. Instead of a built-in `services` key, Buildkite uses the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) to manage multi-container environments. This approach gives you full control over container orchestration using standard Docker Compose configuration files.
+
+To migrate your GitHub Actions services:
+
+1. Create a `docker-compose.ci.yml` file that defines your application and service containers.
+1. Configure dependencies and health checks to ensure services are ready before your tests run.
+1. Reference this configuration file in your Buildkite pipeline using the Docker Compose plugin.
+
+The following example shows a Docker Compose configuration with a PostgreSQL service:
 
 ```yaml
 # docker-compose.ci.yml
@@ -523,12 +533,14 @@ services:
       retries: 5
 ```
 
+The following Buildkite pipeline configuration uses the Docker Compose plugin to run your tests. The `run` attribute specifies which service container to execute your commands in, while `config` points to your Docker Compose file. The plugin automatically starts all dependent services (in this case, PostgreSQL) and waits for health checks to pass before running your commands:
+
 ```yaml
 # Buildkite pipeline
 steps:
   - label: "test"
     plugins:
-      - docker-compose:
+      - docker-compose#v5.5.0:
           run: app
           config: docker-compose.ci.yml
     command:
@@ -565,12 +577,15 @@ steps:
 
 ## Translating step summaries
 
-GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summary. Buildkite Pipelines uses annotations:
+GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summary:
 
 ```yaml
 # GitHub Actions
 - run: echo "## Build Complete" >> $GITHUB_STEP_SUMMARY
+```
+Buildkite Pipelines uses [annotations](/docs/agent/v3/cli/reference/annotate):
 
+```yaml
 # Buildkite
 - command:
     - echo "## Build Complete" | buildkite-agent annotate --style "success"
