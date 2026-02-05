@@ -1165,8 +1165,8 @@
           path: "apis/agent-api/metrics"
         - name: "Stacks"
           path: "apis/agent-api/stacks"
-        - name: "Job"
-          path: "apis/agent-api/job"
+        - name: "Internal job"
+          path: "apis/agent-api/internal-job"
     - name: "Model providers"
       children:
         - name: "Overview"

@@ -2,9 +2,9 @@
 toc: true
 ---
 
-# Stack API
+# Stacks API
 
-The Stack API provides endpoints for implementing a stack reliably.
+The stacks API provides endpoints for implementing a stack reliably.
 These endpoints require [Agent tokens](/docs/agent/v3/self-hosted/tokens) for authentication.
 
 A stack is defined as a software process that has these two abilities simultaneously:
@@ -14,7 +14,7 @@ A stack is defined as a software process that has these two abilities simultaneo
 
 A stack can also be broadly understood as an orchestrator or a scheduler of Buildkite jobs.
 
-The Stack API powers Buildkite's Agent Kubernetes Stack.
+The stacks API powers Buildkite's Agent Kubernetes Stack.
 It's designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales.
 
 ## Register a stack
@@ -84,7 +84,7 @@ Success response: `204 No Content`
 
 ## List scheduled jobs (Metadata only)
 
-This is the most important API of the Stack APIs.
+This is the most important API of the stacks APIs.
 It fetches all jobs that have been scheduled to run by Buildkite's internal state machine.
 When a cluster queue is paused, `cluster_queue.dispatch_paused` will return `true`, and a stack implementation **must** respect this flag (i.e. avoid starting new jobs whenever the queue is paused).
 
