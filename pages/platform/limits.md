@@ -323,6 +323,11 @@ The following table lists the default service limits for [Test Engine](/docs/tes
         default_value: "1 workflow on the Personal plan, 3 workflows on the Pro and Enterprise plans"
       },
       {
+        title: "Test Engine workflow events per minute",
+        description: "The maximum number of Test Engine workflow events per minute.",
+        default_value: "500 events"
+      },
+      {
         title: "Test Splitting API rate limit",
         description: "The number of requests that can be made to the Test Splitting API.",
         default_value: "10,000 requests per minute"
