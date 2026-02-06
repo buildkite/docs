@@ -1,6 +1,6 @@
-# Monitoring and observing the Buildkite Agent
+# Monitoring and observability
 
-By default, the agent is only observable either through Buildkite or
+By default, the Buildkite agent is only observable either through Buildkite or
 through log output on the host:
 
 - **Job logs:** Relate to the jobs the agent runs. These are uploaded to
@@ -126,7 +126,7 @@ Once enabled, the agent will generate the following metrics (duration measured i
 
 ## Tracing
 
-For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observing/tracing).
+For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observability/tracing).
 
 [systemd]: https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html
 [launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html

@@ -4,7 +4,7 @@ This page covers the best practices regarding monitoring, observability, and log
 
 ## Telemetry operational tips
 
-- When implementing [telemetry](/docs/agent/v3/self-hosted/monitoring-and-observing/tracing#using-opentelemetry-tracing), start by profiling the wait and checkout times for your queues as the biggest, cheapest wins.
+- When implementing [telemetry](/docs/agent/v3/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing), start by profiling the wait and checkout times for your queues as the biggest, cheapest wins.
 - Include pipeline, queue, repo path, and commit metadata in spans and events to make troubleshooting easier.
 - Stream Buildkite Pipeline's telemetry data to your standard observability stack so platform-level SLOs and alerts exist alongside the app telemetry, keeping one source of truth.
 
@@ -20,7 +20,7 @@ Choose integrations based on your existing [observability](/docs/pipelines/integ
 
 ### Core pipeline telemetry recommendations
 
-Establish standardized metrics collection across all pipelines to enable consistent [monitoring](/docs/agent/v3/self-hosted/monitoring-and-observing) and analysis:
+Establish standardized metrics collection across all pipelines to enable consistent [monitoring](/docs/agent/v3/self-hosted/monitoring-and-observability) and analysis:
 
 - Track build times by pipeline, step, and queue to identify performance bottlenecks with build duration metrics.
 - Monitor agent availability and scaling efficiency across different workload types by tracking queue wait times.
