@@ -554,7 +554,7 @@ The following Buildkite pipeline configuration uses the Docker Compose plugin to
 steps:
   - label: "test"
     plugins:
-      - docker-compose#v5.5.0:
+      - docker-compose#v5.12.1:
           run: app
           config: docker-compose.ci.yml
     command:
