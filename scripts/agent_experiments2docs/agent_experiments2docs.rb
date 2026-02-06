@@ -19,6 +19,31 @@ require 'open3'
 EXPERIMENTS_GO_URL = 'https://raw.githubusercontent.com/buildkite/agent/main/internal/experiments/experiments.go'
 EXPERIMENTS_MD_URL = 'https://raw.githubusercontent.com/buildkite/agent/main/EXPERIMENTS.md'
 
+# Links for promoted experiments documentation
+# Format: 'Heading name' => [['link text', 'url'], ...] (1 or 2 links max)
+# Use the formatted heading name as it appears in the docs (output of format_experiment_name)
+PROMOTED_EXPERIMENT_LINKS = {
+  'ANSI timestamps' => [
+    ['ANSI timestamps and disabling them', '/docs/pipelines/configure/managing-log-output#ansi-timestamps-and-disabling-them']
+  ],
+  'Flock file locks' => [
+    ['Flock file locks', '/docs/agent/v3/cli/reference/lock#flock-file-locks']
+  ],
+  'Git mirrors' => [
+    ['Git mirrors', '/docs/agent/v3/self-hosted/configure/git-mirrors'],
+    ['Setting up Git mirrors', '/docs/agent/v3/self-hosted/configure/git-mirrors#setting-up-git-mirrors']
+  ],
+  'Job API' => [
+    ['Internal job API', '/docs/apis/agent-api/internal-job']
+  ],
+  'Polyglot hooks' => [
+    ['Polyglot hooks', '/docs/agent/v3/self-hosted/hooks#polyglot-hooks']
+  ],
+  'Use zzglob' => [
+    ['Glob pattern syntax', '/docs/pipelines/configure/glob-pattern-syntax']
+  ]
+}.freeze
+
 def fetch_url(url)
   stdout, stderr, status = Open3.capture3('curl', '-sS', '-f', url)
   raise "Failed to fetch #{url}: #{stderr}" unless status.success?
@@ -196,6 +221,19 @@ def generate_markdown(experiments_data, descriptions)
     output << "### #{format_experiment_name(name)}"
     output << ''
     output << "Promoted in [#{version}](https://github.com/buildkite/agent/releases/tag/#{version})."
+
+    # Add documentation links if defined (lookup by formatted heading name)
+    heading_name = format_experiment_name(name)
+    if PROMOTED_EXPERIMENT_LINKS[heading_name]
+      links = PROMOTED_EXPERIMENT_LINKS[heading_name]
+      case links.length
+      when 1
+        output << "Learn more about this feature in [#{links[0][0]}](#{links[0][1]})."
+      when 2
+        output << "Learn more about this feature in [#{links[0][0]}](#{links[0][1]}) and [#{links[1][0]}](#{links[1][1]})."
+      end
+    end
+
     output << ''
   end
 

@@ -12,16 +12,16 @@ Buildkite Agents v3.47.0 or later can run hooks written in any programming langu
 
 You can define hooks in the following locations:
 
-* In the file system of the agent machine (called _agent hooks_, or more rarely _global hooks_).
-* In your pipeline's repository (called _repository hooks_, or more rarely _local hooks_).
-* In [plugins](/docs/pipelines/integrations/plugins) applied to steps.
+- In the file system of the agent machine (called _agent hooks_, or more rarely _global hooks_).
+- In your pipeline's repository (called _repository hooks_, or more rarely _local hooks_).
+- In [plugins](/docs/pipelines/integrations/plugins) applied to steps.
 
 For example, you could define an agent-wide `checkout` hook that spins up a fresh `git clone` on a new build machine, a repository `pre-command` hook that sets up repository-specific environment variables, or a plugin `environment` hook that fetches API keys from a secrets storage service.
 
 There are two categories of hooks:
 
-* Agent lifecycle
-* Job lifecycle
+- Agent lifecycle
+- Job lifecycle
 
 Agent lifecycle hooks are _executed_ by the Buildkite agent as part of the agent's lifecycle. For example, the `pre-bootstrap` hook is executed before starting a job's bootstrap process, and the `agent-shutdown` hook is executed before the agent process terminates.
 
@@ -42,9 +42,9 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 
 You can define hooks in the following locations:
 
-* **Agent hooks:** These exist on the agent file system in a directory created by your agent installer and configured by the [`hooks-path`](/docs/agent/v3/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
-* **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
-* **Plugin hooks:** These are provided by [plugins](/docs/pipelines/integrations/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
+- **Agent hooks:** These exist on the agent file system in a directory created by your agent installer and configured by the [`hooks-path`](/docs/agent/v3/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
+- **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
+- **Plugin hooks:** These are provided by [plugins](/docs/pipelines/integrations/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
 
 ### Agent hooks
 
@@ -75,8 +75,8 @@ Buildkite Agent versions prior to v3.85.0 require hooks to be shell scripts. How
 
 In addition to the regular shell script hooks, polyglot hooks enable you to run two more types of hooks:
 
-* **Interpreted hooks:** Hooks that are run by an interpreter, such as Python, Ruby, or Node.js. These hooks are run in the same way as shell script hooks, but are executed by the appropriate interpreter instead of by the shell. These hooks _must_ have a valid [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) as the first line of the hook. For example, `#!/usr/bin/python3` or `#!/usr/bin/env ruby`.
-* **Binary hooks:** Binary executables produced by compiled languages such as Go, Rust, or C++. These hooks are run in the same way as shell script hooks, but are executed directly by the operating system. These hooks must be compiled for the correct operating system and architecture, and be executable by the agent user.
+- **Interpreted hooks:** Hooks that are run by an interpreter, such as Python, Ruby, or Node.js. These hooks are run in the same way as shell script hooks, but are executed by the appropriate interpreter instead of by the shell. These hooks _must_ have a valid [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) as the first line of the hook. For example, `#!/usr/bin/python3` or `#!/usr/bin/env ruby`.
+- **Binary hooks:** Binary executables produced by compiled languages such as Go, Rust, or C++. These hooks are run in the same way as shell script hooks, but are executed directly by the operating system. These hooks must be compiled for the correct operating system and architecture, and be executable by the agent user.
 
 > 🚧 Windows support
 > Interpreted hooks are not supported on Windows agents.
@@ -87,18 +87,21 @@ Polyglot hooks are run transparently by the agent, and are not distinguished fro
 
 When polyglot hooks are called, the following extra environment variables are set:
 
-* `BUILDKITE_HOOK_PHASE` - The lifecycle phase of the hook being run. For example, `environment` or `post-checkout`. See [job lifecycle hooks](#job-lifecycle-hooks) for the full list of phases. This enables the hook to determine the phase it's running in, allowing you to use the same hook for multiple phases.
-* `BUILDKITE_HOOK_PATH` - The path to the hook being run. For example, `/path/to/my-hook`.
-* `BUILDKITE_HOOK_SCOPE` - The scope of the hook being run. For example, `global`, `local`, or `plugin`.
+- `BUILDKITE_HOOK_PHASE`: The lifecycle phase of the hook being run. For example, `environment` or `post-checkout`. See [job lifecycle hooks](#job-lifecycle-hooks) for the full list of phases. This enables the hook to determine the phase it's running in, allowing you to use the same hook for multiple phases.
+- `BUILDKITE_HOOK_PATH`: The path to the hook being run. For example, `/path/to/my-hook`.
+- `BUILDKITE_HOOK_SCOPE`: The scope of the hook being run. For example, `global`, `local`, or `plugin`.
+
+> 📘 Modifying environment variable values
+> Be aware that when an agent is running a job, you can modify the values of these, as well as other environment variables within the agent, using its [internal job API](/docs/apis/agent-api/internal-job).
 
 ### Caveats
 
 Polyglot hook usage comes with the following caveats:
 
-* Interpreted hooks are not supported on Windows.
-* Hooks must not have a file extension–except on Windows, where binary hooks must have the `.exe` extension.
-* For interpreted hooks, the specified interpreter must already be installed on the agent machine. The agent won't install the interpreter or any package dependencies for you.
-* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3/self-hosted/configure/experiments#promoted-experiments-job-api).
+- Interpreted hooks are not supported on Windows.
+- Hooks must not have a file extension–except on Windows, where binary hooks must have the `.exe` extension.
+- For interpreted hooks, the specified interpreter must already be installed on the agent machine. The agent won't install the interpreter or any package dependencies for you.
+- Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3/self-hosted/configure/experiments#promoted-experiments-job-api).
 
 ## Agent lifecycle hooks
 
@@ -171,8 +174,8 @@ Job lifecycle hooks have access to all the standard [Buildkite environment varia
 
 Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the agent's default shell. This has a few implications:
 
-* `$BASH_SOURCE` contains the location the hook is sourced from.
-* `$0` contains the location of the copy of the script that is running from `$TMPDIR`.
+- `$BASH_SOURCE`: contains the location the hook is sourced from.
+- `$0`: contains the location of the copy of the script that is running from `$TMPDIR`.
 
 >🚧 "Permission denied" error when trying to execute hooks
 > If your hooks don't execute, and throw a <code>Permission denied</code> error, it might mean that they were copied to a temporary directory on the agent that isn't executable. Configure the directory that hooks are copied to before execution using the <code>$TMPDIR</code> environment variable on the Buildkite agent, or make sure the existing directory is marked as executable.
@@ -192,8 +195,8 @@ export GITHUB_RELEASE_ACCESS_KEY='xxx'
 
 Buildkite defaults to using the Batch shell on Windows. Buildkite agents running on Windows require that either:
 
-* The hooks files have a `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or
-* The agent `shell` option points to the PowerShell or PowerShell Core executable, and the hooks files are written in PowerShell. PowerShell hooks are supported in Buildkite agent version 3.32.3 and above.
+- The hooks files have a `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or
+- The agent `shell` option points to the PowerShell or PowerShell Core executable, and the hooks files are written in PowerShell. PowerShell hooks are supported in Buildkite agent version 3.32.3 and above.
 
 An example of a Windows `environment.bat` hook:
 
@@ -209,9 +212,9 @@ The hook execution flow for jobs created by the Buildkite Agent Stack for Kubern
 
 The main differences arise with the `checkout` container and user-defined `command` containers:
 
-* The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
-* Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
-* Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
+- The `environment` hook is executed multiple times, once within the `checkout` container, and once within each of the user-defined `command` containers.
+- Checkout-related hooks (`pre-checkout`, `checkout`, `post-checkout`) are only executed within the `checkout` container.
+- Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
 
 See the dedicated [Using agent hooks and plugins](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins) page for the detailed information on how agent hooks function when using the Buildkite Agent Stack for Kubernetes controller.
 
