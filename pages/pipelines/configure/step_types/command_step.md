@@ -390,7 +390,7 @@ Optional attributes:
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status number or numbers that cause this job to retry. Accepts a single integer, an array of integers, or <code>"*"</code> (wildcard). Valid exit status values are between 0 and 255, plus <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from the agent). A <code>"*"</code> matches any value between 1 and 255 (excluding <code>0</code>).<br/>
+      The exit status number or numbers that cause this job to be retried. This attribute accepts a single integer, an array of integers, or <code>"*"</code> (wildcard). Valid exit status values are between 0 and 255, plus <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from the agent). A <code>"*"</code> matches any value between 1 and 255 (excluding <code>0</code>).<br/>
       <em>Default value:</em> <code>"*"</code>
       <p><em>Examples:</em></p>
       <ul>
@@ -404,7 +404,7 @@ Optional attributes:
   <tr>
     <td><code>signal</code></td>
     <td>
-      The signal that causes this job to retry. Accepts a string, an array of strings, or <code>"*"</code> (wildcard). This signal only appears if the agent sends a signal to the job and an interior process does not handle the signal. <code>SIGKILL</code> propagates reliably because it cannot be handled, and is a useful way to differentiate graceful cancelation and timeouts. Signal matching is case-insensitive and the <code>SIG</code> prefix is optional (for example, <code>SIGKILL</code> and <code>kill</code> are equivalent). Use <code>"none"</code> to match jobs that received no signal.<br/>
+      The signal that causes this job to be retried. This attribute accepts a string, an array of strings, or <code>"*"</code> (wildcard). This signal only appears if the agent sends a signal to the job and an interior process does not handle the signal. <code>SIGKILL</code> propagates reliably because it cannot be handled, and is a useful way to differentiate graceful cancelation and timeouts. Signal matching is case-insensitive and the <code>SIG</code> prefix is optional (for example, <code>SIGKILL</code> and <code>kill</code> are equivalent). Use <code>"none"</code> to match jobs that received no signal.<br/>
       <em>Default value:</em> <code>"*"</code>
       <p><em>Examples:</em></p>
       <ul>
@@ -418,7 +418,7 @@ Optional attributes:
   <tr>
     <td><code>signal_reason</code></td>
     <td>
-      The reason associated with a job failure. Accepts a string, an array of strings, or <code>"*"</code> (wildcard). Use <code>"none"</code> to match jobs with no signal reason.<br/>
+      The reason associated with a job failure. This attribute accepts a string, an array of strings, or <code>"*"</code> (wildcard). Use <code>"none"</code> to match jobs with no signal reason.<br/>
       Some signal reasons represent cases where a running job was signaled to stop, for example, <code>cancel</code> or <code>agent_stop</code>. Other signal reasons indicate that the job never ran in the first place, for example, <code>signature_rejected</code>, <code>agent_incompatible</code>, or <code>stack_error</code>.<br/>
       <em>Default value:</em> <code>"*"</code>
       <p><em>Available values:</em></p>
