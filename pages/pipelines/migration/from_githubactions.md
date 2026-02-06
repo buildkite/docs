@@ -19,14 +19,16 @@ See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more de
 
 ### The difference in default checkout behaviors
 
-The checkout process in Buildkite Pipelines might appear slower in a one-to-one migration comparison with GitHub Actions due to different default checkout strategies.
+The checkout process in Buildkite Pipelines is fundamentally different from GitHub Actions due to different default checkout strategies.
 
-GitHub Actions' `actions/checkout@v4` uses a shallow clone (`--depth=1`) and skips Git LFS by default. In Buildkite Pipelines:
+GitHub Actions' `actions/checkout@v4` uses a shallow clone (`--depth=1`) and skips Git LFS by default.
 
-- Git LFS is enabled by default. Disable with `GIT_LFS_SKIP_SMUDGE=1`.
+In Buildkite Pipelines:
+
+- Git LFS is enabled by default. You can disable it with `GIT_LFS_SKIP_SMUDGE=1`.
 - Agents check out the full repository. However, you can configure shallow clones using the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
 
-For checkout optimization in Buildkite Pipelines, you can also use additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
+For further checkout optimization in Buildkite Pipelines, you can use additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
 
 Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
