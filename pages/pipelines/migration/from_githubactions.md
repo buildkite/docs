@@ -286,7 +286,7 @@ Replace `actions/cache` (or the cache option in `actions/setup-node`) with the [
   - label: "\:eslint\: Lint"
     key: lint
     plugins:
-      - cache:
+      - cache#v1.10.0:
           manifest: package-lock.json
           path: node_modules
     command:
