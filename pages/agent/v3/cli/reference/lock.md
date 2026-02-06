@@ -6,7 +6,7 @@ With the `lock` command, processes can acquire and release a lock using the `acq
 
 Each type of `lock` subcommand makes use of a `[key]` value, which is an arbitrary name (for example, `my-key-value`) that you choose to identify your lock. A key does not reference any predefined value, and can be any name of your choosing, but it is recommended using a descriptive name that clearly indicates what resource or operation is being protected. All builds using the same lock key will coordinate with each other on the same host.
 
-> 📘
+> 📘 Flock file locks
 > The Buildkite agent also has an internal `flock` file locking mechanism, which is an automatic feature that's unrelated to the locking feature provided by these agent `lock` commands. The `flock` mechanism is used for Git mirror and SSH `known_hosts` handling, and these locks are automatically released when the process is completed, including when the process terminates abnormally, for example, when an agent is not cleanly shut down.
 
 ## Inspecting the state of a lock
