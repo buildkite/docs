@@ -126,7 +126,7 @@ Once enabled, the agent will generate the following metrics (duration measured i
 
 ## Tracing
 
-For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/tracing).
+For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observing/tracing).
 
 [systemd]: https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html
 [launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
