@@ -527,7 +527,6 @@ The following example shows a Docker Compose configuration with a PostgreSQL ser
 
 ```yaml
 # docker-compose.ci.yml
-version: '3.8'
 services:
   app:
     build: .
