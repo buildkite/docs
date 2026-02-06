@@ -69,7 +69,7 @@ For self-hosted agents, consider:
 - **Scaling:** Scale agents independently based on concurrent job requirements.
 - **Build isolation:** Use [agent tags](/docs/agent/v3/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
 
-See the the [Getting started](/docs/agent/v3/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide for Buildkite hosted agents or [Installation](/docs/agent/v3/self-hosted/install/) guides for your infrastructure type for self-hosted agents.
+See the [Getting started](/docs/agent/v3/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide for Buildkite hosted agents or [Installation](/docs/agent/v3/self-hosted/install/) guides for your infrastructure type for self-hosted agents.
 
 ## Pipeline translation fundamentals
 
@@ -303,7 +303,7 @@ steps:
   - label: "\:eslint\: Lint"
     key: lint
     plugins:
-      - cache:
+      - cache#v1.10.0:
           manifest: package-lock.json
           path: node_modules
     command:
@@ -319,7 +319,7 @@ steps:
           - "20"
           - "22"
     plugins:
-      - cache:
+      - cache#v1.10.0:
           manifest: package-lock.json
           path: node_modules
     command:
@@ -333,7 +333,7 @@ steps:
       - lint
       - test
     plugins:
-      - cache:
+      - cache#v1.10.0:
           manifest: package-lock.json
           path: node_modules
     command:
@@ -350,7 +350,7 @@ To eliminate duplication, you can use YAML aliases:
 ```yaml
 common:
   cache: &cache
-    - cache:
+    - cache#v1.10.0:
         manifest: package-lock.json
         path: node_modules
 
