@@ -75,6 +75,12 @@ echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 
 <%= image("collapsing_example.png", size: '261x127', alt: 'Screenshot of colored, emoji build output') %>
 
+## ANSI timestamps and disabling them
+
+By default, each line of log output begins with an ANSI timestamp.
+
+If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), you can prevent them for generating ANSI timestamps at the start of each line of log output, by starting these agents with the [`--no-ansi-timestamps` option](/docs/agent/v3/cli/reference/start#no-ansi-timestamps).
+
 ## Log output limits
 
 If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed 100MB else it may fail to upload.
