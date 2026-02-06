@@ -127,9 +127,29 @@ Options for sharing state between steps:
 
 ### Agent targeting
 
-GitHub Actions uses `runs-on` to select runners by labels.
+GitHub Actions uses `runs-on` to select runners by labels:
 
-Buildkite Pipelines uses a pull-based model where agents poll queues for work using the `agents` attribute. This provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking.
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  deploy:
+    runs-on: [self-hosted, linux, production]
+```
+
+Buildkite Pipelines uses a pull-based model where agents poll queues for work using the `agents` attribute. This provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "make build"
+    agents:
+      queue: "default"
+  - label: "Deploy"
+    command: "make deploy"
+    agents:
+      queue: "production"
+```
 
 ## Translate an example GitHub Actions workflow
 
