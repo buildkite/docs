@@ -18,6 +18,19 @@ You can set up webhooks at this point, but this step is optional. These webhook 
 
 Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](/docs/apis/graphql-api) for details and examples.
 
+### Webhooks for GitHub
+
+Webhooks are automatically created for repositories of a GitHub account when a Buildkite pipeline is set up with any one of these repositories. This functionality is implemented automatically after your GitHub account is connected to Buildkite using the GitHub App. This connection is established as part of [signing up with GitHub](/docs/pipelines/getting-started#before-you-start) (see [Getting started with Pipelines](/docs/pipelines/getting-started) page for details), or you chose the [**Git scope** > **Connect GitHub account** option](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) on the **New Pipeline** page. Learn more about configuring the GitHub App from the [GitHub page of Connect source control](/docs/pipelines/source-control/github).
+
+### Webhooks for other repository providers
+
+For all other repository providers, which will allow you to use repositories from one of the [**Git scope** > **Use remote URL**](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) options, you'll need to configure the connection to your repository provider manually. You can access the **Repository Providers** page by selecting either of the following:
+
+- **Git scope** > **Manage accounts** from the **New Pipeline** page.
+- **Settings** in the global navigation > **Repository Providers** (within the **Integrations** section).
+
+Learn more about configuring these other repository providers from the [Source control](/docs/pipelines/source-control) section.
+
 ## Adding steps
 
 There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML steps](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) but will be deprecated in the future.
