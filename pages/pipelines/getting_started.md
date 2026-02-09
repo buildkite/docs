@@ -40,7 +40,7 @@ The **New Pipeline** page has the following fields:
 
     * Your GitHub account or organization.
     * A selection of **Buildkite Examples** to start with, which allows you to learn more about how Buildkite Pipelines builds projects for a variety of different use cases.
-    * The **Use remote URL** options allow you to select a **GitLab**, **Bitbucket**, or **Any account**, for any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers.
+    * The **Use remote URL** options allow you to select a **GitLab**, **Bitbucket**, or **Any account**, for any other remotely accessible Git repository. The **Manage accounts** option further down this list also allows you to configure connections to these repository providers. See the [Source control](/docs/pipelines/source-control) section for more information.
     * The **Connect GitHub account** option allows you to do just that. This option is useful if you signed up by email, and need to connect your GitHub account to the Buildkite platform, and generates the [same **Install Buildkite** step as part of the GitHub sign-up process](#before-you-start).
 
 - **Repository**: Select the Git repository available to your selected **Git scope**. Upon selecting a repository:

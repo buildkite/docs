@@ -3,10 +3,9 @@
   "private": true,
   "devDependencies": {
     "husky": "^8.0.0",
-    "netlify-cli": "^18.1.0",
     "prettier": "2.8.4",
     "sass": "^1.66.1",
-    "vite": "^4.5.14",
+    "vite": "^7.3.1",
     "vite-plugin-ruby": "^3.2.0"
   },
   "scripts": {
@@ -20,6 +19,6 @@
   },
   "dependencies": {
     "@docsearch/js": "3",
-    "@hotwired/turbo-rails": "^7.3.0"
+    "@hotwired/turbo-rails": "^8.0.23"
   }
 }
