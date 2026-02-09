@@ -752,11 +752,7 @@
           path: "test-engine/workflows/actions"
       pill: "preview"
     - name: "Test Engine Client (bktec)"
-      children:
-        - name: "Configuring"
-          path: "test-engine/bktec/configuring"
-        - name: "Installing"
-          path: "test-engine/bktec/installing-the-client"
+      path: "test-engine/bktec"
     - name: "Notifications"
       children:
         - name: "Email"

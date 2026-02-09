@@ -1,25 +1,86 @@
-# Configuring the Test Engine Client
+# Test Engine Client (bktec)
+
+This page provides instructions on how to install and configure the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using installers provided by Buildkite.
+
+## Installation
+
+bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers.
+If you need to install this tool on a system without an installer listed below, you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
+
+### Debian
+
+1. Ensure you have curl and gpg installed first:
+
+    ```shell
+    apt update && apt install curl gpg -y
+    ```
+
+1. Install the registry signing key:
+
+    ```shell
+    curl -fsSL "https://packages.buildkite.com/buildkite/test-engine-client-deb/gpgkey" | gpg --dearmor -o /etc/apt/keyrings/buildkite_test-engine-client-deb-archive-keyring.gpg
+    ```
+
+1. Configure the registry:
+
+    ```shell
+    echo -e "deb [signed-by=/etc/apt/keyrings/buildkite_test-engine-client-deb-archive-keyring.gpg] https://packages.buildkite.com/buildkite/test-engine-client-deb/any/ any main\ndeb-src [signed-by=/etc/apt/keyrings/buildkite_test-engine-client-deb-archive-keyring.gpg] https://packages.buildkite.com/buildkite/test-engine-client-deb/any/ any main" > /etc/apt/sources.list.d/buildkite-buildkite-test-engine-client-deb.list
+    ```
+
+1. Install the package:
+
+    ```shell
+    apt update && apt install bktec
+    ```
+
+### Red Hat
+
+1. Configure the registry:
+
+    ```shell
+    echo -e "[test-engine-client-rpm]\nname=Test Engine Client - rpm\nbaseurl=https://packages.buildkite.com/buildkite/test-engine-client-rpm/rpm_any/rpm_any/\$basearch\nenabled=1\nrepo_gpgcheck=1\ngpgcheck=0\ngpgkey=https://packages.buildkite.com/buildkite/test-engine-client-rpm/gpgkey\npriority=1" > /etc/yum.repos.d/test-engine-client-rpm.repo
+    ```
+
+2. Install the package:
+
+    ```shell
+    dnf install -y bktec
+    ```
+
+### macOS
+
+The Test Engine Client can be installed using [Homebrew](https://brew.sh) with [Buildkite tap formulae](https://github.com/buildkite/homebrew-buildkite). To install, run:
+
+```shell
+brew tap buildkite/buildkite && brew install buildkite/buildkite/bktec
+```
+
+### Docker
+
+You can run the Test Engine Client inside a Docker container using the official image in [Docker Hub](https://hub.docker.com/r/buildkite/test-engine-client/tags).
+
+To run the client using Docker:
+
+```shell
+docker run buildkite/test-engine-client
+```
+
+Or, to add the Test Engine Client binary to your Docker image, include the following in your Dockerfile:
+
+```dockerfile
+COPY --from=buildkite/test-engine-client /usr/local/bin/bktec /usr/local/bin/bktec
+```
+## Dependencies
+
+bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [test collector](/docs/test-engine/test-collection) for your test framework.
+
+## Configuration
 
 Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. Currently, the bktec tool supports [RSpec](/docs/test-engine/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/test-engine/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/test-engine/test-collection/golang-collectors), and cucumber testing frameworks.
 
 If your testing framework is not supported, get in touch via support@buildkite.com or submit a pull request.
 
-## Dependencies
-
-bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [test collector](/docs/test-engine/test-collection) for your test framework.
-
-## Installation
-
-bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers:
-
-- [Debian](/docs/test-engine/bktec/installing-the-client#debian)
-- [Red Hat](/docs/test-engine/bktec/installing-the-client#red-hat)
-- [macOS](/docs/test-engine/bktec/installing-the-client#macos)
-- [Docker](/docs/test-engine/bktec/installing-the-client#docker)
-
-If you need to install this tool on a system without an installer listed above, you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
-
-## Using bktec
+### Using bktec
 
 Once you have downloaded the bktec binary and it is executable in your pipeline, you'll need to configure some additional environment variables for bktec to function. You can then update your pipeline step to call `bktec run` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-bktec-update-the-pipeline-step).
 
@@ -169,11 +230,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## API rate limits
+### API rate limits
 
 There is a limit on the number of API requests that bktec can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, bktec will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of the [REST API rate limits](/docs/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.
 
-## Dynamic parallelism
+### Dynamic parallelism
 
 Usually the `parallelism` value is hard coded in the bktec pipeline step. However, from version 2.0.0, it is possible to run bktec with a dynamic `parallelism` value based on a target time for the test run. A common use case for this is test selection, where feature branch builds only run a subset of tests relevant to the changes being made.
 
