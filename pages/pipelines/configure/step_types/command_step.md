@@ -425,7 +425,7 @@ Optional attributes:
       <ul>
         <li><code>"*"</code> — matches any signal reason</li>
         <li><code>none</code> — matches jobs with no signal reason</li>
-        <li><code>cancel</code> — the job was canceled or there was a timeout</li>
+        <li><code>cancel</code> — the job was canceled or timed out</li>
         <li><code>agent_stop</code> — the agent was stopped while running the job</li>
         <li><code>agent_refused</code> — the agent refused the job</li>
         <li><code>agent_incompatible</code> — the agent was incompatible with the job</li>
