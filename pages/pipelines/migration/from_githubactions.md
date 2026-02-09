@@ -4,7 +4,7 @@ This guide helps GitHub Actions users migrate to Buildkite Pipelines, covering k
 
 ## Understand the differences
 
-Most of the concepts will likely be familiar, but there are some differences to understand about the approaches.
+Most concepts will feel familiar, but there are some differences to understand about the approaches.
 
 ### System architecture
 
@@ -32,12 +32,11 @@ For further checkout optimization in Buildkite Pipelines, you can use additional
 
 Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
-
 ### Security
 
 Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own Buildkite Agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite Agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
-While Buildkite Pipelines provides its own secrets management capabilities through the Buildkite platform, the Buildkite platform can also be configured so that it doesn't store your secrets. Furthermore, Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
+While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Furthermore, Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
 See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) sections of these docs to learn more about how you can secure your Buildkite build environment, as well as manage secrets in your own infrastructure.
 
@@ -234,7 +233,7 @@ steps:
 Notice the immediate differences in this pipeline syntax from GitHub Actions:
 
 - No `on:` block—triggers are configured in the Buildkite UI or API.
-- No `actions/checkout`—Buildkite checks out code automatically.
+- No `actions/checkout` — Buildkite checks out code automatically.
 - Emoji support in labels using Buildkite Pipelines [emoji syntax](https://buildkite.com/docs/pipelines/emojis).
 - Key assignment for dependency references.
 
