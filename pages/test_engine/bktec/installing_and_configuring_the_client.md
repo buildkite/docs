@@ -1,4 +1,4 @@
-# Test Engine Client (bktec)
+# Installing and configuring the client
 
 This page provides instructions on how to install and configure the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using installers provided by Buildkite.
 
