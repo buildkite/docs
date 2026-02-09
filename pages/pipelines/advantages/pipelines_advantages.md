@@ -82,6 +82,16 @@ Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 The Buildkite UI provides immediate visibility into pipeline behavior and system health without overwhelming you. The interface is minimal and intentional, it stays out of the way unless something requires attention. Your teams get a CI system that supports their work instead of interrupting it.
 
+### Build log experience and debugging
+
+Reading build logs is one of the most frequent activities in any CI workflow, and the quality of that experience has a direct impact on developer productivity.
+
+Buildkite renders [log output](/docs/pipelines/configure/managing-log-output) as real terminal output with full ANSI color support. Your test framework's formatting, color-coded diffs, and structured output come through intact instead of being stripped or mangled by the viewer. Logs load fast and remain responsive even for large builds, with configurable [log grouping](/docs/pipelines/configure/managing-log-output#collapsing-output) (`---`, `+++`, `~~~`) to organize output into collapsible sections.
+
+Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/v3/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links without requiring anyone to dig through raw log output.
+
+For debugging, builds running on your own infrastructure means you can SSH into the machine, inspect the environment directly, and reproduce failures locally. The agent runs where you control it, so you're never locked out of the system running your code.
+
 ### AI-powered workflows
 
 AI can speed up how you write and review code, but only if your delivery system stays clear, predictable, and aligned with your intent. Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture), and structured environment needed to run AI-powered delivery without putting reliability at risk.
