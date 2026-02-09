@@ -359,6 +359,8 @@
               path: "agent/v3/buildkite-hosted/internal-container-registry"
             - name: "Network security"
               path: "agent/v3/buildkite-hosted/network-security"
+            - name: "Hooks"
+              path: "agent/v3/buildkite-hosted/hooks"
         - name: "Command-line reference"
           children:
             - name: "Overview"
