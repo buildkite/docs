@@ -31,7 +31,7 @@
         - name: Pipeline converter
           children:
             - name: "Overview"
-              path: "pipelines/migration/pipeline-converter"
+              path: "pipelines/migration/converter"
             - name: "GitHub Actions"
               path: "pipelines/migration/converter/github-actions"
             - name: "Jenkins"
@@ -325,10 +325,12 @@
               path: "agent/v3/self-hosted/pausing-and-resuming"
             - name: "Prioritization"
               path: "agent/v3/self-hosted/prioritization"
-            - name: "Monitoring and observing"
-              path: "agent/v3/self-hosted/monitoring"
-            - name: "Tracing"
-              path: "agent/v3/self-hosted/tracing"
+            - name: "Monitoring and observability"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/self-hosted/monitoring-and-observability"
+                - name: "Tracing"
+                  path: "agent/v3/self-hosted/monitoring-and-observability/tracing"
             - name: "Security"
               path: "agent/v3/self-hosted/security"
             - name: "Signed pipelines"
@@ -1177,6 +1179,8 @@
           path: "apis/agent-api/metrics"
         - name: "Stacks"
           path: "apis/agent-api/stacks"
+        - name: "Internal job"
+          path: "apis/agent-api/internal-job"
     - name: "Model providers"
       children:
         - name: "Overview"

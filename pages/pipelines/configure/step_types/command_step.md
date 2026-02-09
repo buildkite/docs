@@ -348,7 +348,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) on the job. When a limit is not specified on automatic retry, the default limit is three.
+If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) on the job. When a limit is not specified on automatic retry, the default limit is two.
 
 <%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
 
@@ -390,24 +390,26 @@ Optional attributes:
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status value that causes this job to retry, and can include any value between 0-255. Other valid exit status values include <code>*</code> for any value between 1-255 (excluding <code>0</code>), as well as <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from agent).<br/>
+      The exit status number or numbers that cause this job to be retried. This attribute accepts a single integer, an array of integers, or <code>"*"</code> (wildcard). Valid exit status values are between 0 and 255, plus <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from the agent). A <code>"*"</code> matches any value between 1 and 255 (excluding <code>0</code>).<br/>
+      <em>Default value:</em> <code>"*"</code>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
         <li><code>2</code></li>
-        <li><code>42</code></li>
-        <li><code>143</code></li>
         <li><code>-1</code></li>
+        <li><code>[1, 5, 42, 255]</code></li>
       </ul>
     </td>
   </tr>
   <tr>
     <td><code>signal</code></td>
     <td>
-      The signal that causes this job to retry. This signal only appears if the agent sends a signal to the job and an interior process does not handle the signal. <code>SIGKILL</code> propagates reliably because it cannot be handled, and is a useful way to differentiate graceful cancelation and timeouts.
+      The signal that causes this job to be retried. This attribute accepts a string, an array of strings, or <code>"*"</code> (wildcard). This signal only appears if the agent sends a signal to the job and an interior process does not handle the signal. <code>SIGKILL</code> propagates reliably because it cannot be handled, and is a useful way to differentiate graceful cancelation and timeouts. Signal matching is case-insensitive and the <code>SIG</code> prefix is optional (for example, <code>SIGKILL</code> and <code>kill</code> are equivalent). Use <code>"none"</code> to match jobs that received no signal.<br/>
+      <em>Default value:</em> <code>"*"</code>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
+        <li><code>"none"</code></li>
         <li><code>kill</code></li>
         <li><code>SIGINT</code></li>
       </ul>
@@ -416,26 +418,35 @@ Optional attributes:
   <tr>
     <td><code>signal_reason</code></td>
     <td>
-      The reason a process was signaled.<br/>
-      <p><em>Examples:</em></p>
+      The reason associated with a job failure. This attribute accepts a string, an array of strings, or <code>"*"</code> (wildcard). Use <code>"none"</code> to match jobs with no signal reason.<br/>
+      Some signal reasons represent cases where a running job was signaled to stop, for example, <code>cancel</code> or <code>agent_stop</code>. Other signal reasons indicate that the job never ran in the first place, for example, <code>signature_rejected</code>, <code>agent_incompatible</code>, or <code>stack_error</code>.<br/>
+      <em>Default value:</em> <code>"*"</code>
+      <p><em>Available values:</em></p>
       <ul>
-        <li><code>"*"</code></li>
-        <li><code>none</code></li>
-        <li><code>cancel</code></li>
-        <li><code>agent_stop</code></li>
-        <li><code>agent_refused</code></li>
-        <li><code>process_run_error</code></li>
+        <li><code>"*"</code> — matches any signal reason</li>
+        <li><code>none</code> — matches jobs with no signal reason</li>
+        <li><code>cancel</code> — the job was canceled</li>
+        <li><code>agent_stop</code> — the agent was stopped while running the job</li>
+        <li><code>agent_refused</code> — the agent refused the job</li>
+        <li><code>agent_incompatible</code> — the agent was incompatible with the job</li>
+        <li><code>process_run_error</code> — the process failed to start</li>
+        <li><code>signature_rejected</code> — the job signature was rejected</li>
+        <li><code>stack_error</code> — an error occurred provisioning infrastructure for the job</li>
       </ul>
     </td>
   </tr>
   <tr>
     <td><code>limit</code></td>
     <td>
-      The number of times this job can be retried. The maximum value this can be set to is 10.<br/>
-      <em>Example:</em> <code>3</code>
+      The number of times this job can be retried. The maximum value this can be set to is 10. Each retry rule tracks its own count independently.<br/>
+      <em>Default value:</em> <code>2</code><br/>
+      <em>Example:</em> <code>3</code><br/>
+      You can also set this value to <code>0</code> to prevent a job from being retried. This is useful if, for example, the job returns a <code>signal_reason</code> of <code>stack_error</code>. Learn more about this in the <a href="/docs/apis/agent-api/stacks#finish-a-job-retry-attributes">Retry attributes</a> section of the <a href="/docs/apis/agent-api/stacks">Stacks API</a>.
     </td>
   </tr>
 </table>
+
+When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied.
 
 > 📘 -1 exit status
 > A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit Codes](/docs/agent/v3#exit-codes) for information on other exit codes.
@@ -449,6 +460,22 @@ steps:
         - exit_status: -1  # Agent was lost
           limit: 2
         - exit_status: 255 # Forced agent shutdown
+          limit: 2
+```
+{: codeblock-file="pipeline.yml"}
+
+The following example shows a step with combined retry conditions. The first rule retries up to three times when the agent refuses the job (both the exit status and signal reason must match). The second rule retries up to two times for any other failure.
+
+```yml
+steps:
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic:
+        - exit_status: -1
+          signal_reason: agent_refused
+          limit: 3
+        - exit_status: "*"
           limit: 2
 ```
 {: codeblock-file="pipeline.yml"}

@@ -146,6 +146,7 @@ The following features started as experiments before being promoted to fully sup
 ### ANSI timestamps
 
 Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
+Learn more about this feature in [ANSI timestamps and disabling them](/docs/pipelines/configure/managing-log-output#ansi-timestamps-and-disabling-them).
 
 ### Avoid recursive trap
 
@@ -154,10 +155,12 @@ Promoted in [v3.66.0](https://github.com/buildkite/agent/releases/tag/v3.66.0).
 ### Flock file locks
 
 Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
+Learn more about this feature in [Flock file locks](/docs/agent/v3/cli/reference/lock#flock-file-locks).
 
 ### Git mirrors
 
 Promoted in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
+Learn more about this feature in [Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) and [Setting up Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors#setting-up-git-mirrors).
 
 ### Inbuilt status page
 
@@ -170,6 +173,7 @@ Promoted in [v3.67.0](https://github.com/buildkite/agent/releases/tag/v3.67.0).
 ### Job API
 
 Promoted in [v3.64.0](https://github.com/buildkite/agent/releases/tag/v3.64.0).
+Learn more about this feature in [Internal job API](/docs/apis/agent-api/internal-job).
 
 ### Kubernetes exec
 
@@ -178,7 +182,9 @@ Promoted in [v3.74.0](https://github.com/buildkite/agent/releases/tag/v3.74.0).
 ### Polyglot hooks
 
 Promoted in [v3.85.0](https://github.com/buildkite/agent/releases/tag/v3.85.0).
+Learn more about this feature in [Polyglot hooks](/docs/agent/v3/self-hosted/hooks#polyglot-hooks).
 
 ### Use zzglob
 
 Promoted in [v3.104.0](https://github.com/buildkite/agent/releases/tag/v3.104.0).
+Learn more about this feature in [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax).

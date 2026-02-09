@@ -2,9 +2,9 @@
 toc: true
 ---
 
-# Stack API
+# Stacks API
 
-The Stack API provides endpoints for implementing a stack reliably.
+The stacks API provides endpoints for implementing a stack reliably.
 These endpoints require [Agent tokens](/docs/agent/v3/self-hosted/tokens) for authentication.
 
 A stack is defined as a software process that has these two abilities simultaneously:
@@ -14,7 +14,7 @@ A stack is defined as a software process that has these two abilities simultaneo
 
 A stack can also be broadly understood as an orchestrator or a scheduler of Buildkite jobs.
 
-The Stack API powers Buildkite's Agent Kubernetes Stack.
+The stacks API powers Buildkite's Agent Kubernetes Stack.
 It's designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales.
 
 ## Register a stack
@@ -84,7 +84,7 @@ Success response: `204 No Content`
 
 ## List scheduled jobs (Metadata only)
 
-This is the most important API of the Stack APIs.
+This is the most important API of the stacks APIs.
 It fetches all jobs that have been scheduled to run by Buildkite's internal state machine.
 When a cluster queue is paused, `cluster_queue.dispatch_paused` will return `true`, and a stack implementation **must** respect this flag (i.e. avoid starting new jobs whenever the queue is paused).
 
@@ -297,6 +297,27 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 ```
 
 Success response: `200 OK`
+
+### Retry attributes
+
+If you have [retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes) configured on a step, be aware that these will apply to and affect a job that finished with an `exit_status` of `-1` (for example, a failure), or if the Buildkite platform generates a `signal_reason` of `stack_error` for this job, or both.
+
+If your pipeline has numerous steps with retry attributes, and many of their jobs happen to fail, this could result in all of these jobs undergoing automatic retries.
+
+To prevent this issue from occurring, in each of these steps' [automatic retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes), set the `signal_reason` to `stack_error`, with a `limit` value of `0`. For example:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic:
+        - exit_status: -1
+          signal_reason: stack_error
+          limit: 0
+        - exit_status: "*"
+          limit: 2
+```
 
 ## Create stack notifications
 
