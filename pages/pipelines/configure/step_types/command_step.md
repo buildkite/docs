@@ -440,7 +440,8 @@ Optional attributes:
     <td>
       The number of times this job can be retried. The maximum value this can be set to is 10. Each retry rule tracks its own count independently.<br/>
       <em>Default value:</em> <code>2</code><br/>
-      <em>Example:</em> <code>3</code>
+      <em>Example:</em> <code>3</code><br/>
+      You can also set this value to <code>0</code> to prevent a job from being retried. This is useful if, for example, the job returns a <code>signal_reason</code> of <code>stack_error</code>. Learn more about this in the <a href="/docs/apis/agent-api/stacks#finish-a-job-retry-attributes">Retry attributes</a> section of the <a href="/docs/apis/agent-api/stacks">Stacks API</a>.
     </td>
   </tr>
 </table>
