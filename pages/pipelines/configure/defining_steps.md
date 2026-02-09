@@ -18,14 +18,20 @@ Both the REST API and GraphQL API can be used to create a pipeline programmatica
 
 ### Webhooks for GitHub
 
-For a GitHub account's repositories, webhooks are automatically created for any of these repositories when a Buildkite pipeline is created for that repository. This functionality is implemented automatically after your GitHub account is connected to Buildkite using the GitHub App. This connection is established as part of [signing up with GitHub](/docs/pipelines/getting-started#before-you-start) (see [Getting started with Pipelines](/docs/pipelines/getting-started) page for details), or you chose the [**Git scope** > **Connect GitHub account** option](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) on the **New Pipeline** page. Learn more about configuring the GitHub App from the [GitHub page of Connect source control](/docs/pipelines/source-control/github).
+For a GitHub account's repositories, webhooks are automatically created for any of these repositories when a Buildkite pipeline is created for that repository. This functionality is implemented automatically once your GitHub account is connected to Buildkite using the GitHub App.
+
+This GitHub App connection is established as part of [signing up with GitHub](/docs/pipelines/getting-started#before-you-start) (see [Getting started with Pipelines](/docs/pipelines/getting-started) page for details), or if you select the [**Git scope** > **Connect GitHub account** option](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) on the **New Pipeline** page.
+
+Learn more about configuring the GitHub App from the [GitHub page of Connect source control](/docs/pipelines/source-control/github).
 
 ### Webhooks for other repository providers
 
-For all other repository providers, which will allow you to use repositories from one of the [**Git scope** > **Use remote URL**](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) options, you'll need to configure the connection to your repository provider manually from the [**Repository Providers** page](https://buildkite.com/organizations/~/repository-providers). You can access this page by selecting either of the following:
+For all other repository providers, you'll need to configure the connection to your repository provider manually from the [**Repository Providers** page](https://buildkite.com/organizations/~/repository-providers). You can access this page by selecting either of the following:
 
 - **Git scope** > **Manage accounts** from the **New Pipeline** page.
 - **Settings** in the global navigation > **Repository Providers** (within the **Integrations** section).
+
+Doing this will allow you to use repositories from the relevant [**Git scope** > **Use remote URL**](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) options.
 
 Learn more about configuring these other repository providers from the [Source control](/docs/pipelines/source-control) section.
 
