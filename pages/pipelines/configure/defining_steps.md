@@ -14,8 +14,6 @@ The required fields are **Git scope**, **Repository** and **Pipeline name**.
 
 Learn more about this page from [Understanding the New Pipeline page](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page).
 
-You can set up webhooks at this point, but this step is optional. These webhook setup instructions can be found in pipeline settings on your specific repository provider page.
-
 Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](/docs/apis/graphql-api) for details and examples.
 
 ### Webhooks for GitHub
