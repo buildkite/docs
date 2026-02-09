@@ -21,7 +21,7 @@ mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
 PREVIEW_BRANCH_ID=$(netlify_preview_id "$BUILDKITE_BRANCH" "$NETLIFY_SALT")
 
 echo "+++ :netlify: Deploying to Netlify"
-node_modules/.bin/netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --alias $PREVIEW_BRANCH_ID --dir build
+node_modules/.bin/netlify deploy --no-build --context deploy-preview --auth "$NETLIFY_AUTH_TOKEN" --site "$NETLIFY_SITE_ID" --alias "$PREVIEW_BRANCH_ID" --dir build
 
 echo "--- :buildkite: Update annotation state"
 buildkite-agent annotate --style "success" --context "netlify/preview-url"
