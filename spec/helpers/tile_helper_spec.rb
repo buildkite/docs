@@ -4,6 +4,8 @@ RSpec.describe TilesHelper, type: 'helper' do
   describe "#tile" do
     context "has url" do
       it "links the title and appends a learn more link" do
+        logo_asset_path = helper.vite_asset_path("images/logo.svg")
+
         tile_item_html = helper.tile({
           "title" => "Title",
           "url" => "https://buildkite.com",
@@ -13,7 +15,7 @@ RSpec.describe TilesHelper, type: 'helper' do
 
         expect(tile_item_html).to eq(
           '<article class="TileItem">' +
-            '<img alt="Title" class="TileItem__image" src="/vite-test/assets/logo-af022722.svg" />' +
+            "<img alt=\"Title\" class=\"TileItem__image\" src=\"#{logo_asset_path}\" />" +
             '<h2 class="TileItem__title"><a class="TileItem__title-link" href="https://buildkite.com">Title</a></h2>' +
             '<p class="TileItem__desc">Placeholder TileItem</p>' +
             '<a class="TileItem__learn-more" href="https://buildkite.com">Learn more</a>' +
@@ -24,6 +26,8 @@ RSpec.describe TilesHelper, type: 'helper' do
 
     context "doesn't have url" do
       it "doesn't link the heading nor render learn more link" do
+        logo_asset_path = helper.vite_asset_path("images/logo.svg")
+
         tile_item_html = helper.tile({
           "title" => "Title",
           "image_path" => "images/logo.svg",
@@ -32,7 +36,7 @@ RSpec.describe TilesHelper, type: 'helper' do
 
         expect(tile_item_html).to eq(
           '<article class="TileItem">' +
-            '<img alt="Title" class="TileItem__image" src="/vite-test/assets/logo-af022722.svg" />' +
+            "<img alt=\"Title\" class=\"TileItem__image\" src=\"#{logo_asset_path}\" />" +
             '<h2 class="TileItem__title">Title</h2>' +
             '<p class="TileItem__desc">Placeholder TileItem</p>' +
           '</article>'
