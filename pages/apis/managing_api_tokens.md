@@ -30,7 +30,7 @@ You can create and edit API access tokens by selecting [**Personal Settings**](h
 
 ## Token scopes
 
-When an API access token is being created or edited, select the required **REST API Scopes**, which represent permissions that this token is granted access to. You can also select **Enable GraphQL API access** as an additional permission, noting that this permission cannot be restricted by any finer scope.
+When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), select the required **REST API Scopes**, which represent permissions that this token is granted access to. You can also select **Enable GraphQL API access** as an additional permission, noting that this permission cannot be restricted by any finer scope.
 
 A token's **REST API Scopes** are organized by category. See the relevant tables within this section for details, along with the permission types (**READ**, **WRITE**, **DELETE**) that each scope provides.
 
