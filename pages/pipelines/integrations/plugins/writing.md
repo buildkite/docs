@@ -331,6 +331,44 @@ steps:
 
 Vendored plugins run after non-vendored plugins and don't have access to all the same hooks. See [the documentation about job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks) to learn more.
 
+## Subdirectory plugins
+
+You can store multiple plugins in subdirectories of a single Git repository and reference them by appending the subdirectory path to the plugin URL. This lets you manage a collection of related plugins in one repository instead of maintaining separate repositories for each plugin.
+
+```yml
+steps:
+  - command: ls
+    plugins:
+      - https://github.com/my-org/my-buildkite-plugins.git/plugin-one#v1.0.0: ~
+      - https://github.com/my-org/my-buildkite-plugins.git/plugin-two#v1.0.0: ~
+      - https://github.com/my-org/my-buildkite-plugins.git/nested/plugin-three#v1.0.0: ~
+```
+{: codeblock-file="pipeline.yml"}
+
+Each subdirectory should contain its own `plugin.yml` and `hooks/` directory, just like a standalone plugin:
+
+```
+my-buildkite-plugins/
+├── plugin-one/
+│   ├── hooks/
+│   │   └── environment
+│   └── plugin.yml
+├── plugin-two/
+│   ├── hooks/
+│   │   └── post-command
+│   └── plugin.yml
+└── nested/
+    └── plugin-three/
+        ├── hooks/
+        │   └── pre-exit
+        └── plugin.yml
+```
+
+The agent clones the entire repository, then uses the hooks and configuration from the specified subdirectory.
+
+> 📘
+> Subdirectory plugins require Buildkite Agent v3.108.0 or above.
+
 ## Cross-platform plugins
 
 Plugins can support multiple operating systems by including platform-specific hook scripts. The Buildkite Agent automatically selects the appropriate hook file based on the operating system it's running on.
