@@ -43,7 +43,7 @@ Here are some examples of translations that the Buildkite pipeline converter wil
 
 - **Custom pipelines** (`pipelines.custom`) for manual triggers are translated with `if:` conditionals that check `build.source`. Steps can be configured to run only when triggered through the UI, API, or trigger step.
 
-- **Deployment environments** (`deployment`) are translated to [deployment targets](/docs/pipelines/configure/step-types/command-step#deployment-support) in Buildkite Pipelines. The `deployment` attribute provides tracking and environment-based concurrency.
+- **Deployment environments** (`deployment`) are translated to [deployment targets](/docs/pipelines/deployments) in Buildkite Pipelines. The `deployment` attribute provides tracking and environment-based concurrency.
 
 - **Variables** defined in Bitbucket's repository settings are documented with guidance on configuring environment variables in Buildkite's pipeline settings. User-prompted variables (`variables` with `allowed-values`) are translated to [input steps](/docs/pipelines/configure/step-types/input-step) with fields.
 
