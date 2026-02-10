@@ -3,6 +3,7 @@
   "private": true,
   "devDependencies": {
     "husky": "^8.0.0",
+    "netlify-cli": "^23.15.1",
     "prettier": "2.8.4",
     "sass": "^1.66.1",
     "vite": "^7.3.1",
