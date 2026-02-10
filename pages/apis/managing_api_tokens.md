@@ -13,64 +13,303 @@ Token scopes are also available to OAuth access tokens, which are issued by the 
 > 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
-Token scopes are very granular, and for API access tokens, you can select some or all of the following scopes:
+Token scopes are very granular, and for API access tokens, you can select some or all of the following scopes.
 
 ### CI/CD
 
-- **Read Pipelines** (`read_pipelines`): Permission to list and retrieve details of pipelines.
-- **Write Pipelines** (`write_pipelines`): Permission to create, update and delete pipelines.
-- **Read Builds** (`read_builds`): Permission to list and retrieve details of builds.
-- **Write Builds** (`write_builds`): Permission to create new builds.
-- **Read Build Logs** (`read_build_logs`): Permission to retrieve build logs.
-- **Write Build Logs** (`write_build_logs`): Permission to delete build logs.
-- **Read Job Environment Variables** (`read_job_env`): Permission to retrieve job environment variables.
-- **Read Artifacts** (`read_artifacts`): Permission to retrieve build artifacts.
-- **Write Artifacts** (`write_artifacts`): Permission to delete build artifacts.
-- **Read Agents** (`read_agents`): Permission to list and retrieve details of agents.
-- **Write Agents** (`write_agents`): Permission to stop agents. To register agents, use an [Agent token] instead.
-- **Read Clusters** (`read_clusters`): Permission to list and retrieve details of clusters.
-- **Write Clusters** (`write_clusters`): Permission to create, update and delete clusters.
-- **Read Pipeline Templates** (`read_pipeline_templates`): Permission to list and retrieve details of pipeline templates.
-- **Write Pipeline Templates** (`write_pipeline_templates`): Permission to create, update and delete pipeline templates.
-- **Read Rules** (`read_rules`): Permission to list and retrieve details of rules.
-- **Write Rules** (`write_rules`): Permission to create or delete rules.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Pipelines",
+        key: "read_pipelines, write_pipelines",
+        description: "List and retrieve details of pipelines; create, update, and delete pipelines.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Builds",
+        key: "read_builds, write_builds",
+        description: "List and retrieve details of builds; create new builds.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Build Logs",
+        key: "read_build_logs, write_build_logs",
+        description: "Retrieve build logs; delete build logs.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Job Environment",
+        key: "read_job_env",
+        description: "Retrieve job environment variables.",
+        read: true, write: false, delete: false
+      },
+      {
+        name: "Artifacts",
+        key: "read_artifacts, write_artifacts",
+        description: "Retrieve build artifacts; delete build artifacts.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Agents",
+        key: "read_agents, write_agents",
+        description: "List and retrieve details of agents; stop agents. To register agents, use an [agent token](/docs/agent/v3/self-hosted/tokens) instead.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Clusters",
+        key: "read_clusters, write_clusters",
+        description: "List and retrieve details of clusters; create, update, and delete clusters.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Pipeline Templates",
+        key: "read_pipeline_templates, write_pipeline_templates",
+        description: "List and retrieve details of pipeline templates; create, update, and delete pipeline templates.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Rules",
+        key: "read_rules, write_rules",
+        description: "List and retrieve details of rules; create or delete rules.",
+        read: true, write: true, delete: false
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Organization and users
 
-- **Read Organizations** (`read_organizations`): Permission to list and retrieve details of organizations.
-- **Read Teams** (`read_teams`): Permission to list teams.
-- **Write Teams** (`write_teams`): Permission to create, update and delete teams.
-- **Read User** (`read_user`): Permission to retrieve basic details of the user.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Organizations",
+        key: "read_organizations",
+        description: "List and retrieve details of organizations.",
+        read: true, write: false, delete: false
+      },
+      {
+        name: "Teams",
+        key: "read_teams, write_teams",
+        description: "List teams; create, update, and delete teams.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "User",
+        key: "read_user",
+        description: "Retrieve basic details of the user.",
+        read: true, write: false, delete: false
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Security
 
-- **Read Secrets** (`read_secrets_details`): Permission to list and retrieve details of secrets.
-- **Write Secrets** (`write_secrets`): Permission to create, update and delete secrets.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Secrets",
+        key: "read_secrets_details, write_secrets",
+        description: "List and retrieve details about secrets; create, update, and delete secrets.",
+        read: true, write: true, delete: false
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Test Engine
 
-- **Read Suites** (`read_suites`): Permission to list and retrieve details of test suites, including runs, tests, and executions.
-- **Write Suites** (`write_suites`): Permission to create, update and delete test suites.
-- **Read Test Plan** (`read_test_plan`): Permission to retrieve test plan information.
-- **Write Test Plan** (`write_test_plan`): Permission to create test plan.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Suites",
+        key: "read_suites, write_suites",
+        description: "Retrieve suite information; create suites.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Test Plan",
+        key: "read_test_plan, write_test_plan",
+        description: "Retrieve test plan information; create test plan.",
+        read: true, write: true, delete: false
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Packages
 
-- **Read Registries** (`read_registries`): Permission to list and retrieve details of registries.
-- **Write Registries** (`write_registries`): Permission to create and update registries.
-- **Delete Registries** (`delete_registries`): Permission to delete registries.
-- **Read Packages** (`read_packages`): Permission to list and retrieve details of packages.
-- **Write Packages** (`write_packages`): Permission to create packages.
-- **Delete Packages** (`delete_packages`): Permission to delete packages.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Registries",
+        key: "read_registries, write_registries, delete_registries",
+        description: "List and retrieve details of registries; create and update registries; delete registries.",
+        read: true, write: true, delete: true
+      },
+      {
+        name: "Packages",
+        key: "read_packages, write_packages, delete_packages",
+        description: "List and retrieve details of packages; create packages; delete packages.",
+        read: true, write: true, delete: true
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Portals
 
-- **Read Portals** (`read_portals`): Permission to list and retrieve details of portals.
-- **Write Portals** (`write_portals`): Permission to create, update, and delete portals.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Portals",
+        key: "read_portals, write_portals",
+        description: "List and retrieve details of portals; create, update, and delete portals.",
+        read: true, write: true, delete: false
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ### Events
 
-- **Read Events** (`read_events`): Permission to list and retrieve details of events.
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Scope</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Events",
+        key: "read_events",
+        description: "Access the event log.",
+        read: true, write: false, delete: false
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
