@@ -34,14 +34,14 @@ When an API access token is being created or edited, select the required **REST 
 
 A token's **REST API Scopes** are organized by category. See the relevant tables within this section for details, along with the permission types (**READ**, **WRITE**, **DELETE**) that each scope provides.
 
-You can use the **Search** feature to filter the available scopes, as well as the **Presets** feature, which selects between all **Read only** scopes, all **Read + Write** scopes, as well as all **Full Access** scopes (which includes **DELETE**). Be aware that **Presets** operates across _all_ scopes, regardless of whether they have been filtered.
+You can use the **Search** feature to filter the available scopes, as well as the **Presets** feature, which selects between all **Read only** scopes, **Read + Write** scopes, or **Full Access** (includes **DELETE**) scopes. Be aware that **Presets** operates across _all_ scopes, regardless of whether or not they have been filtered.
 
 Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
 > 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
-Token scopes are very granular, and for API access tokens, you can select some or all of the following scopes.
+A token's REST API scopes are granular, and you can select some or all of the following scopes.
 
 ### CI/CD
 
