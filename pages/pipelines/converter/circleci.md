@@ -1,6 +1,6 @@
 # CircleCI
 
-The [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) helps you convert your CircleCI pipelines into Buildkite pipelines. Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your CircleCI pipelines into Buildkite pipelines. Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
 
 The LLM analyzes the CircleCI configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
 

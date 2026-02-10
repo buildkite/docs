@@ -55,7 +55,7 @@ As plugins execute in the same way as local hooks, they can pose a potential sec
 
 You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/self-hosted/configure#no-plugins) setting.
 
-If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/self-hosted/security#sign-pipelines).
+If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/self-hosted/security#sign-your-pipelines).
 
 ### Disable command evaluation
 
