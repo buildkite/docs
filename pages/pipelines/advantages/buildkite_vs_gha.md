@@ -4,15 +4,15 @@ GitHub Actions is a workflow automation tool built into GitHub. Buildkite Pipeli
 
 GitHub Actions is easy to start with as it is natively integrated into GitHub, making it a good choice for small teams. As organizations scale, however, its limitations become apparent: hard concurrency caps, static workflows, unpredictable costs, and reliability issues. Buildkite Pipelines is designed from the ground up for scale, speed, and reliability.
 
-## Unlimited scale vs. hard limits
+## Scaling and limits
 
 GitHub Actions imposes a 256-job matrix cap per workflow run and self-hosted runners require manual provisioning with slow startup times.
 
 Buildkite Pipelines supports 100,000+ concurrent agents with no artificial limits. Agents are lightweight software requiring only an outbound HTTPS connection, and turnkey autoscaling is available through the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws) and [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s).
 
-## Dynamic pipelines vs. static workflows
+## Dynamic pipelines and static workflows
 
-GitHub Actions workflows are static once triggered. To add jobs based on what changed, you must dispatch new workflows or pre-declare everything up front, leading to wasted compute. Also, you can only nest workflow calls up to 10 levels of depth, and secret passing must be really explicit instead of allowing each pipeline to define what it needs.
+GitHub Actions workflows are static once triggered. To add jobs based on what changed, you must dispatch new workflows or pre-declare everything up front, leading to wasted compute. Also, you can only nest workflow calls up to 10 levels of depth, and secret passing must be explicit instead of allowing each pipeline to define what it needs.
 
 In Buildkite Pipelines, with the help of [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), you can generate or modify steps at runtime based on changed files, repository state, or any custom logic. This way, you can fan out tests only after builds succeed, skip unnecessary steps, or generate deployment steps based on what actually changed.
 
@@ -20,13 +20,13 @@ In Buildkite Pipelines, with the help of [dynamic pipelines](/docs/pipelines/con
 
 GitHub Actions experiences frequent reliability issues that can block entire organizations.
 
-Buildkite Pipelines maintains strong uptime, and since builds run on your infrastructure, you're not affected by multi-tenant cloud environment problems or noisy neighbors.
+Buildkite Pipelines maintains strong uptime, and since builds run on your infrastructure, you're not affected by multi-tenant cloud environment problems or resource contention from other tenants.
 
-## Superior hosted machines
+## High-performance hosted machines
 
 [Buildkite hosted agents](/docs/pipelines/hosted-agents) offer the newest Apple silicon available for CI, so mobile teams can test on the same hardware their users run.
 
-Persistent cache volumes on NVMe (Linux) and disk images (macOS) retain dependencies, Git mirrors, and Docker layers for up to 14 days. GitHub caches are limited to 7 days and 10 GB per repository, restored from object storage each job.
+Persistent cache volumes on NVMe (Linux) and disk images (macOS) retain dependencies, Git mirrors, and Docker layers for up to 14 days. GitHub caches are limited to 7 days and 10 GB per repository, restored from object storage for each job.
 
 ## Centralized visibility
 
@@ -50,7 +50,7 @@ GitHub has no native test intelligence—teams must rely on custom scripts or ma
 
 GitHub Actions uses per-minute billing that can lead to unexpected costs as teams grow.
 
-In Buildkite Pipelines, [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so short bursts don't inflate costs and you'll also be able to use your own compute including spot instances to optimize further.
+In Buildkite Pipelines, [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so short bursts don't inflate costs and you'll also be able to use your own compute including spot instances to educe costs further.
 
 ## Job routing and priorities
 
@@ -58,7 +58,7 @@ Buildkite Pipelines provides sophisticated job routing with queues, priorities, 
 
 ## Security and compliance
 
-With Buildkite Pipelines, your code and secrets never leave your environment. The least-privilege GitHub App integration means Buildkite never sees your source code. You maintain full control over your build infrastructure and security posture, which is critical for organizations with strict compliance requirements. GitHub's hosted runners require code and secrets to transit their infrastructure.
+With Buildkite Pipelines, your code and secrets never leave your environment. The least-privilege GitHub App integration means Buildkite never sees your source code. You maintain full control over your build infrastructure and security posture, which is critical for organizations with strict compliance requirements. GitHub's hosted runners require code and secrets to pass through their infrastructure.
 
 ## Developer experience
 
@@ -68,6 +68,11 @@ Buildkite provides rich logging with colors, links, and emojis that make build o
 
 You can try out the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing GitHub Actions pipelines might look converted to Buildkite Pipelines.
 
-To start converting your GitHub Actions pipelines to Buildkite Pipelines, follow the instructions in [Migrate from GitHub Actions](/docs/pipelines/migration/from-githubactions), then migrate pipeline by pipeline. The key changes you'll need to be mindful of: `jobs` become `steps` with `key` attributes, `needs` becomes `depends_on`, `runs-on` maps to `agents` queues, and `actions/checkout` is removed since Buildkite checks out code automatically.
+To start converting your GitHub Actions pipelines to Buildkite Pipelines, follow the instructions in [Migrate from GitHub Actions](/docs/pipelines/migration/from-githubactions), then migrate pipeline by pipeline. The key changes you'll need to be mindful of:
+
+- `jobs` become `steps` with `key` attributes
+- `needs` becomes `depends_on`
+- `runs-on` maps to `agents` queues
+- `actions/checkout` is removed since Buildkite Pipelines checks out code automatically.
 
 If you would like to receive assistance in migrating from GitHub Actions to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).
