@@ -2,6 +2,10 @@
 API access tokens for authentication with the Buildkite API
 """
 type APIAccessToken implements Node {
+  """
+  The time at which this API access token will expire. If null, the token will never expire.
+  """
+  expiresAt: DateTime
   id: ID!
 
   """
@@ -6379,6 +6383,11 @@ type OrganizationAPIAccessToken {
   A description of the token
   """
   description: String
+
+  """
+  The time at which this API access token will expire. If null, the token will never expire.
+  """
+  expiresAt: DateTime
   id: ID!
 
   """
