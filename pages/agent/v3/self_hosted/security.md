@@ -145,9 +145,9 @@ fi
 
 But also remember that some [environment variables may be essential](/docs/pipelines/configure/environment-variables) to the execution of jobs, so adding them to a blocklist in this manner is not advisable.
 
-## Sign pipelines
+## Sign your pipelines
 
-You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/self-hosted/signed-pipelines).
+You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/self-hosted/security/signed-pipelines).
 
 ## Customize the bootstrap
 

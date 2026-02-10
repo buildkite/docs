@@ -114,6 +114,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/redhat",                                                                       to: redirect("/docs/agent/v3/self-hosted/install/redhat")
   get "/docs/agent/v3/securing",                                                                     to: redirect("/docs/agent/v3/self-hosted/security")
   get "/docs/agent/v3/self-hosted/monitoring",                                                       to: redirect("/docs/agent/v3/self-hosted/monitoring-and-observability")
+  get "/docs/agent/v3/self-hosted/signed-pipelines",                                                 to: redirect("/docs/agent/v3/self-hosted/security/signed-pipelines")
   get "/docs/agent/v3/self-hosted/unclustered-tokens",                                               to: redirect("/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens")
   get "/docs/agent/v3/self-hosted/tracing",                                                          to: redirect("/docs/agent/v3/self-hosted/monitoring-and-observability/tracing")
   get "/docs/agent/v3/signed-pipelines",                                                             to: redirect("/docs/agent/v3/self-hosted/signed-pipelines")
