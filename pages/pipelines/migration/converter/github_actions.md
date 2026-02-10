@@ -19,7 +19,7 @@ To start converting a GitHub Actions workflow into Buildkite Pipelines format:
 
 Here are some examples of translations that the pipeline converter will perform:
 
-- **Jobs** become Buildkite [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. Multiple `run` steps within a job are combined into a single `command` array. Job dependencies (`needs`) become `depends_on` attributes.
+- **Jobs** become Buildkite Pipelines [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. Multiple `run` steps within a job are combined into a single `command` array. Job dependencies (`needs`) become `depends_on` attributes.
 
 - **Checkout** steps (`actions/checkout`) are removed since Buildkite Agents automatically check out the repository. Non-default checkout options are translated to equivalent Git commands.
 
@@ -33,7 +33,7 @@ Here are some examples of translations that the pipeline converter will perform:
 
 - **Secrets** (such as `${{ secrets.API_KEY }}`) become environment variable references (such as `${API_KEY}`) with comments indicating they must be configured on your agents. See [managing secrets](/docs/pipelines/security/secrets/managing) for configuration options.
 
-- **Actions** require case-by-case handling. Setup actions assume tools are pre-installed on agents. Cache and artifact actions are translated to [Buildkite plugins](/docs/pipelines/integrations/plugins) and commands. GitHub-specific actions (such as `github-script` or `codeql`) may require custom solutions in Buildkite Pipelines - [contact](mailto:support@buildkite.com) the Buildkite Support team for assistance.
+- **Actions** require case-by-case handling. Setup actions assume tools are pre-installed on agents. Cache and artifact actions are translated to Buildkite Pipelines [plugins](/docs/pipelines/integrations/plugins) and commands. GitHub-specific actions (such as `github-script` or `codeql`) may require custom solutions in Buildkite Pipelines - [contact](mailto:support@buildkite.com) the Buildkite Support team for assistance.
 
 - **Path filtering** (`paths`, `paths-ignore`, or `dorny/paths-filter`) is translated to `if_changed` attribute in Buildkite Pipelines.
 

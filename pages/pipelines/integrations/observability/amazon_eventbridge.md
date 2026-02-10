@@ -573,7 +573,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 | `agent_refused` | The agent refused to run the job, as it was not allowed by a [pre-bootstrap hook](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) |
 | `agent_stop` | The agent was stopped while the job was running |
 | `cancel` | The job was cancelled by a user |
-| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/self-hosted/signed-pipelines) |
+| `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/v3/self-hosted/security/signed-pipelines) |
 | `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
 
 <a id="events-job-activated"></a>

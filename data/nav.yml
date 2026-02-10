@@ -333,9 +333,11 @@
                 - name: "Tracing"
                   path: "agent/v3/self-hosted/monitoring-and-observability/tracing"
             - name: "Security"
-              path: "agent/v3/self-hosted/security"
-            - name: "Signed pipelines"
-              path: "agent/v3/self-hosted/signed-pipelines"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/self-hosted/security"
+                - name: "Signed pipelines"
+                  path: "agent/v3/self-hosted/security/signed-pipelines"
         - name: "Buildkite hosted agents"
           children:
             - name: "Overview"
