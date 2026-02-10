@@ -9,9 +9,38 @@ To complete this integration, you need admin privileges for your GitHub reposito
 You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
 
 > 📘 Benefits of using the GitHub App
-> Using GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>.
+> Using the GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>.
 
-If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your **Personal Settings**.
+If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth), you can still do so from your **Personal Settings**.
+
+## GitHub repository provider options
+
+When you connect Buildkite to GitHub through a GitHub App, the **Repository Providers** page in your Buildkite organization settings presents two options:
+
+- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted), because Buildkite needs code access to clone your repository.
+- **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+
+### Permissions comparison
+
+| Permission | **GitHub** | **GitHub (Limited Access)** |
+| --- | --- | --- |
+| Code | Read | No access |
+| Metadata | Read | Read |
+| Checks | Read and write | Read and write |
+| Commit statuses | Read and write | Read and write |
+| Deployments | Read and write | Read and write |
+| Pull requests | Read and write | Read and write |
+| Repository hooks | Read and write | Read and write |
+{: class="responsive-table"}
+
+### Choosing the right option
+
+Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted) to run builds.
+
+Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+
+> 📘 Using both GitHub Apps
+> If you use both Buildkite-hosted and self-hosted agents, you can install both apps and scope each to the relevant repositories. Alternatively, you can install only the full access **GitHub** app, which works with both agent types.
 
 ## Connect your Buildkite account to GitHub using the GitHub App
 
@@ -21,7 +50,7 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 > The user adding the provider needs to be a Buildkite user connected to a GitHub user who has administrative privileges on both Buildkite and the GitHub organizations.
 
 1. Open your Buildkite organization's **Settings**.
-1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > **GitHub (Limited Access)**.
+1. Select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers), then select **GitHub** or **GitHub (Limited Access)** depending on your requirements. See [GitHub repository provider options](#github-repository-provider-options) to determine which option is right for you.
     <%= image "repository-providers.png", width: 2338/2, height: 1600/2, alt: "Screenshot of the Buildkite Repository Providers" %>
 1. Select **Connect to a new GitHub Account**. If you have never connected your Buildkite and GitHub accounts before, you will first need to select **Connect** and authorize Buildkite.
 1. Select the GitHub organization you want to connect to your Buildkite organization.
@@ -31,18 +60,20 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Buildkite GitHub permissions
 
-When you connect your GitHub organization, Buildkite needs the following permissions:
+The permissions Buildkite requests depend on which [GitHub repository provider option](#github-repository-provider-options) you select. Both options require the following permissions:
 
 - Read access to metadata. Learn more about this from [GitHub's documentation](https://docs.github.com/en/rest/authentication/permissions-required-for-github-apps#repository-permissions-for-metadata).
 
 - Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
+
+The **GitHub** (full access) option additionally requests read access to code, which allows Buildkite-hosted agents to clone your repository. The **GitHub (Limited Access)** option does not request code access.
 
 ## Set up a new pipeline for a GitHub repository
 
 1. Select **Pipelines** > **New pipeline**.
 1. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
-    <%= image "new-pipeline-page.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
+    <%= image "new-pipeline-page.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline" %>
 
 1. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/configure/defining-steps#adding-steps) for more information.
 1. Select **Create Pipeline**.
