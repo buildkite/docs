@@ -9,16 +9,16 @@ To complete this integration, you need admin privileges for your GitHub reposito
 You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
 
 > 📘 Benefits of using the GitHub App
-> Using GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>.
+> Using the GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a>.
 
-If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your **Personal Settings**.
+If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth), you can still do so from your **Personal Settings**.
 
 ## GitHub repository provider options
 
 When you connect Buildkite to GitHub through a GitHub App, the **Repository Providers** page in your Buildkite organization settings presents two options:
 
-- **GitHub** — The full-access Buildkite GitHub App. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted), because Buildkite needs code access to clone your repository.
-- **GitHub (Limited Access)** — A limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted), because Buildkite needs code access to clone your repository.
+- **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
 
 ### Permissions comparison
 
@@ -35,12 +35,12 @@ When you connect Buildkite to GitHub through a GitHub App, the **Repository Prov
 
 ### Choosing the right option
 
-Select **GitHub** if you use [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted) to run builds.
+Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted) to run builds.
 
-Select **GitHub (Limited Access)** if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
 
 > 📘 Using both GitHub Apps
-> If you use both Buildkite-hosted and self-hosted agents, you can install both apps and scope each to the relevant repositories. Alternatively, you can install only the **GitHub** (full access) app, which works with both agent types.
+> If you use both Buildkite-hosted and self-hosted agents, you can install both apps and scope each to the relevant repositories. Alternatively, you can install only the full access **GitHub** app, which works with both agent types.
 
 ## Connect your Buildkite account to GitHub using the GitHub App
 
@@ -73,7 +73,7 @@ The **GitHub** (full access) option additionally requests read access to code, w
 1. Select **Pipelines** > **New pipeline**.
 1. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
-    <%= image "new-pipeline-page.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
+    <%= image "new-pipeline-page.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline" %>
 
 1. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/configure/defining-steps#adding-steps) for more information.
 1. Select **Create Pipeline**.
