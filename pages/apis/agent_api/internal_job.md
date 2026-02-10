@@ -4,7 +4,7 @@ toc: false
 
 # Internal job API
 
-Exposes a local/internal API for the currently running job, to query and mutate the state of this job through environment variables. This lets you write scripts, hooks, and plugins in languages other than Bash, using them to interact with the agent.
+The internal job API is one that's exposed locally/internally within the agent for the currently running job. You can use this API to query and mutate the state of this job through environment variables, which makes it easier for you to write scripts, hooks, and plugins in languages other than Bash, that can interact with the agent.
 
 This API uses a Unix domain socket, whose path is exposed to running jobs with the `BUILDKITE_AGENT_JOB_API_SOCKET` environment variable. Calls are authenticated using the Bearer HTTP Authorization scheme made available through a token in the `BUILDKITE_AGENT_JOB_API_TOKEN` environment variable.
 
