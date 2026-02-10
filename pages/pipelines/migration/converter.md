@@ -28,13 +28,13 @@ An AI Large Language Model (LLM) is used to achieve the best results in the tran
 
 The Buildkite pipeline converter Supports the following CI providers:
 
-* [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
-* [CircleCI](/docs/pipelines/migration/tool/circleci)
-* [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
-* [Jenkins](/docs/pipelines/migration/tool/jenkins)
-* Bitrise (beta)
-* GitLab CI (beta)
-* Harness (beta)
+- [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
+- [CircleCI](/docs/pipelines/migration/tool/circleci)
+- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
+- [Jenkins](/docs/pipelines/migration/tool/jenkins)
+- Bitrise (beta)
+- GitLab CI (beta)
+- Harness (beta)
 
 The converter can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
