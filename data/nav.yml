@@ -5,7 +5,6 @@
     - name: "Overview"
       path: "pipelines"
     - name: "Why Buildkite Pipelines"
-      pill: "new"
       children:
         - name: "Advantages of Buildkite Pipelines"
           path: "pipelines/advantages/pipelines-advantages"
