@@ -367,7 +367,7 @@ my-buildkite-plugins/
 The agent clones the entire repository, then uses the hooks and configuration from the specified subdirectory.
 
 > 📘
-> Subdirectory plugins require Buildkite Agent v3.108.0 or above.
+> Subdirectory plugins requires v3.108.0 or later of the Buildkite Agent.
 
 ## Cross-platform plugins
 
