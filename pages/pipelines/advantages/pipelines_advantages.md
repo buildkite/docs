@@ -18,23 +18,13 @@ Your source code, [secrets](/docs/pipelines/security/secrets), and proprietary d
 
 [Integrations](/docs/pipelines/integrations) use minimal permissions and never require access to your code or secrets.
 
-### Scale concurrency by adding agents
+### Unlimited scaling and concurrency
 
 [Buildkite Agents](/docs/agent/v3) are lightweight software that can run anywhere. Add more agents as build volume grows — there are no artificial [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) limits, no credit constraints, and no bottlenecked controllers.
 
 - Buildkite Pipelines handles workloads from small teams to enterprise customers running 100,000+ concurrent agents
 - Lightweight agents don't require complex provisioning or heavyweight compute units
 - No pricing-tier restrictions on concurrency
-
-### Buildkite hosted agents
-
-For teams that want managed infrastructure without sacrificing performance, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) deliver a fully managed platform:
-
-- Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer
-- Agents provision on demand and are destroyed after each job, providing clean, reproducible builds with hypervisor-level [isolation](/docs/pipelines/security) between instances
-- Per-second billing with no minimum charges and no rounding
-- [Caching](/docs/agent/v3/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/v3/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) included at no additional cost
-- Jobs dispatch within seconds, with consistently low queue times
 
 ### Speed and parallelization
 
@@ -53,6 +43,16 @@ Start with [YAML pipelines](/docs/pipelines/configure/defining-steps). When you 
 
 Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
+### Buildkite hosted agents
+
+For teams that want managed infrastructure without sacrificing performance, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) deliver a fully managed platform:
+
+- Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer
+- Agents provision on demand and are destroyed after each job, providing clean, reproducible builds with hypervisor-level [isolation](/docs/pipelines/security) between instances
+- Per-second billing with no minimum charges and no rounding
+- [Caching](/docs/agent/v3/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/v3/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) included at no additional cost
+- Jobs dispatch within seconds, with consistently low queue times
+
 ### Predictable costs
 
 Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency), typically using the 95th percentile, so short bursts don't inflate costs. Learn more in [Pricing](https://buildkite.com/pricing/).
@@ -61,7 +61,7 @@ Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/conf
 - Use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) for specialized workloads or your own compute, including spot instances or spare capacity, to optimize costs
 - Spend less time maintaining controllers, patching vulnerabilities, or managing [plugin](/docs/pipelines/integrations/plugins) compatibility
 
-### Superior developer experience
+### Built for developer productivity
 
 The Buildkite Pipelines interface provides immediate visibility into pipeline behavior and system health. Rich build [annotations](/docs/agent/v3/cli/reference/annotate), integrated [test results](/docs/test-engine), and transparent failure information keep developers informed without context switching.
 
@@ -80,16 +80,20 @@ Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture
 
 ### Integrate with your existing tools
 
-Buildkite specializes in CI/CD rather than bundling source code management, project planning, security scanning, and deployment monitoring into a single product.
+Buildkite specializes in CI/CD rather than bundling source code management, project planning, security scanning, and deployment monitoring into a single product. You don't need to replace your existing toolchain to get better CI/CD.
 
 - Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket)
 - Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry)
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing)
 
-## Side-by-side comparisons
+## Migrating to Buildkite Pipelines
 
-The following pages explore the advantages of migrating to Buildkite Pipelines from specific CI/CD systems:
+Buildkite provides [migration guides](/docs/pipelines/migration) to help teams move from their existing CI/CD system. The following pages explore the advantages of migrating from specific systems with side-by-side comparisons:
 
 - [Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins)
 - [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab)
 - [GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha)
+
+## Get started
+
+Teams of all sizes run Buildkite Pipelines in production. To try it yourself, [sign up](https://buildkite.com/signup) or explore the [getting started guide](/docs/pipelines/getting-started).
