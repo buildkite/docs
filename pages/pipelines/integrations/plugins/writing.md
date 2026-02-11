@@ -138,7 +138,7 @@ docker-compose run --rm lint
 
 ## Step 4: Add a hook
 
-Plugins can implement a number of [plugin hooks](/docs/agent/v3/self-hosted/hooks). For this plugin, create a `post-command` hook in a `hooks` directory:
+Plugins can implement a number of [plugin hooks](/docs/agent/v3/hooks). For this plugin, create a `post-command` hook in a `hooks` directory:
 
 ```shell
 mkdir hooks
@@ -329,7 +329,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Vendored plugins run after non-vendored plugins and don't have access to all the same hooks. See [the documentation about job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks) to learn more.
+Vendored plugins run after non-vendored plugins and don't have access to all the same hooks. See [the documentation about job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) to learn more.
 
 ## Cross-platform plugins
 

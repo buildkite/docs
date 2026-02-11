@@ -443,7 +443,7 @@ Rails.application.routes.draw do
   get "/docs/agent/configuration",       to: redirect("/docs/agent/v3/self-hosted/configure",                status: 301)
   get "/docs/agent/ssh-keys",            to: redirect("/docs/agent/v3/self-hosted/ssh-keys",                 status: 301)
   get "/docs/agent/github-ssh-keys",     to: redirect("/docs/agent/v3/self-hosted/github-ssh-keys",          status: 301)
-  get "/docs/agent/hooks",               to: redirect("/docs/agent/v3/self-hosted/hooks",                    status: 301)
+  get "/docs/agent/hooks",               to: redirect("/docs/agent/v3/hooks",                                status: 301)
   get "/docs/agent/queues",              to: redirect("/docs/agent/v3/queues",                               status: 301)
   get "/docs/agent/prioritization",      to: redirect("/docs/agent/v3/self-hosted/prioritization",           status: 301)
   get "/docs/agent/plugins",             to: redirect("/docs/pipelines/integrations/plugins",                status: 301)

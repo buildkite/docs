@@ -93,7 +93,7 @@ With jobs created by the Buildkite Agent Stack for Kubernetes controller, there 
 - Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
 
 > 📘 Exporting environment variables
-> Since hooks are executed from within separate containers for checkout and command phases of the job's lifecycle, any environment variables exported during the execution of hooks with the `checkout` container will _not_ be available to the command container(s). This is operationally different from how hooks are [sourced](/docs/agent/v3/self-hosted/hooks#hook-scopes) outside of the Buildkite Agent Stack for Kubernetes.
+> Since hooks are executed from within separate containers for checkout and command phases of the job's lifecycle, any environment variables exported during the execution of hooks with the `checkout` container will _not_ be available to the command container(s). This is operationally different from how hooks are [sourced](/docs/agent/v3/hooks#hook-scopes) outside of the Buildkite Agent Stack for Kubernetes.
 
 If the env `BUILDKITE_HOOKS_PATH` is set at pipeline level instead of at the container level, as shown in the earlier pipeline configuration examples, then the hooks will run for both `checkout` container and `command` container(s).
 

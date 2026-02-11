@@ -34,7 +34,7 @@ It runs within the job's shell, so you can use it to conditionally run commands 
 
 By default, the `environment` hook file is stored in the agent's `hooks` directory.
 The path to this directory varies by platform; read the [installation instructions](/docs/agent/v3/self-hosted/install) for the path on your platform.
-The path can also be overridden by the [`hooks-path`](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks) setting.
+The path can also be overridden by the [`hooks-path`](/docs/agent/v3/hooks#hook-locations-agent-hooks) setting.
 
 For example, to expose a Test Engine API token to a specific pipeline, create an `environment` script in your agent's `hooks` directory that checks for the pipeline slug before exporting the secret:
 
@@ -76,7 +76,7 @@ Since this script runs for every job, you can extend it to selectively export al
 ### Storing secrets with the Elastic CI Stack for AWS
 
 When using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) with your own AWS account and environment, you can store your secrets inside your stack's encrypted S3 bucket.
-Unlike hooks defined in [agent `hooks-path`](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks),
+Unlike hooks defined in [agent `hooks-path`](/docs/agent/v3/hooks#hook-locations-agent-hooks),
 the Elastic CI Stack for AWS's `env` hooks are defined per-pipeline.
 
 For example, to expose a `GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN` environment

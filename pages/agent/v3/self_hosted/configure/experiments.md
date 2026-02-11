@@ -182,7 +182,7 @@ Promoted in [v3.74.0](https://github.com/buildkite/agent/releases/tag/v3.74.0).
 ### Polyglot hooks
 
 Promoted in [v3.85.0](https://github.com/buildkite/agent/releases/tag/v3.85.0).
-Learn more about this feature in [Polyglot hooks](/docs/agent/v3/self-hosted/hooks#polyglot-hooks).
+Learn more about this feature in [Polyglot hooks](/docs/agent/v3/hooks#polyglot-hooks).
 
 ### Use zzglob
 

@@ -29,7 +29,7 @@ Added:
 * [Plugins](/docs/pipelines/integrations/plugins) for sharing functionality between pipelines and customizing how agents behave
 * [Variable interpolation](/docs/agent/v3/cli/reference/pipeline) in `pipeline.yml`
 * [Build annotations](/docs/agent/v3/cli/reference/annotate)
-* [pre-exit hook](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)
+* [pre-exit hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
 
 Changed:
 
@@ -44,7 +44,7 @@ Deprecated:
 
 ### Bootstrap customizations
 
-If you customized your `bootstrap.sh` file, you will need to move the changes to [hooks](/docs/agent/v3/self-hosted/hooks), or update your bootstrap.sh to call `buildkite-agent bootstrap`.
+If you customized your `bootstrap.sh` file, you will need to move the changes to [hooks](/docs/agent/v3/hooks), or update your bootstrap.sh to call `buildkite-agent bootstrap`.
 
 ### Docker and Docker Compose support
 
