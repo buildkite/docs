@@ -1,6 +1,6 @@
 # GitHub Actions
 
-The [Buildkite pipeline converter](/docs/pipelines/migration/tool) helps you convert your GitHub Actions workflows into Buildkite pipelines. Because GitHub Actions workflows can include complex combinations of jobs, steps, matrix strategies, and reusable actions, an AI Large Language Model (LLM) is used to get the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your GitHub Actions workflows into Buildkite pipelines. Because GitHub Actions workflows can include complex combinations of jobs, steps, matrix strategies, and reusable actions, an AI Large Language Model (LLM) is used to get the best results in the translation process.
 
 The LLM analyzes the GitHub Actions workflow to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
 

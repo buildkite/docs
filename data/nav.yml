@@ -21,15 +21,15 @@
         - name: Pipeline converter
           children:
             - name: "Overview"
-              path: "pipelines/migration/converter"
+              path: "pipelines/converter"
             - name: "GitHub Actions"
-              path: "pipelines/migration/converter/github-actions"
+              path: "pipelines/converter/github-actions"
             - name: "Jenkins"
-              path: "pipelines/migration/converter/jenkins"
+              path: "pipelines/converter/jenkins"
             - name: "CircleCI"
-              path: "pipelines/migration/converter/circleci"
+              path: "pipelines/converter/circleci"
             - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/converter/bitbucket-pipelines"
+              path: "pipelines/converter/bitbucket-pipelines"
         - name: "Glossary"
           path: "pipelines/glossary"
     # If you're adding a source control provider you probably want to update

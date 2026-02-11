@@ -10,10 +10,10 @@ The Buildkite pipeline converter:
 
 - Supports the following CI providers:
 
-    * [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
-    * [CircleCI](/docs/pipelines/migration/tool/circleci)
-    * [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
-    * [Jenkins](/docs/pipelines/migration/tool/jenkins)
+    * [GitHub Actions](/docs/pipelines/converter/github-actions)
+    * [CircleCI](/docs/pipelines/converter/circleci)
+    * [Bitbucket Pipelines](/docs/pipelines/converter/bitbucket-pipelines)
+    * [Jenkins](/docs/pipelines/converter/jenkins)
 
 - Can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
 
