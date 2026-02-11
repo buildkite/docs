@@ -40,7 +40,7 @@ To edit an existing API access token:
 
 ## Token scopes
 
-When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), define the required **REST API Scopes** for which you to select permissions (**READ**, **WRITE**, **DELETE**) for different Buildkite platform features that this token is granted access to. Each individual combination of these permissions and features is known as a _scope_.
+When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), define the required **REST API Scopes** for which you select permissions (**READ**, **WRITE**, **DELETE**) for different Buildkite platform features that this token is granted access to. Each individual combination of these permissions and features is known as a _scope_.
 
 You can also select **Enable GraphQL API access** as an additional scope, noting that this is a full-access option that does not provide any further granular scopes/permission restrictions to Buildkite platform features. To restrict an API access token's scope to individual GraphQL API features, you can do so by implementing [GraphQL API portals](/docs/apis/graphql/portals).
 
