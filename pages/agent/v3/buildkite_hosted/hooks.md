@@ -1,2 +1,0 @@
-# Buildkite hosted agent hooks
-

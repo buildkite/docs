@@ -112,12 +112,6 @@
       children:
         - name: "Overview"
           path: "agent/v3"
-        - name: "Queues"
-          children:
-            - name: "Overview"
-              path: "agent/v3/queues"
-            - name: "Managing"
-              path: "agent/v3/queues/managing"
         - name: "Self-hosted agents"
           children:
             - name: "Tokens"
@@ -309,8 +303,6 @@
                   path: "agent/v3/self-hosted/configure/experiments"
                 - name: "Git mirrors"
                   path: "agent/v3/self-hosted/configure/git-mirrors"
-            - name: "Hooks"
-              path: "agent/v3/self-hosted/hooks"
             - name: "Pausing and resuming"
               path: "agent/v3/self-hosted/pausing-and-resuming"
             - name: "Prioritization"
@@ -359,8 +351,14 @@
               path: "agent/v3/buildkite-hosted/internal-container-registry"
             - name: "Network security"
               path: "agent/v3/buildkite-hosted/network-security"
-            - name: "Hooks"
-              path: "agent/v3/buildkite-hosted/hooks"
+        - name: "Queues"
+          children:
+            - name: "Overview"
+              path: "agent/v3/queues"
+            - name: "Managing"
+              path: "agent/v3/queues/managing"
+        - name: "Hooks"
+          path: "agent/v3/hooks"
         - name: "Command-line reference"
           children:
             - name: "Overview"
