@@ -64,6 +64,8 @@ Run `result` starts as `pending` and will proceed to `passed` or `failed` when a
 
 ## Get failed execution data
 
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of failed executions for a run.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/runs/{run.id}/failed_executions"
@@ -93,5 +95,3 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `read_suites`
 
 Success response: `200 OK`
-
-While the example response above only shows the data from one failed execution result, this endpoint's response is limited to 100 results.

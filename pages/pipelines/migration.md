@@ -6,7 +6,7 @@ Migrating to Buildkite Pipelines is a smooth process with the right context and 
 
 The Buildkite pipeline converter is designed to help you understand Buildkite Pipelines by providing a hands-on, high-level overview of how workflows from other CI/CD platforms map to Buildkite Pipelines' concepts and architecture.
 
-Rather than serving as a complete automated pipeline conversion solution, the Buildkite pipeline pipeline converter helps you visualize how configurations from from [GitHub Actions](/docs/pipelines/migration/tool/github-actions), [CircleCI](/docs/pipelines/migration/tool/circleci), [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines), and [Jenkins](/docs/pipelines/migration/tool/jenkins) could be structured in the Buildkite Pipelines configuration format.
+Rather than serving as a complete automated pipeline conversion solution, the Buildkite pipeline pipeline converter helps you visualize how configurations from from [GitHub Actions](/docs/pipelines/converter/github-actions), [CircleCI](/docs/pipelines/converter/circleci), [Bitbucket Pipelines](/docs/pipelines/converter/bitbucket-pipelines), and [Jenkins](/docs/pipelines/converter/jenkins) could be structured in the Buildkite Pipelines configuration format.
 
 Using the Buildkite pipeline converter will accelerate your understanding of Buildkite concepts, allowing you to make informed decisions about how to rearchitect and optimize your workflows for the Buildkite platform. Use the tool's output as a learning foundation, then iterate and refine your pipeline designs before beginning the actual pipeline conversion process.
 

@@ -30,25 +30,30 @@ You can create and edit API access tokens by selecting [**Personal Settings**](h
 
 ## Token scopes
 
-When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), select the required **REST API Scopes**, which represent permissions that this token is granted access to. You can also select **Enable GraphQL API access** as an additional permission, noting that this permission cannot be restricted by any finer scope.
+When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), define the required **REST API Scopes** that allow you to select permissions (**READ**, **WRITE**, **DELETE**) for different Buildkite platform features (whose individual combinations are known as _scopes_), which this token is granted access to.
 
-A token's **REST API Scopes** are organized by category. See the relevant tables within this section for details, along with the permission types (**READ**, **WRITE**, **DELETE**) that each scope provides.
+You can also select **Enable GraphQL API access** as an additional scope, noting that this is a full-access option that does not provide any further granular scopes/permission restrictions to Buildkite platform features. To restrict an API access token's scope to individual GraphQL API features, you can do so by implementing [GraphQL API portals](/docs/apis/graphql/portals).
 
-You can use the **Search** feature to filter the available scopes, as well as the **Presets** feature, which selects between all **Read only** scopes, **Read + Write** scopes, or **Full Access** (includes **DELETE**) scopes. Be aware that **Presets** operates across _all_ scopes, regardless of whether or not they have been filtered.
+A token's **REST API Scopes** are organized by Buildkite platform feature categories and their individual features. See the relevant tables within this section for details of these features, along with the permission types (**READ**, **WRITE**, **DELETE**) that each of these features provide.
+
+For REST API scopes, you can use the following:
+
+- The **Search** feature allows you to filter the available Buildkite platform features.
+- The **Presets** feature allows you to select between all **Read only**, all **Read + Write**, or all **Full Access** (which includes **DELETE**) permissions across all of these Buildkite platform features, regardless of whether or not these features have been filtered using **Search**.
 
 Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
 > 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
-A token's REST API scopes are granular, and you can select some or all of the following scopes.
+A token's REST API scopes are granular, and you can select some or all of the following Buildkite platform features and their scopes.
 
 ### CI/CD
 
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
+      <th style="width:25%">Feature and scopes</th>
       <th style="width:55%">Description</th>
       <th style="width:7%">Read</th>
       <th style="width:7%">Write</th>
@@ -128,7 +133,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
+      <th style="width:25%">Feature and scopes</th>
       <th style="width:55%">Description</th>
       <th style="width:7%">Read</th>
       <th style="width:7%">Write</th>
@@ -172,7 +177,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
+      <th style="width:25%">Feature and scopes</th>
       <th style="width:55%">Description</th>
       <th style="width:7%">Read</th>
       <th style="width:7%">Write</th>
@@ -204,7 +209,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
+      <th style="width:25%">Feature and scopes</th>
       <th style="width:55%">Description</th>
       <th style="width:7%">Read</th>
       <th style="width:7%">Write</th>
@@ -242,7 +247,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
+      <th style="width:25%">Feature and scopes</th>
       <th style="width:55%">Description</th>
       <th style="width:7%">Read</th>
       <th style="width:7%">Write</th>
@@ -280,7 +285,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
 <table>
   <thead>
     <tr>
-      <th style="width:25%">Scope</th>
+      <th style="width:25%">Feature and scopes</th>
       <th style="width:55%">Description</th>
       <th style="width:7%">Read</th>
       <th style="width:7%">Write</th>
