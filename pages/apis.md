@@ -18,7 +18,7 @@ Learn more about Buildkite's API access tokens and how to manage them in [Managi
 
 - The [scopes](/docs/apis/managing-api-tokens#token-scopes) which can be assigned to API access tokens.
 - [Auditing](/docs/apis/managing-api-tokens#auditing-tokens) token usage.
-- [Removing](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token) Buildkite organization access to tokens.
+- [Removing](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) Buildkite organization access to tokens.
 - [Limiting](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) a token's access by IP address.
 - A token's [lifecycle](/docs/apis/managing-api-tokens#api-token-lifecycle) characteristics.
 - Managing a token's [security](/docs/apis/managing-api-tokens#api-token-security), including [token rotation](/docs/apis/managing-api-tokens#api-token-security-rotation) and [GitHub's secret scanning program](/docs/apis/managing-api-tokens#api-token-security-github-secret-scanning-program).
