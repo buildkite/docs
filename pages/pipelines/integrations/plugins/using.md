@@ -211,6 +211,17 @@ steps:
       - file:///a-local-path/my-plugin.git#v1.0.0: ~
 ```
 
+You can also reference plugins stored in subdirectories of a repository by appending the subdirectory path to the URL. This allows you to keep multiple plugins in a single repository:
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      - https://github.com/my-org/my-plugins.git/my-plugin#v1.0.0: ~
+```
+
+For more information, see [Subdirectory plugins](/docs/pipelines/integrations/plugins/writing#subdirectory-plugins).
+
 ## Pinning plugin versions
 
 To avoid a plugin's git tag contents being changed, you can use the commit SHA of the tag, for example using `docker-compose#287293c4` in the following example:
