@@ -29,7 +29,7 @@ Please provide the base URL for your OTLP endpoint. Do not include the `/v1/trac
 
 - We currently only support the [OTLP/HTTP](https://opentelemetry.io/docs/specs/otlp/#otlphttp) binary protobuf encoding.
 - We currently only support sending [trace](https://opentelemetry.io/docs/concepts/signals/traces/) data, but may introduce other OpenTelemetry signals in the future.
-- The endpoint must be accessible over the internet. Contact support@buildkite.com if you would like to send traces to a [AWS PrivateLink endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html).
+- The endpoint must be accessible over the internet.
 
 ### Trace structure
 
