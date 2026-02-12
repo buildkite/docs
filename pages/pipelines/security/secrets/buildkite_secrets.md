@@ -29,7 +29,7 @@ To create a new Buildkite secret using the Buildkite interface:
     * The maximum permitted length for a key is 255 characters.
     * If you attempt to use any other characters for the key, or you begin your key with `buildkite` or `bk` (regardless of case), your secret will not be created when selecting **Create Secret**.
 
-1. Enter the **Value** for the secret. This value can be any number of valid UTF-8 characters up to a maximum of 8 kilobytes. Be aware that once the secret is created, this value will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
+1. Enter the **Value** for the secret. This value can be any number of valid UTF-8 characters up to a maximum of 32 kilobytes. Be aware that once the secret is created, this value will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
 1. Select **Create Secret** to create your new secret, which can now be accessed within jobs through the `buildkite-agent secret get` command.
 
 ## Update a secret's value
@@ -43,7 +43,7 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster where the secret you wish to update is located.
 1. Select **Secrets** to access the **Secrets** page, then select **Edit** in the row of the secret you wish to update.
-1. Enter a new **Value** for your secret. This value can be any number of valid UTF-8 characters up to a maximum of 8 kilobytes. Be aware that once the secret's value is updated, it will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
+1. Enter a new **Value** for your secret. This value can be any number of valid UTF-8 characters up to a maximum of 32 kilobytes. Be aware that once the secret's value is updated, it will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
 1. Select **Update Secret** to update the secret's value.
 
 > 📘
