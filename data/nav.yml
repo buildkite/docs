@@ -7,6 +7,17 @@
     - name: "Introduction"
       start_expanded: true
       children:
+        - name: "Why Buildkite Pipelines"
+          start_expanded: false
+          children:
+            - name: "Advantages of Buildkite Pipelines"
+              path: "pipelines/advantages/pipelines-advantages"
+            - name: "Advantages over Jenkins"
+              path: "pipelines/advantages/buildkite-vs-jenkins"
+            - name: "Advantages over GitLab"
+              path: "pipelines/advantages/buildkite-vs-gitlab"
+            - name: "Advantages over GitHub Actions"
+              path: "pipelines/advantages/buildkite-vs-gha"
         - name: "Getting started"
           path: "pipelines/getting-started"
         - name: "Create your own pipeline"
