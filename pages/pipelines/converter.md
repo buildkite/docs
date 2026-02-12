@@ -6,37 +6,39 @@ Rather than serving as a complete automated migration solution, the Buildkite pi
 
 An AI Large Language Model (LLM) is used to achieve the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
 
-### How to use the Buildkite pipeline converter
+## How to use the Buildkite pipeline converter
 
-To get started with the Buildkite pipeline converter, use the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) of the [Buildkite CLI](/docs/platform/cli):
+To convert an existing CI configuration, use the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) from the [Buildkite CLI](/docs/platform/cli).
 
-```bash
-brew install buildkite/buildkite/bk
-bk pipeline convert
-```
+1. [Install the Buildkite CLI](/docs/platform/cli/installation) if you haven't already:
 
-- Install the CLI
-- You'll see the error `Error: missing flags: --file=STRING`
-- Specify path to where you have the pipeline to be converted
-- Specify the vendor (of you'll the error: `Error: could not detect vendor from file path. Please specify vendor explicitly with --vendor`)
-- Correct way to specify the file and the vendor:
+    ```bash
+    brew install buildkite/buildkite/bk
+    ```
 
-`bk pipeline convert --file=github-workflow.yml --vendor github`
+1. Run the `bk pipeline convert` command, specifying the path to your CI configuration file with `--file` and the originating CI provider with `--vendor`:
 
-- Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`.
+    ```bash
+    bk pipeline convert --file=github-workflow.yml --vendor github
+    ```
 
-If successful, you'll see:
+    Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`.
 
-```bash
-Submitting conversion job...
-Job submitted. Processing conversion...
+    If the converter can detect the vendor from the file path, you can omit the `--vendor` flag.
 
-✅ conversion completed successfully!
-Output saved to: .buildkite/pipeline.github.yml
-```
+1. On a successful conversion, the output is saved to `.buildkite/`:
 
+    ```bash
+    Submitting conversion job...
+    Job submitted. Processing conversion...
 
-For example, the following GitHub Actions workflow:
+    ✅ conversion completed successfully!
+    Output saved to: .buildkite/pipeline.github.yml
+    ```
+
+### Example conversion
+
+The following GitHub Actions workflow:
 
 ```yaml
 name: Node.js CI
@@ -78,7 +80,7 @@ jobs:
 
 ```
 
-Will be translated by the Buildkite Pipeline converter to the following:
+Is converted by the Buildkite pipeline converter into the following Buildkite pipeline:
 
 ```yaml
 # ============================================================================
