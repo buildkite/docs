@@ -22,24 +22,24 @@ Your source code, [secrets](/docs/pipelines/security/secrets), and proprietary d
 
 [Buildkite Agents](/docs/agent/v3) are lightweight software that can run anywhere. Add more agents as build volume grows — there are no artificial [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) limits, no credit constraints, and no bottlenecked controllers.
 
-- Buildkite Pipelines handles workloads from small teams to enterprise customers running 100,000+ concurrent agents
-- Lightweight agents don't require complex provisioning or heavyweight compute units
-- No pricing-tier restrictions on concurrency
+- Buildkite Pipelines handles workloads from small teams to enterprise customers running 100,000+ concurrent agents.
+- Lightweight agents don't require complex provisioning or heavyweight compute units.
+- No pricing-tier restrictions on concurrency.
 
 ### Speed and parallelization
 
 Lightweight agents and [parallelization](/docs/pipelines/best-practices/parallel-builds) combine to deliver faster feedback cycles.
 
-- Handle large [monorepo](/docs/pipelines/best-practices/working-with-monorepos) structures efficiently with dynamic pipeline generation that analyzes dependencies and selectively builds only what changed
-- Match compute to workload using agent [queues](/docs/agent/v3/queues) and [tags](/docs/agent/v3/cli/reference/start#setting-tags), dedicating fast agents to critical pipelines and smaller agents to less demanding tasks
+- Handle large [monorepo](/docs/pipelines/best-practices/working-with-monorepos) structures efficiently with dynamic pipeline generation that analyzes dependencies and selectively builds only what changed.
+- Match compute to workload using agent [queues](/docs/agent/v3/queues) and [tags](/docs/agent/v3/cli/reference/start#setting-tags), dedicating fast agents to critical pipelines and smaller agents to less demanding tasks.
 
 ### Dynamic pipelines
 
 Start with [YAML pipelines](/docs/pipelines/configure/defining-steps). When you need more, write pipelines in actual code with the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk), which supports Go, Python, TypeScript, Ruby, and C#.
 
-- Generate or modify pipeline [steps](/docs/pipelines/configure/step-types) during execution based on [runtime conditions](/docs/pipelines/configure/conditionals), repository state, or any custom logic
-- Fan out tests only after builds succeed, skip unnecessary steps based on file changes, or generate deployment steps based on what actually changed
-- Build reusable abstractions and dynamic workflows that adapt at runtime
+- Generate or modify pipeline [steps](/docs/pipelines/configure/step-types) during execution based on [runtime conditions](/docs/pipelines/configure/conditionals), repository state, or any custom logic.
+- Fan out tests only after builds succeed, skip unnecessary steps based on file changes, or generate deployment steps based on what actually changed.
+- Build reusable abstractions and dynamic workflows that adapt at runtime.
 
 Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
@@ -47,44 +47,45 @@ Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 For teams that want managed infrastructure without sacrificing performance, [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) deliver a fully managed platform:
 
-- Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer
-- Agents provision on demand and are destroyed after each job, providing clean, reproducible builds with hypervisor-level [isolation](/docs/pipelines/security) between instances
-- Per-second billing with no minimum charges and no rounding
-- [Caching](/docs/agent/v3/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/v3/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) included at no additional cost
-- Jobs dispatch within seconds, with consistently low queue times
+- Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer.
+- Agents provision on demand and are destroyed after each job, providing clean, reproducible builds with hypervisor-level [isolation](/docs/pipelines/security) between instances.
+- Per-second billing with no minimum charges and no rounding.
+- [Caching](/docs/agent/v3/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/v3/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) included at no additional cost.
+- Jobs dispatch within seconds, with consistently low queue times.
 
 ### Predictable costs
 
 Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency), typically using the 95th percentile, so short bursts don't inflate costs. Learn more in [Pricing](https://buildkite.com/pricing/).
 
-- No surprise bills from exceeding runner minutes or credit allocations
-- Use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) for specialized workloads or your own compute, including spot instances or spare capacity, to optimize costs
-- Spend less time maintaining controllers, patching vulnerabilities, or managing [plugin](/docs/pipelines/integrations/plugins) compatibility
+- No surprise bills from exceeding runner minutes or credit allocations.
+- Use [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) for specialized workloads or your own compute, including spot instances or spare capacity, to optimize costs.
+- Spend less time maintaining controllers, patching vulnerabilities, or managing [plugin](/docs/pipelines/integrations/plugins) compatibility.
 
 ### Built for developer productivity
 
 The Buildkite Pipelines interface provides immediate visibility into pipeline behavior and system health. Rich build [annotations](/docs/agent/v3/cli/reference/annotate), integrated [test results](/docs/test-engine), and transparent failure information keep developers informed without context switching.
 
-- [Log output](/docs/pipelines/configure/managing-log-output) renders as real terminal output with full ANSI color support, preserving your test framework's formatting, color-coded diffs, and structured output
-- Configurable [log grouping](/docs/pipelines/configure/managing-log-output#collapsing-output) (`---`, `+++`, `~~~`) organizes output into collapsible sections
-- Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/v3/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links
-- Builds running on your own infrastructure let you SSH into the machine, inspect the environment directly, and reproduce failures locally
+- [Log output](/docs/pipelines/configure/managing-log-output) renders as real terminal output with full ANSI color support, preserving your test framework's formatting, color-coded diffs, and structured output.
+- Configurable [log grouping](/docs/pipelines/configure/managing-log-output#collapsing-output) (`---`, `+++`, `~~~`) organizes output into collapsible sections.
+- Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/v3/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links.
+- Builds running on your own infrastructure let you SSH into the machine, inspect the environment directly, and reproduce failures locally.
 
 ### AI workflows
 
 Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture) and a structured environment for running AI-powered delivery without putting reliability at risk.
 
-- Pipelines can adapt in real time based on code changes, test results, or agent input
-- AI agents connect to pipelines through the [Buildkite MCP server](/docs/apis/mcp-server) with precise, cached context that stays accurate and token-efficient
-- You decide what to automate, where the guardrails sit, and how insight returns to developers
+- Pipelines can adapt in real time based on code changes, test results, or agent input.
+- AI agents connect to pipelines through the [Buildkite MCP server](/docs/apis/mcp-server) with precise, cached context that stays accurate and token-efficient.
+- You decide what to automate, where the guardrails sit, and how insight returns to developers.
 
 ### Integrate with your existing tools
 
 Buildkite specializes in CI/CD rather than bundling source code management, project planning, security scanning, and deployment monitoring into a single product. You don't need to replace your existing toolchain to get better CI/CD.
 
-- Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket)
-- Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry)
+- Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket).
+- Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing)
+- Plugins: Extend your pipeline steps with reusable functionality through [Buildkite plugins](/docs/pipelines/integrations/plugins) — run builds in Docker containers, manage secrets, deploy to cloud providers, and more. Browse the [plugins directory](/docs/pipelines/integrations/plugins/directory) to find open source plugins maintained by Buildkite and the community, or [write your own](/docs/pipelines/integrations/plugins/writing).
 
 ## Migrating to Buildkite Pipelines
 
