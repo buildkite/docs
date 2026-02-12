@@ -85,7 +85,7 @@ Buildkite specializes in CI/CD rather than bundling source code management, proj
 - Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket).
 - Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing)
-- Plugins: Extend your pipeline steps with reusable functionality through [Buildkite plugins](/docs/pipelines/integrations/plugins) — run builds in Docker containers, manage secrets, deploy to cloud providers, and more. Browse the [plugins directory](/docs/pipelines/integrations/plugins/directory) to find open source plugins maintained by Buildkite and the community, or [write your own](/docs/pipelines/integrations/plugins/writing).
+- Plugins: Extend your pipeline steps with reusable functionality through [Buildkite plugins](/docs/pipelines/integrations/plugins). Browse the [plugins directory](/docs/pipelines/integrations/plugins/directory) to find open source plugins maintained by Buildkite and the community, or [write your own](/docs/pipelines/integrations/plugins/writing).
 
 ## Migrating to Buildkite Pipelines
 
