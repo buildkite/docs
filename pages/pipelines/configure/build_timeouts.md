@@ -25,6 +25,42 @@ Timeouts apply to the whole job lifecycle, including hooks and artifact uploads.
 
 Note that command step timeouts don't apply to [trigger steps](/docs/pipelines/configure/step-types/trigger-step) and [block steps](/docs/pipelines/configure/step-types/block-step).
 
+## Updating timeouts during a job
+
+You can dynamically update a command job's timeout while it is running using the `buildkite-agent job update` command. This is useful when a job learns more about how long it should take during execution, for example, after completing a setup phase.
+
+To update the timeout for the current job:
+
+```bash
+buildkite-agent job update timeout 20
+```
+
+You can also pipe the value from STDIN:
+
+```bash
+echo 20 | buildkite-agent job update timeout
+```
+
+This command can be used to reduce an existing timeout, extend it, or set a new timeout on a job that doesn't have one. Updated timeouts are enforced on the server and can take up to two minutes to be enforced.
+
+Jobs with a timeout can extend the timeout by up to 60 minutes beyond the original timeout. For example, a job with a `timeout_in_minutes` of 60 can be extended to a maximum of 120 minutes. Repeated updates cannot exceed this cap, as it is always calculated from the original step timeout. Jobs without a timeout are not subject to the extension cap, but are still subject to the pipeline and organization maximum timeout limits.
+
+Timeout updates are also subject to the same maximum timeout limits that apply when a job is created. The updated timeout cannot exceed:
+
+- The pipeline's **Maximum Command Step Timeout**, if set
+- The organization's **Maximum Command Step Timeout**, if set
+- Four hours on the Personal plan (Pro and Enterprise plans have no plan-level limit)
+
+If the updated timeout exceeds any of these limits, the update is rejected.
+
+The following additional constraints apply:
+
+- Only command jobs can be updated. Trigger steps and block steps are not supported.
+- Jobs can only be updated before they finish. Once a job reaches a terminal state, the timeout can no longer be changed.
+- The timeout value must be a positive integer in minutes. Setting the timeout to `0` is not allowed, as this would remove timeout protection.
+
+Timeout updates are recorded in the job's activity timeline, showing the previous and new timeout values.
+
 ## Scheduled job expiration
 
 Scheduled job expiration helps you avoid having lingering jobs that are never assigned to an agent or run. This expiration time is calculated from when a job is created, not scheduled.
