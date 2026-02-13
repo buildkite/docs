@@ -20,6 +20,13 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
 
     ```bash
     bk pipeline convert --file=github-workflow.yml --vendor github
+
+    # Alternatively
+    bk pipeline convert -F github-workflow.yml --vendor github
+
+    # If you want to specify a custom output path and filename
+    bk pipeline convert --file=github-workflow.yml --vendor github -o .buildkite/pipeline123.yml
+
     ```
 
     Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`.
@@ -35,6 +42,12 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
     ✅ conversion completed successfully!
     Output saved to: .buildkite/pipeline.github.yml
     ```
+
+In addition to the `--vendor`, other supported flags include:
+
+- `--timeout` - `bk pipeline convert --file=github-workflow.yml --vendor github --timeout=30`
+- `--debug`- `bk pipeline convert --file=github-workflow.yml --vendor github debug`
+- `-o`- `bk pipeline convert --file=github-workflow.yml --vendor github -o .buildkite/pipeline123.yml`
 
 ### Example conversion
 

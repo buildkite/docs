@@ -1,8 +1,8 @@
 # Bitbucket Pipelines
 
-The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your Bitbucket pipelines into Buildkite pipelines. Because Bitbucket configurations can include complex combinations of steps, parallel execution, caching, artifacts, and deployment targets, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your Bitbucket pipelines into Buildkite pipelines. The pipeline converter analyzes the Bitbucket Pipelines configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline.
 
-The LLM analyzes the Bitbucket Pipelines configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
+Because Bitbucket configurations can include complex combinations of steps, parallel execution, caching, artifacts, and deployment targets, an AI Large Language Model (LLM) is used to achieve the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
 
 The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in Bitbucket Pipelines would function in Buildkite Pipelines. In cases where Bitbucket features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions and alternatives.
 
