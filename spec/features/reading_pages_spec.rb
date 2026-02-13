@@ -17,7 +17,7 @@ RSpec.feature "reading pages" do
     it "has appropriate meta tags" do
       visit "/docs/agent"
       expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite Agent v3")
-      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The Buildkite agent is a small, reliable and cross-platform build runner")
+      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on [your own self-hosted](/docs/agent/v3/self-hosted) or [Buildkite's hosted](/docs/agent/v3/buildkite-hosted) infrastructure. The agent's main responsibilities are polling buildkite.com for work, running a build's jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.")
     end
 
     it "adds the agent version number to the title" do
