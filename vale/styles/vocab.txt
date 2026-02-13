@@ -1,5 +1,6 @@
 ACLs
 addr
+agentic
 allow_any_instance_of
 allowlist
 allowlisted
@@ -57,6 +58,7 @@ bktec
 bktec's
 boolean
 Boomper
+bottlenecked
 Buildbox
 buildevents
 Buildah
@@ -192,6 +194,7 @@ heroku
 Honeycomb
 hostname
 hostPath
+hotfixes
 http
 httpd
 httplog

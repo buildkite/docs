@@ -40,7 +40,7 @@ bk cluster list [flags]
 | Flag | Description |
 | --- | --- |
 | `--debug` | Enable debug output for REST API calls |
-| `--output=""` | Output format. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 
 ### Examples
 
@@ -75,7 +75,7 @@ bk cluster view <cluster-id> [flags]
 | Flag | Description |
 | --- | --- |
 | `--debug` | Enable debug output for REST API calls |
-| `--output=""` | Output format. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 
 ### Examples
 
