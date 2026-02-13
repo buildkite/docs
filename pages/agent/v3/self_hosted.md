@@ -1,6 +1,6 @@
 # Self-hosted agents
 
-Buildkite's self-hosted agents are [Buildkite agents](/docs/agent/v3) that you run in your own self-hosted environment or infrastructure, which could be servers that you host on-premises, or cloud-based services, such as AWS, Google Cloud, and within Kubernetes.
+Buildkite's self-hosted agents are [Buildkite agents](/docs/agent/v3) that you run in your own self-hosted environment or infrastructure. This infrastructure could be servers that you host on-premises, or in cloud-based services, such as AWS, Google Cloud, or using Kubernetes.
 
 With self-hosted agents, you have control over managing infrastructure tasks, such as provisioning, scaling, security, and maintaining the servers that run your agents.
 
