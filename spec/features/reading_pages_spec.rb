@@ -16,12 +16,12 @@ RSpec.feature "reading pages" do
 
     it "has appropriate meta tags" do
       visit "/docs/agent"
-      expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite Agent v3")
+      expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite agent v3")
     end
 
     it "adds the agent version number to the title" do
       visit "/docs/agent/v3"
-      expect(page.title).to include("The Buildkite Agent v3")
+      expect(page.title).to include("The Buildkite agent v3")
 
       visit "/docs/agent/v2"
       expect(page.title).to include("The Buildkite Agent v2")
