@@ -114,6 +114,8 @@
           path: "agent/v3"
         - name: "Self-hosted agents"
           children:
+            - name: "Overview"
+              path: "agent/v3/self-hosted"
             - name: "Tokens"
               path: "agent/v3/self-hosted/tokens"
             - name: "Code access"
