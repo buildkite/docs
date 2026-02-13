@@ -53,7 +53,7 @@ bk pipeline copy [<pipeline>] [flags]
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Show what would be copied without creating the pipeline |
-| `--output=""` | Output format: json, yaml, text |
+| `-o, --output=""` | Output format: json, yaml, text |
 
 ### Examples
 
@@ -122,7 +122,7 @@ bk pipeline create <name> [flags]
 | `-r`, `--repository=STRING` | Repository URL |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
-| `--output=""` | Output format: json, yaml, text |
+| `-o, --output=""` | Outputs the created pipeline. One of: json, yaml, text |
 
 ### Examples
 
@@ -169,7 +169,7 @@ bk pipeline list [flags]
 | Flag | Description |
 | --- | --- |
 | `-l`, `--limit=100` | Maximum number of pipelines to return (max: 3000) |
-| `--output=""` | Output format. One of: json, yaml, text |
+| `-o, --output=""` | Output format. One of: json, yaml, text |
 | `-n`, `--name=STRING` | Filter pipelines by name (supports partial matches, case insensitive) |
 | `-r`, `--repository=STRING` | Filter pipelines by repository URL (supports partial matches, case insensitive) |
 | `--debug` | Enable debug output for REST API calls |
@@ -311,7 +311,7 @@ bk pipeline view [<pipeline>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-w`, `--web` | Open the pipeline in a web browser |
-| `--output=""` | Output format. One of: json, yaml, text |
+| `-o, --output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples

@@ -27,6 +27,7 @@ The `bk job` command allows you to manage jobs within builds from the command li
 | `bk job cancel` | Cancel a job. |
 | `bk job list` | List jobs. |
 | `bk job log` | Get logs for a job. |
+| `bk job reprioritize` | Reprioritize a job. |
 | `bk job retry` | Retry a job. |
 | `bk job unblock` | Unblock a job. |
 
@@ -88,7 +89,7 @@ bk job list [flags]
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
-| `--output=""` | Output format. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--order-by=STRING` | Order results by field (start_time, duration) |
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
@@ -192,6 +193,43 @@ Strip timestamp prefixes from output:
 
 ```bash
 bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123 --no-timestamps
+```
+
+## Reprioritize job
+
+Reprioritize a job.
+
+```bash
+bk job reprioritize <job-id> <priority> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<job-id>` | Job UUID to reprioritize |
+| `<priority>` | New priority value for the job |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-b`, `--build-number=STRING` | The build number |
+| `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug} |
+| `--debug` | Enable debug output for REST API calls |
+
+### Examples
+
+Reprioritize a job (requires --pipeline and --build):
+
+```bash
+bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1 -p my-pipeline -b 123
+```
+
+If inside a git repository with a configured pipeline:
+
+```bash
+bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1 -b 123
 ```
 
 ## Retry a job
