@@ -45,16 +45,25 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 
 You can define hooks in the following locations:
 
-- **Agent hooks:** These exist on the agent file system in a directory created by your agent installer and configured by the [`hooks-path`](/docs/agent/v3/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
+- **Agent hooks:** These exist in a pre-configured directory on the agent file system. For [self-hosted agents](/docs/agent/v3/self-hosted), this directory created by your agent installer, and can be configured by the [`hooks-path`](/docs/agent/v3/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle hooks (self-hosted agents only) and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
+
+    **Note:** For [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), agent hooks are supported on [Linux hosted agents](/docs/agent/v3/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only. Agent hooks are not available on [macOS hosted agents](/docs/agent/v3/buildkite-hosted/macos).
+
 - **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
+
 - **Plugin hooks:** These are provided by [plugins](/docs/pipelines/integrations/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
 
 ### Agent hooks
 
-Every agent installer creates a hooks directory containing a set of
-sample hooks. You can find the location of your agent hooks directory in your platform's installation documentation.
+When an agent is set up, it creates a hooks directory:
 
-To get started with agent hooks, copy the relevant example script and remove the `.sample` file extension.
+- For [self-hosted agents](/docs/agent/v3/self-hosted), you can find the location of your agent hooks directory in its relevant [installation](/docs/agent/v3/self-hosted/install/) documentation.
+
+    Self-hosted agents are provided with a number of sample hooks within this directory. To get started with one of these agent hooks, copy the relevant example script and remove the `.sample` file extension.
+
+- For [Linux hosted agents](/docs/agent/v3/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks), the agents hooks directory is `/buildkite/agent/hooks`.
+
+    Currently, [Buildkite hosted agents for macOS](/docs/agent/v3/buildkite-hosted/macos) do not support agent hooks. Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
 
 See [agent lifecycle hooks](#agent-lifecycle-hooks) (self-hosted agents only) and [job lifecycle hooks](#job-lifecycle-hooks) for the hook types that you can define in the agent hooks directory.
 
@@ -225,9 +234,3 @@ The main differences arise with the `checkout` container and user-defined `comma
 - Command-related hooks (`pre-command`, `command`, `post-command`) are only executed within the `command` container(s).
 
 See the dedicated [Using agent hooks and plugins](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins) page for the detailed information on how agent hooks function when using the Buildkite Agent Stack for Kubernetes controller.
-
-## Hooks on Buildkite hosted agents
-
-Agent hooks are supported on [Buildkite hosted agents for Linux](/docs/agent/v3/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks).
-
-Currently, [Buildkite hosted agents for macOS](/docs/agent/v3/buildkite-hosted/macos) do not support [agent hooks](#hook-locations-agent-hooks). Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
