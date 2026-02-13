@@ -1,4 +1,4 @@
-# Buildkite Agent hooks
+# Buildkite agent hooks
 
 An agent goes through different phases in its lifecycle, including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
 
@@ -7,6 +7,9 @@ An agent goes through different phases in its lifecycle, including starting up, 
 A hook is a script executed or sourced by the Buildkite agent at a specific point in the job lifecycle. You can use hooks to extend or override the built-in behavior of an agent. Hooks are generally shell scripts, which the agent then executes or sources.
 
 The Buildkite agent v3.47.0 or later can run hooks written in any programming language that your development teams use. See the [polyglot hooks](#polyglot-hooks) section for more information.
+
+> 📘
+> Unless otherwise indicated, all sections and content covered on this page are applicable to both [self-hosted](/docs/agent/v3/self-hosted) and [Buildkite hosted](/docs/agent/v3/buildkite-hosted) agents.
 
 ## Hook scopes
 
@@ -20,10 +23,10 @@ For example, you could define an agent-wide `checkout` hook that spins up a fres
 
 There are two categories of hooks:
 
-- Agent lifecycle
+- Agent lifecycle (applicable to [self-hosted agents](/docs/agent/v3/self-hosted) only)
 - Job lifecycle
 
-Agent lifecycle hooks are _executed_ by the Buildkite agent as part of the agent's lifecycle. For example, the `pre-bootstrap` hook is executed before starting a job's bootstrap process, and the `agent-shutdown` hook is executed before the agent process terminates.
+Agent lifecycle hooks are _executed_ by the Buildkite agent as part of the agent's lifecycle. For example, the `pre-bootstrap` hook (self-hosted agents only) is executed before starting a job's bootstrap process, and the `agent-shutdown` hook is executed before the agent process terminates.
 
 Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by the Buildkite bootstrap in the different job phases. They run in a per-job shell environment, and any exported environment variables are carried to the job's subsequent phases and hooks. For example, the `environment` hook can modify or export new environment variables for the job's subsequent checkout and command phases. Shell options set by individual hooks, such as set `-e -o pipefail`, are not carried over to other phases or hooks.
 
@@ -53,7 +56,7 @@ sample hooks. You can find the location of your agent hooks directory in your pl
 
 To get started with agent hooks, copy the relevant example script and remove the `.sample` file extension.
 
-See [agent lifecycle hooks](#agent-lifecycle-hooks) and [job lifecycle hooks](#job-lifecycle-hooks) for the hook types that you can define in the agent hooks directory.
+See [agent lifecycle hooks](#agent-lifecycle-hooks) (self-hosted agents only) and [job lifecycle hooks](#job-lifecycle-hooks) for the hook types that you can define in the agent hooks directory.
 
 ### Repository hooks
 
@@ -105,6 +108,8 @@ Polyglot hook usage comes with the following caveats:
 
 ## Agent lifecycle hooks
 
+Agent lifecycle hooks are only available to [self-hosted agents](/docs/agent/v3/self-hosted), and not [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
+
 | Hook             | Location Order | Description |
 | ---------------- | -------------- | ----------- |
 | `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed at agent startup, immediately prior to the agent being registered with Buildkite. Useful for initialising resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
@@ -113,10 +118,7 @@ Polyglot hook usage comes with the following caveats:
 
 ### Creating agent lifecycle hooks
 
-The Buildkite agent executes agent lifecycle hooks.
-These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agent-hooks) directory.
-Agent lifecycle hooks can be executables written in any programming language.
-On Unix-like systems (such as Linux and macOS), hooks must be files that are executable by the user the agent is running as.
+For [self-hosted agents](/docs/agent/v3/self-hosted), the Buildkite agent executes agent lifecycle hooks. These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agent-hooks) directory. Agent lifecycle hooks can be executables written in any programming language. On Unix-like systems (such as Linux and macOS), hooks must be files that are executable by the user the agent is running as.
 
 Use agent lifecycle hooks to prepare for or clean up after all jobs that may run.
 For example, use `pre-bootstrap` to block unwanted jobs from running or use `agent-shutdown` to tear down a service after all jobs are finished.
@@ -127,14 +129,16 @@ Read the [agent lifecycle hooks table](#agent-lifecycle-hooks) for details on th
 
 ## Job lifecycle hooks
 
+Job lifecycle hooks are available to both [self-hosted](/docs/agent/v3/self-hosted) and [Buildkite hosted](/docs/agent/v3/buildkite-hosted) agents.
+
 The following is a complete list of available job hooks, and the order in which
 they are run as part of each job:
 
 | Hook            | Location Order | Description |
 | --------------- | -------------- | ----------- |
-| `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
-| `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before all other hooks. Useful for [exporting secret keys](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks). |
-| `pre-checkout`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before checkout. |
+| `pre-bootstrap`<br/>(Self-hosted<br/>agents only) | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run. This specific hook is only applicable to self-hosted agents.<br/><br/>The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br/><br/>If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
+| `environment`   | <span class="add-icon-agent">Agent</span><br/><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before all other hooks. Useful for [exporting secret keys](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks). |
+| `pre-checkout`  | <span class="add-icon-agent">Agent</span><br/><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before checkout. |
 | `checkout`      | <span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-agent">Agent</span>                                                                                                                    | Overrides the default git checkout behavior. (See [Hook exceptions](#job-lifecycle-hooks-hook-exceptions).) |
 | `post-checkout` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                           | Runs after checkout. |
 | `environment`   | <span class="add-icon-plugin">Plugin (vendored)</span>                                                                                                                                                                       | Unlike other plugins, environment hooks for vendored plugins run after checkout. |
@@ -162,7 +166,7 @@ Since all the hooks below `command` (from `post-command` to `pre-exit`, inclusiv
 
 Typically, if there are multiple hooks of the same type, all of them will be run (in the order shown in the table).
 
-As of Agent v3.15.0, if multiple `checkout` or `command` hooks are found, only the first (of each type) will be run. This does not apply to other hook types.
+As of the Buildkite agent version 3.15.0, if multiple `checkout` or `command` hooks are found, only the first (of each type) will be run. This does not apply to other hook types.
 
 However, for legacy compatibility, there is an exception with *plugins*. All `checkout` or `command` hooks provided by plugins will run in the order the plugins are specified, meaning multiple `checkout` and `command` hooks can run. Note that `checkout` hooks and `command` hooks provided by plugins will prevent any repository or agent hooks of the same type from running.
 
@@ -193,6 +197,8 @@ export GITHUB_RELEASE_ACCESS_KEY='xxx'
 
 ## Job hooks on Windows
 
+Jook hooks on Windows are only available to [self-hosted agents](/docs/agent/v3/self-hosted), and not [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
+
 Buildkite defaults to using the Batch shell on Windows. Buildkite agents running on Windows require that either:
 
 - The hooks files have a `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or
@@ -207,6 +213,8 @@ SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
 
 ## Hooks on Buildkite Agent Stack for Kubernetes
+
+The Buildkite Agent Stack for Kubernetes is a [self-hosted agents](/docs/agent/v3/self-hosted) feature, and therefore, is not applicable to [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
 
 The hook execution flow for jobs created by the Buildkite Agent Stack for Kubernetes controller is operationally different. The reason for this is that hooks are executed from within separate containers for checkout and command phases of the job's lifecycle. This means that any environment variables exported during the execution of hooks with the `checkout` container will _not_ be available to the command container(s).
 
