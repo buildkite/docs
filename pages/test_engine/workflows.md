@@ -28,13 +28,13 @@ Repeated occurrences of the test meeting the alarm/recover conditions do not ret
 
 ## When workflows run
 
-Workflow monitors are **event-driven**, not scheduled. They evaluate each time new test execution data is ingested into Test Engine—there is no cron or periodic schedule involved. When a test run completes and its results are uploaded, the relevant monitors evaluate the incoming data against their configured conditions and thresholds.
+Workflow monitors are _event-driven_, not scheduled. They perform evaluations each time new test execution data is ingested into Test Engine—there is no cron or periodic schedule involved. When a test run is completed and its results are uploaded, the relevant monitors evaluate the incoming data against their configured conditions and thresholds.
 
 This means:
 
 - **Alarm and recover events are generated in response to test executions.** If no tests are running, no workflow events are produced.
 - **Threshold changes take effect on the next test execution.** For example, if you adjust a [probabilistic flakiness](/docs/test-engine/workflows/monitors#probabilistic-flakiness) threshold or a [transition count](/docs/test-engine/workflows/monitors#transition-count) alarm value, the updated threshold is applied the next time test data is ingested for a matching test—not at a scheduled interval.
-- **The frequency of workflow evaluation matches the frequency of your test runs.** Workflows for a test suite that runs on every commit will evaluate more often than one that runs nightly.
+- **The frequency of workflow evaluation matches the frequency of your test runs.** Workflows for a test suite that runs on every commit will perform evaluations more often than one that runs nightly.
 
 ## Rate limit
 
