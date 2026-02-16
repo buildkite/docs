@@ -13,7 +13,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_NO_COLOR
     default_value: |
-
+      false
     required: false
     desc: |
       Don't show colors in logging
@@ -21,7 +21,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_DEBUG
     default_value: |
-
+      false
     required: false
     desc: |
       Enable debug mode. Synonym for ′--log-level debug′. Takes precedence over ′--log-level′
@@ -77,7 +77,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_REFLECT_EXIT_STATUS
     default_value: |
-
+      false
     required: false
     desc: |
       When used with --acquire-job, causes the agent to exit with the same exit status as the job
@@ -85,7 +85,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_DISCONNECT_AFTER_JOB
     default_value: |
-
+      false
     required: false
     desc: |
       Disconnect the agent after running exactly one job. When used in conjunction with the ′--spawn′ flag, each worker booted will run exactly one job
@@ -117,7 +117,7 @@ attributes:
     env_var: |
       $BUILDKITE_ENABLE_JOB_LOG_TMPFILE
     default_value: |
-
+      false
     required: false
     desc: |
       Store the job logs in a temporary file ′BUILDKITE_JOB_LOG_TMPFILE′ that is accessible during the job and removed at the end of the job
@@ -133,10 +133,10 @@ attributes:
     env_var: |
       $BUILDKITE_WRITE_JOB_LOGS_TO_STDOUT
     default_value: |
-
+      false
     required: false
     desc: |
-      Writes job logs to the agent process' stdout. This simplifies log collection if running agents in Docker.
+      Writes job logs to the agent process' stdout. This simplifies log collection if running agents in Docker
   - name: "shell"
     env_var: |
       $BUILDKITE_SHELL
@@ -165,7 +165,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_HOST
     default_value: |
-
+      false
     required: false
     desc: |
       Include tags from the host (hostname, machine-id, os)
@@ -189,7 +189,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS
     default_value: |
-
+      false
     required: false
     desc: |
       Include the host's EC2 tags as tags
@@ -197,7 +197,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_ECS_META_DATA
     default_value: |
-
+      false
     required: false
     desc: |
       Include the host's ECS meta-data as tags (container-name, image, and task-arn)
@@ -221,7 +221,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_GCP_LABELS
     default_value: |
-
+      false
     required: false
     desc: |
       Include the host's Google Cloud instance labels as tags
@@ -317,7 +317,7 @@ attributes:
     env_var: |
       $BUILDKITE_GIT_MIRRORS_SKIP_UPDATE
     default_value: |
-
+      false
     required: false
     desc: |
       Skip updating the Git mirror
@@ -373,7 +373,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_ANSI_TIMESTAMPS
     default_value: |
-
+      false
     required: false
     desc: |
       Do not insert ANSI timestamp codes at the start of each line of job output
@@ -381,7 +381,7 @@ attributes:
     env_var: |
       $BUILDKITE_TIMESTAMP_LINES
     default_value: |
-
+      false
     required: false
     desc: |
       Prepend timestamps on each line of job output. Has no effect unless --no-ansi-timestamps is also used
@@ -397,7 +397,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_PTY
     default_value: |
-
+      false
     required: false
     desc: |
       Do not run jobs within a pseudo terminal
@@ -405,7 +405,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_SSH_KEYSCAN
     default_value: |
-
+      false
     required: false
     desc: |
       Don't automatically run ssh-keyscan before checkout
@@ -413,7 +413,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_COMMAND_EVAL
     default_value: |
-
+      false
     required: false
     desc: |
       Don't allow this agent to run arbitrary console commands, including plugins
@@ -421,7 +421,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_PLUGINS
     default_value: |
-
+      false
     required: false
     desc: |
       Don't allow this agent to load plugins
@@ -429,7 +429,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_PLUGIN_VALIDATION
     default_value: |
-
+      true
     required: false
     desc: |
       Don't validate plugin configuration and requirements
@@ -437,7 +437,7 @@ attributes:
     env_var: |
       $BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH
     default_value: |
-
+      false
     required: false
     desc: |
       Always make a new clone of plugin source, even if already present
@@ -445,7 +445,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_LOCAL_HOOKS
     default_value: |
-
+      false
     required: false
     desc: |
       Don't allow local hooks to be run from checked out repositories
@@ -454,15 +454,23 @@ attributes:
       $BUILDKITE_NO_GIT_SUBMODULES
       $BUILDKITE_DISABLE_GIT_SUBMODULES
     default_value: |
-
+      false
     required: false
     desc: |
       Don't automatically checkout git submodules
+  - name: "skip-checkout"
+    env_var: |
+      $BUILDKITE_SKIP_CHECKOUT
+    default_value: |
+
+    required: false
+    desc: |
+      Skip the git checkout phase entirely
   - name: "no-feature-reporting"
     env_var: |
       $BUILDKITE_AGENT_NO_FEATURE_REPORTING
     default_value: |
-
+      false
     required: false
     desc: |
       Disables sending a list of enabled features back to the Buildkite mothership. We use this information to measure feature usage, but if you're not comfortable sharing that information then that's totally okay :)
@@ -478,7 +486,7 @@ attributes:
     env_var: |
       $BUILDKITE_ENABLE_ENVIRONMENT_VARIABLE_ALLOWLIST
     default_value: |
-
+      false
     required: false
     desc: |
       Only run jobs where all environment variables are allowed by the allowed-environment-variables option, or have been set by Buildkite
@@ -502,7 +510,7 @@ attributes:
     env_var: |
       $BUILDKITE_METRICS_DATADOG
     default_value: |
-
+      false
     required: false
     desc: |
       Send metrics to DogStatsD for Datadog
@@ -518,7 +526,7 @@ attributes:
     env_var: |
       $BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS
     default_value: |
-
+      false
     required: false
     desc: |
       Use Datadog Distributions for Timing metrics
@@ -550,7 +558,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_SPAWN_WITH_PRIORITY
     default_value: |
-
+      false
     required: false
     desc: |
       Assign priorities to every spawned agent (when using --spawn or --spawn-per-cpu) equal to the agent's index
@@ -582,7 +590,7 @@ attributes:
     env_var: |
       $BUILDKITE_TRACING_PROPAGATE_TRACEPARENT
     default_value: |
-
+      false
     required: false
     desc: |
       Enable accepting traceparent context from Buildkite control plane (only supported for OpenTelemetry backend)
@@ -630,7 +638,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_DEBUG_SIGNING
     default_value: |
-
+      false
     required: false
     desc: |
       Enable debug logging for pipeline signing. This can potentially leak secrets to the logs as it prints each step in full before signing. Requires debug logging to be enabled
@@ -670,15 +678,15 @@ attributes:
     env_var: |
       $BUILDKITE_NO_HTTP2
     default_value: |
-
+      false
     required: false
     desc: |
-      Disable HTTP2 when communicating with the Agent API.
+      Disable HTTP2 when communicating with the Agent API
   - name: "debug-http"
     env_var: |
       $BUILDKITE_AGENT_DEBUG_HTTP
     default_value: |
-
+      false
     required: false
     desc: |
       Enable HTTP debug mode, which dumps all request and response bodies to the log
@@ -686,10 +694,18 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TRACE_HTTP
     default_value: |
-
+      false
     required: false
     desc: |
       Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level
+  - name: "kubernetes-exec"
+    env_var: |
+      $BUILDKITE_KUBERNETES_EXEC
+    default_value: |
+      false
+    required: false
+    desc: |
+      This is intended to be used only by the Buildkite k8s stack (github.com/buildkite/agent-stack-k8s); it enables a Unix socket for transporting logs and exit statuses between containers in a pod
   - name: "redacted-vars"
     env_var: |
       $BUILDKITE_REDACTED_VARS
@@ -702,26 +718,10 @@ attributes:
     env_var: |
       $BUILDKITE_STRICT_SINGLE_HOOKS
     default_value: |
-
+      false
     required: false
     desc: |
       Enforces that only one checkout hook, and only one command hook, can be run
-  - name: "kubernetes-exec"
-    env_var: |
-      $BUILDKITE_KUBERNETES_EXEC
-    default_value: |
-
-    required: false
-    desc: |
-      This is intended to be used only by the Buildkite k8s stack (github.com/buildkite/agent-stack-k8s); it enables a Unix socket for transporting logs and exit statuses between containers in a pod
-  - name: "kubernetes-log-collection-grace-period"
-    env_var: |
-      $BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD
-    default_value: |
-      50s
-    required: false
-    desc: |
-      How long to wait for Kubernetes processes to complete before stopping log collection during graceful termination. This should be less than the pod's terminationGracePeriodSeconds to allow time for final log upload
   - name: "trace-context-encoding"
     env_var: |
       $BUILDKITE_TRACE_CONTEXT_ENCODING
@@ -734,10 +734,18 @@ attributes:
     env_var: |
       $BUILDKITE_NO_MULTIPART_ARTIFACT_UPLOAD
     default_value: |
-
+      false
     required: false
     desc: |
       For Buildkite-hosted artifacts, disables the use of multipart uploads. Has no effect on uploads to other destinations such as custom cloud buckets
+  - name: "kubernetes-log-collection-grace-period"
+    env_var: |
+      $BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD
+    default_value: |
+      50s
+    required: false
+    desc: |
+      Deprecated, do not use
   - name: "tags-from-ec2"
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_EC2
