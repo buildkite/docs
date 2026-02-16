@@ -23,7 +23,7 @@ To define the steps:
 1. Decide the goal of the pipeline.
 1. Look for an [example pipeline](https://buildkite.com/resources/examples/) closest to that goal or a [pipeline template](https://buildkite.com/pipelines/templates) relevant to your technology stack and use case. (You can copy parts of the pipeline definition as a starting point.)
 
-    **Note:** If you have a pipeline or workflow defined in another CI/CD platform, such as GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines, you can use the [Pipeline converter](/docs/pipelines/migration/pipeline-converter) to help you convert your pipeline or workflow syntax into Buildkite pipeline syntax.
+    **Note:** If you have a pipeline or workflow defined in another CI/CD platform, such as GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines, you can use the [Pipeline converter](/docs/pipelines/converter) to help you convert your pipeline or workflow syntax into Buildkite pipeline syntax.
 
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
 1. In `pipeline.yml`, define your pipeline steps. Here's an example:
@@ -112,7 +112,7 @@ We recommend you continue by:
 - Learning to [create more complex pipelines](/docs/pipelines/configure/defining-steps) with dynamic definitions, conditionals, and concurrency.
 - Browse the [pipeline templates](https://buildkite.com/pipelines/templates) to see how Buildkite is used across different technology stacks and use cases.
 - If you have configured self-hosted queues with agents, customizing your [agent configuration](/docs/agent/v3/self-hosted/configure).
-- Learning to use [lifecycle hooks](/docs/agent/v3/self-hosted/hooks).
+- Learning to use [lifecycle hooks](/docs/agent/v3/hooks).
 - Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/pipelines/integrations/plugins) and the [API](/docs/apis).
 
 Remember, this is just the start of your journey with Buildkite. Take time to explore, learn, and experiment to make the most out of your pipelines. Happy building!

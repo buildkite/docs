@@ -7,6 +7,17 @@
     - name: "Introduction"
       start_expanded: true
       children:
+        - name: "Why Buildkite Pipelines"
+          start_expanded: false
+          children:
+            - name: "Advantages of Buildkite Pipelines"
+              path: "pipelines/advantages/pipelines-advantages"
+            - name: "Advantages over Jenkins"
+              path: "pipelines/advantages/buildkite-vs-jenkins"
+            - name: "Advantages over GitLab"
+              path: "pipelines/advantages/buildkite-vs-gitlab"
+            - name: "Advantages over GitHub Actions"
+              path: "pipelines/advantages/buildkite-vs-gha"
         - name: "Getting started"
           path: "pipelines/getting-started"
         - name: "Create your own pipeline"
@@ -21,15 +32,15 @@
         - name: Pipeline converter
           children:
             - name: "Overview"
-              path: "pipelines/migration/converter"
+              path: "pipelines/converter"
             - name: "GitHub Actions"
-              path: "pipelines/migration/converter/github-actions"
+              path: "pipelines/converter/github-actions"
             - name: "Jenkins"
-              path: "pipelines/migration/converter/jenkins"
+              path: "pipelines/converter/jenkins"
             - name: "CircleCI"
-              path: "pipelines/migration/converter/circleci"
+              path: "pipelines/converter/circleci"
             - name: "Bitbucket Pipelines"
-              path: "pipelines/migration/converter/bitbucket-pipelines"
+              path: "pipelines/converter/bitbucket-pipelines"
         - name: "Glossary"
           path: "pipelines/glossary"
     # If you're adding a source control provider you probably want to update
@@ -112,14 +123,10 @@
       children:
         - name: "Overview"
           path: "agent/v3"
-        - name: "Queues"
-          children:
-            - name: "Overview"
-              path: "agent/v3/queues"
-            - name: "Managing"
-              path: "agent/v3/queues/managing"
         - name: "Self-hosted agents"
           children:
+            - name: "Overview"
+              path: "agent/v3/self-hosted"
             - name: "Tokens"
               path: "agent/v3/self-hosted/tokens"
             - name: "Code access"
@@ -309,8 +316,6 @@
                   path: "agent/v3/self-hosted/configure/experiments"
                 - name: "Git mirrors"
                   path: "agent/v3/self-hosted/configure/git-mirrors"
-            - name: "Hooks"
-              path: "agent/v3/self-hosted/hooks"
             - name: "Pausing and resuming"
               path: "agent/v3/self-hosted/pausing-and-resuming"
             - name: "Prioritization"
@@ -322,9 +327,11 @@
                 - name: "Tracing"
                   path: "agent/v3/self-hosted/monitoring-and-observability/tracing"
             - name: "Security"
-              path: "agent/v3/self-hosted/security"
-            - name: "Signed pipelines"
-              path: "agent/v3/self-hosted/signed-pipelines"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/self-hosted/security"
+                - name: "Signed pipelines"
+                  path: "agent/v3/self-hosted/security/signed-pipelines"
         - name: "Buildkite hosted agents"
           children:
             - name: "Overview"
@@ -357,6 +364,14 @@
               path: "agent/v3/buildkite-hosted/internal-container-registry"
             - name: "Network security"
               path: "agent/v3/buildkite-hosted/network-security"
+        - name: "Queues"
+          children:
+            - name: "Overview"
+              path: "agent/v3/queues"
+            - name: "Managing"
+              path: "agent/v3/queues/managing"
+        - name: "Hooks"
+          path: "agent/v3/hooks"
         - name: "Command-line reference"
           children:
             - name: "Overview"

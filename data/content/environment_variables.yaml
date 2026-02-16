@@ -33,7 +33,7 @@ variables:
     default_value: "https://agent.buildkite.com/v3"
   - name: BUILDKITE_AGENT_EXPERIMENT
     desc: |
-      A list of the [experimental agent features](/docs/agent/v3#experimental-features) that are currently enabled. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli/reference/start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/self-hosted/configure).
+      A list of the [experimental agent features](/docs/agent/v3/self-hosted#experimental-features) that are currently enabled. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli/reference/start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/self-hosted/configure).
     modifiable: false
     example: "experiment1,experiment2"
   - name: BUILDKITE_AGENT_HEALTH_CHECK_ADDR

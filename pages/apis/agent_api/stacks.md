@@ -298,6 +298,27 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 
 Success response: `200 OK`
 
+### Retry attributes
+
+If you have [retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes) configured on a step, be aware that these will apply to and affect a job that finished with an `exit_status` of `-1` (for example, a failure), or if the Buildkite platform generates a `signal_reason` of `stack_error` for this job, or both.
+
+If your pipeline has numerous steps with retry attributes, and many of their jobs happen to fail, this could result in all of these jobs undergoing automatic retries.
+
+To prevent this issue from occurring, in each of these steps' [automatic retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes), set the `signal_reason` to `stack_error`, with a `limit` value of `0`, which prevents the job from being automatically retried when its associated attribute conditions are met. For example:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic:
+        - exit_status: -1
+          signal_reason: stack_error
+          limit: 0
+        - exit_status: "*"
+          limit: 2
+```
+
 ## Create stack notifications
 
 In situations when a stack may take more than a few seconds to provision infrastructure for a job, or when the stack is waiting for some external conditions to be satisfied, a stack can give short textual notifications to the Buildkite Build page.

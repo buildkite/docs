@@ -105,7 +105,7 @@ To see more examples of how Docker is used in Buildkite pipelines, browse the [D
 
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
 
-To do this, see the [job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)
+To do this, see the [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)
 and [parallel builds](parallel-builds) documentation.
 
 ## Adding buildkite-agent to the Docker group

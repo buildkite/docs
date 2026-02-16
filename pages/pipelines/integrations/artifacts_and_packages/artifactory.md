@@ -4,7 +4,7 @@ There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Bu
 
 ## Buildkite Agent's Artifactory support
 
-The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/v3/self-hosted/hooks) to configure the Agent's Artifactory support.
+The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/v3/hooks) to configure the Agent's Artifactory support.
 
 See the [Managing pipeline secrets](/docs/pipelines/security/secrets/managing) documentation for how to securely set up these environment variables.
 
@@ -65,7 +65,7 @@ steps:
 
 To help cache and secure your build dependencies, you can use [Artifactory's package management](https://jfrog.com/help/r/jfrog-artifactory-documentation/package-management) features in your Buildkite pipelines. Each package management platform is configured differently.
 
-For example, to use an [Artifactory NPM repositories](https://jfrog.com/help/r/jfrog-artifactory-documentation/npm-repositories) in your build steps, you can configure the following [Agent environment hook](/docs/agent/v3/self-hosted/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
+For example, to use an [Artifactory NPM repositories](https://jfrog.com/help/r/jfrog-artifactory-documentation/npm-repositories) in your build steps, you can configure the following [Agent environment hook](/docs/agent/v3/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
 
 ```bash
 export NPM_CONFIG_REGISTRY="https://${BUILDKITE_ARTIFACTORY_USER}:${BUILDKITE_ARTIFACTORY_PASSWORD}@my-artifactory-server/artifactory/api/npm/npm-local/"

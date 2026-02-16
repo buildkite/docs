@@ -131,6 +131,7 @@ exceptions:
   - GitHub Enterprise
   - GitHub Enterprise Server
   - GitLab
+  - GitLab SCM
   - GitLab Self-Managed
   - Go
   - Google Artifact Registry

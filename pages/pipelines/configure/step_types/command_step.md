@@ -425,7 +425,7 @@ Optional attributes:
       <ul>
         <li><code>"*"</code> — matches any signal reason</li>
         <li><code>none</code> — matches jobs with no signal reason</li>
-        <li><code>cancel</code> — the job was canceled</li>
+        <li><code>cancel</code> — the job was canceled or timed out</li>
         <li><code>agent_stop</code> — the agent was stopped while running the job</li>
         <li><code>agent_refused</code> — the agent refused the job</li>
         <li><code>agent_incompatible</code> — the agent was incompatible with the job</li>
@@ -440,7 +440,8 @@ Optional attributes:
     <td>
       The number of times this job can be retried. The maximum value this can be set to is 10. Each retry rule tracks its own count independently.<br/>
       <em>Default value:</em> <code>2</code><br/>
-      <em>Example:</em> <code>3</code>
+      <em>Example:</em> <code>3</code><br/>
+      You can also set this value to <code>0</code> to prevent a job from being retried. This is useful if, for example, the job returns a <code>signal_reason</code> of <code>stack_error</code>. Learn more about this in the <a href="/docs/apis/agent-api/stacks#finish-a-job-retry-attributes">Retry attributes</a> section of the <a href="/docs/apis/agent-api/stacks">Stacks API</a>.
     </td>
   </tr>
 </table>

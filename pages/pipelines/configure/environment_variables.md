@@ -1,7 +1,7 @@
 # Environment variables
 
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/configure/defining-steps) and
-[job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks).
+[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key=value` pairs, or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be shared size limit across all such environment variables and `argv`, whereas others impose size limits per item (such as an environment variable's size limit).
 
@@ -112,7 +112,7 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 * Pipeline settings — for values that are *not secret*.
 * [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
-* An `environment` or `pre-command` [agent hook](/docs/agent/v3/self-hosted/hooks) — for values that are secret or agent-specific.
+* An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
 > Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/secrets/managing) documentation for further information and best practices.
@@ -253,7 +253,7 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 After the agent variables have been merged, the bootstrap script is run.
 
 The bootstrap runs any hooks that have been defined by your
-[agent](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/self-hosted/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/self-hosted/hooks#hook-locations-plugin-hooks).
+[agent](/docs/agent/v3/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks).
 Variables that are set in these hooks will be merged into the runtime
 environment, and will override any previous values that are set.
 

@@ -100,8 +100,8 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.16"
+          - docker#v5.13.0:
+              image: "public.ecr.aws/docker/library/node:22-alpine"
 
       - label: ":lint-roller: Linting text and markdown"
         agents:
@@ -128,8 +128,8 @@ steps:
           # Using the plain Node image, instead of the custom doc Dockerfile
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.16"
+          - docker#v5.13.0:
+              image: "public.ecr.aws/docker/library/node:22-alpine"
 
       - label: "Validate YAML"
         command:
@@ -147,8 +147,8 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.16"
+          - docker#v5.13.0:
+              image: "public.ecr.aws/docker/library/node:22-alpine"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
         command: npm run -y mdlint
@@ -164,8 +164,8 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.16"
+          - docker#v5.13.0:
+              image: "public.ecr.aws/docker/library/node:22-alpine"
 
       - label: ":snake: Linting markdown files for snake case"
         command: npx -y @ls-lint/ls-lint@2.1.0
@@ -181,8 +181,8 @@ steps:
           - ecr#v2.9.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v3.7.0:
-              image: "public.ecr.aws/docker/library/node:lts-alpine3.16"
+          - docker#v5.13.0:
+              image: "public.ecr.aws/docker/library/node:22-alpine"
 
   - label: ":rspec: RSpec"
     depends_on: linting

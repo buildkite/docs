@@ -4,7 +4,7 @@ There is a difference in how agent hooks execute in [Elastic CI Stack for AWS](/
 
 ## Separate container execution
 
-Hooks are categorized by their lifecycle phase (see [job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks)). On the Agent Stack for Kubernetes, they can be categorized as `checkout`, `command` and `environment` hooks. These phases execute in separate containers.
+Hooks are categorized by their lifecycle phase (see [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)). On the Agent Stack for Kubernetes, they can be categorized as `checkout`, `command` and `environment` hooks. These phases execute in separate containers.
 
 ### Checkout phase hooks
 
@@ -19,7 +19,7 @@ Command phase hooks (`pre-command`, `command`, `post-command`) run only in the u
 The environment hook runs _multiple times_ per job (once per container). It executes in the checkout container first, then executes again in each command container. Each execution is isolated.
 
 > 🚧 Critical difference from the Elastic CI Stack for AWS
-> Environment variables set during the checkout phase (`pre-checkout`, `checkout`, `post-checkout` hooks) will _not_ be available during the command phase (`pre-command`, `command`, `post-command` hooks). This is operationally different from how hooks are [sourced](/docs/agent/v3/self-hosted/hooks#hook-scopes) on EC2-based Elastic CI Stack agents.
+> Environment variables set during the checkout phase (`pre-checkout`, `checkout`, `post-checkout` hooks) will _not_ be available during the command phase (`pre-command`, `command`, `post-command` hooks). This is operationally different from how hooks are [sourced](/docs/agent/v3/hooks#hook-scopes) on EC2-based Elastic CI Stack agents.
 
 ## Migration strategies
 
@@ -141,5 +141,5 @@ When migrating from the Elastic CI Stack to the Agent Stack for Kubernetes:
 
 - [Agent hooks and plugins on Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins)
 - [Agent hook execution differences](/docs/agent/v3/self-hosted/agent-stack-k8s/agent-hooks-and-plugins#agent-hook-execution-differences)
-- [Buildkite Agent hooks reference](/docs/agent/v3/self-hosted/hooks)
+- [Buildkite Agent hooks reference](/docs/agent/v3/hooks)
 - [Environment variables](/docs/pipelines/configure/environment-variables)

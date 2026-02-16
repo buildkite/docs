@@ -2,6 +2,10 @@
 API access tokens for authentication with the Buildkite API
 """
 type APIAccessToken implements Node {
+  """
+  The time at which this API access token will expire. If null, the token will never expire.
+  """
+  expiresAt: DateTime
   id: ID!
 
   """
@@ -954,6 +958,8 @@ enum AuditEventType {
   CLUSTER_UPDATED
   COMPOSITE_REGISTRY_UPSTREAM_ADDED
   COMPOSITE_REGISTRY_UPSTREAM_REMOVED
+  CREDIT_CARD_ADDED
+  CREDIT_CARD_REMOVED
   JOB_TERMINAL_SESSION_STARTED
   MODEL_PROVIDER_CREATED
   MODEL_PROVIDER_DELETED
@@ -1039,6 +1045,7 @@ enum AuditEventType {
   STORAGE_CREATED
   SUBSCRIPTION_ACTIVATED
   SUBSCRIPTION_CANCELED
+  SUBSCRIPTION_CREATED
   SUBSCRIPTION_PLAN_ADDED
   SUBSCRIPTION_PLAN_CANCELATION_SCHEDULED
   SUBSCRIPTION_PLAN_CANCELED
@@ -1141,6 +1148,7 @@ enum AuditSubjectType {
   CLUSTER_QUEUE_TOKEN
   CLUSTER_TOKEN
   COMPOSITE_REGISTRY_UPSTREAM
+  CREDIT_CARD
   JOB
   MODEL_PROVIDER
   NOTIFICATION_SERVICE
@@ -6379,6 +6387,11 @@ type OrganizationAPIAccessToken {
   A description of the token
   """
   description: String
+
+  """
+  The time at which this API access token will expire. If null, the token will never expire.
+  """
+  expiresAt: DateTime
   id: ID!
 
   """
@@ -8023,6 +8036,13 @@ input PipelineDeleteWebhookInput {
   The GraphQL ID of the pipeline
   """
   id: ID!
+
+  """
+  The repository URL to delete the webhook from. Defaults to the pipeline's
+  current repository. Useful when the pipeline's repository has changed and the
+  webhook needs to be removed from the previous repository.
+  """
+  repository: String
 }
 
 """

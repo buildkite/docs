@@ -5,7 +5,20 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    plugins: [RubyPlugin()],
+    plugins: [
+      RubyPlugin(),
+      {
+        name: "vite-ruby-manifest-compat",
+        enforce: "post",
+        config() {
+          return {
+            build: {
+              manifest: "manifest.json",
+            },
+          };
+        },
+      },
+    ],
     define: {
       __ALGOLIA_API_KEY__: JSON.stringify(env.ALGOLIA_API_KEY),
       __ALGOLIA_APP_ID__: JSON.stringify(env.ALGOLIA_APP_ID),
@@ -14,8 +27,8 @@ export default defineConfig(({ mode }) => {
     server: {
       allowedHosts: ["vite"],
       watch: {
-        ignored: ['/app/log/**']
-      }
+        ignored: ["/app/log/**"],
+      },
     },
   };
 });

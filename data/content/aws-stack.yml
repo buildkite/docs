@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.52.0"
+Description: "Buildkite stack v6.56.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -109,6 +109,7 @@ Metadata:
         - RootVolumeIops
         - RootVolumeThroughput
         - ManagedPolicyARNs
+        - ScalerManagedPolicyARNs
         - InstanceRoleARN
         - InstanceRoleName
         - InstanceRolePermissionsBoundaryARN
@@ -805,6 +806,11 @@ Parameters:
   ManagedPolicyARNs:
     Type: CommaDelimitedList
     Description: Optional - Comma separated list of managed IAM policy ARNs to attach to the instance role.
+    Default: ""
+
+  ScalerManagedPolicyARNs:
+    Type: CommaDelimitedList
+    Description: Optional - Comma separated list of managed IAM policy ARNs to attach to the autoscaling Lambda execution role.
     Default: ""
 
   IMDSv2Tokens:
@@ -1547,26 +1553,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-02829c18f25879e38, linuxarm64: ami-0b6dd9eed3c01c3a5, windows: ami-0cfa690d1a2a29639 }
-    us-east-2 : { linuxamd64: ami-09792ce2992643693, linuxarm64: ami-097cb9c2f62bd6f2c, windows: ami-078e9f2a850685a9c }
-    us-west-1 : { linuxamd64: ami-0c4bafe3f9cb935ce, linuxarm64: ami-0a50c0f7b4e12ba33, windows: ami-0416981d320e41274 }
-    us-west-2 : { linuxamd64: ami-06e81a430431c7b39, linuxarm64: ami-0c954113a13e8fb73, windows: ami-07052ec0fa8283241 }
-    af-south-1 : { linuxamd64: ami-05e6208dd507e932e, linuxarm64: ami-0b4366662591eba33, windows: ami-0b9082d0d4045ec5c }
-    ap-east-1 : { linuxamd64: ami-006d538d4afd11319, linuxarm64: ami-0e5ef517dfe110570, windows: ami-01e2dda3c5cb1a565 }
-    ap-south-1 : { linuxamd64: ami-0cea93e76424398ed, linuxarm64: ami-0f0bc82aa32546ab1, windows: ami-0b1837acdd9863c29 }
-    ap-northeast-2 : { linuxamd64: ami-07439fa9c4bb78fea, linuxarm64: ami-04808908dc4c9fc17, windows: ami-0a4c788d09e94df0f }
-    ap-northeast-1 : { linuxamd64: ami-09ecfc9e40aed629f, linuxarm64: ami-076b8a9590a48efb7, windows: ami-0058a3eb0f9b314af }
-    ap-southeast-2 : { linuxamd64: ami-038781a7a58a28ec4, linuxarm64: ami-018224ec2f3a106a2, windows: ami-0ecb6e31ecde9fbcf }
-    ap-southeast-1 : { linuxamd64: ami-0bed33961c6a8c276, linuxarm64: ami-012e81bdfc5d756eb, windows: ami-0fc3ce2c2d0c9fb6e }
-    ca-central-1 : { linuxamd64: ami-00c8420a359dcb269, linuxarm64: ami-015597b074bfe70cc, windows: ami-091612ae59c0de969 }
-    eu-central-1 : { linuxamd64: ami-021f74970930e39be, linuxarm64: ami-047b900b05db0b01b, windows: ami-077ae23a2aeac68fb }
-    eu-west-1 : { linuxamd64: ami-04a3f341ee240e09b, linuxarm64: ami-01f2a6c3fecdddb70, windows: ami-0effa75df9e627144 }
-    eu-west-2 : { linuxamd64: ami-045c2eef569121a9f, linuxarm64: ami-0d210de1da0726103, windows: ami-0aed4147a370360a5 }
-    eu-south-1 : { linuxamd64: ami-0331b20ac79a8b738, linuxarm64: ami-066ff1c21f9d9707e, windows: ami-05a579a471dc758f9 }
-    eu-west-3 : { linuxamd64: ami-09a068cb4313d48d4, linuxarm64: ami-09a938d6155b7637a, windows: ami-0e4c2f92cb79d01e7 }
-    eu-north-1 : { linuxamd64: ami-08398ce97357a61eb, linuxarm64: ami-087d76770dd2b5164, windows: ami-0b6af2658fe44ec4d }
-    me-south-1 : { linuxamd64: ami-0d4ed098c40440c97, linuxarm64: ami-04969c669b4c53021, windows: ami-0354cf04a97807f10 }
-    sa-east-1 : { linuxamd64: ami-0c076df83ae2f56e7, linuxarm64: ami-08e5dc79680fdfafb, windows: ami-075067c0b3ad00fec }
+    us-east-1 : { linuxamd64: ami-0585aaf73b04ba976, linuxarm64: ami-04564bb4c1dd3e6bd, windows: ami-0926cba71970cfd08 }
+    us-east-2 : { linuxamd64: ami-0186446e8b964e79b, linuxarm64: ami-0cc37cd0901f972eb, windows: ami-0c4101a9841356d93 }
+    us-west-1 : { linuxamd64: ami-01c1e2be6b8c7e254, linuxarm64: ami-0977d353f57a8b190, windows: ami-0d9c9bb9d9b72db5c }
+    us-west-2 : { linuxamd64: ami-00682aba650a40d4b, linuxarm64: ami-054f26fed56926466, windows: ami-00ff1f19c9266b43d }
+    af-south-1 : { linuxamd64: ami-03da1ed23fb5f24f4, linuxarm64: ami-01632c7ebe3cb69a8, windows: ami-05a265d44bded4558 }
+    ap-east-1 : { linuxamd64: ami-036939dc2fc097614, linuxarm64: ami-0980ec90ce3235bc0, windows: ami-0d757bf9326c45899 }
+    ap-south-1 : { linuxamd64: ami-0d56d45499f42842a, linuxarm64: ami-0e99a0b0bb5f54be2, windows: ami-0153f58927f026cf0 }
+    ap-northeast-2 : { linuxamd64: ami-0d92be3c3af68ee88, linuxarm64: ami-08e571ad5dd1de8b7, windows: ami-0292e61065c576937 }
+    ap-northeast-1 : { linuxamd64: ami-03df1504787bd473b, linuxarm64: ami-0a38d0d77bd663561, windows: ami-0bc77388a2254f908 }
+    ap-southeast-2 : { linuxamd64: ami-0b17e30a774ace088, linuxarm64: ami-08184c26f91266a36, windows: ami-0bd9558d6b121ad6f }
+    ap-southeast-1 : { linuxamd64: ami-0aae53c58a6af46b3, linuxarm64: ami-0fd2ff24d3df5df67, windows: ami-0a30b8666f2ba30a7 }
+    ca-central-1 : { linuxamd64: ami-03fe82f79a31c7588, linuxarm64: ami-0614e82b44ac93c79, windows: ami-0c03c1ac0653c8ed1 }
+    eu-central-1 : { linuxamd64: ami-03e021c99b76df54f, linuxarm64: ami-051ed6cd8cc22dde6, windows: ami-0796e63616b040931 }
+    eu-west-1 : { linuxamd64: ami-0829c65de8f46e097, linuxarm64: ami-005be640e08a86e78, windows: ami-07ae62399b00f8395 }
+    eu-west-2 : { linuxamd64: ami-093906f68660a1064, linuxarm64: ami-077d41bced6fc7484, windows: ami-025fb6f657b64ae77 }
+    eu-south-1 : { linuxamd64: ami-0862452a1fe3f2786, linuxarm64: ami-02c6b466de9e75430, windows: ami-062f233b9fa638c9b }
+    eu-west-3 : { linuxamd64: ami-04b8ca1e9b02d144a, linuxarm64: ami-07540ea125516fb21, windows: ami-0ca960086c17781a7 }
+    eu-north-1 : { linuxamd64: ami-0f4d7f20f49a35a09, linuxarm64: ami-01f535c7337526a63, windows: ami-0db1a4ce24038ca05 }
+    me-south-1 : { linuxamd64: ami-0946d9f87071d38d4, linuxarm64: ami-070343da272c2c8f2, windows: ami-0092c625cf5b3578c }
+    sa-east-1 : { linuxamd64: ami-055206ccf2a5993dd, linuxarm64: ami-0a3218f7d1680c0e3, windows: ami-0294e077cd168a9be }
 
 Resources:
   Vpc:
@@ -2285,7 +2291,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.52.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.56.0"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
@@ -2387,7 +2393,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.52.0" \
+                  BUILDKITE_STACK_VERSION="v6.56.0" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
@@ -2739,6 +2745,7 @@ Resources:
                   - "ssm:SendCommand"
                 Resource:
                   - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}::document/AWS-RunShellScript
+                  - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}::document/AWS-RunPowerShellScript
         - PolicyName: StopBuildkiteInstances
           PolicyDocument:
             Version: 2012-10-17
@@ -2870,11 +2877,12 @@ Resources:
           - AgentScalerARN
           - "x86-64"
           - ARN
-        SemanticVersion: 1.10.0
+        SemanticVersion: 1.11.0
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
         RolePermissionsBoundaryARN: !If [ SetInstanceRolePermissionsBoundaryARN, !Ref InstanceRolePermissionsBoundaryARN, "" ]
+        ManagedPolicyARNs: !Join [ ',', !Ref ScalerManagedPolicyARNs ]
         AgentEndpoint: !Ref AgentEndpoint
         BuildkiteQueue: !Ref BuildkiteQueue
         AgentsPerInstance: !Ref AgentsPerInstance
@@ -2901,11 +2909,12 @@ Resources:
           - AgentScalerARN
           - "arm64"
           - ARN
-        SemanticVersion: 1.10.0
+        SemanticVersion: 1.11.0
       Parameters:
         BuildkiteAgentTokenParameter: !If [ UseCustomerManagedParameterPath, !Ref BuildkiteAgentTokenParameterStorePath, !Ref BuildkiteAgentTokenParameter ]
         BuildkiteAgentTokenParameterStoreKMSKey: !If [ UseCustomerManagedKeyForParameterStore, !Ref BuildkiteAgentTokenParameterStoreKMSKey, "" ]
         RolePermissionsBoundaryARN: !If [ SetInstanceRolePermissionsBoundaryARN, !Ref InstanceRolePermissionsBoundaryARN, "" ]
+        ManagedPolicyARNs: !Join [ ',', !Ref ScalerManagedPolicyARNs ]
         AgentEndpoint: !Ref AgentEndpoint
         BuildkiteQueue: !Ref BuildkiteQueue
         AgentsPerInstance: !Ref AgentsPerInstance

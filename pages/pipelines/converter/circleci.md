@@ -1,6 +1,6 @@
 # CircleCI
 
-The [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) helps you convert your CircleCI pipelines into Buildkite pipelines. Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your CircleCI pipelines into Buildkite pipelines. Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
 
 The LLM analyzes the CircleCI configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
 
@@ -19,7 +19,7 @@ To start converting a CircleCI configuration into Buildkite Pipelines format:
 
 Here are some examples of translations that the Buildkite pipeline converter will perform:
 
-- **Jobs** become Buildkite [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. The `key` enables dependency references between steps. Multiple `run` steps within a job are combined into a single `command` array.
+- **Jobs** become Buildkite Pipelines [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. The `key` enables dependency references between steps. Multiple `run` steps within a job are combined into a single `command` array.
 
 - **Workflows** are flattened into Buildkite Pipelines [step dependencies](/docs/pipelines/configure/dependencies). Job dependencies specified with `requires` become `depends_on` attributes. When multiple workflows exist, they may be organized using [group steps](/docs/pipelines/configure/step-types/group-step).
 
@@ -27,7 +27,7 @@ Here are some examples of translations that the Buildkite pipeline converter wil
 
 - **Executors** are translated to the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) configuration. The `docker[].image` becomes the plugin's `image` parameter, `resource_class` is documented for agent queue configuration, and `working_directory` becomes the plugin's `workdir` parameter.
 
-- **Orbs** require case-by-case handling. Common orb commands are translated to equivalent Buildkite [plugins](/docs/pipelines/integrations/plugins) or native commands. For example, AWS and GCP orb commands may translate to their respective Buildkite plugins. Orbs without direct equivalents include comments indicating manual configuration is required.
+- **Orbs** require case-by-case handling. Common orb commands are translated to equivalent Buildkite Pipelines [plugins](/docs/pipelines/integrations/plugins) or native commands. For example, AWS and GCP orb commands may translate to their respective Buildkite plugins. Orbs without direct equivalents include comments indicating manual configuration is required.
 
 - **Matrix strategies** are translated to the native [build matrix](/docs/pipelines/configure/workflows/build-matrix) feature of Buildkite Pipelines. CircleCI's `matrix.parameters` becomes `matrix.setup`, and `matrix.exclude` becomes `matrix.adjustments` with `skip: true`.
 
@@ -49,7 +49,7 @@ Here are some examples of translations that the Buildkite pipeline converter wil
 
 - **Parallelism** is translated using Buildkite Pipelines' native `parallelism` attribute. Test splitting with `circleci tests split` requires [Buildkite Test Engine](/docs/test-engine) for equivalent functionality.
 
-- **Scheduled workflows** are documented with guidance on configuring [scheduled builds](/docs/pipelines/configure/workflows/scheduled-builds) through the Buildkite web interface.
+- **Scheduled workflows** are documented with guidance on configuring [scheduled builds](/docs/pipelines/configure/workflows/scheduled-builds) through the Buildkite Pipelines web interface.
 
 - **Reusable commands** are translated to inline scripts or YAML anchors for simple cases. Complex parameterized commands may require [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) for full flexibility.
 
