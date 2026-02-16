@@ -29,6 +29,9 @@ Note that command step timeouts don't apply to [trigger steps](/docs/pipelines/c
 
 You can dynamically update a command job's timeout before it is finished, using the `buildkite-agent job update` command. This is useful when a job learns more about how long it should take during execution, for example, after completing a setup phase.
 
+> 📘 Minimum Buildkite Agent version requirement
+> To update a job's timeout, version 3.118.0 or later of the Buildkite Agent is required. Using earlier versions of the Buildkite Agent will result in pipeline failures.
+
 To update the timeout for the current job:
 
 ```bash
