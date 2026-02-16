@@ -36,37 +36,39 @@ buildkite-agent job update timeout 20
 ```
 
 To extend the timeout of the current job:
+
 ```yml
 steps:
   - label: ":timer_clock:"
     command: |
       echo "Extending job timeout by 10 minutes"
       buildkite-agent job update timeout "$$(( BUILDKITE_TIMEOUT + 10 ))"
-      echo "Sleeping for $$(( BUILDKITE_TIMEOUT + 11 )) minutes"
-      sleep $$(( (BUILDKITE_TIMEOUT + 11) * 60 ))
     timeout_in_minutes: 1
 ```
 
 To reduce the timeout of the current job:
+
 ```yml
 steps:
   - label: ":timer_clock:"
-    command: buildkite-agent job update timeout "$$(( BUILDKITE_TIMEOUT - 10 ))" && sleep 300
+    command: |
+      echo "Reducing job timeout by 10 minutes"
+      buildkite-agent job update timeout "$$(( BUILDKITE_TIMEOUT - 10 ))"
     timeout_in_minutes: 30
 ```
 
 This command can be used to reduce an existing timeout, extend it (by up to an hour), or set a timeout on a job that doesn't have one. Updated timeouts are enforced on the server and can take up to two minutes to be enforced. Existing timeouts cannot be removed.
 
+Timeout updates are recorded in the job's activity timeline, showing the previous and new timeout values.
+
 The following limits apply to updating a job's timeout:
 
-- The timeout value must be a positive integer, specified in minutes.
+- The timeout value must be a positive integer, specified in minutes. The timeout is relative to the job's start time.
 - Only command jobs can be updated.
 - Jobs can only be updated before they finish. Once a job reaches a terminal state, the timeout can no longer be changed.
 - Timeouts cannot be removed.
 - The updated timeout can't exceed the pipeline's **Maximum Command Step Timeout**, the organization's **Maximum Command Step Timeout**, or four hours on the Personal plan (Pro and Enterprise plans have no plan-level limit). If the updated timeout exceeds any of these limits, the update is rejected.
-- Jobs that have an initial timeout (`$BUILDKITE_TIMEOUT`) can extend it by up to 60 minutes beyond that initial value. The initial timeout can come from a step-level `timeout_in_minutes`, a pipeline or organization default, a maximum timeout, or a plan-level limit. For example, a job with an initial timeout of 90 minutes can be extended to a maximum of 150 minutes. Repeated updates can't exceed this limit. Jobs without an initial timeout are not subject to this extension cap.
-
-Timeout updates are recorded in the job's activity timeline, showing the previous and new timeout values.
+- Jobs that have an initial timeout (`$BUILDKITE_TIMEOUT`) can be extend their timeout by up to 60 minutes beyond that initial value. The initial timeout can come from a step-level `timeout_in_minutes`, a pipeline or organization default, a maximum timeout, or a plan-level limit. For example, a job with an initial timeout of 90 minutes can be extended to a maximum of 150 minutes. Repeated updates can't exceed this limit. Jobs without an initial timeout are not subject to this limit.
 
 ## Scheduled job expiration
 
