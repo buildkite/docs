@@ -768,8 +768,8 @@
       pill: "preview"
     - name: "Test Engine Client (bktec)"
       children:
-        - name: "Installing and configuring the client"
-          path: "test-engine/bktec/installing-and-configuring-the-client"
+        - name: "Installing and using the client"
+          path: "test-engine/bktec/installing-and-using-the-client"
     - name: "Notifications"
       children:
         - name: "Email"

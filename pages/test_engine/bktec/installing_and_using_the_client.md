@@ -1,10 +1,10 @@
-# Installing and configuring the client
+# Installing and using the client
 
 This page provides instructions on how to install and configure the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using installers provided by Buildkite.
 
 ## Installation
 
-bktec is supported on both Linux and macOS with 64-bit ARM and AMD architectures. You can install the client using the following installers.
+bktec is supported on both Linux ([Debian](#installation-debian) and [Red Hat](#installation-red-hat)) and [macOS](#installation-macos), as well as in [Docker](#installation-docker), for 64-bit ARM and AMD architectures. You can install the client using the following installers.
 If you need to install this tool on a system without an installer listed below, you'll need to perform a manual installation using one of the binaries from [Test Engine Client's releases page](https://github.com/buildkite/test-engine-client/releases/latest). Once you have the binary, make it executable in your pipeline.
 
 ### Debian
@@ -74,23 +74,19 @@ COPY --from=buildkite/test-engine-client /usr/local/bin/bktec /usr/local/bin/bkt
 
 bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [test collector](/docs/test-engine/test-collection) for your test framework.
 
-## Configuration
+## Using bktek
 
 Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. Currently, the bktec tool supports [RSpec](/docs/test-engine/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/test-engine/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/test-engine/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/test-engine/test-collection/golang-collectors), and cucumber testing frameworks.
 
-If your testing framework is not supported, get in touch via support@buildkite.com or submit a pull request.
+If your testing framework is not supported, get in touch through support@buildkite.com or submit a pull request.
 
-### Using bktec
-
-Once you have downloaded the bktec binary and it is executable in your pipeline, you'll need to configure some additional environment variables for bktec to function. You can then update your pipeline step to call `bktec run` instead of calling RSpec to run your tests. Learn more about how to do this in [Update the pipeline step](#using-bktec-update-the-pipeline-step).
+Once you have [installed the bktec binary](#installation) and it is executable in your pipeline, you'll need to [configure some additional environment variables](#using-bktek-configure-environment-variables) for bktec to function. You can then [update your pipeline step](#using-bktek-update-the-pipeline-step) to call `bktec run` instead of calling RSpec to run your tests.
 
 ### Configure environment variables
 
 bktec uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
 
-<a id="predefined-environment-variables"></a>
-
-#### Predefined environment variables
+<h4 id="predefined-environment-variables">Predefined environment variables</h4>
 
 By default, the following predefined environment variables are available to your testing environment and do not need any further configuration. If, however, you use Docker or some other type of containerization tool to run your tests, and you wish to use these predefined environment variables in these tests, you may need to expose these environment variables to your containers.
 
@@ -111,9 +107,7 @@ By default, the following predefined environment variables are available to your
   </tbody>
 </table>
 
-<a id="mandatory-environment-variables"></a>
-
-#### Mandatory environment variables
+<h4 id="mandatory-environment-variables">Mandatory environment variables</h4>
 
 The following mandatory environment variables must be set.
 
@@ -142,9 +136,7 @@ The following mandatory environment variables must be set.
   </tbody>
 </table>
 
-<a id="optional-rspec-environment-variables"></a>
-
-#### Optional RSpec environment variables
+<h4 id="optional-rspec-environment-variables">Optional RSpec environment variables</h4>
 
 The following optional RSpec environment variables can also be used to configure bktec's behavior.
 
@@ -177,9 +169,7 @@ The following optional RSpec environment variables can also be used to configure
   </tbody>
 </table>
 
-<a id="optional-jest-environment-variables"></a>
-
-#### Optional Jest environment variables
+<h4 id="optional-jest-environment-variables">Optional Jest environment variables</h4>
 
 The following optional Jest environment variables can also be used to configure bktec's behavior.
 
@@ -230,11 +220,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### API rate limits
+## API rate limits
 
 There is a limit on the number of API requests that bktec can make to the server. This limit is 10,000 requests per minute per Buildkite organization. When this limit is reached, bktec will pause and wait until the next minute is reached before retrying the request. This rate limit is independent of the [REST API rate limits](/docs/apis/rest-api/limits), and only applies to the Test Engine Client's interactions with the Test Splitting API.
 
-### Dynamic parallelism
+## Dynamic parallelism
 
 Usually the `parallelism` value is hard coded in the bktec pipeline step. However, from version 2.0.0, it is possible to run bktec with a dynamic `parallelism` value based on a target time for the test run. A common use case for this is test selection, where feature branch builds only run a subset of tests relevant to the changes being made.
 
