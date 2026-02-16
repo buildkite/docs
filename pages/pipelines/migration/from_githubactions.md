@@ -656,7 +656,7 @@ Explore these resources to enhance your migrated pipelines:
 - [Buildkite Agent overview](/docs/agent/v3)
 - [Plugins directory](https://buildkite.com/resources/plugins/)
 - [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) and the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
-- [Buildkite Agent hooks](/docs/agent/v3/self-hosted/hooks)
+- [Buildkite Agent hooks](/docs/agent/v3/hooks)
 - [Using conditions](/docs/pipelines/configure/conditionals)
 - [Annotations](/docs/agent/v3/cli/reference/annotate)
 - [Security](/docs/pipelines/security), [Secrets](/docs/pipelines/security/secrets), and [permissions](/docs/pipelines/security/permissions)

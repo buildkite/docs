@@ -58,11 +58,11 @@ To create an agent image using the Buildkite interface:
 
 ### Using agent hooks
 
-You can [create a custom agent image](#create-an-agent-image) and modify its Dockerfile to embed the following types of [job lifecycle hooks](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks) as [agent hooks](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks):
+You can [create a custom agent image](#create-an-agent-image) and modify its Dockerfile to embed the following types of [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) as [agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks):
 
 `environment`, `pre-checkout`, `checkout`, `post-checkout`, `pre-command`, `command`, `post-command`, `pre-artifact`, `post-artifact`, and `pre-exit`.
 
-Be aware that the `pre-bootstrap` job lifecycle hook and [agent lifecycle hooks](/docs/agent/v3/self-hosted/hooks#agent-lifecycle-hooks) operate outside of a job's execution itself, and are therefore not supported within a Buildkite hosted agent context.
+Be aware that the `pre-bootstrap` job lifecycle hook and [agent lifecycle hooks](/docs/agent/v3/hooks#agent-lifecycle-hooks) operate outside of a job's execution itself, and are therefore not supported within a Buildkite hosted agent context.
 
 To embed hooks in your agent image's Dockerfile:
 

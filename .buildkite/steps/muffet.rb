@@ -55,7 +55,7 @@ end
 
 puts "--- Waiting for app to start"
 
-until system('wget --spider -S http://app:3000/docs/agent/v3/self-hosted/hooks')
+until system('wget --spider -S http://app:3000/docs/agent/v3/hooks')
   puts "💎🛤️🦥 Rails is still starting"
   sleep 0.5
 end
