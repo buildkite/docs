@@ -1,6 +1,6 @@
 # buildkite-agent job
 
-The Buildkite Agent's `job` command provides the ability to update the attributes of a job.
+The Buildkite Agent's `job update` command provides the ability to update the attributes of a job.
 
 ## Updating a job
 
