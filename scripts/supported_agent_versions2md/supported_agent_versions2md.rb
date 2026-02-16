@@ -98,7 +98,7 @@ def generate_markdown(version_groups)
   output << 'The following lists of Buildkite agent releases are ones that Buildkite currently supports, and are presented in reverse chronological order. Each version links through to its release notes on GitHub.'
   output << ''
   output << '> 📘 Unsupported agent versions'
-  output << '> Earlier agent versions, which are either beta releases, or deprecated ones (version 2 releases and earlier), and are not supported by Buildkite. Hence, these unsupported agent versions are not listed on this page, although their releases and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page on GitHub.'
+  output << '> Earlier agent versions that are either beta releases or deprecated ones (version 2 releases and earlier), are not supported by Buildkite. Hence, these unsupported agent versions are not listed on this page, although their releases and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page on GitHub.'
   output << ''
 
   version_groups.each do |group|
