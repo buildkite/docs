@@ -4,7 +4,7 @@ The Buildkite Agent's `job` command provides the ability to update the attribute
 
 ## Updating a job
 
-Use this command in your build scripts to update a job's attributes. Only command jobs can be updated and must not have finished. 
+Use this command in your build scripts to update a job's attributes. Only command jobs can be updated and must not have finished.
 
 Currently, only the `timeout_in_minutes` attribute can be updated.
 
