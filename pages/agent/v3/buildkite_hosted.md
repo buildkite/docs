@@ -70,7 +70,7 @@ When a Buildkite hosted agent machine is running (during a pipeline build) you c
 
 Last, learn more about how to secure your network when using Buildkite hosted agents in [Network security](/docs/agent/v3/buildkite-hosted/network-security).
 
-## Supported agent versions
+## Buildkite Agent version updates
 
 As part of the hosted agents service, Buildkite aims to keep [Buildkite Agents](/docs/agent/v3) in your hosted agents up to date and to the latest version.
 
