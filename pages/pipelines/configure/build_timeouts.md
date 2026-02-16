@@ -57,6 +57,16 @@ steps:
     timeout_in_minutes: 30
 ```
 
+To set the timeout of job:
+
+```yml
+steps:
+  - label: ":timer_clock:"
+    command: |
+      echo "Setting job's timeout to 50 minutes"
+      buildkite-agent job update timeout 50
+```
+
 This command can be used to reduce an existing timeout, extend it (by up to an hour), or set a timeout on a job that doesn't have one. Updated timeouts are enforced on the server and can take up to two minutes to be enforced. Existing timeouts cannot be removed.
 
 Timeout updates are recorded in the job's activity timeline, showing the previous and new timeout values.
