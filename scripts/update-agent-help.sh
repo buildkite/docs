@@ -39,6 +39,7 @@ commands=(
   "env set"
   "env get"
   "env unset"
+  "job update"
   "lock acquire"
   "lock do"
   "lock done"
