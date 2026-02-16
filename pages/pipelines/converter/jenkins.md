@@ -4,7 +4,7 @@ The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert 
 
 Since Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, we make use of an AI Large Language Model (LLM).
 
-The LLM first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. Note that the AI model _does not_ use any submitted data for its own training.
+The Buildkite pipeline converter  first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. Note that the AI model _does not_ use any submitted data for its own training.
 
 As with any of the other CI systems we translate from ([GitHub Actions](/docs/pipelines/converter/github-actions), [CircleCI](/docs/pipelines/converter/circleci), [Bitbucket Pipelines](/docs/pipelines/converter/bitbucket-pipelines)), there will be Jenkins pipeline features that don't have a direct equivalent in Buildkite Pipelines. In those cases, the pipeline converter will include comments in the output with suggestions about possible solutions you could explore.
 
@@ -14,12 +14,13 @@ Instead, it will generate placeholder steps for those items, so that you can see
 
 ## Using the Buildkite pipeline converter with Jenkins pipelines
 
-To start converting a Jenkins pipeline into Buildkite Pipelines format:
+To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
 1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Ensure that **Jenkins** is selected at the top of the left panel.
-1. Copy your Jenkins pipeline configuration and paste it into the left panel.
-1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
+1. Select your CI/CD platform (**Jenkins**) from from the dropdown list.
+1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
+1. Click the **Convert** button to reveal the translated pipeline definition in the right panel.
+1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 > 📘
 > Remember that not all the features of Jenkins pipelines can be fully converted to the Buildkite Pipelines format. See the following sections to learn more about the compatibility, workarounds, and limitations of converting Jenkins pipelines to Buildkite pipelines.

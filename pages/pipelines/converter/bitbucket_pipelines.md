@@ -8,12 +8,13 @@ The goal of the Buildkite pipeline converter is to give you a starting point, so
 
 ## Using the Buildkite pipeline converter with Bitbucket Pipelines
 
-To start converting a Bitbucket Pipelines configuration into Buildkite Pipelines format:
+To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
 1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Ensure that **Bitbucket Pipelines** is selected at the top of the left panel.
-1. Copy your Bitbucket Pipelines configuration and paste it into the left panel.
-1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
+1. Select your CI/CD platform (**Bitbucket Pipelines**) from from the dropdown list.
+1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
+1. Click the **Convert** button to reveal the translated pipeline definition in the right panel.
+1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 ## How the translation works
 

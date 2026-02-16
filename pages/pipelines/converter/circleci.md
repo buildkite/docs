@@ -2,18 +2,19 @@
 
 The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your CircleCI pipelines into Buildkite pipelines. Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
 
-The LLM analyzes the CircleCI configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
+The Buildkite pipeline converter analyzes the CircleCI configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
 
 The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in CircleCI would function in Buildkite Pipelines. In cases where CircleCI features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions and alternatives.
 
 ## Using the Buildkite pipeline converter with CircleCI
 
-To start converting a CircleCI configuration into Buildkite Pipelines format:
+To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
 1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Ensure that **CircleCI** is selected at the top of the left panel.
-1. Copy your CircleCI configuration and paste it into the left panel.
-1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
+1. Select your CI/CD platform (**Circle CI**) from from the dropdown list.
+1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
+1. Click the **Convert** button to reveal the translated pipeline definition in the right panel.
+1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 ## How the translation works
 

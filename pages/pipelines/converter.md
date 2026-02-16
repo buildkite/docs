@@ -19,13 +19,14 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
 1. Run the `bk pipeline convert` command, specifying the path to your CI configuration file with `--file` and the originating CI provider with `--vendor`:
 
     ```bash
-    bk pipeline convert --file=github-workflow.yml --vendor github
+    # For a GitHub Actions workflow
+    bk pipeline convert -F .github/workflows/ci.yml
 
     # Alternatively
-    bk pipeline convert -F github-workflow.yml --vendor github
+    bk pipeline convert --file .github/workflows/ci.yml --vendor github
 
     # If you want to specify a custom output path and filename
-    bk pipeline convert --file=github-workflow.yml --vendor github -o .buildkite/pipeline123.yml
+    bk pipeline convert --file .github/workflows/ci.yml --vendor github -o .buildkite/custom-converted-pipeline-name.yml
 
     ```
 
@@ -33,7 +34,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
 
     If the converter can detect the vendor from the file path, you can omit the `--vendor` flag.
 
-1. On a successful conversion, the output is saved to `.buildkite/`:
+1. On a successful conversion, by default, the output is saved to `.buildkite/`:
 
     ```bash
     Submitting conversion job...
@@ -43,11 +44,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
     Output saved to: .buildkite/pipeline.github.yml
     ```
 
-In addition to the `--vendor`, other supported flags include:
-
-- `--timeout` - `bk pipeline convert --file=github-workflow.yml --vendor github --timeout=30`
-- `--debug`- `bk pipeline convert --file=github-workflow.yml --vendor github debug`
-- `-o`- `bk pipeline convert --file=github-workflow.yml --vendor github -o .buildkite/pipeline123.yml`
+In addition to the `--vendor` and `--output`, other supported flags include `--timeout` and `--debug`. For more information and flag usage examples, see the CLI reference for [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
 
 ### Example conversion
 
@@ -93,7 +90,7 @@ jobs:
 
 ```
 
-Is converted by the Buildkite pipeline converter into the following Buildkite pipeline:
+Will be converted by the Buildkite pipeline converter into the following Buildkite pipeline:
 
 ```yaml
 # ============================================================================
@@ -151,7 +148,7 @@ steps:
 
 ## Interactive web version
 
-For a quick try of the Buildkite pipelines converter, you can also use its [interactive web version](https://buildkite.com/resources/convert/).
+For a quick try of the Buildkite pipelines converter, you can also use the [interactive web version](https://buildkite.com/resources/convert/).
 
 <%= image "pipeline-converter-web.png", alt: "Buildkite pipeline converter's web UI" %>
 
@@ -159,9 +156,10 @@ For a quick try of the Buildkite pipelines converter, you can also use its [inte
 
 To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
-1. If you are using a CI/CD platform other than **GitHub Actions**, select it from the dropdown list.
+1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
+1. Select your CI/CD platform from from the dropdown list.
 1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
-1. Select the **Convert** button to reveal the translated pipeline definition in the right panel.
+1. Click the **Convert** button to reveal the translated pipeline definition in the right panel.
 1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
 
 > 🚧 Conversion errors
