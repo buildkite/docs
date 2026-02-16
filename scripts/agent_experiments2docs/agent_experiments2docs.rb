@@ -37,7 +37,7 @@ PROMOTED_EXPERIMENT_LINKS = {
     ['Internal job API', '/docs/apis/agent-api/internal-job']
   ],
   'Polyglot hooks' => [
-    ['Polyglot hooks', '/docs/agent/v3/self-hosted/hooks#polyglot-hooks']
+    ['Polyglot hooks', '/docs/agent/v3/hooks#polyglot-hooks']
   ],
   'Use zzglob' => [
     ['Glob pattern syntax', '/docs/pipelines/configure/glob-pattern-syntax']

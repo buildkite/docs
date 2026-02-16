@@ -97,7 +97,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 ### Using Bazel caching with Buildkite
 
-- Using Bazel caching works both with hosted agents and self-hosted agents - but you need to ensure network access to the cache and provide credentials via the environment or pre-command [hooks](/docs/agent/v3/self-hosted/hooks).
+- Using Bazel caching works both with hosted agents and self-hosted agents - but you need to ensure network access to the cache and provide credentials via the environment or pre-command [hooks](/docs/agent/v3/hooks).
 - Teams commonly layer:
     * Local repository/repository cache in a persistent volume to skip external dependency fetches
     * Remote cache (for example, BuildBuddy or Bazel-remote) for cross-machine reuse
