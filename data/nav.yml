@@ -332,6 +332,8 @@
                   path: "agent/v3/self-hosted/security"
                 - name: "Signed pipelines"
                   path: "agent/v3/self-hosted/security/signed-pipelines"
+            - name: "Supported agent versions"
+              path: "agent/v3/self-hosted/supported-versions"
         - name: "Buildkite hosted agents"
           children:
             - name: "Overview"
