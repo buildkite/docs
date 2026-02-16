@@ -26,6 +26,16 @@ Repeated occurrences of the test meeting the alarm/recover conditions do not ret
 
 <%= image "alarm-and-recovery-dark.png", class: 'dark-only', width: 1424 / 2, height: 1280 / 2, alt: "A diagram showing three tests with different transition count events", align: :center %>
 
+## When workflows run
+
+Workflow monitors are _event-driven_, not scheduled. They perform evaluations each time new test execution data is ingested into Test Engine—there is no cron or periodic schedule involved. When a test run is completed and its results are uploaded, the relevant monitors evaluate the incoming data against their configured conditions and thresholds.
+
+This means:
+
+- **Alarm and recover events are generated in response to test executions.** If no tests are running, no workflow events are produced.
+- **Threshold changes take effect on the next test execution.** For example, if you adjust a [probabilistic flakiness](/docs/test-engine/workflows/monitors#probabilistic-flakiness) threshold or a [transition count](/docs/test-engine/workflows/monitors#transition-count) alarm value, the updated threshold is applied the next time test data is ingested for a matching test—not at a scheduled interval.
+- **The frequency of workflow evaluation matches the frequency of your test runs.** Workflows for a test suite that runs on every commit will perform evaluations more often than one that runs nightly.
+
 ## Rate limit
 
 Each workflow monitor has a rate limit of 500 events per minute across alarm and recover events. If a workflow exceeds this limit within a one minute window, no new alarm or recover events will trigger their configured [actions](/docs/test-engine/workflows/actions) for the remainder of that minute. Event processing resumes in the following minute when usage falls below the limit. To avoid hitting the limit, you can refine your workflow using [tag filters](/docs/test-engine/workflows/monitors#tag-filters) or adjust monitor thresholds.

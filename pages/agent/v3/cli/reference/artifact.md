@@ -182,8 +182,8 @@ Environment Variable | Required | Default Value | Description
 {: class="responsive-table"}
 
 You can set these environment variables from a variety of places. Exporting them
-from an [environment hook](/docs/agent/v3/self-hosted/hooks#job-lifecycle-hooks) defined in
-your [agent `hooks-path` directory](/docs/agent/v3/self-hosted/hooks#hook-locations-agent-hooks)
+from an [environment hook](/docs/agent/v3/hooks#job-lifecycle-hooks) defined in
+your [agent `hooks-path` directory](/docs/agent/v3/hooks#hook-locations-agent-hooks)
 ensures they are applied to all jobs:
 
 ```bash
@@ -347,7 +347,7 @@ that permits reading and writing to the container, for example,
 
 Configure the agent to target your container by exporting the
 `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` environment variable using an
-[environment agent hook](/docs/agent/v3/self-hosted/hooks) (this can not be set using the
+[environment agent hook](/docs/agent/v3/hooks) (this can not be set using the
 Buildkite web interface, API, or during pipeline upload). For example:
 
 ```shell

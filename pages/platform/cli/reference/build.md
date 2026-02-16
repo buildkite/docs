@@ -47,11 +47,11 @@ bk build create [flags]
 | `-a`, `--author=STRING` | Author of the build. Supports: "Name <email>", "email@domain.com", "Full Name", or "username" |
 | `-b`, `--branch=STRING` | The branch to build. Defaults to the default branch of the pipeline. |
 | `-c`, `--commit="HEAD"` | The commit to build. |
-| `-e`, `--env=ENV,...` | Set environment variables for the build (KEY=VALUE) |
+| `-e`, `--env=ENV` | Set environment variables for the build (KEY=VALUE) |
 | `-f`, `--env-file=STRING` | Set the environment variables for the build via an environment file |
 | `-i`, `--ignore-branch-filters` | Ignore branch filters for the pipeline |
 | `-m`, `--message=STRING` | Description of the build. If left blank, the commit message will be used once the build starts. |
-| `-M`, `--metadata=METADATA,...` | Set metadata for the build (KEY=VALUE) |
+| `-M`, `--metadata=METADATA` | Set metadata for the build (KEY=VALUE) |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the build in a web browser after it has been created. |
 | `--debug` | Enable debug output for REST API calls |
@@ -134,7 +134,7 @@ bk build view [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `-w`, `--web` | Open the build in a web browser. |
-| `-o, --output=""` | Output format. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
 | `--mine` | Filter builds to only my user. |
 
@@ -209,7 +209,7 @@ bk build list [flags]
 | `--limit=50` | Maximum number of builds to return |
 | `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
 | `--no-limit` | Fetch all builds (overrides --limit) |
-| `--output=""` | Output format. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
 | `--until=STRING` | Filter builds created before this time (e.g. 1h, 30m) |

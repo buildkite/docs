@@ -64,7 +64,7 @@ The **New Pipeline** page has the following fields:
     * **Example templates**: This section lists pipelines which are used to build example projects available from the **Repository** field, when the **Git scope** has been set to **Buildkite Examples**.
 
 > 📘
-> If you're already familiar with creating Buildkite pipelines and have created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then ensure the **Pipeline upload** option has been selected from the **Template** dropdown of the **YAML Steps editor**. This option generates a pipeline step within your main Buildkite pipeline, which uploads the rest of your pipeline (defined in the `.buildkite/pipeline.yml` file from your repository), and uses the steps in that file to build your project.
+> If you're already familiar with creating Buildkite pipelines and have created one at `.buildkite/pipeline.yml` from the root of your selected **Repository**, then ensure the **Pipeline upload** option has been selected from the **Template** dropdown of the **YAML Steps editor**. This option generates a pipeline step within your main Buildkite pipeline, which uploads the rest of your pipeline (defined in the `.buildkite/pipeline.yml` file from your repository), and uses the steps in that file to build your project. Learn more about this in [Create your own pipeline](/docs/pipelines/create-your-own).
 > If you already have a Buildkite account/organization and user account, you can access the **New Pipeline** page by selecting **Pipelines** from the global navigation > **New pipeline**.
 
 ### Example pipelines

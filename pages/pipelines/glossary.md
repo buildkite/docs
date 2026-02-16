@@ -46,7 +46,7 @@ Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/
 
 A hook is a method of customizing the behavior of Buildkite through lifecycle events. They let you run scripts at different points of the agent or job lifecycle. Using hooks, you can extend the functionality of Buildkite and automate tasks specific to your workflow and requirements.
 
-To learn more, see [Hooks](/docs/agent/v3/self-hosted/hooks).
+To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 ## Job
 

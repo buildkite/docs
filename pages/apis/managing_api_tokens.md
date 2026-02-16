@@ -4,33 +4,43 @@ Buildkite API access tokens are issued to individual Buildkite user accounts, no
 
 ## Creating and editing API access tokens
 
-You can create and edit API access tokens by selecting [**Personal Settings**](https://buildkite.com/user/api-access-tokens) in the global navigation > **API Access Tokens** to open its page.
-
-- To create a new API access token:
-    1. Select **New API Access Token**.
-
-        If prompted, enter your password in the **Confirm Password** field.
-    1. Enter an appropriate **Description** for your new API access token, and ensure **Token** is selected in **Credential Type**.
-    1. Ensure the appropriate Buildkite organization is selected in **Organization Access**. This organization is the one that your API access token will have access to and operate within.
-
-        **Note:** Your most recently used Buildkite organization is automatically selected from this list.
-    1. Select an appropriate **Token Expiry** duration.
-    1. Select from the appropriate **REST API Scopes** or **GraphQL API** permission, or both. Learn more about these in [Token scopes](#token-scopes).
-    1. To restrict which network addresses your new API access token can operate from, specify these addresses in the **Allowed IP Addresses** field, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
-    1. Select **Create New API Access Token** to create the token, and enter your password again if prompted.
-
-        **Note:** On the resulting page, don't forget to copy your new API access token's value now, as this is the last time you'll see this value.
-
-- To edit an existing API access token, select it from the list in the **API Access Tokens** page.
-    1. Edit the required fields as you would when you created the API access token, as well as its [token scopes](#token-scopes).
-    1. Select **Update API Access Token** to save your changes.
+You can [create](#creating-and-editing-api-access-tokens-create-an-api-access-token) and [edit](#creating-and-editing-api-access-tokens-edit-an-existing-api-access-token) API access tokens through your **Personal Settings**.
 
 > 📘
-> On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, Buildkite organization administrators can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
+> You'll need to be a member of a Buildkite organization to generate and use an API access token with this organization. This is especially important for contributors to public and open-source projects.
+> Once API access tokens have been created within a Buildkite organization, Buildkite organization administrators can use the [API Access Audit](#auditing-tokens) page to view and manage all such tokens that have been created within it.
+
+### Create an API access token
+
+To create a new API access token:
+
+1. Select **Personal Settings** in the global navigation > [**API Access Tokens**](https://buildkite.com/user/api-access-tokens) to open its page.
+1. Select **New API Access Token**.
+
+    If prompted, enter your password in the **Confirm Password** field.
+1. Enter an appropriate **Description** for your new API access token, and ensure **Token** is selected in **Credential Type**.
+1. Ensure the appropriate Buildkite organization is selected in **Organization Access**. This organization is the one that your API access token will have access to and operate within.
+
+    **Note:** Your most recently used Buildkite organization is automatically selected from this list.
+1. Select an appropriate **Token Expiry** duration.
+1. Select from the appropriate **REST API Scopes** or **GraphQL API** permission, or both. Learn more about these in [Token scopes](#token-scopes).
+1. To restrict which network addresses your new API access token can operate from, specify these addresses in the **Allowed IP Addresses** field, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+1. Select **Create New API Access Token** to create the token, and enter your password again if prompted.
+
+    **Note:** On the resulting page, don't forget to copy your new API access token's value now, as this is the last time you'll see this value.
+
+### Edit an existing API access token
+
+To edit an existing API access token:
+
+1. Select **Personal Settings** in the global navigation > [**API Access Tokens**](https://buildkite.com/user/api-access-tokens) to open its page.
+1. Select the API access token to edit from the list of existing ones on this page.
+1. Edit the required fields as you would when you [created the API access token](#creating-and-editing-api-access-tokens-create-an-api-access-token), as well as its [token scopes](#token-scopes).
+1. Select **Update API Access Token** to save your changes.
 
 ## Token scopes
 
-When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), define the required **REST API Scopes** that allow you to select permissions (**READ**, **WRITE**, **DELETE**) for different Buildkite platform features (whose individual combinations are known as _scopes_), which this token is granted access to.
+When an [API access token is being created or edited](#creating-and-editing-api-access-tokens), define the required **REST API Scopes**, for which you select permissions (**READ**, **WRITE**, **DELETE**) for different Buildkite platform features that this token is granted access to. Each individual combination of these permissions and features is known as a _scope_.
 
 You can also select **Enable GraphQL API access** as an additional scope, noting that this is a full-access option that does not provide any further granular scopes/permission restrictions to Buildkite platform features. To restrict an API access token's scope to individual GraphQL API features, you can do so by implementing [GraphQL API portals](/docs/apis/graphql/portals).
 
@@ -42,9 +52,6 @@ For REST API scopes, you can use the following:
 - The **Presets** feature allows you to select between all **Read only**, all **Read + Write**, or all **Full Access** (which includes **DELETE**) permissions across all of these Buildkite platform features, regardless of whether or not these features have been filtered using **Search**.
 
 Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
-
-> 📘 Note for contributors to public and open-source projects
-> You need to be a member of the Buildkite organization to generate and use an API access token for it.
 
 A token's REST API scopes are granular, and you can select some or all of the following Buildkite platform features and their scopes.
 
@@ -314,11 +321,11 @@ A token's REST API scopes are granular, and you can select some or all of the fo
 
 ## Auditing tokens
 
-Viewing the **API Access Audit** page requires Buildkite organization administrator privileges. The page can be found in the **Audit** section of the Buildkite organization's **Settings** in the global navigation.
+Viewing the [**API Access Audit** page](https://buildkite.com/organizations/~/api-access-audit) requires Buildkite organization administrator privileges. You can access this page by selecting **Settings** in the global navigation > **API Access Audit** within the **Audit** section.
 
-All tokens that currently have access to your organization's data will be listed. The table includes the scope of each token, how long ago they were created, and how long since they've been used.
+All API access tokens that users within your Buildkite organization have created, and currently have access to your organization's data will be listed. The table includes the scopes of each token, how long ago they were created, and how long since they've been used.
 
-From the **API Access Audit** page, navigate through to any token to see more detailed information about its scopes and the most recent request.
+From the **API Access Audit** page, navigate through to any token to see more detailed information about its scopes and the most recent request, where you can also [remove a token's access to your Buildkite organization's data](#auditing-tokens-removing-an-organization-from-a-token) if required.
 
 <%= image "all-tokens-view.png", width: 1820/2, height: 1344/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
@@ -326,15 +333,15 @@ The list of tokens can be filtered by username, scopes, IP address, or whether t
 
  <%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
-## Removing an organization from a token
+### Removing an organization from a token
 
 If you have old API access tokens that should no longer be used, or need to prevent such a token from performing further actions, Buildkite organization administrators can remove the token's access to organization data.
 
-From the [**API Access Audit** page](#auditing-tokens), find the API token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
+From the [**API Access Audit** page](#auditing-tokens), find the API token whose access you want to remove and select it. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
 
 <%= image "token-view.png", width: 1788/2, height: 2288/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
-From the **API Access Audit** page, navigate through to the token you'd like to remove, then select **Remove Organization from Token**.
+Scroll to the end of the specific token's page, then select **Remove Organization from Token**.
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
@@ -373,7 +380,7 @@ This section explains risk mitigation strategies which you can implement, and ot
 
 ### Rotation
 
-Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
+Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
 
 The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
 
