@@ -8,6 +8,6 @@ Use this command in your build scripts to update a job's attributes. Only comman
 
 Currently, only the `timeout_in_minutes` attribute can be updated.
 
-  - `timeout_in_minutes` (alias: `timeout`) — The maximum number of minutes this step is allowed to run, relative to the job's start time. If the job exceeds this time limit, the job is automatically canceled and the build fails. Jobs that time out with an exit status of <code>0</code> are marked as <code>passed</code>. See [Updating timeouts during a job](/docs/pipelines/configure/build-timeouts#updating-timeouts-during-a-job) for more information.
+`timeout_in_minutes` (alias `timeout`):   The maximum number of minutes this step is allowed to run, relative to the job's start time. If the job exceeds this time limit, the job is automatically canceled and the build fails. Jobs that time out with an exit status of <code>0</code> are marked as <code>passed</code>. See [Updating timeouts during a job](/docs/pipelines/configure/build-timeouts#updating-timeouts-during-a-job) for more information.
 
 <%= render 'agent/v3/cli/help/job_update' %>
