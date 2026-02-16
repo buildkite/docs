@@ -81,6 +81,17 @@ steps:
       - .buildkite/plugins/check-for-changes:
           fail_message: "Do not edit experiments.md directly - update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md and use scripts/update-agent-experiments.sh"
 
+  - label: ":test_tube: Check generated supported agent versions docs"
+    if_changed: pages/agent/v3/self_hosted/supported_versions.md
+    command: ./scripts/update-supported-agent-versions.sh
+    agents:
+      queue: hosted-m
+    plugins:
+      - docker#v5.13.0:
+          image: "ruby:3.3"
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Do not edit supported_versions.md directly - use scripts/update-supported-agent-versions.sh"
+
   - group: "Lint all the things"
     key: linting
     steps:
