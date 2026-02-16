@@ -25,9 +25,9 @@ Timeouts apply to the whole job lifecycle, including hooks and artifact uploads.
 
 Note that command step timeouts don't apply to [trigger steps](/docs/pipelines/configure/step-types/trigger-step) and [block steps](/docs/pipelines/configure/step-types/block-step).
 
-## Updating timeouts during a job
+### Updating timeouts during a job
 
-You can dynamically update a command job's timeout while it is running using the `buildkite-agent job update` command. This is useful when a job learns more about how long it should take during execution, for example, after completing a setup phase.
+You can dynamically update a command job's timeout before it is finished, using the `buildkite-agent job update` command. This is useful when a job learns more about how long it should take during execution, for example, after completing a setup phase.
 
 To update the timeout for the current job:
 
@@ -35,29 +35,36 @@ To update the timeout for the current job:
 buildkite-agent job update timeout 20
 ```
 
-You can also pipe the value from STDIN:
-
-```bash
-echo 20 | buildkite-agent job update timeout
+To extend the timeout of the current job:
+```yml
+steps:
+  - label: ":timer_clock:"
+    command: |
+      echo "Extending job timeout by 10 minutes"
+      buildkite-agent job update timeout "$$(( BUILDKITE_TIMEOUT + 10 ))"
+      echo "Sleeping for $$(( BUILDKITE_TIMEOUT + 11 )) minutes"
+      sleep $$(( (BUILDKITE_TIMEOUT + 11) * 60 ))
+    timeout_in_minutes: 1
 ```
 
-This command can be used to reduce an existing timeout, extend it, or set a new timeout on a job that doesn't have one. Updated timeouts are enforced on the server and can take up to two minutes to be enforced.
+To reduce the timeout of the current job:
+```yml
+steps:
+  - label: ":timer_clock:"
+    command: buildkite-agent job update timeout "$$(( BUILDKITE_TIMEOUT - 10 ))" && sleep 300
+    timeout_in_minutes: 30
+```
 
-Jobs with a timeout can extend the timeout by up to 60 minutes beyond the original timeout. For example, a job with a `timeout_in_minutes` of 60 can be extended to a maximum of 120 minutes. Repeated updates cannot exceed this cap, as it is always calculated from the original step timeout. Jobs without a timeout are not subject to the extension cap, but are still subject to the pipeline and organization maximum timeout limits.
+This command can be used to reduce an existing timeout, extend it (by up to an hour), or set a timeout on a job that doesn't have one. Updated timeouts are enforced on the server and can take up to two minutes to be enforced. Existing timeouts cannot be removed.
 
-Timeout updates are also subject to the same maximum timeout limits that apply when a job is created. The updated timeout cannot exceed:
+The following limits apply to updating a job's timeout:
 
-- The pipeline's **Maximum Command Step Timeout**, if set
-- The organization's **Maximum Command Step Timeout**, if set
-- Four hours on the Personal plan (Pro and Enterprise plans have no plan-level limit)
-
-If the updated timeout exceeds any of these limits, the update is rejected.
-
-The following additional constraints apply:
-
-- Only command jobs can be updated. Trigger steps and block steps are not supported.
+- The timeout value must be a positive integer, specified in minutes.
+- Only command jobs can be updated.
 - Jobs can only be updated before they finish. Once a job reaches a terminal state, the timeout can no longer be changed.
-- The timeout value must be a positive integer in minutes. Setting the timeout to `0` is not allowed, as this would remove timeout protection.
+- Timeouts cannot be removed.
+- The updated timeout can't exceed the pipeline's **Maximum Command Step Timeout**, the organization's **Maximum Command Step Timeout**, or four hours on the Personal plan (Pro and Enterprise plans have no plan-level limit). If the updated timeout exceeds any of these limits, the update is rejected.
+- Jobs that have an initial timeout (`$BUILDKITE_TIMEOUT`) can extend it by up to 60 minutes beyond that initial value. The initial timeout can come from a step-level `timeout_in_minutes`, a pipeline or organization default, a maximum timeout, or a plan-level limit. For example, a job with an initial timeout of 90 minutes can be extended to a maximum of 150 minutes. Repeated updates can't exceed this limit. Jobs without an initial timeout are not subject to this extension cap.
 
 Timeout updates are recorded in the job's activity timeline, showing the previous and new timeout values.
 
