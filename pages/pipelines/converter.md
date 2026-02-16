@@ -29,7 +29,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
 
     ```
 
-    Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`.
+    Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`, `gitlab`, `harness`, `bitrise`.
 
     If the converter can detect the vendor from the file path, you can omit the `--vendor` flag.
 
