@@ -19,13 +19,14 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
 
 > 📘 Unsupported agent versions
 > Earlier agent versions that are either beta releases or deprecated ones (version 2 releases and earlier), are not supported by Buildkite. Hence, these unsupported agent versions are not listed on this page, although their releases and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page on GitHub.
+> See [Upgrading agents from unsupported versions](/docs/agent/v3/self-hosted/supported-versions/upgrading-from-unsupported) for guidance on how to upgrade to the latest or a recent agent release.
 
-## Versions 3.110 to 3.119
+## Agent versions 3.110 to 3.119
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -92,12 +93,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.100 to 3.109
+## Agent versions 3.100 to 3.109
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -180,12 +181,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.90 to 3.99
+## Agent versions 3.90 to 3.99
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -268,12 +269,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.80 to 3.89
+## Agent versions 3.80 to 3.89
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -344,12 +345,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.70 to 3.79
+## Agent versions 3.70 to 3.79
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -424,12 +425,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.60 to 3.69
+## Agent versions 3.60 to 3.69
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -492,12 +493,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.50 to 3.59
+## Agent versions 3.50 to 3.59
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -572,12 +573,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.40 to 3.49
+## Agent versions 3.40 to 3.49
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -640,12 +641,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.30 to 3.39
+## Agent versions 3.30 to 3.39
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -744,12 +745,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.20 to 3.29
+## Agent versions 3.20 to 3.29
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -816,12 +817,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.10 to 3.19
+## Agent versions 3.10 to 3.19
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -928,12 +929,12 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
   </tbody>
 </table>
 
-## Versions 3.0 to 3.9
+## Agent versions 3.0 to 3.9
 
 <table>
   <thead>
     <tr>
-      <th>Version</th>
+      <th>Agent version</th>
       <th>Date of release</th>
     </tr>
   </thead>
@@ -1039,3 +1040,7 @@ The following lists of Buildkite agent releases are ones that Buildkite currentl
     <% end %>
   </tbody>
 </table>
+
+## Upgrading from unsupported versions
+
+If you're running an [unsupported agent version](#unsupported-agent-versions), see [Upgrading agents from unsupported versions](/docs/agent/v3/self-hosted/supported-versions/upgrading-from-unsupported) for guidance on how to upgrade to the latest or a recent agent release.

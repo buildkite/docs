@@ -99,16 +99,17 @@ def generate_markdown(version_groups)
   output << ''
   output << '> 📘 Unsupported agent versions'
   output << '> Earlier agent versions that are either beta releases or deprecated ones (version 2 releases and earlier), are not supported by Buildkite. Hence, these unsupported agent versions are not listed on this page, although their releases and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page on GitHub.'
+  output << '> See [Upgrading agents from unsupported versions](/docs/agent/v3/self-hosted/supported-versions/upgrading-from-unsupported) for guidance on how to upgrade to the latest or a recent agent release.'
   output << ''
 
   version_groups.each do |group|
     group[:groups].each do |minor_group|
-      output << "## Versions #{group[:major]}.#{minor_group[:range_start]} to #{group[:major]}.#{minor_group[:range_end]}"
+      output << "## Agent versions #{group[:major]}.#{minor_group[:range_start]} to #{group[:major]}.#{minor_group[:range_end]}"
       output << ''
       output << '<table>'
       output << '  <thead>'
       output << '    <tr>'
-      output << '      <th>Version</th>'
+      output << '      <th>Agent version</th>'
       output << '      <th>Date of release</th>'
       output << '    </tr>'
       output << '  </thead>'
@@ -136,6 +137,10 @@ def generate_markdown(version_groups)
       output << ''
     end
   end
+
+  output << '## Upgrading from unsupported versions'
+  output << ''
+  output << "If you're running an [unsupported agent version](#unsupported-agent-versions), see [Upgrading agents from unsupported versions](/docs/agent/v3/self-hosted/supported-versions/upgrading-from-unsupported) for guidance on how to upgrade to the latest or a recent agent release."
 
   output.join("\n")
 end
