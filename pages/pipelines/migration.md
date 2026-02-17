@@ -18,7 +18,7 @@ Rather than serving as a complete automated pipeline conversion solution, the Bu
 
 Using the Buildkite pipeline converter will accelerate your understanding of Buildkite Pipelines concepts, allowing you to make informed decisions about how to rearchitect and optimize your workflows for the Buildkite platform. Use the tool's output as a learning foundation, then iterate and refine your pipeline designs before beginning the actual pipeline conversion process.
 
-You can immediately start experimenting with the Buildkite pipeline converter through the [CLI](/docs/pipelines/converter#how-to-use-the-buildkite-pipeline-converter) or via an [interactive web-based interface](https://buildkite.com/resources/convert/).
+You can immediately start experimenting with the Buildkite pipeline converter through the [CLI version](/docs/pipelines/converter#cli-buildkite-pipeline-converter-how-to-use-the-cli-buildkite-pipeline-converter) or via an [interactive web-based interface](https://buildkite.com/resources/convert/).
 
 ## Migration guides
 

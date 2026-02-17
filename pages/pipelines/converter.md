@@ -36,7 +36,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
 
     Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`, `gitlab`, `harness`, `bitrise`.
 
-    If the converter can detect the vendor from the file path, you can omit the `--vendor` flag.
+    If the converter can detect the vendor from the file path or name, you can omit the `--vendor` flag. If you see the following error: `Error: could not detect vendor from file path. Please specify vendor explicitly with --vendor`, you need to specify the vendor.
 
 1. On a successful conversion, by default, the output is saved to `.buildkite/`:
 
@@ -48,7 +48,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
     Output saved to: .buildkite/pipeline.github.yml
     ```
 
-In addition to the `--vendor` and `--output` (`-o`), other supported flags include `--timeout` and `--debug`. For more information and flag usage examples, see the CLI reference for [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
+In addition to the `--vendor` and `--output` (`-o`), other supported flags include `--timeout` and `--debug`. For more information and flag usage examples, see the CLI reference for the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
 
 ### Compatibility
 
