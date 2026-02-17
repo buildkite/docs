@@ -4,9 +4,9 @@ Clusters create logical boundaries between different parts of your build infrast
 
 Therefore, if your Buildkite pipelines are still operating in an unclustered agent environment, you should migrate these pipelines across to operating with clustered agents. This guide provides details on how to migrate your unclustered agents across to clustered ones.
 
-Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens).
+Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens).
 
-Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
+Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
@@ -17,11 +17,11 @@ Migrating your unclustered agents to a single cluster is the fastest migration s
 
 1. Ensure you are familiar with the [key benefits of clusters](#key-benefits-of-clusters), and [starting the migration process with a single cluster](#key-benefits-of-clusters-starting-with-a-single-cluster).
 
-1. Generate a [new agent token](/docs/agent/v3/self-hosted/tokens#create-a-token) for your **Default cluster**.
+1. Generate a [new agent token](/docs/agent/self-hosted/tokens#create-a-token) for your **Default cluster**.
 
     **Note:** This step is only required for clustered agents that you'll be running in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
 
-1. Create your required [self-hosted](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) or [Buildkite hosted](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
+1. Create your required [self-hosted](/docs/agent/queues/managing#create-a-self-hosted-queue) or [Buildkite hosted](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) queues in this cluster—one for each queue tag that was assigned to all agents when they were started in your unclustered agent environment.
 
     Ensure you are familiar with the differences in how queues are managed and configured between unclustered and clustered environments in [Agent queue differences](#technical-considerations-agent-queue-differences), as well as the [Create your clusters and queues](#agent-migration-process-create-your-clusters-and-queues) and [Migrate unclustered agents to clusters](#agent-migration-process-migrate-unclustered-agents-to-clusters) sections of the [Agent migration process](#agent-migration-process).
 
@@ -105,7 +105,7 @@ Consider the following factors that might increase the complexity of moving your
     * You may need to rethink how shared infrastructure is accessed across cluster boundaries.
 
 - **Custom scripts or automation that interacts with the Buildkite API**: Any custom scripts, integrations, or automations that interact with the Buildkite API might need updates to work with the cluster model.
-    * Scripts that create or manage agents may need updating to handle [agent tokens](/docs/agent/v3/self-hosted/tokens) (which work with clusters).
+    * Scripts that create or manage agents may need updating to handle [agent tokens](/docs/agent/self-hosted/tokens) (which work with clusters).
     * Reporting tools that query agent or pipeline state might need modification.
     * CI/CD automation that interacts with Buildkite Pipelines may require updates to handle the clustered structure.
 
@@ -283,7 +283,7 @@ The following table lists the differences between the former unclustered agent t
 
 - Switching from unclustered agent tokens to agent tokens for clusters is necessary for migrating your agents to clusters.
 - Ensure secure distribution of new agent tokens.
-- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/v3/self-hosted/tokens#agent-token-lifetime) (available when [creating agent tokens](/docs/agent/v3/self-hosted/tokens#create-a-token) using the [REST](/docs/agent/v3/self-hosted/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/self-hosted/tokens#create-a-token-using-the-graphql-api) APIs).
+- Plan for token rotation if needed, and if doing so, plan to implement [agent token expiration with a limited lifetime](/docs/agent/self-hosted/tokens#agent-token-lifetime) (available when [creating agent tokens](/docs/agent/self-hosted/tokens#create-a-token) using the [REST](/docs/agent/self-hosted/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/self-hosted/tokens#create-a-token-using-the-graphql-api) APIs).
 
 ### Pipeline relationships
 
@@ -326,19 +326,19 @@ This section outlines the complete migration process from unclustered to cluster
 
     You can [create clusters](/docs/pipelines/security/clusters/manage#create-a-cluster) using the [Buildkite interface](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-buildkite-interface), or [REST](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-rest-api) or [GraphQL](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-graphql-api) APIs.
 
-1. Define the [appropriate queues](/docs/agent/v3/queues/managing#setting-up-queues) within each cluster.
+1. Define the [appropriate queues](/docs/agent/queues/managing#setting-up-queues) within each cluster.
 
-    Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.), bearing in mind that basing the queue name on the [queue tag assigned to an agent when it was started](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue) (in its unclustered environment), could reduce the complexity of the agent migration process.
+    Name queues according to their purpose (for example, `linux-amd64`, `macos-m1`, etc.), bearing in mind that basing the queue name on the [queue tag assigned to an agent when it was started](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue) (in its unclustered environment), could reduce the complexity of the agent migration process.
 
-    If you have unclustered agents where any one of them was assigned to multiple queues (that is, if the [agent was started with multiple queue tags in its unclustered environment](/docs/agent/v3/queues#setting-up-queues-for-unclustered-agents)), then create a new queue in its relevant cluster for each of these queue tags, or (based on **Migration considerations** under [Agent queue differences](#technical-considerations-agent-queue-differences) above), perhaps just for the important queue tags you wish to continue using in your clustered environment.
+    If you have unclustered agents where any one of them was assigned to multiple queues (that is, if the [agent was started with multiple queue tags in its unclustered environment](/docs/agent/queues#setting-up-queues-for-unclustered-agents)), then create a new queue in its relevant cluster for each of these queue tags, or (based on **Migration considerations** under [Agent queue differences](#technical-considerations-agent-queue-differences) above), perhaps just for the important queue tags you wish to continue using in your clustered environment.
 
     If defining multiple queues, select a sensible queue to be the default. Jobs without a specific queue mentioned will use the default queue.
 
     Last, add descriptions to your queues to help users understand the queues' purposes and capabilities.
 
     You can create either:
-    * [self-hosted queues](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) (using the [Buildkite interface](/docs/agent/v3/queues/managing#create-a-self-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/v3/queues/managing#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/v3/queues/managing#create-a-self-hosted-queue-using-the-graphql-api) APIs), or
-    * [Buildkite hosted queues](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) (also using the [Buildkite interface](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue-using-the-graphql-api) APIs).
+    * [self-hosted queues](/docs/agent/queues/managing#create-a-self-hosted-queue) (using the [Buildkite interface](/docs/agent/queues/managing#create-a-self-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/queues/managing#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/queues/managing#create-a-self-hosted-queue-using-the-graphql-api) APIs), or
+    * [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) (also using the [Buildkite interface](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-graphql-api) APIs).
 
 1. Configure the necessary permissions for each cluster. As part of this process, consider how you'll set up [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
@@ -351,11 +351,11 @@ If you'll be:
 
 This part of the agent migration process is only applicable for clustered agents running in a [self-hosted (hybrid)](/docs/pipelines/architecture#self-hosted-hybrid-architecture) environment.
 
-1. Generate new [agent tokens](/docs/agent/v3/self-hosted/tokens) for each cluster.
+1. Generate new [agent tokens](/docs/agent/self-hosted/tokens) for each cluster.
 1. Securely distribute these agent tokens to the appropriate teams or systems.
 1. Document the mapping between these agent tokens and their clusters.
 
-You can [create agent tokens](/docs/agent/v3/self-hosted/tokens#create-a-token) using the [Buildkite interface](/docs/agent/v3/self-hosted/tokens#create-a-token-using-the-buildkite-interface), or the [REST](/docs/agent/v3/self-hosted/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/v3/self-hosted/tokens#create-a-token-using-the-graphql-api) API. Consider rotating tokens and setting an expiry date as you create them. Learn more about this process in [Agent token lifetime](/docs/agent/v3/self-hosted/tokens#agent-token-lifetime).
+You can [create agent tokens](/docs/agent/self-hosted/tokens#create-a-token) using the [Buildkite interface](/docs/agent/self-hosted/tokens#create-a-token-using-the-buildkite-interface), or the [REST](/docs/agent/self-hosted/tokens#create-a-token-using-the-rest-api) or [GraphQL](/docs/agent/self-hosted/tokens#create-a-token-using-the-graphql-api) API. Consider rotating tokens and setting an expiry date as you create them. Learn more about this process in [Agent token lifetime](/docs/agent/self-hosted/tokens#agent-token-lifetime).
 
 ### Migrate unclustered agents to clusters
 
@@ -365,7 +365,7 @@ This part of the agent migration process is only applicable for clustered agents
 
     As part of a [best practice](#best-practices-and-recommendations) strategy to [minimize downtime](#best-practices-and-recommendations-minimizing-downtime), creating copies of your agents like this results in two instances of each agent—one running in your original unclustered environment and the other associated with its appropriate cluster. This allows you to fall back on your unclustered agents if you have issues getting any of your clustered agents to operate as expected, thereby minimizing downtime. Be aware that this situation is only temporary, since you'll eventually be [decommissioning your unclustered agents](#agent-migration-process-decommission-your-unclustered-resources).
 
-1. For each of your agents, ensure they are configured to start with their appropriate tags for targeting, _and_ set the queue that was [already defined in your cluster](#agent-migration-process-create-your-clusters-and-queues) (or the [default queue](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue-the-default-self-hosted-queue)), which will be selected for that agent. For example, the following code snippet shows how to [configure an agent](/docs/agent/v3/self-hosted/configure) from its [former unclustered environment that defined multiple queue tags](/docs/agent/v3/queues#setting-up-queues-for-unclustered-agents), to instead target its single queue ([configured previously](#agent-migration-process-create-your-clusters-and-queues)) for its clustered environment:
+1. For each of your agents, ensure they are configured to start with their appropriate tags for targeting, _and_ set the queue that was [already defined in your cluster](#agent-migration-process-create-your-clusters-and-queues) (or the [default queue](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue-the-default-self-hosted-queue)), which will be selected for that agent. For example, the following code snippet shows how to [configure an agent](/docs/agent/self-hosted/configure) from its [former unclustered environment that defined multiple queue tags](/docs/agent/queues#setting-up-queues-for-unclustered-agents), to instead target its single queue ([configured previously](#agent-migration-process-create-your-clusters-and-queues)) for its clustered environment:
 
     ```bash
     # Before migration (unclustered) - multiple queues

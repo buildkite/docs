@@ -7,7 +7,7 @@
 # a Markdown documentation page for the Buildkite docs site.
 #
 # Usage:
-#   ruby scripts/agent_experiments2md/agent_experiments2md.rb > pages/agent/v3/self_hosted/configure/experiments.md
+#   ruby scripts/agent_experiments2md/agent_experiments2md.rb > pages/agent/self_hosted/configure/experiments.md
 #
 # Requirements:
 #   - Ruby 3.0+
@@ -27,17 +27,17 @@ PROMOTED_EXPERIMENT_LINKS = {
     ['ANSI timestamps and disabling them', '/docs/pipelines/configure/managing-log-output#ansi-timestamps-and-disabling-them']
   ],
   'Flock file locks' => [
-    ['Flock file locks', '/docs/agent/v3/cli/reference/lock#flock-file-locks']
+    ['Flock file locks', '/docs/agent/cli/reference/lock#flock-file-locks']
   ],
   'Git mirrors' => [
-    ['Git mirrors', '/docs/agent/v3/self-hosted/configure/git-mirrors'],
-    ['Setting up Git mirrors', '/docs/agent/v3/self-hosted/configure/git-mirrors#setting-up-git-mirrors']
+    ['Git mirrors', '/docs/agent/self-hosted/configure/git-mirrors'],
+    ['Setting up Git mirrors', '/docs/agent/self-hosted/configure/git-mirrors#setting-up-git-mirrors']
   ],
   'Job API' => [
     ['Internal job API', '/docs/apis/agent-api/internal-job']
   ],
   'Polyglot hooks' => [
-    ['Polyglot hooks', '/docs/agent/v3/hooks#polyglot-hooks']
+    ['Polyglot hooks', '/docs/agent/hooks#polyglot-hooks']
   ],
   'Use zzglob' => [
     ['Glob pattern syntax', '/docs/pipelines/configure/glob-pattern-syntax']
@@ -172,13 +172,13 @@ def generate_markdown(experiments_data, descriptions)
   output << ''
   output << '# Agent experiments'
   output << ''
-  output << 'Buildkite frequently introduces new experimental features to the agent. Use the [`--experiment` flag](/docs/agent/v3/self-hosted/configure#experiment) to opt-in to them and test them out:'
+  output << 'Buildkite frequently introduces new experimental features to the agent. Use the [`--experiment` flag](/docs/agent/self-hosted/configure#experiment) to opt-in to them and test them out:'
   output << ''
   output << '```'
   output << 'buildkite-agent start --experiment experiment1 --experiment experiment2'
   output << '```'
   output << ''
-  output << 'Or you can set them in your [agent configuration file](/docs/agent/v3/self-hosted/configure):'
+  output << 'Or you can set them in your [agent configuration file](/docs/agent/self-hosted/configure):'
   output << ''
   output << '```'
   output << 'experiment="experiment1,experiment2"'
@@ -208,7 +208,7 @@ def generate_markdown(experiments_data, descriptions)
     end
     output << ''
     output << '> 🛠'
-    output << "> To use this feature, set <code>experiment=\"#{name}\"</code> in your <a href=\"/docs/agent/v3/self-hosted/configure#experiment\">agent configuration</a>."
+    output << "> To use this feature, set <code>experiment=\"#{name}\"</code> in your <a href=\"/docs/agent/self-hosted/configure#experiment\">agent configuration</a>."
     output << ''
   end
 

@@ -52,9 +52,9 @@ RSpec.describe ApplicationHelper do
   describe "#seo_canonical_url" do
     it "returns the correct canonical URL" do
       # Mocking the request object's path method
-      allow(helper).to receive_message_chain(:request, :path).and_return("/docs/agent/v3")
+      allow(helper).to receive_message_chain(:request, :path).and_return("/docs/agent")
 
-      expect(helper.seo_canonical_url).to eq("https://buildkite.com/docs/agent/v3")
+      expect(helper.seo_canonical_url).to eq("https://buildkite.com/docs/agent")
     end
   end
 end

@@ -4,7 +4,7 @@ keywords: oidc, authentication, IAM, roles, AWS
 
 # OIDC with AWS
 
-The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli/reference/oidc) allows you to request an [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token containing _claims_ about the current pipeline and its job. These tokens can be consumed by AWS and exchanged for an Identity and Access Management (IAM) role with AWS-scoped permissions.
+The [Buildkite Agent's `oidc` command](/docs/agent/cli/reference/oidc) allows you to request an [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token containing _claims_ about the current pipeline and its job. These tokens can be consumed by AWS and exchanged for an Identity and Access Management (IAM) role with AWS-scoped permissions.
 
 This process uses the following Buildkite plugins to implement OIDC with AWS and your Buildkite pipelines:
 

@@ -9,9 +9,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
 # Output file for generated docs
-OUTPUT_FILE="${REPO_ROOT}/pages/agent/v3/self_hosted/versions_directory.md"
+OUTPUT_FILE="${REPO_ROOT}/pages/agent/self_hosted/versions_directory.md"
 
-echo "Generating supported agent versions documentation..."
+echo "Generating agent versions directory documentation..."
 echo "Output file: ${OUTPUT_FILE}"
 echo ""
 

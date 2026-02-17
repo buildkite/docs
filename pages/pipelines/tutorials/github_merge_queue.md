@@ -97,7 +97,7 @@ When a merge group is invalidated, GitHub sends a `merge_group` webhook event th
 
 ### Interaction with if_changed agent behavior
 
-The agent [supports an `if_changed` attribute](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) that allows steps to be conditionally included in a build based on the files changed in the commit range for that build.
+The agent [supports an `if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) that allows steps to be conditionally included in a build based on the files changed in the commit range for that build.
 
 By default for merge queue builds this commit range will be the range of commits between the HEAD of the target branch and the HEAD of the merge group the build is for. That means it will also consider file changes from merge groups ahead of the build's merge group in the queue.
 

@@ -17,7 +17,7 @@ If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-u
 
 When you connect Buildkite to GitHub through a GitHub App, the **Repository Providers** page in your Buildkite organization settings presents two options:
 
-- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted), because Buildkite needs code access to clone your repository.
+- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/buildkite-hosted), because Buildkite needs code access to clone your repository.
 - **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
 
 ### Permissions comparison
@@ -35,7 +35,7 @@ When you connect Buildkite to GitHub through a GitHub App, the **Repository Prov
 
 ### Choosing the right option
 
-Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/v3/buildkite-hosted) to run builds.
+Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/buildkite-hosted) to run builds.
 
 Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
 
@@ -127,7 +127,7 @@ To enable merge queue builds, edit the GitHub settings for the pipeline and sele
 
 Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
 
-To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
 
 For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
@@ -176,7 +176,7 @@ In a setup for a repository containing one codebase and one `pipeline.yml`, this
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
-When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
+When a _build level_ GitHub commit status has been set (as part of an [uploaded pipeline YAML file](/docs/agent/cli/reference/pipeline#uploading-pipelines)), as opposed to a _pipeline level_ GitHub commit status, where the `notify` block is defined within the [YAML step editor of the Buildkite Pipelines interface](/docs/pipelines/configure/defining-steps#adding-steps), then the GitHub status is only reported _after_ the build has completed, because the `notify` block is evaluated after the build has started. By moving the GitHub status notification block to the pipeline level (in the YAML step editor of the Buildkite Pipelines interface), the `notify` block will be evaluated when the build starts and sends off the commit status to GitHub.
 
 ### Step level
 
@@ -298,14 +298,14 @@ After creating the GitHub App, you can install this app into your account. To in
 
 ### Generating tokens
 
-The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/v3/hooks#hook-locations-agent-hooks).
+The GitHub documentation describes the [process](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app#generating-an-installation-access-token) of generating a JWT and then exchanging it for an installation access token. There are a few examples available that show how you can [generate a JWT](https://docs.github.com/en/enterprise-cloud@latest/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-json-web-token-jwt-for-a-github-app#generating-a-json-web-token-jwt) using some common programming languages. The example that follows will be using Bash to configure a `pre-checkout` [agent hook](/docs/agent/hooks#hook-locations-agent-hooks).
 
 #### Configure agent hook
 
 > 📘 OpenSSL package requirement
 > The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite Agent performing the checkout.
 
-In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/v3/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
+In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 
 ```bash
 #!/usr/bin/env bash

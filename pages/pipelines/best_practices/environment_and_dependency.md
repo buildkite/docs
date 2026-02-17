@@ -1,6 +1,6 @@
 # Environment and dependency management
 
-This page covers best practices for containerized builds, dependency management, handling of secrets, and environment configuration using [Buildkite Agents](/docs/agent/v3), [queues](/docs/agent/v3/queues), [plugins](/docs/pipelines/integrations/plugins), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
+This page covers best practices for containerized builds, dependency management, handling of secrets, and environment configuration using [Buildkite Agents](/docs/agent), [queues](/docs/agent/queues), [plugins](/docs/pipelines/integrations/plugins), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ## Build containerization for consistency
 
@@ -48,13 +48,13 @@ env:
   API_ENDPOINT: "https://api.myapp.com/prod"
 ```
 
-- Use step-level `env`, pipeline `env`, or [hooks](/docs/agent/v3/hooks) to set values.
+- Use step-level `env`, pipeline `env`, or [hooks](/docs/agent/hooks) to set values.
 - Keep secrets out of `pipeline.yml` and repositories—use a secrets manager or [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 - Be aware of the OS's limits for environment size; opt for using files instead of variables for large payloads.
 
 ## Optimizing agent hosts and queues for environment needs
 
-- Match your agent infrastructure to your environment requirements by creating specialized [queues](/docs/agent/v3/queues) and minimizing host-level dependencies.
+- Match your agent infrastructure to your environment requirements by creating specialized [queues](/docs/agent/queues) and minimizing host-level dependencies.
 - Create queues that map to specific environments, for example the OS, CPU/RAM, GPU, network access, trust boundary, and so on.
 - Keep system dependencies in containers when possible.
 - If host-level tooling is required, pin versions and manage via [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach.
@@ -70,7 +70,7 @@ Proper script hygiene prevents silent failures and makes debugging easier. Write
     * Consider only using `set -x` for debugging
 - Don't assume shell init files; explicitly configure shell behavior in your [build scripts](/docs/pipelines/configure/writing-build-scripts).
 - [Fail fast](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs) with clear exit codes.
-- Surface summaries via [Buildkite annotations](/docs/agent/v3/cli/reference/annotate) for quick feedback.
+- Surface summaries via [Buildkite annotations](/docs/agent/cli/reference/annotate) for quick feedback.
 
 ## Reproducible Docker builds in pipelines
 
@@ -120,7 +120,7 @@ See more on governance in [Governance overview](/docs/pipelines/governance).
 
 Monitor and measure your build environments to identify optimization opportunities and track performance over time.
 
-- Emit key build-time environment facts as [annotations](/docs/agent/v3/cli/reference/annotate):
+- Emit key build-time environment facts as [annotations](/docs/agent/cli/reference/annotate):
     * Image digest and source
     * Toolchain versions
     * Cache hit ratios

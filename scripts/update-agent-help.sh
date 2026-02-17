@@ -67,7 +67,7 @@ commands=(
 base_dir="$(git rev-parse --show-toplevel)"
 
 for command in "${commands[@]}"; do
-  file="${base_dir}/pages/agent/v3/cli/help/_${command//[- ]/_}.md"
+  file="${base_dir}/pages/agent/cli/help/_${command//[- ]/_}.md"
   if [[ ! -f "${file}" ]]; then
     echo "File ${file} doesn't exist"
     exit 1

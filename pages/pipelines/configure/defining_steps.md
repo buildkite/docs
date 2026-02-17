@@ -88,7 +88,7 @@ steps:
     command: buildkite-agent pipeline upload
 ```
 
-When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be [uploaded to Buildkite](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) and will appear during the build.
+When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be [uploaded to Buildkite](/docs/agent/cli/reference/pipeline#uploading-pipelines) and will appear during the build.
 
 > 📘
 > When using WSL2 or PowerShell Core, you cannot add a `buildkite-agent pipeline upload` command step directly in the YAML steps editor. To work around this, there are two options:
@@ -247,7 +247,7 @@ Platform limits are restrictions imposed by Buildkite on usage within your Build
 
 The following platform limits may apply:
 
-- **Job concurrency limits**: A Buildkite organization on the [Personal](https://buildkite.com/pricing/) plan has a total concurrency limit of three jobs that applies across both [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your Buildkite organization, at least [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or reach out to Buildkite support at support@buildkite.com for help.
+- **Job concurrency limits**: A Buildkite organization on the [Personal](https://buildkite.com/pricing/) plan has a total concurrency limit of three jobs that applies across both [Buildkite hosted agents](/docs/agent/buildkite-hosted) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your Buildkite organization, at least [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or reach out to Buildkite support at support@buildkite.com for help.
 
 ## Example pipeline
 
@@ -328,14 +328,14 @@ And your deployment pipeline's upload command could be:
 buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml
 ```
 
-For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) documentation.
+For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/cli/reference/pipeline#uploading-pipelines) documentation.
 
 ## Targeting specific agents
 
 To run [command steps](/docs/pipelines/configure/step-types/command-step) only on specific agents:
 
-1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli/reference/start#setting-tags)
-1. In the pipeline command step, [set the agent property](/docs/agent/v3/cli/reference/start#agent-targeting) in the command step
+1. In the agent configuration file, [tag the agent](/docs/agent/cli/reference/start#setting-tags)
+1. In the pipeline command step, [set the agent property](/docs/agent/cli/reference/start#agent-targeting) in the command step
 
 For example to run commands only on agents running on macOS:
 
@@ -349,4 +349,4 @@ steps:
 
 ## Further documentation
 
-You can also upload pipelines from the command line using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli/reference/pipeline) for a full list of the available parameters.
+You can also upload pipelines from the command line using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/cli/reference/pipeline) for a full list of the available parameters.

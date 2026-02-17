@@ -12,14 +12,14 @@ Description: "Buildkite stack v6.56.0"
 # and how to use it most effectively and securely, check out
 # the following resources:
 #
-# * Elastic CI Stack for AWS Overview: https://buildkite.com/docs/agent/v3/elastic_ci_aws
+# * Elastic CI Stack for AWS Overview: https://buildkite.com/docs/agent/elastic_ci_aws
 # * Elastic CI Stack for AWS Tutorial: https://buildkite.com/docs/tutorials/elastic-ci-stack-aws
-# * Running Buildkite agent on AWS: https://buildkite.com/docs/agent/v3/aws
+# * Running Buildkite agent on AWS: https://buildkite.com/docs/agent/aws
 # * GitHub Repo for Elastic CI Stack for AWS: https://github.com/buildkite/elastic-ci-stack-for-aws
-# * Template Parameters for Elastic CI Stack for AWS: https://buildkite.com/docs/agent/v3/elastic-ci-aws/parameters
-# * Using AWS Secrets Manager: https://buildkite.com/docs/agent/v3/aws/secrets-manager
-# * VPC Design: https://buildkite.com/docs/agent/v3/aws/vpc
-# * CloudFormation Service Role: https://buildkite.com/docs/agent/v3/elastic-ci-aws/cloudformation-service-role
+# * Template Parameters for Elastic CI Stack for AWS: https://buildkite.com/docs/agent/elastic-ci-aws/parameters
+# * Using AWS Secrets Manager: https://buildkite.com/docs/agent/aws/secrets-manager
+# * VPC Design: https://buildkite.com/docs/agent/aws/vpc
+# * CloudFormation Service Role: https://buildkite.com/docs/agent/elastic-ci-aws/cloudformation-service-role
 
 Transform: AWS::Serverless-2016-10-31
 
@@ -377,7 +377,7 @@ Parameters:
     Default: "false"
 
   BuildkiteAgentTracingBackend:
-    Description: Optional - The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing.
+    Description: Optional - The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/tracing.
     Type: String
     AllowedValues:
       - ""
@@ -852,7 +852,7 @@ Parameters:
       The role must have all necessary permissions for Buildkite agents to function correctly.
       This is useful when you want to share a single IAM role across multiple queues/stacks.
       Supports roles with custom paths up to 10 levels deep.
-      See https://buildkite.com/docs/agent/v3/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles
+      See https://buildkite.com/docs/agent/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#using-custom-iam-roles
       for required permissions and configuration examples.
     Default: ""
     AllowedPattern: "^$|^arn:aws:iam::[0-9]+:role/.*$"

@@ -52,7 +52,7 @@ You can download artifacts by [running the `buildkite-agent artifact download` c
 ## Upload artifacts with a command step
 
 Set the `artifact_paths` attribute of [a command step](/docs/pipelines/configure/step-types/command-step) to upload artifacts after the command step has finished its work.
-The `artifact_paths` attribute can contain an array of file paths or [glob patterns](/docs/agent/v3/cli/reference/artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
+The `artifact_paths` attribute can contain an array of file paths or [glob patterns](/docs/agent/cli/reference/artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
 
 The following example shows a command step configured to upload all of the files in the `logs` and `coverage` directories and their subdirectories:
 
@@ -71,7 +71,7 @@ steps:
 ## Upload artifacts with the Buildkite agent
 
 Within a build, run the `buildkite-agent artifact upload` command to upload artifacts.
-The agent's `upload` command arguments are one or more file paths and [glob patterns](/docs/agent/v3/cli/reference/artifact#uploading-artifacts-artifact-upload-glob-syntax).
+The agent's `upload` command arguments are one or more file paths and [glob patterns](/docs/agent/cli/reference/artifact#uploading-artifacts-artifact-upload-glob-syntax).
 
 The following example uploads a `build.tar.gz` file from the `pkg` directory:
 
@@ -80,15 +80,15 @@ buildkite-agent artifact upload pkg/build.tar.gz
 ```
 
 The `buildkite-agent artifact upload` command supports several options and environment variables.
-For complete usage instructions, read the [`buildkite-agent artifact upload`](/docs/agent/v3/cli/reference/artifact#uploading-artifacts) documentation.
+For complete usage instructions, read the [`buildkite-agent artifact upload`](/docs/agent/cli/reference/artifact#uploading-artifacts) documentation.
 
 ## Download artifacts with the Buildkite agent
 
 Within a build, run the `buildkite-agent artifact download` command to download artifacts from a script.
-The agent's `download` command arguments are a file path or [glob pattern](/docs/agent/v3/cli/reference/artifact#uploading-artifacts-artifact-upload-glob-syntax) and a destination path.
+The agent's `download` command arguments are a file path or [glob pattern](/docs/agent/cli/reference/artifact#uploading-artifacts-artifact-upload-glob-syntax) and a destination path.
 
 The `buildkite-agent artifact download` command supports several options and environment variables.
-For complete usage instructions, read the [`buildkite-agent artifact download`](/docs/agent/v3/cli/reference/artifact#downloading-artifacts) documentation.
+For complete usage instructions, read the [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts) documentation.
 
 > 📘 Pipeline artifact access
 > Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/security/clusters/rules) has been created to explicitly allow artifact access between pipelines in different clusters.
@@ -147,10 +147,10 @@ Buildkite retains artifacts for six months before deletion.
 
 Alternatively, you can use a self-managed storage provider. Read these guides for details:
 
-- [Amazon S3](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket)
-- [Google Cloud Storage](/docs/agent/v3/cli/reference/artifact#using-your-private-google-cloud-bucket)
-- [Azure Blob Storage](/docs/agent/v3/cli/reference/artifact#using-your-private-azure-blob-container)
-- [Artifactory](/docs/agent/v3/cli/reference/artifact#using-your-artifactory-instance)
+- [Amazon S3](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket)
+- [Google Cloud Storage](/docs/agent/cli/reference/artifact#using-your-private-google-cloud-bucket)
+- [Azure Blob Storage](/docs/agent/cli/reference/artifact#using-your-private-azure-blob-container)
+- [Artifactory](/docs/agent/cli/reference/artifact#using-your-artifactory-instance)
 
 If you manage your own artifact storage, then you are responsible for encryption and retention planning.
 

@@ -6,8 +6,8 @@ Clusters is a Buildkite Pipelines feature used to manage and organize agents and
 - Allows [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) and [Buildkite organization administrators](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) to create isolated sets of agents and pipelines within the one Buildkite organization.
 - Helps make agents and queues more discoverable across your Buildkite organization.
 - Provides easily accessible [queue metrics](/docs/pipelines/insights/queue-metrics) and operational [cluster insights](/docs/pipelines/insights/clusters) such as queue wait times (available on [Enterprise](https://buildkite.com/pricing/) plans only).
-- Allows easier agent management through [queue pausing](/docs/agent/v3/queues/managing#pause-and-resume-a-queue).
-- Allows you to easily [create queues for Buildkite hosted agents](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue).
+- Allows easier agent management through [queue pausing](/docs/agent/queues/managing#pause-and-resume-a-queue).
+- Allows you to easily [create queues for Buildkite hosted agents](/docs/agent/queues/managing#create-a-buildkite-hosted-queue).
 - Allows the management of [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets).
 
 Clusters create logical boundaries between different parts of your build infrastructure, enhancing security, discoverability, and manageability.
@@ -40,7 +40,7 @@ Learn more about working with clusters in [Manage clusters](/docs/pipelines/secu
 > 📘 Pipeline triggering and artifact access
 > Pipelines associated with one cluster cannot trigger or access artifacts from pipelines associated with another cluster, unless a [rule](/docs/pipelines/security/clusters/rules) has been created to explicitly allow triggering or artifact access between pipelines in different clusters.
 
-Be aware that if you are using the the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) to run your Buildkite Agents in a Kubernetes environment (with Kubernetes clusters), a Kubernetes cluster is unrelated to a Buildkite cluster.
+Be aware that if you are using the the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) to run your Buildkite Agents in a Kubernetes environment (with Kubernetes clusters), a Kubernetes cluster is unrelated to a Buildkite cluster.
 
 ### How should I structure my queues
 
@@ -54,7 +54,7 @@ Therefore, an example queue would be `small_mac_silicon`.
 
 Having individual queues according to these breakdowns allows you to scale a set of similar agents, which Buildkite can then report on.
 
-Learn more about working with queues in [Manage queues](/docs/agent/v3/queues/managing).
+Learn more about working with queues in [Manage queues](/docs/agent/queues/managing).
 
 ## Queue metrics
 

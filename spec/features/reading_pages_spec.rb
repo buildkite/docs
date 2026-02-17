@@ -20,7 +20,7 @@ RSpec.feature "reading pages" do
     end
 
     it "has the correct title" do
-      visit "/docs/agent/v3"
+      visit "/docs/agent"
       expect(page.title).to include("The Buildkite agent")
     end
 
@@ -89,7 +89,7 @@ RSpec.feature "reading pages" do
       /docs/agent/build-pipelines
       /docs/agent/uploading-pipelines
       /docs/agent/upgrading
-      /docs/agent/v3/plugins
+      /docs/agent/plugins
       /docs/api
       /docs/api/accounts
       /docs/api/builds

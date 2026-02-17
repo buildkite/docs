@@ -23,7 +23,7 @@ You can add form `fields` to block steps by adding a fields attribute. Block ste
 
 The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/configure/build-meta-data).
 
-In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli/reference/meta-data) command.
+In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/cli/reference/meta-data) command.
 
 <%= image "release_modal_input.png", alt: "Screenshot of a block step with input fields" %>
 
@@ -142,7 +142,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -220,7 +220,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-stream"</code>
     </td>
@@ -325,7 +325,7 @@ Each select option has the following _required_ attributes:
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
       <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>
@@ -384,7 +384,7 @@ echo "Release name: $RELEASE_NAME"
 
 ### Passing meta-data to trigger steps
 
-When passing meta-data values to trigger steps you need to delay adding the trigger step to the pipeline until after the block step has completed; this can be done using [dynamic pipelines](/docs/agent/v3/cli/reference/pipeline), and works around the lack of runtime meta-data interpolation.
+When passing meta-data values to trigger steps you need to delay adding the trigger step to the pipeline until after the block step has completed; this can be done using [dynamic pipelines](/docs/agent/cli/reference/pipeline), and works around the lack of runtime meta-data interpolation.
 
 You can modify a trigger step to dynamically upload itself to a pipeline as follows:
 
