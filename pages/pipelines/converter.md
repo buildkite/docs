@@ -136,7 +136,7 @@ Will be converted by the Buildkite pipeline converter into the following Buildki
 # ============================================================================
 
 steps:
-  - label: ":nodejs: Build & Test node-{{matrix.node}}"
+  - label: "\:nodejs\: Build & Test node-{{matrix.node}}"
     key: "build-node-{{matrix.node}}"
     # Assumes Node.js is installed on the agent.
     # If not available, use the Docker plugin:
