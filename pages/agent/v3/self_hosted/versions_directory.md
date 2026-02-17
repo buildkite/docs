@@ -15,7 +15,7 @@ To update this file:
 
 # Agent versions directory
 
-The following lists Buildkite version 3.0 agent releases, including 3.0-beta releases, in reverse chronological order. Each version links through to its release notes on GitHub.
+The following lists Buildkite version 3.x stable agent releases, including 3.0-beta releases, in reverse chronological order. Each version links through to its release notes on GitHub.
 
 ## Agent versions 3.110 to 3.119
 

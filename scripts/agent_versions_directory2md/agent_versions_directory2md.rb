@@ -130,7 +130,7 @@ def generate_markdown(version_groups, beta_releases)
   output << ''
   output << '# Agent versions directory'
   output << ''
-  output << 'The following lists Buildkite version 3.0 agent releases, including 3.0-beta releases, in reverse chronological order. Each version links through to its release notes on GitHub.'
+  output << 'The following lists Buildkite version 3.x stable agent releases, including 3.0-beta releases, in reverse chronological order. Each version links through to its release notes on GitHub.'
   output << ''
 
   version_groups.each do |group|

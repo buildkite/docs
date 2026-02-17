@@ -1,6 +1,6 @@
 # Upgrading from 3.0-beta and 2.x versions
 
-This page provides guidelines on how to upgrade your Buildkite agents from [3.0-beta and 2.x versions](/docs/agent/v3/self-hosted/versions-directory#2x-versions) to a [version 3.x one](/docs/agent/v3/self-hosted/versions-directory).
+This page provides guidelines on how to upgrade your Buildkite agents from [3.0-beta](/docs/agent/v3/self-hosted/versions-directory#agent-versions-3-dot-0-beta) and [2.x versions](/docs/agent/v3/self-hosted/versions-directory#agent-versions-2-dot-x) to a [stable 3.x version](/docs/agent/v3/self-hosted/versions-directory).
 
 To start, upgrade your unsupported agents using your operating system package manager, or by re-running the installation script.
 
