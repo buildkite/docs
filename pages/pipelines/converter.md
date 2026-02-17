@@ -6,21 +6,11 @@ Rather than serving as a complete automated migration solution, the Buildkite pi
 
 An AI Large Language Model (LLM) is used to achieve the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
 
-## Compatibility
+## CLI Buildkite pipeline converter
 
-The Buildkite pipeline converter Supports the following CI providers:
+The [Buildkite CLI](/docs/platform/cli) provides the `bk pipeline convert` command, which lets you convert CI configurations from supported providers directly from your terminal. This is the recommended way to use the pipeline converter as part of a migration workflow.
 
-- [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
-- [CircleCI](/docs/pipelines/migration/tool/circleci)
-- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
-- [Jenkins](/docs/pipelines/migration/tool/jenkins)
-- Bitrise (beta)
-- GitLab CI (beta)
-- Harness (beta)
-
-The converter can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
-
-## How to use the Buildkite pipeline converter (CLI)
+### How to use the CLI Buildkite pipeline converter
 
 To convert an existing CI configuration, use the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) from the [Buildkite CLI](/docs/platform/cli).
 
@@ -58,7 +48,19 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
     Output saved to: .buildkite/pipeline.github.yml
     ```
 
-In addition to the `--vendor` and `--output`, other supported flags include `--timeout` and `--debug`. For more information and flag usage examples, see the CLI reference for [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
+In addition to the `--vendor` and `--output` (`-o`), other supported flags include `--timeout` and `--debug`. For more information and flag usage examples, see the CLI reference for [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
+
+### Compatibility
+
+The Buildkite pipeline converter Supports the following CI providers:
+
+- [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
+- [CircleCI](/docs/pipelines/migration/tool/circleci)
+- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
+- [Jenkins](/docs/pipelines/migration/tool/jenkins)
+- Bitrise (beta)
+- GitLab CI (beta)
+- Harness (beta)
 
 ### Example conversion
 
@@ -157,7 +159,7 @@ steps:
       setup:
         node:
           - "18.x"
-          - "20.x"%
+          - "20.x"
 ```
 
 ## Interactive web version
@@ -166,12 +168,12 @@ For a quick try of the Buildkite pipeline converter, you can also use the [inter
 
 <%= image "pipeline-converter-web.png", alt: "Buildkite pipeline converter's web UI" %>
 
-### How to use the Buildkite pipeline converter (web)
+### How to use the web Buildkite pipeline converter
 
 To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
 1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Select your CI/CD platform from from the dropdown list.
+1. Select your CI/CD platform from the dropdown list.
 1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
 1. Click the **Convert** button to reveal the translated pipeline definition in the right panel.
 1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
@@ -181,10 +183,11 @@ To start translating your existing pipeline or workflow configuration into a Bui
 
 ## Next steps
 
+The Buildkite pipeline converter can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
+
 For more tools and recommendations regarding migrating from your existing CI/CD platform to Buildkite, see:
 
 - [Migrate to Buildkite Pipelines](/docs/pipelines/migration)
-- [Buildkite Migration Services](https://buildkite.com/resources/migrations/)
 - [Migration from GitHub Actions - a step-by-step guide](/docs/pipelines/migration/from-githubactions)
 - [Migration from Jenkins - a step-by-step guide](/docs/pipelines/migration/from-jenkins)
 - [Migration from Bamboo - a step-by-step guide](/docs/pipelines/migration/from-bamboo)

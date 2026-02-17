@@ -11,7 +11,7 @@ The goal of the Buildkite pipeline converter is to give you a starting point, so
 To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
 1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Select your CI/CD platform (**Circle CI**) from from the dropdown list.
+1. Select your CI/CD platform (**Circle CI**) from the dropdown list.
 1. In the left panel, enter the pipeline definition to translate into a Buildkite pipeline definition.
 1. Click the **Convert** button to reveal the translated pipeline definition in the right panel.
 1. Copy the resulting Buildkite pipeline YAML configuration on the right and [create](/docs/pipelines/configure) a [new Buildkite pipeline](https://www.buildkite.com/new) with it.
