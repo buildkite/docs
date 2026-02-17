@@ -332,6 +332,12 @@
                   path: "agent/v3/self-hosted/security"
                 - name: "Signed pipelines"
                   path: "agent/v3/self-hosted/security/signed-pipelines"
+            - name: "Agent versions directory"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/self-hosted/versions-directory"
+                - name: "Upgrading from 3.0-beta and 2.x versions"
+                  path: "agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2"
         - name: "Buildkite hosted agents"
           children:
             - name: "Overview"
@@ -421,8 +427,6 @@
               path: "agent/v2/installation"
             - name: "Upgrading to v2"
               path: "agent/v2/upgrading-to-v2"
-            - name: "Upgrading to v3"
-              path: "agent/v2/upgrading-to-v3"
             - name: "Configuration"
               path: "agent/v2/configuration"
             - name: "SSH keys"
