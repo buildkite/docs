@@ -35,7 +35,7 @@ steps:
       queue: hosted
     env:
       GH_REPO: buildkite/docs-private
-      DRY_RUN: "true"  # Set to "false" after initial testing
+      DRY_RUN: "false"
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
           # Uses docs-private role for access to gh-token SSM parameter
