@@ -360,17 +360,17 @@ end
 def notify_slack(pr_data, reviewer)
   puts "--- :slack: Sending Slack notification"
 
-  webhook_url = ENV["SLACK_WEBHOOK_URL"]
-  unless webhook_url
-    puts "#{YELLOW}SLACK_WEBHOOK_URL not set, skipping Slack notification#{RESET}"
-    return
-  end
-
-  slack_mention = "<@#{reviewer['slack_id']}>"
-  message = ":bell: PR reviewer assigned: #{slack_mention}\n" \
+  message = ":bell: PR reviewer assigned: <@#{reviewer['slack_id']}> for " \
             "<#{pr_data['html_url']}|##{pr_data['number']} - #{pr_data['title']}>"
 
-  payload = { text: message }
+  notification = YAML.dump({
+    "notify" => [{
+      "slack" => {
+        "channels" => ["#team-technical-services-docs"],
+        "message" => message
+      }
+    }]
+  })
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would send Slack notification#{RESET}"
@@ -379,15 +379,10 @@ def notify_slack(pr_data, reviewer)
   end
 
   begin
-    uri = URI.parse(webhook_url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
-    request.body = payload.to_json
-    response = http.request(request)
-    puts "#{GREEN_BOLD}Slack notification sent (#{response.code})#{RESET}"
+    Open3.capture2("buildkite-agent", "pipeline", "upload", stdin_data: notification)
+    puts "#{GREEN_BOLD}Slack notification queued#{RESET}"
   rescue => e
-    puts "#{YELLOW}Warning: Could not send Slack notification: #{e.message}#{RESET}"
+    puts "#{YELLOW}Warning: Could not queue Slack notification: #{e.message}#{RESET}"
   end
 end
 
