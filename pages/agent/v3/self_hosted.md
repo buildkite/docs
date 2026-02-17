@@ -24,6 +24,8 @@ A self-hosted agent has a standard configuration file format on all systems to s
 
 Buildkite frequently introduces new experimental features to the agent, which you can try out on self-hosted agents. See [Agent experiments](/docs/agent/v3/self-hosted/configure/experiments) for the full list of available and promoted experiments.
 
-## Supported agent versions
+## Agent versions directory
 
-When running self-hosted agents, you are responsible for keeping them up to date. For details on which agent versions are currently supported, see [Supported agent versions](/docs/agent/v3/self-hosted/supported-versions).
+For a complete list of stable Buildkite agent 3.x versions, see the [Agent versions directory](/docs/agent/v3/self-hosted/versions-directory).
+
+When running self-hosted agents, you are responsible for keeping them up to date.
