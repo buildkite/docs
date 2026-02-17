@@ -44,9 +44,15 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
+      - ecr#v2.9.0:
+          login: true
+          account-ids: public.ecr.aws
       - aws-ssm#v1.0.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
+      - docker-compose#v3.9.0:
+          run: app
+          dependencies: false
     notify:
       - slack: "#team-technical-services-docs"
 
