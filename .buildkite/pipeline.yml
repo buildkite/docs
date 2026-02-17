@@ -50,6 +50,7 @@ steps:
       - aws-ssm#v1.0.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
+            SLACK_WEBHOOK_URL: /pipelines/buildkite/docs-private/slack-webhook-url
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
@@ -57,6 +58,7 @@ steps:
           env:
             - GH_REPO
             - GH_TOKEN
+            - SLACK_WEBHOOK_URL
             - DRY_RUN
             - SKIP_TEAM_CHECK
             - BUILDKITE_PULL_REQUEST

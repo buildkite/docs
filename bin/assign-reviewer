@@ -328,7 +328,7 @@ def create_buildkite_annotation(pr_data, reviewer, scores)
   annotation = <<~ANNOTATION
     ### :bell: PR Reviewer Assigned
 
-    **Reviewer:** #{reviewer['slack']} (@#{reviewer['username']})
+    **Reviewer:** #{reviewer['slack_name']} (@#{reviewer['username']})
     **PR:** [##{pr_data['number']} - #{pr_data['title']}](#{pr_data['html_url']})
     **Author:** @#{pr_data['user']['login']}
 
@@ -360,18 +360,17 @@ end
 def notify_slack(pr_data, reviewer)
   puts "--- :slack: Sending Slack notification"
 
-  message = ":bell: PR reviewer assigned: #{reviewer['slack']} for " \
-            "<#{pr_data['html_url']}|##{pr_data['number']} - #{pr_data['title']}> " \
-            "by @#{pr_data['user']['login']}"
+  webhook_url = ENV["SLACK_WEBHOOK_URL"]
+  unless webhook_url
+    puts "#{YELLOW}SLACK_WEBHOOK_URL not set, skipping Slack notification#{RESET}"
+    return
+  end
 
-  notification = YAML.dump({
-    "notify" => [{
-      "slack" => {
-        "channels" => ["#team-technical-services-docs"],
-        "message" => message
-      }
-    }]
-  })
+  slack_mention = "<@#{reviewer['slack_id']}>"
+  message = ":bell: PR reviewer assigned: #{slack_mention}\n" \
+            "<#{pr_data['html_url']}|##{pr_data['number']} - #{pr_data['title']}>"
+
+  payload = { text: message }
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would send Slack notification#{RESET}"
@@ -380,10 +379,15 @@ def notify_slack(pr_data, reviewer)
   end
 
   begin
-    Open3.capture2("buildkite-agent", "pipeline", "upload", stdin_data: notification)
-    puts "#{GREEN_BOLD}Slack notification queued#{RESET}"
+    uri = URI.parse(webhook_url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
+    request.body = payload.to_json
+    response = http.request(request)
+    puts "#{GREEN_BOLD}Slack notification sent (#{response.code})#{RESET}"
   rescue => e
-    puts "#{YELLOW}Warning: Could not queue Slack notification: #{e.message}#{RESET}"
+    puts "#{YELLOW}Warning: Could not send Slack notification: #{e.message}#{RESET}"
   end
 end
 
