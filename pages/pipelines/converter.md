@@ -6,7 +6,21 @@ Rather than serving as a complete automated migration solution, the Buildkite pi
 
 An AI Large Language Model (LLM) is used to achieve the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
 
-## How to use the Buildkite pipeline converter
+## Compatibility
+
+The Buildkite pipeline converter Supports the following CI providers:
+
+- [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
+- [CircleCI](/docs/pipelines/migration/tool/circleci)
+- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
+- [Jenkins](/docs/pipelines/migration/tool/jenkins)
+- Bitrise (beta)
+- GitLab CI (beta)
+- Harness (beta)
+
+The converter can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
+
+## How to use the Buildkite pipeline converter (CLI)
 
 To convert an existing CI configuration, use the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) from the [Buildkite CLI](/docs/platform/cli).
 
@@ -148,11 +162,11 @@ steps:
 
 ## Interactive web version
 
-For a quick try of the Buildkite pipelines converter, you can also use the [interactive web version](https://buildkite.com/resources/convert/).
+For a quick try of the Buildkite pipeline converter, you can also use the [interactive web version](https://buildkite.com/resources/convert/).
 
 <%= image "pipeline-converter-web.png", alt: "Buildkite pipeline converter's web UI" %>
 
-### How to use the web pipeline converter
+### How to use the Buildkite pipeline converter (web)
 
 To start translating your existing pipeline or workflow configuration into a Buildkite pipeline using the web version:
 
@@ -165,25 +179,12 @@ To start translating your existing pipeline or workflow configuration into a Bui
 > 🚧 Conversion errors
 > If the pipeline configuration you are trying to convert to a Buildkite pipeline contains syntax or other errors or is not a valid pipeline configuration, you will see an error message _"This doesn't look like valid YAML. Please paste your pipeline configuration."_ In this case, ensure that the original pipeline configuration you are translating to a Buildkite pipeline is a valid pipeline definition for the CI/CD platform you are migrating from.
 
-## Compatibility
-
-The Buildkite pipeline converter Supports the following CI providers:
-
-- [GitHub Actions](/docs/pipelines/migration/tool/github-actions)
-- [CircleCI](/docs/pipelines/migration/tool/circleci)
-- [Bitbucket Pipelines](/docs/pipelines/migration/tool/bitbucket-pipelines)
-- [Jenkins](/docs/pipelines/migration/tool/jenkins)
-- Bitrise (beta)
-- GitLab CI (beta)
-- Harness (beta)
-
-The converter can be used as a standalone tool or potentially integrated into your [Buildkite Migration Services](https://buildkite.com/resources/migrations/) process, offering a way to leverage existing CI configurations within the Buildkite ecosystem.
-
 ## Next steps
 
 For more tools and recommendations regarding migrating from your existing CI/CD platform to Buildkite, see:
 
 - [Migrate to Buildkite Pipelines](/docs/pipelines/migration)
 - [Buildkite Migration Services](https://buildkite.com/resources/migrations/)
+- [Migration from GitHub Actions - a step-by-step guide](/docs/pipelines/migration/from-githubactions)
 - [Migration from Jenkins - a step-by-step guide](/docs/pipelines/migration/from-jenkins)
 - [Migration from Bamboo - a step-by-step guide](/docs/pipelines/migration/from-bamboo)
