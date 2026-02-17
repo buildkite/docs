@@ -163,4 +163,4 @@ Git LFS stores large files outside your repository in a separate storage locatio
 - Cache volumes are scoped per pipeline, shared across steps, and retained for 14 days since last use. Design for cache misses after inactivity.
 - Cache volumes are locality-aware and non-deterministic. Always fetch from the LFS remote when you need guaranteed up-to-date objects.
 
-To find out more about optimizing Buildkite Pipelines for handling Git LFS, see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understanding-the-difference-in-default-checkout-behaviors).
+To find out more about optimizing Buildkite Pipelines for handling Git LFS, see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understand-the-differences-the-difference-in-default-checkout-behaviors).

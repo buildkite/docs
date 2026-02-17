@@ -507,7 +507,7 @@ Buildkite has native matrix support that maps directly to GitHub Actions' `strat
 | `continue-on-error` per matrix combo | `soft_fail` in `adjustments` |
 | `fail-fast: false` | Default behavior (sibling jobs aren't cancelled) |
 
-Example multi-dimensional matrix:
+An example of multi-dimensional matrix in GitHub Actions:
 
 ```yaml
 # GitHub Actions
@@ -515,8 +515,11 @@ strategy:
   matrix:
     os: [ubuntu-latest, macos-latest]
     node: [18, 20]
+```
+This is how it translates to Buildkite Pipelines:
 
-# Buildkite Pipelines
+```yaml
+#Buildkite Pipelines
 steps:
   - label: "test {{matrix.os}} node-{{matrix.node}}"
     command: npm test
@@ -584,7 +587,7 @@ steps:
 
 ## Translating job outputs
 
-GitHub Actions uses `$GITHUB_OUTPUT` and `jobs.<id>.outputs` to pass data between jobs. Buildkite Pipelines uses [meta-data](/docs/pipelines/configure/build-meta-data):
+GitHub Actions uses `$GITHUB_OUTPUT` and `jobs.<id>.outputs` to pass data between jobs:
 
 ```yaml
 # GitHub Actions
@@ -595,7 +598,11 @@ jobs:
     steps:
       - id: get-version
         run: echo "version=1.2.3" >> $GITHUB_OUTPUT
+```
 
+Buildkite Pipelines uses [meta-data](/docs/pipelines/configure/build-meta-data):
+
+```yaml
 # Buildkite Pipelines
 steps:
   - label: "setup"
