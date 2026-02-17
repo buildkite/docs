@@ -441,7 +441,7 @@ begin
     end
   else
     puts ""
-    puts "#{YELLOW}PR ##{PR_NUMBER} is not eligible for auto-assignment#{RESET}"
+    puts "#{YELLOW}PR ##{pr_number} is not eligible for auto-assignment#{RESET}"
   end
 
 rescue => e
