@@ -332,6 +332,12 @@
                   path: "agent/v3/self-hosted/security"
                 - name: "Signed pipelines"
                   path: "agent/v3/self-hosted/security/signed-pipelines"
+            - name: "Agent versions directory"
+              children:
+                - name: "Overview"
+                  path: "agent/v3/self-hosted/versions-directory"
+                - name: "Upgrading from 3.0-beta and 2.x versions"
+                  path: "agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2"
         - name: "Buildkite hosted agents"
           children:
             - name: "Overview"
@@ -711,10 +717,8 @@
       pill: "preview"
     - name: "Test Engine Client (bktec)"
       children:
-        - name: "Configuring"
-          path: "test-engine/bktec/configuring"
-        - name: "Installing"
-          path: "test-engine/bktec/installing-the-client"
+        - name: "Installing and using the client"
+          path: "test-engine/bktec/installing-and-using-the-client"
     - name: "Notifications"
       children:
         - name: "Email"
