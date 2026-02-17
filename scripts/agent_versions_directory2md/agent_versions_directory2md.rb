@@ -21,6 +21,31 @@ GITHUB_API_URL = 'https://api.github.com/repos/buildkite/agent/releases'
 MIN_MAJOR_VERSION = 3
 MINOR_GROUP_SIZE = 10
 
+VERSIONS_WITH_KNOWN_ISSUES = %w[
+  3.8.0
+  3.8.1
+  3.8.2
+  3.8.3
+  3.11.0
+  3.11.3
+  3.11.4
+  3.13.1
+  3.18.0
+  3.43.0
+  3.50.0
+  3.50.1
+  3.76.0
+  3.76.1
+  3.76.2
+  3.77.0
+  3.78.0
+  3.79.0
+  3.80.0
+  3.81.0
+  3.82.0
+  3.112.0
+].freeze
+
 def fetch_all_releases
   releases = []
   page = 1
@@ -47,19 +72,15 @@ def parse_version(tag_name)
   { major: match[1].to_i, minor: match[2].to_i }
 end
 
-def beta?(release)
-  release['tag_name'].match?(/beta/i)
-end
-
 def filter_releases(releases)
   releases
     .reject { |r| r['draft'] }
+    .reject { |r| r['tag_name'].match?(/beta/i) }
     .select { |r| parse_version(r['tag_name'])&.fetch(:major) == MIN_MAJOR_VERSION }
 end
 
 def group_releases(releases)
-  stable = releases.reject { |r| beta?(r) }
-  stable
+  releases
     .group_by { |r| parse_version(r['tag_name'])[:major] }
     .sort_by { |major, _| -major }
     .map do |major, major_releases|
@@ -79,12 +100,18 @@ def format_date(published_at)
   published_at.split('T').first
 end
 
+def known_issues?(tag_name)
+  version = tag_name.sub(/^v/, '')
+  VERSIONS_WITH_KNOWN_ISSUES.include?(version)
+end
+
 def generate_release_table(output, releases)
   output << '<table>'
   output << '  <thead>'
   output << '    <tr>'
   output << '      <th>Agent version</th>'
-  output << '      <th>Date of release</th>'
+  output << '      <th style="text-align: center">Date of release</th>'
+  output << '      <th style="text-align: center">Known issues</th>'
   output << '    </tr>'
   output << '  </thead>'
   output << '  <tbody>'
@@ -93,24 +120,27 @@ def generate_release_table(output, releases)
   releases.each_with_index do |release, i|
     tag = release['tag_name']
     date = format_date(release['published_at'])
+    has_known_issues = known_issues?(tag)
     comma = i < releases.length - 1 ? ',' : ''
     output << '      {'
     output << "        version: \"#{tag}\","
-    output << "        date: \"#{date}\""
+    output << "        date: \"#{date}\","
+    output << "        known_issues: #{has_known_issues}"
     output << "      }#{comma}"
   end
 
   output << '    ].each do |release| %>'
   output << '      <tr>'
   output << '        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>'
-  output << '        <td><%= release[:date] %></td>'
+  output << '        <td style="text-align: center"><%= release[:date] %></td>'
+  output << '        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>'
   output << '      </tr>'
   output << '    <% end %>'
   output << '  </tbody>'
   output << '</table>'
 end
 
-def generate_markdown(version_groups, beta_releases)
+def generate_markdown(version_groups)
   output = []
 
   output << '<!--'
@@ -130,7 +160,9 @@ def generate_markdown(version_groups, beta_releases)
   output << ''
   output << '# Agent versions directory'
   output << ''
-  output << 'The following lists Buildkite version 3.x stable agent releases, including 3.0-beta releases, in reverse chronological order. Each version links through to its release notes on GitHub.'
+  output << 'The following lists of Buildkite agent releases are of stable version 3.x releases in reverse chronological order. Each version links through to its release notes on GitHub.'
+  output << ''
+  output << 'Agent versions with known issues are indicated with ⚠️.'
   output << ''
 
   version_groups.each do |group|
@@ -142,14 +174,9 @@ def generate_markdown(version_groups, beta_releases)
     end
   end
 
-  output << '## Agent versions 3.0-beta'
-  output << ''
-  generate_release_table(output, beta_releases)
-  output << ''
-
   output << '## Agent versions 2.x'
   output << ''
-  output << "Buildkite version 2.x agents are not listed on this page. However, their releases and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page."
+  output << "Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page."
   output << ''
   output << "To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2)."
 
@@ -163,12 +190,11 @@ def main
   $stderr.puts "Found #{releases.length} total releases"
 
   filtered = filter_releases(releases)
-  $stderr.puts "Filtered to #{filtered.length} releases (v#{MIN_MAJOR_VERSION}+, non-draft)"
+  $stderr.puts "Filtered to #{filtered.length} releases (v#{MIN_MAJOR_VERSION}+, non-beta, non-draft)"
 
-  beta_releases = filtered.select { |r| beta?(r) }.sort_by { |r| r['published_at'] }.reverse
   version_groups = group_releases(filtered)
 
-  puts generate_markdown(version_groups, beta_releases)
+  puts generate_markdown(version_groups)
 end
 
 main

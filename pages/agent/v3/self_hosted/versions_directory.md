@@ -15,7 +15,9 @@ To update this file:
 
 # Agent versions directory
 
-The following lists Buildkite version 3.x stable agent releases, including 3.0-beta releases, in reverse chronological order. Each version links through to its release notes on GitHub.
+The following lists of Buildkite agent releases are of stable version 3.x releases in reverse chronological order. Each version links through to its release notes on GitHub.
+
+Agent versions with known issues are indicated with ⚠️.
 
 ## Agent versions 3.110 to 3.119
 
@@ -23,71 +25,87 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.118.0",
-        date: "2026-02-16"
+        date: "2026-02-16",
+        known_issues: false
       },
       {
         version: "v3.117.0",
-        date: "2026-02-03"
+        date: "2026-02-03",
+        known_issues: false
       },
       {
         version: "v3.116.0",
-        date: "2026-01-29"
+        date: "2026-01-29",
+        known_issues: false
       },
       {
         version: "v3.115.4",
-        date: "2026-01-13"
+        date: "2026-01-13",
+        known_issues: false
       },
       {
         version: "v3.115.3",
-        date: "2026-01-08"
+        date: "2026-01-08",
+        known_issues: false
       },
       {
         version: "v3.115.2",
-        date: "2025-12-18"
+        date: "2025-12-18",
+        known_issues: false
       },
       {
         version: "v3.115.1",
-        date: "2025-12-11"
+        date: "2025-12-11",
+        known_issues: false
       },
       {
         version: "v3.115.0",
-        date: "2025-12-11"
+        date: "2025-12-11",
+        known_issues: false
       },
       {
         version: "v3.114.1",
-        date: "2025-12-05"
+        date: "2025-12-05",
+        known_issues: false
       },
       {
         version: "v3.114.0",
-        date: "2025-11-25"
+        date: "2025-11-25",
+        known_issues: false
       },
       {
         version: "v3.113.0",
-        date: "2025-11-18"
+        date: "2025-11-18",
+        known_issues: false
       },
       {
         version: "v3.112.0",
-        date: "2025-11-12"
+        date: "2025-11-12",
+        known_issues: true
       },
       {
         version: "v3.111.0",
-        date: "2025-11-05"
+        date: "2025-11-05",
+        known_issues: false
       },
       {
         version: "v3.110.0",
-        date: "2025-10-22"
+        date: "2025-10-22",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -99,83 +117,102 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.109.1",
-        date: "2025-10-15"
+        date: "2025-10-15",
+        known_issues: false
       },
       {
         version: "v3.109.0",
-        date: "2025-10-09"
+        date: "2025-10-09",
+        known_issues: false
       },
       {
         version: "v3.108.0",
-        date: "2025-10-02"
+        date: "2025-10-02",
+        known_issues: false
       },
       {
         version: "v3.107.2",
-        date: "2025-09-24"
+        date: "2025-09-24",
+        known_issues: false
       },
       {
         version: "v3.107.1",
-        date: "2025-09-24"
+        date: "2025-09-24",
+        known_issues: false
       },
       {
         version: "v3.107.0",
-        date: "2025-09-18"
+        date: "2025-09-18",
+        known_issues: false
       },
       {
         version: "v3.106.0",
-        date: "2025-09-16"
+        date: "2025-09-16",
+        known_issues: false
       },
       {
         version: "v3.105.0",
-        date: "2025-09-11"
+        date: "2025-09-11",
+        known_issues: false
       },
       {
         version: "v3.104.0",
-        date: "2025-09-05"
+        date: "2025-09-05",
+        known_issues: false
       },
       {
         version: "v3.103.1",
-        date: "2025-08-07"
+        date: "2025-08-07",
+        known_issues: false
       },
       {
         version: "v3.103.0",
-        date: "2025-07-22"
+        date: "2025-07-22",
+        known_issues: false
       },
       {
         version: "v3.102.2",
-        date: "2025-07-15"
+        date: "2025-07-15",
+        known_issues: false
       },
       {
         version: "v3.102.1",
-        date: "2025-07-14"
+        date: "2025-07-14",
+        known_issues: false
       },
       {
         version: "v3.102.0",
-        date: "2025-07-09"
+        date: "2025-07-09",
+        known_issues: false
       },
       {
         version: "v3.101.0",
-        date: "2025-07-03"
+        date: "2025-07-03",
+        known_issues: false
       },
       {
         version: "v3.100.1",
-        date: "2025-06-25"
+        date: "2025-06-25",
+        known_issues: false
       },
       {
         version: "v3.100.0",
-        date: "2025-06-23"
+        date: "2025-06-23",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -187,83 +224,102 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.99.0",
-        date: "2025-06-20"
+        date: "2025-06-20",
+        known_issues: false
       },
       {
         version: "v3.98.2",
-        date: "2025-06-17"
+        date: "2025-06-17",
+        known_issues: false
       },
       {
         version: "v3.98.1",
-        date: "2025-06-04"
+        date: "2025-06-04",
+        known_issues: false
       },
       {
         version: "v3.98.0",
-        date: "2025-05-27"
+        date: "2025-05-27",
+        known_issues: false
       },
       {
         version: "v3.97.2",
-        date: "2025-05-13"
+        date: "2025-05-13",
+        known_issues: false
       },
       {
         version: "v3.97.1",
-        date: "2025-05-12"
+        date: "2025-05-12",
+        known_issues: false
       },
       {
         version: "v3.97.0",
-        date: "2025-04-28"
+        date: "2025-04-28",
+        known_issues: false
       },
       {
         version: "v3.96.0",
-        date: "2025-04-10"
+        date: "2025-04-10",
+        known_issues: false
       },
       {
         version: "v3.95.1",
-        date: "2025-03-23"
+        date: "2025-03-23",
+        known_issues: false
       },
       {
         version: "v3.95.0",
-        date: "2025-03-20"
+        date: "2025-03-20",
+        known_issues: false
       },
       {
         version: "v3.94.0",
-        date: "2025-03-12"
+        date: "2025-03-12",
+        known_issues: false
       },
       {
         version: "v3.93.1",
-        date: "2025-02-27"
+        date: "2025-02-27",
+        known_issues: false
       },
       {
         version: "v3.93.0",
-        date: "2025-02-27"
+        date: "2025-02-27",
+        known_issues: false
       },
       {
         version: "v3.92.1",
-        date: "2025-02-13"
+        date: "2025-02-13",
+        known_issues: false
       },
       {
         version: "v3.92.0",
-        date: "2025-02-12"
+        date: "2025-02-12",
+        known_issues: false
       },
       {
         version: "v3.91.0",
-        date: "2025-01-28"
+        date: "2025-01-28",
+        known_issues: false
       },
       {
         version: "v3.90.0",
-        date: "2025-01-10"
+        date: "2025-01-10",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -275,71 +331,87 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.89.0",
-        date: "2025-01-06"
+        date: "2025-01-06",
+        known_issues: false
       },
       {
         version: "v3.88.0",
-        date: "2024-12-18"
+        date: "2024-12-18",
+        known_issues: false
       },
       {
         version: "v3.87.1",
-        date: "2024-11-27"
+        date: "2024-11-27",
+        known_issues: false
       },
       {
         version: "v3.87.0",
-        date: "2024-11-18"
+        date: "2024-11-18",
+        known_issues: false
       },
       {
         version: "v3.86.0",
-        date: "2024-11-12"
+        date: "2024-11-12",
+        known_issues: false
       },
       {
         version: "v3.85.1",
-        date: "2024-11-09"
+        date: "2024-11-09",
+        known_issues: false
       },
       {
         version: "v3.85.0",
-        date: "2024-11-08"
+        date: "2024-11-08",
+        known_issues: false
       },
       {
         version: "v3.84.0",
-        date: "2024-10-29"
+        date: "2024-10-29",
+        known_issues: false
       },
       {
         version: "v3.83.1",
-        date: "2024-10-10"
+        date: "2024-10-10",
+        known_issues: false
       },
       {
         version: "v3.83.0",
-        date: "2024-10-08"
+        date: "2024-10-08",
+        known_issues: false
       },
       {
         version: "v3.82.1",
-        date: "2024-09-23"
+        date: "2024-09-23",
+        known_issues: false
       },
       {
         version: "v3.82.0",
-        date: "2024-09-18"
+        date: "2024-09-18",
+        known_issues: true
       },
       {
         version: "v3.81.0",
-        date: "2024-09-10"
+        date: "2024-09-10",
+        known_issues: true
       },
       {
         version: "v3.80.0",
-        date: "2024-09-06"
+        date: "2024-09-06",
+        known_issues: true
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -351,75 +423,92 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.79.0",
-        date: "2024-08-30"
+        date: "2024-08-30",
+        known_issues: true
       },
       {
         version: "v3.78.0",
-        date: "2024-08-20"
+        date: "2024-08-20",
+        known_issues: true
       },
       {
         version: "v3.77.0",
-        date: "2024-08-08"
+        date: "2024-08-08",
+        known_issues: true
       },
       {
         version: "v3.76.2",
-        date: "2024-08-01"
+        date: "2024-08-01",
+        known_issues: true
       },
       {
         version: "v3.76.1",
-        date: "2024-07-31"
+        date: "2024-07-31",
+        known_issues: true
       },
       {
         version: "v3.76.0",
-        date: "2024-07-31"
+        date: "2024-07-31",
+        known_issues: true
       },
       {
         version: "v3.75.1",
-        date: "2024-07-22"
+        date: "2024-07-22",
+        known_issues: false
       },
       {
         version: "v3.75.0",
-        date: "2024-07-18"
+        date: "2024-07-18",
+        known_issues: false
       },
       {
         version: "v3.74.1",
-        date: "2024-07-03"
+        date: "2024-07-03",
+        known_issues: false
       },
       {
         version: "v3.74.0",
-        date: "2024-06-13"
+        date: "2024-06-13",
+        known_issues: false
       },
       {
         version: "v3.73.1",
-        date: "2024-05-27"
+        date: "2024-05-27",
+        known_issues: false
       },
       {
         version: "v3.73.0",
-        date: "2024-05-16"
+        date: "2024-05-16",
+        known_issues: false
       },
       {
         version: "v3.72.0",
-        date: "2024-05-06"
+        date: "2024-05-06",
+        known_issues: false
       },
       {
         version: "v3.71.0",
-        date: "2024-04-30"
+        date: "2024-04-30",
+        known_issues: false
       },
       {
         version: "v3.70.0",
-        date: "2024-04-19"
+        date: "2024-04-19",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -431,63 +520,77 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.69.0",
-        date: "2024-04-10"
+        date: "2024-04-10",
+        known_issues: false
       },
       {
         version: "v3.68.0",
-        date: "2024-04-04"
+        date: "2024-04-04",
+        known_issues: false
       },
       {
         version: "v3.67.0",
-        date: "2024-03-28"
+        date: "2024-03-28",
+        known_issues: false
       },
       {
         version: "v3.66.0",
-        date: "2024-03-12"
+        date: "2024-03-12",
+        known_issues: false
       },
       {
         version: "v3.65.0",
-        date: "2024-02-26"
+        date: "2024-02-26",
+        known_issues: false
       },
       {
         version: "v3.64.0",
-        date: "2024-02-22"
+        date: "2024-02-22",
+        known_issues: false
       },
       {
         version: "v3.63.1",
-        date: "2024-02-19"
+        date: "2024-02-19",
+        known_issues: false
       },
       {
         version: "v3.63.0",
-        date: "2024-02-15"
+        date: "2024-02-15",
+        known_issues: false
       },
       {
         version: "v3.62.0",
-        date: "2024-01-23"
+        date: "2024-01-23",
+        known_issues: false
       },
       {
         version: "v3.61.0",
-        date: "2023-12-14"
+        date: "2023-12-14",
+        known_issues: false
       },
       {
         version: "v3.60.1",
-        date: "2023-12-05"
+        date: "2023-12-05",
+        known_issues: false
       },
       {
         version: "v3.60.0",
-        date: "2023-11-30"
+        date: "2023-11-30",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -499,75 +602,92 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.59.0",
-        date: "2023-11-09"
+        date: "2023-11-09",
+        known_issues: false
       },
       {
         version: "v3.58.0",
-        date: "2023-11-02"
+        date: "2023-11-02",
+        known_issues: false
       },
       {
         version: "v3.57.0",
-        date: "2023-10-20"
+        date: "2023-10-20",
+        known_issues: false
       },
       {
         version: "v3.56.0",
-        date: "2023-10-06"
+        date: "2023-10-06",
+        known_issues: false
       },
       {
         version: "v3.55.0",
-        date: "2023-09-14"
+        date: "2023-09-14",
+        known_issues: false
       },
       {
         version: "v3.54.0",
-        date: "2023-09-07"
+        date: "2023-09-07",
+        known_issues: false
       },
       {
         version: "v3.53.0",
-        date: "2023-08-31"
+        date: "2023-08-31",
+        known_issues: false
       },
       {
         version: "v3.52.1",
-        date: "2023-08-24"
+        date: "2023-08-24",
+        known_issues: false
       },
       {
         version: "v3.52.0",
-        date: "2023-08-17"
+        date: "2023-08-17",
+        known_issues: false
       },
       {
         version: "v3.51.0",
-        date: "2023-08-15"
+        date: "2023-08-15",
+        known_issues: false
       },
       {
         version: "v3.50.4",
-        date: "2023-08-01"
+        date: "2023-08-01",
+        known_issues: false
       },
       {
         version: "v3.50.3",
-        date: "2023-07-24"
+        date: "2023-07-24",
+        known_issues: false
       },
       {
         version: "v3.50.2",
-        date: "2023-07-21"
+        date: "2023-07-21",
+        known_issues: false
       },
       {
         version: "v3.50.1",
-        date: "2023-07-20"
+        date: "2023-07-20",
+        known_issues: true
       },
       {
         version: "v3.50.0",
-        date: "2023-07-19"
+        date: "2023-07-19",
+        known_issues: true
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -579,63 +699,77 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.49.0",
-        date: "2023-06-21"
+        date: "2023-06-21",
+        known_issues: false
       },
       {
         version: "v3.48.0",
-        date: "2023-06-08"
+        date: "2023-06-08",
+        known_issues: false
       },
       {
         version: "v3.47.0",
-        date: "2023-05-25"
+        date: "2023-05-25",
+        known_issues: false
       },
       {
         version: "v3.46.1",
-        date: "2023-05-08"
+        date: "2023-05-08",
+        known_issues: false
       },
       {
         version: "v3.46.0",
-        date: "2023-05-04"
+        date: "2023-05-04",
+        known_issues: false
       },
       {
         version: "v3.45.0",
-        date: "2023-03-17"
+        date: "2023-03-17",
+        known_issues: false
       },
       {
         version: "v3.44.0",
-        date: "2023-02-27"
+        date: "2023-02-27",
+        known_issues: false
       },
       {
         version: "v3.43.1",
-        date: "2023-01-19"
+        date: "2023-01-19",
+        known_issues: false
       },
       {
         version: "v3.43.0",
-        date: "2023-01-18"
+        date: "2023-01-18",
+        known_issues: true
       },
       {
         version: "v3.42.0",
-        date: "2023-01-06"
+        date: "2023-01-06",
+        known_issues: false
       },
       {
         version: "v3.41.0",
-        date: "2022-11-29"
+        date: "2022-11-29",
+        known_issues: false
       },
       {
         version: "v3.40.0",
-        date: "2022-11-09"
+        date: "2022-11-09",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -647,99 +781,122 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.39.1",
-        date: "2022-10-14"
+        date: "2022-10-14",
+        known_issues: false
       },
       {
         version: "v3.39.0",
-        date: "2022-09-09"
+        date: "2022-09-09",
+        known_issues: false
       },
       {
         version: "v3.38.0",
-        date: "2022-07-21"
+        date: "2022-07-21",
+        known_issues: false
       },
       {
         version: "v3.37.0",
-        date: "2022-07-07"
+        date: "2022-07-07",
+        known_issues: false
       },
       {
         version: "v3.36.1",
-        date: "2022-05-26"
+        date: "2022-05-26",
+        known_issues: false
       },
       {
         version: "v3.36.0",
-        date: "2022-05-23"
+        date: "2022-05-23",
+        known_issues: false
       },
       {
         version: "v3.35.2",
-        date: "2022-04-13"
+        date: "2022-04-13",
+        known_issues: false
       },
       {
         version: "v3.35.1",
-        date: "2022-04-05"
+        date: "2022-04-05",
+        known_issues: false
       },
       {
         version: "v3.35.0",
-        date: "2022-03-24"
+        date: "2022-03-24",
+        known_issues: false
       },
       {
         version: "v3.34.1",
-        date: "2022-03-23"
+        date: "2022-03-23",
+        known_issues: false
       },
       {
         version: "v3.34.0",
-        date: "2022-02-28"
+        date: "2022-02-28",
+        known_issues: false
       },
       {
         version: "v3.33.3",
-        date: "2021-09-30"
+        date: "2021-09-30",
+        known_issues: false
       },
       {
         version: "v3.33.2",
-        date: "2021-09-29"
+        date: "2021-09-29",
+        known_issues: false
       },
       {
         version: "v3.33.1",
-        date: "2021-09-28"
+        date: "2021-09-28",
+        known_issues: false
       },
       {
         version: "v3.33.0",
-        date: "2021-09-28"
+        date: "2021-09-28",
+        known_issues: false
       },
       {
         version: "v3.32.3",
-        date: "2021-09-01"
+        date: "2021-09-01",
+        known_issues: false
       },
       {
         version: "v3.32.2",
-        date: "2021-08-31"
+        date: "2021-08-31",
+        known_issues: false
       },
       {
         version: "v3.32.1",
-        date: "2021-08-06"
+        date: "2021-08-06",
+        known_issues: false
       },
       {
         version: "v3.32.0",
-        date: "2021-07-30"
+        date: "2021-07-30",
+        known_issues: false
       },
       {
         version: "v3.31.0",
-        date: "2021-07-06"
+        date: "2021-07-06",
+        known_issues: false
       },
       {
         version: "v3.30.0",
-        date: "2021-05-28"
+        date: "2021-05-28",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -751,67 +908,82 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.29.0",
-        date: "2021-04-21"
+        date: "2021-04-21",
+        known_issues: false
       },
       {
         version: "v3.28.1",
-        date: "2021-03-17"
+        date: "2021-03-17",
+        known_issues: false
       },
       {
         version: "v3.27.0",
-        date: "2021-02-08"
+        date: "2021-02-08",
+        known_issues: false
       },
       {
         version: "v3.26.0",
-        date: "2020-12-03"
+        date: "2020-12-03",
+        known_issues: false
       },
       {
         version: "v3.25.0",
-        date: "2020-10-21"
+        date: "2020-10-21",
+        known_issues: false
       },
       {
         version: "v3.24.0",
-        date: "2020-09-29"
+        date: "2020-09-29",
+        known_issues: false
       },
       {
         version: "v3.23.1",
-        date: "2020-09-09"
+        date: "2020-09-09",
+        known_issues: false
       },
       {
         version: "v3.23.0",
-        date: "2020-09-04"
+        date: "2020-09-04",
+        known_issues: false
       },
       {
         version: "v3.22.1",
-        date: "2020-06-18"
+        date: "2020-06-18",
+        known_issues: false
       },
       {
         version: "v3.22.0",
-        date: "2020-05-15"
+        date: "2020-05-15",
+        known_issues: false
       },
       {
         version: "v3.21.1",
-        date: "2020-05-08"
+        date: "2020-05-08",
+        known_issues: false
       },
       {
         version: "v3.21.0",
-        date: "2020-05-05"
+        date: "2020-05-05",
+        known_issues: false
       },
       {
         version: "v3.20.0",
-        date: "2020-02-12"
+        date: "2020-02-12",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -823,107 +995,132 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.19.0",
-        date: "2020-01-30"
+        date: "2020-01-30",
+        known_issues: false
       },
       {
         version: "v3.18.0",
-        date: "2020-01-29"
+        date: "2020-01-29",
+        known_issues: true
       },
       {
         version: "v3.17.0",
-        date: "2019-12-11"
+        date: "2019-12-11",
+        known_issues: false
       },
       {
         version: "v3.16.0",
-        date: "2019-10-21"
+        date: "2019-10-21",
+        known_issues: false
       },
       {
         version: "v3.15.2",
-        date: "2019-10-10"
+        date: "2019-10-10",
+        known_issues: false
       },
       {
         version: "v3.15.1",
-        date: "2019-10-02"
+        date: "2019-10-02",
+        known_issues: false
       },
       {
         version: "v3.15.0",
-        date: "2019-09-25"
+        date: "2019-09-25",
+        known_issues: false
       },
       {
         version: "v3.14.0",
-        date: "2019-09-10"
+        date: "2019-09-10",
+        known_issues: false
       },
       {
         version: "v3.13.2",
-        date: "2019-07-20"
+        date: "2019-07-20",
+        known_issues: false
       },
       {
         version: "v3.13.1",
-        date: "2019-07-14"
+        date: "2019-07-14",
+        known_issues: true
       },
       {
         version: "v3.13.0",
-        date: "2019-06-12"
+        date: "2019-06-12",
+        known_issues: false
       },
       {
         version: "v3.12.0",
-        date: "2019-05-22"
+        date: "2019-05-22",
+        known_issues: false
       },
       {
         version: "v3.11.5",
-        date: "2019-05-13"
+        date: "2019-05-13",
+        known_issues: false
       },
       {
         version: "v3.11.4",
-        date: "2019-05-08"
+        date: "2019-05-08",
+        known_issues: true
       },
       {
         version: "v3.11.3",
-        date: "2019-05-08"
+        date: "2019-05-08",
+        known_issues: true
       },
       {
         version: "v3.11.2",
-        date: "2019-04-20"
+        date: "2019-04-20",
+        known_issues: false
       },
       {
         version: "v3.11.1",
-        date: "2019-04-20"
+        date: "2019-04-20",
+        known_issues: false
       },
       {
         version: "v3.11.0",
-        date: "2019-04-17"
+        date: "2019-04-17",
+        known_issues: true
       },
       {
         version: "v3.10.4",
-        date: "2019-04-05"
+        date: "2019-04-05",
+        known_issues: false
       },
       {
         version: "v3.10.3",
-        date: "2019-04-01"
+        date: "2019-04-01",
+        known_issues: false
       },
       {
         version: "v3.10.2",
-        date: "2019-03-31"
+        date: "2019-03-31",
+        known_issues: false
       },
       {
         version: "v3.10.1",
-        date: "2019-03-25"
+        date: "2019-03-25",
+        known_issues: false
       },
       {
         version: "v3.10.0",
-        date: "2019-03-22"
+        date: "2019-03-22",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -935,295 +1132,132 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
   <thead>
     <tr>
       <th>Agent version</th>
-      <th>Date of release</th>
+      <th style="text-align: center">Date of release</th>
+      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.9.1",
-        date: "2019-03-06"
+        date: "2019-03-06",
+        known_issues: false
       },
       {
         version: "v3.9.0",
-        date: "2019-03-01"
+        date: "2019-03-01",
+        known_issues: false
       },
       {
         version: "v3.8.4",
-        date: "2019-01-22"
+        date: "2019-01-22",
+        known_issues: false
       },
       {
         version: "v3.8.3",
-        date: "2019-01-21"
+        date: "2019-01-21",
+        known_issues: true
       },
       {
         version: "v3.8.2",
-        date: "2019-01-10"
+        date: "2019-01-10",
+        known_issues: true
       },
       {
         version: "v3.8.1",
-        date: "2019-01-10"
+        date: "2019-01-10",
+        known_issues: true
       },
       {
         version: "v3.8.0",
-        date: "2019-01-10"
+        date: "2019-01-10",
+        known_issues: true
       },
       {
         version: "v3.7.0",
-        date: "2018-12-20"
+        date: "2018-12-20",
+        known_issues: false
       },
       {
         version: "v3.6.1",
-        date: "2018-12-13"
+        date: "2018-12-13",
+        known_issues: false
       },
       {
         version: "v3.6.0",
-        date: "2018-12-09"
+        date: "2018-12-09",
+        known_issues: false
       },
       {
         version: "v3.5.4",
-        date: "2018-10-31"
+        date: "2018-10-31",
+        known_issues: false
       },
       {
         version: "v3.5.3",
-        date: "2018-10-24"
+        date: "2018-10-24",
+        known_issues: false
       },
       {
         version: "v3.5.2",
-        date: "2018-10-09"
+        date: "2018-10-09",
+        known_issues: false
       },
       {
         version: "v3.5.1",
-        date: "2018-10-08"
+        date: "2018-10-08",
+        known_issues: false
       },
       {
         version: "v3.5.0",
-        date: "2018-10-08"
+        date: "2018-10-08",
+        known_issues: false
       },
       {
         version: "v3.4.0",
-        date: "2018-08-01"
+        date: "2018-08-01",
+        known_issues: false
       },
       {
         version: "v3.3.0",
-        date: "2018-07-11"
+        date: "2018-07-11",
+        known_issues: false
       },
       {
         version: "v3.2.1",
-        date: "2018-06-29"
+        date: "2018-06-29",
+        known_issues: false
       },
       {
         version: "v3.2.0",
-        date: "2018-05-25"
+        date: "2018-05-25",
+        known_issues: false
       },
       {
         version: "v3.1.2",
-        date: "2018-05-17"
+        date: "2018-05-17",
+        known_issues: false
       },
       {
         version: "v3.1.1",
-        date: "2018-05-02"
+        date: "2018-05-02",
+        known_issues: false
       },
       {
         version: "v3.0.1",
-        date: "2018-04-17"
+        date: "2018-04-17",
+        known_issues: false
       },
       {
         version: "v3.0.0",
-        date: "2018-04-04"
+        date: "2018-04-04",
+        known_issues: false
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-## Agent versions 3.0-beta
-
-<table>
-  <thead>
-    <tr>
-      <th>Agent version</th>
-      <th>Date of release</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% [
-      {
-        version: "v3.0-beta.44",
-        date: "2018-04-03"
-      },
-      {
-        version: "v3.0-beta.43",
-        date: "2018-04-03"
-      },
-      {
-        version: "v3.0-beta.42",
-        date: "2018-03-20"
-      },
-      {
-        version: "v3.0-beta.41",
-        date: "2018-03-16"
-      },
-      {
-        version: "v3.0-beta.40",
-        date: "2018-03-08"
-      },
-      {
-        version: "v3.0-beta.39",
-        date: "2018-01-31"
-      },
-      {
-        version: "v3.0-beta.38",
-        date: "2018-01-11"
-      },
-      {
-        version: "v3.0-beta.37",
-        date: "2017-12-07"
-      },
-      {
-        version: "v3.0-beta.36",
-        date: "2017-11-23"
-      },
-      {
-        version: "v3.0-beta.35",
-        date: "2017-11-13"
-      },
-      {
-        version: "v3.0-beta.34",
-        date: "2017-10-19"
-      },
-      {
-        version: "v3.0-beta.33",
-        date: "2017-10-05"
-      },
-      {
-        version: "v3.0-beta.32",
-        date: "2017-09-26"
-      },
-      {
-        version: "v3.0-beta.31",
-        date: "2017-08-14"
-      },
-      {
-        version: "v3.0-beta.30",
-        date: "2017-08-11"
-      },
-      {
-        version: "v3.0-beta.29",
-        date: "2017-07-18"
-      },
-      {
-        version: "v3.0-beta.28",
-        date: "2017-06-23"
-      },
-      {
-        version: "v3.0-beta.27",
-        date: "2017-05-31"
-      },
-      {
-        version: "v3.0-beta.26",
-        date: "2017-05-29"
-      },
-      {
-        version: "v3.0-beta.24",
-        date: "2017-05-26"
-      },
-      {
-        version: "v3.0-beta.23",
-        date: "2017-05-10"
-      },
-      {
-        version: "v3.0-beta.22",
-        date: "2017-05-04"
-      },
-      {
-        version: "v3.0-beta.21",
-        date: "2017-04-13"
-      },
-      {
-        version: "v3.0-beta.20",
-        date: "2017-04-13"
-      },
-      {
-        version: "v3.0-beta.19",
-        date: "2017-03-29"
-      },
-      {
-        version: "v3.0-beta.18",
-        date: "2017-03-27"
-      },
-      {
-        version: "v3.0-beta.17",
-        date: "2017-03-23"
-      },
-      {
-        version: "v3.0-beta.16",
-        date: "2016-12-04"
-      },
-      {
-        version: "v3.0-beta.15",
-        date: "2016-11-16"
-      },
-      {
-        version: "v3.0-beta.14",
-        date: "2016-11-11"
-      },
-      {
-        version: "v3.0-beta.13",
-        date: "2016-10-21"
-      },
-      {
-        version: "v3.0-beta.12",
-        date: "2016-10-16"
-      },
-      {
-        version: "v3.0-beta.11",
-        date: "2016-10-04"
-      },
-      {
-        version: "v3.0-beta.10",
-        date: "2016-09-23"
-      },
-      {
-        version: "v3.0-beta.9",
-        date: "2016-08-18"
-      },
-      {
-        version: "v3.0-beta.8",
-        date: "2016-08-09"
-      },
-      {
-        version: "v3.0-beta.7",
-        date: "2016-08-08"
-      },
-      {
-        version: "v3.0-beta.6",
-        date: "2016-06-24"
-      },
-      {
-        version: "v3.0-beta.5",
-        date: "2016-06-16"
-      },
-      {
-        version: "v3.0-beta.3",
-        date: "2016-06-01"
-      },
-      {
-        version: "v3.0-beta.2",
-        date: "2016-05-23"
-      },
-      {
-        version: "v3.0-beta.1",
-        date: "2016-05-17"
-      }
-    ].each do |release| %>
-      <tr>
-        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
-        <td><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -1231,6 +1265,6 @@ The following lists Buildkite version 3.x stable agent releases, including 3.0-b
 
 ## Agent versions 2.x
 
-Buildkite version 2.x agents are not listed on this page. However, their releases and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page.
+Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page.
 
 To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2).
