@@ -53,6 +53,13 @@ steps:
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
+          mount-buildkite-agent: true
+          env:
+            - GH_REPO
+            - GH_TOKEN
+            - DRY_RUN
+            - BUILDKITE_PULL_REQUEST
+            - BUILDKITE_BRANCH
     notify:
       - slack: "#team-technical-services-docs"
 
