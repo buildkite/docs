@@ -54,6 +54,10 @@ class GithubClient
     get("/repos/#{@repo}/pulls/#{pr_number}/files")
   end
 
+  def get_pr_reviews(pr_number)
+    get("/repos/#{@repo}/pulls/#{pr_number}/reviews")
+  end
+
   private
 
   def get(path)
@@ -86,7 +90,7 @@ class GithubClient
   end
 end
 
-def eligible_for_assignment?(pr_data, config)
+def eligible_for_assignment?(pr_data, config, github_client)
   puts "--- :thinking_face: Checking eligibility for PR assignment"
 
   # PR must be open
@@ -114,10 +118,19 @@ def eligible_for_assignment?(pr_data, config)
     puts "#{CYAN}SKIP_TEAM_CHECK enabled - allowing docs team member #{pr_author}#{RESET}"
   end
 
-  # PR must not already have reviewers
+  # PR must not already have pending review requests
   if pr_data['requested_reviewers'].any?
     reviewers = pr_data['requested_reviewers'].map { |r| r['login'] }.join(', ')
     puts "#{YELLOW}PR already has reviewers assigned: #{reviewers}#{RESET}"
+    return false
+  end
+
+  # PR must not already have submitted reviews from docs team members
+  reviews = github_client.get_pr_reviews(pr_data['number'])
+  docs_reviews = reviews.select { |r| docs_usernames.include?(r['user']['login']) }
+  if docs_reviews.any?
+    reviewed_by = docs_reviews.map { |r| "#{r['user']['login']} (#{r['state']})" }.uniq.join(', ')
+    puts "#{YELLOW}PR already has reviews from docs team: #{reviewed_by}#{RESET}"
     return false
   end
 
@@ -352,7 +365,7 @@ begin
   puts "PR: #{pr_data['title']} by @#{pr_data['user']['login']}"
   puts "State: #{pr_data['state']}, Draft: #{pr_data['draft']}"
 
-  if eligible_for_assignment?(pr_data, CONFIG)
+  if eligible_for_assignment?(pr_data, CONFIG, github_client)
     result = select_reviewer(CONFIG, github_client, pr_data)
     assign_reviewer(pr_data, result[:reviewer], result, github_client)
 
