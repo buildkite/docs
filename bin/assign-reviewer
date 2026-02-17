@@ -315,8 +315,11 @@ def assign_reviewer(pr_data, reviewer, scores, github_client)
     # Don't fail if comment posting fails
   end
 
-  # 3. Create Buildkite annotation (will be included in Slack notification)
+  # 3. Create Buildkite annotation
   create_buildkite_annotation(pr_data, reviewer, scores)
+
+  # 4. Notify Slack with assignment details and PR link
+  notify_slack(pr_data, reviewer)
 end
 
 def create_buildkite_annotation(pr_data, reviewer, scores)
@@ -351,6 +354,36 @@ def create_buildkite_annotation(pr_data, reviewer, scores)
     puts "#{GREEN_BOLD}Build annotation created#{RESET}"
   rescue => e
     puts "#{YELLOW}Warning: Could not create annotation: #{e.message}#{RESET}"
+  end
+end
+
+def notify_slack(pr_data, reviewer)
+  puts "--- :slack: Sending Slack notification"
+
+  message = ":bell: PR reviewer assigned: #{reviewer['slack']} for " \
+            "<#{pr_data['html_url']}|##{pr_data['number']} - #{pr_data['title']}> " \
+            "by @#{pr_data['user']['login']}"
+
+  notification = YAML.dump({
+    "notify" => [{
+      "slack" => {
+        "channels" => ["#team-technical-services-docs"],
+        "message" => message
+      }
+    }]
+  })
+
+  if DRY_RUN
+    puts "#{YELLOW}DRY RUN: Would send Slack notification#{RESET}"
+    puts message
+    return
+  end
+
+  begin
+    Open3.capture2("buildkite-agent", "pipeline", "upload", stdin_data: notification)
+    puts "#{GREEN_BOLD}Slack notification queued#{RESET}"
+  rescue => e
+    puts "#{YELLOW}Warning: Could not queue Slack notification: #{e.message}#{RESET}"
   end
 end
 
