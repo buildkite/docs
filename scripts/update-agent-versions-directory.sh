@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# This script generates documentation for supported Buildkite Agent versions.
+# This script generates documentation for Buildkite Agent 3.x versions.
 # It fetches release data from GitHub and generates a Markdown file.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
