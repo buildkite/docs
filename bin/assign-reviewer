@@ -280,6 +280,12 @@ end
 
 # Main execution
 begin
+  # Check if this is actually a PR build
+  if PR_NUMBER == 0 || ENV.fetch("BUILDKITE_PULL_REQUEST") == "false"
+    puts "#{YELLOW}Not a PR build (BUILDKITE_PULL_REQUEST=#{ENV.fetch("BUILDKITE_PULL_REQUEST")}), skipping reviewer assignment#{RESET}"
+    exit 0
+  end
+
   puts "+++ :github: Fetching PR ##{PR_NUMBER}"
   github_client = GithubClient.new(GH_TOKEN, GH_REPO)
   pr_data = github_client.get_pr(PR_NUMBER)
