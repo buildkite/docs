@@ -106,12 +106,14 @@ def known_issues?(tag_name)
 end
 
 def generate_release_table(output, releases)
+  has_any_known_issues = releases.any? { |r| known_issues?(r['tag_name']) }
+
   output << '<table>'
   output << '  <thead>'
   output << '    <tr>'
   output << '      <th>Release changelog</th>'
   output << '      <th style="text-align: center">Date of release</th>'
-  output << '      <th style="text-align: center">Known issues</th>'
+  output << '      <th style="text-align: center">Known issues</th>' if has_any_known_issues
   output << '    </tr>'
   output << '  </thead>'
   output << '  <tbody>'
@@ -120,12 +122,15 @@ def generate_release_table(output, releases)
   releases.each_with_index do |release, i|
     tag = release['tag_name']
     date = format_date(release['published_at'])
-    has_known_issues = known_issues?(tag)
     comma = i < releases.length - 1 ? ',' : ''
     output << '      {'
     output << "        version: \"#{tag}\","
-    output << "        date: \"#{date}\","
-    output << "        known_issues: #{has_known_issues}"
+    if has_any_known_issues
+      output << "        date: \"#{date}\","
+      output << "        known_issues: #{known_issues?(tag)}"
+    else
+      output << "        date: \"#{date}\""
+    end
     output << "      }#{comma}"
   end
 
@@ -133,7 +138,9 @@ def generate_release_table(output, releases)
   output << '      <tr>'
   output << '        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>'
   output << '        <td style="text-align: center"><%= release[:date] %></td>'
-  output << '        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>'
+  if has_any_known_issues
+    output << '        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>'
+  end
   output << '      </tr>'
   output << '    <% end %>'
   output << '  </tbody>'

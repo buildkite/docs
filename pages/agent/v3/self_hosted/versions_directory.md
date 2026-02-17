@@ -118,101 +118,82 @@ Agent versions with known issues are indicated in these tables.
     <tr>
       <th>Release changelog</th>
       <th style="text-align: center">Date of release</th>
-      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.109.1",
-        date: "2025-10-15",
-        known_issues: false
+        date: "2025-10-15"
       },
       {
         version: "v3.109.0",
-        date: "2025-10-09",
-        known_issues: false
+        date: "2025-10-09"
       },
       {
         version: "v3.108.0",
-        date: "2025-10-02",
-        known_issues: false
+        date: "2025-10-02"
       },
       {
         version: "v3.107.2",
-        date: "2025-09-24",
-        known_issues: false
+        date: "2025-09-24"
       },
       {
         version: "v3.107.1",
-        date: "2025-09-24",
-        known_issues: false
+        date: "2025-09-24"
       },
       {
         version: "v3.107.0",
-        date: "2025-09-18",
-        known_issues: false
+        date: "2025-09-18"
       },
       {
         version: "v3.106.0",
-        date: "2025-09-16",
-        known_issues: false
+        date: "2025-09-16"
       },
       {
         version: "v3.105.0",
-        date: "2025-09-11",
-        known_issues: false
+        date: "2025-09-11"
       },
       {
         version: "v3.104.0",
-        date: "2025-09-05",
-        known_issues: false
+        date: "2025-09-05"
       },
       {
         version: "v3.103.1",
-        date: "2025-08-07",
-        known_issues: false
+        date: "2025-08-07"
       },
       {
         version: "v3.103.0",
-        date: "2025-07-22",
-        known_issues: false
+        date: "2025-07-22"
       },
       {
         version: "v3.102.2",
-        date: "2025-07-15",
-        known_issues: false
+        date: "2025-07-15"
       },
       {
         version: "v3.102.1",
-        date: "2025-07-14",
-        known_issues: false
+        date: "2025-07-14"
       },
       {
         version: "v3.102.0",
-        date: "2025-07-09",
-        known_issues: false
+        date: "2025-07-09"
       },
       {
         version: "v3.101.0",
-        date: "2025-07-03",
-        known_issues: false
+        date: "2025-07-03"
       },
       {
         version: "v3.100.1",
-        date: "2025-06-25",
-        known_issues: false
+        date: "2025-06-25"
       },
       {
         version: "v3.100.0",
-        date: "2025-06-23",
-        known_issues: false
+        date: "2025-06-23"
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -225,101 +206,82 @@ Agent versions with known issues are indicated in these tables.
     <tr>
       <th>Release changelog</th>
       <th style="text-align: center">Date of release</th>
-      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.99.0",
-        date: "2025-06-20",
-        known_issues: false
+        date: "2025-06-20"
       },
       {
         version: "v3.98.2",
-        date: "2025-06-17",
-        known_issues: false
+        date: "2025-06-17"
       },
       {
         version: "v3.98.1",
-        date: "2025-06-04",
-        known_issues: false
+        date: "2025-06-04"
       },
       {
         version: "v3.98.0",
-        date: "2025-05-27",
-        known_issues: false
+        date: "2025-05-27"
       },
       {
         version: "v3.97.2",
-        date: "2025-05-13",
-        known_issues: false
+        date: "2025-05-13"
       },
       {
         version: "v3.97.1",
-        date: "2025-05-12",
-        known_issues: false
+        date: "2025-05-12"
       },
       {
         version: "v3.97.0",
-        date: "2025-04-28",
-        known_issues: false
+        date: "2025-04-28"
       },
       {
         version: "v3.96.0",
-        date: "2025-04-10",
-        known_issues: false
+        date: "2025-04-10"
       },
       {
         version: "v3.95.1",
-        date: "2025-03-23",
-        known_issues: false
+        date: "2025-03-23"
       },
       {
         version: "v3.95.0",
-        date: "2025-03-20",
-        known_issues: false
+        date: "2025-03-20"
       },
       {
         version: "v3.94.0",
-        date: "2025-03-12",
-        known_issues: false
+        date: "2025-03-12"
       },
       {
         version: "v3.93.1",
-        date: "2025-02-27",
-        known_issues: false
+        date: "2025-02-27"
       },
       {
         version: "v3.93.0",
-        date: "2025-02-27",
-        known_issues: false
+        date: "2025-02-27"
       },
       {
         version: "v3.92.1",
-        date: "2025-02-13",
-        known_issues: false
+        date: "2025-02-13"
       },
       {
         version: "v3.92.0",
-        date: "2025-02-12",
-        known_issues: false
+        date: "2025-02-12"
       },
       {
         version: "v3.91.0",
-        date: "2025-01-28",
-        known_issues: false
+        date: "2025-01-28"
       },
       {
         version: "v3.90.0",
-        date: "2025-01-10",
-        known_issues: false
+        date: "2025-01-10"
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -521,76 +483,62 @@ Agent versions with known issues are indicated in these tables.
     <tr>
       <th>Release changelog</th>
       <th style="text-align: center">Date of release</th>
-      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.69.0",
-        date: "2024-04-10",
-        known_issues: false
+        date: "2024-04-10"
       },
       {
         version: "v3.68.0",
-        date: "2024-04-04",
-        known_issues: false
+        date: "2024-04-04"
       },
       {
         version: "v3.67.0",
-        date: "2024-03-28",
-        known_issues: false
+        date: "2024-03-28"
       },
       {
         version: "v3.66.0",
-        date: "2024-03-12",
-        known_issues: false
+        date: "2024-03-12"
       },
       {
         version: "v3.65.0",
-        date: "2024-02-26",
-        known_issues: false
+        date: "2024-02-26"
       },
       {
         version: "v3.64.0",
-        date: "2024-02-22",
-        known_issues: false
+        date: "2024-02-22"
       },
       {
         version: "v3.63.1",
-        date: "2024-02-19",
-        known_issues: false
+        date: "2024-02-19"
       },
       {
         version: "v3.63.0",
-        date: "2024-02-15",
-        known_issues: false
+        date: "2024-02-15"
       },
       {
         version: "v3.62.0",
-        date: "2024-01-23",
-        known_issues: false
+        date: "2024-01-23"
       },
       {
         version: "v3.61.0",
-        date: "2023-12-14",
-        known_issues: false
+        date: "2023-12-14"
       },
       {
         version: "v3.60.1",
-        date: "2023-12-05",
-        known_issues: false
+        date: "2023-12-05"
       },
       {
         version: "v3.60.0",
-        date: "2023-11-30",
-        known_issues: false
+        date: "2023-11-30"
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -782,121 +730,98 @@ Agent versions with known issues are indicated in these tables.
     <tr>
       <th>Release changelog</th>
       <th style="text-align: center">Date of release</th>
-      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.39.1",
-        date: "2022-10-14",
-        known_issues: false
+        date: "2022-10-14"
       },
       {
         version: "v3.39.0",
-        date: "2022-09-09",
-        known_issues: false
+        date: "2022-09-09"
       },
       {
         version: "v3.38.0",
-        date: "2022-07-21",
-        known_issues: false
+        date: "2022-07-21"
       },
       {
         version: "v3.37.0",
-        date: "2022-07-07",
-        known_issues: false
+        date: "2022-07-07"
       },
       {
         version: "v3.36.1",
-        date: "2022-05-26",
-        known_issues: false
+        date: "2022-05-26"
       },
       {
         version: "v3.36.0",
-        date: "2022-05-23",
-        known_issues: false
+        date: "2022-05-23"
       },
       {
         version: "v3.35.2",
-        date: "2022-04-13",
-        known_issues: false
+        date: "2022-04-13"
       },
       {
         version: "v3.35.1",
-        date: "2022-04-05",
-        known_issues: false
+        date: "2022-04-05"
       },
       {
         version: "v3.35.0",
-        date: "2022-03-24",
-        known_issues: false
+        date: "2022-03-24"
       },
       {
         version: "v3.34.1",
-        date: "2022-03-23",
-        known_issues: false
+        date: "2022-03-23"
       },
       {
         version: "v3.34.0",
-        date: "2022-02-28",
-        known_issues: false
+        date: "2022-02-28"
       },
       {
         version: "v3.33.3",
-        date: "2021-09-30",
-        known_issues: false
+        date: "2021-09-30"
       },
       {
         version: "v3.33.2",
-        date: "2021-09-29",
-        known_issues: false
+        date: "2021-09-29"
       },
       {
         version: "v3.33.1",
-        date: "2021-09-28",
-        known_issues: false
+        date: "2021-09-28"
       },
       {
         version: "v3.33.0",
-        date: "2021-09-28",
-        known_issues: false
+        date: "2021-09-28"
       },
       {
         version: "v3.32.3",
-        date: "2021-09-01",
-        known_issues: false
+        date: "2021-09-01"
       },
       {
         version: "v3.32.2",
-        date: "2021-08-31",
-        known_issues: false
+        date: "2021-08-31"
       },
       {
         version: "v3.32.1",
-        date: "2021-08-06",
-        known_issues: false
+        date: "2021-08-06"
       },
       {
         version: "v3.32.0",
-        date: "2021-07-30",
-        known_issues: false
+        date: "2021-07-30"
       },
       {
         version: "v3.31.0",
-        date: "2021-07-06",
-        known_issues: false
+        date: "2021-07-06"
       },
       {
         version: "v3.30.0",
-        date: "2021-05-28",
-        known_issues: false
+        date: "2021-05-28"
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -909,81 +834,66 @@ Agent versions with known issues are indicated in these tables.
     <tr>
       <th>Release changelog</th>
       <th style="text-align: center">Date of release</th>
-      <th style="text-align: center">Known issues</th>
     </tr>
   </thead>
   <tbody>
     <% [
       {
         version: "v3.29.0",
-        date: "2021-04-21",
-        known_issues: false
+        date: "2021-04-21"
       },
       {
         version: "v3.28.1",
-        date: "2021-03-17",
-        known_issues: false
+        date: "2021-03-17"
       },
       {
         version: "v3.27.0",
-        date: "2021-02-08",
-        known_issues: false
+        date: "2021-02-08"
       },
       {
         version: "v3.26.0",
-        date: "2020-12-03",
-        known_issues: false
+        date: "2020-12-03"
       },
       {
         version: "v3.25.0",
-        date: "2020-10-21",
-        known_issues: false
+        date: "2020-10-21"
       },
       {
         version: "v3.24.0",
-        date: "2020-09-29",
-        known_issues: false
+        date: "2020-09-29"
       },
       {
         version: "v3.23.1",
-        date: "2020-09-09",
-        known_issues: false
+        date: "2020-09-09"
       },
       {
         version: "v3.23.0",
-        date: "2020-09-04",
-        known_issues: false
+        date: "2020-09-04"
       },
       {
         version: "v3.22.1",
-        date: "2020-06-18",
-        known_issues: false
+        date: "2020-06-18"
       },
       {
         version: "v3.22.0",
-        date: "2020-05-15",
-        known_issues: false
+        date: "2020-05-15"
       },
       {
         version: "v3.21.1",
-        date: "2020-05-08",
-        known_issues: false
+        date: "2020-05-08"
       },
       {
         version: "v3.21.0",
-        date: "2020-05-05",
-        known_issues: false
+        date: "2020-05-05"
       },
       {
         version: "v3.20.0",
-        date: "2020-02-12",
-        known_issues: false
+        date: "2020-02-12"
       }
     ].each do |release| %>
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>
       </tr>
     <% end %>
   </tbody>
