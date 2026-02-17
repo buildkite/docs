@@ -32,11 +32,13 @@ You can dynamically update a command job's timeout before it is finished, using 
 > 📘 Minimum Buildkite Agent version requirement
 > To update a job's timeout, version 3.118.0 or later of the Buildkite Agent is required. Using earlier versions of the Buildkite Agent will result in pipeline failures.
 
-To update the timeout for the current job:
+To update the timeout for the current job to 20 minutes:
 
 ```bash
 buildkite-agent job update timeout 20
 ```
+
+The value (20 minutes) is relative to the job's start time, not the current time.
 
 To extend the timeout of the current job:
 
