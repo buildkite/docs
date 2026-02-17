@@ -29,8 +29,7 @@ steps:
       - ".buildkite/steps/muffet_results.json"
 
   - label: ":bell: Assign PR reviewer"
-    # Temporarily removing conditional for testing
-    # if: build.pull_request.id
+    if: build.pull_request.id
     command: bin/assign-reviewer
     agents:
       queue: hosted
