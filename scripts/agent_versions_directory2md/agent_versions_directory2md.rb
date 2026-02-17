@@ -109,7 +109,7 @@ def generate_release_table(output, releases)
   output << '<table>'
   output << '  <thead>'
   output << '    <tr>'
-  output << '      <th>Agent version</th>'
+  output << '      <th>Release changelog</th>'
   output << '      <th style="text-align: center">Date of release</th>'
   output << '      <th style="text-align: center">Known issues</th>'
   output << '    </tr>'
@@ -133,7 +133,7 @@ def generate_release_table(output, releases)
   output << '      <tr>'
   output << '        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>'
   output << '        <td style="text-align: center"><%= release[:date] %></td>'
-  output << '        <td style="text-align: center"><%= release[:known_issues] ? "⚠️" : "" %></td>'
+  output << '        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>'
   output << '      </tr>'
   output << '    <% end %>'
   output << '  </tbody>'
@@ -160,9 +160,9 @@ def generate_markdown(version_groups)
   output << ''
   output << '# Agent versions directory'
   output << ''
-  output << 'The following lists of Buildkite agent versions are of stable version 3.x releases in reverse chronological order. Each version links through to its release notes on GitHub.'
+  output << 'The following lists of Buildkite agent versions are of stable version 3.x releases in reverse chronological order. Each version links through to its changelog on GitHub.'
   output << ''
-  output << 'Agent versions with known issues are indicated with ⚠️.'
+  output << 'Agent versions with known issues are indicated in these tables.'
   output << ''
 
   version_groups.each do |group|
@@ -176,7 +176,7 @@ def generate_markdown(version_groups)
 
   output << '## Agent versions 2.x'
   output << ''
-  output << "Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and release notes are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page."
+  output << "Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and changelogs are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page."
   output << ''
   output << "To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2)."
 
