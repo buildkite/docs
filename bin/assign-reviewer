@@ -8,9 +8,9 @@ require "open3"
 # Environment variables from Buildkite + AWS SSM
 GH_TOKEN = ENV.fetch("GH_TOKEN")
 GH_REPO = ENV.fetch("GH_REPO", "buildkite/docs-private")
-PR_NUMBER = ENV.fetch("BUILDKITE_PULL_REQUEST").to_i
 DRY_RUN = ENV.fetch("DRY_RUN", "false") == "true"
 SKIP_TEAM_CHECK = ENV.fetch("SKIP_TEAM_CHECK", "false") == "true"
+BRANCH = ENV.fetch("BUILDKITE_BRANCH", "")
 
 # ANSI Color codes (following sync-public-pr pattern)
 CYAN = "\e[0;36m"
@@ -56,6 +56,10 @@ class GithubClient
 
   def get_pr_reviews(pr_number)
     get("/repos/#{@repo}/pulls/#{pr_number}/reviews")
+  end
+
+  def list_prs_for_branch(branch)
+    get("/repos/#{@repo}/pulls?head=#{@repo.split('/').first}:#{branch}&state=open")
   end
 
   private
@@ -350,17 +354,43 @@ def create_buildkite_annotation(pr_data, reviewer, scores)
   end
 end
 
+# Resolve the PR number from BUILDKITE_PULL_REQUEST or by looking up the branch
+def resolve_pr_number(github_client)
+  bk_pr = ENV.fetch("BUILDKITE_PULL_REQUEST", "false")
+  if bk_pr != "false" && bk_pr.to_i > 0
+    puts "PR number from BUILDKITE_PULL_REQUEST: #{bk_pr}"
+    return bk_pr.to_i
+  end
+
+  if BRANCH.empty? || BRANCH == "main"
+    puts "#{YELLOW}No PR branch to look up (branch=#{BRANCH})#{RESET}"
+    return nil
+  end
+
+  puts "Looking up open PR for branch: #{BRANCH}"
+  prs = github_client.list_prs_for_branch(BRANCH)
+  if prs.empty?
+    puts "#{YELLOW}No open PR found for branch #{BRANCH}#{RESET}"
+    return nil
+  end
+
+  pr_number = prs.first['number']
+  puts "Found PR ##{pr_number} for branch #{BRANCH}"
+  pr_number
+end
+
 # Main execution
 begin
-  # Check if this is actually a PR build
-  if PR_NUMBER == 0 || ENV.fetch("BUILDKITE_PULL_REQUEST") == "false"
-    puts "#{YELLOW}Not a PR build (BUILDKITE_PULL_REQUEST=#{ENV.fetch("BUILDKITE_PULL_REQUEST")}), skipping reviewer assignment#{RESET}"
+  github_client = GithubClient.new(GH_TOKEN, GH_REPO)
+  pr_number = resolve_pr_number(github_client)
+
+  unless pr_number
+    puts "#{YELLOW}No PR to process, skipping reviewer assignment#{RESET}"
     exit 0
   end
 
-  puts "+++ :github: Fetching PR ##{PR_NUMBER}"
-  github_client = GithubClient.new(GH_TOKEN, GH_REPO)
-  pr_data = github_client.get_pr(PR_NUMBER)
+  puts "+++ :github: Fetching PR ##{pr_number}"
+  pr_data = github_client.get_pr(pr_number)
 
   puts "PR: #{pr_data['title']} by @#{pr_data['user']['login']}"
   puts "State: #{pr_data['state']}, Draft: #{pr_data['draft']}"
