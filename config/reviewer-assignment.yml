@@ -19,6 +19,8 @@ docs_team:
 # Scoring weights for reviewer selection
 # timezone: How much to weight timezone proximity (1.0 = perfect match, 0.3 = not preferred)
 # workload: How much to weight current workload balance
+# expertise: How much to weight area expertise (merged PRs in changed page directories)
 scoring_weights:
-  timezone: 0.6
-  workload: 0.4
+  timezone: 0.4
+  workload: 0.3
+  expertise: 0.3

@@ -3,12 +3,14 @@
 require "net/http"
 require "json"
 require "yaml"
+require "open3"
 
 # Environment variables from Buildkite + AWS SSM
 GH_TOKEN = ENV.fetch("GH_TOKEN")
 GH_REPO = ENV.fetch("GH_REPO", "buildkite/docs-private")
 PR_NUMBER = ENV.fetch("BUILDKITE_PULL_REQUEST").to_i
 DRY_RUN = ENV.fetch("DRY_RUN", "false") == "true"
+SKIP_TEAM_CHECK = ENV.fetch("SKIP_TEAM_CHECK", "false") == "true"
 
 # ANSI Color codes (following sync-public-pr pattern)
 CYAN = "\e[0;36m"
@@ -46,6 +48,10 @@ class GithubClient
     post("/repos/#{@repo}/issues/#{pr_number}/comments", {
       body: body
     })
+  end
+
+  def get_pr_files(pr_number)
+    get("/repos/#{@repo}/pulls/#{pr_number}/files")
   end
 
   private
@@ -95,17 +101,17 @@ def eligible_for_assignment?(pr_data, config)
     return false
   end
 
-  # Author must not be a docs team member (except ozdenyilmaz for testing)
+  # Author must not be a docs team member
   docs_usernames = config['docs_team'].map { |m| m['username'] }
   pr_author = pr_data['user']['login']
 
-  if docs_usernames.include?(pr_author) && pr_author != 'ozdenyilmaz'
+  if docs_usernames.include?(pr_author) && !SKIP_TEAM_CHECK
     puts "#{YELLOW}PR author (#{pr_author}) is a docs team member#{RESET}"
     return false
   end
 
-  if pr_author == 'ozdenyilmaz'
-    puts "#{CYAN}PR author is ozdenyilmaz - allowing for testing#{RESET}"
+  if SKIP_TEAM_CHECK && docs_usernames.include?(pr_author)
+    puts "#{CYAN}SKIP_TEAM_CHECK enabled - allowing docs team member #{pr_author}#{RESET}"
   end
 
   # PR must not already have reviewers
@@ -151,38 +157,90 @@ def get_open_pr_count(username, github_client)
   end
 end
 
-def select_reviewer(config, github_client)
+def get_changed_page_dirs(pr_data, github_client)
+  files = github_client.get_pr_files(pr_data['number'])
+  files
+    .map { |f| f['filename'] }
+    .select { |f| f.start_with?('pages/') }
+    .map { |f| File.dirname(f) }
+    .uniq
+end
+
+def get_expertise_score(reviewer, changed_dirs, github_client)
+  return 0.0 if changed_dirs.empty?
+
+  total_commits = 0
+  changed_dirs.each do |dir|
+    query = "is:pr is:merged author:#{reviewer['username']} repo:#{GH_REPO}"
+    begin
+      response = github_client.search_issues(query)
+      total_commits += response['total_count']
+    rescue => e
+      puts "#{YELLOW}Warning: Could not fetch expertise data for #{reviewer['username']} in #{dir}: #{e.message}#{RESET}"
+    end
+  end
+
+  total_commits
+end
+
+def select_reviewer(config, github_client, pr_data)
   puts "--- :scales: Calculating reviewer scores"
 
   preferred = get_preferred_reviewer_by_time(config)
+
+  # Fetch open PR counts once for all reviewers
+  pr_counts = {}
+  config['docs_team'].each do |reviewer|
+    pr_counts[reviewer['username']] = get_open_pr_count(reviewer['username'], github_client)
+  end
+  max_prs = pr_counts.values.max
+
+  # Fetch changed page directories for expertise scoring
+  changed_dirs = get_changed_page_dirs(pr_data, github_client)
+  puts "Changed page directories: #{changed_dirs.join(', ')}" if changed_dirs.any?
+
+  # Fetch expertise scores once for all reviewers
+  expertise_counts = {}
+  if changed_dirs.any?
+    config['docs_team'].each do |reviewer|
+      expertise_counts[reviewer['username']] = get_expertise_score(reviewer, changed_dirs, github_client)
+    end
+    max_expertise = expertise_counts.values.max
+  end
 
   scores = config['docs_team'].map do |reviewer|
     # Calculate timezone score
     tz_score = (reviewer == preferred) ? 1.0 : 0.3
 
-    # Calculate workload score
-    open_prs = get_open_pr_count(reviewer['username'], github_client)
-    all_open_prs = config['docs_team'].map { |r| get_open_pr_count(r['username'], github_client) }
-    max_prs = all_open_prs.max
-
+    # Calculate workload score from pre-fetched counts
+    open_prs = pr_counts[reviewer['username']]
     workload_score = if max_prs > 0
       1.0 - (open_prs.to_f / max_prs)
     else
-      0.5  # Both have 0 PRs, neutral score
+      0.5
+    end
+
+    # Calculate expertise score from pre-fetched counts
+    expertise_score = if changed_dirs.any? && max_expertise && max_expertise > 0
+      expertise_counts[reviewer['username']].to_f / max_expertise
+    else
+      0.5
     end
 
     # Calculate total weighted score
     tz_weight = config['scoring_weights']['timezone']
     workload_weight = config['scoring_weights']['workload']
-    total = (tz_score * tz_weight) + (workload_score * workload_weight)
+    expertise_weight = config['scoring_weights']['expertise']
+    total = (tz_score * tz_weight) + (workload_score * workload_weight) + (expertise_score * expertise_weight)
 
-    puts "#{reviewer['username']}: tz=#{(tz_score * 100).round}% workload=#{(workload_score * 100).round}% total=#{(total * 100).round}%"
+    puts "#{reviewer['username']}: tz=#{(tz_score * 100).round}% workload=#{(workload_score * 100).round}% expertise=#{(expertise_score * 100).round}% total=#{(total * 100).round}%"
 
     {
       reviewer: reviewer,
       score: total,
       timezone: tz_score,
       workload: workload_score,
+      expertise: expertise_score,
       open_prs: open_prs
     }
   end
@@ -225,6 +283,7 @@ def assign_reviewer(pr_data, reviewer, scores, github_client)
     Assignment based on:
     - Timezone proximity: #{(scores[:timezone] * 100).round}%
     - Workload fairness: #{(scores[:workload] * 100).round}%
+    - Area expertise: #{(scores[:expertise] * 100).round}%
 
     Current open PRs awaiting review: #{scores[:open_prs]}
 
@@ -256,6 +315,7 @@ def create_buildkite_annotation(pr_data, reviewer, scores)
     **Assignment Factors:**
     - Timezone proximity: #{(scores[:timezone] * 100).round}%
     - Workload fairness: #{(scores[:workload] * 100).round}%
+    - Area expertise: #{(scores[:expertise] * 100).round}%
     - Current open PRs: #{scores[:open_prs]}
 
     **Changes:**
@@ -270,11 +330,10 @@ def create_buildkite_annotation(pr_data, reviewer, scores)
   end
 
   begin
-    system("buildkite-agent", "annotate", "--style", "success", "--context", "reviewer-assigned", stdin_data: annotation)
+    Open3.capture2("buildkite-agent", "annotate", "--style", "success", "--context", "reviewer-assigned", stdin_data: annotation)
     puts "#{GREEN_BOLD}Build annotation created#{RESET}"
   rescue => e
     puts "#{YELLOW}Warning: Could not create annotation: #{e.message}#{RESET}"
-    # Don't fail if annotation fails
   end
 end
 
@@ -294,7 +353,7 @@ begin
   puts "State: #{pr_data['state']}, Draft: #{pr_data['draft']}"
 
   if eligible_for_assignment?(pr_data, CONFIG)
-    result = select_reviewer(CONFIG, github_client)
+    result = select_reviewer(CONFIG, github_client, pr_data)
     assign_reviewer(pr_data, result[:reviewer], result, github_client)
 
     if DRY_RUN

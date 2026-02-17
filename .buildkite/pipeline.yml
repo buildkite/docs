@@ -29,6 +29,7 @@ steps:
       - ".buildkite/steps/muffet_results.json"
 
   - label: ":bell: Assign PR reviewer"
+    if: build.pull_request.id != null
     command: bin/assign-reviewer
     agents:
       queue: hosted
@@ -37,6 +38,7 @@ steps:
       DRY_RUN: "true"  # Set to "false" after initial testing
     plugins:
       - aws-assume-role-with-web-identity#v1.4.0:
+          # Uses docs-private role for access to gh-token SSM parameter
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -56,10 +58,9 @@ steps:
             - GH_REPO
             - GH_TOKEN
             - DRY_RUN
+            - SKIP_TEAM_CHECK
             - BUILDKITE_PULL_REQUEST
             - BUILDKITE_BRANCH
-    notify:
-      - slack: "#team-technical-services-docs"
 
   - label: ":graphql: Check generated code is up to date"
     command: bundle exec rake graphql:generate
