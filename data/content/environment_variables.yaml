@@ -316,12 +316,12 @@ variables:
       - false
   - name: BUILDKITE_MERGE_QUEUE_BASE_BRANCH
     desc: |
-      The target branch which the merge queue build will be merged into. `""` if not a merge queue build.
+      The target branch which the merge queue build will be merged into.
     modifiable: false
     example: "main"
   - name: BUILDKITE_MERGE_QUEUE_BASE_COMMIT
     desc: |
-      The [merge base](https://git-scm.com/docs/git-merge-base) of the proposed merge commit (`BUILDKITE_COMMIT`) for a merge queue build. `""` if not a merge queue build.
+      The [merge base](https://git-scm.com/docs/git-merge-base) of the proposed merge commit (`BUILDKITE_COMMIT`) for a merge queue build.
     modifiable: false
     example: "44af8aa0007898d08f1bec401df7c077c1df0722"
   - name: BUILDKITE_MESSAGE

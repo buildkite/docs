@@ -68,9 +68,9 @@ When deleting a package, Buildkite Package Registries does not delete the associ
 
 An object tagged for deletion by Package Registries has the following key value pair:
 
-| Key                 | Value            |
-|---------------------|------------------|
-| `buildkite:deleted` | Timestamp in UTC |
+| Key                 | Value              |
+| ------------------- | ------------------ |
+| `buildkite:deleted` | ISO 8601 timestamp |
 
 Set the expiration on objects from your Amazon S3 bucket by adding an [S3 Lifecycle configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/how-to-set-lifecycle-configuration-intro.html) that filters on these object tags. For example, to remove objects 30 days after they're tagged, you can implement the following rule:
 

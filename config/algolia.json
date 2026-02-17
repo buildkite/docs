@@ -1,7 +1,7 @@
 {
   "index_name": "prod_docs",
   "start_urls": ["https://buildkite.com/docs"],
-  "stop_urls": ["agent/v2", "docs/sdk/python", "docs/sdk/typescript", "docs/sdk/ruby"],
+  "stop_urls": ["docs/sdk/python", "docs/sdk/typescript", "docs/sdk/ruby"],
   "selectors": {
     "lvl0": {
       "selector": ".SiteHeader__nav .Nav__link.Nav__link--level1.Nav__link--current",
