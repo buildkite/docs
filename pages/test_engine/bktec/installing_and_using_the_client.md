@@ -1,6 +1,6 @@
 # Installing and using the client
 
-This page provides instructions on how to install and configure the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using installers provided by Buildkite.
+This page provides instructions on how to install the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) using [installers](#installation) provided by Buildkite, as well as [configure and use bktec](#using-bktec).
 
 ## Installation
 
@@ -80,7 +80,7 @@ Buildkite maintains its open source Test Engine Client ([bktec](https://github.c
 
 If your testing framework is not supported, get in touch through support@buildkite.com or submit a pull request.
 
-Once you have [installed the bktec binary](#installation) and it is executable in your pipeline, you'll need to [configure some additional environment variables](#using-bktek-configure-environment-variables) for bktec to function. You can then [update your pipeline step](#using-bktek-update-the-pipeline-step) to call `bktec run` instead of calling RSpec to run your tests.
+Once you have [installed the bktec binary](#installation) and it is executable in your pipeline, you'll need to [configure some additional environment variables](#using-bktec-configure-environment-variables) for bktec to function. You can then [update your pipeline step](#using-bktec-update-the-pipeline-step) to call `bktec run` instead of calling RSpec to run your tests.
 
 ### Configure environment variables
 
