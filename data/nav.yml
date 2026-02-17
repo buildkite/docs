@@ -396,6 +396,8 @@
               path: "agent/v3/cli/reference/build"
             - name: "env"
               path: "agent/v3/cli/reference/env"
+            - name: "job"
+              path: "agent/v3/cli/reference/job"
             - name: "lock"
               path: "agent/v3/cli/reference/lock"
             - name: "meta-data"

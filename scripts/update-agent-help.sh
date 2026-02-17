@@ -4,7 +4,7 @@ set -euo pipefail
 
 # This picks the agent version to generate docs for.
 # It should be a Git tag or commit hash.
-AGENT_VERSION="ff855b2c96380c0b5ea3a6a01f073dd64b21b7a6"
+AGENT_VERSION="0c7c9ba48362b9de9e691039ce384339cbf8c2d8"
 
 # Locally, things tend to get installed to $(go env GOBIN), but in CI, they get installed to $(go env GOPATH)/bin
 # TIL these can be different!
@@ -39,6 +39,7 @@ commands=(
   "env set"
   "env get"
   "env unset"
+  "job update"
   "lock acquire"
   "lock do"
   "lock done"
