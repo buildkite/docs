@@ -170,7 +170,7 @@ class Page
 
   # Page title, either from front matter or extracted from the markdown
   def title
-    front_matter.fetch(:title, agentize_title(extracted_data.fetch('name')))
+    front_matter.fetch(:title, extracted_data.fetch('name'))
   end
 
   # Page description, either from front matter or extracted from the markdown
@@ -229,14 +229,6 @@ class Page
 
       potential_files = ["#{basename}.md"].map { |n| directory.join(n) }
       potential_files.find { |file| File.exist?(file) }
-    end
-  end
-
-  def agentize_title(title)
-    if basename =~ %r{^agent/v(.+?)/?} and basename.exclude?('elastic_ci')
-      "#{title} v#{::Regexp.last_match(1)}"
-    else
-      title
     end
   end
 
