@@ -372,6 +372,8 @@ Rails.application.routes.draw do
   get "/docs/test-analytics/*page",                                                                  to: redirect("/docs/test-engine/%{page}")
   get "/docs/test-analytics/js-collectors",                                                          to: redirect("/docs/test-engine/javascript-collectors")
   get "/docs/test-engine/android-collectors",                                                        to: redirect("/docs/test-engine/test-collection/android-collectors")
+  get "/docs/test-engine/bktec/configuring",                                                         to: redirect("/docs/test-engine/bktec/installing-and-using-the-client")
+  get "/docs/test-engine/bktec/installing-the-client",                                               to: redirect("/docs/test-engine/bktec/installing-and-using-the-client")
   get "/docs/test-engine/ci-environments",                                                           to: redirect("/docs/test-engine/test-collection/ci-environments")
   get "/docs/test-engine/dotnet-collectors",                                                         to: redirect("/docs/test-engine/test-collection/dotnet-collectors")
   get "/docs/test-engine/elixir-collectors",                                                         to: redirect("/docs/test-engine/test-collection/elixir-collectors")
@@ -393,8 +395,8 @@ Rails.application.routes.draw do
   get "/docs/test-engine/tags",                                                                      to: redirect("/docs/test-engine/test-suites/tags")
   get "/docs/test-engine/test-ownership",                                                            to: redirect("/docs/test-engine/test-suites/test-ownership")
   get "/docs/test-engine/test-splitting",                                                            to: redirect("/docs/test-engine/speed-up-builds-with-bktec")
-  get "/docs/test-engine/test-splitting/client-installation",                                        to: redirect("/docs/test-engine/bktec/installing-the-client")
-  get "/docs/test-engine/test-splitting/configuring",                                                to: redirect("/docs/test-engine/bktec/configuring")
+  get "/docs/test-engine/test-splitting/client-installation",                                        to: redirect("/docs/test-engine/bktec/installing-and-configuring-the-client")
+  get "/docs/test-engine/test-splitting/configuring",                                                to: redirect("/docs/test-engine/bktec/installing-and-configuring-the-client")
   get "/docs/test-engine/test-suite/flaky-test-management",                                          to: redirect("/docs/test-engine/reduce-flaky-tests")
   get "/docs/test-engine/test-state-and-quarantine",                                                 to: redirect("/docs/test-engine/test-suites/test-state-and-quarantine")
   get "/docs/test-engine/test-suites/manage",                                                        to: redirect("/docs/test-engine/getting-started")
@@ -464,11 +466,12 @@ Rails.application.routes.draw do
   get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",               status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs
-  get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v2/upgrading-to-v2",                       status: 301)
+  get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v3",                                       status: 301)
   get "/docs/agent/v3/upgrading-to-v3", to: redirect("/docs/agent/v3/self-hosted/install#upgrade-agents",    status: 301)
   get "/docs/agent/v2/plugins",         to: redirect("/docs/pipelines/integrations/plugins",                 status: 301)
-  get "/docs/agent/v2/agent-meta-data", to: redirect("/docs/agent/v2/cli-start#setting-metadata",            status: 301)
+  get "/docs/agent/v2/agent-meta-data", to: redirect("/docs/agent/v3/cli/reference/start#setting-tags",      status: 301)
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli/reference/start#setting-tags",      status: 301)
+  get "/docs/agent/v2(/*path)",         to: redirect("/docs/agent/v3",                                       status: 301)
 
   # Pre GA test analytics
   get "/docs/test-analytics/integrations", to: redirect("/docs/test-engine",                                 status: 301)
