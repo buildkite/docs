@@ -1,19 +1,14 @@
 # CircleCI
 
-The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your CircleCI pipelines into Buildkite pipelines. Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your CircleCI pipelines into Buildkite pipelines. The converter analyzes the CircleCI configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline.
 
-The LLM analyzes the CircleCI configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
+Because CircleCI configurations can include complex combinations of jobs, workflows, executors, orbs, and reusable commands, an AI Large Language Model (LLM) is used to achieve the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
 
 The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in CircleCI would function in Buildkite Pipelines. In cases where CircleCI features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions and alternatives.
 
 ## Using the Buildkite pipeline converter with CircleCI
 
-To start converting a CircleCI configuration into Buildkite Pipelines format:
-
-1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Ensure that **CircleCI** is selected at the top of the left panel.
-1. Copy your CircleCI configuration and paste it into the left panel.
-1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
+You can immediately start experimenting with the Buildkite pipeline converter through the [CLI version](/docs/pipelines/converter#cli-buildkite-pipeline-converter-how-to-use-the-cli-buildkite-pipeline-converter) or via an [interactive web-based interface](/docs/pipelines/converter#interactive-web-version-how-to-use-the-web-buildkite-pipeline-converter).
 
 ## How the translation works
 
