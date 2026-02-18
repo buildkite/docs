@@ -10,46 +10,6 @@ An AI Large Language Model (LLM) is used to achieve the best results in the tran
 
 The [Buildkite CLI](/docs/platform/cli) provides the `bk pipeline convert` command, which lets you convert CI configurations from supported providers directly from your terminal. This is the recommended way to use the pipeline converter as part of a migration workflow.
 
-### How to use the CLI Buildkite pipeline converter
-
-To convert an existing CI configuration, use the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) from the [Buildkite CLI](/docs/platform/cli).
-
-1. [Install the Buildkite CLI](/docs/platform/cli/installation) if you haven't already:
-
-    ```bash
-    brew install buildkite/buildkite/bk
-    ```
-
-1. Run the `bk pipeline convert` command, specifying the path to your CI configuration file with `--file` and the originating CI provider with `--vendor`:
-
-    ```bash
-    # For a GitHub Actions workflow
-    bk pipeline convert -F .github/workflows/ci.yml
-
-    # Alternatively
-    bk pipeline convert --file .github/workflows/ci.yml --vendor github
-
-    # If you want to specify a custom output path and filename
-    bk pipeline convert --file .github/workflows/ci.yml --vendor github -o .buildkite/custom-converted-pipeline-name.yml
-
-    ```
-
-    Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`, `gitlab`, `harness`, `bitrise`.
-
-    If the converter can detect the vendor from the file path or name, you can omit the `--vendor` flag. If you see the following error: `Error: could not detect vendor from file path. Please specify vendor explicitly with --vendor`, you need to specify the vendor.
-
-1. On a successful conversion, by default, the output is saved to `.buildkite/`:
-
-    ```bash
-    Submitting conversion job...
-    Job submitted. Processing conversion...
-
-    ✅ conversion completed successfully!
-    Output saved to: .buildkite/pipeline.github.yml
-    ```
-
-In addition to the `--vendor` and `--output` (`-o`), other supported flags include `--timeout` and `--debug`. For more information and flag usage examples, see the CLI reference for the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
-
 ### Compatibility
 
 The Buildkite pipeline converter Supports the following CI providers:
@@ -161,6 +121,49 @@ steps:
           - "18.x"
           - "20.x"
 ```
+
+### How to use the CLI Buildkite pipeline converter
+
+To convert an existing CI configuration, use the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline) from the [Buildkite CLI](/docs/platform/cli).
+
+1. [Install the Buildkite CLI](/docs/platform/cli/installation) if you haven't already:
+
+    ```bash
+    brew install buildkite/buildkite/bk
+    ```
+
+1. Run the `bk pipeline convert` command, specifying the path to your CI configuration file with `--file` and the originating CI provider with `--vendor`:
+
+    ```bash
+    # For a GitHub Actions workflow
+    bk pipeline convert -F .github/workflows/ci.yml
+
+    # Alternatively
+    bk pipeline convert --file .github/workflows/ci.yml --vendor github
+
+    # If you want to specify a custom output path and filename
+    bk pipeline convert --file .github/workflows/ci.yml --vendor github -o .buildkite/custom-converted-pipeline-name.yml
+
+    ```
+
+    Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`, `gitlab`, `harness`, `bitrise`.
+
+    If the converter can detect the vendor from the file path or name, you can omit the `--vendor` flag.
+    If you see the following error: `Error: could not detect vendor from file path. Please specify vendor explicitly with --vendor`, you need to specify the vendor.
+
+1. On a successful conversion, by default, the output is saved to `.buildkite/`:
+
+    ```bash
+    Submitting conversion job...
+    Job submitted. Processing conversion...
+
+    ✅ conversion completed successfully!
+    Output saved to: .buildkite/pipeline.github.yml
+    ```
+
+In addition to the `--vendor` and `--output` (`-o`), other flags supported by the Buildkite pipeline converter are `--timeout` and `--debug`.
+
+For more information and flag usage examples, see the CLI reference for the [`bk pipeline convert` command](/docs/platform/cli/reference/pipeline#convert-pipeline).
 
 ## Interactive web version
 
