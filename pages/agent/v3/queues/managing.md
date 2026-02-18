@@ -58,6 +58,9 @@ To create a new self-hosted agent queue using the Buildkite interface:
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
 
+> 📘
+> A `key` can have a maximum length of 100 characters
+
 ### Using the REST API
 
 To [create a new self-hosted agent queue](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:

@@ -153,7 +153,7 @@ steps:
 
 There are several scenarios where a job may not start successfully, and various reasons why this might happen. The following is a non-exhaustive list of common reasons why jobs may not be starting:
 
-- The specified base image configured on the Buildkite hosted queue cannot be found. This could be the full URL as specified not being available, or a specific tag for that image. It's also possible that this could be a timing issue, where the tag being requested is not available _yet_ and waiting may be sufficient.
+- The specified base image configured on the Buildkite hosted queue cannot be found. This could be due to the full URL or a specific tag for that image not being available - in particular, note that images are bound to a single cluster, and can't be used by agents in other clusters. It's also possible that this could be a timing issue, where the tag being requested is not available _yet_ and waiting may be sufficient.
 - When the image is a publicly available one, especially when using a registry other than [Docker Hub](https://hub.docker.com/), Buildkite may be rate-limited when attempting to retrieve it. It is highly recommended using the [internal container registry](/docs/agent/v3/buildkite-hosted/internal-container-registry) to mirror the image and avoid this issue.
 - The [required packages](#requirements-within-the-image) have not been installed within the image. This is especially the case for `ca-certificates`, as this package will prevent the `buildkite-agent` from being able to communicate with the Buildkite platform.
 

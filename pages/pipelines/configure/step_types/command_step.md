@@ -246,7 +246,7 @@ Optional attributes:
     <td><code>timeout_in_minutes</code></td>
     <td>
       <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of <code>0</code> are marked as <code>passed</code>.</p>
-      <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI, or <a href="/docs/pipelines/configure/build-timeouts#updating-timeouts-during-a-job">update a job's timeout dynamically</a> while it is running.</p>
+      <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI, or <a href="/docs/pipelines/configure/build-timeouts#command-timeouts-updating-timeouts-during-a-job">update a job's timeout dynamically</a> while it is running.</p>
       <p><em>Example:</em> <code>60</code></p>
     </td>
   </tr>
@@ -446,7 +446,7 @@ Optional attributes:
   </tr>
 </table>
 
-When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied.
+When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied. Exit statuses not matched by any rule are not retried, so you don't need to explicitly set `limit: 0` for unmatched statuses.
 
 > 📘 -1 exit status
 > A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit Codes](/docs/agent/v3#exit-codes) for information on other exit codes.
