@@ -76,12 +76,12 @@ In Jenkins, the core description of work is a _job_. A job contains stages with 
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
-- **Command step:** Runs one or more shell commands on one or more agents.
-- **Wait step:** Pauses a build until all previous jobs have completed.
-- **Block step:** Pauses a build until unblocked.
-- **Input step:** Collects information from a user.
-- **Trigger step:** Creates a build on another pipeline.
-- **Group step:** Displays a group of sub-steps as one parent step.
+- [Command step](/docs/pipelines/configure/step-types/command-step): Runs one or more shell commands on one or more agents.
+- [Wait step](/docs/pipelines/configure/step-types/wait-step): Pauses a build until all previous jobs have completed.
+- [Block step](/docs/pipelines/configure/step-types/block-step): Pauses a build until unblocked.
+- [Input step](/docs/pipelines/configure/step-types/input-step): Collects information from a user.
+- [Trigger step](/docs/pipelines/configure/step-types/trigger-step): Creates a build on another pipeline.
+- [Group step](/docs/pipelines/configure/step-types/group-step): Displays a group of sub-steps as one parent step.
 
 Triggering a Buildkite pipeline creates a _build_, and any command steps are dispatched as _jobs_ to run on agents. A common practice is to define a pipeline with a single step that uploads the `pipeline.yml` file in the code repository. The `pipeline.yml` contains the full pipeline definition and can be generated dynamically.
 
