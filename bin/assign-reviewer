@@ -122,6 +122,13 @@ def eligible_for_assignment?(pr_data, config, github_client)
     puts "#{CYAN}SKIP_TEAM_CHECK enabled - allowing docs team member #{pr_author}#{RESET}"
   end
 
+  # PR must have more than 5 lines changed to warrant a manual review
+  lines_changed = pr_data['additions'] + pr_data['deletions']
+  if lines_changed <= 5
+    puts "#{YELLOW}PR has only #{lines_changed} lines changed, skipping manual review assignment#{RESET}"
+    return false
+  end
+
   # PR must not already have pending review requests
   if pr_data['requested_reviewers'].any?
     reviewers = pr_data['requested_reviewers'].map { |r| r['login'] }.join(', ')
