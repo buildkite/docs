@@ -74,7 +74,7 @@ Jobs are the individual units of work within a build.
   <tr><th><code>matrix</code></th><td>Matrix configuration values (if matrix job)</td></tr>
   <tr><th><code>cluster_id</code></th><td>UUID of the cluster (if using clusters)</td></tr>
   <tr><th><code>cluster_queue_id</code></th><td>UUID of the cluster queue (if using clusters)</td></tr>
-  <tr><th><code>async</code></th><td>For <code>trigger</code> jobs, whether the triggered build runs asynchronously (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>async</code></th><td>For <code>trigger</code> jobs; defines whether the triggered build runs asynchronously (<code>true</code>, <code>false</code>)</td></tr>
   <tr><th><code>triggered_build</code></th><td>For <code>trigger</code> jobs, an object with details of the build that was triggered, containing <code>id</code>, <code>number</code>, <code>url</code>, and <code>web_url</code>. Returns <code>null</code> if the build has not yet been created.</td></tr>
 </tbody>
 </table>
