@@ -74,6 +74,8 @@ Jobs are the individual units of work within a build.
   <tr><th><code>matrix</code></th><td>Matrix configuration values (if matrix job)</td></tr>
   <tr><th><code>cluster_id</code></th><td>UUID of the cluster (if using clusters)</td></tr>
   <tr><th><code>cluster_queue_id</code></th><td>UUID of the cluster queue (if using clusters)</td></tr>
+  <tr><th><code>async</code></th><td>For <code>trigger</code> jobs, whether the triggered build runs asynchronously (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>triggered_build</code></th><td>For <code>trigger</code> jobs, an object with details of the build that was triggered, containing <code>id</code>, <code>number</code>, <code>url</code>, and <code>web_url</code>. Returns <code>null</code> if the build has not yet been created.</td></tr>
 </tbody>
 </table>
 
@@ -466,6 +468,32 @@ curl -H "Authorization: Bearer $TOKEN" \
 Unlike [build states](/docs/pipelines/configure/notifications#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
 
 When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-step), the job object includes a `group_key` field. The value corresponds to the group step's `key` attribute, allowing you to identify which jobs belong to which logical groups in your pipeline.
+
+When a job is a [trigger step](/docs/pipelines/configure/step-types/trigger-step), the job object includes `async` and `triggered_build` fields. `triggered_build` contains the `id`, `number`, `url`, and `web_url` of the build that was triggered, or `null` if the build has not yet been created.
+
+```json
+{
+  "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+  "type": "trigger",
+  "name": "Deploy to production",
+  "step_key": "deploy-production",
+  "state": "passed",
+  "async": false,
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "runnable_at": "2015-05-09T21:06:59.874Z",
+  "started_at": "2015-05-09T21:07:59.874Z",
+  "finished_at": "2015-05-09T21:08:59.874Z",
+  "triggered_build": {
+    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+    "number": 15,
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/deploy-pipeline/builds/15",
+    "web_url": "https://buildkite.com/my-great-org/deploy-pipeline/builds/15"
+  }
+}
+```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
