@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
 
-  get "/docs/agent/clusters",                                                                        to: redirect("/docs/clusters/overview")
+  get "/docs/agent/clusters",                                                                        to: redirect("/docs/pipelines/security/clusters")
+  get "/docs/agent/v3",                                                                              to: redirect("/docs/agent")
   get "/docs/agent/v3/agent-stack-k8s",                                                              to: redirect("/docs/agent/self-hosted/agent-stack-k8s")
   get "/docs/agent/v3/agent-stack-k8s/agent-configuration",                                          to: redirect("/docs/agent/self-hosted/agent-stack-k8s/agent-configuration")
   get "/docs/agent/v3/agent-stack-k8s/agent-hooks-and-plugins",                                      to: redirect("/docs/agent/self-hosted/agent-stack-k8s/agent-hooks-and-plugins")
@@ -425,7 +426,7 @@ Rails.application.routes.draw do
   get "/docs/webhooks/*page",                                                                        to: redirect("/docs/apis/webhooks/%{page}")
 
   # Doc sections that don't have overview/index pages, so need redirecting
-  get "/docs/tutorials",                 to: redirect("/docs/pipelines/getting-started"),                    status: 302
+  get "/docs/tutorials",                 to: redirect("/docs/pipelines/getting-started"),                 status: 302
 
   # The old un-versioned URLs redirect to the current agent docs paths.
   get "/docs/agent/installation",        to: redirect("/docs/agent/self-hosted/install",                  status: 301)
@@ -442,8 +443,6 @@ Rails.application.routes.draw do
   get "/docs/agent/configuration",       to: redirect("/docs/agent/self-hosted/configure",                status: 301)
   get "/docs/agent/ssh-keys",            to: redirect("/docs/agent/self-hosted/ssh-keys",                 status: 301)
   get "/docs/agent/github-ssh-keys",     to: redirect("/docs/agent/self-hosted/github-ssh-keys",          status: 301)
-  get "/docs/agent/hooks",               to: redirect("/docs/agent/hooks",                                status: 301)
-  get "/docs/agent/queues",              to: redirect("/docs/agent/queues",                               status: 301)
   get "/docs/agent/prioritization",      to: redirect("/docs/agent/self-hosted/prioritization",           status: 301)
   get "/docs/agent/plugins",             to: redirect("/docs/pipelines/integrations/plugins",                status: 301)
   get "/docs/agent/securing",            to: redirect("/docs/agent/self-hosted/security",                 status: 301)
