@@ -53,6 +53,7 @@ Bazel's
 bazelisk
 Bitium
 Bitbucket
+Bitrise
 bktec
 bktec's
 boolean

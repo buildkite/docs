@@ -1,19 +1,14 @@
 # Bitbucket Pipelines
 
-The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your Bitbucket pipelines into Buildkite pipelines. Because Bitbucket configurations can include complex combinations of steps, parallel execution, caching, artifacts, and deployment targets, an AI Large Language Model (LLM) is used to achieve the best results in the translation process.
+The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your Bitbucket pipelines into Buildkite pipelines. The converter analyzes the Bitbucket Pipelines configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline.
 
-The LLM analyzes the Bitbucket Pipelines configuration to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline. The AI model _does not_ use any submitted data for its own training.
+Because Bitbucket configurations can include complex combinations of steps, parallel execution, caching, artifacts, and deployment targets, an AI Large Language Model (LLM) is used to achieve the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
 
 The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in Bitbucket Pipelines would function in Buildkite Pipelines. In cases where Bitbucket features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions and alternatives.
 
 ## Using the Buildkite pipeline converter with Bitbucket Pipelines
 
-To start converting a Bitbucket Pipelines configuration into Buildkite Pipelines format:
-
-1. Open the [Buildkite pipeline converter](https://buildkite.com/resources/convert/) in a new browser tab.
-1. Ensure that **Bitbucket Pipelines** is selected at the top of the left panel.
-1. Copy your Bitbucket Pipelines configuration and paste it into the left panel.
-1. Select **Convert** to reveal the translated pipeline configuration in the **Buildkite Pipeline** panel.
+You can immediately start experimenting with the Buildkite pipeline converter through the [CLI version](/docs/pipelines/converter#cli-buildkite-pipeline-converter-how-to-use-the-cli-buildkite-pipeline-converter) or via an [interactive web-based interface](/docs/pipelines/converter#interactive-web-version-how-to-use-the-web-buildkite-pipeline-converter).
 
 ## How the translation works
 
