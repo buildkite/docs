@@ -20,7 +20,7 @@ AGENT="${INSTALL_PATH}/agent"
 
 echo "Installing buildkite-agent ${AGENT_VERSION} to ${AGENT}"
 
-go install "github.com/buildkite/agent@${AGENT_VERSION}"
+go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
 
 echo "Installing agent_cli2md"
 go install -buildvcs=false ./scripts/agent_cli2md
