@@ -71,11 +71,11 @@ When designing monorepo pipelines, consider the following benchmarks for the num
 Step count range | Experience
 ---------------- | ----------------
 Up to 500 | Optimal. The UI and build processing perform well at this scale.
-500 to 1,000 | Acceptable, but monitor for UI responsiveness. Consider whether some steps can be consolidated.
-Over 1,000 | Not recommended. The UI may become slow or unresponsive, and operational issues are more likely. Split work across multiple pipelines or use an orchestrator pattern.
+500 to 1,000 | Acceptable, but monitor for UI responsiveness. Consider consolidating some steps.
+Over 1,000 | Not recommended. The UI may become slow or unresponsive, and operational issues are possible. Split work across multiple pipelines or use an orchestrator pattern.
 {: class="responsive-table"}
 
 > 📘 Tip for large monorepos
-> For monorepos that could generate hundreds or thousands of steps, use an orchestrator pipeline that dynamically generates only the steps needed for each build. Upload steps in batches or trigger child pipelines to avoid single-build step counts growing into the thousands.
+> For monorepos that could generate hundreds or thousands of steps, use an orchestrator pipeline that [dynamically generates](/docs/pipelines/configure/dynamic-pipelines) only the steps needed for each build. Upload steps in batches or [trigger](/docs/pipelines/configure/step-types/trigger-step) child pipelines to avoid single-build step counts growing into the thousands.
 
-Note that each step can contain multiple jobs when using the `parallelism` attribute, so the step count doesn't necessarily reflect the total number of jobs running.
+Note that each step can contain multiple jobs when using the [`parallelism` attribute](/docs/pipelines/configure/step-types/command-step#label), so the step count doesn't necessarily reflect the total number of jobs running.
