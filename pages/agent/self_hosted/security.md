@@ -42,8 +42,8 @@ Since the [agent](https://github.com/buildkite/agent) is open-source, if necessa
 
 ### Allow a list of plugins
 
-Defining an [environment hook](hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
+Defining an [environment hook](/docs/agent/hooks#job-lifecycle-hooks) in the
+[agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks), you can create a
 list of plugins that an agent is allowed to run by inspecting the
 `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables).
 For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
@@ -96,10 +96,7 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 
 ### Strict checks using a pre-bootstrap hook
 
-You can use a [`pre-bootstrap` hook](hooks#agent-lifecycle-hooks) to add strict
-checks for which repositories, commands, and plugins are allowed to run on your
-agent. The `pre-bootstrap` hook is executed before any source code is checked
-out, and before any commands are executed.
+You can use a [`pre-bootstrap` hook](/docs/agent/hooks#job-lifecycle-hooks) to add strict checks for which repositories, commands, and plugins are allowed to run on your agent. The `pre-bootstrap` hook is executed before any source code is checked out, and before any commands are executed.
 
 For example, the following `pre-bootstrap` hook allows only a single file from a
 single repository to be executed by the agent:

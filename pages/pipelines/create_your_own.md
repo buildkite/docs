@@ -89,7 +89,7 @@ If you have trouble getting your pipeline to work, don't hesitate to reach out t
 
 ### Using private repositories
 
-When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, ensure your [agent's SSH keys](/docs/agent/self-hosted/ssh-keys) are configured so your agent can check out the repository.
+When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, ensure your [agent's SSH keys](/docs/agent/self-hosted/code-access) are configured for code access so your agent can check out the repository.
 
 For more advanced pipelines, using your development machine as the agent for your first few builds can be a good idea. That way, all the dependencies are ready, and you'll soon be able to share a link to a green build with the rest of your team.
 

@@ -179,7 +179,7 @@ ssh-add -k /buildkite-secrets/id_rsa_buildkite_git
 
 Other options for configuring Git and SSH include:
 
-* Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](/docs/agent/ssh-keys) for examples on using ssh-agent.
+* Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) documentation for examples on using ssh-agent.
 * The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys using environment variables.
 
 ## Entrypoint customizations

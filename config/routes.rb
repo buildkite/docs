@@ -444,7 +444,7 @@ Rails.application.routes.draw do
   get "/docs/agent/ssh-keys",            to: redirect("/docs/agent/self-hosted/ssh-keys",                 status: 301)
   get "/docs/agent/github-ssh-keys",     to: redirect("/docs/agent/self-hosted/github-ssh-keys",          status: 301)
   get "/docs/agent/prioritization",      to: redirect("/docs/agent/self-hosted/prioritization",           status: 301)
-  get "/docs/agent/plugins",             to: redirect("/docs/pipelines/integrations/plugins",                status: 301)
+  get "/docs/agent/plugins",             to: redirect("/docs/pipelines/integrations/plugins",             status: 301)
   get "/docs/agent/securing",            to: redirect("/docs/agent/self-hosted/security",                 status: 301)
   get "/docs/agent/cli-start",           to: redirect("/docs/agent/cli/reference/start",                  status: 301)
   get "/docs/agent/cli-meta-data",       to: redirect("/docs/agent/cli/reference/meta-data",              status: 301)
@@ -458,19 +458,19 @@ Rails.application.routes.draw do
   get "/docs/agent/uploading-pipelines", to: redirect("/docs/agent/cli/reference/pipeline",               status: 301)
   get "/docs/agent/upgrading",           to: redirect("/docs/agent/self-hosted/install#upgrade-agents",   status: 301)
   get "/docs/agent/upgrading-to-v3",     to: redirect("/docs/agent/self-hosted/install#upgrade-agents",   status: 301)
-  get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/insights/queue-metrics",              status: 301)
-  get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",               status: 301)
+  get "/docs/clusters/queue-metrics",    to: redirect("/docs/pipelines/insights/queue-metrics",           status: 301)
+  get "/docs/test-engine/java",          to: redirect("/docs/test-engine/importing-junit-xml",            status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs
   get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent",                                       status: 301)
   get "/docs/agent/v3/upgrading-to-v3", to: redirect("/docs/agent/self-hosted/install#upgrade-agents",    status: 301)
-  get "/docs/agent/v2/plugins",         to: redirect("/docs/pipelines/integrations/plugins",                 status: 301)
+  get "/docs/agent/v2/plugins",         to: redirect("/docs/pipelines/integrations/plugins",              status: 301)
   get "/docs/agent/v2/agent-meta-data", to: redirect("/docs/agent/cli/reference/start#setting-tags",      status: 301)
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/cli/reference/start#setting-tags",      status: 301)
   get "/docs/agent/v2(/*path)",         to: redirect("/docs/agent",                                       status: 301)
 
   # Pre GA test analytics
-  get "/docs/test-analytics/integrations", to: redirect("/docs/test-engine",                                 status: 301)
+  get "/docs/test-analytics/integrations", to: redirect("/docs/test-engine",                              status: 301)
 
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference

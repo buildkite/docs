@@ -28,7 +28,7 @@ $ mkdir -p ~/.ssh && cd ~/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
-See the [Agent SSH keys](/docs/agent/self-hosted/ssh-keys) documentation for more details.
+See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) documentation for more details.
 
 ## File locations
 
