@@ -67,7 +67,7 @@ In a nutshell though:
       {
         feature: "[Hooks](#customizing-with-hooks)",
         self_hosted: "All [agent and job lifecycle hooks](/docs/agent/hooks) supported",
-        hosted: "[Job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks) supported through [custom base images](/docs/agent/buildkite-hosted/linux/custom-base-images#using-agent-hooks)"
+        hosted: "[Job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks) supported through [custom base images](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks)"
       },
       {
         feature: "Cache volumes",
