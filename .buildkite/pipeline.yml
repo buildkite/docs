@@ -262,3 +262,38 @@ steps:
           formatter:
             type: details
           context: test-summary
+
+  - label: ":robot_face: AI Style Review"
+    if: build.branch != "main" && build.pull_request.draft != true
+    agents:
+      queue: hosted
+    timeout_in_minutes: 3
+    soft_fail: true
+    plugins:
+      - aws-assume-role-with-web-identity#v1.4.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
+      - aws-ssm#v1.0.0:
+          parameters:
+            GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
+      - docker#v5.11.0:
+          image: "golang:1.24-bookworm"
+          propagate-environment: true
+          environment:
+            - "BUILDKITE_AGENT_ACCESS_TOKEN"
+            - "BUILDKITE_AGENT_ENDPOINT"
+            - "BUILDKITE_PULL_REQUEST"
+            - "GITHUB_TOKEN"
+          mount-buildkite-agent: true
+    command: |
+      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 2>/dev/null
+      chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+      echo "deb [arch=$$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+      apt-get update -qq && apt-get install -y -qq gh > /dev/null 2>&1
+      cd tools/pr-review-agent
+      go build -buildvcs=false -o pr-review-agent .
+      ./pr-review-agent
