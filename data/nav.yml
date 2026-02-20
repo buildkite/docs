@@ -11,7 +11,7 @@
           start_expanded: false
           children:
             - name: "Advantages of Buildkite Pipelines"
-              path: "pipelines/advantages/pipelines-advantages"
+              path: "pipelines/advantages/buildkite-pipelines"
             - name: "Advantages over Jenkins"
               path: "pipelines/advantages/buildkite-vs-jenkins"
             - name: "Advantages over GitLab"

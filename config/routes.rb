@@ -258,6 +258,7 @@ Rails.application.routes.draw do
   get "/docs/packages/nodejs",                                                                       to: redirect("/docs/package-registries/javascript")
   get "/docs/packages/permissions",                                                                  to: redirect("/docs/package-registries/security/permissions")
   get "/docs/packages/*page",                                                                        to: redirect("/docs/package-registries/%{page}")
+  get "/docs/pipelines/advantages/pipelines-advantages",                                             to: redirect("/docs/pipelines/advantages/buildkite-pipelines")
   get "/docs/pipelines/archiving-and-deleting-pipelines",                                            to: redirect("/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines")
   get "/docs/pipelines/artifacts",                                                                   to: redirect("/docs/pipelines/configure/artifacts")
   get "/docs/pipelines/audit-log",                                                                   to: redirect("/docs/platform/audit-log")

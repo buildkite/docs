@@ -141,7 +141,7 @@ One convenient way of achieving build job isolation is to use the agent's built 
 
 ## Auto-scaling your build agents
 
-In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
+In addition to the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
 
 - [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization's scheduled jobs count, agents count, and details about each agent.
 - [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you're able to fetch each pipeline's job count, and information about each agent.
