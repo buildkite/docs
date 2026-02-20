@@ -10,29 +10,19 @@ If you're new to Buildkite Pipelines, run through the [Getting started with Pipe
 
 Learn more about the differences between self-hosted and Buildkite hosted agents in [Self-hosted and Buildkite hosted agents compared](#self-hosted-and-buildkite-hosted-agents-compared).
 
-## How it works
-
-The agent works by polling Buildkite's agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
-
-The agent starts by registering itself with Buildkite, and once registered it's placed into your organization's agents pool. The agent periodically polls the Buildkite platform, looking for new work, waiting to accept an available job.
-
-After accepting a build job the agent will execute the command, streaming back the build script's output and then posting the final exit status.
-
-Whilst the job is running you can use the `buildkite-agent meta-data` command to set and get build-wide meta-data, and `buildkite-agent artifact` for fetching and retrieving binary build-wide artifacts. These two commands allow you to have completely isolated build jobs (similar to a 12 factor web application) but have access to shared state and data storage across any number of machines and networks.
-
-### Job routing
-
-By default, a pipeline's jobs run on the first available agent associated with the relevant [queues](/docs/agent/queues) that the pipeline's [cluster](/docs/pipelines/security/clusters) is set to. Agents associated with a queue are ordered for selection by how recently these agents successfully completed a job. This takes advantage of warm caches to guarantee the fastest run time possible.
-
-Learn more about how Buildkite routes jobs to queues in the [Queues overview](/docs/agent/queues) page.
-
-## Command line usage
-
-The Buildkite agent has a command line interface (CLI) that lets you interact with and control the agent through the command line. For a complete reference of all available commands, see the [Command-line reference](/docs/agent/cli/reference).
-
 ## Self-hosted and Buildkite hosted agents compared
 
 The following table lists key feature differences between [self-hosted](/docs/agent/v3/self-hosted) and [Buildkite hosted](/docs/agent/v3/buildkite-hosted) agents. If you are looking to establish, expand or modify your Buildkite agent infrastructure, this table should help you choose which path or paths to take.
+
+In a nutshell though:
+
+- _Self-hosted agents_ are suitable when your organization has any of the following conditions:
+
+    * You need full control over your agent infrastructure.
+    * Your agents need a lot of customization.
+    * You operate under strict security conditions that requires your source code and CI/CD build runners (the agents) to be managed on premises or in your own cloud-based infrastructure.
+
+- _Buildkite hosted agents_ is a fully-managed platform that offers fast and specialized CI/CD build runners, which work well under default conditions. This option lets you get up and running rapidly to build your projects.
 
 <table>
   <thead>
@@ -113,6 +103,26 @@ The following table lists key feature differences between [self-hosted](/docs/ag
     <% end %>
   </tbody>
 </table>
+
+## How it works
+
+The agent works by polling Buildkite's agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
+
+The agent starts by registering itself with Buildkite, and once registered it's placed into your organization's agents pool. The agent periodically polls the Buildkite platform, looking for new work, waiting to accept an available job.
+
+After accepting a build job the agent will execute the command, streaming back the build script's output and then posting the final exit status.
+
+Whilst the job is running you can use the `buildkite-agent meta-data` command to set and get build-wide meta-data, and `buildkite-agent artifact` for fetching and retrieving binary build-wide artifacts. These two commands allow you to have completely isolated build jobs (similar to a 12 factor web application) but have access to shared state and data storage across any number of machines and networks.
+
+### Job routing
+
+By default, a pipeline's jobs run on the first available agent associated with the relevant [queues](/docs/agent/queues) that the pipeline's [cluster](/docs/pipelines/security/clusters) is set to. Agents associated with a queue are ordered for selection by how recently these agents successfully completed a job. This takes advantage of warm caches to guarantee the fastest run time possible.
+
+Learn more about how Buildkite routes jobs to queues in the [Queues overview](/docs/agent/queues) page.
+
+## Command line usage
+
+The Buildkite agent has a command line interface (CLI) that lets you interact with and control the agent through the command line. For a complete reference of all available commands, see the [Command-line reference](/docs/agent/cli/reference).
 
 ## Customizing with hooks
 
