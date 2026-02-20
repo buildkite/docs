@@ -65,7 +65,7 @@ In the example above, artifacts matching `logger-*.gem` will be published to `no
 
 ## Step 3: Define an OIDC policy for the registry
 
-The Publish to Packages plugin authenticates with Package Registries using an [Agent OIDC token](/docs/agent/v3/cli/reference/oidc). Therefore, an [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry) must be configured on the [Ruby registry](/docs/package-registries/ecosystems/ruby).
+The Publish to Packages plugin authenticates with Package Registries using an [Agent OIDC token](/docs/agent/cli/reference/oidc). Therefore, an [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry) must be configured on the [Ruby registry](/docs/package-registries/ecosystems/ruby).
 
 ```yaml
 - iss: "https://agent.buildkite.com"

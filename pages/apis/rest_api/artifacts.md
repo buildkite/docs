@@ -166,7 +166,7 @@ Success response: `302 Found`
 
 The artifact record is marked as deleted in the Buildkite database, and the artifact itself is removed from the Buildkite AWS S3 bucket. It will no longer be displayed in the job or build artifact lists, and it will not be returned by the artifact APIs.
 
-If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket), [Google Cloud](/docs/agent/v3/cli/reference/artifact#using-your-private-google-cloud-bucket), or [Artifactory](/docs/pipelines/integrations/artifacts-and-packages/artifactory) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
+If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket), [Google Cloud](/docs/agent/cli/reference/artifact#using-your-private-google-cloud-bucket), or [Artifactory](/docs/pipelines/integrations/artifacts-and-packages/artifactory) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

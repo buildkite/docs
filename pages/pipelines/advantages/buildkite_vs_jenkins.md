@@ -8,7 +8,7 @@ Jenkins has served the CI/CD community for over 20 years, but the architecture t
 
 By default, Jenkins is primarily self-hosted. You need to deploy, scale, secure, and upgrade your controllers yourself. When a controller is slow or down, developers are blocked.
 
-Buildkite Pipelines separates orchestration from execution: a managed SaaS control plane with agents running on your infrastructure. In Buildkite Pipelines, can choose between self-hosted and [hosted agents](/docs/agent/v3/buildkite-hosted).
+Buildkite Pipelines separates orchestration from execution: a managed SaaS control plane with agents running on your infrastructure. In Buildkite Pipelines, can choose between self-hosted and [hosted agents](/docs/agent/buildkite-hosted).
 
 ## Buildkite Agents
 

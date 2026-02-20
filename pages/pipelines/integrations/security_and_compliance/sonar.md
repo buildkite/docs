@@ -79,7 +79,7 @@ Choose between two deployment approaches based on your infrastructure preference
 
 ### Pre-installed binary approach
 
-This approach uses the SonarScanner CLI binary installed directly on your Buildkite Agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack).
+This approach uses the SonarScanner CLI binary installed directly on your Buildkite Agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack).
 
 #### Update launch template userdata
 

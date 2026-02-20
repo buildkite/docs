@@ -29,7 +29,7 @@ steps:
 
 ## Referencing secrets in your pipeline YAML
 
-You should never refer to secrets directly in your `pipeline.yml` file, as they may be interpolated during the [pipeline upload](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) and sent to Buildkite. For example:
+You should never refer to secrets directly in your `pipeline.yml` file, as they may be interpolated during the [pipeline upload](/docs/agent/cli/reference/pipeline#uploading-pipelines) and sent to Buildkite. For example:
 
 ```yaml
 steps:

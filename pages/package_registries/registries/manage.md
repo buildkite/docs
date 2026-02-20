@@ -40,7 +40,7 @@ The following aspects of a source registry can be updated:
 <%= render_markdown partial: 'package_registries/registries/updatable_registry_components_1' %>
 
 - **Registry Management**: the privacy settings for the registry—private (the initial default state for all newly created registries) or public.
-- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/v3/cli/reference/oidc) or another third-party system, can be used to either publish/upload packages to the registry, or download/install packages from the registry.
+- **OIDC Policy**: one or more [policies defining which OpenID Connect (OIDC) tokens](/docs/package-registries/security/oidc), from the [Buildkite Agent](/docs/agent/cli/reference/oidc) or another third-party system, can be used to either publish/upload packages to the registry, or download/install packages from the registry.
 
 <%= render_markdown partial: 'package_registries/registries/updatable_registry_components_2' %>
 

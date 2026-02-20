@@ -102,7 +102,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
       {
         name: "Agents",
         key: "read_agents, write_agents",
-        description: "List and retrieve details of agents—stop agents. To register self-hosted agents, use an [agent token](/docs/agent/v3/self-hosted/tokens) instead.",
+        description: "List and retrieve details of agents—stop agents. To register self-hosted agents, use an [agent token](/docs/agent/self-hosted/tokens) instead.",
         read: true, write: true, delete: false
       },
       {
@@ -408,4 +408,4 @@ If you own the token, you can revoke your token from the [API access token page]
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
 
-[Agent token]: /docs/agent/v3/self-hosted/tokens
+[Agent token]: /docs/agent/self-hosted/tokens

@@ -21,13 +21,13 @@ The **Maximum Command Step Timeout** sets the maximum timeout in minutes for all
 
 Timeout precedence in the order of priority: step-level timeout → pipeline default → organization default. This behavior is distinct from [scheduled job expiration](#scheduled-job-expiration).
 
-Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](/docs/agent/v3/self-hosted/configure#cancel-grace-period) flag.
+Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](/docs/agent/self-hosted/configure#cancel-grace-period) flag.
 
 Note that command step timeouts don't apply to [trigger steps](/docs/pipelines/configure/step-types/trigger-step) and [block steps](/docs/pipelines/configure/step-types/block-step).
 
 ### Updating timeouts during a job
 
-You can dynamically update a command job's timeout before it is finished, using the [`buildkite-agent job update` command](/docs/agent/v3/cli/reference/job). This is useful when a job learns more about how long it should take during execution, for example, after completing a setup phase.
+You can dynamically update a command job's timeout before it is finished, using the [`buildkite-agent job update` command](/docs/agent/cli/reference/job). This is useful when a job learns more about how long it should take during execution, for example, after completing a setup phase.
 
 > 📘 Minimum Buildkite agent version requirement
 > To update a job's timeout, version 3.118.0 or later of the Buildkite agent is required. Using earlier versions of the Buildkite agent will result in pipeline failures.

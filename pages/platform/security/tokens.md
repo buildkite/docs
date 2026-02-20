@@ -24,7 +24,7 @@ _Applies to API access tokens created after:  March, 2023_
 
 ### Agent session tokens
 
-Buildkite Agent [session tokens](/docs/agent/v3/self-hosted/tokens#additional-agent-tokens-session-tokens) are also known as _Buildkite Agent access_ tokens, whose acronym forms the prefix for these types of tokens.
+Buildkite Agent [session tokens](/docs/agent/self-hosted/tokens#additional-agent-tokens-session-tokens) are also known as _Buildkite Agent access_ tokens, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkaa_`
 - Example: `bkaa_***************************************************************************`
@@ -33,14 +33,14 @@ _Applies to agent session tokens created after: January, 2025_
 
 ### Agent job tokens
 
-Buildkite Agent [job tokens](/docs/agent/v3/self-hosted/tokens#additional-agent-tokens-job-tokens) form the acronym for the prefix of their values.
+Buildkite Agent [job tokens](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens) form the acronym for the prefix of their values.
 
 - Prefix: `bkaj_`
 - Example: `bkaj_*********************************************************************************************************************************************************************************************************************************************************************************************************************************************`
 
 ### Unclustered agent tokens
 
-Buildkite [unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens) are also known as _Buildkite Agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
+Buildkite [unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens) are also known as _Buildkite Agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkar_`
 - Example: `bkar_*************************************************************************`
@@ -49,7 +49,7 @@ _Applies to unclustered agent tokens created after: April, 2025_
 
 ### Agent tokens
 
-Buildkite [agent tokens](/docs/agent/v3/self-hosted/tokens) are also known as _Buildkite cluster tokens_, whose acronym forms the prefix for these types of tokens.
+Buildkite [agent tokens](/docs/agent/self-hosted/tokens) are also known as _Buildkite cluster tokens_, whose acronym forms the prefix for these types of tokens.
 
 - Prefix: `bkct_`
 - Example: `bkct_*************************************************************************`
