@@ -70,7 +70,7 @@ The Buildkite agent should run on any hardware and any cloud compute provider. I
 
 For example, you could start several [Google Cloud Compute instances](/docs/agent/self-hosted/gcp), then install and start build agents. These instructions can be automated using infrastructure as code tools like [Terraform](https://www.terraform.io), and then [add auto-scaling rules](#auto-scaling-your-build-agents) so you always have enough capacity.
 
-The [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) provides a pre-built CloudFormation Stack for AWS that runs multiple auto-scaling agents.
+The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) provides a pre-built CloudFormation Stack for AWS that runs multiple auto-scaling agents.
 
 ## Parallel jobs
 

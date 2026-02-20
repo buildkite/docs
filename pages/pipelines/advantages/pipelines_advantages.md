@@ -66,7 +66,7 @@ Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/conf
 The Buildkite Pipelines interface provides immediate visibility into pipeline behavior and system health. Rich build [annotations](/docs/agent/cli/reference/annotate), integrated [test results](/docs/test-engine), and transparent failure information keep developers informed without context switching.
 
 - [Log output](/docs/pipelines/configure/managing-log-output) renders as real terminal output with full ANSI color support, preserving your test framework's formatting, color-coded diffs, and structured output.
-- Configurable [log grouping](/docs/pipelines/configure/managing-log-output#collapsing-output) (`---`, `+++`, `~~~`) organizes output into collapsible sections.
+- Configurable [log grouping](/docs/pipelines/configure/managing-log-output#grouping-log-output) (`---`, `+++`, `~~~`) organizes output into [collapsible sections](/docs/pipelines/configure/managing-log-output#grouping-log-output-collapsed-groups).
 - Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links.
 - Builds running on your own infrastructure let you SSH into the machine, inspect the environment directly, and reproduce failures locally.
 

@@ -81,7 +81,7 @@ deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://
 
 <%= render_markdown partial: 'agent/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
 
-See the [Agent SSH keys](/docs/agent/self-hosted/ssh-keys) documentation for more details.
+See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) documentation for more details.
 
 ## File locations
 
