@@ -12,7 +12,7 @@ Learn more about the differences between self-hosted and Buildkite hosted agents
 
 ## Self-hosted and Buildkite hosted agents compared
 
-The following table lists key feature differences between [self-hosted](/docs/agent/v3/self-hosted) and [Buildkite hosted](/docs/agent/v3/buildkite-hosted) agents. If you are looking to establish, expand or modify your Buildkite agent infrastructure, this table should help you choose which path or paths to take.
+The following table lists key feature differences between [self-hosted](/docs/agent/self-hosted) and [Buildkite hosted](/docs/agent/buildkite-hosted) agents. If you are looking to establish, expand or modify your Buildkite agent infrastructure, this table should help you choose which path or paths to take.
 
 In a nutshell though:
 
@@ -41,8 +41,8 @@ In a nutshell though:
       },
       {
         feature: "Supported platforms",
-        self_hosted: "[Linux](/docs/agent/v3/self-hosted/install/linux), [macOS](/docs/agent/v3/self-hosted/install/macos), [Windows](/docs/agent/v3/self-hosted/install/windows), [Docker](/docs/agent/v3/self-hosted/install/docker), and [more](/docs/agent/v3/self-hosted/install)",
-        hosted: "[Linux](/docs/agent/v3/buildkite-hosted/linux) and [macOS](/docs/agent/v3/buildkite-hosted/macos)"
+        self_hosted: "[Linux](/docs/agent/self-hosted/install/linux), [macOS](/docs/agent/self-hosted/install/macos), [Windows](/docs/agent/self-hosted/install/windows), [Docker](/docs/agent/self-hosted/install/docker), and [more](/docs/agent/self-hosted/install)",
+        hosted: "[Linux](/docs/agent/buildkite-hosted/linux) and [macOS](/docs/agent/buildkite-hosted/macos)"
       },
       {
         feature: "Agent lifecycle",
@@ -51,7 +51,7 @@ In a nutshell though:
       },
       {
         feature: "Scaling",
-        self_hosted: "Manual or through tools such as the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack) or [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)",
+        self_hosted: "Manual or through tools such as the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) or [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)",
         hosted: "Automatic, scales on demand"
       },
       {
@@ -61,37 +61,37 @@ In a nutshell though:
       },
       {
         feature: "Configuration",
-        self_hosted: "Full control through [configuration file](/docs/agent/v3/self-hosted/configure), environment variables, and command-line flags",
-        hosted: "Configured through [queue settings](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) in the Buildkite interface"
+        self_hosted: "Full control through [configuration file](/docs/agent/self-hosted/configure), environment variables, and command-line flags",
+        hosted: "Configured through [queue settings](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) in the Buildkite interface"
       },
       {
         feature: "[Hooks](#customizing-with-hooks)",
-        self_hosted: "All [agent and job lifecycle hooks](/docs/agent/v3/hooks) supported",
-        hosted: "[Job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks) supported through [custom base images](/docs/agent/v3/buildkite-hosted/linux/custom-base-images#using-agent-hooks)"
+        self_hosted: "All [agent and job lifecycle hooks](/docs/agent/hooks) supported",
+        hosted: "[Job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks) supported through [custom base images](/docs/agent/buildkite-hosted/linux/custom-base-images#using-agent-hooks)"
       },
       {
         feature: "Cache volumes",
         self_hosted: "You manage your own caching",
-        hosted: "Built-in [NVMe-backed cache volumes](/docs/agent/v3/buildkite-hosted/cache-volumes) at no extra cost"
+        hosted: "Built-in [NVMe-backed cache volumes](/docs/agent/buildkite-hosted/cache-volumes) at no extra cost"
       },
       {
         feature: "Docker builds",
         self_hosted: "You configure Docker on your agents",
-        hosted: "[Remote Docker builders](/docs/agent/v3/buildkite-hosted/linux/remote-docker-builders) with layer caching (Enterprise only)"
+        hosted: "[Remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) with layer caching (Enterprise only)"
       },
       {
         feature: "Container registry",
         self_hosted: "You manage your own registries",
-        hosted: "Built-in [internal container registry](/docs/agent/v3/buildkite-hosted/internal-container-registry)"
+        hosted: "Built-in [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry)"
       },
       {
         feature: "Network access",
         self_hosted: "Full control over networking",
-        hosted: "US East Coast data centers with configurable [network security](/docs/agent/v3/buildkite-hosted/network-security)"
+        hosted: "US East Coast data centers with configurable [network security](/docs/agent/buildkite-hosted/network-security)"
       },
       {
         feature: "Experimental features",
-        self_hosted: "Access to [agent experiments](/docs/agent/v3/self-hosted/configure/experiments)",
+        self_hosted: "Access to [agent experiments](/docs/agent/self-hosted/configure/experiments)",
         hosted: "Not available"
       }
     ].each do |row| %>
