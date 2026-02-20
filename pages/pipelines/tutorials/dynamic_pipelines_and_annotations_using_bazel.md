@@ -22,23 +22,23 @@ To complete this tutorial, you'll need to have done the following:
 
 ## Set up an agent
 
-Buildkite Pipelines requires an [agent](/docs/agent/v3) running Bazel to build this pipeline. You can [set up your own self-hosted agent](#set-up-an-agent-set-up-a-self-hosted-agent) to do this. However, you can get up and running more rapidly by [creating a Buildkite hosted agent for macOS](#set-up-an-agent-create-a-buildkite-hosted-agent-for-macos), instead.
+Buildkite Pipelines requires an [agent](/docs/agent) running Bazel to build this pipeline. You can [set up your own self-hosted agent](#set-up-an-agent-set-up-a-self-hosted-agent) to do this. However, you can get up and running more rapidly by [creating a Buildkite hosted agent for macOS](#set-up-an-agent-create-a-buildkite-hosted-agent-for-macos), instead.
 
 > 📘 Already running an agent
 > If you're already running an agent and its operating system environment is already running [Bazel](https://bazel.build/install), skip to the [next step on creating a pipeline](#create-a-pipeline).
 
 ### Create a Buildkite hosted agent for macOS
 
-Unlike [Linux hosted agents](/docs/agent/v3/buildkite-hosted/linux), which would require you to install Bazel or Bazelisk on the agent (for example, using an [agent image](/docs/agent/v3/buildkite-hosted/linux#agent-images)), and implement other configurations to ensure that Bazel runs successfully on the agent (for example, ensuring Bazel runs as a non-root user), [macOS hosted agents](/docs/agent/v3/buildkite-hosted/macos) already come pre-installed with Bazelisk and ready to run Bazel.
+Unlike [Linux hosted agents](/docs/agent/buildkite-hosted/linux), which would require you to install Bazel or Bazelisk on the agent (for example, using an [agent image](/docs/agent/buildkite-hosted/linux#agent-images)), and implement other configurations to ensure that Bazel runs successfully on the agent (for example, ensuring Bazel runs as a non-root user), [macOS hosted agents](/docs/agent/buildkite-hosted/macos) already come pre-installed with Bazelisk and ready to run Bazel.
 
-You can create the first [Buildkite hosted agent](/docs/agent/v3/buildkite-hosted) for [macOS](/docs/agent/v3/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
+You can create the first [Buildkite hosted agent](/docs/agent/buildkite-hosted) for [macOS](/docs/agent/buildkite-hosted/macos) within a Buildkite organization for a two-week free trial, after which a usage cost (based on the agent's capacity) is charged per minute.
 
 > 📘
 > If you're unable to access the Buildkite hosted agent feature or create one in your cluster, please contact support at support@buildkite.com to request access to this feature. Otherwise, you can set yourself up with a [self-hosted agent](#set-up-an-agent-set-up-a-self-hosted-agent) instead.
 
 To create your macOS hosted agent:
 
-1. Follow the [Create a Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
+1. Follow the [Create a Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) > [Using the Buildkite interface](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface) instructions to begin creating your hosted agent within its own queue.
 
     As part of this process:
     * Give this queue an intuitive **key** and **description**, for example, **macos** and **Buildkite macOS hosted queue**, respectively.
@@ -59,7 +59,7 @@ Setting up a self-hosted agent for this tutorial requires you to first install a
 
 To set up a self-hosted agent for this tutorial:
 
-1. Ensure you have followed the [Create a self-hosted queue](/docs/agent/v3/queues/managing#create-a-self-hosted-queue) and relevant [Buildkite agent installation instructions](/docs/agent/v3/self-hosted/install) to get set up with your self-hosted agent.
+1. Ensure you have followed the [Create a self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) and relevant [Buildkite agent installation instructions](/docs/agent/self-hosted/install) to get set up with your self-hosted agent.
 
 1. Install Bazel, by following the relevant instructions to install [Bazelisk (recommended)](https://bazel.build/install/bazelisk) or the relevant [Bazel package](https://bazel.build/install) to the same operating system environment that your self-hosted agent was installed to.
 

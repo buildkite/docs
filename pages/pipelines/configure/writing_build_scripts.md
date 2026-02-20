@@ -2,7 +2,7 @@
 
 One of the most common actions that Buildkite steps perform is running shell scripts. These scripts are checked in alongside your code and `pipeline.yml` file.
 
-The [Buildkite Agent](/docs/agent/v3) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
+The [Buildkite Agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
 ## Configuring Bash
 
@@ -98,7 +98,7 @@ The first step in debugging your build script is to view the environment variabl
 
 There may be additional environment variables available in your build job that
 don't appear in this list, such as ones set by your
-[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
+[job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks).
 To debug these, you can print them using `echo $SOME_VAR` before the command
 you're wanting to run. For example:
 

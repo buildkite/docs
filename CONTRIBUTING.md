@@ -158,11 +158,11 @@ At the time of writing, there are only three icons available — agent, reposito
 
 ### Update Buildkite Agent CLI docs
 
-The [Buildkite Agent command-line interface (CLI) reference docs](https://buildkite.com/docs/agent/v3/cli/reference) consists of a series of pages where each page describes how each of the agent's `buildkite-agent` CLI commands works and is used.
+The [Buildkite Agent command-line interface (CLI) reference docs](https://buildkite.com/docs/agent/cli/reference) consists of a series of pages where each page describes how each of the agent's `buildkite-agent` CLI commands works and is used.
 
 Each command's docs page should have a **Usage**, **Description**, **Example**, and **Options** section appearing somewhere on the page.
 
-These four sections are actually part of a [partial](#content-reuse-snippetspartials), whose content comes from its relevant Markdown file partial in the [docs source repo's `pages/agent/v3/help` folder](./pages/agent/v3/help). The files in this folder are automatically updated whenever a [new version of the Buildkite Agent is released](https://github.com/buildkite/agent/releases), containing updates to the documentation in any of its relevant [clicommand files](https://github.com/buildkite/agent/tree/main/clicommand). This is why the tops of these file partials indicate **DO NOT EDIT**.
+These four sections are actually part of a [partial](#content-reuse-snippetspartials), whose content comes from its relevant Markdown file partial in the [docs source repo's `pages/agent/help` folder](./pages/agent/help). The files in this folder are automatically updated whenever a [new version of the Buildkite Agent is released](https://github.com/buildkite/agent/releases), containing updates to the documentation in any of its relevant [clicommand files](https://github.com/buildkite/agent/tree/main/clicommand). This is why the tops of these file partials indicate **DO NOT EDIT**.
 
 With the development dependencies installed you can update these CLI docs locally with the following:
 

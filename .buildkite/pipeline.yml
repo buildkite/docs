@@ -49,7 +49,7 @@ steps:
           fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
-    if_changed: pages/agent/v3/cli/help/*.md
+    if_changed: pages/agent/cli/help/*.md
     command: ./scripts/update-agent-help.sh
     agents:
       queue: hosted-m
@@ -71,7 +71,7 @@ steps:
           fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help.sh"
 
   - label: ":test_tube: Check generated agent experiments docs"
-    if_changed: pages/agent/v3/self_hosted/configure/experiments.md
+    if_changed: pages/agent/self_hosted/configure/experiments.md
     command: ./scripts/update-agent-experiments.sh
     agents:
       queue: hosted-m
@@ -82,7 +82,7 @@ steps:
           fail_message: "Do not edit experiments.md directly - update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md and use scripts/update-agent-experiments.sh"
 
   - label: ":test_tube: Check generated supported agent versions docs"
-    if_changed: pages/agent/v3/self_hosted/versions_directory.md
+    if_changed: pages/agent/self_hosted/versions_directory.md
     command: ./scripts/update-agent-versions-directory.sh
     agents:
       queue: hosted-m

@@ -229,5 +229,5 @@ Be aware that pipeline triggers have the following limitations:
 Learn more about how pipeline triggers integrate with other aspects of Buildkite Pipelines from the follow topic sections:
 
 - [Special meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)—covers details on how to retrieve meta-data from a Buildkite pipeline.
-- [`buildkite-agent meta-data` CLI command](/docs/agent/v3/cli/reference/meta-data)—covers details on this actual meta-data retrieval command of the [Buildkite Agent](/docs/agent/v3) and all of its options.
+- [`buildkite-agent meta-data` CLI command](/docs/agent/cli/reference/meta-data)—covers details on this actual meta-data retrieval command of the [Buildkite Agent](/docs/agent) and all of its options.
 - [Incoming webhook security overview](/docs/pipelines/security/incoming-webhooks#what-kind-of-information-on-incoming-webhooks-is-logged-by-buildkite)—provides information on the type of data logged by incoming webhooks.

@@ -8,7 +8,7 @@ GitHub Actions is easy to start with as it is natively integrated into GitHub, m
 
 GitHub Actions imposes a 256-job matrix cap per workflow run and self-hosted runners require manual provisioning with slow startup times.
 
-Buildkite Pipelines supports 100,000+ concurrent agents with no artificial limits. Agents are lightweight software requiring only an outbound HTTPS connection, and turnkey autoscaling is available through the [Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws) and [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s).
+Buildkite Pipelines supports 100,000+ concurrent agents with no artificial limits. Agents are lightweight software requiring only an outbound HTTPS connection, and turnkey autoscaling is available through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws) and [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
 
 ## Dynamic pipelines and static workflows
 

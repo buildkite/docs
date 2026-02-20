@@ -8,7 +8,7 @@
 # chronological order, grouped by major and minor version.
 #
 # Usage:
-#   ruby scripts/agent_versions_directory2md/agent_versions_directory2md.rb > pages/agent/v3/self_hosted/versions_directory.md
+#   ruby scripts/agent_versions_directory2md/agent_versions_directory2md.rb > pages/agent/self_hosted/versions_directory.md
 #
 # Requirements:
 #   - Ruby 3.0+
@@ -185,7 +185,7 @@ def generate_markdown(version_groups)
   output << ''
   output << "Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and changelogs are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page."
   output << ''
-  output << "To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2)."
+  output << "To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2)."
 
   output.join("\n")
 end

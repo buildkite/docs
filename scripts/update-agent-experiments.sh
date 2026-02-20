@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
 # Output file for generated docs
-OUTPUT_FILE="${REPO_ROOT}/pages/agent/v3/self_hosted/configure/experiments.md"
+OUTPUT_FILE="${REPO_ROOT}/pages/agent/self_hosted/configure/experiments.md"
 
 echo "Generating agent experiments documentation..."
 echo "Output file: ${OUTPUT_FILE}"

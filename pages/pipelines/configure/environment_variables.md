@@ -1,7 +1,7 @@
 # Environment variables
 
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/configure/defining-steps) and
-[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
+[job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks).
 
 Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key=value` pairs, or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be shared size limit across all such environment variables and `argv`, whereas others impose size limits per item (such as an environment variable's size limit).
 
@@ -112,7 +112,7 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 * Pipeline settings — for values that are *not secret*.
 * [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
-* An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
+* An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
 > Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/secrets/managing) documentation for further information and best practices.
@@ -141,7 +141,7 @@ If you're using the YAML Steps editor to define your pipeline, only the followin
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
-Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
 ## Runtime variable interpolation
 
@@ -153,7 +153,7 @@ When using environment variables that will be evaluated at run-time, make sure y
     SERVER: "server-a"
 ```
 
-Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution) CLI guide.
+Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/cli/reference/pipeline#environment-variable-substitution) CLI guide.
 
 ## Environment variable precedence
 
@@ -238,10 +238,10 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 * any variables you set on your agent when you started it
 * any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
 
-For a list of variables and configuration flags, you can set on your agent, see the Buildkite agent's [start command documentation](/docs/agent/v3/cli/reference/start).
+For a list of variables and configuration flags, you can set on your agent, see the Buildkite agent's [start command documentation](/docs/agent/cli/reference/start).
 
 > 📘
-> When using the [Agent Stack for Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s) controller, environment variables declared as part of a PodSpec will also take precedence when the Kubernetes job is created. Learn more about this in [Kubernetes PodSpec generation](/docs/agent/v3/self-hosted/agent-stack-k8s/podspec#kubernetes-podspec-generation).
+> When using the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) controller, environment variables declared as part of a PodSpec will also take precedence when the Kubernetes job is created. Learn more about this in [Kubernetes PodSpec generation](/docs/agent/self-hosted/agent-stack-k8s/podspec#kubernetes-podspec-generation).
 
 ### Job runtime environment
 
@@ -253,7 +253,7 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 After the agent variables have been merged, the bootstrap script is run.
 
 The bootstrap runs any hooks that have been defined by your
-[agent](/docs/agent/v3/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks).
+[agent](/docs/agent/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/hooks#hook-locations-plugin-hooks).
 Variables that are set in these hooks will be merged into the runtime
 environment, and will override any previous values that are set.
 

@@ -2,7 +2,7 @@
 
 A glob pattern is a representation of a file name and optionally its path, and is a compact way of specifying multiple files with a single pattern. You can use a glob pattern to find all files in paths that match that pattern.
 
-This syntax is used for glob patterns supported in pipelines for artifact uploads (using either [`artifact_paths`](/docs/pipelines/configure/step-types/command-step#command-step-attributes) in a pipeline or [`buildkite-agent artifact upload`](/docs/agent/v3/cli/reference/pipeline)), and `if_changed` conditions on [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes) or [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes) pipeline steps.
+This syntax is used for glob patterns supported in pipelines for artifact uploads (using either [`artifact_paths`](/docs/pipelines/configure/step-types/command-step#command-step-attributes) in a pipeline or [`buildkite-agent artifact upload`](/docs/agent/cli/reference/pipeline)), and `if_changed` conditions on [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes) or [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes) pipeline steps.
 
 > 📘 Full path matching
 > Glob patterns must match whole path strings, and cannot be used to represent substrings. However, glob patterns are evaluated relative to the current directory.

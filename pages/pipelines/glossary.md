@@ -6,7 +6,7 @@ The following terms describe key concepts to help you use Pipelines.
 
 An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. You need at least one agent to run builds.
 
-To learn more, see the [Agent overview](/docs/agent/v3).
+To learn more, see the [Agent overview](/docs/agent).
 
 ## Artifact
 
@@ -34,19 +34,19 @@ To learn more, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelin
 
 ## Ephemeral agent
 
-An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/v3/cli/reference/start):
+An ephemeral agent is a Buildkite Agent that only operates for the duration in which it runs a [job](#job). Such an agent is disconnected either once its job is completed, or the agent's idle time period has been reached. An ephemeral agent is created when one of the following options has been used to [start the Buildkite Agent](/docs/agent/cli/reference/start):
 
 - `--acquire-job`
 - `--disconnect-after-job`
 - `--disconnect-after-idle-timeout`
 
-Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/v3/self-hosted/pausing-and-resuming).
+Learn more about ephemeral agents in [Pause and resume an agent](/docs/agent/self-hosted/pausing-and-resuming).
 
 ## Hook
 
 A hook is a method of customizing the behavior of Buildkite through lifecycle events. They let you run scripts at different points of the agent or job lifecycle. Using hooks, you can extend the functionality of Buildkite and automate tasks specific to your workflow and requirements.
 
-To learn more, see [Hooks](/docs/agent/v3/hooks).
+To learn more, see [Hooks](/docs/agent/hooks).
 
 ## Job
 
@@ -74,7 +74,7 @@ To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 A queue defines agents on which pipeline builds can run their jobs. Queues are configured within a [cluster](#cluster), where each queue defines a particular group of agents, isolating a set of your pipeline's jobs and the agents they run on. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
-To learn more, see the [Queues overview](/docs/agent/v3/queues) and [Manage queues](/docs/agent/v3/queues/managing) pages.
+To learn more, see the [Queues overview](/docs/agent/queues) and [Manage queues](/docs/agent/queues/managing) pages.
 
 ## Step
 
@@ -87,7 +87,7 @@ A step describes a single, self-contained task as part of a pipeline. You define
 - Trigger step: Creates a build on another pipeline.
 - Group step: Displays a group of sub-steps as one parent step.
 
-A step can be in one of the following internal _states_, which the [Buildkite agent can retrieve](/docs/agent/v3/cli/reference/step#getting-a-step), when the step is ready to run, or is currently running:
+A step can be in one of the following internal _states_, which the [Buildkite agent can retrieve](/docs/agent/cli/reference/step#getting-a-step), when the step is ready to run, or is currently running:
 
 - `ignored`: The step is ignored due to a conditional evaluation.
 - `waiting_for_dependencies`: The step is waiting for its dependencies to complete.
@@ -97,7 +97,7 @@ A step can be in one of the following internal _states_, which the [Buildkite ag
 - `finished`: The step has completed execution—usually follows either the `running` or `failing` state.
 - `canceled`: The step has been canceled—follows the `waiting_for_dependencies`, `ready`, `running`, or `failing` state.
 
-Once a step's run has completed with a state of `finished`, the [step's outcome](/docs/agent/v3/cli/reference/step#getting-the-outcome-of-a-step) can be one of the following states:
+Once a step's run has completed with a state of `finished`, the [step's outcome](/docs/agent/cli/reference/step#getting-the-outcome-of-a-step) can be one of the following states:
 
 - `neutral`: The passing or failure of the step's outcome is not relevant (for example, the outcome of a wait step).
 - `passed`: The step's outcome is considered successful.

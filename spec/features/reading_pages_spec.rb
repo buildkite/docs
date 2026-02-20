@@ -20,7 +20,7 @@ RSpec.feature "reading pages" do
     end
 
     it "has the correct title" do
-      visit "/docs/agent/v3"
+      visit "/docs/agent"
       expect(page.title).to include("The Buildkite agent")
     end
 
@@ -87,9 +87,11 @@ RSpec.feature "reading pages" do
       /docs/agent/build-artifacts
       /docs/agent/build-meta-data
       /docs/agent/build-pipelines
+      /docs/agent/self-hosted/aws/elastic-ci-stack
+      /docs/agent/self-hosted/code-access#ssh-keys-for-github
       /docs/agent/uploading-pipelines
       /docs/agent/upgrading
-      /docs/agent/v3/plugins
+      /docs/agent/plugins
       /docs/api
       /docs/api/accounts
       /docs/api/builds
@@ -118,11 +120,9 @@ RSpec.feature "reading pages" do
       /docs/guides/controlling-concurrency
       /docs/guides/deploying-to-heroku
       /docs/guides/docker-containerized-builds
-      /docs/guides/elastic-ci-stack-aws
       /docs/guides/environment-variables
       /docs/guides/getting-started
       /docs/guides/github-enterprise
-      /docs/guides/github-repo-access
       /docs/guides/gitlab
       /docs/guides/images-in-build-output
       /docs/guides/managing-log-output
