@@ -87,6 +87,37 @@ Buildkite specializes in CI/CD rather than bundling source code management, proj
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing)
 - Plugins: Extend your pipeline steps with reusable functionality through [Buildkite plugins](/docs/pipelines/integrations/plugins). Browse the [plugins directory](/docs/pipelines/integrations/plugins/directory) to find open source plugins maintained by Buildkite and the community, or [write your own](/docs/pipelines/integrations/plugins/writing).
 
+### Hooks
+
+The only CI/CD platform that has hooks.
+
+### AI-first
+
+Buildkite benefits companies that prioritize software shipping and innovation. Buildkite Pipelines is natively suited to processing the load that has been increased through the use of AI by software companies. Particularly well-suited for AI/ML workloads due to its unlimited concurrency, flexibility across different hardware environments, and ability to handle dynamic pipelines, though he acknowledged that the company still needs to better understand why it's gaining traction in this space.
+
+### Fastest CI/CD tool
+
+Got metrics.
+
+### Flexible deployment options
+
+Dynamic pipelines are unique to Buildkite Pipelines, making deployments flexible.
+A unique hybrid SaaS model, offering a cloud control plane with agents that can run in any infrastructure, designed for speed and control at scale.
+
+Better agent tagging semantics, support for large fleets of runners, and a centralized view of pipelines, making it more suitable for organizations looking for a SaaS-native solution compared to on-premise or managed hosted options like Jenkins.
+
+### Pipeline signing
+
+Open-source agents that poll for work rather than pushing instructions, and their "sign pipelines" feature for secure code execution.
+
+### Flaky tests
+
+As a feature on Test Engine that seamlessly integrates with Buildkite Pipelines.
+
+### Superior support
+
+SLAs.
+
 ## Migrating to Buildkite Pipelines
 
 Buildkite provides [migration guides](/docs/pipelines/migration) to help teams move from their existing CI/CD system. The following pages explore the advantages of migrating from specific systems with side-by-side comparisons:
