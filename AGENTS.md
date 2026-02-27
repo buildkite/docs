@@ -204,6 +204,10 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Don't use redundant emphasis like "really," "very," or "quite"
 - Don't be overly enthusiastic, don't use unnecessary exclamation marks
 - If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
+- Remove hedging phrases like "most of the," "some of the" when they add no precision — for example, write "Most concepts translate" not "Most of the concepts translate"
+- Break long compound sentences into shorter ones. When comparing two systems or explaining cause and effect, prefer two sentences over one long sentence joined by a conjunction
+- Use spaced em dashes ` — ` for inline parenthetical asides
+- Prefer periods over em dashes when separating independent clauses — split into two sentences instead
 
 **Formatting standards:**
 - Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
@@ -226,6 +230,23 @@ When writing technical documentation for Buildkite:
 - Always capitalize: API, SSO, SAML
 - Use "Two-factor authentication" (short form: 2FA)
 - Use "Single sign-on" (short form: SSO)
+
+**Product-qualified naming:**
+- When referring to a specific Buildkite product's features or behavior, use the full product name: "Buildkite Pipelines," "Buildkite Test Engine," "Buildkite Package Registries"
+- Use bare "Buildkite" only when referring to the company or the overall platform
+- This applies to prose, table headers, YAML comments, and comparison content
+- Correct: "Buildkite Pipelines runs all steps in parallel by default."
+- Incorrect: "Buildkite runs all steps in parallel by default."
+
+**No possessive product names:**
+- Never use possessive forms of Buildkite product names — rephrase instead
+- Correct: "The syntax used in Buildkite Pipelines is simpler."
+- Incorrect: "Buildkite's syntax is simpler."
+- Correct: "The Buildkite Pipelines parallel-by-default behavior"
+- Incorrect: "Buildkite's parallel-by-default behavior"
+
+**Deprecated terminology:**
+- Use "queues" and "agent tokens" — do not prefix with "cluster" (for example, do not write "cluster queues" or "cluster agent tokens"). The "cluster" prefix is deprecated
 
 **Structure:**
 - Use bullet lists for unordered items
@@ -311,10 +332,17 @@ Ensure documentation is accessible and clear:
 - [ ] Serial commas, "and" not "&"
 - [ ] "They" for pronouns, numbers <10 spelled out
 - [ ] Proper Buildkite terminology (Agent, buildkite-agent, and so on)
+- [ ] Product-qualified names ("Buildkite Pipelines," not just "Buildkite")
+- [ ] No possessive product names (rephrase "Buildkite's" constructions)
+- [ ] No deprecated terminology ("queues" not "cluster queues")
 - [ ] Consistent capitalization (GitHub, API, SSO, and so on)
 - [ ] Clear structure with appropriate lists
+- [ ] Short sentences; break compound comparisons into separate sentences
+- [ ] Spaced em dashes ` — ` for asides; prefer periods for independent clauses
 - [ ] Avoid "we/our" in formal docs whenever possible
 - [ ] Avoid exclamation marks
+- [ ] Link key concepts on first mention
+- [ ] Plugin links use buildkite.com/resources/plugins/, not GitHub
 
 ---
 
@@ -382,6 +410,7 @@ Ensure documentation is accessible and clear:
 - Use only one space after punctuation at end of sentences
 - Do not leave trailing spaces at the end of sentences or list items
 - Never use double spaces
+- Never leave consecutive blank lines in Markdown files. Use exactly one blank line to separate elements
 
 ## Formatting rules
 
@@ -442,6 +471,20 @@ Ensure documentation is accessible and clear:
 **External links:**
 - Always use full absolute URLs
 - Include other Buildkite sites (main site, blog, changelog)
+
+**Plugin links:**
+- Link to Buildkite's plugin directory at `https://buildkite.com/resources/plugins/` rather than directly to GitHub repositories
+- Correct: `[Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose)`
+- Incorrect: `[Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)`
+
+**First mentions:**
+- When a key concept (like "environment variables," "dynamic pipelines," or "plugins") is first mentioned on a page, link it to the relevant documentation page
+- Correct: "Buildkite Pipelines provides [environment variables](/docs/pipelines/configure/environment-variables):"
+- Incorrect: "Buildkite Pipelines provides environment variables:"
+- Only link the first mention — do not repeat the link on subsequent mentions of the same term
+
+**Link verification:**
+- Always verify that link targets resolve to actual pages before merging. Broken links from moved or deleted content are a recurring issue
 
 ## Callout rules
 
@@ -537,21 +580,40 @@ Content 1         | Content 2
 - Use appropriate list types (ordered vs unordered)
 - Maintain consistent formatting throughout
 
+**Content ordering:**
+- Lead with the most useful action-oriented content (for example, "how to publish," "how to configure")
+- Move prerequisites, format requirements, and reference material after the introductory action-oriented sections
+- Do not front-load a page with constraints or limitations before showing the reader what they can do
+
+**Introductory paragraphs:**
+- When a heading contains a group of subsections (for example, a list of API endpoint groups or feature categories), add a brief introductory paragraph explaining the organizational structure before the subsections
+- Do not jump directly from a heading into subheadings without context
+
+**Nesting new content:**
+- When adding new content, place it under existing headings where it logically belongs rather than creating new top-level sections
+- This keeps the document hierarchy clean and avoids unnecessary heading proliferation
+
 ## Markdown syntax checklist
 
 - [ ] Headings nested incrementally (H1 → H2 → H3 → H4)
 - [ ] Empty lines above and below headings
 - [ ] Sentence case headings without punctuation
-- [ ] `**bold**` for Buildkite UI elements, `_italics_` for key terms
+- [ ] `**bold**` for Buildkite UI elements only, `_italics_` for key terms
 - [ ] `-` for top-level lists, `*` for 2nd level, `-` for 3rd level
 - [ ] 4-space indentation for nested lists and paragraphs
 - [ ] `1.` for all numbered list items
 - [ ] Relative URLs for internal links (`/docs/...`)
 - [ ] Absolute URLs for external links
+- [ ] Plugin links point to buildkite.com/resources/plugins/, not GitHub
+- [ ] Key concepts linked on first mention
+- [ ] All link targets verified as valid
 - [ ] Language identifiers in code blocks
 - [ ] Escaped emoji in code examples when needed
 - [ ] Appropriate table classes for styling
 - [ ] One space after sentence punctuation
+- [ ] No consecutive blank lines
+- [ ] Sections with subsections have introductory paragraphs
+- [ ] Action-oriented content before prerequisites and reference material
 
 ---
 
@@ -673,6 +735,10 @@ steps:
 - Show realistic, complete examples
 - Include context when necessary
 
+**YAML comments:**
+- Use product-qualified names in YAML comments, just as in prose (for example, `# Buildkite Pipelines equivalent` not `# Buildkite equivalent`)
+- Keep comments concise and descriptive
+
 **Documentation format:**
 ```yaml
 steps:
@@ -692,6 +758,7 @@ steps:
 - [ ] Use 2-space indentation in YAML examples
 - [ ] Qualify nested relationships with "of" or "nested"
 - [ ] Never use inline/flow style formatting
+- [ ] Product-qualified names in YAML comments
 
 ---
 
