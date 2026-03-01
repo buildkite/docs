@@ -93,7 +93,7 @@ GEM
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    matrix (0.4.2)
+    matrix (0.4.3)
     method_source (1.0.0)
     mini_mime (1.1.0)
     mini_portile2 (2.8.9)
@@ -232,7 +232,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.4.5p51
+   ruby 3.4.8p72
 
 BUNDLED WITH
    2.6.3
