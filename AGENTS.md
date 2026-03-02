@@ -245,7 +245,7 @@ When writing technical documentation for Buildkite:
 - Incorrect: "Buildkite's parallel-by-default behavior"
 
 **Deprecated terminology:**
-- Use "queues" and "agent tokens"—do not prefix with "cluster" (for example, do not write "cluster queues" or "cluster agent tokens"). The "cluster" prefix is deprecated
+- Use "queues" and "agent tokens"—do not prefix with "cluster" (for example, do not write "cluster queues" or "cluster agent tokens"). The "cluster" prefix is deprecated. Also avoid "agent registration tokens" that relate to unclustered agents, which are deprecated.
 
 **Structure:**
 - Use bullet lists for unordered items
