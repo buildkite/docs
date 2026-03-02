@@ -169,11 +169,11 @@ RSpec.describe Page::Renderer do
 
     it "does not affect links with existing css classes" do
       md = <<~MD
-        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo" target="_blank">Docs repo</a></p>
       MD
 
       html = <<~HTML
-        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo" target="_blank">Docs repo</a></p>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)

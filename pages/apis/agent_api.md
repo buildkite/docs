@@ -4,7 +4,7 @@ The agent REST API is used to retrieve agent metrics, register agents, de-regist
 
 The agent REST API's _publicly_ available endpoints include:
 
-- [`/metrics`](/docs/apis/agent-api/metrics): Used to retrieve information about current self-hosted agents associated with a Buildkite cluster. The [Buildkite Agent Metrics](https://github.com/buildkite/buildkite-agent-metrics) CLI tool uses the data returned by the metrics endpoint for agent autoscaling.
+- [`/metrics`](/docs/apis/agent-api/metrics): Used to retrieve information about current self-hosted agents associated with a Buildkite cluster. The [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) CLI tool uses the data returned by the metrics endpoint for agent autoscaling.
 - [`/stacks`](/docs/apis/agent-api/stacks): Used to implement a _stack_ on a self-hosted queue. A stack is a long-running controller process that watches the queue for jobs, and runs Buildkite agents on demand to run these jobs.
 
 All other endpoints in the agent API are intended only for use by the Buildkite agent, therefore stability and backwards compatibility are not guaranteed, and changes won't be announced.

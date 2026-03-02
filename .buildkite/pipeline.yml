@@ -16,10 +16,10 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v3.9.0:
+      - docker-compose#v3.13.0:
           run: muffet
           shell: false
           upload-container-logs: always
@@ -39,10 +39,10 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v3.9.0:
+      - docker-compose#v3.13.0:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
@@ -108,7 +108,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -118,7 +118,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - docker-compose#v3.9.0:
+          - docker-compose#v3.13.0:
               run: vale
               config: ./vale/docker-compose.yml
 
@@ -133,7 +133,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           # Using the plain Node image, instead of the custom doc Dockerfile
@@ -155,7 +155,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -172,7 +172,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -189,7 +189,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -211,10 +211,10 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v3.9.0:
+      - docker-compose#v3.13.0:
           run: app
           dependencies: false
           env:
@@ -242,10 +242,10 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v3.9.0:
+      - docker-compose#v3.13.0:
           build: app
 
   - label: ":junit: Test Summary"
@@ -278,10 +278,10 @@ steps:
             - organization_id
             - pipeline_slug
             - build_branch
-      - aws-ssm#v1.0.0:
+      - aws-ssm#v1.1.0:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
-      - docker#v5.11.0:
+      - docker#v5.13.0:
           image: "golang:1.24-bookworm"
           propagate-environment: true
           environment:

@@ -77,7 +77,7 @@
     - name: "Best practices"
       children:
         - name: "Overview"
-          path: "pipelines/best-practices/overview"
+          path: "pipelines/best-practices"
         - name: "Pipeline design and structure"
           path: "pipelines/best-practices/pipeline-design-and-structure"
         - name: "Agent management"

@@ -1,3 +1,5 @@
+# This script is deprecated, and has been replaced by agent_cli2md.go
+
 # frozen_string_literal: true
 
 require "cgi"
