@@ -231,7 +231,7 @@ When writing technical documentation for Buildkite:
 - Use "Single sign-on" (short form: SSO)
 
 **Product-qualified naming:**
-- When referring to a specific Buildkite product's features or behavior, use the full product name: "Buildkite Pipelines," "Buildkite Test Engine," and "Buildkite Package Registries." The exception to this is when a full product name has been used for the first time within page section (which commences with a heading), and then that product name can be shorted without the initial "Buildkite " upon subsequent mentions within that page section.
+- When referring to a specific Buildkite product's features or behavior, use the full product name: "Buildkite Pipelines," "Buildkite Test Engine," and "Buildkite Package Registries." The exception to this is when a full product name has been used for the first time within page section (which commences with a heading), and then that product name can be shortened without the initial "Buildkite " upon subsequent mentions within that page section.
 - Use bare "Buildkite" only when referring to the company or the overall platform
 - This applies to prose, table headers, YAML comments, and comparison content
 - Correct: "Buildkite Pipelines runs all steps in parallel by default."
