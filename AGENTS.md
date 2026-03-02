@@ -206,7 +206,6 @@ This style guide applies to Buildkite product documentation, API reference pages
 - If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
 - Remove hedging phrases like "most of the," "some of the" when they add no precision — for example, write "Most concepts translate" not "Most of the concepts translate"
 - Break long compound sentences into shorter ones. When comparing two systems or explaining cause and effect, prefer two sentences over one long sentence joined by a conjunction
-- Use spaced em dashes ` — ` for inline parenthetical asides
 - Prefer periods over em dashes when separating independent clauses—split into two sentences instead
 
 **Formatting standards:**
