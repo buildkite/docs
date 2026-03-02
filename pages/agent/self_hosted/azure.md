@@ -16,7 +16,7 @@ To run the Buildkite agent on your own [Azure virtual machine](https://azure.mic
 
 For example, to install on an Ubuntu-based virtual machine:
 
-1. Launch a virtual machine using the latest Ubuntu LTS image [through the Azure portal](https://portal.azure.com/#create/Canonical.UbuntuServer2204LTS-ARM)
+1. Launch a virtual machine using the latest Ubuntu LTS image (create via the portal or `az vm create`)
 1. Connect using SSH (via the portal or `az ssh vm`)
 1. Follow the [setup instructions for Ubuntu](/docs/agent/self-hosted/install/ubuntu)
 
