@@ -49,7 +49,7 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.24-bookworm AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.26-bookworm AS gobuild
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(
