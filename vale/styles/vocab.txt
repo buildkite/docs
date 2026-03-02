@@ -118,6 +118,7 @@ daemonless
 Datadog
 Datadog's
 daemonless
+datasource
 debuild
 declaratively
 deduper
@@ -172,6 +173,7 @@ GitLab
 globbing
 gmp
 gnupg
+goroutines
 gotestsum
 gpg
 GPU
@@ -242,6 +244,7 @@ llvm
 lockfile
 lockfiles
 lockfile‑keyed
+lookback
 macOS
 macos
 manylinux
@@ -329,6 +332,7 @@ pty
 pullrequest
 pybuildkite
 pytest
+queryable
 rbenv
 readme
 readmes
