@@ -191,6 +191,7 @@ exceptions:
   - Maven
   - MCP
   - Microsoft Entra ID
+  - Microsoft Azure
   - minitest
   - Mobile Delivery Cloud
   - Model Context Protocol
