@@ -16,7 +16,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
@@ -39,7 +39,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
@@ -108,7 +108,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -133,7 +133,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           # Using the plain Node image, instead of the custom doc Dockerfile
@@ -155,7 +155,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -172,7 +172,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -189,7 +189,7 @@ steps:
                 - organization_slug
                 - organization_id
                 - pipeline_slug
-          - ecr#v2.9.0:
+          - ecr#v2.11.0:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
@@ -211,7 +211,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
       - docker-compose#v3.9.0:
@@ -242,7 +242,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - ecr#v2.9.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: public.ecr.aws
       - docker-compose#v3.9.0:

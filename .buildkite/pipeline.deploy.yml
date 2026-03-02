@@ -18,7 +18,7 @@ steps:
             - organization_id
             - pipeline_slug
             - build_branch
-      - ecr#v2.7.0:
+      - ecr#v2.11.0:
           login: true
           account-ids: ${ECR_ACCOUNT_ID}
 
