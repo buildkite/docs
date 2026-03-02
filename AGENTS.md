@@ -239,7 +239,7 @@ When writing technical documentation for Buildkite:
 - Incorrect: "Buildkite runs all steps in parallel by default."
 
 **No possessive product names:**
-- Never use possessive forms of Buildkite product names — rephrase instead
+- Never use possessive forms of Buildkite product names—rephrase instead
 - Correct: "The syntax used in Buildkite Pipelines is simpler."
 - Incorrect: "Buildkite's syntax is simpler."
 - Correct: "The Buildkite Pipelines parallel-by-default behavior"
