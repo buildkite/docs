@@ -22,7 +22,7 @@ toc: false
 <!-- vale on -->
 
 
-
+An edge in a connection.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -31,6 +31,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>cursor</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>node</code><a href="/docs/apis/graphql/schemas/object/teamsuite" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT TeamSuite"><code>TeamSuite</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>cursor</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>A cursor for use in pagination.</p></td></tr><tr><td><h3 class="is-small has-pills"><code>node</code><a href="/docs/apis/graphql/schemas/object/teamsuite" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT TeamSuite"><code>TeamSuite</code></a></h3><p>The item at the end of the edge.</p></td></tr>
   </tbody>
 </table>
