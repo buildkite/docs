@@ -48,7 +48,7 @@ For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 - **Dynamic pipelines**: A key differentiator. Pipelines can be modified at runtime. Read `pages/pipelines/configure/dynamic_pipelines.md` for the feature overview, `pages/pipelines/tutorials/dynamic_pipelines_and_annotations_using_bazel.md` for a tutorial, and `pages/pipelines/best_practices/working_with_monorepos.md` for monorepo patterns. Bundled content: https://buildkite.com/docs/llms-dynamic-pipelines.txt
 - **Concurrency and parallelism**: Buildkite supports large-scale concurrency and multi-environment builds. Read `pages/pipelines/best_practices/parallel_builds.md`
 - **Hooks and plugins**: Hooks provide platform-level guardrails, and plugins provide reusable customization. Read `pages/agent/hooks.md` for hooks and `pages/pipelines/integrations/plugins.md` for plugins. Browse available plugins at https://buildkite.com/resources/plugins/ and pipeline examples at https://buildkite.com/resources/examples/
-- **Developer experience**: Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/agent/cli/reference/annotate.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content. Bundled content: https://buildkite.com/docs/llms-debugging.txt
+- **Developer experience**: Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/pipelines/configure/annotations.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content.
 - **Creating pipelines**: For pipeline configuration and setup, read `pages/pipelines/configure/`. Bundled content: https://buildkite.com/docs/llms-pipeline-configurations.txt
 - **Security**: Read `pages/pipelines/security/` for pipeline security, `pages/pipelines/best_practices/security_controls.md` for security best practices, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (`pages/pipelines/integrations/secrets/plugins.md`) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`). Bundled content: https://buildkite.com/docs/llms-security.txt
 - **Migration**: Guides for moving from Jenkins, GitHub Actions, and Bamboo. Read `pages/pipelines/migration/`. Bundled content: https://buildkite.com/docs/llms-migrating-to-buildkite.txt
@@ -58,16 +58,19 @@ For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 - **Monorepos**: Change detection and dynamic pipeline patterns for monorepos. Bundled content: https://buildkite.com/docs/llms-monorepos.txt
 - **Insights**: Waterfall views, cluster metrics, queue monitoring. Bundled content: https://buildkite.com/docs/llms-insights.txt
 - **Governance**: Pipeline templates, build exports, platform controls. Bundled content: https://buildkite.com/docs/llms-governance.txt
+- **Debugging**: Bundled content: https://buildkite.com/docs/llms-debugging.txt
 
 ### Test Engine
 
 Tracks and analyzes test suite performance. Start here: `pages/test_engine.md`
 Bundled content: https://buildkite.com/docs/llms-test-engine.txt
 
-### Packages
+### Package Registries
 
 Host and manage package registries. Start here: `pages/package_registries.md`
 Bundled content: https://buildkite.com/docs/llms-packages.txt
+
+- **Security**: Read `pages/package_registries/security.md` for an overview of Buildkite Package Registries security, `pages/package_registries/security/oidc.md` for OIDC in Package Registries, and `pages/package_registries/security/slsa_provenance.md` for SLSA provenance. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ### Platform (shared features)
 
@@ -75,6 +78,7 @@ Common capabilities across products like organizations, users, permissions, and 
 
 - **User and team management**: Permissions, SSO, 2FA, audit log. Bundled content: https://buildkite.com/docs/llms-user-management.txt
 - **CLI tools**: The `bk` CLI and `buildkite-agent` CLI reference. Bundled content: https://buildkite.com/docs/llms-cli-tools.txt
+- **Security**: Read `pages/platform/team_management/enforce-2fa.md` for enforcing 2FA across the Buildkite platform, `pages/platform/sso.md` for implementing SSO across the Buildkite platform, and `pages/platform/security/tokens.md` for details on Buildkite token types. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ### APIs
 
@@ -82,6 +86,8 @@ REST API and GraphQL API documentation. Start here: `pages/apis.md`
 Bundled content: https://buildkite.com/docs/llms-buildkite-apis.txt
 
 For AI-assisted workflows, use the Buildkite MCP server to interact with Buildkite APIs directly. Read `pages/apis/mcp_server.md` for setup and usage. Bundled content: https://buildkite.com/docs/llms-ai-tools-and-mcp.txt
+
+- **Security**: Read `pages/apis/managing_api_tokens.md` for details on managing API access tokens on the Buildkite platform. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ## What is not in the docs
 
