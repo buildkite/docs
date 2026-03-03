@@ -1,37 +1,37 @@
 agent:
   - changed-files:
-    - any-glob-to-any-file: pages/agent/**/*
+      - any-glob-to-any-file: pages/agent/**/*
 
 cli:
   - changed-files:
-    - any-glob-to-any-file: pages/cli/**/*
+      - any-glob-to-any-file: pages/cli/**/*
 
 test-engine:
   - changed-files:
-    - any-glob-to-any-file: pages/test_engine/**/*
+      - any-glob-to-any-file: pages/test_engine/**/*
 
 pipelines:
   - changed-files:
-    - any-glob-to-any-file:
-      - pages/pipelines/**/*
-      - pages/tutorials/**/*
+      - any-glob-to-any-file:
+          - pages/pipelines/**/*
+          - pages/tutorials/**/*
 
 plugins:
   - changed-files:
-    - any-glob-to-any-file: pages/plugins/**/*
+      - any-glob-to-any-file: pages/plugins/**/*
 
 integrations:
   - changed-files:
-    - any-glob-to-any-file: pages/integrations/**/*
+      - any-glob-to-any-file: pages/integrations/**/*
 
 api:
   - changed-files:
-    - any-glob-to-any-file: pages/apis/**/*
+      - any-glob-to-any-file: pages/apis/**/*
 
 graphql:
   - changed-files:
-    - any-glob-to-any-file: pages/apis/graphql/**/*
+      - any-glob-to-any-file: pages/apis/graphql/**/*
 
 rest:
   - changed-files:
-    - any-glob-to-any-file: pages/apis/rest_api/**/*
+      - any-glob-to-any-file: pages/apis/rest_api/**/*
