@@ -6,16 +6,23 @@
     "prConcurrentLimit": 3,
     "packageRules": [
         {
+            "groupName": "Ruby version",
+            "matchDepNames": ["ruby"],
+            "matchDatasources": ["docker", "ruby-version"]
+        },
+        {
             "groupName": "npm packages",
             "matchManagers": ["npm"]
         },
         {
             "groupName": "Ruby gems",
-            "matchManagers": ["bundler"]
+            "matchManagers": ["bundler"],
+            "matchDepNames": ["!ruby"]
         },
         {
             "groupName": "Docker images",
-            "matchDatasources": ["docker"]
+            "matchDatasources": ["docker"],
+            "matchDepNames": ["!ruby"]
         }
     ]
 }
