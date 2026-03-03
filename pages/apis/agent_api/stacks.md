@@ -93,6 +93,9 @@ A stack often makes scheduling decisions based on returned metadata and turns th
 It's worth noting that until these jobs transition into another state, the API will keep returning them.
 To avoid starting duplicate jobs, we offer some utility APIs below.
 
+> 📘 Queue connection status
+> Polling this endpoint keeps the associated queue's status set to **Connected** in the Buildkite interface. If a stack stops polling for more than approximately 30 seconds, the queue's status changes to **Disconnected**. Learn more in [Queue connection status](/docs/agent/queues/managing#queue-connection-status).
+
 Query parameters:
 
 | Parameter   | Type    | Required | Description                                        |
