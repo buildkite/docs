@@ -1,21 +1,10 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:recommended"
+        "config:recommended",
+        "schedule:weekly"
     ],
-    "prConcurrentLimit": 3,
-    "packageRules": [
-        {
-            "groupName": "npm packages",
-            "matchManagers": ["npm"]
-        },
-        {
-            "groupName": "Ruby gems",
-            "matchManagers": ["bundler"]
-        },
-        {
-            "groupName": "Docker images",
-            "matchDatasources": ["docker"]
-        }
-    ]
+    "schedule": ["before 9am on Monday"],
+    "timezone": "Australia/Sydney",
+    "prConcurrentLimit": 3
 }
