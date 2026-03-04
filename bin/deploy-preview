@@ -24,4 +24,5 @@ echo "+++ :netlify: Deploying to Netlify"
 node_modules/.bin/netlify deploy --no-build --auth "$NETLIFY_AUTH_TOKEN" --site "$NETLIFY_SITE_ID" --alias "$PREVIEW_BRANCH_ID" --dir build
 
 echo "--- :buildkite: Update annotation state"
-buildkite-agent annotate --style "success" --context "netlify/preview-url"
+PREVIEW_URL="https://${PREVIEW_BRANCH_ID}--bk-docs-preview.netlify.app"
+buildkite-agent annotate --style "success" --context "netlify/preview-url" "Preview URL: $PREVIEW_URL"
