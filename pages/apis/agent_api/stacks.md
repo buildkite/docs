@@ -90,7 +90,7 @@ When a cluster queue is paused, `cluster_queue.dispatch_paused` will return `tru
 
 A stack often makes scheduling decisions based on returned metadata and turns this job metadata into running agents using [--acquire-jobs](https://buildkite.com/resources/changelog/129-one-shot-agents-with-the-acquire-job-flag/).
 
-It's worth noting that until these jobs transition into another state, the API will keep returning them.
+Until these jobs transition into another state, the API will keep returning them.
 To avoid starting duplicate jobs, we offer some utility APIs below.
 
 > 📘 Queue connection status
