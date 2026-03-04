@@ -5,7 +5,6 @@ toc: true
 # Stacks API
 
 The stacks API provides endpoints for implementing a stack reliably.
-These endpoints require [Agent tokens](/docs/agent/self-hosted/tokens) for authentication.
 
 A stack is defined as a software process that has these two abilities simultaneously:
 
@@ -14,8 +13,33 @@ A stack is defined as a software process that has these two abilities simultaneo
 
 A stack can also be broadly understood as an orchestrator or a scheduler of Buildkite jobs.
 
-The stacks API powers Buildkite's Agent Kubernetes Stack.
+The stacks API powers Buildkite's [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
 It's designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales.
+You can use it to build custom stack implementations in any language that dispatch jobs to your own compute infrastructure, such as Kubernetes, cloud VMs, serverless functions, or container services.
+
+## Authentication
+
+All stacks API endpoints require a **cluster token** passed via the `Authorization` header:
+
+```
+Authorization: Token <token>
+```
+
+Cluster tokens (prefixed `bkct_`) are found on your cluster's **Agent Tokens** page.
+They grant access to all queues within the cluster.
+
+## Endpoint summary
+
+| Method | Path | Description |
+| --- | --- | --- |
+| POST | `/v3/stacks/register` | [Register a stack](#register-a-stack) |
+| POST | `/v3/stacks/:key/deregister` | [De-register a stack](#de-register-a-stack) |
+| GET | `/v3/stacks/:key/scheduled-jobs` | [List scheduled jobs](#list-scheduled-jobs-metadata-only) |
+| PUT | `/v3/stacks/:key/scheduled-jobs/batch-reserve` | [Reserve jobs](#reserve-jobs) |
+| GET | `/v3/stacks/:key/jobs/:id` | [Get a job](#get-a-job-env--command) |
+| POST | `/v3/stacks/:key/jobs/get-states` | [Get job states](#get-job-states) |
+| POST | `/v3/stacks/:key/jobs/:id/finish` | [Finish a job](#finish-a-job) |
+| POST | `/v3/stacks/:key/notifications` | [Create stack notifications](#create-stack-notifications) |
 
 ## Register a stack
 
@@ -33,10 +57,10 @@ Request payload:
 
 | Field       | Type             | Required | Description                                         |
 | ----------- | ---------------- | -------- | --------------------------------------------------- |
-| `key`       | string           | Yes      | Unique identifier for the stack in the org.         |
-| `type`      | string           | Yes      | Type of stack. 3rd party stack should use "custom". |
-| `queue_key` | string           | Yes      | Cluster queue key the stack plans to serve.         |
-| `metadata`  | key-value object | Yes      | Additional metadata for the stack                   |
+| `key`       | string           | Yes      | Unique identifier for the stack in the org. Alphanumeric characters, underscores, and dashes only. Max 80 bytes. |
+| `type`      | string           | Yes      | Type of stack: `kubernetes`, `elastic`, or `custom`. Third-party stacks should use `custom`. |
+| `queue_key` | string           | Yes      | Cluster queue key the stack plans to serve. Use `__default__` for the cluster's default queue. |
+| `metadata`  | key-value object | Yes      | Additional metadata for the stack. Must be a flat object with string keys (max 64 characters) and string values (max 256 characters). Maximum 100 keys. |
 
 Example:
 
@@ -46,7 +70,7 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
   -X POST "https://agent.buildkite.com/v3/stacks/register" \
   -d '{
     "key": "my-kubernetes-stack",
-    "type": "custom",
+    "type": "kubernetes",
     "queue_key": "default",
     "metadata": {
       "version": "1.0.0",
@@ -57,13 +81,17 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 
 ```json
 {
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "organization_uuid": "12345678-abcd-ef01-2345-6789abcdef01",
   "key": "my-kubernetes-stack",
   "type": "kubernetes",
   "cluster_queue_key": "default",
   "metadata": {
     "version": "1.0.0",
     "region": "us-east-1"
-  }
+  },
+  "last_connected_on": "2025-10-01T12:00:00.000Z",
+  "state": "connected"
 }
 ```
 
@@ -199,8 +227,8 @@ Request payload:
 
 | Field                        | Type          | Required | Description                     |
 | ---------------------------- | ------------- | -------- | ------------------------------- |
-| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve   |
-| `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds |
+| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve (max 1,000) |
+| `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds. Defaults to 900 (15 minutes). Maximum 3,600 (one hour). |
 
 Example:
 
@@ -243,7 +271,7 @@ Request payload:
 
 | Field       | Type          | Required | Description                          |
 | ----------- | ------------- | -------- | ------------------------------------ |
-| `job_uuids` | array[string] | Yes      | Array of job UUIDs to get states for |
+| `job_uuids` | array[string] | Yes      | Array of job UUIDs to get states for (max 1,000) |
 
 Example:
 
@@ -397,3 +425,63 @@ The response includes an `errors` array. Each error object contains:
 - `indexes`: Array of notification indexes (0-based) that failed with this error
 
 Valid notifications are created even if some fail validation. An empty `errors` array indicates all notifications were created successfully.
+
+## Rate limiting
+
+Each endpoint has an independent rate limit applied per stack (scoped to the combination of organization, cluster, and stack key).
+Rate limits use a one-second sliding window.
+
+Every response includes these headers:
+
+| Header | Description |
+| --- | --- |
+| `RateLimit-Scope` | The rate limit scope for this endpoint |
+| `RateLimit-Limit` | Maximum requests allowed per window |
+| `RateLimit-Remaining` | Requests remaining in the current window |
+| `RateLimit-Reset` | Seconds until the rate limit window resets |
+
+Default rate limits per endpoint:
+
+| Endpoint | Scope | Default limit (req/sec) |
+| --- | --- | --- |
+| List scheduled jobs | `list-scheduled-jobs` | 10 |
+| Reserve jobs | `batch-reserve` | 10 |
+| Get a job | `show-job` | 1,000 |
+| Get job states | `batch-load-job-states` | 20 |
+| Finish a job | `finish-job` | 100 |
+| Create stack notifications | `stack-notification` | 200 |
+| De-register | `default` | 10 |
+
+When the rate limit is exceeded, the API returns `429 Too Many Requests`:
+
+```json
+{
+  "message": "You have exceeded your API rate limit. Please wait 1 seconds before making more requests.",
+  "scope": "list-scheduled-jobs",
+  "limit": 10,
+  "current": 11,
+  "reset": 1
+}
+```
+
+## Error responses
+
+All error responses return a JSON object with a `message` field:
+
+```json
+{
+  "message": "Description of the error"
+}
+```
+
+Common error codes:
+
+| Status | Meaning |
+| --- | --- |
+| `400 Bad Request` | Invalid parameters (for example, `job_uuids` is not an array, or `limit` is not a positive integer) |
+| `401 Unauthorized` | Missing, invalid, or expired token |
+| `403 Forbidden` | Stack limit exceeded for the organization |
+| `404 Not Found` | Stack, job, or cluster queue not found |
+| `422 Unprocessable Entity` | Validation failure (for example, missing required fields during registration) |
+| `429 Too Many Requests` | Rate limit exceeded |
+| `503 Service Unavailable` | Organization is temporarily unavailable |
