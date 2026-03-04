@@ -1,18 +1,81 @@
 {
   "index_name": "prod_docs",
-  "start_urls": ["https://buildkite.com/docs"],
-  "stop_urls": ["docs/sdk/python", "docs/sdk/typescript", "docs/sdk/ruby"],
-  "selectors": {
-    "lvl0": {
-      "selector": ".SiteHeader__nav .Nav__link.Nav__link--level1.Nav__link--current",
-      "global": true
+  "start_urls": [
+    {
+      "url": "https://buildkite.com/resources/plugins/",
+      "selectors_key": "plugins",
+      "tags": ["plugin"]
     },
-    "lvl1": ".Article h1",
-    "lvl2": ".Article h2",
-    "lvl3": ".Article h3",
-    "lvl4": ".Article h4, .Article th",
-    "lvl5": ".Article h5, .Article td:first-child",
-    "text": ".Article p, .Article li, .Article td"
+    {
+      "url": "https://buildkite.com/resources/changelog/",
+      "selectors_key": "changelog",
+      "tags": ["changelog"]
+    },
+    {
+      "url": "https://buildkite.com/resources/blog/",
+      "selectors_key": "blog",
+      "tags": ["blog"]
+    },
+    {
+      "url": "https://buildkite.com/docs",
+      "selectors_key": "default",
+      "tags": ["docs"]
+    }
+  ],
+  "stop_urls": [
+    "docs/sdk/python",
+    "docs/sdk/typescript",
+    "docs/sdk/ruby",
+    "resources/changelog/tag/",
+    "resources/blog/tag/"
+  ],
+  "selectors": {
+    "default": {
+      "lvl0": {
+        "selector": ".SiteHeader__nav .Nav__link.Nav__link--level1.Nav__link--current",
+        "global": true
+      },
+      "lvl1": ".Article h1",
+      "lvl2": ".Article h2",
+      "lvl3": ".Article h3",
+      "lvl4": ".Article h4, .Article th",
+      "lvl5": ".Article h5, .Article td:first-child",
+      "text": ".Article p, .Article li, .Article td"
+    },
+    "plugins": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Plugins",
+        "global": true
+      },
+      "lvl1": "h1",
+      "lvl2": "h2",
+      "lvl3": "h3",
+      "lvl4": "h4",
+      "text": "p, li"
+    },
+    "changelog": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Changelog",
+        "global": true
+      },
+      "lvl1": "h1",
+      "lvl2": "h2",
+      "lvl3": "h3",
+      "text": "p, li"
+    },
+    "blog": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Blog",
+        "global": true
+      },
+      "lvl1": "h1",
+      "lvl2": "article.prose h2",
+      "lvl3": "article.prose h3",
+      "text": "article.prose p, article.prose li"
+    }
   },
   "selectors_exclude": [
     "[data-algolia-exclude]",
@@ -22,6 +85,7 @@
     ".Nav__section--level2"
   ],
   "custom_settings": {
-    "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]]
+    "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]],
+    "attributesForFaceting": ["tags"]
   }
 }
