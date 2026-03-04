@@ -5,6 +5,12 @@ import { attachCopyToClipboardButton } from "../components/copyToClipboardButton
 import { themeToggle } from "../components/themeToggle";
 import { initPageCopyDropdown } from "../components/pageCopyDropdown";
 import docsearch from "@docsearch/js";
+import {
+  initSearchTracking,
+  searchTrackingClient,
+  searchTrackingItems,
+  searchTrackingNavigator,
+} from "../components/searchTracking";
 
 Turbo.start();
 
@@ -40,6 +46,9 @@ function render() {
     appId: __ALGOLIA_APP_ID__,
     apiKey: __ALGOLIA_API_KEY__,
     indexName: __ALGOLIA_INDEX_NAME__,
+    transformSearchClient: searchTrackingClient,
+    transformItems: searchTrackingItems,
+    navigator: searchTrackingNavigator,
   });
 
   bindToggles();
@@ -52,6 +61,11 @@ function render() {
   const dropdownCleanup = initPageCopyDropdown();
   if (dropdownCleanup) {
     cleanupFunctions.push(dropdownCleanup);
+  }
+
+  const searchTrackingCleanup = initSearchTracking();
+  if (searchTrackingCleanup) {
+    cleanupFunctions.push(searchTrackingCleanup);
   }
 }
 
