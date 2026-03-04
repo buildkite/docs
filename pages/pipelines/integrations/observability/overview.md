@@ -4,6 +4,8 @@ Buildkite Pipelines generates detailed events about your pipelines, builds, jobs
 
 You can stream events to Amazon EventBridge, emit metrics and traces to Datadog or Honeycomb, or adopt the OpenTelemetry integration for vendor-neutral pipelines observability. Community plugins provide additional targets and custom dashboards. Follow the guides below to set up and explore each of these observability options.
 
+To help you decide which approaches to combine, see the [monitoring and observability decision matrix](/docs/pipelines/best-practices/monitoring-and-observability#decision-matrix).
+
 - [Datadog](/docs/pipelines/integrations/observability/datadog)
 - [Honeycomb](/docs/pipelines/integrations/observability/honeycomb)
 - [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry)
