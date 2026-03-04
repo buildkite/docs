@@ -328,12 +328,12 @@ You can also pause an agent to prevent any jobs of the cluster's pipelines from 
 
 ## Queue connection status
 
-Self-hosted queues served by a [stack](/docs/apis/agent-api/stacks) — an orchestration system such as the [Buildkite Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) or the [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) — display a **Connected** or **Disconnected** status badge in the Buildkite interface.
+Self-hosted queues served by a [stack](/docs/apis/agent-api/stacks) — an orchestration system such as the [Buildkite Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) or the [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) — display a **Connected** or **Disconnected** status badge in the Buildkite Pipelines interface.
 
 - **Connected**: The stack serving this queue is running and actively communicating with Buildkite.
 - **Disconnected**: The stack has stopped reporting in. This can occur if the stack has been shut down, has lost connectivity to Buildkite, or has encountered an error.
 
-If no badge is shown, the queue has no stack registered against it. This is the case when agents are started manually rather than through a stack-based orchestration system.
+If no badge is displayed, the queue has no stack registered against it. This is the case when agents are started manually rather than through a stack-based orchestration system.
 
 ## Queue metrics
 
