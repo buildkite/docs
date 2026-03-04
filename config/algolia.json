@@ -48,11 +48,11 @@
         "default_value": "Plugins",
         "global": true
       },
-      "lvl1": "h1",
-      "lvl2": "h2",
-      "lvl3": "h3",
-      "lvl4": "h4",
-      "text": "p, li"
+      "lvl1": "#main-content h1",
+      "lvl2": "#main-content h2",
+      "lvl3": "#main-content h3",
+      "lvl4": "#main-content h4",
+      "text": "#main-content p, #main-content li"
     },
     "changelog": {
       "lvl0": {
@@ -60,10 +60,10 @@
         "default_value": "Changelog",
         "global": true
       },
-      "lvl1": "h1",
-      "lvl2": "h2",
-      "lvl3": "h3",
-      "text": "p, li"
+      "lvl1": "#main-content h1",
+      "lvl2": "#main-content h2",
+      "lvl3": "#main-content h3",
+      "text": "#main-content p, #main-content li"
     },
     "blog": {
       "lvl0": {
@@ -71,16 +71,17 @@
         "default_value": "Blog",
         "global": true
       },
-      "lvl1": "h1",
-      "lvl2": "article.prose h2",
-      "lvl3": "article.prose h3",
-      "text": "article.prose p, article.prose li"
+      "lvl1": "#main-content h1",
+      "lvl2": "#main-content article.prose h2",
+      "lvl3": "#main-content article.prose h3",
+      "text": "#main-content article.prose p, #main-content article.prose li"
     }
   },
   "selectors_exclude": [
     "[data-algolia-exclude]",
     ".Toc",
     ".Footer",
+    "footer",
     ".Page__sidebar",
     ".Nav__section--level2"
   ],
