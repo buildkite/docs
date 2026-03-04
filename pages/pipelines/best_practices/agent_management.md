@@ -96,7 +96,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 
 ## Right-sizing of your agent fleet
 
-- Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and [Buildkite agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
+- Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and the [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) tool.
 - Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
 - Configure [graceful termination](/docs/agent/lifecycle#signal-handling) to allow jobs to complete.

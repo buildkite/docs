@@ -262,6 +262,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/archiving-and-deleting-pipelines",                                            to: redirect("/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines")
   get "/docs/pipelines/artifacts",                                                                   to: redirect("/docs/pipelines/configure/artifacts")
   get "/docs/pipelines/audit-log",                                                                   to: redirect("/docs/platform/audit-log")
+  get "/docs/pipelines/best-practices/overview",                                                     to: redirect("/docs/pipelines/best-practices")
   get "/docs/pipelines/block-step",                                                                  to: redirect("/docs/pipelines/configure/step-types/block-step")
   get "/docs/pipelines/branch-configuration",                                                        to: redirect("/docs/pipelines/configure/workflows/branch-configuration")
   get "/docs/pipelines/build-exports",                                                               to: redirect("/docs/pipelines/governance/build-exports")

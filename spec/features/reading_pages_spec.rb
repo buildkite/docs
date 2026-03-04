@@ -35,14 +35,14 @@ RSpec.feature "reading pages" do
       visit "/docs/platform"
       expect(page.response_headers["Content-Type"]).to include("text/html")
       expect(page.html).to include("<html")
-      expect(page).to have_content("The Buildkite Platform")
+      expect(page).to have_content("The Buildkite platform")
     end
 
     it "serves pages as markdown when .md extension is used" do
       page.driver.get("/docs/platform.md")
       expect(page.status_code).to eq(200)
       expect(page.response_headers["Content-Type"]).to include("text/markdown")
-      expect(page.html).to include("# The Buildkite Platform")
+      expect(page.html).to include("# The Buildkite platform")
       expect(page.html).not_to include("<html")
     end
 

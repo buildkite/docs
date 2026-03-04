@@ -351,14 +351,31 @@ type Agent implements Node {
   versionHasKnownIssues: Boolean!
 }
 
+"""
+The connection type for Agent.
+"""
 type AgentConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [AgentEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type AgentEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Agent
 }
 
@@ -519,8 +536,15 @@ type AgentToken implements Node {
   uuid: ID!
 }
 
+"""
+The connection type for AgentToken.
+"""
 type AgentTokenConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [AgentTokenEdge]
   pageInfo: PageInfo
 }
@@ -558,8 +582,18 @@ type AgentTokenCreatePayload {
   tokenValue: String!
 }
 
+"""
+An edge in a connection.
+"""
 type AgentTokenEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: AgentToken
 }
 
@@ -658,14 +692,31 @@ type AnnotationBody {
   text: String!
 }
 
+"""
+The connection type for Annotation.
+"""
 type AnnotationConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [AnnotationEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type AnnotationEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Annotation
 }
 
@@ -771,14 +822,31 @@ type Artifact implements Node {
   uuid: ID!
 }
 
+"""
+The connection type for Artifact.
+"""
 type ArtifactConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [ArtifactEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type ArtifactEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Artifact
 }
 
@@ -1713,14 +1781,31 @@ type BuildMetaData {
   value: String!
 }
 
+"""
+The connection type for BuildMetaData.
+"""
 type BuildMetaDataConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [BuildMetaDataEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type BuildMetaDataEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: BuildMetaData
 }
 
@@ -2089,8 +2174,15 @@ type ClusterAgentTokenUpdatePayload {
   clusterAgentToken: ClusterToken!
 }
 
+"""
+The connection type for Cluster.
+"""
 type ClusterConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [ClusterEdge]
   pageInfo: PageInfo
 }
@@ -2160,8 +2252,18 @@ type ClusterDeletePayload {
   deletedClusterId: ID!
 }
 
+"""
+An edge in a connection.
+"""
 type ClusterEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Cluster
 }
 
@@ -2269,8 +2371,15 @@ type ClusterQueue implements Node {
   uuid: ID!
 }
 
+"""
+The connection type for ClusterQueue.
+"""
 type ClusterQueueConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [ClusterQueueEdge]
   pageInfo: PageInfo
 }
@@ -2341,8 +2450,18 @@ type ClusterQueueDeletePayload {
   deletedClusterQueueId: ID!
 }
 
+"""
+An edge in a connection.
+"""
 type ClusterQueueEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: ClusterQueue
 }
 
@@ -2670,14 +2789,31 @@ type Dependency {
   uuid: ID!
 }
 
+"""
+The connection type for Dependency.
+"""
 type DependencyConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [DependencyEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type DependencyEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Dependency
 }
 
@@ -2729,11 +2865,6 @@ type EmailConnection implements Connection {
   A list of edges.
   """
   edges: [EmailEdge]
-
-  """
-  A list of nodes.
-  """
-  nodes: [Email]
   pageInfo: PageInfo
 }
 
@@ -6748,8 +6879,15 @@ type OrganizationInvitation implements Node {
   uuid: String!
 }
 
+"""
+The connection type for OrganizationInvitation.
+"""
 type OrganizationInvitationConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [OrganizationInvitationEdge]
   pageInfo: PageInfo
 }
@@ -6781,8 +6919,18 @@ type OrganizationInvitationCreatePayload {
   organization: Organization
 }
 
+"""
+An edge in a connection.
+"""
 type OrganizationInvitationEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: OrganizationInvitation
 }
 
@@ -6918,14 +7066,31 @@ type OrganizationInvitationTeamAssignment {
   team: Team!
 }
 
+"""
+The connection type for OrganizationInvitationTeamAssignment.
+"""
 type OrganizationInvitationTeamAssignmentConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [OrganizationInvitationTeamAssignmentEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type OrganizationInvitationTeamAssignmentEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: OrganizationInvitationTeamAssignment
 }
 
@@ -7035,8 +7200,15 @@ type OrganizationMember implements Node {
   uuid: String!
 }
 
+"""
+The connection type for OrganizationMember.
+"""
 type OrganizationMemberConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [OrganizationMemberEdge]
   pageInfo: PageInfo
 }
@@ -7065,8 +7237,18 @@ type OrganizationMemberDeletePayload {
   user: User
 }
 
+"""
+An edge in a connection.
+"""
 type OrganizationMemberEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: OrganizationMember
 }
 
@@ -7115,14 +7297,31 @@ type OrganizationMemberPipeline {
   pipeline: Pipeline!
 }
 
+"""
+The connection type for OrganizationMemberPipeline.
+"""
 type OrganizationMemberPipelineConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [OrganizationMemberPipelineEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type OrganizationMemberPipelineEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: OrganizationMemberPipeline
 }
 
@@ -7824,8 +8023,15 @@ type PipelineArchivePayload {
   pipeline: Pipeline!
 }
 
+"""
+The connection type for Pipeline.
+"""
 type PipelineConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [PipelineEdge]
   pageInfo: PageInfo
 }
@@ -8068,8 +8274,18 @@ type PipelineDeleteWebhookPayload {
   pipeline: Pipeline!
 }
 
+"""
+An edge in a connection.
+"""
 type PipelineEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Pipeline
 }
 
@@ -8118,14 +8334,31 @@ type PipelineMetric implements Node {
   value: String
 }
 
+"""
+The connection type for PipelineMetric.
+"""
 type PipelineMetricConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [PipelineMetricEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type PipelineMetricEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: PipelineMetric
 }
 
@@ -8310,8 +8543,15 @@ type PipelineSchedule implements Node {
   uuid: String!
 }
 
+"""
+The connection type for PipelineSchedule.
+"""
 type PipelineScheduleConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [PipelineScheduleEdge]
   pageInfo: PageInfo
 }
@@ -8370,8 +8610,18 @@ type PipelineScheduleDeletePayload {
   pipeline: Pipeline
 }
 
+"""
+An edge in a connection.
+"""
 type PipelineScheduleEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: PipelineSchedule
 }
 
@@ -8531,8 +8781,15 @@ type PipelineTemplate implements Node {
   uuid: ID!
 }
 
+"""
+The connection type for PipelineTemplate.
+"""
 type PipelineTemplateConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [PipelineTemplateEdge]
   pageInfo: PageInfo
 }
@@ -8602,8 +8859,18 @@ type PipelineTemplateDeletePayload {
   deletedPipelineTemplateId: ID!
 }
 
+"""
+An edge in a connection.
+"""
 type PipelineTemplateEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: PipelineTemplate
 }
 
@@ -9217,14 +9484,31 @@ enum RegistryAccessLevels {
   READ_WRITE_AND_ADMIN
 }
 
+"""
+The connection type for Registry.
+"""
 type RegistryConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [RegistryEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type RegistryEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Registry
 }
 
@@ -10178,8 +10462,15 @@ enum RuleAction {
   TRIGGER_BUILD
 }
 
+"""
+The connection type for Rule.
+"""
 type RuleConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [RuleEdge]
   pageInfo: PageInfo
 }
@@ -10244,8 +10535,18 @@ type RuleDeletePayload {
   deletedRuleId: ID!
 }
 
+"""
+An edge in a connection.
+"""
 type RuleEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Rule
 }
 
@@ -10392,14 +10693,31 @@ type SSOAuthorization {
   uuid: String!
 }
 
+"""
+The connection type for SSOAuthorization.
+"""
 type SSOAuthorizationConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [SSOAuthorizationEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type SSOAuthorizationEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: SSOAuthorization
 }
 
@@ -11529,14 +11847,31 @@ enum SuiteAccessLevels {
   READ_ONLY
 }
 
+"""
+The connection type for Suite.
+"""
 type SuiteConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [SuiteEdge]
   pageInfo: PageInfo
 }
 
+"""
+An edge in a connection.
+"""
 type SuiteEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Suite
 }
 
@@ -11842,8 +12177,15 @@ type Team implements Node {
   uuid: ID!
 }
 
+"""
+The connection type for Team.
+"""
 type TeamConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [TeamEdge]
   pageInfo: PageInfo
 }
@@ -11941,8 +12283,18 @@ type TeamDeletePayload {
   organization: Organization!
 }
 
+"""
+An edge in a connection.
+"""
 type TeamEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: Team
 }
 
@@ -11988,8 +12340,15 @@ type TeamMember implements Node {
   uuid: ID!
 }
 
+"""
+The connection type for TeamMember.
+"""
 type TeamMemberConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [TeamMemberEdge]
   pageInfo: PageInfo
 }
@@ -12046,8 +12405,18 @@ type TeamMemberDeletePayload {
   team: Team
 }
 
+"""
+An edge in a connection.
+"""
 type TeamMemberEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: TeamMember
 }
 
@@ -12222,10 +12591,14 @@ type TeamPipeline implements Node {
 }
 
 """
-A collection of TeamPipeline records
+The connection type for TeamPipeline.
 """
 type TeamPipelineConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [TeamPipelineEdge]
   pageInfo: PageInfo
 }
@@ -12282,8 +12655,18 @@ type TeamPipelineDeletePayload {
   team: Team
 }
 
+"""
+An edge in a connection.
+"""
 type TeamPipelineEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: TeamPipeline
 }
 
@@ -12409,10 +12792,14 @@ type TeamRegistry implements Node {
 }
 
 """
-A collection of TeamRegistry records
+The connection type for TeamRegistry.
 """
 type TeamRegistryConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [TeamRegistryEdge]
   pageInfo: PageInfo
 }
@@ -12469,8 +12856,18 @@ type TeamRegistryDeletePayload {
   team: Team
 }
 
+"""
+An edge in a connection.
+"""
 type TeamRegistryEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: TeamRegistry
 }
 
@@ -12576,10 +12973,14 @@ type TeamSuite implements Node {
 }
 
 """
-A collection of TeamSuite records
+The connection type for TeamSuite.
 """
 type TeamSuiteConnection implements Connection {
   count: Int!
+
+  """
+  A list of edges.
+  """
   edges: [TeamSuiteEdge]
   pageInfo: PageInfo
 }
@@ -12636,8 +13037,18 @@ type TeamSuiteDeletePayload {
   team: Team
 }
 
+"""
+An edge in a connection.
+"""
 type TeamSuiteEdge {
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
   node: TeamSuite
 }
 

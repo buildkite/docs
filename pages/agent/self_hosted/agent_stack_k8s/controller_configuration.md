@@ -88,7 +88,7 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
       {
         flag: "--http-timeout",
         type: "duration",
-        description: "Timeout for HTTP requests to the Buildkite Agent API.",
+        description: "Timeout for HTTP requests to the Buildkite agent API.",
         default_value: "60s"
       },
       {

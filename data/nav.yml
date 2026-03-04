@@ -77,7 +77,7 @@
     - name: "Best practices"
       children:
         - name: "Overview"
-          path: "pipelines/best-practices/overview"
+          path: "pipelines/best-practices"
         - name: "Pipeline design and structure"
           path: "pipelines/best-practices/pipeline-design-and-structure"
         - name: "Agent management"
@@ -453,6 +453,8 @@
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
               pill: "preview"
+        - name: "Annotations"
+          path: "pipelines/configure/annotations"
         - name: "Writing build scripts"
           path: "pipelines/configure/writing-build-scripts"
         - name: "Using conditionals"

@@ -1,35 +1,35 @@
 require "rails_helper"
 
-RSpec.feature "Emojicom rendering" do
+RSpec.feature "Page rating widget rendering" do
   context "home page" do
-    scenario "does not display emojicom widget" do
+    scenario "does not display page rating widget" do
       visit "/docs"
 
-      expect(page).not_to have_css "#emojicom-widget-inline"
+      expect(page).not_to have_css "#page-rating-widget"
     end
   end
 
   context "landing page" do
-    scenario "does display emojicom widget" do
+    scenario "does display page rating widget" do
       visit "/docs/test-engine"
 
-      expect(page).to have_css "#emojicom-widget-inline"
+      expect(page).to have_css "#page-rating-widget"
     end
   end
 
   context "standard docs page" do
-    scenario "displays emojicom widget" do
+    scenario "displays page rating widget" do
       visit "/docs/tutorials/getting-started"
 
-      expect(page).to have_css "#emojicom-widget-inline"
+      expect(page).to have_css "#page-rating-widget"
     end
   end
 
   context "graphql page" do
-    scenario "does display emojicom widget" do
+    scenario "does display page rating widget" do
       visit "/docs/apis/graphql-api"
 
-      expect(page).to have_css "#emojicom-widget-inline"
+      expect(page).to have_css "#page-rating-widget"
     end
   end
 end

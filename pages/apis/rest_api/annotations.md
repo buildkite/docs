@@ -88,7 +88,7 @@ Required [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>body</code></th>
     <td>
-      The annotation's body, as <a href="/docs/agent/cli/reference/annotate#supported-markdown-syntax">HTML or Markdown</a>.
+      The annotation's body, as <a href="/docs/pipelines/configure/annotations#formatting-annotations-supported-markdown-syntax">HTML or Markdown</a>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"My annotation here"</code></p>
     </td>
   </tr>

@@ -371,6 +371,21 @@ debugging:
     - self-hosted-agents
     - hosted-agents
 
+developer-experience:
+  name: "Buildkite Developer Experience Documentation"
+  description: "Buildkite documentation for developer experience features, covering build annotations, structured log output, and embedding links and images in logs to reduce log digging."
+  exact_paths:
+    - "agent/cli/reference/annotate"
+    - "agent/cli/reference/annotation"
+    - "pipelines/configure/annotations"
+    - "pipelines/configure/managing-log-output"
+    - "pipelines/configure/links-and-images-in-log-output"
+    - "apis/rest-api/annotations"
+  related_topics:
+    - debugging
+    - pipeline-configurations
+    - best-practices
+
 test-engine:
   name: "Buildkite Test Engine Documentation"
   description: "Buildkite documentation for Buildkite Test Engine, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."

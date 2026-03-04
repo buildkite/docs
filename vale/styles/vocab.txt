@@ -416,6 +416,7 @@ sudo
 svg
 swiftformat
 swiftlint
+syntaxes
 systemd
 Tailscale
 teardown

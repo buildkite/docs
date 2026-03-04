@@ -17,10 +17,10 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - aws-ssm#v1.0.0:
+      - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
-      - docker#v5.11.0:
+      - docker#v5.13.0:
           image: "ruby:3.3-bookworm"
           propagate-environment: true
           mount-buildkite-agent: true

@@ -18,9 +18,9 @@ query GetBuilds {
 }
 ```
 
-## Get all environment variables set on a build
+## Get environment variables set on a build
 
-Retrieve all of a job's environment variables for a given build. This is the equivalent of what you see in the _Environment_ tab of each build.
+Retrieve (all of) a job's environment variables for a given build. This is the equivalent of what you see in the _Environment_ tab of each build.
 
 ```graphql
 query GetEnvVarsBuild {
@@ -40,9 +40,9 @@ query GetEnvVarsBuild {
 }
 ```
 
-## Get all builds for a pipeline
+## Get builds for a pipeline
 
-Retrieve all of the builds for a given pipeline, including each build's ID, number, and URL.
+Retrieve (all of) the builds for a given pipeline, including each build's ID, number, and URL.
 
 ```graphql
 query GetBuilds {
