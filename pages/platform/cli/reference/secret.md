@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI secret command
 
-The `bk secret` command allows you to work with secret from the command line.
+The `bk secret` command allows you to manage Buildkite secrets from the command line.
 
 ## Commands
 

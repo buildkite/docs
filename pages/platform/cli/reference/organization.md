@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI organization command
 
-The `bk organization` command allows you to work with organization from the command line.
+The `bk organization` command allows you to manage Buildkite organizations from the command line.
 
 ## Commands
 

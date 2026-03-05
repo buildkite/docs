@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI auth command
 
-The `bk auth` command allows you to work with auth from the command line.
+The `bk auth` command allows you to manage authorization from the command line.
 
 ## Commands
 
