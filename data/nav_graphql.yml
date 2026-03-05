@@ -96,6 +96,8 @@
     path: apis/graphql/schemas/mutation/emailresendverification
   - name: graphQLSnippetCreate
     path: apis/graphql/schemas/mutation/graphqlsnippetcreate
+  - name: jobAnnotate
+    path: apis/graphql/schemas/mutation/jobannotate
   - name: jobTypeBlockUnblock
     path: apis/graphql/schemas/mutation/jobtypeblockunblock
   - name: jobTypeCommandCancel
@@ -408,6 +410,8 @@
     path: apis/graphql/schemas/object/hostedagentplatformsettings
   - name: HostedAgentQueueSettings
     path: apis/graphql/schemas/object/hostedagentqueuesettings
+  - name: JobAnnotatePayload
+    path: apis/graphql/schemas/object/jobannotatepayload
   - name: JobConcurrency
     path: apis/graphql/schemas/object/jobconcurrency
   - name: JobConnection
@@ -928,6 +932,8 @@
     path: apis/graphql/schemas/enum/apiaccesstokenscopes
   - name: AnnotationOrder
     path: apis/graphql/schemas/enum/annotationorder
+  - name: AnnotationScope
+    path: apis/graphql/schemas/enum/annotationscope
   - name: AnnotationStyle
     path: apis/graphql/schemas/enum/annotationstyle
   - name: AuditActorType
@@ -1104,6 +1110,8 @@
     path: apis/graphql/schemas/input-object/hostedagentsqueuesettingscreateinput
   - name: HostedAgentsQueueSettingsUpdateInput
     path: apis/graphql/schemas/input-object/hostedagentsqueuesettingsupdateinput
+  - name: JobAnnotateInput
+    path: apis/graphql/schemas/input-object/jobannotateinput
   - name: JobConcurrencySearch
     path: apis/graphql/schemas/input-object/jobconcurrencysearch
   - name: JobPrioritySearch
