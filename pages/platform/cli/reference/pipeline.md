@@ -50,10 +50,14 @@ bk pipeline copy [<pipeline>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-c`, `--cluster=STRING` | Cluster name or ID for the new pipeline (required for cross-org copies if target org uses clusters) |
-| `-o`, `--output=""` | Output format: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Show what would be copied without creating the pipeline |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -118,11 +122,16 @@ bk pipeline create <name> [flags]
 | Flag | Description |
 | --- | --- |
 | `-c`, `--cluster-id=STRING` | Cluster name or ID to assign the pipeline to |
+| `-W`, `--create-webhook` | Create an SCM webhook for the pipeline (GitHub and GitHub Enterprise only) |
 | `-d`, `--description=STRING` | Description of the pipeline |
-| `-o`, `--output=""` | Outputs the created pipeline. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Repository URL |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug. |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -150,6 +159,12 @@ Create a pipeline with a cluster (by ID):
 bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.git" -c "cluster-id-123"
 ```
 
+Create a pipeline and set up a GitHub webhook:
+
+```bash
+bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.git" --create-webhook
+```
+
 Simulate creating a pipeline and view the output in yaml format:
 
 ```bash
@@ -173,6 +188,10 @@ bk pipeline list [flags]
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Filter pipelines by repository URL (supports partial matches, case insensitive) |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug. |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -226,10 +245,9 @@ bk pipeline convert --file=STRING [flags]
 | --- | --- |
 | `-F`, `--file=STRING` | Path to the pipeline file to convert (required) |
 | `-o`, `--output=STRING` | Custom path to save the converted pipeline (default: .buildkite/pipeline.<vendor>.yml) |
-| `-v`, `--vendor=STRING` | CI/CD vendor (auto-detected if not specified) |
-| `--ai` | Use AI-powered conversion (recommended for Jenkins) |
+| `-v`, `--vendor=STRING` | CI/CD vendor (auto-detected if the file name matches vendor path and name - otherwise, needs to be specified) |
 | `--debug` | Enable debug output for REST API calls |
-| `--timeout=300` | Timeout in seconds (use 600+ for AI conversions) |
+| `--timeout=300` | The time (in seconds) after which a conversion should be cancelled |
 
 ### Examples
 
@@ -245,16 +263,20 @@ Convert with explicit vendor specification:
 bk pipeline convert -F pipeline.yml --vendor circleci
 ```
 
-Convert Jenkins pipeline with AI support:
-
-```bash
-bk pipeline convert -F Jenkinsfile --ai
-```
-
 Save output to a file:
 
 ```bash
 bk pipeline convert -F .github/workflows/ci.yml -o .buildkite/pipeline.yml
+```
+
+Read from stdin:
+
+```bash
+cat .github/workflows/ci.yml | bk pipeline convert --vendor github
+```
+
+```bash
+bk pipeline convert --vendor github < .github/workflows/ci.yml
 ```
 
 ## Validate a pipeline
@@ -311,8 +333,13 @@ bk pipeline view [<pipeline>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-w`, `--web` | Open the pipeline in a web browser. |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--org=STRING` | Organization slug. |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -320,6 +347,12 @@ View a pipeline:
 
 ```bash
 bk pipeline view my-pipeline
+```
+
+View a pipeline using flags:
+
+```bash
+bk pipeline view --org my-org --pipeline my-pipeline
 ```
 
 View a pipeline in a specific organization:

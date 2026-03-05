@@ -16,39 +16,45 @@ To update this file:
 
 -->
 
-# Buildkite CLI use command
+# Buildkite CLI organization command
 
-The `bk use` command allows you to choose which Buildkite organization to work with from the command line.
+The `bk organization` command allows you to manage Buildkite organizations from the command line.
 
-Select an organization Select a configured organization.
+## Commands
+
+| Command | Description |
+| --- | --- |
+| `bk organization list` | List configured organizations. |
+
+## List organizations
+
+List configured organizations.
 
 ```bash
-bk use [<organization-slug>] [flags]
+bk organization list [flags]
 ```
 
-## Arguments
-
-| Argument | Description |
-| --- | --- |
-| `[<organization-slug>]` | Organization slug to use |
-
-## Flags
+### Flags
 
 | Flag | Description |
 | --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
-## Examples
+### Examples
 
-Use the 'my-cool-org' configuration:
+List all configured organizations (JSON by default):
 
 ```bash
-bk use my-cool-org
+bk organization list
 ```
 
-Interactively select an organization:
+List organizations in text format:
 
 ```bash
-bk use
+bk organization list -o text
 ```
 
