@@ -38,7 +38,7 @@ The URL paths available from the health checking service are as follows:
 - **`/`**: Returns HTTP status 200 with the text `OK: Buildkite agent is
   running`.
 - **`/agent/(worker number)`**: Reports the time since the agent worker
-  succeeded at sending a heartbeat. Workers are numbered starting from 1,
+  last sent a successful heartbeat. Workers are numbered starting from 1,
   and the number of workers is set with the `--spawn` flag. If the previous
   heartbeat for this worker failed, it returns HTTP status 500 and a description
   of the failure. Otherwise, it returns HTTP status 200.
@@ -75,6 +75,16 @@ Metric | Type | Description
 `buildkite_agent_workers_ended_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have stopped running
 `buildkite_agent_workers_started_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have started running
 
+To send the Prometheus metrics to Datadog, configure the [Datadog Agent's OpenMetrics integration](https://docs.datadoghq.com/integrations/openmetrics/) to scrape the `/metrics` endpoint. For example, with the health check service listening on port 3901, you will need to add the following to your Datadog Agent's `openmetrics.d/conf.yaml`:
+
+```yaml
+instances:
+  - openmetrics_endpoint: "http://localhost:3901/metrics"
+    namespace: "buildkite_agent"
+    metrics:
+      - "buildkite_agent_*"
+```
+
 A count of currently-running agent workers can be found by subtracting `ended_total` from `started_total`:
 
 ```promql
@@ -99,9 +109,9 @@ sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
 
 ## Datadog metrics
 
-The Buildkite agent supports sending metrics to Datadog via DogStatsD for monitoring and observability.
+The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](#prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](#prometheus-metrics-reference).
 
-To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file.
+To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file. The agent sends metrics to a DogStatsD server, which is bundled with the [Datadog Agent](https://docs.datadoghq.com/extend/dogstatsd/).
 
 ```shell
 buildkite-agent start --metrics-datadog
@@ -123,6 +133,8 @@ Once enabled, the agent will generate the following metrics (duration measured i
 - `buildkite.jobs.duration.success.count`
 - `buildkite.jobs.duration.success.median`
 - `buildkite.jobs.duration.success.95percentile`
+
+For organization-level queue and agent metrics in Datadog (such as scheduled jobs count, idle agents, and busy agent percentage), use the [buildkite-agent-metrics CLI](#sending-metrics-to-datadog) with the StatsD backend.
 
 ## Buildkite agent metrics CLI
 
@@ -227,6 +239,24 @@ The tool collects the following metrics per organization and per queue:
     <% end %>
   </tbody>
 </table>
+
+### Sending metrics to Datadog
+
+To send organization-level queue and agent metrics to Datadog, use the StatsD backend with the `-statsd-tags` flag. The metrics will be sent to a [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/) server (bundled with the Datadog Agent), which forwards them to Datadog with queue-level tagging:
+
+```shell
+buildkite-agent-metrics \
+  -token "$BUILDKITE_AGENT_TOKEN" \
+  -interval 30s \
+  -backend statsd \
+  -statsd-host "127.0.0.1:8125" \
+  -statsd-tags
+```
+
+The `-statsd-tags` flag enables Datadog-compatible tagging, so metrics are tagged by `queue` rather than including the queue name in the metric name. This allows you to filter and group metrics by queue in Datadog dashboards.
+
+> 📘 Ensure DogStatsD is running
+> The Datadog Agent includes a DogStatsD server that listens on UDP port 8125 by default. Before starting the metrics collector, verify that the Datadog Agent is running and DogStatsD is enabled. For setup details, see the [DogStatsD documentation](https://docs.datadoghq.com/extend/dogstatsd/).
 
 For more details on configuration options, AWS Lambda deployment, and backend-specific settings, see the [buildkite-agent-metrics README](https://github.com/buildkite/buildkite-agent-metrics?tab=readme-ov-file#buildkite-agent-metrics).
 
