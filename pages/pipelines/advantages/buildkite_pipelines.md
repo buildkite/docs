@@ -61,7 +61,7 @@ Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/conf
 
 - No surprise bills from exceeding runner minutes or credit allocations.
 - Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) for specialized workloads or your own compute, including spot instances or spare capacity, to optimize costs.
-- Spend less time maintaining controllers, patching vulnerabilities, or managing [plugin](/docs/pipelines/integrations/plugins) compatibility.
+- Spend less time maintaining controllers, patching vulnerabilities, or managing plugin compatibility.
 
 ### Built for developer productivity
 
@@ -90,7 +90,14 @@ Buildkite specializes in CI/CD rather than bundling source code management, proj
 - Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket).
 - Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing)
-- Plugins: Extend your pipeline steps with reusable functionality through [Buildkite plugins](/docs/pipelines/integrations/plugins). Browse the [plugins directory](/docs/pipelines/integrations/plugins/directory) to find open source plugins maintained by Buildkite and the community, or [write your own](/docs/pipelines/integrations/plugins/writing).
+
+### Plugins
+
+Extend your pipeline steps with reusable functionality through [Buildkite plugins](/docs/pipelines/integrations/plugins). Plugins are version-pinned and run on your agents, so you control exactly what executes in your environment — unlike ecosystems where anyone can publish third-party actions that teams may pull in without review.
+
+- Browse the [plugins directory](https://buildkite.com/resources/plugins/) to find open source plugins maintained by Buildkite and the community.
+- [Write your own](/docs/pipelines/integrations/plugins/writing) plugins to encapsulate common patterns and share them across teams.
+- Plugins feel like a natural part of the platform rather than bolted-on add-ons, and custom integrations sit alongside official ones with the same level of consistency.
 
 ### Hooks
 
@@ -125,7 +132,7 @@ Buildkite Pipelines' [hybrid architecture](#hybrid-architecture) means your sour
 
 ### Superior support
 
-Buildkite provides responsive, hands-on support rather than treating customers as ticket numbers. Teams get direct access to engineers who can advise on implementation approaches and help troubleshoot complex configurations, not just acknowledge issues and close tickets.
+Buildkite provides responsive, hands-on support rather than treating customers as ticket numbers. Teams get direct access to engineers who can advise on implementation approaches and help troubleshoot complex configurations, not just acknowledge issues and close tickets. Enterprise customers receive SLAs with guaranteed fast response times.
 
 ## Migrating to Buildkite Pipelines
 
@@ -138,4 +145,3 @@ Buildkite provides [migration guides](/docs/pipelines/migration) to help teams m
 ## Get started
 
 Teams of all sizes run Buildkite Pipelines in production. To try it yourself, [sign up](https://buildkite.com/signup) or explore the [getting started guide](/docs/pipelines/getting-started).
-
