@@ -23,8 +23,6 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`package`](/docs/platform/cli/reference/package)
 - [`pipeline`](/docs/platform/cli/reference/pipeline)
 - [`secret`](/docs/platform/cli/reference/secret)
-- [`use`](/docs/platform/cli/reference/use)
 - [`user`](/docs/platform/cli/reference/user)
 - [`version`](/docs/platform/cli/reference/version)
-- [`whoami`](/docs/platform/cli/reference/whoami)
 <!-- END auto-generated command list -->
