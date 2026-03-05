@@ -271,7 +271,7 @@ Request payload:
 
 | Field       | Type          | Required | Description                          |
 | ----------- | ------------- | -------- | ------------------------------------ |
-| `job_uuids` | array[string] | Yes      | Array of job UUIDs to get states for (max 1,000) |
+| `job_uuids` | array[string] | Yes      | Array of job UUIDs to get states for (maximum 1,000) |
 
 Example:
 
