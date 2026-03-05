@@ -25,7 +25,7 @@ All stacks API endpoints require a **cluster token** passed via the `Authorizati
 Authorization: Token <token>
 ```
 
-Cluster tokens (prefixed `bkct_`) are found on your cluster's **Agent Tokens** page.
+Cluster tokens (prefixed `bkct_`) are located on your cluster's **Agent Tokens** page.
 They grant access to all queues within the cluster.
 
 ## Endpoint summary
