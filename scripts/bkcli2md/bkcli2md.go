@@ -166,28 +166,8 @@ func discoverCommandGroups(helpText string) map[string]string {
 
 // isCommandGroup returns true if the command should be documented
 func isCommandGroup(name string) bool {
-	// These are known commands from bk CLI (both groups and standalone)
-	knownCommands := map[string]bool{
-		"agent":        true,
-		"api":          true,
-		"artifacts":    true,
-		"auth":         true,
-		"build":        true,
-		"cluster":      true,
-		"secret":       true,
-		"config":       true,
-		"configure":    true,
-		"init":         true,
-		"job":          true,
-		"organization": true,
-		"pipeline":     true,
-		"package":      true,
-		"use":          true,
-		"user":         true,
-		"version":      true,
-		"whoami":       true,
-	}
-	return knownCommands[name]
+	_, ok := commandDescriptions[name]
+	return ok
 }
 
 // parseCommandGroup parses a command group and all its subcommands
@@ -546,27 +526,7 @@ To update this file:
 }
 
 func getGroupDescription(name string) string {
-	descriptions := map[string]string{
-		"agent":        "manage Buildkite agents",
-		"api":          "interact with the Buildkite API",
-		"artifacts":    "manage build artifacts",
-		"auth":         "manage authorization",
-		"build":        "manage pipeline builds",
-		"cluster":      "manage Buildkite organization clusters",
-		"config":       "manage configurations",
-		"configure":    "configure your Buildkite CLI settings",
-		"init":         "initialize a pipeline file with Buildkite Pipelines",
-		"job":          "manage jobs within builds",
-		"organization": "manage Buildkite organizations",
-		"package":      "manage packages",
-		"pipeline":     "manage pipelines",
-		"secret":       "manage Buildkite secrets",
-		"use":          "choose which Buildkite organization to work with",
-		"user":         "manage users in your Buildkite organization",
-		"version":      "display which version of the Buildkite CLI you're using",
-		"whoami":       "display information about the current user's Buildkite organization and API token",
-	}
-	if desc, ok := descriptions[name]; ok {
+	if desc, ok := commandDescriptions[name]; ok {
 		return desc
 	}
 	return "work with " + name
