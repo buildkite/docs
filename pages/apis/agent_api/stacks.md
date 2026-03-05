@@ -478,7 +478,7 @@ Common error codes:
 
 | Status | Meaning |
 | --- | --- |
-| `400 Bad Request` | Invalid parameters (for example, `job_uuids` is not an array, or `limit` is not a positive integer) |
+| `400 Bad Request` | Invalid parameters (for example, `job_uuids` is not an array or `limit` is not a positive integer) |
 | `401 Unauthorized` | Missing, invalid, or expired token |
 | `403 Forbidden` | Stack limit exceeded for the organization |
 | `404 Not Found` | Stack, job, or cluster queue not found |
