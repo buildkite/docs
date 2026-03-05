@@ -28,11 +28,12 @@ Your source code, [secrets](/docs/pipelines/security/secrets), and proprietary d
 
 ### Speed and parallelization
 
-Lightweight agents and [parallelization](/docs/pipelines/best-practices/parallel-builds) combine to deliver faster feedback cycles.
+Buildkite Pipelines is built to deliver the fastest feedback loops in CI/CD. Speed comes not just from faster machines, but from the combination of unlimited scalability, deep [parallelization](/docs/pipelines/best-practices/parallel-builds), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that skip unnecessary work. Small per-build time savings compound across thousands of daily builds.
 
 - Handle large [monorepo](/docs/pipelines/best-practices/working-with-monorepos) structures efficiently with dynamic pipeline generation that analyzes dependencies and selectively builds only what changed.
-- Concurrency.
+- No artificial concurrency limits — scale agents to match demand rather than waiting in queues.
 - Match compute to workload using agent [queues](/docs/agent/queues) and [tags](/docs/agent/cli/reference/start#setting-tags), dedicating fast agents to critical pipelines and smaller agents to less demanding tasks.
+- Continuously optimize by identifying where time is spent — job overhead, startup latency, unnecessary steps — and use that insight to drive improvements like [caching](/docs/pipelines/best-practices/caching) and faster bootstrapping.
 
 ### Dynamic pipelines
 
@@ -48,8 +49,7 @@ Learn more in [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 For teams that want managed infrastructure without sacrificing performance, [Buildkite hosted agents](/docs/agent/buildkite-hosted) deliver a fully managed platform:
 
-- Faster performance.
-- Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer.
+- Latest generation Mac and AMD Zen-based hardware with a proprietary low-latency virtualization layer, delivering faster build performance than traditional hosted CI runners.
 - Agents provision on demand and are destroyed after each job, providing clean, reproducible builds with hypervisor-level [isolation](/docs/pipelines/security) between instances.
 - Per-second billing with no minimum charges and no rounding.
 - [Caching](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes), [git mirroring](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes), and [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) included at no additional cost.
@@ -76,8 +76,9 @@ The Buildkite Pipelines interface provides immediate visibility into pipeline be
 
 ### AI workflows
 
-Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture) and a structured environment for running AI-powered delivery without putting reliability at risk. It is a platform designed for high-producing engineering teams that have increased their overall work output with the help of AI. No other platform can keep up with the unlimited scale of pipelines and builds that are getting created with the help of AI tools.
+AI-assisted development increases code output, which puts more pressure on CI/CD systems. If CI can't scale to match, teams hit queue delays and long merge times. Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture) and a structured environment that scales with AI-driven workloads rather than becoming the bottleneck.
 
+- Buildkite Pipelines is compute-agnostic, supporting GPUs, TPUs, and custom hardware for AI/ML workloads that don't fit a traditional CI shape.
 - Pipelines can adapt in real time based on code changes, test results, or agent input.
 - AI agents connect to pipelines through the [Buildkite MCP server](/docs/apis/mcp-server) with precise, cached context that stays accurate and token-efficient.
 - You decide what to automate, where the guardrails sit, and how insight returns to developers.
@@ -93,38 +94,38 @@ Buildkite specializes in CI/CD rather than bundling source code management, proj
 
 ### Hooks
 
-The only CI/CD platform that has hooks. The value of hooks in reducing manual management and the positive feedback on Buildkite's support.
+[Hooks](/docs/agent/hooks) let platform teams customize agent behavior and enforce standards at every stage of the [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Use them to manage [secrets](/docs/pipelines/security/secrets/managing), enforce security policies, modify checkout behavior, or standardize environments across all pipelines — without requiring changes to individual pipeline definitions.
 
-### AI-first
-
-Buildkite benefits companies that prioritize software shipping and innovation. Buildkite Pipelines is natively suited to processing the load that has been increased through the use of AI by software companies. Particularly well-suited for AI/ML workloads due to its unlimited concurrency, flexibility across different hardware environments, and ability to handle dynamic pipelines, though he acknowledged that the company still needs to better understand why it's gaining traction in this space.
-
-### Fastest CI/CD tool
-
-Got metrics.
+- Hooks run on your infrastructure, so sensitive logic and credentials stay under your control.
+- Combined with [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), hooks give platform teams the ability to set guardrails while letting developers move fast with self-service pipelines.
 
 ### Flexible deployment options
 
-Dynamic pipelines are unique to Buildkite Pipelines, making deployments flexible.
-A unique hybrid SaaS model, offering a cloud control plane with agents that can run in any infrastructure, designed for speed and control at scale.
+Buildkite Pipelines provides a hybrid SaaS model: a cloud-hosted control plane coordinates work, while agents run on any infrastructure you choose. This gives platform teams a centralized view of all pipelines and builds, while keeping execution distributed.
 
-Better agent tagging semantics, support for large fleets of runners, and a centralized view of pipelines, making it more suitable for organizations looking for a SaaS-native solution compared to on-premise or managed hosted options like Jenkins.
+- Agent [queues](/docs/agent/queues) with flexible [tag matching](/docs/agent/cli/reference/start#setting-tags) route jobs to agents with the right capabilities, supporting large fleets across multiple environments.
+- [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) let you model conditional deployment strategies — for example, choosing safer rollout patterns during business hours and faster ones off-hours.
+- Feed [observability signals](/docs/pipelines/integrations/observability) back into the pipeline to automate rollback decisions before an incident pages someone.
 
 ### Pipeline signing
 
-Open-source agents that poll for work rather than pushing instructions, and their "sign pipelines" feature for secure code execution.
+Buildkite agents are [open source](https://github.com/buildkite/agent) and poll for work rather than having instructions pushed to them, reducing the attack surface by design. [Pipeline signatures](/docs/agent/self-hosted/security/signed-pipelines) take this further by letting agents cryptographically verify that the steps they run haven't been tampered with, protecting against scenarios where the control plane or an intermediary might be compromised.
 
-### Flaky tests
+### Flaky test detection
 
-As a feature on Test Engine that seamlessly integrates with Buildkite Pipelines.
+[Buildkite Test Engine](/docs/test-engine) integrates with Buildkite Pipelines to detect [flaky tests](/docs/test-engine/test-suites/flaky-tests), automatically [mute](/docs/test-engine/test-suites/flaky-tests#muting-flaky-tests) unreliable ones, and assign follow-up so teams can regain trust in CI results. Instead of burning time and compute capacity rerunning tests that fail randomly, teams get a clean signal from their test suites.
 
 ### Data privacy and residency
 
-Data residency concerns
+Buildkite Pipelines' [hybrid architecture](#hybrid-architecture) means your source code, [secrets](/docs/pipelines/security/secrets), and proprietary assets stay within your environment. The Buildkite control plane receives only the metadata needed to orchestrate builds — job status, logs, and timing data — without accessing your repositories or build artifacts directly.
+
+- Organizations with data residency requirements can control where agents run and where build data is stored.
+- Agents clone repositories directly within your network, so code never transits through Buildkite infrastructure.
+- For stricter security postures, agents can be locked down further with network controls and [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines).
 
 ### Superior support
 
-SLAs.
+Buildkite provides responsive, hands-on support rather than treating customers as ticket numbers. Teams get direct access to engineers who can advise on implementation approaches and help troubleshoot complex configurations, not just acknowledge issues and close tickets.
 
 ## Migrating to Buildkite Pipelines
 
@@ -137,3 +138,4 @@ Buildkite provides [migration guides](/docs/pipelines/migration) to help teams m
 ## Get started
 
 Teams of all sizes run Buildkite Pipelines in production. To try it yourself, [sign up](https://buildkite.com/signup) or explore the [getting started guide](/docs/pipelines/getting-started).
+
