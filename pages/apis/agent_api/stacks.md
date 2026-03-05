@@ -227,7 +227,7 @@ Request payload:
 
 | Field                        | Type          | Required | Description                     |
 | ---------------------------- | ------------- | -------- | ------------------------------- |
-| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve (max 1,000) |
+| `job_uuids`                  | array[string] | Yes      | Array of job UUIDs to reserve (maximum 1,000) |
 | `reservation_expiry_seconds` | integer       | No       | Reservation duration in seconds. Defaults to 900 (15 minutes). Maximum 3,600 (one hour). |
 
 Example:
