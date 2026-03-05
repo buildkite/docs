@@ -60,7 +60,7 @@ Request payload:
 | `key`       | string           | Yes      | Unique identifier for the stack in the org. Alphanumeric characters, underscores, and dashes only. Maximum 80 bytes. |
 | `type`      | string           | Yes      | Type of stack: `kubernetes`, `elastic`, or `custom`. Third-party stacks should use `custom`. |
 | `queue_key` | string           | Yes      | Cluster queue key the stack plans to serve. Use `__default__` for the cluster's default queue. |
-| `metadata`  | key-value object | Yes      | Additional metadata for the stack. Must be a flat object with string keys (max 64 characters) and string values (max 256 characters). Maximum 100 keys. |
+| `metadata`  | key-value object | Yes      | Additional metadata for the stack. Must be a flat object with string keys (maximum 64 characters) and string values (maximum 256 characters). Maximum 100 keys. |
 
 Example:
 
