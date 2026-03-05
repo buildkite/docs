@@ -147,7 +147,7 @@ In addition to the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elasti
 - [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you're able to fetch each pipeline's job count, and information about each agent.
 - [Agent priorities](/docs/agent/self-hosted/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
 - [Agent queues](/docs/agent/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
-- [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization's Buildkite metrics and report them to AWS CloudWatch and StatsD.
+- [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) tool allows you to collect your organization's Buildkite metrics and report them to a range of backends including AWS CloudWatch, StatsD, Prometheus, and OpenTelemetry.
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.
 

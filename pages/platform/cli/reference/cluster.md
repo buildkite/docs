@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI cluster command
 
-The `bk cluster` command allows you to manage organization clusters from the command line.
+The `bk cluster` command allows you to manage Buildkite organization clusters from the command line.
 
 ## Commands
 
@@ -41,6 +41,9 @@ bk cluster list [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -76,6 +79,9 @@ bk cluster view <cluster-id> [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 

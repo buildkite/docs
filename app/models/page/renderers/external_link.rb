@@ -24,7 +24,7 @@ class Page::Renderers::ExternalLink
   def external_link?
 
     def has_internal_link_prefix?
-      INTERNAL_LINK_PREFIXES.any? { |prefix| @href.include?(prefix) }
+      INTERNAL_LINK_PREFIXES.any? { |prefix| @href.start_with?(prefix) }
     end
 
     def buildkite_domain?
@@ -41,10 +41,8 @@ class Page::Renderers::ExternalLink
   end
 
   def decorate_external_link_node
-    unless node['class']
-      node.set_attribute('class', 'external-link')
-      node.set_attribute('target', '_blank')
-    end
+    node.set_attribute('class', 'external-link') unless node['class']
+    node.set_attribute('target', '_blank')
   end
 
   def process

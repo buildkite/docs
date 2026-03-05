@@ -110,9 +110,9 @@ The following environment variables have been deprecated.
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-* Pipeline settings — for values that are *not secret*.
-* [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
-* An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
+- The **YAML Steps editor** in your pipeline settings, using a top-level `env` attribute before your steps — for values that are *not secret*.
+- [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
+- An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
 > Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/secrets/managing) documentation for further information and best practices.
@@ -121,27 +121,27 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 Any environment variables set by Buildkite will be interpolated by the Agent.
 
-If you're using the YAML Steps editor to define your pipeline, only the following subset of the environment variables are available:
+If you're using the **YAML Steps editor** to define your pipeline, only the following subset of the environment variables are available:
 
-* `BUILDKITE_BRANCH`
-* `BUILDKITE_TAG`
-* `BUILDKITE_MESSAGE`
-* `BUILDKITE_COMMIT`
-* `BUILDKITE_PIPELINE_SLUG`
-* `BUILDKITE_PIPELINE_NAME`
-* `BUILDKITE_PIPELINE_ID`
-* `BUILDKITE_ORGANIZATION_SLUG`
-* `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
-* `BUILDKITE_REPO`
-* `BUILDKITE_PULL_REQUEST`
-* `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
-* `BUILDKITE_PULL_REQUEST_REPO`
-* `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
-* `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
+- `BUILDKITE_BRANCH`
+- `BUILDKITE_TAG`
+- `BUILDKITE_MESSAGE`
+- `BUILDKITE_COMMIT`
+- `BUILDKITE_PIPELINE_SLUG`
+- `BUILDKITE_PIPELINE_NAME`
+- `BUILDKITE_PIPELINE_ID`
+- `BUILDKITE_ORGANIZATION_SLUG`
+- `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
+- `BUILDKITE_REPO`
+- `BUILDKITE_PULL_REQUEST`
+- `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+- `BUILDKITE_PULL_REQUEST_REPO`
+- `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
+- `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
 
-Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
+Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the **YAML Steps editor** as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
-Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+Alternatively, you can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
 ## Runtime variable interpolation
 
@@ -165,7 +165,7 @@ There are many different levels at which environment variables are merged togeth
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job's Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
 > 📘
-> If you are not using YAML Steps, the precedence of environment variables is different from the list below.
+> If you are not using YAML steps, the precedence of environment variables is different from the list below.
 > Please [migrate your pipelines](/docs/pipelines/tutorials/pipeline-upgrade) to use YAML steps.
 
 The job environment is made by merging the following sets of values, where values in each successive set take precedence:
@@ -174,7 +174,7 @@ The job environment is made by merging the following sets of values, where value
 <tbody>
   <tr>
     <th><em>Pipeline</em></th>
-    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
+    <td>Optional variables set by you in the YAML Steps editor using a top-level <code>env</code> attribute</td>
   </tr>
   <tr>
     <th><em>Build</em></th>
@@ -234,9 +234,9 @@ Environment variables are not automatically passed through to builds created wit
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 
-* operating system environment variables
-* any variables you set on your agent when you started it
-* any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
+- operating system environment variables
+- any variables you set on your agent when you started it
+- any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
 
 For a list of variables and configuration flags, you can set on your agent, see the Buildkite agent's [start command documentation](/docs/agent/cli/reference/start).
 

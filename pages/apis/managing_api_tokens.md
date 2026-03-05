@@ -408,4 +408,8 @@ If you own the token, you can revoke your token from the [API access token page]
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
 
+### Does limiting API access by IP address apply to the remote MCP server?
+
+Yes. Although the [Buildkite remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) makes API calls from Buildkite's infrastructure, these requests are still subject to your organization's IP allowlist for API token access.
+
 [Agent token]: /docs/agent/self-hosted/tokens

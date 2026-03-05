@@ -1,0 +1,451 @@
+# Topic-specific llms.txt definitions
+# Each topic generates a /docs/llms-{slug}.txt endpoint
+# with only the pages matching the listed path prefixes/exact paths.
+#
+# paths: list of nav path prefixes to include (matches start of path)
+# exact_paths: list of exact nav paths to include (no prefix matching)
+---
+ai-tools-and-mcp:
+  name: "Buildkite AI Tools and MCP Documentation"
+  description: "Buildkite documentation for AI tool integration, covering the MCP server (remote and local), available tools and toolsets, model providers, GraphQL portals, and configuring AI coding agents."
+  paths:
+    - "apis/mcp-server"
+    - "apis/model-providers"
+  exact_paths:
+    - "apis/graphql/portals"
+    - "apis/graphql/portals/limits"
+    - "apis/graphql/portals/ephemeral-portal-tokens"
+    - "apis/graphql/portals/user-invoked-portals"
+    - "apis/managing-api-tokens"
+  related_topics:
+    - buildkite-apis
+    - cli-tools
+
+getting-started:
+  name: "Getting Started with Buildkite Pipelines"
+  description: "Buildkite documentation for getting started with Buildkite Pipelines, covering first pipeline creation, architecture, dashboard walkthrough, build page, pipeline converter, glossary, and connecting source control."
+  paths:
+    - "pipelines/converter"
+    - "pipelines/source-control"
+  exact_paths:
+    - "pipelines"
+    - "pipelines/getting-started"
+    - "pipelines/create-your-own"
+    - "pipelines/architecture"
+    - "pipelines/dashboard-walkthrough"
+    - "pipelines/build-page"
+    - "pipelines/glossary"
+    - "pipelines/configure/defining-steps"
+    - "pipelines/configure/environment-variables"
+    - "agent"
+    - "agent/buildkite-hosted"
+  related_topics:
+    - why-buildkite-pipelines
+    - pipelines
+    - hosted-agents
+
+why-buildkite-pipelines:
+  name: "Why Buildkite Pipelines"
+  description: "Buildkite documentation explaining the advantages of Buildkite Pipelines, including comparisons with Jenkins, GitLab, and GitHub Actions, getting started guides, architecture overview, pipeline converter, migration guides, and source control setup."
+  paths:
+    - "pipelines/advantages"
+    - "pipelines/converter"
+    - "pipelines/migration"
+    - "pipelines/source-control"
+  exact_paths:
+    - "pipelines"
+    - "pipelines/getting-started"
+    - "pipelines/create-your-own"
+    - "pipelines/architecture"
+    - "pipelines/dashboard-walkthrough"
+    - "pipelines/build-page"
+    - "pipelines/glossary"
+    - "agent"
+    - "agent/lifecycle"
+    - "agent/hooks"
+  related_topics:
+    - getting-started
+    - migrating-to-buildkite
+
+migrating-to-buildkite:
+  name: "Migrating to Buildkite Pipelines"
+  description: "Buildkite documentation for migrating to Buildkite Pipelines from other CI/CD tools, covering migration guides from Jenkins, GitHub Actions, and Bamboo, plus the AI-powered pipeline converter for translating CI configurations."
+  paths:
+    - "pipelines/migration"
+    - "pipelines/converter"
+  exact_paths:
+    - "pipelines/getting-started"
+    - "pipelines/create-your-own"
+    - "pipelines/architecture"
+    - "pipelines/source-control"
+  related_topics:
+    - why-buildkite-pipelines
+    - getting-started
+
+pipelines:
+  name: "Buildkite Pipelines Documentation"
+  description: "Buildkite documentation for Buildkite Pipelines, covering getting started, architecture, configuration, best practices, and API integration."
+  paths:
+    - "pipelines"
+    - "platform"
+  exact_paths:
+    - "apis"
+    - "apis/managing-api-tokens"
+    - "apis/rest-api"
+    - "apis/rest-api/pipelines"
+    - "apis/rest-api/builds"
+    - "apis/rest-api/jobs"
+    - "apis/rest-api/agents"
+    - "apis/rest-api/annotations"
+    - "apis/rest-api/artifacts"
+    - "apis/rest-api/clusters"
+    - "apis/rest-api/clusters/queues"
+    - "apis/rest-api/clusters/agent-tokens"
+    - "apis/rest-api/clusters/maintainers"
+    - "apis/rest-api/clusters/secrets"
+    - "apis/rest-api/rules"
+    - "apis/rest-api/pipeline-templates"
+    - "apis/graphql-api"
+    - "apis/graphql/graphql-cookbook"
+    - "apis/graphql/cookbooks/builds"
+    - "apis/graphql/cookbooks/pipelines"
+    - "apis/graphql/cookbooks/pipeline-templates"
+    - "apis/graphql/cookbooks/clusters"
+    - "apis/graphql/cookbooks/jobs"
+    - "apis/graphql/cookbooks/agents"
+    - "apis/graphql/cookbooks/artifacts"
+    - "apis/webhooks/pipelines"
+    - "apis/webhooks/pipelines/build-events"
+    - "apis/webhooks/pipelines/job-events"
+    - "apis/webhooks/pipelines/agent-events"
+    - "apis/webhooks/pipelines/ping-events"
+    - "apis/webhooks/pipelines/agent-token-events"
+  related_topics:
+    - pipeline-configurations
+    - best-practices
+    - buildkite-apis
+
+pipeline-configurations:
+  name: "Buildkite Pipeline Configuration Documentation"
+  description: "Buildkite documentation for configuring pipelines, including step types, dynamic pipelines, environment variables, workflows, artifacts, and build settings."
+  paths:
+    - "pipelines/configure"
+  related_topics:
+    - dynamic-pipelines
+    - pipelines
+    - best-practices
+
+dynamic-pipelines:
+  name: "Buildkite Dynamic Pipelines Documentation"
+  description: "Buildkite documentation for dynamic pipelines, including runtime step generation, the Buildkite SDK, if_changed conditions, tutorials, and example pipelines."
+  paths:
+    - "pipelines/configure/dynamic-pipelines"
+    - "pipelines/tutorials"
+  exact_paths:
+    - "pipelines/configure/defining-steps"
+    - "pipelines/configure/conditionals"
+    - "pipelines/configure/environment-variables"
+    - "pipelines/configure/example-pipelines"
+    - "pipelines/configure/writing-build-scripts"
+    - "pipelines/configure/glob-pattern-syntax"
+    - "agent/cli/reference/pipeline"
+  related_topics:
+    - pipeline-configurations
+    - monorepos
+
+monorepos:
+  name: "Buildkite Monorepo Documentation"
+  description: "Buildkite documentation for building and managing monorepo CI/CD pipelines, including change detection, dynamic pipelines, and best practices."
+  paths:
+    - "pipelines/configure/dynamic-pipelines"
+  exact_paths:
+    - "pipelines/best-practices/working-with-monorepos"
+    - "pipelines/configure/conditionals"
+    - "pipelines/configure/glob-pattern-syntax"
+    - "pipelines/tutorials/dynamic-pipelines-and-annotations-using-bazel"
+    - "pipelines/configure/step-types/trigger-step"
+  related_topics:
+    - dynamic-pipelines
+    - best-practices
+
+best-practices:
+  name: "Buildkite Best Practices Documentation"
+  description: "Buildkite documentation for CI/CD best practices, covering pipeline design and structure, agent management, Docker-based builds, parallelization, monorepos, dependency management, secrets, infrastructure as code, caching, monitoring, and security controls."
+  paths:
+    - "pipelines/best-practices"
+  exact_paths:
+    - "agent"
+    - "agent/queues"
+    - "agent/queues/managing"
+    - "agent/lifecycle"
+    - "agent/hooks"
+  related_topics:
+    - pipeline-configurations
+    - security
+    - debugging
+
+deployments:
+  name: "Buildkite Deployments Documentation"
+  description: "Buildkite documentation for deployment pipelines, including deploying to AWS Lambda, Kubernetes, Argo CD, Heroku, deployment plugins, and visibility with Backstage."
+  paths:
+    - "pipelines/deployments"
+  exact_paths:
+    - "pipelines/configure/step-types/block-step"
+    - "pipelines/configure/step-types/trigger-step"
+    - "pipelines/configure/workflows/controlling-concurrency"
+    - "pipelines/configure/workflows/branch-configuration"
+    - "pipelines/security/oidc"
+    - "pipelines/security/oidc/aws"
+    - "pipelines/integrations/other/backstage"
+  related_topics:
+    - pipelines
+    - integrations
+    - security
+
+agent:
+  name: "Buildkite Agent Documentation"
+  description: "Buildkite documentation for the Buildkite agent, covering self-hosted and Buildkite hosted agents, installation, configuration, CLI reference, queues, hooks, and lifecycle."
+  paths:
+    - "agent"
+  related_topics:
+    - self-hosted-agents
+    - hosted-agents
+    - cli-tools
+
+self-hosted-agents:
+  name: "Buildkite Self-Hosted Agent Documentation"
+  description: "Buildkite documentation for self-hosted agents, covering installation on Linux, macOS, Windows, and Docker, running on AWS, GCP, and Kubernetes, agent configuration, security, monitoring, and the CLI reference."
+  paths:
+    - "agent/self-hosted"
+    - "agent/cli"
+  exact_paths:
+    - "agent"
+    - "agent/queues"
+    - "agent/queues/managing"
+    - "agent/lifecycle"
+    - "agent/hooks"
+    - "pipelines/best-practices/agent-management"
+    - "pipelines/security/clusters"
+    - "pipelines/security/clusters/manage"
+    - "pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents"
+    - "pipelines/security/oidc"
+    - "pipelines/security/secrets/managing"
+    - "pipelines/configure/environment-variables"
+    - "pipelines/integrations/plugins"
+  related_topics:
+    - hosted-agents
+    - agent
+    - debugging
+
+hosted-agents:
+  name: "Buildkite Hosted Agent Documentation"
+  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, and terminal access."
+  paths:
+    - "agent/buildkite-hosted"
+  exact_paths:
+    - "agent"
+    - "agent/queues"
+    - "agent/queues/managing"
+    - "agent/lifecycle"
+    - "agent/hooks"
+    - "pipelines/best-practices/agent-management"
+    - "pipelines/best-practices/caching"
+    - "pipelines/best-practices/parallel-builds"
+    - "pipelines/security/clusters"
+    - "pipelines/security/clusters/manage"
+    - "pipelines/security/oidc"
+    - "pipelines/configure/step-types/command-step"
+    - "pipelines/source-control"
+    - "platform/team-management/permissions"
+  related_topics:
+    - self-hosted-agents
+    - agent
+
+integrations:
+  name: "Buildkite Integrations Documentation"
+  description: "Buildkite documentation for integrations with third-party tools and services, including plugins, source control providers, notifications, observability, deployments, and platform integrations."
+  paths:
+    - "pipelines/integrations"
+    - "pipelines/source-control"
+    - "pipelines/deployments"
+    - "platform/integrations"
+    - "test-engine/integrations"
+  related_topics:
+    - pipelines
+    - deployments
+
+security:
+  name: "Buildkite Security Documentation"
+  description: "Buildkite documentation for security, including secrets management, OIDC, clusters, permissions, SSO, agent security, signed pipelines, and security best practices."
+  paths:
+    - "pipelines/security"
+    - "agent/self-hosted/security"
+    - "agent/buildkite-hosted/network-security"
+    - "platform/security"
+    - "platform/sso"
+    - "package-registries/security"
+  exact_paths:
+    - "pipelines/best-practices/security-controls"
+    - "pipelines/best-practices/secrets-management"
+    - "agent/buildkite-hosted/network-security"
+    - "platform/team-management/enforce-2fa"
+    - "platform/tutorials/2fa"
+    - "apis/managing-api-tokens"
+  related_topics:
+    - governance
+    - user-management
+    - best-practices
+
+governance:
+  name: "Buildkite Governance Documentation"
+  description: "Buildkite documentation for governance and compliance, including pipeline templates, build exports, audit logging, team management, and platform controls."
+  paths:
+    - "pipelines/governance"
+    - "platform/team-management"
+  exact_paths:
+    - "platform/audit-log"
+    - "pipelines/best-practices/platform-controls"
+    - "pipelines/security/permissions"
+    - "pipelines/security/clusters"
+    - "pipelines/security/clusters/manage"
+    - "pipelines/security/clusters/rules"
+    - "pipelines/security/clusters/rules/manage"
+  related_topics:
+    - security
+    - user-management
+
+user-management:
+  name: "Buildkite User Management Documentation"
+  description: "Buildkite documentation for user and team management, covering permissions, SSO providers, two-factor authentication, audit logging, API token management, and system banners."
+  paths:
+    - "platform/team-management"
+    - "platform/sso"
+  exact_paths:
+    - "platform/tutorials/2fa"
+    - "platform/audit-log"
+    - "platform/security/tokens"
+    - "pipelines/security/permissions"
+    - "test-engine/permissions"
+    - "package-registries/security/permissions"
+    - "apis/managing-api-tokens"
+  related_topics:
+    - security
+    - governance
+
+insights:
+  name: "Buildkite Insights Documentation"
+  description: "Buildkite documentation for pipeline and cluster insights, including waterfall views, cluster metrics, and queue monitoring."
+  paths:
+    - "pipelines/insights"
+  exact_paths:
+    - "pipelines/best-practices/monitoring-and-observability"
+    - "agent/self-hosted/monitoring-and-observability"
+    - "agent/self-hosted/monitoring-and-observability/tracing"
+    - "pipelines/integrations/observability/overview"
+    - "pipelines/integrations/observability/datadog"
+    - "pipelines/integrations/observability/honeycomb"
+    - "pipelines/integrations/observability/opentelemetry"
+    - "pipelines/integrations/observability/amazon-eventbridge"
+  related_topics:
+    - debugging
+    - best-practices
+
+debugging:
+  name: "Buildkite Troubleshooting and Debugging Documentation"
+  description: "Buildkite documentation for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, agent lifecycle, and platform-specific troubleshooting guides."
+  exact_paths:
+    - "agent/self-hosted/agent-stack-k8s/troubleshooting"
+    - "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
+    - "agent/self-hosted/aws/elastic-ci-stack/ec2-mac/troubleshooting"
+    - "agent/self-hosted/gcp/elastic-ci-stack/troubleshooting"
+    - "agent/buildkite-hosted/macos/troubleshooting-fastlane"
+    - "agent/buildkite-hosted/terminal-access"
+    - "agent/lifecycle"
+    - "agent/cli/reference/annotate"
+    - "agent/cli/reference/annotation"
+    - "pipelines/configure/managing-log-output"
+    - "pipelines/configure/links-and-images-in-log-output"
+    - "apis/rest-api/annotations"
+  related_topics:
+    - insights
+    - self-hosted-agents
+    - hosted-agents
+
+developer-experience:
+  name: "Buildkite Developer Experience Documentation"
+  description: "Buildkite documentation for developer experience features, covering build annotations, structured log output, and embedding links and images in logs to reduce log digging."
+  exact_paths:
+    - "agent/cli/reference/annotate"
+    - "agent/cli/reference/annotation"
+    - "pipelines/configure/annotations"
+    - "pipelines/configure/managing-log-output"
+    - "pipelines/configure/links-and-images-in-log-output"
+    - "apis/rest-api/annotations"
+  related_topics:
+    - debugging
+    - pipeline-configurations
+    - best-practices
+
+test-engine:
+  name: "Buildkite Test Engine Documentation"
+  description: "Buildkite documentation for Buildkite Test Engine, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."
+  paths:
+    - "test-engine"
+    - "apis/rest-api/test-engine"
+  exact_paths:
+    - "platform/team-management"
+    - "platform/team-management/permissions"
+    - "apis"
+    - "apis/managing-api-tokens"
+    - "apis/rest-api"
+    - "apis/rest-api/teams"
+    - "apis/rest-api/teams/suites"
+    - "apis/graphql-api"
+    - "apis/webhooks/test-engine"
+    - "platform/integrations/slack-workspace"
+  related_topics:
+    - buildkite-apis
+    - integrations
+
+packages:
+  name: "Buildkite Package Registries Documentation"
+  description: "Buildkite documentation for Buildkite Package Registries, covering registry management, package ecosystems, security, migration, and API integration."
+  paths:
+    - "package-registries"
+    - "apis/rest-api/package-registries"
+  exact_paths:
+    - "platform/team-management"
+    - "platform/team-management/permissions"
+    - "apis"
+    - "apis/managing-api-tokens"
+    - "apis/rest-api"
+    - "apis/rest-api/teams"
+    - "apis/graphql-api"
+    - "apis/graphql/cookbooks/registries"
+    - "apis/webhooks/package-registries"
+    - "platform/integrations/slack-workspace"
+  related_topics:
+    - buildkite-apis
+    - integrations
+
+cli-tools:
+  name: "Buildkite CLI Tools Documentation"
+  description: "Buildkite documentation for CLI tools, covering the Buildkite CLI (bk) for managing pipelines, builds, and agents, and the buildkite-agent CLI reference for agent operations, artifacts, meta-data, and pipeline uploads."
+  paths:
+    - "platform/cli"
+    - "agent/cli"
+  exact_paths:
+    - "agent"
+    - "apis"
+  related_topics:
+    - buildkite-apis
+    - agent
+
+buildkite-apis:
+  name: "Buildkite APIs Documentation"
+  description: "Buildkite documentation for APIs, covering the REST API, GraphQL API, webhooks, MCP server, agent API, model providers, API token management, portals, and rate limits."
+  paths:
+    - "apis"
+  related_topics:
+    - ai-tools-and-mcp
+    - cli-tools

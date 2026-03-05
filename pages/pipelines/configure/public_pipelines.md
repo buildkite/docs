@@ -1,7 +1,9 @@
 # Public pipelines
 
-If you're working on an open-source project, and want the whole world to be able to see your builds, you can make your pipeline public.
+If you're working on an open source project, and want anyone to be able to see your builds, you can make your pipeline public.
 
+> 📘 Prerequisites
+> Before a pipeline can be made public, a Buildkite organization administrator must enable public pipeline creation in the **Organization Settings**. To do so, go to the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page, select **Pipelines** > **Settings**, scroll down to the **Public Pipelines** section, and select **Enable Public Pipeline Creation**.
 
 Making a pipeline public provides read-only public/anonymous access to:
 

@@ -55,6 +55,9 @@ RSpec.describe LLMText do
     allow(YAML).to receive(:load_file)
       .with(Rails.root.join("data", "llm_descriptions.yml"))
       .and_return(descriptions)
+
+    # LLMText#generate now calls LLMTopicText.topics for the topic index
+    allow(LLMTopicText).to receive(:topics).and_return({})
   end
 
   describe ".generate" do

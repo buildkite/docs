@@ -82,6 +82,8 @@ Turn on follow mode by pressing `j` when the build is in progress on the canvas 
 
 ## Keyboard shortcuts
 
+For a broader overview of keyboard navigation and other accessibility features across Buildkite, see [accessibility](/docs/platform/accessibility).
+
 The following keyboard shortcuts are currently available:
 
 - `f`: Go to the next failure.

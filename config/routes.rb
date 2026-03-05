@@ -262,6 +262,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/archiving-and-deleting-pipelines",                                            to: redirect("/docs/pipelines/configure/workflows/archiving-and-deleting-pipelines")
   get "/docs/pipelines/artifacts",                                                                   to: redirect("/docs/pipelines/configure/artifacts")
   get "/docs/pipelines/audit-log",                                                                   to: redirect("/docs/platform/audit-log")
+  get "/docs/pipelines/best-practices/overview",                                                     to: redirect("/docs/pipelines/best-practices")
   get "/docs/pipelines/block-step",                                                                  to: redirect("/docs/pipelines/configure/step-types/block-step")
   get "/docs/pipelines/branch-configuration",                                                        to: redirect("/docs/pipelines/configure/workflows/branch-configuration")
   get "/docs/pipelines/build-exports",                                                               to: redirect("/docs/pipelines/governance/build-exports")
@@ -479,6 +480,7 @@ Rails.application.routes.draw do
   # LLMs.txt
   get "/docs/llms.txt", to: "llm_text#index", defaults: { format: "txt" }
   get "/docs/llms-full.txt", to: "llm_full_text#index", defaults: { format: "txt" }
+  get "/docs/llms-:topic.txt", to: "llm_topic_text#show", defaults: { format: "txt" }, constraints: { topic: /[a-z][a-z0-9-]+/ }
 
   # Homepage
   get "/docs" => "pages#index", as: :home_page

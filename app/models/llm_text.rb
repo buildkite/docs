@@ -39,6 +39,20 @@ class LLMText
       end
     end
 
+    # Add topic-specific guide index at the end
+    topics = LLMTopicText.topics
+    if topics.any?
+      content << "## Topic guides"
+      content << ""
+      content << "Focused subsets of this documentation are available for specific topics:"
+      content << ""
+      topics.each do |slug, topic|
+        url = "https://buildkite.com/docs/llms-#{slug}.txt"
+        content << "- [#{topic['name']}](#{url}): #{topic['description']}"
+      end
+      content << ""
+    end
+
     content.join("\n")
   end
 
@@ -79,7 +93,8 @@ class LLMText
   end
 
   def should_skip_item?(item)
-    item["path"]&.include?("apis/graphql/schemas/") # Skip GraphQL schema docs
+    item["path"]&.include?("apis/graphql/schemas/") ||
+      item["path"]&.include?("pipelines/announcements/")
   end
 
   def descriptions

@@ -2,6 +2,8 @@
 
 The Buildkite agent's `annotation` command allows manipulating existing build annotations.
 
+Learn more about how to use this command in [Annotations](/docs/pipelines/configure/annotations).
+
 Annotations are added using [the `buildkite-agent annotate` command](/docs/agent/cli/reference/annotate).
 
 ## Removing an annotation

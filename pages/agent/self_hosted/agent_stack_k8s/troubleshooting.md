@@ -12,7 +12,7 @@ Debug mode can be enabled during the [installation](/docs/agent/self-hosted/agen
 helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-k8s \
     --namespace buildkite \
     --create-namespace \
-    --debug \
+    --set config.debug=true \
     --values values.yml
 ```
 

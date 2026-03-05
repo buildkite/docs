@@ -5,6 +5,10 @@ This page explains how to configure your AI tool to work with the [_remote_ Buil
 > 📘
 > The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the remote MCP server. If you are using an AI tool or agent and would prefer it to work with the _local_ MCP server, ensure you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) locally first, before proceeding with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/local/configuring-ai-tools) page.
 
+## Organization IP allowlist considerations
+
+If your Buildkite organization has an [API IP allowlist](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) configured, you must add Buildkite's egress IP addresses to this allowlist for the remote MCP server to function. The remote MCP server makes API calls from Buildkite's infrastructure, and these requests are subject to your organization's API IP allowlist. Buildkite's current egress IP addresses are provided from the [meta API endpoint](/docs/apis/rest-api/meta).
+
 ## Amp
 
 You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server, by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration), which requires the `mcp-remote` command argument to allow OAuth authorization. Learn more about this type of configuration in the [Custom Tools (MCP)](https://ampcode.com/manual#mcp) section of the Amp docs.

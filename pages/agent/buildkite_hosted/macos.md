@@ -28,7 +28,7 @@ Also note the following about macOS hosted agent instances.
 
 - To accommodate different workloads, instances are capable of running up to 4 hours.
 
-If you have specific needs for Intel architecture machines, or longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
+If you have specific needs for longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
 
 ## Concurrency
 

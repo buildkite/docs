@@ -11,7 +11,7 @@ On this page, we've collected the known limitation where some API features are o
 - <%= pill "ACCESS TOKEN", "access-token" %> [Granular access permissions](/docs/apis/managing-api-tokens#token-scopes).
 - <%= pill "ACCESS TOKEN", "access-token" %> [Display the information about the access token currently in use](/docs/apis/rest-api/access-token#get-the-current-token).
 - <%= pill "ACCESS TOKEN", "access-token" %> [Revoke the current access token](/docs/apis/rest-api/access-token#revoke-the-current-token).
-- <%= pill "BUILDS", "builds" %> [Create annotations on a build](/docs/apis/rest-api/annotations).
+- <%= pill "BUILDS", "builds" %> [Delete annotations on a build](/docs/apis/rest-api/annotations#delete-an-annotation-on-a-build).
 - <%= pill "BUILDS", "builds" %> [Get the `group_key` field for jobs that belong to group steps](/docs/apis/rest-api/builds#get-a-build) (only available through builds endpoints, not individual job endpoints).
 - <%= pill "JOBS", "jobs" %> [Get an output of job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output).
 - <%= pill "JOBS", "jobs" %> [Retry data for jobs](/docs/apis/rest-api/jobs#retry-a-job).
@@ -23,7 +23,7 @@ On this page, we've collected the known limitation where some API features are o
 <!-- vale off -->
 
 - <%= pill "AGENTS", "agents" %> [Get a list of agent token IDs (agent tokens are currently only available via GraphQL)](/docs/apis/graphql/cookbooks/agents#get-a-list-of-unclustered-agent-token-ids).
-- <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/cookbooks/builds#get-all-environment-variables-set-on-a-build).
+- <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/cookbooks/builds#get-environment-variables-set-on-a-build).
 - <%= pill "BUILDS", "builds" %> [Increase the next build number](/docs/apis/graphql/cookbooks/builds#increase-the-next-build-number).
 - <%= pill "BUILDS", "builds" %> [Get build info by ID](/docs/apis/graphql/cookbooks/builds#get-build-info-by-id).
 - <%= pill "JOBS", "jobs" %> [Get all jobs in a given queue for a given timeframe](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-given-queue-for-a-given-timeframe).
@@ -38,12 +38,3 @@ On this page, we've collected the known limitation where some API features are o
 - <%= pill "PIPELINES", "pipelines" %> Filter results from pipeline listings.
 - <%= pill "PIPELINES", "pipelines" %> Create and manage pipeline schedules.
 - <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/cookbooks/organizations#create-a-user-add-them-to-a-team-and-set-user-permissions).
-
-<!-- vale on -->
-
-## Known missing API features
-
-These are known requested features that are currently missing from both REST and GraphQL APIs:
-
-- <%= pill "NOTIFICATION SERVICES", "notification-services" %> There is no API for managing notification services.
-- <%= pill "USERS", "users" %> Display secondary user emails.

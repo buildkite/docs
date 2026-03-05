@@ -69,7 +69,7 @@ This stack is designed to run your builds in a shared-nothing pattern similar to
 
 - Each project should encapsulate its dependencies through Docker and Docker Compose.
 - Build pipeline steps should assume no state on the machine (and instead rely on the [build meta-data](/docs/pipelines/build-meta-data), [build artifacts](/docs/pipelines/artifacts), or Cloud Storage).
-- Secrets are configured using environment variables exposed using Secret Manager.
+- Secrets, including [SSH keys for source control](#ssh-keys-for-source-control), are configured using Secret Manager.
 
 By following these conventions, you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 
@@ -428,6 +428,57 @@ module "buildkite_stack" {
   enable_ssh_access  = true
   ssh_source_ranges  = ["203.0.113.0/24"]  # Your office IP range
 }
+```
+
+### SSH keys for source control
+
+The Elastic CI Stack for GCP automatically loads SSH keys from [GCP Secret Manager](https://cloud.google.com/security/products/secret-manager) and adds them to an ephemeral `ssh-agent` for your builds. This allows your builds to clone private repositories without storing keys on disk.
+
+The agent's [environment hook](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/blob/main/packer/linux/conf/buildkite-agent/hooks/environment) checks for secrets in the following order:
+
+1. `{pipeline-slug}/private_ssh_key` - pipeline-specific SSH key
+1. `{pipeline-slug}/id_rsa_github` - pipeline-specific GitHub deploy key
+1. `private_ssh_key` - global SSH key shared across all pipelines
+1. `id_rsa_github` - global GitHub deploy key shared across all pipelines
+
+Where `{pipeline-slug}` is the slug of the pipeline running the build. Pipeline-specific keys are checked first, then the global keys. The first key found is loaded into the agent.
+
+> 📘 The `enable_secret_access` Terraform variable must be set to `true` (the default) for agents to access secrets from Secret Manager.
+
+#### Uploading an SSH key
+
+To generate a private SSH key and store it in Secret Manager:
+
+```bash
+# Generate a deploy key for your project
+ssh-keygen -t rsa -b 4096 -f id_rsa_buildkite
+pbcopy < id_rsa_buildkite.pub # Add this to your repository's deploy keys
+
+# Store as a global key (available to all pipelines)
+gcloud secrets create private_ssh_key \
+  --data-file=id_rsa_buildkite \
+  --project=your-project-id
+
+# Clean up the local key
+rm id_rsa_buildkite id_rsa_buildkite.pub
+```
+
+To store a pipeline-specific key, include the pipeline slug in the secret name:
+
+```bash
+gcloud secrets create "my-pipeline-slug/private_ssh_key" \
+  --data-file=id_rsa_buildkite \
+  --project=your-project-id
+```
+
+#### Updating an existing SSH key
+
+To update a key already stored in Secret Manager, add a new version:
+
+```bash
+gcloud secrets versions add private_ssh_key \
+  --data-file=id_rsa_buildkite \
+  --project=your-project-id
 ```
 
 ### Adding resource labels
