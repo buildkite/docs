@@ -184,9 +184,13 @@ Optional `build` attributes:
 
 <%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
+### if_changed
+
+<%= render_markdown partial: 'pipelines/configure/step_types/if_changed_attribute' %>
+
 ## Environment variables
 
-You can use [environment variable substitution](/docs/agent/v3/cli/reference/pipeline#environment-variable-substitution) to set attribute values:
+You can use [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution) to set attribute values:
 
 ```yml
 - trigger: "app-deploy"

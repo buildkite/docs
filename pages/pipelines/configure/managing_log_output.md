@@ -79,7 +79,7 @@ echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 
 By default, each line of log output begins with an ANSI timestamp.
 
-If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), you can prevent them for generating ANSI timestamps at the start of each line of log output, by starting these agents with the [`--no-ansi-timestamps` option](/docs/agent/v3/cli/reference/start#no-ansi-timestamps).
+If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), you can prevent them for generating ANSI timestamps at the start of each line of log output, by starting these agents with the [`--no-ansi-timestamps` option](/docs/agent/cli/reference/start#no-ansi-timestamps).
 
 ## Log output limits
 
@@ -164,7 +164,7 @@ Buildkite has zero access to your source code in the pipelines and only receives
 
 Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions mitigate against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
 
-If you choose to [host your build artifacts](/docs/agent/v3/cli/reference/artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
+If you choose to [host your build artifacts](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
 If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
 
@@ -188,7 +188,7 @@ The default environment variable name patterns are:
 
 With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
 
-You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/self-hosted/configure#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
+You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/self-hosted/configure#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
 
 ```sh
 redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_SOME_VALUE, FOO"

@@ -2,11 +2,11 @@
 template: "landing_page"
 ---
 
-# The Buildkite Platform
+# The Buildkite platform
 
 Buildkite is an adaptable, composable, and scalable platform with everything platform teams need to build software delivery systems for their businesses—and rapidly deliver value to users.
 
-The Buildkite Platform documentation contains docs for _platform_-level features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries). This area of the docs covers the following topics:
+The Buildkite platform documentation contains docs for _common_ features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries). This area of the docs covers the following topics:
 
 - [Team management](/docs/platform/team-management), with guidelines on how to manage your users and teams across the Buildkite platform for Pipelines, Test Engine, and Package Registries.
 
@@ -22,4 +22,6 @@ The Buildkite Platform documentation contains docs for _platform_-level features
 
 - [Integrations](/docs/platform/integrations/slack-workspace), contains integrations with the Buildkite platform that function across multiple Buildkite products.
 
-- [Service quotas](/docs/platform/service-quotas), lists Buildkite's default service quota values and how you can alter these if required.
+- [Accessibility](/docs/platform/accessibility), which documents the accessibility features available across the Buildkite web application, including theme options, keyboard navigation, screen reader support, and reduced motion.
+
+- [Limits](/docs/platform/limits), lists Buildkite's default service quota values and how you can alter these if required.

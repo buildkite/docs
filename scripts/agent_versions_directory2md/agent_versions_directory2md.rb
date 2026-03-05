@@ -8,7 +8,7 @@
 # chronological order, grouped by major and minor version.
 #
 # Usage:
-#   ruby scripts/agent_versions_directory2md/agent_versions_directory2md.rb > pages/agent/v3/self_hosted/versions_directory.md
+#   ruby scripts/agent_versions_directory2md/agent_versions_directory2md.rb > pages/agent/self_hosted/versions_directory.md
 #
 # Requirements:
 #   - Ruby 3.0+
@@ -106,14 +106,12 @@ def known_issues?(tag_name)
 end
 
 def generate_release_table(output, releases)
-  has_any_known_issues = releases.any? { |r| known_issues?(r['tag_name']) }
-
-  output << '<table>'
+  output << '<table style="width: 100%">'
   output << '  <thead>'
   output << '    <tr>'
-  output << '      <th>Release changelog</th>'
-  output << '      <th style="text-align: center">Date of release</th>'
-  output << '      <th style="text-align: center">Known issues</th>' if has_any_known_issues
+  output << '      <th style="width: 25%">Release changelog</th>'
+  output << '      <th style="text-align: center; width: 20%">Date of release</th>'
+  output << '      <th style="text-align: center; width: 55%">Known issues</th>'
   output << '    </tr>'
   output << '  </thead>'
   output << '  <tbody>'
@@ -125,12 +123,8 @@ def generate_release_table(output, releases)
     comma = i < releases.length - 1 ? ',' : ''
     output << '      {'
     output << "        version: \"#{tag}\","
-    if has_any_known_issues
-      output << "        date: \"#{date}\","
-      output << "        known_issues: #{known_issues?(tag)}"
-    else
-      output << "        date: \"#{date}\""
-    end
+    output << "        date: \"#{date}\","
+    output << "        known_issues: #{known_issues?(tag)}"
     output << "      }#{comma}"
   end
 
@@ -138,9 +132,7 @@ def generate_release_table(output, releases)
   output << '      <tr>'
   output << '        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>'
   output << '        <td style="text-align: center"><%= release[:date] %></td>'
-  if has_any_known_issues
-    output << '        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "" %></td>'
-  end
+  output << '        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>'
   output << '      </tr>'
   output << '    <% end %>'
   output << '  </tbody>'
@@ -162,7 +154,7 @@ def generate_markdown(version_groups)
   output << ''
   output << 'To update this file:'
   output << ''
-  output << "1. Run './scripts/update-agent-versions-directory.sh' from the docs repo root"
+  output << "Run './scripts/update-agent-versions-directory.sh' from the docs repo root"
   output << '-->'
   output << ''
   output << '# Agent versions directory'
@@ -183,9 +175,9 @@ def generate_markdown(version_groups)
 
   output << '## Agent versions 2.x'
   output << ''
-  output << "Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and changelogs are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page."
+  output << "Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and changelogs are still available from the [Buildkite agent releases](https://github.com/buildkite/agent/releases) page."
   output << ''
-  output << "To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/v3/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2)."
+  output << "To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2)."
 
   output.join("\n")
 end

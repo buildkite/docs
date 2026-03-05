@@ -18,7 +18,7 @@ Here are some examples of translations that the Buildkite pipeline converter wil
 
 - **Workflows** are flattened into Buildkite Pipelines [step dependencies](/docs/pipelines/configure/dependencies). Job dependencies specified with `requires` become `depends_on` attributes. When multiple workflows exist, they may be organized using [group steps](/docs/pipelines/configure/step-types/group-step).
 
-- **Checkout** steps are removed since Buildkite Agents automatically check out the repository.
+- **Checkout** steps are removed since Buildkite agents automatically check out the repository.
 
 - **Executors** are translated to the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) configuration. The `docker[].image` becomes the plugin's `image` parameter, `resource_class` is documented for agent queue configuration, and `working_directory` becomes the plugin's `workdir` parameter.
 

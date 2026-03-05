@@ -45,7 +45,7 @@ type Flag struct {
 var (
 	// Matches: "  -s, --long=TYPE  Description" or "  --long=TYPE  Description" or "  -s, --long  Description"
 	// Also handles default values like --output="json" and repeatable flags like --env=ENV,...
-	flagRE = regexp.MustCompile(`^\s{2,}(-([a-zA-Z]),\s+)?--([a-zA-Z0-9-]+)(=("[^"]+"|[A-Z0-9-=;]+(?:,\.\.\.)?|\.\.\.))?(\s{2,}(.+))?$`)
+	flagRE = regexp.MustCompile(`^\s{2,}(-([a-zA-Z]),\s+)?--([a-zA-Z0-9-]+)(=("[^"]*"|[A-Z0-9-=;]+(?:,\.\.\.)?|\.\.\.))?(\s{2,}(.+))?$`)
 	// Matches subcommand lines: "  command subcommand [args] [flags]"
 	subcommandRE = regexp.MustCompile(`^\s{2}(\S+(?:\s+\S+)?)\s+(\[.+\])?\s*$`)
 	// Matches argument lines: "  [<arg>]  Description" or "  <arg>  Description"

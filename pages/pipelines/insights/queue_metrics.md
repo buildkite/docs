@@ -3,7 +3,7 @@
 Queue metrics show the most important statistics to help you optimize your agent setup and monitor a queue's performance. These statistics are updated on the page every 10 seconds.
 
 > 📘
-> _Unclustered agents_ are not reported in advanced queue metrics. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens).
+> _Unclustered agents_ are not reported in advanced queue metrics. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens).
 
 ## Metrics panels
 

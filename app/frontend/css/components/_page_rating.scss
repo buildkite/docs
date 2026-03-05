@@ -1,0 +1,81 @@
+.PageRating {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.PageRating__button {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.75rem;
+  line-height: 1;
+  padding: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  &--selected {
+    border-color: map-get($color-aliases, "text-lightest");
+    transform: scale(1.2);
+  }
+}
+
+.PageRating__form {
+  margin: 15px auto;
+  max-width: 480px;
+  text-align: left;
+}
+
+.PageRating__label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  margin-top: 12px;
+}
+
+.PageRating__textarea,
+.PageRating__input {
+  border: 1px solid map-get($color-aliases, "text-lightest");
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.875rem;
+  padding: 8px;
+  width: 100%;
+
+  &::placeholder {
+    color: map-get($color-aliases, "text-lightest");
+    opacity: 0.7;
+  }
+}
+
+.PageRating__textarea {
+  resize: vertical;
+}
+
+.PageRating__submit {
+  display: block;
+  margin: 12px auto 0;
+}
+
+.PageRating__thanks {
+  color: map-get($color-aliases, "text-lightest");
+  font-size: 0.875rem;
+  margin-top: 0;
+  text-align: center;
+}

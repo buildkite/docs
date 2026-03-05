@@ -1,0 +1,268 @@
+# Monitoring and observability
+
+By default, the Buildkite agent is only observable either through Buildkite or
+through log output on the host:
+
+- **Job logs:** Relate to the jobs the agent runs. These are uploaded to
+  Buildkite and shown for each step in a build.
+- **Agent logs:** Relate to how the agent itself is running. These are not
+  uploaded or saved (except where the output from the agent is read or
+  redirected by another process, such as [systemd] or [launchd]).
+
+## Health checking, metrics, and status page
+
+The agent can optionally run an HTTP service that describes the agent's state.
+The service is suitable for both automated health checks and human inspection.
+
+You can enable the service with the `--health-check-addr` flag or
+`$BUILDKITE_AGENT_HEALTH_CHECK_ADDR` environment variable. For example, to
+enable the service listening on local port 3901, you can use:
+
+```shell
+buildkite-agent start --health-check-addr=:3901
+```
+
+The flag expects [a "host:port" address](https://pkg.go.dev/net#Dial).
+Passing `:0` allows the agent to choose a port, which will be logged at startup.
+
+For security reasons, we recommend that you do _not_ expose the service
+directly to the internet. While there should be no ability to manipulate the
+agent state using this service, it may expose information, or provide a vector
+for a denial-of-service attack. We may also add new features to the service in
+the future.
+
+### Health checking service routes
+
+The URL paths available from the health checking service are as follows:
+
+- **`/`**: Returns HTTP status 200 with the text `OK: Buildkite agent is
+  running`.
+- **`/agent/(worker number)`**: Reports the time since the agent worker
+  last sent a successful heartbeat. Workers are numbered starting from 1,
+  and the number of workers is set with the `--spawn` flag. If the previous
+  heartbeat for this worker failed, it returns HTTP status 500 and a description
+  of the failure. Otherwise, it returns HTTP status 200.
+- **`/metrics`**: (Added in Buildkite agent version 3.113.0)
+  [Prometheus plain-text metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)
+  describing agent behaviour over time.
+- **`/status`**: A human-friendly page detailing various systems inside the
+  agent. To aid debugging, this page does _not_ automatically refresh—it shows
+  the status of each internal component of the agent at a particular moment in
+  time.
+
+The following shows the `/status` page for an agent:
+
+<%= image 'status-page.png', size: '600x437', alt: 'Agent internal status page' %>
+
+### Prometheus metrics reference
+
+Prometheus metrics were added to the health-checking service in Buildkite agent version 3.113.0.
+
+Metric | Type | Description
+--- | --- | ---
+`buildkite_agent_jobs_ended_total` | Counter | Count of jobs that ended in any way for any reason
+`buildkite_agent_jobs_started_total` | Counter | Count of jobs started
+`buildkite_agent_logs_bytes_uploaded_total` | Counter | Count of log bytes uploaded
+`buildkite_agent_logs_bytes_uploads_errored_total` | Counter | Count of log bytes that were not uploaded due to an error
+`buildkite_agent_logs_chunk_uploads_errored_total` | Counter | Count of log chunks that were not uploaded due to an error
+`buildkite_agent_logs_chunks_uploaded_total` | Counter | Count of log chunks uploaded
+`buildkite_agent_logs_upload_duration_seconds_total` | Histogram | Time taken to upload log chunks
+`buildkite_agent_pings_actions_total` | Counter | Count of actions taken following a ping, by `action`
+`buildkite_agent_pings_duration_seconds_total` | Histogram | Time taken to ping (the API call, not including the subsequent action)
+`buildkite_agent_pings_errors_total` | Counter | Count of pings that failed due to an error
+`buildkite_agent_pings_sent_total` | Counter | Count of pings sent
+`buildkite_agent_pings_wait_duration_seconds_total` | Histogram | Time spent waiting prior to each ping (ping interval plus jitter)
+`buildkite_agent_workers_ended_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have stopped running
+`buildkite_agent_workers_started_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have started running
+
+To send the Prometheus metrics to Datadog, configure the [Datadog Agent's OpenMetrics integration](https://docs.datadoghq.com/integrations/openmetrics/) to scrape the `/metrics` endpoint. For example, with the health check service listening on port 3901, you will need to add the following to your Datadog Agent's `openmetrics.d/conf.yaml`:
+
+```yaml
+instances:
+  - openmetrics_endpoint: "http://localhost:3901/metrics"
+    namespace: "buildkite_agent"
+    metrics:
+      - "buildkite_agent_*"
+```
+
+A count of currently-running agent workers can be found by subtracting `ended_total` from `started_total`:
+
+```promql
+sum(buildkite_agent_workers_started_total - buildkite_agent_workers_ended_total)
+```
+
+Similarly, a count of currently-running jobs using the same method:
+
+```promql
+sum(buildkite_agent_jobs_started_total - buildkite_agent_jobs_ended_total)
+```
+
+As all counter and histogram metrics are cumulative, information such as job or log throughput can be found using functions such as `rate`:
+
+```promql
+# Throughput of jobs started over 5m interval
+sum(rate(buildkite_agent_jobs_started_total[5m]))
+
+# Throughput of log bytes uploaded over 5m interval
+sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
+```
+
+## Datadog metrics
+
+The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](#prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](#prometheus-metrics-reference).
+
+To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file. The agent sends metrics to a DogStatsD server, which is bundled with the [Datadog Agent](https://docs.datadoghq.com/extend/dogstatsd/).
+
+```shell
+buildkite-agent start --metrics-datadog
+```
+
+Additional configuration options:
+
+Option                              | Description
+----------------------------------- | -----------
+`--metrics-datadog-host`           | The DogStatsD instance to send metrics to using UDP.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_HOST`<br>_Default:_ `127.0.0.1:8125`
+`--metrics-datadog-distributions`  | Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is recommended when running multiple agents to prevent metrics from multiple agents from being rolled up and appearing to have the same value.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS`<br>_Default:_ `false`
+{: class="responsive-table"}
+
+Once enabled, the agent will generate the following metrics (duration measured in milliseconds):
+
+- `buildkite.jobs.success`
+- `buildkite.jobs.duration.success.avg`
+- `buildkite.jobs.duration.success.max`
+- `buildkite.jobs.duration.success.count`
+- `buildkite.jobs.duration.success.median`
+- `buildkite.jobs.duration.success.95percentile`
+
+For organization-level queue and agent metrics in Datadog (such as scheduled jobs count, idle agents, and busy agent percentage), use the [buildkite-agent-metrics CLI](#sending-metrics-to-datadog) with the StatsD backend.
+
+## Buildkite agent metrics CLI
+
+The [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool is a standalone command-line binary that collects agent and job metrics from the [`metrics` endpoint of the Buildkite agent API](/docs/apis/agent-api/metrics) and publishes these metrics to a monitoring and observability backend of your choice. This tool is particularly useful for enabling autoscaling based on queue depth and agent availability.
+
+The tool supports the following backends:
+
+- [AWS CloudWatch](https://aws.amazon.com/cloudwatch/) (default)
+- [StatsD](https://github.com/etsy/statsd) (including Datadog-compatible tagging)
+- [Prometheus](https://prometheus.io)
+- [Google Cloud Monitoring](https://cloud.google.com/monitoring)
+- [New Relic](https://newrelic.com/products/insights)
+- [OpenTelemetry](https://opentelemetry.io)
+
+### Installing
+
+Download the latest binary from [GitHub Releases](https://github.com/buildkite/buildkite-agent-metrics/releases), or run it as a Docker container:
+
+```shell
+docker run --rm public.ecr.aws/buildkite/agent-metrics:latest \
+  -token "$BUILDKITE_AGENT_TOKEN" \
+  -interval 30s \
+  -queue my-queue
+```
+
+You can also install from source using Go:
+
+```shell
+go install github.com/buildkite/buildkite-agent-metrics/v5@latest
+```
+
+### Running
+
+The tool requires an [agent token](/docs/agent/self-hosted/tokens), which could be the same one used when [assigning the self-hosted agent to a queue](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue), or another agent token configured within the same [cluster](/docs/pipelines/security/clusters). The simplest deployment runs it as a long-running daemon that collects metrics across all queues in an organization:
+
+```shell
+buildkite-agent-metrics -token "$BUILDKITE_AGENT_TOKEN" -interval 30s
+```
+
+To restrict collection to specific queues, use the `-queue` flag (repeatable):
+
+```shell
+buildkite-agent-metrics -token "$BUILDKITE_AGENT_TOKEN" -interval 30s -queue my-queue
+```
+
+To select a backend, use the `-backend` flag:
+
+```shell
+buildkite-agent-metrics -token "$BUILDKITE_AGENT_TOKEN" -interval 30s -backend statsd
+```
+
+### Collected metrics
+
+The tool collects the following metrics per organization and per queue:
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:35%">Metric</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        metric: "`ScheduledJobsCount`",
+        description: "Jobs waiting in the queue for an available agent. This should be close to zero if you have sufficient agent capacity."
+      },
+      {
+        metric: "`RunningJobsCount`",
+        description: "Jobs currently being executed by agents."
+      },
+      {
+        metric: "`WaitingJobsCount`",
+        description: "Jobs that can't be scheduled yet due to dependencies or `wait` steps. Useful for autoscaling, as these represent work that starts soon."
+      },
+      {
+        metric: "`UnfinishedJobsCount`",
+        description: "All jobs that have been scheduled but haven't finished. Includes both running and scheduled jobs."
+      },
+      {
+        metric: "`IdleAgentsCount`",
+        description: "Agents connected but not running a job."
+      },
+      {
+        metric: "`BusyAgentsCount`",
+        description: "Agents currently running a job."
+      },
+      {
+        metric: "`TotalAgentsCount`",
+        description: "Total number of connected agents."
+      },
+      {
+        metric: "`BusyAgentPercentage`",
+        description: "Percentage of agents currently busy."
+      }
+    ].each do |row| %>
+      <tr>
+        <td><%= render_markdown(text: row[:metric]) %></td>
+        <td><%= render_markdown(text: row[:description]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Sending metrics to Datadog
+
+To send organization-level queue and agent metrics to Datadog, use the StatsD backend with the `-statsd-tags` flag. The metrics will be sent to a [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/) server (bundled with the Datadog Agent), which forwards them to Datadog with queue-level tagging:
+
+```shell
+buildkite-agent-metrics \
+  -token "$BUILDKITE_AGENT_TOKEN" \
+  -interval 30s \
+  -backend statsd \
+  -statsd-host "127.0.0.1:8125" \
+  -statsd-tags
+```
+
+The `-statsd-tags` flag enables Datadog-compatible tagging, so metrics are tagged by `queue` rather than including the queue name in the metric name. This allows you to filter and group metrics by queue in Datadog dashboards.
+
+> 📘 Ensure DogStatsD is running
+> The Datadog Agent includes a DogStatsD server that listens on UDP port 8125 by default. Before starting the metrics collector, verify that the Datadog Agent is running and DogStatsD is enabled. For setup details, see the [DogStatsD documentation](https://docs.datadoghq.com/extend/dogstatsd/).
+
+For more details on configuration options, AWS Lambda deployment, and backend-specific settings, see the [buildkite-agent-metrics README](https://github.com/buildkite/buildkite-agent-metrics?tab=readme-ov-file#buildkite-agent-metrics).
+
+## Tracing
+
+For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing).
+
+[systemd]: https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html
+[launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html

@@ -1,6 +1,6 @@
 # Hosted agents
 
-A collection of common tasks with [Hosted agents](/docs/agent/v3/buildkite-hosted) using the GraphQL API.
+A collection of common tasks with [Hosted agents](/docs/agent/buildkite-hosted) using the GraphQL API.
 
 <%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
@@ -88,6 +88,45 @@ Learn more about the instance shapes available for [Linux](#instance-shape-value
 
 > 📘
 > It is only possible to change the _size_ of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).
+
+## Set a custom image URL for a Buildkite hosted queue
+
+> 📘 Private preview feature
+> The custom image URL feature is currently in _private preview_. To enable this feature for your Buildkite organization, contact support@buildkite.com. Learn more about [custom image URLs](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue).
+
+You can configure a Buildkite hosted queue to use a custom image URL. When set, this overrides the agent image selected through the Buildkite interface.
+
+```graphql
+mutation {
+  clusterQueueUpdate(
+    input: {
+      organizationId: "organization-id"
+      id: "cluster-queue-id"
+      hostedAgents: {
+        agentImageRef: "my-custom-image:latest"
+      }
+    }
+  ) {
+    clusterQueue {
+      id
+      hostedAgents {
+        instanceShape {
+          name
+          size
+          vcpu
+          memory
+        }
+        agentImageRef
+      }
+    }
+  }
+}
+```
+
+The `agentImageRef` value is a URL or reference to a custom image. The image must be publicly available or pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
+
+> 📘
+> Only one of `agentImageRef` or `platformSettings.linux.agentImageRef` can be provided in a single mutation. Providing both results in a validation error.
 
 ## Instance shape values for Linux
 

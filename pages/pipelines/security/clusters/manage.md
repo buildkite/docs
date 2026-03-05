@@ -2,7 +2,7 @@
 
 This page provides details on how to manage [clusters](/docs/pipelines/glossary#cluster) within your Buildkite organization.
 
-Learn more about on how to set up queues within a cluster in [Manage queues](/docs/agent/v3/queues/managing).
+Learn more about on how to set up queues within a cluster in [Manage queues](/docs/agent/queues/managing).
 
 ## Setting up clusters
 
@@ -14,7 +14,7 @@ For smaller organizations, working on smaller projects, this default cluster may
 - Expertise and ownership, such as Android developers, macOS developers, Windows developers, Machine Learning expert etc.
 - Multiple projects, for example, different product lines.
 
-Once your clusters are set up, you can set up one or more [queues](/docs/agent/v3/queues/managing) within each cluster.
+Once your clusters are set up, you can set up one or more [queues](/docs/agent/queues/managing) within each cluster.
 
 ## Create a cluster
 
@@ -33,7 +33,7 @@ To create a new cluster using the Buildkite interface:
 1. Enter an optional **Emoji** and **Color** using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select **Create Cluster**.
 
-    The new cluster's page is displayed on its **Queues** page, indicating the cluster's name and its default queue, named **queue**. From this page, you can set up one or more additional [queues](/docs/agent/v3/queues/managing) within this cluster.
+    The new cluster's page is displayed on its **Queues** page, indicating the cluster's name and its default queue, named **queue**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
 
 ### Using the REST API
 
@@ -106,17 +106,17 @@ where:
 
 ## Connect agents to a cluster
 
-Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/v3/self-hosted/tokens).
+Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/self-hosted/tokens).
 
-Once you have [created your required agent token/s](/docs/agent/v3/self-hosted/tokens#create-a-token), [use them](/docs/agent/v3/self-hosted/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#assigning-a-self-hosted-agent-to-a-queue).
+Once you have [created your required agent token/s](/docs/agent/self-hosted/tokens#create-a-token), [use them](/docs/agent/self-hosted/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s **Agent tokens**.
 
 ## Migrate unclustered agents to a cluster
 
-Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/v3/self-hosted/tokens#working-with-unclustered-agent-tokens).
+Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens).
 
-Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/v3/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
+Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
@@ -132,7 +132,7 @@ Learn more about this entire process from the detailed [Migrate from unclustered
 
 As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
-An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/v3/self-hosted/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator, using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as Buildkite's [REST API](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api).
+An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/self-hosted/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator, using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as Buildkite's [REST API](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the token is associated with.
 
@@ -237,8 +237,8 @@ A user who is a [_Buildkite organization administrator_](/docs/pipelines/securit
 A cluster maintainer can:
 
 - Update or delete the cluster.
-- Manage [agent tokens](/docs/agent/v3/self-hosted/tokens) associated with the cluster.
-- Manage [queues](/docs/agent/v3/queues/managing) within the cluster.
+- Manage [agent tokens](/docs/agent/self-hosted/tokens) associated with the cluster.
+- Manage [queues](/docs/agent/queues/managing) within the cluster.
 - Add pipelines to or remove them from the cluster.
 - Stop, pause and resume agents belonging to a queue within the cluster.
 - Manage [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) associated with the cluster.

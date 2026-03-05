@@ -4,7 +4,9 @@ Test Engine is designed to optimize your test suites through the management of y
 
 ## Managed tests
 
-Each and every test that can be uniquely identified by its combination of test suite, scope, and name, is a _managed test_, which in turn is used for billing purposes in Test Engine.
+Buildkite bills Test Engine customers by number of _managed tests_. See the [Buildkite Pricing](https://buildkite.com/pricing/) page for plan-level details.
+
+Each and every test that can be uniquely identified by its combination of test suite, scope, and name, is a _managed test_.
 
 For example, each of the following three tests are unique managed tests:
 
@@ -25,7 +27,12 @@ For billing purposes, Buildkite measures usage by calculating the number of mana
 
 ## Test executions
 
-Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (test execution count).
+> 📘 Personal and legacy plans only
+> This section is only applicable to Buildkite Test Engine customers on the [Personal](https://buildkite.com/pricing/) and paid _legacy_ plans.
+
+If you are on the Personal plan, your first 50,000 test executions are free, after which, you will need to upgrade to the [Pro or Enterprise](https://buildkite.com/pricing/) plan to continue using Test Engine. For customers on the Pro or Enterprise plan, usage is billed per [managed test](#managed-tests).
+
+Customers on legacy paid plans may still be billed per individual test execution, which sum to the _total number of times_ a test was executed (test execution count). However, this approach is no longer used on current and new Buildkite [Pro or Enterprise](https://buildkite.com/pricing/) plans. Instead, see [Managed tests](#managed-tests) for details about the current billing approach for these plans.
 
 You can find the test execution details for a run at the top of the run page, and your organization's [total usage](#usage-page) in Settings.
 

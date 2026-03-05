@@ -13,7 +13,7 @@ GitHub Actions is fully hosted by GitHub.
 Buildkite Pipelines uses a hybrid model:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
-- [Buildkite Agents](/docs/agent/v3) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure as the [Buildkite Agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
+- [Buildkite agents](/docs/agent) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure as the [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
@@ -34,7 +34,7 @@ Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-che
 
 ### Security
 
-Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own Buildkite Agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite Agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
+Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own Buildkite agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
 While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
@@ -59,18 +59,18 @@ Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#bui
 
 ## Provision agent infrastructure
 
-Buildkite Agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure (self-hosted)[/docs/pipelines/architecture#self-hosted-hybrid-architecture], similar to self-hosted runners in GitHub Actions.
+Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure (self-hosted)[/docs/pipelines/architecture#self-hosted-hybrid-architecture], similar to self-hosted runners in GitHub Actions.
 
 For self-hosted agents, consider:
 
-- **Infrastructure type:** On-premises, cloud ([AWS](/docs/agent/v3/self-hosted/aws), [GCP](/docs/agent/v3/self-hosted/gcp)), or container platforms ([Docker](/docs/agent/v3/self-hosted/install/docker), [Kubernetes](/docs/agent/v3/self-hosted/agent-stack-k8s)).
+- **Infrastructure type:** On-premises, cloud ([AWS](/docs/agent/self-hosted/aws), [GCP](/docs/agent/self-hosted/gcp)), or container platforms ([Docker](/docs/agent/self-hosted/install/docker), [Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
 - **Resource usage:** Evaluate CPU, memory, and disk requirements based on your current runner usage.
 - **Platform dependencies:** Ensure agents have required tools and libraries (note dependencies from `actions/setup-*` actions).
 - **Network:** Agents poll Buildkite's [agent API](/docs/apis/agent-api) over HTTPS so no incoming firewall access is needed.
 - **Scaling:** Scale agents independently based on concurrent job requirements.
-- **Build isolation:** Use [agent tags](/docs/agent/v3/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
+- **Build isolation:** Use [agent tags](/docs/agent/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
 
-See the [Getting started](/docs/agent/v3/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide for Buildkite hosted agents or [Installation](/docs/agent/v3/self-hosted/install/) guides for your infrastructure type for self-hosted agents.
+See the [Getting started](/docs/agent/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide for Buildkite hosted agents or [Installation](/docs/agent/self-hosted/install/) guides for your infrastructure type for self-hosted agents.
 
 ## Pipeline translation fundamentals
 
@@ -266,7 +266,7 @@ Replace the placeholder commands with real commands. Since Buildkite Pipelines a
 ```
 
 > 📘
-> Buildkite Agents should be pre-configured with required tools. Alternatively, use the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) with an appropriate image like `node:20`.
+> Buildkite agents should be pre-configured with required tools. Alternatively, use the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) with an appropriate image like `node:20`.
 
 ### Step 5: Implement a build matrix
 
@@ -626,7 +626,7 @@ GitHub Actions uses `$GITHUB_STEP_SUMMARY` to add content to the workflow summar
 - run: echo "## Build Complete" >> $GITHUB_STEP_SUMMARY
 ```
 
-Buildkite Pipelines uses [annotations](/docs/agent/v3/cli/reference/annotate):
+Buildkite Pipelines uses [annotations](/docs/agent/cli/reference/annotate):
 
 ```yaml
 # Buildkite Pipelines
@@ -660,12 +660,12 @@ Be aware of common pipeline-translation mistakes, which might include:
 Explore these resources to enhance your migrated pipelines:
 
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
-- [Buildkite Agent overview](/docs/agent/v3)
+- [Buildkite agent overview](/docs/agent)
 - [Plugins directory](https://buildkite.com/resources/plugins/)
 - [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) and the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
-- [Buildkite Agent hooks](/docs/agent/v3/hooks)
+- [Buildkite agent hooks](/docs/agent/hooks)
 - [Using conditions](/docs/pipelines/configure/conditionals)
-- [Annotations](/docs/agent/v3/cli/reference/annotate)
+- [Annotations](/docs/agent/cli/reference/annotate)
 - [Security](/docs/pipelines/security), [Secrets](/docs/pipelines/security/secrets), and [permissions](/docs/pipelines/security/permissions)
 - [Integrations](/docs/pipelines/integrations)
 - [Test Engine](/docs/test-engine) for test insights

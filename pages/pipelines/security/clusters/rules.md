@@ -179,7 +179,7 @@ In the `pipeline.read_artifacts.pipeline` rule the available variables for condi
   <tr>
     <td><code>source.request.query</code></td>
     <td><code>String</code></td>
-    <td>The query used to search for artifacts in the target build. See <a href="/docs/agent/v3/cli/reference/artifact#searching-artifacts">Searching artifacts</a> for more information on the query syntax.</td>
+    <td>The query used to search for artifacts in the target build. See <a href="/docs/agent/cli/reference/artifact#searching-artifacts">Searching artifacts</a> for more information on the query syntax.</td>
   </tr>
 </tbody>
 </table>

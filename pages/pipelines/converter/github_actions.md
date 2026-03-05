@@ -17,11 +17,11 @@ Here are some examples of translations that the pipeline converter will perform:
 
 - **Jobs** become Buildkite Pipelines [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. Multiple `run` steps within a job are combined into a single `command` array. Job dependencies (`needs`) become `depends_on` attributes.
 
-- **Checkout** steps (`actions/checkout`) are removed since Buildkite Agents automatically check out the repository. Non-default checkout options are translated to equivalent Git commands.
+- **Checkout** steps (`actions/checkout`) are removed since Buildkite agents automatically check out the repository. Non-default checkout options are translated to equivalent Git commands.
 
 - **Triggers** (`on:` block) are removed and documented in a header comment, since Buildkite Pipelines configures triggers through the web interface rather than YAML.
 
-- **Runners** (`runs-on` values) are listed in a header comment with guidance on configuring your `agents` blocks to target your Buildkite Agent [queues](/docs/pipelines/clusters/manage-queues).
+- **Runners** (`runs-on` values) are listed in a header comment with guidance on configuring your `agents` blocks to target your Buildkite agent [queues](/docs/pipelines/clusters/manage-queues).
 
 - **Matrix strategies** are translated to the native [build matrix](/docs/pipelines/configure/workflows/build-matrix) feature of Buildkite Pipelines, including `include`/`exclude` configurations and per-combination `soft_fail` settings.
 

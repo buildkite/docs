@@ -8,7 +8,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - aws-ssm#v1.0.0:
+      - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
             API_ACCESS_TOKEN: /pipelines/buildkite/docs-private/api-access-token

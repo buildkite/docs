@@ -21,7 +21,7 @@ You can add form fields to input steps by adding a `fields` attribute. There are
 
 The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/configure/build-meta-data) command.
 
-In this example, the pipeline defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli/reference/meta-data) command.
+In this example, the pipeline defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/cli/reference/meta-data) command.
 
 ```yaml
   - input: "Who is running this script?"
@@ -139,7 +139,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -215,7 +215,7 @@ Required attributes:
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
       The key may only contain alphanumeric characters, slashes, dashes, or underscores.<br/>
       <em>Example:</em> <code>"release-stream"</code>
     </td>
@@ -319,7 +319,7 @@ Each select option has the following _required_ attributes:
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/cli/reference/meta-data">buildkite-agent meta-data command</a>).<br/>
       <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>

@@ -118,6 +118,10 @@ Optional attributes:
 
 <%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
+### if_changed
+
+<%= render_markdown partial: 'pipelines/configure/step_types/if_changed_attribute' %>
+
 ## Parallel groups
 
 If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:

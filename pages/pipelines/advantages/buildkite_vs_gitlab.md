@@ -2,11 +2,11 @@
 
 GitLab is a DevSecOps platform covering the entire software development lifecycle. Buildkite Pipelines takes a different approach: instead of doing a little bit of everything, it focuses on doing CI/CD exceptionally well.
 
-## Lightweight Buildkite Agents vs. heavyweight runners
+## Lightweight Buildkite agents vs. heavyweight runners
 
 GitLab runners are full compute units requiring specific executors (shell, Docker, Kubernetes) and complex setup with firewall rules and connectivity requirements. Most GitLab customers use hosted runners because self-hosting is complicated. Also, many GitLab users have to resort to using self-hosted GitLab runners to work around the 400-minute limit on the free plan for small organizations.
 
-Buildkite Agents are lightweight software that can run anywhere with a simple outbound HTTPS connection. Multiple agents can run per CPU, and setup in Kubernetes is straightforward. Your code and builds stay in your environment by default.
+Buildkite agents are lightweight software that can run anywhere with a simple outbound HTTPS connection. Multiple agents can run per CPU, and setup in Kubernetes is straightforward. Your code and builds stay in your environment by default.
 
 ## Flexible pipelines vs. rigid stages
 

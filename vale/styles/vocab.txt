@@ -127,6 +127,7 @@ deprovisioning
 deregistration
 deprovision
 dialog's
+dialogs
 discoverability
 distro
 distutils
@@ -200,6 +201,7 @@ httpd
 httplog
 https
 IdP's
+if_changed
 initContainer
 inlining
 IPs
@@ -406,11 +408,13 @@ submenu
 subnet
 subnets
 subnet's
+subpatterns
 substrings
 sudo
 svg
 swiftformat
 swiftlint
+syntaxes
 systemd
 Tailscale
 teardown
@@ -513,9 +517,23 @@ TOTPCreate
 TOTPCreate
 TOTPDelete
 
-Enums
+Queries
 
-Input_objects
+agentToken
+
+auditEvent
+
+graphQLSnippet
+
+notificationService
+
+organizationInvitation
+organizationMember
+
+pipelineSchedule
+pipelineTemplate
+
+Mutations
 
 agentPause
 agentResume
@@ -531,6 +549,8 @@ clusterDelete
 clusterUpdate
 
 emailCreate
+
+jobAnnotate
 
 noticeDismiss
 
@@ -553,10 +573,7 @@ totpActivate
 totpCreate
 totpDelete
 
-__Directive
-__Field
-__Schema
-__Type
+Objects
 
 APIApplication
 
@@ -564,19 +581,14 @@ SCMService
 
 SSOAuthorization
 
-agentToken
+Enums
 
-auditEvent
+Input_objects
 
-graphQLSnippet
-
-notificationService
-
-organizationInvitation
-organizationMember
-
-pipelineSchedule
-pipelineTemplate
+__Directive
+__Field
+__Schema
+__Type
 
 SSOProvider
 

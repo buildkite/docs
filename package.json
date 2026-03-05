@@ -4,7 +4,7 @@
   "devDependencies": {
     "husky": "^8.0.0",
     "netlify-cli": "^23.15.1",
-    "prettier": "2.8.4",
+    "prettier": "2.8.8",
     "sass": "^1.66.1",
     "vite": "^7.3.1",
     "vite-plugin-ruby": "^3.2.0"
@@ -13,7 +13,7 @@
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",
     "validate-environment-variables-yaml": "npx --package ajv-cli ajv validate -s \"data/content/environment_variables.schema.yaml\" -d \"data/content/environment_variables.yaml\"",
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
-    "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/v3/cli/help/*\"",
+    "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/cli/help/*\"",
     "prepare": "husky install",
     "prettier-check": "prettier -c \"app/frontend/**/*.{js,scss}\"",
     "prettier-fix": "prettier -w \"app/frontend/**/*.{js,scss}\""

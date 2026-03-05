@@ -4,7 +4,7 @@ keywords: oidc, authentication, IAM, roles, AWS
 
 # OIDC with AWS
 
-The [Buildkite Agent's `oidc` command](/docs/agent/v3/cli/reference/oidc) allows you to request an [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token containing _claims_ about the current pipeline and its job. These tokens can be consumed by AWS and exchanged for an Identity and Access Management (IAM) role with AWS-scoped permissions.
+The [Buildkite agent's `oidc` command](/docs/agent/cli/reference/oidc) allows you to request an [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token containing _claims_ about the current pipeline and its job. These tokens can be consumed by AWS and exchanged for an Identity and Access Management (IAM) role with AWS-scoped permissions.
 
 This process uses the following Buildkite plugins to implement OIDC with AWS and your Buildkite pipelines:
 
@@ -115,12 +115,12 @@ As part of this process:
                 ```
 1. If you have dedicated/static public IP addresses and wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
 
-    Only OIDC token exchange requests (for IAM roles) from Buildkite Agents with these IP addresses will be permitted.
+    Only OIDC token exchange requests (for IAM roles) from Buildkite agents with these IP addresses will be permitted.
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
     * The Buildkite organization is `example-org`, with an ID of `ab3883b1-9596-4312-a09c-4527ae997ba7`.
     * The Buildkite pipeline is `example-pipeline`.
-    * On Buildkite Agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`.
+    * On Buildkite agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`.
 
     ```json
     {

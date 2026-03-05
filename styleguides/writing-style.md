@@ -138,7 +138,7 @@ This list summarizes word usage (or words and punctuation to avoid) in line with
 | Word | Usage |
 |---------------------------|----------------------------------------------------------------------------|
 | API, SSO, SAML            | Always capitalized |
-| Buildkite Agent/agent | When referring to the running process/piece of software as a whole |
+| Buildkite agent | When referring to the running process/piece of software as a whole |
 | `buildkite-agent`         | When referring to the CLI tool, visually should be presented in a code block |
 | Model Context Protocol    | Spell out as a proper noun, and in abbreviated form, MCP. This term is spelled as a proper noun in the official [MCP documentation](https://modelcontextprotocol.io/), as well as in the documentation sites of several other tools and products that implement MCP. |
 | Premises                  | When using this word to refer to a specific location in the singular, use "premises" (for example, "on-premises") and not "premise"/"on-premise". A "premise" is a different English word synonymous with the word "condition". There are other unusual English nouns, where the singular form is the same as its plural form, such as "series". |

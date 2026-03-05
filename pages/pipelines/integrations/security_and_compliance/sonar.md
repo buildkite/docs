@@ -17,7 +17,7 @@ Before configuring SonarScanner in your Buildkite pipeline, ensure you have:
 1. **Java Runtime Environment (JRE) 11 or higher**
    - Required by SonarScanner CLI to run
    - Needs to be installed for the [pre-installed binary implementation approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-pre-installed-binary-approach)
-   - Comes pre-installed in most Buildkite Agent environments
+   - Comes pre-installed in most Buildkite agent environments
    - Not required for [Docker image-based implementation approach](/docs/pipelines/integrations/security-and-compliance/sonar#implementation-approaches-docker-image-approach) (Java is included in the container)
 1. **Secrets management solutions** - this tutorial demonstrates [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) with the [AWS Secrets Manager Buildkite Plugin](https://buildkite.com/resources/plugins/seek-oss/aws-sm-buildkite-plugin/).
 
@@ -79,7 +79,7 @@ Choose between two deployment approaches based on your infrastructure preference
 
 ### Pre-installed binary approach
 
-This approach uses the SonarScanner CLI binary installed directly on your Buildkite Agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/v3/self-hosted/aws/elastic-ci-stack).
+This approach uses the SonarScanner CLI binary installed directly on your Buildkite agents. Below is an example for [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack).
 
 #### Update launch template userdata
 

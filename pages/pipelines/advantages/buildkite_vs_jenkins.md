@@ -8,17 +8,17 @@ Jenkins has served the CI/CD community for over 20 years, but the architecture t
 
 By default, Jenkins is primarily self-hosted. You need to deploy, scale, secure, and upgrade your controllers yourself. When a controller is slow or down, developers are blocked.
 
-Buildkite Pipelines separates orchestration from execution: a managed SaaS control plane with agents running on your infrastructure. In Buildkite Pipelines, can choose between self-hosted and [hosted agents](/docs/agent/v3/buildkite-hosted).
+Buildkite Pipelines separates orchestration from execution: a managed SaaS control plane with agents running on your infrastructure. In Buildkite Pipelines, can choose between self-hosted and [hosted agents](/docs/agent/buildkite-hosted).
 
-## Buildkite Agents
+## Buildkite agents
 
 Jenkins upgrades are notoriously difficult, often delayed for years due to plugin compatibility risks. With Buildkite Pipelines, the control plane updates continuously. Agent updates are also straightforward and incremental.
 
-In contrast to Jenkins, Buildkite Agents are ephemeral by design: spin up, run a job, tear down. This ensures clean, reproducible builds.
+In contrast to Jenkins, Buildkite agents are ephemeral by design: spin up, run a job, tear down. This ensures clean, reproducible builds.
 
 ## Scaling without a central bottleneck
 
-Adding Jenkins capacity means tuning controllers and executors. Buildkite Agents poll for work. Adding capacity means adding agents, with no central bottleneck.
+Adding Jenkins capacity means tuning controllers and executors. Buildkite agents poll for work. Adding capacity means adding agents, with no central bottleneck.
 
 ## Simpler pipelines
 

@@ -293,7 +293,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 ### Hosted agents limits
 
-The following limits apply to the [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted) used in Buildkite Pipelines.
+The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkite-hosted) used in Buildkite Pipelines.
 
 | Limit type | Trial | Personal | Pro | Enterprise |
 | --- | --- | --- | --- | --- |

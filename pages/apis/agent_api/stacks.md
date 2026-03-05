@@ -5,7 +5,7 @@ toc: true
 # Stacks API
 
 The stacks API provides endpoints for implementing a stack reliably.
-These endpoints require [Agent tokens](/docs/agent/v3/self-hosted/tokens) for authentication.
+These endpoints require [Agent tokens](/docs/agent/self-hosted/tokens) for authentication.
 
 A stack is defined as a software process that has these two abilities simultaneously:
 
@@ -90,8 +90,11 @@ When a cluster queue is paused, `cluster_queue.dispatch_paused` will return `tru
 
 A stack often makes scheduling decisions based on returned metadata and turns this job metadata into running agents using [--acquire-jobs](https://buildkite.com/resources/changelog/129-one-shot-agents-with-the-acquire-job-flag/).
 
-It's worth noting that until these jobs transition into another state, the API will keep returning them.
+Until these jobs transition into another state, the API will keep returning them.
 To avoid starting duplicate jobs, we offer some utility APIs below.
+
+> 📘 Queue connection status
+> Polling this endpoint keeps the associated queue's status set to **Connected** in the Buildkite Pipelines interface. If a stack stops polling for more than approximately 30 seconds, the queue's status changes to **Disconnected**. Learn more in [Queue connection status](/docs/agent/queues/managing#queue-connection-status).
 
 Query parameters:
 

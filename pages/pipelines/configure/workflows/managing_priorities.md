@@ -2,7 +2,7 @@
 
 By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-This is not the case for [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted), where jobs are assigned and dispatched at the time they are run.
+This is not the case for [Buildkite hosted agents](/docs/agent/buildkite-hosted), where jobs are assigned and dispatched at the time they are run.
 
 ## Prioritizing specific jobs
 
@@ -17,7 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
+Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
 
 ## Prioritizing whole builds
 

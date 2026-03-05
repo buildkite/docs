@@ -1,6 +1,6 @@
 # Agents API
 
-The Buildkite Agents are small, reliable cross-platform build runners. Their main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
+The Buildkite agents are small, reliable cross-platform build runners. Their main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
 ## Agent data model
 
@@ -15,7 +15,7 @@ The Buildkite Agents are small, reliable cross-platform build runners. Their mai
   <tr><th><code>hostname</code></th><td>Hostname of the machine running the agent</td></tr>
   <tr><th><code>ip_address</code></th><td>IP address of the agent</td></tr>
   <tr><th><code>user_agent</code></th><td>User agent string identifying the agent version and platform</td></tr>
-  <tr><th><code>version</code></th><td>Version of the Buildkite Agent</td></tr>
+  <tr><th><code>version</code></th><td>Version of the Buildkite agent</td></tr>
   <tr><th><code>creator</code></th><td>User or token that registered the agent</td></tr>
   <tr><th><code>created_at</code></th><td>When the agent was registered</td></tr>
   <tr><th><code>job</code></th><td>Current job the agent is running (if any)</td></tr>

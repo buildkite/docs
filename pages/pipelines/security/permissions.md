@@ -78,5 +78,5 @@ From this page, you can configure the following permissions for all users across
 - **Delete pipelines**
 - **Change Pipeline Visibility**—Make private pipelines publicly available.
 - **Change Notification Services**—Allows notification services to be created, edited, and deleted.
-- **Manage Agent Registration Tokens**—Allows [agent tokens](/docs/agent/v3/self-hosted/tokens) to be created, edited, and deleted.
+- **Manage Agent Registration Tokens**—Allows [agent tokens](/docs/agent/self-hosted/tokens) to be created, edited, and deleted.
 - **Stop Agents**—Allows users to disconnect agents from Buildkite.

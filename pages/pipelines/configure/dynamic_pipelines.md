@@ -1,6 +1,6 @@
 # Dynamic pipelines
 
-When your source code projects are built with Buildkite Pipelines, you can write scripts in the same language as your source code, or another suitable language, that generate new Buildkite pipeline steps (in either YAML or JSON format), which you can then upload to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). These additional _dynamically generated_ pipeline steps are run on the same Buildkite Agent, as part of the same pipeline build, and will appear as their own steps in your pipeline builds. This provides you with the flexibility to structure your pipelines however you require.
+When your source code projects are built with Buildkite Pipelines, you can write scripts in the same language as your source code, or another suitable language, that generate new Buildkite pipeline steps (in either YAML or JSON format), which you can then upload to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). These additional _dynamically generated_ pipeline steps are run on the same Buildkite agent, as part of the same pipeline build, and will appear as their own steps in your pipeline builds. This provides you with the flexibility to structure your pipelines however you require.
 
 For example, the following code snippet is an executable shell script that generates a list of parallel test steps based upon the `test/*` directory within your repository:
 
@@ -46,7 +46,7 @@ steps:
 
 ## Dynamic pipeline templates
 
-If you need the ability to use pipelines from a central catalog, or enforce certain configuration rules, you can either use dynamic pipelines and the [`pipeline upload`](/docs/agent/v3/cli/reference/pipeline#uploading-pipelines) command to make this happen or [write custom plugins](/docs/pipelines/integrations/plugins) and share them across your organization.
+If you need the ability to use pipelines from a central catalog, or enforce certain configuration rules, you can either use dynamic pipelines and the [`pipeline upload`](/docs/agent/cli/reference/pipeline#uploading-pipelines) command to make this happen or [write custom plugins](/docs/pipelines/integrations/plugins) and share them across your organization.
 
 To use dynamic pipelines and the pipeline upload command, you'd make a pipeline that looks something like this:
 

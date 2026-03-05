@@ -59,11 +59,8 @@ exceptions:
   - buildevents
   - BuildKit
   - Buildkite
-  - Buildkite Agent
-  - Buildkite Agents
   - Buildkite Package Registries
   - Buildkite Pipelines
-  - Buildkite Platform
   - Buildkite SDK
   - buildkite-agent
   - BuildNotify
@@ -163,6 +160,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - if_changed
   - Infrastructure as Code
   - iOS
   - IronWorker

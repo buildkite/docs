@@ -10,7 +10,7 @@ Some of these mechanisms emphasize greater security over convenience to set up. 
 
 This section of the Buildkite Docs provides guidelines on how to manage and configure secrets to suit your particular requirements.
 
-- [Managing pipeline secrets](/docs/pipelines/security/secrets/managing), provides guidance and best practices for managing your secrets in either a [hybrid Buildkite architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) with self-hosted agents, or with [Buildkite hosted agents](/docs/agent/v3/buildkite-hosted).
+- [Managing pipeline secrets](/docs/pipelines/security/secrets/managing), provides guidance and best practices for managing your secrets in either a [hybrid Buildkite architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) with self-hosted agents, or with [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
 - [Risk considerations](/docs/pipelines/security/secrets/risk-considerations) and practices to avoid exposing your secrets, which could compromise the security of your 3rd party systems.
 

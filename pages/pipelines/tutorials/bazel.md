@@ -9,7 +9,7 @@ Bazel supports large codebases across multiple repositories, and large numbers o
 
 ## Using Bazel on Buildkite
 
-1. [Install Bazel](https://docs.bazel.build/install.html) on one or more Buildkite Agents.
+1. [Install Bazel](https://docs.bazel.build/install.html) on one or more Buildkite agents.
 2. Add an empty [`WORKSPACE` file](https://bazel.build/start/cpp#getting-started) to your project to mark it as a Bazel workspace.
 3. Add a [`BUILD` file](https://bazel.build/start/cpp#understand-build) to your project to tell Bazel how to build it.
 4. Add the Bazel build target(s) to your Buildkite [Pipeline](/docs/pipelines/configure/defining-steps).
@@ -24,7 +24,7 @@ The [Building with Bazel](https://buildkite.com/pipelines/templates/ci/bazel-ci?
 
 The following repository is a simple Bazel example which you can run and customize.
 
-Make sure you're signed into your [Buildkite account](https://buildkite.com) and have access to a Buildkite Agent [running Bazel](https://docs.bazel.build/install.html), then click through to the example:
+Make sure you're signed into your [Buildkite account](https://buildkite.com) and have access to a Buildkite agent [running Bazel](https://docs.bazel.build/install.html), then click through to the example:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/bazel-example">
   <span class="icon">:memo:</span>

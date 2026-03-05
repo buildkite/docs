@@ -84,12 +84,12 @@ bk job list [flags]
 
 | Flag | Description |
 | --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | Filter by pipeline slug |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
-| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--order-by=STRING` | Order results by field (start_time, duration) |
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
@@ -300,3 +300,4 @@ Unblock with data from stdin:
 ```bash
 echo '{"field": "value"}' | bk job unblock 0190046e-e199-453b-a302-a21a4d649d31
 ```
+

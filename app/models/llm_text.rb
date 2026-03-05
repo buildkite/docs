@@ -39,6 +39,20 @@ class LLMText
       end
     end
 
+    # Add topic-specific guide index at the end
+    topics = LLMTopicText.topics
+    if topics.any?
+      content << "## Topic guides"
+      content << ""
+      content << "Focused subsets of this documentation are available for specific topics:"
+      content << ""
+      topics.each do |slug, topic|
+        url = "https://buildkite.com/docs/llms-#{slug}.txt"
+        content << "- [#{topic['name']}](#{url}): #{topic['description']}"
+      end
+      content << ""
+    end
+
     content.join("\n")
   end
 
@@ -52,7 +66,12 @@ class LLMText
       if child["path"]
         # This is a leaf node with a path - add it as a link
         url = "https://buildkite.com/docs/#{child['path']}.md"
-        content << "- [#{child['name']}](#{url})"
+        description = descriptions[child["path"]]
+        if description
+          content << "- [#{child['name']}](#{url}): #{description}"
+        else
+          content << "- [#{child['name']}](#{url})"
+        end
       elsif child["children"]
         # Check if this section has any valid children after filtering
         temp_content = []
@@ -74,6 +93,11 @@ class LLMText
   end
 
   def should_skip_item?(item)
-    item["path"]&.include?("apis/graphql/schemas/") # Skip GraphQL schema docs
+    item["path"]&.include?("apis/graphql/schemas/") ||
+      item["path"]&.include?("pipelines/announcements/")
+  end
+
+  def descriptions
+    @descriptions ||= YAML.load_file(Rails.root.join("data", "llm_descriptions.yml")) || {}
   end
 end

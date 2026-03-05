@@ -6,7 +6,7 @@ keywords: OpenTelemetry, tracing, observability, Datadog, honeycomb, otlp
 
 [OpenTelemetry](https://opentelemetry.io/) is an open standard for instrumenting, processing and collecting observability data.
 
-Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/concepts/signals/traces/) directly from the Buildkite Agent, and from the Buildkite dashboard, to your OTLP endpoint.
+Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/concepts/signals/traces/) directly from the Buildkite agent, and from the Buildkite dashboard, to your OTLP endpoint.
 
 ## OpenTelemetry tracing notification service
 
@@ -162,21 +162,27 @@ For more information, see the honeycomb documentation: https://docs.honeycomb.io
 
 ### Datadog agent-less OpenTelemetry
 
-Endpoint: `https://trace.agent.datadoghq.com/api/v0.2/traces`
+> 🚧 Preview feature
+> The Datadog OTLP traces intake endpoint is currently in preview. Contact your Datadog account representative to request access.
+
+Set the endpoint to the OTLP traces intake base URL for your [Datadog site](https://docs.datadoghq.com/getting_started/site/). Do not include the `/v1/traces` path, as it is automatically appended. For example:
+
+- US1: `https://otlp.datadoghq.com`
+- US3: `https://otlp.us3.datadoghq.com`
+- US5: `https://otlp.us5.datadoghq.com`
+- EU1: `https://otlp.datadoghq.eu`
+- AP1: `https://otlp.ap1.datadoghq.com`
 
 Add the required headers:
 
 | Key              | Value               |
 | ---------------- | ------------------- |
-| `dd-protocol`    | `otlp`              |
-| `dd-api-key`     | `<Datadog API key>` |
-| `dd-otlp-source` | `${YOUR_SITE}`      |
+| `dd-api-key`     | `<Datadog API key>`            |
+| `dd-otlp-source` | `<value provided by Datadog>` |
 
-Replace `${YOUR_SITE}` with the organization name you received from Datadog.
+The `dd-otlp-source` value is a specific identifier provided by Datadog after your organization is on the allowlist for the OTLP traces intake endpoint.
 
-For more information, see the Datadog documentation:
-
-https://docs.datadoghq.com/opentelemetry/setup/agentless/traces/
+For more information, see [Datadog's OTLP traces intake documentation](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/traces/).
 
 ### Datadog APM via OpenTelemetry collector
 
@@ -229,7 +235,7 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 
 ## OpenTelemetry tracing from Buildkite agent
 
-See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing).
+See [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing).
 
 ### Required agent flags / environment variables
 
@@ -245,7 +251,7 @@ To propagate traces from the Buildkite control plane through to the agent runnin
 |                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`     |
 |                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`               |
 
-Note: `http/protobuf` protocol is only supported on Buildkite Agent [v3.101.0](https://github.com/buildkite/agent/releases/tag/v3.101.0) or newer.
+Note: `http/protobuf` protocol is only supported on Buildkite agent [v3.101.0](https://github.com/buildkite/agent/releases/tag/v3.101.0) or newer.
 
 See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for more information on available environment variables.
 
@@ -291,13 +297,13 @@ Multiple headers can be specified by separating values with commas:
 OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
 ```
 
-### Propagating traces to Buildkite Agents
+### Propagating traces to Buildkite agents
 
-Propagating trace spans from the OpenTelemetry Notification service requires Buildkite Agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
+Propagating trace spans from the OpenTelemetry Notification service requires Buildkite agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
 
-### Propagating traces from Buildkite Agents to commands
+### Propagating traces from Buildkite agents to commands
 
-Trace contexts are propagated automatically from a Buildkite Agent to all its child processes. See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing-trace-context-propagation).
+Trace contexts are propagated automatically from a Buildkite agent to all its child processes. See [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing-trace-context-propagation).
 
 ### Buildkite hosted agents
 

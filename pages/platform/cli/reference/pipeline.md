@@ -50,10 +50,10 @@ bk pipeline copy [<pipeline>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-c`, `--cluster=STRING` | Cluster name or ID for the new pipeline (required for cross-org copies if target org uses clusters) |
+| `-o`, `--output=""` | Output format: json, yaml, text |
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Show what would be copied without creating the pipeline |
-| `-o, --output=""` | Output format: json, yaml, text |
 
 ### Examples
 
@@ -119,10 +119,10 @@ bk pipeline create <name> [flags]
 | --- | --- |
 | `-c`, `--cluster-id=STRING` | Cluster name or ID to assign the pipeline to |
 | `-d`, `--description=STRING` | Description of the pipeline |
+| `-o`, `--output=""` | Outputs the created pipeline. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Repository URL |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
-| `-o, --output=""` | Outputs the created pipeline. One of: json, yaml, text |
 
 ### Examples
 
@@ -169,8 +169,8 @@ bk pipeline list [flags]
 | Flag | Description |
 | --- | --- |
 | `-l`, `--limit=100` | Maximum number of pipelines to return (max: 3000) |
-| `-o, --output=""` | Output format. One of: json, yaml, text |
 | `-n`, `--name=STRING` | Filter pipelines by name (supports partial matches, case insensitive) |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Filter pipelines by repository URL (supports partial matches, case insensitive) |
 | `--debug` | Enable debug output for REST API calls |
 
@@ -310,8 +310,8 @@ bk pipeline view [<pipeline>] [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-w`, `--web` | Open the pipeline in a web browser |
-| `-o, --output=""` | Output format. One of: json, yaml, text |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-w`, `--web` | Open the pipeline in a web browser. |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples
@@ -339,3 +339,4 @@ Output as JSON:
 ```bash
 bk pipeline view my-pipeline -o json
 ```
+

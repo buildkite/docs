@@ -41,8 +41,24 @@ RSpec.describe LLMText do
     ].map(&:deep_stringify_keys)
   end
 
+  let(:descriptions) do
+    {
+      "pipelines/getting-started" => "Step-by-step tutorial for creating your first pipeline.",
+      "apis/rest-api" => "REST API overview: authentication, pagination, and endpoints."
+    }
+  end
+
   let(:nav) { double("Nav", data: nav_data) }
   subject(:llm_text) { described_class.new(nav) }
+
+  before do
+    allow(YAML).to receive(:load_file)
+      .with(Rails.root.join("data", "llm_descriptions.yml"))
+      .and_return(descriptions)
+
+    # LLMText#generate now calls LLMTopicText.topics for the topic index
+    allow(LLMTopicText).to receive(:topics).and_return({})
+  end
 
   describe ".generate" do
     it "creates a new instance with Rails default_nav and calls generate" do
@@ -73,15 +89,24 @@ RSpec.describe LLMText do
       expect(result).to include("## APIs")
     end
 
-    it "includes navigation links with proper formatting" do
-      expect(result).to include("- [Getting Started](https://buildkite.com/docs/pipelines/getting-started.md)")
-      expect(result).to include("- [REST API](https://buildkite.com/docs/apis/rest-api.md)")
+    it "includes navigation links with descriptions when available" do
+      expect(result).to include(
+        "- [Getting Started](https://buildkite.com/docs/pipelines/getting-started.md): Step-by-step tutorial for creating your first pipeline."
+      )
+      expect(result).to include(
+        "- [REST API](https://buildkite.com/docs/apis/rest-api.md): REST API overview: authentication, pagination, and endpoints."
+      )
+    end
+
+    it "includes navigation links without descriptions when not available" do
+      step_types_line = result.lines.find { |l| l.include?("Step types") }
+      expect(step_types_line.strip).to eq("- [Step types](https://buildkite.com/docs/pipelines/configuration/step-types.md)")
     end
 
     it "creates nested headings for sections with children" do
       expect(result).to include("### Configuration")
-      expect(result).to include("- [Step types](https://buildkite.com/docs/pipelines/configuration/step-types.md)")
-      expect(result).to include("- [Environment variables](https://buildkite.com/docs/pipelines/configuration/environment-variables.md)")
+      expect(result).to include("[Step types](https://buildkite.com/docs/pipelines/configuration/step-types.md)")
+      expect(result).to include("[Environment variables](https://buildkite.com/docs/pipelines/configuration/environment-variables.md)")
     end
 
     it "filters out GraphQL schema documentation" do
@@ -183,6 +208,16 @@ RSpec.describe LLMText do
         expect(result).to include("### Level 2")
         expect(result).to include("#### Level 3")
         expect(result).to include("- [Level 4](https://buildkite.com/docs/deep/nested/page.md)")
+      end
+    end
+
+    context "with empty descriptions file" do
+      let(:descriptions) { {} }
+
+      it "still generates valid output without descriptions" do
+        expect(result).to include("- [Getting Started](https://buildkite.com/docs/pipelines/getting-started.md)")
+        getting_started_line = result.lines.find { |l| l.include?("Getting Started") }
+        expect(getting_started_line.strip).to eq("- [Getting Started](https://buildkite.com/docs/pipelines/getting-started.md)")
       end
     end
   end
