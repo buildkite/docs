@@ -892,8 +892,6 @@
               path: "platform/cli/reference/package"
             - name: "pipeline"
               path: "platform/cli/reference/pipeline"
-            - name: "secret"
-              path: "platform/cli/reference/secret"
             - name: "use"
               path: "platform/cli/reference/use"
             - name: "user"

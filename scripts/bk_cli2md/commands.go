@@ -18,7 +18,6 @@ var commandDescriptions = map[string]string{
 	"organization": "manage Buildkite organizations",
 	"package":      "manage packages",
 	"pipeline":     "manage pipelines",
-	"secret":       "manage Buildkite secrets",
 	"use":          "choose which Buildkite organization to work with",
 	"user":         "manage users in your Buildkite organization",
 	"version":      "display which version of the Buildkite CLI you're using",

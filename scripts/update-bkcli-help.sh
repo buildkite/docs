@@ -26,9 +26,20 @@ BK_CLI="${INSTALL_PATH}/cli"
 echo "Installing buildkite/cli ${CLI_VERSION} to ${BK_CLI}"
 go install "github.com/buildkite/cli/v3@${CLI_VERSION}"
 
-echo "Installing bkcli2md"
-go install -buildvcs=false ./scripts/bkcli2md
-BKCLI2MD="${INSTALL_PATH}/bkcli2md"
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+echo "Installing bk_cli_update_commandlist_and_docs"
+go install -buildvcs=false ./scripts/bk_cli_update_commandlist_and_docs
+UPDATECMDLIST="${INSTALL_PATH}/bk_cli_update_commandlist_and_docs"
+
+echo "Syncing command list with CLI..."
+"${UPDATECMDLIST}" "${BK_CLI}" "${REPO_ROOT}"
+echo ""
+
+# Install bk_cli2md after bk_cli_update_commandlist_and_docs so it picks up any changes to commands.go
+echo "Installing bk_cli2md"
+go install -buildvcs=false ./scripts/bk_cli2md
+BKCLI2MD="${INSTALL_PATH}/bk_cli2md"
 
 echo "Output directory: ${OUTPUT_DIR}"
 echo ""
