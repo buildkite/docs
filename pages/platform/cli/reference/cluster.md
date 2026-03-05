@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI cluster command
 
-The `bk cluster` command allows you to manage organization clusters from the command line.
+The `bk cluster` command allows you to manage Buildkite organization clusters from the command line.
 
 ## Commands
 

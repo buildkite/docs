@@ -552,7 +552,7 @@ func getGroupDescription(name string) string {
 		"artifacts":    "manage build artifacts",
 		"auth":         "manage authorization",
 		"build":        "manage pipeline builds",
-		"cluster":      "manage organization clusters",
+		"cluster":      "manage Buildkite organization clusters",
 		"config":       "manage configurations",
 		"configure":    "configure your Buildkite CLI settings",
 		"init":         "initialize a pipeline file with Buildkite Pipelines",
@@ -562,7 +562,7 @@ func getGroupDescription(name string) string {
 		"pipeline":     "manage pipelines",
 		"secret":       "manage Buildkite secrets",
 		"use":          "choose which Buildkite organization to work with",
-		"user":         "manage users in your organization",
+		"user":         "manage users in your Buildkite organization",
 		"version":      "display which version of the Buildkite CLI you're using",
 		"whoami":       "display information about the current user's Buildkite organization and API token",
 	}
