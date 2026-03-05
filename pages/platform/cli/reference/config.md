@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI config command
 
-The `bk config` command allows you to manage configurations from the command line.
+The `bk config` command allows you to manage Buildkite CLI configurations from the command line.
 
 ## Commands
 
