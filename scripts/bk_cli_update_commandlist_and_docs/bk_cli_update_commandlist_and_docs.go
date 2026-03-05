@@ -52,7 +52,12 @@ func main() {
 	}
 	for name := range current {
 		if !discoveredSet[name] {
-			removed = append(removed, name)
+			// Verify the command is truly gone by checking if bk <name> --help fails
+			if isValidCommand(binary, name) {
+				fmt.Fprintf(os.Stderr, "  ~ %s (not in bk --help but still responds to bk %s --help, keeping)\n", name, name)
+			} else {
+				removed = append(removed, name)
+			}
 		}
 	}
 	sort.Strings(added)
@@ -106,7 +111,9 @@ func runHelp(binary string, args ...string) (string, error) {
 	return string(out), nil
 }
 
-// discoverCommands parses bk --help output to find unique command group names.
+// discoverCommands parses bk --help output to find unique top-level command names.
+// Only lowercase names are accepted, filtering out subcommand verbs and description
+// words (like "Add", "Pause", "List") that may appear in expanded help output.
 func discoverCommands(helpText string) []string {
 	seen := make(map[string]bool)
 	var names []string
@@ -133,6 +140,9 @@ func discoverCommands(helpText string) []string {
 		parts := strings.Fields(trimmed)
 		if len(parts) >= 1 {
 			name := parts[0]
+			if !isLowercase(name) {
+				continue
+			}
 			if !seen[name] {
 				seen[name] = true
 				names = append(names, name)
@@ -142,6 +152,26 @@ func discoverCommands(helpText string) []string {
 
 	sort.Strings(names)
 	return names
+}
+
+// isLowercase returns true if the string contains only lowercase letters and hyphens.
+func isLowercase(s string) bool {
+	for _, r := range s {
+		if r != '-' && (r < 'a' || r > 'z') {
+			return false
+		}
+	}
+	return len(s) > 0
+}
+
+// isValidCommand checks whether a command is a real top-level bk command
+// by running bk <name> --help and checking for a valid Usage line.
+func isValidCommand(binary, name string) bool {
+	out, err := runHelp(binary, name)
+	if err != nil && len(out) == 0 {
+		return false
+	}
+	return strings.Contains(out, "Usage:")
 }
 
 // readCommandsGo parses commands.go to extract the current command->description map.
