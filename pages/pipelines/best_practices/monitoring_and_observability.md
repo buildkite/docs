@@ -51,9 +51,9 @@ Establish standardized metrics collection across all pipelines to enable consist
 - Detect bottlenecks when builds queue too long by monitoring queue depth. You can use [queue metrics (insights)](/docs/pipelines/insights/queue-metrics) for this.
 - Trigger alerts when agents go offline or degrade to monitor agent health. If individual agent health is less of a concern, then terminate an unhealthy instance and spin up a new one.
 
-## Getting metrics out of Buildkite
+## Getting metrics out of Buildkite Pipelines
 
-Buildkite provides multiple ways to export CI/CD metrics depending on what you need (agent fleet health, build performance, trace correlation, test quality) and where you want the data (Datadog, Prometheus, Grafana, CloudWatch, your own OpenTelemetry collector, or Buildkite's built-in dashboards).
+Buildkite Pipelines provides multiple ways to export CI/CD metrics depending on your needs (agent fleet health, build performance, trace correlation, test quality, and so on) and where you want the data (Datadog, Prometheus, Grafana, CloudWatch, your own OpenTelemetry collector, or Buildkite's built-in dashboards).
 
 Most teams need two or three of these approaches working together, as they are complementary rather than competing. The following sections introduce each approach, explain when to use it, and link to detailed setup documentation.
 
@@ -63,8 +63,8 @@ What you want to measure | Best approach | Plan tier | Push or pull | Key destin
 --- | --- | --- | --- | ---
 Agent fleet health (agents online, busy, idle per queue) | [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) | All | Pull (polls Buildkite API) | Prometheus, StatsD/DogStatsD to Datadog, CloudWatch
 Agent process metrics (goroutines, memory, GC) | [Agent health check service](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page) | All | Pull (Prometheus scrape) | Prometheus
-Build and job lifecycle traces (spans, durations, wait times) | [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) | Enterprise | Push (OTLP) | Any OTLP-compatible collector ([Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog), and others)
-Agent-side job execution traces | [OpenTelemetry agent tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing) | All | Push (OTLP) | Any OTLP-compatible collector
+Build and job lifecycle traces (spans, durations, wait times) | [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) | Enterprise | Push (OTel) | Any OTel-compatible collector ([Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog), and others)
+Agent-side job execution traces | [OpenTelemetry agent tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing) | All | Push (OTel) | Any OTel-compatible collector
 Queue depth, wait times, concurrency | [Cluster insights](/docs/pipelines/insights/clusters) and [GraphQL API](/docs/apis/graphql-api) | Varies | Pull or UI | Built-in UI; GraphQL for custom dashboards
 Build events for alerting and dashboards | [Webhooks](/docs/apis/webhooks) and [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) | All | Push | PagerDuty, Datadog, custom endpoints
 Test performance and flaky tests | [Test Engine](/docs/test-engine) | Add-on | UI and API | Built-in UI; API for export
@@ -75,7 +75,7 @@ Test performance and flaky tests | [Test Engine](/docs/test-engine) | Add-on | U
 
 ## Metrics approaches in detail
 
-Each approach below covers a different aspect of CI/CD observability. Most teams combine two or three of these to get full coverage across fleet health, build performance, and test quality.
+Each approach below covers a different aspect of CI/CD observability available in Buildkite Pipelines. Most teams combine two or three of these to get full coverage across fleet health, build performance, and test quality.
 
 ### Fleet health dashboard
 
@@ -102,7 +102,7 @@ This tool polls the Buildkite API, so it shows point-in-time snapshots rather th
 
 ### Per-agent process health
 
-The Buildkite agent's [health check service](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page) includes a native Prometheus-compatible `/metrics` endpoint served by the agent process itself (available since agent v3.113.0).
+The Buildkite agent's [health check service](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page) includes a native Prometheus-compatible `/metrics` endpoint served by the agent process itself (available since agent version 3.113.0).
 
 **Metrics provided:**
 
@@ -115,7 +115,7 @@ This endpoint shows individual agent process health, not fleet-level queue or ca
 
 ### Build lifecycle traces with OpenTelemetry
 
-The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) pushes build and job lifecycle events as OpenTelemetry (OTLP) traces to your collector.
+The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) pushes build and job lifecycle events as OpenTelemetry (OTel) traces to your collector.
 
 **Data provided (as trace spans):**
 
@@ -123,11 +123,11 @@ The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/ob
 - Job lifecycle with durations, wait times, queue information
 - Pipeline and organization metadata as span attributes
 
-**Supported destinations:** Any OTLP-compatible backend, including [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog) APM, Jaeger, or your own OpenTelemetry Collector.
+**Supported destinations:** Any OTel-compatible backend, including [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana, [Datadog](/docs/pipelines/integrations/observability/datadog) APM, Jaeger, or your own OpenTelemetry collector.
 
 Use this approach when you have an existing distributed tracing setup and want CI/CD events to appear as spans alongside your application traces. It's best for correlating build activity with deployments and service health.
 
-> 🚧 Enterprise only
+> 🚧 Enterprise only feature
 > The OpenTelemetry tracing notification service requires an Enterprise plan. It provides traces (spans), not traditional metrics (gauges or counters). If you need time-series metrics, you need to derive them from spans in your backend (for example, using span-to-metrics features in Datadog or Grafana).
 
 ### Agent-side execution traces
@@ -139,7 +139,7 @@ The Buildkite agent can emit [OpenTelemetry spans](/docs/agent/self-hosted/monit
 - Job checkout, plugin, command, and artifact upload phases as individual spans
 - Execution timing for each phase
 
-**Supported destinations:** Any OTLP-compatible backend.
+**Supported destinations:** Any OTel-compatible backend.
 
 Use this approach when you want end-to-end trace context flowing from your application code through CI and back. This works alongside the [notification service](#build-lifecycle-traces-with-opentelemetry), as they are complementary:
 
@@ -158,7 +158,7 @@ Buildkite's built-in [cluster insights](/docs/pipelines/insights/clusters) dashb
 
 Use this approach for quick visual checks of CI health without any external tooling. It's useful for debugging queue backups or capacity issues in real time. For queue-specific data, see [queue metrics](/docs/pipelines/insights/queue-metrics).
 
-Some data shown in cluster insights is not yet available through an external export path (API, OpenTelemetry, or otherwise). If you need this data in external dashboards, it might not be possible today.
+Note that some of the data shown in cluster insights is not yet available through an external export path (API, OpenTelemetry, or otherwise).
 
 ### Custom dashboards with the GraphQL API
 
@@ -172,7 +172,7 @@ Buildkite's [GraphQL API](/docs/apis/graphql-api) exposes build, job, agent, pip
 
 Use this approach when building custom dashboards (for example, in Retool or Grafana using a JSON API datasource), automation scripts, or when feeding data into your own data warehouse.
 
-This is a polling-based approach, so you need to build your own scheduling to keep data fresh. [Rate limits](/docs/apis/graphql-api#rate-limiting) apply.
+This is a polling-based approach, so you need to build your own scheduling to keep data fresh. [Rate limits](/docs/apis/graphql/graphql-resource-limits#rate-limits) apply.
 
 ### Real-time events with webhooks and EventBridge
 
@@ -205,7 +205,7 @@ Test Engine is a separate product from build and agent metrics. It covers test e
 
 ## Common metrics recipes
 
-The following recipes show how to connect Buildkite metrics to popular destinations. Each one maps a common goal to the right approach and configuration.
+The following recipes show how to connect Buildkite Pipelines' metrics to popular destinations. Each one maps a common goal to the right approach and configuration.
 
 ### Agent metrics in Datadog
 
@@ -219,7 +219,7 @@ buildkite-agent-metrics -backend statsd \
 
 ### Build traces in Honeycomb or Grafana Tempo
 
-Set up the [OpenTelemetry tracing notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to push to your OTLP endpoint. For deeper execution-phase spans, also enable [agent-level OpenTelemetry tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing). Together they provide control-plane lifecycle and execution detail.
+Set up the [OpenTelemetry tracing notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) to push to your OTel endpoint. For deeper execution-phase spans, also enable [agent-level OpenTelemetry tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing). Together they provide control-plane lifecycle and execution detail.
 
 ### Queue wait times in Prometheus
 
@@ -239,10 +239,10 @@ Enable the agent's [health check service](/docs/agent/self-hosted/monitoring-and
 
 ## Current limitations
 
-Based on common feedback patterns, these are areas where the current metrics capabilities have known limitations:
+The following are the areas where the current metrics capabilities have known limitations:
 
 - **Metrics export parity:** [Cluster insights](/docs/pipelines/insights/clusters) shows data that can't be fully replicated through any external export path today. If you are building external dashboards, some metrics might not be available for export yet.
 - **OpenTelemetry enrichment:** Additional span attributes such as build metadata, trigger context, and span links for triggered builds are being actively improved.
 - **Historical data:** Current cluster insights and [queue metrics](/docs/pipelines/insights/queue-metrics) have limited lookback periods. If you need longer time windows for capacity planning, consider using the [GraphQL API](/docs/apis/graphql-api) to collect and store data in your own warehouse.
 - **Traces and metrics gap:** OpenTelemetry exports are trace-based (spans), but some workflows require traditional time-series metrics (gauges, counters). Converting spans to metrics requires backend-side processing that not all observability stacks handle well.
-- **Event payload coverage:** [Webhooks](/docs/apis/webhooks) and [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) event payloads don't yet include all metadata, such as retry context and manual-versus-automatic action flags.
+- **Event payload coverage:** [Webhooks](/docs/apis/webhooks) and [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) event payloads don't include all metadata, such as retry context and manual-versus-automatic action flags.
