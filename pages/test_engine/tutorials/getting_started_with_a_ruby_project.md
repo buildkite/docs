@@ -27,7 +27,7 @@ To begin creating a new test suite:
 1. Select **Test Suites** in the global navigation to access the **Test Suites** page.
 1. Select **New test suite**.
 1. On the **Identify, track and fix problematic tests** page, enter an optional **Application name**, for example, `RSpec test suites`.
-1. Enter a mandatory **Test suite name**. For example, `My RSpec example test suite`.
+1. Enter a mandatory **Test suite name**, for example, `My RSpec example test suite`.
 1. Enter the **Default branch name**, which is the default branch that Test Engine shows trends for, and can be changed any time. For example (and usually), `main`.
 1. Enter an optional **Suite emoji**, using [emoji syntax](/docs/pipelines/emojis). For example, `\:ruby\:` for a ruby emoji representing the Ruby language.
 1. Select **Set up suite**.
