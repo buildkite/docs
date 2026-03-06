@@ -145,7 +145,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
     bk pipeline convert --file .github/workflows/ci.yml --vendor github -o .buildkite/custom-converted-pipeline-name.yml
     ```
 
-    You can also pipe a configuration file from stdin instead of using `--file`. When piping from stdin, you must specify the `--vendor` flag and the converted output is printed to stdout by default:
+    You can also pipe a configuration file from stdin instead of using the `--file` flag. When piping from stdin, you must specify the `--vendor` flag and the converted output is printed to stdout by default:
 
     ```bash
     cat .github/workflows/ci.yml | bk pipeline convert --vendor github
