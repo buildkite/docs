@@ -44,12 +44,6 @@ class GithubClient
     })
   end
 
-  def create_comment(pr_number, body)
-    post("/repos/#{@repo}/issues/#{pr_number}/comments", {
-      body: body
-    })
-  end
-
   def get_pr_files(pr_number)
     get("/repos/#{@repo}/pulls/#{pr_number}/files")
   end
@@ -120,20 +114,6 @@ def eligible_for_assignment?(pr_data, config, github_client)
 
   if SKIP_TEAM_CHECK && docs_usernames.include?(pr_author)
     puts "#{CYAN}SKIP_TEAM_CHECK enabled - allowing docs team member #{pr_author}#{RESET}"
-  end
-
-  # PR must have more than 5 lines changed to warrant a manual review
-  lines_changed = pr_data['additions'] + pr_data['deletions']
-  if lines_changed <= 5
-    puts "#{YELLOW}PR has only #{lines_changed} lines changed, skipping manual review assignment#{RESET}"
-    return false
-  end
-
-  # PR must not already have pending review requests
-  if pr_data['requested_reviewers'].any?
-    reviewers = pr_data['requested_reviewers'].map { |r| r['login'] }.join(', ')
-    puts "#{YELLOW}PR already has reviewers assigned: #{reviewers}#{RESET}"
-    return false
   end
 
   # PR must not already have submitted reviews from docs team members
@@ -300,71 +280,9 @@ def assign_reviewer(pr_data, reviewer, scores, github_client)
     raise
   end
 
-  # 2. Post explanatory comment
-  comment = <<~COMMENT
-    🤖 **Auto-assigned reviewer: @#{reviewer['username']}**
-
-    Assignment based on:
-    - Timezone proximity: #{(scores[:timezone] * 100).round}%
-    - Workload fairness: #{(scores[:workload] * 100).round}%
-    - Area expertise: #{(scores[:expertise] * 100).round}%
-
-    Current open PRs awaiting review: #{scores[:open_prs]}
-
-    _Feel free to reassign if needed!_
-  COMMENT
-
-  begin
-    github_client.create_comment(pr_data['number'], comment)
-    puts "#{GREEN_BOLD}Posted comment to PR#{RESET}"
-  rescue => e
-    puts "#{YELLOW}Warning: Could not post comment: #{e.message}#{RESET}"
-    # Don't fail if comment posting fails
-  end
-
-  # 3. Create Buildkite annotation
-  create_buildkite_annotation(pr_data, reviewer, scores)
-
-  # 4. Notify Zapier to create Linear ticket
+  # 2. Notify Zapier to create Linear ticket
   notify_zapier(pr_data, reviewer)
 
-  # 5. Notify Slack with assignment details and PR link
-  notify_slack(pr_data, reviewer)
-end
-
-def create_buildkite_annotation(pr_data, reviewer, scores)
-  puts "--- :buildkite: Creating build annotation"
-
-  annotation = <<~ANNOTATION
-    ### :bell: PR Reviewer Assigned
-
-    **Reviewer:** #{reviewer['slack_name']} (@#{reviewer['username']})
-    **PR:** [##{pr_data['number']} - #{pr_data['title']}](#{pr_data['html_url']})
-    **Author:** @#{pr_data['user']['login']}
-
-    **Assignment Factors:**
-    - Timezone proximity: #{(scores[:timezone] * 100).round}%
-    - Workload fairness: #{(scores[:workload] * 100).round}%
-    - Area expertise: #{(scores[:expertise] * 100).round}%
-    - Current open PRs: #{scores[:open_prs]}
-
-    **Changes:**
-    - Files changed: #{pr_data['changed_files']}
-    - Lines: +#{pr_data['additions']}/-#{pr_data['deletions']}
-  ANNOTATION
-
-  if DRY_RUN
-    puts "#{YELLOW}DRY RUN: Would create annotation#{RESET}"
-    puts annotation
-    return
-  end
-
-  begin
-    Open3.capture2("buildkite-agent", "annotate", "--style", "success", "--context", "reviewer-assigned", stdin_data: annotation)
-    puts "#{GREEN_BOLD}Build annotation created#{RESET}"
-  rescue => e
-    puts "#{YELLOW}Warning: Could not create annotation: #{e.message}#{RESET}"
-  end
 end
 
 def notify_zapier(pr_data, reviewer)
@@ -381,6 +299,7 @@ def notify_zapier(pr_data, reviewer)
 
   payload = {
     gh_url: pr_data['html_url'],
+    gh_issue_id: pr_data['number'],
     assignee: zapier_assignee
   }
 
@@ -401,35 +320,6 @@ def notify_zapier(pr_data, reviewer)
     puts "#{GREEN_BOLD}Zapier webhook sent (#{response.code})#{RESET}"
   rescue => e
     puts "#{YELLOW}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
-  end
-end
-
-def notify_slack(pr_data, reviewer)
-  puts "--- :slack: Sending Slack notification"
-
-  message = ":bell: PR reviewer assigned: <@#{reviewer['slack_id']}> for " \
-            "<#{pr_data['html_url']}|##{pr_data['number']} - #{pr_data['title']}>"
-
-  notification = YAML.dump({
-    "notify" => [{
-      "slack" => {
-        "channels" => ["#team-technical-services-docs"],
-        "message" => message
-      }
-    }]
-  })
-
-  if DRY_RUN
-    puts "#{YELLOW}DRY RUN: Would send Slack notification#{RESET}"
-    puts message
-    return
-  end
-
-  begin
-    Open3.capture2("buildkite-agent", "pipeline", "upload", stdin_data: notification)
-    puts "#{GREEN_BOLD}Slack notification queued#{RESET}"
-  rescue => e
-    puts "#{YELLOW}Warning: Could not queue Slack notification: #{e.message}#{RESET}"
   end
 end
 
