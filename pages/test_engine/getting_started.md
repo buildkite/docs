@@ -40,35 +40,25 @@ Next, configure your project's test runners with its Buildkite test collector:
 1. On the **Complete test suite setup** page, under **Set up an integrated test collector**, select the test collector option for your test runners.
 1. Follow the instructions on the right of the page (along with the relevant documentation page you opened above for more detailed information) to implement the relevant test collection capabilities for your project.
 
-    **Note:** When instructed to add the `BUILDKITE_ANALYTICS_TOKEN`
+    **Note:** When instructed to add the `BUILDKITE_ANALYTICS_TOKEN` to your CI environment, this is referring to the **Test Suite API Token** at the top of this **Complete test suite setup** page.
 
-## Run RSpec (again) to send your test data to Test Engine
-
-1. Back on the **Complete test suite setup** page, copy the **Test Suite API token** value.
-
-1. At your terminal/command prompt, run the following `rspec` command (with additional environment variables) to execute the RSpec test runner and send its execution data back to your Test Engine test suite:
+1. Add and commit your test collector changes to your project to a new branch. For example:
 
     ```bash
-    BUILDKITE_ANALYTICS_TOKEN=<api-token-value> BUILDKITE_ANALYTICS_MESSAGE="My first test run" rspec
+    git add .
+    git commit -m "Install and set up test collector for Buildkite Test Engine"
+    git push
     ```
 
-    where:
-    * `<api-token-value>` is the value of the **Test Suite API token** value you copied in the previous step. This value can typically be pasted without any quotation marks.
-    * `BUILDKITE_ANALYTICS_MESSAGE` is an environment variable, which is usually used for a source control (Git) commit message, and is presented in a run of your Buildkite test suite. However, in this scenario, this environment variable and its value are being used to describe the test run (or build). Learn more about [these types of environment variables](/docs/test-engine/test-collection/ci-environments#other-ci-providers), which are available to _other CI/CD providers_ (that is, those other than [Buildkite Pipelines](/docs/test-engine/test-collection/ci-environments#buildkite), [CircleCI](/docs/test-engine/test-collection/ci-environments#circleci) or [GitHub Actions](/docs/test-engine/test-collection/ci-environments#github-actions)), as well as [containers](/docs/test-engine/test-collection/ci-environments#containers-and-test-collectors), and manually run builds such as this `rspec` execution command above.
+1. At this point, you can now run your project's test runner at the command line, by passing in `BUILDKITE_ANALYTICS_TOKEN=<your-test-suites-api-token-value>` as an environment variable to the test runner command. Once the test runner has completed running, check your test suite page to see the results collected by your Test Engine test suite!
 
-    The command output should display something similar to:
+## Automate your test runner with Buildkite Pipelines
 
-    ```bash
-    disabled tests
-    ......................
+You can automate your test suite by automating builds of your project in Buildkite Pipelines. To do this:
 
-    Finished in 1 minute 4.06 seconds (files took 0.25227 seconds to load)
-    22 examples, 0 failures
-    ```
+1. Follow the [Create your own pipeline](/docs/pipelines/create-your-own) instructions to create a Buildkite pipeline that at least builds your project and runs its test runners.
 
-1. Back in Test Engine, your test suite should now be displayed, showing its **Runs** tab, with a summary of details from the last execution of the RSpec test runner in the previous step. The final result should indicate **My first test run** (obtained from the value of `BUILDKITE_ANALYTICS_MESSAGE` in the previous step) with a status of **PASSED**.
-
-    If this page indicates **Still processing data** after a while, refresh your browser page to display the results. If the status indicates **PENDING**, wait a little longer until the final result appears.
+1. Copy the value of your **Test Suite API Token** (which you can later retrieve through your test suite's **Settings** > **Suite token** page) and configure it as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets). You can create this secret with a name like `MY_PROJECT_TEST_SUITE_TOKEN`. Learn more about how to create a Buildkite secret and use it in a Buildkite pipeline in [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) and [Use a Buildkite secret in a job](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job), respectively.
 
 ## Next steps
 
@@ -76,6 +66,6 @@ That's it! You've successfully created a test suite, configured your Ruby projec
 
 Learn more about:
 
-- How to configure [test collection](/docs/test-engine/test-collection) for other test runners.
-- [CI environment variables](/docs/test-engine/test-collection/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
 - How to work with [test suites](/docs/test-engine/test-suites) in Buildkite Test Engine.
+- [CI environment variables](/docs/test-engine/test-collection/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
+- Other tutorials for specific testing frameworks, such as [Getting started with a Ruby project](/docs/test-engine/tutorials/getting-started-with-a-ruby-project).
