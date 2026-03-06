@@ -87,7 +87,7 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/teams/{team.uuid}/suites/{suite.uuid}/tests/{test.id}/labels" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/suites/{suite.uuid}/tests/{test.id}/labels" \
   -H "Content-Type: application/json" \
   -d '{
     "operator": "add",

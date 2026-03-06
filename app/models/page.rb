@@ -192,6 +192,10 @@ class Page
     front_matter.fetch(:template, 'show')
   end
 
+  def importance
+    Importance.for(canonical_url)
+  end
+
   # Returns focus keywords to guide content writers with an overview of the page content
   # Note: it's not for meta keywords, which is a deprecated SEO practice
   def keywords
