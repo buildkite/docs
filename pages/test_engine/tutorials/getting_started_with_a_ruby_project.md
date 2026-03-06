@@ -14,7 +14,7 @@ To complete this tutorial, you'll need:
 
 - [Ruby](https://www.ruby-lang.org/en/downloads)—macOS users can also install Ruby with [Homebrew](https://formulae.brew.sh/formula/ruby).
 
-    * Once Ruby is installed, open a terminal or command prompt and install the [RSpec testing framework](https://github.com/rspec/rspec-core?tab=readme-ov-file#rspec-core--) using the following command:
+    * Once Ruby is installed, open a terminal or command prompt, and install the [RSpec testing framework](https://github.com/rspec/rspec-core?tab=readme-ov-file#rspec-core--) using the following command:
 
         ```bash
         gem install rspec
