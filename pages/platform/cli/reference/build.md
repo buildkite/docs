@@ -136,7 +136,10 @@ bk build view [<build-number>] [flags]
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
 | `-w`, `--web` | Open the build in a web browser. |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
 | `--mine` | Filter builds to only my user. |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -207,12 +210,15 @@ bk build list [flags]
 | `--creator=STRING` | Filter by creator (email address or user ID) |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >5m, <10m, 20m) - supports >, <, >=, <= operators |
+| `--json` | Output as JSON |
 | `--limit=50` | Maximum number of builds to return |
 | `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
 | `--no-limit` | Fetch all builds (overrides --limit) |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
+| `--text` | Output as text |
 | `--until=STRING` | Filter builds created before this time (e.g. 1h, 30m) |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
