@@ -3,7 +3,6 @@
 require "net/http"
 require "json"
 require "yaml"
-require "open3"
 
 # Environment variables from Buildkite + AWS SSM
 GH_TOKEN = ENV.fetch("GH_TOKEN")
@@ -263,7 +262,7 @@ def select_reviewer(config, github_client, pr_data)
   selected
 end
 
-def assign_reviewer(pr_data, reviewer, scores, github_client)
+def assign_reviewer(pr_data, reviewer, github_client)
   puts "--- :bell: Assigning reviewer"
 
   if DRY_RUN
@@ -282,31 +281,24 @@ def assign_reviewer(pr_data, reviewer, scores, github_client)
 
   # 2. Notify Zapier to create Linear ticket
   notify_zapier(pr_data, reviewer)
-
 end
 
 def notify_zapier(pr_data, reviewer)
   puts "--- :zap: Sending Zapier webhook (Linear ticket)"
 
-  webhook_url = "https://hooks.zapier.com/hooks/catch/697968/u07d7g9/"
-
-  # Map GitHub username to Linear user UUID
-  zapier_assignee = case reviewer['username']
-  when "karensawrey" then "c6054ccd-774f-493c-a1ff-155daad7ea1d"
-  when "gilesgas" then "50d47feb-02e4-4ee3-a5db-1454a2e1b92e"
-  else reviewer['username']
-  end
+  webhook_url = CONFIG['zapier_webhook_url']
+  assignee = reviewer['linear_user_id'] || reviewer['username']
 
   payload = {
     gh_url: pr_data['html_url'],
     gh_issue_id: pr_data['number'],
-    assignee: zapier_assignee
+    assignee: assignee
   }
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
     puts "  gh_url: #{payload[:gh_url]}"
-    puts "  assignee: #{payload[:assignee]}"
+    puts "  assignee: #{assignee}"
     return
   end
 
@@ -366,7 +358,7 @@ begin
 
   if eligible_for_assignment?(pr_data, CONFIG, github_client)
     result = select_reviewer(CONFIG, github_client, pr_data)
-    assign_reviewer(pr_data, result[:reviewer], result, github_client)
+    assign_reviewer(pr_data, result[:reviewer], github_client)
 
     if DRY_RUN
       puts ""
