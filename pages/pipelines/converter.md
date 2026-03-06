@@ -143,7 +143,18 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
 
     # If you want to specify a custom output path and filename
     bk pipeline convert --file .github/workflows/ci.yml --vendor github -o .buildkite/custom-converted-pipeline-name.yml
+    ```
 
+    You can also pipe a configuration file from stdin instead of using `--file`. When piping from stdin, you must specify the `--vendor` flag and the converted output is printed to stdout by default:
+
+    ```bash
+    cat .github/workflows/ci.yml | bk pipeline convert --vendor github
+    ```
+
+    To save piped output to a file, use the `--output` (`-o`) flag:
+
+    ```bash
+    cat .github/workflows/ci.yml | bk pipeline convert --vendor github -o .buildkite/pipeline.yml
     ```
 
     Supported vendors: `github`, `bitbucket`, `circleci`, `jenkins`, `gitlab`, `harness`, `bitrise`.
@@ -151,7 +162,7 @@ To convert an existing CI configuration, use the [`bk pipeline convert` command]
     If the converter can detect the vendor from the file path or name, you can omit the `--vendor` flag.
     If you see the following error: `Error: could not detect vendor from file path. Please specify vendor explicitly with --vendor`, you need to specify the vendor.
 
-1. On a successful conversion, by default, the output is saved to `.buildkite/`:
+1. On a successful conversion, by default, the output is saved to `.buildkite/`. When reading from stdin, the output is printed to stdout instead:
 
     ```bash
     Submitting conversion job...
