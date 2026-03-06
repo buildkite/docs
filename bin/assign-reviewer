@@ -325,7 +325,10 @@ def assign_reviewer(pr_data, reviewer, scores, github_client)
   # 3. Create Buildkite annotation
   create_buildkite_annotation(pr_data, reviewer, scores)
 
-  # 4. Notify Slack with assignment details and PR link
+  # 4. Notify Zapier to create Linear ticket
+  notify_zapier(pr_data, reviewer)
+
+  # 5. Notify Slack with assignment details and PR link
   notify_slack(pr_data, reviewer)
 end
 
@@ -361,6 +364,43 @@ def create_buildkite_annotation(pr_data, reviewer, scores)
     puts "#{GREEN_BOLD}Build annotation created#{RESET}"
   rescue => e
     puts "#{YELLOW}Warning: Could not create annotation: #{e.message}#{RESET}"
+  end
+end
+
+def notify_zapier(pr_data, reviewer)
+  puts "--- :zap: Sending Zapier webhook (Linear ticket)"
+
+  webhook_url = "https://hooks.zapier.com/hooks/catch/697968/u07d7g9/"
+
+  # Map GitHub username to Linear user UUID
+  zapier_assignee = case reviewer['username']
+  when "karensawrey" then "c6054ccd-774f-493c-a1ff-155daad7ea1d"
+  when "gilesgas" then "50d47feb-02e4-4ee3-a5db-1454a2e1b92e"
+  else reviewer['username']
+  end
+
+  payload = {
+    gh_url: pr_data['html_url'],
+    assignee: zapier_assignee
+  }
+
+  if DRY_RUN
+    puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
+    puts "  gh_url: #{payload[:gh_url]}"
+    puts "  assignee: #{payload[:assignee]}"
+    return
+  end
+
+  begin
+    uri = URI(webhook_url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
+    request.body = payload.to_json
+    response = http.request(request)
+    puts "#{GREEN_BOLD}Zapier webhook sent (#{response.code})#{RESET}"
+  rescue => e
+    puts "#{YELLOW}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
   end
 end
 

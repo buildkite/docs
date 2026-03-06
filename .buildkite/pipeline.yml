@@ -30,6 +30,7 @@ steps:
 
   - label: ":bell: Assign PR reviewer"
     if: build.branch != "main"
+    soft_fail: true
     command: bin/assign-reviewer
     agents:
       queue: hosted
