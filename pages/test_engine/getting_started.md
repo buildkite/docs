@@ -26,7 +26,7 @@ To begin creating a new test suite:
 1. Enter an optional **Suite emoji**, using [emoji syntax](/docs/pipelines/emojis), for example, `\:test_tube\:` for a test tube emoji.
 1. Enter an optional **Suite color**, using the `#RRGGBB` syntax. See the [HTML Color Codes](https://htmlcolorcodes.com/) page to help you choose a color.
 
-    **Note:** At this point, you can select one of the buttons towards the end of this page which match your project's testing framework (or test runners) for instructions on how to set up [test collection](/docs/test-engine/test-collection) for your project. This opens up the relevant documentation page with instructions on how to set up test collection for your test runners, which you'll be doing this in the next section. Otherwise, if your project's testing framework is not listed, see [Collecting test data from other test runners](/docs/test-engine/test-collection/other-collectors) for details on how to implement test collection for other testing frameworks. Regardless, keep the relevant page/s open.
+    **Note:** At this point, you can select one of the buttons towards the end of this page which match your project's testing framework (or test runners) for instructions on how to set up [test collection](/docs/test-engine/test-collection) for your project. This opens up the relevant documentation page with detailed instructions on how to set up test collection for your test runners, which you'll be doing in the next section. Otherwise, if your project's testing framework is not listed, see [Collecting test data from other test runners](/docs/test-engine/test-collection/other-collectors) for details on how to implement test collection for other testing frameworks. Regardless, keep the relevant documentation page/s open.
 
 1. Select **Set up suite**.
 1. If your Buildkite organization has the [teams feature](/docs/test-engine/permissions) enabled, select the relevant **Teams** to be granted access to this test suite, followed by **Continue**.
@@ -40,7 +40,7 @@ Next, configure your project's test runners with its Buildkite test collector:
 1. On the **Complete test suite setup** page, under **Set up an integrated test collector**, select the test collector option for your test runners.
 1. Follow the instructions on the right of the page (along with the relevant documentation page you opened above for more detailed information) to implement the relevant test collection capabilities for your project.
 
-    **Note:** When instructed to add the `BUILDKITE_ANALYTICS_TOKEN` to your CI environment, this is referring to the **Test Suite API Token** at the top of this **Complete test suite setup** page.
+    **Note:** When instructed to add the `BUILDKITE_ANALYTICS_TOKEN` to your CI environment, this is referring to the **Test Suite API Token** at the top of this **Complete test suite setup** page. You'll be using this in the last step of this section, as well as in the section on how to [Automate your test runner with Buildkite Pipelines](#automate-your-test-runner-with-buildkite-pipelines).
 
 1. Add and commit your test collector changes to your project to a new branch. For example:
 
