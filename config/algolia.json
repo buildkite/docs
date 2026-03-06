@@ -87,6 +87,7 @@
   ],
   "custom_settings": {
     "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]],
-    "attributesForFaceting": ["tags"]
+    "attributesForFaceting": ["tags"],
+    "customRanking": ["desc(importance)"]
   }
 }
