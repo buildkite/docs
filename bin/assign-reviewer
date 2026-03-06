@@ -175,7 +175,7 @@ def get_expertise_score(reviewer, changed_dirs, github_client)
 
   total_commits = 0
   changed_dirs.each do |dir|
-    query = "is:pr is:merged author:#{reviewer['username']} repo:#{GH_REPO}"
+    query = "is:pr is:merged author:#{reviewer['username']} repo:#{GH_REPO} path:#{dir}"
     begin
       response = github_client.search_issues(query)
       total_commits += response['total_count']

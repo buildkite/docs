@@ -8,7 +8,6 @@ docs_team:
     # Simplified: assign to Giles for PRs opened 00:00-12:00 UTC
     timezone_hours_utc: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     slack_name: Giles
-    slack_id: REPLACE_WITH_GILES_SLACK_ID
 
   - username: karensawrey
     timezone: Europe/Berlin  # CET/CEST
@@ -16,7 +15,6 @@ docs_team:
     # Simplified: assign to Karen for PRs opened 12:00-24:00 UTC
     timezone_hours_utc: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     slack_name: Karen
-    slack_id: REPLACE_WITH_KAREN_SLACK_ID
 
 # Scoring weights for reviewer selection
 # timezone: How much to weight timezone proximity (1.0 = perfect match, 0.3 = not preferred)
