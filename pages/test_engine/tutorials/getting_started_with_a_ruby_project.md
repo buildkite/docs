@@ -8,13 +8,13 @@ Note that Buildkite Test Engine supports [other languages and test runners](/doc
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free personal account</a>.
+- A Buildkite account—if you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free personal account</a>
 
 - [Git](https://git-scm.com/downloads), to clone the Ruby project example.
 
 - [Ruby](https://www.ruby-lang.org/en/downloads)—macOS users can also install Ruby with [Homebrew](https://formulae.brew.sh/formula/ruby).
 
-    * Once Ruby is installed, open a terminal or command prompt and install the [RSpec testing framework](https://github.com/rspec/rspec-core?tab=readme-ov-file#rspec-core--) using the following command:
+    * Once Ruby is installed, open a terminal or command prompt, and install the [RSpec testing framework](https://github.com/rspec/rspec-core?tab=readme-ov-file#rspec-core--) using the following command:
 
         ```bash
         gem install rspec
@@ -26,10 +26,10 @@ To begin creating a new test suite:
 
 1. Select **Test Suites** in the global navigation to access the **Test Suites** page.
 1. Select **New test suite**.
-1. On the **Identify, track and fix problematic tests** page, enter an optional **Application name**. For example, `RSpec test suites`.
-1. Enter a mandatory **Test suite name**. For example, `My RSpec example test suite`.
-1. Enter the **Default branch name**, which is the default branch that Test Engine shows trends for, and can be changed any time. For example (and usually), `main`.
-1. Enter an optional **Suite emoji**, using [emoji syntax](/docs/pipelines/emojis). For example, `\:ruby\:` for a ruby emoji representing the Ruby language.
+1. On the **Identify, track and fix problematic tests** page, enter an optional **Application name**, for example, `RSpec test suites`.
+1. Enter a mandatory **Test suite name**, for example, `My RSpec example test suite`.
+1. Enter the **Default branch name**, which is the default branch that Test Engine shows trends for and can be changed any time, for example (and usually), `main`.
+1. Enter an optional **Suite emoji** using [emoji syntax](/docs/pipelines/emojis), for example, `\:ruby\:` for a ruby emoji representing the Ruby language.
 1. Select **Set up suite**.
 1. If your Buildkite organization has the [teams feature](/docs/test-engine/permissions) enabled, select the relevant **Teams** to be granted access to this test suite, followed by **Continue**.
 
