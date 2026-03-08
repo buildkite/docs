@@ -6,14 +6,14 @@ docs_team:
     timezone: Australia/Sydney  # AEST/AEDT
     # UTC hours that map to Australian business hours (8am-8pm AEST is roughly 22:00-10:00 UTC)
     # Simplified: assign to Giles for PRs opened 00:00-12:00 UTC
-    timezone_hours_utc: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    timezone_hours_utc: [22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     linear_user_id: 50d47feb-02e4-4ee3-a5db-1454a2e1b92e
 
   - username: karensawrey
     timezone: Europe/Berlin  # CET/CEST
     # UTC hours that map to European business hours
-    # Simplified: assign to Karen for PRs opened 12:00-24:00 UTC
-    timezone_hours_utc: [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    # Simplified: assign to Karen for PRs opened 11:00-21:00 UTC
+    timezone_hours_utc: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
     linear_user_id: c6054ccd-774f-493c-a1ff-155daad7ea1d
 
 # Scoring weights for reviewer selection
