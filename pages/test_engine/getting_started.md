@@ -71,8 +71,6 @@ You can automate your test suite by automating builds of your project in Buildki
 
     Learn more about how to create a Buildkite secret and use it in a Buildkite pipeline in [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) and [Use a Buildkite secret in a job](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job), respectively.
 
-
-
 ## Next steps
 
 That's it! You've successfully created a test suite, configured your Ruby project with a test collector, and executed the project's test runner to send its test data to your test suite. 🎉
