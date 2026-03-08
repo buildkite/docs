@@ -156,7 +156,7 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    rouge (3.30.0)
+    rouge (4.7.0)
     rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.3)
@@ -229,7 +229,7 @@ DEPENDENCIES
   puma
   railties (~> 8.1.0)
   redcarpet
-  rouge (= 3.30.0)
+  rouge (= 4.7.0)
   rspec-rails
   rspec_junit_formatter
   sitemap_generator
