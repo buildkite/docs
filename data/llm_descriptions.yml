@@ -3,7 +3,7 @@
 # Format: "nav-path": "Brief description of page content."
 ---
   pipelines: "Landing page for Buildkite Pipelines CI/CD product documentation."
-  pipelines/advantages/buildkite-pipelines: "Why teams choose Buildkite Pipelines: hybrid architecture, unlimited scaling, speed, dynamic pipelines, and security model."
+  pipelines/advantages/buildkite-pipelines: "Why teams choose Buildkite Pipelines: hybrid architecture that keeps code on your infrastructure, unlimited concurrency, dynamic pipelines, extensible plugins and hooks, developer experience features, AI workflow support, and predictable concurrency-based pricing."
   pipelines/advantages/buildkite-vs-jenkins: "Comparison of Buildkite vs Jenkins covering managed control plane, ephemeral agents, scaling, YAML pipelines, and dynamic pipelines."
   pipelines/advantages/buildkite-vs-gitlab: "Comparison of Buildkite vs GitLab covering lightweight agents, flexible pipelines without rigid stages, monorepo support, and pricing."
   pipelines/advantages/buildkite-vs-gha: "Comparison of Buildkite vs GitHub Actions covering scaling limits, dynamic pipelines, reliability, and hosted machine performance."
