@@ -157,7 +157,7 @@ def get_preferred_reviewer_by_time(config)
 end
 
 def get_open_pr_count(username, github_client)
-  query = "is:pr is:open review-requested:#{username} repo:#{GH_REPO}"
+  query = "is:pr is:open review-requested:#{username} label:Reviewer-assigned repo:#{GH_REPO}"
   puts "Searching for open PRs: #{query}"
 
   begin
