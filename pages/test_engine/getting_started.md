@@ -58,7 +58,20 @@ You can automate your test suite by automating builds of your project in Buildki
 
 1. Follow the [Create your own pipeline](/docs/pipelines/create-your-own) instructions to create a Buildkite pipeline that at least builds your project and runs its test runners.
 
-1. Copy the value of your **Test Suite API Token** (which you can later retrieve through your test suite's **Settings** > **Suite token** page) and configure it as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets). You can create this secret with a name like `MY_PROJECT_TEST_SUITE_TOKEN`. Learn more about how to create a Buildkite secret and use it in a Buildkite pipeline in [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) and [Use a Buildkite secret in a job](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job), respectively.
+1. Copy the value of your **Test Suite API Token** (which you can later retrieve through your test suite's **Settings** > **Suite token** page) and configure it as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets). You can create this secret with a name like `MY_PROJECT_TEST_SUITE_TOKEN`, and reference it in a pipeline using syntax like:
+
+    ```yaml
+    steps:
+      - label: "Run tests"
+        command:
+          - test-runner-execution-command
+        secrets:
+          BUILDKITE_ANALYTICS_TOKEN: MY_PROJECT_TEST_SUITE_TOKEN
+    ```
+
+Learn more about how to create a Buildkite secret and use it in a Buildkite pipeline in [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) and [Use a Buildkite secret in a job](/docs/pipelines/security/secrets/buildkite-secrets#use-a-buildkite-secret-in-a-job), respectively.
+
+
 
 ## Next steps
 
