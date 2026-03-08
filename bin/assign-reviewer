@@ -55,6 +55,10 @@ class GithubClient
     get("/repos/#{@repo}/pulls?head=#{@repo.split('/').first}:#{branch}&state=open")
   end
 
+  def add_label(issue_number, label)
+    post("/repos/#{@repo}/issues/#{issue_number}/labels", { labels: [label] })
+  end
+
   private
 
   def get(path)
@@ -113,6 +117,13 @@ def eligible_for_assignment?(pr_data, config, github_client)
 
   if SKIP_TEAM_CHECK && docs_usernames.include?(pr_author)
     puts "#{CYAN}SKIP_TEAM_CHECK enabled - allowing docs team member #{pr_author}#{RESET}"
+  end
+
+  # PR must not already have the reviewer-assigned label
+  existing_labels = pr_data['labels'].map { |l| l['name'] }
+  if existing_labels.include?('Reviewer-assigned')
+    puts "#{YELLOW}PR already has 'Reviewer-assigned' label#{RESET}"
+    return false
   end
 
   # PR must not already have submitted reviews from docs team members
@@ -274,6 +285,8 @@ def assign_reviewer(pr_data, reviewer, github_client)
   begin
     github_client.request_reviewers(pr_data['number'], [reviewer['username']])
     puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
+    github_client.add_label(pr_data['number'], 'Reviewer-assigned')
+    puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
   rescue => e
     puts "#{RED_BOLD}Error requesting review: #{e.message}#{RESET}"
     raise
