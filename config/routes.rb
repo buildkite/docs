@@ -318,7 +318,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/integrations/other/pagerduty",                                                to: redirect("/docs/pipelines/integrations/notifications/pagerduty")
   get "/docs/pipelines/integrations/other/slack",                                                    to: redirect("/docs/pipelines/integrations/notifications/slack")
   get "/docs/pipelines/integrations/other/slack-workspace",                                          to: redirect("/docs/pipelines/integrations/notifications/slack-workspace")
-  get "/docs/pipelines/job-minutes",                                                                 to: redirect("/docs/pipelines/configure/job-minutes")
+  get "/docs/pipelines/job-minutes",                                                                 to: redirect("https://buildkite.com/pricing/")
   get "/docs/pipelines/links-and-images-in-log-output",                                              to: redirect("/docs/pipelines/configure/links-and-images-in-log-output")
   get "/docs/pipelines/managing-log-output",                                                         to: redirect("/docs/pipelines/configure/managing-log-output")
   get "/docs/pipelines/managing-priorities",                                                         to: redirect("/docs/pipelines/configure/workflows/managing-priorities")
