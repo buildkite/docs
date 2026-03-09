@@ -91,7 +91,7 @@ RSpec.describe Page::DataExtractor do
       })
     end
 
-    it "ignores raw HTML tags in the description", :skip => "CommonMarker 2.x API compatibility" do
+    it "ignores raw HTML tags in the description", :skip => "TODO: Fix CommonMarker 2.x HTML filtering - affects page metadata" do
       md = <<~MD
         # Page title
 
@@ -115,7 +115,7 @@ RSpec.describe Page::DataExtractor do
       })
     end
 
-    it "supports {: code-filename=\"file.md\"} filenames for code blocks", :skip => "CommonMarker 2.x API compatibility" do
+    it "supports {: code-filename=\"file.md\"} filenames for code blocks", :skip => "TODO: Fix CommonMarker 2.x HTML node manipulation - affects code filename captions" do
       md = <<~MD
         ```json
         { "key": "value" }
@@ -142,7 +142,7 @@ RSpec.describe Page::DataExtractor do
   end
 
   describe "attributes" do
-    it "extracts content from HTML table elements", :skip => "CommonMarker 2.x API compatibility" do
+    it "extracts content from HTML table elements", :skip => "TODO: Fix CommonMarker 2.x table parsing - affects API documentation" do
       md = <<~MD
         <table data-attributes data-attributes-required>
           <tr>
@@ -191,7 +191,7 @@ RSpec.describe Page::DataExtractor do
       })
     end
 
-    it "ignores tables which do not have data-attributes", :skip => "CommonMarker 2.x API compatibility" do
+    it "ignores tables which do not have data-attributes", :skip => "TODO: Fix CommonMarker 2.x table parsing - affects API documentation" do
       md = <<~MD
         <table>
           <tr>

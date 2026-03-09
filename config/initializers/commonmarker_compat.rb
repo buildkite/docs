@@ -77,16 +77,29 @@ module Commonmarker
       begin
         orig_string_content=(content)
       rescue TypeError => e
-        # If setting string content fails, try to modify the node differently
-        # For HTML nodes, this might not be supported in the new API
-        puts "Warning: Could not set string content on #{orig_type} node: #{e.message}"
+        # For HTML nodes, we need to work around the API limitation
+        # Store content in an instance variable for retrieval later
+        @html_content = content
       end
+    end
+
+    # Override string_content to return stored HTML content when needed
+    alias_method :orig_string_content, :string_content
+    def string_content
+      @html_content || orig_string_content
+    rescue
+      @html_content || ""
     end
 
     # API compatibility for to_commonmark - new version doesn't take options
     alias_method :orig_to_commonmark, :to_commonmark
     def to_commonmark(options = nil, width = nil)
-      orig_to_commonmark()
+      # For HTML nodes with custom content, return that content
+      if orig_type == :html_inline && @html_content
+        @html_content
+      else
+        orig_to_commonmark()
+      end
     end
 
     # 0.23 exposed a plaintext renderer that is no longer wrapped.
@@ -96,13 +109,13 @@ module Commonmarker
     # our header/description extraction needs.
     def to_plaintext(options = nil, width = 32_767)
       # Simple plaintext conversion - just get the text content without markdown
-      case type
+      case orig_type  # Use original type to handle our mapped types properly
       when :text
         string_content
       when :code_block
         string_content
       when :html_block, :html_inline
-        ""
+        string_content  # Return HTML content for HTML nodes
       else
         # For other nodes, recursively get text from children
         children.map { |child| child.to_plaintext(options, width) }.join("")
