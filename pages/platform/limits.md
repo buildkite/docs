@@ -9,6 +9,8 @@ This page outlines usage limits designed to protect your builds from unintention
 
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
+The [**Usage** page](https://buildkite.com/organizations/~/usage) is also available on every Buildkite plan and shows a breakdown of usage metrics across the Buildkite platform and all products for your Buildkite organization.
+
 > 📘 Adjusting limits
 > If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits is possible.
 
