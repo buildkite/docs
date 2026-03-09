@@ -47,14 +47,29 @@ module Commonmarker
     # a very light "strip markdown" implementation that is good enough for
     # our header/description extraction needs.
     def to_plaintext(options = nil, width = 32_767)
-      if respond_to?(:to_plaintext_internal)
-        to_plaintext_internal()
+      # Simple plaintext conversion - just get the text content without markdown
+      case type
+      when :text
+        string_content
+      when :code_block
+        string_content
+      when :html_block, :html_inline
+        ""
       else
-        # naive fallback: CommonMark → strip most formatting tokens
-        to_commonmark()
-          .gsub(/[`*_~>\[\]\(\)#\!\-]/, "")
-          .strip
+        # For other nodes, recursively get text from children
+        children.map { |child| child.to_plaintext(options, width) }.join("")
       end
+    end
+
+    # Helper to get all children as array
+    def children
+      result = []
+      child = first_child
+      while child
+        result << child
+        child = child.next_sibling
+      end
+      result
     end
   end
 end
