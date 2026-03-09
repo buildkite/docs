@@ -2,7 +2,7 @@
 
 👋 Welcome to Buildkite Test Engine! You can use Test Engine to help you track and analyze the test steps automated through CI/CD using either [Buildkite Pipelines](/docs/pipelines) or another CI/CD application.
 
-This getting started page is a tutorial that helps you understand Buildkite Test Engine's fundamentals, by providing you with high level guidance on how you'd create a new Test Engine [test suite](/docs/test-engine/test-suites), and then cloning and running a simple example Ruby project to generate test results that are collected and reported through this test suite.
+This getting started page is a tutorial that helps you understand Buildkite Test Engine's fundamentals, by providing you with high level guidance on how you'd create a new Test Engine [test suite](/docs/test-engine/test-suites).
 
 ## Before you start
 
