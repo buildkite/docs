@@ -1,12 +1,10 @@
 # GitHub Enterprise Server
 
-Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Status API](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests.
+Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Status API](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests. This guide describes the setup for self-hosted GitHub Enterprise Server. GitHub Enterprise Cloud users should refer to [GitHub](/docs/pipelines/source-control/github).
 
-GitHub Enterprise Server is available to Buildkite customers on [Pro and Enterprise](https://buildkite.com/pricing) plans.
-
-> 📘 This guide was written using GitHub Enterprise version 2.16.3.
-> Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
-> This guide describes the setup for self-hosted GitHub Enterprise Server. GitHub Enterprise Cloud users should refer to <a href="/docs/pipelines/source-control/github" rel="nofollow">GitHub</a>.
+> 📘 Buildkite plan availability and GitHub Enterprise version.
+> GitHub Enterprise Server is available to Buildkite customers on the [Pro and Enterprise](https://buildkite.com/pricing) plans only.
+> This guide is based on GitHub Enterprise version 2.16.3. Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
 
 ## Step 1: Register Buildkite as an OAuth app
 
