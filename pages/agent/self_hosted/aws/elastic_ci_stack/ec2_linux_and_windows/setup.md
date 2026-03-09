@@ -40,19 +40,20 @@ Go to the [Agents page](https://buildkite.com/organizations/-/agents) on Buildki
 
 <%= image "agents-tab.png", size: "#{1532/2}x#{296/2}", alt: "Buildkite AWS Agents" %>
 
-Click **Launch Stack** :red_button:
+Select **Launch Stack** :red_button:
 
 <%= image "agents-tab-launch.png", size: "#{554/2}x#{316/2}", alt: 'Launch Buildkite Elastic CI Stack for AWS' %>
 
 <%= image "aws-select-template.png", size: "#{1037/2}x#{673/2}", alt: "AWS Select Template Screen" %>
 
-After clicking **Next**, configure the stack using your Buildkite agent token:
+After selecting **Next**, configure the stack using your Buildkite agent token:
 
 <%= image "aws-parameters.png", size: "#{2200/2}x#{1934/2}", alt: "AWS Parameters" %>
 
-If you don't know your agent token, there is a **Reveal Agent Token** button available on the right-hand side of the [Agents page](https://buildkite.com/organizations/-/agents):
+Copy the value for the [agent token](/docs/agent/self-hosted/tokens) you'd previously configured for your Buildkite cluster and paste it into the required field on this page.
 
-<%= image "buildkite-agent-token.png", size: "#{752/2}x#{424/2}", alt: "Reveal Agent Token" %>
+> 📘
+> If you don't have your agent token's value, you'll need to [create a new one](/docs/agent/self-hosted/tokens#create-a-token), which you can do from the [**Agents** > **Clusters** > your specific cluster page](https://buildkite.com/organizations/-/agents). Once created, don't forget to copy the agent token's value and save it somewhere secure, as you won't be able to see its value from Buildkite again.
 
 By default the stack uses a job queue of `default`, but you can specify any other queue name you like.
 
@@ -75,11 +76,11 @@ Once you're ready, check these three checkboxes:
 - I acknowledge that AWS CloudFormation might create IAM resources with custom names.
 - I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
-Then click **Create stack**:
+Then select **Create stack**:
 
 <%= image "aws-create-stack.png", size: "#{2728/2}x#{1006/2}", alt: "AWS Create Stack Button" %>
 
-After creating the stack, Buildkite takes you to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the **Refresh** icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
+After creating the stack, Buildkite takes you to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Select the **Refresh** icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
 
 <%= image "elastic-ci-stack.png", width: 2756/2, height: 1406/2, alt: "AWS Elastic CI Stack for AWS Create Complete" %>
 
