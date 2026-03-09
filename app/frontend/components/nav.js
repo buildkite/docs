@@ -1,23 +1,23 @@
 export function bindToggles() {
   const toggleNodes = Array.from(
-    document.getElementsByClassName("Nav__toggle")
+    document.getElementsByClassName("Nav__toggle"),
   );
 
   toggleNodes.map(
     (toggle) =>
       (toggle.onclick = function (e) {
         const currentLevel = parseInt(
-          e.target.getAttribute("data-toggle-nav-level")
+          e.target.getAttribute("data-toggle-nav-level"),
         );
         const sectionNodes = Array.from(
           document.getElementsByClassName(
-            `Nav__section--level${currentLevel + 1}`
-          )
+            `Nav__section--level${currentLevel + 1}`,
+          ),
         );
 
         function collapse() {
           e.target.nextSibling.nextSibling.classList.remove(
-            "Nav__section--show"
+            "Nav__section--show",
           );
           e.target.classList.remove("Nav__toggle--on");
         }
@@ -39,7 +39,7 @@ export function bindToggles() {
             behavior: "smooth",
           });
         }
-      })
+      }),
   );
 }
 
