@@ -51,11 +51,10 @@ steps:
       - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
-      - docker-compose#v5.12.1:
-          run: app
-          dependencies: false
-          mount-buildkite-agent: true
-          env:
+      - docker#v5.13.0:
+          image: "public.ecr.aws/docker/library/ruby:3.4-slim"
+          propagate-environment: true
+          environment:
             - GH_REPO
             - GH_TOKEN
             - DRY_RUN
