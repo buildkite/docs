@@ -23,9 +23,8 @@ gem "stringex"
 # Rendering markdown
 gem "redcarpet"
 
-# Parsing markdown  
-gem "kramdown"
-gem "kramdown-parser-gfm"
+# Parsing markdown
+gem "commonmarker"
 
 # Syntax highlighting code
 gem "rouge", "4.7.0"

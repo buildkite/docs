@@ -37,7 +37,7 @@ ARG RAILS_ENV
 
 RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
-    && bundle config set force_ruby_platform true \
+    && bundle config set force_ruby_platform false \
     && bundle install --jobs $(nproc) --retry 3
 
 # ------------------------------------------------------------------

@@ -1,4 +1,4 @@
-require 'kramdown'
+require 'commonmarker'
 
 module RenderHelpers
 
@@ -7,7 +7,7 @@ module RenderHelpers
   ]
 
   def render_html(markdown)
-    markdown ? Kramdown::Document.new(markdown, input: 'GFM').to_html : nil
+    markdown ? Commonmarker.to_html(markdown) : nil
   end
 
   def render_of_type(type, is_list = false, is_non_nullable = false, size = "medium")

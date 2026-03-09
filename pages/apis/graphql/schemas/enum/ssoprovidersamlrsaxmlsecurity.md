@@ -39,6 +39,6 @@ XML RSA security algorithms used in the SAML exchange
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>RSA_SHA1</code></strong></p><p>http://www.w3.org/2000/09/xmldsig#rsa-sha1</p></td></tr><tr><td><p><strong><code>RSA_SHA256</code></strong></p><p>http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</p></td></tr><tr><td><p><strong><code>RSA_SHA384</code></strong></p><p>http://www.w3.org/2001/04/xmldsig-more#rsa-sha384</p></td></tr><tr><td><p><strong><code>RSA_SHA512</code></strong></p><p>http://www.w3.org/2001/04/xmldsig-more#rsa-sha512</p></td></tr>
+    <tr><td><p><strong><code>RSA_SHA1</code></strong></p><p><a href="http://www.w3.org/2000/09/xmldsig#rsa-sha1">http://www.w3.org/2000/09/xmldsig#rsa-sha1</a></p></td></tr><tr><td><p><strong><code>RSA_SHA256</code></strong></p><p><a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256">http://www.w3.org/2001/04/xmldsig-more#rsa-sha256</a></p></td></tr><tr><td><p><strong><code>RSA_SHA384</code></strong></p><p><a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384">http://www.w3.org/2001/04/xmldsig-more#rsa-sha384</a></p></td></tr><tr><td><p><strong><code>RSA_SHA512</code></strong></p><p><a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha512">http://www.w3.org/2001/04/xmldsig-more#rsa-sha512</a></p></td></tr>
   </tbody>
 </table>
