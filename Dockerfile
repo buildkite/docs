@@ -65,7 +65,6 @@ COPY --from=node-deps /node_modules /app/node_modules
 COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 
 ARG RAILS_ENV
-ENV VITE_RUBY_PACKAGE_MANAGER=npm
 
 RUN if [ "$RAILS_ENV" = "production" ]; then \
     echo "--- :vite: Compiling assets" \
@@ -91,7 +90,6 @@ ENV DD_RUM_ENABLED=true
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV SEGMENT_TRACKING_ID=q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm
 ENV SECRET_KEY_BASE=xxx
-ENV VITE_RUBY_PACKAGE_MANAGER=npm
 
 COPY . /app
 COPY --from=node-deps /usr/local/bin /usr/local/bin
