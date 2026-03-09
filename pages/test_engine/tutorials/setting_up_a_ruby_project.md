@@ -1,6 +1,6 @@
-# Getting started with a Ruby project
+# Setting up a Ruby project for Test Engine
 
-This tutorial helps you understand Buildkite Test Engine's fundamentals, by guiding you through the creation of a new Test Engine [test suite](/docs/test-engine/test-suites) for a simple Ruby project, which you'll clone and run to generate test results that are collected and reported through this test suite.
+This tutorial helps you set up a Ruby project with Buildkite Test Engine, by guiding you through the creation of a new Test Engine [test suite](/docs/test-engine/test-suites) and configuring a simple Ruby project, which you'll clone and run to generate test results that are collected and reported through this test suite.
 
 Note that Buildkite Test Engine supports [other languages and test runners](/docs/test-engine/test-collection) too.
 

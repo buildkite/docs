@@ -717,7 +717,7 @@
     - name: "Tutorials"
       children:
         - name: "Getting started with a Ruby project"
-          path: "test-engine/tutorials/getting-started-with-a-ruby-project"
+          path: "test-engine/tutorials/setting-up-a-ruby-project"
     - name: "Workflows"
       children:
         - name: "Overview"
