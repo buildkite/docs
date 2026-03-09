@@ -23,8 +23,9 @@ gem "stringex"
 # Rendering markdown
 gem "redcarpet"
 
-# Parsing markdown
-gem "commonmarker"
+# Parsing markdown  
+gem "kramdown"
+gem "kramdown-parser-gfm"
 
 # Syntax highlighting code
 gem "rouge", "4.7.0"
@@ -42,6 +43,9 @@ gem "bugsnag"
 gem 'front_matter_parser'
 
 gem 'matrix'
+
+# Ruby 4.0 compatibility - these were removed from stdlib
+gem 'ostruct'
 
 # Asset compilation
 gem 'vite_rails'
