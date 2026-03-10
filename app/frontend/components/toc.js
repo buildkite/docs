@@ -113,7 +113,7 @@ export function initToc() {
 
         syncPath();
       },
-      { rootMargin: `-${content.offsetTop}px 0px 0px 0px`, threshold: 0.25 }
+      { rootMargin: `-${content.offsetTop}px 0px 0px 0px`, threshold: 0.25 },
     );
 
     drawPath();

@@ -714,6 +714,10 @@
               path: "test-engine/test-collection/your-own-collectors"
         - name: "CI environment variables"
           path: "test-engine/test-collection/ci-environments"
+    - name: "Tutorials"
+      children:
+        - name: "Getting started with a Ruby project"
+          path: "test-engine/tutorials/setting-up-a-ruby-project"
     - name: "Workflows"
       children:
         - name: "Overview"

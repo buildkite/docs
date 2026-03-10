@@ -13,7 +13,9 @@
   font-size: 1.75rem;
   line-height: 1;
   padding: 8px;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
 
   &:hover {
     transform: scale(1.2);
