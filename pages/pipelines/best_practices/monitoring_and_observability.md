@@ -98,7 +98,7 @@ Use this approach when you want a fleet-level view of agent capacity and [queue]
 > 📘 Getting agent metrics into Datadog
 > To get Buildkite agent metrics into Datadog, configure `buildkite-agent-metrics` with the StatsD backend pointed at a DogStatsD receiver (the Datadog Agent's built-in StatsD server). See the [buildkite-agent-metrics CLI documentation](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) for setup details.
 
-This tool polls the Buildkite API, so it shows point-in-time snapshots rather than event-level granularity. It doesn't cover build lifecycle events or trace data.
+This tool polls the Buildkite API, so it shows point-in-time snapshots rather than event-level granularity. It does not cover build lifecycle events or trace data.
 
 ### Per-agent process health
 
