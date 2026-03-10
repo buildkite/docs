@@ -40,13 +40,9 @@ Agent tokens ([prefixed with `bkct_`](/docs/platform/security/tokens#supported-b
 
 ## Register a stack
 
-Register a new stack or update an existing one.
-You must use this API to register a stack `key` before using any of the following APIs.
-You can choose to register a stack key ad-hoc once, or have it as part of your stack implementation.
-This endpoint is idempotent.
+Register a new stack or update an existing one. You must use this API to register a stack `key` before using any of the following APIs. You can choose to register a stack key ad-hoc once, or have it as part of your stack implementation. This endpoint is idempotent.
 
-The register payload includes a mandatory `queue_key` field, which tells Buildkite which cluster queue the stack is intended to serve.
-However, such binding isn't enforced so there is a possibility that you could use a single stack implementation to power all cluster queues.
+The register payload includes a mandatory `queue_key` field, which tells Buildkite which self-hosted queue the stack is intended to serve. However, such binding isn't enforced so there is a possibility that you could use a single stack implementation to power all self-hosted queues.
 
 The number of active stacks per organization is limited, and each stack is subject to independent rate limits.
 
@@ -56,7 +52,7 @@ Request payload:
 | ----------- | ---------------- | -------- | --------------------------------------------------- |
 | `key`       | string           | Yes      | Unique identifier for the stack in the org. Alphanumeric characters, underscores, and dashes only. Maximum 80 bytes. |
 | `type`      | string           | Yes      | Type of stack: `kubernetes`, `elastic`, or `custom`. Third-party stacks should use `custom`. |
-| `queue_key` | string           | Yes      | Cluster queue key the stack plans to serve. Use `__default__` for the cluster's default queue. |
+| `queue_key` | string           | Yes      | Self-hosted queue key the stack plans to serve. Use `__default__` for the cluster's default queue. |
 | `metadata`  | key-value object | Yes      | Additional metadata for the stack. Must be a flat object with string keys (maximum 64 characters) and string values (maximum 256 characters). Maximum 100 keys. |
 
 Example:
@@ -109,14 +105,11 @@ Success response: `204 No Content`
 
 ## List scheduled jobs (Metadata only)
 
-This is the most important API of the stacks APIs.
-It fetches all jobs that have been scheduled to run by Buildkite's internal state machine.
-When a cluster queue is paused, `cluster_queue.dispatch_paused` will return `true`, and a stack implementation **must** respect this flag (i.e. avoid starting new jobs whenever the queue is paused).
+This is the most important API of the stacks APIs, and it fetches all jobs that have been scheduled to run by Buildkite's internal state machine. When a self-hosted queue is paused, `cluster_queue.dispatch_paused` will return `true`, and a stack implementation **must** respect this flag (that is, avoid starting new jobs whenever the queue is paused).
 
 A stack often makes scheduling decisions based on returned metadata and turns this job metadata into running agents using [--acquire-jobs](https://buildkite.com/resources/changelog/129-one-shot-agents-with-the-acquire-job-flag/).
 
-Until these jobs transition into another state, the API will keep returning them.
-To avoid starting duplicate jobs, we offer some utility APIs below.
+Until these jobs transition into another state, the API will keep returning them. To avoid starting duplicate jobs, we offer some utility APIs below.
 
 > 📘 Queue connection status
 > Polling this endpoint keeps the associated queue's status set to **Connected** in the Buildkite Pipelines interface. If a stack stops polling for more than approximately 30 seconds, the queue's status changes to **Disconnected**. Learn more in [Queue connection status](/docs/agent/queues/managing#queue-connection-status).
@@ -183,10 +176,7 @@ Success response: `200 OK`
 
 ## Get a job (Env + command)
 
-In some cases, the job metadata returned from the API above isn't sufficient to make a full scheduling decision.
-In such cases, you can use this API to get the full payload data of a job individually.
-Specifically, the job payload data contains `env` and `command`.
-Due to the dynamic nature of Buildkite pipelines, these two fields can often grow to above 100KB.
+In some cases, the job metadata returned from the API above isn't sufficient to make a full scheduling decision. In such cases, you can use this API to get the full payload data of a job individually. Specifically, the job payload data contains `env` and `command`. Due to the dynamic nature of Buildkite pipelines, these two fields can often grow to above 100KB.
 
 It's useful when you want to make scheduling decisions based on in-depth analysis of a job.
 
@@ -211,10 +201,7 @@ Success response: `200 OK`
 
 ## Reserve jobs
 
-In order to prevent pulling duplicate jobs, a stack can _reserve_ jobs that it has decided to execute.
-If this API is called, a stack _should only_ execute jobs that are successfully reserved, as shown in the `reserved` fields in the response.
-Until the reservation expires, the reserved jobs will not show up in subsequent list scheduled jobs API calls.
-If the reservation expires, the reserved jobs will return to the `scheduled` state.
+In order to prevent pulling duplicate jobs, a stack can _reserve_ jobs that it has decided to execute. If this API is called, a stack _should only_ execute jobs that are successfully reserved, as shown in the `reserved` fields in the response. Until the reservation expires, the reserved jobs will not show up in subsequent list scheduled jobs API calls. If the reservation expires, the reserved jobs will return to the `scheduled` state.
 
 You can reserve multiple jobs for execution. This API can be repeatedly called to extend the expiration of reservation states.
 
@@ -256,9 +243,7 @@ Success response: `200 OK`
 
 ## Get job states
 
-Retrieve the current state of multiple jobs.
-This is useful when a stack is provisioning infrastructure for a job and the job is cancelled before the infrastructure is ready.
-A stack can choose to decommission infrastructure proactively to save cost.
+Retrieve the current state of multiple jobs. This is useful when a stack is provisioning infrastructure for a job and the job is cancelled before the infrastructure is ready. A stack can choose to decommission infrastructure proactively to save cost.
 
 This API is also helpful to inform a stack when a job's responsibility can be safely shifted to the running agent.
 
@@ -297,11 +282,9 @@ Success response: `200 OK`
 
 ## Finish a job
 
-Mark a job as finished when the stack cannot or will not execute it, or when it has completed successfully without spawning an agent.
-In some situations, an agent cannot be spawned due to infrastructure or other issues. In this case, for each job, a stack can call this API at most once to finish the job with details.
+Mark a job as finished when the stack cannot or will not execute it, or when it has completed successfully without spawning an agent. In some situations, an agent cannot be spawned due to infrastructure or other issues. In this case, for each job, a stack can call this API at most once to finish the job with details.
 
-This is a critical API to shorten the feedback cycle to end users.
-For example, in the Kubernetes stack, if a pod has an image pull issue, the k8s stack uses this API to fail a job with feedback.
+This is a critical API to shorten the feedback cycle to end users. For example, in the Kubernetes stack, if a pod has an image pull issue, the k8s stack uses this API to fail a job with feedback.
 
 A job that is finished with this approach will have a special notification on the Buildkite Build page.
 
@@ -349,10 +332,8 @@ steps:
 
 ## Create stack notifications
 
-In situations when a stack may take more than a few seconds to provision infrastructure for a job, or when the stack is waiting for some external conditions to be satisfied, a stack can give short textual notifications to the Buildkite Build page.
-This can help with visibility and debugging.
-A notification `detail` can be a short string.
-A job cannot have more than 100 stack notifications, so a stack should use this API judiciously.
+In situations when a stack may take more than a few seconds to provision infrastructure for a job, or when the stack is waiting for some external conditions to be satisfied, a stack can give short textual notifications to the Buildkite Build page. This can help with visibility and debugging.
+A notification `detail` can be a short string. A job cannot have more than 100 stack notifications, so a stack should use this API judiciously.
 
 This endpoint supports batch creation of notifications for multiple jobs. You can send up to 1000 notifications in a single request.
 
@@ -425,8 +406,7 @@ Valid notifications are created even if some fail validation. An empty `errors` 
 
 ## Rate limiting
 
-Each endpoint has an independent rate limit applied per stack (scoped to the combination of organization, cluster, and stack key).
-Rate limits use a one-second sliding window.
+Each endpoint has an independent rate limit applied per stack (scoped to the combination of organization, cluster, and stack key). Rate limits use a one-second sliding window.
 
 Every response includes these headers:
 
@@ -478,7 +458,7 @@ Common error codes:
 | `400 Bad Request` | Invalid parameters (for example, `job_uuids` is not an array or `limit` is not a positive integer) |
 | `401 Unauthorized` | Missing, invalid, or expired token |
 | `403 Forbidden` | Stack limit exceeded for the organization |
-| `404 Not Found` | Stack, job, or cluster queue not found |
+| `404 Not Found` | Stack, job, or self-hosted queue not found |
 | `422 Unprocessable Entity` | Validation failure (for example, missing required fields during registration) |
 | `429 Too Many Requests` | Rate limit exceeded |
 | `503 Service Unavailable` | Organization is temporarily unavailable |
