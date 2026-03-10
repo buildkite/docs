@@ -13,20 +13,17 @@ A stack is defined as a software process that has these two abilities simultaneo
 
 A stack can also be broadly understood as an orchestrator or a scheduler of Buildkite jobs.
 
-The stacks API powers Buildkite's [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s).
-It's designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales.
-You can use it to build custom stack implementations in any language that dispatch jobs to your own compute infrastructure, such as Kubernetes, cloud VMs, serverless functions, or container services.
+The stacks API powers Buildkite's [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s), and is designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales. You can use the stacks API to build custom stack implementations in any language that dispatch jobs to your own compute infrastructure, such as Kubernetes, cloud VMs, serverless functions, or container services.
 
 ## Authentication
 
-All stacks API endpoints require a **cluster token** passed via the `Authorization` header:
+All stacks API endpoints require an [agent token](/docs/agent/self-hosted/tokens) passed in the `Authorization` header:
 
 ```
-Authorization: Token <token>
+Authorization: Token <agent-token-value>
 ```
 
-Cluster tokens (prefixed `bkct_`) are located on your cluster's **Agent Tokens** page.
-They grant access to all queues within the cluster.
+Agent tokens ([prefixed with `bkct_`](/docs/platform/security/tokens#supported-buildkite-tokens-agent-tokens)) are located on your cluster's **Agent Tokens** page, and these tokens grant access to all [self-hosted queues](/docs/agent/queues) within the cluster.
 
 ## Endpoint summary
 
@@ -36,7 +33,7 @@ They grant access to all queues within the cluster.
 | POST | `/v3/stacks/:key/deregister` | [De-register a stack](#de-register-a-stack) |
 | GET | `/v3/stacks/:key/scheduled-jobs` | [List scheduled jobs](#list-scheduled-jobs-metadata-only) |
 | PUT | `/v3/stacks/:key/scheduled-jobs/batch-reserve` | [Reserve jobs](#reserve-jobs) |
-| GET | `/v3/stacks/:key/jobs/:id` | [Get a job](#get-a-job-env--command) |
+| GET | `/v3/stacks/:key/jobs/:id` | [Get a job](#get-a-job-env-plus-command) |
 | POST | `/v3/stacks/:key/jobs/get-states` | [Get job states](#get-job-states) |
 | POST | `/v3/stacks/:key/jobs/:id/finish` | [Finish a job](#finish-a-job) |
 | POST | `/v3/stacks/:key/notifications` | [Create stack notifications](#create-stack-notifications) |
@@ -442,7 +439,7 @@ Every response includes these headers:
 
 Default rate limits per endpoint:
 
-| Endpoint | Scope | Default limit (req/sec) |
+| Endpoint | Scope | Default limit (requests/second) |
 | --- | --- | --- |
 | List scheduled jobs | `list-scheduled-jobs` | 10 |
 | Reserve jobs | `batch-reserve` | 10 |
