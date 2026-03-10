@@ -70,8 +70,8 @@ When designing monorepo pipelines, consider the following benchmarks for the num
 
 Step count range | Experience
 ---------------- | ----------------
-Up to 5,000 | Optimal. The UI and build processing perform well at this scale.
-Over 5,000 | Not recommended. The UI may become slow or unresponsive, and operational issues are possible. Consider consolidating some steps. Split work across multiple pipelines or use an orchestrator pattern.
+Up to 500 | Optimal. The UI and build processing perform well at this scale.
+Over 500 | Not recommended. The UI may become slow or unresponsive, and operational issues are possible. Consider consolidating some steps. Split work across multiple pipelines or use an orchestrator pattern.
 {: class="responsive-table"}
 
 > 📘 Tip for large monorepos
