@@ -199,7 +199,7 @@ Use this approach for event-driven alerting (for example, notifying a team when 
 - Pass and fail rates over time
 - Slowest tests
 
-Use this approach when you care about test health independently from build infrastructure health. It's best for engineering teams focused on test suite reliability and performance.
+Use this approach when you care about test health independently from build infrastructure health. This is best for engineering teams focused on test suite reliability and performance.
 
 Test Engine is a separate product from build and agent metrics. It covers test execution quality, not CI infrastructure health.
 
