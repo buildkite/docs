@@ -26,7 +26,7 @@ To add a webhook for your package creation event:
 
 ### Package created
 
-The webhook is triggered when a package is created by published through an ecosystem-native CLI or using the [REST API](/docs/apis/rest-api/package-registries/packages).
+The webhook is triggered when a package is created and published through an ecosystem-native CLI or using the [REST API](/docs/apis/rest-api/package-registries/packages).
 
 Example payload:
 
