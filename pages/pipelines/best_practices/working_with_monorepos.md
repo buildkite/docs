@@ -66,13 +66,9 @@ In your CI/CD process, you don't need to limit your options to a single one of t
 
 ## Pipeline step count guidance
 
-When designing monorepo pipelines, consider the following benchmarks for the number of steps in a single pipeline build:
+When designing monorepo pipelines, consider keeping the number of steps in a single pipeline build up to 500 to ensure that the UI and build processing perform well.
 
-Step count range | Experience
----------------- | ----------------
-Up to 500 | Optimal. The UI and build processing perform well at this scale.
-Over 500 | Not recommended. The UI may become slow or unresponsive, and operational issues are possible. Consider consolidating some steps. Split work across multiple pipelines or use an orchestrator pattern.
-{: class="responsive-table"}
+If your use case requires a large number of steps in a build, consider consolidating some steps, splitting work across multiple pipelines, or using an orchestrator pattern. For builds that consistently need step counts well beyond this range, [contact us](mailto:sales@buildkite.com) to discuss your requirements.
 
 > 📘 Tip for large monorepos
 > For monorepos that could generate hundreds or thousands of steps, use an orchestrator pipeline that [dynamically generates](/docs/pipelines/configure/dynamic-pipelines) only the steps needed for each build. Upload steps in batches or [trigger](/docs/pipelines/configure/step-types/trigger-step) child pipelines to avoid single-build step counts growing into the thousands.
