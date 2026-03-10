@@ -109,7 +109,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 **Controls:**
 
 - Enforce encryption at rest and in transit when storing and transferring build artifacts.
-- Use cloud storage for storing build artifacts. You can use [Buildkite Package Registries](/docs/package-registries/) or other supported private cloud storage options:
+- Use cloud storage for storing build artifacts. You can use [Buildkite Package Registries](/docs/package-registries) or other supported private cloud storage options:
   * [AWS S3 buckets](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket)
   * [Google Cloud Storage buckets](/docs/agent/cli/reference/artifact#using-your-private-google-cloud-bucket)
   * [Azure Blob containers](/docs/agent/cli/reference/artifact#using-your-private-azure-blob-container)

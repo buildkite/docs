@@ -246,7 +246,7 @@ GET | `/v2/meta` | [Get meta information](/docs/apis/rest-api/meta#get-meta-info
 
 ## Query string parameters
 
-Some API endpoints accept query string parameters which are added to the end of the URL. For example, the [builds listing APIs](/docs/api/builds#list-all-builds) can be filtered by `state` using the following `curl` command:
+Some API endpoints accept query string parameters which are added to the end of the URL. For example, the [builds listing APIs](/docs/apis/rest-api/builds#list-all-builds) can be filtered by `state` using the following `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -255,7 +255,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ## Request body properties
 
-Some API requests accept JSON request bodies for specifying data. For example, the [build create API](/docs/api/builds#create-a-build) can be passed the required properties using the following `curl` command:
+Some API requests accept JSON request bodies for specifying data. For example, the [build create API](/docs/apis/rest-api/builds#create-a-build) can be passed the required properties using the following `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

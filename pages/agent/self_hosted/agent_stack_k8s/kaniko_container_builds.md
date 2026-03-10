@@ -20,7 +20,7 @@ Google has deprecated support for the Kaniko project and no longer publishes new
 
 ### Build an image and push to Buildkite Package Registries
 
-This section covers using the Kaniko executor for building container images and pushing them to [Buildkite Package Registries](/docs/package_registries). To be able to push images to Buildkite Package Registries, you need to do the following:
+This section covers using the Kaniko executor for building container images and pushing them to [Buildkite Package Registries](/docs/package-registries). To be able to push images to Buildkite Package Registries, you need to do the following:
 
 1. Perform a one-time package registry and OIDC policy setup
 1. Create an agent hook to get OIDC token and set up Docker config

@@ -50,7 +50,7 @@ Buildkite Test Engine supports webhook events relating to a [monitor on a test s
 
 ### Package Registries
 
-Buildkite package registries support webhook events when [packages are published](/docs/apis/webhooks/package_registries).
+Buildkite package registries support webhook events when [packages are published](/docs/apis/webhooks/package-registries).
 
 ## Security best practices
 
