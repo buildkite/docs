@@ -77,6 +77,9 @@ bk artifacts list [<build-number>] [flags]
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 

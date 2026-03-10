@@ -145,9 +145,10 @@ This section walks through the deployment process step by step, from obtaining y
 
 ### Step 1: Get your Buildkite agent token
 
-Go to the [Agents page](https://buildkite.com/organizations/-/agents) in the Buildkite Pipelines web interface and click **Reveal Agent Token**:
+Obtain the value for the [agent token](/docs/agent/self-hosted/tokens) you'd previously configured for your Buildkite cluster.
 
-The agent token is used to register agents with your Buildkite organization.
+> 📘
+> If you don't have your agent token's value, you'll need to [create a new one](/docs/agent/self-hosted/tokens#create-a-token), which you can do from the [**Agents** > **Clusters** > your specific cluster page](https://buildkite.com/organizations/-/agents). Once created, don't forget to copy the agent token's value and save it somewhere secure, as you won't be able to see its value from Buildkite again.
 
 ### Step 2: Store the token in Secret Manager (recommended)
 

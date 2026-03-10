@@ -8,6 +8,9 @@
 <% if description = content_for(:page_description) %>
 <meta name="description" content="<%= description %>" />
 <% end %>
+<% if importance = content_for(:page_importance).presence %>
+<meta name="docsearch:importance" content="<%= importance %>" />
+<% end %>
 
 <%= tag :link, rel: "canonical", href: seo_canonical_url %>
 <%= tag :link, rel: "help", href: "/docs/llms.txt", type: "text/plain", title: "LLMs.txt - LLM-readable documentation index" %>

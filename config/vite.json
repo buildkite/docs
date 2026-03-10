@@ -2,7 +2,8 @@
   "all": {
     "sourceCodeDir": "app/frontend",
     "watchAdditionalPaths": [],
-    "publicOutputDir": "docs"
+    "publicOutputDir": "docs",
+    "viteBinPath": "node_modules/.bin/vite"
   },
   "development": {
     "autoBuild": true,

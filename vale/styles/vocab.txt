@@ -103,6 +103,7 @@ commit_sha
 completion_watcher
 composable
 config
+configs
 configmap
 Containerfile
 Containerfiles

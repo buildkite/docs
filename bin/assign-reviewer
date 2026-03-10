@@ -1,0 +1,394 @@
+#!/usr/bin/env ruby
+
+require "net/http"
+require "json"
+require "yaml"
+
+# Environment variables from Buildkite + AWS SSM
+GH_TOKEN = ENV.fetch("GH_TOKEN")
+GH_REPO = ENV.fetch("GH_REPO", "buildkite/docs-private")
+DRY_RUN = ENV.fetch("DRY_RUN", "false") == "true"
+SKIP_TEAM_CHECK = ENV.fetch("SKIP_TEAM_CHECK", "false") == "true"
+BRANCH = ENV.fetch("BUILDKITE_BRANCH", "")
+
+# ANSI Color codes (following sync-public-pr pattern)
+CYAN = "\e[0;36m"
+GREEN_BOLD = "\e[1;32m"
+YELLOW = "\e[0;33m"
+RED_BOLD = "\e[1;31m"
+RESET = "\e[0m"
+
+# Load configuration
+CONFIG = YAML.load_file("config/reviewer-assignment.yml")
+
+class GithubClient
+  def initialize(token, repo)
+    @token = token
+    @repo = repo
+    @client = Net::HTTP.new("api.github.com", 443)
+    @client.use_ssl = true
+  end
+
+  def get_pr(pr_number)
+    get("/repos/#{@repo}/pulls/#{pr_number}")
+  end
+
+  def search_issues(query)
+    get("/search/issues?q=#{URI.encode_www_form_component(query)}")
+  end
+
+  def request_reviewers(pr_number, reviewers)
+    post("/repos/#{@repo}/pulls/#{pr_number}/requested_reviewers", {
+      reviewers: reviewers
+    })
+  end
+
+  def get_pr_files(pr_number)
+    get("/repos/#{@repo}/pulls/#{pr_number}/files")
+  end
+
+  def get_pr_reviews(pr_number)
+    get("/repos/#{@repo}/pulls/#{pr_number}/reviews")
+  end
+
+  def list_prs_for_branch(branch)
+    get("/repos/#{@repo}/pulls?head=#{@repo.split('/').first}:#{branch}&state=open")
+  end
+
+  def add_label(issue_number, label)
+    post("/repos/#{@repo}/issues/#{issue_number}/labels", { labels: [label] })
+  end
+
+  private
+
+  def get(path)
+    puts "#{CYAN}HTTP GET #{path}#{RESET}"
+    response = @client.get(path, headers)
+    colour = response.code.to_i < 400 ? GREEN_BOLD : RED_BOLD
+    puts "#{colour}#{response.code} #{response.message}#{RESET}"
+
+    response.value
+    JSON.parse(response.body)
+  end
+
+  def post(path, payload)
+    puts "#{CYAN}HTTP POST #{path}#{RESET}"
+    response = @client.post(path, payload.to_json, headers)
+
+    colour = response.code.to_i < 400 ? GREEN_BOLD : RED_BOLD
+    puts "#{colour}#{response.code} #{response.message}#{RESET}"
+
+    response.value
+    JSON.parse(response.body)
+  end
+
+  def headers
+    {
+      "Accept"               => "application/vnd.github+json",
+      "Authorization"        => "Bearer #{@token}",
+      "X-GitHub-Api-Version" => "2022-11-28"
+    }
+  end
+end
+
+def eligible_for_assignment?(pr_data, config, github_client)
+  puts "--- :thinking_face: Checking eligibility for PR assignment"
+
+  # PR must be open
+  unless pr_data['state'] == 'open'
+    puts "#{YELLOW}PR is not open (state: #{pr_data['state']})#{RESET}"
+    return false
+  end
+
+  # PR must not be draft
+  if pr_data['draft']
+    puts "#{YELLOW}PR is a draft#{RESET}"
+    return false
+  end
+
+  # Author must not be a docs team member
+  docs_usernames = config['docs_team'].map { |m| m['username'] }
+  pr_author = pr_data['user']['login']
+
+  if docs_usernames.include?(pr_author) && !SKIP_TEAM_CHECK
+    puts "#{YELLOW}PR author (#{pr_author}) is a docs team member#{RESET}"
+    return false
+  end
+
+  if SKIP_TEAM_CHECK && docs_usernames.include?(pr_author)
+    puts "#{CYAN}SKIP_TEAM_CHECK enabled - allowing docs team member #{pr_author}#{RESET}"
+  end
+
+  # PR must not already have the reviewer-assigned label
+  existing_labels = pr_data['labels'].map { |l| l['name'] }
+  if existing_labels.include?('Reviewer-assigned')
+    puts "#{YELLOW}PR already has 'Reviewer-assigned' label#{RESET}"
+    return false
+  end
+
+  # PR must not already have submitted reviews from docs team members
+  reviews = github_client.get_pr_reviews(pr_data['number'])
+  docs_reviews = reviews.select { |r| docs_usernames.include?(r['user']['login']) }
+  if docs_reviews.any?
+    reviewed_by = docs_reviews.map { |r| "#{r['user']['login']} (#{r['state']})" }.uniq.join(', ')
+    puts "#{YELLOW}PR already has reviews from docs team: #{reviewed_by}#{RESET}"
+    return false
+  end
+
+  puts "#{GREEN_BOLD}PR is eligible for auto-assignment#{RESET}"
+  true
+end
+
+def get_preferred_reviewer_by_time(config)
+  current_hour_utc = Time.now.utc.hour
+  puts "Current UTC hour: #{current_hour_utc}"
+
+  preferred = config['docs_team'].find do |reviewer|
+    reviewer['timezone_hours_utc'].include?(current_hour_utc)
+  end
+
+  if preferred
+    puts "Preferred reviewer by timezone: #{preferred['username']} (#{preferred['timezone']})"
+  else
+    puts "#{YELLOW}No timezone match found for hour #{current_hour_utc}, will use workload scoring#{RESET}"
+  end
+
+  preferred
+end
+
+def get_open_pr_count(username, github_client)
+  query = "is:pr is:open review-requested:#{username} label:Reviewer-assigned repo:#{GH_REPO}"
+  puts "Searching for open PRs: #{query}"
+
+  begin
+    response = github_client.search_issues(query)
+    count = response['total_count']
+    puts "#{username} has #{count} open PR(s) awaiting review"
+    count
+  rescue => e
+    puts "#{RED_BOLD}Error fetching PR count for #{username}: #{e.message}#{RESET}"
+    0
+  end
+end
+
+def get_changed_page_dirs(pr_data, github_client)
+  files = github_client.get_pr_files(pr_data['number'])
+  files
+    .map { |f| f['filename'] }
+    .select { |f| f.start_with?('pages/') }
+    .map { |f| File.dirname(f) }
+    .uniq
+end
+
+def get_expertise_score(reviewer, changed_dirs, github_client)
+  return 0.0 if changed_dirs.empty?
+
+  total_commits = 0
+  changed_dirs.each do |dir|
+    query = "is:pr is:merged author:#{reviewer['username']} repo:#{GH_REPO} path:#{dir}"
+    begin
+      response = github_client.search_issues(query)
+      total_commits += response['total_count']
+    rescue => e
+      puts "#{YELLOW}Warning: Could not fetch expertise data for #{reviewer['username']} in #{dir}: #{e.message}#{RESET}"
+    end
+  end
+
+  total_commits
+end
+
+def select_reviewer(config, github_client, pr_data)
+  puts "--- :scales: Calculating reviewer scores"
+
+  preferred = get_preferred_reviewer_by_time(config)
+
+  # Fetch open PR counts once for all reviewers
+  pr_counts = {}
+  config['docs_team'].each do |reviewer|
+    pr_counts[reviewer['username']] = get_open_pr_count(reviewer['username'], github_client)
+  end
+  max_prs = pr_counts.values.max
+
+  # Fetch changed page directories for expertise scoring
+  changed_dirs = get_changed_page_dirs(pr_data, github_client)
+  puts "Changed page directories: #{changed_dirs.join(', ')}" if changed_dirs.any?
+
+  # Fetch expertise scores once for all reviewers
+  expertise_counts = {}
+  if changed_dirs.any?
+    config['docs_team'].each do |reviewer|
+      expertise_counts[reviewer['username']] = get_expertise_score(reviewer, changed_dirs, github_client)
+    end
+    max_expertise = expertise_counts.values.max
+  end
+
+  scores = config['docs_team'].map do |reviewer|
+    # Calculate timezone score
+    tz_score = (reviewer == preferred) ? 1.0 : 0.3
+
+    # Calculate workload score from pre-fetched counts
+    open_prs = pr_counts[reviewer['username']]
+    workload_score = if max_prs > 0
+      1.0 - (open_prs.to_f / max_prs)
+    else
+      0.5
+    end
+
+    # Calculate expertise score from pre-fetched counts
+    expertise_score = if changed_dirs.any? && max_expertise && max_expertise > 0
+      expertise_counts[reviewer['username']].to_f / max_expertise
+    else
+      0.5
+    end
+
+    # Calculate total weighted score
+    tz_weight = config['scoring_weights']['timezone']
+    workload_weight = config['scoring_weights']['workload']
+    expertise_weight = config['scoring_weights']['expertise']
+    total = (tz_score * tz_weight) + (workload_score * workload_weight) + (expertise_score * expertise_weight)
+
+    puts "#{reviewer['username']}: tz=#{(tz_score * 100).round}% workload=#{(workload_score * 100).round}% expertise=#{(expertise_score * 100).round}% total=#{(total * 100).round}%"
+
+    {
+      reviewer: reviewer,
+      score: total,
+      timezone: tz_score,
+      workload: workload_score,
+      expertise: expertise_score,
+      open_prs: open_prs
+    }
+  end
+
+  # Select highest scoring reviewer
+  selected = scores.max_by { |s| s[:score] }
+
+  # If scores are equal, prefer timezone match, then alphabetical
+  tied_scores = scores.select { |s| (s[:score] - selected[:score]).abs < 0.01 }
+  if tied_scores.length > 1
+    puts "#{YELLOW}Multiple reviewers with equal scores, applying tiebreaker#{RESET}"
+    selected = tied_scores.find { |s| s[:reviewer] == preferred } || tied_scores.min_by { |s| s[:reviewer]['username'] }
+  end
+
+  puts "#{GREEN_BOLD}Selected reviewer: #{selected[:reviewer]['username']} (score: #{(selected[:score] * 100).round}%)#{RESET}"
+  selected
+end
+
+def assign_reviewer(pr_data, reviewer, github_client)
+  puts "--- :bell: Assigning reviewer"
+
+  if DRY_RUN
+    puts "#{YELLOW}DRY RUN: Would assign #{reviewer['username']} to PR ##{pr_data['number']}#{RESET}"
+    return
+  end
+
+  # 1. Request review via GitHub API
+  begin
+    github_client.request_reviewers(pr_data['number'], [reviewer['username']])
+    puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
+    github_client.add_label(pr_data['number'], 'Reviewer-assigned')
+    puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
+  rescue => e
+    puts "#{RED_BOLD}Error requesting review: #{e.message}#{RESET}"
+    raise
+  end
+
+  # 2. Notify Zapier to create Linear ticket
+  notify_zapier(pr_data, reviewer)
+end
+
+def notify_zapier(pr_data, reviewer)
+  puts "--- :zap: Sending Zapier webhook (Linear ticket)"
+
+  webhook_url = CONFIG['zapier_webhook_url']
+  assignee = reviewer['linear_user_id'] || reviewer['username']
+
+  payload = {
+    gh_url: pr_data['html_url'],
+    gh_issue_id: pr_data['number'],
+    assignee: assignee
+  }
+
+  if DRY_RUN
+    puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
+    puts "  gh_url: #{payload[:gh_url]}"
+    puts "  assignee: #{assignee}"
+    return
+  end
+
+  begin
+    uri = URI(webhook_url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
+    request.body = payload.to_json
+    response = http.request(request)
+    puts "#{GREEN_BOLD}Zapier webhook sent (#{response.code})#{RESET}"
+  rescue => e
+    puts "#{YELLOW}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
+  end
+end
+
+# Resolve the PR number from BUILDKITE_PULL_REQUEST or by looking up the branch
+def resolve_pr_number(github_client)
+  bk_pr = ENV.fetch("BUILDKITE_PULL_REQUEST", "false")
+  if bk_pr != "false" && bk_pr.to_i > 0
+    puts "PR number from BUILDKITE_PULL_REQUEST: #{bk_pr}"
+    return bk_pr.to_i
+  end
+
+  if BRANCH.empty? || BRANCH == "main"
+    puts "#{YELLOW}No PR branch to look up (branch=#{BRANCH})#{RESET}"
+    return nil
+  end
+
+  puts "Looking up open PR for branch: #{BRANCH}"
+  prs = github_client.list_prs_for_branch(BRANCH)
+  if prs.empty?
+    puts "#{YELLOW}No open PR found for branch #{BRANCH}#{RESET}"
+    return nil
+  end
+
+  pr_number = prs.first['number']
+  puts "Found PR ##{pr_number} for branch #{BRANCH}"
+  pr_number
+end
+
+# Main execution
+begin
+  github_client = GithubClient.new(GH_TOKEN, GH_REPO)
+  pr_number = resolve_pr_number(github_client)
+
+  unless pr_number
+    puts "#{YELLOW}No PR to process, skipping reviewer assignment#{RESET}"
+    exit 0
+  end
+
+  puts "+++ :github: Fetching PR ##{pr_number}"
+  pr_data = github_client.get_pr(pr_number)
+
+  puts "PR: #{pr_data['title']} by @#{pr_data['user']['login']}"
+  puts "State: #{pr_data['state']}, Draft: #{pr_data['draft']}"
+
+  if eligible_for_assignment?(pr_data, CONFIG, github_client)
+    result = select_reviewer(CONFIG, github_client, pr_data)
+    assign_reviewer(pr_data, result[:reviewer], github_client)
+
+    if DRY_RUN
+      puts ""
+      puts "#{GREEN_BOLD}✓ DRY RUN COMPLETE#{RESET}"
+      puts "Would have assigned: #{result[:reviewer]['username']}"
+    else
+      puts ""
+      puts "#{GREEN_BOLD}✓ Successfully assigned reviewer: #{result[:reviewer]['username']}#{RESET}"
+    end
+  else
+    puts ""
+    puts "#{YELLOW}PR ##{pr_number} is not eligible for auto-assignment#{RESET}"
+  end
+
+rescue => e
+  puts ""
+  puts "#{RED_BOLD}✗ Error: #{e.message}#{RESET}"
+  puts e.backtrace.join("\n")
+  exit 1
+end
