@@ -105,8 +105,9 @@
   }
 
   code {
-    font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
-      Courier, monospace;
+    font-family:
+      "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier,
+      monospace;
     font-size: map-get($font-size-aliases, "code");
     overflow-wrap: anywhere;
 
@@ -190,7 +191,9 @@
     font-size: 0.875rem;
     word-wrap: break-word;
     border-radius: 8px;
-    box-shadow: 0 0 0 1px #28205020, 0 1px 3px #28205033;
+    box-shadow:
+      0 0 0 1px #28205020,
+      0 1px 3px #28205033;
     margin: 2em 0;
     min-width: 100%;
 

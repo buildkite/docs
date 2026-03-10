@@ -18,7 +18,7 @@ To update this file:
 
 # Buildkite CLI user command
 
-The `bk user` command allows you to manage users in your organization from the command line.
+The `bk user` command allows you to manage users in your Buildkite organization from the command line.
 
 ## Commands
 

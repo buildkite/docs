@@ -8,17 +8,21 @@ The [Buildkite CLI](/docs/platform/cli) (`bk`) allows you to interact with the B
 
 The following pages describe how to use the `bk` command, organized by its command category:
 
+<!-- BEGIN auto-generated command list -->
 - [`agent`](/docs/platform/cli/reference/agent)
 - [`api`](/docs/platform/cli/reference/api)
 - [`artifacts`](/docs/platform/cli/reference/artifacts)
+- [`auth`](/docs/platform/cli/reference/auth)
 - [`build`](/docs/platform/cli/reference/build)
 - [`cluster`](/docs/platform/cli/reference/cluster)
+- [`config`](/docs/platform/cli/reference/config)
 - [`configure`](/docs/platform/cli/reference/configure)
-- [`job`](/docs/platform/cli/reference/job)
 - [`init`](/docs/platform/cli/reference/init)
+- [`job`](/docs/platform/cli/reference/job)
+- [`organization`](/docs/platform/cli/reference/organization)
 - [`package`](/docs/platform/cli/reference/package)
 - [`pipeline`](/docs/platform/cli/reference/pipeline)
-- [`use`](/docs/platform/cli/reference/use)
+- [`secret`](/docs/platform/cli/reference/secret)
 - [`user`](/docs/platform/cli/reference/user)
 - [`version`](/docs/platform/cli/reference/version)
-- [`whoami`](/docs/platform/cli/reference/whoami)
+<!-- END auto-generated command list -->

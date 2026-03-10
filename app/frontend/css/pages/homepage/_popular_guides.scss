@@ -24,7 +24,9 @@
   gap: $gutter / 2;
   padding: $gutter / 2;
   text-decoration: none;
-  transition: background-color $transition-speed, box-shadow $transition-speed;
+  transition:
+    background-color $transition-speed,
+    box-shadow $transition-speed;
 
   &:hover {
     background-color: $base-0;

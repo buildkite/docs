@@ -12,7 +12,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 |----------|------|-------------|
 | `project_id` | `string` | GCP project ID where the Elastic CI Stack will be deployed. Must be 6-30 characters long, start with a letter, contain only lowercase letters, numbers, single hyphens, and cannot contain the word 'google'. |
 | `buildkite_organization_slug` | `string` | Buildkite organization slug (from your Buildkite URL: `https://buildkite.com/<org-slug>`). Used for namespacing of metrics. Must contain only lowercase letters, numbers, and hyphens. |
-| `buildkite_agent_token` | `string` (sensitive) | Buildkite agent registration token from your Buildkite organization. You can find it in **Buildkite Dashboard** > **Agents** > **Reveal Agent Token**. Leave empty if you are using `buildkite_agent_token_secret`. |
+| `buildkite_agent_token` | `string` (sensitive) | Agent token from the relevant cluster of your Buildkite organization. If you hadn't stored this token's value securely, or you don't have its value, you'll need to [create a new one](/docs/agent/self-hosted/tokens#create-a-token), which you can do from the [**Agents** > **Clusters** > your specific cluster page](https://buildkite.com/organizations/-/agents).<br/>Leave this variable empty if you are using `buildkite_agent_token_secret`. |
 
 ## Stack configuration
 
