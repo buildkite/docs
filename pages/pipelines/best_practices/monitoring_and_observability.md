@@ -125,7 +125,7 @@ The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/ob
 
 **Supported destinations:** Any OTel-compatible backend, including [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana, [Datadog](/docs/pipelines/integrations/observability/datadog) APM, Jaeger, or your own OpenTelemetry collector.
 
-Use this approach when you have an existing distributed tracing setup and want CI/CD events to appear as spans alongside your application traces. It's best for correlating build activity with deployments and service health.
+Use this approach when you have an existing distributed tracing setup and want CI/CD events to appear as spans alongside your application traces. This is best for correlating build activity with deployments and service health.
 
 > 🚧 Enterprise only feature
 > The OpenTelemetry tracing notification service requires an Enterprise plan. It provides traces (spans), not traditional metrics (gauges or counters). If you need time-series metrics, you need to derive them from spans in your backend (for example, using span-to-metrics features in Datadog or Grafana).
