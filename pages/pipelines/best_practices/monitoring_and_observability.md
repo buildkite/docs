@@ -109,7 +109,7 @@ The Buildkite agent's [health check service](/docs/agent/self-hosted/monitoring-
 - Go runtime metrics: goroutines, memory allocation, GC pause times
 - Agent process health: uptime, version info
 
-Use this approach when you run Prometheus and want to monitor agent process health alongside your other infrastructure. It's useful for detecting agent crashes, memory leaks, or degraded agents.
+Use this approach when you run Prometheus and want to monitor agent process health alongside your other infrastructure. This is useful for detecting agent crashes, memory leaks, or degraded agents.
 
 This endpoint shows individual agent process health, not fleet-level queue or capacity data. For fleet-level metrics, use [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) alongside it.
 
