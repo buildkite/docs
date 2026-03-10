@@ -75,4 +75,11 @@ The local MCP server is not suitable for personal usage with an AI tool, as it h
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
 
+> 📘 Local MCP server requests count against the organization rate limit
+> Unlike the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), which has a [separate per-user rate limit](/docs/apis/mcp-server/remote/limits), requests made through the local MCP server count against your organization's standard [REST API rate limit](/docs/apis/rest-api/limits).
+
 If you intend to use the local Buildkite MCP server, learn more about how to set up and install it in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
+
+## Rate limits
+
+REST API requests made through the remote MCP server are subject to a separate per-user rate limit that is independent of the standard organization-wide [REST API rate limit](/docs/apis/rest-api/limits). For details, see [Remote MCP server rate limits](/docs/apis/mcp-server/remote/limits).

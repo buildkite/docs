@@ -7,6 +7,9 @@ To ensure stability and prevent excessive or abusive calls to the server, Buildk
 
 Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization.
 
+> 📘 Remote MCP server requests have a separate rate limit
+> REST API requests made through the [remote Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) are tracked under a separate per-user rate limit and don't count against the organization-wide limit. See [Remote MCP server rate limits](/docs/apis/mcp-server/remote/limits) for details.
+
 ## Checking rate limit details
 
 The rate limit status is available in the following response headers of each API call.
@@ -29,15 +32,15 @@ You can also programmatically query your organization's rate limit status using 
 
 ## Exceeding the rate limit
 
-Once the rate limit is exceeded, subsequent API requests will return a 429 HTTP status code, and the `RateLimit-Remaining` header will be 0. You should not make any further requests until the `RateLimit-Reset` specifies a new availability window.
+Once the rate limit is exceeded, subsequent API requests return a `429` HTTP status code, and the `RateLimit-Remaining` header is `0`. Don't make any further requests until the `RateLimit-Reset` specifies a new availability window.
 
 ## Best practices to avoid rate limits
 
-To ensure the smooth functioning and efficient use of the API, we recommend you design your client application with the following best practices in mind:
+To ensure the smooth functioning and efficient use of the API, design your client application with the following best practices in mind:
 
 - Implement appropriate pagination techniques when querying data.
 - Use caching strategies to avoid excessive calls to the Buildkite API.
 - Regulate the rate of your requests to ensure smoother distribution by using strategies such as queues or scheduling API calls at appropriate intervals.
-- Utilize metadata about your API usage, including rate limit status, to manage behavior dynamically.
-- Ensure you consider all users making requests across your organization in your rate-limiting solution.
+- Use metadata about your API usage, including rate limit status, to manage behavior dynamically.
+- Consider all users making requests across your organization in your rate-limiting solution.
 - Be aware of retries, errors, and loops when designing your application, as they can easily accumulate and use up allocated quotas.

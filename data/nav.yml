@@ -1109,6 +1109,8 @@
           children:
             - name: "Configuring AI tools"
               path: "apis/mcp-server/remote/configuring-ai-tools"
+            - name: "Rate limits"
+              path: "apis/mcp-server/remote/limits"
         - name: "Local MCP server"
           children:
             - name: "Installing the server"
