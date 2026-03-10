@@ -5,20 +5,20 @@ description: "Hybrid CI/CD with unlimited concurrency and dynamic pipelines — 
 
 # Advantages of Buildkite Pipelines
 
-This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it. See [case studies](https://buildkite.com/resources/case-studies/) for how engineering organizations use Buildkite Pipelines at scale.
+This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
 
-Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach — it provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while keeping code and secrets on infrastructure they control.
+Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while keeping code and secrets on infrastructure they control.
 
-A small platform team can support thousands of engineers by setting the right guardrails through [hooks](/docs/agent/hooks) and [pipeline templates](/docs/pipelines/security/pipeline-templates), while developers retain the self-service flexibility to move fast.
+A small platform team can support thousands of engineers by setting the right guardrails through [hooks](/docs/agent/hooks) and [pipeline templates](/docs/pipelines/security/pipeline-templates), while developers retain the self-service flexibility to move fast. See [case studies](https://buildkite.com/resources/case-studies/) for how engineering organizations use Buildkite Pipelines at scale.
 
 Whether you're comparing Buildkite Pipelines to [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), [GitHub Actions](/docs/pipelines/migration/from-githubactions), CircleCI, or others, several fundamental advantages hold true.
 
 The core differentiators are:
 
 - **Hybrid architecture.** Buildkite Pipelines handles orchestration; your code, secrets, and builds stay on your infrastructure.
-- **Unlimited concurrency.** Scale from a handful of agents to 100,000+ with no pricing-tier restrictions.
+- **Unlimited concurrency.** Scale from a handful of agents to 100,000+ with no concurrency restrictions.
 - **Dynamic pipelines.** Generate and modify pipeline steps at runtime using YAML, the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk), or any language.
-- **Extensibility.** Customize behavior through integrations, version-pinned [plugins](/docs/pipelines/integrations/plugins) and agent [hooks](/docs/agent/hooks).
+- **Extensibility.** Customize behavior through integrations, [plugins](/docs/pipelines/integrations/plugins), and agent [hooks](/docs/agent/hooks).
 - **Security by design.** Agents are [open source](https://github.com/buildkite/agent), poll for work over HTTPS, and support [pipeline signing](/docs/agent/self-hosted/security/signed-pipelines).
 - **Predictable pricing.** Concurrency-based billing with no per-minute charges or credit limits.
 
@@ -51,13 +51,13 @@ Buildkite Pipelines scales from small teams to 100,000+ concurrent agents with n
 
 ### Unlimited scaling and concurrency
 
-[Buildkite agents](/docs/agent) are lightweight software that can run anywhere. Add more agents as build volume grows — there are no [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) caps tied to pricing tiers or platform editions.
+[Buildkite agents](/docs/agent) are lightweight software that can run anywhere. Add more agents as build volume grows — there are no [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) caps tied to pricing tiers.
 
 ### Speed and parallelization
 
 Fast feedback loops come from the combination of deep [parallelization](/docs/pipelines/best-practices/parallel-builds) and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) that skip unnecessary work. Small per-build time savings compound across thousands of daily builds.
 
-- Handle large [monorepo](/docs/pipelines/best-practices/working-with-monorepos) structures efficiently with dynamic pipeline generation that selectively builds only what changed.
+- You can handle large [monorepo](/docs/pipelines/best-practices/working-with-monorepos) structures efficiently with dynamic pipeline generation that selectively builds only what changed.
 - Match compute to workload using agent [queues](/docs/agent/queues) and [tags](/docs/agent/cli/reference/start#setting-tags), dedicating fast agents to critical pipelines and smaller agents to less demanding tasks.
 - Identify where time is spent — job overhead, startup latency, unnecessary steps — and use that insight to drive improvements like [caching](/docs/pipelines/best-practices/caching) and faster bootstrapping.
 
@@ -72,7 +72,7 @@ Fast feedback loops come from the combination of deep [parallelization](/docs/pi
 
 ## Developer experience
 
-Faster feedback, clearer failures, and less time digging through logs — Buildkite Pipelines keeps developers focused on code, not on debugging CI.
+With fast feedback, clear failure messages and transparent logs, Buildkite Pipelines keeps developers focused on code, not on debugging CI.
 
 ### Build visibility and debugging
 
@@ -98,14 +98,14 @@ Buildkite Pipelines fits into your existing toolchain rather than replacing it, 
 
 ### Integrate with your existing tools
 
-Buildkite specializes in CI/CD rather than bundling source code management, project planning, security scanning, and deployment monitoring into a single product.
+Buildkite Pipelines specializes in CI/CD rather than bundling source code management, project planning, security scanning, and deployment monitoring into a single product. Your options include:
 
 - Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket).
 - Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
 - Notifications: [Slack](/docs/pipelines/integrations/notifications/slack), [PagerDuty](/docs/pipelines/integrations/notifications/pagerduty), [webhooks](/docs/pipelines/integrations/notifications/webhooks), and [more](/docs/pipelines/integrations/notifications).
-- Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing)
+- Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing).
 
-### Plugins
+### Buildkite plugins
 
 [Buildkite plugins](/docs/pipelines/integrations/plugins) add reusable functionality to pipeline steps. Plugins are version-pinned and run on your agents, so you control exactly what executes in your environment.
 
@@ -114,11 +114,18 @@ Buildkite specializes in CI/CD rather than bundling source code management, proj
 
 ### Hooks
 
-[Hooks](/docs/agent/hooks) let platform teams customize agent behavior and enforce standards at every stage of the [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks) — managing [secrets](/docs/pipelines/security/secrets/managing), enforcing security policies, modifying checkout behavior, or standardizing environments across all pipelines.
+[Hooks](/docs/agent/hooks) allow customizing agent behavior and enforcing standards at every stage of the [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks):
+
+— Manage [secrets](/docs/pipelines/security/secrets/managing)
+- Enforcing security policies
+- Modify checkout behavior, or
+- Standardize environments across all pipelines
 
 ## Security and compliance
 
-Buildkite agents are [open source](https://github.com/buildkite/agent) and poll for work over HTTPS rather than exposing inbound ports. Source code and secrets never leave your infrastructure — the Buildkite control plane receives only the metadata needed to orchestrate builds (job status, logs, and timing data). For a full overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
+Source code and secrets never leave your infrastructure — the Buildkite control plane receives only the metadata needed to orchestrate builds (job status, logs, and timing data). Buildkite agents are [open source](https://github.com/buildkite/agent) and poll for work over HTTPS rather than exposing inbound ports.
+
+For a full overview of security stance in Buildkite Pipelines, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
 
 ### Data privacy and residency
 
@@ -153,8 +160,8 @@ Enterprise Premium Support includes:
 Buildkite provides [migration guides](/docs/pipelines/migration) to help teams move from their existing CI/CD system:
 
 - **[Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins):** Eliminate controller maintenance, plugin conflicts, and painful upgrades while keeping infrastructure control.
-- **[GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab):** Replace rigid stage-based pipelines and runner-minute limits with flexible, dynamic workflows and concurrency-based pricing.
 - **[GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha):** Move beyond static workflows, concurrency caps, and multi-tenant reliability issues to a platform built for scale.
+- **[GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab):** Replace rigid stage-based pipelines and runner-minute limits with flexible, dynamic workflows and concurrency-based pricing.
 
 ## Frequently asked questions
 
