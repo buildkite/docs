@@ -4,7 +4,7 @@ The Buildkite agent can be run on Microsoft Azure by installing the agent on you
 
 ## Using the Buildkite Agent Stack for Kubernetes on Azure
 
-The Buildkite agent's jobs can be run within a Kubernetes cluster on Azure using [Azure Kubernetes Service (AKS)](https://azure.microsoft.com/products/kubernetes-service).
+The Buildkite agent's jobs can be run within a Kubernetes cluster on Azure using Azure Kubernetes Service (AKS).
 
 To start, you will need your own Kubernetes cluster running on AKS. Learn more in the [AKS documentation](https://learn.microsoft.com/azure/aks/).
 
