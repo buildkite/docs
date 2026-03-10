@@ -111,7 +111,7 @@ sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
 
 ## Datadog metrics
 
-The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](#prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](#prometheus-metrics-reference).
+The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](/docs/agent/self-hosted/monitoring-and-observability#prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](/docs/agent/self-hosted/monitoring-and-observability#prometheus-metrics-referencee).
 
 To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file. The agent sends metrics to a DogStatsD server, which is bundled with the [Datadog Agent](https://docs.datadoghq.com/extend/dogstatsd/).
 
@@ -136,7 +136,7 @@ Once enabled, the agent will generate the following metrics (duration measured i
 - `buildkite.jobs.duration.success.median`
 - `buildkite.jobs.duration.success.95percentile`
 
-For organization-level queue and agent metrics in Datadog (such as scheduled jobs count, idle agents, and busy agent percentage), use the [buildkite-agent-metrics CLI](#sending-metrics-to-datadog) with the StatsD backend.
+For organization-level queue and agent metrics in Datadog (such as scheduled jobs count, idle agents, and busy agent percentage), use the [buildkite-agent-metrics CLI](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli-sending-metrics-to-datadog) with the StatsD backend.
 
 ## Buildkite agent metrics CLI
 
