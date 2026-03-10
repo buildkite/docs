@@ -1,5 +1,7 @@
 # Custom base images
 
+Custom agent images let you control exactly which packages, tools, and security patches run in your hosted agent environment. Buildkite recommends using a custom image for production workloads.
+
 Creating a custom agent image requires you to define a Dockerfile that installs the tools and utilities you require. You can [create a custom base image](#create-an-agent-image) using the [Buildkite interface](#create-an-agent-image-using-the-buildkite-interface), [agent hooks](#create-an-agent-image-using-agent-hooks) or the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
 
 ## Requirements within the image
