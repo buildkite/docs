@@ -27,4 +27,4 @@ For other Linux distributions, see:
 
 ## Auto-scaling Buildkite agents on Azure
 
-If you're interested in auto-scaling your Buildkite agent cluster on Azure, contact [support@buildkite.com](mailto:support@buildkite.com).
+If you're interested in auto-scaling your Buildkite agents on Azure, contact [support@buildkite.com](mailto:support@buildkite.com).
