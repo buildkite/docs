@@ -7,7 +7,7 @@ description: "How Buildkite Pipelines differs from other CI/CD tools: hybrid arc
 
 This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
 
-Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach — it provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while keeping code and secrets on infrastructure they control.
+Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach — it provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while keeping code and secrets on infrastructure they control. A small platform team can support thousands of engineers by setting the right guardrails through [hooks](/docs/agent/hooks) and [pipeline templates](/docs/pipelines/security/pipeline-templates), while developers retain the self-service flexibility to move fast.
 
 Whether you're comparing Buildkite Pipelines to [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), [GitHub Actions](/docs/pipelines/migration/from-githubactions), CircleCI, or others, several fundamental advantages hold true.
 
@@ -45,7 +45,7 @@ Buildkite Pipelines is compute-agnostic — the platform handles orchestration, 
 
 ## Performance and scale
 
-Build volume grows, and Buildkite Pipelines grows with it — no queuing behind shared runners, no concurrency ceilings, and no mandatory plan upgrades.
+Build volume grows, and Buildkite Pipelines grows with it — no queuing behind shared runners, no concurrency ceilings, and no mandatory plan upgrades. For organizations with many languages, repositories, or teams brought together through acquisitions, Buildkite Pipelines provides a single CI/CD platform that supports diverse workflows without forcing standardization on one toolchain or build pattern.
 
 ### Unlimited scaling and concurrency
 
@@ -64,7 +64,9 @@ Fast feedback loops come from the combination of deep [parallelization](/docs/pi
 [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) generate and modify pipeline steps at runtime based on code changes, test results, or any custom logic. Start with [YAML pipelines](/docs/pipelines/configure/defining-steps), and when you need more, write pipelines in actual code with the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk), which supports Go, Python, TypeScript, Ruby, and C#.
 
 - Fan out tests only after builds succeed, skip unnecessary steps based on file changes, or generate deployment steps based on what actually changed.
+- Upload new steps mid-execution, retry a specific failed step without restarting the entire pipeline, or adjust the remaining execution path based on what happened earlier in the build.
 - Build reusable abstractions and dynamic workflows that adapt at runtime.
+- Because pipeline generation is code, you can test your workflow logic the same way you test any other software — with unit tests, code review, and version control.
 
 ## Developer experience
 
@@ -112,7 +114,9 @@ Buildkite specializes in CI/CD rather than bundling source code management, proj
 
 ## Security and compliance
 
-Buildkite agents are [open source](https://github.com/buildkite/agent) and poll for work over HTTPS rather than exposing inbound ports. Source code and secrets never leave your infrastructure — the Buildkite control plane receives only the metadata needed to orchestrate builds (job status, logs, and timing data). For a full overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
+Buildkite agents are [open source](https://github.com/buildkite/agent) and poll for work over HTTPS rather than exposing inbound ports. Source code and secrets never leave your infrastructure — the Buildkite control plane receives only the metadata needed to orchestrate builds (job status, logs, and timing data).
+
+For a full security overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
 
 ### Data privacy and residency
 
@@ -128,6 +132,7 @@ Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/conf
 
 - No surprise bills from exceeding runner minutes or credit allocations.
 - Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) for specialized workloads or your own compute, including spot instances or spare capacity, to optimize costs.
+- CI that looks free on paper can be expensive when slow pipelines keep highly paid engineers waiting. Buildkite Pipelines is designed to reduce cycle time and eliminate queuing, so the cost of CI is measured in throughput gained rather than minutes consumed.
 
 ## Support
 
