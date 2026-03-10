@@ -10,7 +10,25 @@ This page outlines usage limits designed to protect your builds from unintention
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
 > 📘 Adjusting limits
-> If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits is possible.
+> If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits is possible. Organization administrators can [view the quotas](#viewing-your-organizations-service-quotas) that apply to their organization in **Organization Settings**.
+
+## Viewing your organization's service quotas
+
+Organization administrators can view the service quotas that apply to their organization on the **Service Quotas** page in **Organization Settings**.
+
+To access your organization's service quotas:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. Select **Quotas** to open the **Service Quotas** page.
+
+<!-- screenshot -->
+
+The **Service Quotas** page displays your organization's current limits grouped by product area. Each quota shows the limit that applies to your organization, which may differ from the defaults listed on this page.
+
+A **Custom** badge next to a quota indicates that your organization has a limit that differs from the default for your plan. An **Exceeded in last 24h** badge indicates that your organization reached this limit within the past 24 hours.
+
+To request a quota increase, contact [support@buildkite.com](mailto:support@buildkite.com). Enterprise customers can also reach out to their Technical Account Manager.
 
 ## Platform and organization-level limits
 
