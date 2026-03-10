@@ -149,4 +149,4 @@ For an explanation of a shell script snippet, the [explainshell](https://explain
 
 ## Managing log output
 
-If your script is generating output that is too large, there are several strategies you can employ to reduce the output or redirect the log. Take a look at our guide to [managing log output guide](/docs/pipelines/configure/managing-log-output) for a step by step introduction.
+If your script is generating output that is too large, there are several strategies you can employ to reduce the output or redirect the log. Take a look at our [managing log output guide](/docs/pipelines/configure/managing-log-output) for a step by step introduction.
