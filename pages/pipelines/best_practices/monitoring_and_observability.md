@@ -98,7 +98,7 @@ Use this approach when you want a fleet-level view of agent capacity and [queue]
 > 📘 Getting agent metrics into Datadog
 > To get Buildkite agent metrics into Datadog, configure `buildkite-agent-metrics` with the StatsD backend pointed at a DogStatsD receiver (the Datadog Agent's built-in StatsD server). See the [buildkite-agent-metrics CLI documentation](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) for setup details.
 
-This tool polls the Buildkite API, so it shows point-in-time snapshots rather than event-level granularity. It doesn't cover build lifecycle events or trace data.
+This tool polls the Buildkite API, so it shows point-in-time snapshots rather than event-level granularity. It does not cover build lifecycle events or trace data.
 
 ### Per-agent process health
 
@@ -109,7 +109,7 @@ The Buildkite agent's [health check service](/docs/agent/self-hosted/monitoring-
 - Go runtime metrics: goroutines, memory allocation, GC pause times
 - Agent process health: uptime, version info
 
-Use this approach when you run Prometheus and want to monitor agent process health alongside your other infrastructure. It's useful for detecting agent crashes, memory leaks, or degraded agents.
+Use this approach when you run Prometheus and want to monitor agent process health alongside your other infrastructure. This is useful for detecting agent crashes, memory leaks, or degraded agents.
 
 This endpoint shows individual agent process health, not fleet-level queue or capacity data. For fleet-level metrics, use [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) alongside it.
 
@@ -125,7 +125,7 @@ The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/ob
 
 **Supported destinations:** Any OTel-compatible backend, including [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana, [Datadog](/docs/pipelines/integrations/observability/datadog) APM, Jaeger, or your own OpenTelemetry collector.
 
-Use this approach when you have an existing distributed tracing setup and want CI/CD events to appear as spans alongside your application traces. It's best for correlating build activity with deployments and service health.
+Use this approach when you have an existing distributed tracing setup and want CI/CD events to appear as spans alongside your application traces. This is best for correlating build activity with deployments and service health.
 
 > 🚧 Enterprise only feature
 > The OpenTelemetry tracing notification service requires an Enterprise plan. It provides traces (spans), not traditional metrics (gauges or counters). If you need time-series metrics, you need to derive them from spans in your backend (for example, using span-to-metrics features in Datadog or Grafana).
@@ -199,7 +199,7 @@ Use this approach for event-driven alerting (for example, notifying a team when 
 - Pass and fail rates over time
 - Slowest tests
 
-Use this approach when you care about test health independently from build infrastructure health. It's best for engineering teams focused on test suite reliability and performance.
+Use this approach when you care about test health independently from build infrastructure health. This is best for engineering teams focused on test suite reliability and performance.
 
 Test Engine is a separate product from build and agent metrics. It covers test execution quality, not CI infrastructure health.
 
