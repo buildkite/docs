@@ -22,7 +22,8 @@
     justify-content: space-between;
     padding: 12px 16px;
     text-align: left;
-    transition: background-color $transition-speed,
+    transition:
+      background-color $transition-speed,
       border-color $transition-speed;
     width: 100%;
 
@@ -137,6 +138,8 @@
   }
 
   .Toc__link {
-    transition: color 300ms ease-in-out, transform 300ms ease-in-out;
+    transition:
+      color 300ms ease-in-out,
+      transform 300ms ease-in-out;
   }
 }

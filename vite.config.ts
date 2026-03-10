@@ -7,17 +7,6 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       RubyPlugin(),
-      {
-        name: "vite-ruby-manifest-compat",
-        enforce: "post",
-        config() {
-          return {
-            build: {
-              manifest: "manifest.json",
-            },
-          };
-        },
-      },
     ],
     define: {
       __ALGOLIA_API_KEY__: JSON.stringify(env.ALGOLIA_API_KEY),

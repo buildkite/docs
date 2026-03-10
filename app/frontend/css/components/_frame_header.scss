@@ -26,7 +26,9 @@
   display: inline-block;
   transform: translateX(-50%);
   opacity: 0;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .Frameheader:hover {

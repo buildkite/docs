@@ -27,7 +27,7 @@ gem "redcarpet"
 gem "commonmarker"
 
 # Syntax highlighting code
-gem "rouge", "3.30.0"
+gem "rouge", "4.7.0"
 
 # For escaping code snippets in markdown
 gem "escape_utils"

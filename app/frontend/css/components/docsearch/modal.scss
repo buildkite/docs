@@ -61,8 +61,10 @@
   align-items: center;
   background: var(--docsearch-searchbox-focus-background);
   border-radius: 8px;
-  box-shadow: rgba(93, 9, 199, 0) 0px 0px 0px 0px,
-    rgba(93, 9, 199, 0.1) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+  box-shadow:
+    rgba(93, 9, 199, 0) 0px 0px 0px 0px,
+    rgba(93, 9, 199, 0.1) 0px 1px 3px,
+    rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
     rgba(93, 9, 199, 0.05) 0px 3px 8px;
   display: flex;
   height: var(--docsearch-searchbox-height);
@@ -74,8 +76,10 @@
   transition: 0.2s ease box-shadow;
 
   &:has(.DocSearch-Input:focus) {
-    box-shadow: rgba(93, 9, 199, 0.2) 0px 0px 0px 3px,
-      rgba(93, 9, 199, 0.2) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+    box-shadow:
+      rgba(93, 9, 199, 0.2) 0px 0px 0px 3px,
+      rgba(93, 9, 199, 0.2) 0px 1px 3px,
+      rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
       rgba(93, 9, 199, 0.1) 0px 3px 8px;
   }
 }
@@ -185,8 +189,9 @@
 
 .DocSearch-Dropdown {
   max-height: calc(
-    var(--docsearch-modal-height) - var(--docsearch-searchbox-height) -
-      var(--docsearch-spacing) - var(--docsearch-footer-height)
+    var(--docsearch-modal-height) - var(--docsearch-searchbox-height) - var(
+        --docsearch-spacing
+      ) - var(--docsearch-footer-height)
   );
   min-height: var(--docsearch-spacing);
   overflow-y: auto; /* firefox */
@@ -610,8 +615,10 @@ svg.DocSearch-Hit-Select-Icon {
 
   .DocSearch-Dropdown {
     max-height: calc(
-      var(--docsearch-vh, 1vh) * 100 - var(--docsearch-searchbox-height) -
-        var(--docsearch-spacing) - var(--docsearch-footer-height)
+      var(--docsearch-vh, 1vh) *
+        100 - var(--docsearch-searchbox-height) - var(
+          --docsearch-spacing
+        ) - var(--docsearch-footer-height)
     );
   }
 
