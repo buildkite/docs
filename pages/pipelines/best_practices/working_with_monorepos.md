@@ -70,8 +70,9 @@ When designing monorepo pipelines, consider keeping the number of steps in a sin
 
 If your use case requires a large number of steps in a build, consider consolidating some steps, splitting work across multiple pipelines, or using an orchestrator pattern. For builds that consistently need step counts well beyond this range, [contact us](mailto:sales@buildkite.com) to discuss your requirements.
 
-> 📘 Tip for large monorepos
-> For monorepos that could generate hundreds or thousands of steps, use an orchestrator pipeline that [dynamically generates](/docs/pipelines/configure/dynamic-pipelines) only the steps needed for each build. Upload steps in batches or [trigger](/docs/pipelines/configure/step-types/trigger-step) child pipelines to avoid single-build step counts growing into the thousands.
-
 > 📘
 > Each step can contain multiple jobs when using the [`parallelism` attribute](/docs/pipelines/configure/step-types/command-step#label), so the step count doesn't necessarily reflect the total number of jobs running.
+
+### Tip for large monorepos
+
+For monorepos that could generate hundreds or thousands of steps, use an orchestrator pipeline that [dynamically generates](/docs/pipelines/configure/dynamic-pipelines) only the steps needed for each build. Upload steps in batches or [trigger](/docs/pipelines/configure/step-types/trigger-step) child pipelines to avoid single-build step counts growing into the thousands.
