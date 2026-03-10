@@ -10,7 +10,7 @@ Test ownership is managed via team assignments in a TESTOWNERS file.
 
 A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slug will be your team name in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case). You can view your teams in your organization settings, or fetch them from our API:
 
-- [List teams from REST API](/docs/apis/rest_api/teams#list-teams)
+- [List teams from REST API](/docs/apis/rest-api/teams#list-teams)
 - [List teams from GraphQL API](/docs/apis/graphql/schemas/object/team)
 
 ```bash

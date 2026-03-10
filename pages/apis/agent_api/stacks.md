@@ -13,7 +13,7 @@ A stack is defined as a software process that has these two abilities simultaneo
 
 A stack can also be broadly understood as an orchestrator or a scheduler of Buildkite jobs.
 
-The stacks API powers Buildkite's [Agent Stack for Kubernetes](/docs/agent/v3/agent-stack-k8s), and is designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales. You can use the stacks API to build custom stack implementations in any language that dispatch jobs to your own compute infrastructure, such as Kubernetes, cloud VMs, serverless functions, or container services.
+The stacks API powers Buildkite's [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), and is designed to give advanced enterprise users custom control over the scheduling of jobs at larger scales. You can use the stacks API to build custom stack implementations in any language that dispatch jobs to your own compute infrastructure, such as Kubernetes, cloud VMs, serverless functions, or container services.
 
 ## Authentication
 
