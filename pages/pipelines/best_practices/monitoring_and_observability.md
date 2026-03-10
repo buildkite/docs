@@ -63,7 +63,7 @@ What you want to measure | Best approach | Plan tier | Push or pull | Key destin
 --- | --- | --- | --- | ---
 Agent fleet health (agents online, busy, idle per queue) | [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) | All | Pull (polls Buildkite API) | Prometheus, StatsD/DogStatsD to Datadog, CloudWatch
 Agent process metrics (goroutines, memory, GC) | [Agent health check service](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page) | All | Pull (Prometheus scrape) | Prometheus
-Build and job lifecycle traces (spans, durations, wait times) | [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) | Enterprise | Push (OTel) | Any OTel-compatible collector ([Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog), and others)
+Build and job lifecycle traces (spans, durations, wait times). The `buildkite.job` span includes the pipeline slug, build number, and a `wait_time_ms` attribute. You can also use a [Signals to Metrics Connector](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/10f63383121cea32bcbc32ecc76fe9e431332816/connector/signaltometricsconnector/README.md) to produce metrics from spans | [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) | Enterprise | Push (OTel) | Any OTel-compatible collector ([Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog), and others)
 Agent-side job execution traces | [OpenTelemetry agent tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing) | All | Push (OTel) | Any OTel-compatible collector
 Queue depth, wait times, concurrency | [Cluster insights](/docs/pipelines/insights/clusters) and [GraphQL API](/docs/apis/graphql-api) | Varies | Pull or UI | Built-in UI; GraphQL for custom dashboards
 Build events for alerting and dashboards | [Webhooks](/docs/apis/webhooks) and [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) | All | Push | PagerDuty, Datadog, custom endpoints
@@ -229,7 +229,7 @@ Run [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observabili
 
 Configure a [webhook notification service](/docs/apis/webhooks) to send `build.finished` events to PagerDuty's Events API. Filter on `build.state == "failed"` in PagerDuty's event rules. You can also use [conditional notifications](/docs/pipelines/configure/notifications#conditional-notifications) in your pipeline YAML to send alerts to specific channels.
 
-### Historical pipeline performance data
+### Pipeline performance data collection
 
 Poll the [GraphQL API](/docs/apis/graphql-api) for build and job data on a schedule and store it in your own data warehouse. The API has time window limits on queryable data, so start collecting early. For built-in historical views, [cluster insights](/docs/pipelines/insights/clusters) provides some data with limited time ranges.
 
