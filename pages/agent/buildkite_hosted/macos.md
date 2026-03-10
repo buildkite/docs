@@ -6,6 +6,9 @@ Buildkite's macOS hosted agents are:
 
 - Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
 
+> 📘 Pro and Enterprise plan feature
+> Buildkite macOS hosted agents are only available to Buildkite customers on [Pro and Enterprise](https://buildkite.com/pricing) plans.
+
 Learn more about:
 
 - Best practices for configuring queues in [How should I structure my queues](/docs/pipelines/security/clusters#clusters-and-queues-best-practices-how-should-i-structure-my-queues) of the [Clusters overview](/docs/pipelines/security/clusters), as well as [Manage queues](/docs/agent/queues/managing).
@@ -20,7 +23,7 @@ Learn more about:
 
 Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
 
 Also note the following about macOS hosted agent instances.
 
