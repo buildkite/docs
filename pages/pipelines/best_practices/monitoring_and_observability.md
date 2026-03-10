@@ -156,7 +156,7 @@ Buildkite's built-in [cluster insights](/docs/pipelines/insights/clusters) dashb
 - Agent utilization and concurrency
 - Job throughput
 
-Use this approach for quick visual checks of CI health without any external tooling. It's useful for debugging queue backups or capacity issues in real time. For queue-specific data, see [queue metrics](/docs/pipelines/insights/queue-metrics).
+Use this approach for quick visual checks of CI health without any external tooling. This is useful for debugging queue backups or capacity issues in real time. For queue-specific data, see [queue metrics](/docs/pipelines/insights/queue-metrics).
 
 Note that some of the data shown in cluster insights is not yet available through an external export path (API, OpenTelemetry, or otherwise).
 
