@@ -30,7 +30,9 @@
     text-decoration: underline;
     text-underline-offset: 0.1em;
     text-decoration-color: #d6c7ff;
-    transition: color $transition-speed, text-decoration-color $transition-speed;
+    transition:
+      color $transition-speed,
+      text-decoration-color $transition-speed;
   } @else {
     text-decoration: none;
     transition: color $transition-speed;
@@ -40,7 +42,8 @@
     color: $color-hover;
     @if $underline {
       text-decoration-color: map-get($color-aliases, "text-link-hover");
-      transition: color $transition-speed,
+      transition:
+        color $transition-speed,
         text-decoration-color $transition-speed;
     }
   }

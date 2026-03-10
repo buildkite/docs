@@ -124,9 +124,21 @@ $font-size-aliases: (
   "heading-5": map-get($font-sizes, "sm"),
   "heading-6": map-get($font-sizes, "xs"),
 );
-$font-family-base: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-base:
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  "Noto Sans",
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol",
+  "Noto Color Emoji";
 $font-family-display: "Aeonik", $font-family-base;
 
 $line-heights: (
@@ -168,18 +180,26 @@ $text-on-dark-subdued-opacity: 0.8;
 $text-on-dark-very-subdued-opacity: 0.7;
 
 // shadows
-$box-shadow-depth-100: 0px 4px 4px 0px rgba($base-1000, 0.01),
-  0px 3px 3px 0px rgba($base-1000, 0.02), 0px 2px 2px 0px rgba($base-1000, 0.04),
-  0px 1px 0px 0px rgba($base-1000, 0.09), 0px 0px 0px 1px rgba($base-1000, 0.09);
-$box-shadow-depth-100-hover: 0px 6px 7px -2px rgba($base-1000, 0.08),
-  0px 10px 14px 0px rgba($base-1000, 0.02),
-  0px 2px 2px 0px rgba($base-1000, 0.04), 0px 1px 0px 0px rgba($base-1000, 0.09),
+$box-shadow-depth-100:
+  0px 4px 4px 0px rgba($base-1000, 0.01),
+  0px 3px 3px 0px rgba($base-1000, 0.02),
+  0px 2px 2px 0px rgba($base-1000, 0.04),
+  0px 1px 0px 0px rgba($base-1000, 0.09),
   0px 0px 0px 1px rgba($base-1000, 0.09);
-$box-shadow-depth-200: 0px 3px 0px 1px rgba($base-1000, 0.05),
+$box-shadow-depth-100-hover:
+  0px 6px 7px -2px rgba($base-1000, 0.08),
+  0px 10px 14px 0px rgba($base-1000, 0.02),
+  0px 2px 2px 0px rgba($base-1000, 0.04),
+  0px 1px 0px 0px rgba($base-1000, 0.09),
+  0px 0px 0px 1px rgba($base-1000, 0.09);
+$box-shadow-depth-200:
+  0px 3px 0px 1px rgba($base-1000, 0.05),
   0px 0px 0px 1px rgba($base-1000, 0.1);
 $box-shadow-depth-500: 0px 4px 15px rgba($base-1000, 0.2);
-$box-shadow-depth-800: 0 20px 20px rgba($base-1000, 0.07),
-  0 10px 20px rgba($base-1000, 0.05), 0 13px 18px rgba($base-1000, 0.04),
+$box-shadow-depth-800:
+  0 20px 20px rgba($base-1000, 0.07),
+  0 10px 20px rgba($base-1000, 0.05),
+  0 13px 18px rgba($base-1000, 0.04),
   0 7px 9px rgba($base-1000, 0.03);
 
 $icon-sizes: (
