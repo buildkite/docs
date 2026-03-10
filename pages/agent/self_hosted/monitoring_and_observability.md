@@ -111,7 +111,7 @@ sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
 
 ## Datadog metrics
 
-The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](/docs/agent/self-hosted/monitoring-and-observability#prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](/docs/agent/self-hosted/monitoring-and-observability#prometheus-metrics-referencee).
+The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page-prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page-prometheus-metrics-reference).
 
 To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file. The agent sends metrics to a DogStatsD server, which is bundled with the [Datadog Agent](https://docs.datadoghq.com/extend/dogstatsd/).
 
