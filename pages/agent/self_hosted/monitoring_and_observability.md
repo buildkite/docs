@@ -1,7 +1,7 @@
 # Monitoring and observability
 
 By default, the Buildkite agent is only observable either through Buildkite or
-through log output on the host. For help choosing between the different monitoring approaches available across Buildkite Pipelines, see the [monitoring and observability decision matrix](/docs/pipelines/best-practices/monitoring-and-observability#decision-matrix).
+through log output on the host. For help choosing between the different monitoring approaches available across Buildkite Pipelines, see the [monitoring and observability decision matrix](/docs/pipelines/best-practices/monitoring-and-observability#getting-metrics-out-of-buildkite-pipelines-decision-matrix).
 
 The default observability options are:
 

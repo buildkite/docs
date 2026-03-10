@@ -6,7 +6,7 @@ This page covers the best practices regarding monitoring, observability, and log
 
 - When implementing [telemetry](/docs/agent/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing), start by profiling the wait and checkout times for your queues as the biggest, cheapest wins.
 - Include pipeline, queue, repo path, and commit metadata in spans and events to make troubleshooting easier.
-- Stream Buildkite Pipeline's telemetry data to your standard observability stack so platform-level SLOs and alerts exist alongside the app telemetry, keeping one source of truth.
+- Stream Buildkite Pipelines telemetry data to your standard observability stack so platform-level SLOs and alerts exist alongside the app telemetry, keeping one source of truth.
 
 ### Quick checklist for using telemetry
 
@@ -63,9 +63,9 @@ What you want to measure | Best approach | Plan tier | Push or pull | Key destin
 --- | --- | --- | --- | ---
 Agent fleet health (agents online, busy, idle per queue) | [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) | All | Pull (polls Buildkite API) | Prometheus, StatsD/DogStatsD to Datadog, CloudWatch
 Agent process metrics (goroutines, memory, GC) | [Agent health check service](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page) | All | Pull (Prometheus scrape) | Prometheus
-Build and job lifecycle traces (spans, durations, wait times) | [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) | Enterprise | Push (OTel) | Any OTel-compatible collector ([Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog), and others. Note that the `buildkite.job` span includes the pipeline slug, build number, and a `wait_time_ms` attribute. You can also use a [Signals to Metrics Connector](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/10f63383121cea32bcbc32ecc76fe9e431332816/connector/signaltometricsconnector/README.md) to produce metrics from spans)
+Build and job lifecycle traces (spans, durations, wait times). The `buildkite.job` span includes the pipeline slug, build number, and a `wait_time_ms` attribute. You can also use a [Signals to Metrics Connector](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/10f63383121cea32bcbc32ecc76fe9e431332816/connector/signaltometricsconnector/README.md) to produce metrics from spans | [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) | Enterprise | Push (OTel) | Any OTel-compatible collector ([Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana Tempo, [Datadog](/docs/pipelines/integrations/observability/datadog), and others)
 Agent-side job execution traces | [OpenTelemetry agent tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing) | All | Push (OTel) | Any OTel-compatible collector
-Queue depth, wait times, concurrency | [Cluster insights](/docs/pipelines/insights/clusters) and [GraphQL API](/docs/apis/graphql-api). Note that the GraphQL `ClusterQueue` node exposes a `metrics` field with `connectedAgentsCount`, `runningJobsCount`, `waitingJobsCount`, and `waitTimeSec` (min/p50/p95/max). The same data is available through REST at `/v2/organizations/{org}/clusters/{cluster_uuid}/queues/{queue_uuid}/metrics` | Varies | Pull or UI | Built-in UI; GraphQL or REST for custom dashboards
+Queue depth, wait times, concurrency. The GraphQL `ClusterQueue` node exposes a `metrics` field with `connectedAgentsCount`, `runningJobsCount`, `waitingJobsCount`, and `waitTimeSec` (min/p50/p95/max). The same data is available through REST at `/v2/organizations/{org}/clusters/{cluster_uuid}/queues/{queue_uuid}/metrics` | [Cluster insights](/docs/pipelines/insights/clusters) and [GraphQL API](/docs/apis/graphql-api) | Varies | Pull or UI | Built-in UI; GraphQL or REST for custom dashboards
 Build events for alerting and dashboards | [Webhooks](/docs/apis/webhooks) and [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) | All | Push | PagerDuty, Datadog, custom endpoints
 Test performance and flaky tests | [Test Engine](/docs/test-engine) | Add-on | UI and API | Built-in UI; API for export
 {: class="responsive-table"}
@@ -141,7 +141,7 @@ The Buildkite agent can emit [OpenTelemetry spans](/docs/agent/self-hosted/monit
 
 **Supported destinations:** Any OTel-compatible backend.
 
-Use this approach when you want end-to-end trace context flowing from your application code through CI and back. This works alongside the [notification service](#build-lifecycle-traces-with-opentelemetry), as they are complementary:
+Use this approach when you want end-to-end trace context flowing from your application code through CI and back. This works alongside the [notification service](/docs/pipelines/best-practices/monitoring-and-observability#metrics-approaches-in-detail-build-lifecycle-traces-with-opentelemetry), as they are complementary:
 
 - **Notification service** provides control-plane lifecycle (build created, scheduled, running)
 - **Agent tracing** provides execution-side detail (checkout, plugins, command, artifacts)
