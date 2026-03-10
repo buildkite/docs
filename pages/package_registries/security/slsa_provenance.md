@@ -4,6 +4,9 @@ Supply-chain levels for software artifacts ([SLSA](https://slsa.dev/spec/) and p
 
 When using Buildkite [Pipelines](/docs/pipelines) with [Package Registries](/docs/package-registries), you can publish software packages and artifacts to registries with [SLSA provenance](https://slsa.dev/provenance) in only four steps.
 
+> 📘 Enterprise plan feature
+> The SLSA provenance feature is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans.
+
 This guide uses the following Buildkite examples to demonstrate this process:
 
 - Buildkite organization: `nova-corp`
