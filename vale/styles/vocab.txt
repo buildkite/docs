@@ -212,6 +212,7 @@ iTerm
 iTerm's
 Jenkins
 Jenkinsfile
+Jenkinsfiles
 JFrog
 JFrog's
 job_watcher
