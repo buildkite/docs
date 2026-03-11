@@ -313,14 +313,14 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkite-hosted) used in Buildkite Pipelines.
 
-| Limit type                   | Trial | Personal      | Pro         | Enterprise  |
-| ---------------------------- | ----- | ------------- | ----------- | ----------- |
-| **Linux concurrency**        | 10    | 3             | 20          | Custom      |
-| **macOS concurrency**        | 3     | -             | 5           | Custom      |
-| **Linux minutes, per month** | 2,000 | 550           | usage-based | usage-based |
+| Limit type | Trial | Personal | Pro | Enterprise |
+| --- | --- | --- | --- | --- |
+| **Linux concurrency** | 10 | 3 | 20 | Custom |
+| **macOS concurrency** | 3 | - | 5 | Custom |
+| **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
-| **Container cache volume**   | 50 GB | 50 GB         | 50 GB       | 50 GB       |
-| **Git mirror volume**        | 5 GB  | 5 GB          | 5 GB        | 5 GB        |
+| **Container cache volume** | 50 GB | 50 GB | 50 GB | 50 GB |
+| **Git mirror volume** | 5 GB | 5 GB | 5 GB | 5 GB |
 
 ## Test Engine limits
 
