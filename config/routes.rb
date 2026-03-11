@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
 
+  get "/docs/agent/buildkite-hosted/linux/custom-base-images",                                       to: redirect("/docs/agent/buildkite-hosted/linux/custom-agent-images")
   get "/docs/agent/clusters",                                                                        to: redirect("/docs/pipelines/security/clusters")
   get "/docs/agent/v3",                                                                              to: redirect("/docs/agent")
   get "/docs/agent/v3/agent-stack-k8s",                                                              to: redirect("/docs/agent/self-hosted/agent-stack-k8s")
