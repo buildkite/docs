@@ -39,7 +39,7 @@ With the **Buildkite Hosted Token** authentication option, you can start using A
 - Configure additional infrastructure.
 
 > 📘
-> The Buildkite hosted token authentication option is only available to customers on the [Pro or Enterprise](https://buildkite.com/pricing/) plan.
+> The Buildkite hosted token authentication option is only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing/) plan.
 
 ### Bring your own token
 
