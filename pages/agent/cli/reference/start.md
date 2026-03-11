@@ -142,7 +142,7 @@ This means the first step in the example can only run on an agent with the hostn
 `value` is the job ID. There are several ways to find it:
 
 * Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
-* Through the [GraphQL API](/docs/apis/graphql_api).
+* Through the [GraphQL API](/docs/apis/graphql-api).
 * The `BUILDKITE_JOB_ID` build environment variable.
 * In outbound [job event webhooks](/docs/apis/webhooks/pipelines/job_events).
 * Using the GUI: select a job, and the job ID is the final value in the URL.

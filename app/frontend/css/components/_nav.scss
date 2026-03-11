@@ -62,7 +62,9 @@
     padding: 8px 15px;
     position: relative;
     text-decoration: none;
-    transition: background-color $transition-speed, color $transition-speed;
+    transition:
+      background-color $transition-speed,
+      color $transition-speed;
     width: 100%;
 
     @media (min-width: $screen-md) {

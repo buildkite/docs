@@ -23,7 +23,7 @@ The following properties are sent by all events.
   <tbody>
     <tr>
       <td><code>agent</code></td>
-      <td><a href="/docs/api/agents">Agent</a></td>
+      <td><a href="/docs/apis/rest-api/agents">Agent</a></td>
       <td>The agent this notification relates to</td></tr>
     <tr>
       <td><code>sender</code></td>
@@ -64,7 +64,7 @@ The following properties are sent by the `agent.blocked` event.
     </tr>
     <tr>
       <td><code>agent</code></td>
-      <td><a href="/docs/api/agents">Agent</a></td>
+      <td><a href="/docs/apis/rest-api/agents">Agent</a></td>
       <td>The agent this notification relates to</td>
     </tr>
     <tr>

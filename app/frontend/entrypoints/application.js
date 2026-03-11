@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
       case 191:
         if (
           ["INPUT", "TEXTAREA", "SELECT"].includes(
-            document.activeElement.tagName
+            document.activeElement.tagName,
           )
         )
           break;
