@@ -69,7 +69,7 @@ This stack is designed to run your builds in a shared-nothing pattern similar to
 
 - Each project should encapsulate its dependencies through Docker and Docker Compose.
 - Build pipeline steps should assume no state on the machine (and instead rely on the [build meta-data](/docs/pipelines/build-meta-data), [build artifacts](/docs/pipelines/artifacts), or Cloud Storage).
-- Secrets, including [SSH keys for source control](#ssh-keys-for-source-control), are configured using Secret Manager.
+- Secrets, including [SSH keys for source control](/docs/agent/self-hosted/gcp/elastic-ci-stack/terraform#advanced-configuration-ssh-keys-for-source-control), are configured using Secret Manager.
 
 By following these conventions, you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 
