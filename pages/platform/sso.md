@@ -6,7 +6,8 @@ toc_include_h3: false
 
 You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
-SSO is available to customers on the Buildkite [Pro and Enterprise](https://buildkite.com/pricing) plans.
+> 📘 Pro and Enterprise plan feature
+> SSO capabilities are only available to Buildkite customers on the [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 You can enforce SSO authentication for your entire Buildkite organization by ensuring that [2FA authentication](/docs/platform/team-management/enforce-2fa) has been disabled for your Buildkite organization. Doing so ensures that all users must log in using SSO when accessing your Buildkite organization.
 
@@ -81,7 +82,7 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 ## SSO session IP address pinning
 
 > 📘 Enterprise plan feature
-> Pinning SSO sessions to IP addresses is only available on an [Enterprise](https://buildkite.com/pricing) plan.
+> Pinning SSO sessions to IP addresses is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 Session IP address pinning prompts users to re-authenticate when their IP address changes. This prevents session hijacking by restricting authorized sessions to only originate from the IP address used to create the session. If any attempt is made to access Buildkite from a different IP address, the session is instantly revoked and the user must re-authenticate. Users must be required to use SSO in the [organization's user settings](https://buildkite.com/organizations/~/users) for SSO session IP address pinning to work for them.
 
