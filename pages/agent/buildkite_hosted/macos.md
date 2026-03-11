@@ -7,7 +7,7 @@ Buildkite's macOS hosted agents are:
 - Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is macOS, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with [software](#macos-instance-software-support).
 
 > 📘 Pro and Enterprise plan feature
-> Buildkite macOS hosted agents are only available to Buildkite customers on [Pro and Enterprise](https://buildkite.com/pricing) plans.
+> Buildkite macOS hosted agents are only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 
 Learn more about:
 

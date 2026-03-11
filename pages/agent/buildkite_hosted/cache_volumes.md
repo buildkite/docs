@@ -6,7 +6,7 @@ Volumes are useful if your pipeline builds on Buildkite hosted agents have jobs 
 
 <!--
 > 📘 Pro and Enterprise plan feature
-> The cache volumes feature is only available to Buildkite customers on [Pro and Enterprise](https://buildkite.com/pricing) plans.
+> The cache volumes feature is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 -->
 
 By default, volumes:

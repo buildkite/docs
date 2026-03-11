@@ -3,7 +3,7 @@
 Buildkite integrates with Bitbucket Server to provide automated builds based on your source control. This guide shows you how to set up your Bitbucket Server builds with Buildkite. You can run a build every time you push code to Bitbucket Server, using a webhook that you create in your Bitbucket Server.
 
 > 📘 Buildkite plan availability and Bitbucket Server version.
-> Bitbucket Server is available to Buildkite customers on [Pro and Enterprise](https://buildkite.com/pricing) plans only.
+> Bitbucket Server is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 > This guide is based on Bitbucket Server version 7.11.1. Earlier or later versions may have variations in the interface.
 
 ## Step 1: connect Bitbucket Server and set up a pipeline

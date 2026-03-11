@@ -7,7 +7,7 @@ Test Engine's **Test state** management feature provides the [test state](/docs/
 Quarantining [flaky tests](/docs/test-engine/reduce-flaky-tests) and then using [bktec](/docs/test-engine/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) on pipeline's builds allows the pipeline to be built more rapidly, and run with a higher success rate.
 
 > 📘 Pro and Enterprise plan features
-> The _test state_ management and _automatic quarantining_ features are only available to customers on the [Pro and Enterprise](https://buildkite.com/pricing) plan.
+> The _test state_ management and _automatic quarantining_ features are only available to customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
 
 ## Lifecycle states
 

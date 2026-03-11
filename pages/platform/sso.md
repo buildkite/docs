@@ -7,7 +7,7 @@ toc_include_h3: false
 You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
 > 📘 Pro and Enterprise plan feature
-> SSO capabilities are only available to Buildkite customers on the [Pro and Enterprise](https://buildkite.com/pricing) plans.
+> SSO capabilities are only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
 
 You can enforce SSO authentication for your entire Buildkite organization by ensuring that [2FA authentication](/docs/platform/team-management/enforce-2fa) has been disabled for your Buildkite organization. Doing so ensures that all users must log in using SSO when accessing your Buildkite organization.
 
