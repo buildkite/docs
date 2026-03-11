@@ -22,7 +22,7 @@ To access your organization's service quotas:
 
 1. Select **Quotas** to open the **Service Quotas** page.
 
-<!-- screenshot -->
+<%= image "service-quotas.png", width: 598, height: 398, alt: "The Service Quotas page in Organization Settings, showing quota limits grouped by product area with name, description, and limit value for each quota" %>
 
 The **Service Quotas** page displays your organization's current limits grouped by product area. Each quota shows the limit that applies to your organization, which may differ from the defaults listed on this page.
 
@@ -313,14 +313,14 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkite-hosted) used in Buildkite Pipelines.
 
-| Limit type | Trial | Personal | Pro | Enterprise |
-| --- | --- | --- | --- | --- |
-| **Linux concurrency** | 10 | 3 | 20 | Custom |
-| **macOS concurrency** | 3 | - | 5 | Custom |
-| **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
+| Limit type                   | Trial | Personal      | Pro         | Enterprise  |
+| ---------------------------- | ----- | ------------- | ----------- | ----------- |
+| **Linux concurrency**        | 10    | 3             | 20          | Custom      |
+| **macOS concurrency**        | 3     | -             | 5           | Custom      |
+| **Linux minutes, per month** | 2,000 | 550           | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
-| **Container cache volume** |  50 GB |  50 GB |  50 GB |  50 GB |
-| **Git mirror volume** |  5 GB |  5 GB |  5 GB |  5 GB |
+| **Container cache volume**   | 50 GB | 50 GB         | 50 GB       | 50 GB       |
+| **Git mirror volume**        | 5 GB  | 5 GB          | 5 GB        | 5 GB        |
 
 ## Test Engine limits
 
