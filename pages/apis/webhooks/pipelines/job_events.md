@@ -36,17 +36,17 @@
   <tbody>
     <tr>
       <td><code>job</code></td>
-      <td><a href="/docs/api/jobs">Job</a></td>
+      <td><a href="/docs/apis/rest-api/jobs">Job</a></td>
       <td>The job this notification relates to</td>
     </tr>
     <tr>
       <td><code>build</code></td>
-      <td><a href="/docs/api/builds">Build</a></td>
+      <td><a href="/docs/apis/rest-api/builds">Build</a></td>
       <td>The build this notification relates to</td>
     </tr>
     <tr>
       <td><code>pipeline</code></td>
-      <td><a href="/docs/api/pipelines">Pipeline</a></td>
+      <td><a href="/docs/apis/rest-api/pipelines">Pipeline</a></td>
       <td>The pipeline this notification relates to</td>
     </tr>
     <tr>

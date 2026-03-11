@@ -145,6 +145,7 @@ exceptions:
   - GPU
   - GPUs
   - Gradle
+  - Grafana
   - GraphQL
   - GRC
   - Groovy
@@ -262,6 +263,7 @@ exceptions:
   - Tahoe
   - TCP
   - Tekton
+  - Tempo
   - Terraform
   - Test Engine
   - Test Engine Client

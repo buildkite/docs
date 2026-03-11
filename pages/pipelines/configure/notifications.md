@@ -187,13 +187,13 @@ notify:
 
 ## GitHub commit status
 
-Pipelines using [a GitHub repository](/docs/pipelines/source_control/github) have built-in [GitHub commit status](https://docs.github.com/en/rest/commits/statuses) integration. However, you can add custom commit statuses using notifications.
+Pipelines using [a GitHub repository](/docs/pipelines/source-control/github) have built-in [GitHub commit status](https://docs.github.com/en/rest/commits/statuses) integration. However, you can add custom commit statuses using notifications.
 
 GitHub commit statuses appear as simple pass/fail indicators on commits and pull requests. For more advanced features like detailed output and annotations, consider using a [GitHub check](#github-check) instead.
 
 > 📘 Requirements
 > GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
-> For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source_control/github#customizing-commit-statuses) in the GitHub integration documentation.
+> For more information on customizing commit statuses, see [Customizing commit statuses](/docs/pipelines/source-control/github#customizing-commit-statuses) in the GitHub integration documentation.
 
 Add a GitHub commit status notification to your pipeline using the `github_commit_status` attribute of the `notify` YAML block:
 
@@ -254,7 +254,7 @@ Step-level GitHub commit status notifications happen at the following [events](/
 
 ## GitHub check
 
-Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source_control/github) with the GitHub App integration.
+Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
 
 GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
 

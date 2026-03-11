@@ -4,7 +4,7 @@ The Buildkite agent's `artifact` command provides support for uploading and
 downloading of build artifacts, allowing you to share binary data between build
 steps no matter the machine or network.
 
-See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
+See the [Using build artifacts](/docs/pipelines/configure/artifacts) guide for a step-by-step
 example.
 
 ## Uploading artifacts
@@ -23,7 +23,7 @@ For documentation on configuring a custom storage location, see:
 
 You can also configure the agent to automatically upload artifacts after your
 step's command has completed based on a file pattern (see the
-[Using build artifacts guide](/docs/builds/artifacts) for details).
+[Using build artifacts guide](/docs/pipelines/configure/artifacts) for details).
 
 
 <%= render 'agent/cli/help/artifact_upload' %>
@@ -138,7 +138,7 @@ The `buildkite-agent artifact download` command relies on environment variables 
 
 For example, executing the `buildkite-agent artifact download` command on your local machine would return an error about missing environment variables. However, when this command is executed as part of a build, the agent has set the required variables, and the command will be able to run.
 
-If you want to download an artifact from outside a build, you can use the [Artifact Download API](/docs/api/artifacts#download-an-artifact).
+If you want to download an artifact from outside a build, you can use the [Artifact Download API](/docs/apis/rest-api/artifacts#download-an-artifact).
 
 ## Searching artifacts
 
