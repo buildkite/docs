@@ -5,7 +5,11 @@ description: "Hybrid CI/CD with unlimited concurrency and dynamic pipelines — 
 
 # Advantages of Buildkite Pipelines
 
+If your CI/CD system queues builds behind shared runners, locks you into static YAML workflows, or forces you to hand source code to a third party, you're working around your tools instead of with them.
+
 This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
+
+## Why choose Buildkite Pipelines
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while keeping code and secrets on infrastructure they control.
 
@@ -116,9 +120,9 @@ Buildkite Pipelines specializes in CI/CD rather than bundling source code manage
 
 [Hooks](/docs/agent/hooks) allow customizing agent behavior and enforcing standards at every stage of the [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks):
 
-— Manage [secrets](/docs/pipelines/security/secrets/managing)
+- Manage [secrets](/docs/pipelines/security/secrets/managing)
 - Enforcing security policies
-- Modify checkout behavior, or
+- Modify checkout behavior
 - Standardize environments across all pipelines
 
 ## Security and compliance
@@ -152,7 +156,6 @@ Enterprise Premium Support includes:
 - 24/7 emergency pager and live chat support
 - Guaranteed support SLAs with priority response times
 - A dedicated technical account manager
-- Professional services and training
 - 99.95% uptime SLA
 
 ## Migrating to Buildkite Pipelines
