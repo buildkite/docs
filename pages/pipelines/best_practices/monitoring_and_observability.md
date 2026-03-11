@@ -53,7 +53,7 @@ Establish standardized metrics collection across all pipelines to enable consist
 
 ## Getting metrics out of Buildkite Pipelines
 
-Buildkite Pipelines provides multiple ways to export CI/CD metrics depending on your needs (agent fleet health, build performance, trace correlation, test quality, and so on) and where you want the data (Datadog, Prometheus, Grafana, CloudWatch, your own OpenTelemetry collector, or Buildkite's built-in dashboards).
+Buildkite Pipelines provides multiple ways to export CI/CD metrics depending on your needs (agent fleet health, build performance, trace correlation, [test quality](/docs/test-engine), and so on) and where you want the data (Datadog, Prometheus, Grafana, CloudWatch, your own OpenTelemetry collector, or Buildkite's [built-in dashboards](/docs/pipelines/insights/clusters)).
 
 Most teams need two or three of these approaches working together, as they are complementary rather than competing. The following sections introduce each approach, explain when to use it, and link to detailed setup documentation.
 
@@ -72,14 +72,14 @@ Test performance and flaky tests | [Test Engine](/docs/test-engine) | Add-on | U
 
 ¹ The `buildkite.job` span includes the pipeline slug, build number, and a `wait_time_ms` attribute. You can also use a [Signals to Metrics Connector](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/10f63383121cea32bcbc32ecc76fe9e431332816/connector/signaltometricsconnector/README.md) to produce metrics from spans.
 
-² The GraphQL `ClusterQueue` node exposes a `metrics` field with `connectedAgentsCount`, `runningJobsCount`, `waitingJobsCount`, and `waitTimeSec` (min/p50/p95/max). The same data is available through REST at `/v2/organizations/{org}/clusters/{cluster_uuid}/queues/{queue_uuid}/metrics`.
+² The GraphQL `ClusterQueue` node exposes a `metrics` field with `connectedAgentsCount`, `runningJobsCount`, `waitingJobsCount`, and `waitTimeSec` (min/p50/p95/max). The same data is available through REST API at `/v2/organizations/{org}/clusters/{cluster_uuid}/queues/{queue_uuid}/metrics`.
 
 > 📘 buildkite-agent-metrics and the agent health check service are different tools
 > The [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) tool gives you fleet-level queue and agent counts by polling the Buildkite API. The agent's [health check service](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page) exposes per-agent process health through a Prometheus endpoint on the agent binary itself. You likely want both.
 
 ## Metrics approaches in detail
 
-Each approach below covers a different aspect of CI/CD observability available in Buildkite Pipelines. Most teams combine two or three of these to get full coverage across fleet health, build performance, and test quality.
+Each approach below covers a different aspect of CI/CD observability available in Buildkite Pipelines. Choose a combination of these to get full coverage across fleet health, build performance, and test quality.
 
 ### Fleet health dashboard
 
@@ -119,6 +119,9 @@ This endpoint shows individual agent process health, not fleet-level queue or ca
 
 ### Build lifecycle traces with OpenTelemetry
 
+> 🚧 Enterprise only feature
+> The OpenTelemetry tracing notification service requires an Enterprise plan. It provides traces (spans), not traditional metrics (gauges or counters). If you need time-series metrics, you need to derive them from spans in your backend (for example, using span-to-metrics features in Datadog or Grafana).
+
 The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) pushes build and job lifecycle events as OpenTelemetry (OTel) traces to your collector.
 
 **Data provided (as trace spans):**
@@ -130,9 +133,6 @@ The [OpenTelemetry tracing notification service](/docs/pipelines/integrations/ob
 **Supported destinations:** Any OTel-compatible backend, including [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), Grafana, [Datadog](/docs/pipelines/integrations/observability/datadog) APM, Jaeger, or your own OpenTelemetry collector.
 
 Use this approach when you have an existing distributed tracing setup and want CI/CD events to appear as spans alongside your application traces. This is best for correlating build activity with deployments and service health.
-
-> 🚧 Enterprise only feature
-> The OpenTelemetry tracing notification service requires an Enterprise plan. It provides traces (spans), not traditional metrics (gauges or counters). If you need time-series metrics, you need to derive them from spans in your backend (for example, using span-to-metrics features in Datadog or Grafana).
 
 ### Agent-side execution traces
 
@@ -205,7 +205,8 @@ Use this approach for event-driven alerting (for example, notifying a team when 
 
 Use this approach when you care about test health independently from build infrastructure health. This is best for engineering teams focused on test suite reliability and performance.
 
-Test Engine is a separate product from build and agent metrics. It covers test execution quality, not CI infrastructure health.
+> 🚧
+> Test Engine is a separate product from build and agent metrics. It covers test execution quality, not CI infrastructure health.
 
 ## Common metrics recipes
 
@@ -245,7 +246,7 @@ Enable the agent's [health check service](/docs/agent/self-hosted/monitoring-and
 
 The following are the areas where the current metrics capabilities have known limitations:
 
-- **Metrics export parity:** [Cluster insights](/docs/pipelines/insights/clusters) shows data that can't be fully replicated through any external export path today. If you are building external dashboards, some metrics might not be available for export yet.
+- **Metrics export parity:** [Cluster insights](/docs/pipelines/insights/clusters) shows data that can't be fully replicated through any external export path today. If you are building external dashboards, some metrics might currently not be available for export.
 - **OpenTelemetry enrichment:** Additional span attributes such as build metadata, trigger context, and span links for triggered builds are being actively improved.
 - **Historical data:** Current cluster insights and [queue metrics](/docs/pipelines/insights/queue-metrics) have limited lookback periods. If you need longer time windows for capacity planning, consider using the [GraphQL API](/docs/apis/graphql-api) to collect and store data in your own warehouse.
 - **Traces and metrics gap:** OpenTelemetry exports are trace-based (spans), but some workflows require traditional time-series metrics (gauges, counters). Converting spans to metrics requires backend-side processing that not all observability stacks handle well.
