@@ -346,8 +346,8 @@
               children:
                 - name: "Overview"
                   path: "agent/buildkite-hosted/linux"
-                - name: "Custom base images"
-                  path: "agent/buildkite-hosted/linux/custom-base-images"
+                - name: "Custom agent images"
+                  path: "agent/buildkite-hosted/linux/custom-agent-images"
                 - name: "Remote Docker builders"
                   path: "agent/buildkite-hosted/linux/remote-docker-builders"
             - name: "macOS hosted agents"

@@ -7,7 +7,7 @@ module RenderHelpers
   ]
 
   def render_html(markdown)
-    markdown ? CommonMarker.render_html(markdown) : nil
+    markdown ? Commonmarker.to_html(markdown) : nil
   end
 
   def render_of_type(type, is_list = false, is_non_nullable = false, size = "medium")
