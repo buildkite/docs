@@ -17,7 +17,7 @@
 <table>
 <tbody>
   <tr><th><code>service</code></th><td>The notification service that sent this webhook</td></tr>
-  <tr><th><code>organization</code></th><td>The <a href="/docs/api/organizations">Organization</a> this notification belongs to</td></tr>
+  <tr><th><code>organization</code></th><td>The <a href="/docs/apis/rest-api/organizations">Organization</a> this notification belongs to</td></tr>
   <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
 </tbody>
 </table>

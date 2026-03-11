@@ -108,7 +108,7 @@ steps:
 ```
 
 > 📘
-> OIDC authentication requires configuring an OIDC policy in your registry settings. See the [Package Registries OIDC documentation](/docs/package_registries/security/oidc) for setup instructions.
+> OIDC authentication requires configuring an OIDC policy in your registry settings. See the [Package Registries OIDC documentation](/docs/package-registries/security/oidc) for setup instructions.
 
 ### Multi-platform builds
 

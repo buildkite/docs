@@ -57,4 +57,4 @@ The image is based on Ubuntu 22.04 and includes the following tools:
 - node
 - aws-cli
 
-You can customize the image that your hosted agents use by [creating an agent image](/docs/agent/buildkite-hosted/linux/custom-base-images).
+You can customize the image that your hosted agents use by creating a [custom agent image](/docs/agent/buildkite-hosted/linux/custom-base-images). This approach is recommended for production workloads, as a custom agent image would give you full control over installed packages, security updates, and dependencies.

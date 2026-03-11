@@ -36,7 +36,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the **Continue** button in the Buildkite dashboard, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a _Manual Stage_ in Bamboo.
+Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the **Continue** button in the Buildkite dashboard, or use the [Unblock Job](/docs/apis/rest-api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a _Manual Stage_ in Bamboo.
 
 ```yaml
 steps:
@@ -93,7 +93,7 @@ Once your build pipelines are set up, you can update step labels to something mo
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
-If you have many pipelines to migrate or manage at once, you can use the [Update pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
+If you have many pipelines to migrate or manage at once, you can use the [Update pipeline](/docs/apis/rest-api/pipelines#update-a-pipeline) REST API.
 
 ## Steps and tasks
 
@@ -117,7 +117,7 @@ rake cucumber
 ```
 {: codeblock-file="build.sh"}
 
-If you'd like to learn more about how to write build scripts, see [Writing build scripts](/docs/builds/writing-build-scripts).
+If you'd like to learn more about how to write build scripts, see [Writing build scripts](/docs/pipelines/configure/writing-build-scripts).
 
 To trigger builds in other pipelines, you can use `trigger` steps. This way, you can create dependent pipelines. See the [trigger steps docs](/docs/pipelines/configure/step-types/trigger-step) for more information.
 
