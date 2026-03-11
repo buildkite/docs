@@ -339,6 +339,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/migration/tool/github-actions",                                               to: redirect("/docs/pipelines/converter/github-actions")
   get "/docs/pipelines/migration/tool/jenkins",                                                      to: redirect("/docs/pipelines/converter/jenkins")
   get "/docs/pipelines/migration-overview",                                                          to: redirect("/docs/pipelines/migration")
+  get "/docs/pipelines/my-builds",                                                                   to: redirect("/docs/pipelines/dashboard-walkthrough")
   get "/docs/pipelines/notifications",                                                               to: redirect("/docs/pipelines/configure/notifications")
   get "/docs/pipelines/parallel-builds",                                                             to: redirect("/docs/pipelines/implementation/parallel-builds")
   get "/docs/pipelines/permissions",                                                                 to: redirect("/docs/pipelines/security/permissions")
