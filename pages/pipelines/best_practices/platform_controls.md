@@ -165,7 +165,7 @@ It's also recommended to:
 
 Platform teams can leverage [Buildkite plugins](/docs/pipelines/integrations/plugins) to standardize tooling, enforce best practices, and reduce configuration duplication across pipelines - for instance, when you are repeatedly reusing some pieces of code. By creating and managing a curated set of plugins, platform teams can provide developer teams with approved, secure, and well-maintained tools while maintaining control over the CI/CD environment.
 
-By establishing secure [Plugin management](/docs/pipelines/best-practices/plugin-management/) practices, platform teams can provide developer teams with powerful, standardized tools while maintaining security, compliance, and operational consistency across the entire CI/CD ecosystem.
+By establishing secure [Plugin management](/docs/pipelines/best-practices/plugin-management) practices, platform teams can provide developer teams with powerful, standardized tools while maintaining security, compliance, and operational consistency across the entire CI/CD ecosystem.
 
 ## Release and deployment processes
 
