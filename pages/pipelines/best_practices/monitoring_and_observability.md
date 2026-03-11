@@ -219,8 +219,11 @@ Configure [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-obser
 ```bash
 buildkite-agent-metrics -backend statsd \
   -statsd-host localhost:8125 \
+  -statsd-tags \
   -token $BUILDKITE_AGENT_TOKEN
 ```
+
+The `-statsd-tags` flag enables Datadog-compatible tagging, so metrics are tagged by `queue` rather than including the queue name in the metric name. This makes it easier to filter and group metrics in Datadog dashboards.
 
 ### Build traces in Honeycomb or Grafana Tempo
 
