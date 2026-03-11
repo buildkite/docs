@@ -5,6 +5,8 @@
 
 The _cluster insights_ dashboard provides real-time visibility into your build infrastructure's performance, helping you monitor and optimize your CI/CD workflows. This guide explains how to use and interpret the dashboard's metrics to improve your build system's efficiency.
 
+To export metrics to external tools or compare cluster insights with other monitoring approaches, see the [monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability#getting-metrics-out-of-buildkite-pipelines).
+
 <%= image "cluster_insights_dashboard.png", alt: "Screenshot showing the cluster insights dashboard" %>
 
 ## Before you start

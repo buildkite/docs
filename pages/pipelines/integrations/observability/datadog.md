@@ -101,5 +101,7 @@ Learn more about:
 
 - Overall best CI/CD practices involving the use of Datadog's APM tracing and CI Pipeline Visibility integration, from the [CI/CD best practices](https://buildkite.com/resources/blog/ci-cd-best-practices/) blog post.
 
+- Getting agent fleet metrics (queue depth, agent counts) into Datadog using StatsD and DogStatsD, from the [monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability#common-metrics-recipes-agent-metrics-in-datadog).
+
 > 📘
 > CI Pipeline Visibility is maintained by Datadog. Therefore, for any questions or feature requests about this product, contact [Datadog Support](https://www.datadoghq.com/support/).

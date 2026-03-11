@@ -43,6 +43,9 @@ gem 'front_matter_parser'
 
 gem 'matrix'
 
+# Ruby 4.0 compatibility - these were removed from stdlib
+gem 'ostruct'
+
 # Asset compilation
 gem 'vite_rails'
 
