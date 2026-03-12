@@ -34,6 +34,6 @@ This will prevent dispatch of jobs to agents on this queue. You can add an optio
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueuepausedispatchinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueuePauseDispatchInput"><code>ClusterQueuePauseDispatchInput!</code></a></h3><p>Parameters for ClusterQueuePauseDispatch</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/clusterqueuepausedispatchinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueuePauseDispatchInput"><code>ClusterQueuePauseDispatchInput!</code></a></h3><p>Parameters for ClusterQueuePauseDispatch</p></td></tr>
   </tbody>
 </table>

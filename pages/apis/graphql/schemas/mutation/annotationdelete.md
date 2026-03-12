@@ -34,6 +34,6 @@ Delete an annotation from a build or job.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/annotationdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AnnotationDeleteInput"><code>AnnotationDeleteInput!</code></a></h3><p>Parameters for AnnotationDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/annotationdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AnnotationDeleteInput"><code>AnnotationDeleteInput!</code></a></h3><p>Parameters for AnnotationDelete</p></td></tr>
   </tbody>
 </table>

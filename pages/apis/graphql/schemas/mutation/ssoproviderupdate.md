@@ -34,6 +34,6 @@ Change the settings for a SSO provider.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/ssoproviderupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT SSOProviderUpdateInput"><code>SSOProviderUpdateInput!</code></a></h3><p>Parameters for SSOProviderUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/ssoproviderupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT SSOProviderUpdateInput"><code>SSOProviderUpdateInput!</code></a></h3><p>Parameters for SSOProviderUpdate</p></td></tr>
   </tbody>
 </table>
