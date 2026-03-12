@@ -18,6 +18,8 @@
               path: "pipelines/advantages/buildkite-vs-jenkins"
             - name: "Advantages over GitLab"
               path: "pipelines/advantages/buildkite-vs-gitlab"
+            - name: "Frequently asked questions"
+              path: "pipelines/advantages/faq"
         - name: "Getting started"
           path: "pipelines/getting-started"
         - name: "Create your own pipeline"
