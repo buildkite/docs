@@ -3,10 +3,10 @@
 
 Buildkite Package Registries provides registry support for generic _files_ to cover some use cases where native package management either isn't required or isn't available.
 
+Once your **Files** source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry.
+
 > 📘 Pro and Enterprise plan features
 > The generic _files_ registry feature is only available to customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
-
-Once your **Files** source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry.
 
 ## Publish a file
 
