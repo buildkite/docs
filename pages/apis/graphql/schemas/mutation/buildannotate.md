@@ -34,6 +34,6 @@ Annotate a build with information to appear on the build page.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/buildannotateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildAnnotateInput"><code>BuildAnnotateInput!</code></a></h3><p>Parameters for BuildAnnotate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/buildannotateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildAnnotateInput"><code>BuildAnnotateInput!</code></a></h3><p>Parameters for BuildAnnotate</p></td></tr>
   </tbody>
 </table>
