@@ -158,8 +158,8 @@ Enterprise Premium Support includes:
 
 Buildkite provides [migration guides](/docs/pipelines/migration) to help teams move from their existing CI/CD system. The following pages explore the advantages of migrating from specific systems with side-by-side comparisons:
 
-- **[Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins):** Eliminate controller maintenance, plugin conflicts, and painful upgrades while keeping infrastructure control. Jenkinsfiles map directly to Buildkite pipeline YAML, and the agent model replaces the controller/node topology.
 - **[GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha):** Move beyond static workflows, concurrency caps, and multi-tenant reliability issues. Workflow files translate step-for-step, and self-hosted Buildkite agents replace GitHub-hosted runners.
+- **[Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins):** Eliminate controller maintenance, plugin conflicts, and painful upgrades while keeping infrastructure control. Jenkinsfiles map directly to Buildkite pipeline YAML, and the agent model replaces the controller/node topology.
 - **[GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab):** Replace rigid stage-based pipelines and runner-minute limits with flexible, dynamic workflows. GitLab's `.gitlab-ci.yml` stages map to Buildkite steps, with the added ability to modify those steps at runtime.
 
 ## Frequently asked questions
