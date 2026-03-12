@@ -58,6 +58,8 @@
     path: apis/graphql/schemas/mutation/agenttokencreate
   - name: agentTokenRevoke
     path: apis/graphql/schemas/mutation/agenttokenrevoke
+  - name: annotationDelete
+    path: apis/graphql/schemas/mutation/annotationdelete
   - name: apiAccessTokenCodeAuthorize
     path: apis/graphql/schemas/mutation/apiaccesstokencodeauthorize
   - name: buildAnnotate
@@ -254,6 +256,8 @@
     path: apis/graphql/schemas/object/annotationbody
   - name: AnnotationConnection
     path: apis/graphql/schemas/object/annotationconnection
+  - name: AnnotationDeletePayload
+    path: apis/graphql/schemas/object/annotationdeletepayload
   - name: AnnotationEdge
     path: apis/graphql/schemas/object/annotationedge
   - name: Artifact
@@ -1060,6 +1064,8 @@
     path: apis/graphql/schemas/input-object/agenttokencreateinput
   - name: AgentTokenRevokeInput
     path: apis/graphql/schemas/input-object/agenttokenrevokeinput
+  - name: AnnotationDeleteInput
+    path: apis/graphql/schemas/input-object/annotationdeleteinput
   - name: BuildAnnotateInput
     path: apis/graphql/schemas/input-object/buildannotateinput
   - name: BuildAuthorInput
