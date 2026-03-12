@@ -49,7 +49,7 @@ To understand how Buildkite's checkout defaults differ from other platforms in a
 
 There are several approaches possible for monitoring your Git operations:
 
-- Buildite Pipelines emits [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) spans for checkout behavior. The `checkout` span covers everything from pre-checkout to post-checkout. Also, there is a `repo-checkout` child span which focuses on the Git checkout behavior. You will need to set up OpenTelemetry integration to be able to use this feature.
+- Buildkite Pipelines emits [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) spans for checkout behavior. The `checkout` span covers everything from pre-checkout to post-checkout. Also, there is a `repo-checkout` child span which focuses on the Git checkout behavior. You will need to set up OpenTelemetry integration to be able to use this feature.
 - You can use a local (or network) proxy for Git clones with smart caching and credential management, which is also be a logical point for telemetry, as described above.
 - You can use https://github.com/block/cachew or https://github.com/wolfeidau/content-cache/.
-- Alternatively, you can use a [checkout hook](/docs/agent/hooks) on your agents and plugig in with a monitor that phase of the process.
+- Alternatively, you can use a [checkout hook](/docs/agent/hooks) on your agents and plug in with a monitor that phase of the process.
