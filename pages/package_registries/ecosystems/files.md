@@ -5,6 +5,9 @@ Buildkite Package Registries provides registry support for generic _files_ to co
 
 Once your **Files** source registry has been [created](/docs/package-registries/registries/manage#create-a-source-registry), you can publish/upload files (of any type and extension) to this registry.
 
+> 📘 Pro and Enterprise plan features
+> The generic _files_ registry feature is only available to customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
+
 ## Publish a file
 
 You can use two approaches to publish a file to your file source registry—[`curl`](#publish-a-file-using-curl) or the [Buildkite CLI](#publish-a-file-using-the-buildkite-cli).

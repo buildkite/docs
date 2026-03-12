@@ -34,6 +34,6 @@ Update a registry's access level within a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamregistryupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamRegistryUpdateInput"><code>TeamRegistryUpdateInput!</code></a></h3><p>Parameters for TeamRegistryUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/teamregistryupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamRegistryUpdateInput"><code>TeamRegistryUpdateInput!</code></a></h3><p>Parameters for TeamRegistryUpdate</p></td></tr>
   </tbody>
 </table>

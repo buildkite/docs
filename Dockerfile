@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.4.8-slim-bookworm@sha256:bbc49173621b513e33c4add027747db0c41d540c86492cca66e90814a7518c84
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:22-bookworm-slim@sha256:5373f1906319b3a1f291da5d102f4ce5c77ccbe29eb637f072b6c7b70443fc36
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.1-slim-bookworm@sha256:ec6d9a346d1ecdf9d27f76dc6d706d7a603a73bdfea84b94e7a4ce82294a79a8
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:e8e2e91b1378f83c5b2dd15f0247f34110e2fe895f6ca7719dbb780f929368eb
 
 FROM $BASE_IMAGE AS builder
 
@@ -18,7 +18,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     # Install all the things
     && apt-get update \
-    && apt-get install -y gh jq build-essential \
+    && apt-get install -y gh jq build-essential python3 \
     ## Pull down security updates
     && apt-get upgrade -y \
     # Upgrade rubygems and bundler
@@ -37,7 +37,7 @@ ARG RAILS_ENV
 
 RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
-    && bundle config set force_ruby_platform true \
+    && bundle config set force_ruby_platform false \
     && bundle install --jobs $(nproc) --retry 3
 
 # ------------------------------------------------------------------
@@ -49,7 +49,7 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.24-bookworm AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.26-bookworm AS gobuild
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(
@@ -127,7 +127,7 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 # make sense to us.
 #
 
-FROM raviqqe/muffet:2.11.0 AS muffet-scratch
+FROM raviqqe/muffet:2.11.2 AS muffet-scratch
 FROM ${BASE_IMAGE} AS muffet
 
 RUN apt-get update && \

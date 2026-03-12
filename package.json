@@ -2,12 +2,12 @@
   "name": "docs",
   "private": true,
   "devDependencies": {
-    "husky": "^8.0.0",
-    "netlify-cli": "^23.15.1",
-    "prettier": "2.8.4",
+    "husky": "^9.0.0",
+    "netlify-cli": "^24.0.0",
+    "prettier": "3.8.1",
     "sass": "^1.66.1",
     "vite": "^7.3.1",
-    "vite-plugin-ruby": "^3.2.0"
+    "vite-plugin-ruby": "^5.1.1"
   },
   "scripts": {
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",
@@ -19,7 +19,7 @@
     "prettier-fix": "prettier -w \"app/frontend/**/*.{js,scss}\""
   },
   "dependencies": {
-    "@docsearch/js": "3",
+    "@docsearch/js": "4",
     "@hotwired/turbo-rails": "^8.0.23"
   }
 }

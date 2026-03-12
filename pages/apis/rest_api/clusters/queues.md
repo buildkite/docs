@@ -17,6 +17,7 @@
     <tr><th><code>dispatch_paused_by</code></th><td>User who paused the queue</td></tr>
     <tr><th><code>dispatch_paused_at</code></th><td>When the queue was paused</td></tr>
     <tr><th><code>dispatch_paused_note</code></th><td>The note left when the queue was paused</td></tr>
+    <tr><th><code>hosted_agents.agent_image_ref</code></th><td>The custom image URL configured for the queue's hosted agents. Only present on Buildkite hosted queues. This field is a <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a> feature.</td></tr>
     <tr><th><code>created_at</code></th><td>When the queue was created</td></tr>
     <tr><th><code>created_by</code></th><td>User who created the queue</td></tr>
   </tbody>
@@ -238,6 +239,14 @@ Optional [request body properties](/docs/api#request-body-properties):
       <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
       <br/>
       Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
+      <br/><br/>
+      <!--
+      <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+      <br/>
+      <em>Example:</em>
+      <br/>
+      <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
+      -->
   </td>
   </tr>
 </tbody>
@@ -298,7 +307,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configures this queue to use <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+      Updates the <em>instance shape</em> for an existing <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>, which in turn manages <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>.
       <br>
       <em>Example:</em>
       <br/>
@@ -310,6 +319,14 @@ curl -H "Authorization: Bearer $TOKEN" \
       <br/>
       It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
       Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> Buildkite hosted agents.
+      <br/><br/>
+      <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+      <br/>
+      Also be aware that this property must be specified with <code>instanceShape</code>, even if you are not changing its value. In such circumstances, specify this property's current value.
+      <br/>
+      <em>Example:</em>
+      <br/>
+      <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
   </td>
   </tr>
 </tbody>
@@ -464,10 +481,10 @@ Error responses:
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
 ## Instance shape values for macOS
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>

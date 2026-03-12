@@ -5,7 +5,19 @@
 
   <% unless hide_feedback %>
     <div class="Footer__heading">How helpful was this page?</div>
-    <div id="emojicom-widget-inline"></div>
+    <div id="page-rating-widget" class="PageRating">
+      <button class="PageRating__button" data-rating="-2" aria-label="Not helpful at all">😢</button>
+      <button class="PageRating__button" data-rating="-1" aria-label="Not very helpful">😕</button>
+      <button class="PageRating__button" data-rating="1" aria-label="Helpful">😊</button>
+      <button class="PageRating__button" data-rating="2" aria-label="Very helpful">😍</button>
+    </div>
+    <div id="page-rating-form" class="PageRating__form" style="display: none;">
+      <label class="PageRating__label" for="page-rating-comment">How can we improve this page for you?</label>
+      <textarea id="page-rating-comment" class="PageRating__textarea" placeholder="Optional" rows="3"></textarea>
+      <label class="PageRating__label" for="page-rating-email">Would you like to chat with us?</label>
+      <input id="page-rating-email" class="PageRating__input" type="email" placeholder="Optional - enter your email for us to reach out to you" />
+      <button id="page-rating-submit" class="PageRating__submit Button Button--default">Submit Feedback</button>
+    </div>
     <p>If you have questions or feedback</p>
     <div class="Footer__links">
       <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
@@ -35,11 +47,41 @@
 </footer>
 
 <% unless hide_feedback %>
-  <% emojicom_campaign_id = Rails.env.production? ? '7O7Rc8JaykqXiCmaqe1C' : 'YeriBgQjRQmOU3br2W1g' %>
-  <!-- Start emojicom.io widget -->
   <%= javascript_tag nonce: true do %>
-    window.emojicom_widget = { campaign: "<%= emojicom_campaign_id %>" };
+    (function() {
+      var widget = document.getElementById('page-rating-widget');
+      var form = document.getElementById('page-rating-form');
+      if (!widget || !form) return;
+
+      var selectedRating = null;
+      var buttons = widget.querySelectorAll('.PageRating__button');
+
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          selectedRating = parseInt(this.getAttribute('data-rating'), 10);
+          buttons.forEach(function(btn) { btn.classList.remove('PageRating__button--selected'); });
+          this.classList.add('PageRating__button--selected');
+          form.style.display = 'block';
+        });
+      });
+
+      document.getElementById('page-rating-submit').addEventListener('click', function() {
+        var comment = document.getElementById('page-rating-comment').value.trim();
+        var email = document.getElementById('page-rating-email').value.trim();
+
+        if (typeof posthog !== 'undefined') {
+          posthog.capture('✍️ Docs page feedback', {
+            rating: selectedRating,
+            page_url: window.location.href,
+            page_path: window.location.pathname,
+            comment: comment || null,
+            email: email || null
+          });
+        }
+
+        form.style.display = 'none';
+        widget.innerHTML = '<p class="PageRating__thanks">Thanks for your feedback 🙏</p>';
+      });
+    })();
   <% end %>
-  <%= javascript_include_tag 'https://cdn.emojicom.io/embed/widget.js', async: true, nonce: true %>
-  <!-- End emojicom.io widget -->
 <% end %>

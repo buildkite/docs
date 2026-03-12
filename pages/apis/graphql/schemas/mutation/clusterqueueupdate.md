@@ -34,6 +34,6 @@ Updates a cluster queue.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueueupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueUpdateInput"><code>ClusterQueueUpdateInput!</code></a></h3><p>Parameters for ClusterQueueUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/clusterqueueupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueUpdateInput"><code>ClusterQueueUpdateInput!</code></a></h3><p>Parameters for ClusterQueueUpdate</p></td></tr>
   </tbody>
 </table>

@@ -88,13 +88,16 @@ bk job list [flags]
 | `-p`, `--pipeline=STRING` | Filter by pipeline slug |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
+| `--json` | Output as JSON |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
 | `--order-by=STRING` | Order results by field (start_time, duration) |
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by job state |
+| `--text` | Output as text |
 | `--until=STRING` | Filter jobs from builds created before this time (e.g. 1h, 30m) |
+| `--yaml` | Output as YAML |
 
 ### Examples
 

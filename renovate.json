@@ -1,6 +1,56 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:recommended"
+        "config:recommended",
+        "schedule:weekly",
+        "helpers:pinGitHubActionDigests"
+    ],
+    "schedule": ["before 9am on Monday"],
+    "timezone": "Australia/Sydney",
+    "prHourlyLimit": 10,
+    "prConcurrentLimit": 15,
+    "automerge": true,
+    "automergeType": "pr",
+    "packageRules": [
+        {
+            "description": "Buildkite plugins",
+            "matchManagers": ["buildkite"],
+            "groupName": "buildkite plugins",
+            "automerge": true
+        },
+        {
+            "description": "Docker images in CI pipelines",
+            "matchManagers": ["docker-compose", "dockerfile"],
+            "matchFileNames": [".buildkite/**"],
+            "groupName": "buildkite docker images",
+            "automerge": true
+        },
+        {
+            "description": "npm non-major updates",
+            "matchManagers": ["npm"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "groupName": "npm minor/patch updates",
+            "automerge": true
+        },
+        {
+            "description": "Ruby gem non-major updates",
+            "matchManagers": ["bundler"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "groupName": "ruby gem minor/patch updates",
+            "automerge": true
+        },
+        {
+            "description": "Dockerfile base images (non-major)",
+            "matchManagers": ["dockerfile"],
+            "matchFileNames": ["Dockerfile"],
+            "matchUpdateTypes": ["minor", "patch", "digest"],
+            "groupName": "dockerfile base image updates",
+            "automerge": true
+        },
+        {
+            "description": "Major updates require manual review",
+            "matchUpdateTypes": ["major"],
+            "automerge": false
+        }
     ]
 }

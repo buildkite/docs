@@ -180,13 +180,26 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
+- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` parameter) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
+<!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only), by passing its URL as the value to its `agentImageRef` parameter.
+-->
 
     ```json
     "hostedAgents": {
       "instanceShape": "LINUX_AMD64_2X4"
     }
     ```
+
+<!--
+    or for an example using a custom agent image:
+
+    ```json
+    "hostedAgents": {
+      "instanceShape": "LINUX_AMD64_2X4",
+      "agentImageRef": "my-registry.example.com/my-org/my-image:tag"
+    }
+    ```
+-->
 
 ### Using the GraphQL API
 
@@ -242,7 +255,9 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` object) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
+- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` field) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
+<!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only) by passing its URL as the value to its `agentImageRef` field nested within `linux`, then `platformSettings` objects.
+-->
 
     ```graphql
     hostedAgents: {
@@ -250,17 +265,32 @@ where:
     }
     ```
 
+<!--
+    or for an example using a custom agent image:
+
+    ```graphql
+    hostedAgents: {
+      instanceShape: LINUX_AMD64_2X4
+      platformSettings: {
+        linux: {
+          agentImageRef: "my-registry.example.com/my-org/my-image:tag"
+        }
+      }
+    }
+    ```
+-->
+
 ### Instance shape values for Linux
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your API call.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
 ### Instance shape values for macOS
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your API call.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
 
 ## Pause and resume a queue
 
@@ -295,6 +325,15 @@ To resume a queue:
 ### Pause and resume an individual agent
 
 You can also pause an agent to prevent any jobs of the cluster's pipelines from being dispatched to that particular agent. Learn more in [Pausing and resuming an agent](/docs/agent/self-hosted/pausing-and-resuming).
+
+## Queue connection status
+
+Self-hosted queues served by a [stack](/docs/apis/agent-api/stacks) — an orchestration system such as the [Buildkite Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) or the [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) — display a **Connected** or **Disconnected** status badge in the Buildkite Pipelines interface.
+
+- **Connected**: The stack serving this queue is running and actively communicating with Buildkite.
+- **Disconnected**: The stack has stopped reporting in. This can occur if the stack has been shut down, has lost connectivity to Buildkite, or has encountered an error.
+
+If no badge is displayed, the queue has no stack registered against it. This is the case when agents are started manually rather than through a stack-based orchestration system.
 
 ## Queue metrics
 

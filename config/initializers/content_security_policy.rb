@@ -34,7 +34,6 @@ Rails.application.config.content_security_policy do |policy|
     :self,
     "https://www.googletagmanager.com/",
     "https://cdn.segment.com/",
-    "https://cdn.emojicom.io/",
     "https://beacon-v2.helpscout.net",
     "https://rum.browser-intake-datadoghq.com",
     "https://www.datadoghq-browser-agent.com",
@@ -59,9 +58,6 @@ Rails.application.config.content_security_policy do |policy|
     # We have Datadog Real User Monitoring enabled
     "https://rum.browser-intake-datadoghq.com",
 
-    # For collecting feedback from customers
-    "https://emojicom.io/",
-
     # helpscout beacon sends data to two places
     "https://beacon-v2.helpscout.net",
     "https://d3hb14vkzrxvla.cloudfront.net",
@@ -73,9 +69,7 @@ Rails.application.config.content_security_policy do |policy|
   # Allow @vite/client to hot reload changes in development
   policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
 
-  # For collecting feedback from customers
   policy.frame_src(
-    "https://cdn.emojicom.io/"
   )
 
   policy.media_src(

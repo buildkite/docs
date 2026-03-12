@@ -34,6 +34,6 @@ Pause an agent, preventing dispatch of new jobs but allowing any existing job to
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/agentpauseinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentPauseInput"><code>AgentPauseInput!</code></a></h3><p>Parameters for AgentPause</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/agentpauseinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentPauseInput"><code>AgentPauseInput!</code></a></h3><p>Parameters for AgentPause</p></td></tr>
   </tbody>
 </table>

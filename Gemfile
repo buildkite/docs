@@ -6,10 +6,10 @@ ruby File.read(".ruby-version").strip
 source "https://rubygems.org"
 
 # Choo choo 🚝 (only include the Rails gems we need)
-gem "actionpack", "~> 8.0.1"
-gem "actionview", "~> 8.0.1"
-gem "activesupport", "~> 8.0.1"
-gem "railties", "~> 8.0.1"
+gem "actionpack", "~> 8.1.0"
+gem "actionview", "~> 8.1.0"
+gem "activesupport", "~> 8.1.0"
+gem "railties", "~> 8.1.0"
 
 # Use Puma as the app server
 gem "puma"
@@ -27,7 +27,7 @@ gem "redcarpet"
 gem "commonmarker"
 
 # Syntax highlighting code
-gem "rouge", "3.30.0"
+gem "rouge", "4.7.0"
 
 # For escaping code snippets in markdown
 gem "escape_utils"
@@ -42,6 +42,9 @@ gem "bugsnag"
 gem 'front_matter_parser'
 
 gem 'matrix'
+
+# Ruby 4.0 compatibility - these were removed from stdlib
+gem 'ostruct'
 
 # Asset compilation
 gem 'vite_rails'

@@ -2,15 +2,13 @@
 
 Test ownership is critical in adopting a healthy testing culture at your organization. Defining one or more teams as test owners allows these teams to become accountable for maintaining tests within your test suite, ensuring it is fast and reliable, and providing confidence when you deploy your code.
 
-Customers on the [Pro and Enterprise](https://buildkite.com/pricing) plans can assign test ownership to [teams](/docs/test-engine/permissions#manage-teams-and-permissions).
-
-Test ownership is managed via team assignments in a TESTOWNERS file.
+Test ownership can be assigned to [teams](/docs/test-engine/permissions#manage-teams-and-permissions), and is managed through team assignments in a TESTOWNERS file.
 
 ## TESTOWNERS file format
 
 A TESTOWNERS file uses Buildkite team slugs instead of user names. Your team slug will be your team name in [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case). You can view your teams in your organization settings, or fetch them from our API:
 
-- [List teams from REST API](/docs/apis/rest_api/teams#list-teams)
+- [List teams from REST API](/docs/apis/rest-api/teams#list-teams)
 - [List teams from GraphQL API](/docs/apis/graphql/schemas/object/team)
 
 ```bash

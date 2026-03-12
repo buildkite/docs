@@ -7,7 +7,7 @@ module RenderHelpers
   ]
 
   def render_html(markdown)
-    markdown ? CommonMarker.render_html(markdown) : nil
+    markdown ? Commonmarker.to_html(markdown) : nil
   end
 
   def render_of_type(type, is_list = false, is_non_nullable = false, size = "medium")
@@ -24,7 +24,7 @@ module RenderHelpers
       formatted_type = "[#{formatted_type}]" if is_list
 
       <<~HTML
-        <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}">
+        <a href="/docs/apis/graphql/schemas/#{kind.downcase.tr('_', '-')}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}">
           <code>#{formatted_type}</code>
         </a>
       HTML

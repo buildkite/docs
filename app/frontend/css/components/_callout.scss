@@ -5,7 +5,9 @@
   margin: 2rem 0;
   padding: 1rem 1.25rem 1rem 3.25rem;
   border-radius: 12px;
-  box-shadow: 0 0 0 1px #{$foreground}20, 0 1px 3px #{$foreground}33;
+  box-shadow:
+    0 0 0 1px #{$foreground}20,
+    0 1px 3px #{$foreground}33;
 
   &:before {
     width: 24px;
@@ -60,8 +62,10 @@
         background-image: url("~/images/icons/anchor.svg");
         background-position: 50% 50%;
         background-repeat: no-repeat;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
-          0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.1);
+        box-shadow:
+          0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+          0px 6px 12px 0px rgba(0, 0, 0, 0.04),
+          0 0 0 1px rgba(0, 0, 0, 0.1);
       }
 
       &:after {
@@ -72,8 +76,10 @@
       }
 
       &:hover:before {
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
-          0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.2);
+        box-shadow:
+          0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+          0px 6px 12px 0px rgba(0, 0, 0, 0.04),
+          0 0 0 1px rgba(0, 0, 0, 0.2);
       }
 
       &:hover,

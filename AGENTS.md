@@ -1,12 +1,14 @@
-# Buildkite documentation repository and pipeline
+# AGENTS.md
+
+## Buildkite documentation repository and pipeline
 
 This repository generates the Buildkite documentation website:
 
 https://buildkite.com/docs
 
-- Repository: `https://github.com/buildkite/docs-private`
-- CI: `https://buildkite.com/buildkite/docs-private`
-- CI steps: `.buildkite/pipeline.yml`
+- **Repository**: `https://github.com/buildkite/docs`
+- **CI**: `https://buildkite.com/buildkite/docs`
+- **CI steps**: `.buildkite/pipeline.yml`
 
 There are GitHub Actions workflows but they are not part of the CI pipeline. **Do not use GitHub Actions. EVER.** When asked to do anything with CI use Buildkite. You should have the Buildkite MCP server available. If you don't, and you need CI, STOP and ask the user to set it up:
 
@@ -16,7 +18,7 @@ Run the CI steps locally and correct any errors before pushing commits. Review t
 
 ---
 
-# Understanding Buildkite products and documentation
+## Understanding Buildkite products and documentation
 
 The other sections in this file cover authoring documentation. This section covers understanding and navigating the Buildkite product documentation as a consumer.
 
@@ -41,39 +43,42 @@ Buildkite has three main products and shared platform capabilities:
 The primary product. Start here: `pages/pipelines.md`
 For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 
-- **Why Buildkite Pipelines:** To understand what differentiates Buildkite from other CI/CD tools, read `pages/pipelines/advantages/buildkite_pipelines.md`. For detailed comparisons, see `pages/pipelines/advantages/buildkite_vs_jenkins.md`, `pages/pipelines/advantages/buildkite_vs_gitlab.md`, and `pages/pipelines/advantages/buildkite_vs_gha.md`. To understand how Buildkite works differently compared to other tools, see https://github.com/buildkite/conversion-rules. Bundled content: https://buildkite.com/docs/llms-why-buildkite-pipelines.txt
-- **Hybrid operating model:** Buildkite uses a hosted control plane with a choice of self-hosted or Buildkite-hosted execution. Each job in a pipeline runs on an agent machine. Read `pages/agent.md` for an overview, `pages/agent/self_hosted/` for running your own agents, and `pages/agent/buildkite_hosted/` for using Buildkite-hosted agents. Bundled content: https://buildkite.com/docs/llms-self-hosted-agents.txt and https://buildkite.com/docs/llms-hosted-agents.txt
-- **Dynamic pipelines:** A key differentiator. Pipelines can be modified at runtime. Read `pages/pipelines/configure/dynamic_pipelines.md` for the feature overview, `pages/pipelines/tutorials/dynamic_pipelines_and_annotations_using_bazel.md` for a tutorial, and `pages/pipelines/best_practices/working_with_monorepos.md` for monorepo patterns. Bundled content: https://buildkite.com/docs/llms-dynamic-pipelines.txt
-- **Concurrency and parallelism:** Buildkite supports large-scale concurrency and multi-environment builds. Read `pages/pipelines/best_practices/parallel_builds.md`
-- **Hooks and plugins:** Hooks provide platform-level guardrails, and plugins provide reusable customization. Read `pages/agent/hooks.md` for hooks and `pages/pipelines/integrations/plugins.md` for plugins. Browse available plugins at https://buildkite.com/resources/plugins/ and pipeline examples at https://buildkite.com/resources/examples/
-- **Developer experience:** Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/agent/cli/reference/annotate.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content. Bundled content: https://buildkite.com/docs/llms-debugging.txt
-- **Creating pipelines:** For pipeline configuration and setup, read `pages/pipelines/configure/`. Bundled content: https://buildkite.com/docs/llms-pipeline-configurations.txt
-- **Security:** Read `pages/pipelines/security/` for pipeline security, `pages/pipelines/best_practices/security_controls.md` for security best practices, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (`pages/pipelines/integrations/secrets/plugins.md`) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`). Bundled content: https://buildkite.com/docs/llms-security.txt
-- **Migration:** Guides for moving from Jenkins, GitHub Actions, and Bamboo. Read `pages/pipelines/migration/`. Bundled content: https://buildkite.com/docs/llms-migrating-to-buildkite.txt
-- **Best practices:** Patterns for pipeline design, agent management, Docker builds, parallelism, monorepos, caching, and more. Read `pages/pipelines/best_practices/`. Bundled content: https://buildkite.com/docs/llms-best-practices.txt
-- **Deployments:** Deploying to AWS Lambda, Kubernetes, Argo CD, and Heroku. Read `pages/pipelines/deployments/`. Bundled content: https://buildkite.com/docs/llms-deployments.txt
-- **Integrations:** Plugins, notifications, observability, and third-party tools. Read `pages/pipelines/integrations/`. Bundled content: https://buildkite.com/docs/llms-integrations.txt
-- **Monorepos:** Change detection and dynamic pipeline patterns for monorepos. Bundled content: https://buildkite.com/docs/llms-monorepos.txt
-- **Insights:** Waterfall views, cluster metrics, queue monitoring. Bundled content: https://buildkite.com/docs/llms-insights.txt
-- **Governance:** Pipeline templates, build exports, platform controls. Bundled content: https://buildkite.com/docs/llms-governance.txt
+- **Why Buildkite Pipelines**: To understand what differentiates Buildkite from other CI/CD tools, read `pages/pipelines/advantages/buildkite_pipelines.md`. For detailed comparisons, see `pages/pipelines/advantages/buildkite_vs_jenkins.md`, `pages/pipelines/advantages/buildkite_vs_gitlab.md`, and `pages/pipelines/advantages/buildkite_vs_gha.md`. To understand how Buildkite works differently compared to other tools, see https://github.com/buildkite/conversion-rules. Bundled content: https://buildkite.com/docs/llms-why-buildkite-pipelines.txt
+- **Hybrid operating model**: Buildkite uses a hosted control plane with a choice of self-hosted or Buildkite-hosted execution. Each job in a pipeline runs on an agent machine. Read `pages/agent.md` for an overview, `pages/agent/self_hosted/` for running your own agents, and `pages/agent/buildkite_hosted/` for using Buildkite-hosted agents. Bundled content: https://buildkite.com/docs/llms-self-hosted-agents.txt and https://buildkite.com/docs/llms-hosted-agents.txt
+- **Dynamic pipelines**: A key differentiator. Pipelines can be modified at runtime. Read `pages/pipelines/configure/dynamic_pipelines.md` for the feature overview, `pages/pipelines/tutorials/dynamic_pipelines_and_annotations_using_bazel.md` for a tutorial, and `pages/pipelines/best_practices/working_with_monorepos.md` for monorepo patterns. Bundled content: https://buildkite.com/docs/llms-dynamic-pipelines.txt
+- **Concurrency and parallelism**: Buildkite supports large-scale concurrency and multi-environment builds. Read `pages/pipelines/best_practices/parallel_builds.md`
+- **Hooks and plugins**: Hooks provide platform-level guardrails, and plugins provide reusable customization. Read `pages/agent/hooks.md` for hooks and `pages/pipelines/integrations/plugins.md` for plugins. Browse available plugins at https://buildkite.com/resources/plugins/ and pipeline examples at https://buildkite.com/resources/examples/
+- **Developer experience**: Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/pipelines/configure/annotations.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content. Bundled content: https://buildkite.com/docs/llms-developer-experience.txt
+- **Creating pipelines**: For pipeline configuration and setup, read `pages/pipelines/configure/`. Bundled content: https://buildkite.com/docs/llms-pipeline-configurations.txt
+- **Security**: Read `pages/pipelines/security/` for pipeline security, `pages/pipelines/best_practices/security_controls.md` for security best practices, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (`pages/pipelines/integrations/secrets/plugins.md`) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`). Bundled content: https://buildkite.com/docs/llms-security.txt
+- **Migration**: Guides for moving from Jenkins, GitHub Actions, and Bamboo. Read `pages/pipelines/migration/`. Bundled content: https://buildkite.com/docs/llms-migrating-to-buildkite.txt
+- **Best practices**: Patterns for pipeline design, agent management, Docker builds, parallelism, monorepos, caching, and more. Read `pages/pipelines/best_practices/`. Bundled content: https://buildkite.com/docs/llms-best-practices.txt
+- **Deployments**: Deploying to AWS Lambda, Kubernetes, Argo CD, and Heroku. Read `pages/pipelines/deployments/`. Bundled content: https://buildkite.com/docs/llms-deployments.txt
+- **Integrations**: Plugins, notifications, observability, and third-party tools. Read `pages/pipelines/integrations/`. Bundled content: https://buildkite.com/docs/llms-integrations.txt
+- **Monorepos**: Change detection and dynamic pipeline patterns for monorepos. Bundled content: https://buildkite.com/docs/llms-monorepos.txt
+- **Insights**: Waterfall views, cluster metrics, queue monitoring. Bundled content: https://buildkite.com/docs/llms-insights.txt
+- **Governance**: Pipeline templates, build exports, platform controls. Bundled content: https://buildkite.com/docs/llms-governance.txt
+- **Debugging**: Guides for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, agent lifecycle, and platform-specific troubleshooting. Bundled content: https://buildkite.com/docs/llms-debugging.txt
 
 ### Test Engine
 
 Tracks and analyzes test suite performance. Start here: `pages/test_engine.md`
 Bundled content: https://buildkite.com/docs/llms-test-engine.txt
 
-### Packages
+### Package Registries
 
 Host and manage package registries. Start here: `pages/package_registries.md`
 Bundled content: https://buildkite.com/docs/llms-packages.txt
+
+- **Security**: Read `pages/package_registries/security.md` for an overview of Buildkite Package Registries security, `pages/package_registries/security/oidc.md` for OIDC in Package Registries, and `pages/package_registries/security/slsa_provenance.md` for SLSA provenance. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ### Platform (shared features)
 
 Common capabilities across products like organizations, users, permissions, and the CLI. Start here: `pages/platform.md`
 
-- **User and team management:** Permissions, SSO, 2FA, audit log. Bundled content: https://buildkite.com/docs/llms-user-management.txt
-- **CLI tools:** The `bk` CLI and `buildkite-agent` CLI reference. Bundled content: https://buildkite.com/docs/llms-cli-tools.txt
-
+- **User and team management**: Permissions, SSO, 2FA, audit log. Bundled content: https://buildkite.com/docs/llms-user-management.txt
+- **CLI tools**: The `bk` CLI and `buildkite-agent` CLI reference. Bundled content: https://buildkite.com/docs/llms-cli-tools.txt
+- **Security**: Read `pages/platform/team_management/enforce-2fa.md` for enforcing 2FA across the Buildkite platform, `pages/platform/sso.md` for implementing SSO across the Buildkite platform, and `pages/platform/security/tokens.md` for details on Buildkite token types. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ### APIs
 
@@ -81,6 +86,8 @@ REST API and GraphQL API documentation. Start here: `pages/apis.md`
 Bundled content: https://buildkite.com/docs/llms-buildkite-apis.txt
 
 For AI-assisted workflows, use the Buildkite MCP server to interact with Buildkite APIs directly. Read `pages/apis/mcp_server.md` for setup and usage. Bundled content: https://buildkite.com/docs/llms-ai-tools-and-mcp.txt
+
+- **Security**: Read `pages/apis/managing_api_tokens.md` for details on managing API access tokens on the Buildkite platform. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ## What is not in the docs
 
@@ -107,9 +114,9 @@ template: "landing_page"
 ```
 
 Common frontmatter fields:
-- `toc` — Show or hide table of contents (`true` or `false`)
-- `template` — Page layout template (for example, `"landing_page"`)
-- `description` — Page description used in metadata
+- `toc`: Show or hide table of contents (`true` or `false`). If a page has no heading level 2s on it (beginning with `##`), ensure `toc: false` has been added to the top of the file.
+- `template`: Page layout template (for example, `"landing_page"`)
+- `description`: Page description used in metadata
 
 Not all pages have frontmatter. Pages without it use default settings.
 
@@ -123,7 +130,7 @@ Approximately 20% of `.md` pages contain embedded ERB (`<% %>` and `<%= %>` tags
 <%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 ```
 
-Note: the leading underscore and `.md` extension are omitted in the partial path. Snippet files must not contain headings — add the heading in the main document before the render call.
+Note: the leading underscore and `.md` extension are omitted in the partial path. Snippet files must not contain headings—add the heading in the main document before the render call.
 
 **Images:** Use the ERB image helper, not Markdown image syntax:
 
@@ -135,21 +142,21 @@ Image files are stored in `images/docs/` in a subdirectory matching the page's p
 
 ### Key data files
 
-- `data/nav.yml` — Main site navigation. Every new page needs an entry here to appear in the docs. Each entry is a YAML map with: `name` (required, display text), `path` (URL path after `/docs/`, using hyphens), `children` (nested entries), `pill` (status badge: `beta`, `new`, `coming-soon`, `deprecated`, `preview`), `type` (`dropdown`, `link`, or `divider`), and `start_expanded` (boolean). Omitting `path` creates a section toggle.
-- `data/nav_graphql.yml` — Navigation for GraphQL API docs.
-- `data/llm_topics.yml` — Defines topic-based `llms-{slug}.txt` endpoints that bundle related pages for LLM consumption. Each topic generates a URL at `https://buildkite.com/docs/llms-{slug}.txt`. Read this file to find available topic slugs and the pages each topic includes.
-- `data/llm_descriptions.yml` — Curated page descriptions shown to AI agents to help them decide which pages to fetch.
-- `data/tiles.yml` — Tile and card definitions for landing pages (validated by `data/tiles.schema.yml`).
-- `data/content/` — Reusable structured content (YAML data files) shared across pages, such as agent configuration attributes, environment variables, and Test Engine fields.
-- `data/graphql/` — GraphQL schema data for API documentation.
+- `data/nav.yml`: Main site navigation. Every new page needs an entry here to appear in the docs. Each entry is a YAML map with: `name` (required, display text), `path` (URL path after `/docs/`, using hyphens), `children` (nested entries), `pill` (status badge: `beta`, `new`, `coming-soon`, `deprecated`, `preview`), `type` (`dropdown`, `link`, or `divider`), and `start_expanded` (boolean). Omitting `path` creates a section toggle.
+- `data/nav_graphql.yml`: Navigation for GraphQL API docs.
+- `data/llm_topics.yml`: Defines topic-based `llms-{slug}.txt` endpoints that bundle related pages for LLM consumption. Each topic generates a URL at `https://buildkite.com/docs/llms-{slug}.txt`. Read this file to find available topic slugs and the pages each topic includes.
+- `data/llm_descriptions.yml`: Curated page descriptions shown to AI agents to help them decide which pages to fetch.
+- `data/tiles.yml`: Tile and card definitions for landing pages (validated by `data/tiles.schema.yml`).
+- `data/content/`: Reusable structured content (YAML data files) shared across pages, such as agent configuration attributes, environment variables, and Test Engine fields.
+- `data/graphql/`: GraphQL schema data for API documentation.
 
 ### Linting
 
 The CI pipeline runs several linters. Run locally before pushing:
 
-- **Vale** (`./scripts/vale.sh`) — Spelling and style checker. Add vocabulary exceptions to `vale/styles/vocab.txt`. Add heading case exceptions to `vale/styles/Buildkite/h1-h6_sentence_case.yml`.
-- **markdownlint** — Checks Markdown formatting rules (configured in `.markdownlint.yaml`). Files must end with a newline character and have no trailing whitespace.
-- **ls-lint** — Enforces filename conventions (configured in `.ls-lint.yml`).
+- **Vale** (`./scripts/vale.sh`): Spelling and style checker. Add vocabulary exceptions to `vale/styles/vocab.txt`. Add heading case exceptions to `vale/styles/Buildkite/h1-h6_sentence_case.yml`.
+- **markdownlint**: Checks Markdown formatting rules (configured in `.markdownlint.yaml`). Files must end with a newline character and have no trailing whitespace.
+- **ls-lint**: Enforces filename conventions (configured in `.ls-lint.yml`).
 
 ### File naming
 
@@ -193,16 +200,18 @@ This style guide applies to Buildkite product documentation, API reference pages
 
 **Language and voice:**
 - Use US English (Merriam Webster)
-- Write in plain English, avoid unnecessary jargon
-- Maintain a semi-formal tone - balance between professional and approachable
+- Use plain English, avoid unnecessary jargon
+- Maintain a semi-formal tone—balance between professional and approachable. From time to time, it is OK to use "don't" instead of "do not," "haven't" instead of "have not," or "didn't" instead of "did not," and so on
 - Don't use "delve," "comprehensive," "embark," "leverage," "utilize," "unlock," "harness," or similar buzzwords
 - Use active voice whenever possible
-- Use contractions appropriately (didn't, haven't, and so on)
 - Always use "they" for gender-neutral pronouns, NEVER "he" or "she"
 - Don't use phrases like "it's important to note," "it's worth noting," "keep in mind"
 - Don't start sentences with "Additionally," "Furthermore," "Moreover"
 - Don't use redundant emphasis like "really," "very," or "quite"
 - Don't be overly enthusiastic, don't use unnecessary exclamation marks
+- Remove hedging phrases like "most of the," "some of the" when they add no precision—for example, write "Most concepts translate" not "Most of the concepts translate"
+- Break long compound sentences into shorter ones. When comparing two systems or explaining cause and effect, prefer two sentences over one long sentence joined by a conjunction
+- Prefer periods over em dashes when separating independent clauses—split into two sentences instead
 - If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
 
 **Formatting standards:**
@@ -211,7 +220,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
 - Don't use emojis in lists
-- In paragraphs, write out numbers up to 10, then use digits; in headings - AVOID digits for numbers smaller than 10
+- In paragraphs—write out numbers up to 10, then use digits. In headings—AVOID digits for numbers smaller than 10
 - Use 24-hour time format with timezone (for example, 17:00 AEST)
 
 ## Technical writing rules
@@ -227,11 +236,28 @@ When writing technical documentation for Buildkite:
 - Use "Two-factor authentication" (short form: 2FA)
 - Use "Single sign-on" (short form: SSO)
 
+**Product-qualified naming:**
+- When referring to a specific Buildkite product's features or behavior, use the full product name: "Buildkite Pipelines," "Buildkite Test Engine," and "Buildkite Package Registries." The exception to this is when a full product name has been used for the first time within a page section (which commences with a heading), and then upon subsequent mentions within that page section, the product name can be shortened, without the initial "Buildkite "
+- Use bare "Buildkite" only when referring to the company or the overall platform
+- This applies to prose, table headers, YAML comments, and comparison content
+- Correct: "Buildkite Pipelines runs all steps in parallel by default."
+- Incorrect: "Buildkite runs all steps in parallel by default."
+
+**No possessive product names:**
+- Never use possessive forms of Buildkite product names—rephrase instead
+- Correct: "The syntax used in Buildkite Pipelines is simpler."
+- Incorrect: "Buildkite's syntax is simpler."
+- Correct: "The Buildkite Pipelines parallel-by-default behavior"
+- Incorrect: "Buildkite's parallel-by-default behavior"
+
+**Deprecated terminology:**
+- Use "queues" and "agent tokens"—do not prefix with "cluster" (for example, do not write "cluster queues" or "cluster agent tokens"). The "cluster" prefix is deprecated. Also avoid "agent registration tokens" that relate to unclustered agents, which are deprecated.
+
 **Structure:**
 - Use bullet lists for unordered items
 - Use numbered steps for sequential instructions
 - Capitalize first word in lists, use periods only for complete sentences
-- Avoid "and/or" - use "or" or rephrase with "or both"
+- Avoid "and/or"—use "or" or rephrase with "or both"
 - Use "and" not "&"
 - Avoid "we" and "our" in formal documentation
 - Avoid exclamation marks in formal content
@@ -311,10 +337,17 @@ Ensure documentation is accessible and clear:
 - [ ] Serial commas, "and" not "&"
 - [ ] "They" for pronouns, numbers <10 spelled out
 - [ ] Proper Buildkite terminology (Agent, buildkite-agent, and so on)
+- [ ] Product-qualified names ("Buildkite Pipelines," not just "Buildkite")
+- [ ] No possessive product names (rephrase "Buildkite's" constructions)
+- [ ] No deprecated terminology ("queues" not "cluster queues")
 - [ ] Consistent capitalization (GitHub, API, SSO, and so on)
 - [ ] Clear structure with appropriate lists
+- [ ] Short sentences; break compound comparisons into separate sentences
+- [ ] Non-spaced em dashes `—` for asides; prefer periods for independent clauses
 - [ ] Avoid "we/our" in formal docs whenever possible
 - [ ] Avoid exclamation marks
+- [ ] Link key concepts on first mention
+- [ ] Plugin links use buildkite.com/resources/plugins/, not GitHub
 
 ---
 
@@ -382,6 +415,7 @@ Ensure documentation is accessible and clear:
 - Use only one space after punctuation at end of sentences
 - Do not leave trailing spaces at the end of sentences or list items
 - Never use double spaces
+- Never leave consecutive blank lines in Markdown files. Use exactly one blank line to separate elements
 
 ## Formatting rules
 
@@ -442,6 +476,20 @@ Ensure documentation is accessible and clear:
 **External links:**
 - Always use full absolute URLs
 - Include other Buildkite sites (main site, blog, changelog)
+
+**Plugin links:**
+- Link to Buildkite's plugin directory at `https://buildkite.com/resources/plugins/` rather than directly to GitHub repositories
+- Correct: `[Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose)`
+- Incorrect: `[Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)`
+
+**First mentions:**
+- When a key concept (like "environment variables," "dynamic pipelines," or "plugins") is first mentioned on a page, link it to the relevant documentation page
+- Correct: "Buildkite Pipelines provides [environment variables](/docs/pipelines/configure/environment-variables):"
+- Incorrect: "Buildkite Pipelines provides environment variables:"
+- Only link the first mention—do not repeat the link on subsequent mentions of the same term
+
+**Link verification:**
+- Always verify that link targets resolve to actual pages before merging. Broken links from moved or deleted content are a recurring issue
 
 ## Callout rules
 
@@ -537,21 +585,40 @@ Content 1         | Content 2
 - Use appropriate list types (ordered vs unordered)
 - Maintain consistent formatting throughout
 
+**Content ordering:**
+- Lead with the most useful action-oriented content (for example, "how to publish," "how to configure")
+- Move prerequisites, format requirements, and reference material after the introductory action-oriented sections
+- Do not front-load a page with constraints or limitations before showing the reader what they can do
+
+**Introductory paragraphs:**
+- When a heading contains a group of subsections (for example, a list of API endpoint groups or feature categories), add a brief introductory paragraph explaining the organizational structure before the subsections
+- Do not jump directly from a heading into subheadings without context
+
+**Nesting new content:**
+- When adding new content, place it under existing headings where it logically belongs rather than creating new top-level sections
+- This keeps the document hierarchy clean and avoids unnecessary heading proliferation
+
 ## Markdown syntax checklist
 
 - [ ] Headings nested incrementally (H1 → H2 → H3 → H4)
 - [ ] Empty lines above and below headings
 - [ ] Sentence case headings without punctuation
-- [ ] `**bold**` for Buildkite UI elements, `_italics_` for key terms
+- [ ] `**bold**` for Buildkite UI elements only, `_italics_` for key terms
 - [ ] `-` for top-level lists, `*` for 2nd level, `-` for 3rd level
 - [ ] 4-space indentation for nested lists and paragraphs
 - [ ] `1.` for all numbered list items
 - [ ] Relative URLs for internal links (`/docs/...`)
 - [ ] Absolute URLs for external links
+- [ ] Plugin links point to buildkite.com/resources/plugins/, not GitHub
+- [ ] Key concepts linked on first mention
+- [ ] All link targets verified as valid
 - [ ] Language identifiers in code blocks
 - [ ] Escaped emoji in code examples when needed
 - [ ] Appropriate table classes for styling
 - [ ] One space after sentence punctuation
+- [ ] No consecutive blank lines
+- [ ] Sections with subsections have introductory paragraphs
+- [ ] Action-oriented content before prerequisites and reference material
 
 ---
 
@@ -673,6 +740,10 @@ steps:
 - Show realistic, complete examples
 - Include context when necessary
 
+**YAML comments:**
+- Use product-qualified names in YAML comments, just as in prose (for example, `# Buildkite Pipelines equivalent` not `# Buildkite equivalent`)
+- Keep comments concise and descriptive
+
 **Documentation format:**
 ```yaml
 steps:
@@ -692,6 +763,7 @@ steps:
 - [ ] Use 2-space indentation in YAML examples
 - [ ] Qualify nested relationships with "of" or "nested"
 - [ ] Never use inline/flow style formatting
+- [ ] Product-qualified names in YAML comments
 
 ---
 
@@ -742,22 +814,22 @@ Use natural writing style. Write like a human technical writer, not like AI. AVO
 
 **MANDATORY WORKFLOW:**
 
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
+1. **File issues for remaining work**: Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed): Tests, linters, builds
+3. **Update issue status**: Close finished work, update in-progress items
+4. **PUSH TO REMOTE**: This is MANDATORY:
    ```bash
    git pull --rebase
    bd sync
    git push
    git status  # MUST show "up to date with origin"
    ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+5. **Clean up**: Clear stashes, prune remote branches
+6. **Verify**: All changes committed AND pushed
+7. **Hand off**: Provide context for next session
 
 **CRITICAL RULES:**
 - Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
+- NEVER stop before pushing—that leaves work stranded locally
+- NEVER say "ready to push when you are"—YOU must push
 - If push fails, resolve and retry until it succeeds
