@@ -34,6 +34,6 @@ Create a pipeline template.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinetemplatecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineTemplateCreateInput"><code>PipelineTemplateCreateInput!</code></a></h3><p>Parameters for PipelineTemplateCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/pipelinetemplatecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineTemplateCreateInput"><code>PipelineTemplateCreateInput!</code></a></h3><p>Parameters for PipelineTemplateCreate</p></td></tr>
   </tbody>
 </table>

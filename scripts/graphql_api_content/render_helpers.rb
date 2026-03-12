@@ -24,7 +24,7 @@ module RenderHelpers
       formatted_type = "[#{formatted_type}]" if is_list
 
       <<~HTML
-        <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}">
+        <a href="/docs/apis/graphql/schemas/#{kind.downcase.tr('_', '-')}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}">
           <code>#{formatted_type}</code>
         </a>
       HTML

@@ -34,6 +34,6 @@ Sets an allowlist of IP addresses for API access to an organization. Please note
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationapiipallowlistupdatemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationAPIIPAllowlistUpdateMutationInput"><code>OrganizationAPIIPAllowlistUpdateMutationInput!</code></a></h3><p>Parameters for OrganizationAPIIPAllowlistUpdateMutation</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationAPIIPAllowlistUpdateMutationInput"><code>OrganizationAPIIPAllowlistUpdateMutationInput!</code></a></h3><p>Parameters for OrganizationAPIIPAllowlistUpdateMutation</p></td></tr>
   </tbody>
 </table>

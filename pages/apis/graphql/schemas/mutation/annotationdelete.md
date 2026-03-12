@@ -11,21 +11,21 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: teamRegistryUpdate – Mutations – GraphQL API
+title: annotationDelete – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  teamRegistryUpdate
-  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/teamregistryupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamRegistryUpdatePayload">
-  <code>TeamRegistryUpdatePayload</code>
+  annotationDelete
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/annotationdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AnnotationDeletePayload">
+  <code>AnnotationDeletePayload</code>
 </a>
 </span>
 </h1>
 <!-- vale on -->
 
 
-Update a registry's access level within a team.
+Delete an annotation from a build or job.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,6 +34,6 @@ Update a registry's access level within a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/teamregistryupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamRegistryUpdateInput"><code>TeamRegistryUpdateInput!</code></a></h3><p>Parameters for TeamRegistryUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/annotationdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AnnotationDeleteInput"><code>AnnotationDeleteInput!</code></a></h3><p>Parameters for AnnotationDelete</p></td></tr>
   </tbody>
 </table>

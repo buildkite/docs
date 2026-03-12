@@ -34,6 +34,6 @@ Rebuild a build.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/buildrebuildinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildRebuildInput"><code>BuildRebuildInput!</code></a></h3><p>Parameters for BuildRebuild</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/buildrebuildinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildRebuildInput"><code>BuildRebuildInput!</code></a></h3><p>Parameters for BuildRebuild</p></td></tr>
   </tbody>
 </table>

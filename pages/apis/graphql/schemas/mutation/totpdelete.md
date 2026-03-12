@@ -34,6 +34,6 @@ Delete a TOTP configuration.  If a TOTP configuration was active, it will no lon
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totpdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPDeleteInput"><code>TOTPDeleteInput!</code></a></h3><p>Parameters for TOTPDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/totpdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPDeleteInput"><code>TOTPDeleteInput!</code></a></h3><p>Parameters for TOTPDelete</p></td></tr>
   </tbody>
 </table>

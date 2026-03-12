@@ -34,6 +34,6 @@ Unblocks a build's "Block pipeline" job.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/jobtypeblockunblockinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobTypeBlockUnblockInput"><code>JobTypeBlockUnblockInput!</code></a></h3><p>Parameters for JobTypeBlockUnblock</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/jobtypeblockunblockinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobTypeBlockUnblockInput"><code>JobTypeBlockUnblockInput!</code></a></h3><p>Parameters for JobTypeBlockUnblock</p></td></tr>
   </tbody>
 </table>
