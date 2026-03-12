@@ -278,17 +278,18 @@ def assign_reviewer(pr_data, reviewer, github_client)
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would assign #{reviewer['username']} to PR ##{pr_data['number']}#{RESET}"
-  else
-    # 1. Request review via GitHub API
-    begin
-      github_client.request_reviewers(pr_data['number'], [reviewer['username']])
-      puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
-      github_client.add_label(pr_data['number'], 'Reviewer-assigned')
-      puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
-    rescue => e
-      puts "#{RED_BOLD}Error requesting review: #{e.message}#{RESET}"
-      raise
-    end
+    return
+  end
+
+  # 1. Request review via GitHub API
+  begin
+    github_client.request_reviewers(pr_data['number'], [reviewer['username']])
+    puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
+    github_client.add_label(pr_data['number'], 'Reviewer-assigned')
+    puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
+  rescue => e
+    puts "#{RED_BOLD}Error requesting review: #{e.message}#{RESET}"
+    raise
   end
 
   # 2. Notify Zapier to create Linear ticket
