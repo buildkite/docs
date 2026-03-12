@@ -278,18 +278,17 @@ def assign_reviewer(pr_data, reviewer, github_client)
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would assign #{reviewer['username']} to PR ##{pr_data['number']}#{RESET}"
-    return
-  end
-
-  # 1. Request review via GitHub API
-  begin
-    github_client.request_reviewers(pr_data['number'], [reviewer['username']])
-    puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
-    github_client.add_label(pr_data['number'], 'Reviewer-assigned')
-    puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
-  rescue => e
-    puts "#{RED_BOLD}Error requesting review: #{e.message}#{RESET}"
-    raise
+  else
+    # 1. Request review via GitHub API
+    begin
+      github_client.request_reviewers(pr_data['number'], [reviewer['username']])
+      puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
+      github_client.add_label(pr_data['number'], 'Reviewer-assigned')
+      puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
+    rescue => e
+      puts "#{RED_BOLD}Error requesting review: #{e.message}#{RESET}"
+      raise
+    end
   end
 
   # 2. Notify Zapier to create Linear ticket
@@ -305,13 +304,15 @@ def notify_zapier(pr_data, reviewer)
   payload = {
     gh_url: pr_data['html_url'],
     gh_issue_id: pr_data['number'],
-    assignee: assignee
+    assignee: assignee,
+    pr_creator: pr_data['user']['login']
   }
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
     puts "  gh_url: #{payload[:gh_url]}"
     puts "  assignee: #{assignee}"
+    puts "  pr_creator: #{payload[:pr_creator]}"
     return
   end
 
