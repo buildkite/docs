@@ -34,6 +34,6 @@ Sets whether the organization requires two-factor authentication for all members
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationenforcetwofactorauthenticationformembersupdatemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationInput"><code>OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationInput!</code></a></h3><p>Parameters for OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutation</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationenforcetwofactorauthenticationformembersupdatemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationInput"><code>OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationInput!</code></a></h3><p>Parameters for OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutation</p></td></tr>
   </tbody>
 </table>

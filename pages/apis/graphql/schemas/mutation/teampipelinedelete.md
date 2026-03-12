@@ -34,6 +34,6 @@ Remove a pipeline from a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teampipelinedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamPipelineDeleteInput"><code>TeamPipelineDeleteInput!</code></a></h3><p>Parameters for TeamPipelineDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/teampipelinedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamPipelineDeleteInput"><code>TeamPipelineDeleteInput!</code></a></h3><p>Parameters for TeamPipelineDelete</p></td></tr>
   </tbody>
 </table>

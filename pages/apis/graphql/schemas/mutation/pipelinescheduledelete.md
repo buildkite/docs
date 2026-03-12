@@ -34,6 +34,6 @@ Delete a scheduled build on pipeline.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinescheduledeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineScheduleDeleteInput"><code>PipelineScheduleDeleteInput!</code></a></h3><p>Parameters for PipelineScheduleDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/pipelinescheduledeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineScheduleDeleteInput"><code>PipelineScheduleDeleteInput!</code></a></h3><p>Parameters for PipelineScheduleDelete</p></td></tr>
   </tbody>
 </table>

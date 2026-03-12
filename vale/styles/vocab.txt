@@ -548,6 +548,8 @@ agentPause
 agentResume
 agentStop
 
+annotationDelete
+
 buildAnnotate
 buildCancel
 buildCreate

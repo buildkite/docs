@@ -34,6 +34,6 @@ Updates an agent token for a cluster.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusteragenttokenupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenUpdateInput"><code>ClusterAgentTokenUpdateInput!</code></a></h3><p>Parameters for ClusterAgentTokenUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/clusteragenttokenupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenUpdateInput"><code>ClusterAgentTokenUpdateInput!</code></a></h3><p>Parameters for ClusterAgentTokenUpdate</p></td></tr>
   </tbody>
 </table>
