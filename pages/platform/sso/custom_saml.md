@@ -8,7 +8,7 @@ You can use any identify provider that supports SAML 2.0 to authorize access to 
 There are two workflows for setting up a new SAML provider, depending on your IdP's setup process: if you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.
 
 > 📘 You can also set up SSO providers manually with GraphQL
-See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
+> See the [SSO setup with GraphQL guide](/docs/platform/sso/sso-setup-with-graphql) for detailed instructions and code samples.
 
 ## Set up with an ACS URL
 
