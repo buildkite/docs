@@ -95,7 +95,7 @@ For more advanced pipelines, using your development machine as the agent for you
 
 ### Deriving a pipeline slug from the pipeline's name
 
-<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
+<%= render_markdown_raw partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
 Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 

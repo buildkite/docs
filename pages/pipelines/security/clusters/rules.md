@@ -2,7 +2,7 @@
 
 _Rules_ is a Buildkite feature that can do the following:
 
-<%= render_markdown partial: 'pipelines/security/clusters/rules_summary' %>
+<%= render_markdown_raw partial: 'pipelines/security/clusters/rules_summary' %>
 
 > 📘
 > The _rules_ feature is currently in development, and is enabled on an opt-in basis for early access. To enable rules for your organization, please contact Buildkite's Support team at support@buildkite.com.

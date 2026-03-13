@@ -804,6 +804,6 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks/pipel
 
 ## Build states
 
-<%= render_markdown partial: 'pipelines/configure/build_states' %>
+<%= render_markdown_raw partial: 'pipelines/configure/build_states' %>
 
 See the full [build states diagram](/docs/pipelines/configure/defining-steps#build-states) for more information on how builds transition between states.

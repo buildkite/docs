@@ -63,17 +63,17 @@ deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://
 
 ## SSH key configuration
 
-<%= render_markdown partial: 'agent/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
 
 See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) documentation for more details.
 
 ## File locations
 
-<%= render_markdown partial: 'agent/self_hosted/install/apt_locations' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/apt_locations' %>
 
 ## Configuration
 
-<%= render_markdown partial: 'agent/self_hosted/install/apt_configuration' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/apt_configuration' %>
 
 ## Default operating system user running the agent
 
@@ -83,16 +83,16 @@ You can override this default user through a [systemd modification](#systemd-mod
 
 ## Running multiple agents
 
-<%= render_markdown partial: 'agent/self_hosted/install/linux_multiple_agents' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/linux_multiple_agents' %>
 
 ## Upgrading
 
-<%= render_markdown partial: 'agent/self_hosted/install/apt_upgrading' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/apt_upgrading' %>
 
 ## Alternative keyservers
 
-<%= render_markdown partial: 'agent/self_hosted/install/alternative_keyservers' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/alternative_keyservers' %>
 
 ## Systemd modifications
 
-<%= render_markdown partial: 'agent/self_hosted/install/linux_systemd_modifications' %>
+<%= render_markdown_raw partial: 'agent/self_hosted/install/linux_systemd_modifications' %>

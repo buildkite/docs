@@ -64,19 +64,19 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_cluster_id' %>
 
 <!--alex ignore clearly-->
 
-- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/common_agent_token_description_required' %>
 
-- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_expires_at' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/rest_agent_token_expires_at' %>
 
-- <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's **Agent Tokens** page.
 
@@ -121,15 +121,15 @@ mutation {
 
 where:
 
-<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
 
-<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/graphql_cluster_id' %>
 
-- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/common_agent_token_description_required' %>
 
-- <%= render_markdown partial: 'apis/descriptions/graphql_agent_token_expiresat' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/graphql_agent_token_expiresat' %>
 
-- <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
 The new agent token appears on the cluster's **Agent Tokens** page.
 
@@ -174,17 +174,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_cluster_id' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_agent_token_id' %>
 
-- <%= render_markdown partial: 'apis/descriptions/rest_agent_token_description_optional' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/rest_agent_token_description_optional' %>
 
-- <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
     This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
@@ -227,15 +227,15 @@ mutation {
 
 where:
 
-<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
 
-<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/graphql_agent_token_id' %>
 
-- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/common_agent_token_description_required' %>
 
     If you do not need to change the existing `description` value, specify the existing field value in the request.
 
-- <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
+- <%= render_markdown_raw partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
     This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
@@ -269,13 +269,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_cluster_id' %>
 
-<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/rest_agent_token_id' %>
 
 ### Using the GraphQL API
 
@@ -296,9 +296,9 @@ mutation {
 
 where:
 
-<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
 
-<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
+<%= render_markdown_raw partial: 'apis/descriptions/graphql_agent_token_id' %>
 
 ## Scope of access
 

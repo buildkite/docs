@@ -18,7 +18,7 @@ Learn more about:
 
 Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs. The architectures supported include AMD64 (x64_86) and ARM64 (AArch64).
 
-<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
+<%= render_markdown_raw partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
 Note the following about Linux hosted agent instances.
 
@@ -34,7 +34,7 @@ If you need extra large instances, or longer running hosted agents (over 8 hours
 
 Linux hosted agents can operate concurrently when running your Buildkite pipeline jobs.
 
-<%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
+<%= render_markdown_raw partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
 The number of Linux hosted agents (of a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Linux Concurrency** that applies to your plan.
 
@@ -44,7 +44,7 @@ When concurrency limits are exceeded, additional jobs will be queued until suffi
 
 ## Security
 
-<%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
+<%= render_markdown_raw partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
 
 ## Agent images
 
