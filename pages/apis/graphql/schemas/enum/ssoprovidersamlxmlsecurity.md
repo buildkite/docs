@@ -39,6 +39,6 @@ XML security algorithms used in the SAML exchange
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>SHA1</code></strong></p><p>http://www.w3.org/2000/09/xmldsig#sha1</p></td></tr><tr><td><p><strong><code>SHA256</code></strong></p><p>http://www.w3.org/2001/04/xmlenc#sha256</p></td></tr><tr><td><p><strong><code>SHA384</code></strong></p><p>http://www.w3.org/2001/04/xmldsig-more#sha384</p></td></tr><tr><td><p><strong><code>SHA512</code></strong></p><p>http://www.w3.org/2001/04/xmlenc#sha512</p></td></tr>
+    <tr><td><p><strong><code>SHA1</code></strong></p><p><a href="http://www.w3.org/2000/09/xmldsig#sha1">http://www.w3.org/2000/09/xmldsig#sha1</a></p></td></tr><tr><td><p><strong><code>SHA256</code></strong></p><p><a href="http://www.w3.org/2001/04/xmlenc#sha256">http://www.w3.org/2001/04/xmlenc#sha256</a></p></td></tr><tr><td><p><strong><code>SHA384</code></strong></p><p><a href="http://www.w3.org/2001/04/xmldsig-more#sha384">http://www.w3.org/2001/04/xmldsig-more#sha384</a></p></td></tr><tr><td><p><strong><code>SHA512</code></strong></p><p><a href="http://www.w3.org/2001/04/xmlenc#sha512">http://www.w3.org/2001/04/xmlenc#sha512</a></p></td></tr>
   </tbody>
 </table>

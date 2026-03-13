@@ -347,6 +347,9 @@ Removing access from a token sends a notification email to the token's owner, wh
 
 ## Limiting API access by IP address
 
+> 📘 Enterprise plan feature
+> Limiting API access by IP address is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+
 If you'd like to limit an API token's access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
@@ -354,9 +357,9 @@ You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](
 ## Inactive API tokens revocation
 
 > 📘 Enterprise plan feature
-> Revoking inactive API tokens automatically is only available on an [Enterprise](https://buildkite.com/pricing) plan.
+> Revoking inactive API tokens automatically is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
-To enable the inactive API access tokens revocation feature, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
+To enable the inactive API access tokens revocation feature, navigate to your [organization's API security settings](https://buildkite.com/organizations/~/security/api) and specify the maximum timeframe for inactive tokens to remain valid.
 
 An _inactive API access token_ refers to one that has not been used within the specified duration. When an API token surpasses the configured setting, Buildkite will automatically revoke the token's access to your organization.
 

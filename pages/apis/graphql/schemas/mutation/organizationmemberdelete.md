@@ -34,6 +34,6 @@ Remove a user from an organization.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationmemberdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationMemberDeleteInput"><code>OrganizationMemberDeleteInput!</code></a></h3><p>Parameters for OrganizationMemberDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationmemberdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationMemberDeleteInput"><code>OrganizationMemberDeleteInput!</code></a></h3><p>Parameters for OrganizationMemberDelete</p></td></tr>
   </tbody>
 </table>

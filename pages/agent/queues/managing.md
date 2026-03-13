@@ -284,13 +284,13 @@ where:
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your API call.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
 ### Instance shape values for macOS
 
 Specify the appropriate **Instance shape** for the `instanceShape` value in your API call.
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
 
 ## Pause and resume a queue
 

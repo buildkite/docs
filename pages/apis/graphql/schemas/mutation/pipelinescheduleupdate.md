@@ -34,6 +34,6 @@ Update a scheduled build on pipeline.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinescheduleupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineScheduleUpdateInput"><code>PipelineScheduleUpdateInput!</code></a></h3><p>Parameters for PipelineScheduleUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/pipelinescheduleupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineScheduleUpdateInput"><code>PipelineScheduleUpdateInput!</code></a></h3><p>Parameters for PipelineScheduleUpdate</p></td></tr>
   </tbody>
 </table>

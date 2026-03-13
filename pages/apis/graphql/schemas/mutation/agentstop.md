@@ -34,6 +34,6 @@ Instruct an agent to stop accepting new build jobs and shut itself down.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/agentstopinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentStopInput"><code>AgentStopInput!</code></a></h3><p>Parameters for AgentStop</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/agentstopinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentStopInput"><code>AgentStopInput!</code></a></h3><p>Parameters for AgentStop</p></td></tr>
   </tbody>
 </table>

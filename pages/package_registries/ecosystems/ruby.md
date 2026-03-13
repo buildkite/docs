@@ -67,7 +67,7 @@ The remaining code boxes on the **Publish Instructions** page provide configurat
     gem push *.gem
     ```
 
-    Alternatively, if you are using a [Ruby (gem) package created with Bundler](https://bundler.io/guides/creating_gem.html#releasing-the-gem), publish the package this way:
+    Alternatively, if you are using a Ruby (gem) package created with Bundler, publish the package this way:
 
     ```bash
     rake release

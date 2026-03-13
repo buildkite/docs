@@ -26,7 +26,7 @@ When writing Bash shell scripts there are a number of options you can set to hel
   </tr>
   <tr>
     <th><code>x</code></th>
-    <td>Expand and print each command before executing. See <a href="/docs/builds/writing-build-scripts#debugging-your-environment">Debugging your environment</a> for more information. </td>
+    <td>Expand and print each command before executing. See <a href="/docs/pipelines/configure/writing-build-scripts#debugging-your-environment">Debugging your environment</a> for more information. </td>
   </tr>
   </tbody>
 </table>
@@ -149,4 +149,4 @@ For an explanation of a shell script snippet, the [explainshell](https://explain
 
 ## Managing log output
 
-If your script is generating output that is too large, there are several strategies you can employ to reduce the output or redirect the log. Take a look at our guide to [managing log output guide](/docs/builds/managing-log-output) for a step by step introduction.
+If your script is generating output that is too large, there are several strategies you can employ to reduce the output or redirect the log. Take a look at our [managing log output guide](/docs/pipelines/configure/managing-log-output) for a step by step introduction.

@@ -33,6 +33,6 @@ Settings for hosted agents on this queue
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>linux</code></strong><a href="/docs/apis/graphql/schemas/input_object/hostedagentslinuxplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsLinuxPlatformSettingsInput"><code>HostedAgentsLinuxPlatformSettingsInput</code></a></p></td></tr><tr><td><p><strong><code>macos</code></strong><a href="/docs/apis/graphql/schemas/input_object/hostedagentsmacosplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsMacosPlatformSettingsInput"><code>HostedAgentsMacosPlatformSettingsInput</code></a></p></td></tr>
+    <tr><td><p><strong><code>linux</code></strong><a href="/docs/apis/graphql/schemas/input-object/hostedagentslinuxplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsLinuxPlatformSettingsInput"><code>HostedAgentsLinuxPlatformSettingsInput</code></a></p></td></tr><tr><td><p><strong><code>macos</code></strong><a href="/docs/apis/graphql/schemas/input-object/hostedagentsmacosplatformsettingsinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT HostedAgentsMacosPlatformSettingsInput"><code>HostedAgentsMacosPlatformSettingsInput</code></a></p></td></tr>
   </tbody>
 </table>

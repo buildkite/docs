@@ -145,6 +145,7 @@ exceptions:
   - GPU
   - GPUs
   - Gradle
+  - Grafana
   - GraphQL
   - GRC
   - Groovy
@@ -191,6 +192,7 @@ exceptions:
   - Maven
   - MCP
   - Microsoft Entra ID
+  - Microsoft Azure
   - minitest
   - Mobile Delivery Cloud
   - Model Context Protocol
@@ -262,6 +264,7 @@ exceptions:
   - Tahoe
   - TCP
   - Tekton
+  - Tempo
   - Terraform
   - Test Engine
   - Test Engine Client

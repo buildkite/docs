@@ -9,8 +9,26 @@ This page outlines usage limits designed to protect your builds from unintention
 
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
+The [**Usage** page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows a breakdown of usage metrics across the Buildkite platform and all products for your Buildkite organization.
+
+## Viewing your organization's service quotas
+
+Buildkite organization administrators can view the service quotas that apply to their organization on the **Service Quotas** page in **Organization Settings**.
+
+To access your organization's service quotas:
+
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+
+1. Select **Quotas** to open the **Service Quotas** page.
+
+    <%= image "service-quotas.png", width: 581, height: 327, alt: "The Service Quotas page in Organization Settings, showing quota limits grouped by product area with name, description, and limit value for each quota" %>
+
+    The **Service Quotas** page displays your organization's current limits grouped by product area. Each quota shows the limit that applies to your organization, which may differ from the defaults listed on this page.
+
+    A **Custom** badge next to a quota indicates that your organization has a limit that differs from the default for your plan. An **Exceeded in last 24h** badge indicates that your organization reached this limit within the past 24 hours.
+
 > 📘 Adjusting limits
-> If you are on the Enterprise plan, some of the organization-level limits might be increased for your organization. Reach out to your dedicated Technical Account Manager or email the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com) and provide the details about your use case to find out if increasing the limits is possible.
+> Some organization-level limits can be increased on request depending on your plan. Contact Buildkite support at support@buildkite.com with details about your use case, or contact your Technical Account Manager if you have one.
 
 ## Platform and organization-level limits
 
@@ -301,8 +319,8 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkit
 | **macOS concurrency** | 3 | - | 5 | Custom |
 | **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
-| **Container cache volume** |  50 GB |  50 GB |  50 GB |  50 GB |
-| **Git mirror volume** |  5 GB |  5 GB |  5 GB |  5 GB |
+| **Container cache volume** | 50 GB | 50 GB | 50 GB | 50 GB |
+| **Git mirror volume** | 5 GB | 5 GB | 5 GB | 5 GB |
 
 ## Test Engine limits
 

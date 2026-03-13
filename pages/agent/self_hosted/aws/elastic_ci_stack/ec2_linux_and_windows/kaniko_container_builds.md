@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Building Docker images
 
-[Kaniko](https://github.com/GoogleContainerTools/kaniko) builds container images from a Dockerfile without requiring a Docker daemon, making it ideal for CI/CD environments that lack or don't need privileged access. This guide shows you how to use Kaniko with [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic_ci_stack) to build and push images directly to [Buildkite Package Registries](/docs/package_registries).
+[Kaniko](https://github.com/GoogleContainerTools/kaniko) builds container images from a Dockerfile without requiring a Docker daemon, making it ideal for CI/CD environments that lack or don't need privileged access. This guide shows you how to use Kaniko with [Buildkite Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) to build and push images directly to [Buildkite Package Registries](/docs/package-registries).
 
 Unlike traditional Docker builds, Kaniko runs as a container and executes each command in your Dockerfile in the user space. This approach eliminates the need for using [Docker-in-Docker](https://www.docker.com/resources/docker-in-docker-containerized-ci-workflows-dockercon-2023/) or privileged mode while maintaining full compatibility with the standard Dockerfiles. You can authenticate using short-lived [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) tokens (see the [example](#running-kaniko-in-docker-example-pipeline) below), leverage registry-based caching to speed up the builds, and push to any [Open Container Initiative (OCI)](https://opencontainers.org/)-compliant container registry.
 
@@ -34,9 +34,9 @@ Create a [Buildkite Package Registry](/docs/package-registries) for container im
         build_branch: main
     ```
 
-Note that the `build_branch` claim restricts image pushes to the specified branch. See [OIDC in Buildkite Package Registries](/docs/package_registries/security/oidc) for more configuration options.
+Note that the `build_branch` claim restricts image pushes to the specified branch. See [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc) for more configuration options.
 
-For more information regarding registries, see [Manage registries](/docs/package_registries/registries/manage).
+For more information regarding registries, see [Manage registries](/docs/package-registries/registries/manage).
 
 > 📘 Registry compatibility
 > While the example uses [Buildkite Package Registries](/docs/package-registries), Kaniko can work with any OCI-compliant container registry. To use a different registry (for example, Docker Hub, Amazon ECR, Google Container Registry, Azure Container Registry, and so on), adjust the authentication method and the destination URL accordingly.
@@ -46,7 +46,7 @@ For more information regarding registries, see [Manage registries](/docs/package
 Commit your changes. The step in your pipeline configuration will:
 
 - Build the Docker image using [Kaniko](https://github.com/GoogleContainerTools/kaniko) (no Docker daemon required).
-- Push the image directly to the [Buildkite Package Registries](/docs/package_registries) using a short-lived OIDC token retrieved by the Buildkite agent.
+- Push the image directly to the [Buildkite Package Registries](/docs/package-registries) using a short-lived OIDC token retrieved by the Buildkite agent.
 
 > 📘 SSH repository requirements
 > If your Git repository uses SSH, make sure your [S3 secrets bucket for Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) contains a `private_ssh_key` at the correct prefix (or switch to HTTPS + `git-credentials`).

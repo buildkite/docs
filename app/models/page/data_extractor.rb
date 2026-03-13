@@ -113,6 +113,6 @@ class Page::DataExtractor
   private
 
   def markdown_doc(text)
-    CommonMarker.render_doc(text, :UNSAFE)
+    Commonmarker.parse(text)
   end
 end

@@ -34,6 +34,6 @@ Activate a previously-generated TOTP configuration, and its Recovery Codes.  Onc
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totpactivateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPActivateInput"><code>TOTPActivateInput!</code></a></h3><p>Parameters for TOTPActivate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/totpactivateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPActivateInput"><code>TOTPActivateInput!</code></a></h3><p>Parameters for TOTPActivate</p></td></tr>
   </tbody>
 </table>

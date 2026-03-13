@@ -34,6 +34,6 @@ Retrieves the active system banner for provided organization, then updates it wi
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannerupsertinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerUpsertInput"><code>OrganizationBannerUpsertInput!</code></a></h3><p>Parameters for OrganizationBannerUpsert</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationbannerupsertinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerUpsertInput"><code>OrganizationBannerUpsertInput!</code></a></h3><p>Parameters for OrganizationBannerUpsert</p></td></tr>
   </tbody>
 </table>

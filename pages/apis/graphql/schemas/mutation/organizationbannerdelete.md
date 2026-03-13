@@ -34,6 +34,6 @@ Delete the system banner
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannerdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerDeleteInput"><code>OrganizationBannerDeleteInput!</code></a></h3><p>Parameters for OrganizationBannerDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationbannerdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerDeleteInput"><code>OrganizationBannerDeleteInput!</code></a></h3><p>Parameters for OrganizationBannerDelete</p></td></tr>
   </tbody>
 </table>

@@ -34,6 +34,6 @@ Annotate a job with information to appear on the job page.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/jobannotateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobAnnotateInput"><code>JobAnnotateInput!</code></a></h3><p>Parameters for JobAnnotate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/jobannotateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobAnnotateInput"><code>JobAnnotateInput!</code></a></h3><p>Parameters for JobAnnotate</p></td></tr>
   </tbody>
 </table>

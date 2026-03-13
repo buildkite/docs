@@ -34,6 +34,6 @@ Delete a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamDeleteInput"><code>TeamDeleteInput!</code></a></h3><p>Parameters for TeamDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/teamdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamDeleteInput"><code>TeamDeleteInput!</code></a></h3><p>Parameters for TeamDelete</p></td></tr>
   </tbody>
 </table>

@@ -18,9 +18,11 @@ Learn more about:
 
 Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs. The architectures supported include AMD64 (x64_86) and ARM64 (AArch64).
 
-<%= render_markdown partial: 'shared/hosted_agents/hosted_agents_instance_shape_table_linux' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
 Note the following about Linux hosted agent instances.
+
+- The [Personal plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.
 
 - Extra large instances are available on request.
 
@@ -57,4 +59,4 @@ The image is based on Ubuntu 22.04 and includes the following tools:
 - node
 - aws-cli
 
-You can customize the image that your hosted agents use by [creating an agent image](/docs/agent/buildkite-hosted/linux/custom-base-images).
+You can customize the image that your hosted agents use by creating a [custom agent image](/docs/agent/buildkite-hosted/linux/custom-base-images). This approach is recommended for production workloads, as a custom agent image would give you full control over installed packages, security updates, and dependencies.

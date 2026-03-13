@@ -34,6 +34,6 @@ Retry a job.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/jobtypecommandretryinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobTypeCommandRetryInput"><code>JobTypeCommandRetryInput!</code></a></h3><p>Parameters for JobTypeCommandRetry</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/jobtypecommandretryinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobTypeCommandRetryInput"><code>JobTypeCommandRetryInput!</code></a></h3><p>Parameters for JobTypeCommandRetry</p></td></tr>
   </tbody>
 </table>

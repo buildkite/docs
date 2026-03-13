@@ -24,12 +24,12 @@
   <tbody>
     <tr>
       <td><code>build</code></td>
-      <td><a href="/docs/api/builds">Build</a></td>
+      <td><a href="/docs/apis/rest-api/builds">Build</a></td>
       <td>The build this notification relates to</td>
     </tr>
     <tr>
       <td><code>pipeline</code></td>
-      <td><a href="/docs/api/pipelines">Pipeline</a></td>
+      <td><a href="/docs/apis/rest-api/pipelines">Pipeline</a></td>
       <td>The pipeline this notification relates to</td>
     </tr>
     <tr>
@@ -59,7 +59,7 @@ Example request body:
 ```
 
 > 📘 Job data not included
-> When using webhooks, the build object does not contain job data (as returned by calls to the [Build API](/docs/apis/rest-api/builds) of Buildkite's REST API). Learn more about obtaining job data from Buildkite Pipelines using webhooks in [Job events](/docs/webhooks/pipelines/job_events).
+> When using webhooks, the build object does not contain job data (as returned by calls to the [Build API](/docs/apis/rest-api/builds) of Buildkite's REST API). Learn more about obtaining job data from Buildkite Pipelines using webhooks in [Job events](/docs/apis/webhooks/pipelines/job-events).
 
 ## Finding out if a build is blocked
 

@@ -34,6 +34,6 @@ Enable a SSO provider.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/ssoproviderenableinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT SSOProviderEnableInput"><code>SSOProviderEnableInput!</code></a></h3><p>Parameters for SSOProviderEnable</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/ssoproviderenableinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT SSOProviderEnableInput"><code>SSOProviderEnableInput!</code></a></h3><p>Parameters for SSOProviderEnable</p></td></tr>
   </tbody>
 </table>

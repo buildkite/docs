@@ -34,6 +34,6 @@ Revoke an unclustered agent token.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/agenttokenrevokeinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentTokenRevokeInput"><code>AgentTokenRevokeInput!</code></a></h3><p>Parameters for AgentTokenRevoke</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/agenttokenrevokeinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentTokenRevokeInput"><code>AgentTokenRevokeInput!</code></a></h3><p>Parameters for AgentTokenRevoke</p></td></tr>
   </tbody>
 </table>
