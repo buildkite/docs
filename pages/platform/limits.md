@@ -107,6 +107,11 @@ Platform and organization-level limits apply to all Buildkite products. These li
         title: "Maximum OIDC lifetime",
         description: "The default maximum lifetime for OIDC.",
         default_value: "2 hours"
+      },
+      {
+        title: "Linear services per organization",
+        description: "The maximum number of Linear integrations that can be added to an organization.",
+        default_value: "1 service"
       }
     ].each do |limit| %>
       <tr>
@@ -354,11 +359,6 @@ The following table lists the default service limits for [Test Engine](/docs/tes
         title: "Test ownership file size",
         description: "The maximum size for CODEOWNERS files.",
         default_value: "1 MB"
-      },
-      {
-        title: "Linear services per organization",
-        description: "The maximum number of Linear integrations that can be added to an organization.",
-        default_value: "1 service"
       }
     ].each do |limit| %>
       <tr>
