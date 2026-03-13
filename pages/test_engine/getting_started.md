@@ -74,7 +74,7 @@ You can automate your test suite by automating builds of your project in Buildki
 
 ## Next steps
 
-That's it! You've successfully created a test suite, configured your Ruby project with a test collector, and executed the project's test runner to send its test data to your test suite. 🎉
+That's it! You've successfully created a test suite, configured your development project with a test collector, executed the project's test runner to send its test data to your test suite, and automated the process in Buildkite Pipelines. 🎉
 
 Learn more about:
 

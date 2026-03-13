@@ -5,7 +5,7 @@ keywords: docs, tutorials, 2fa
 # System banners
 
 > 📘 Enterprise plan feature
-> System banners is an [Enterprise](https://buildkite.com/pricing/) plan feature.
+> The system banners feature is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans.
 
 Organization owners can create announcement banners for the organization. Banners are displayed to all organization members at the top of every page in the organization.
 

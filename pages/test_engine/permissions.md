@@ -67,7 +67,7 @@ Another user with **Full Access** to this test suite or a [Buildkite organizatio
 
 ## Manage organization security for test suites
 
-Enterprise plan customers can configure test suite action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
+Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can configure test suite action permissions for all users across their Buildkite organization. These features can be used either with or without the [teams feature enabled](#manage-teams-and-permissions).
 
 These user-level permissions and security features are managed by _Buildkite organization administrators_. To access this feature:
 

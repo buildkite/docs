@@ -1,0 +1,46 @@
+<%
+  logos = [
+    { name: "Bazel", file: "bazel", width: 88 },
+    { name: "Kasada", file: "kasada", width: 109 },
+    { name: "Block", file: "block", width: 98 },
+    { name: "Tinder", file: "tinder", width: 88 },
+    { name: "Shopify", file: "shopify", width: 94 },
+    { name: "Elastic", file: "elastic", width: 88 },
+    { name: "PagerDuty", file: "pagerduty", width: 118 },
+    { name: "Uber", file: "uber", width: 60 },
+    { name: "Rippling", file: "rippling", width: 126 },
+    { name: "Twilio", file: "twilio", width: 84 },
+    { name: "Lyft", file: "lyft", width: 36 },
+    { name: "Pinterest", file: "pinterest", width: 32 },
+    { name: "PlanetScale", file: "planetscale", width: 148 },
+    { name: "nib", file: "nib", width: 72 },
+    { name: "Cruise", file: "cruise", width: 80 },
+    { name: "Intercom", file: "intercom", width: 118 },
+    { name: "Wayfair", file: "wayfair", width: 120 },
+    { name: "Slack", file: "slack", width: 82 },
+    { name: "Culture Amp", file: "culture-amp", width: 124 },
+    { name: "Hasura", file: "hasura", width: 92 },
+    { name: "Wix", file: "wix", width: 54 },
+    { name: "Retool", file: "retool", width: 92 },
+    { name: "Canva", file: "canva", width: 68 },
+    { name: "Cash App", file: "cash-app", width: 108 },
+  ]
+%>
+<section class="LogoMarquee">
+  <p class="LogoMarquee__caption"><%= local_assigns[:caption] || "Trusted by the world's most demanding engineering teams" %></p>
+  <div class="LogoMarquee__track">
+    <div class="LogoMarquee__inner">
+      <% 2.times do %>
+        <% logos.each do |logo| %>
+          <img
+            src="<%= vite_asset_path("images/logos/#{logo[:file]}.svg") %>"
+            alt="<%= logo[:name] %>"
+            class="LogoMarquee__logo"
+            width="<%= logo[:width] %>"
+            loading="lazy"
+          />
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
