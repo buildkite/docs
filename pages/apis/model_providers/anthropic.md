@@ -8,7 +8,7 @@ The Anthropic model provider is fully compatible with Claude Code, which allows 
 
 ### Supported models
 
-Buildkite supports all current Anthropic Claude models, including Claude Sonnet 4.5, Opus 4.1, and Haiku 4.5.
+Buildkite supports all current Anthropic Claude models, including Claude Sonnet 4.6, Claude Sonnet 4.5, Opus 4.1, and Haiku 4.5.
 
 ## Base URL
 
