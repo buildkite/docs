@@ -9,6 +9,8 @@ Buildkite Pipelines is a hybrid CI/CD platform that orchestrates builds through 
 
 This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
 
+<%= render "logo_marquee" %>
+
 ## Core differentiators
 
 - **Hybrid architecture.** Mix self-hosted and Buildkite hosted agents in the same pipeline — run security-sensitive jobs on your own infrastructure and offload everything else to fully managed runners.
