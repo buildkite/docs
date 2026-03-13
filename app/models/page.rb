@@ -153,9 +153,17 @@ class Page
 
     result = erb_renderer.result(template_binding.get_binding)
 
-    # Remove HTML comments from the markdown output and convert HTML tables to Markdown
+    # Remove HTML comments from the markdown output
     # This ensures they don't appear in .md format responses or copy functionality
     filter_html_comments(result)
+  end
+
+  def markdown_body_with_table_conversion
+    # Get the base markdown content
+    base_content = markdown_body
+    
+    # Convert HTML tables to Markdown format for .md endpoint only
+    convert_html_tables_to_markdown(base_content)
   end
 
   def body
@@ -258,63 +266,59 @@ class Page
     result = text.gsub(/<!--.*?-->/m, '')
 
     # Clean up any resulting blank lines (but preserve intentional spacing)
-    result = result.gsub(/\n\s*\n\s*\n/, "\n\n")
-    
+    result.gsub(/\n\s*\n\s*\n/, "\n\n")
+  end
+
+  def convert_html_tables_to_markdown(text)
     # Convert HTML tables to Markdown format
-    result.gsub(/<table[^>]*>.*?<\/table>/mi) do |table_html|
-      begin
-        require 'nokogiri'
+    text.gsub(/<table(?:\s+[^>]*)?>.*?<\/table>/mi) do |table_html|
+      # Only skip tables with data-attributes (special dynamic behavior)
+      next table_html if table_html.match?(/data-attributes\s*(?:="[^"]*")?(?:\s|>)/)
+      
+      # Use regex-based extraction for table parsing
+      rows = table_html.scan(/<tr[^>]*>(.*?)<\/tr>/mi).flatten
+      next table_html if rows.empty?
+      
+      markdown_rows = []
+      
+      rows.each_with_index do |row_html, index|
+        # Extract cell content using regex (safer than Nokogiri)
+        cells = row_html.scan(/<(?:td|th)[^>]*>(.*?)<\/(?:td|th)>/mi).flatten
+        next if cells.empty?
         
-        # Parse the table HTML
-        doc = Nokogiri::HTML::Document.parse(table_html)
-        table = doc.at_css('table')
-        
-        next table_html unless table
-        
-        # Extract table data
-        rows = table.css('tr')
-        next table_html if rows.empty?
-        
-        markdown_rows = []
-        
-        rows.each_with_index do |row, index|
-          cells = row.css('td, th')
-          next if cells.empty?
-          
-          # Convert each cell to plain text, preserving some formatting
-          cell_texts = cells.map do |cell|
-            # Get text content but preserve links
-            cell_text = cell.inner_html
-            # Convert links to markdown format
-            cell_text = cell_text.gsub(/<a\s+href=["']([^"']+)["'][^>]*>([^<]+)<\/a>/, '[\2](\1)')
-            # Convert code tags to inline code
-            cell_text = cell_text.gsub(/<code>([^<]*)<\/code>/, '`\1`')
-            # Remove other HTML tags but keep content
-            cell_text = cell_text.gsub(/<[^>]+>/, ' ')
-            # Clean up whitespace
-            cell_text.strip.gsub(/\s+/, ' ')
-          end
-          
-          # Create markdown row
-          markdown_rows << "| #{cell_texts.join(' | ')} |"
-          
-          # Add separator row after header
-          if index == 0
-            separator = cells.map { '---' }
-            markdown_rows << "| #{separator.join(' | ')} |"
-          end
+        # Convert cells to plain text
+        cell_texts = cells.map do |cell_html|
+          # HTML to text conversion
+          text = cell_html.to_s
+          # Convert links
+          text = text.gsub(/<a\s+href=["']([^"']+)["'][^>]*>([^<]+)<\/a>/i, '[\2](\1)')
+          # Convert code tags  
+          text = text.gsub(/<code[^>]*>([^<]*)<\/code>/i, '`\1`')
+          # Convert em/strong tags
+          text = text.gsub(/<em[^>]*>([^<]*)<\/em>/i, '_\1_')
+          text = text.gsub(/<strong[^>]*>([^<]*)<\/strong>/i, '**\1**')
+          # Remove other HTML tags but preserve line breaks
+          text = text.gsub(/<br\s*\/?>/i, ' ')
+          text = text.gsub(/<[^>]+>/, ' ')
+          # Clean whitespace
+          text.strip.gsub(/\s+/, ' ')
         end
         
-        # Join rows with newlines
-        "\n\n#{markdown_rows.join("\n")}\n\n"
+        # Create markdown row
+        markdown_rows << "| #{cell_texts.join(' | ')} |"
         
-      rescue => e
-        # If parsing fails, return the original HTML
-        puts "ERROR converting table: #{e.message}"
+        # Add separator after header
+        if index == 0
+          markdown_rows << "| #{cell_texts.map { '---' }.join(' | ')} |"
+        end
+      end
+      
+      if markdown_rows.length > 1
+        "\n\n#{markdown_rows.join("\n")}\n\n"
+      else
         table_html
       end
     end
   end
-
 
 end
