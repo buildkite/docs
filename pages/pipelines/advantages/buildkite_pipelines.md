@@ -9,9 +9,9 @@ Buildkite Pipelines is a hybrid CI/CD platform that orchestrates builds through 
 
 This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
 
-<%= render "logo_marquee" %>
-
 ## Core differentiators
+
+<%= render "logo_marquee" %>
 
 - **Hybrid architecture.** Mix self-hosted and Buildkite hosted agents in the same pipeline — run security-sensitive jobs on your own infrastructure and offload everything else to fully managed runners.
 - **Unlimited concurrency.** Scale from a handful of agents to 100,000+ with no concurrency restrictions.
@@ -21,7 +21,6 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 - **Predictable pricing.** Concurrency- or time-based billing with no surprise charges or credit limits.
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need.
-<%= render "logo_marquee" %>
 
 ## Why teams switch to Buildkite Pipelines
 
@@ -29,11 +28,7 @@ A small platform team can support thousands of engineers by setting guardrails t
 
 Whether you're comparing Buildkite Pipelines to [GitHub Actions](/docs/pipelines/migration/from-githubactions), [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), CircleCI, or others, these differentiators hold true. See [case studies](https://buildkite.com/resources/cases/) for how engineering organizations use Buildkite Pipelines at scale.
 
-## Architecture and infrastructure
-
-Teams keep full control over where builds run and what infrastructure they use, while Buildkite handles coordination.
-
-### Best-in-class agents for your use case
+## Best-in-class agents for your use case
 
 Buildkite Pipelines is compute-agnostic — the platform handles orchestration, but execution happens wherever you need it. Buildkite Agents can run on [Buildkite hosted infrastructure](/docs/agent/buildkite-hosted), your [Amazon](/docs/agent/self-hosted/aws) or [Google](/docs/agent/self-hosted/gcp) cloud, your [Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) cluster, or your [own servers](/docs/agent/self-hosted/install).
 
