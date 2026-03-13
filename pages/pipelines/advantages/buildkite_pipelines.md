@@ -21,6 +21,9 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 - **Predictable pricing.** Concurrency- or time-based billing with no surprise charges or credit limits.
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need.
+<%= render "logo_marquee" %>
+
+## Why teams switch to Buildkite Pipelines
 
 A small platform team can support thousands of engineers by setting guardrails through [hooks](/docs/agent/hooks) and [pipeline templates](/docs/pipelines/security/pipeline-templates), while developers retain the flexibility to move fast.
 
