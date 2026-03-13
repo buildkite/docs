@@ -34,6 +34,6 @@ Delete the webhook on the repository for a pipeline.  This mutation removes the 
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinedeletewebhookinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineDeleteWebhookInput"><code>PipelineDeleteWebhookInput!</code></a></h3><p>Parameters for PipelineDeleteWebhook</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/pipelinedeletewebhookinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineDeleteWebhookInput"><code>PipelineDeleteWebhookInput!</code></a></h3><p>Parameters for PipelineDeleteWebhook</p></td></tr>
   </tbody>
 </table>

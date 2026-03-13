@@ -34,6 +34,6 @@ Revoke an invitation to an organization so that it can no longer be accepted.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationinvitationrevokeinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationInvitationRevokeInput"><code>OrganizationInvitationRevokeInput!</code></a></h3><p>Parameters for OrganizationInvitationRevoke</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationinvitationrevokeinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationInvitationRevokeInput"><code>OrganizationInvitationRevokeInput!</code></a></h3><p>Parameters for OrganizationInvitationRevoke</p></td></tr>
   </tbody>
 </table>

@@ -34,6 +34,6 @@ Add a new email address for the current user
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/emailcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT EmailCreateInput"><code>EmailCreateInput!</code></a></h3><p>Parameters for EmailCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/emailcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT EmailCreateInput"><code>EmailCreateInput!</code></a></h3><p>Parameters for EmailCreate</p></td></tr>
   </tbody>
 </table>

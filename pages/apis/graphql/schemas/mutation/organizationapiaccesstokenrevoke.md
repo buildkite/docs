@@ -34,6 +34,6 @@ Revokes access to an organization for a user's API access token. The organizatio
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationapiaccesstokenrevokemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationAPIAccessTokenRevokeMutationInput"><code>OrganizationAPIAccessTokenRevokeMutationInput!</code></a></h3><p>Parameters for OrganizationAPIAccessTokenRevokeMutation</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/organizationapiaccesstokenrevokemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationAPIAccessTokenRevokeMutationInput"><code>OrganizationAPIAccessTokenRevokeMutationInput!</code></a></h3><p>Parameters for OrganizationAPIAccessTokenRevokeMutation</p></td></tr>
   </tbody>
 </table>

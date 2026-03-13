@@ -34,6 +34,6 @@ Create a cluster queue.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueuecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueCreateInput"><code>ClusterQueueCreateInput!</code></a></h3><p>Parameters for ClusterQueueCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/clusterqueuecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueCreateInput"><code>ClusterQueueCreateInput!</code></a></h3><p>Parameters for ClusterQueueCreate</p></td></tr>
   </tbody>
 </table>

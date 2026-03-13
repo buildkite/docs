@@ -34,6 +34,6 @@ Dismisses a notice from the Buildkite UI. This mutation is idempotent so if you 
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/noticedismissinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT NoticeDismissInput"><code>NoticeDismissInput!</code></a></h3><p>Parameters for NoticeDismiss</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/noticedismissinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT NoticeDismissInput"><code>NoticeDismissInput!</code></a></h3><p>Parameters for NoticeDismiss</p></td></tr>
   </tbody>
 </table>

@@ -305,13 +305,15 @@ def notify_zapier(pr_data, reviewer)
   payload = {
     gh_url: pr_data['html_url'],
     gh_issue_id: pr_data['number'],
-    assignee: assignee
+    assignee: assignee,
+    pr_creator: pr_data['user']['login']
   }
 
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
     puts "  gh_url: #{payload[:gh_url]}"
     puts "  assignee: #{assignee}"
+    puts "  pr_creator: #{payload[:pr_creator]}"
     return
   end
 

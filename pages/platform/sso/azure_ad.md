@@ -5,7 +5,6 @@ You can use [Microsoft Entra ID](https://www.microsoft.com/en-us/security/busine
 > 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
-
 ## Step 1. Create a Buildkite SSO provider
 
 In your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings), click **Single Sign On**, then choose the custom SAML provider from the available options:
@@ -58,7 +57,7 @@ Once you've [performed a test login](#step-4-perform-a-test-login) you can enabl
 
 ## Using SCIM to provision and manage users
 
-Enterprise plan customers can automatically add and remove user accounts from their Buildkite organization using the SCIM provisioning settings in Azure AD.
+Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can automatically add and remove user accounts from their Buildkite organization using the SCIM provisioning settings in Azure AD.
 
 ### Supported SCIM features
 
