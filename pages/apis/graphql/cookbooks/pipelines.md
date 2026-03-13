@@ -2,7 +2,7 @@
 
 A collection of common tasks with pipelines using the GraphQL API.
 
-<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+<%= render_markdown_raw partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Create a pipeline
 
@@ -72,7 +72,7 @@ When setting pipeline steps using the API, you must pass in a string that Buildk
 
 ### Deriving a pipeline slug from the pipeline's name
 
-<%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
+<%= render_markdown_raw partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
 Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
 

@@ -2,7 +2,7 @@
 
 A collection of common tasks with package registries using the GraphQL API.
 
-<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+<%= render_markdown_raw partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## List organization registries
 

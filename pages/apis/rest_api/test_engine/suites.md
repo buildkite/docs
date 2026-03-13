@@ -25,7 +25,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/test_engine/suites_query_strings' %>
+<%= render_markdown_raw partial: 'apis/rest_api/test_engine/suites_query_strings' %>
 
 Required scope: `read_suites`
 
@@ -52,7 +52,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/test_engine/suites_query_strings' %>
+<%= render_markdown_raw partial: 'apis/rest_api/test_engine/suites_query_strings' %>
 
 Required scope: `read_suites`
 

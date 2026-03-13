@@ -148,7 +148,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown_raw partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -166,7 +166,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown_raw partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -315,7 +315,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown partial: 'apis/rest_api/pipeline_builds_list_query_strings' %>
+<%= render_markdown_raw partial: 'apis/rest_api/pipeline_builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -328,7 +328,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
 ```
 
-<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+<%= render_markdown_raw partial: 'apis/rest_api/build_number_vs_build_id' %>
 
 ```json
 {
@@ -717,7 +717,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
 ```
 
-<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+<%= render_markdown_raw partial: 'apis/rest_api/build_number_vs_build_id' %>
 
 ```json
 {
@@ -868,7 +868,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
 ```
 
-<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+<%= render_markdown_raw partial: 'apis/rest_api/build_number_vs_build_id' %>
 
 ```json
 {

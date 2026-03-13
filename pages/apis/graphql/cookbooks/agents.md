@@ -2,7 +2,7 @@
 
 A collection of common tasks with unclustered agents using the GraphQL API.
 
-<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+<%= render_markdown_raw partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get a list of unclustered agent token IDs
 

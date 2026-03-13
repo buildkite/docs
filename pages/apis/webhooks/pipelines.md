@@ -55,7 +55,7 @@ You can subscribe to one or more of the following events:
   <tr><th><code>job.started</code></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><code>job.finished</code></th><td>A job has finished</td></tr>
   <tr><th><code>job.activated</code></th><td>A block step job has been unblocked using the web or API</td></tr>
-  <%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>
+  <%= render_markdown_raw partial: 'apis/webhooks/pipelines/agent_events_table' %>
   <tr><th><code>cluster_token.registration_blocked</code></th><td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td></tr>
 </tbody>
 </table>
@@ -70,7 +70,7 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-<%= render_markdown partial: 'apis/webhooks/http_headers_token_or_signature' %>
+<%= render_markdown_raw partial: 'apis/webhooks/http_headers_token_or_signature' %>
 
 ## HTTP request body
 
@@ -93,19 +93,19 @@ Each event's data is sent JSON encoded in the request body. See each event's doc
 
 ## Webhook token
 
-<%= render_markdown partial: 'apis/webhooks/webhook_token' %>
+<%= render_markdown_raw partial: 'apis/webhooks/webhook_token' %>
 
 ## Webhook signature
 
-<%= render_markdown partial: 'apis/webhooks/webhook_signature' %>
+<%= render_markdown_raw partial: 'apis/webhooks/webhook_signature' %>
 
 ### Verifying HMAC signatures
 
-<%= render_markdown partial: 'apis/webhooks/verifying_hmac_signatures' %>
+<%= render_markdown_raw partial: 'apis/webhooks/verifying_hmac_signatures' %>
 
 ### Defending against replay attacks
 
-<%= render_markdown partial: 'apis/webhooks/defending_against_replay_attacks' %>
+<%= render_markdown_raw partial: 'apis/webhooks/defending_against_replay_attacks' %>
 
 ## Example implementations
 

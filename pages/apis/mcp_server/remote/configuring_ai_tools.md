@@ -27,7 +27,7 @@ You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP serv
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Amp for this Buildkite organization.
 
@@ -51,7 +51,7 @@ To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-on
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
 ## Claude Code
 
@@ -61,7 +61,7 @@ You can configure [Claude Code](https://www.anthropic.com/claude-code) with the 
 claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Claude Code for this Buildkite organization.
 
@@ -73,7 +73,7 @@ To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-on
 claude mcp add --transport http buildkite-read-only-toolsets https://mcp.buildkite.com/mcp/readonly --header "X-Buildkite-Toolsets: user,pipelines,builds"
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
 ## Claude Desktop
 
@@ -140,7 +140,7 @@ See https://cursor.com/docs/context/mcp/install-links for details.
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Cursor for this Buildkite organization.
 
@@ -161,7 +161,7 @@ To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-on
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
 ## Goose
 
@@ -185,7 +185,7 @@ extensions:
     available_tools: []
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Goose for this Buildkite organization.
 
@@ -210,7 +210,7 @@ extensions:
     available_tools: []
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
 ## Visual Studio Code
 
@@ -236,7 +236,7 @@ Alternatively, you can initiate this process through the Visual Studio Code inte
 
     Follow the remaining prompts to complete this configuration process.
 
-<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Visual Studio Code for this Buildkite organization.
 
@@ -258,7 +258,7 @@ To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-on
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
 ## Windsurf
 
@@ -274,7 +274,7 @@ You can configure [Windsurf](https://windsurf.com/) with the remote Buildkite MC
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Windsurf for this Buildkite organization.
 
@@ -295,4 +295,4 @@ To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-on
 }
 ```
 
-<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+<%= render_markdown_raw partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
