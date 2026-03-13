@@ -11,9 +11,6 @@ You can find out more about the available plans and what is included in them in 
 
 The [**Usage** page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows a breakdown of usage metrics across the Buildkite platform and all products for your Buildkite organization.
 
-> 📘 Adjusting limits
-> Some organization-level limits can be increased on request depending on your plan. Email Buildkite support at support@buildkite.com with details about your use case, or contact your Technical Account Manager if you have one. As a Buildkite organization administrator, you can [view your Buildkite organization's current service quotas](#viewing-your-organizations-service-quotas).
-
 ## Viewing your organization's service quotas
 
 Buildkite organization administrators can view the service quotas that apply to their organization on the **Service Quotas** page in **Organization Settings**.
@@ -30,7 +27,8 @@ To access your organization's service quotas:
 
     A **Custom** badge next to a quota indicates that your organization has a limit that differs from the default for your plan. An **Exceeded in last 24h** badge indicates that your organization reached this limit within the past 24 hours.
 
-To request a quota increase, contact [support@buildkite.com](mailto:support@buildkite.com). Enterprise customers can also reach out to their Technical Account Manager.
+> 📘 Adjusting limits
+> Some organization-level limits can be increased on request depending on your plan. Contact Buildkite support at support@buildkite.com with details about your use case, or contact your Technical Account Manager if you have one.
 
 ## Platform and organization-level limits
 
