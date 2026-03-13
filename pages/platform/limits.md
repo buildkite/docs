@@ -10,7 +10,7 @@ This page outlines usage limits designed to protect your builds from unintention
 You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
 
 > 📘 Adjusting limits
-> Buildkite customers on the Enterprise plan can increase some organization-level limits for their Buildkite organization. Contact your dedicated Technical Account Manager, or email the Buildkite Support at support@buildkite.com and provide the details about your use case. As a Buildkite organization administrator, you can [view your Buildkite organization's current service quotas](#viewing-your-organizations-service-quotas).
+> Some organization-level limits can be increased on request depending on your plan. Email Buildkite support at support@buildkite.com with details about your use case, or contact your Technical Account Manager if you have one. As a Buildkite organization administrator, you can [view your Buildkite organization's current service quotas](#viewing-your-organizations-service-quotas).
 
 ## Viewing your organization's service quotas
 
