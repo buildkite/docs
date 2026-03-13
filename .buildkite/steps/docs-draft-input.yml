@@ -1,0 +1,31 @@
+# docs-draft-input.yml — Input step for manual triggering (production).
+# Collects UPSTREAM_REPO and UPSTREAM_PR_NUMBER via user input,
+# then uploads the main docs-draft step with those values injected.
+
+steps:
+  - input: "Which upstream PR needs documentation?"
+    key: "docs-draft-input"
+    fields:
+      - key: "upstream-repo"
+        select: "Upstream repository"
+        options:
+          - label: "buildkite/agent"
+            value: "buildkite/agent"
+          - label: "buildkite/buildkite"
+            value: "buildkite/buildkite"
+        hint: "GitHub repo slug, e.g. buildkite/agent"
+        required: true
+      - key: "upstream-pr-number"
+        text: "PR number"
+        hint: "The pull request number in the upstream repo"
+        required: true
+  - wait: ~
+  - label: ":pipeline: Upload main step"
+    key: "upload-main-step"
+    agents:
+      queue: hosted
+    command: |
+      export UPSTREAM_REPO=$$(buildkite-agent meta-data get "upstream-repo")
+      export UPSTREAM_PR_NUMBER=$$(buildkite-agent meta-data get "upstream-pr-number")
+      echo "Injecting UPSTREAM_REPO=$$UPSTREAM_REPO UPSTREAM_PR_NUMBER=$$UPSTREAM_PR_NUMBER into step"
+      buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
