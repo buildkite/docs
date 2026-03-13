@@ -21,7 +21,7 @@ To access your organization's service quotas:
 
 1. Select **Quotas** to open the **Service Quotas** page.
 
-    <%= image "service-quotas.png", width: 598, height: 398, alt: "The Service Quotas page in Organization Settings, showing quota limits grouped by product area with name, description, and limit value for each quota" %>
+    <%= image "service-quotas.png", width: 581, height: 327, alt: "The Service Quotas page in Organization Settings, showing quota limits grouped by product area with name, description, and limit value for each quota" %>
 
     The **Service Quotas** page displays your organization's current limits grouped by product area. Each quota shows the limit that applies to your organization, which may differ from the defaults listed on this page.
 
