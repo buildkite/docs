@@ -1,6 +1,6 @@
 # OIDC in Buildkite Package Registries
 
-<%= render_markdown partial: 'platform/oidc_introduction' %>
+<%= render_markdown_raw partial: 'platform/oidc_introduction' %>
 
 You can configure Buildkite registries with OIDC policies that allow access using OIDC tokens issued by Buildkite agents and other OIDC identity providers. This is similar to how [third-party products and services can be configured with OIDC policies](/docs/pipelines/security/oidc) to consume Buildkite agent OIDC tokens for specific pipeline jobs, for deployment, or access management and security purposes.
 
@@ -215,7 +215,7 @@ where:
 
 - `--audience` is the target system that consumes this OIDC token. For Buildkite Package Registries, this value must be based on the URL `https://packages.buildkite.com/{org.slug}/{registry.slug}`.
 
-<%= render_markdown partial: 'package_registries/org_slug' %>
+<%= render_markdown_raw partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the slug of your registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your registry name, and can be obtained after accessing **Package Registries** in the global navigation > your registry from the **Registries** page.
 

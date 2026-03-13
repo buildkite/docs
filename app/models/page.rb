@@ -95,6 +95,16 @@ class Page
       Page::Renderer.render(text).html_safe
     end
 
+    def render_markdown_raw(partial: nil, text: nil)
+      raise ArgumentError, 'partial or nil not specified' if partial.blank? && text.blank?
+
+      if partial
+        render(partial)
+      else
+        text
+      end
+    end
+
     def responsive_image_tag(image, width, height, image_tag_options = {}, &block)
       align_center = image_tag_options.delete(:align)&.to_s == 'center'
       max_width = image_tag_options.delete(:max_width)
