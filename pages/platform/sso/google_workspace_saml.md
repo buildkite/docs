@@ -80,4 +80,4 @@ If you need to edit or update your Google Workspace (SAML) provider settings at 
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
+<%= render_markdown_raw partial: 'platform/sso/saml_user_attributes' %>

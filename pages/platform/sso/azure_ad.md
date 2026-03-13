@@ -102,4 +102,4 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
+<%= render_markdown_raw partial: 'platform/sso/saml_user_attributes' %>

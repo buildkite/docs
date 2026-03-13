@@ -32,5 +32,5 @@ Sending the sign-in link by email is an additional security and privacy measure,
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
+<%= render_markdown_raw partial: 'platform/sso/saml_user_attributes' %>
 
