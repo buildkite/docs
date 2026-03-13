@@ -290,6 +290,10 @@
                       path: "agent/self-hosted/gcp/elastic-ci-stack/configuration-parameters"
                     - name: "Troubleshooting"
                       path: "agent/self-hosted/gcp/elastic-ci-stack/troubleshooting"
+            - name: "Run on Azure"
+              children:
+                - name: "Overview"
+                  path: "agent/self-hosted/azure"
             - name: "Custom install"
               children:
                 - name: "Overview"
@@ -485,8 +489,6 @@
           path: "pipelines/configure/links-and-images-in-log-output"
         - name: "Notifications"
           path: "pipelines/configure/notifications"
-        - name: "Job minutes"
-          path: "pipelines/configure/job-minutes"
         - name: "Glob pattern syntax"
           path: "pipelines/configure/glob-pattern-syntax"
         - name: "Example pipelines"

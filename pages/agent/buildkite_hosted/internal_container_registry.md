@@ -2,6 +2,9 @@
 
 The _internal container registry_ is a feature of [Buildkite hosted agents](/docs/agent/buildkite-hosted), which allows you to house Docker images built by your pipelines.
 
+> 📘 Enterprise plan feature
+> The internal container registry feature is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans.
+
 ## Internal container registry overview
 
 Once a [Buildkite cluster has been set up](/docs/pipelines/security/clusters/manage#setting-up-clusters), and its first [hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) has been created, an internal container registry is created for this cluster, which you can use to manage [Open Container Initiative (OCI)](https://opencontainers.org/) images built by your pipelines on Buildkite hosted agents.

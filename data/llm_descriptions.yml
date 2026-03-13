@@ -371,7 +371,7 @@
   platform/sso/sso-setup-with-graphql: "Programmatically setting up SSO providers using the GraphQL API."
   platform/security/tokens: "Buildkite token types (API, agent, registry) and GitHub secret scanning integration."
   platform/integrations/slack-workspace: "Connecting a Slack workspace for pipeline build and Test Engine workflow notifications."
-  platform/limits: "Default usage limits by plan tier for builds, pipelines, agents, webhooks, and API requests."
+  platform/limits: "Default usage limits by plan tier for builds, pipelines, agents, webhooks, and API requests. Includes how to view your Buildkite organization's actual service quotas in settings."
   apis: "Overview of Buildkite APIs: REST, GraphQL, webhooks, MCP server, agent API, and authentication."
   apis/managing-api-tokens: "Creating, editing, auditing, and securing API access tokens with scopes and IP restrictions."
   apis/api-differences: "Feature comparison between REST and GraphQL APIs, listing capabilities unique to each."
