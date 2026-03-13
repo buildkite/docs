@@ -2,14 +2,13 @@
 
 To add Okta as an SSO provider for your Buildkite organization, you need admin privileges for both Okta and Buildkite.
 
-
 ## Setting up SSO with SAML
 
 To set up single sign-on, follow the [SAML configuration guide](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Buildkite.html).
 
 ## Using SCIM to provision and manage users
 
-Customers on the Buildkite [Enterprise](https://buildkite.com/pricing) plan can optionally enable automatic deprovisioning for their Buildkite users.
+Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can optionally enable automatic deprovisioning for their Buildkite users.
 
 ### Supported SCIM features
 

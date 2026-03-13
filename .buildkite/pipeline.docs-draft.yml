@@ -1,0 +1,22 @@
+# Docs Draft Pipeline
+#
+# Generates AI-powered documentation drafts for upstream PRs.
+# Triggered by upstream pipelines when a PR is labeled "needs-docs",
+# or run manually by providing the repo and PR number via input step.
+#
+# Required environment variables (set by upstream trigger or manual input):
+#   UPSTREAM_REPO       — GitHub repo slug (e.g. "buildkite/agent")
+#   UPSTREAM_PR_NUMBER  — PR number in the upstream repo
+
+steps:
+  - label: ":thinking_face: Check inputs"
+    agents:
+      queue: hosted
+    command: |
+      if [ -n "$${UPSTREAM_REPO:-}" ] && [ -n "$${UPSTREAM_PR_NUMBER:-}" ]; then
+        echo "Env vars present — uploading main step"
+        buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
+      else
+        echo "Missing env vars — uploading input step + main step"
+        buildkite-agent pipeline upload .buildkite/steps/docs-draft-input.yml
+      fi

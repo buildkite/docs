@@ -200,11 +200,10 @@ This style guide applies to Buildkite product documentation, API reference pages
 
 **Language and voice:**
 - Use US English (Merriam Webster)
-- Write in plain English, avoid unnecessary jargon
-- Maintain a semi-formal tone - balance between professional and approachable
+- Use plain English, avoid unnecessary jargon
+- Maintain a semi-formal tone—balance between professional and approachable. From time to time, it is OK to use "don't" instead of "do not," "haven't" instead of "have not," or "didn't" instead of "did not," and so on
 - Don't use "delve," "comprehensive," "embark," "leverage," "utilize," "unlock," "harness," or similar buzzwords
 - Use active voice whenever possible
-- Use contractions appropriately (didn't, haven't, and so on)
 - Always use "they" for gender-neutral pronouns, NEVER "he" or "she"
 - Don't use phrases like "it's important to note," "it's worth noting," "keep in mind"
 - Don't start sentences with "Additionally," "Furthermore," "Moreover"
@@ -221,7 +220,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
 - Don't use emojis in lists
-- In paragraphs, write out numbers up to 10, then use digits; in headings - AVOID digits for numbers smaller than 10
+- In paragraphs—write out numbers up to 10, then use digits. In headings—AVOID digits for numbers smaller than 10
 - Use 24-hour time format with timezone (for example, 17:00 AEST)
 
 ## Technical writing rules
@@ -258,7 +257,7 @@ When writing technical documentation for Buildkite:
 - Use bullet lists for unordered items
 - Use numbered steps for sequential instructions
 - Capitalize first word in lists, use periods only for complete sentences
-- Avoid "and/or" - use "or" or rephrase with "or both"
+- Avoid "and/or"—use "or" or rephrase with "or both"
 - Use "and" not "&"
 - Avoid "we" and "our" in formal documentation
 - Avoid exclamation marks in formal content
@@ -815,22 +814,22 @@ Use natural writing style. Write like a human technical writer, not like AI. AVO
 
 **MANDATORY WORKFLOW:**
 
-1. **File issues for remaining work** - Create issues for anything that needs follow-up
-2. **Run quality gates** (if code changed) - Tests, linters, builds
-3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
+1. **File issues for remaining work**: Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed): Tests, linters, builds
+3. **Update issue status**: Close finished work, update in-progress items
+4. **PUSH TO REMOTE**: This is MANDATORY:
    ```bash
    git pull --rebase
    bd sync
    git push
    git status  # MUST show "up to date with origin"
    ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+5. **Clean up**: Clear stashes, prune remote branches
+6. **Verify**: All changes committed AND pushed
+7. **Hand off**: Provide context for next session
 
 **CRITICAL RULES:**
 - Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
+- NEVER stop before pushing—that leaves work stranded locally
+- NEVER say "ready to push when you are"—YOU must push
 - If push fails, resolve and retry until it succeeds
