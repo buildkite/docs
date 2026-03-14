@@ -270,10 +270,8 @@ class Page
   end
 
   def convert_html_tables_to_markdown(text)
-    # Convert HTML tables to Markdown format
+    # Convert all HTML tables to Markdown for .md format
     text.gsub(/<table(?:\s+[^>]*)?>.*?<\/table>/mi) do |table_html|
-      # Only skip tables with data-attributes (special dynamic behavior)
-      next table_html if table_html.match?(/data-attributes\s*(?:="[^"]*")?(?:\s|>)/)
       
       # Use regex-based extraction for table parsing
       rows = table_html.scan(/<tr[^>]*>(.*?)<\/tr>/mi).flatten
