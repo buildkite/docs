@@ -6,7 +6,7 @@ The rules API endpoint lets you create and manage rules in your organization.
 
 [_Rules_](/docs/pipelines/security/clusters/rules) is a Buildkite feature that can do the following:
 
-<%= render_markdown_raw partial: 'pipelines/security/clusters/rules_summary' %>
+<%= render_markdown partial: 'pipelines/security/clusters/rules_summary' %>
 
 ### List rules
 

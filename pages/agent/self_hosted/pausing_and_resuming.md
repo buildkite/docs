@@ -65,9 +65,9 @@ curl -H "Authorization: Bearer ${TOKEN}" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
 To resume an agent using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 

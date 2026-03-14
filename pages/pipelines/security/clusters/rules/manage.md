@@ -47,9 +47,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
 - `rule` is the [type of rule](/docs/pipelines/security/clusters/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
 
@@ -116,7 +116,7 @@ mutation {
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
 - `type` is the [type of rule](/docs/pipelines/security/clusters/rules#rule-types) to be created, that is, either `pipeline.trigger_build.pipeline` or `pipeline.artifacts_read.pipeline`.
 
@@ -241,7 +241,7 @@ mutation {
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
 - `id` is the rule ID value of the existing rule to be edited. This value can be obtained:
 
@@ -357,9 +357,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
 - `{rule.uuid}` can be obtained:
 
@@ -391,7 +391,7 @@ mutation {
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
 - `id` is the rule ID value of the existing rule to be deleted. This value can be obtained:
 

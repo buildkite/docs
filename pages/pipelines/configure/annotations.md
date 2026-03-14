@@ -60,13 +60,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_pipeline_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_build_number' %>
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
 
 - For more information on how to use the `body`, `style`, and `context` fields, see [Formatting annotations](#formatting-annotations) for details on how to use these fields in relation to how they're used by the `buildkite-agent annotate` command.
 
@@ -369,13 +369,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_pipeline_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_build_number' %>
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
 
 ### Using the GraphQL API
 
@@ -451,13 +451,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_pipeline_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_build_number' %>
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
 
 - `{annotation.uuid}` can be obtained by [listing annotations for a build](#list-annotations-for-a-build-using-the-rest-api) and extracting the `id` value from the response. This value is not available from the Buildkite interface.
 

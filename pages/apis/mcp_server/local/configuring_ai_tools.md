@@ -33,9 +33,9 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 ### Binary
 
@@ -55,9 +55,9 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Claude Code
 
@@ -71,9 +71,9 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 claude mcp add buildkite -- docker run --pull=always -q --rm -i -e BUILDKITE_API_TOKEN=bkua_xxxxx buildkite/mcp-server stdio
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 ### Binary
 
@@ -83,9 +83,9 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 claude mcp add buildkite --env BUILDKITE_API_TOKEN=bkua_xxxxx -- buildkite-mcp-server stdio
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Claude Desktop
 
@@ -111,9 +111,9 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 ### Binary
 
@@ -133,9 +133,9 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Cursor
 
@@ -167,9 +167,9 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 ### Binary
 
@@ -189,9 +189,9 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Goose
 
@@ -216,9 +216,9 @@ extensions:
     timeout: 300
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 ### Binary
 
@@ -239,9 +239,9 @@ extensions:
     timeout: 300
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Visual Studio Code
 
@@ -275,9 +275,9 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
 
@@ -315,9 +315,9 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Windsurf
 
@@ -343,9 +343,9 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_docker' %>
 
 ### Binary
 
@@ -365,9 +365,9 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
+<%= render_markdown partial: 'apis/mcp_server/local/mcp_server_toolset_config_binary' %>
 
 ## Zed
 
@@ -397,7 +397,7 @@ Alternatively, you can copy and paste the following configuration as a new entry
 }
 ```
 
-<%= render_markdown_raw partial: 'apis/mcp_server/buildkite_api_access_token' %>
+<%= render_markdown partial: 'apis/mcp_server/buildkite_api_access_token' %>
 
 ## ToolHive
 

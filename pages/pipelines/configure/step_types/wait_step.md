@@ -138,4 +138,4 @@ steps:
 
 ## Block steps interacting with wait steps
 
-<%= render_markdown_raw partial: 'pipelines/configure/step_types/block_wait' %>
+<%= render_markdown partial: 'pipelines/configure/step_types/block_wait' %>

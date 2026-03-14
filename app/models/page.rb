@@ -83,7 +83,7 @@ class Page
       PagesController.render(partial: partial, formats: %i[md html])
     end
 
-    def render_markdown(partial: nil, text: nil)
+    def render_markdown_html(partial: nil, text: nil)
       raise ArgumentError, 'partial or nil not specified' if partial.blank? && text.blank?
 
       text = if partial
@@ -95,7 +95,7 @@ class Page
       Page::Renderer.render(text).html_safe
     end
 
-    def render_markdown_raw(partial: nil, text: nil)
+    def render_markdown(partial: nil, text: nil)
       raise ArgumentError, 'partial or nil not specified' if partial.blank? && text.blank?
 
       if partial

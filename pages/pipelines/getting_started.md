@@ -10,7 +10,7 @@ This getting started page is a tutorial that helps you understand Pipelines' fun
 
 ## Before you start
 
-<%= render_markdown_raw partial: 'pipelines/pipelines_tutorials_prereqs' %>
+<%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
 
 ## Create a new pipeline
 

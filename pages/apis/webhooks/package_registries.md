@@ -71,23 +71,23 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-<%= render_markdown_raw partial: 'apis/webhooks/http_headers_token_or_signature' %>
+<%= render_markdown partial: 'apis/webhooks/http_headers_token_or_signature' %>
 
 ## Webhook token
 
-<%= render_markdown_raw partial: 'apis/webhooks/webhook_token' %>
+<%= render_markdown partial: 'apis/webhooks/webhook_token' %>
 
 ## Webhook signature
 
-<%= render_markdown_raw partial: 'apis/webhooks/webhook_signature' %>
+<%= render_markdown partial: 'apis/webhooks/webhook_signature' %>
 
 ### Verifying HMAC signatures
 
-<%= render_markdown_raw partial: 'apis/webhooks/verifying_hmac_signatures' %>
+<%= render_markdown partial: 'apis/webhooks/verifying_hmac_signatures' %>
 
 ### Defending against replay attacks
 
-<%= render_markdown_raw partial: 'apis/webhooks/defending_against_replay_attacks' %>
+<%= render_markdown partial: 'apis/webhooks/defending_against_replay_attacks' %>
 
 ## Edit, disable, re-enable or delete a webhook
 

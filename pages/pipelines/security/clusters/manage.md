@@ -53,11 +53,11 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/common_create_cluster_fields' %>
+<%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
 ### Using the GraphQL API
 
@@ -100,9 +100,9 @@ mutation {
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/common_create_cluster_fields' %>
+<%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
 ## Connect agents to a cluster
 
@@ -171,13 +171,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_cluster_id' %>
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_agent_token_id' %>
+<%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
 
 - `allowed_ip_addresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
@@ -220,11 +220,11 @@ mutation {
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_organization_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_organization_id' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_agent_token_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_agent_token_id' %>
 
-- <%= render_markdown_raw partial: 'apis/descriptions/common_agent_token_description_required' %>
+- <%= render_markdown partial: 'apis/descriptions/common_agent_token_description_required' %>
 
     If you do not need to change the existing `description` value, specify the existing field value in the request.
 
@@ -296,9 +296,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_access_token' %>
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_org_slug' %>
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
 - `{slug}` can be obtained:
 
@@ -311,7 +311,7 @@ where:
           -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
-<%= render_markdown_raw partial: 'apis/descriptions/rest_cluster_id_body' %>
+<%= render_markdown partial: 'apis/descriptions/rest_cluster_id_body' %>
 
 ### Using the GraphQL API
 
@@ -388,7 +388,7 @@ where:
         }
         ```
 
-<%= render_markdown_raw partial: 'apis/descriptions/graphql_cluster_id' %>
+<%= render_markdown partial: 'apis/descriptions/graphql_cluster_id' %>
 
 <!-- ## Delete a cluster -->
 

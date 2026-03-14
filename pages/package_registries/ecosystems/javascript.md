@@ -29,9 +29,9 @@ You can also configure these files yourself (modifying the snippets as required)
     ```
 
     where:
-    <%= render_markdown_raw partial: 'package_registries/org_slug' %>
-    <%= render_markdown_raw partial: 'package_registries/javascript_registry_slug' %>
-    <%= render_markdown_raw partial: 'package_registries/javascript_registry_write_token' %>
+    <%= render_markdown partial: 'package_registries/org_slug' %>
+    <%= render_markdown partial: 'package_registries/javascript_registry_slug' %>
+    <%= render_markdown partial: 'package_registries/javascript_registry_write_token' %>
 
     **Note:**
     * If your `.npmrc` file doesn't exist, this command automatically creates it for you.
@@ -63,7 +63,7 @@ A JavaScript package's details can be accessed from this registry through the **
 1. Select your JavaScript source registry on this page.
 1. On your JavaScript source registry page, select the package to display its details page.
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/package_details_page_sections' %>
+<%= render_markdown partial: 'package_registries/ecosystems/package_details_page_sections' %>
 
 ### Downloading a package
 
@@ -93,9 +93,9 @@ npm set //packages.buildkite.com/{org.slug}/{registry.slug}/npm/:_authToken regi
 
 where:
 
-<%= render_markdown_raw partial: 'package_registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>
 
 - `registry-read-token` is your [API access token](https://buildkite.com/user/api-access-tokens) or [registry token](/docs/package-registries/registries/manage#configure-registry-tokens) used to download packages from your JavaScript source registry. Ensure this access token has the **Read Packages** REST API scope, which allows this token to download packages from any registry your user account has access to within your Buildkite organization.
 
@@ -118,6 +118,6 @@ where:
 
 - `version.number` is the version of your Node.js package (that is, the `version` field value from its `package.json` file).
 
-<%= render_markdown_raw partial: 'package_registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/registry_slug' %>
+<%= render_markdown partial: 'package_registries/ecosystems/registry_slug' %>

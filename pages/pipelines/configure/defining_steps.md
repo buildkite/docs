@@ -135,7 +135,7 @@ When you run a pipeline, a build is created. The following diagram shows you how
 
 <%= image "build-states.png", alt: "Build state diagram" %>
 
-<%= render_markdown_raw partial: 'pipelines/configure/build_states' %>
+<%= render_markdown partial: 'pipelines/configure/build_states' %>
 
 ### Build timestamps
 
@@ -221,7 +221,7 @@ See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information a
 > 📘 REST API state mapping
 > The [REST API](/docs/apis/rest-api) maps the internal `finished` state to `passed` or `failed` based on the job's exit status. When querying job states via the REST API, you'll see `passed` or `failed` instead of `finished`. The REST API also lists `limiting` and `limited` as `scheduled` for legacy compatibility.
 
-<%= render_markdown_raw partial: 'pipelines/configure/job_states' %>
+<%= render_markdown partial: 'pipelines/configure/job_states' %>
 
 Each job in a build also has a footer that displays exit status information. It may include an exit signal reason, which indicates whether the Buildkite agent stopped or the job was canceled.
 

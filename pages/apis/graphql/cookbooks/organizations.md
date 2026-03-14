@@ -2,7 +2,7 @@
 
 A collection of common tasks with Buildkite organizations using the GraphQL API.
 
-<%= render_markdown_raw partial: 'apis/graphql/cookbooks/graphql_console_link' %>
+<%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
 ## Get organization ID
 

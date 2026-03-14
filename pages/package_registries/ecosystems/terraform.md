@@ -32,13 +32,13 @@ curl -X POST https://api.buildkite.com/v2/packages/organizations/{org.slug}/regi
 
 where:
 
-<%= render_markdown_raw partial: 'package_registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the slug of your Terraform registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of your Terraform registry name, and can be obtained after accessing **Package Registries** in the global navigation > your Terraform registry from the **Registries** page.
 
 - `$REGISTRY_WRITE_TOKEN` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload modules to your Terraform source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish modules and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Terraform source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/path_to_terraform_module' %>
+<%= render_markdown partial: 'package_registries/ecosystems/path_to_terraform_module' %>
 
 For example, to upload the file `terraform-buildkite-pipeline-1.0.0.tgz` from the current directory to the **My Terraform modules** source registry in the **My organization** Buildkite organization, run the `curl` command:
 
@@ -60,11 +60,11 @@ where:
 
 - `registry-slug` is the slug of your Terraform source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your file source registry from the **Registries** page.
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/path_to_terraform_module' %>
+<%= render_markdown partial: 'package_registries/ecosystems/path_to_terraform_module' %>
 
 <h4 id="token-usage-with-the-buildkite-cli">Token usage with the Buildkite CLI</h4>
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/buildkite_cli_token_usage' %>
+<%= render_markdown partial: 'package_registries/ecosystems/buildkite_cli_token_usage' %>
 
 ## Access a module's details
 

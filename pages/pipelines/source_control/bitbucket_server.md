@@ -29,12 +29,12 @@ Buildkite includes built-in instructions on how to set up a Bitbucket Server web
 
 ## Branch configuration and settings
 
-<%= render_markdown_raw partial: 'pipelines/source_control/branch_config_settings' %>
+<%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 ## Using one repository in multiple pipelines and organizations
 
-<%= render_markdown_raw partial: 'pipelines/source_control/one_repo_multi_org' %>
+<%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org' %>
 
 ## Build skipping
 
-<%= render_markdown_raw partial: 'pipelines/source_control/build_skipping' %>
+<%= render_markdown partial: 'pipelines/source_control/build_skipping' %>

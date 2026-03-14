@@ -5,7 +5,7 @@ toc: false
 
 # OIDC in Buildkite Pipelines
 
-<%= render_markdown_raw partial: 'platform/oidc_introduction' %>
+<%= render_markdown partial: 'platform/oidc_introduction' %>
 
 You can configure third-party products and services, such as [AWS](https://aws.amazon.com/), [GCP](https://cloud.google.com/), [Azure](https://azure.microsoft.com/) and many others, as well as Buildkite products, such as [Package Registries](/docs/package-registries/security/oidc), with OIDC policies that only permit Buildkite agent interactions from specific Buildkite organizations, pipelines, agents, and other metadata associated with the pipeline's job.
 

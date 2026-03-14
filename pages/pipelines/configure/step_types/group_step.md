@@ -116,11 +116,11 @@ Optional attributes:
 
 ## Agent-applied attributes
 
-<%= render_markdown_raw partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
+<%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
 ### if_changed
 
-<%= render_markdown_raw partial: 'pipelines/configure/step_types/if_changed_attribute' %>
+<%= render_markdown partial: 'pipelines/configure/step_types/if_changed_attribute' %>
 
 ## Parallel groups
 

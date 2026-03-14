@@ -70,7 +70,7 @@ sudo tail -f /var/log/messages
 
 ## SSH key configuration
 
-<%= render_markdown_raw partial: 'agent/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/self_hosted/install/ssh_key_with_buildkite_agent_user' %>
 
 See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) documentation for more details.
 
@@ -95,7 +95,7 @@ On Red Hat, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 
-<%= render_markdown_raw partial: 'agent/self_hosted/install/linux_multiple_agents' %>
+<%= render_markdown partial: 'agent/self_hosted/install/linux_multiple_agents' %>
 
 ## Upgrading
 
@@ -105,4 +105,4 @@ sudo yum clean expire-cache && sudo yum update buildkite-agent
 
 ## Systemd modifications
 
-<%= render_markdown_raw partial: 'agent/self_hosted/install/linux_systemd_modifications' %>
+<%= render_markdown partial: 'agent/self_hosted/install/linux_systemd_modifications' %>

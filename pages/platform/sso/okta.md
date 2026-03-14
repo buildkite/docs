@@ -53,4 +53,4 @@ This can be done one of two ways:
 
 ## SAML user attributes
 
-<%= render_markdown_raw partial: 'platform/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>

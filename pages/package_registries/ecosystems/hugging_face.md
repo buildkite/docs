@@ -44,7 +44,7 @@ where:
 
 - `huggingface-token` is your [Hugging Face user access token](https://huggingface.co/docs/hub/security-tokens) required to access the Hugging Face model from the [Hugging Face Hub](https://huggingface.co/docs/hub/index).
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/hugging_face_namespace_and_repo' %>
+<%= render_markdown partial: 'package_registries/ecosystems/hugging_face_namespace_and_repo' %>
 
 #### Step 2: Publish your model version
 
@@ -60,11 +60,11 @@ where:
 
 - `registry-write-token` is your [API access token](https://buildkite.com/user/api-access-tokens) used to publish/upload a new model version to your Hugging Face source registry. Ensure this access token has the **Read Packages** and **Write Packages** REST API scopes, which allows this token to publish new model versions and other package types to any source registry your user account has access to within your Buildkite organization. Alternatively, you can use an OIDC token that meets your Hugging Face source registry's [OIDC policy](/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry). Learn more about these tokens in [OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc).
 
-<%= render_markdown_raw partial: 'package_registries/org_slug' %>
+<%= render_markdown partial: 'package_registries/org_slug' %>
 
 - `{registry.slug}` is the slug of your Hugging Face source registry, which is the [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) version of this registry's name, and can be obtained after accessing **Package Registries** in the global navigation > your Hugging Face source registry from the **Registries** page.
 
-<%= render_markdown_raw partial: 'package_registries/ecosystems/hugging_face_namespace_and_repo' %>
+<%= render_markdown partial: 'package_registries/ecosystems/hugging_face_namespace_and_repo' %>
 
 - `local-folder` is the location of the locally cached Hugging Face model version. This can be found in the following path: `~/.cache/huggingface/hub/models--{huggingface.namespace}--{huggingface.repo.name}/snapshots/{commit.sha}/`, where `{commit.sha}` represents the Git commit SHA of model version you want to publish to this repository.
 

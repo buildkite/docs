@@ -23,7 +23,7 @@ Learn more about:
 
 Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
 
-<%= render_markdown_raw partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
 
 Also note the following about macOS hosted agent instances.
 
@@ -37,7 +37,7 @@ If you have specific needs for longer running hosted agents (over 4 hours), plea
 
 macOS hosted agents can operate concurrently when running your Buildkite pipeline jobs.
 
-<%= render_markdown_raw partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
+<%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
 The number of macOS hosted agents (of a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Mac M4 Concurrency** that applies to your plan.
 
@@ -286,6 +286,6 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 
 ## Security
 
-<%= render_markdown_raw partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
+<%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
 
 Note that for macOS hosted agents, virtualization is achieved through Apple's Virtualization framework on Apple Silicon, providing lightweight but secure virtual machine isolation. Learn more about [How Buildkite hosted agents work](/docs/agent/buildkite-hosted#how-buildkite-hosted-agents-work).
