@@ -4,6 +4,8 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach — it provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while keeping code and secrets on infrastructure they control.
 
+<%= render "logo_marquee" %>
+
 ## Why teams switch to Buildkite Pipelines
 
 Regardless of which CI/CD system you're comparing Buildkite Pipelines to, whether it's [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), [GitHub Actions](/docs/pipelines/migration/from-githubactions), CircleCI, or others, several fundamental advantages hold true.
