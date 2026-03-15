@@ -7,6 +7,8 @@ description: "Hybrid CI/CD with unlimited concurrency and dynamic pipelines — 
 
 Buildkite Pipelines is a hybrid CI/CD platform that orchestrates builds through a managed control plane while execution happens on infrastructure you control. Source code, secrets, and build artifacts never leave your environment.
 
+<%= render "logo_marquee" %>
+
 This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
 
 ## Core differentiators
@@ -19,8 +21,6 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 - **Predictable pricing.** Concurrency- or time-based billing with no surprise charges or credit limits.
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need.
-
-<%= render "logo_marquee" %>
 
 ## Why teams switch to Buildkite Pipelines
 
