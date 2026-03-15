@@ -1398,6 +1398,8 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_enabled</code></th>
+    <td>Whether to limit the creation of builds to specific branches or patterns.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_configuration</code></th>
