@@ -4,12 +4,23 @@ The team pipelines API endpoint allows users to review, create, update, and dele
 
 ## Team pipeline data model
 
-<table class="responsive-table">
-<tbody>
-  <tr><th><code>pipeline_id</code></th><td>UUID of the pipeline</td></tr>
-  <tr><th><code>access_level</code></th><td>The access levels that users have to the associated pipeline - <code>read_only</code>, <code>build_and_read</code>, <code>manage_build_and_read</code></td></tr>
-  <tr><th><code>pipeline_url</code></th><td>URL of the pipeline</td></tr>
-  <tr><th><code>created_at</code></th><td>When the team and pipeline association was created</td></tr>
+<table class="responsive-table"><tbody>
+  <tr>
+    <th><code>pipeline_id</code></th>
+    <td>UUID of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>access_level</code></th>
+    <td>The access levels that users have to the associated pipeline - <code>read_only</code>, <code>build_and_read</code>, <code>manage_build_and_read</code></td>
+  </tr>
+  <tr>
+    <th><code>pipeline_url</code></th>
+    <td>URL of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the team and pipeline association was created</td>
+  </tr>
 </tbody>
 </table>
 
@@ -82,8 +93,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table">
-<tbody>
+<table class="responsive-table"><tbody>
   <tr>
     <th><code>pipeline_id</code></th>
     <td>The UUID of the pipeline.</td>
@@ -101,9 +111,11 @@ Success response: `201 Created`
 
 Error responses:
 
-<table class="responsive-table">
-<tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+<table class="responsive-table"><tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -131,8 +143,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table">
-<tbody>
+<table class="responsive-table"><tbody>
   <tr>
     <th><code>access_level</code></th>
     <td>The access level for the pipeline - <code>read_only</code>, <code>build_and_read</code> or <code>manage_build_and_read</code>.</td>
@@ -146,9 +157,11 @@ Success response: `200 OK`
 
 Error responses:
 
-<table class="responsive-table">
-<tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+<table class="responsive-table"><tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -167,8 +180,10 @@ Success response: `204 No Content`
 
 Error responses:
 
-<table class="responsive-table">
-<tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the team pipeline couldn't be deleted" }</code></td></tr>
+<table class="responsive-table"><tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the team pipeline couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>
