@@ -55,7 +55,10 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td></tr>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -108,7 +111,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>priority</code></th><td>An integer value representing the job's priority. Higher values indicate higher priority.<br><em>Example: 5</em></td></tr>
+  <tr>
+    <th><code>priority</code></th>
+    <td>An integer value representing the job's priority. Higher values indicate higher priority.<br><em>Example: 5</em></td>
+  </tr>
 </tbody>
 </table>
 
@@ -120,7 +126,10 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Priority must be an integer" }</code></td></tr>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Priority must be an integer" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -166,11 +175,15 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>unblocker</code></th><td>The user id of the person activating the job.<br><em>Default value: the user making the API request</em>.</td></tr>
-  <tr><th>
-    <code>fields</code></th><td>The values for the <a href="/docs/pipelines/configure/step-types/block-step#block-step-attributes">block step's fields</a>.<br>
-    <p class="Docs__api-param-eg"><em>Example:</em> <code>{"release-name": "Flying Dolpin"}</code></p>
-  </td></tr>
+  <tr>
+    <th><code>unblocker</code></th>
+    <td>The user id of the person activating the job.<br><em>Default value: the user making the API request</em>.</td>
+  </tr>
+  <tr>
+    <th><code>fields</code></th>
+    <td>The values for the <a href="/docs/pipelines/configure/step-types/block-step#block-step-attributes">block step's fields</a>.<br>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>{"release-name": "Flying Dolpin"}</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -182,8 +195,14 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "This job type cannot be unblocked" }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Unblocker is not a valid user id for this organization"}</code></td></tr>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "This job type cannot be unblocked" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Unblocker is not a valid user id for this organization"}</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -211,8 +230,16 @@ Alternative formats (using `Accept` header or file extension):
 
 <table>
 <tbody>
-  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job's raw log content</td></tr>
-  <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job's log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td></tr>
+  <tr>
+    <th><code>text/plain</code></th>
+    <th><code>.txt</code></th>
+    <td>The job's raw log content</td>
+  </tr>
+  <tr>
+    <th><code>text/html</code></th>
+    <th><code>.html</code></th>
+    <td>The job's log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td>
+  </tr>
 </tbody>
 </table>
 
@@ -273,7 +300,11 @@ Alternative formats (using `Accept` header or file extension):
 <!-- vale off -->
 <table>
 <tbody>
-  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job's environment in a <code>KEY=VALUE</code> format suitable for parsing by tools such as <a href="https://github.com/bkeepers/dotenv">dotenv</a></td></tr>
+  <tr>
+    <th><code>text/plain</code></th>
+    <th><code>.txt</code></th>
+    <td>The job's environment in a <code>KEY=VALUE</code> format suitable for parsing by tools such as <a href="https://github.com/bkeepers/dotenv">dotenv</a></td>
+  </tr>
 </tbody>
 </table>
 <!-- vale on -->

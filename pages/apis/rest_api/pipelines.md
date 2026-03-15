@@ -14,37 +14,130 @@ This section of the REST API documentation also contains several other endpoints
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>id</code></th><td>UUID of the pipeline</td></tr>
-  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the pipeline</td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the pipeline</td></tr>
-  <tr><th><code>web_url</code></th><td>URL of the pipeline on Buildkite</td></tr>
-  <tr><th><code>name</code></th><td>Name of the pipeline</td></tr>
-  <tr><th><code>description</code></th><td>Description of the pipeline</td></tr>
-  <tr><th><code>slug</code></th><td>URL slug of the pipeline</td></tr>
-  <tr><th><code>repository</code></th><td>URL of the source code repository</td></tr>
-  <tr><th><code>cluster_id</code></th><td>UUID of the cluster the pipeline belongs to (if using clusters)</td></tr>
-  <tr><th><code>branch_configuration</code></th><td>Branch filter pattern for limiting which branches trigger builds</td></tr>
-  <tr><th><code>default_branch</code></th><td>Default branch for the pipeline</td></tr>
-  <tr><th><code>skip_queued_branch_builds</code></th><td>Whether to skip intermediate builds on the same branch (<code>true</code>, <code>false</code>)</td></tr>
-  <tr><th><code>skip_queued_branch_builds_filter</code></th><td>Branch filter pattern for skip queued builds behavior</td></tr>
-  <tr><th><code>cancel_running_branch_builds</code></th><td>Whether to cancel running builds when a new build is created on the same branch (<code>true</code>, <code>false</code>)</td></tr>
-  <tr><th><code>cancel_running_branch_builds_filter</code></th><td>Branch filter pattern for cancel running builds behavior</td></tr>
-  <tr><th><code>allow_rebuilds</code></th><td>Whether rebuilds are allowed (<code>true</code>, <code>false</code>)</td></tr>
-  <tr><th><code>provider</code></th><td>Source control provider settings (includes <code>id</code>, <code>webhook_url</code>, and <code>settings</code>)</td></tr>
-  <tr><th><code>builds_url</code></th><td>API URL for the pipeline's builds</td></tr>
-  <tr><th><code>badge_url</code></th><td>URL for the pipeline's build status badge</td></tr>
-  <tr><th><code>created_by</code></th><td>User who created the pipeline</td></tr>
-  <tr><th><code>created_at</code></th><td>When the pipeline was created</td></tr>
-  <tr><th><code>archived_at</code></th><td>When the pipeline was archived (if archived)</td></tr>
-  <tr><th><code>env</code></th><td>Environment variables configured for the pipeline</td></tr>
-  <tr><th><code>scheduled_builds_count</code></th><td>Number of currently scheduled builds</td></tr>
-  <tr><th><code>running_builds_count</code></th><td>Number of currently running builds</td></tr>
-  <tr><th><code>scheduled_jobs_count</code></th><td>Number of currently scheduled jobs</td></tr>
-  <tr><th><code>running_jobs_count</code></th><td>Number of currently running jobs</td></tr>
-  <tr><th><code>waiting_jobs_count</code></th><td>Number of jobs waiting for agents</td></tr>
-  <tr><th><code>visibility</code></th><td>Visibility of the pipeline: <code>private</code> or <code>public</code></td></tr>
-  <tr><th><code>steps</code></th><td>Array of step configurations (for non-YAML pipelines)</td></tr>
-  <tr><th><code>configuration</code></th><td>YAML pipeline configuration (for YAML pipelines)</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>UUID of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>graphql_id</code></th>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>web_url</code></th>
+    <td>URL of the pipeline on Buildkite</td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>URL slug of the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>repository</code></th>
+    <td>URL of the source code repository</td>
+  </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>UUID of the cluster the pipeline belongs to (if using clusters)</td>
+  </tr>
+  <tr>
+    <th><code>branch_configuration</code></th>
+    <td>Branch filter pattern for limiting which branches trigger builds</td>
+  </tr>
+  <tr>
+    <th><code>default_branch</code></th>
+    <td>Default branch for the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds</code></th>
+    <td>Whether to skip intermediate builds on the same branch (<code>true</code>, <code>false</code>)</td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds_filter</code></th>
+    <td>Branch filter pattern for skip queued builds behavior</td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds</code></th>
+    <td>Whether to cancel running builds when a new build is created on the same branch (<code>true</code>, <code>false</code>)</td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds_filter</code></th>
+    <td>Branch filter pattern for cancel running builds behavior</td>
+  </tr>
+  <tr>
+    <th><code>allow_rebuilds</code></th>
+    <td>Whether rebuilds are allowed (<code>true</code>, <code>false</code>)</td>
+  </tr>
+  <tr>
+    <th><code>provider</code></th>
+    <td>Source control provider settings (includes <code>id</code>, <code>webhook_url</code>, and <code>settings</code>)</td>
+  </tr>
+  <tr>
+    <th><code>builds_url</code></th>
+    <td>API URL for the pipeline's builds</td>
+  </tr>
+  <tr>
+    <th><code>badge_url</code></th>
+    <td>URL for the pipeline's build status badge</td>
+  </tr>
+  <tr>
+    <th><code>created_by</code></th>
+    <td>User who created the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the pipeline was created</td>
+  </tr>
+  <tr>
+    <th><code>archived_at</code></th>
+    <td>When the pipeline was archived (if archived)</td>
+  </tr>
+  <tr>
+    <th><code>env</code></th>
+    <td>Environment variables configured for the pipeline</td>
+  </tr>
+  <tr>
+    <th><code>scheduled_builds_count</code></th>
+    <td>Number of currently scheduled builds</td>
+  </tr>
+  <tr>
+    <th><code>running_builds_count</code></th>
+    <td>Number of currently running builds</td>
+  </tr>
+  <tr>
+    <th><code>scheduled_jobs_count</code></th>
+    <td>Number of currently scheduled jobs</td>
+  </tr>
+  <tr>
+    <th><code>running_jobs_count</code></th>
+    <td>Number of currently running jobs</td>
+  </tr>
+  <tr>
+    <th><code>waiting_jobs_count</code></th>
+    <td>Number of jobs waiting for agents</td>
+  </tr>
+  <tr>
+    <th><code>visibility</code></th>
+    <td>Visibility of the pipeline: <code>private</code> or <code>public</code></td>
+  </tr>
+  <tr>
+    <th><code>steps</code></th>
+    <td>Array of step configurations (for non-YAML pipelines)</td>
+  </tr>
+  <tr>
+    <th><code>configuration</code></th>
+    <td>YAML pipeline configuration (for YAML pipelines)</td>
+  </tr>
 </tbody>
 </table>
 
@@ -129,8 +222,14 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
 <tbody>
-  <tr><th><code>name</code></th><td>Filters the results by the pipeline name. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=agent</code></p></td></tr>
-  <tr><th><code>repository</code></th><td>Filters the results by the repository URL of the source repository. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?repository=agent</code></p></td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Filters the results by the pipeline name. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=agent</code></p></td>
+  </tr>
+  <tr>
+    <th><code>repository</code></th>
+    <td>Filters the results by the repository URL of the source repository. Supports partial matches and is case insensitive.<p class="Docs__api-param-eg"><em>Example:</em> <code>?repository=agent</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -353,9 +452,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>configuration</code></th>
-    <td>
-      The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code>
-    </td>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code></td>
   </tr>
   </tbody>
 </table>
@@ -366,117 +463,85 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>allow_rebuilds</code></th>
-    <td>
-      <p>Enables rebuilding of existing builds.</p>
-      <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p>
-    </td>
+    <td><p>Enables rebuilding of existing builds.</p>
+      <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p></td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>
-      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
-      <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p>
-    </td>
+    <td><p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
+      <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds</code></th>
-    <td>
-      <p>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.</p>
-      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p>
-    </td>
+    <td><p>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.</p>
+      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
-    <td>
-      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
-      <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
-    </td>
+    <td><p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
+      <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>color</code></th>
-    <td>
-      <p>A color hex code to represent this pipeline.</p>
-      <p><em>Example:</em> <code>"#FF5733"</code></p>
-    </td>
+    <td><p>A color hex code to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"#FF5733"</code></p></td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
-    <td>
-      <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
-      <p><em>Example:</em> <code>"main"</code></p>
-    </td>
+    <td><p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
+      <p><em>Example:</em> <code>"main"</code></p></td>
   </tr>
   <tr>
     <th><code>default_command_step_timeout</code></th>
-    <td>
-      <p>The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.</p>
-      <p><em>Example:</em> <code>30</code></p>
-    </td>
+    <td><p>The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.</p>
+      <p><em>Example:</em> <code>30</code></p></td>
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>
-      <p>The pipeline description.</p>
-      <p><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p>
-    </td>
+    <td><p>The pipeline description.</p>
+      <p><em>Example:</em> <code>"\:package\: A testing pipeline"</code></p></td>
   </tr>
   <tr>
     <th><code>emoji</code></th>
-    <td>
-      <p>An emoji to represent this pipeline.</p>
-      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p>
-    </td>
+    <td><p>An emoji to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p></td>
   </tr>
   <tr>
     <th><code>maximum_command_step_timeout</code></th>
-    <td>
-      <p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
-      <p><em>Example:</em> <code>120</code></p>
-    </td>
+    <td><p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
+      <p><em>Example:</em> <code>120</code></p></td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
-    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
-    <td>
-      <p>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties.</p>
-      <p><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p>
-    </td>
+    <td><p>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties.</p>
+      <p><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
-    <td>
-      <p>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.</p>
-      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p>
-    </td>
+    <td><p>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.</p>
+      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
-    <td>
-      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
-      <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
-    </td>
+    <td><p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
+      <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>slug</code></th>
-    <td>
-      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
-      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
-    </td>
+    <td><p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p></td>
   </tr>
   <tr>
     <th><code>tags</code></th>
-    <td>
-      <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
-      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
-    </td>
+    <td><p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p></td>
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>
-      <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
+    <td><p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
       <ul>
         <li><code>read_only</code></li>
         <li><code>build_and_read</code></li>
@@ -491,14 +556,11 @@ teams: {
   "3f195bcd-28f2-4e1a-bcff-09f3543e5abf": "build_and_read"
   "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
 }
-```} %>
-    </td>
+```} %></td>
   </tr>
   <tr>
     <th><code>visibility</code></th>
-    <td>
-      <p>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p>
-    </td>
+    <td><p>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
   </tr>
 </tbody>
 </table>
@@ -511,7 +573,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -703,9 +768,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>steps</code></th>
-    <td>
-      An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
-    </td>
+    <td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></td>
   </tr>
   </tbody>
 </table>
@@ -716,89 +779,65 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>
-      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
-      <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p>
-    </td>
+    <td><p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
+      <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds</code></th>
-    <td>
-      <p>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.</p>
-      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p>
-    </td>
+    <td><p>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.</p>
+      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
-    <td>
-      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
-      <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
-    </td>
+    <td><p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
+      <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
-    <td>
-      <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
-      <p><em>Example:</em> <code>"main"</code></p>
-    </td>
+    <td><p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
+      <p><em>Example:</em> <code>"main"</code></p></td>
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>
-      <p>The pipeline description.</p>
-      <p><em>Example:</em> <code>":package: A testing pipeline"</code></p>
-    </td>
+    <td><p>The pipeline description.</p>
+      <p><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
   </tr>
   <tr>
     <th><code>env</code></th>
-    <td>
-      <p>The pipeline environment variables.</p>
-      <p><em>Example:</em> <code>{"KEY":"value"}</code></p>
-    </td>
+    <td><p>The pipeline environment variables.</p>
+      <p><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
-    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
-    <td>
-      <p>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties.</p>
-      <p><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p>
-    </td>
+    <td><p>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties.</p>
+      <p><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
-    <td>
-      <p>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.</p>
-      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p>
-    </td>
+    <td><p>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.</p>
+      <p><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
-    <td>
-      <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
-      <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
-    </td>
+    <td><p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
+      <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>slug</code></th>
-    <td>
-      <p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
-      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
-    </td>
+    <td><p>A custom identifier for the pipeline. If provided, this slug will be used as the pipeline's URL path instead of automatically converting the pipeline name. If the value is <code>null</code>, the pipeline name will be used to generate the slug.</p>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p></td>
   </tr>
   <tr>
     <th><code>tags</code></th>
-    <td>
-      <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
-      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
-    </td>
+    <td><p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to add to this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p></td>
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>
-      <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
+    <td><p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
       <ul>
         <li><code>read_only</code></li>
         <li><code>build_and_read</code></li>
@@ -812,8 +851,7 @@ teams: {
   "14e9501c-69fe-4cda-ae07-daea9ca3afd3": "read_only",
   "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
 }
-```} %>
-    </td>
+```} %></td>
   </tr>
 </tbody>
 </table>
@@ -826,7 +864,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -919,10 +960,8 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>allow_rebuilds</code></th>
-    <td>
-      <p>Enables rebuilding of existing builds.</p>
-      <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p>
-    </td>
+    <td><p>Enables rebuilding of existing builds.</p>
+      <p><em>Example:</em> <code>false</code><br><em>Default:</em> <code>true</code></p></td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -938,14 +977,11 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>color</code></th>
-    <td>
-      <p>A color hex code to represent this pipeline.</p>
-      <p><em>Example:</em> <code>"#FF5733"</code></p>
-    </td>
+    <td><p>A color hex code to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"#FF5733"</code></p></td>
   </tr>
   <tr>
     <th><code>cluster_id</code></th>
-    <td>The ID of the <a href="/docs/pipelines/security/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
   </tr>
   <tr>
     <th><code>configuration</code></th>
@@ -954,15 +990,12 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>default_branch</code></th>
     <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"main"</code></p>
-    </td>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"main"</code></p></td>
   </tr>
   <tr>
     <th><code>default_command_step_timeout</code></th>
-    <td>
-      <p>The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.</p>
-      <p><em>Example:</em> <code>30</code></p>
-    </td>
+    <td><p>The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.</p>
+      <p><em>Example:</em> <code>30</code></p></td>
   </tr>
   <tr>
     <th><code>description</code></th>
@@ -974,28 +1007,21 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>emoji</code></th>
-    <td>
-      <p>An emoji to represent this pipeline.</p>
-      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p>
-    </td>
+    <td><p>An emoji to represent this pipeline.</p>
+      <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p></td>
   </tr>
   <tr>
     <th><code>maximum_command_step_timeout</code></th>
-    <td>
-      <p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
-      <p><em>Example:</em> <code>120</code></p>
-    </td>
+    <td><p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
+      <p><em>Example:</em> <code>120</code></p></td>
   </tr>
   <tr>
     <th><code>name</code></th>
-    <td>
-      <p>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.</p>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p>
-    </td>
+    <td><p>The name of the pipeline. If you provide a new name without a <code>slug</code> parameter, the slug will be automatically updated to match the new name.</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
   </tr>
   <tr>
     <th><code>pipeline_template_uuid</code></th>
-    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
@@ -1015,23 +1041,18 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>slug</code></th>
-    <td>
-      <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
+    <td><p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
       The slug updates whenever the pipeline name changes. If you don't provide a slug when you update the pipeline name, the slug will be automatically generated from the new pipeline name.</p>
-      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
-    </td>
+      <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p></td>
   </tr>
   <tr>
     <th><code>tags</code></th>
-    <td>
-      <p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
-      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p>
-    </td>
+    <td><p>An array of strings representing <a href="/docs/pipelines/configure/tags">tags</a> to modify on this pipeline. Emojis, using the <code>:emoji:</code> string syntax, are also supported.</p>
+      <p><em>Example:</em><code>["\:terraform\:", "testing"]</code></p></td>
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>
-      <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
+    <td><p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
       <ul>
         <li><code>read_only</code></li>
         <li><code>build_and_read</code></li>
@@ -1046,8 +1067,7 @@ teams: {
   "3f195bcd-28f2-4e1a-bcff-09f3543e5abf": "build_and_read"
   "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
 }
-```} %>
-    </td>
+```} %></td>
   </tr>
   <tr>
     <th><code>visibility</code></th>
@@ -1064,7 +1084,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -1149,8 +1172,14 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Pipeline could not be archived." }</code></td></tr>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td><code>{ "message": "Forbidden" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Pipeline could not be archived." }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -1232,8 +1261,14 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Pipeline could not be unarchived." }</code></td></tr>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td><code>{ "message": "Forbidden" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Pipeline could not be unarchived." }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -1265,10 +1300,19 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Auto-creating webhooks is not supported for your repository." }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Webhooks could not be created for your repository." }</code>
-  This error might be returned because an existing webhook has already been created for this pipeline, and the additional webhook could not be created as it is outside the intended scope of this feature.</td></tr>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td><code>{ "message": "Forbidden" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Auto-creating webhooks is not supported for your repository." }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Webhooks could not be created for your repository." }</code>
+  This error might be returned because an existing webhook has already been created for this pipeline, and the additional webhook could not be created as it is outside the intended scope of this feature.</td>
+  </tr>
 </tbody>
 </table>
 
@@ -1282,16 +1326,13 @@ Properties available for all providers:
 <tbody>
   <tr>
     <th><code>filter_enabled</code></th>
-    <td>
-      Whether filter conditions are used for this pipeline.
+    <td>Whether filter conditions are used for this pipeline.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>filter_condition</code></th>
-    <td>
-      The conditions under which this pipeline will trigger a build. See the <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> guide for more information.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.pull_request.base_branch =~ /main/"</code></p>
-    </td>
+    <td>The conditions under which this pipeline will trigger a build. See the <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> guide for more information.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.pull_request.base_branch =~ /main/"</code></p></td>
   </tr>
 </tbody>
 </table>
@@ -1304,20 +1345,17 @@ Properties available for Bitbucket Server:
 <tbody>
   <tr>
     <th><code>build_branches</code></th>
-    <td>
-      Whether to create builds when branches are pushed.
+    <td>Whether to create builds when branches are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>build_pull_requests</code></th>
-    <td>
-      Whether to create builds for commits that are part of a Pull Request.
+    <td>Whether to create builds for commits that are part of a Pull Request.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>build_tags</code></th>
-    <td>
-      Whether to create builds when tags are pushed.
+    <td>Whether to create builds when tags are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
 </tbody>
@@ -1329,65 +1367,50 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 <tbody>
   <tr>
     <th><code>build_branches</code></th>
-    <td>
-      Whether to create builds when branches are pushed.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
-    </td>
+    <td>Whether to create builds when branches are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>build_pull_requests</code></th>
-    <td>
-      Whether to create builds for commits that are part of a Pull Request.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
-    </td>
+    <td>Whether to create builds for commits that are part of a Pull Request.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>build_tags</code></th>
-    <td>
-      Whether to create builds when tags are pushed.
+    <td>Whether to create builds when tags are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_deleted_branch_builds</code></th>
-    <td>
-      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+    <td>A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>publish_commit_status</code></th>
-    <td>
-      Whether to update the status of commits in Bitbucket or GitHub.
+    <td>Whether to update the status of commits in Bitbucket or GitHub.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>publish_commit_status_per_step</code></th>
-    <td>
-      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
+    <td>Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_enabled</code></th>
-    <td>
-      Whether to limit the creation of builds to specific branches or patterns.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
   </tr>
   <tr>
     <th><code>pull_request_branch_filter_configuration</code></th>
-    <td>
-      The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"features/*"</code></p>
-    </td>
+    <td>The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"features/*"</code></p></td>
   </tr>
   <tr>
     <th><code>skip_builds_for_existing_commits</code></th>
-    <td>
-      Whether to skip creating a new build if a build for the commit and branch already exists.
+    <td>Whether to skip creating a new build if a build for the commit and branch already exists.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>skip_pull_request_builds_for_existing_commits</code></th>
-    <td>
-      Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+    <td>Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   </tbody>
@@ -1398,70 +1421,59 @@ Additional properties available for GitHub and GitHub Enterprise:
 <table class="responsive-table responsive-table--wrap-th-codeblocks">
   <tbody>
     <tr>
-      <th><code>build_pull_request_base_branch_changed</code></th>
-      <td>
-        Whether to create builds for pull requests when the base branch is changed.
+    <th><code>build_pull_request_base_branch_changed</code></th>
+    <td>Whether to create builds for pull requests when the base branch is changed.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>build_pull_request_forks</code></th>
-      <td>
-        Whether to create builds for pull requests from third-party forks.
+    <th><code>build_pull_request_forks</code></th>
+    <td>Whether to create builds for pull requests from third-party forks.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>build_pull_request_labels_changed</code></th>
-      <td>
-        Whether to create builds for pull requests when labels are added or removed.
+    <th><code>build_pull_request_labels_changed</code></th>
+    <td>Whether to create builds for pull requests when labels are added or removed.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>build_pull_request_ready_for_review</code></th>
-      <td>
-        Whether to create builds for pull requests that are ready for review.
+    <th><code>build_pull_request_ready_for_review</code></th>
+    <td>Whether to create builds for pull requests that are ready for review.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>build_merge_group_checks_requested</code></th>
-      <td>
-        Whether to create merge queue builds for merge queue enabled GitHub repository with required status checks.
+    <th><code>build_merge_group_checks_requested</code></th>
+    <td>Whether to create merge queue builds for merge queue enabled GitHub repository with required status checks.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>cancel_when_merge_group_destroyed</code></th>
-      <td>
-        Whether to cancel any running builds belonging to a removed merge group.
+    <th><code>cancel_when_merge_group_destroyed</code></th>
+    <td>Whether to cancel any running builds belonging to a removed merge group.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>use_merge_group_base_commit_for_git_diff_base</code></th>
-      <td>
-        When enabled, agents performing a git diff to determine steps to upload based on <a href="/docs/pipelines/configure/step-types/command-step#agent-applied-attributes"><code>if_changed</code></a>
+    <th><code>use_merge_group_base_commit_for_git_diff_base</code></th>
+    <td>When enabled, agents performing a git diff to determine steps to upload based on <a href="/docs/pipelines/configure/step-types/command-step#agent-applied-attributes"><code>if_changed</code></a>
 				comparisons will use the base commit that points to the previous merge group rather than the base branch.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>prefix_pull_request_fork_branch_names</code></th>
-      <td>
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
+    <th><code>prefix_pull_request_fork_branch_names</code></th>
+    <td>Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>publish_blocked_as_pending</code></th>
-      <td>
-        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
+    <th><code>publish_blocked_as_pending</code></th>
+    <td>The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>separate_pull_request_statuses</code></th>
-      <td>
-        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
+    <th><code>separate_pull_request_statuses</code></th>
+    <td>Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
+  </tr>
     <tr>
-      <th><code>trigger_mode</code></th>
-      <td>
-        What type of event to trigger builds on.
+    <th><code>trigger_mode</code></th>
+    <td>What type of event to trigger builds on.
         <ul>
           <li><code>code</code> creates builds when code is pushed to GitHub.</li>
           <li><code>deployment</code> creates builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>.</li>
@@ -1469,6 +1481,6 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
-    </tr>
+  </tr>
   </tbody>
 </table>

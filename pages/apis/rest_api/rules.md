@@ -134,8 +134,7 @@ Required [request body properties](/docs/api#request-body-properties):
     <em>Example:</em>
       <ul>
         <li><code>"pipeline.trigger_build.pipeline"</code><br/>or</li>
-        <li><code>"pipeline.artifacts_read.pipeline"</code></li>
-    </td>
+        <li><code>"pipeline.artifacts_read.pipeline"</code></li></td>
   </tr>
   <tr>
     <th><code>value</code></th>
@@ -153,7 +152,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -174,7 +176,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the rule couldn't be deleted" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the rule couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>
 

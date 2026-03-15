@@ -6,8 +6,14 @@ Cluster maintainers permissions can be assigned to a list of [Users or teams](/d
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>id</code></th><td>The ID of the cluster maintainer assignment.</td></tr>
-    <tr><th><code>actor</code></th><td>Metadata on the assigned User or Team</td></tr>
+    <tr>
+      <th><code>id</code></th>
+      <td>The ID of the cluster maintainer assignment.</td>
+    </tr>
+    <tr>
+      <th><code>actor</code></th>
+      <td>Metadata on the assigned User or Team</td>
+    </tr>
   </tbody>
 </table>
 

@@ -6,14 +6,38 @@ The teams API endpoint allows you to view and manage teams within an organizatio
 
 <table>
 <tbody>
-  <tr><th><code>id</code></th><td>ID of the team</td></tr>
-  <tr><th><code>name</code></th><td>Name of the team</td></tr>
-  <tr><th><code>slug</code></th><td>URL slug of the team</td></tr>
-  <tr><th><code>description</code></th><td>Description of the team</td></tr>
-  <tr><th><code>privacy</code></th><td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td></tr>
-  <tr><th><code>default</code></th><td>Whether users join this team by default (<code>true</code>, <code>false</code>)</td></tr>
-  <tr><th><code>created_at</code></th><td>Time of when the team was created</td></tr>
-  <tr><th><code>created_by</code></th><td>User who created the team</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>ID of the team</td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the team</td>
+  </tr>
+  <tr>
+    <th><code>slug</code></th>
+    <td>URL slug of the team</td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the team</td>
+  </tr>
+  <tr>
+    <th><code>privacy</code></th>
+    <td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td>
+  </tr>
+  <tr>
+    <th><code>default</code></th>
+    <td>Whether users join this team by default (<code>true</code>, <code>false</code>)</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>Time of when the team was created</td>
+  </tr>
+  <tr>
+    <th><code>created_by</code></th>
+    <td>User who created the team</td>
+  </tr>
 </tbody>
 </table>
 
@@ -53,7 +77,10 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
 <tbody>
-  <tr><th><code>user_id</code></th><td>Filters the results to teams that have the given user as a member. <p class="Docs__api-param-eg"><em>Example:</em> <code>?user_id=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td></tr>
+  <tr>
+    <th><code>user_id</code></th>
+    <td>Filters the results to teams that have the given user as a member. <p class="Docs__api-param-eg"><em>Example:</em> <code>?user_id=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -135,16 +162,46 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>name</code></th><td>Name of the team</td></tr>
-    <tr><th><code>description</code></th><td>Description of the team</td></tr>
-    <tr><th><code>privacy</code></th><td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td></tr>
-    <tr><th><code>is_default_team</code></th><td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>default_member_role</code></th><td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td></tr>
-    <tr><th><code>members_can_create_pipelines</code></th><td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_create_suites</code></th><td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_create_registries</code></th><td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_destroy_registries</code></th><td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_destroy_packages</code></th><td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td></tr>
+    <tr>
+    <th><code>name</code></th>
+    <td>Name of the team</td>
+  </tr>
+    <tr>
+    <th><code>description</code></th>
+    <td>Description of the team</td>
+  </tr>
+    <tr>
+    <th><code>privacy</code></th>
+    <td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td>
+  </tr>
+    <tr>
+    <th><code>is_default_team</code></th>
+    <td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>default_member_role</code></th>
+    <td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_create_pipelines</code></th>
+    <td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_create_suites</code></th>
+    <td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_create_registries</code></th>
+    <td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_destroy_registries</code></th>
+    <td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_destroy_packages</code></th>
+    <td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td>
+  </tr>
   </tbody>
 </table>
 
@@ -156,7 +213,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -201,16 +261,46 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>name</code></th><td>Name of the team</td></tr>
-    <tr><th><code>description</code></th><td>Description of the team</td></tr>
-    <tr><th><code>privacy</code></th><td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td></tr>
-    <tr><th><code>is_default_team</code></th><td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>default_member_role</code></th><td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td></tr>
-    <tr><th><code>members_can_create_pipelines</code></th><td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_create_suites</code></th><td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_create_registries</code></th><td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_destroy_registries</code></th><td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td></tr>
-    <tr><th><code>members_can_destroy_packages</code></th><td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td></tr>
+    <tr>
+    <th><code>name</code></th>
+    <td>Name of the team</td>
+  </tr>
+    <tr>
+    <th><code>description</code></th>
+    <td>Description of the team</td>
+  </tr>
+    <tr>
+    <th><code>privacy</code></th>
+    <td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td>
+  </tr>
+    <tr>
+    <th><code>is_default_team</code></th>
+    <td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>default_member_role</code></th>
+    <td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_create_pipelines</code></th>
+    <td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_create_suites</code></th>
+    <td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_create_registries</code></th>
+    <td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_destroy_registries</code></th>
+    <td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td>
+  </tr>
+    <tr>
+    <th><code>members_can_destroy_packages</code></th>
+    <td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td>
+  </tr>
   </tbody>
 </table>
 
@@ -222,7 +312,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -243,7 +336,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the team couldn't be deleted" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the team couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>
 

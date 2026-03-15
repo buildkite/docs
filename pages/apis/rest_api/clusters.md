@@ -15,20 +15,62 @@ A [Buildkite cluster](/docs/pipelines/security/clusters) is an isolated set of a
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>id</code></th><td>ID of the cluster</td></tr>
-  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the cluster</td></tr>
-  <tr><th><code>default_queue_id</code></th><td>ID of the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.</td></tr>
-  <tr><th><code>name</code></th><td>Name of the cluster</td></tr>
-  <tr><th><code>description</code></th><td>Description of the cluster</td></tr>
-  <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a></td></tr>
-  <tr><th><code>color</code></th><td>Color hex code for the cluster</td></tr>
-  <tr><th><code>maintainers</code></th><td>The maintainers of the cluster</td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the cluster</td></tr>
-  <tr><th><code>web_url</code></th><td>URL of the cluster on Buildkite</td></tr>
-  <tr><th><code>queues_url</code></th><td>API URL of the cluster's queues</td></tr>
-  <tr><th><code>default_queue_url</code></th><td>API URL of the cluster's default queue</td></tr>
-  <tr><th><code>created_at</code></th><td>When the cluster was created</td></tr>
-  <tr><th><code>created_by</code></th><td>User who created the cluster</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>ID of the cluster</td>
+  </tr>
+  <tr>
+    <th><code>graphql_id</code></th>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the cluster</td>
+  </tr>
+  <tr>
+    <th><code>default_queue_id</code></th>
+    <td>ID of the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.</td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the cluster</td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the cluster</td>
+  </tr>
+  <tr>
+    <th><code>emoji</code></th>
+    <td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a></td>
+  </tr>
+  <tr>
+    <th><code>color</code></th>
+    <td>Color hex code for the cluster</td>
+  </tr>
+  <tr>
+    <th><code>maintainers</code></th>
+    <td>The maintainers of the cluster</td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the cluster</td>
+  </tr>
+  <tr>
+    <th><code>web_url</code></th>
+    <td>URL of the cluster on Buildkite</td>
+  </tr>
+  <tr>
+    <th><code>queues_url</code></th>
+    <td>API URL of the cluster's queues</td>
+  </tr>
+  <tr>
+    <th><code>default_queue_url</code></th>
+    <td>API URL of the cluster's default queue</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the cluster was created</td>
+  </tr>
+  <tr>
+    <th><code>created_by</code></th>
+    <td>User who created the cluster</td>
+  </tr>
 </tbody>
 </table>
 
@@ -184,7 +226,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>name</code></th><td>Name for the cluster.<br><em>Example:</em> <code>"Open Source"</code></td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name for the cluster.<br><em>Example:</em> <code>"Open Source"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -193,42 +238,27 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table class="responsive-table">
 <tbody>
   <tr>
-    <th>
-      <code>description</code>
-    </th>
-    <td>
-      Description for the cluster.<br/>
-      <em>Example:</em> <code>"A place for safely running our open source builds"</code>
-    </td>
+    <th><code>description</code></th>
+    <td>Description for the cluster.<br/>
+      <em>Example:</em> <code>"A place for safely running our open source builds"</code></td>
   </tr>
   <tr>
-    <th>
-      <code>emoji</code>
-    </th>
-    <td>
-      Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a><br/>
-      <em>Example:</em> <code>"\:technologist\:"</code>
-    </td></tr>
-  <tr>
-    <th>
-      <code>color</code>
-    </th>
-    <td>
-      Color hex code for the cluster.<br/>
-      <em>Example:</em> <code>"#FFE0F1"</code>
-    </td>
+    <th><code>emoji</code></th>
+    <td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a><br/>
+      <em>Example:</em> <code>"\:technologist\:"</code></td>
   </tr>
   <tr>
-    <th>
-      <code>maintainers</code>
-    </th>
-    <td>
-      An array of one or more hashes of representing users or teams to grant maintainer permissions to for this cluster.<br/>
+    <th><code>color</code></th>
+    <td>Color hex code for the cluster.<br/>
+      <em>Example:</em> <code>"#FFE0F1"</code></td>
+  </tr>
+  <tr>
+    <th><code>maintainers</code></th>
+    <td>An array of one or more hashes of representing users or teams to grant maintainer permissions to for this cluster.<br/>
       <em>Example:</em>
       <code>
       [{ "user": "282a043f-4d4f-4db5-ac9a-58673ae02caf" }, { "team": "0da645b7-9840-428f-bd80-0b92ee274480" }]
-      </code>
-    </td>
+      </code></td>
   </tr>
 </tbody>
 </table>
@@ -241,7 +271,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -287,11 +320,26 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>name</code></th><td>Name for the cluster.<br><em>Example:</em> <code>"Open Source"</code></td></tr>
-  <tr><th><code>description</code></th><td>Description for the cluster.<br><em>Example:</em> <code>"A place for safely running our open source builds"</code></td></tr>
-  <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:technologist\:"</code></td></tr>
-  <tr><th><code>color</code></th><td>Color hex code for the cluster.<br><em>Example:</em> <code>"#FFE0F1"</code></td></tr>
-  <tr><th><code>default_queue_id</code></th><td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code></td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name for the cluster.<br><em>Example:</em> <code>"Open Source"</code></td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description for the cluster.<br><em>Example:</em> <code>"A place for safely running our open source builds"</code></td>
+  </tr>
+  <tr>
+    <th><code>emoji</code></th>
+    <td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:technologist\:"</code></td>
+  </tr>
+  <tr>
+    <th><code>color</code></th>
+    <td>Color hex code for the cluster.<br><em>Example:</em> <code>"#FFE0F1"</code></td>
+  </tr>
+  <tr>
+    <th><code>default_queue_id</code></th>
+    <td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -303,7 +351,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -324,6 +375,9 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the cluster couldn't be deleted" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the cluster couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>

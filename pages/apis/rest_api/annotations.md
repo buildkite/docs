@@ -6,12 +6,30 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
 
 <table>
 <tbody>
-  <tr><th><code>id</code></th><td>ID of the annotation</td></tr>
-  <tr><th><code>context</code></th><td>The "context" specified when annotating the build. Only one annotation per build may have any given context value.</td></tr>
-  <tr><th><code>style</code></th><td>The style of the annotation. Can be `success`, `info`, `warning` or `error`.</td></tr>
-  <tr><th><code>body_html</code></th><td>Rendered HTML of the annotation's body</td></tr>
-  <tr><th><code>created_at</code></th><td>When the annotation was first created</td></tr>
-  <tr><th><code>updated_at</code></th><td>When the annotation was last added to or replaced</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>ID of the annotation</td>
+  </tr>
+  <tr>
+    <th><code>context</code></th>
+    <td>The "context" specified when annotating the build. Only one annotation per build may have any given context value.</td>
+  </tr>
+  <tr>
+    <th><code>style</code></th>
+    <td>The style of the annotation. Can be `success`, `info`, `warning` or `error`.</td>
+  </tr>
+  <tr>
+    <th><code>body_html</code></th>
+    <td>Rendered HTML of the annotation's body</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the annotation was first created</td>
+  </tr>
+  <tr>
+    <th><code>updated_at</code></th>
+    <td>When the annotation was last added to or replaced</td>
+  </tr>
 </tbody>
 </table>
 
@@ -87,10 +105,8 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>body</code></th>
-    <td>
-      The annotation's body, as <a href="/docs/pipelines/configure/annotations#formatting-annotations-supported-markdown-syntax">HTML or Markdown</a>.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"My annotation here"</code></p>
-    </td>
+    <td>The annotation's body, as <a href="/docs/pipelines/configure/annotations#formatting-annotations-supported-markdown-syntax">HTML or Markdown</a>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"My annotation here"</code></p></td>
   </tr>
 </tbody>
 </table>
@@ -101,31 +117,23 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>style</code></th>
-    <td>
-      The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code> or <code>error</code>.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"info"</code></p>
-    </td>
+    <td>The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code> or <code>error</code>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"info"</code></p></td>
   </tr>
   <tr>
     <th><code>priority</code></th>
-    <td>
-      The priority of the annotation (`1` to `10`). Annotations with a priority of `10` are shown first, while annotations with a priority of `1` are shown last. When this option is not specified, annotations have a default priority of `3`.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>5</code></p>
-    </td>
+    <td>The priority of the annotation (`1` to `10`). Annotations with a priority of `10` are shown first, while annotations with a priority of `1` are shown last. When this option is not specified, annotations have a default priority of `3`.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>5</code></p></td>
   </tr>
   <tr>
     <th><code>context</code></th>
-    <td>
-      A string value by which to identify the annotation on the build. This is useful when appending to an existing annotation. Only one annotation per build may have any given context value.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"coverage"</code></p>
-    </td>
+    <td>A string value by which to identify the annotation on the build. This is useful when appending to an existing annotation. Only one annotation per build may have any given context value.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"coverage"</code></p></td>
   </tr>
   <tr>
     <th><code>append</code></th>
-    <td>
-      Whether to append the given <code>body</code> onto the annotation with the same context.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>true</code></p>
-    </td>
+    <td>Whether to append the given <code>body</code> onto the annotation with the same context.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>true</code></p></td>
   </tr>
 </tbody>
 </table>

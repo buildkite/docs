@@ -6,17 +6,50 @@ An artifact is a file uploaded by your agent during the execution of a build's j
 
 <table>
 <tbody>
-  <tr><th><code>id</code></th><td>ID of the artifact</td></tr>
-  <tr><th><code>job_id</code></th><td>ID of the job</td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the artifact</td></tr>
-  <tr><th><code>download_url</code></th><td>Artifact Download API URL for the artifact</td></tr>
-  <tr><th><code>state</code></th><td>State of the artifact (<code>new</code>, <code>error</code>, <code>finished</code>, <code>deleted</code>, <code>expired</code>)</td></tr>
-  <tr><th><code>path</code></th><td>Path of the artifact</td></tr>
-  <tr><th><code>dirname</code></th><td>Path of the artifact excluding the filename</td></tr>
-  <tr><th><code>filename</code></th><td>Filename of the artifact</td></tr>
-  <tr><th><code>mime_type</code></th><td>Mime type of the artifact</td></tr>
-  <tr><th><code>file_size</code></th><td>File size of the artifact in bytes</td></tr>
-  <tr><th><code>sha1sum</code></th><td>SHA-1 hash of artifact contents as calculated by the agent</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>ID of the artifact</td>
+  </tr>
+  <tr>
+    <th><code>job_id</code></th>
+    <td>ID of the job</td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the artifact</td>
+  </tr>
+  <tr>
+    <th><code>download_url</code></th>
+    <td>Artifact Download API URL for the artifact</td>
+  </tr>
+  <tr>
+    <th><code>state</code></th>
+    <td>State of the artifact (<code>new</code>, <code>error</code>, <code>finished</code>, <code>deleted</code>, <code>expired</code>)</td>
+  </tr>
+  <tr>
+    <th><code>path</code></th>
+    <td>Path of the artifact</td>
+  </tr>
+  <tr>
+    <th><code>dirname</code></th>
+    <td>Path of the artifact excluding the filename</td>
+  </tr>
+  <tr>
+    <th><code>filename</code></th>
+    <td>Filename of the artifact</td>
+  </tr>
+  <tr>
+    <th><code>mime_type</code></th>
+    <td>Mime type of the artifact</td>
+  </tr>
+  <tr>
+    <th><code>file_size</code></th>
+    <td>File size of the artifact in bytes</td>
+  </tr>
+  <tr>
+    <th><code>sha1sum</code></th>
+    <td>SHA-1 hash of artifact contents as calculated by the agent</td>
+  </tr>
 </tbody>
 </table>
 

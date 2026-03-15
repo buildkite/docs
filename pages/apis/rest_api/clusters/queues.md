@@ -6,20 +6,62 @@
 
 <table class="responsive-table">
   <tbody>
-    <tr><th><code>id</code></th><td>ID of the queue</td></tr>
-    <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the queue</td></tr>
-    <tr><th><code>key</code></th><td>The queue key</td></tr>
-    <tr><th><code>description</code></th><td>Description of the queue</td></tr>
-    <tr><th><code>url</code></th><td>Canonical API URL of the queue</td></tr>
-    <tr><th><code>web_url</code></th><td>URL of the queue on Buildkite</td></tr>
-    <tr><th><code>cluster_url</code></th><td>API URL of the cluster the queue belongs to</td></tr>
-    <tr><th><code>dispatch_paused</code></th><td>Indicates whether the queue has paused dispatching jobs to associated agents</td></tr>
-    <tr><th><code>dispatch_paused_by</code></th><td>User who paused the queue</td></tr>
-    <tr><th><code>dispatch_paused_at</code></th><td>When the queue was paused</td></tr>
-    <tr><th><code>dispatch_paused_note</code></th><td>The note left when the queue was paused</td></tr>
-    <tr><th><code>hosted_agents.agent_image_ref</code></th><td>The custom image URL configured for the queue's hosted agents. Only present on Buildkite hosted queues. This field is a <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a> feature.</td></tr>
-    <tr><th><code>created_at</code></th><td>When the queue was created</td></tr>
-    <tr><th><code>created_by</code></th><td>User who created the queue</td></tr>
+    <tr>
+      <th><code>id</code></th>
+      <td>ID of the queue</td>
+    </tr>
+    <tr>
+      <th><code>graphql_id</code></th>
+      <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the queue</td>
+    </tr>
+    <tr>
+      <th><code>key</code></th>
+      <td>The queue key</td>
+    </tr>
+    <tr>
+      <th><code>description</code></th>
+      <td>Description of the queue</td>
+    </tr>
+    <tr>
+      <th><code>url</code></th>
+      <td>Canonical API URL of the queue</td>
+    </tr>
+    <tr>
+      <th><code>web_url</code></th>
+      <td>URL of the queue on Buildkite</td>
+    </tr>
+    <tr>
+      <th><code>cluster_url</code></th>
+      <td>API URL of the cluster the queue belongs to</td>
+    </tr>
+    <tr>
+      <th><code>dispatch_paused</code></th>
+      <td>Indicates whether the queue has paused dispatching jobs to associated agents</td>
+    </tr>
+    <tr>
+      <th><code>dispatch_paused_by</code></th>
+      <td>User who paused the queue</td>
+    </tr>
+    <tr>
+      <th><code>dispatch_paused_at</code></th>
+      <td>When the queue was paused</td>
+    </tr>
+    <tr>
+      <th><code>dispatch_paused_note</code></th>
+      <td>The note left when the queue was paused</td>
+    </tr>
+    <tr>
+      <th><code>hosted_agents.agent_image_ref</code></th>
+      <td>The custom image URL configured for the queue's hosted agents. Only present on Buildkite hosted queues. This field is a <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a> feature.</td>
+    </tr>
+    <tr>
+      <th><code>created_at</code></th>
+      <td>When the queue was created</td>
+    </tr>
+    <tr>
+      <th><code>created_by</code></th>
+      <td>User who created the queue</td>
+    </tr>
   </tbody>
 </table>
 
@@ -140,7 +182,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>key</code></th><td>Key for the queue.<br><em>Example:</em> <code>"default"</code>
+  <tr>
+    <th><code>key</code></th>
+    <td>Key for the queue.<br><em>Example:</em> <code>"default"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -148,11 +193,17 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>description</code></th><td>Description for the queue.<br/>
-  <em>Example:</em> <code>"The default queue for this cluster"</code>
-  <tr><th><code>retry_agent_affinity</code></th><td> When a job is retried, this setting controls how agents are selected for these retries. This value must be either <code>prefer-warmest</code> (default), which preferences retries on agents that have recently finished jobs, or <code>prefer-different</code>, which preferences retries on different agents, if they're available.<br/>
-  If this property is omitted, then the value <code>prefer-warmest</code> is used.<br/>
-  <em>Example:</em> <code>"prefer-different"</code></td></tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description for the queue.<br/>
+    <em>Example:</em> <code>"The default queue for this cluster"</code>
+  <tr>
+    <th><code>retry_agent_affinity</code></th>
+    <td>When a job is retried, this setting controls how agents are selected for these retries. This value must be either <code>prefer-warmest</code> (default), which preferences retries on agents that have recently finished jobs, or <code>prefer-different</code>, which preferences retries on different agents, if they're available.<br/>
+    If this property is omitted, then the value <code>prefer-warmest</code> is used.<br/>
+    <em>Example:</em> <code>"prefer-different"</code>
+    </td>
+  </tr>
 </tbody>
 </table>
 
@@ -164,7 +215,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -216,7 +270,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>key</code></th><td>Key for the queue.<br><em>Example:</em> <code>"default"</code>
+  <tr>
+    <th><code>key</code></th>
+    <td>Key for the queue.<br><em>Example:</em> <code>"default"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -224,30 +281,31 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code></td>
   <tr>
     <th><code>hostedAgents</code></th>
-    <td>
-      Configures this queue to use <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
-      <br>
-      <em>Example:</em>
-      <br/>
-      <code>
-        { "instanceShape": "LINUX_AMD64_2X4" }
-      </code>
-      <br/>
-      <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
-      <br/>
-      Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
-      <br/><br/>
-      <!--
-      <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
-      <br/>
-      <em>Example:</em>
-      <br/>
-      <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
-      -->
-  </td>
+    <td>Configures this queue to use <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+    <br>
+    <em>Example:</em>
+    <br/>
+    <code>
+      { "instanceShape": "LINUX_AMD64_2X4" }
+    </code>
+    <br/>
+    <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
+    <br/>
+    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
+    <br/><br/>
+    <!--
+    <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+    <br/>
+    <em>Example:</em>
+    <br/>
+    <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
+    -->
+    </td>
   </tr>
 </tbody>
 </table>
@@ -260,7 +318,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -302,32 +363,36 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
-  <tr><th><code>retry_agent_affinity</code></th><td>Controls how agents are selected for retries. Must be one of <code>prefer-warmest</code> or <code>prefer-different</code>.<br><em>Example:</em> <code>"prefer-warmest"</code></td></tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code></td>
+  <tr>
+    <th><code>retry_agent_affinity</code></th>
+    <td>Controls how agents are selected for retries. Must be one of <code>prefer-warmest</code> or <code>prefer-different</code>.<br><em>Example:</em> <code>"prefer-warmest"</code></td>
+  </tr>
   <tr>
     <th><code>hostedAgents</code></th>
-    <td>
-      Updates the <em>instance shape</em> for an existing <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>, which in turn manages <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>.
-      <br>
-      <em>Example:</em>
-      <br/>
-      <code>
-        { "instanceShape": "LINUX_AMD64_2X4" }
-      </code>
-      <br/>
-      <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
-      <br/>
-      It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
-      Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> Buildkite hosted agents.
-      <br/><br/>
-      <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
-      <br/>
-      Also be aware that this property must be specified with <code>instanceShape</code>, even if you are not changing its value. In such circumstances, specify this property's current value.
-      <br/>
-      <em>Example:</em>
-      <br/>
-      <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
-  </td>
+    <td>Updates the <em>instance shape</em> for an existing <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>, which in turn manages <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>.
+    <br>
+    <em>Example:</em>
+    <br/>
+    <code>
+      { "instanceShape": "LINUX_AMD64_2X4" }
+    </code>
+    <br/>
+    <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
+    <br/>
+    It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
+    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> Buildkite hosted agents.
+    <br/><br/>
+    <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+    <br/>
+    Also be aware that this property must be specified with <code>instanceShape</code>, even if you are not changing its value. In such circumstances, specify this property's current value.
+    <br/>
+    <em>Example:</em>
+    <br/>
+    <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
+    </td>
   </tr>
 </tbody>
 </table>
@@ -340,7 +405,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -359,7 +427,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the queue couldn't be deleted" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the queue couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -412,10 +483,8 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>note</code></th>
-    <td>
-      Note explaining why the queue is paused. The note will display on the queue page and any affected builds.
-      <br><em>Example:</em> <code>"Paused while we investigate a security issue"</code>
-    </td>
+    <td>Note explaining why the queue is paused. The note will display on the queue page and any affected builds.
+    <br><em>Example:</em> <code>"Paused while we investigate a security issue"</code></td>
   </tr>
 </tbody>
 </table>
@@ -428,7 +497,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Cluster queue is already paused" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Cluster queue is already paused" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -473,7 +545,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Cluster queue is not paused" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Cluster queue is not paused" }</code></td>
+  </tr>
 </tbody>
 </table>
 
