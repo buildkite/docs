@@ -990,7 +990,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>default_branch</code></th>
-    <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/pipelines/security/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p></td>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>"main"</code></p></td>
   </tr>
   <tr>
@@ -1012,7 +1015,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <p><em>Example:</em> <code>"\:rocket\:"</code> (will be rendered as "🚀")</p></td>
   </tr>
   <tr>
-    <th><code>maximum_command_step_timeout</code></th>
+  <tr>
+    <th><code>pipeline_template_uuid</code></th>
+    <td>The UUID of the <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> the pipeline should run with. Set to <code>null</code> to remove the pipeline template from the pipeline.
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>"018e5a22-d14c-7085-bb28-db0f83f43a1c"</code></p></td>
     <td><p>The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be capped at this limit.</p>
     <p><em>Example:</em> <code>120</code></p></td>
   </tr>
