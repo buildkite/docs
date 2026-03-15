@@ -4,7 +4,8 @@ The team pipelines API endpoint allows users to review, create, update, and dele
 
 ## Team pipeline data model
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>pipeline_id</code></th>
     <td>UUID of the pipeline</td>
@@ -93,7 +94,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>pipeline_id</code></th>
     <td>The UUID of the pipeline.</td>
@@ -111,7 +113,8 @@ Success response: `201 Created`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
@@ -143,7 +146,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>access_level</code></th>
     <td>The access level for the pipeline - <code>read_only</code>, <code>build_and_read</code> or <code>manage_build_and_read</code>.</td>
@@ -157,7 +161,8 @@ Success response: `200 OK`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
@@ -180,7 +185,8 @@ Success response: `204 No Content`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Reason the team pipeline couldn't be deleted" }</code></td>

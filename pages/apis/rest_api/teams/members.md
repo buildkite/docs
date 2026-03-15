@@ -4,7 +4,8 @@ The team members API endpoint allows users to review, create, update, and delete
 
 ## Team member data model
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>user_name</code></th>
     <td>The name of the user</td>
@@ -99,7 +100,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>user_id</code></th>
     <td>The UUID of the user.</td>
@@ -117,7 +119,8 @@ Success response: `201 Created`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
@@ -149,7 +152,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>role</code></th>
     <td>The role the member has within the team - <code>member</code> or <code>maintainer</code></td>
@@ -163,7 +167,8 @@ Success response: `200 OK`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
@@ -186,7 +191,8 @@ Success response: `204 No Content`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Reason the team member couldn't be deleted" }</code></td>

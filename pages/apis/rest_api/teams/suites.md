@@ -4,7 +4,8 @@ The team suites API endpoint allows users to review, create, update, and delete 
 
 ## Team suite data model
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>suite_id</code></th>
     <td>UUID of the suite</td>
@@ -99,7 +100,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>suite_id</code></th>
     <td>The UUID of the suite.</td>
@@ -117,7 +119,8 @@ Success response: `201 Created`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
@@ -149,7 +152,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>access_level</code></th>
     <td>The access level for the suite - <code>read</code> or <code>edit</code></td>
@@ -163,7 +167,8 @@ Success response: `200 OK`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
@@ -186,7 +191,8 @@ Success response: `204 No Content`
 
 Error responses:
 
-<table class="responsive-table"><tbody>
+<table class="responsive-table">
+<tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Reason the team suite couldn't be deleted" }</code></td>
