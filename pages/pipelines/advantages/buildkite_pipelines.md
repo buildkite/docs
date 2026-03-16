@@ -5,13 +5,15 @@ description: "Hybrid CI/CD with unlimited concurrency and dynamic pipelines — 
 
 # Advantages of Buildkite Pipelines
 
-Buildkite Pipelines is a hybrid CI/CD platform that orchestrates builds through a managed control plane while execution happens on infrastructure you control. Source code, secrets, and build artifacts never leave your environment.
+Buildkite Pipelines is a hybrid CI/CD platform that orchestrates builds through a managed control plane while execution happens on infrastructure you control.
 
 <%= render "logo_marquee" %>
 
 This page describes how Buildkite Pipelines differs from other CI/CD tools and why teams choose it.
 
-## Core differentiators
+## Why teams switch to Buildkite Pipelines
+
+Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while developers retain the flexibility to move fast.
 
 - **Hybrid architecture.** Mix self-hosted and Buildkite hosted agents in the same pipeline — run security-sensitive jobs on your own infrastructure and offload everything else to fully managed runners.
 - **Unlimited concurrency.** Scale from a handful of agents to 100,000+ with no concurrency restrictions.
@@ -19,12 +21,6 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 - **Extensibility.** Customize behavior through integrations, [plugins](/docs/pipelines/integrations/plugins), and agent [hooks](/docs/agent/hooks).
 - **Security by design.** Agents are [open source](https://github.com/buildkite/agent), poll for work over HTTPS, and support [pipeline signing](/docs/agent/self-hosted/security/signed-pipelines).
 - **Predictable pricing.** Concurrency- or time-based billing with no surprise charges or credit limits.
-
-Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need.
-
-## Why teams switch to Buildkite Pipelines
-
-A small platform team can support thousands of engineers by setting guardrails through [hooks](/docs/agent/hooks) and [pipeline templates](/docs/pipelines/security/pipeline-templates), while developers retain the flexibility to move fast.
 
 Whether you're comparing Buildkite Pipelines to [GitHub Actions](/docs/pipelines/migration/from-githubactions), [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), CircleCI, or others, these differentiators hold true. See [case studies](https://buildkite.com/resources/cases/) for how engineering organizations use Buildkite Pipelines at scale.
 
