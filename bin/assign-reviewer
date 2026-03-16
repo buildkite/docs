@@ -309,24 +309,37 @@ def notify_zapier(pr_data, reviewer)
     pr_creator: pr_data['user']['login']
   }
 
+  puts "  gh_url:      #{payload[:gh_url]}"
+  puts "  gh_issue_id: #{payload[:gh_issue_id]}"
+  puts "  assignee:    #{assignee}"
+  puts "  pr_creator:  #{payload[:pr_creator]}"
+
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
-    puts "  gh_url: #{payload[:gh_url]}"
-    puts "  assignee: #{assignee}"
-    puts "  pr_creator: #{payload[:pr_creator]}"
     return
   end
 
   begin
     uri = URI(webhook_url)
+    puts "#{CYAN}POST #{uri}#{RESET}"
+    puts "#{CYAN}Request payload:#{RESET}"
+    puts JSON.pretty_generate(payload)
+
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     request.body = payload.to_json
     response = http.request(request)
-    puts "#{GREEN_BOLD}Zapier webhook sent (#{response.code})#{RESET}"
+
+    colour = response.code.to_i < 400 ? GREEN_BOLD : RED_BOLD
+    puts "#{colour}Response: #{response.code} #{response.message}#{RESET}"
+    puts "#{CYAN}Response headers:#{RESET}"
+    response.each_header { |k, v| puts "  #{k}: #{v}" }
+    puts "#{CYAN}Response body:#{RESET}"
+    puts response.body
   rescue => e
-    puts "#{YELLOW}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
+    puts "#{RED_BOLD}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
+    puts e.backtrace.first(5).join("\n")
   end
 end
 
