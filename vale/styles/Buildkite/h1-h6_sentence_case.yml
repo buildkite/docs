@@ -250,6 +250,7 @@ exceptions:
   - Scripted
   - Secret Manager
   - Sequoia
+  - SLA
   - Slack
   - Slack Workspace
   - SLSA
