@@ -27,7 +27,7 @@
   </tr>
   <tr>
     <th><code>finished_from</code></th>
-    <td>Filters the results by builds finished on or after the given time (in ISO 8601 format)</span>
+    <td><span>Filters the results by builds finished on or after the given time (in ISO 8601 format)</span>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?finished_from=2025-01-11T23:22:05Z</code></p></td>
   </tr>
   <tr>
