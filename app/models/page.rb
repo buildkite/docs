@@ -86,18 +86,14 @@ class Page
     def render_markdown(partial: nil, text: nil)
       raise ArgumentError, 'partial or nil not specified' if partial.blank? && text.blank?
 
-      text = if partial
-               render(partial)
-             else
-               text
-             end
+      content = partial ? render(partial) : text
 
       # For .md format requests, return raw markdown
       # For HTML format requests, process markdown to HTML
       if defined?(request) && request.format.symbol == :md
-        text
+        content
       else
-        Page::Renderer.render(text).html_safe
+        Page::Renderer.render(content).html_safe
       end
     end
 
