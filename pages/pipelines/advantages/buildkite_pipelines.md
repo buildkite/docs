@@ -15,6 +15,10 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while developers retain the flexibility to move fast.
 
+See [case studies](https://buildkite.com/resources/cases/) for how engineering organizations use Buildkite Pipelines at scale.
+
+### Core differentiators
+
 - **Hybrid architecture.** Mix self-hosted and Buildkite hosted agents in the same pipeline — run security-sensitive jobs on your own infrastructure and offload everything else to fully managed runners.
 - **Unlimited concurrency.** Scale from a handful of agents to 100,000+ with no concurrency restrictions.
 - **Dynamic pipelines.** Generate and modify pipeline steps at runtime using YAML, the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk), or any language.
@@ -22,11 +26,11 @@ Most CI/CD systems bundle managed infrastructure, features, and opinionated work
 - **Security by design.** Agents are [open source](https://github.com/buildkite/agent), poll for work over HTTPS, and support [pipeline signing](/docs/agent/self-hosted/security/signed-pipelines).
 - **Predictable pricing.** Concurrency- or time-based billing with no surprise charges or credit limits.
 
-Whether you're comparing Buildkite Pipelines to [GitHub Actions](/docs/pipelines/migration/from-githubactions), [Jenkins](/docs/pipelines/migration/from-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), CircleCI, or others, these differentiators hold true. See [case studies](https://buildkite.com/resources/cases/) for how engineering organizations use Buildkite Pipelines at scale.
+Whether you're comparing Buildkite Pipelines to [GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha), [Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), CircleCI, or others, these differentiators hold true.
 
 ## Best-in-class agents for your use case
 
-Buildkite Pipelines is compute-agnostic — the platform handles orchestration, but execution happens wherever you need it. Buildkite Agents can run on [Buildkite hosted infrastructure](/docs/agent/buildkite-hosted), your [Amazon](/docs/agent/self-hosted/aws) or [Google](/docs/agent/self-hosted/gcp) cloud, your [Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) cluster, or your [own servers](/docs/agent/self-hosted/install).
+Buildkite Pipelines is compute-agnostic — the platform handles orchestration, but execution happens wherever you need it. Buildkite agents can run on [Buildkite hosted infrastructure](/docs/agent/buildkite-hosted), your [Amazon](/docs/agent/self-hosted/aws) or [Google](/docs/agent/self-hosted/gcp) cloud, your [Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) cluster, or your [own servers](/docs/agent/self-hosted/install).
 
 ### Buildkite hosted agents
 
@@ -49,7 +53,7 @@ Buildkite Pipelines is compute-agnostic — the platform handles orchestration, 
 
 ## Performance and scale
 
-For organizations with many languages, repositories, or teams brought together through acquisitions, Buildkite Pipelines provides a single CI/CD platform that supports diverse workflows without forcing standardization on one toolchain or build pattern.
+As engineering organizations grow, CI often becomes the point of friction — builds queue, feedback slows, and developers context-switch while waiting. Buildkite Pipelines treats performance as a first-class concern so that CI keeps pace with the teams it serves.
 
 ### Speed and parallelization
 
@@ -61,11 +65,9 @@ Fast feedback loops come from deep [parallelization](/docs/pipelines/best-practi
 
 ### AI workflows
 
-AI-assisted development puts more pressure on CI/CD systems. When developers ship more code faster, CI must absorb the higher build volume without becoming the bottleneck. Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture) and a structured environment that scales with AI-driven workloads.
+AI-assisted development puts more pressure on CI/CD systems. When developers ship more code faster, CI must be able to absorb spikes in build volume from AI-generated code without becoming the bottleneck. Buildkite Pipelines provides [predictable behavior](/docs/pipelines/architecture) and a structured environment that scales with AI-driven workloads.
 
-Add more agents as build volume grows — there are no [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) caps and Buildkite Pipelines scales from small teams to 100,000+ concurrent agents.
-
-- Absorb spikes in build volume from AI-generated code without hitting concurrency caps or queue delays.
+- Add more agents as build volume grows — there are no [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) caps or queue delays as Buildkite Pipelines scales from small teams to hundreds of thousands of concurrent agents.
 - Run AI/ML workloads on GPUs, TPUs, and custom hardware that don't fit a traditional CI shape.
 - Connect AI coding agents to pipelines through the [Buildkite MCP server](/docs/apis/mcp-server) with precise, cached context that stays accurate and token-efficient.
 
@@ -82,9 +84,7 @@ Start with [YAML pipelines](/docs/pipelines/configure/defining-steps), and when 
 
 ## Developer experience
 
-With fast feedback, clear failure messages, and transparent logs, Buildkite Pipelines keeps developers focused on code instead of wasting extra time on debugging CI.
-
-### Build visibility and debugging
+With fast feedback, clear failure messages, and transparent logs, Buildkite Pipelines keeps developers focused on code instead of spending time on debugging CI.
 
 The Buildkite Pipelines interface provides immediate visibility into pipeline behavior and system health through rich build [annotations](/docs/pipelines/configure/annotations), integrated [test results](/docs/test-engine), and transparent failure information.
 
@@ -123,11 +123,21 @@ Buildkite Pipelines specializes in CI/CD rather than bundling source code manage
 - Modify checkout behavior
 - Standardize environments across all pipelines
 
+### Pipeline templates
+
+[Pipeline templates](/docs/pipelines/governance/templates) let administrators of Enterprise-plan Buildkite organizations define standard step configurations that can be applied across all pipelines in an organization.
+
+Use pipeline templates to enforce consistent build patterns, reduce duplication, and give teams a starting point that follows established best practices.
+
 ## Security and compliance
 
-The Buildkite control plane receives only the metadata needed to orchestrate builds — job status, logs, and timing data. Source code and secrets stay on your infrastructure. Buildkite agents are [open source](https://github.com/buildkite/agent) and poll for work over HTTPS rather than exposing inbound ports.
+Buildkite Pipelines separates the control plane from the execution environment. The control plane handles orchestration and receives only build metadata — job status, logs, and timing data. Source code, secrets, and build artifacts remain on infrastructure you control.
 
-For a full overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
+For a full security overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/pipelines/best-practices/security-controls).
+
+### Clusters
+
+[Clusters](/docs/pipelines/security/clusters) create isolated boundaries between agents, queues, and pipelines within a single Buildkite organization. Use clusters to let teams self-manage their own agent pools, restrict which pipelines can run on which agents, and manage [secrets](/docs/pipelines/security/secrets/buildkite-secrets) within a defined scope.
 
 ### Data privacy and residency
 
@@ -135,21 +145,21 @@ Organizations with data residency requirements can control where agents run and 
 
 ### Pipeline signing
 
-[Pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) lets agents cryptographically verify that the steps they run haven't been tampered with, protecting against scenarios where the control plane or an intermediary is compromised. Buildkite Pipelines is one of the few CI/CD platforms where the agent itself can reject tampered instructions rather than relying solely on access controls.
+In Buildkite Pipelines, the agent itself can reject tampered instructions rather than relying solely on access controls.
+
+[Pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) lets agents cryptographically verify that the steps they run haven't been tampered with, protecting against scenarios where the control plane or an intermediary is compromised.
 
 ## Predictable costs
 
 Buildkite Pipelines pricing is based on agent [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency), typically using the 95th percentile, so short bursts don't inflate costs. Learn more in [Pricing](https://buildkite.com/pricing/).
 
 - **No surprise bills.** No per-minute charges, runner-minute overages, or credit allocations to exhaust.
-- **Bring your own compute.** Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) for specialized workloads, or run on your own infrastructure — including spot instances or spare capacity — to optimize costs.
+- **Bring your own compute.** Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) with per-second billing for managed infrastructure, or run on your own infrastructure — including spot instances or spare capacity — to optimize costs.
 - **Developer time matters more than CI minutes.** CI that looks free on paper can be expensive when slow pipelines keep engineers waiting. Buildkite Pipelines is designed to reduce cycle time and eliminate queuing, so the real cost of CI is measured in throughput gained across the engineering organization.
 
 ## Support
 
-Buildkite provides responsive, SLA-regulated hands-on support with direct access to engineers who can advise on implementation and troubleshoot complex configurations.
-
-Enterprise Premium Support includes:
+All Buildkite plans include access to support from engineers who can advise on implementation and troubleshoot complex configurations. Enterprise Premium Support adds:
 
 - 24/7 emergency pager and live chat support
 - Guaranteed SLAs with priority response times
