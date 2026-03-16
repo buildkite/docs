@@ -161,48 +161,48 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
-  <tbody>
-    <tr>
+<tbody>
+  <tr>
     <th><code>name</code></th>
     <td>Name of the team</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>description</code></th>
     <td>Description of the team</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>privacy</code></th>
     <td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>is_default_team</code></th>
     <td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>default_member_role</code></th>
     <td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_create_pipelines</code></th>
     <td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_create_suites</code></th>
     <td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_create_registries</code></th>
     <td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_destroy_registries</code></th>
     <td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_destroy_packages</code></th>
     <td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td>
   </tr>
-  </tbody>
+</tbody>
 </table>
 
 Required scope: `write_teams`
@@ -261,43 +261,43 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
-    <tr>
+  <tr>
     <th><code>name</code></th>
     <td>Name of the team</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>description</code></th>
     <td>Description of the team</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>privacy</code></th>
     <td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>is_default_team</code></th>
     <td>Whether new organization members are assigned to this team by default (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>default_member_role</code></th>
     <td>The default role assigned to members of this team (<code>member</code>, <code>maintainer</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_create_pipelines</code></th>
     <td>Whether or not team members can create new pipelines (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_create_suites</code></th>
     <td>Whether or not team members can create new test suites (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_create_registries</code></th>
     <td>Whether or not team members can create new registries (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_destroy_registries</code></th>
     <td>Whether or not team members can destroy registries (<code>true</code>, <code>false</code>)</td>
   </tr>
-    <tr>
+  <tr>
     <th><code>members_can_destroy_packages</code></th>
     <td>Whether or not team members can destroy packages (<code>true</code>, <code>false</code>)</td>
   </tr>
