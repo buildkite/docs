@@ -939,6 +939,12 @@
       path: "platform/accessibility"
     - name: "Limits"
       path: "platform/limits"
+    - name: "Pricing and plans"
+      path: "platform/pricing-and-plans"
+    - name: "Service level agreement"
+      path: "platform/service-level-agreement"
+    - name: "Legal and policies"
+      path: "platform/legal-and-policies"
 - name: "APIs"
   path: "apis"
   children:

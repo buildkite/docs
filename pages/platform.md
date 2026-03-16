@@ -25,3 +25,9 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
 - [Accessibility](/docs/platform/accessibility), which documents the accessibility features available across the Buildkite web application, including theme options, keyboard navigation, screen reader support, and reduced motion.
 
 - [Limits](/docs/platform/limits), lists Buildkite's default service quota values and how you can alter these if required.
+
+- [Pricing and plans](/docs/platform/pricing-and-plans), with an overview of the available Buildkite plans and links to detailed pricing information.
+
+- [Service level agreement](/docs/platform/service-level-agreement), with details on Buildkite's availability commitments and a link to the status page.
+
+- [Legal and policies](/docs/platform/legal-and-policies), covering terms of service and other legal documents that govern the use of the Buildkite platform.
