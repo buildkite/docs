@@ -828,6 +828,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   }
 }
 ```
+
 > 📘 Webhook URL
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 

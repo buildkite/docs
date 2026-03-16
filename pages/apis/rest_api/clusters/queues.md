@@ -297,7 +297,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
     <br/>
     Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
-    <br/><br/>
+    <br/>
     <!--
     <code>agentImageRef</code> (optional, <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
     <br/>
