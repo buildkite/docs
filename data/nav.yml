@@ -545,6 +545,8 @@
               path: "pipelines/security/oidc"
             - name: "OIDC with AWS"
               path: "pipelines/security/oidc/aws"
+            - name: "OIDC with Azure"
+              path: "pipelines/security/oidc/azure"
         - name: "Permissions"
           path: "pipelines/security/permissions"
     - name: "Governance"
