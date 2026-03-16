@@ -6,20 +6,62 @@
 
 <table>
 <tbody>
-  <tr><th><code>id</code></th><td>ID of the secret</td></tr>
-  <tr><th><code>graphql_id</code></th><td>GraphQL ID of the secret</td></tr>
-  <tr><th><code>key</code></th><td>A unique identifier for the secret</td></tr>
-  <tr><th><code>value</code></th><td>The encrypted secret value. This field is never returned by the API</td></tr>
-  <tr><th><code>description</code></th><td>Description of the secret</td></tr>
-  <tr><th><code>policy</code></th><td>YAML policy defining access rules for the secret</td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the secret</td></tr>
-  <tr><th><code>cluster_url</code></th><td>API URL of the cluster this secret belongs to</td></tr>
-  <tr><th><code>created_at</code></th><td>When the secret was created</td></tr>
-  <tr><th><code>created_by</code></th><td>User who created the secret</td></tr>
-  <tr><th><code>updated_at</code></th><td>When the secret was last updated</td></tr>
-  <tr><th><code>updated_by</code></th><td>User who last updated the secret</td></tr>
-  <tr><th><code>last_read_at</code></th><td>When the secret was last accessed by a build</td></tr>
-  <tr><th><code>organization</code></th><td>Organization this secret belongs to</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>ID of the secret</td>
+  </tr>
+  <tr>
+    <th><code>graphql_id</code></th>
+    <td>GraphQL ID of the secret</td>
+  </tr>
+  <tr>
+    <th><code>key</code></th>
+    <td>A unique identifier for the secret</td>
+  </tr>
+  <tr>
+    <th><code>value</code></th>
+    <td>The encrypted secret value. This field is never returned by the API</td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the secret</td>
+  </tr>
+  <tr>
+    <th><code>policy</code></th>
+    <td>YAML policy defining access rules for the secret</td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the secret</td>
+  </tr>
+  <tr>
+    <th><code>cluster_url</code></th>
+    <td>API URL of the cluster this secret belongs to</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the secret was created</td>
+  </tr>
+  <tr>
+    <th><code>created_by</code></th>
+    <td>User who created the secret</td>
+  </tr>
+  <tr>
+    <th><code>updated_at</code></th>
+    <td>When the secret was last updated</td>
+  </tr>
+  <tr>
+    <th><code>updated_by</code></th>
+    <td>User who last updated the secret</td>
+  </tr>
+  <tr>
+    <th><code>last_read_at</code></th>
+    <td>When the secret was last accessed by a build</td>
+  </tr>
+  <tr>
+    <th><code>organization</code></th>
+    <td>Organization this secret belongs to</td>
+  </tr>
 </tbody>
 </table>
 
@@ -145,7 +187,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>key</code></th><td>A unique identifier for the secret. Must start with a letter and only contain letters, numbers, and underscores. Cannot start with <code>buildkite</code> or <code>bk</code> (case insensitive). Maximum length is 255 characters. Must be unique within the cluster<br><em>Example:</em> <code>"MY_SECRET"</code></td></tr>
+  <tr>
+    <th><code>key</code></th>
+    <td>A unique identifier for the secret. Must start with a letter and only contain letters, numbers, and underscores. Cannot start with <code>buildkite</code> or <code>bk</code> (case insensitive). Maximum length is 255 characters. Must be unique within the cluster<br><em>Example:</em> <code>"MY_SECRET"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -153,9 +198,18 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>value</code></th><td>The secret value to encrypt and store. Must be less than 8 kilobytes. Cannot be blank.<br><em>Example:</em> <code>"secret-value"</code></td></tr>
-  <tr><th><code>description</code></th><td>A description of the secret<br><em>Example:</em> <code>"My secret description"</code></td></tr>
-  <tr><th><code>policy</code></th><td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: main"</code></td></tr>
+  <tr>
+    <th><code>value</code></th>
+    <td>The secret value to encrypt and store. Must be less than 8 kilobytes. Cannot be blank.<br><em>Example:</em> <code>"secret-value"</code></td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>A description of the secret<br><em>Example:</em> <code>"My secret description"</code></td>
+  </tr>
+  <tr>
+    <th><code>policy</code></th>
+    <td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: main"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -211,8 +265,14 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>description</code></th><td>A description of the secret<br><em>Example:</em> <code>"Updated description"</code></td></tr>
-  <tr><th><code>policy</code></th><td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: production"</code></td></tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>A description of the secret<br><em>Example:</em> <code>"Updated description"</code></td>
+  </tr>
+  <tr>
+    <th><code>policy</code></th>
+    <td>YAML policy defining access rules. See <a href="/docs/pipelines/security/secrets/buildkite-secrets/access-policies">Access policies for Buildkite secrets</a> for details on policy structure and available claims<br><em>Example:</em> <code>"- pipeline_slug: my-pipeline\n  build_branch: production"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -220,8 +280,14 @@ Unpermitted [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>key</code></th><td>Attempting to update the <code>key</code> parameter returns an error: <code>"The key parameter cannot be updated."</code></td></tr>
-  <tr><th><code>value</code></th><td>Attempting to update the <code>value</code> parameter returns an error: <code>"The value parameter cannot be updated on this endpoint."</code></td></tr>
+  <tr>
+    <th><code>key</code></th>
+    <td>Attempting to update the <code>key</code> parameter returns an error: <code>"The key parameter cannot be updated."</code></td>
+  </tr>
+  <tr>
+    <th><code>value</code></th>
+    <td>Attempting to update the <code>value</code> parameter returns an error: <code>"The value parameter cannot be updated on this endpoint."</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -274,7 +340,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>value</code></th><td>The new secret value to encrypt and store. Must be less than 8 kilobytes. Cannot be blank.<br><em>Example:</em> <code>"new-secret-value"</code></td></tr>
+  <tr>
+    <th><code>value</code></th>
+    <td>The new secret value to encrypt and store. Must be less than 8 kilobytes. Cannot be blank.<br><em>Example:</em> <code>"new-secret-value"</code></td>
+  </tr>
 </tbody>
 </table>
 

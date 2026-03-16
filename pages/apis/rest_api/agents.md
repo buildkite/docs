@@ -6,22 +6,70 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>id</code></th><td>UUID of the agent</td></tr>
-  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the agent</td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the agent</td></tr>
-  <tr><th><code>web_url</code></th><td>URL of the agent on Buildkite</td></tr>
-  <tr><th><code>name</code></th><td>Name of the agent</td></tr>
-  <tr><th><code>connection_state</code></th><td>Connection state: <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, or <code>stopped</code></td></tr>
-  <tr><th><code>hostname</code></th><td>Hostname of the machine running the agent</td></tr>
-  <tr><th><code>ip_address</code></th><td>IP address of the agent</td></tr>
-  <tr><th><code>user_agent</code></th><td>User agent string identifying the agent version and platform</td></tr>
-  <tr><th><code>version</code></th><td>Version of the Buildkite agent</td></tr>
-  <tr><th><code>creator</code></th><td>User or token that registered the agent</td></tr>
-  <tr><th><code>created_at</code></th><td>When the agent was registered</td></tr>
-  <tr><th><code>job</code></th><td>Current job the agent is running (if any)</td></tr>
-  <tr><th><code>last_job_finished_at</code></th><td>When the agent last finished a job</td></tr>
-  <tr><th><code>priority</code></th><td>Priority value for job assignment</td></tr>
-  <tr><th><code>meta_data</code></th><td>Array of agent tags in <code>key=value</code> format</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>UUID of the agent</td>
+  </tr>
+  <tr>
+    <th><code>graphql_id</code></th>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the agent</td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the agent</td>
+  </tr>
+  <tr>
+    <th><code>web_url</code></th>
+    <td>URL of the agent on Buildkite</td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the agent</td>
+  </tr>
+  <tr>
+    <th><code>connection_state</code></th>
+    <td>Connection state: <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, or <code>stopped</code></td>
+  </tr>
+  <tr>
+    <th><code>hostname</code></th>
+    <td>Hostname of the machine running the agent</td>
+  </tr>
+  <tr>
+    <th><code>ip_address</code></th>
+    <td>IP address of the agent</td>
+  </tr>
+  <tr>
+    <th><code>user_agent</code></th>
+    <td>User agent string identifying the agent version and platform</td>
+  </tr>
+  <tr>
+    <th><code>version</code></th>
+    <td>Version of the Buildkite agent</td>
+  </tr>
+  <tr>
+    <th><code>creator</code></th>
+    <td>User or token that registered the agent</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the agent was registered</td>
+  </tr>
+  <tr>
+    <th><code>job</code></th>
+    <td>Current job the agent is running (if any)</td>
+  </tr>
+  <tr>
+    <th><code>last_job_finished_at</code></th>
+    <td>When the agent last finished a job</td>
+  </tr>
+  <tr>
+    <th><code>priority</code></th>
+    <td>Priority value for job assignment</td>
+  </tr>
+  <tr>
+    <th><code>meta_data</code></th>
+    <td>Array of agent tags in <code>key=value</code> format</td>
+  </tr>
 </tbody>
 </table>
 
@@ -89,9 +137,18 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
 <tbody>
-  <tr><th><code>name</code></th><td>Filters the results by the given agent name<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=ci-agent-1</code></p></td></tr>
-  <tr><th><code>hostname</code></th><td>Filters the results by the given hostname<p class="Docs__api-param-eg"><em>Example:</em> <code>?hostname=ci-box-1</code></p></td></tr>
-  <tr><th><code>version</code></th><td>Filters the results by the given exact version number<p class="Docs__api-param-eg"><em>Example:</em> <code>?version=2.1.0</code></p></td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Filters the results by the given agent name<p class="Docs__api-param-eg"><em>Example:</em> <code>?name=ci-agent-1</code></p></td>
+  </tr>
+  <tr>
+    <th><code>hostname</code></th>
+    <td>Filters the results by the given hostname<p class="Docs__api-param-eg"><em>Example:</em> <code>?hostname=ci-box-1</code></p></td>
+  </tr>
+  <tr>
+    <th><code>version</code></th>
+    <td>Filters the results by the given exact version number<p class="Docs__api-param-eg"><em>Example:</em> <code>?version=2.1.0</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -184,7 +241,10 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>force</code></th><td>If the agent is currently processing a job, the job and the build will be canceled.<p class="Docs__api-param-eg"><em>Default:</em> <code>true</code></p></td></tr>
+  <tr>
+    <th><code>force</code></th>
+    <td>If the agent is currently processing a job, the job and the build will be canceled.<p class="Docs__api-param-eg"><em>Default:</em> <code>true</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -196,7 +256,10 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Can only stop connected agents" }</code></td></tr>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Can only stop connected agents" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -227,9 +290,18 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>404 Not Found</code></th><td><code>{ "message": "No agent found" }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Agent is already paused" }</code></td></tr>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Only connected agents may be paused" }</code></td></tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td><code>{ "message": "No agent found" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Agent is already paused" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Only connected agents may be paused" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -258,8 +330,14 @@ Error responses:
 
 <table>
 <tbody>
-<tr><th><code>404 Not Found</code></th><td><code>{ "message": "No agent found" }</code></td></tr>
-<tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Agent is not paused" }</code></td></tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td><code>{ "message": "No agent found" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Agent is not paused" }</code></td>
+  </tr>
 </tbody>
 </table>
 
