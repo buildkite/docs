@@ -1,6 +1,6 @@
 # docs-draft-input.yml — Input step for manual triggering (production).
-# Collects UPSTREAM_REPO and UPSTREAM_PR_NUMBER via user input,
-# then uploads the main docs-draft step with those values injected.
+# Collects UPSTREAM_REPO, UPSTREAM_PR_NUMBER, and output selection via user input,
+# then uploads the appropriate pipeline steps based on the selection.
 
 steps:
   - input: "Which upstream PR needs documentation?"
@@ -13,19 +13,45 @@ steps:
             value: "buildkite/agent"
           - label: "buildkite/buildkite"
             value: "buildkite/buildkite"
-        hint: "GitHub repo slug, e.g. buildkite/agent"
+        hint: "Select the repository containing the PR"
         required: true
       - key: "upstream-pr-number"
         text: "PR number"
         hint: "The pull request number in the upstream repo"
         required: true
+      - key: "output-types"
+        select: "What to generate"
+        hint: "Select one or both"
+        multiple: true
+        options:
+          - label: "Documentation"
+            value: "docs"
+          - label: "Changelog entry"
+            value: "changelog"
+        default:
+          - "docs"
+          - "changelog"
+        required: true
   - wait: ~
-  - label: ":pipeline: Upload main step"
+  - label: ":pipeline: Upload selected steps"
     key: "upload-main-step"
     agents:
       queue: hosted
     command: |
       export UPSTREAM_REPO=$$(buildkite-agent meta-data get "upstream-repo")
       export UPSTREAM_PR_NUMBER=$$(buildkite-agent meta-data get "upstream-pr-number")
-      echo "Injecting UPSTREAM_REPO=$$UPSTREAM_REPO UPSTREAM_PR_NUMBER=$$UPSTREAM_PR_NUMBER into step"
-      buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
+      OUTPUT_TYPES=$$(buildkite-agent meta-data get "output-types")
+
+      echo "UPSTREAM_REPO=$$UPSTREAM_REPO"
+      echo "UPSTREAM_PR_NUMBER=$$UPSTREAM_PR_NUMBER"
+      echo "OUTPUT_TYPES=$$OUTPUT_TYPES"
+
+      if [[ "$$OUTPUT_TYPES" == *"docs"* ]]; then
+        echo "Uploading docs draft step"
+        buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
+      fi
+
+      if [[ "$$OUTPUT_TYPES" == *"changelog"* ]]; then
+        echo "Uploading changelog step"
+        buildkite-agent pipeline upload .buildkite/steps/docs-draft-changelog.yml
+      fi

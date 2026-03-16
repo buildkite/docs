@@ -314,10 +314,31 @@ func initContext() (*ReviewContext, error) {
 	}
 
 	// Skip draft PRs in CI mode (unless running locally)
-	if !localMode && os.Getenv("BUILDKITE_PULL_REQUEST_DRAFT") == "true" {
-		fmt.Println("--- :memo: Skipping review - PR is still a draft")
-		fmt.Println("--- The review will run automatically when the PR is marked ready for review")
-		os.Exit(0)
+	// First check env var (fast), then verify with GitHub API (reliable)
+	if !localMode {
+		isDraft := os.Getenv("BUILDKITE_PULL_REQUEST_DRAFT") == "true"
+		if !isDraft {
+			// Double-check with GitHub API in case env var wasn't set correctly
+			isDraft, _ = isDraftPR(ctx.Repo, ctx.PRNumber)
+		}
+		if isDraft {
+			fmt.Println("--- :memo: Skipping review - PR is still a draft")
+			fmt.Println("--- The review will run automatically when the PR is marked ready for review")
+			os.Exit(0)
+		}
+	}
+
+	// Skip if PR already has the ai-reviewed label (unless running locally)
+	// This is a defense against reviewing the wrong PR when a branch is created from another branch
+	if !localMode {
+		hasReviewedLabel, err := hasLabel(ctx.Repo, ctx.PRNumber, "ai-reviewed")
+		if err != nil {
+			fmt.Printf("--- :warning: Could not check for ai-reviewed label: %v\n", err)
+		} else if hasReviewedLabel {
+			fmt.Printf("--- :label: Skipping review - PR #%s already has 'ai-reviewed' label\n", ctx.PRNumber)
+			fmt.Println("--- Remove the label to trigger a new review")
+			os.Exit(0)
+		}
 	}
 
 	// Find repo root
@@ -381,6 +402,24 @@ func getPRForBranch(repo, branch string) (string, error) {
 		return "", fmt.Errorf("no PR found for branch %s", branch)
 	}
 	return prNum, nil
+}
+
+func isDraftPR(repo, prNumber string) (bool, error) {
+	cmd := exec.Command("gh", "pr", "view", prNumber, "--repo", repo, "--json", "isDraft", "--jq", ".isDraft")
+	out, err := cmd.Output()
+	if err != nil {
+		return false, err
+	}
+	return strings.TrimSpace(string(out)) == "true", nil
+}
+
+func hasLabel(repo, prNumber, label string) (bool, error) {
+	cmd := exec.Command("gh", "pr", "view", prNumber, "--repo", repo, "--json", "labels", "--jq", fmt.Sprintf(".labels[].name | select(. == \"%s\")", label))
+	out, err := cmd.Output()
+	if err != nil {
+		return false, err
+	}
+	return strings.TrimSpace(string(out)) == label, nil
 }
 
 func findRepoRoot() (string, error) {
@@ -567,8 +606,10 @@ Review the PR diff below against the style guide. Focus only on added/changed li
 - Only submit suggestions you are 100%% certain about
 - If you have ANY doubt about whether something is a violation, DO NOT submit it
 - Never submit a suggestion and then say "upon review" or "however" to walk it back
-- Never include phrases like "this suggestion is being withdrawn" - just don't submit uncertain suggestions
-- Be precise with the replacement text - it will be used as a GitHub suggestion
+- Never include phrases like "this suggestion is being withdrawn"—just don't submit uncertain suggestions
+- Be precise with the replacement text—it will be used as a GitHub suggestion
+- NEVER submit a suggestion where the replacement text is identical to the original—if the text is already correct, do not submit a suggestion
+- Do not submit suggestions that say "this is already correct"—if it's correct, skip it entirely
 - Only suggest changes for lines that were added or modified in the PR (lines starting with + in the diff)
 - Do not suggest changes for unchanged lines or lines being deleted
 - ONLY apply rules that are explicitly stated in the style guide - do not invent exceptions, infer unstated rules, or apply general writing conventions that are not in the guide
