@@ -1,10 +1,10 @@
-# docs-draft-step.yml — The main step definition for the docs draft pipeline.
-# Uploaded dynamically by docs-draft-setup.sh.
+# docs-draft-changelog.yml — The step definition for the changelog draft pipeline.
+# Uploaded dynamically based on "needs-changelog" label or manual selection.
 
 steps:
-  - label: ":memo: Draft documentation"
-    command: bash .buildkite/scripts/docs-draft.sh
-    timeout_in_minutes: 10
+  - label: ":newspaper: Draft changelog entry"
+    command: bash .buildkite/scripts/changelog.sh
+    timeout_in_minutes: 5
     agents:
       queue: hosted
     env:
@@ -30,7 +30,7 @@ steps:
             - "BUILDKITE_AGENT_ENDPOINT"
             - "UPSTREAM_REPO=${UPSTREAM_REPO}"
             - "UPSTREAM_PR_NUMBER=${UPSTREAM_PR_NUMBER}"
-            - "WRITE_DOCS=${WRITE_DOCS:-}"
+            - "WRITE_CHANGELOG=${WRITE_CHANGELOG:-}"
             - "GITHUB_TOKEN"
             - "ANTHROPIC_BASE_URL=https://agent.buildkite.com/v3/ai/anthropic"
             - "DISABLE_AUTOUPDATER=1"

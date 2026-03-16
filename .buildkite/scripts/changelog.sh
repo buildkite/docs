@@ -1,16 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
-# docs-draft.sh — Orchestrates the AI-powered documentation drafting process.
+# changelog.sh — Orchestrates the AI-powered changelog drafting process.
 #
 # This script:
 #   1. Installs dependencies (git, gh CLI, Claude Code)
-#   2. Removes the "needs-docs" label from the upstream PR (one-shot trigger)
+#   2. Removes the "needs-changelog" label from the upstream PR (one-shot trigger)
 #   3. Fetches PR context (title, body, diff, comments, reviews)
-#   4. Builds a prompt and runs Claude Code to analyze/write docs
-#   5. Commits and pushes any changes
-#   6. Opens (or updates) a draft PR on docs-private
-#   7. Comments on the upstream PR with the result
+#   4. Clones the changelog repo and sets up a working branch
+#   5. Builds a prompt and runs Claude Code to write a changelog entry
+#   6. Commits and pushes any changes
+#   7. Opens (or updates) a PR on the changelog repo
+#   8. Comments on the upstream PR with the result
 #
 # Required environment variables:
 #   UPSTREAM_REPO                — GitHub repo slug (e.g. "buildkite/agent")
@@ -20,7 +21,7 @@ set -euo pipefail
 #
 # Optional environment variables:
 #   CLAUDE_MODEL                 — Claude model to use (default: "sonnet")
-#   CLAUDE_MAX_TURNS             — Max agentic turns (default: 50)
+#   CLAUDE_MAX_TURNS             — Max agentic turns (default: 20)
 #   DIFF_MAX_LINES               — Max lines of diff to include (default: 2000)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -28,26 +29,13 @@ TEMPLATES_DIR="${SCRIPT_DIR}/../templates"
 
 # Configurable defaults
 CLAUDE_MODEL="${CLAUDE_MODEL:-sonnet}"
-CLAUDE_MAX_TURNS="${CLAUDE_MAX_TURNS:-50}"
+CLAUDE_MAX_TURNS="${CLAUDE_MAX_TURNS:-20}"
 DIFF_MAX_LINES="${DIFF_MAX_LINES:-2000}"
 
-# --- Validate required env vars ---
-
-echo "--- :mag: Validating environment variables"
+# --- Validate inputs ---
 
 if [ -z "${UPSTREAM_REPO:-}" ] || [ -z "${UPSTREAM_PR_NUMBER:-}" ]; then
-  echo "Error: UPSTREAM_REPO and UPSTREAM_PR_NUMBER must be set."
-  echo "These are typically injected by the upstream trigger step or the input step."
-  exit 1
-fi
-
-if [ -z "${GITHUB_TOKEN:-}" ]; then
-  echo "Error: GITHUB_TOKEN is not set. Check the AWS SSM plugin configuration."
-  exit 1
-fi
-
-if [ -z "${BUILDKITE_AGENT_ACCESS_TOKEN:-}" ]; then
-  echo "Error: BUILDKITE_AGENT_ACCESS_TOKEN is not set."
+  echo "Error: UPSTREAM_REPO and UPSTREAM_PR_NUMBER must be set"
   exit 1
 fi
 
@@ -58,8 +46,6 @@ echo "CLAUDE_MAX_TURNS: '${CLAUDE_MAX_TURNS}'"
 
 # --- Set up API credentials ---
 # The Model Provider API authenticates using the job token.
-# We set this here rather than in the step YAML to ensure we get
-# the correct job token (not a stale one from a previous job).
 export ANTHROPIC_API_KEY="${BUILDKITE_AGENT_ACCESS_TOKEN}"
 export GH_TOKEN="${GITHUB_TOKEN}"
 
@@ -68,22 +54,22 @@ export GH_TOKEN="${GITHUB_TOKEN}"
 echo "--- :hammer: Install dependencies"
 apt-get update -qq && apt-get install -y -qq git curl jq > /dev/null 2>&1
 
-# --- Check for "needs-docs" label (unless WRITE_DOCS is already set) ---
-# When triggered automatically from an upstream pipeline, WRITE_DOCS may not be set.
+# --- Check for "needs-changelog" label (unless WRITE_CHANGELOG is already set) ---
+# When triggered automatically from an upstream pipeline, WRITE_CHANGELOG may not be set.
 # In that case, check the PR's labels to decide whether to proceed.
 
-if [ "${WRITE_DOCS:-}" != "true" ]; then
-  echo "--- :label: Checking for 'needs-docs' label on ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
+if [ "${WRITE_CHANGELOG:-}" != "true" ]; then
+  echo "--- :label: Checking for 'needs-changelog' label on ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
   LABELS=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
     "https://api.github.com/repos/${UPSTREAM_REPO}/pulls/${UPSTREAM_PR_NUMBER}" \
     | jq -r '.labels[].name // empty' 2>/dev/null || true)
   echo "PR labels: ${LABELS:-<none>}"
 
-  if ! echo "${LABELS}" | grep -q "^needs-docs$"; then
-    echo "No 'needs-docs' label found, skipping docs draft"
+  if ! echo "${LABELS}" | grep -q "^needs-changelog$"; then
+    echo "No 'needs-changelog' label found, skipping changelog draft"
     exit 0
   fi
-  echo "'needs-docs' label found, proceeding"
+  echo "'needs-changelog' label found, proceeding"
 fi
 
 # Install gh CLI
@@ -98,14 +84,13 @@ npm install -g @anthropic-ai/claude-code > /dev/null 2>&1
 
 # Create non-root user (Claude Code refuses --dangerously-skip-permissions as root)
 useradd -m -s /bin/bash claude-user
-chown -R claude-user:claude-user /workdir
 
-# --- Remove the "needs-docs" label (one-shot trigger) ---
+# --- Remove the "needs-changelog" label (one-shot trigger) ---
 
-echo "--- :label: Remove needs-docs label"
+echo "--- :label: Remove needs-changelog label"
 gh pr edit "${UPSTREAM_PR_NUMBER}" \
   --repo "${UPSTREAM_REPO}" \
-  --remove-label "needs-docs" \
+  --remove-label "needs-changelog" \
   || echo "Warning: Could not remove label (may already be removed)"
 
 # --- Fetch PR context ---
@@ -129,83 +114,84 @@ PR_DIFF=$(gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" | head -n
 echo "PR: ${PR_TITLE}"
 echo "URL: ${PR_URL}"
 
-# --- Cache templates before branch switch ---
-# The checkout dir currently has our pipeline branch files. Once we switch to
-# origin/main these will disappear, so read everything into variables and /tmp now.
+# --- Cache templates before switching directories ---
 
 echo "--- :file_folder: Cache templates"
-PROMPT_TEMPLATE=$(cat "${TEMPLATES_DIR}/docs-draft-prompt.md")
-SYSTEM_PROMPT_FILE="/tmp/docs-draft-system.md"
-cp "${SCRIPT_DIR}/../prompts/docs-draft-system.md" "${SYSTEM_PROMPT_FILE}"
-COMMENT_NO_CHANGES=$(cat "${TEMPLATES_DIR}/comment-no-changes.md")
-COMMENT_DOCS_CREATED_TEMPLATE=$(cat "${TEMPLATES_DIR}/comment-docs-created.md")
-DRAFT_PR_BODY_TEMPLATE=$(cat "${TEMPLATES_DIR}/draft-pr-body.md")
+SYSTEM_PROMPT_FILE="/tmp/changelog-system.md"
+cp "${SCRIPT_DIR}/../prompts/changelog-system.md" "${SYSTEM_PROMPT_FILE}"
+COMMENT_NO_CHANGES=$(cat "${TEMPLATES_DIR}/changelog-no-changes.md")
+COMMENT_CHANGELOG_CREATED_TEMPLATE=$(cat "${TEMPLATES_DIR}/comment-changelog-created.md")
+CHANGELOG_PR_BODY_TEMPLATE=$(cat "${TEMPLATES_DIR}/changelog-pr-body.md")
 
-# --- Set up git branch ---
+# --- Clone changelog repo ---
+
+CHANGELOG_DIR="/tmp/changelog"
+
+echo "--- :git: Clone changelog repo"
+git config --global --add safe.directory "${CHANGELOG_DIR}"
+git clone "https://x-access-token:${GH_TOKEN}@github.com/buildkite/changelog.git" "${CHANGELOG_DIR}"
+
+cd "${CHANGELOG_DIR}"
 
 REPO_SLUG=$(echo "${UPSTREAM_REPO}" | sed 's|.*/||')
-BRANCH_NAME="docs-draft/${REPO_SLUG}/pr-${UPSTREAM_PR_NUMBER}"
-
-echo "--- :git: Set up branch"
-# Mark checkout as safe (Docker runs as different user than checkout owner)
-git config --global --add safe.directory /workdir
-git config --global --add safe.directory /workdir/vendor/emojis
+BRANCH_NAME="changelog/${REPO_SLUG}/pr-${UPSTREAM_PR_NUMBER}"
 
 git config user.name "buildkite-docs-bot"
 git config user.email "docs-bot@buildkite.com"
-git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/buildkite/docs-private.git"
-git fetch origin main
 git checkout -B "${BRANCH_NAME}" origin/main
 
-# --- Build prompt from template ---
+# --- Build prompt ---
 
 echo "--- :writing_hand: Build prompt"
-PROMPT_FILE="/tmp/docs-draft-prompt.md"
+PROMPT_FILE="/tmp/changelog-prompt.md"
 
-# Substitute simple variables into the cached template.
-# PR_TITLE is sanitized to avoid breaking sed (it could contain | or &).
 PR_TITLE_SAFE=$(printf '%s' "${PR_TITLE}" | sed 's/[|&\\]/\\&/g')
 
-echo "${PROMPT_TEMPLATE}" | sed \
-  -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g" \
-  -e "s|\${UPSTREAM_PR_NUMBER}|${UPSTREAM_PR_NUMBER}|g" \
-  -e "s|\${PR_TITLE}|${PR_TITLE_SAFE}|g" \
-  -e "s|\${PR_URL}|${PR_URL}|g" \
-  > "${PROMPT_FILE}"
+cat > "${PROMPT_FILE}" <<EOF
+You are working in the Buildkite changelog repository.
 
-# Append the dynamic content via heredoc (safe for arbitrary content)
-cat >> "${PROMPT_FILE}" <<SECTIONS
+An engineer has requested a changelog entry for the following upstream pull request:
+
+**Repository:** ${UPSTREAM_REPO}
+**PR:** #${UPSTREAM_PR_NUMBER} — ${PR_TITLE}
+**URL:** ${PR_URL}
+
+## Your task
+
+Follow the instructions in your system prompt to:
+1. Triage this PR — determine if a changelog entry is needed
+2. If yes, write a changelog entry in this repository
+3. If no, explain why and stop without making changes
 
 ## PR description
 
 ${PR_BODY}
 
-## PR comments
-
-${PR_COMMENTS}
-
-## PR review comments
-
-${PR_REVIEWS}
-
-## Code diff
+## PR diff
 
 \`\`\`diff
 ${PR_DIFF}
 \`\`\`
-SECTIONS
+
+## PR comments
+
+${PR_COMMENTS}
+
+## PR reviews
+
+${PR_REVIEWS}
+EOF
 
 # --- Run Claude Code as non-root user ---
-# Claude Code refuses --dangerously-skip-permissions when running as root.
-# Give claude-user ownership of the workdir and tmp files, then run as that user.
 
 echo "--- :claude: Run Claude Code"
-chown -R claude-user:claude-user /workdir /tmp/docs-draft-*.md
+chown -R claude-user:claude-user "${CHANGELOG_DIR}" /tmp/changelog-*.md
 su claude-user -c "
   export ANTHROPIC_API_KEY='${ANTHROPIC_API_KEY}'
   export ANTHROPIC_BASE_URL='${ANTHROPIC_BASE_URL}'
   export DISABLE_AUTOUPDATER=1
   export DISABLE_TELEMETRY=1
+  cd '${CHANGELOG_DIR}'
   claude -p \
     --model '${CLAUDE_MODEL}' \
     --max-turns '${CLAUDE_MAX_TURNS}' \
@@ -236,7 +222,7 @@ su claude-user -c "
 
 echo "--- :git: Check for changes"
 if git diff --quiet && git diff --cached --quiet; then
-  echo "No documentation changes were made."
+  echo "No changelog entry was created."
 
   gh pr comment "${UPSTREAM_PR_NUMBER}" \
     --repo "${UPSTREAM_REPO}" \
@@ -250,9 +236,9 @@ fi
 
 echo "--- :git: Commit and push changes"
 git add -A
-git commit -m "Draft docs for ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}
+git commit -m "Changelog entry for ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}
 
-Auto-generated documentation draft for:
+Auto-generated changelog entry for:
 ${PR_URL}"
 
 git push --force origin "${BRANCH_NAME}"
@@ -261,34 +247,33 @@ git push --force origin "${BRANCH_NAME}"
 
 echo "--- :github: Open or update PR"
 EXISTING_PR=$(gh pr list \
-  --repo buildkite/docs-private \
+  --repo buildkite/changelog \
   --head "${BRANCH_NAME}" \
   --json number \
   --jq '.[0].number // empty')
 
 if [ -n "${EXISTING_PR}" ]; then
   echo "Updated existing PR #${EXISTING_PR}"
-  DOCS_PR_URL="https://github.com/buildkite/docs-private/pull/${EXISTING_PR}"
+  CHANGELOG_PR_URL="https://github.com/buildkite/changelog/pull/${EXISTING_PR}"
 else
-  # Build the PR body from template
-  PR_BODY_CONTENT=$(echo "${DRAFT_PR_BODY_TEMPLATE}" | sed \
+  PR_BODY_CONTENT=$(echo "${CHANGELOG_PR_BODY_TEMPLATE}" | sed \
     -e "s|\${PR_URL}|${PR_URL}|g" \
     -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g")
 
-  DOCS_PR_URL=$(gh pr create \
-    --repo buildkite/docs-private \
+  CHANGELOG_PR_URL=$(gh pr create \
+    --repo buildkite/changelog \
     --base main \
     --head "${BRANCH_NAME}" \
-    --title "[Docs Draft] ${PR_TITLE}" \
+    --title "[Changelog] ${PR_TITLE}" \
     --body "${PR_BODY_CONTENT}")
-  echo "Created new PR: ${DOCS_PR_URL}"
+  echo "Created new PR: ${CHANGELOG_PR_URL}"
 fi
 
 # --- Comment on upstream PR ---
 
 echo "--- :mega: Comment on upstream PR"
-COMMENT_BODY=$(echo "${COMMENT_DOCS_CREATED_TEMPLATE}" | sed \
-  -e "s|\${DOCS_PR_URL}|${DOCS_PR_URL}|g")
+COMMENT_BODY=$(echo "${COMMENT_CHANGELOG_CREATED_TEMPLATE}" | sed \
+  -e "s|\${CHANGELOG_PR_URL}|${CHANGELOG_PR_URL}|g")
 
 gh pr comment "${UPSTREAM_PR_NUMBER}" \
   --repo "${UPSTREAM_REPO}" \
