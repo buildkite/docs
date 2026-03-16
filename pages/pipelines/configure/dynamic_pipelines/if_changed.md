@@ -261,11 +261,13 @@ In this section, you can find some of the issues that you might run into when us
 
 ### Steps run unexpectedly after merging the default branch into a feature branch
 
-In monorepo workflows, developers often merge the default branch (for example, `main`) into feature branches to keep them up to date. After such a merge, `if_changed` may detect more changed files than expected, causing steps to run that shouldn't.
+In monorepo workflows, developers often merge the default branch (for example, `main`) into feature branches to keep them up to date. After such a merge, `if_changed` may detect more changed files than expected, causing steps to run that otherwise wouldn't.
 
-This happens because the agent's local reference to the default branch (for example, `origin/main`) can be stale — it may point to an older commit than the actual current tip of the remote. Since `if_changed` uses `git merge-base` to find the common ancestor between the diff base and `HEAD`, an outdated local ref pushes the merge-base further back in history, and the diff picks up extra files.
+This happens because the agent's local reference to the default branch (for example, `origin/main`) can be stale — it may point to an older commit than the actual current tip of the remote. Since `if_changed` uses `git merge-base` to find the common ancestor between the diff base and `HEAD`, an outdated local ref pushes the merge-base earlier in history, and the diff picks up extra files.
 
-To fix this, use the `--fetch-diff-base` flag or the `BUILDKITE_FETCH_DIFF_BASE` environment variable, which tells the agent to fetch the diff base ref from the remote before computing the diff:
+To fix this, use the `--fetch-diff-base` flag or the `BUILDKITE_FETCH_DIFF_BASE` environment variable. Both options tell the agent to fetch the diff base ref from the remote before computing the diff.
+
+The `BUILDKITE_FETCH_DIFF_BASE` environment variable approach:
 
 ```yaml
 steps:
@@ -275,13 +277,14 @@ steps:
       BUILDKITE_FETCH_DIFF_BASE: "true"
 ```
 
-Or pass the flag directly:
+Or to pass the flag directly:
 
 ```bash
 buildkite-agent pipeline upload --fetch-diff-base
 ```
 
-> 📘 This flag requires Buildkite Agent version 3.117.0 or later.
+> 📘
+> The `--fetch-diff-base` flag requires Buildkite agent version 3.117.0 or later.
 
 ### Pattern doesn't match expected files
 
