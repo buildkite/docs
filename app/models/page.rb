@@ -83,7 +83,7 @@ class Page
       PagesController.render(partial: partial, formats: %i[md html])
     end
 
-    def render_markdown_html(partial: nil, text: nil)
+    def render_markdown(partial: nil, text: nil)
       raise ArgumentError, 'partial or nil not specified' if partial.blank? && text.blank?
 
       text = if partial
@@ -92,16 +92,12 @@ class Page
                text
              end
 
-      Page::Renderer.render(text).html_safe
-    end
-
-    def render_markdown(partial: nil, text: nil)
-      raise ArgumentError, 'partial or nil not specified' if partial.blank? && text.blank?
-
-      if partial
-        render(partial)
-      else
+      # For .md format requests, return raw markdown
+      # For HTML format requests, process markdown to HTML
+      if defined?(request) && request.format.symbol == :md
         text
+      else
+        Page::Renderer.render(text).html_safe
       end
     end
 
