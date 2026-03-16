@@ -386,6 +386,7 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+SLA
 SLO
 SLOs
 snake_case
