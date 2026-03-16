@@ -259,6 +259,30 @@ In this section, you can find some of the issues that you might run into when us
 1. **Test the glob pattern**: The pattern is matched against file paths relative to the repository root.
 1. **Check the comparison base**: The agent resolves the comparison base using a [specific order](/docs/pipelines/configure/dynamic-pipelines/if-changed#how-change-detection-works). Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
 
+### Steps run unexpectedly after merging the default branch into a feature branch
+
+In monorepo workflows, developers often merge the default branch (for example, `main`) into feature branches to keep them up to date. After such a merge, `if_changed` may detect more changed files than expected, causing steps to run that shouldn't.
+
+This happens because the agent's local reference to the default branch (for example, `origin/main`) can be stale — it may point to an older commit than the actual current tip of the remote. Since `if_changed` uses `git merge-base` to find the common ancestor between the diff base and `HEAD`, an outdated local ref pushes the merge-base further back in history, and the diff picks up extra files.
+
+To fix this, use the `--fetch-diff-base` flag or the `BUILDKITE_FETCH_DIFF_BASE` environment variable, which tells the agent to fetch the diff base ref from the remote before computing the diff:
+
+```yaml
+steps:
+  - label: ":pipeline: Upload pipeline"
+    command: "buildkite-agent pipeline upload"
+    env:
+      BUILDKITE_FETCH_DIFF_BASE: "true"
+```
+
+Or pass the flag directly:
+
+```bash
+buildkite-agent pipeline upload --fetch-diff-base
+```
+
+> 📘 This flag requires Buildkite Agent version 3.117.0 or later.
+
 ### Pattern doesn't match expected files
 
 1. **Use the correct syntax**: The pattern uses non-bash glob or regex syntax.
