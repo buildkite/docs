@@ -156,7 +156,7 @@ The AzureRM provider reads these environment variables automatically when `ARM_U
 
 ## Example pipeline
 
-This example pipeline runs Terraform to deploy Azure resources, authenticating entirely through OIDC with no stored Azure credentials. It uses the [docker-compose Buildkite plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) to run Terraform in a container.
+This example pipeline runs Terraform to deploy Azure resources, authenticating entirely through OIDC with no stored Azure credentials. It uses the [docker-compose Buildkite plugin](https://buildkite.com/resources/plugins/docker-compose) to run Terraform in a container.
 
 The pipeline defines the Azure identifiers and OIDC flags as pipeline-level environment variables. Each step requests a fresh OIDC token before running Terraform commands.
 
