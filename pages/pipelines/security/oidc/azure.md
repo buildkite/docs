@@ -319,7 +319,7 @@ To reduce the risk:
 
 - **Separate CI and CD pipelines.** Run tests on one pipeline, deployments on another. Only configure OIDC on the deploy pipeline where you control what triggers builds and what code runs.
 - **Scope RBAC roles to the minimum required.** Don't assign Contributor at the subscription level when a single resource group will do. See Microsoft's guidance on [best practices for Azure RBAC](https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices).
-- **Restrict who can trigger builds.** Use Buildkite's [pipeline-level permissions](https://buildkite.com/docs/pipelines/security/permissions) to control who can create builds on pipelines with OIDC configured.
+- **Restrict who can trigger builds.** Use the [pipeline-level permissions](/docs/pipelines/security/permissions) provided by Buildkite Pipelines to control who can create builds on pipelines with OIDC configured.
 - **Monitor sign-ins in Entra ID.** Check the Service principal sign-in logs for unexpected activity. See the [Monitoring OIDC sign-ins](#monitoring-oidc-sign-ins) section above.
 
 ### Getting tighter control
