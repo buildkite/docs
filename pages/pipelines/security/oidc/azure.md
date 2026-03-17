@@ -116,7 +116,7 @@ The `--audience` value must match one of the audiences Azure accepts for federat
 | Azure US Government | `api://AzureADTokenExchangeUSGov` |
 | Azure China (21Vianet) | `api://AzureADTokenExchangeChina` |
 
-Do not change the audience to a custom value. If the audience in the OIDC token doesn't match one of these values, Azure will reject the token exchange and authentication will fail.  
+Do not change the audience to a custom value. If the audience in the OIDC token doesn't match one of these values, Azure will reject the token exchange and authentication will fail.
 Most users should leave this as the default `api://AzureADTokenExchange`.
 
 > 📘
