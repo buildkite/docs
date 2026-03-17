@@ -4,7 +4,7 @@ Buildkite's legal documents outline the terms and conditions that govern the use
 
 ## Terms of service
 
-The terms of service define the rights and responsibilities of both Buildkite and its customers when using the platform. For full details, refer to the [Buildkite Terms of Service](https://buildkite.com/about/legal/terms-of-service/).
+The terms of service define the rights and responsibilities of Buildkite and its customers when using the platform. For full details, refer to the [Buildkite Terms of Service](https://buildkite.com/about/legal/terms-of-service/).
 
 ## All legal documents
 
