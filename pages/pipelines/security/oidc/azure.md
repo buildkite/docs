@@ -4,9 +4,9 @@ keywords: oidc, authentication, Azure, federated credentials, Entra ID
 
 # OIDC with Azure
 
-OpenID Connect (OIDC) allows your Buildkite pipelines to authenticate directly with Microsoft Azure without storing long-lived credentials. Instead of managing client secrets, your pipeline requests a short-lived token from the Buildkite agent at runtime, and Azure validates it using a trust relationship you configure in Microsoft Entra ID.
+OpenID Connect (OIDC) allows your Buildkite pipelines to authenticate directly with [Microsoft Azure](https://azure.microsoft.com/) without storing long-lived credentials. Instead of managing client secrets, your pipeline requests a short-lived token from the Buildkite agent at runtime, and Azure validates it using a trust relationship you configure in [Microsoft Entra ID (formerly Azure AD)](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id).
 
-This guide walks through setting up OIDC between Buildkite Pipelines and Azure, including a working example that uses Terraform with an Azure Storage Account backend.
+This guide walks you through setting up OIDC between Buildkite Pipelines and Azure, including a working example that uses Terraform with an Azure Storage Account backend.
 
 Learn more about:
 
@@ -14,17 +14,16 @@ Learn more about:
 - Microsoft's implementation of workload identity federation in [Workload identity federation](https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation) on Microsoft Learn.
 - Supported scenarios and limitations in [Considerations for workload identity federation](https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation-considerations) on Microsoft Learn.
 
-## Before you begin
+## Requirements
 
-You need:
+You will need:
 
 - An Azure subscription with permissions to create App Registrations and assign RBAC roles. Note your **Subscription ID** from the Azure Portal (found on the Subscriptions page).
 - A Buildkite pipeline you want to authenticate with Azure. You'll need its **Pipeline UUID**, which you can find in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**.
 
-
 ## Step 1: Register an application in Microsoft Entra ID
 
-The App Registration in Microsoft Entra ID (formerly Azure AD) acts as the identity that your Buildkite pipeline will assume when accessing Azure resources.
+The App Registration in Microsoft Entra ID acts as the identity that your Buildkite pipeline will assume when accessing Azure resources. To register an application in Microsoft Entra ID:
 
 1. In the Azure Portal, go to **Microsoft Entra ID** > **App registrations**.
 1. Click **New registration**.
@@ -38,10 +37,11 @@ Once created, note the following values from the App Registration's **Overview**
 - **Directory (tenant) ID**, for example, `00xx0x0-0x00-0x00-xx00-x0x000xxx0x0`
 
 > 📘
-> When you register an application in the previous step, Azure automatically creates a **service principal** for it. You'll see this term later when assigning RBAC roles.  
-> Think of the App Registration as the definition of your app, and the service principal as the identity it uses to access resources. Learn more: [Application and service principal objects in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/app-objects-and-service-principals)
+> When you register an application in the previous step, Azure automatically creates a **service principal** for it. You'll see this term later when assigning RBAC roles.
 
 <%= image "app-registration-overview.png", width: 2270/2, height: 1137/2, alt: "Screenshot of the App Registration overview page showing the Application client ID and Directory tenant ID" %>
+
+Think of the App Registration as the definition of your app, and the service principal as the identity it uses to access resources. Learn more in [Application and service principal objects in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/app-objects-and-service-principals)
 
 ## Step 2: Add a federated identity credential
 
@@ -63,8 +63,7 @@ The Federated Identity Credential establishes the trust between your Buildkite p
 <%= image "federated-credential-config.png", width: 1095/2, height: 1110/2, alt: "Screenshot of the Federated Identity Credential configuration showing the Issuer, Subject identifier, Name and Audience fields" %>
 
 > 📘
-> The **Subject identifier** must be the pipeline's UUID only, not a prefixed string. To find it, go to your pipeline in Buildkite, then **Pipeline Settings** > **General**. The UUID is listed under **Pipeline ID**.
-> Each pipeline that needs Azure access requires its own Federated Identity Credential.
+> The **Subject identifier** must be the pipeline's UUID only, not a prefixed string. To find it, go to your pipeline in Buildkite, then **Pipeline Settings** > **General**. The UUID is listed under **Pipeline ID**. Each pipeline that needs Azure access requires its own Federated Identity Credential.
 
 ## Step 3: Assign RBAC roles
 
@@ -77,14 +76,14 @@ For this example, the pipeline uses Terraform with an Azure Storage Account back
 
 To assign a role:
 
-1. Navigate to the resource (resource group, storage account, subscription, etc.).
+1. Navigate to the resource (resource group, storage account, subscription, and so on).
 1. Go to **Access control (IAM)** > **Role assignments**.
 1. Click **Add** > **Add role assignment**.
 1. Select the role, then assign it to your App Registration's service principal.
 
 ## Step 4: Configure Azure credentials in your pipeline
 
-Your pipeline needs the Azure Client ID, Tenant ID, and Subscription ID to authenticate. These values are identifiers, not secrets. Define them as pipeline-level environment variables in your `pipeline.yml`:
+Your pipeline needs the Azure Client ID, Tenant ID, and Subscription ID to authenticate. These values are identifiers, not secrets. Define them as pipeline-level [environment variables](/docs/pipelines/configure/environment-variables) in your `pipeline.yml`:
 
 ```yaml
 env:
@@ -97,8 +96,10 @@ This keeps the values easy to find and change in one place.
 
 > 📘
 > You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control.
-> The approach is the same either way. The OIDC token itself is the only sensitive value, and it's generated fresh in each step.  
-> Buildkite Secrets requires agent version 3.106.0 or later. The secret key names are up to you, just match them in your pipeline YAML.  
+>
+> The approach is the same either way. The OIDC token itself is the only sensitive value, and it's generated fresh in each step.
+>
+> Buildkite Secrets requires agent version 3.106.0 or later. The secret key names are up to you, just match them in your pipeline YAML.
 
 ## Step 5: Request an OIDC token in your pipeline
 
@@ -120,7 +121,8 @@ Do not change the audience to a custom value. If the audience in the OIDC token 
 Most users should leave this as the default `api://AzureADTokenExchange`.
 
 > 📘
-> Each step in a Buildkite pipeline runs independently. If multiple steps need Azure access, each step must request its own OIDC token.  
+> Each step in a Buildkite pipeline runs independently. If multiple steps need Azure access, each step must request its own OIDC token.
+>
 > Tokens cannot be passed between steps.
 
 ## Step 6: Authenticate with Azure using the token
@@ -156,7 +158,7 @@ The AzureRM provider reads these environment variables automatically when `ARM_U
 
 ## Example pipeline
 
-This example pipeline runs Terraform to deploy Azure resources, authenticating entirely through OIDC with no stored Azure credentials. It uses the [docker-compose Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) to run Terraform in a container.
+This example pipeline runs Terraform to deploy Azure resources, authenticating entirely through OIDC with no stored Azure credentials. It uses the [Docker Compose Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) to run Terraform in a container.
 
 The pipeline defines the Azure identifiers and OIDC flags as pipeline-level environment variables. Each step requests a fresh OIDC token before running Terraform commands.
 
@@ -303,6 +305,8 @@ Learn more about sign-in logs in [Sign-in logs in Microsoft Entra ID](https://le
 
 ## Known limitations
 
+Azure federated identity credentials are scoped by the OIDC token's subject claim, which Buildkite sets to the pipeline UUID. This creates the following constraints around access control and trust.
+
 ### Access control is scoped to the pipeline level
 
 Azure federated identity credentials require an exact match on the OIDC token's subject claim. Buildkite sets this to the pipeline UUID, so the trust operates at the pipeline level only. You can't restrict Azure access by branch, build source, or other build context.
@@ -331,6 +335,8 @@ To limit what your pipelines can do in Azure:
 - **Apply Conditional Access Policies.** Organizations with Entra ID P1/P2 can use [Conditional Access for workload identities](https://learn.microsoft.com/en-us/entra/identity/conditional-access/workload-identity) to restrict authentication by IP range or other conditions.
 
 ## Troubleshooting
+
+Common errors when setting up OIDC between Buildkite Pipelines and Azure, and how to resolve them.
 
 ### "AADSTS70021: No matching federated identity record found"
 
