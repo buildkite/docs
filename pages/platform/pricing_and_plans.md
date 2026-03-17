@@ -12,7 +12,7 @@ Buildkite offers the following plans:
 
 Plans differ in the features available, usage limits, and level of support provided. For a detailed comparison of what each plan includes, visit the [Buildkite pricing page](https://buildkite.com/pricing/).
 
-To find out which plan your organization is on, or to manage your subscription, select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+To find out which plan your organization is on or to manage your subscription, select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 ## Usage and limits
 
