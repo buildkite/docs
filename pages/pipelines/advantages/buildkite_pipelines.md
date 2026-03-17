@@ -15,7 +15,7 @@ This page describes how Buildkite Pipelines differs from other CI/CD tools and w
 
 Most CI/CD systems bundle managed infrastructure, features, and opinionated workflows into a single platform. Buildkite Pipelines takes a different approach and provides composable building blocks that let [platform teams](/docs/pipelines/best-practices/platform-controls) design exactly the workflows they need, while developers retain the flexibility to move fast.
 
-See [case studies](https://buildkite.com/resources/cases/) for how engineering organizations use Buildkite Pipelines at scale.
+See [case studies](https://buildkite.com/resources/case-studies/) for how engineering organizations use Buildkite Pipelines at scale.
 
 ### Core differentiators
 
@@ -92,7 +92,7 @@ The Buildkite Pipelines interface provides immediate visibility into pipeline be
 - Configurable [log grouping](/docs/pipelines/configure/managing-log-output#grouping-log-output) (`---`, `+++`, `~~~`) organizes output into [collapsible sections](/docs/pipelines/configure/managing-log-output#grouping-log-output-collapsed-groups).
 - Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links.
 - Builds running on your own infrastructure let you SSH into the machine, inspect the environment, and reproduce failures locally.
-- [Buildkite Test Engine](/docs/test-engine) detects [flaky tests](/docs/test-engine/test-suites/flaky-tests), automatically [mutes](/docs/test-engine/test-suites/flaky-tests#muting-flaky-tests) unreliable ones, and assigns follow-up, so teams get a clean signal from their test suites.
+- [Buildkite Test Engine](/docs/test-engine) detects [flaky tests](/docs/test-engine/glossary#flaky-test), automatically [mutes](/docs/test-engine/test-suites/test-state-and-quarantine#automatic-quarantine) unreliable ones, and assigns follow-up, so teams get a clean signal from their test suites.
 
 ## Extensibility and integrations
 
@@ -104,7 +104,7 @@ Buildkite Pipelines specializes in CI/CD rather than bundling source code manage
 
 - Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket).
 - Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
-- Notifications: [Slack](/docs/pipelines/integrations/notifications/slack), [PagerDuty](/docs/pipelines/integrations/notifications/pagerduty), [webhooks](/docs/pipelines/integrations/notifications/webhooks), and [more](/docs/pipelines/integrations/notifications).
+- Notifications: [Slack](/docs/pipelines/integrations/notifications/slack), [PagerDuty](/docs/pipelines/integrations/notifications/pagerduty), [CCMenu and CCTray](/docs/pipelines/integrations/notifications/cc-menu), and [notification plugins](/docs/pipelines/integrations/notifications/plugins).
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing).
 
 ### Buildkite plugins

@@ -254,7 +254,7 @@ In this section, you can find some of the issues that you might run into when us
 
 ### Step still runs when it shouldn't
 
-1. **Check the agent version**: Ensure you're running agent version 3.103.0+ (or using `--apply-if-changed` flag with version 3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed#notes-on-agent-version-requirements) at the start of this page).
+1. **Check the agent version**: Ensure you're running agent version 3.103.0+ (or using `--apply-if-changed` flag with version 3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed) at the start of this page).
 1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above).
 1. **Test the glob pattern**: The pattern is matched against file paths relative to the repository root.
 1. **Check the comparison base**: The agent resolves the comparison base using a [specific order](/docs/pipelines/configure/dynamic-pipelines/if-changed#how-change-detection-works). Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
