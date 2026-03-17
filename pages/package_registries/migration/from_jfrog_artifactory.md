@@ -8,7 +8,7 @@ You can download a complete folder of packages or a specific package version fro
 
 - To download a complete folder of packages, follow JFrog's [Download a Folder](https://jfrog.com/help/r/jfrog-artifactory-documentation/download-a-folder) guide. You might need to configure folder download from the administrator settings.
 
-- To download a specific version of a package, follow JFrog's [Downloading Package Versions](https://jfrog.com/help/r/jfrog-artifactory-documentation/downloading-package-versions) guidance.
+- To download a specific version of a package, follow JFrog's [Downloading Package Versions](https://docs.jfrog.com/artifactory/docs/upload-and-download-packages-using-artifactory#downloading-package-versions) guidance.
 
 ## Download packages using the JFrog CLI
 

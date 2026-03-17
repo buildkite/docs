@@ -48,6 +48,13 @@
             "automerge": true
         },
         {
+            "description": "Update emojis submodule",
+            "matchManagers": ["git-submodules"],
+            "matchCurrentVersion": "/^main$/",
+            "enabled": true,
+            "automerge": true
+        },
+        {
             "description": "Major updates require manual review",
             "matchUpdateTypes": ["major"],
             "automerge": false

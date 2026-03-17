@@ -190,6 +190,9 @@ class Page::Renderer
 
   def init_responsive_tables(doc)
     doc.css('table.responsive-table:not(.responsive-table--single-column-rows)').each do |table|
+      # Remove any existing faux headers first
+      table.css('.responsive-table__faux-th').remove
+      
       thead_ths = table.css('thead th')
 
       unless thead_ths.empty?

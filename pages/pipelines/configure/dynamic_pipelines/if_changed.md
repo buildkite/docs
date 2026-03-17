@@ -254,10 +254,37 @@ In this section, you can find some of the issues that you might run into when us
 
 ### Step still runs when it shouldn't
 
-1. **Check the agent version**: Ensure you're running agent version 3.103.0+ (or using `--apply-if-changed` flag with version 3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed#notes-on-agent-version-requirements) at the start of this page).
+1. **Check the agent version**: Ensure you're running agent version 3.103.0+ (or using `--apply-if-changed` flag with version 3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed) at the start of this page).
 1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above).
 1. **Test the glob pattern**: The pattern is matched against file paths relative to the repository root.
 1. **Check the comparison base**: The agent resolves the comparison base using a [specific order](/docs/pipelines/configure/dynamic-pipelines/if-changed#how-change-detection-works). Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
+
+### Steps run unexpectedly after merging the default branch into a feature branch
+
+In monorepo workflows, developers often merge the default branch (for example, `main`) into feature branches to keep them up to date. After such a merge, `if_changed` may detect more changed files than expected, causing steps to run that otherwise wouldn't.
+
+This happens because the agent's local reference to the default branch (for example, `origin/main`) can be stale — it may point to an older commit than the actual current tip of the remote. Since `if_changed` uses `git merge-base` to find the common ancestor between the diff base and `HEAD`, an outdated local ref pushes the merge-base earlier in history, and the diff picks up extra files.
+
+To fix this, use the `--fetch-diff-base` flag or the `BUILDKITE_FETCH_DIFF_BASE` environment variable. Both options tell the agent to fetch the diff base ref from the remote before computing the diff.
+
+The `BUILDKITE_FETCH_DIFF_BASE` environment variable approach:
+
+```yaml
+steps:
+  - label: ":pipeline: Upload pipeline"
+    command: "buildkite-agent pipeline upload"
+    env:
+      BUILDKITE_FETCH_DIFF_BASE: "true"
+```
+
+Or to pass the flag directly:
+
+```bash
+buildkite-agent pipeline upload --fetch-diff-base
+```
+
+> 📘
+> The `--fetch-diff-base` flag requires Buildkite agent version 3.117.0 or later.
 
 ### Pattern doesn't match expected files
 

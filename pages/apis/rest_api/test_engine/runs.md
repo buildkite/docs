@@ -60,7 +60,7 @@ Success response: `200 OK`
 
 Runs are created with a `state` of `running` and proceed to `finished` when all uploads have been processed. The run may return to `running` if additional results are uploaded.
 
-Run `result` starts as `pending` and will proceed to `passed` or `failed` when at least one test result has been processed.  The presence of a `passed` or `failed` result does not indicate that the run has finished processing. `result` may change from `passed` to `failed` if additional results are uploaded. The `result` is `failed` when there is at least one failing test in the run, and it is not possible for `result` to change from `failed`. If a run receives no results within a reasonable time period its `result` will proceed to `stale`.
+A run's `result` starts as `pending` and will proceed to `passed` or `failed` when at least one test result has been processed. The presence of a `passed` or `failed` result does not indicate that the run has finished processing. `result` may change from `passed` to `failed` if additional results are uploaded. The `result` is `failed` when there is at least one failing test in the run, and it is not possible for `result` to change from `failed` to any other state. If a run receives no results within a reasonable time period its `result` will proceed to `stale`.
 
 ## Get failed execution data
 
@@ -88,9 +88,16 @@ curl -H "Authorization: Bearer $TOKEN" \
     "run_url": "https:://buildkite.com/organizations/buildkite/analytics/suites/my-test-suite/runs/075bbcd9-662c-86f5-9d40-adfa6549eff1",
     "test_url": "https:://buildkite.com/organizations/buildkite/analytics/suites/my-test-suite/tests/f6cb6c43-df94-8b60-81ed-14f9db7bbfd8",
     "test_execution_url": "https:://buildkite.com/organizations/buildkite/analytics/suites/my-test-suite/tests/f6cb6c43-df94-8b60-81ed-14f9db7bbfd8?execution_id=60f0e64c-ae4b-870e-b41f-5431205caf06",
+    "tags": {
+      "language.name": "ruby",
+      "language.version": "3.3.6",
+      "custom.env": "staging"
+    }
   }
 ]
 ```
+
+The `tags` field contains user-defined metadata associated with the execution, returned as a flat map with dot-notation keys. Tags that duplicate other fields already present in the response (`result`, `scm.branch`, `scm.commit_sha`) are excluded. If no user-defined tags exist, this field returns an empty object (`{}`).
 
 Required scope: `read_suites`
 
