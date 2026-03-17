@@ -48,7 +48,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>description</code></th><td>Description of the token<br><em>Example:</em> <code>"Usher"</code>.</td></tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the token<br><em>Example:</em> <code>"Usher"</code>.</td>
+  </tr>
 </tbody>
 </table>
 
@@ -193,7 +196,10 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>description</code></th><td>Description of the token<br><em>Example:</em> <code>"Usher"</code>.</td></tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the token<br><em>Example:</em> <code>"Usher"</code>.</td>
+  </tr>
 </tbody>
 </table>
 

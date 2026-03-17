@@ -62,7 +62,10 @@ Required request form-field content:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>file</code></th><td>Path to the package.<br><em>Example:</em> <code>"file=@path/to/debian/package/banana_1.1-2_amd64.deb"</code>.</td></tr>
+  <tr>
+    <th><code>file</code></th>
+    <td>Path to the package.<br><em>Example:</em> <code>"file=@path/to/debian/package/banana_1.1-2_amd64.deb"</code>.</td>
+  </tr>
 </tbody>
 </table>
 
@@ -117,9 +120,12 @@ curl -H "Authorization: Bearer $TOKEN" \
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table class="responsive-table">
-  <tbody>
-    <tr><th><code>name</code></th><td>Filters the results by the package name.<br><em>Example:</em> <code>?name=banana</code>.</td></tr>
-  </tbody>
+<tbody>
+  <tr>
+    <th><code>name</code></th>
+    <td>Filters the results by the package name.<br><em>Example:</em> <code>?name=banana</code>.</td>
+  </tr>
+</tbody>
 </table>
 
 Required scope: `read_packages`
@@ -219,7 +225,10 @@ Required [query string parameters](/docs/api#query-string-parameters):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>to</code></th><td>Destination registry slug.<br><em>Example:</em> <code>"to=my-registry"</code>.</td></tr>
+  <tr>
+    <th><code>to</code></th>
+    <td>Destination registry slug.<br><em>Example:</em> <code>"to=my-registry"</code>.</td>
+  </tr>
 </tbody>
 </table>
 

@@ -50,21 +50,42 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>name</code></th><td>Name of the new registry.<br><em>Example:</em> <code>"my registry"</code>.</td></tr>
-  <tr><th><code>ecosystem</code></th><td>Registry ecosystem based on the <a href="/docs/package-registries#get-started">package ecosystem</a> for the new registry.<br><em>Example:</em> <code>"ruby"</code>.</td></tr>
-  <tr><th><code>team_ids</code></th><td>The IDs of one or more teams who will be granted access to this registry.<br>Required only when the <a href="/docs/platform/team-management/permissions">teams feature</a> has been enabled.<br><em>Example:</em> <code>[ "2a1ac413-a56c-4aaa-aede-dc49bb46d00f", "5916fed1-1fbb-4a8d-9791-5b3fa0b5d269" ]</code>.</td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the new registry.<br><em>Example:</em> <code>"my registry"</code>.</td>
+  </tr>
+  <tr>
+    <th><code>ecosystem</code></th>
+    <td>Registry ecosystem based on the <a href="/docs/package-registries#get-started">package ecosystem</a> for the new registry.<br><em>Example:</em> <code>"ruby"</code>.</td>
+  </tr>
+  <tr>
+    <th><code>team_ids</code></th>
+    <td>The IDs of one or more teams who will be granted access to this registry.<br>Required only when the <a href="/docs/platform/team-management/permissions">teams feature</a> has been enabled.<br><em>Example:</em> <code>[ "2a1ac413-a56c-4aaa-aede-dc49bb46d00f", "5916fed1-1fbb-4a8d-9791-5b3fa0b5d269" ]</code>.</td>
+  </tr>
 </tbody>
 </table>
 
 Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
-  <tbody>
-    <tr><th><code>description</code></th><td>Description of the registry.<br><em>Default value:</em> <code>null</code>.</td></tr>
-    <tr><th><code>emoji</code></th><td>Emoji for the registry using the <a href="/docs/apis/rest-api/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:sunflower\:"</code>.</td></tr>
-    <tr><th><code>color</code></th><td>Color hex code for the registry.<br><em>Example:</em> <code>"#f0ccff"</code>.</td></tr>
-    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td></tr>
-  </tbody>
+<tbody>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the registry.<br><em>Default value:</em> <code>null</code>.</td>
+  </tr>
+  <tr>
+    <th><code>emoji</code></th>
+    <td>Emoji for the registry using the <a href="/docs/apis/rest-api/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:sunflower\:"</code>.</td>
+  </tr>
+  <tr>
+    <th><code>color</code></th>
+    <td>Color hex code for the registry.<br><em>Example:</em> <code>"#f0ccff"</code>.</td>
+  </tr>
+  <tr>
+    <th><code>oidc_policy</code></th>
+    <td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements.<br><em>Default value:</em> <code>null</code>.</td>
+  </tr>
+</tbody>
 </table>
 
 Required scope: `write_registries`
@@ -176,11 +197,20 @@ curl -H "Authorization: Bearer $TOKEN" \
 Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
-  <tbody>
-    <tr><th><code>name</code></th><td>Name of the registry.<br><em>Example:</em> <code>my registry</code>.</td></tr>
-    <tr><th><code>description</code></th><td>Description of the registry.<br><em>Example:</em> <code>registry containing ruby gems</code>.</td></tr>
-    <tr><th><code>oidc_policy</code></th><td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements. Be aware that if you are modifying an existing OIDC policy, the entire revised OIDC policy needs to be re-posted in this update request.<br><em>Default value:</em> <code>null</code>.</td></tr>
-  </tbody>
+<tbody>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the registry.<br><em>Example:</em> <code>my registry</code>.</td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the registry.<br><em>Example:</em> <code>registry containing ruby gems</code>.</td>
+  </tr>
+  <tr>
+    <th><code>oidc_policy</code></th>
+    <td>A policy matching a <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-basic-oidc-policy-format">basic</a> or <a href="/docs/package-registries/security/oidc#define-an-oidc-policy-for-a-registry-complex-oidc-policy-example">more complex</a> OIDC policy format. Can be either stringified YAML, or a JSON array of policy statements. Be aware that if you are modifying an existing OIDC policy, the entire revised OIDC policy needs to be re-posted in this update request.<br><em>Default value:</em> <code>null</code>.</td>
+  </tr>
+</tbody>
 </table>
 
 Required scope: `write_registries`

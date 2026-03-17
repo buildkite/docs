@@ -10,18 +10,54 @@ Non-admins can only read or assign pipeline templates marked as `available` by o
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>uuid</code></th><td>UUID of the pipeline template</td></tr>
-  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID of the pipeline template</a></td></tr>
-  <tr><th><code>name</code></th><td>Name of the pipeline template</td></tr>
-  <tr><th><code>description</code></th><td>Description of the pipeline template</td></tr>
-  <tr><th><code>configuration</code></th><td>YAML step configuration for the pipeline template</td></tr>
-  <tr><th><code>available</code></th><td>When set to <code>true</code>, non-admins can assign the pipeline template to pipelines<br><em>Default:</em> <code>false</code></td></tr>
-  <tr><th><code>url</code></th><td>Canonical API URL of the pipeline template</td></tr>
-  <tr><th><code>web_url</code></th><td>URL of the pipeline template on Buildkite</td></tr>
-  <tr><th><code>created_at</code></th><td>When the pipeline template was created</td></tr>
-  <tr><th><code>created_by</code></th><td><a href="/docs/apis/rest-api/user">User</a> who created the pipeline template</td></tr>
-  <tr><th><code>updated_at</code></th><td>When the pipeline template was created</td></tr>
-  <tr><th><code>updated_by</code></th><td><a href="/docs/apis/rest-api/user">User</a> who last updated the pipeline template</td></tr>
+  <tr>
+    <th><code>uuid</code></th>
+    <td>UUID of the pipeline template</td>
+  </tr>
+  <tr>
+    <th><code>graphql_id</code></th>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID of the pipeline template</a></td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the pipeline template</td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>Description of the pipeline template</td>
+  </tr>
+  <tr>
+    <th><code>configuration</code></th>
+    <td>YAML step configuration for the pipeline template</td>
+  </tr>
+  <tr>
+    <th><code>available</code></th>
+    <td>When set to <code>true</code>, non-admins can assign the pipeline template to pipelines<br><em>Default:</em> <code>false</code></td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the pipeline template</td>
+  </tr>
+  <tr>
+    <th><code>web_url</code></th>
+    <td>URL of the pipeline template on Buildkite</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the pipeline template was created</td>
+  </tr>
+  <tr>
+    <th><code>created_by</code></th>
+    <td><a href="/docs/apis/rest-api/user">User</a> who created the pipeline template</td>
+  </tr>
+  <tr>
+    <th><code>updated_at</code></th>
+    <td>When the pipeline template was created</td>
+  </tr>
+  <tr>
+    <th><code>updated_by</code></th>
+    <td><a href="/docs/apis/rest-api/user">User</a> who last updated the pipeline template</td>
+  </tr>
 </tbody>
 </table>
 
@@ -196,7 +232,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -271,7 +310,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -293,6 +335,9 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the pipeline template couldn't be deleted" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the pipeline template couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>
