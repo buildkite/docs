@@ -11,6 +11,9 @@ scope:
 match: $sentence
 exceptions:
   - '^(\d+\.) [A-Z][\w\s-]+' # Allow numbered headings. Example: "1. Install the thing" or "1. One-time ECR setup" or "3. Push using Kaniko"
+  - '^AADSTS\d+' # Allow Azure AD error code headings
+  - '^AuthorizationFailed' # Allow Azure error message headings
+  - '^Storage account key access is disabled' # Allow Azure error message headings
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
   - 1Password
@@ -42,6 +45,7 @@ exceptions:
   - AWS License Manager
   - AWS Secrets Manager
   - AWS Systems Manager Session Manager
+  - Azure
   - Azure AD
   - Azure Active Directory
   - Azure Blob
@@ -215,6 +219,7 @@ exceptions:
   - Package Registries
   - Packagecloud
   - PagerDuty
+  - Palo
   - Phabricator
   - Pipelines
   - pipeline.artifacts_read.pipeline
