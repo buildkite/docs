@@ -34,7 +34,7 @@ The App Registration in Microsoft Entra ID (formerly Azure AD) acts as the ident
 
 Once created, note the following values from the App Registration's **Overview** page. You'll need them later:
 
-- **Application (client) ID** for example, `00xx0x0-0x00-0x00-xx00-x0x000xxx0x0`
+- **Application (client) ID**, for example, `00xx0x0-0x00-0x00-xx00-x0x000xxx0x0`
 - **Directory (tenant) ID** for example, `00xx0x0-0x00-0x00-xx00-x0x000xxx0x0`
 
 > 📘
