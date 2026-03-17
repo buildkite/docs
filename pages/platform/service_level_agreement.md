@@ -4,7 +4,7 @@ Buildkite provides a service level agreement (SLA) that defines the availability
 
 ## Uptime and availability
 
-Buildkite is committed to maintaining high availability for the platform. Real-time and historical uptime data is available on the [Buildkite status page](https://buildkite.com/home/status/).
+Buildkite is committed to maintaining high availability for the platform. Real-time and historical uptime data is available on the [Buildkite status page](https://www.buildkitestatus.com/).
 
 The status page provides:
 
@@ -15,6 +15,6 @@ The status page provides:
 
 ## SLA details
 
-For full details on Buildkite's availability commitments, response times, and support levels, refer to the [Buildkite Service Level Agreement](https://buildkite.com/about/legal/service-level-agreement/).
+For full details on the availability commitments provided by Buildkite, response times, and support levels, refer to the [Buildkite Service Level Agreement](https://buildkite.com/about/legal/service-level-agreement/).
 
-SLA terms may vary depending on your [plan](/docs/platform/pricing-and-plans). Enterprise customers can negotiate custom SLA terms as part of their agreement.
+SLA terms may vary depending on your [plan](/docs/platform/pricing-and-plans).
