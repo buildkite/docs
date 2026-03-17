@@ -100,6 +100,7 @@
   pipelines/security/incoming-webhooks: "Security FAQ for incoming webhooks from source control providers, including IP filtering and logging."
   pipelines/security/oidc: "Overview of OIDC token issuance by Buildkite agents for federated authentication with AWS, GCP, Azure, and others."
   pipelines/security/oidc/aws: "Step-by-step setup for OIDC federation between Buildkite agents and AWS IAM using assume-role-with-web-identity."
+  pipelines/security/oidc/azure: "Step-by-step setup for OIDC federation between Buildkite Pipelines and Microsoft Azure using Entra ID federated identity credentials, with a Terraform example."
   pipelines/security/permissions: "Configuring user, team, and pipeline permissions at organization, team, and pipeline levels."
   pipelines/governance: "Overview of governance features for compliance and auditing: pipeline templates and build exports."
   pipelines/governance/templates: "Enterprise feature for defining reusable pipeline step configurations as centrally managed templates."
