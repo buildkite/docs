@@ -309,6 +309,21 @@ Azure federated identity credentials require an exact match on the OIDC token's 
 
 Any build on a pipeline with a matching Federated Identity Credential can authenticate with Azure, whether it was triggered from `main`, a feature branch, or a manual build.
 
+### Untrusted builds can authenticate to Azure
+
+Because OIDC trust is tied to the pipeline UUID, it doesn't distinguish between a build triggered from `main` and one triggered by an unreviewed pull request. If your pipeline accepts public pull requests and has build forks enabled, anyone who can open a PR against that repo can add a step that requests an OIDC token and hits your Azure resources with whatever RBAC roles you've assigned.
+
+This isn't unique to Buildkite. GitHub Actions has the same challenge, and it's been exploited in the wild. Palo Alto's Unit 42 team [demonstrated real-world attacks using this pattern](https://unit42.paloaltonetworks.com/oidc-misconfigurations-in-ci-cd/) at DEF CON 32, and the [tj-actions/changed-files supply chain attack](https://openssf.org/blog/2025/06/11/maintainers-guide-securing-ci-cd-pipelines-after-the-tj-actions-and-reviewdog-supply-chain-attacks/) in March 2025 showed how compromised tooling inside a pipeline can exfiltrate tokens.
+
+To reduce the risk:
+
+- **Separate CI and CD pipelines.** Run tests on one pipeline, deployments on another. Only configure OIDC on the deploy pipeline where you control what triggers builds and what code runs.
+- **Scope RBAC roles to the minimum required.** Don't assign Contributor at the subscription level when a single resource group will do. See Microsoft's guidance on [best practices for Azure RBAC](https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices).
+- **Restrict who can trigger builds.** Use Buildkite's [pipeline-level permissions](https://buildkite.com/docs/pipelines/security/permissions) to control who can create builds on pipelines with OIDC configured.
+- **Monitor sign-ins in Entra ID.** Check the Service principal sign-in logs for unexpected activity. See the [Monitoring OIDC sign-ins](#monitoring-oidc-sign-ins) section above.
+
+### Getting tighter control
+
 To limit what your pipelines can do in Azure:
 
 - **Use separate App Registrations per environment.** Create one for production, one for staging, each with RBAC roles scoped to their own resources and linked to separate Buildkite pipelines. This gives you pipeline-level isolation between environments.
