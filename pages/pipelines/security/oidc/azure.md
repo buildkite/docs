@@ -96,7 +96,7 @@ env:
 This keeps the values easy to find and change in one place.
 
 > 📘
-> You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control.  
+> You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control.
 > The approach is the same either way. The OIDC token itself is the only sensitive value, and it's generated fresh in each step.  
 > Buildkite Secrets requires agent version 3.106.0 or later. The secret key names are up to you, just match them in your pipeline YAML.  
 
