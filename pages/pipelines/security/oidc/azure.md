@@ -63,7 +63,7 @@ The Federated Identity Credential establishes the trust between your Buildkite p
 <%= image "federated-credential-config.png", width: 1095/2, height: 1110/2, alt: "Screenshot of the Federated Identity Credential configuration showing the Issuer, Subject identifier, Name and Audience fields" %>
 
 > 📘
-> The **Subject identifier** must be the pipeline's UUID only, not a prefixed string. To find it, go to your pipeline in Buildkite, then **Pipeline Settings** > **General**. The UUID is listed under **Pipeline ID**.   
+> The **Subject identifier** must be the pipeline's UUID only, not a prefixed string. To find it, go to your pipeline in Buildkite, then **Pipeline Settings** > **General**. The UUID is listed under **Pipeline ID**.
 > Each pipeline that needs Azure access requires its own Federated Identity Credential.
 
 ## Step 3: Assign RBAC roles
