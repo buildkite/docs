@@ -19,7 +19,7 @@ Learn more about:
 You will need:
 
 - An Azure subscription with permissions to create App Registrations and assign RBAC roles. Note your **Subscription ID** from the Azure Portal (found on the Subscriptions page).
-- A Buildkite pipeline you want to authenticate with Azure. You'll need its **Pipeline UUID**, which you can find in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**.
+- A Buildkite pipeline you want to authenticate with Azure. You'll need its **Pipeline UUID**, which you can find in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**. You can also retrieve it using the [REST API](/docs/apis/rest-api/pipelines#get-a-pipeline) (the `id` field) or the [GraphQL API](/docs/apis/graphql/cookbooks/pipelines#get-a-specific-pipeline).
 
 ## Step 1: Register an application in Microsoft Entra ID
 
@@ -41,7 +41,7 @@ Once created, note the following values from the App Registration's **Overview**
 
 <%= image "app-registration-overview.png", width: 2270/2, height: 1137/2, alt: "Screenshot of the App Registration overview page showing the Application client ID and Directory tenant ID" %>
 
-Think of the App Registration as the definition of your app, and the service principal as the identity it uses to access resources. Learn more in [Application and service principal objects in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/app-objects-and-service-principals)
+Think of the App Registration as the definition of your app, and the service principal as the identity it uses to access resources. Learn more in [Application and service principal objects in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/app-objects-and-service-principals).
 
 ## Step 2: Add a federated identity credential
 
@@ -69,7 +69,7 @@ The Federated Identity Credential establishes the trust between your Buildkite p
 
 Your App Registration needs Azure RBAC roles to access resources. The roles you assign depend on what your pipeline needs to do.
 
-For this example, the pipeline uses Terraform with an Azure Storage Account backend, so it needs:
+For this example, the pipeline uses Terraform with an Azure Storage Account backend, so it will need:
 
 - **Contributor** on the resource group (to create and manage resources)
 - **Storage Blob Data Contributor** on the storage account (to read and write Terraform state)
@@ -83,7 +83,13 @@ To assign a role:
 
 ## Step 4: Configure Azure credentials in your pipeline
 
-Your pipeline needs the Azure Client ID, Tenant ID, and Subscription ID to authenticate. These values are identifiers, not secrets. Define them as pipeline-level [environment variables](/docs/pipelines/configure/environment-variables) in your `pipeline.yml`:
+To authenticate, your pipeline needs:
+
+- Azure Client ID
+- Tenant ID
+- Subscription ID
+
+These values are identifiers, not secrets. Define them as pipeline-level [environment variables](/docs/pipelines/configure/environment-variables) in your `pipeline.yml`:
 
 ```yaml
 env:
@@ -94,11 +100,9 @@ env:
 
 This keeps the values easy to find and change in one place.
 
+You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control. The approach is the same either way. The OIDC token itself is the only sensitive value, and it's generated fresh in each step.
+
 > 📘
-> You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control.
->
-> The approach is the same either way. The OIDC token itself is the only sensitive value, and it's generated fresh in each step.
->
 > Buildkite Secrets requires agent version 3.106.0 or later. The secret key names are up to you, just match them in your pipeline YAML.
 
 ## Step 5: Request an OIDC token in your pipeline
@@ -121,9 +125,7 @@ Do not change the audience to a custom value. If the audience in the OIDC token 
 Most users should leave this as the default `api://AzureADTokenExchange`.
 
 > 📘
-> Each step in a Buildkite pipeline runs independently. If multiple steps need Azure access, each step must request its own OIDC token.
->
-> Tokens cannot be passed between steps.
+> Each step in a Buildkite pipeline runs independently. If multiple steps need Azure access, each step must request its own OIDC token. Tokens cannot be passed between steps.
 
 ## Step 6: Authenticate with Azure using the token
 
@@ -140,7 +142,7 @@ az login --service-principal \
 
 ### Using Terraform with the AzureRM provider
 
-Set the following environment variables in your pipeline. The `ARM_CLIENT_ID`, `ARM_TENANT_ID`, and `ARM_SUBSCRIPTION_ID` values are identifiers, not secrets, so they can be defined directly in your `pipeline.yml`. The OIDC token is the only sensitive value, and it's generated fresh in each step.
+Set the following environment variables in your pipeline:
 
 ```yaml
 env:
@@ -151,10 +153,11 @@ env:
   ARM_SUBSCRIPTION_ID: "your-azure-subscription-id"
 ```
 
-The AzureRM provider reads these environment variables automatically when `ARM_USE_OIDC` is set to `true`. The `ARM_USE_AZUREAD` variable is needed when using an Azure Storage Account backend for Terraform state. It tells the provider to authenticate to the storage data plane using Entra ID rather than storage account keys.
+The `ARM_CLIENT_ID`, `ARM_TENANT_ID`, and `ARM_SUBSCRIPTION_ID` values are identifiers, not secrets, so they can be defined directly in your `pipeline.yml`. The OIDC token is the only sensitive value, and it's generated fresh in each step.
 
-> 📘
-> You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control. Both approaches work the same way with the docker-compose plugin's `propagate-environment` option.
+The AzureRM provider will read these environment variables automatically when `ARM_USE_OIDC` is set to `true`. The `ARM_USE_AZUREAD` variable is needed when using an Azure Storage Account backend for Terraform state. It tells the provider to authenticate to the storage data plane using Entra ID rather than storage account keys.
+
+You can also store these values as [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) if your organization prefers to keep all configuration out of version control. Both approaches work the same way with the [Docker Compose Buildkite plugin's](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) `propagate-environment` option.
 
 ## Example pipeline
 
@@ -227,8 +230,8 @@ steps:
 A few things to note about this pipeline:
 
 - Each step requests a fresh OIDC token independently. Tokens are short-lived and can't be shared between steps.
-- The `docker-compose` plugin with `propagate-environment: true` automatically passes all pipeline environment variables (the `ARM_*` values) into the container, removing the need for explicit `-e` flags.
-- `mount-buildkite-agent: true` makes the `buildkite-agent` binary available inside the container. This is required for requesting OIDC tokens and uploading/downloading artifacts. The docker-compose plugin defaults this to `false`.
+- The [Docker Compose Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) with `propagate-environment: true` automatically passes all pipeline environment variables (the `ARM_*` values) into the container, removing the need for explicit `-e` flags.
+- `mount-buildkite-agent: true` makes the `buildkite-agent` binary available inside the container. This is required for requesting OIDC tokens and uploading/downloading artifacts. The [Docker Compose Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) defaults this to `false`.
 - The plan step saves the plan to a file (`-out=tfplan`) and uploads it as a Buildkite artifact. The apply step downloads that exact plan and applies it, so you're always applying exactly what was reviewed.
 - The `block` step between plan and apply gives you a chance to review the plan before deploying.
 - Backend configuration values are passed using `-backend-config` flags at init time, keeping the Terraform code environment-agnostic.
@@ -248,11 +251,11 @@ services:
       - ".:/workspace"
 ```
 
-The `entrypoint: []` line is required. The `hashicorp/terraform` Docker image sets `terraform` as its default entrypoint. Without clearing it, the docker-compose plugin can't execute shell commands inside the container because Docker will try to pass the shell command as arguments to the `terraform` binary.
+The `entrypoint: []` line is required. The `hashicorp/terraform` Docker image sets `terraform` as its default entrypoint. Without clearing it, the Docker Compose Buildkite plugin can't execute shell commands inside the container because Docker will try to pass the shell command as arguments to the `terraform` binary.
 
 ### Terraform configuration
 
-The Terraform configuration uses the AzureRM provider with OIDC enabled. The backend block is intentionally minimal. The resource group, storage account, container, and state key are all passed using `-backend-config` at init time.
+The Terraform configuration uses the [AzureRM](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs) provider with OIDC enabled. The backend block is intentionally minimal. The resource group, storage account, container, and state key are all passed using `-backend-config` at init time.
 
 ```hcl
 terraform {
@@ -305,11 +308,11 @@ Learn more about sign-in logs in [Sign-in logs in Microsoft Entra ID](https://le
 
 ## Known limitations
 
-Azure federated identity credentials are scoped by the OIDC token's subject claim, which Buildkite sets to the pipeline UUID. This creates the following constraints around access control and trust.
+Azure federated identity credentials are scoped by the OIDC token's subject claim, which Buildkite Pipelines sets to the pipeline UUID. This creates the following constraints around access control and trust.
 
 ### Access control is scoped to the pipeline level
 
-Azure federated identity credentials require an exact match on the OIDC token's subject claim. Buildkite sets this to the pipeline UUID, so the trust operates at the pipeline level only. You can't restrict Azure access by branch, build source, or other build context.
+Azure federated identity credentials require an exact match on the OIDC token's subject claim. Buildkite Pipelines sets this to the pipeline UUID, so the trust operates at the pipeline level only. You can't restrict Azure access by branch, build source, or other build context.
 
 Any build on a pipeline with a matching Federated Identity Credential can authenticate with Azure, whether it was triggered from `main`, a feature branch, or a manual build.
 
@@ -317,7 +320,8 @@ Any build on a pipeline with a matching Federated Identity Credential can authen
 
 Because OIDC trust is tied to the pipeline UUID, it doesn't distinguish between a build triggered from `main` and one triggered by an unreviewed pull request. If your pipeline accepts public pull requests and has build forks enabled, anyone who can open a PR against that repo can add a step that requests an OIDC token and hits your Azure resources with whatever RBAC roles you've assigned.
 
-This isn't unique to Buildkite. GitHub Actions has the same challenge, and it's been exploited in the wild. Palo Alto's Unit 42 team [demonstrated real-world attacks using this pattern](https://unit42.paloaltonetworks.com/oidc-misconfigurations-in-ci-cd/) at DEF CON 32, and the [tj-actions/changed-files supply chain attack](https://openssf.org/blog/2025/06/11/maintainers-guide-securing-ci-cd-pipelines-after-the-tj-actions-and-reviewdog-supply-chain-attacks/) in March 2025 showed how compromised tooling inside a pipeline can exfiltrate tokens.
+> 📘
+> This is a common constraint across CI/CD providers that support OIDC. Palo Alto's Unit 42 team [demonstrated real-world attacks using this pattern](https://unit42.paloaltonetworks.com/oidc-misconfigurations-in-ci-cd/) at DEF CON 32, and the [tj-actions/changed-files supply chain attack](https://openssf.org/blog/2025/06/11/maintainers-guide-securing-ci-cd-pipelines-after-the-tj-actions-and-reviewdog-supply-chain-attacks/) in March 2025 showed how compromised tooling inside a pipeline can exfiltrate tokens.
 
 To reduce the risk:
 
