@@ -156,7 +156,7 @@ The AzureRM provider reads these environment variables automatically when `ARM_U
 
 ## Example pipeline
 
-This example pipeline runs Terraform to deploy Azure resources, authenticating entirely through OIDC with no stored Azure credentials. It uses the [docker-compose Buildkite plugin](https://buildkite.com/resources/plugins/docker-compose) to run Terraform in a container.
+This example pipeline runs Terraform to deploy Azure resources, authenticating entirely through OIDC with no stored Azure credentials. It uses the [docker-compose Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) to run Terraform in a container.
 
 The pipeline defines the Azure identifiers and OIDC flags as pipeline-level environment variables. Each step requests a fresh OIDC token before running Terraform commands.
 
@@ -319,7 +319,7 @@ To reduce the risk:
 
 - **Separate CI and CD pipelines.** Run tests on one pipeline, deployments on another. Only configure OIDC on the deploy pipeline where you control what triggers builds and what code runs.
 - **Scope RBAC roles to the minimum required.** Don't assign Contributor at the subscription level when a single resource group will do. See Microsoft's guidance on [best practices for Azure RBAC](https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices).
-- **Restrict who can trigger builds.** Use the [pipeline-level permissions](/docs/pipelines/security/permissions) provided by Buildkite Pipelines to control who can create builds on pipelines with OIDC configured.
+- **Restrict who can trigger builds.** Use the [pipeline-level permissions](/docs/pipelines/security/permissions) in Buildkite Pipelines to control who can create builds on pipelines with OIDC configured.
 - **Monitor sign-ins in Entra ID.** Check the Service principal sign-in logs for unexpected activity. See the [Monitoring OIDC sign-ins](#monitoring-oidc-sign-ins) section above.
 
 ### Getting tighter control
