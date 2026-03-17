@@ -19,7 +19,7 @@ Learn more about:
 You will need:
 
 - An Azure subscription with permissions to create App Registrations and assign RBAC roles. Note your **Subscription ID** from the Azure Portal (found on the Subscriptions page).
-- A Buildkite pipeline you want to authenticate with Azure. You'll need its **Pipeline UUID**, which you can find in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**. You can also retrieve it using the [REST API](/docs/apis/rest-api/pipelines#get-a-pipeline) (the `id` field) or the [GraphQL API](/docs/apis/graphql/cookbooks/pipelines#get-a-specific-pipeline).
+- A Buildkite pipeline you want to authenticate with Azure. You'll need its **Pipeline UUID**, which you can find in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**. You can also retrieve it using the [REST API](/docs/apis/rest-api/pipelines#get-a-pipeline) (the `id` field) or the [GraphQL API](/docs/apis/graphql/cookbooks/pipelines#get-a-pipelines-uuid).
 
 ## Step 1: Register an application in Microsoft Entra ID
 
