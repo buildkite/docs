@@ -196,6 +196,7 @@ deployments:
     - "pipelines/configure/workflows/branch-configuration"
     - "pipelines/security/oidc"
     - "pipelines/security/oidc/aws"
+    - "pipelines/security/oidc/azure"
     - "pipelines/integrations/other/backstage"
   related_topics:
     - pipelines
