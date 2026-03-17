@@ -28,7 +28,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.html { render @page.template }
       format.md {
-        render plain: @page.markdown_body, content_type: "text/markdown"
+        render plain: @page.markdown_body_with_table_conversion, content_type: "text/markdown"
       }
     end
   end

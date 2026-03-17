@@ -114,8 +114,14 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>operator</code></th><td>The operation that will be apply to labels.<br><code>"add"</code> or <code>"remove"</code>.</td></tr>
-  <tr><th><code>labels</code></th><td>The labels that will be added or removed. <br><em>Example:</em> <code>["flaky"]</code>.</td></tr>
+  <tr>
+    <th><code>operator</code></th>
+    <td>The operation that will be apply to labels.<br><code>"add"</code> or <code>"remove"</code>.</td>
+  </tr>
+  <tr>
+    <th><code>labels</code></th>
+    <td>The labels that will be added or removed. <br><em>Example:</em> <code>["flaky"]</code>.</td>
+  </tr>
 </tbody>
 </table>
 

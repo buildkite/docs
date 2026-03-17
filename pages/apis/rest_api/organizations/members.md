@@ -6,9 +6,18 @@ The organization members API endpoint allows users to view all members of a Buil
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>id</code></th><td>UUID of the user</td></tr>
-  <tr><th><code>name</code></th><td>Name of the user</tr>
-  <tr><th><code>email</code></th><td>Email of the user</td></tr>
+  <tr>
+    <th><code>id</code></th>
+    <td>UUID of the user</td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>Name of the user</td>
+  </tr>
+  <tr>
+    <th><code>email</code></th>
+    <td>Email of the user</td>
+  </tr>
 </tbody>
 </table>
 

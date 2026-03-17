@@ -213,6 +213,7 @@ iTerm
 iTerm's
 Jenkins
 Jenkinsfile
+Jenkinsfiles
 JFrog
 JFrog's
 job_watcher
@@ -388,6 +389,8 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+SLA
+SLAs
 SLO
 SLOs
 snake_case
@@ -438,6 +441,7 @@ toolset
 toolsets
 tooltip
 TOTP's
+TPUs
 traceparent
 Trivy
 trixie
