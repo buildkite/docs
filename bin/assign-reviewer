@@ -47,10 +47,6 @@ class GithubClient
     get("/repos/#{@repo}/pulls/#{pr_number}/files")
   end
 
-  def get_pr_reviews(pr_number)
-    get("/repos/#{@repo}/pulls/#{pr_number}/reviews")
-  end
-
   def list_prs_for_branch(branch)
     get("/repos/#{@repo}/pulls?head=#{@repo.split('/').first}:#{branch}&state=open")
   end
@@ -123,15 +119,6 @@ def eligible_for_assignment?(pr_data, config, github_client)
   existing_labels = pr_data['labels'].map { |l| l['name'] }
   if existing_labels.include?('Reviewer-assigned')
     puts "#{YELLOW}PR already has 'Reviewer-assigned' label#{RESET}"
-    return false
-  end
-
-  # PR must not already have submitted reviews from docs team members
-  reviews = github_client.get_pr_reviews(pr_data['number'])
-  docs_reviews = reviews.select { |r| docs_usernames.include?(r['user']['login']) }
-  if docs_reviews.any?
-    reviewed_by = docs_reviews.map { |r| "#{r['user']['login']} (#{r['state']})" }.uniq.join(', ')
-    puts "#{YELLOW}PR already has reviews from docs team: #{reviewed_by}#{RESET}"
     return false
   end
 
