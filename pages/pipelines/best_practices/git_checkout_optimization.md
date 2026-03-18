@@ -47,9 +47,26 @@ To understand how Buildkite's checkout defaults differ from other platforms in a
 
 ## How to monitor Git operations
 
-Several approaches are possible for monitoring your Git operations:
+Understanding where time is spent during Git checkout helps you identify bottlenecks and measure the impact of optimizations. The following approaches can help you gain visibility into Git performance across your builds.
 
-- Buildkite Pipelines emits [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) spans for checkout behavior. The `checkout` span covers everything from pre-checkout to post-checkout. Also, there is a `repo-checkout` child span which focuses on the Git checkout behavior. You will need to set up OpenTelemetry integration to be able to use this feature.
-- You can use a local (or network) proxy for Git clones with smart caching and credential management, which is also a logical point for telemetry, as described above.
-- You can use https://github.com/block/cachew or https://github.com/wolfeidau/content-cache/.
-- Alternatively, you can use a [checkout hook](/docs/agent/hooks) on your agents and plug in with a monitor that phase of the process.
+### OpenTelemetry tracing
+
+The Buildkite agent emits [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) trace spans for checkout behavior when [tracing is enabled](/docs/agent/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing). Two spans are relevant to Git operations:
+
+- **`checkout`:** Covers the entire checkout phase, including `pre-checkout` and `post-checkout` [hooks](/docs/agent/hooks).
+- **`repo-checkout`:** A child span of `checkout` that isolates the Git checkout itself, excluding hook execution time.
+
+By comparing these two spans, you can determine whether slowdowns originate from Git operations or from custom [hook](/docs/agent/hooks) logic. If you are also using the [OpenTelemetry Tracing Notification Service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service), you can propagate traces from the Buildkite control plane through to the agent spans for an end-to-end view of build performance.
+
+### Checkout hooks
+
+You can use a [checkout hook](/docs/agent/hooks) on your agents to add custom timing or instrumentation around the Git checkout phase. For example, a `pre-checkout` hook could record a start timestamp and a `post-checkout` hook could calculate the elapsed time and send it to your monitoring system. This approach works with any observability platform and does not require OpenTelemetry.
+
+### Git caching proxies
+
+A local or network-level Git caching proxy sits between your agents and the upstream Git server, caching repository data and serving repeated clones or fetches from a local cache. Because all Git traffic flows through the proxy, it provides a natural instrumentation point for collecting metrics such as cache hit rates, clone durations, and bandwidth usage.
+
+Two open-source options that support Git caching with built-in observability are:
+
+- [Cachew](https://github.com/block/cachew): A protocol-aware caching proxy that maintains compressed snapshots of repositories for faster restores. It supports OpenTelemetry metrics and Prometheus integration.
+- [content-cache](https://github.com/wolfeidau/content-cache): A content-addressable caching proxy that supports Git smart HTTP protocol with pack-level caching. It exports OpenTelemetry metrics and provides Prometheus endpoints for monitoring cache effectiveness.
