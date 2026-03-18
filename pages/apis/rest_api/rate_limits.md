@@ -44,5 +44,5 @@ To ensure the smooth functioning and efficient use of the API, design your clien
 - Use caching strategies to avoid excessive calls to the Buildkite API.
 - Regulate the rate of your requests to ensure smoother distribution by using strategies such as queues or scheduling API calls at appropriate intervals.
 - Use metadata about your API usage, including rate limit status, to manage behavior dynamically.
-- Consider all users making requests across your organization in your rate-limiting solution.
+- Consider all users making requests across your organization when designing your rate-limiting solution.
 - Be aware of retries, errors, and loops when designing your application, as they can easily accumulate and use up allocated quotas.
