@@ -269,6 +269,7 @@ When documenting code or technical processes for Buildkite:
 **Code references:**
 - Use code blocks with language identifiers (```yaml, ```bash, and so on)
 - Avoid using `code` formatting in headings
+- Code formatting is acceptable in other text formatting contexts
 - Don't grammatically inflect code elements in headings
 - Present CLI commands clearly with proper formatting
 
@@ -427,7 +428,7 @@ Ensure documentation is accessible and clear:
 **Italic text (key terms/emphasis):**
 - Use `_text_` (single underscores) for italics
 - Never use `*text*` (single asterisks)
-- Use sparingly for key terms and emphasis
+- Use sparingly for key terms or for emphasizing words
 
 ## List rules
 
