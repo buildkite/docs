@@ -6,10 +6,22 @@ The team suites API endpoint allows users to review, create, update, and delete 
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>suite_id</code></th><td>UUID of the suite</td></tr>
-  <tr><th><code>suite_url</code></th><td>URL of the suite</td></tr>
-  <tr><th><code>created_at</code></th><td>When the team and suite association was created</td></tr>
-  <tr><th><code>access_level</code></th><td>The access levels that user has to the associated suite - <code>edit</code>, <code>read</code></td></tr>
+  <tr>
+    <th><code>suite_id</code></th>
+    <td>UUID of the suite</td>
+  </tr>
+  <tr>
+    <th><code>suite_url</code></th>
+    <td>URL of the suite</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>When the team and suite association was created</td>
+  </tr>
+  <tr>
+    <th><code>access_level</code></th>
+    <td>The access levels that user has to the associated suite - <code>edit</code>, <code>read</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -94,7 +106,10 @@ Required [request body properties](/docs/api#request-body-properties):
     <th><code>suite_id</code></th>
     <td>The UUID of the suite.</td>
   </tr>
-  <tr><th><code>access_level</code></th><td>The access levels for team members to the associated suite - <code>read</code>, <code>edit</code></td></tr>
+  <tr>
+    <th><code>access_level</code></th>
+    <td>The access levels for team members to the associated suite - <code>read</code>, <code>edit</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -106,7 +121,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -151,7 +169,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -172,6 +193,9 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the team suite couldn't be deleted" }</code></td></tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason the team suite couldn't be deleted" }</code></td>
+  </tr>
 </tbody>
 </table>

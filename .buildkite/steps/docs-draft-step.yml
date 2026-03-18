@@ -30,6 +30,7 @@ steps:
             - "BUILDKITE_AGENT_ENDPOINT"
             - "UPSTREAM_REPO=${UPSTREAM_REPO}"
             - "UPSTREAM_PR_NUMBER=${UPSTREAM_PR_NUMBER}"
+            - "WRITE_DOCS=${WRITE_DOCS:-}"
             - "GITHUB_TOKEN"
             - "ANTHROPIC_BASE_URL=https://agent.buildkite.com/v3/ai/anthropic"
             - "DISABLE_AUTOUPDATER=1"

@@ -1,0 +1,38 @@
+# docs-draft-changelog.yml — The step definition for the changelog draft pipeline.
+# Uploaded dynamically based on "needs-changelog" label or manual selection.
+
+steps:
+  - label: ":newspaper: Draft changelog entry"
+    command: bash .buildkite/scripts/changelog.sh
+    timeout_in_minutes: 5
+    agents:
+      queue: hosted
+    env:
+      AWS_DEFAULT_REGION: us-east-1
+    plugins:
+      - aws-assume-role-with-web-identity#v1.4.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-draft-writer
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
+      - aws-ssm#v1.1.0:
+          parameters:
+            GITHUB_TOKEN: /pipelines/buildkite/docs-draft-writer/github-token
+      - docker#v5.13.0:
+          image: "node:22-slim"
+          propagate-environment: true
+          volumes:
+            - "/gitmirror:/gitmirror:ro"
+          environment:
+            - "BUILDKITE_AGENT_ACCESS_TOKEN"
+            - "BUILDKITE_AGENT_ENDPOINT"
+            - "UPSTREAM_REPO=${UPSTREAM_REPO}"
+            - "UPSTREAM_PR_NUMBER=${UPSTREAM_PR_NUMBER}"
+            - "WRITE_CHANGELOG=${WRITE_CHANGELOG:-}"
+            - "GITHUB_TOKEN"
+            - "ANTHROPIC_BASE_URL=https://agent.buildkite.com/v3/ai/anthropic"
+            - "DISABLE_AUTOUPDATER=1"
+            - "DISABLE_TELEMETRY=1"
+          mount-buildkite-agent: true

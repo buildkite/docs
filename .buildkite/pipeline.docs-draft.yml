@@ -1,12 +1,24 @@
 # Docs Draft Pipeline
 #
-# Generates AI-powered documentation drafts for upstream PRs.
-# Triggered by upstream pipelines when a PR is labeled "needs-docs",
-# or run manually by providing the repo and PR number via input step.
+# Generates AI-powered documentation drafts and changelog entries for upstream PRs.
+#
+# Can be triggered in two ways:
+#
+# 1. Automatically from upstream pipelines (e.g. buildkite/buildkite, buildkite/agent)
+#    on merge to main. The upstream trigger sets UPSTREAM_REPO and UPSTREAM_PR_NUMBER.
+#    Each step script checks the PR for its respective label ("needs-docs" or
+#    "needs-changelog") and exits early if the label is not present.
+#
+# 2. Manually via the Buildkite UI. If UPSTREAM_REPO and UPSTREAM_PR_NUMBER are not set,
+#    an input step prompts the user to select a repo, PR number, and what to generate.
 #
 # Required environment variables (set by upstream trigger or manual input):
 #   UPSTREAM_REPO       — GitHub repo slug (e.g. "buildkite/agent")
 #   UPSTREAM_PR_NUMBER  — PR number in the upstream repo
+#
+# Optional (set by manual input to skip label checks):
+#   WRITE_DOCS          — "true" to generate a docs draft
+#   WRITE_CHANGELOG     — "true" to generate a changelog entry
 
 steps:
   - label: ":thinking_face: Check inputs"
@@ -14,9 +26,24 @@ steps:
       queue: hosted
     command: |
       if [ -n "$${UPSTREAM_REPO:-}" ] && [ -n "$${UPSTREAM_PR_NUMBER:-}" ]; then
-        echo "Env vars present — uploading main step"
-        buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
+        echo "Upstream trigger detected: $${UPSTREAM_REPO}#$${UPSTREAM_PR_NUMBER}"
+
+        if [ "$${WRITE_DOCS:-}" = "true" ]; then
+          echo "Uploading docs draft step (WRITE_DOCS=true)"
+          buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
+        fi
+
+        if [ "$${WRITE_CHANGELOG:-}" = "true" ]; then
+          echo "Uploading changelog step (WRITE_CHANGELOG=true)"
+          buildkite-agent pipeline upload .buildkite/steps/docs-draft-changelog.yml
+        fi
+
+        if [ "$${WRITE_DOCS:-}" != "true" ] && [ "$${WRITE_CHANGELOG:-}" != "true" ]; then
+          echo "No WRITE_DOCS/WRITE_CHANGELOG set — uploading both steps (they will check labels themselves)"
+          buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
+          buildkite-agent pipeline upload .buildkite/steps/docs-draft-changelog.yml
+        fi
       else
-        echo "Missing env vars — uploading input step + main step"
+        echo "Missing env vars — uploading input step"
         buildkite-agent pipeline upload .buildkite/steps/docs-draft-input.yml
       fi

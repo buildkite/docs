@@ -63,10 +63,28 @@ echo "CLAUDE_MAX_TURNS: '${CLAUDE_MAX_TURNS}'"
 export ANTHROPIC_API_KEY="${BUILDKITE_AGENT_ACCESS_TOKEN}"
 export GH_TOKEN="${GITHUB_TOKEN}"
 
-# --- Install dependencies ---
+# --- Install minimal dependencies for label check ---
 
 echo "--- :hammer: Install dependencies"
 apt-get update -qq && apt-get install -y -qq git curl jq > /dev/null 2>&1
+
+# --- Check for "needs-docs" label (unless WRITE_DOCS is already set) ---
+# When triggered automatically from an upstream pipeline, WRITE_DOCS may not be set.
+# In that case, check the PR's labels to decide whether to proceed.
+
+if [ "${WRITE_DOCS:-}" != "true" ]; then
+  echo "--- :label: Checking for 'needs-docs' label on ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
+  LABELS=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+    "https://api.github.com/repos/${UPSTREAM_REPO}/pulls/${UPSTREAM_PR_NUMBER}" \
+    | jq -r '.labels[].name // empty' 2>/dev/null || true)
+  echo "PR labels: ${LABELS:-<none>}"
+
+  if ! echo "${LABELS}" | grep -q "^needs-docs$"; then
+    echo "No 'needs-docs' label found, skipping docs draft"
+    exit 0
+  fi
+  echo "'needs-docs' label found, proceeding"
+fi
 
 # Install gh CLI
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \

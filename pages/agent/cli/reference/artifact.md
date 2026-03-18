@@ -25,9 +25,7 @@ You can also configure the agent to automatically upload artifacts after your
 step's command has completed based on a file pattern (see the
 [Using build artifacts guide](/docs/pipelines/configure/artifacts) for details).
 
-
 <%= render 'agent/cli/help/artifact_upload' %>
-
 
 ### Artifact upload examples
 
@@ -161,9 +159,7 @@ buildkite-agent artifact <download or search> "artifacts/path/*" . --build $BUIL
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
 
-
 <%= render 'agent/cli/help/artifact_shasum' %>
-
 
 ## Using your private AWS S3 bucket
 

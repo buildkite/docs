@@ -47,10 +47,6 @@ class GithubClient
     get("/repos/#{@repo}/pulls/#{pr_number}/files")
   end
 
-  def get_pr_reviews(pr_number)
-    get("/repos/#{@repo}/pulls/#{pr_number}/reviews")
-  end
-
   def list_prs_for_branch(branch)
     get("/repos/#{@repo}/pulls?head=#{@repo.split('/').first}:#{branch}&state=open")
   end
@@ -123,15 +119,6 @@ def eligible_for_assignment?(pr_data, config, github_client)
   existing_labels = pr_data['labels'].map { |l| l['name'] }
   if existing_labels.include?('Reviewer-assigned')
     puts "#{YELLOW}PR already has 'Reviewer-assigned' label#{RESET}"
-    return false
-  end
-
-  # PR must not already have submitted reviews from docs team members
-  reviews = github_client.get_pr_reviews(pr_data['number'])
-  docs_reviews = reviews.select { |r| docs_usernames.include?(r['user']['login']) }
-  if docs_reviews.any?
-    reviewed_by = docs_reviews.map { |r| "#{r['user']['login']} (#{r['state']})" }.uniq.join(', ')
-    puts "#{YELLOW}PR already has reviews from docs team: #{reviewed_by}#{RESET}"
     return false
   end
 
@@ -283,8 +270,6 @@ def assign_reviewer(pr_data, reviewer, github_client)
 
   # 1. Request review via GitHub API
   begin
-    github_client.request_reviewers(pr_data['number'], [reviewer['username']])
-    puts "#{GREEN_BOLD}Successfully requested review from #{reviewer['username']}#{RESET}"
     github_client.add_label(pr_data['number'], 'Reviewer-assigned')
     puts "#{GREEN_BOLD}Added 'Reviewer-assigned' label#{RESET}"
   rescue => e
@@ -309,24 +294,37 @@ def notify_zapier(pr_data, reviewer)
     pr_creator: pr_data['user']['login']
   }
 
+  puts "  gh_url:      #{payload[:gh_url]}"
+  puts "  gh_issue_id: #{payload[:gh_issue_id]}"
+  puts "  assignee:    #{assignee}"
+  puts "  pr_creator:  #{payload[:pr_creator]}"
+
   if DRY_RUN
     puts "#{YELLOW}DRY RUN: Would POST to Zapier webhook#{RESET}"
-    puts "  gh_url: #{payload[:gh_url]}"
-    puts "  assignee: #{assignee}"
-    puts "  pr_creator: #{payload[:pr_creator]}"
     return
   end
 
   begin
     uri = URI(webhook_url)
+    puts "#{CYAN}POST #{uri}#{RESET}"
+    puts "#{CYAN}Request payload:#{RESET}"
+    puts JSON.pretty_generate(payload)
+
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     request.body = payload.to_json
     response = http.request(request)
-    puts "#{GREEN_BOLD}Zapier webhook sent (#{response.code})#{RESET}"
+
+    colour = response.code.to_i < 400 ? GREEN_BOLD : RED_BOLD
+    puts "#{colour}Response: #{response.code} #{response.message}#{RESET}"
+    puts "#{CYAN}Response headers:#{RESET}"
+    response.each_header { |k, v| puts "  #{k}: #{v}" }
+    puts "#{CYAN}Response body:#{RESET}"
+    puts response.body
   rescue => e
-    puts "#{YELLOW}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
+    puts "#{RED_BOLD}Warning: Could not send Zapier webhook: #{e.message}#{RESET}"
+    puts e.backtrace.first(5).join("\n")
   end
 end
 

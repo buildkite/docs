@@ -152,6 +152,7 @@ errored
 eval
 Eventbridge
 EventBridge
+exfiltrate
 exfiltrated
 exfiltration
 explainshell
@@ -212,6 +213,7 @@ iTerm
 iTerm's
 Jenkins
 Jenkinsfile
+Jenkinsfiles
 JFrog
 JFrog's
 job_watcher
@@ -296,9 +298,9 @@ OTLP
 otlp
 overprivileged
 Pagerduty
-ptrace
 Packagecloud
 Packagecloud's
+Palo
 parsable
 parallelization
 pbuilder
@@ -329,6 +331,7 @@ prefetch
 preinstall
 preprovisioned
 proxied
+ptrace
 pty
 pullrequest
 pybuildkite
@@ -386,6 +389,8 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+SLA
+SLAs
 SLO
 SLOs
 snake_case
@@ -436,6 +441,7 @@ toolset
 toolsets
 tooltip
 TOTP's
+TPUs
 traceparent
 Trivy
 trixie
