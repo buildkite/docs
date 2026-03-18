@@ -274,7 +274,7 @@ This section describes common issues for BuildKit and the ways of solving these 
 
 ### BuildKit tools not found
 
-Use appropriate image:
+Use appropriate image for your build mode:
 
 - **Privileged** builds: `moby/buildkit:latest`.
 - **Non-privileged/Rootless** builds: `moby/buildkit:rootless`.
