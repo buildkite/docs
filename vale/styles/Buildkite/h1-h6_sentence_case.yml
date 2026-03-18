@@ -62,6 +62,8 @@ exceptions:
   - Buildah
   - buildevents
   - BuildKit
+  - Bottlerocket
+  - Bottlerocket OS
   - Buildkite
   - Buildkite Package Registries
   - Buildkite Pipelines
@@ -112,6 +114,7 @@ exceptions:
   - ECS
   - EC2
   - EKS
+  - EKS Auto Mode
   - Elastic
   - Elastic Container Registry
   - Elastic CI Stack
