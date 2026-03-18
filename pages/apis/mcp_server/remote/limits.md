@@ -11,7 +11,7 @@ The rate limit status is available in the following response headers of each API
 - `RateLimit-Reset` - The number of seconds remaining until a new time window is started and limits are reset.
 - `RateLimit-Scope` - Set to `mcp` for all MCP server requests, identifying the type of rate limit applied.
 
-For example, the following headers show a response for an MCP server request, where 35 of the 50 per-user requests remain in the current window and 28 seconds before a new time window begins.
+For example, the following headers show a response for an MCP server request, where 35 of the 50 per-user requests remain in the current window, with 28 seconds before a new time window begins.
 
 ```js
 RateLimit-Remaining: 35
