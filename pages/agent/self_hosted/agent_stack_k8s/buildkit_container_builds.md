@@ -274,7 +274,7 @@ This section describes common issues for BuildKit and the ways of solving these 
 
 ### BuildKit tools not found
 
-Use appropriate image:
+Use appropriate image for your build mode:
 
 - **Privileged** builds: `moby/buildkit:latest`.
 - **Non-privileged/Rootless** builds: `moby/buildkit:rootless`.
@@ -282,6 +282,48 @@ Use appropriate image:
 ### Rootless build failures
 
 Ensure `BUILDKITD_FLAGS="--oci-worker-no-process-sandbox"` is set to "rootless (strict)" mode.
+
+### Rootless builds failing on Bottlerocket OS (including EKS Auto Mode)
+
+Bottlerocket OS sets `user.max_user_namespaces=0` by default as a security hardening measure, disabling user namespaces required by rootless BuildKit. EKS Auto Mode runs nodes on Bottlerocket AMIs, but this issue affects any Kubernetes cluster running Bottlerocket nodes.
+
+Both rootless modes fail with:
+
+```
+[rootlesskit:parent] /proc/sys/user/max_user_namespaces needs to be set to non-zero.
+[rootlesskit:parent] error: failed to start the child: fork/exec /proc/self/exe: no space left on device
+```
+
+To fix this, apply the following [DaemonSet](https://github.com/moby/buildkit/blob/master/examples/kubernetes/sysctl-userns.privileged.yaml) to all nodes in the cluster before running rootless builds:
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: sysctl-userns
+  name: sysctl-userns
+spec:
+  selector:
+    matchLabels:
+      app: sysctl-userns
+  template:
+    metadata:
+      labels:
+        app: sysctl-userns
+    spec:
+      containers:
+        - name: sysctl-userns
+          image: busybox
+          command:
+            - sh
+            - -euxc
+            - sysctl -w user.max_user_namespaces=63359 && sleep infinity
+          securityContext:
+            privileged: true
+```
+
+After applying the DaemonSet, rootless (strict) mode works. Rootless (non-privileged) mode still fails with `runc run failed: unable to start container process: error mounting "proc"` — this mode is not supported on Bottlerocket OS.
 
 ### Pod initialization issues
 
@@ -296,10 +338,9 @@ Known limitation with `--oci-worker-no-process-sandbox` - BuildKit cannot force-
 Increase BuildKit output verbosity by using `--progress=plain` and adding debug flags:
 
 ```bash
-buildctl-daemonless.sh build \
+buildctl-daemonless.sh --debug build \
   --frontend dockerfile.v0 \
   --local context=. \
   --local dockerfile=. \
-  --progress=plain \
-  --debug
+  --progress=plain
 ```

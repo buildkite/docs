@@ -47,6 +47,7 @@ Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+Bottlerocket
 Bayesian
 Bazel
 Bazel's
