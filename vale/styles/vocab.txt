@@ -323,6 +323,8 @@ polyrepos
 Postgres
 PowerShell
 PR's
+predeclare
+predeclared
 Prometheus
 protobuf
 preemptible
