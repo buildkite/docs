@@ -958,6 +958,9 @@
       path: "apis/managing-api-tokens"
     - name: "API differences"
       path: "apis/api-differences"
+    - name: "OAuth Token Exchange"
+      path: "apis/oauth-token-exchange"
+      pill: "preview"
     - name: "REST"
       children:
         - name: "Overview"
