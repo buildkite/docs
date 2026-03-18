@@ -46,7 +46,7 @@ getting-started:
 
 why-buildkite-pipelines:
   name: "Why Buildkite Pipelines"
-  description: "Buildkite documentation explaining the advantages of Buildkite Pipelines, including comparisons with Jenkins, GitLab, and GitHub Actions, getting started guides, architecture overview, pipeline converter, migration guides, and source control setup."
+  description: "Buildkite documentation explaining the advantages of Buildkite Pipelines, including comparisons with Jenkins, GitLab, GitHub Actions, and CircleCI, getting started guides, architecture overview, pipeline converter, migration guides, and source control setup."
   paths:
     - "pipelines/advantages"
     - "pipelines/converter"

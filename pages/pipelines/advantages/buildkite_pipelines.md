@@ -26,7 +26,7 @@ See [case studies](https://buildkite.com/resources/case-studies/) for how engine
 - **Security by design.** Agents are [open source](https://github.com/buildkite/agent), poll for work over HTTPS, and support [pipeline signing](/docs/agent/self-hosted/security/signed-pipelines).
 - **Predictable pricing.** Concurrency- or time-based billing with no surprise charges or credit limits.
 
-Whether you're comparing Buildkite Pipelines to [GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha), [Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), CircleCI, or others, these differentiators hold true.
+Whether you're comparing Buildkite Pipelines to [GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha), [CircleCI](/docs/pipelines/advantages/buildkite-vs-circleci), [Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins), [GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab), or others, these differentiators hold true.
 
 ## Best-in-class agents for your use case
 
@@ -171,6 +171,7 @@ All Buildkite plans include access to support from engineers who can advise on i
 Buildkite provides [migration guides](/docs/pipelines/migration) to help teams move from their existing CI/CD system. The following pages explore the advantages of migrating from specific systems with side-by-side comparisons:
 
 - **[GitHub Actions](/docs/pipelines/advantages/buildkite-vs-gha):** Move beyond static workflows, concurrency caps, and multi-tenant reliability issues. Workflow files translate step-for-step, and self-hosted Buildkite agents replace GitHub-hosted runners.
+- **[CircleCI](/docs/pipelines/advantages/buildkite-vs-circleci):** Replace credit-based billing, concurrency caps, and static config with dynamic pipelines, predictable pricing, and full infrastructure control. CircleCI orbs map to Buildkite plugins, and workflows translate to Buildkite steps.
 - **[Jenkins](/docs/pipelines/advantages/buildkite-vs-jenkins):** Eliminate controller maintenance, plugin conflicts, and painful upgrades while keeping infrastructure control. Jenkinsfiles map directly to Buildkite pipeline YAML, and the agent model replaces the controller/node topology.
 - **[GitLab](/docs/pipelines/advantages/buildkite-vs-gitlab):** Replace rigid stage-based pipelines and runner-minute limits with flexible, dynamic workflows. GitLab's `.gitlab-ci.yml` stages map to Buildkite steps, with the added ability to modify those steps at runtime.
 
