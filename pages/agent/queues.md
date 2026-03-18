@@ -35,9 +35,9 @@ steps:
 
 ## Assigning a self-hosted agent to a queue
 
-A self-hosted agent can be assigned to a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) using the [`tag` flag when starting the agent](/docs/agent/cli/reference/start#setting-tags). The `tag` flag's value must contain a [`queue` tag](/docs/agent/cli/reference/start#the-queue-tag). The queue tag's value is the self-hosted queue's _key_, which was defined when the [queue was created](/docs/agent/queues/managing#create-a-self-hosted-queue).
+A self-hosted agent can be assigned to a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) using the [`tag` flag when starting the agent](/docs/agent/cli/reference/start#setting-tags), where the `tag` flag's value must contain a [`queue` tag](/docs/agent/cli/reference/start#the-queue-tag). The queue tag's value is the _key_ of the queue you're assigning this self-hosted agent to, where this key was defined when the [self-hosted queue was created](/docs/agent/queues/managing#create-a-self-hosted-queue).
 
-For example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` queue, which is part of a _testing_ cluster:
+For example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` self-hosted queue, which is part of a _testing_ cluster:
 
 ```
 buildkite-agent start --token "TESTING-CLUSTERS-AGENT-TOKEN-VALUE" --tags "queue=linux-medium-x86"
