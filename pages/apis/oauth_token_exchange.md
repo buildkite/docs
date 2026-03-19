@@ -3,13 +3,13 @@
 > 📘 Private preview feature
 > OAuth Token Exchange is currently in private preview and is not yet generally available.
 
-[OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived Buildkite API tokens associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite API on behalf of a user.
+[OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived [Buildkite API access tokens](/docs/apis/managing-api-tokens) associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite [REST](/docs/apis/rest-api) or [GraphQL](/docs/apis/graphql-api) API on behalf of a user.
 
 OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. Common use cases include:
 
 - **Centralized token authority:** A single service issues short-lived tokens from a restricted IP range, reducing the attack surface compared to distributing long-lived API tokens across machines.
 - **Non-interactive automation:** Server-side integrations, CI/CD orchestration, and automated tooling that need to act as a Buildkite user without interactive login flows.
-- **Least-privilege access:** Each token is scoped to only the permissions required and expires automatically, limiting the blast radius of a compromised credential.
+- **Least-privilege access:** Each token is scoped to only the [permissions](/docs/apis/managing-api-tokens#token-scopes) required and expires automatically, limiting the potential blast radius of a compromised credential.
 
 ## How it works
 
@@ -73,6 +73,9 @@ Buildkite requires your public key in [JWKS](https://datatracker.ietf.org/doc/ht
 
 If your identity provider publishes a JWKS endpoint, use that directly. If you have a PEM-encoded public key, convert it to JWKS using a standards-compliant library in your language.
 
+> 📘
+> Every key in your JWKS must include a `kid` (Key ID). Setting the matching `kid` in your JWT header allows Buildkite to look up the correct key directly. If your JWT omits `kid`, Buildkite tries all keys in the JWKS to verify the signature.
+
 **RSA key example:**
 
 ```json
@@ -109,9 +112,6 @@ If your identity provider publishes a JWKS endpoint, use that directly. If you h
 ```
 
 All key component values (`n`, `e`, `x`, `y`) must be [base64url](https://datatracker.ietf.org/doc/html/rfc7515#appendix-C) encoded.
-
-> 📘
-> Every key in your JWKS must include a `kid` (Key ID). Setting the matching `kid` in your JWT header allows Buildkite to look up the correct key directly. If your JWT omits `kid`, Buildkite tries all keys in the JWKS to verify the signature.
 
 > 📘
 > If you provide your JWKS via an HTTPS URI, Buildkite caches it for up to 1 hour. During key rotation, publish both old and new keys together for at least the cache duration.
@@ -234,6 +234,8 @@ Token exchange tokens support the same scopes as [Buildkite API access tokens](/
 
 ## Best practices
 
+Follow these recommendations to keep your OAuth Token Exchange integration secure and reliable.
+
 ### Cache and reuse tokens
 
 Do **not** exchange a new token for every API request. This creates unnecessary load on the authentication infrastructure.
@@ -246,7 +248,7 @@ If your application makes concurrent API calls, ensure your token cache is prote
 
 ### Minimize scopes
 
-Request only the scopes your application needs. Use the `scope` parameter to request a subset of the app's grantable scopes, rather than relying on the app's full default scopes.
+Request only the [scopes](/docs/apis/managing-api-tokens#token-scopes) your application needs. Use the `scope` parameter to request a subset of the app's grantable scopes, rather than relying on the app's full default scopes.
 
 ### Use short TTLs
 
