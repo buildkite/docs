@@ -1,7 +1,7 @@
 # Build exports
 
 > 📘 Enterprise plan feature
-> The build exports feature is only available to customers on an [Enterprise](https://buildkite.com/pricing) plan, and this feature has a [build retention](/docs/pipelines/configure/build-retention) period of 12 months.
+> The build exports feature is only available to customers on the [Enterprise](https://buildkite.com/pricing) plan, and this feature has a [build retention](/docs/pipelines/configure/build-retention) period of 12 months.
 
 If you need to retain build data beyond the [retention period](/docs/pipelines/configure/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own [Amazon S3 bucket](https://aws.amazon.com/s3/) or [Google Cloud Storage (GCS) bucket](https://cloud.google.com/storage).
 
