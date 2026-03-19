@@ -3,7 +3,7 @@
 > 📘 Enterprise plan feature
 > Custom job log archiving is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
-By default, Buildkite stores job logs in its own infrastructure. With job log archiving, organization administrators can configure a custom Amazon S3 bucket to store job logs, giving your organization full control over where job log data resides.
+By default, Buildkite Pipelines stores job logs in Buildkite's own infrastructure. With job log archiving, organization administrators can configure a custom Amazon S3 bucket to store job logs, giving your organization full control over where job log data resides.
 
 > 📘
 > Job log archiving currently supports Amazon S3 buckets in the `us-east-1` region only. Google Cloud Storage and Azure Blob Storage are currently not supported.
