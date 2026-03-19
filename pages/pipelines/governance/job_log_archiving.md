@@ -30,7 +30,7 @@ To configure job log archiving for your organization, you need to prepare an Ama
 
 ### Enable job log archiving
 
-To enable job log archiving, contact [Buildkite support](mailto:support@buildkite.com) with your S3 bucket name and organization details. The Buildkite team will configure the archive location for your organization.
+To enable job log archiving, contact [Buildkite support](mailto:support@buildkite.com) with your S3 bucket name and organization details. The support team will configure the archive location for your organization.
 
 ## Related pages
 
