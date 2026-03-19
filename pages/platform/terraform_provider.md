@@ -45,8 +45,9 @@ To start using the Buildkite Terraform provider:
     }
     ```
 
-    > 🚧 Protect your API token
-    > Do not store your API token directly in Terraform configuration files. Use environment variables (`BUILDKITE_API_TOKEN` and `BUILDKITE_ORGANIZATION_SLUG`) or a secrets manager instead.
+    :warning: **Protect your API token**
+
+    Do not store your API token directly in Terraform configuration files. Use environment variables (`BUILDKITE_API_TOKEN` and `BUILDKITE_ORGANIZATION_SLUG`) or a secrets manager instead.
 
 1. Initialize the provider:
 
@@ -63,7 +64,7 @@ To start using the Buildkite Terraform provider:
 
       steps = <<-YAML
         steps:
-          - label: ":pipeline:"
+          - label: "\:pipeline\:"
             command: "buildkite-agent pipeline upload"
       YAML
     }
