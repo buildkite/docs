@@ -84,6 +84,11 @@ Platform and organization-level limits apply to all Buildkite products. These li
         default_value: "200 requests per minute"
       },
       {
+        title: "Remote MCP server rate limit per user",
+        description: "The number of REST API requests a user can make through the <a href=\"/docs/apis/mcp-server/remote/limits\">remote Buildkite MCP server</a>, per minute. This limit is separate from the organization-wide REST API rate limit.",
+        default_value: "50 requests per minute"
+      },
+      {
         title: "GraphQL query complexity",
         description: "The maximum complexity score for GraphQL queries.",
         default_value: "50,000"

@@ -216,12 +216,15 @@ This style guide applies to Buildkite product documentation, API reference pages
 
 **Formatting standards:**
 - Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
-- Format Buildkite UI/interface elements in **bold** matching exact Buildkite interface capitalization. This formatting applies to Buildkite UI element names (buttons, menu items, field names, tabs, and so on). The only other elements that should be bolded are list items, where each one consists of an initial term (followed by a colon) or sentence, which in turn is usually followed by non-bolded text that defines, describes, or elaborates upon the initially bolded text.
-- Format key terms and emphasis in _italics_ (use sparingly)
-- Use serial commas when listing items
-- Don't use emojis in lists
-- In paragraphs—write out numbers up to 10, then use digits. In headings—AVOID digits for numbers smaller than 10
-- Use 24-hour time format with timezone (for example, 17:00 AEST)
+- Format Buildkite UI/interface elements in **bold** matching exact Buildkite interface capitalization. This formatting applies to Buildkite UI element names (buttons, menu items, field names, tabs, and so on).
+- List items can begin with an initial term or leading/important sentence, where that initial term or sentence should be **bolded**, immediately followed by a colon (without a space), which in turn can be followed by non-bolded text that defines, describes, or elaborates upon the initially bolded text.
+- List items can also begin with initial `code` formatted text, immediately followed by a colon (without a space), which in turn can be followed by non-bolded text that defines, describes, or elaborates upon the initially `code`-formatted text.
+- Do not begin list items with a URL.
+- Format key terms and emphasis in _italics_ (use sparingly).
+- Use serial commas when listing items.
+- Don't use emojis in lists.
+- In paragraphs—write out numbers up to 10, then use digits. In headings—AVOID digits for numbers smaller than 10.
+- Use 24-hour time format with timezone (for example, 17:00 AEST).
 
 ## Technical writing rules
 
@@ -269,6 +272,7 @@ When documenting code or technical processes for Buildkite:
 **Code references:**
 - Use code blocks with language identifiers (```yaml, ```bash, and so on)
 - Avoid using `code` formatting in headings
+- Code formatting is acceptable in other text formatting contexts
 - Don't grammatically inflect code elements in headings
 - Present CLI commands clearly with proper formatting
 
@@ -276,7 +280,7 @@ When documenting code or technical processes for Buildkite:
 - Write step-by-step instructions using active voice
 - Use "Select X > Y" format for navigation
 - Be specific and actionable in instructions
-- Use numbered lists for sequential processes
+- Use numbered lists for sequential steps that document processes
 
 ## Content review checklist
 
@@ -427,7 +431,7 @@ Ensure documentation is accessible and clear:
 **Italic text (key terms/emphasis):**
 - Use `_text_` (single underscores) for italics
 - Never use `*text*` (single asterisks)
-- Use sparingly for key terms and emphasis
+- Use sparingly for key terms or for emphasizing words
 
 ## List rules
 
