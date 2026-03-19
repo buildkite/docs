@@ -3,7 +3,7 @@
 > 📘 Private preview feature
 > OAuth Token Exchange is currently in private preview and is not yet generally available.
 
-[OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived Buildkite API tokens programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite API on behalf of a user.
+[OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived Buildkite API tokens associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite API on behalf of a user.
 
 Use cases include automated tooling, CI/CD orchestration, and server-side integrations that need to act on behalf of Buildkite users without interactive login flows.
 
@@ -25,18 +25,25 @@ Use cases include automated tooling, CI/CD orchestration, and server-side integr
 1. **Sign** a JWT assertion ([RFC 7523](https://datatracker.ietf.org/doc/html/rfc7523)) with your RSA or ECDSA private key.
 2. **Exchange** the assertion at `POST /oauth/token` for a short-lived Buildkite API token (prefixed `bktx_`).
 3. **Call** the Buildkite REST or GraphQL API with the token in the `Authorization: Bearer` header.
-4. **Cache** the token in memory and refresh it before expiry. Do not exchange a new token for every request.
+4. **Cache** the token in memory and refresh it before expiry. Do not exchange a new token for every request to prevent exhaustion of your token request rate-limits.
 
 ## Setup
 
 To use OAuth Token Exchange, you need:
 
 1. Your organization enrolled in the private preview.
-2. A Token Exchange application configured by Buildkite, with:
-   - A **client ID**.
-   - Your application's **public key** registered as a [JWKS](https://datatracker.ietf.org/doc/html/rfc7517).
-   - **Grantable scopes** defining which API permissions the app can issue.
-   - A **maximum token TTL** (time-to-live) that caps how long minted tokens can last.
+1. A Token Exchange application configured by Buildkite. Provide the following details:
+
+- **Name:** A display name for the application.
+- **URL:** A URL for the application. Required, but not used in the token exchange flow.
+- **Description:** A description of the application.
+- **JWKS:** Your application's public key in [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) format, provided as inline JSON or an `https://` URI (see [Provide your public key as a JWKS](#setup-provide-your-public-key-as-a-jwks)).
+- **Grantable scopes:** The [scopes](/docs/apis/managing-api-tokens#token-scopes) that can be set on minted access tokens.
+- **Default scopes:** The [scopes](/docs/apis/managing-api-tokens#token-scopes) set on minted access tokens when a token exchange request omits the `scope` parameter.
+- **Allowed IP addresses** (optional, **recommended**): Restrict token usage to specific IP addresses.
+- **Maximum token TTL** (optional): The maximum token lifetime in seconds. Defaults to 3600 (one hour).
+
+After configuration, Buildkite provides you with a **client ID** for your application.
 
 ### Generate a key pair
 
