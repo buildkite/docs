@@ -10,7 +10,7 @@ By default, Buildkite Pipelines stores job logs in Buildkite's own infrastructur
 
 ## How it works
 
-When job log archiving is enabled, Buildkite writes job logs to your specified S3 bucket instead of its default storage location. Each job's log output is stored as an object in your bucket, and Buildkite reads from this location when users view job logs in the Buildkite dashboard or through the API.
+When job log archiving is enabled, Buildkite Pipelines writes job logs to your specified S3 bucket instead of the default storage location. Each job's log output is stored as an object in your bucket. Buildkite Pipelines reads from this location when users view job logs in the Buildkite dashboard or through the API.
 
 ## Configure job log archiving
 
