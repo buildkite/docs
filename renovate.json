@@ -11,6 +11,16 @@
     "prConcurrentLimit": 15,
     "automerge": true,
     "automergeType": "pr",
+    "customManagers": [
+        {
+            "customType": "regex",
+            "description": "bk CLI version in update-bkcli-help.sh",
+            "fileMatch": ["scripts/update-bkcli-help\\.sh$"],
+            "matchStrings": ["CLI_VERSION=\"(?<currentValue>v[\\d.]+)\""],
+            "depNameTemplate": "buildkite/cli",
+            "datasourceTemplate": "github-releases"
+        }
+    ],
     "packageRules": [
         {
             "description": "Buildkite plugins",
