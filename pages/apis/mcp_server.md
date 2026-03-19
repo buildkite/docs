@@ -24,7 +24,7 @@ https://mcp.buildkite.com/mcp
 
 This type of MCP server is typically used by AI tools that you interact with directly from a prompt, and it's the recommended MCP server type to use.
 
-#### What it's suitable for
+#### What it's suitable for and advantages
 
 The remote MCP server is suitable for personal usage with an AI tool, as it has the following advantages.
 
@@ -37,6 +37,8 @@ The remote MCP server is suitable for personal usage with an AI tool, as it has 
     * These OAuth access tokens provide both read and write access to the remote MCP server. If you'd prefer to restrict your access to read-only, a [read-only version of the MCP server](#read-only-remote-mcp-server) is also available.
 
 - There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.
+
+- The remote MCP server has a separate rate limit usage quota to your [Buildkite organization's REST API](/docs/apis/rest-api/rate-limits). See [Remote MCP server rate limits](/docs/apis/mcp-server/remote/rate-limits).
 
 #### What it's not suitable for
 
@@ -67,12 +69,14 @@ The local MCP server enables automated workflows (for example, using [Buildkite 
 
 Also, if you want to contribute to the [Buildkite MCP server project](https://github.com/buildkite/buildkite-mcp-server), the local MCP server allows you to run and test your changes locally.
 
-#### What it's not suitable for
+#### What it's not suitable for and disadvantages
 
 The local MCP server is not suitable for personal usage with an AI tool, as it has the following disadvantages.
 
 - Since your Buildkite API access token is used for authentication and authorization to the MCP server, you'll need to manage the security (for example, leak prevention) of this token and its storage in plain text.
 
 - You'll also need to manage upgrades to the MCP server yourself, especially if you choose to install the binary version of the local MCP server, which means you may miss out on new and updated features offered automatically through the [remote MCP server](#types-of-mcp-servers-remote-mcp-server).
+
+- Unlike the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), requests made through the local MCP server count towards your Buildkite organization's standard [REST API rate limit](/docs/apis/rest-api/limits).
 
 If you intend to use the local Buildkite MCP server, learn more about how to set up and install it in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).

@@ -155,6 +155,7 @@ Rails.application.routes.draw do
   get "/docs/apis/portals/limits",                                                                   to: redirect("/docs/apis/graphql/portals/limits")
   get "/docs/apis/portals/user-invoked-portals",                                                     to: redirect("/docs/apis/graphql/portals/user-invoked-portals")
   get "/docs/apis/rest-api/analytics/*page",                                                         to: redirect("/docs/apis/rest-api/test-engine/%{page}")
+  get "/docs/apis/rest-api/limits",                                                                  to: redirect("/docs/apis/rest-api/rate-limits")
   get "/docs/apis/rest-api/packages/*page",                                                          to: redirect("/docs/apis/rest-api/package-registries/%{page}")
   get "/docs/apis/webhooks/agent-events",                                                            to: redirect("/docs/apis/webhooks/pipelines/agent-events")
   get "/docs/apis/webhooks/build-events",                                                            to: redirect("/docs/apis/webhooks/pipelines/build-events")
