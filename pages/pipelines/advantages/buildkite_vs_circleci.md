@@ -4,7 +4,7 @@ CircleCI is a hosted CI/CD platform designed to be easy to adopt quickly. Buildk
 
 ## Pipeline structure and flexibility
 
-CircleCI's model is centered around a configured hierarchy: organizations connect to VCS providers, projects map to repositories, and pipelines are defined within that structure. CircleCI has added support for multiple config files per project, cross-repo triggers, and trigger-based pipeline selection, but orchestration still flows through CircleCI's control plane and continuation-based config model.
+CircleCI ties everything to a fixed hierarchy: organization → VCS connection → project → repository. Projects map one-to-one to repositories, and you cannot create pipelines outside that structure.
 
 Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units. You can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines that are not tied to a repository at all. This flexibility lets teams model their CI/CD around how they actually build and ship software rather than conforming to a platform-imposed project structure.
 
@@ -81,17 +81,11 @@ CircleCI routes jobs through resource classes and self-hosted runner labels, but
 
 Buildkite Pipelines provides job routing through agent [queues](/docs/agent/queues) and tag-based matching, so you can direct different workloads to different compute pools. Combined with [priority settings](/docs/pipelines/configure/step-types/command-step#priority), urgent jobs move ahead of lower-priority work without manual intervention.
 
-## Security and compliance
+## Secret management
 
-CircleCI offers strong security features, but hosted execution still means trusting a third-party environment with portions of your build runtime. Caches, workspaces, and Docker layer caching all live on CircleCI infrastructure with no alternative storage option. Secrets are managed through contexts configured in the UI, and each job must explicitly opt into a context.
+CircleCI secrets are managed through contexts configured in the UI, and each job must explicitly opt into a context. There is no alternative mechanism.
 
-With Buildkite Pipelines, execution stays inside your environment so source code, secrets, and proprietary artifacts remain under your control. The control plane orchestrates work without needing to directly host your code or secrets, which can simplify compliance for regulated or security-sensitive organizations. Secret management is flexible: you can use [agent hooks](/docs/agent/hooks), Kubernetes secrets, S3, a [secrets manager](/docs/pipelines/security/secrets/managing), or the [HashiCorp Vault plugin](https://buildkite.com/resources/plugins/vault-secrets), without being forced into a single UI-driven model.
-
-## Developer experience
-
-CircleCI approval jobs pause a workflow until someone clicks approve, but the paused workflow's timer keeps running in the UI, making build duration metrics unreliable. Workspaces persisted before the approval step may expire during long waits, which can cause the resumed workflow to fail.
-
-Buildkite Pipelines uses [block steps](/docs/pipelines/configure/step-types/block-step) for manual approvals, which pause the pipeline without inflating build timers. Build logs render with full ANSI color support, and [annotations](/docs/pipelines/configure/annotations) let steps surface test failure summaries, coverage reports, or deployment links directly on the build page.
+Buildkite Pipelines supports multiple approaches: [agent hooks](/docs/agent/hooks), Kubernetes secrets, S3, a [secrets manager](/docs/pipelines/security/secrets/managing), or the [HashiCorp Vault plugin](https://buildkite.com/resources/plugins/vault-secrets). Teams can choose the model that fits their security posture without being forced into a single UI-driven pattern.
 
 ## Migration path
 
