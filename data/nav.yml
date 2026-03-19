@@ -559,6 +559,8 @@
           path: "pipelines/governance/templates"
         - name: "Build exports"
           path: "pipelines/governance/build-exports"
+        - name: "Job log archiving"
+          path: "pipelines/governance/job-log-archiving"
     - name: "Deployments"
       children:
         - name: "Overview"
