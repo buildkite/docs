@@ -35,7 +35,7 @@ OAuth Token Exchange is ideal for security-conscious workflows where a central s
 
 To use OAuth Token Exchange, you need:
 
-1. Your organization enrolled in the private preview.
+1. Your organization enrolled in the private preview. To enable this feature for your Buildkite organization, contact [support@buildkite.com](mailto:support@buildkite.com).
 1. A Token Exchange application configured by Buildkite. Provide the following details:
 
 - **Name:** A display name for the application.
