@@ -292,6 +292,7 @@ security:
     - "platform/team-management/enforce-2fa"
     - "platform/tutorials/2fa"
     - "apis/managing-api-tokens"
+    - "apis/oauth-token-exchange"
   related_topics:
     - governance
     - user-management
@@ -329,6 +330,7 @@ user-management:
     - "test-engine/permissions"
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
+    - "apis/oauth-token-exchange"
   related_topics:
     - security
     - governance
