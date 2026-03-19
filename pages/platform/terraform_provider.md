@@ -8,20 +8,20 @@ The provider is open source and available on [GitHub](https://github.com/buildki
 
 The Buildkite Terraform provider supports the following resource types:
 
-- **Pipelines:** Create and configure [pipelines](/docs/pipelines), including their steps, repository settings, schedules, team access, templates, and webhooks.
-- **Clusters and queues:** Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), cluster agent tokens, and cluster secrets.
-- **Teams:** Create and manage [teams](/docs/platform/team-management) and their members.
-- **Organizations:** Configure organization-level settings, rules, and banners.
-- **Test suites:** Set up [Test Engine](/docs/test-engine) test suites and manage team access.
-- **Package registries:** Manage [Package Registries](/docs/package-registries) resources.
-- **Agent tokens:** Create and manage agent tokens for self-hosted agents.
+- **Pipelines**: Create and configure [pipelines](/docs/pipelines), including their steps, repository settings, schedules, team access, templates, and webhooks.
+- **Clusters and queues**: Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), cluster agent tokens, and cluster secrets.
+- **Teams**: Create and manage [teams](/docs/platform/team-management) and their members.
+- **Organizations**: Configure organization-level settings, rules, and banners.
+- **Test suites**: Set up [Test Engine](/docs/test-engine) test suites and manage team access.
+- **Package registries**: Manage [Package Registries](/docs/package-registries) resources.
+- **Agent tokens**: Create and manage agent tokens for self-hosted agents.
 
 ## Authentication
 
 The provider requires two configuration values:
 
-- **API access token:** A Buildkite API access token with `write_pipelines`, `read_pipelines`, and `write_suites` REST API scopes and GraphQL API access enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
-- **Organization slug:** Your Buildkite organization slug, which you can find in your Buildkite URL: `https://buildkite.com/<org-slug>`.
+- **API access token**: A Buildkite API access token with `write_pipelines`, `read_pipelines`, and `write_suites` REST API scopes and GraphQL API access enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
+- **Organization slug**: Your Buildkite organization slug, which you can find in your Buildkite URL: `https://buildkite.com/<org-slug>`.
 
 ## Getting started
 
@@ -46,7 +46,7 @@ To start using the Buildkite Terraform provider:
     ```
 
     > 🚧 Protect your API token
-    > Avoid hardcoding your API token in Terraform configuration files. Use environment variables (`BUILDKITE_API_TOKEN` and `BUILDKITE_ORGANIZATION_SLUG`) or a secrets manager instead.
+    > Do not store your API token directly in Terraform configuration files. Use environment variables (`BUILDKITE_API_TOKEN` and `BUILDKITE_ORGANIZATION_SLUG`) or a secrets manager instead.
 
 1. Initialize the provider:
 
