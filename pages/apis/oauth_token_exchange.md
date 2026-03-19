@@ -25,7 +25,7 @@ Use cases include automated tooling, CI/CD orchestration, and server-side integr
 1. **Sign** a JWT assertion ([RFC 7523](https://datatracker.ietf.org/doc/html/rfc7523)) with your RSA or ECDSA private key.
 2. **Exchange** the assertion at `POST /oauth/token` for a short-lived Buildkite API token (prefixed `bktx_`).
 3. **Call** the Buildkite REST or GraphQL API with the token in the `Authorization: Bearer` header.
-4. **Cache** the token in memory and refresh it before expiry — do not exchange a new token for every request.
+4. **Cache** the token in memory and refresh it before expiry. Do not exchange a new token for every request.
 
 ## Setup
 
@@ -40,7 +40,7 @@ To use OAuth Token Exchange, you need:
 
 ### Generate a key pair
 
-Generate an RSA or ECDSA key pair. The **private key** stays with your application; the **public key** is registered with Buildkite as a JWKS.
+Generate an RSA or ECDSA key pair. The **private key** stays with your application. The **public key** is registered with Buildkite as a JWKS.
 
 **RSA (2048-bit):**
 
@@ -111,7 +111,7 @@ All key component values (`n`, `e`, `x`, `y`) must be [base64url](https://datatr
 
 Exchange a signed JWT assertion for a Buildkite API token by sending a `POST` request to the token endpoint:
 
-**Endpoint:** `POST https://buildkite.com/oauth/token`
+Endpoint: `POST https://buildkite.com/oauth/token`
 
 ```
 POST /oauth/token HTTP/1.1
