@@ -909,6 +909,10 @@
               path: "platform/cli/reference/user"
             - name: "version"
               path: "platform/cli/reference/version"
+    - name: "Terraform provider"
+      children:
+        - name: "Overview"
+          path: "platform/terraform-provider"
     - name: "SSO"
       children:
         - name: "Overview"
