@@ -35,17 +35,17 @@ steps:
 
 ## Assigning a self-hosted agent to a queue
 
-A self-hosted agent can be assigned to a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) using an [agent tag](/docs/agent/cli/reference/start#setting-tags) as a [queue tag](/docs/agent/cli/reference/start#the-queue-tag) when the agent is started.
+A self-hosted agent can be assigned to a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) using the [`tag` flag when starting the agent](/docs/agent/cli/reference/start#setting-tags), where the `tag` flag's value must contain a [`queue` tag](/docs/agent/cli/reference/start#the-queue-tag). The queue tag's value is the _key_ of the queue you're assigning this self-hosted agent to, where this key was defined when the [self-hosted queue was created](/docs/agent/queues/managing#create-a-self-hosted-queue).
+
+For example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` self-hosted queue, which is part of a _testing_ cluster:
+
+```
+buildkite-agent start --token "TESTING-CLUSTERS-AGENT-TOKEN-VALUE" --tags "queue=linux-medium-x86"
+```
 
 This configuration can be set at the [command line when starting the agent](/docs/agent/cli/reference/start), the agent's [configuration file](/docs/agent/self-hosted/configure), or through an environment variable.
 
 Agents can only be assigned to a single self-hosted queue within a cluster.
-
-In the following example, the `--tags` flag of the `buildkite-agent start` command is used to configure this agent to listen on the `linux-medium-x86` queue, which is part of the **Testing** cluster:
-
-```
-buildkite-agent start --token "TESTING-AGENT-TOKEN-VALUE" --tags "queue=linux-medium-x86"
-```
 
 > 📘 Ensure you have already configured your cluster's agent tokens and queues
 > Your [clusters](/docs/pipelines/security/clusters/manage) and [queues](/docs/agent/queues/managing) should already be configured before starting your agents to target these queues.

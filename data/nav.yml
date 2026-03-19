@@ -561,6 +561,8 @@
           path: "pipelines/governance/templates"
         - name: "Build exports"
           path: "pipelines/governance/build-exports"
+        - name: "Job log archiving"
+          path: "pipelines/governance/job-log-archiving"
     - name: "Deployments"
       children:
         - name: "Overview"
@@ -964,8 +966,8 @@
       children:
         - name: "Overview"
           path: "apis/rest-api"
-        - name: "Limits"
-          path: "apis/rest-api/limits"
+        - name: "Rate limits"
+          path: "apis/rest-api/rate-limits"
         - name: "Access token"
           path: "apis/rest-api/access-token"
         - name: "Emojis"
@@ -1111,6 +1113,8 @@
           children:
             - name: "Configuring AI tools"
               path: "apis/mcp-server/remote/configuring-ai-tools"
+            - name: "Rate limits"
+              path: "apis/mcp-server/remote/rate-limits"
         - name: "Local MCP server"
           children:
             - name: "Installing the server"

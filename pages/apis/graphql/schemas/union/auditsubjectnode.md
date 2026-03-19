@@ -34,6 +34,9 @@ Kinds of subjects which can have audit events performed on them
 <div><a href="/docs/apis/graphql/schemas/object/apiaccesstoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessToken">
   <code>APIAccessToken</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/apiapplication" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIApplication">
+  <code>APIApplication</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/agenttoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentToken">
   <code>AgentToken</code>
 </a>

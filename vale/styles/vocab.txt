@@ -47,6 +47,7 @@ Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+Bottlerocket
 Bayesian
 Bazel
 Bazel's
@@ -72,6 +73,7 @@ Bundler
 bursty
 cancelation
 carthage
+Cachew
 CCMenu
 ccnet
 CCTray
