@@ -951,13 +951,14 @@ type AuditActor {
 """
 Kinds of actors which can perform audit events
 """
-union AuditActorNode = Agent | User
+union AuditActorNode = APIApplication | Agent | User
 
 """
 All the possible types of actors in an Audit Event
 """
 enum AuditActorType {
   AGENT
+  API_APPLICATION
   USER
 }
 
@@ -1053,6 +1054,11 @@ enum AuditEventType {
   API_ACCESS_TOKEN_DELETED
   API_ACCESS_TOKEN_ORGANIZATION_ACCESS_REVOKED
   API_ACCESS_TOKEN_UPDATED
+  API_APPLICATION_CREATED
+  API_APPLICATION_DELETED
+  API_APPLICATION_DISABLED
+  API_APPLICATION_ENABLED
+  API_APPLICATION_UPDATED
   AUTHORIZATION_CREATED
   AUTHORIZATION_DELETED
   CACHE_REGISTRY_CREATED
@@ -1251,7 +1257,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1259,6 +1265,7 @@ All the possible types of subjects in an Audit Event
 enum AuditSubjectType {
   AGENT_TOKEN
   API_ACCESS_TOKEN
+  API_APPLICATION
   AUTHORIZATION
   CACHE_REGISTRY
   CLUSTER
