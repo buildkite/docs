@@ -105,7 +105,7 @@ All key component values (`n`, `e`, `x`, `y`) must be [base64url](https://datatr
 > 📘
 > If you provide your JWKS via an HTTPS URI, Buildkite caches it for up to 1 hour. During key rotation, publish both old and new keys together for at least the cache duration.
 
-<!-- vale Buildkite.existence = NO — "oauth" in URNs and URL paths is correct lowercase -->
+<!-- vale Buildkite.existence = NO -->
 
 ## Token exchange request
 

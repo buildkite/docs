@@ -178,6 +178,7 @@ globbing
 gmp
 gnupg
 goroutines
+grantable
 gotestsum
 gpg
 GPU
@@ -444,6 +445,7 @@ toolsets
 tooltip
 TOTP's
 TPUs
+TTLs
 traceparent
 Trivy
 trixie
