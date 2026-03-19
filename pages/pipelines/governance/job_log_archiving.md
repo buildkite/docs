@@ -19,9 +19,9 @@ To configure job log archiving for your organization, you need to prepare an Ama
 - Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
 
 - Your bucket must meet the following criteria:
-    * It must be located in Amazon's `us-east-1` region.
-    * It must have a policy allowing cross-account read and write access from Buildkite's AWS account `032379705303`.
-    * It should implement modern S3 security features and configurations, such as (but not limited to):
+    * Be located in Amazon's `us-east-1` region.
+    * Have a policy allowing cross-account read and write access from Buildkite's AWS account `032379705303`.
+    * Should implement modern S3 security features and configurations, such as (but not limited to):
         - [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
         - [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
         - [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default).
