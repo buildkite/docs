@@ -183,6 +183,7 @@ exceptions:
   - JSON
   - JUnit
   - JWKS
+  - JWT
   - Kaniko
   - KMS
   - Kotlin

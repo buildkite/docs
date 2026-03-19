@@ -1,4 +1,4 @@
-# OAuth Token Exchange
+# OAuth token exchange
 
 > 📘 Private preview feature
 > OAuth Token Exchange is currently in private preview and is not yet generally available.
@@ -104,6 +104,8 @@ All key component values (`n`, `e`, `x`, `y`) must be [base64url](https://datatr
 
 > 📘
 > If you provide your JWKS via an HTTPS URI, Buildkite caches it for up to 1 hour. During key rotation, publish both old and new keys together for at least the cache duration.
+
+<!-- vale Buildkite.existence = NO — "oauth" in URNs and URL paths is correct lowercase -->
 
 ## Token exchange request
 
@@ -265,3 +267,5 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
 | `invalid_target` | "Invalid audience organization" | Use the organization slug from the URL, not the display name |
 | `unsupported_grant_type` | "Token exchange is not enabled for this organization" | The organization must be enrolled in the private preview |
+
+<!-- vale Buildkite.existence = YES -->

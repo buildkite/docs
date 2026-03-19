@@ -57,6 +57,7 @@ Bitbucket
 Bitrise
 bktec
 bktec's
+bktx
 boolean
 Boomper
 bottlenecked
