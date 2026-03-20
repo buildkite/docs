@@ -58,15 +58,36 @@ To start using the Buildkite Terraform provider:
 1. Define a resource, such as a pipeline:
 
     ```hcl
+    data "buildkite_cluster" "default" {
+      name = "Default cluster"
+    }
+
+    data "buildkite_team" "engineering" {
+      name = "Engineering"
+    }
+
     resource "buildkite_pipeline" "example" {
-      name       = "My Pipeline"
-      repository = "git@github.com:my-org/my-repo.git"
+      name            = "My Pipeline"
+      repository      = "git@github.com:my-org/my-repo.git"
+      cluster_id      = data.buildkite_cluster.default.id
+      default_team_id = data.buildkite_team.engineering.id
+      color       = "#6B6B6B"
+      emoji       = "\:rocket\:"
+      description = "Builds and tests the main application."
 
       steps = <<-YAML
         steps:
           - label: "\:pipeline\:"
             command: "buildkite-agent pipeline upload"
       YAML
+
+      provider_settings = {
+        trigger_mode                  = "code"
+        build_pull_requests           = true
+        build_branches                = true
+        publish_commit_status         = true
+        skip_pull_request_builds_for_existing_commits = true
+      }
     }
     ```
 
