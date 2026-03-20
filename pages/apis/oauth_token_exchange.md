@@ -39,7 +39,6 @@ To use OAuth Token Exchange, you need:
 1. A Token Exchange application configured by Buildkite. Provide the following details:
 
 - **Name:** A display name for the application.
-- **URL:** A URL for the application. Required, but not used in the token exchange flow.
 - **Description:** A description of the application.
 - **JWKS:** Your application's public key in [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) format, provided as inline JSON or an `https://` URI (see [Provide your public key as a JWKS](#setup-provide-your-public-key-as-a-jwks)).
 - **Grantable scopes:** The [scopes](/docs/apis/managing-api-tokens#token-scopes) that can be set on minted access tokens.
