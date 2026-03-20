@@ -25,9 +25,9 @@ The provider requires two configuration values:
 
 ## Getting started
 
-To start using the Buildkite Terraform provider:
+To start using the Buildkite Terraform provider with pipelines:
 
-1. Add the provider to your Terraform configuration:
+1. Define the Buildkite provider for your Terraform configuration file, written in HashiCorp Configuration Language (HCL) (for example, `provider.tf`):
 
     ```hcl
     terraform {
@@ -55,7 +55,7 @@ To start using the Buildkite Terraform provider:
     terraform init
     ```
 
-1. Define a resource, such as a pipeline:
+1. Define pipeline resources for the pipelines you want to import into your Buildkite organization, again in HCL (for example, `pipelines.tf`):
 
     ```hcl
     data "buildkite_cluster" "default" {
@@ -66,14 +66,38 @@ To start using the Buildkite Terraform provider:
       name = "Engineering"
     }
 
-    resource "buildkite_pipeline" "example" {
-      name            = "My Pipeline"
-      repository      = "git@github.com:my-org/my-repo.git"
+    resource "buildkite_pipeline" "frontend" {
+      name            = "Frontend pipeline"
+      repository      = "git@github.com:my-org/frontend.git"
       cluster_id      = data.buildkite_cluster.default.id
       default_team_id = data.buildkite_team.engineering.id
-      color       = "#6B6B6B"
-      emoji       = "\:rocket\:"
-      description = "Builds and tests the main application."
+      color           = "#6B6B6B"
+      emoji           = "\:react\:"
+      description     = "Builds and tests the frontend application."
+
+      steps = <<-YAML
+        steps:
+          - label: "\:pipeline\:"
+            command: "buildkite-agent pipeline upload"
+      YAML
+
+      provider_settings = {
+        trigger_mode                  = "code"
+        build_pull_requests           = true
+        build_branches                = true
+        publish_commit_status         = true
+        skip_pull_request_builds_for_existing_commits = true
+      }
+    }
+
+    resource "buildkite_pipeline" "backend" {
+      name            = "Backend pipeline"
+      repository      = "git@github.com:my-org/backend.git"
+      cluster_id      = data.buildkite_cluster.default.id
+      default_team_id = data.buildkite_team.engineering.id
+      color           = "#4A4A4A"
+      emoji           = "\:gear\:"
+      description     = "Builds and tests the backend server."
 
       steps = <<-YAML
         steps:
@@ -90,6 +114,8 @@ To start using the Buildkite Terraform provider:
       }
     }
     ```
+
+    **Note:** In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository.
 
 1. Apply the configuration:
 
