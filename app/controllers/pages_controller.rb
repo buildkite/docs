@@ -26,8 +26,15 @@ class PagesController < ApplicationController
 
     # Handle different formats
     respond_to do |format|
-      format.html { render @page.template }
+      format.html {
+        markdown_url = "#{request.base_url}/docs/#{@page.canonical_url}.md"
+        response.headers["Link"] = %(<#{markdown_url}>; rel="alternate"; type="text/markdown")
+        @markdown_alternate_url = markdown_url
+        render @page.template
+      }
       format.md {
+        canonical_url = "#{request.base_url}/docs/#{@page.canonical_url}"
+        response.headers["Link"] = %(<#{canonical_url}>; rel="canonical")
         render plain: @page.markdown_body_with_table_conversion, content_type: "text/markdown"
       }
     end
