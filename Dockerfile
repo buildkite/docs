@@ -31,7 +31,7 @@ RUN echo "--- :package: Installing system deps" \
 
 FROM builder AS bundle
 
-COPY Gemfile Gemfile.lock .ruby-version ./
+COPY Gemfile Gemfile.lock ./
 
 ARG RAILS_ENV
 
