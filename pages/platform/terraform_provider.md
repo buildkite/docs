@@ -67,13 +67,24 @@ To start using the Buildkite Terraform provider with pipelines:
     }
 
     resource "buildkite_pipeline" "frontend" {
+      # General and infrastructure
       name            = "Frontend pipeline"
-      repository      = "git@github.com:my-org/frontend.git"
-      cluster_id      = data.buildkite_cluster.default.id
-      default_team_id = data.buildkite_team.engineering.id
-      color           = "#6B6B6B"
-      emoji           = "\:react\:"
       description     = "Builds and tests the frontend application."
+      default_branch  = "main"
+      emoji           = "\:react\:"
+      color           = "#6B6B6B"
+      cluster_id      = data.buildkite_cluster.default.id
+
+      # Repository and team
+      repository      = "git@github.com:my-org/frontend.git"
+      default_team_id = data.buildkite_team.engineering.id
+
+      # Build behavior
+      cancel_intermediate_builds               = true
+      cancel_intermediate_builds_branch_filter = "!main"
+      allow_rebuilds                           = true
+      default_timeout_in_minutes               = 15
+      maximum_timeout_in_minutes               = 30
 
       steps = <<-YAML
         steps:
@@ -82,22 +93,33 @@ To start using the Buildkite Terraform provider with pipelines:
       YAML
 
       provider_settings = {
-        trigger_mode                  = "code"
-        build_pull_requests           = true
-        build_branches                = true
-        publish_commit_status         = true
+        trigger_mode                                  = "code"
+        build_pull_requests                           = true
         skip_pull_request_builds_for_existing_commits = true
+        ignore_default_branch_pull_requests           = true
+        build_pull_request_ready_for_review           = true
+        build_branches                                = true
+        publish_commit_status                         = true
       }
     }
 
     resource "buildkite_pipeline" "backend" {
+      # General and infrastructure
       name            = "Backend pipeline"
-      repository      = "git@github.com:my-org/backend.git"
-      cluster_id      = data.buildkite_cluster.default.id
-      default_team_id = data.buildkite_team.engineering.id
-      color           = "#4A4A4A"
-      emoji           = "\:gear\:"
       description     = "Builds and tests the backend server."
+      default_branch  = "main"
+      emoji           = "\:gear\:"
+      color           = "#4A4A4A"
+      cluster_id      = data.buildkite_cluster.default.id
+
+      # Repository and team
+      repository      = "git@github.com:my-org/backend.git"
+      default_team_id = data.buildkite_team.engineering.id
+
+      # Build behavior
+      allow_rebuilds             = true
+      default_timeout_in_minutes = 30
+      maximum_timeout_in_minutes = 60
 
       steps = <<-YAML
         steps:
@@ -106,11 +128,13 @@ To start using the Buildkite Terraform provider with pipelines:
       YAML
 
       provider_settings = {
-        trigger_mode                  = "code"
-        build_pull_requests           = true
-        build_branches                = true
-        publish_commit_status         = true
+        trigger_mode                                  = "code"
+        build_pull_requests                           = true
         skip_pull_request_builds_for_existing_commits = true
+        ignore_default_branch_pull_requests           = true
+        build_pull_request_ready_for_review           = true
+        build_branches                                = true
+        publish_commit_status                         = true
       }
     }
     ```
