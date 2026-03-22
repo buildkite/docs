@@ -45,9 +45,7 @@ To start using the Buildkite Terraform provider with pipelines:
     }
     ```
 
-    :warning: **Protect your API token**
-
-    Do not store your API token directly in Terraform configuration files. Use environment variables (`BUILDKITE_API_TOKEN` and `BUILDKITE_ORGANIZATION_SLUG`) or a secrets manager instead.
+    **Warning:** Do not store your API token directly in Terraform configuration files. Use environment variables (`BUILDKITE_API_TOKEN` and `BUILDKITE_ORGANIZATION_SLUG`) or a secrets manager instead.
 
 1. Initialize the provider:
 
@@ -58,14 +56,17 @@ To start using the Buildkite Terraform provider with pipelines:
 1. Define pipeline resources for the pipelines you want to import into your Buildkite organization, again in HCL (for example, `pipelines.tf`):
 
     ```hcl
+    # Look up the cluster to assign pipelines to
     data "buildkite_cluster" "default" {
       name = "Default cluster"
     }
 
+    # Look up the team to assign as the default team for pipelines
     data "buildkite_team" "engineering" {
       name = "Engineering"
     }
 
+    # Define the frontend pipeline
     resource "buildkite_pipeline" "frontend" {
       # General and infrastructure
       name            = "Frontend pipeline"
@@ -103,6 +104,13 @@ To start using the Buildkite Terraform provider with pipelines:
       }
     }
 
+    # Create a repository webhook to trigger builds automatically
+    resource "buildkite_pipeline_webhook" "frontend" {
+      pipeline_id = buildkite_pipeline.frontend.id
+      repository  = buildkite_pipeline.frontend.repository
+    }
+
+    # Define the backend pipeline
     resource "buildkite_pipeline" "backend" {
       # General and infrastructure
       name            = "Backend pipeline"
@@ -137,6 +145,12 @@ To start using the Buildkite Terraform provider with pipelines:
         publish_commit_status                         = true
       }
     }
+
+    # Create a repository webhook to trigger builds automatically
+    resource "buildkite_pipeline_webhook" "backend" {
+      pipeline_id = buildkite_pipeline.backend.id
+      repository  = buildkite_pipeline.backend.repository
+    }
     ```
 
     **Note:** In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository.
@@ -166,6 +180,9 @@ Then generate the configuration:
 ```bash
 terraform plan -generate-config-out=generated.tf
 ```
+
+> 📘 Attributes not included in generated configuration
+> The generated configuration does not include `provider_settings`, `slug`, or `default_team_id`. You need to add these attributes manually after import.
 
 ## Further reference
 
