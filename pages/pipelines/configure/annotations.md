@@ -4,7 +4,7 @@ Buildkite Pipelines' annotations feature lets you add custom content to a build 
 
 Build annotations appear on the build page's main **Annotations** tab. See [Build page](/docs/pipelines/build-page) for more information about navigating this interface.
 
-You can also add annotations to individual jobs (known as _job-scoped annotations_), which you can [create](#create-a-job-scoped-annotation) from your pipeline steps or using the REST or GraphQL APIs.
+You can also add annotations to individual jobs (known as _job-scoped annotations_), which you can [create](#create-a-job-scoped-annotation) from your relevant pipeline steps or using the REST or GraphQL APIs.
 
 Adding annotations can be useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution:
 
@@ -121,29 +121,34 @@ where:
 
 ## Create a job-scoped annotation
 
-By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build interface, making it easier to see contextual information directly next to the job that produced it.
+A build's _job-scoped_ annotations appear within the **Annotations** tab of a job's details page, rather than by default on the build page's main **Annotations** tab. This makes it easier to view contextual information directly alongside the specific job that generated it. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
 
-Job-scoped annotations can be created from [within a build's job](#create-a-job-scoped-annotation-from-within-a-builds-job), as well as externally using Buildkite's [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api).
+Use cases where job-scoped annotations are particularly useful:
 
-In contrast to build(-scoped) annotations, which appear in the build page's main **Annotations** tab (see [Create a build annotation > From within a build's job](#create-a-build-annotation-from-within-a-builds-job) for an example), job-scoped annotations appear within the **Annotations** tab of the job's details, which you can access by selecting that job from the build page interface.
+- Test failures specific to individual jobs in a test matrix
+- Job-specific deployment information or Terraform plans
+- Results from parallel jobs that need to be viewed separately
+- Build matrices where each job produces different output
+
+Job-scoped annotations can be created from [within a build's job](#create-a-job-scoped-annotation-from-within-a-builds-job), as well as externally using Buildkite' [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api).
 
 > 📘 Requirements
 > Job-scoped annotations require Buildkite agent v3.112 or newer and are not available in the classic build page experience.
 
 ### From within a build's job
 
-To create a job-scoped annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate#creating-an-annotation) with the `--scope "job"` flag.
+To create a job-scoped annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate#creating-an-annotation) within the step definition for this job, along with the `--scope job` flag for this command.
 
-For example:
+For example, a step like this:
 
 ```yaml
 steps:
-  - label: "\:writing_hand\: Job annotation example"
+  - label: "\:writing_hand\: Example"
     command: |
-      cat << 'EOF' | buildkite-agent annotate --style "info" --context "job-annotation-example" --scope "job"
-      ### Job-scoped annotation
+      cat << 'EOF' | buildkite-agent annotate --scope job "Job-specific information" --style "info" --context "agent-cli-example"
+      ### Example job-scoped annotation
 
-      This annotation appears on this job's details.
+      This was created from within a build's job.
       EOF
 ```
 
@@ -153,7 +158,10 @@ By default, the annotation is associated with the current job using the `$BUILDK
 buildkite-agent annotate --scope "job" --job "job-id" "Annotation for a specific job"
 ```
 
-To annotate a previously executed step from a later step, use [`buildkite-agent meta-data`](/docs/agent/cli/reference/meta-data) to pass the job ID between steps. For example:
+> 📘
+> The `$BUILDKITE_JOB_ID` environment variable value can be obtained by running the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API query to obtain this value from the `id` of the relevant job in the `jobs` array of the response.
+
+To annotate a previously executed job from a subsequent job, use [`buildkite-agent meta-data`](/docs/agent/cli/reference/meta-data) to pass the job ID between steps. For example:
 
 ```yaml
 steps:
@@ -170,7 +178,7 @@ steps:
 ```
 
 > 📘
-> This method only works for steps that have already executed. To annotate a pending step, use the [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) or [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api) instead.
+> This method only works for steps that have already been executed. To annotate a pending step, use the [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) or [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api) instead.
 
 ### Externally using the REST API
 
@@ -178,14 +186,12 @@ To create a job-scoped annotation using the [REST API](/docs/apis/rest-api), run
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/annotations" \
   -H "Content-Type: application/json" \
   -d '{
     "body": "### Job-scoped annotation\n\nThis was created using the REST API.",
     "style": "info",
-    "context": "job-rest-api-example",
-    "scope": "job",
-    "job_id": "job-id"
+    "context": "job-rest-api-example"
   }'
 ```
 
@@ -199,31 +205,33 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
 
-- `job_id` is the ID of the job to associate the annotation with.
+<%= render_markdown partial: 'apis/descriptions/rest_job_id' %>
 
 - For more information on how to use the `body`, `style`, and `context` fields, see [Formatting annotations](#formatting-annotations) for details on how to use these fields in relation to how they're used by the `buildkite-agent annotate` command.
 
 ### Externally using the GraphQL API
 
-To create a job-scoped annotation using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+To [create a job-scoped annotation](/docs/apis/graphql/schemas/mutation/jobannotate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
 
 ```graphql
 mutation {
-  buildAnnotate(input: {
-    buildID: "build-id",
-    body: "### Job-scoped annotation\n\nThis was created using the GraphQL API.",
+  jobAnnotate(input: {
+    jobId: "job-id",
+    body: "### Example job-scoped annotation\n\nThis was created using the GraphQL API.",
     style: INFO,
-    context: "job-graphql-api-example",
-    scope: JOB,
-    jobID: "job-id"
+    context: "graphql-api-example"
   }) {
     annotation {
       uuid
+      scope
       style
       context
       body {
         html
       }
+    }
+    job {
+      id
     }
   }
 }
@@ -231,29 +239,24 @@ mutation {
 
 where:
 
-- `buildID` (required) can be obtained by running the [Get builds](/docs/apis/graphql/cookbooks/builds#get-builds-for-a-pipeline) GraphQL API query and obtain this value from the `id` in the response associated with the number of your build (specified by the `number` value in the response). For example:
+- `jobId` (required) can be obtained by querying a build's jobs. For example:  
 
     ```graphql
-    query GetBuilds {
-      pipeline(slug: "organization-slug/pipeline-slug") {
-        builds(first: 10) {
+    query GetBuildJobs {
+      build(slug: "organization-slug/pipeline-slug/build-number") {
+        jobs(first: 10) {
           edges {
             node {
-              id
-              number
-              url
+              ... on JobTypeCommand {
+                id
+                label
+              }
             }
           }
         }
       }
     }
     ```
-
-    **Tip:** You can associate the build number with the annotation on the Buildkite interface by accessing **Pipelines** in the global navigation > your specific pipeline > your specific pipeline build, and then checking the build number after `builds/` in your Buildkite URL.
-
-- `scope` must be set to `JOB` for a job-scoped annotation.
-
-- `jobID` is the ID of the job to associate the annotation with.
 
 - `style` can be `DEFAULT`, `ERROR`, `INFO`, `SUCCESS` or `WARNING`.
 
@@ -527,6 +530,56 @@ query GetBuilds {
         node {
           id
           number
+        }
+      }
+    }
+  }
+}
+```
+
+## List annotations for a job
+
+Job-scoped annotations for a specific job can be retrieved using the [GraphQL API](#list-annotations-for-a-job-using-the-graphql-api).
+
+### Using the GraphQL API
+
+To list job-scoped annotations for a specific job using the [GraphQL API](/docs/apis/graphql-api), run the following example query:
+
+```graphql
+query GetJobAnnotations {
+  job(uuid: "job-uuid") {
+    ... on JobTypeCommand {
+      annotations(first: 10) {
+        edges {
+          node {
+            uuid
+            scope
+            context
+            style
+            body {
+              text
+              html
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+where `job-uuid` is the UUID of the job, which can be obtained by querying a build's jobs. For example:
+
+```graphql
+query GetBuildJobs {
+  build(slug: "organization-slug/pipeline-slug/build-number") {
+    jobs(first: 10) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            uuid
+            label
+          }
         }
       }
     }
