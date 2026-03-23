@@ -27,7 +27,7 @@ When teams outgrow a single configuration file, CircleCI offers two approaches t
 
 Both approaches attempt to work around the fact that CircleCI configuration is fundamentally static. Teams end up over-specifying "just in case" jobs and conditionals, which wastes compute and increases maintenance overhead.
 
-In Buildkite Pipelines, [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) let you generate and modify steps at runtime using real code. You can decide what to run based on changed files, dependency graphs, repository state, or external signals. Instead of producing a monolithic config, you can isolate concerns across multiple pipelines and generate only the steps you need. The pipeline adapts during execution rather than forcing you to predeclare every possible path.
+With Buildkite Pipelines, [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) let you generate and modify steps at runtime using real code. You can decide what to run based on changed files, dependency graphs, repository state, or external signals. Instead of producing a monolithic config, you can isolate concerns across multiple pipelines and generate only the steps you need. The pipeline adapts during execution rather than forcing you to predeclare every possible path.
 
 ## Reliability and infrastructure control
 
