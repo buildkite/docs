@@ -123,7 +123,7 @@ where:
 
 By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build interface, making it easier to see contextual information directly next to the job that produced it.
 
-Job-scoped annotations can be created from [within a build's job](#create-a-job-scoped-annotation-from-within-a-builds-job), as well as externally using Buildkite's [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api).
+Job-scoped annotations can be created from [within a build's job](#create-a-job-scoped-annotation-from-within-a-builds-job), as well as externally using the [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api).
 
 In contrast to build(-scoped) annotations, which appear in the build page's main **Annotations** tab (see [Create a build annotation > From within a build's job](#create-a-build-annotation-from-within-a-builds-job) for an example), job-scoped annotations appear within the **Annotations** tab of the job's details, which you can access by selecting that job from the build page interface.
 
