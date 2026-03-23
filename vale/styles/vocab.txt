@@ -305,6 +305,7 @@ Packagecloud's
 Palo
 parsable
 parallelization
+parameterization
 pbuilder
 pbuilder's
 perl
