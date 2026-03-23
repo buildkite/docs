@@ -40,10 +40,10 @@ See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) docum
 
 ## File locations
 
-* Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
-* Agent Hooks: `C:\buildkite-agent\hooks`
-* Builds: `C:\buildkite-agent\builds`
-* SSH keys: `%USERPROFILE%\.ssh`
+- Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
+- Agent Hooks: `C:\buildkite-agent\hooks`
+- Builds: `C:\buildkite-agent\builds`
+- SSH keys: `%USERPROFILE%\.ssh`
 
 ## Configuration
 
@@ -51,8 +51,8 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 
 There are two options to be aware of for this initial setup:
 
-* Set your [agent token](/docs/agent/self-hosted/tokens), if you did not set it as an environment variable during installation.
-* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
+- Set your [agent token](/docs/agent/self-hosted/tokens), if you did not set it as an environment variable during installation.
+- You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
     #Provide the path to PowerShell executables
