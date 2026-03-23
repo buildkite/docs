@@ -121,7 +121,7 @@ where:
 
 ## Create a job-scoped annotation
 
-A build's _job-scoped_ annotations appear within the **Annotations** tab of a job's details page, rather than by default on the build page's main **Annotations** tab. This makes it easier to view contextual information directly alongside the specific job that generated it. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
+A build's _job-scoped_ annotations appear within the **Annotations** tab of a job's details page, rather than by default on the build page's main **Annotations** tab. This makes it easier to view contextual information directly alongside the specific job that generated the annotation. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
 
 Use cases where job-scoped annotations are particularly useful:
 
@@ -498,21 +498,19 @@ To [list build and job-scoped annotations for a build](/docs/apis/graphql/schema
 
 ```graphql
 query GetBuildAnnotations {
-  node(id: "build-id") {
-    ... on Build {
-      number
-      annotations(first: 10) {
-        edges {
-          node {
-            uuid
-            context
-            style
-            body {
-              text
-              html
-            }
-            createdAt
+  build(uuid: "build-uuid") {
+    number
+    annotations(first: 10) {
+      edges {
+        node {
+          uuid
+          context
+          style
+          body {
+            text
+            html
           }
+          createdAt
         }
       }
     }
@@ -520,7 +518,7 @@ query GetBuildAnnotations {
 }
 ```
 
-where `build-id` (required) can be obtained by running the [Get builds](/docs/apis/graphql/cookbooks/builds#get-builds-for-a-pipeline) GraphQL API query and obtaining this value from the `id` in the response associated with the number of your build (specified by the `number` value in the response). For example:
+where `build-uuid` (required) can be obtained by running the [Get builds](/docs/apis/graphql/cookbooks/builds#get-builds-for-a-pipeline) GraphQL API query and obtaining this value from the `uuid` in the response associated with the number of your build (specified by the `number` value in the response). For example:
 
 ```graphql
 query GetBuilds {
@@ -528,7 +526,7 @@ query GetBuilds {
     builds(first: 10) {
       edges {
         node {
-          id
+          uuid
           number
         }
       }
@@ -539,7 +537,28 @@ query GetBuilds {
 
 ## List annotations for a job
 
-Job-scoped annotations for a specific job can be retrieved using the [GraphQL API](#list-annotations-for-a-job-using-the-graphql-api).
+Job-scoped annotations for a specific job can be retrieved using the [REST API](#list-annotations-for-a-job-using-the-rest-api) or [GraphQL API](#list-annotations-for-a-job-using-the-graphql-api).
+
+### Using the REST API
+
+To list job-scoped annotations for a specific job using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/annotations"
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_job_id' %>
 
 ### Using the GraphQL API
 
