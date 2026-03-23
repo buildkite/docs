@@ -51,7 +51,7 @@ CircleCI provides three built-in mechanisms for sharing data between jobs:
 
 These primitives are well-integrated but live entirely on CircleCI infrastructure with no option to use your own storage. Storage for caches, workspaces, and Docker layer caching all consume paid credits.
 
-With Buildkite Pipelines, you control where data lives. [Artifacts](/docs/pipelines/configure/artifacts) can be stored in your own S3 bucket by setting environment variables on your agents. Caching strategies are flexible because agents run on your infrastructure, so you can use persistent volumes, shared network storage, or cache volumes on [Buildkite hosted agents](/docs/agent/buildkite-hosted). You are not locked into a single vendor-managed storage model.
+With Buildkite Pipelines, you control where data lives. [Artifacts](/docs/pipelines/configure/artifacts) can be stored in your own S3 bucket by setting environment variables on your agents. Caching strategies are flexible because agents run on your infrastructure, so you can use persistent volumes, shared network storage, or cache volumes on [hosted agents](/docs/agent/buildkite-hosted). You are not locked into a single vendor-managed storage model.
 
 ## Centralized visibility and governance
 
