@@ -1,6 +1,6 @@
 # Installing Buildkite agent on Windows
 
-The Buildkite agent is supported on Windows 10, Windows Server 2016, and newer. There are two installation methods: automated using PowerShell, and manual installation.
+The Buildkite agent is supported on Windows 10, Windows Server 2016, and newer. You can use two installation methods: automated using PowerShell, and manual installation.
 
 ## Security considerations
 
