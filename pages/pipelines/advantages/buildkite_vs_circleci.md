@@ -1,18 +1,20 @@
 # Advantages of migrating from CircleCI
 
-CircleCI is a hosted CI/CD platform designed to be easy to adopt quickly. Buildkite Pipelines takes a different approach: it separates the control plane (orchestration UI and APIs) from the compute plane (agents that run where you choose). That architecture is designed for teams who are running into scaling ceilings, workflow complexity, security constraints, or unpredictable cost as CI becomes critical infrastructure.
+CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository. Buildkite Pipelines takes a different approach: instead of tying pipelines to a rigid project structure, it separates the control plane from the compute plane so you can run agents wherever you choose.
+
+CircleCI works well for small teams getting started quickly, but its credit-based pricing, plan-based concurrency caps, and static configuration model can become obstacles as teams and repositories grow. Buildkite Pipelines is designed from the ground up for scale, flexibility, and predictable cost.
 
 ## Pipeline structure and flexibility
 
-CircleCI ties everything to a fixed hierarchy: organization → VCS connection → project → repository. Projects map one-to-one to repositories, and you cannot create pipelines outside that structure.
+Because CircleCI pipelines only exist inside the org → VCS → project → repository structure, you cannot create multiple pipelines for a single repository, trigger pipelines across repositories, or run pipelines that operate independently of any repository.
 
-Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units. You can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines that are not tied to a repository at all. This flexibility lets teams model their CI/CD around how they actually build and ship software rather than conforming to a platform-imposed project structure.
+Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units. You can do all of the above, letting teams model CI/CD around how they actually build and ship software rather than conforming to a platform-imposed project structure.
 
 ## Scaling and limits
 
 CircleCI's performance and throughput are constrained by plan-based concurrency, queued capacity, and shared-platform limits. The free plan caps concurrency at 30 jobs (one for macOS), and higher plans raise that cap but still impose fixed ceilings. Resource classes are predefined. As organizations scale, these limits show up as longer queue times and slower developer feedback loops.
 
-Buildkite Pipelines scales by adding agents, without platform-imposed concurrency caps. The agent architecture is lightweight, supports 100,000+ concurrent agents, and offers turnkey autoscaling through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws) and [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
+Buildkite Pipelines scales by adding agents, without platform-imposed concurrency caps. The agent architecture is lightweight, supports 100,000+ concurrent agents, and offers turnkey autoscaling through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws), [Elastic CI Stack for GCP](/docs/agent/self-hosted/gcp/elastic-ci-stack), and [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
 
 ## Dynamic pipelines vs. static config
 
@@ -101,3 +103,109 @@ To start converting your CircleCI pipelines to Buildkite Pipelines, use the foll
 1. Start with non-production pipelines and run both systems in parallel to validate results.
 
 If you would like to receive assistance in migrating from CircleCI to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).
+
+===
+
+# Summary (CircleCI vs Buildkite Pipelines)
+
+---
+
+###
+
+#### How CircleCI is structured
+
+- **Org first, then VCS connection:** You create an organization, then connect a VCS provider (primarily GitHub, Bitbucket, GitLab). That VCS connection is made at the **organization level**.
+- **Projects map 1:1 to repos:** A CircleCI “project” is created from a repository, with a **one-to-one mapping** between projects and repositories.
+- **Pipelines only exist inside that model:** You **cannot create pipelines outside** the org → VCS → project → repo structure.
+
+#### Pricing and why it can become a problem for growing teams
+
+- **Credits drive almost all pricing:** The cloud offering is priced primarily in **credits**.
+- **What consumes credits:**
+    - **Compute** (job minutes)
+    - **Storage** (Docker layer caching, internal cache, workspaces)
+    - **Users**, defined as **people committing to the repos** connected to projects (not just people logging into CircleCI)
+    - Some networking configuration (cloud offering)
+- **Free plan (as described):** ~30,000 credits, 5 users, 2GB storage, up to 30 concurrent jobs (macOS: 1).
+- **Performance plan (as described):** Starts at $15/month. Includes free-plan credits plus additional credits, higher concurrency (80, macOS still 1), more runner sizes, and more self-hosted runners (20). Support is extra (email support cited as ~$250/month).
+- **User scaling is the sharp edge:**
+    - Going beyond **5 users** can become expensive quickly.
+    - Additional users were described as effectively adding **large credit costs per user** (25,000 credits per user on one plan; 40,000 on Scale).
+    - This can make CircleCI feel “reasonable for very small teams” but much harder to justify as the team grows, especially compared with GitHub Actions minutes included with GitHub plans.
+
+#### Pipeline configuration model
+
+- **YAML-based configuration:** Typically stored at `.circleci/config.yml`.
+- **Workflow is the unit you run:**
+    - **Workflows** contain **jobs**.
+    - Jobs contain **steps/commands**.
+    - The UI shows workflows and their jobs.
+- **Templating and parameterization:** CircleCI allows **commands, jobs, and workflows** to be parameterized, functioning like a templating system.
+- **Built-in steps (GitHub Actions-like):** CircleCI provides “special commands” such as `checkout`, `run`, caching steps, etc. If you omit `checkout`, the code is not checked out.
+
+#### Sharing data between jobs (and the cost/complexity tradeoffs)
+
+- CircleCI has three major mechanisms:
+    - **Cache:** save/restore specific paths keyed by configurable cache keys (described as powerful and native to CircleCI config).
+    - **Workspace:** persist the working directory state in one job and attach it in another job (useful for sharing dependencies like `node_modules`).
+    - **Artifacts:** meant for outputs consumed **outside** CircleCI (humans or downstream consumers), not for internal job-to-job transfer.
+- Tradeoff called out in the talk:
+    - Hosted runners with Docker images are flexible, but enabling **Docker layer caching** can consume paid storage credits.
+    - Docker layer caching was described as having a **per-job credit cost** as well as storage cost.
+
+#### Triggers, scheduling, and “multiple pipelines per repo” realities
+
+- Historically, CircleCI was described as being effectively **single pipeline config per repo** with conditional logic inside.
+- Newer features:
+    - **Triggers** based on VCS events (push, tag, release) are newer and were presented as a step toward supporting **multiple pipelines per repository**.
+    - **Webhooks** and an **API** exist for triggering.
+    - **Scheduled pipelines** were described as constrained (UI scheduling reportedly limited to GitHub; legacy/other approaches exist).
+
+#### Reuse and modularity: Orbs, config packing, and continuations
+
+- **Orbs (CircleCI “plugins”):**
+    - Orbs are reusable packages, often maintained by CircleCI.
+    - Orbs can define **executors, commands, jobs, workflows**, not just steps.
+    - Example described: AWS orb defining executors with AWS CLI, and other orbs composing on top.
+- **Config packing (“modernization” approach):**
+    - Split config into multiple files (`commands/`, `executors/`, `jobs/`, `workflows/`, `root.yml`) then run `circleci config pack` to generate a single config.
+    - This can lead to very large generated configs (example cited: 4,000+ lines), and makes it harder to understand execution paths.
+- **Continuations:**
+    - A special orb-based mechanism for selecting which YAML to continue with.
+    - Described as **convoluted**, **hard to understand**, and limited (one continuation config per repo).
+    - Presented as being pushed aside by newer trigger-based approaches.
+
+#### Where CircleCI was described as strong
+
+- **Test integration:**
+    - “Superb” test integration, described as included even on basic plans.
+    - Built-in `store_test_results` with JUnit support.
+    - UI provides a **Tests** tab, failed/flaky visibility, and tooling for test splitting when results are stored.
+- **Native caching + workspace support:** Strong built-in primitives for sharing between jobs.
+
+#### Pain points and why teams migrate to Buildkite (as described)
+
+- **Dynamic pipelines are a major differentiator for Buildkite:**
+    - Buildkite can generate pipeline YAML programmatically and upload it, compressing large, hard-to-maintain YAML into scripts plus dynamic pipeline uploads.
+    - Buildkite can isolate concerns across multiple pipelines, rather than forcing everything into one monolithic config.
+- **CircleCI configs can become monolithic and hard to reason about:**
+    - Either navigate many packed files to trace execution, or work with an enormous generated YAML.
+    - Conditional/parameter-based patterns add cognitive load.
+- **Approval steps / pipeline UX:**
+    - Approval-gated jobs can make timing and run duration confusing in the UI (described as a long-running timer, and limited resumability after long periods).
+- **Storage and caching economics:**
+    - Docker layer caching can be expensive and fully lives on CircleCI infrastructure, limiting control.
+- **Compliance and infrastructure control:**
+    - Buildkite was described as more flexible for compliance and customization (agents, artifacts, and hooks).
+    - Buildkite can redirect certain storage behaviors (example given: artifacts to an S3 bucket via environment variables).
+    - CircleCI caches/workspaces/Docker layer cache were described as “100% on their side” with no alternative.
+- **Secret management flexibility:**
+    - CircleCI secrets are managed via **contexts** configured in the UI, and jobs must explicitly opt into contexts.
+    - Buildkite was described as supporting multiple approaches (agent hooks, Kubernetes secrets, S3, Vault plugin), without forcing everything through a single UI-driven secret model.
+
+#### Practical migration takeaways highlighted in the Q&A
+
+- Migrations are rarely just “translate YAML 1:1.” A recurring theme is **reframing** the workflow into “the Buildkite way,” especially by:
+    - Breaking apart monolithic configs.
+    - Using multiple pipelines and dynamic pipelines to reduce complexity.
+    - Educating teams that CircleCI limitations shaped their architecture (and those constraints can be removed post-migration).
