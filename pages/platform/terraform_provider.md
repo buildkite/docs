@@ -8,7 +8,7 @@ The provider is open source and available on [GitHub](https://github.com/buildki
 
 The Buildkite Terraform provider supports the following resource types:
 
-- **Pipelines**: Create and configure [pipelines](/docs/pipelines), including their steps, repository settings, schedules, team access, templates, and webhooks. See [Before you start](#before-you-start) and [Getting started with managing pipelines in Terraform](#getting-started-with-managing-pipelines-in-terraform) for more information.
+- **Pipelines**: Create and configure [pipelines](/docs/pipelines/create-your-own), including their [steps](/docs/pipelines/configure/defining-steps) in a [pipeline template](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks (for [GitHub](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-github) or [other repository providers](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-other-repository-providers)), [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds). See [Before you start](#before-you-start) and [Getting started with managing pipelines in Terraform](#getting-started-with-managing-pipelines-in-terraform) for more information.
 
 - **Clusters and queues**: Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), cluster agent tokens, and cluster secrets.
 
@@ -53,7 +53,9 @@ To start using the Buildkite Terraform provider to manage your pipelines in Terr
     }
     ```
 
-    **Warning:** Avoid storing your Buildkite API access token directly in Terraform configuration files. Use an environment variable for `BUILDKITE_API_TOKEN` or manage it through a secrets manager instead. If you do wish to use your Terraform configuration to temporarily store your token's value for this procedure, you can do so by creating the following files, although _ensure you delete them_ at the end of this procedure:
+    **Warning:** Avoid storing your Buildkite API access token directly in Terraform configuration files. Use an environment variable for `BUILDKITE_API_TOKEN` or manage it through a secrets manager instead, which is the recommended approach if you're using a Buildkite pipeline to orchestrate this process.
+
+    If you're running this process at the command line, and you wish to use your Terraform configuration to temporarily store your token's value for this procedure, you can do so by creating the following files, although _ensure you delete them_ at the end of this procedure:
 
     1. Configure the following additional HCL configuration file to define a variable for your API access token (for example, `variables.tf`):
 
@@ -82,41 +84,41 @@ To start using the Buildkite Terraform provider to manage your pipelines in Terr
 
 Define pipeline resources for the pipelines you want to import into your Buildkite organization, again in HCL (for example, `pipelines.tf`).
 
-In the following example, two pipelines are defined, which are part of the **Default cluster**, along with two teams (with names **Engineering** and **Design team**). The other configuration settings for these pipelines are defined through the URL path portions (appended to `https://buildkite.com/<your-buildkite-org-slug>/`), which are indicated in the comments of the first pipeline (named **Frontend pipeline**).
+In the following example, two pipelines are defined, which are part of the **Default cluster**, along with a team whose name is **Engineering**. The steps of both of these pipelines are based on a pipeline template named **Standard pipeline**. The other configuration settings for these pipelines are defined through the URL path portions (appended to `https://buildkite.com/<your-buildkite-org-slug>/`), which are indicated in the comments of the pipeline template (**Standard pipeline**) and first pipeline (named **Frontend pipeline**). The **Engineering** team and its members are the initial owners of these pipelines, who would have full access to them.
 
 ```hcl
-# Look up the existing cluster (name) to assign pipelines to
+# Data source for existing cluster (name) to assign pipelines to
 data "buildkite_cluster" "default" {
   name = "Default cluster"
 }
 
-# Look up the existing team (name) to assign as the initial pipeline owner
+# Data source for existing team (name) to assign as the initial pipeline owner
 data "buildkite_team" "engineering" {
   name = "Engineering"
 }
 
-# Look up the existing team (name) to assign access to pipelines
-data "buildkite_team" "design_team" {
-  name = "Design team"
+# Define a reusable pipeline template (through 'pipeline-templates')
+resource "buildkite_pipeline_template" "standard" {
+  name          = "Standard pipeline"
+  description   = "Default step configuration for all pipelines."
+  configuration = <<-YAML
+    steps:
+      - label: "\:pipeline\:"
+        command: "buildkite-agent pipeline upload"
+  YAML
 }
 
 # Define the frontend pipeline (through 'frontend-pipeline/settings')
 resource "buildkite_pipeline" "frontend" {
 
   # General and infrastructure
-  name            = "Frontend pipeline"
-  description     = "Builds and tests the frontend application."
-  default_branch  = "main"
-  emoji           = "\:react\:"
-  color           = "#6B6B6B"
-  cluster_id      = data.buildkite_cluster.default.id
-
-  # Pipeline steps (through 'frontend-pipeline/settings/steps')
-  steps = <<-YAML
-    steps:
-      - label: "\:pipeline\:"
-        command: "buildkite-agent pipeline upload"
-  YAML
+  name                 = "Frontend pipeline"
+  description          = "Builds and tests the frontend application."
+  default_branch       = "main"
+  emoji                = "\:react\:"
+  color                = "#6B6B6B"
+  cluster_id           = data.buildkite_cluster.default.id
+  pipeline_template_id = buildkite_pipeline_template.standard.id
 
   # Build behavior (through 'frontend-pipeline/settings/builds')
   cancel_intermediate_builds               = true
@@ -136,19 +138,13 @@ resource "buildkite_pipeline" "frontend" {
 resource "buildkite_pipeline" "backend" {
 
   # General and infrastructure
-  name            = "Backend pipeline"
-  description     = "Builds and tests the backend server."
-  default_branch  = "main"
-  emoji           = "\:gear\:"
-  color           = "#4A4A4A"
-  cluster_id      = data.buildkite_cluster.default.id
-
-  # Pipeline steps
-  steps = <<-YAML
-    steps:
-      - label: "\:pipeline\:"
-        command: "buildkite-agent pipeline upload"
-  YAML
+  name                 = "Backend pipeline"
+  description          = "Builds and tests the backend server."
+  default_branch       = "main"
+  emoji                = "\:gear\:"
+  color                = "#4A4A4A"
+  cluster_id           = data.buildkite_cluster.default.id
+  pipeline_template_id = buildkite_pipeline_template.standard.id
 
   # Build behavior
   allow_rebuilds             = true
@@ -163,12 +159,17 @@ resource "buildkite_pipeline" "backend" {
 }
 ```
 
+Learn more about the Terraform provider resources for pipelines in the [`buildkite_pipeline` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline) documentation, as well as the equivalent for pipeline templates in the [`buildkite_pipeline_template` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_template) documentation.
+
 > 📘
-> In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository. However, if you do manage some or all of these pipeline steps through your pipelines' `https://buildkite.com/<your-buildkite-org-slug>/<pipeline-slug>/settings/steps` pages in the Buildkite interface, you'll need to include these steps in the `steps` definition blocks of the respective pipelines in this `pipelines.tf` file (above).
+> In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository, which is the recommended approach for storing and managing your pipeline steps as code.
+> If you did want to manage some of these pipeline steps through your pipelines' `https://buildkite.com/<your-buildkite-org-slug>/<pipeline-slug>/settings/steps` pages in the Buildkite interface, you'd need to include these steps in the `steps` definition blocks (containing your `YAML` steps) of the respective pipelines in your `pipelines.tf` file. However, this approach is not recommended.
 
 ### Add your repository provider settings
 
-Add the required `provider_settings` blocks for each pipeline definition in this file. For example, assuming both pipelines are configured to build a repository in GitHub with the following **GitHub Settings** accessed through `https://buildkite.com/<your-buildkite-org-slug>/<pipeline-slug>/settings/repository`, of which the last two are not shown:
+Add the required `provider_settings` blocks for each pipeline definition in this file.
+
+For example, assuming both pipelines are configured to build a repository in GitHub with the following **GitHub Settings** accessed through `https://buildkite.com/<your-buildkite-org-slug>/<pipeline-slug>/settings/repository`, of which the last two are not shown in this screenshot:
 
 <%= image "github-settings.png", alt: "Example GitHub Settings for a Buildkite pipeline" %>
 
@@ -224,11 +225,11 @@ resource "buildkite_pipeline" "backend" {
 
 Learn more about each available `provider_settings` configuration in the Buildkite Terraform provider's [Nested Schema for `provider_settings`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline#nestedatt--provider_settings) documentation.
 
-### Add required webhook triggers
+### Add required repository webhooks
 
-Add the required webhook triggers to trigger builds of these pipelines automatically (that is, when changes are pushed to these repositories).
+Add the required repository webhooks to trigger builds of these pipelines automatically (that is, when changes are pushed to these repositories). This is done using `buildkite_pipeline_webhook` resource blocks.
 
-Add the following `buildkite_pipeline_webhook` resource blocks to each pipeline of your `pipelines.tf` file:
+For example, add the following `buildkite_pipeline_webhook` resource blocks to each pipeline of your `pipelines.tf` file, bearing in mind that the Terraform identifiers you use in these blocks (that is, `frontend` and `backend`) must match their respective `buildkite_pipeline` pipeline Terraform identifiers:
 
 ```hcl
 ...
@@ -262,43 +263,98 @@ resource "buildkite_pipeline_webhook" "backend" {
 
 Learn more about this Terraform provider resource in the [`buildkite_pipeline_webhook` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_webhook) documentation.
 
+### Add any other teams to your pipelines
+
+Add any other teams who need access to these pipelines and define their permissions on these pipelines. This is done using `buildkite_pipeline_team` resource blocks.
+
+In the following example, the **Design team** is already defined in your Buildkite organization. Hence, add the following `buildkite_pipeline_team` resource block for this team, and apply it to the `frontend` pipeline in your `pipelines.tf` file, bearing in mind that the Terraform identifiers for the pipeline you use in these resource blocks (that is, `frontend`) must match their respective `buildkite_pipeline` pipeline Terraform identifiers. In this example, the syntax for referencing this would be `buildkite_pipeline.frontend.id` and the `access_level` of `MANAGE_BUILD_AND_READ` grants full access to the pipeline, similar to the pipeline's initial owner team:
+
+```hcl
+...
+
+# Data source for existing team (name) to assign pipeline access
+data "buildkite_team" "design_team" {
+  name = "Design team"
+}
+
+...
+
+# Define the frontend pipeline
+resource "buildkite_pipeline" "frontend" {
+
+  ...
+
+}
+
+...
+
+# Additional team with full access to 'frontend'
+resource "buildkite_pipeline_team" "design_team" {
+  pipeline_id  = buildkite_pipeline.frontend.id
+  team_id      = buildkite_team.team.id
+  access_level = "MANAGE_BUILD_AND_READ"
+}
+
+# Define the backend pipeline
+resource "buildkite_pipeline" "backend" {
+
+  ...
+
+}
+
+...
+```
+
+Learn more about this Terraform provider resource in the [`buildkite_pipeline_team` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_team) documentation.
+
+### Add appropriate schedules to your pipelines
+
+It might be sufficient that your pipelines are built through repository webhook triggers only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure it is kept up to date.
+
+
+
 ### Verify your completed pipelines.tf file
 
 Confirm that your Terraform pipeline resources configuration (`pipelines.tf`) file is now complete:
 
 ```hcl
-# Look up the existing cluster (name) to assign pipelines to
+# Data source for existing cluster (name) to assign pipelines to
 data "buildkite_cluster" "default" {
   name = "Default cluster"
 }
 
-# Look up the existing team (name) to assign as the initial pipeline owner
+# Data source for existing team (name) to assign as the initial pipeline owner
 data "buildkite_team" "engineering" {
   name = "Engineering"
 }
 
-# Look up the existing team (name) to assign access to pipelines
+# Data source for existing team (name) to assign access to pipelines
 data "buildkite_team" "design_team" {
   name = "Design team"
 }
 
-# Define the frontend pipeline (through 'pipeline-slug/settings')
-resource "buildkite_pipeline" "frontend" {
-
-  # General and infrastructure
-  name            = "Frontend pipeline"
-  description     = "Builds and tests the frontend application."
-  default_branch  = "main"
-  emoji           = "\:react\:"
-  color           = "#6B6B6B"
-  cluster_id      = data.buildkite_cluster.default.id
-
-  # Pipeline steps (through 'pipeline-slug/settings/steps')
-  steps = <<-YAML
+# Define a reusable pipeline template (through 'pipeline-templates')
+resource "buildkite_pipeline_template" "standard" {
+  name          = "Standard pipeline"
+  description   = "Default step configuration for all pipelines."
+  configuration = <<-YAML
     steps:
       - label: "\:pipeline\:"
         command: "buildkite-agent pipeline upload"
   YAML
+}
+
+# Define the frontend pipeline (through 'frontend-pipeline/settings')
+resource "buildkite_pipeline" "frontend" {
+
+  # General and infrastructure
+  name                 = "Frontend pipeline"
+  description          = "Builds and tests the frontend application."
+  default_branch       = "main"
+  emoji                = "\:react\:"
+  color                = "#6B6B6B"
+  cluster_id           = data.buildkite_cluster.default.id
+  pipeline_template_id = buildkite_pipeline_template.standard.id
 
   # Build behavior (through 'pipeline-slug/settings/builds')
   cancel_intermediate_builds               = true
@@ -331,23 +387,24 @@ resource "buildkite_pipeline_webhook" "frontend" {
   repository  = buildkite_pipeline.frontend.repository
 }
 
+# Additional team with full access to the 'frontend' pipeline
+resource "buildkite_pipeline_team" "design_team" {
+  pipeline_id  = buildkite_pipeline.frontend.id
+  team_id      = buildkite_team.team.id
+  access_level = "MANAGE_BUILD_AND_READ"
+}
+
 # Define the backend pipeline
 resource "buildkite_pipeline" "backend" {
 
   # General and infrastructure
-  name            = "Backend pipeline"
-  description     = "Builds and tests the backend server."
-  default_branch  = "main"
-  emoji           = "\:gear\:"
-  color           = "#4A4A4A"
-  cluster_id      = data.buildkite_cluster.default.id
-
-  # Pipeline steps
-  steps = <<-YAML
-    steps:
-      - label: "\:pipeline\:"
-        command: "buildkite-agent pipeline upload"
-  YAML
+  name                 = "Backend pipeline"
+  description          = "Builds and tests the backend server."
+  default_branch       = "main"
+  emoji                = "\:gear\:"
+  color                = "#4A4A4A"
+  cluster_id           = data.buildkite_cluster.default.id
+  pipeline_template_id = buildkite_pipeline_template.standard.id
 
   # Build behavior
   allow_rebuilds             = true
@@ -391,29 +448,7 @@ terraform apply
 > 📘 Deleting your configuration files and improving maintainability
 > You can now delete all of your configuration files (and most importantly, your Terraform variable file `terraform.tfvars` that's been temporarily storing your API access token) once Terraform has successfully applied these configurations to your Buildkite organization.
 > However, you can maintain a copy of these `.tf` files, should you wish to reapply these pipelines to the same or any other Buildkite organization again in future, bearing in mind that you'll need to manually keep any configuration changes you make to these pipelines in sync with your `pipelines.tf` file/s.
-> To make this process easier, however, you can import your existing pipeline configurations into Terraform, which will account for all current updates made to these pipeline configurations. See [Importing existing pipeline resources to Terraform](#importing-existing-pipeline-resources-to-terraform) for details.
-
-## Importing existing pipeline resources to Terraform
-
-You can bring the resources for your existing Buildkite pipelines under Terraform management by defining [import block](https://developer.hashicorp.com/terraform/language/import) files for these resources, and then using `terraform plan` on these files to generate a single configuration. This is the same as _exporting_ your pipeline resources from Buildkite Pipelines to Terraform. All Buildkite Pipelines resources in these import blocks are defined using their GraphQL IDs in your Buildkite organization.
-
-For example, to import an existing pipeline to Terraform:
-
-```hcl
-import {
-  to = buildkite_pipeline.example
-  id = "<graphql-id>"
-}
-```
-
-Then generate the Terraform configuration:
-
-```bash
-terraform plan -generate-config-out=generated.tf
-```
-
-> 📘 Attributes not included in generated configuration
-> The generated configuration does not include `provider_settings`, the pipeline's `slug`, or `default_team_id`. You need to add these attributes manually after import.
+> To improve maintainability, however, you can import your existing pipeline configurations into Terraform, which will account for all current updates made to these pipeline configurations. See [Importing existing Buildkite resources to Terraform](/docs/platform/terraform-provider/importing-existing-resources) for details.
 
 ## Further reference
 

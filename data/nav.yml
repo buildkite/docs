@@ -913,6 +913,8 @@
       children:
         - name: "Overview"
           path: "platform/terraform-provider"
+        - name: "Importing existing Buildkite resources to Terraform"
+          path: "platform/terraform-provider/importing-existing-resources"
     - name: "SSO"
       children:
         - name: "Overview"
