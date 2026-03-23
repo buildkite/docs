@@ -65,7 +65,7 @@ Rerun the install script.
 
 ## Git for Windows
 
-While the agent will work without Git installed, you need [Git for Windows](https://gitforwindows.org/) to interact with Git.
+While the agent will work without Git installed, you will need [Git for Windows](https://gitforwindows.org/) to interact with Git.
 
 > 📘
 > Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline. We recommend using CMD (default) or PowerShell 5.x. You can also use PowerShell Core, but be aware of the odd behavior around pipeline upload steps. Refer to <a href="/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for more information.
