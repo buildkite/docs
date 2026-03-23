@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Heroku likes the version here; we like only updating one place
-ruby File.read(".ruby-version").strip
-
 source "https://rubygems.org"
 
 # Choo choo 🚝 (only include the Rails gems we need)
