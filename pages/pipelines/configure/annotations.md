@@ -127,8 +127,8 @@ Job-scoped annotations can be created from [within a build's job](#create-a-job-
 
 In contrast to build(-scoped) annotations, which appear in the build page's main **Annotations** tab (see [Create a build annotation > From within a build's job](#create-a-build-annotation-from-within-a-builds-job) for an example), job-scoped annotations appear within the **Annotations** tab of the job's details, which you can access by selecting that job from the build page interface.
 
-> 📘 Version requirements
-> Job-scoped annotations require Buildkite agent v3.112 or newer.
+> 📘 Requirements
+> Job-scoped annotations require Buildkite agent v3.112 or newer and are not available in the classic build page experience.
 
 ### From within a build's job
 
