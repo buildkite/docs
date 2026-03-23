@@ -84,7 +84,7 @@ To start using the Buildkite Terraform provider to manage your pipelines in Terr
 
 Define pipeline resources for the pipelines you want to import into your Buildkite organization, again in HCL (for example, `pipelines.tf`).
 
-In the following example, two pipelines are defined, which are part of the **Default cluster**, along with a team whose name is **Engineering**. The steps of both of these pipelines are based on a pipeline template named **Standard pipeline**. The other configuration settings for these pipelines are defined through the URL path portions (appended to `https://buildkite.com/<your-buildkite-org-slug>/`), which are indicated in the comments of the pipeline template (**Standard pipeline**) and first pipeline (named **Frontend pipeline**). The **Engineering** team and its members are the initial owners of these pipelines, who would have full access to them.
+In the following example, two pipelines are defined, which are part of the **Default cluster**, along with a team whose name is **Engineering**. The steps for both of these pipelines use those from a pipeline template named **Standard pipeline**. The configuration settings for all pipeline-related resources are defined through the URL path portions (appended to `https://buildkite.com/<your-buildkite-org-slug>/`), which are indicated in the comments of the pipeline template (**Standard pipeline**) and first pipeline (named **Frontend pipeline**). The **Engineering** team and its members are the initial owners of these pipelines, who would have full access to them.
 
 ```hcl
 # Data source for existing cluster (name) to assign pipelines to
@@ -159,7 +159,11 @@ resource "buildkite_pipeline" "backend" {
 }
 ```
 
-Learn more about the Terraform provider resources for pipelines in the [`buildkite_pipeline` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline) documentation, as well as the equivalent for pipeline templates in the [`buildkite_pipeline_template` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_template) documentation.
+Learn more about the following Terraform provider components used above from the official documentation:
+
+- Resources for pipelines in the [`buildkite_pipeline` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline) documentation, as well as the equivalent for pipeline templates in the [`buildkite_pipeline_template` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_template) documentation.
+
+- Data sources for clusters in the [`buildkite_cluster` data source](http://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/cluster), as well as teams in the [`buildkite_team` data source](http://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/cluster).
 
 > 📘
 > In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository, which is the recommended approach for storing and managing your pipeline steps as code.
