@@ -5,9 +5,8 @@ The Buildkite agent is supported on Windows 10, Windows Server 2016, and newer. 
 - [Automated installation (using PowerShell)](/docs/agent/self-hosted/install/windows#automated-install-with-powershell)
 - [Manual installation](/docs/agent/self-hosted/install/windows#manual-installation)
 
-## Security considerations
-
-The agent runs scripts from the agent's hooks directory, and checks out and runs scripts from code repositories. Please consider the file system permissions for these directories carefully, especially when operating in a multi-user environment.
+> 🚧 Security considerations
+> The agent runs scripts from the agent's hooks directory, and checks out and runs scripts from code repositories. Please consider the file system permissions for these directories carefully, especially when operating in a multi-user environment.
 
 ## Automated install with PowerShell
 
