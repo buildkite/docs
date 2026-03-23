@@ -153,6 +153,25 @@ By default, the annotation is associated with the current job using the `$BUILDK
 buildkite-agent annotate --scope "job" --job "job-id" "Annotation for a specific job"
 ```
 
+To annotate a previously executed step from a later step, use [`buildkite-agent meta-data`](/docs/agent/cli/reference/meta-data) to pass the job ID between steps. For example:
+
+```yaml
+steps:
+  - label: "First job"
+    command:
+      - "buildkite-agent meta-data set 'job_uuid' $$BUILDKITE_JOB_ID"
+      - "buildkite-agent annotate --scope 'job' 'The first job'"
+    key: "first_job"
+  - label: "Second job"
+    command:
+      - "JOB_UUID=$$(buildkite-agent meta-data get 'job_uuid');"
+      - "buildkite-agent annotate --scope 'job' --job $$JOB_UUID --append ' with more content'"
+    depends_on: ["first_job"]
+```
+
+> 📘
+> This method only works for steps that have already executed. To annotate a pending step, use the [REST API](#create-a-job-scoped-annotation-externally-using-the-rest-api) or [GraphQL API](#create-a-job-scoped-annotation-externally-using-the-graphql-api) instead.
+
 ### Externally using the REST API
 
 To create a job-scoped annotation using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
