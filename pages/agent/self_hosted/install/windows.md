@@ -4,7 +4,7 @@ The Buildkite agent is supported on Windows 10, Windows Server 2016, and newer. 
 
 ## Security considerations
 
-The agent runs scripts from the agent's hooks directory, and checks-out and runs scripts from code repositories. Please consider the file system permissions for these directories carefully, especially when operating in a multi-user environment.
+The agent runs scripts from the agent's hooks directory, and checks out and runs scripts from code repositories. Please consider the file system permissions for these directories carefully, especially when operating in a multi-user environment.
 
 ## Automated install with PowerShell
 
@@ -21,9 +21,9 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 ## Manual installation
 
 1. Download the latest Windows release from <a href="https://github.com/buildkite/agent/releases">Buildkite agent releases on GitHub</a>
-2. Extract the files to a directory of your choice (we recommend `C:\buildkite-agent`)
-3. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/self-hosted/tokens)
-4. Run `buildkite-agent.exe start` from a command prompt
+1. Extract the files to a directory of your choice (for example, `C:\buildkite-agent`)
+1. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/self-hosted/tokens)
+1. Run `buildkite-agent.exe start` from a command prompt
 
 ## SSH key configuration
 
@@ -107,7 +107,7 @@ nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 ```
 
 > 📘
-> Ensure that this new user is a local admin on the system or has been granted all the necessary permissions to run the buildkite-agent service via nssm.
+> Ensure that this new user is a local admin on the system or has been granted all the necessary permissions to run the buildkite-agent service using nssm.
 
 Replace the following:
 
