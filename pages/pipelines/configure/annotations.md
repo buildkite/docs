@@ -153,7 +153,7 @@ By default, the annotation is associated with the current job using the `$BUILDK
 buildkite-agent annotate --scope "job" --job "job-id" "Annotation for a specific job"
 ```
 
-To annotate a previously executed step from a later step, use [`buildkite-agent meta-data`](/docs/agent/cli/reference/meta-data) to pass the job ID between steps. For example:
+To annotate a previously executed step from a later step, use the [`buildkite-agent meta-data` command](/docs/agent/cli/reference/meta-data) to pass the job ID between steps. For example:
 
 ```yaml
 steps:
