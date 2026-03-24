@@ -84,7 +84,9 @@ To start using the Buildkite Terraform provider to manage your pipelines in Terr
 
 Define pipeline resources for the pipelines you want to import into your Buildkite organization, again in HCL (for example, `pipelines.tf`).
 
-In the following example, two pipelines are defined, which are part of the **Default cluster**, along with a team whose name is **Engineering**. The steps for both of these pipelines use those from a pipeline template named **Standard pipeline**. The configuration settings for all pipeline-related resources are defined through the URL path portions (appended to `https://buildkite.com/<your-buildkite-org-slug>/`), which are indicated in the comments of the pipeline template (**Standard pipeline**) and first pipeline (named **Frontend pipeline**). The **Engineering** team and its members are the initial owners of these pipelines, who would have full access to them.
+In the following example, two pipelines are defined (**Frontend pipeline** and **Backend pipeline**), which will be part of the pre-existing Buildkite cluster (**Default cluster**), and a pre-existing team, whose name is **Engineering** (along with all of its members) will be made the initial owner of these pipelines. The steps for both of these pipelines use those from a pipeline template definition named **Standard pipeline**.
+
+The configuration settings for all pipeline-related resources in this example are accessible in the Buildkite interface through the URL path portions (appended to `https://buildkite.com/<your-buildkite-org-slug>/`), indicated in the comments of the pipeline template (**Standard pipeline**) and first pipeline (named **Frontend pipeline**) of this `pipelines.tf` example.
 
 ```hcl
 # Data source for existing cluster (name) to assign pipelines to
@@ -108,10 +110,10 @@ resource "buildkite_pipeline_template" "standard" {
   YAML
 }
 
-# Define the frontend pipeline (through 'frontend-pipeline/settings')
+# Define the frontend pipeline
 resource "buildkite_pipeline" "frontend" {
 
-  # General and infrastructure
+  # General and infrastructure (through 'frontend-pipeline/settings')
   name                 = "Frontend pipeline"
   description          = "Builds and tests the frontend application."
   default_branch       = "main"
@@ -167,7 +169,7 @@ Learn more about the following Terraform provider components used above from the
 
 > 📘
 > In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository, which is the recommended approach for storing and managing your pipeline steps as code.
-> If you did want to manage some of these pipeline steps through your pipelines' `https://buildkite.com/<your-buildkite-org-slug>/<pipeline-slug>/settings/steps` pages in the Buildkite interface, you'd need to include these steps in the `steps` definition blocks (containing your `YAML` steps) of the respective pipelines in your `pipelines.tf` file. However, this approach is not recommended.
+> If you did want to manage some of these pipeline steps through your pipelines' `https://buildkite.com/<your-buildkite-org-slug>/<pipeline-slug>/settings/steps` pages in the Buildkite interface, you'd need to include these steps in `steps` definition blocks (containing your `YAML` steps) of the respective pipelines in your `pipelines.tf` file. However, this approach is not recommended.
 
 ### Add your repository provider settings
 
@@ -182,12 +184,12 @@ Add the following `repository_provider` blocks to each pipeline of your `pipelin
 ```hcl
 ...
 
-# Define the frontend pipeline (through 'pipeline-slug/settings')
+# Define the frontend pipeline
 resource "buildkite_pipeline" "frontend" {
 
   ...
 
-  # Repository (through 'pipeline-slug/settings/repository')
+  # Repository (through 'frontend-pipeline/settings/repository')
   repository      = "git@github.com:my-org/frontend.git"
 
   provider_settings = {
@@ -233,12 +235,12 @@ Learn more about each available `provider_settings` configuration in the Buildki
 
 Add the required repository webhooks to trigger builds of these pipelines automatically (that is, when changes are pushed to these repositories). This is done using `buildkite_pipeline_webhook` resource blocks.
 
-For example, add the following `buildkite_pipeline_webhook` resource blocks to each pipeline of your `pipelines.tf` file, bearing in mind that the Terraform identifiers you use in these blocks (that is, `frontend` and `backend`) must match their respective `buildkite_pipeline` pipeline Terraform identifiers:
+In this example, add the following `buildkite_pipeline_webhook` resource blocks to each pipeline of your `pipelines.tf` file, bearing in mind that the Terraform identifiers you use in these blocks (that is, `frontend` and `backend`) must match their respective `buildkite_pipeline` pipeline Terraform identifiers:
 
 ```hcl
 ...
 
-# Define the frontend pipeline (through 'pipeline-slug/settings')
+# Define the frontend pipeline
 resource "buildkite_pipeline" "frontend" {
 
   ...
@@ -271,7 +273,10 @@ Learn more about this Terraform provider resource in the [`buildkite_pipeline_we
 
 Add any other teams who need access to these pipelines and define their permissions on these pipelines. This is done using `buildkite_pipeline_team` resource blocks.
 
-In the following example, the **Design team** is already defined in your Buildkite organization. Hence, add the following `buildkite_pipeline_team` resource block for this team, and apply it to the `frontend` pipeline in your `pipelines.tf` file, bearing in mind that the Terraform identifiers for the pipeline you use in these resource blocks (that is, `frontend`) must match their respective `buildkite_pipeline` pipeline Terraform identifiers. In this example, the syntax for referencing this would be `buildkite_pipeline.frontend.id` and the `access_level` of `MANAGE_BUILD_AND_READ` grants full access to the pipeline, similar to the pipeline's initial owner team:
+In this example, the pre-existing **Design team** in your Buildkite organization is (also) granted full access to **Frontend pipeline**, which is the same level of access as the pipeline's initial owner team (**Engineering**).
+
+To do this, add the following `buildkite_team` data source and `buildkite_pipeline_team` resource blocks for this team, and apply it to the `frontend` pipeline in your `pipelines.tf` file.
+Bear in mind that the Terraform identifiers for the `buildkite_pipeline` resource and `buildkite_team` data source blocks (that is, `frontend` and `design_team`, respectively) must match those you use for the `pipeline_id` and `team_id` argument values in your  `buildkite_pipeline_team` resource block. Therefore, the syntax for referencing these values would be `data.buildkite_team.design_team.id` and `buildkite_pipeline.frontend.id`, respectively, where the team's `access_level` of `MANAGE_BUILD_AND_READ` grants full access to the pipeline:
 
 ```hcl
 ...
@@ -293,9 +298,9 @@ resource "buildkite_pipeline" "frontend" {
 ...
 
 # Additional team with full access to 'frontend'
-resource "buildkite_pipeline_team" "design_team" {
+resource "buildkite_pipeline_team" "design" {
   pipeline_id  = buildkite_pipeline.frontend.id
-  team_id      = buildkite_team.team.id
+  team_id      = data.buildkite_team.design_team.id
   access_level = "MANAGE_BUILD_AND_READ"
 }
 
@@ -313,9 +318,44 @@ Learn more about this Terraform provider resource in the [`buildkite_pipeline_te
 
 ### Add appropriate schedules to your pipelines
 
-It might be sufficient that your pipelines are built through repository webhook triggers only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure it is kept up to date.
+It might be sufficient that your pipelines are built using [repository webhooks](#getting-started-with-managing-pipelines-in-terraform-add-required-repository-webhooks) only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure its project's own resources are kept up to date, which might create a new pull- or merge-request with updated resources.
+
+In this example, add a daily re-build of the **Backend pipeline** that runs at midnight on the backend project's default branch (that is, `main`, which can be accessed through `default_branch` of the pipeline's resource).
+
+To do this, add the following `buildkite_pipeline_schedule` resource block for this schedule, and apply it to the `backend` pipeline in your `pipelines.tf` file. Bear in mind that the Terraform identifier for the `buildkite_pipeline` resource block (that is, `backend`) must match that of the `pipeline_id` argument value in your `buildkite_pipeline_schedule` resource block. Therefore, the syntax for referencing this value would be `buildkite_pipeline.backend.id`.
+
+```hcl
+...
+
+# Define the frontend pipeline
+resource "buildkite_pipeline" "frontend" {
+
+  ...
+
+}
+
+...
 
 
+# Define the backend pipeline
+resource "buildkite_pipeline" "backend" {
+
+  ...
+
+}
+
+...
+
+# Schedule a build at midnight every day
+resource "buildkite_pipeline_schedule" "nightly" {
+  pipeline_id = buildkite_pipeline.backend.id
+  label       = "Nightly build"
+  cronline    = "@midnight"
+  branch      = buildkite_pipeline.backend.default_branch
+}
+```
+
+Learn more about this Terraform provider resource in the [`buildkite_pipeline_schedule` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_schedule) documentation.
 
 ### Verify your completed pipelines.tf file
 
@@ -348,10 +388,10 @@ resource "buildkite_pipeline_template" "standard" {
   YAML
 }
 
-# Define the frontend pipeline (through 'frontend-pipeline/settings')
+# Define the frontend pipeline
 resource "buildkite_pipeline" "frontend" {
 
-  # General and infrastructure
+  # General and infrastructure (through 'frontend-pipeline/settings')
   name                 = "Frontend pipeline"
   description          = "Builds and tests the frontend application."
   default_branch       = "main"
@@ -392,9 +432,9 @@ resource "buildkite_pipeline_webhook" "frontend" {
 }
 
 # Additional team with full access to the 'frontend' pipeline
-resource "buildkite_pipeline_team" "design_team" {
+resource "buildkite_pipeline_team" "design" {
   pipeline_id  = buildkite_pipeline.frontend.id
-  team_id      = buildkite_team.team.id
+  team_id      = data.buildkite_team.design_team.id
   access_level = "MANAGE_BUILD_AND_READ"
 }
 
@@ -437,6 +477,14 @@ resource "buildkite_pipeline" "backend" {
 resource "buildkite_pipeline_webhook" "backend" {
   pipeline_id = buildkite_pipeline.backend.id
   repository  = buildkite_pipeline.backend.repository
+}
+
+# Schedule a build at midnight every day
+resource "buildkite_pipeline_schedule" "nightly" {
+  pipeline_id = buildkite_pipeline.backend.id
+  label       = "Nightly build"
+  cronline    = "@midnight"
+  branch      = buildkite_pipeline.backend.default_branch
 }
 ```
 
