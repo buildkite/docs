@@ -31,6 +31,7 @@
   pipelines/migration/from-jenkins: "Migration guide from Jenkins covering architecture differences, pipeline translation, agents, plugins, and secrets."
   pipelines/migration/from-githubactions: "Migration guide from GitHub Actions covering architecture, checkout behavior, workflow translation, secrets, and OIDC setup."
   pipelines/migration/from-bamboo: "Migration guide from Bamboo covering how plans, stages, tasks, agents, variables, and deployments map to Buildkite concepts."
+  pipelines/migration/from-circleci: "Migration guide from CircleCI covering architecture differences, orbs vs plugins, executor mapping, workspace handling, and pipeline translation."
   pipelines/best-practices/overview: "Index page for best practices on designing, operating, and scaling Buildkite Pipelines effectively."
   pipelines/best-practices/pipeline-design-and-structure: "Patterns for maintainable pipelines: modularity, monorepo builds, fast feedback loops, YAML structure, and versioning."
   pipelines/best-practices/agent-management: "Best practices for agent infrastructure: cloud compute, Kubernetes, hosted agents, queue design, lifecycle, and autoscaling."

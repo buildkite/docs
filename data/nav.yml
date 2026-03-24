@@ -76,6 +76,8 @@
           path: "pipelines/migration/from-githubactions"
         - name: "From Bamboo"
           path: "pipelines/migration/from-bamboo"
+        - name: "From CircleCI"
+          path: "pipelines/migration/from-circleci"
     - name: "Best practices"
       children:
         - name: "Overview"
