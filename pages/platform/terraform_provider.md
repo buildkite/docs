@@ -26,9 +26,14 @@ The Buildkite Terraform provider supports the following resource types:
 
 The Terraform provider requires the following Buildkite configuration values:
 
-- **API access token**: A Buildkite API access token (`BUILDKITE_API_TOKEN`) with `write_pipelines`, `read_pipelines`, and `write_suites` REST API scopes and GraphQL API access enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
+- **API access token**: A [Buildkite API access token](/docs/apis/managing-api-tokens) (`BUILDKITE_API_TOKEN`) with `write_pipelines` and `read_pipelines` [REST API scopes and GraphQL API access](/docs/apis/managing-api-tokens#token-scopes) enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
+
+    **Note:** You can also add the `write_suites` REST API scope to this token, although this is only required if you plan to manage [Buildkite Test Engine](/docs/test-engine) test suites using the Terraform provider.
+
 - **Buildkite organization slug**: Your Buildkite organization slug, which you can find in your Buildkite URL: `https://buildkite.com/<your-buildkite-org-slug>`.
-- **Cluster name/s**: Required so that Terraform can determine which Buildkite cluster/s your pipelines are associated with.
+
+- **Cluster name/s**: Required so that Terraform can determine which [Buildkite cluster/s](/docs/pipelines/security/clusters) your pipelines are associated with.
+
 - **Team name/s** (_optional_): Required if [teams is enabled in your Buildkite organization](/docs/platform/team-management/permissions), and so that Terraform can determine which teams should be granted access to your pipelines, along with each team's permissions.
 
 ## Getting started with managing pipelines in Terraform
@@ -320,7 +325,7 @@ Learn more about this Terraform provider resource in the [`buildkite_pipeline_te
 
 It might be sufficient that your pipelines are built using [repository webhooks](#getting-started-with-managing-pipelines-in-terraform-add-required-repository-webhooks) only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure its project's own resources are kept up to date, which might create a new pull- or merge-request with updated resources.
 
-In this example, add a daily re-build of the **Backend pipeline** that runs at midnight on the backend project's default branch (that is, `main`, which can be accessed through `default_branch` of the pipeline's resource).
+In this example, add a daily re-build of the **Backend pipeline** that runs at midnight on the backend project's default branch (that is, `main`, which can be accessed through `default_branch` of the pipeline's Terraform resource).
 
 To do this, add the following `buildkite_pipeline_schedule` resource block for this schedule, and apply it to the `backend` pipeline in your `pipelines.tf` file. Bear in mind that the Terraform identifier for the `buildkite_pipeline` resource block (that is, `backend`) must match that of the `pipeline_id` argument value in your `buildkite_pipeline_schedule` resource block. Therefore, the syntax for referencing this value would be `buildkite_pipeline.backend.id`.
 
@@ -346,7 +351,7 @@ resource "buildkite_pipeline" "backend" {
 
 ...
 
-# Schedule a build at midnight every day
+# Schedule a build of the 'backend' pipeline at midnight every day
 resource "buildkite_pipeline_schedule" "nightly" {
   pipeline_id = buildkite_pipeline.backend.id
   label       = "Nightly build"
@@ -479,7 +484,7 @@ resource "buildkite_pipeline_webhook" "backend" {
   repository  = buildkite_pipeline.backend.repository
 }
 
-# Schedule a build at midnight every day
+# Schedule a build of the 'backend' pipeline at midnight every day
 resource "buildkite_pipeline_schedule" "nightly" {
   pipeline_id = buildkite_pipeline.backend.id
   label       = "Nightly build"
