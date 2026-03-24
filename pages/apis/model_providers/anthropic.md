@@ -20,7 +20,7 @@ env:
   ANTHROPIC_API_KEY: "$BUILDKITE_AGENT_ACCESS_TOKEN"
 ```
 
-Here's a basic pipeline example:
+Here is a basic pipeline example:
 
 ```yaml
 steps:
