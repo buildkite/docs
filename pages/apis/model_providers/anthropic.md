@@ -10,6 +10,48 @@ The Anthropic model provider is fully compatible with Claude Code, which allows 
 
 Buildkite supports all current Anthropic Claude models, including Claude Sonnet 4.6, Claude Sonnet 4.5, Opus 4.1, and Haiku 4.5.
 
+### Using Claude Code in pipelines
+
+Claude Code's headless mode (`claude -p "prompt"`) lets you run Claude as a non-interactive step in your Buildkite pipelines. To connect Claude Code to the Buildkite model provider, set the following environment variables in your pipeline step:
+
+```yaml
+env:
+  ANTHROPIC_BASE_URL: "$BUILDKITE_AGENT_ENDPOINT/ai/anthropic"
+  ANTHROPIC_API_KEY: "$BUILDKITE_AGENT_ACCESS_TOKEN"
+```
+
+Here's a basic pipeline example:
+
+```yaml
+steps:
+  - label: "\:claude\: Code review"
+    command: |
+      claude -p "Review the changes in this PR and suggest improvements" \
+        --permission-mode bypassPermissions
+    env:
+      ANTHROPIC_BASE_URL: "$BUILDKITE_AGENT_ENDPOINT/ai/anthropic"
+      ANTHROPIC_API_KEY: "$BUILDKITE_AGENT_ACCESS_TOKEN"
+```
+
+The `--permission-mode bypassPermissions` flag is required for CI environments where there is no human to approve tool use prompts.
+
+### Running as a non-root user
+
+Claude Code refuses to run with `--permission-mode bypassPermissions` as the root user for security reasons. If your Buildkite agent runs as root, use `su` to switch to a non-root user:
+
+```yaml
+steps:
+  - label: "\:claude\: Analyze failures"
+    command: |
+      su buildkite -c 'HOME=/home/buildkite claude -p "Analyze the build failures" --permission-mode bypassPermissions'
+    env:
+      ANTHROPIC_BASE_URL: "$BUILDKITE_AGENT_ENDPOINT/ai/anthropic"
+      ANTHROPIC_API_KEY: "$BUILDKITE_AGENT_ACCESS_TOKEN"
+```
+
+> 🚧
+> When using `su` or `su --preserve-environment`, the `HOME` environment variable may remain set to `/root`. Since the non-root user cannot write to `/root`, Claude Code hangs silently when it tries to initialize its config directory (`~/.claude/`). Always set `HOME` explicitly to the target user's home directory inside the `su -c` command, as shown in the example above.
+
 ## Base URL
 
 Once you have [connected your Buildkite organization to your Anthropic model provider](/docs/apis/model-providers#connect-to-a-model-provider), you can access your Anthropic Claude models through the [Claude API](https://platform.claude.com/docs/en/api/overview), by appending these endpoints to the relevant [Buildkite model provider API endpoint](/docs/apis/model-providers#connect-to-a-model-provider-buildkite-model-provider-api-endpoints) as the base URL:
