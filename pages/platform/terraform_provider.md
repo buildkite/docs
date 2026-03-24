@@ -170,7 +170,7 @@ Learn more about the following Terraform provider components used above from the
 
 - Resources for pipelines in the [`buildkite_pipeline` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline) documentation, as well as the equivalent for pipeline templates in the [`buildkite_pipeline_template` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline_template) documentation.
 
-- Data sources for clusters in the [`buildkite_cluster` data source](http://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/cluster), as well as teams in the [`buildkite_team` data source](http://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/cluster).
+- Data sources for clusters in the [`buildkite_cluster` data source](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/cluster), as well as teams in the [`buildkite_team` data source](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/data-sources/team).
 
 > 📘
 > In the pipeline examples above, the actual pipeline YAML steps for each pipeline are uploaded to Buildkite Pipelines from the `.buildkite/pipeline.yml` file in each pipeline's respective repository, which is the recommended approach for storing and managing your pipeline steps as code.

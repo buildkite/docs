@@ -57,7 +57,7 @@ To import existing pipelines to Terraform:
 
 ## Finalizing your pipelines.tf configurations
 
-If you [imported existing pipeline resources to Terraform](#importing-existing-pipeline-resources), there are some differences in the resulting `pipelines.tf` file, compared ones you would [prepare manually](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources).
+If you [imported existing pipeline resources to Terraform](#importing-existing-pipeline-resources), there are some differences in the resulting `pipelines.tf` file, compared to ones you would [prepare manually](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources).
 
 ### Add missing arguments
 
