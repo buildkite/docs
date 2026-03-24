@@ -1,6 +1,6 @@
 # Advantages of migrating from CircleCI
 
-CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository. Buildkite Pipelines takes a different approach: instead of tying pipelines to a rigid project structure, it separates the control plane from the compute plane so you can run agents wherever you choose.
+CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository. Buildkite Pipelines takes a different approach: pipelines are decoupled from repositories, so you can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository.
 
 CircleCI works well for small teams getting started quickly, but its credit-based pricing, plan-based concurrency caps, and static configuration model can become obstacles as teams and repositories grow. Buildkite Pipelines is designed from the ground up for scale, flexibility, and predictable cost.
 
@@ -12,7 +12,7 @@ Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units. Y
 
 ## Scaling and limits
 
-CircleCI's performance and throughput are constrained by plan-based concurrency, queued capacity, and shared-platform limits. The free plan caps concurrency at 30 jobs (one for macOS), and higher plans raise that cap but still impose fixed ceilings. Resource classes are predefined. As organizations scale, these limits show up as longer queue times and slower developer feedback loops.
+CircleCI's performance and throughput are constrained by plan-based concurrency, queued capacity, and shared-platform limits. The free plan caps concurrency at 30 jobs (one for macOS), and higher plans raise that cap but still impose fixed ceilings. As organizations scale, these limits show up as longer queue times and slower developer feedback loops.
 
 Buildkite Pipelines scales by adding agents, without platform-imposed concurrency caps. The agent architecture is lightweight, supports 100,000+ concurrent agents, and offers turnkey autoscaling through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws), [Elastic CI Stack for GCP](/docs/agent/self-hosted/gcp/elastic-ci-stack), and [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
 
@@ -22,18 +22,18 @@ CircleCI configuration is largely static and declarative: workflows are defined 
 
 When teams outgrow a single configuration file, CircleCI offers two approaches to manage complexity, both with significant tradeoffs:
 
-- **Config packing:** Split configuration across multiple files (`commands/`, `executors/`, `jobs/`, `workflows/`, `root.yml`) and run `circleci config pack` to generate a single merged config. In practice, this can produce generated configs of 4,000 lines or more, making execution paths difficult to trace.
+- **Config packing:** Split configuration across multiple files (`commands/`, `executors/`, `jobs/`, `workflows/`, `root.yml`) and run `circleci config pack` to generate a single merged config. This trades readability for modularity: tracing a single workflow may require following references across many files in the folder structure.
 - **Continuations:** An orb-based mechanism for selecting which YAML to continue with at runtime. Continuations are limited to a single continuation config per repository and are generally hard to reason about.
 
-Both approaches attempt to work around the fact that CircleCI configuration is fundamentally static. Teams end up over-specifying "just in case" jobs and conditionals, which wastes compute and increases maintenance overhead.
+Both approaches still require heavy use of parameters to customize different execution paths, and attempt to work around the fact that CircleCI configuration is fundamentally static. Teams end up over-specifying "just in case" jobs and conditionals, which wastes compute and increases maintenance overhead.
 
-With Buildkite Pipelines, [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) let you generate and modify steps at runtime using real code. You can decide what to run based on changed files, dependency graphs, repository state, or external signals. Instead of producing a monolithic config, you can isolate concerns across multiple pipelines and generate only the steps you need. The pipeline adapts during execution rather than forcing you to predeclare every possible path.
+With Buildkite Pipelines, [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) let you generate and modify steps at runtime using real code in whatever language suits your execution environment and your team's expertise. You can decide what to run based on changed files, dependency graphs, repository state, or external signals. Instead of producing a monolithic config, you can isolate concerns across multiple pipelines and generate only the steps you need. The pipeline adapts during execution rather than forcing you to predeclare every possible path.
 
 ## Reliability and infrastructure control
 
-CircleCI offers self-hosted runners, but orchestration, state management, logging, and storage still depend on CircleCI's managed control plane. When that shared infrastructure has issues, even teams running their own compute are affected.
+Both CircleCI and Buildkite Pipelines rely on a managed control plane for orchestration, but the platforms differ in how much work happens locally on the runner.
 
-Buildkite Pipelines separates orchestration from execution by design. Agents run on your infrastructure and handle checkout, execution, and artifact storage locally. The control plane coordinates work and receives metadata, but a control-plane interruption does not affect jobs already running on your agents.
+Buildkite agents handle checkout, execution, and artifact storage locally on your infrastructure. The control plane coordinates work and receives metadata, but a control-plane interruption does not affect jobs already running on your agents. This local-execution model also means you retain full control over networking, caching, and storage without depending on vendor-managed infrastructure for those concerns.
 
 ## High-performance hosted machines
 
@@ -63,13 +63,11 @@ Buildkite Pipelines provides a unified dashboard that shows build health, queue 
 
 CircleCI supports path filtering, but sophisticated monorepo strategies require additional scripting and configuration to correctly model cross-directory dependencies and to avoid rebuilding unaffected services.
 
-Buildkite Pipelines handles large [monorepos](/docs/pipelines/best-practices/working-with-monorepos) efficiently by making the pipeline itself programmable. [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) can implement dependency-aware builds and selective rebuilds, with the [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) for declarative path filtering. This reduces wasted work and helps keep feedback fast as repository complexity grows.
+Buildkite Pipelines handles large [monorepos](/docs/pipelines/best-practices/working-with-monorepos) efficiently by making the pipeline itself programmable. [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) can implement dependency-aware builds and selective rebuilds, with the [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) for declarative path filtering. For teams that want a turnkey solution, the [Monorepo Diff plugin](https://buildkite.com/resources/plugins/monorepo-diff) watches for changes across directories and triggers the appropriate pipelines automatically. This reduces wasted work and helps keep feedback fast as repository complexity grows.
 
 ## Orbs vs. plugins
 
-CircleCI orbs are reusable YAML configuration abstractions that can define executors, commands, jobs, and workflows. Orbs are tightly coupled to CircleCI's config model and executor types. While orb source code can be reviewed, orbs are resolved and expanded at config compilation time, which means runtime behavior depends on how CircleCI processes the merged config.
-
-Buildkite [plugins](/docs/pipelines/integrations/plugins) are versioned Git repositories that run directly on your agents as hooks. Because plugins execute on your infrastructure, runtime behavior is directly auditable in the environment where it runs. You can fork, modify, and pin plugins to specific commits.
+Both CircleCI orbs and Buildkite [plugins](/docs/pipelines/integrations/plugins) are versioned, open source, and can be forked and pinned. The key difference is when and where they run. Orbs are resolved and expanded at config compilation time, before the job starts, so runtime behavior depends on how CircleCI processes the merged config. Buildkite plugins run directly on your agents as hooks during job execution, making runtime behavior directly auditable in the environment where it runs.
 
 ## Test optimization
 
@@ -85,9 +83,7 @@ Buildkite Pipelines [pricing](https://buildkite.com/pricing/) is based on agent 
 
 ## Job routing and priorities
 
-CircleCI routes jobs through resource classes and self-hosted runner labels, but has no native priority system. When an urgent fix and a long-running test suite compete for the same runner pool, there is no built-in way to let the urgent job run first.
-
-Buildkite Pipelines provides job routing through agent [queues](/docs/agent/queues) and tag-based matching, so you can direct different workloads to different compute pools. Combined with [priority settings](/docs/pipelines/configure/step-types/command-step#priority), urgent jobs move ahead of lower-priority work without manual intervention.
+Both platforms support job routing: CircleCI uses resource classes and self-hosted runner labels, while Buildkite Pipelines uses agent [queues](/docs/agent/queues) and tag-based matching. The difference is prioritization. CircleCI has no native priority system, so when an urgent fix and a long-running test suite compete for the same runner pool, there is no built-in way to let the urgent job run first. Buildkite Pipelines [priority settings](/docs/pipelines/configure/step-types/command-step#priority) let urgent jobs move ahead of lower-priority work without manual intervention.
 
 ## Secret management
 
