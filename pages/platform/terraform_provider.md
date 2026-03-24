@@ -323,7 +323,7 @@ Learn more about this Terraform provider resource in the [`buildkite_pipeline_te
 
 ### Add appropriate schedules to your pipelines
 
-It might be sufficient that your pipelines are built using [repository webhooks](#getting-started-with-managing-pipelines-in-terraform-add-required-repository-webhooks) only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure its project's own resources are kept up to date, which might create a new pull- or merge-request with updated resources.
+It might be sufficient that your pipelines are built using [repository webhooks](#getting-started-with-managing-pipelines-in-terraform-add-required-repository-webhooks) only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure its project's own resources are kept up to date, with dynamically run steps that create a new pull- or merge-request with updated resources.
 
 In this example, add a daily re-build of the **Backend pipeline** that runs at midnight on the backend project's default branch (that is, `main`, which can be accessed through `default_branch` of the pipeline's Terraform resource).
 
@@ -505,7 +505,7 @@ terraform apply
 > 📘 Deleting your configuration files and improving maintainability
 > You can now delete all of your configuration files (and most importantly, your Terraform variable file `terraform.tfvars` that's been temporarily storing your API access token) once Terraform has successfully applied these configurations to your Buildkite organization.
 > However, you can maintain a copy of these `.tf` files, should you wish to reapply these pipelines to the same or any other Buildkite organization again in future, bearing in mind that you'll need to manually keep any configuration changes you make to these pipelines in sync with your `pipelines.tf` file/s.
-> To improve maintainability, however, you can import your existing pipeline configurations into Terraform, which will account for all current updates made to these pipeline configurations. See [Importing existing Buildkite resources to Terraform](/docs/platform/terraform-provider/importing-existing-resources) for details.
+> To improve maintainability, however, you can import your existing pipeline configurations into Terraform, which will account for all current updates made to these pipeline configurations. See [Import existing Buildkite resources to Terraform](/docs/platform/terraform-provider/import-existing-resources) for details.
 
 ## Further reference
 

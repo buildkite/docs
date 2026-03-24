@@ -915,8 +915,10 @@
       children:
         - name: "Overview"
           path: "platform/terraform-provider"
-        - name: "Importing existing Buildkite resources to Terraform"
-          path: "platform/terraform-provider/importing-existing-resources"
+        - name: "Import existing Buildkite resources to Terraform"
+          path: "platform/terraform-provider/import-existing-resources"
+        - name: "Manage clusters and queues"
+          path: "platform/terraform-provider/manage-clusters-and-queues"
     - name: "SSO"
       children:
         - name: "Overview"

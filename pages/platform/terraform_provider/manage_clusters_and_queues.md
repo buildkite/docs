@@ -1,0 +1,209 @@
+# Manage clusters and queues
+
+The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), agent tokens, default queues, and cluster maintainers as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
+
+## Define a cluster
+
+Use the `buildkite_cluster` resource to create and manage clusters. Each cluster requires a `name` and can optionally include a `description`, `emoji`, and `color`.
+
+```hcl
+resource "buildkite_cluster" "primary" {
+  name        = "Primary cluster"
+  description = "Runs the monolith build and deploy."
+  emoji       = "\:rocket\:"
+  color       = "#BADA55"
+}
+```
+
+Learn more about this resource in the [`buildkite_cluster` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster) documentation.
+
+## Add queues to a cluster
+
+Use the `buildkite_cluster_queue` resource to create queues within a cluster. Each queue requires a `cluster_id` and a `key` to uniquely identify the queue.
+
+```hcl
+resource "buildkite_cluster_queue" "default" {
+  cluster_id = buildkite_cluster.primary.id
+  key        = "default"
+}
+
+resource "buildkite_cluster_queue" "deploy" {
+  cluster_id  = buildkite_cluster.primary.id
+  key         = "deploy"
+  description = "Queue for deployment jobs."
+}
+```
+
+You can optionally set `dispatch_paused` to `true` to pause job dispatch on the queue after creation. This is useful when you want to set up agents before the queue starts accepting jobs.
+
+### Buildkite hosted agent queues
+
+If your organization uses [Buildkite hosted agents](/docs/agent/buildkite-hosted), you can configure hosted agent queues by including the `hosted_agents` attribute with an `instance_shape` value.
+
+For a Linux hosted agent queue:
+
+```hcl
+resource "buildkite_cluster_queue" "hosted_linux" {
+  cluster_id = buildkite_cluster.primary.id
+  key        = "hosted-linux"
+
+  hosted_agents = {
+    instance_shape = "LINUX_AMD64_2X4"
+
+    linux = {
+      agent_image_ref = "ubuntu:24.04"
+    }
+  }
+}
+```
+
+For a macOS hosted agent queue:
+
+```hcl
+resource "buildkite_cluster_queue" "hosted_macos" {
+  cluster_id = buildkite_cluster.primary.id
+  key        = "hosted-macos"
+
+  hosted_agents = {
+    instance_shape = "MACOS_ARM64_M4_6X28"
+
+    mac = {
+      xcode_version = "16.2"
+    }
+  }
+}
+```
+
+Learn more about this resource in the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue) documentation.
+
+## Set a default queue
+
+Use the `buildkite_cluster_default_queue` resource to designate which queue in a cluster receives jobs that don't specify a queue.
+
+```hcl
+resource "buildkite_cluster_default_queue" "primary" {
+  cluster_id = buildkite_cluster.primary.id
+  queue_id   = buildkite_cluster_queue.default.id
+}
+```
+
+Learn more about this resource in the [`buildkite_cluster_default_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_default_queue) documentation.
+
+## Create agent tokens
+
+Use the `buildkite_cluster_agent_token` resource to create [agent tokens](/docs/agent/self-hosted/tokens) that self-hosted agents use to connect to a cluster.
+
+```hcl
+resource "buildkite_cluster_agent_token" "default" {
+  description = "Default agent token"
+  cluster_id  = buildkite_cluster.primary.id
+}
+```
+
+You can restrict which IP addresses are allowed to use a token by specifying `allowed_ip_addresses` with a list of CIDR-notation IPv4 addresses:
+
+```hcl
+resource "buildkite_cluster_agent_token" "restricted" {
+  description          = "Token restricted to internal network"
+  cluster_id           = buildkite_cluster.primary.id
+  allowed_ip_addresses = ["192.0.2.0/24"]
+}
+```
+
+Learn more about this resource in the [`buildkite_cluster_agent_token` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_agent_token) documentation.
+
+## Manage cluster maintainers
+
+Use the `buildkite_cluster_maintainer` resource to grant users or teams permission to manage a cluster. Specify either a `user_uuid` or `team_uuid`, but not both.
+
+```hcl
+# Add a team as a cluster maintainer
+resource "buildkite_cluster_maintainer" "platform_team" {
+  cluster_uuid = buildkite_cluster.primary.uuid
+  team_uuid    = "01234567-89ab-cdef-0123-456789abcdef"
+}
+```
+
+Learn more about this resource in the [`buildkite_cluster_maintainer` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_maintainer) documentation.
+
+## Manage cluster secrets
+
+Use the `buildkite_cluster_secret` resource to create encrypted key-value pairs accessible by agents within a cluster. You can define a YAML access policy to control which pipelines and branches can access each secret.
+
+```hcl
+resource "buildkite_cluster_secret" "database_password" {
+  cluster_id  = buildkite_cluster.primary.uuid
+  key         = "DATABASE_PASSWORD"
+  value       = var.database_password
+  description = "Production database password"
+  policy      = <<-EOT
+    - pipeline_slug: backend-pipeline
+      build_branch: main
+  EOT
+}
+```
+
+> 🚧 Secret values are write-only
+> Secret values cannot be retrieved from the Buildkite API. When importing an existing cluster secret, you must manually set the `value` attribute in your configuration to match the actual secret value, as Terraform cannot read it from the API.
+
+Learn more about this resource in the [`buildkite_cluster_secret` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_secret) documentation.
+
+## Verify your completed configuration
+
+The following example shows a complete cluster configuration with a cluster, two queues (including a default), an agent token, a team maintainer, and a secret:
+
+```hcl
+# Define the cluster
+resource "buildkite_cluster" "primary" {
+  name        = "Primary cluster"
+  description = "Runs the monolith build and deploy."
+  emoji       = "\:rocket\:"
+  color       = "#BADA55"
+}
+
+# Define queues
+resource "buildkite_cluster_queue" "default" {
+  cluster_id = buildkite_cluster.primary.id
+  key        = "default"
+}
+
+resource "buildkite_cluster_queue" "deploy" {
+  cluster_id  = buildkite_cluster.primary.id
+  key         = "deploy"
+  description = "Queue for deployment jobs."
+}
+
+# Set the default queue
+resource "buildkite_cluster_default_queue" "primary" {
+  cluster_id = buildkite_cluster.primary.id
+  queue_id   = buildkite_cluster_queue.default.id
+}
+
+# Create an agent token
+resource "buildkite_cluster_agent_token" "default" {
+  description = "Default agent token"
+  cluster_id  = buildkite_cluster.primary.id
+}
+
+# Add a team as a cluster maintainer
+resource "buildkite_cluster_maintainer" "platform_team" {
+  cluster_uuid = buildkite_cluster.primary.uuid
+  team_uuid    = "01234567-89ab-cdef-0123-456789abcdef"
+}
+
+# Define a cluster secret
+resource "buildkite_cluster_secret" "database_password" {
+  cluster_id  = buildkite_cluster.primary.uuid
+  key         = "DATABASE_PASSWORD"
+  value       = var.database_password
+  description = "Production database password"
+  policy      = <<-EOT
+    - pipeline_slug: backend-pipeline
+      build_branch: main
+  EOT
+}
+```
+
+## Further reference
+
+For the full list of cluster and queue resources, data sources, and their configuration options, see the [Buildkite provider documentation](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) on the Terraform Registry.
