@@ -24,7 +24,7 @@ To import existing pipelines to Terraform:
     }
     ```
 
-1. Create a `pipeline-imports.tf` file with a set of `import` blocks, one for each pipeline you want to manage in Terraform with an `id` argument, whose value is the pipeline's GraphQL ID obtained from the query above. Within each `import` block, each `to` argument's value after `buildkite_pipeline.` is the Terraform identifier for the pipeline.
+1. Create a `pipeline-imports.tf` file with a set of `import` blocks, one for each pipeline you want to manage in Terraform. Within each `import` block, define a `to` argument, whose value after `buildkite_pipeline.` is the Terraform identifier for the pipeline, and an `id` argument, whose value is the pipeline's GraphQL ID obtained from the query above.
 
     ```hcl
     import {
@@ -43,7 +43,7 @@ To import existing pipelines to Terraform:
     }
     ```
 
-1. Then generate the Terraform configuration:
+1. Next, generate the Terraform configuration file (`pipelines.tf`):
 
     ```bash
     terraform plan -generate-config-out=pipelines.tf
@@ -68,7 +68,7 @@ The `pipelines.tf` file generated using `terraform plan ...` does not include th
 
 ### Amend arguments with GraphQL ID values if required
 
-The values of following arguments in the generated `pipelines.tf` file reference actual GraphQL IDs as opposed to other Terraform identifiers, which is the case for this typically [defined manually](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources).
+The values of following arguments in the generated `pipelines.tf` file reference actual GraphQL IDs as opposed to other Terraform identifiers, which is typically the case for those [defined manually](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources).
 
 - `cluster_id`
 - `pipeline_template_id`
@@ -77,4 +77,4 @@ If you [imported existing pipelines from a Buildkite organization to Terraform](
 
 - The _same_ Buildkite organization (for example, for disaster recovery purposes), then there shouldn't be a need to update these arguments' values in `pipelines.tf`, on the assumption that you retain and intend to reuse the same Buildkite cluster/s and pipeline template/s.
 
-- A _different_ Buildkite organization, or different Buildkite cluster/s or pipeline template/s, then you'll need to amend these arguments' values in `pipelines.tf` to those of the IDs for the new cluster/s and pipeline templates/s to associated with these pipelines. Alternatively, you can implement the alternative syntax used when [defining the `pipelines.tf` file manually](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources).
+- A _different_ Buildkite organization, or _different_ Buildkite cluster/s or pipeline template/s in the _same_ Buildkite organization, then you'll need to amend these arguments' values in `pipelines.tf` to those of the IDs for the new cluster/s and pipeline templates/s to associated with these pipelines. Otherwise, you can implement the alternative syntax used when [defining the `pipelines.tf` file manually](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources).
