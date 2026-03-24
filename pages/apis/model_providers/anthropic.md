@@ -12,7 +12,7 @@ Buildkite supports all current Anthropic Claude models, including Claude Sonnet 
 
 ### Using Claude Code in pipelines
 
-Claude Code's headless mode (`claude -p "prompt"`) lets you run Claude as a non-interactive step in your Buildkite pipelines. To connect Claude Code to the Buildkite model provider, set the following environment variables in your pipeline step:
+Claude Code's headless mode (`claude -p "prompt"`) lets you run Claude as a non-interactive step in Buildkite Pipelines. To connect Claude Code to the Buildkite model provider, set the following environment variables in your pipeline step:
 
 ```yaml
 env:
