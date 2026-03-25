@@ -4,7 +4,7 @@ The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports m
 
 ## Define your cluster resources
 
-Define Buildkite cluster resources for the clusters in your Buildkite organization that you want to manage in Terraform, in HCL (for example, `clusters.tf`).
+Define resources for the [clusters](/docs/pipelines/security/clusters) in your Buildkite organization that you want to manage in Terraform, in HCL (for example, `clusters.tf`).
 
 The  `buildkite_cluster` resource is used to create and manage clusters. Each cluster requires a `name` argument and can optionally include `description`, `emoji`, and `color` arguments.
 
@@ -27,7 +27,7 @@ Learn more about this resource in the [`buildkite_cluster` resource](https://reg
 
 ## Define your queue resources
 
-Define Buildkite queue resources for the queues in your [clusters](#define-your-cluster-resources) that you want to manage in Terraform, within your cluster resources HCL file (for example, `clusters.tf`).
+Define resources for the queues of Buildkite [clusters](#define-your-cluster-resources) that you want to manage in Terraform, within your cluster resources HCL file (for example, `clusters.tf`).
 
 The `buildkite_cluster_queue` resource is used to create and manage queues within a cluster. Each queue requires a `cluster_id` and a `key` argument to uniquely identify the queue, and can optionally include a `description` argument.
 
@@ -114,11 +114,11 @@ When defining Buildkite hosted queues for macOS hosted agents:
 
 ## Define your default queue resources
 
-If your Buildkite clusters have more than one queue, define your default queue for each such cluster as separate default queue resources for the [clusters](#define-your-cluster-resources) you want to manage in Terraform, in HCL (for example, `clusters.tf`).
+For each of your Buildkite [clusters](#define-your-cluster-resources) (managed in Terraform) with more than one queue, define the default queue as a resource—one for each of these clusters, within your cluster resources HCL file (for example, `clusters.tf`).
 
-Use the `buildkite_cluster_default_queue` resource to designate which queue in a cluster receives jobs whose pipeline steps don't specify a queue.
+Use the `buildkite_cluster_default_queue` resource to designate which queue (defined by its `queue_id` argument) in a cluster (defined by its `cluster_id` argument) receives jobs whose pipeline steps don't specify a queue.
 
-
+In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s [self-hosted queue with the key **default**](#define-your-queue-resources-self-hosted-queues) will be made the default queue with `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster_default_queue" "primary" {
@@ -129,9 +129,11 @@ resource "buildkite_cluster_default_queue" "primary" {
 
 Learn more about this resource in the [`buildkite_cluster_default_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_default_queue) documentation.
 
-## Create agent tokens
+## Define your agent tokens
 
-Use the `buildkite_cluster_agent_token` resource to create [agent tokens](/docs/agent/self-hosted/tokens) that self-hosted agents use to connect to a cluster.
+For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define and create an [agent token](/docs/agent/self-hosted/tokens)—one for each of these clusters with [self-hosted agents](/docs/agent/self-hosted), within your cluster resources HCL file (for example, `clusters.tf`).
+
+Use the `buildkite_cluster_agent_token` resource to define and create an agent token (named by its `description` argument) that a self-hosted agent uses to connect to a cluster (defined by its `cluster_id` argument).
 
 ```hcl
 resource "buildkite_cluster_agent_token" "default" {
@@ -140,7 +142,7 @@ resource "buildkite_cluster_agent_token" "default" {
 }
 ```
 
-You can restrict which IP addresses are allowed to use a token by specifying `allowed_ip_addresses` with a list of CIDR-notation IPv4 addresses:
+You can optionally restrict which IP addresses are allowed to use a token by specifying `allowed_ip_addresses` with a list of CIDR-notation IPv4 addresses:
 
 ```hcl
 resource "buildkite_cluster_agent_token" "restricted" {
@@ -150,9 +152,30 @@ resource "buildkite_cluster_agent_token" "restricted" {
 }
 ```
 
+The generated agent token value is stored in Terraform state and can be accessed through the resource's `token` attribute. To retrieve this value, you can either:
+
+- Define a sensitive [Terraform output](https://developer.hashicorp.com/terraform/language/values/outputs):
+
+    ```hcl
+    output "agent_token" {
+      value     = buildkite_cluster_agent_token.default.token
+      sensitive = true
+    }
+    ```
+
+    and retrieve the agent token's value from the command line:
+
+    ```bash
+    terraform output -raw agent_token
+    ```
+
+- Pass the agent token's value directly to a secrets manager resource within your Terraform configuration, such as [AWS Secrets Manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) or [HashiCorp Vault](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret).
+
 Learn more about this resource in the [`buildkite_cluster_agent_token` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_agent_token) documentation.
 
-## Manage cluster maintainers
+## Define cluster maintainers
+
+For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster)—one for each of these clusters, within your cluster resources HCL file (for example, `clusters.tf`).
 
 Use the `buildkite_cluster_maintainer` resource to grant users or teams permission to manage a cluster. Specify either a `user_uuid` or `team_uuid`, but not both.
 
