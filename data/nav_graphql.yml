@@ -70,6 +70,8 @@
     path: apis/graphql/schemas/mutation/buildcreate
   - name: buildRebuild
     path: apis/graphql/schemas/mutation/buildrebuild
+  - name: buildRetryFailedJobs
+    path: apis/graphql/schemas/mutation/buildretryfailedjobs
   - name: clusterAgentTokenCreate
     path: apis/graphql/schemas/mutation/clusteragenttokencreate
   - name: clusterAgentTokenRevoke
@@ -316,6 +318,8 @@
     path: apis/graphql/schemas/object/buildmetadataedge
   - name: BuildRebuildPayload
     path: apis/graphql/schemas/object/buildrebuildpayload
+  - name: BuildRetryFailedJobsPayload
+    path: apis/graphql/schemas/object/buildretryfailedjobspayload
   - name: BuildSourceAPI
     path: apis/graphql/schemas/object/buildsourceapi
   - name: BuildSourceFrontend
@@ -1078,6 +1082,8 @@
     path: apis/graphql/schemas/input-object/buildmetadatainput
   - name: BuildRebuildInput
     path: apis/graphql/schemas/input-object/buildrebuildinput
+  - name: BuildRetryFailedJobsInput
+    path: apis/graphql/schemas/input-object/buildretryfailedjobsinput
   - name: ClusterAgentTokenCreateInput
     path: apis/graphql/schemas/input-object/clusteragenttokencreateinput
   - name: ClusterAgentTokenRevokeInput
