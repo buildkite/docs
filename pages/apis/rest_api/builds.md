@@ -1352,7 +1352,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 > 📘 Webhook URL
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Note that this request is asynchronous: it queues the jobs to be retried, but does not necessarily wait for them to complete before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued for retry.
+This request is asynchronous. It queues the jobs to be retried, but does not wait for them to complete before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued for retry.
 
 Optional [request body properties](/docs/api#request-body-properties):
 
