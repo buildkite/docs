@@ -40,7 +40,7 @@ The Terraform provider requires the following Buildkite configuration values:
 
 To start using the Buildkite Terraform provider to manage your pipelines in Terraform:
 
-1. Define the Buildkite provider for your Terraform configuration file, along with your Buildkite API access token configuration, written in HashiCorp Configuration Language (HCL) (for example, `provider.tf`):
+1. Define the Buildkite provider for your Terraform configuration, along with your Buildkite API access token configuration, as a file written in HashiCorp Configuration Language (HCL) (for example, `provider.tf`):
 
     ```hcl
     terraform {

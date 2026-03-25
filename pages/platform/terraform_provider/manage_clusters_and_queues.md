@@ -1,12 +1,12 @@
 # Manage clusters and queues
 
-The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), [agent tokens](/docs/agent/self-hosted/tokens), default queues, and cluster maintainers as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
+The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), [agent tokens](/docs/agent/self-hosted/tokens), default queues, [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), and [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
 
 ## Define your cluster resources
 
 Define resources for the [clusters](/docs/pipelines/security/clusters) in your Buildkite organization that you want to manage in Terraform, in HCL (for example, `clusters.tf`).
 
-The  `buildkite_cluster` resource is used to create and manage clusters. Each cluster requires a `name` argument and can optionally include `description`, `emoji`, and `color` arguments.
+The  `buildkite_cluster` resource is used to define, create and manage clusters. Each cluster requires a `name` argument and can optionally include `description`, `emoji`, and `color` arguments.
 
 If you don't have a pre-existing cluster in your Buildkite organization but want to associate a pipeline in your [pipeline resources (`pipelines.tf` file)](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources) with a new cluster managed by the Terraform provider, you can define the new cluster in your cluster resources (`clusters.tf`) file and reference it from the pipeline resource's `cluster_id` argument.
 
@@ -27,9 +27,9 @@ Learn more about this resource in the [`buildkite_cluster` resource](https://reg
 
 ## Define your queue resources
 
-Define resources for the queues of Buildkite [clusters](#define-your-cluster-resources) that you want to manage in Terraform, within your cluster resources HCL file (for example, `clusters.tf`).
+Define resources for the [queues](/docs/agent/queues) of Buildkite [clusters](#define-your-cluster-resources) that you want to manage in Terraform, within your cluster resources HCL file (for example, `clusters.tf`).
 
-The `buildkite_cluster_queue` resource is used to create and manage queues within a cluster. Each queue requires a `cluster_id` and a `key` argument to uniquely identify the queue, and can optionally include a `description` argument.
+The `buildkite_cluster_queue` resource is used to define, create and manage queues within a cluster. Each queue requires a `cluster_id` and a `key` argument to uniquely identify the queue, and can optionally include a `description` argument.
 
 Learn more about this resource in the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue) documentation.
 
@@ -116,7 +116,7 @@ When defining Buildkite hosted queues for macOS hosted agents:
 
 For each of your Buildkite [clusters](#define-your-cluster-resources) (managed in Terraform) with more than one queue, define the default queue as a resource—one for each of these clusters, within your cluster resources HCL file (for example, `clusters.tf`).
 
-Use the `buildkite_cluster_default_queue` resource to designate which queue (defined by its `queue_id` argument) in a cluster (defined by its `cluster_id` argument) receives jobs whose pipeline steps don't specify a queue.
+Use the `buildkite_cluster_default_queue` resource to determine which queue (referenced by its `queue_id` argument) in a cluster (referenced by `cluster_id`) receives jobs whose pipeline steps don't specify a queue.
 
 In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s [self-hosted queue with the key **default**](#define-your-queue-resources-self-hosted-queues) will be made the default queue with `terraform plan` and `terraform apply`.
 
@@ -131,9 +131,11 @@ Learn more about this resource in the [`buildkite_cluster_default_queue` resourc
 
 ## Define your agent tokens
 
-For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define and create an [agent token](/docs/agent/self-hosted/tokens)—one for each of these clusters with [self-hosted agents](/docs/agent/self-hosted), within your cluster resources HCL file (for example, `clusters.tf`).
+For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define and create an [agent token](/docs/agent/self-hosted/tokens)—at least one for each of these clusters with [self-hosted agents](/docs/agent/self-hosted), within your cluster resources HCL file (for example, `clusters.tf`).
 
-Use the `buildkite_cluster_agent_token` resource to define and create an agent token (named by its `description` argument) that a self-hosted agent uses to connect to a cluster (defined by its `cluster_id` argument).
+Use the `buildkite_cluster_agent_token` resource to define, create and manage an agent token (named by its `description` argument) that a self-hosted agent uses to connect to a cluster (referenced by `cluster_id`).
+
+In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s **Default agent token** will be created with `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster_agent_token" "default" {
@@ -154,7 +156,7 @@ resource "buildkite_cluster_agent_token" "restricted" {
 
 The generated agent token value is stored in Terraform state and can be accessed through the resource's `token` attribute. To retrieve this value, you can either:
 
-- Define a sensitive [Terraform output](https://developer.hashicorp.com/terraform/language/values/outputs):
+- Define a sensitive [Terraform output](https://developer.hashicorp.com/terraform/language/values/outputs), using the **Default agent token** example above:
 
     ```hcl
     output "agent_token" {
@@ -175,9 +177,11 @@ Learn more about this resource in the [`buildkite_cluster_agent_token` resource]
 
 ## Define cluster maintainers
 
-For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster)—one for each of these clusters, within your cluster resources HCL file (for example, `clusters.tf`).
+For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster)—aim for at least one for each of these clusters, within your cluster resources HCL file (for example, `clusters.tf`). Otherwise, a cluster with no cluster maintainers can only be administered by a Buildkite organization administrator.
 
-Use the `buildkite_cluster_maintainer` resource to grant users or teams permission to manage a cluster. Specify either a `user_uuid` or `team_uuid`, but not both.
+Use the `buildkite_cluster_maintainer` resource to grant users or teams permission to manage a cluster (referenced by its `cluster_uuid` argument). Specify either a Buildkite user (referenced by `user_uuid`) or team (referenced by `team_uuid`), but not both.
+
+In the following example, the Buildkite team with UUID `01234567-89ab-cdef-0123-456789abcdef` will be made a maintainer of the [**Primary cluster**](#define-your-cluster-resources), with `terraform plan` and `terraform apply`.
 
 ```hcl
 # Add a team as a cluster maintainer
@@ -189,9 +193,25 @@ resource "buildkite_cluster_maintainer" "platform_team" {
 
 Learn more about this resource in the [`buildkite_cluster_maintainer` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_maintainer) documentation.
 
-## Manage cluster secrets
+## Define Buildkite secrets
 
-Use the `buildkite_cluster_secret` resource to create encrypted key-value pairs accessible by agents within a cluster. You can define a YAML access policy to control which pipelines and branches can access each secret.
+For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define a [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) for the pipelines that require them, within your cluster resources HCL file (for example, `clusters.tf`).
+
+Use the `buildkite_cluster_secret` resource to define, create and manage an encrypted key-value pair accessible by agents within a [Buildkite cluster](/docs/pipelines/security/clusters) (referenced by its `cluster_id` argument, which actually requires a cluster UUID value).
+
+This resource requires the following arguments:
+
+- `key`: This value is what you use to reference this secret from within your pipeline configurations. See [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) for more information.
+
+- `value`: The secret's actual value. You could also implement the secret's value in a temporary `terraform.tfvars` file and define its variable in `variables.tf`, similar to your Buildkite API access token when [defining the Buildkite provider for your Terraform configuration](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform).
+
+This resource also accepts the following optional arguments:
+
+- `description`: The secret's description, which appears just under the secret's key value on the main **Secrets** page.
+
+- `policy`: The access policy for the Buildkite secret, use this argument to define an access policy in YAML, to control which pipelines and branches can access the secret. See [Access policies for Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets/access-policies) for more information.
+
+In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s `DATABASE_PASSWORD` Buildkite secret (with description **Production database password**) will be created with `terraform plan` and `terraform apply`, where this secret can only be used by the `backend` pipeline on the `main` branch of its repository.
 
 ```hcl
 resource "buildkite_cluster_secret" "database_password" {
@@ -200,23 +220,38 @@ resource "buildkite_cluster_secret" "database_password" {
   value       = var.database_password
   description = "Production database password"
   policy      = <<-EOT
-    - pipeline_slug: backend-pipeline
+    - pipeline_slug: backend
       build_branch: main
   EOT
 }
 ```
 
-> 🚧 Secret values are write-only
-> Secret values cannot be retrieved from the Buildkite API. When importing an existing cluster secret, you must manually set the `value` attribute in your configuration to match the actual secret value, as Terraform cannot read it from the API.
+The secret's value is stored temporarily in the `terraform.tfvars` file:
+
+```hcl
+database_password = "your-database-password-value"
+```
+
+and is defined by its variable in the `variables.tf` file:
+
+```hcl
+variable "database_password" {
+  type      = string
+  sensitive = true
+}
+```
+
+> 🚧 Secret values are write-only to the Buildkite platform
+> Secret values cannot be retrieved using the Buildkite API. If you import an existing Buildkite secret resource to Terraform, you must manually set its `value` attribute in your configuration to match the actual secret value, as Terraform will not be able to read this value from the Buildkite API.
 
 Learn more about this resource in the [`buildkite_cluster_secret` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_secret) documentation.
 
-## Verify your completed configuration
+## Verify your completed clusters.tf file configuration
 
-The following example shows a complete cluster configuration with a cluster, two queues (including a default), an agent token, a team maintainer, and a secret:
+The following example shows a complete cluster configuration with a single Buildkite cluster, two self-hosted queues (including a default), an agent token, a team maintainer, and a Buildkite secret:
 
 ```hcl
-# Define the cluster
+# Define the 'primary' cluster
 resource "buildkite_cluster" "primary" {
   name        = "Primary cluster"
   description = "Runs the monolith build and deploy."
@@ -224,15 +259,15 @@ resource "buildkite_cluster" "primary" {
   color       = "#BADA55"
 }
 
-# Define queues
+# Define its self-hosted queues
 resource "buildkite_cluster_queue" "default" {
   cluster_id = buildkite_cluster.primary.id
   key        = "default"
 }
 
-resource "buildkite_cluster_queue" "deploy" {
+resource "buildkite_cluster_queue" "deployment" {
   cluster_id  = buildkite_cluster.primary.id
-  key         = "deploy"
+  key         = "deployment"
   description = "Queue for deployment jobs."
 }
 
