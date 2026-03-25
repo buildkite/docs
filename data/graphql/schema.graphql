@@ -1968,11 +1968,9 @@ input BuildRetryFailedJobsInput {
   id: ID!
 
   """
-  Filter which failure types to retry. Valid values: canceled, expired, failed,
-  soft_failed, timed_out. When omitted, retries all manually retryable jobs
-  (matching the UI behavior).
+  Filter which failure types to retry. When omitted, retries all applicable jobs (matching the UI behavior).
   """
-  states: [String!]
+  states: [BuildRetryFailedJobsStates!]
 }
 
 """
@@ -1986,6 +1984,36 @@ type BuildRetryFailedJobsPayload {
   """
   clientMutationId: String
   retriedJobsCount: Int!
+}
+
+"""
+The failure types that can be retried when retrying failed jobs in a build
+"""
+enum BuildRetryFailedJobsStates {
+  """
+  Jobs that were canceled
+  """
+  CANCELED
+
+  """
+  Jobs that expired before being picked up by an agent
+  """
+  EXPIRED
+
+  """
+  Hard-failed jobs (non-zero exit status, not matching soft fail rules)
+  """
+  FAILED
+
+  """
+  Soft-failed jobs (non-zero exit status, matching soft fail rules)
+  """
+  SOFT_FAILED
+
+  """
+  Jobs that timed out
+  """
+  TIMED_OUT
 }
 
 interface BuildSource {
