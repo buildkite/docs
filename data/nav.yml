@@ -915,10 +915,12 @@
       children:
         - name: "Overview"
           path: "platform/terraform-provider"
-        - name: "Import existing Buildkite resources to Terraform"
-          path: "platform/terraform-provider/import-existing-resources"
+        - name: "Manage teams"
+          path: "platform/terraform-provider/manage-teams"
         - name: "Manage clusters and queues"
           path: "platform/terraform-provider/manage-clusters-and-queues"
+        - name: "Import existing Buildkite resources to Terraform"
+          path: "platform/terraform-provider/import-existing-resources"
     - name: "SSO"
       children:
         - name: "Overview"
