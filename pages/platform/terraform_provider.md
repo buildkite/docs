@@ -87,7 +87,7 @@ To start using the Buildkite Terraform provider to manage your pipelines in Terr
 
 ### Define your initial pipeline resources
 
-Define pipeline resources for the pipelines you want to import into your Buildkite organization, again in HCL (for example, `pipelines.tf`).
+Define Buildkite pipeline resources for the pipelines in your Buildkite organization that you want to manage in Terraform, again in HCL (for example, `pipelines.tf`).
 
 In the following example, two pipelines are defined (**Frontend pipeline** and **Backend pipeline**), which will be part of the pre-existing Buildkite cluster (**Default cluster**), and a pre-existing team, whose name is **Engineering** (along with all of its members) will be made the initial owner of these pipelines. The steps for both of these pipelines use those from a pipeline template definition named **Standard pipeline**.
 

@@ -2,24 +2,36 @@
 
 The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), agent tokens, default queues, and cluster maintainers as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
 
-## Define a cluster
+## Define your cluster resources
 
-Use the `buildkite_cluster` resource to create and manage clusters. Each cluster requires a `name` and can optionally include a `description`, `emoji`, and `color`.
+Define Buildkite cluster resources for the clusters in your Buildkite organization that you want to manage in Terraform, again in HCL (for example, `clusters.tf`).
+
+The  `buildkite_cluster` resource is used to create and manage clusters. Each cluster requires a `name` and can optionally include a `description`, `emoji`, and `color`.
+
+If you don't have a pre-existing cluster in your Buildkite organization but want to associate a pipeline in your [pipeline resources (`pipelines.tf` file)](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources) with a new cluster managed by the Terraform provider, you can define the new cluster in your cluster resources (`clusters.tf`) file and reference it from the pipeline resource's `cluster_id` argument.
+
+In the following example, the **Primary cluster** will be created when `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster" "primary" {
   name        = "Primary cluster"
-  description = "Runs the monolith build and deploy."
+  description = "Runs monolith builds and deployments."
   emoji       = "\:rocket\:"
   color       = "#BADA55"
 }
 ```
 
+Following on from the [pipeline resources example](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources), if you wanted to make the **Frontend pipeline** use this **Primary cluster** instead of **Default cluster**, you would change this pipeline resource's `cluster_id` argument's value to `data.buildkite_cluster.primary.id`. Furthermore, if no pipelines under Terraform management use **Default cluster**, you could remove its data source from your pipeline resources `pipelines.tf` file.
+
 Learn more about this resource in the [`buildkite_cluster` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster) documentation.
 
-## Add queues to a cluster
+## Define your queues
 
 Use the `buildkite_cluster_queue` resource to create queues within a cluster. Each queue requires a `cluster_id` and a `key` to uniquely identify the queue.
+
+### Self-hosted queues
+
+If your Buildkite organization uses [self-hosted agents](/docs/agent/self-hosted), you can configure [self-hosted queues](/docs/agent/queues/managing#create-a-self-hosted-queue) for these agents as follows:
 
 ```hcl
 resource "buildkite_cluster_queue" "default" {
@@ -36,9 +48,9 @@ resource "buildkite_cluster_queue" "deploy" {
 
 You can optionally set `dispatch_paused` to `true` to pause job dispatch on the queue after creation. This is useful when you want to set up agents before the queue starts accepting jobs.
 
-### Buildkite hosted agent queues
+### Buildkite hosted queues
 
-If your organization uses [Buildkite hosted agents](/docs/agent/buildkite-hosted), you can configure hosted agent queues by including the `hosted_agents` attribute with an `instance_shape` value.
+If your Buildkite organization uses [Buildkite hosted agents](/docs/agent/buildkite-hosted), you can configure [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) for these agents by including the `hosted_agents` attribute with an `instance_shape` value.
 
 For a Linux hosted agent queue:
 
