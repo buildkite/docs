@@ -1,16 +1,16 @@
 # Manage clusters and queues
 
-The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), agent tokens, default queues, and cluster maintainers as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
+The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), [agent tokens](/docs/agent/self-hosted/tokens), default queues, and cluster maintainers as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
 
 ## Define your cluster resources
 
-Define Buildkite cluster resources for the clusters in your Buildkite organization that you want to manage in Terraform, again in HCL (for example, `clusters.tf`).
+Define Buildkite cluster resources for the clusters in your Buildkite organization that you want to manage in Terraform, in HCL (for example, `clusters.tf`).
 
-The  `buildkite_cluster` resource is used to create and manage clusters. Each cluster requires a `name` and can optionally include a `description`, `emoji`, and `color`.
+The  `buildkite_cluster` resource is used to create and manage clusters. Each cluster requires a `name` argument and can optionally include `description`, `emoji`, and `color` arguments.
 
 If you don't have a pre-existing cluster in your Buildkite organization but want to associate a pipeline in your [pipeline resources (`pipelines.tf` file)](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources) with a new cluster managed by the Terraform provider, you can define the new cluster in your cluster resources (`clusters.tf`) file and reference it from the pipeline resource's `cluster_id` argument.
 
-In the following example, the **Primary cluster** will be created when `terraform plan` and `terraform apply`.
+In the following example, the **Primary cluster** will be created with `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster" "primary" {
@@ -25,13 +25,19 @@ Following on from the [pipeline resources example](/docs/platform/terraform-prov
 
 Learn more about this resource in the [`buildkite_cluster` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster) documentation.
 
-## Define your queues
+## Define your queue resources
 
-Use the `buildkite_cluster_queue` resource to create queues within a cluster. Each queue requires a `cluster_id` and a `key` to uniquely identify the queue.
+Define Buildkite queue resources for the queues in your [clusters](#define-your-cluster-resources) that you want to manage in Terraform, within your cluster resources HCL file (for example, `clusters.tf`).
+
+The `buildkite_cluster_queue` resource is used to create and manage queues within a cluster. Each queue requires a `cluster_id` and a `key` argument to uniquely identify the queue, and can optionally include a `description` argument.
+
+Learn more about this resource in the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue) documentation.
 
 ### Self-hosted queues
 
-If your Buildkite organization uses [self-hosted agents](/docs/agent/self-hosted), you can configure [self-hosted queues](/docs/agent/queues/managing#create-a-self-hosted-queue) for these agents as follows:
+If your Buildkite organization uses [self-hosted agents](/docs/agent/self-hosted), you can configure [self-hosted queues](/docs/agent/queues/managing#create-a-self-hosted-queue) for these agents.
+
+In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s **default** and **deployment** queues will be created with `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster_queue" "default" {
@@ -39,20 +45,26 @@ resource "buildkite_cluster_queue" "default" {
   key        = "default"
 }
 
-resource "buildkite_cluster_queue" "deploy" {
+resource "buildkite_cluster_queue" "deployment" {
   cluster_id  = buildkite_cluster.primary.id
-  key         = "deploy"
+  key         = "deployment"
   description = "Queue for deployment jobs."
 }
 ```
 
-You can optionally set `dispatch_paused` to `true` to pause job dispatch on the queue after creation. This is useful when you want to set up agents before the queue starts accepting jobs.
+You can also optionally set the following arguments for self-hosted queues:
+
+- `dispatch_paused` with a value of `true` to pause job dispatch on the queue after creation. This is useful when you want to set up agents before the queue starts accepting jobs. See [Pause and resume an agent](/docs/agent/self-hosted/pausing-and-resuming) for more information about this feature.
+
+- `retry_agent_affinity` with a value of `prefer-warmest` (default) to prefer agents that recently finished jobs, or `prefer-different` to prefer a different agent on retry. See [Retry agent affinity](/docs/agent/self-hosted/prioritization#retry-agent-affinity) for more information about this feature.
 
 ### Buildkite hosted queues
 
 If your Buildkite organization uses [Buildkite hosted agents](/docs/agent/buildkite-hosted), you can configure [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) for these agents by including the `hosted_agents` attribute with an `instance_shape` value.
 
-For a Linux hosted agent queue:
+#### Linux hosted agents
+
+In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s **hosted-linux** queue for a [Linux hosted agent](/docs/agent/buildkite-hosted/linux) will be created with `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster_queue" "hosted_linux" {
@@ -69,7 +81,15 @@ resource "buildkite_cluster_queue" "hosted_linux" {
 }
 ```
 
-For a macOS hosted agent queue:
+When defining Buildkite hosted queues for Linux hosted agents:
+
+- See the [Sizes section of Linux hosted agents](/docs/agent/buildkite-hosted/linux#sizes) for the available `instance_shape` argument values.
+
+- The optional `linux` argument and its required `agent_image_ref` value relates to the [custom image feature](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue) for this queue.
+
+#### macOS hosted agents
+
+In the following example, the [**Primary cluster**](#define-your-cluster-resources)'s **hosted-macos** queue for a [macos hosted agent](/docs/agent/buildkite-hosted/macos) will be created with `terraform plan` and `terraform apply`.
 
 ```hcl
 resource "buildkite_cluster_queue" "hosted_macos" {
@@ -86,11 +106,19 @@ resource "buildkite_cluster_queue" "hosted_macos" {
 }
 ```
 
-Learn more about this resource in the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue) documentation.
+When defining Buildkite hosted queues for macOS hosted agents:
 
-## Set a default queue
+- See the [Sizes section of macos hosted agents](/docs/agent/buildkite-hosted/macos#sizes) for the available `instance_shape` argument values.
 
-Use the `buildkite_cluster_default_queue` resource to designate which queue in a cluster receives jobs that don't specify a queue.
+- The optional `mac` argument and its required `xcode_version` value relates to the experimental feature to select macOS agents based on the [Xcode version](/docs/agent/buildkite-hosted/macos#macos-instance-software-support) they support.
+
+## Define your default queue resources
+
+If your Buildkite clusters have more than one queue, define your default queue for each such cluster as separate default queue resources for the [clusters](#define-your-cluster-resources) you want to manage in Terraform, in HCL (for example, `clusters.tf`).
+
+Use the `buildkite_cluster_default_queue` resource to designate which queue in a cluster receives jobs whose pipeline steps don't specify a queue.
+
+
 
 ```hcl
 resource "buildkite_cluster_default_queue" "primary" {
