@@ -1209,3 +1209,174 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `write_builds`
 
 Success response: `200 OK`
+
+## Retry failed jobs for a build
+
+Queues retries for failed jobs in a build.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/retry_failed_jobs"
+  -H "Content-Type: application/json" \
+  -d '{ "states": "" }'
+```
+
+<%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
+```json
+{
+  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+  "number": 2,
+  "state": "scheduled",
+  "cancel_reason": "reason for a canceled build",
+  "blocked": false,
+  "message": "Bumping to version 0.2-beta.6",
+  "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+  "branch": "main",
+  "env": { },
+  "source": "api",
+  "creator": {
+    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+    "name": "Keith Pitt",
+    "email": "keith@buildkite.com",
+    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+    "created_at": "2015-05-22T12:36:45.309Z"
+  },
+  "jobs": [
+    {
+      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+      "type": "script",
+      "name": ":package:",
+      "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
+      "agent_query_rules": ["*"],
+      "state": "scheduled",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "command": "scripts/build.sh",
+      "soft_failed": false,
+      "exit_status": 0,
+      "artifact_paths": "",
+      "agent": {
+        "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "name": "my-agent",
+        "connection_state": "connected",
+        "hostname": "localhost",
+        "ip_address": "144.132.19.12",
+        "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
+        "creator": {
+          "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+          "name": "Keith Pitt",
+          "email": "keith@buildkite.com",
+          "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+          "created_at": "2015-05-09T21:05:59.874Z"
+        },
+        "created_at": "2015-05-09T21:05:59.874Z"
+      },
+      "created_at": "2015-05-09T21:05:59.874Z",
+      "scheduled_at": "2015-05-09T21:05:59.874Z",
+      "runnable_at": "2015-05-09T21:06:59.874Z",
+      "started_at": "2015-05-09T21:07:59.874Z",
+      "finished_at": "2015-05-09T21:08:59.874Z",
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": null,
+      "retry_source": null,
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
+    }
+  ],
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "started_at": "2015-05-09T21:05:59.874Z",
+  "finished_at": "2015-05-09T21:05:59.874Z",
+  "meta_data": { },
+  "pull_request": { },
+  "pipeline": {
+    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
+    "name": "Great Pipeline",
+    "slug": "great-pipeline",
+    "repository": "git@github.com:my-great-org/my-pipeline",
+    "provider": {
+      "id": "github",
+      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+    },
+    "skip_queued_branch_builds": false,
+    "skip_queued_branch_builds_filter": null,
+    "cancel_running_branch_builds": false,
+    "cancel_running_branch_builds_filter": null,
+    "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
+    "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+    "created_at": "2013-09-03 13:24:38 UTC",
+    "scheduled_builds_count": 0,
+    "running_builds_count": 0,
+    "scheduled_jobs_count": 0,
+    "running_jobs_count": 0,
+    "waiting_jobs_count": 0
+  },
+  "retried_jobs_count": 2
+}
+```
+
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+
+Note that this request is asynchronous: it queues the jobs to be retried, but does not necessaily wait for them to complete before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued for retry.
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>states</code></th>
+    <td>Controls which failure types are retried. A comma-separated list of one or more of <code>canceled</code>, <code>expired</code>, <code>failed</code>, <code>soft_failed</code>, <code>timed_out</code>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"failed,soft_failed"</code></p></td>
+  </tr>
+</tbody>
+</table>
+
+Required scope: `write_builds`
+
+Success response: `202 Accepted`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Invalid</code></th>
+    <td><code>{ "message": "Invalid states: invalid. Valid states are canceled, expired, failed, soft_failed, timed_out." }</code></td>
+  </tr>
+</tbody>
+</table>
