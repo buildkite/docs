@@ -10,17 +10,15 @@ The Buildkite Terraform provider supports the following resource types:
 
 - **Pipelines**: Create and configure [pipelines](/docs/pipelines/create-your-own), including their [steps](/docs/pipelines/configure/defining-steps) in a [pipeline template](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks (for [GitHub](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-github) or [other repository providers](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-other-repository-providers)), [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds). See [Before you start](#before-you-start) and [Getting started with managing pipelines in Terraform](#getting-started-with-managing-pipelines-in-terraform) for more information.
 
-- **Clusters and queues**: Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), cluster agent tokens, and cluster secrets.
+- **Clusters and queues**: Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), [agent tokens](/docs/agent/self-hosted/tokens), default queues, [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), and [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets). See [Manage clusters and queues](/docs/platform/terraform-provider/manage-clusters-and-queues) for more information.
 
-- **Teams**: Create and manage [teams](/docs/platform/team-management) and their members.
+- **Teams**: Create and manage [teams](/docs/platform/team-management/permissions) and their members.
 
 - **Organizations**: Configure organization-level settings, rules, and banners.
 
 - **Test suites**: Set up [Test Engine](/docs/test-engine) test suites and manage team access.
 
 - **Package registries**: Manage [Package Registries](/docs/package-registries) resources.
-
-- **Agent tokens**: Create and manage agent tokens for self-hosted agents.
 
 ## Before you start
 
@@ -32,11 +30,15 @@ The Terraform provider requires the following Buildkite configuration values:
 
 - **Buildkite organization slug**: Your Buildkite organization slug, which you can find in your Buildkite URL: `https://buildkite.com/<your-buildkite-org-slug>`.
 
+## Getting started with managing pipelines in Terraform
+
+This process assumes that you already have the required clusters and teams configured in your Buildkite organization, so that you can start configuring and managing your pipelines in Terraform. Before proceeding, ensure you have the following:
+
 - **Cluster name/s**: Required so that Terraform can determine which [Buildkite cluster/s](/docs/pipelines/security/clusters) your pipelines are associated with.
 
 - **Team name/s** (_optional_): Required if [teams is enabled in your Buildkite organization](/docs/platform/team-management/permissions), and so that Terraform can determine which teams should be granted access to your pipelines, along with each team's permissions.
 
-## Getting started with managing pipelines in Terraform
+### Define the Buildkite provider for your Terraform configuration
 
 To start using the Buildkite Terraform provider to manage your pipelines in Terraform:
 

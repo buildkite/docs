@@ -203,7 +203,7 @@ This resource requires the following arguments:
 
 - `key`: This value is what you use to reference this secret from within your pipeline configurations. See [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) for more information.
 
-- `value`: The secret's actual value. You could also implement the secret's value in a temporary `terraform.tfvars` file and define its variable in `variables.tf`, similar to your Buildkite API access token when [defining the Buildkite provider for your Terraform configuration](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform).
+- `value`: The secret's actual value. You could also implement the secret's value in a temporary `terraform.tfvars` file and define its variable in `variables.tf`, similar to your Buildkite API access token when [defining the Buildkite provider for your Terraform configuration](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-the-buildkite-provider-for-your-terraform-configuration).
 
 This resource also accepts the following optional arguments:
 
