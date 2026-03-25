@@ -31,7 +31,7 @@ With multiple `PodSpec` inputs provided, here is how the Agent Stack for Kuberne
 
 1. Apply `podSpecPatch` from the `kubernetes` plugin, using a [strategic merge patch](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/) in the controller.
 
-1. Ensure the a `checkout` container in not present after applying patching via `pod-spec-patch`, `podSpecPatch` (if `skip.checkout` is set to `true`).
+1. Ensure the `checkout` container in not present after applying patching via `pod-spec-patch`, `podSpecPatch` (if `skip.checkout` is set to `true`).
 
 1. Remove any duplicate `VolumeMounts` present in `PodSpec` after patching.
 
