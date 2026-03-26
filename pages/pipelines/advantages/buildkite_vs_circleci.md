@@ -1,6 +1,6 @@
 # Advantages of migrating from CircleCI
 
-CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository. Buildkite Pipelines takes a different approach: pipelines are decoupled from repositories, so you can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository.
+CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository. [Buildkite Pipelines](/docs/pipelines) takes a different approach: pipelines are decoupled from repositories, so you can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository.
 
 CircleCI works well for small teams getting started quickly, but its credit-based pricing, plan-based concurrency caps, and static configuration model can become obstacles as teams and repositories grow. Buildkite Pipelines is designed from the ground up for scale, flexibility, and predictable cost.
 
@@ -12,9 +12,9 @@ Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units th
 
 ## Scaling and limits
 
-CircleCI's performance and throughput are constrained by plan-based concurrency, queued capacity, and shared-platform limits. The free plan caps concurrency at 30 jobs (one for macOS), and higher plans raise that cap but still impose fixed ceilings. As organizations scale, these limits show up as longer queue times and slower developer feedback loops.
+CircleCI's performance and throughput are constrained by plan-based concurrency, queued capacity, and shared-platform limits. The free plan caps concurrency at 30 jobs (one for macOS), and higher plans raise that cap but still impose fixed ceilings. Even self-hosted runners are limited by plan tier. As organizations scale, these limits show up as longer queue times and slower developer feedback loops.
 
-Buildkite Pipelines scales by adding agents, without platform-imposed concurrency caps. The agent architecture is lightweight, supports 100,000+ concurrent agents, and offers turnkey autoscaling through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws), [Elastic CI Stack for GCP](/docs/agent/self-hosted/gcp/elastic-ci-stack), and [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
+Buildkite Pipelines scales by adding [agents](/docs/agent), without platform-imposed concurrency caps. The agent architecture is lightweight, supports 100,000+ concurrent agents, and offers turnkey autoscaling through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws), [Elastic CI Stack for GCP](/docs/agent/self-hosted/gcp/elastic-ci-stack), and [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
 
 ## Dynamic pipelines vs. static configuration
 
@@ -33,13 +33,13 @@ With Buildkite Pipelines, [dynamic pipelines](/docs/pipelines/configure/dynamic-
 
 Both CircleCI and Buildkite Pipelines rely on a managed control plane for orchestration, and both support self-hosted runners that handle checkout and execution locally during a job.
 
-With Buildkite Pipelines, you have additional control over where supporting infrastructure lives. For example, [artifact storage](/docs/pipelines/configure/artifacts) can be directed to your own S3 bucket, and caching strategies can use your own persistent volumes or shared network storage. This means you can reduce dependencies on vendor-managed infrastructure for concerns beyond orchestration.
+With Buildkite Pipelines, you have additional control over where supporting infrastructure lives. For example, you can direct [artifact storage](/docs/pipelines/configure/artifacts) to your own S3 bucket, and use your own persistent volumes or shared network storage for caching. This means you can reduce dependencies on vendor-managed infrastructure for concerns beyond orchestration.
 
 ## High-performance hosted machines
 
 CircleCI provides hosted compute, but performance and cost can vary depending on the resource classes and what you need to add on top. Docker layer caching, for example, carries both a per-job credit cost and a storage cost, and all cached layers live entirely on CircleCI infrastructure with no option to redirect them elsewhere.
 
-Buildkite gives you flexible compute options: run on your own infrastructure using [self-hosted agents](/docs/agent/self-hosted) when that is the best option for your use case, or use [Buildkite hosted agents](/docs/agent/buildkite-hosted) when you want fully managed Linux or macOS compute. Hosted agents are designed for fast startup and isolated environments, with higher-performance options for workloads like mobile CI that benefit from modern Apple silicon. Persistent cache volumes on NVMe (Linux) and disk images (macOS) retain dependencies, Git mirrors, and Docker layers for up to 14 days.
+Buildkite Pipelines offers flexible compute options: run on your own infrastructure using [self-hosted agents](/docs/agent/self-hosted) when that is the best option for your use case, or use [Buildkite hosted agents](/docs/agent/buildkite-hosted) when you want fully managed Linux or macOS compute. Hosted agents are designed for fast startup and isolated environments, with higher-performance options for workloads like mobile CI that benefit from modern Apple silicon. Persistent cache volumes on NVMe (Linux) and disk images (macOS) retain dependencies, Git mirrors, and Docker layers for up to 14 days.
 
 ## Data sharing and caching
 
@@ -49,9 +49,9 @@ CircleCI provides three built-in mechanisms for sharing data between jobs:
 - Workspaces (persist and attach working directory state across jobs)
 - Artifacts (meant for outputs consumed outside CI).
 
-These primitives are well-integrated but live entirely on CircleCI infrastructure with no option to use your own storage. Storage for caches, workspaces, and Docker layer caching all consume paid credits.
+These primitives are well-integrated but live entirely on CircleCI infrastructure with no option to use your own storage. Storage for caches, workspaces, and Docker layer caching all consume paid credits. CircleCI has no built-in mechanism for sharing lightweight state between steps, such as key-value pairs generated at runtime.
 
-With Buildkite Pipelines, you control where data lives. [Artifacts](/docs/pipelines/configure/artifacts) can be stored in your own S3 bucket by setting environment variables on your agents. Caching strategies are flexible because agents run on your infrastructure, so you can use persistent volumes, shared network storage, or cache volumes on [hosted agents](/docs/agent/buildkite-hosted). You are not locked into a single vendor-managed storage model.
+With Buildkite Pipelines, you control where data lives. For lightweight state sharing, [meta-data](/docs/pipelines/configure/build-meta-data) lets steps exchange key-value pairs at runtime without file-based sharing. [Artifacts](/docs/pipelines/configure/artifacts) can be stored in your own S3 bucket by setting environment variables on your agents. Caching strategies are flexible because agents run on your infrastructure, so you can use persistent volumes, shared network storage, or cache volumes on [hosted agents](/docs/agent/buildkite-hosted). You are not locked into a single vendor-managed storage model.
 
 ## Centralized visibility and governance
 
@@ -67,7 +67,7 @@ Buildkite Pipelines handles large [monorepos](/docs/pipelines/best-practices/wor
 
 ## Orbs vs. plugins
 
-Both CircleCI orbs and Buildkite [plugins](/docs/pipelines/integrations/plugins) are versioned, open source, and can be forked and pinned. The key difference is when and where they run. Orbs are resolved and expanded at config compilation time, before the job starts, so runtime behavior depends on how CircleCI processes the merged config. Buildkite plugins run directly on your agents as hooks during job execution, making runtime behavior directly auditable in the environment where it runs.
+Both CircleCI orbs and Buildkite [plugins](/docs/pipelines/integrations/plugins) are versioned, open source, and can be forked and pinned. The key differences are when they run and what they can use. CircleCI resolves and expands orbs at config compilation time, before the job starts, and orbs are written almost exclusively in Bash. Buildkite plugins run directly on your agents as hooks during job execution, can be written in any language available on the agent, and their runtime behavior is directly auditable in the environment where they run.
 
 ## Test optimization
 
@@ -77,7 +77,7 @@ CircleCI has strong built-in test integration. The `store_test_results` step acc
 
 ## Predictable pricing
 
-CircleCI's credit-based billing can become difficult to predict as build volume grows. Credits are consumed by compute (job minutes), storage (Docker layer caching, caches, workspaces), and users. User costs can become the sharpest edge: each additional user beyond the plan's included count adds a significant credit cost, which can make CircleCI feel reasonable for small teams but increasingly hard to justify as the team grows. Different resource classes consume credits at different rates, and unused credits expire monthly.
+CircleCI's credit-based billing can become difficult to predict as build volume grows. Credits are consumed by compute (job minutes), storage (Docker layer caching, caches, workspaces), and users. User costs can become the sharpest edge: CircleCI counts anyone who commits to a connected repository, not just users who log in to the UI, and each additional user beyond the plan's included count adds a significant credit cost that increases at higher plan tiers. This can make CircleCI feel reasonable for small teams but increasingly hard to justify as the team grows. Different resource classes consume credits at different rates, and unused credits expire monthly.
 
 Buildkite Pipelines [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so occasional spikes don't inflate costs. You can also use your own compute including spot instances to reduce costs further.
 
