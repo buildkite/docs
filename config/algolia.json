@@ -17,9 +17,12 @@
       "tags": ["blog"]
     },
     {
-      "url": "https://buildkite.com/docs",
+      "url": "https://buildkite.com/docs/{section}/",
       "selectors_key": "default",
-      "tags": ["docs"]
+      "tags": ["docs"],
+      "variables": {
+        "section": ["pipelines", "agent", "test-engine", "package-registries", "platform", "apis"]
+      }
     }
   ],
   "stop_urls": [
@@ -87,7 +90,7 @@
   ],
   "custom_settings": {
     "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"], ["k8s", "kubernetes"], ["gcp", "google cloud provider"], ["aws", "amazon web services"], ["cli", "command line interface"], ["plugin", "plug in"], ["if changed", "if_changed"], ["app", "application"], ["monorepo diff", "monorepo_diff"], ["env", "environment"], ["var", "variable"], ["llm", "large language model"], ["sla", "service level agreement"], ["mcp", "model context provider"]],
-    "attributesForFaceting": ["tags"],
+    "attributesForFaceting": ["tags", "section"],
     "customRanking": ["desc(importance)"]
   }
 }
