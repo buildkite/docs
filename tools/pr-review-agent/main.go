@@ -616,6 +616,23 @@ Review the PR diff below against the style guide. Focus only on added/changed li
 - If the style guide does not mention a specific exception or edge case, assume no exception exists
 - Pay attention to which section of the style guide a rule comes from - rules in the "YAML documentation" section only apply to YAML examples, not to JSON or REST API documentation
 
+## Rules You Must NOT Invent or Extrapolate
+
+These are common mistakes. Do NOT apply any of the following—they are NOT in the style guide:
+
+- Do NOT flag code formatting (backticks) inside link text. The style guide only prohibits code formatting in headings
+- Do NOT enforce HTML standards (such as closing tags, tag nesting, or attribute order) unless the style guide explicitly requires them. You are a style guide reviewer, not an HTML validator
+- Do NOT suggest changes to HTML table structure, formatting, or tag usage. The style guide does not define HTML table formatting rules
+- Do NOT flag the start word of list items (such as starting with "with" or a preposition). The style guide only requires capitalizing the first word
+- Do NOT tell authors to use HTML anchor tags instead of Markdown links in ERB files. The style guide does not restrict link syntax by file type
+
+## Judgment and Context
+
+- When flagging possessive product names (such as "Buildkite's"), only submit if you can provide a clearly better rephrasing. If the alternative is awkward or loses clarity, skip it
+- When flagging removal of "Buildkite" before a term, consider whether removing it reduces helpful context for the reader. If it does, skip the suggestion
+- When flagging italics usage, consider whether the author used emphasis deliberately for context or contrast. Only flag italics that serve no communicative purpose
+- Prefer high-value suggestions (wrong terminology, broken links, missing product qualification) over low-value ones (minor punctuation preferences where both forms are acceptable)
+
 ## PR #%s Diff
 
 `+"```diff\n%s\n```", ctx.StyleGuide, ctx.PRNumber, ctx.PRDiff)
