@@ -8,8 +8,6 @@ Define resources for the [clusters](/docs/pipelines/security/clusters) in your B
 
 The  `buildkite_cluster` resource is used to define, create and manage clusters. Each cluster requires a `name` argument and can optionally include `description`, `emoji`, and `color` arguments.
 
-If you don't have a pre-existing cluster in your Buildkite organization but want to associate a pipeline in your [pipeline resources (`pipelines.tf` file)](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources) with a new cluster managed by the Terraform provider, you can define the new cluster in your cluster resources (`clusters.tf`) file and reference it from the pipeline resource's `cluster_id` argument.
-
 In the following example, the **Primary cluster** will be created with `terraform plan` and `terraform apply`.
 
 ```hcl
@@ -20,6 +18,14 @@ resource "buildkite_cluster" "primary" {
   color       = "#BADA55"
 }
 ```
+
+The optional arguments for each cluster are:
+
+- `description`: A description for the cluster that helps identify its purpose, such as its usage or region.
+- `emoji`: An emoji to display with the cluster, set using either `\:buildkite\:` notation or the emoji character itself (for example, 🚀).
+- `color`: A color for the cluster, specified as a hex code (for example, `#BADA55`).
+
+If you don't have a pre-existing cluster in your Buildkite organization but want to associate a pipeline in your [pipeline resources (`pipelines.tf` file)](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources) with a new cluster managed by the Terraform provider, you can define the new cluster in your cluster resources (`clusters.tf`) file and reference it from the pipeline resource's `cluster_id` argument.
 
 Following on from the [pipeline resources example](/docs/platform/terraform-provider#getting-started-with-managing-pipelines-in-terraform-define-your-initial-pipeline-resources), if you wanted to make the **Frontend pipeline** use this **Primary cluster** instead of **Default cluster**, you would change this pipeline resource's `cluster_id` argument's value to `data.buildkite_cluster.primary.id`. Furthermore, if no pipelines under Terraform management use **Default cluster**, you could remove its data source from your pipeline resources `pipelines.tf` file.
 

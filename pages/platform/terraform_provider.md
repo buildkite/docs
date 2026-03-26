@@ -12,7 +12,7 @@ The Buildkite Terraform provider supports the following resource types:
 
 - **Clusters and queues**: Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), [agent tokens](/docs/agent/self-hosted/tokens), default queues, [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), and [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets). See [Manage clusters and queues](/docs/platform/terraform-provider/manage-clusters-and-queues) for more information.
 
-- **Teams**: Create and manage [teams](/docs/platform/team-management/permissions) and their members.
+- **Teams**: Create and manage [teams](/docs/platform/team-management/permissions) and their members. See [Manage teams](/docs/platform/terraform-provider/manage-teams) for more information.
 
 - **Organizations**: Configure organization-level settings, rules, and banners.
 
@@ -37,6 +37,8 @@ This process assumes that you already have the required clusters and teams confi
 - **Cluster name/s**: Required so that Terraform can determine which [Buildkite cluster/s](/docs/pipelines/security/clusters) your pipelines are associated with.
 
 - **Team name/s** (_optional_): Required if [teams is enabled in your Buildkite organization](/docs/platform/team-management/permissions), and so that Terraform can determine which teams should be granted access to your pipelines, along with each team's permissions.
+
+Be aware that you can modify these configurations later, by bringing your [cluster-related](/docs/platform/terraform-provider/manage-clusters-and-queues) and [team](/docs/platform/terraform-provider/manage-teams) resources into Terraform.
 
 ### Define the Buildkite provider for your Terraform configuration
 
