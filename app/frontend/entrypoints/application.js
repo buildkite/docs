@@ -40,12 +40,30 @@ function cleanup() {
   cleanupFunctions = [];
 }
 
+function getCurrentSection() {
+  const match = window.location.pathname.match(/^\/docs\/([^/]+)/);
+  return match ? match[1] : null;
+}
+
 function render() {
+  const section = getCurrentSection();
+  const optionalFilters = [
+    "tags:docs<score=10>",
+    "tags:plugin<score=3>",
+    "tags:changelog<score=2>",
+    "tags:blog<score=1>",
+  ];
+  if (section) {
+    optionalFilters.push(`section:${section}<score=10>`);
+  }
+  const searchParameters = { optionalFilters };
+
   docsearch({
     container: "#search",
     appId: __ALGOLIA_APP_ID__,
     apiKey: __ALGOLIA_API_KEY__,
     indexName: __ALGOLIA_INDEX_NAME__,
+    searchParameters,
     transformSearchClient: searchTrackingClient,
     transformItems: searchTrackingItems,
     navigator: searchTrackingNavigator,
