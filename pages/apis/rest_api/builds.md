@@ -1212,7 +1212,7 @@ Success response: `200 OK`
 
 ## Retry failed jobs for a build
 
-Queues retries for failed jobs in a build.
+Queues failed jobs to be retried in a build.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1350,9 +1350,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, this field returns an empty string.
 
-This request is asynchronous. It queues the jobs to be retried, but does not wait for them to complete before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued for retry.
+This request is asynchronous, meaning that jobs are queued to be retried, but the request does not wait for the jobs to be completed before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued to be retried.
 
 Optional [request body properties](/docs/api#request-body-properties):
 
