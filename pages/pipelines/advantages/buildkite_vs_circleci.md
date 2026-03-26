@@ -6,9 +6,9 @@ CircleCI works well for small teams getting started quickly, but its credit-base
 
 ## Pipeline structure and flexibility
 
-Because CircleCI pipelines only exist inside the org → VCS → project → repository structure, you cannot create multiple pipelines for a single repository, trigger pipelines across repositories, or run pipelines that operate independently of any repository.
+CircleCI projects using the GitHub App integration can define multiple pipelines per project, each with its own configuration file and trigger. However, pipelines still live within the org → project → repository structure, and cross-repository triggering requires additional setup through separate trigger sources.
 
-Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units. You can do all of the above, letting teams model CI/CD around how they actually build and ship software rather than conforming to a platform-imposed project structure.
+Buildkite Pipelines treats pipelines as decoupled, runtime-programmable units that are not tied to a specific repository. You can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository, letting teams model CI/CD around how they actually build and ship software.
 
 ## Scaling and limits
 
@@ -20,7 +20,7 @@ Buildkite Pipelines scales by adding agents, without platform-imposed concurrenc
 
 CircleCI configuration is largely static and declarative: workflows are defined up front, and once a pipeline starts, you are mostly choosing among predeclared paths. Commands, jobs, and workflows can be parameterized, which functions as a templating system, but adds cognitive load as configurations grow.
 
-When teams outgrow a single configuration file, CircleCI offers two approaches to manage complexity, both with significant tradeoffs:
+While CircleCI now supports multiple pipelines per project, each individual pipeline configuration is still static. CircleCI offers two approaches to manage complexity within a configuration, both with significant tradeoffs:
 
 - **Config packing:** Split configuration across multiple files (`commands/`, `executors/`, `jobs/`, `workflows/`, `root.yml`) and run `circleci config pack` to generate a single merged config. This trades readability for modularity: tracing a single workflow may require following references across many files in the folder structure.
 - **Continuations:** An orb-based mechanism for selecting which YAML to continue with at runtime. Continuations are limited to a single continuation config per repository and are generally hard to reason about.
@@ -31,9 +31,9 @@ With Buildkite Pipelines, [dynamic pipelines](/docs/pipelines/configure/dynamic-
 
 ## Reliability and infrastructure control
 
-Both CircleCI and Buildkite Pipelines rely on a managed control plane for orchestration, but the platforms differ in how much work happens locally on the runner.
+Both CircleCI and Buildkite Pipelines rely on a managed control plane for orchestration, and both support self-hosted runners that handle checkout and execution locally during a job.
 
-Buildkite agents handle checkout, execution, and artifact storage locally on your infrastructure. The control plane coordinates work and receives metadata, but a control-plane interruption does not affect jobs already running on your agents. This local-execution model also means you retain full control over networking, caching, and storage without depending on vendor-managed infrastructure for those concerns.
+With Buildkite Pipelines, you have additional control over where supporting infrastructure lives. For example, [artifact storage](/docs/pipelines/configure/artifacts) can be directed to your own S3 bucket, and caching strategies can use your own persistent volumes or shared network storage. This means you can reduce dependencies on vendor-managed infrastructure for concerns beyond orchestration.
 
 ## High-performance hosted machines
 
