@@ -1,14 +1,14 @@
 # Terraform provider
 
-The [Buildkite Terraform provider](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) lets you manage your Buildkite organization's resources using [Terraform](https://www.terraform.io/) infrastructure-as-code workflows. With this provider, you can define and version-control your pipelines, teams, clusters, and other Buildkite resources alongside your application infrastructure.
+The [Buildkite provider for Terraform](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) lets you manage your Buildkite organization's resources using [Terraform](https://www.terraform.io/) infrastructure-as-code workflows. With this provider, you can define and version-control your pipelines, teams, clusters, and other Buildkite resources alongside your application infrastructure.
 
-The provider is open source and available on [GitHub](https://github.com/buildkite/terraform-provider-buildkite). It is listed on the [Terraform Registry](https://registry.terraform.io/providers/buildkite/buildkite/latest) and supports Terraform 1.0 and later.
+The [Buildkite Terraform Provider](https://github.com/buildkite/terraform-provider-buildkite) is open source repository available on GitHub, is listed on the [Terraform Registry](https://registry.terraform.io/providers/buildkite/buildkite/latest), and supports Terraform 1.0 and later.
 
 ## Managed resources
 
-The Buildkite Terraform provider supports the following resource types:
+Once you have met the prerequisites (see [Before you start](#before-you-start)) and have [defined the Buildkite provider for your Terraform configuration](#define-the-buildkite-provider-for-your-terraform-configuration), you can then use the Buildkite Terraform provider for the following supported resource types:
 
-- **Pipelines**: Create and configure [pipelines](/docs/pipelines/create-your-own), including their [steps](/docs/pipelines/configure/defining-steps) in a [pipeline template](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks (for [GitHub](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-github) or [other repository providers](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-other-repository-providers)), [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds). See [Before you start](#before-you-start) and [Getting started with managing pipelines](/docs/platform/terraform-provider/getting-started-with-managing-pipelines) for more information.
+- **Pipelines**: Create and configure [pipelines](/docs/pipelines/create-your-own), including their [steps](/docs/pipelines/configure/defining-steps) in a [pipeline template](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks (for [GitHub](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-github) or [other repository providers](/docs/pipelines/configure/defining-steps#getting-started-webhooks-for-other-repository-providers)), [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds). See [Getting started with managing pipelines](/docs/platform/terraform-provider/getting-started-with-managing-pipelines) for more information.
 
 - **Clusters and queues**: Manage [clusters](/docs/pipelines/security/clusters), [queues](/docs/agent/queues), [agent tokens](/docs/agent/self-hosted/tokens), default queues, [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), and [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets). See [Manage clusters and queues](/docs/platform/terraform-provider/manage-clusters-and-queues) for more information.
 
@@ -24,7 +24,7 @@ The Buildkite Terraform provider supports the following resource types:
 
 The Terraform provider requires the following Buildkite configuration values:
 
-- **API access token**: A [Buildkite API access token](/docs/apis/managing-api-tokens) (`BUILDKITE_API_TOKEN`) with `write_pipelines` and `read_pipelines` [REST API scopes and GraphQL API access](/docs/apis/managing-api-tokens#token-scopes) enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
+- **API access token**: A [Buildkite API access token](/docs/apis/managing-api-tokens) (`BUILDKITE_API_TOKEN`) with `write_pipelines` and `read_pipelines` [REST API scopes and _GraphQL API access_](/docs/apis/managing-api-tokens#token-scopes) enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
 
     **Note:** You can also add the `write_suites` REST API scope to this token, although this is only required if you plan to manage [Buildkite Test Engine](/docs/test-engine) test suites using the Terraform provider.
 

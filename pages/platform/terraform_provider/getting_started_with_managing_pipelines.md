@@ -1,12 +1,14 @@
 # Getting started with managing pipelines
 
-This process assumes that you already have the required clusters and teams configured in your Buildkite organization, so that you can start configuring and managing your pipelines in Terraform. Before proceeding, ensure you have the following:
+The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [pipelines](/docs/pipelines/create-your-own), including their [steps](/docs/pipelines/configure/defining-steps), [pipeline templates](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks, [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds) as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
+
+This process assumes that you already have the required Buildkite clusters and teams configured in your Buildkite organization, so that you can start configuring and managing your pipelines in Terraform. Before proceeding, ensure you have the following:
 
 - **Cluster name/s**: Required so that Terraform can determine which [Buildkite cluster/s](/docs/pipelines/security/clusters) your pipelines are associated with.
 
 - **Team name/s** (_optional_): Required if [teams is enabled in your Buildkite organization](/docs/platform/team-management/permissions), and so that Terraform can determine which teams should be granted access to your pipelines, along with each team's permissions.
 
-Be aware that you can modify these configurations later, by bringing your [cluster-related](/docs/platform/terraform-provider/manage-clusters-and-queues) and [team](/docs/platform/terraform-provider/manage-teams) resources into Terraform.
+Be aware that you'll be able to later modify the configurations you'll create on this page, by bringing your [cluster-related](/docs/platform/terraform-provider/manage-clusters-and-queues) and [team](/docs/platform/terraform-provider/manage-teams) resources into Terraform.
 
 ## Define your initial pipeline resources
 
