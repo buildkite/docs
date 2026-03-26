@@ -298,7 +298,7 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 - rbenv
 - rbenv-bundler
 - ruby
-- ruby@3.4
+- ruby<span>@</span>3.4
 - rust
 - rustup
 - selenium-server
