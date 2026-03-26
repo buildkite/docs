@@ -55,10 +55,15 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## macOS Tahoe
 
-- 26.0
+- 26.3.1
 
 ### Xcode
 
+- 26.3
+- 26.2
+- 26.1.1
+- 26.1
+- 26.0.1
 - 26.0
 - 16.4
 
@@ -66,34 +71,50 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### iOS
 
+- 26.2
+- 26.1
 - 26.0
 - 18.6
 - 17.5
 
 #### tvOS
 
+- 26.2
+- 26.1
 - 26.0
 - 17.5
 - 16.4
 
 #### visionOS
 
+- 26.2
+- 26.1
 - 26.0
 - 2.5
 - 1.2
 
 #### watchOS
 
+- 26.2
+- 26.1
 - 26.0
 - 11.5
 - 10.5
 
 ## macOS Sequoia
 
-- 15.6.1
+- 15.7.4
 
 ### Xcode
 
+- 26.4-Beta2
+- 26.4-Beta
+- 26.3-RC2
+- 26.3
+- 26.2
+- 26.1.1
+- 26.1
+- 26.0.1
 - 26.0
 - 16.4
 - 16.3
@@ -106,11 +127,14 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### iOS
 
+- 26.4 beta 2
+- 26.2
+- 26.1
 - 26.0
 - 18.6
 - 18.5
-- 18.4 RC
-- 18.2 RC
+- 18.4
+- 18.2
 - 18.1
 - 18.0
 - 17.5
@@ -119,10 +143,13 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### tvOS
 
+- 26.4 beta 2
+- 26.2
+- 26.1
 - 26.0
 - 18.5
-- 18.4 RC
-- 18.2 RC
+- 18.4
+- 18.2
 - 18.1
 - 18.0
 - 17.5
@@ -130,10 +157,13 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### visionOS
 
+- 26.4 beta 2
+- 26.2
+- 26.1
 - 26.0
 - 2.5
-- 2.4 RC
-- 2.2 RC
+- 2.4
+- 2.2
 - 2.1
 - 2.0
 - 1.2
@@ -142,10 +172,13 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### watchOS
 
+- 26.4 beta 2
+- 26.2
+- 26.1
 - 26.0
 - 11.5
-- 11.4 RC
-- 11.2 RC
+- 11.4
+- 11.2
 - 11.1
 - 11.0
 - 10.5
@@ -153,7 +186,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ## macOS Sonoma
 
-- 14.6.1
+- 14.8.3
 
 ### Xcode
 
@@ -171,8 +204,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### iOS
 
-- 18.4 RC
-- 18.2 RC
+- 18.4
+- 18.2
 - 18.1
 - 18.0
 - 17.5
@@ -184,8 +217,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### tvOS
 
-- 18.4 RC
-- 18.2 RC
+- 18.4
+- 18.2
 - 18.1
 - 18.0
 - 17.5
@@ -195,8 +228,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### visionOS
 
-- 2.4 RC
-- 2.2 RC
+- 2.4
+- 2.2
 - 2.1
 - 2.0
 - 1.2
@@ -205,8 +238,8 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 #### watchOS
 
-- 11.4 RC
-- 11.2 RC
+- 11.4
+- 11.2
 - 11.1
 - 11.0
 - 10.5
@@ -232,6 +265,7 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 - curl
 - deno
 - docker
+- docker-buildx
 - fastlane
 - gcc@13
 - gh
@@ -259,11 +293,12 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 - php
 - pkgconf
 - postgresql@14
-- python<span>@</span>3.13
+- python<span>@</span>3.14
 - r
 - rbenv
 - rbenv-bundler
 - ruby
+- ruby@3.4
 - rust
 - rustup
 - selenium-server
@@ -272,6 +307,8 @@ The versions for each of these packages varies by macOS version. See [Identifyin
 - tmux
 - unxip
 - wget
+- wireguard-go
+- wireguard-tools
 - xcbeautify
 - xcodes
 - yq
