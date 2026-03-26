@@ -1,8 +1,8 @@
 # Advantages of migrating from CircleCI
 
-CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository. [Buildkite Pipelines](/docs/pipelines) takes a different approach: pipelines are decoupled from repositories, so you can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository.
+CircleCI is a hosted CI/CD platform built around a fixed hierarchy of organizations, VCS connections, and projects, where each project maps one-to-one to a repository.
 
-CircleCI works well for small teams getting started quickly, but its credit-based pricing, plan-based concurrency caps, and static configuration model can become obstacles as teams and repositories grow. Buildkite Pipelines is designed from the ground up for scale, flexibility, and predictable cost.
+CircleCI works well for small teams getting started quickly, but its credit-based pricing, plan-based concurrency caps, and static configuration model can become obstacles as teams and repositories grow. [Buildkite Pipelines](/docs/pipelines) takes a different approach as the pipelines are decoupled from repositories, there are no concurrency limits, and the usage costs are predictable.
 
 ## Pipeline structure and flexibility
 
@@ -77,7 +77,7 @@ CircleCI has strong built-in test integration. The `store_test_results` step acc
 
 ## Predictable pricing
 
-CircleCI's credit-based billing can become difficult to predict as build volume grows. Credits are consumed by compute (job minutes), storage (Docker layer caching, caches, workspaces), and users. User costs can become the sharpest edge: CircleCI counts anyone who commits to a connected repository, not just users who log in to the UI, and each additional user beyond the plan's included count adds a significant credit cost that increases at higher plan tiers. This can make CircleCI feel reasonable for small teams but increasingly hard to justify as the team grows. Different resource classes consume credits at different rates, and unused credits expire monthly.
+CircleCI's credit-based billing can become difficult to predict as build volume grows. Credits are consumed by compute (job minutes), storage (Docker layer caching, caches, workspaces), and users. User costs can become the main pain point: CircleCI counts anyone who commits to a connected repository as a user, not just users who log in to the UI. Each additional user beyond the plan's included count adds a significant credit cost that increases at higher plan tiers. This can make CircleCI feel reasonable for small teams but increasingly hard to justify as the team grows.
 
 Buildkite Pipelines [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so occasional spikes don't inflate costs. You can also use your own compute including spot instances to reduce costs further.
 
