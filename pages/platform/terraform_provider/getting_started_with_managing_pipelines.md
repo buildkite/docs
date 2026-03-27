@@ -203,7 +203,7 @@ Learn more about this Terraform provider resource in the [`buildkite_pipeline_we
 
 Add any other teams who need access to these pipelines and define their permissions on these pipelines. This is done using `buildkite_pipeline_team` resource blocks.
 
-In this example, the pre-existing **Design team** in your Buildkite organization is (also) granted full access to **Frontend pipeline**, which is the same level of access as the pipeline's initial owner team (**Engineering**).
+In this example, the pre-existing **Design team** in your Buildkite organization is granted full access to **Frontend pipeline**, which is the same level of access as the pipeline's initial owner team (**Engineering**).
 
 To do this, add the following `buildkite_team` data source and `buildkite_pipeline_team` resource blocks for this team, and apply it to the `frontend` pipeline in your `pipelines.tf` file.
 Bear in mind that the Terraform identifiers for the `buildkite_pipeline` resource and `buildkite_team` data source blocks (that is, `frontend` and `design_team`, respectively) must match those you use for the `pipeline_id` and `team_id` argument values in your  `buildkite_pipeline_team` resource block. Therefore, the syntax for referencing these values would be `data.buildkite_team.design_team.id` and `buildkite_pipeline.frontend.id`, respectively, where the team's `access_level` of `MANAGE_BUILD_AND_READ` grants full access to the pipeline:
