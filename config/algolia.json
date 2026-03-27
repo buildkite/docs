@@ -17,9 +17,34 @@
       "tags": ["blog"]
     },
     {
-      "url": "https://buildkite.com/docs",
+      "url": "https://buildkite.com/docs/pipelines",
       "selectors_key": "default",
-      "tags": ["docs"]
+      "tags": ["docs", "pipelines"]
+    },
+    {
+      "url": "https://buildkite.com/docs/agent",
+      "selectors_key": "default",
+      "tags": ["docs", "agent"]
+    },
+    {
+      "url": "https://buildkite.com/docs/test-engine",
+      "selectors_key": "default",
+      "tags": ["docs", "test-engine"]
+    },
+    {
+      "url": "https://buildkite.com/docs/package-registries",
+      "selectors_key": "default",
+      "tags": ["docs", "package-registries"]
+    },
+    {
+      "url": "https://buildkite.com/docs/platform",
+      "selectors_key": "default",
+      "tags": ["docs", "platform"]
+    },
+    {
+      "url": "https://buildkite.com/docs/apis",
+      "selectors_key": "default",
+      "tags": ["docs", "apis"]
     }
   ],
   "stop_urls": [
