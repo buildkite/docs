@@ -248,7 +248,7 @@ Learn more about this Terraform provider resource in the [`buildkite_pipeline_te
 
 ## Add appropriate schedules to your pipelines
 
-It might be sufficient that your pipelines are built using [repository webhooks](#add-required-repository-webhooks) only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure its project's own resources are kept up to date, with dynamically run steps that create a new pull- or merge-request with updated resources.
+It might be sufficient that your pipelines are built using [repository webhooks](#add-required-repository-webhooks) only. However, you may wish to run a regular scheduled build of your pipeline, for example, to ensure the project's resources are kept up to date, with dynamically run steps that create a new pull- or merge-request with updated resources.
 
 In this example, add a daily re-build of the **Backend pipeline** that runs at midnight on the backend project's default branch (that is, `main`, which can be accessed through `default_branch` of the pipeline's Terraform resource).
 
