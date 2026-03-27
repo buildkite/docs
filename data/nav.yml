@@ -921,6 +921,8 @@
           path: "platform/terraform-provider/manage-clusters-and-queues"
         - name: "Manage teams"
           path: "platform/terraform-provider/manage-teams"
+        - name: "Manage Buildkite organizations"
+          path: "platform/terraform-provider/manage-buildkite-organizations"
         - name: "Import existing Buildkite resources to Terraform"
           path: "platform/terraform-provider/import-existing-resources"
     - name: "SSO"
