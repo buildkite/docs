@@ -18,17 +18,17 @@ To learn more, see [Build artifacts](/docs/pipelines/configure/artifacts).
 
 A build is a single run of a pipeline. You can trigger a build in various ways, including through the dashboard, API, as the result of a webhook, on a schedule, or even from another pipeline using a trigger step.
 
-## Cluster
-
-A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
-
-To learn more, see the [Clusters overview](/docs/pipelines/security/clusters).
-
 ## Buildkite organization administrator
 
 A Buildkite organization administrator is a user with full administrative control over a Buildkite organization. Organization administrators can manage teams, configure organization-level settings, control pipeline and security permissions, and access usage reports and [audit logs](/docs/platform/audit-log).
 
 To learn more, see [User and team permissions](/docs/platform/team-management/permissions).
+
+## Cluster
+
+A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
+
+To learn more, see the [Clusters overview](/docs/pipelines/security/clusters).
 
 ## Dynamic pipeline
 
