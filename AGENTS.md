@@ -248,6 +248,7 @@ When writing technical documentation for Buildkite:
 
 **No possessive product names:**
 - Never use possessive forms of Buildkite product names—rephrase instead
+- The exception to this is "Buildkite organization", which is not a product name, but is a term used to disambiguate a company or organization from a "Buildkite organization", which is a different concept.
 - Correct: "The syntax used in Buildkite Pipelines is simpler."
 - Incorrect: "Buildkite's syntax is simpler."
 - Correct: "The Buildkite Pipelines parallel-by-default behavior"
