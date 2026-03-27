@@ -25,7 +25,7 @@ The hybrid architecture of Buildkite Pipelines provides a unique approach to sec
 
 While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
-See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) sections to learn more.
+See [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) to learn more.
 
 ### Pipeline configuration concepts
 
@@ -40,17 +40,13 @@ A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/confi
 - [Trigger step](/docs/pipelines/configure/step-types/trigger-step): Creates a build on another pipeline.
 - [Group step](/docs/pipelines/configure/step-types/group-step): Displays a group of sub-steps as one parent step.
 
-Unlike CircleCI, where each project maps one-to-one to a repository, Buildkite pipelines are decoupled from repositories. You can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository.
+While CircleCI traditionally maps each project one-to-one to a repository, Buildkite pipelines are fully decoupled from repositories. You can create multiple pipelines per repository, trigger pipelines across repositories, or run pipelines independently of any repository.
 
 Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#build), and any command steps are dispatched as [_jobs_](/docs/pipelines/glossary#job) to run on agents. A common practice is to define a pipeline with a single step that uploads the `pipeline.yml` file in the code repository. The `pipeline.yml` contains the full pipeline definition and can be generated [dynamically](/docs/pipelines/configure/dynamic-pipelines).
 
 ### Plugin system
 
 CircleCI uses _orbs_, which are reusable packages that bundle jobs, commands, and executors together. Buildkite uses [plugins](https://buildkite.com/resources/plugins/), which are referenced directly in pipeline definitions. Unlike orbs, Buildkite plugins focus on modifying agent behavior at the step level. They are shell-based, run on individual agents, and are pipeline- or step-specific with independent versioning. Plugin failures are isolated to individual builds, and compatibility issues are rare.
-
-### Try out Buildkite
-
-With a basic understanding of the differences between Buildkite Pipelines and CircleCI, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite Pipelines, and [create your own pipeline](/docs/pipelines/create-your-own).
 
 ## Provision agent infrastructure
 
@@ -92,6 +88,7 @@ To make a Buildkite pipeline run its steps in a specific order, use the [`depend
 
 ```yaml
 # Buildkite Pipelines: Explicit sequencing with depends_on
+
 steps:
   - label: "Lint"
     key: lint
@@ -155,7 +152,7 @@ steps:
     env:
       NODE_ENV: test
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: node:18
     command: npm test
 ```
@@ -167,7 +164,7 @@ For Docker-based builds, use the [Docker plugin](https://buildkite.com/resources
 >
 > ```yaml
 > plugins:
->   - docker#v5.12.0:
+>   - docker#v5.13.0:
 >       image: cimg/node:18.17
 >       shell: ["/bin/bash", "-l", "-e", "-c"]
 >       propagate-uid-gid: true
@@ -321,7 +318,7 @@ Replace the CircleCI executor with the [Docker plugin](https://buildkite.com/res
   - label: "\:eslint\: Lint"
     key: lint
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: "node:20"
     commands:
       - npm ci
@@ -336,7 +333,7 @@ Add [artifact collection](/docs/pipelines/configure/artifacts) using the `artifa
   - label: "\:test_tube\: Test"
     key: test
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: "node:20"
     commands:
       - npm ci
@@ -347,14 +344,14 @@ Add [artifact collection](/docs/pipelines/configure/artifacts) using the `artifa
 
 ### Step 7: Review the complete pipeline
 
-Here is the complete translated pipeline:
+Here is the complete example CircleCI pipeline translated to a Buildkite pipeline:
 
 ```yaml
 steps:
   - label: "\:eslint\: Lint"
     key: lint
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: "node:20"
     commands:
       - npm ci
@@ -363,7 +360,7 @@ steps:
   - label: "\:test_tube\: Test"
     key: test
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: "node:20"
     commands:
       - npm ci
@@ -374,7 +371,7 @@ steps:
   - label: "\:wrench\: Build"
     depends_on: [lint, test]
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: "node:20"
     commands:
       - npm ci
@@ -391,7 +388,7 @@ Eliminate the duplication using YAML aliases:
 common:
   docker: &docker
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: "node:20"
 
 steps:
@@ -425,7 +422,7 @@ The final result is shorter than the original CircleCI configuration, with no du
 
 ## Translating common patterns
 
-This section covers translation patterns for CircleCI features not covered in the [example walkthrough](#translate-an-example-circleci-configuration).
+This section covers translation patterns for CircleCI features not covered in the [example walkthrough](/docs/pipelines/migration/from-circleci#translate-an-example-circleci-configuration).
 
 ### Environment variables
 
@@ -486,7 +483,7 @@ CircleCI matrix jobs translate to the native [build matrix](/docs/pipelines/conf
 steps:
   - label: "Test (Node {{matrix.node_version}})"
     plugins:
-      - docker#v5.12.0:
+      - docker#v5.13.0:
           image: node:{{matrix.node_version}}
     command: npm test
     matrix:
@@ -526,7 +523,7 @@ For pipeline-wide branch restrictions that prevent builds from being created ent
 
 ### Scheduled workflows
 
-CircleCI scheduled workflows are configured in the YAML file. In Buildkite Pipelines, [scheduled builds](/docs/pipelines/configure/scheduled-builds) are configured in the Buildkite UI under your pipeline's **Settings** > **Schedules**.
+CircleCI supports scheduled pipelines configured through the CircleCI UI, API, or the legacy `triggers:` key in YAML. In Buildkite Pipelines, [scheduled builds](/docs/pipelines/configure/scheduled-builds) are configured in the Buildkite UI under your pipeline's **Settings** > **Schedules**.
 
 ### Dynamic configuration
 
@@ -569,7 +566,7 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 | `matrix` | [Build matrix](/docs/pipelines/configure/workflows/build-matrix) |
 | Contexts | [Cluster secrets](/docs/pipelines/security/secrets) and `env` |
 | `resource_class` | `agents: { queue: "..." }` |
-| Job priority (not supported) | [`priority`](/docs/pipelines/configure/step-types/command-step#priority) attribute |
+| Serial groups (pipeline-number ordering) | [`priority`](/docs/pipelines/configure/step-types/command-step#priority) attribute |
 | Scheduled workflows | [Scheduled builds](/docs/pipelines/configure/scheduled-builds) |
 | Pipeline parameters (`<< pipeline.parameters.X >>`) | [Environment variables](/docs/pipelines/configure/environment-variables) (`${X}`) |
 | `setup: true` + continuation orb | `buildkite-agent pipeline upload` ([dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines)) |
@@ -618,5 +615,7 @@ Explore these resources to enhance your migrated pipelines:
 - [Test Engine](/docs/test-engine) for test insights
 
 You can try the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing CircleCI configuration might look converted to Buildkite Pipelines.
+
+With a basic understanding of the differences between Buildkite Pipelines and CircleCI, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite Pipelines, and [create your own pipeline](/docs/pipelines/create-your-own).
 
 For migration assistance, contact support@buildkite.com.
