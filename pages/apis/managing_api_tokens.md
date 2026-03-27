@@ -350,7 +350,7 @@ Removing access from a token sends a notification email to the token's owner, wh
 > 📘 Enterprise plan feature
 > Restricting API access by IP address is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
-If you'd like to limit an API token's access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api). You can specify multiple IP addresses, separated by individual spaces, or use [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to specify a range of IP addresses.
+If you'd like to limit an API token's access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api). You can specify multiple IP addresses, separated by individual spaces, as well as [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to specify a range of IP addresses.
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
