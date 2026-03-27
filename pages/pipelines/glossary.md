@@ -24,6 +24,12 @@ A cluster groups [queues](#queue) of agents along with pipelines. Clusters allow
 
 To learn more, see the [Clusters overview](/docs/pipelines/security/clusters).
 
+## Buildkite organization administrator
+
+A Buildkite organization administrator is a user with full administrative control over a Buildkite organization. Organization administrators can manage teams, configure organization-level settings, control pipeline and security permissions, and access usage reports and [audit logs](/docs/platform/audit-log).
+
+To learn more, see [User and team permissions](/docs/platform/team-management/permissions).
+
 ## Dynamic pipeline
 
 Dynamic pipelines define their steps at runtime using scripts, giving you the flexibility to only run the steps relevant to particular code changes and workflows.
