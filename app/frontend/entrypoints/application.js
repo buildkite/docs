@@ -54,7 +54,7 @@ function render() {
     "tags:blog<score=1>",
   ];
   if (section) {
-    optionalFilters.push(`section:${section}<score=10>`);
+    optionalFilters.push(`tags:${section}<score=10>`);
   }
   const searchParameters = { optionalFilters };
 
