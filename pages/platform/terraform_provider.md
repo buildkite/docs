@@ -14,11 +14,11 @@ Once you have met the prerequisites (see [Before you start](#before-you-start)) 
 
 - **Teams**: Create and manage [teams](/docs/platform/team-management/permissions) and their members. See [Manage teams](/docs/platform/terraform-provider/manage-teams) for more information.
 
-- **Organizations**: Configure organization-level settings, rules, and banners.
+- **Organizations**: Configure organization-level settings (such as [two-factor authentication](/docs/platform/team-management/enforce-2fa) and [restricting API access by IP address](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address)), and [system banners](/docs/platform/team-management/system-banners). See [Manage Buildkite organizations](/docs/platform/terraform-provider/manage-buildkite-organizations) for more information.
 
-- **Test suites**: Set up [Test Engine](/docs/test-engine) test suites and manage team access.
+- **Test suites**: Set up [Test Engine](/docs/test-engine) test suites and manage team access. See the [`buildkite_test_suite`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/test_suite) and [`buildkite_test_suite_team`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/test_suite_team) resources in the Terraform provider docs for details.
 
-- **Package registries**: Manage [Package Registries](/docs/package-registries) resources.
+- **Package registries**: Manage [Package Registries](/docs/package-registries) resources. See the [`buildkite_registry`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/registry) resource in the Terraform provider docs for details.
 
 ## Before you start
 
