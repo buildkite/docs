@@ -420,17 +420,22 @@ resource "buildkite_pipeline_schedule" "nightly" {
 
 ## Applying the configuration
 
-Once your `pipelines.tf` file is completed, you can apply the configuration to your configured Buildkite organization:
+Before you apply your Terraform configurations to your Buildkite organization, you may also want to manage your [clusters and queues](/docs/platform/terraform-provider/manage-clusters-and-queues), [teams](/docs/platform/terraform-provider/manage-teams) and [Buildkite organization's settings](/docs/platform/terraform-provider/manage-buildkite-organizations) in Terraform too. If you do this, ensure your `pipelines.tf` file has been modified to account for the additional resources you've configured for your cluster- and queue-related resources (`clusters.tf`) and team-related resources (`teams.tf`) before proceeding.
+
+Once your `pipelines.tf` file is completed (including `clusters.tf`, `teams.tf`, and `organization.tf` if you've configured these too), you can apply all of these configurations to your [configured Buildkite organization](/docs/platform/terraform-provider#define-the-buildkite-provider-for-your-terraform-configuration):
 
 ```bash
 terraform plan
 terraform apply
 ```
 
-> 📘 Deleting your configuration files and improving maintainability
-> You can now delete all of your configuration files (and most importantly, your Terraform variable file `terraform.tfvars` that's been temporarily storing your API access token) once Terraform has successfully applied these configurations to your Buildkite organization.
-> However, you can maintain a copy of these `.tf` files, should you wish to reapply these pipelines to the same or any other Buildkite organization again in future, bearing in mind that you'll need to manually keep any configuration changes you make to these pipelines in sync with your `pipelines.tf` file/s.
+Terraform will apply all the resources you've configured in all of your `.tf` files to your Buildkite organization.
+
+> 📘 Managing secrets and improving maintainability
+> Once you have securely stored you secrets' values, delete your Terraform variable file `terraform.tfvars` which has been temporarily storing these values, such as those of your [API access token](/docs/platform/terraform-provider#before-you-start) (and if so, [agent token](/docs/platform/terraform-provider/manage-clusters-and-queues#define-your-agent-tokens)), once Terraform has successfully applied these configurations to your Buildkite organization.
+> You can maintain a copy of these `.tf` files in source control, should you wish to reapply these pipelines and other resources to the same or any other Buildkite organization again in future, bearing in mind that you'll need to manually keep any configuration changes you make to these pipelines through the Buildkite interface or APIs in sync with your `pipelines.tf` (including the other `.tf`) file/s.
 > To improve maintainability, however, you can import your existing pipeline configurations into Terraform, which will account for all current updates made to these pipeline configurations. See [Import existing Buildkite resources to Terraform](/docs/platform/terraform-provider/import-existing-resources) for details.
+> You can also create your own Buildkite pipeline to manage the application of your Buildkite organization's resources from Terraform to your Buildkite organization itself. In such situations, store your secrets securely, and use a secrets manager resource within your Terraform configuration, such as [AWS Secrets Manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) or [HashiCorp Vault](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/generic_secret) to access their values.
 
 ## Further reference
 

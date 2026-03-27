@@ -79,6 +79,12 @@ To start using the Buildkite Terraform provider to manage your pipelines in Terr
     terraform init
     ```
 
+## Next steps
+
+You can now proceed to [start managing your pipelines in Terraform](/docs/platform/terraform-provider/getting-started-with-managing-pipelines).
+
+You can also start managing your [clusters and queues](/docs/platform/terraform-provider/manage-clusters-and-queues), [teams](/docs/platform/terraform-provider/manage-teams) and [Buildkite organization's settings](/docs/platform/terraform-provider/manage-buildkite-organizations) in Terraform too.
+
 ## Further reference
 
 For the full list of supported resources, data sources, and their configuration options, see the [Buildkite provider documentation](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) on the Terraform Registry.

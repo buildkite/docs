@@ -308,6 +308,10 @@ resource "buildkite_cluster_secret" "database_password" {
 }
 ```
 
+## Applying the configuration
+
+Once your `clusters.tf` file is complete, it is ready to be [applied to your Buildkite organization](/docs/platform/terraform-provider/getting-started-with-managing-pipelines#applying-the-configuration).
+
 ## Further reference
 
 For the full list of cluster and queue resources, data sources, and their configuration options, see the [Buildkite provider documentation](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) on the Terraform Registry.

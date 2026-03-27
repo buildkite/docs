@@ -51,6 +51,10 @@ resource "buildkite_organization_banner" "maintenance" {
 
 Learn more about this resource in the [`buildkite_organization_banner` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/organization_banner) documentation.
 
+## Applying the configuration
+
+Once your `organization.tf` file is complete, it is ready to be [applied to your Buildkite organization](/docs/platform/terraform-provider/getting-started-with-managing-pipelines#applying-the-configuration).
+
 ## Further reference
 
 For the full list of organization resources, data sources, and their configuration options, see the [Buildkite provider documentation](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) on the Terraform Registry.
