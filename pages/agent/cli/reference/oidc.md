@@ -50,12 +50,13 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
     <td>
       <p>Subject</p>
       <p>Identifies the subject of the JWT, typically representing the user or entity being authenticated.</p>
-      <p><em>Format:</em>
-        <code>organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:
-        commit:BUILD_COMMIT:step:STEP_KEY</code>. </p>
+      <p>By default, the subject contains a composite string in the following format:</p>
+      <p><code>organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:
+        commit:BUILD_COMMIT:step:STEP_KEY</code></p>
       <p>If the build has a tag, <code>REF</code> is <code>refs/tags/TAG</code>.</p>
       <p>Otherwise, <code>REF</code> is <code>refs/heads/BRANCH</code>.</p>
       <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
+      <p>If <code>--subject-claim</code> is specified, the subject contains only the value of the specified claim instead. See <a href="#custom-subject-claims">Custom subject claims</a>.</p>
     </td>
   </tr>
    <tr id="aud">
@@ -339,5 +340,57 @@ When the `--aws-session-tag` flag has been used to generate an OIDC token, the c
       ]
     }
   }
+}
+```
+
+## Custom subject claims
+
+By default, the `sub` claim in a Buildkite OIDC token contains a composite string with the organization slug, pipeline slug, ref, commit, and step key. The `--subject-claim` flag lets you replace this with a single immutable identifier, which is useful for federated identity providers like [Azure](/docs/pipelines/security/oidc/azure) that require an exact match on the subject.
+
+For example, to set the subject to the cluster UUID:
+
+```sh
+$ buildkite-agent oidc request-token --audience "api://AzureADTokenExchange" --subject-claim cluster_id
+```
+
+Only immutable identifiers are allowed as subject claims. Mutable values like slugs and branch names are excluded because renaming them would silently break trust relationships.
+
+The following claims can be used with `--subject-claim`:
+
+| Claim | Description |
+| --- | --- |
+| `organization_id` | The organization UUID |
+| `pipeline_id` | The pipeline UUID (matches the default subject for providers that expect a pipeline UUID) |
+| `cluster_id` | The cluster UUID |
+| `queue_id` | The queue UUID |
+| `build_id` | The build UUID |
+| `job_id` | The job UUID |
+| `agent_id` | The agent UUID |
+
+When `--subject-claim` is used, the specified claim is automatically included in the token — you don't need to also pass it with `--claim`.
+
+### Example token contents
+
+When `--subject-claim cluster_id` is used, the `sub` claim contains the cluster UUID instead of the default composite string:
+
+```json
+{
+  "iss": "https://agent.buildkite.com",
+  "sub": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
+  "aud": "api://AzureADTokenExchange",
+  "iat": 1669014898,
+  "nbf": 1669014898,
+  "exp": 1669015198,
+  "organization_slug": "acme-inc",
+  "pipeline_slug": "super-duper-app",
+  "build_number": 1,
+  "build_branch": "main",
+  "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
+  "step_key": "build",
+  "job_id": "0184990a-477b-4fa8-9968-496074483cee",
+  "agent_id": "0184990a-4782-42b5-afc1-16715b10b8ff",
+  "build_source": "ui",
+  "runner_environment": "buildkite-hosted",
+  "cluster_id": "0191f956-042f-7ec4-aa62-8e5eeae396d0"
 }
 ```
