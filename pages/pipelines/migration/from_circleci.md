@@ -61,7 +61,7 @@ For self-hosted agents, consider:
 - **Scaling:** Scale agents independently based on concurrent job requirements.
 - **Build isolation:** Use [agent tags](/docs/agent/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
 
-See the [Getting started](/docs/agent/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide for Buildkite hosted agents or [Installation](/docs/agent/self-hosted/install/) guides for your infrastructure type for self-hosted agents.
+For Buildkite hosted agents, see the [Getting started](/docs/agent/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide. For self-hosted agents, see the [Installation](/docs/agent/self-hosted/install/) guides for your infrastructure type.
 
 ## Pipeline translation fundamentals
 
