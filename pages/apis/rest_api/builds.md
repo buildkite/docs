@@ -1218,7 +1218,7 @@ Queues failed jobs to be retried in a build.
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/retry_failed_jobs"
   -H "Content-Type: application/json" \
-  -d '{ "states": "" }'
+  -d '{ "states": "failed,soft_failed" }'
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
@@ -1360,8 +1360,10 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>states</code></th>
-    <td>Controls which failure types are retried. A comma-separated list of one or more of <code>canceled</code>, <code>expired</code>, <code>failed</code>, <code>soft_failed</code>, <code>timed_out</code>.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"failed,soft_failed"</code></p></td>
+    <td>
+      Controls which failure types are retried. A comma-separated list of one or more of <code>canceled</code>, <code>expired</code>, <code>failed</code>, <code>soft_failed</code>, <code>timed_out</code>. If omitted (or blank), all failed jobs are retried.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"failed,soft_failed"</code></p>
+    </td>
   </tr>
 </tbody>
 </table>
