@@ -4,7 +4,7 @@ This guide helps CircleCI users migrate to Buildkite Pipelines, covering key dif
 
 ## Understand the differences
 
-Most concepts translate directly, but there are some differences to understand about the approaches.
+Most concepts translate directly, but there are differences to understand about the approaches.
 
 ### System architecture
 
