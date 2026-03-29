@@ -368,7 +368,7 @@ Add [artifact collection](/docs/pipelines/configure/artifacts) using the `artifa
 
 ### Step 7: Review the complete pipeline
 
-Here is the complete example CircleCI pipeline translated to a Buildkite pipeline:
+The complete example CircleCI pipeline translated to a Buildkite pipeline:
 
 ```yaml
 steps:
