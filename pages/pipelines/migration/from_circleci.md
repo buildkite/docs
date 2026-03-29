@@ -221,7 +221,7 @@ This section guides you through the process of translating a CircleCI configurat
 
 ### Step 1: Understand the source configuration
 
-Consider the following CircleCI configuration:
+The following CircleCI configuration shows an example:
 
 ```yaml
 version: 2.1
