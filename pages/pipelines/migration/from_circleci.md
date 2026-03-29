@@ -21,7 +21,7 @@ See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more de
 
 ### Security
 
-The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
+The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
 While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
@@ -46,7 +46,7 @@ Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#bui
 
 ### Plugin system
 
-CircleCI uses _orbs_, which are reusable packages that bundle jobs, commands, and executors together. Buildkite uses [plugins](https://buildkite.com/resources/plugins/), which are referenced directly in pipeline definitions. Unlike orbs, Buildkite plugins focus on modifying agent behavior at the step level. They are shell-based, run on individual agents, and are pipeline- or step-specific with independent versioning. Plugin failures are isolated to individual builds, and compatibility issues are rare.
+CircleCI uses _orbs_, which are reusable packages that bundle jobs, commands, and executors together. Buildkite Pipelines uses [Buildkite plugins](https://buildkite.com/resources/plugins/), which are referenced directly in pipeline definitions. Unlike orbs, Buildkite plugins focus on modifying agent behavior at the step level. They are shell-based, run on individual agents, and are pipeline- or step-specific with independent versioning. Plugin failures are isolated to individual builds, and compatibility issues are rare.
 
 ## Provision agent infrastructure
 
@@ -76,7 +76,7 @@ This table outlines the fundamental differences in pipeline files and their synt
 | **Configuration file** | `.circleci/config.yml` | `pipeline.yml` (typically in `.buildkite/`) |
 | **Syntax** | YAML with CircleCI-specific keys | YAML |
 | **Reusable logic** | Orbs, commands, executors | [Plugins](https://buildkite.com/resources/plugins/), YAML aliases, scripts |
-| **Triggers** | Defined in config file or API | Configured in Buildkite UI or API |
+| **Triggers** | Defined in config file or API | Configured in the web interface or API |
 
 The YAML-based pipeline syntax of Buildkite Pipelines is simpler. You can also generate pipeline definitions at build-time with [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
@@ -145,6 +145,8 @@ CircleCI executors define the execution environment (Docker image, resource clas
 | `working_directory` | Docker plugin `workdir` |
 | `machine` executor | VM-based agent queue |
 
+For example, in Buildkite Pipelines:
+
 ```yaml
 # Buildkite Pipelines
 steps:
@@ -174,22 +176,44 @@ For Docker-based builds, use the [Docker plugin](https://buildkite.com/resources
 
 ### Agent targeting
 
-CircleCI uses `resource_class` and executors to define where jobs run. Buildkite Pipelines uses a pull-based model where agents poll queues for work using the `agents` attribute. This provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking:
+CircleCI uses `resource_class` and executors to control where jobs run:
 
 ```yaml
-# Buildkite Pipelines: Agent targeting with queues
+# CircleCI
+jobs:
+  build:
+    docker:
+      - image: cimg/node:20.0
+    resource_class: large
+    steps:
+      - checkout
+      - run: make build
+
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: medium
+    steps:
+      - checkout
+      - run: make deploy
+```
+
+Buildkite Pipelines uses a pull-based model where agents poll [queues](/docs/agent/queues) for work using the `agents` attribute. Map CircleCI resource classes to queues with agents sized to match your workload requirements. This model provides better security (no incoming connections), easier scaling with [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), and more resilient networking:
+
+```yaml
+# Buildkite Pipelines
 steps:
   - label: "Build"
     command: "make build"
     agents:
-      queue: "default"
+      queue: "large"
   - label: "Deploy"
     command: "make deploy"
     agents:
       queue: "production"
 ```
 
-For Windows or macOS jobs, route to platform-specific queues using `agents: { queue: "windows" }` or `agents: { queue: "macos" }`.
+You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tags) beyond `queue` to target agents by capability, for example `agents: { os: "linux", arch: "arm64" }`. For Windows or macOS jobs, route to platform-specific queues using `agents: { queue: "windows" }` or `agents: { queue: "macos" }`.
 
 ## Translate an example CircleCI configuration
 
@@ -541,7 +565,7 @@ For path-based dynamic configuration (similar to CircleCI's `path-filtering` orb
 
 ### Reusable commands
 
-CircleCI `commands` are reusable step sequences with parameters. For simple reuse, use YAML anchors. For parameterized reuse, use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) where a step generates and uploads pipeline YAML at runtime using `buildkite-agent pipeline upload`.
+CircleCI `commands` are reusable step sequences with parameters. For simple reuse in Buildkite Pipelines, use [YAML anchors](/docs/pipelines/integrations/plugins/using#using-yaml-anchors-with-plugins). For parameterized reuse, use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) where a step generates and uploads pipeline YAML at runtime using `buildkite-agent pipeline upload`.
 
 ## Concept mapping reference
 
