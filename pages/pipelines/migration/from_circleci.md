@@ -450,7 +450,7 @@ This section covers translation patterns for CircleCI features not covered in th
 
 ### Environment variables
 
-CircleCI job-level `environment` maps to the `env` attribute in Buildkite Pipelines. See [environment variables](/docs/pipelines/configure/environment-variables) for details. For pipeline-wide variables, use a top-level `env` attribute:
+CircleCI job-level `environment` maps to the `env` attribute in Buildkite Pipelines. For more information, see [environment variables](/docs/pipelines/configure/environment-variables). For pipeline-wide variables, use a top-level `env` attribute:
 
 ```yaml
 # Buildkite Pipelines
