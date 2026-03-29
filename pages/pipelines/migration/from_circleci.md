@@ -17,7 +17,7 @@ Buildkite Pipelines uses a hybrid model:
 
 This hybrid architecture means your source code and secrets stay within your own environment and are not seen by the Buildkite platform.
 
-See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
+Learn more about [Buildkite Pipelines architecture](/docs/pipelines/architecture).
 
 ### Security
 
