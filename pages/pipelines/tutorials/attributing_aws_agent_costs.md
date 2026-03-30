@@ -23,10 +23,12 @@ The pipeline streams Buildkite events from EventBridge to S3 through Amazon Data
 The data flow is:
 
 1. Buildkite publishes `Job Finished`, `Agent Connected`, and `Agent Disconnected` events to the partner event bus.
-1. EventBridge rules route matching events to an Amazon Data Firehose delivery stream.
+1. EventBridge rules route matching events to an Amazon Data Firehose delivery stream (indicated by its former name Kinesis Firehose in the following diagram).
 1. Firehose invokes a Lambda function to append newline delimiters for Athena compatibility.
 1. Firehose delivers the transformed records to S3.
 1. Glue catalog tables define the schema, letting Athena query the data with SQL.
+
+<%= image "data-flow.png", width: 1820/2, height: 1344/2, alt: "Diagram showing the data flow from Buildkite to EventBridge to Amazon Data Firehose to Lambda to S3" %>
 
 This tutorial captures two event types:
 
@@ -85,7 +87,7 @@ variable "lambda_function_name" {
 Create a `terraform.tfvars` file with your resource names. Replace the placeholder values with your own:
 
 ```hcl
-buildkite_event_bus_arn = "arn:aws:events:us-east-1:012345678901:event-bus/aws.partner/buildkite.com/your-org/your-uuid"
+buildkite_event_bus_arn = "arn\:aws\:events\:us-east-1\:012345678901:event-bus/aws.partner/buildkite.com/your-org/your-uuid"
 buildkite_event_source = "aws.partner/buildkite.com/your-org/your-uuid"
 s3_bucket_name         = "your-buildkite-cost-attribution-bucket"
 ```
@@ -199,12 +201,12 @@ resource "aws_iam_role_policy" "lambda_logs" {
       {
         Effect   = "Allow"
         Action   = "logs:CreateLogGroup"
-        Resource = "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:*"
+        Resource = "arn\:aws\:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:*"
       },
       {
         Effect = "Allow"
         Action = ["logs:CreateLogStream", "logs:PutLogEvents"]
-        Resource = "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${var.lambda_function_name}:*"
+        Resource = "arn\:aws\:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${var.lambda_function_name}:*"
       }
     ]
   })
@@ -298,7 +300,7 @@ resource "aws_iam_role_policy" "firehose_s3" {
       {
         Effect = "Allow"
         Action = ["logs:PutLogEvents"]
-        Resource = "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kinesisfirehose/${var.firehose_stream_name}:*"
+        Resource = "arn\:aws\:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kinesisfirehose/${var.firehose_stream_name}:*"
       }
     ]
   })
