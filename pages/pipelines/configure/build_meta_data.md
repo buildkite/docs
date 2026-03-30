@@ -44,7 +44,7 @@ Assuming that the "release-version" key was set with the value from the Setting 
 
 ## Using meta-data on the dashboard
 
-You can add `meta_data[…]=…` query parameters to most builds URLs to filter down the list of builds shown to only those with certain meta-data.
+You can add `meta_data[…]=…` query parameters to most builds' URLs to filter down the list of builds shown to only those with certain meta-data.
 
 For example, to list builds in a pipeline which have a "release-version" of "1.1" you can use:
 
