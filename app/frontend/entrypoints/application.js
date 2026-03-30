@@ -40,12 +40,24 @@ function cleanup() {
   cleanupFunctions = [];
 }
 
+function getCurrentSection() {
+  const match = window.location.pathname.match(/^\/docs\/([^/]+)/);
+  return match ? match[1] : null;
+}
+
 function render() {
+  const section = getCurrentSection();
+  const searchParameters = {};
+  if (section) {
+    searchParameters.optionalFilters = [`tags:${section}<score=1>`];
+  }
+
   docsearch({
     container: "#search",
     appId: __ALGOLIA_APP_ID__,
     apiKey: __ALGOLIA_API_KEY__,
     indexName: __ALGOLIA_INDEX_NAME__,
+    searchParameters,
     transformSearchClient: searchTrackingClient,
     transformItems: searchTrackingItems,
     navigator: searchTrackingNavigator,

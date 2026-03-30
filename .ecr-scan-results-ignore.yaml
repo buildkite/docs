@@ -1,0 +1,12 @@
+ignores:
+  - id: CVE-2025-69720
+    reason: |
+      Critical CVE in ncurses 6.4-4. Not exploitable in this containerized Rails
+      app — ncurses is not exposed to untrusted terminal input. Waiting for
+      Debian Bookworm upstream fix:
+      https://security-tracker.debian.org/tracker/CVE-2025-69720
+  - id: CVE-2026-29111
+    reason: |
+      Medium CVE in systemd 252.39-1~deb12u1. Local-only attack vector (AV:L),
+      not exploitable in this container context. Waiting for Debian Bookworm
+      upstream fix.
