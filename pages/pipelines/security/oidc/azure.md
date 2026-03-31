@@ -339,7 +339,7 @@ The right subject claim depends on how you want to balance the number of federat
 - **`pipeline_id` (default):** One credential per pipeline. Tight scoping, but requires a new Federated Identity Credential for each pipeline that needs Azure access.
 - **`cluster_id`:** One credential per cluster. Any pipeline in the cluster can authenticate. Fewer credentials to manage, but broader access.
 - **`queue_id`:** One credential per queue. Useful when different queues have different trust boundaries (for example, production versus staging queues).
-- **`organization_id`:** One credential for the entire organization. The broadest scope — any pipeline in the organization can authenticate with the same Azure App Registration.
+- **`organization_id`:** One credential for the entire organization. The broadest scope. Any pipeline in the organization can authenticate with the same Azure App Registration.
 - **`build_id`, `job_id`, `agent_id`:** Extremely narrow scope, typically used for auditing or one-time access rather than ongoing trust relationships.
 
 ### Using a custom subject claim
