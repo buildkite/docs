@@ -1,6 +1,6 @@
-# Hosted agents code access
+# Buildkite hosted agents code access
 
-Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, the [git-ssh-checkout-buildkite-plugin](https://github.com/buildkite-plugins/git-ssh-checkout-buildkite-plugin) plugin is available to provide this capability.
+Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin is available to provide this capability.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration).
 
@@ -30,7 +30,7 @@ Buildkite does not require any special permissions to access public repositories
 Using Buildkite hosted agents with a private repository on provider other than GitHub, has the following two requirements:
 
 1. Add an SSH key as a secret to the Buildkite hosted agent cluster.
-1. Add the plugin to the initial pipeline steps, and any further steps within the uploaded pipeline.
+1. Add the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin to the initial pipeline steps, and any further steps within the uploaded pipeline.
 
 ### Add the SSH key secret
 

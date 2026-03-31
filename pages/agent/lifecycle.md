@@ -39,6 +39,23 @@ Exit code | Signal | Name    | Description
 141       | 13     | SIGPIPE | Write on a pipe with no one to read it
 143       | 15     | SIGTERM | Termination signal (graceful)
 
+### Job exit codes and hooks
+
+The final exit code reported for a job depends on which phase of the [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks) failed. The agent tracks exit codes through two environment variables as the job progresses:
+
+- `BUILDKITE_COMMAND_EXIT_STATUS`: Set after the command phase is completed. Contains the exit code from the command or `command`-related hook. This value is available to `post-command` and `pre-exit` hooks.
+- `BUILDKITE_LAST_HOOK_EXIT_STATUS`: Set after each hook is completed. Contains the exit code of the most recently executed hook.
+
+The final exit code reported to Buildkite Pipelines is determined as follows:
+
+- If a `pre-command` hook or earlier hook fails, its exit code becomes the job exit code. The command does not run.
+- If the command fails but all `post-command` and `pre-exit` hooks pass, the command's exit code (from `BUILDKITE_COMMAND_EXIT_STATUS`) becomes the job exit code.
+- If a `post-command` or `pre-exit` hook fails with a non-zero exit code, the hook's exit code **overrides** the job exit code. This is true even if the command also failed with a different exit code.
+
+For example, if a command exits with code `4` and then a `pre-exit` hook exits with code `6`, the final job exit code reported to Buildkite Pipelines is `6`, not `4`. The original command exit code is still available in the `BUILDKITE_COMMAND_EXIT_STATUS` environment variable.
+
+<%= render_markdown partial: 'agent/pre_exit_hook_job_exit_code' %>
+
 ## Troubleshooting
 
 One issue you sometimes need to troubleshoot is when Buildkite loses contact with an agent, resulting in a `-1` exit code. After registering with the Buildkite API, an agent regularly sends heartbeat updates to indicate that it is operational. If the Buildkite API does not receive any heartbeat requests from an agent for three consecutive minutes, that agent is marked as lost within the next 60 seconds, and will not be assigned any further jobs.
