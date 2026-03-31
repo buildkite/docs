@@ -88,7 +88,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.24"
+          image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
           fail_message: "Generated agent CLI docs are out of date. Run scripts/update-agent-help.sh"
 
@@ -98,7 +98,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.24"
+          image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
           fail_message: "Generated agent configuration docs are out of date. Run scripts/update-agent-configuration.sh"
 
