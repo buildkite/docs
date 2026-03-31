@@ -257,6 +257,14 @@ attributes:
     required: false
     desc: |
       The amount of time to wait for labels from GCP before proceeding
+  - name: "skip-checkout"
+    env_var: |
+      $BUILDKITE_SKIP_CHECKOUT
+    default_value: |
+
+    required: false
+    desc: |
+      Skip the git checkout phase entirely
   - name: "git-checkout-flags"
     env_var: |
       $BUILDKITE_GIT_CHECKOUT_FLAGS
@@ -272,7 +280,7 @@ attributes:
       "-v"
     required: false
     desc: |
-      Flags to pass to the "git clone" command
+      Flags to pass to "git clone" command
   - name: "git-clean-flags"
     env_var: |
       $BUILDKITE_GIT_CLEAN_FLAGS
@@ -296,7 +304,7 @@ attributes:
       "-v"
     required: false
     desc: |
-      Flags to pass to the "git clone" command when used for mirroring
+      Flags to pass to "git clone" command when mirroring
   - name: "git-mirrors-path"
     env_var: |
       $BUILDKITE_GIT_MIRRORS_PATH
@@ -305,6 +313,14 @@ attributes:
     required: false
     desc: |
       Path to where mirrors of git repositories are stored
+  - name: "git-mirror-checkout-mode"
+    env_var: |
+      dissociate reference
+    default_value: |
+      "reference"
+    required: false
+    desc: |
+      Changes how clones of a mirror are made; available modes are [dissociate reference]. In ′dissociate′ mode, clones from a mirror uses the git clone ′--dissociate′ flag, which copies underlying objects from the mirror, making the clone robust to changes in the mirror such as garbage collection, at the expense of additional disk usage and setup time. ′reference′ mode does not pass ′--dissociate′, which causes the clone to directly use objects from the mirror, which is more fragile and can cause the clone to break under entirely normal operation of the mirror, but is slightly faster to clone and uses less disk space.
   - name: "git-mirrors-lock-timeout"
     env_var: |
       $BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
@@ -321,6 +337,22 @@ attributes:
     required: false
     desc: |
       Skip updating the Git mirror
+  - name: "git-submodule-clone-config"
+    env_var: |
+      $BUILDKITE_GIT_SUBMODULE_CLONE_CONFIG
+    default_value: |
+
+    required: false
+    desc: |
+      Comma separated key=value git config pairs applied before git submodule clone commands such as ′update --init′. If the config is needed to be applied to all git commands, supply it in a global git config file for the system that the agent runs in instead
+  - name: "git-skip-fetch-existing-commits"
+    env_var: |
+      $BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
+    default_value: |
+      false
+    required: false
+    desc: |
+      Skip git fetch if the commit already exists in the local git directory
   - name: "bootstrap-script"
     env_var: |
       $BUILDKITE_BOOTSTRAP_SCRIPT_PATH
@@ -458,14 +490,6 @@ attributes:
     required: false
     desc: |
       Don't automatically checkout git submodules
-  - name: "skip-checkout"
-    env_var: |
-      $BUILDKITE_SKIP_CHECKOUT
-    default_value: |
-
-    required: false
-    desc: |
-      Skip the git checkout phase entirely
   - name: "no-feature-reporting"
     env_var: |
       $BUILDKITE_AGENT_NO_FEATURE_REPORTING
@@ -634,6 +658,14 @@ attributes:
     required: false
     desc: |
       The KMS KMS key ID, or key alias used when signing and verifying the pipeline.
+  - name: "signing-gcp-kms-key"
+    env_var: |
+      $BUILDKITE_AGENT_SIGNING_GCP_KMS_KEY
+    default_value: |
+
+    required: false
+    desc: |
+      The GCP KMS key resource name used when signing and verifying the pipeline. Format: projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*
   - name: "debug-signing"
     env_var: |
       $BUILDKITE_AGENT_DEBUG_SIGNING
@@ -658,6 +690,14 @@ attributes:
     required: false
     desc: |
       A list of warning IDs to disable
+  - name: "ping-mode"
+    env_var: |
+      $BUILDKITE_AGENT_PING_MODE
+    default_value: |
+      "auto"
+    required: false
+    desc: |
+      Selects available protocols for dispatching work to this agent. One of auto (default, prefer streaming, but fall back to polling when necessary), poll-only, or stream-only.
   - name: "token"
     env_var: |
       $BUILDKITE_AGENT_TOKEN
@@ -710,7 +750,7 @@ attributes:
     env_var: |
       $BUILDKITE_REDACTED_VARS
     default_value: |
-      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING"
+      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY"
     required: false
     desc: |
       Pattern of environment variable names containing sensitive values
