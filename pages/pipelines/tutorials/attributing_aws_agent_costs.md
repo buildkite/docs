@@ -14,15 +14,15 @@ To complete this tutorial, you need:
 - A Buildkite organization using the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) with EC2 instances.
 - An [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) notification service configured in your Buildkite organization settings.
 - [Terraform](https://www.terraform.io/) installed locally.
-- An AWS account with permissions to create S3 buckets, Lambda functions, Amazon Data Firehose delivery streams, EventBridge rules, and Glue catalog resources.
+- An AWS account with permissions to create [S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html), [Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html), [Amazon Data Firehose delivery streams](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html), [EventBridge rules](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html), and [Glue catalog resources](https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html).
 
 ## How it works
 
-The pipeline streams Buildkite events from EventBridge to S3 through Amazon Data Firehose, making the raw data available to any analytics backend. If you already use ClickHouse, Redshift, or Snowflake data warehouse tools, you can configure these to access the same S3 bucket.
+The pipeline streams Buildkite events from EventBridge to S3 through Amazon Data Firehose, making the raw data available to any analytics backend. If you already use ClickHouse, Redshift, or Snowflake data warehouse tools, you can configure these tools to access the same S3 bucket.
 
 The data flow is:
 
-1. Buildkite publishes `Job Finished`, `Agent Connected`, and `Agent Disconnected` events to the partner event bus.
+1. Buildkite publishes `Job Finished`, `Agent Connected`, and `Agent Disconnected` [events](/docs/pipelines/integrations/observability/amazon-eventbridge#events) to the [partner event bus](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html).
 1. EventBridge rules route matching events to an Amazon Data Firehose delivery stream (indicated by its former name Kinesis Firehose in the following diagram).
 1. Firehose invokes a transformer Lambda function to append newline delimiters for Athena compatibility.
 1. Firehose delivers the transformed records to S3.
