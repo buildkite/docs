@@ -83,7 +83,6 @@ steps:
           fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
-    if_changed: pages/agent/cli/help/*.md
     command: ./scripts/update-agent-help.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -91,10 +90,19 @@ steps:
       - docker#v5.13.0:
           image: "golang:1.24"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit agent CLI docs directly - use scripts/update-agent-help.sh"
+          fail_message: "Generated agent CLI docs are out of date. Run scripts/update-agent-help.sh"
+
+  - label: ":go: Check generated agent configuration docs"
+    command: ./scripts/update-agent-configuration.sh
+    agents:
+      queue: "${AGENT_QUEUE:-hosted-m}"
+    plugins:
+      - docker#v5.13.0:
+          image: "golang:1.24"
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "Generated agent configuration docs are out of date. Run scripts/update-agent-configuration.sh"
 
   - label: ":go: Check generated BK CLI docs"
-    if_changed: pages/platform/cli/*.md
     command: ./scripts/update-bkcli-help.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -102,10 +110,9 @@ steps:
       - docker#v5.13.0:
           image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help.sh"
+          fail_message: "Generated Buildkite CLI docs are out of date. Run scripts/update-bkcli-help.sh"
 
   - label: ":test_tube: Check generated agent experiments docs"
-    if_changed: pages/agent/self_hosted/configure/experiments.md
     command: ./scripts/update-agent-experiments.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -113,10 +120,9 @@ steps:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit experiments.md directly - update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md and use scripts/update-agent-experiments.sh"
+          fail_message: "Generated agent experiments docs are out of date. Run scripts/update-agent-experiments.sh (Update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md first, if necessary)"
 
   - label: ":test_tube: Check generated supported agent versions docs"
-    if_changed: pages/agent/self_hosted/versions_directory.md
     command: ./scripts/update-agent-versions-directory.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -124,7 +130,7 @@ steps:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit versions_directory.md directly - use scripts/update-agent-versions-directory.sh"
+          fail_message: "Generated agent versions directory is out of date. Run scripts/update-agent-versions-directory.sh"
 
   - group: "Lint all the things"
     key: linting
