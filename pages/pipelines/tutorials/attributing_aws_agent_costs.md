@@ -1,6 +1,6 @@
 # Attributing AWS agent costs using Amazon EventBridge
 
-Organizations running monorepos often need to attribute agent compute costs to specific teams. This is not straightforward: a single build can fan out across multiple Buildkite [queues](/docs/agent/queues), each mapping to a separate [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) instance that may use different EC2 instance types.
+Buildkite organizations running monorepos often need to attribute agent compute costs to specific teams. However, this is not straightforward—a single build can fan out across multiple self-hosted [queues](/docs/agent/queues), each mapping to a separate [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) instance that may use different EC2 instance types.
 
 This tutorial walks through setting up a data pipeline that ingests Buildkite [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) events into Amazon S3, making them queryable with Amazon Athena. The result lets you correlate queues to agents, agents to EC2 instances, and job duration to hourly AWS pricing.
 
@@ -18,13 +18,13 @@ To complete this tutorial, you need:
 
 ## How it works
 
-The pipeline streams Buildkite events from EventBridge to S3 through Amazon Data Firehose, making the raw data available to any analytics backend. If you already use ClickHouse, Redshift, or Snowflake, you can point those at the same S3 bucket.
+The pipeline streams Buildkite events from EventBridge to S3 through Amazon Data Firehose, making the raw data available to any analytics backend. If you already use ClickHouse, Redshift, or Snowflake data warehouse tools, you can configure these to access the same S3 bucket.
 
 The data flow is:
 
 1. Buildkite publishes `Job Finished`, `Agent Connected`, and `Agent Disconnected` events to the partner event bus.
 1. EventBridge rules route matching events to an Amazon Data Firehose delivery stream (indicated by its former name Kinesis Firehose in the following diagram).
-1. Firehose invokes a Lambda function to append newline delimiters for Athena compatibility.
+1. Firehose invokes a transformer Lambda function to append newline delimiters for Athena compatibility.
 1. Firehose delivers the transformed records to S3.
 1. Glue catalog tables define the schema, letting Athena query the data with SQL.
 
