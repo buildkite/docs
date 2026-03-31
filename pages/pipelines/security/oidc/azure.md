@@ -353,7 +353,7 @@ BUILDKITE_OIDC_TOKEN=$(buildkite-agent oidc request-token --audience "api://Azur
 Then set the **Subject identifier** in the Azure Federated Identity Credential to the corresponding UUID. For example, if you use `--subject-claim cluster_id`, set the **Subject identifier** to your cluster's UUID.
 
 > 📘
-> The subject claim value must also be included as an optional claim in the token. If you use `--subject-claim cluster_id`, the `cluster_id` claim is automatically included — you don't need to pass `--claim cluster_id` separately.
+> The subject claim value must also be included as an optional claim in the token. If you use `--subject-claim cluster_id`, the `cluster_id` claim is automatically included. You don't need to pass `--claim cluster_id` separately.
 
 ## Known limitations
 
