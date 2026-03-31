@@ -219,8 +219,7 @@ bk build list [flags]
 | `--duration=STRING` | Filter by duration (e.g. >5m, <10m, 20m) - supports >, <, >=, <= operators |
 | `--json` | Output as JSON |
 | `--limit=50` | Maximum number of builds to return |
-| `--message=STRING` | Filter by message content |
-| `--meta-data=KEY=VALUE;...`    Filter by build meta-data (key=value format, can be specified multiple times) |
+| `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
 | `--no-limit` | Fetch all builds (overrides --limit) |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
@@ -481,3 +480,4 @@ Set a custom polling interval (in seconds):
 ```bash
 bk build watch --interval 5 --pipeline my-pipeline
 ```
+
