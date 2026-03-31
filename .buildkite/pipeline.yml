@@ -32,6 +32,9 @@ steps:
     if: build.branch != "main" && !build.pull_request.labels includes "Reviewer-assigned"
     soft_fail: true
     command: bin/assign-reviewer
+    retry:
+      manual:
+        permit_on_passed: true
     agents:
       queue: hosted
     env:
