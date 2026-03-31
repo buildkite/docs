@@ -367,7 +367,7 @@ The following claims can be used with `--subject-claim`:
 | `job_id` | The job UUID |
 | `agent_id` | The agent UUID |
 
-When `--subject-claim` is used, the specified claim is automatically included in the token — you don't need to also pass it with `--claim`.
+When `--subject-claim` is used, the specified claim is automatically included in the token. You don't need to also pass it with `--claim`.
 
 ### Example token contents
 
