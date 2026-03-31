@@ -1,4 +1,4 @@
-# Hosted agents code access
+# Buildkite hosted agents code access
 
 Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, the [git-ssh-checkout-buildkite-plugin](https://github.com/buildkite-plugins/git-ssh-checkout-buildkite-plugin) plugin is available to provide this capability.
 
