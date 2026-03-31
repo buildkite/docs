@@ -15,10 +15,14 @@ echo "Fetching latest agent version..."
 AGENT_VERSION="$("${scripts_dir}/fetch-latest-agent-version.sh")"
 echo "Using agent version: ${AGENT_VERSION}"
 
+AGENT="${INSTALL_PATH}/agent"
+
 echo "Installing buildkite-agent ${AGENT_VERSION} to ${INSTALL_PATH}"
 go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
 
-export BUILDKITE_AGENT_BINARY="${INSTALL_PATH}/agent"
+echo "Installing agent_attributes2yaml"
+go install -buildvcs=false ./scripts/agent_attributes2yaml
+AGENT2YAML="${INSTALL_PATH}/agent_attributes2yaml"
 
 cat << 'EOF' >"$file"
 #   _____   ____    _   _  ____ _______   ______ _____ _____ _______
@@ -33,4 +37,4 @@ cat << 'EOF' >"$file"
 # script.
 EOF
 
-ruby "${scripts_dir}/parse-agent-attributes.rb" >>"$file"
+"${AGENT}" start --help | "${AGENT2YAML}" >>"$file"
