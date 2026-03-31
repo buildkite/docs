@@ -131,6 +131,7 @@ bk build view [<build-number>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-b`, `--branch=STRING` | Filter builds to this branch. |
+| `-s`, `--job-states=JOB-STATES,...` | Filter jobs by state. Valid states: running, scheduled, passed, failed, canceled, skipped, not_run, broken. |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
@@ -185,6 +186,12 @@ A shortcut to view your builds is --mine:
 bk build view --mine
 ```
 
+Filter to only show failed and broken jobs:
+
+```bash
+bk build view -s failed,broken
+```
+
 To view most recent build by greg on the deploy-pipeline:
 
 ```bash
@@ -212,7 +219,8 @@ bk build list [flags]
 | `--duration=STRING` | Filter by duration (e.g. >5m, <10m, 20m) - supports >, <, >=, <= operators |
 | `--json` | Output as JSON |
 | `--limit=50` | Maximum number of builds to return |
-| `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
+| `--message=STRING` | Filter by message content | 
+| `--meta-data=KEY=VALUE;...`    Filter by build meta-data (key=value format, can be specified multiple times) |
 | `--no-limit` | Fetch all builds (overrides --limit) |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
@@ -473,4 +481,3 @@ Set a custom polling interval (in seconds):
 ```bash
 bk build watch --interval 5 --pipeline my-pipeline
 ```
-
