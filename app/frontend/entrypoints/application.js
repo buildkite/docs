@@ -47,16 +47,10 @@ function getCurrentSection() {
 
 function render() {
   const section = getCurrentSection();
-  const optionalFilters = [
-    "tags:docs<score=10>",
-    "tags:plugin<score=3>",
-    "tags:changelog<score=2>",
-    "tags:blog<score=1>",
-  ];
+  const searchParameters = {};
   if (section) {
-    optionalFilters.push(`section:${section}<score=10>`);
+    searchParameters.optionalFilters = [`tags:${section}<score=1>`];
   }
-  const searchParameters = { optionalFilters };
 
   docsearch({
     container: "#search",

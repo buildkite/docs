@@ -281,6 +281,7 @@ Nodejs
 nodeName
 nodeSelector
 Noreply
+not_run
 npm
 ns
 nsc
@@ -305,6 +306,7 @@ Packagecloud's
 Palo
 parsable
 parallelization
+parameterization
 pbuilder
 pbuilder's
 perl
@@ -325,6 +327,8 @@ polyrepos
 Postgres
 PowerShell
 PR's
+predeclare
+predeclared
 Prometheus
 protobuf
 preemptible
