@@ -54,3 +54,13 @@ This can be done one of two ways:
 ## SAML user attributes
 
 <%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
+
+## Troubleshooting
+
+Resolve common issues with using Okta and Buildkite.
+
+### Unexplained permission changes for users
+
+If you notice a user's permissions changing unexpectedly and have SSO set up with Okta, it's likely because permissions are overwritten at login. When users log in to their Buildkite account through Okta, Okta sends user attributes and Buildkite updates the user's permissions to match.
+
+For example, consider a situation where you grant a user admin permission in Buildkite but not in Okta. When they next log in, they lose admin permission because Buildkite updates the user's permissions to match the attributes sent from Okta.
