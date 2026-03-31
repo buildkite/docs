@@ -132,7 +132,7 @@ query {
 Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
 
 > 📘
-> While a pipeline's name and slug can change over time, its UUID is permanent. Use the UUID when you need a way to reference a pipeline that won't change.
+> While you can change a pipeline's name, and therefore slug, over time, the pipeline's UUID is permanent. Use the UUID when you need a way to reference a pipeline whose name might change.
 
 ```graphql
 query GetPipelineUUID {
