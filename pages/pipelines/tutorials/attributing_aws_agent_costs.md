@@ -32,8 +32,8 @@ The data flow is:
 
 This tutorial captures two event types:
 
-- **Job Finished** events: contain job duration, pipeline slug, and queue (from `agent_query_rules`). These are the primary input for cost attribution.
-- **Agent Connected/Disconnected** events: contain agent metadata such as `aws:instance-id` and `aws:instance-type`. Join these with job events on `agent.uuid` to map jobs to specific EC2 instances and their hourly rates.
+- [**Job Finished** events](/docs/pipelines/integrations/observability/amazon-eventbridge#events-job-finished): contain job duration, pipeline slug, and queue (from `agent_query_rules`). These are the primary input for cost attribution.
+- **Agent [Connected](/docs/pipelines/integrations/observability/amazon-eventbridge#example-event-payloads-agent-connected)/[Disconnected](/docs/pipelines/integrations/observability/amazon-eventbridge#example-event-payloads-agent-disconnected)** events: contain agent `meta_data` such as `aws:instance-id` and `aws:instance-type`. Join these with job events on `agent.uuid` to map jobs to specific EC2 instances and their hourly rates.
 
 > 📘 Cost attribution granularity
 > This approach attributes compute cost at the queue level. Mapping queues to teams requires a lookup table based on your own stack/queue naming conventions. Individual-level attribution (who triggered the build) is not available from EventBridge events, as the creator field is not included in EventBridge payloads. For individual attribution, the [OpenTelemetry integration](/docs/pipelines/integrations/observability/opentelemetry) may be a better fit, since its events contain the build author.
