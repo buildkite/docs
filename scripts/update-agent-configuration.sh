@@ -2,9 +2,23 @@
 
 set -euo pipefail
 
-scripts_dir=$(dirname "${BASH_SOURCE[0]}")
+scripts_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 base_dir=$(git rev-parse --show-toplevel)
 file="${base_dir}/data/content/agent_attributes.yaml"
+
+INSTALL_PATH="$(go env GOBIN)"
+if [[ -z $INSTALL_PATH ]]; then
+  INSTALL_PATH="$(go env GOPATH)/bin"
+fi
+
+echo "Fetching latest agent version..."
+AGENT_VERSION="$("${scripts_dir}/fetch-latest-agent-version.sh")"
+echo "Using agent version: ${AGENT_VERSION}"
+
+echo "Installing buildkite-agent ${AGENT_VERSION} to ${INSTALL_PATH}"
+go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
+
+export BUILDKITE_AGENT_BINARY="${INSTALL_PATH}/agent"
 
 cat << 'EOF' >"$file"
 #   _____   ____    _   _  ____ _______   ______ _____ _____ _______
