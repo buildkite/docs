@@ -24,56 +24,28 @@ echo "Installing buildkite-agent ${AGENT_VERSION} to ${AGENT}"
 
 go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
 
+echo "Installing agent_cli_discover"
+go install -buildvcs=false ./scripts/agent_cli_discover
+CLI_DISCOVER="${INSTALL_PATH}/agent_cli_discover"
+
 echo "Installing agent_cli2md"
 go install -buildvcs=false ./scripts/agent_cli2md
 CLI2MD="${INSTALL_PATH}/agent_cli2md"
 
-commands=(
-  "annotate"
-  "annotation remove"
-  "artifact download"
-  "artifact shasum"
-  "artifact upload"
-  "artifact search"
-  "bootstrap"
-  "build cancel"
-  "env dump"
-  "env set"
-  "env get"
-  "env unset"
-  "job update"
-  "lock acquire"
-  "lock do"
-  "lock done"
-  "lock get"
-  "lock release"
-  "meta-data exists"
-  "meta-data get"
-  "meta-data keys"
-  "meta-data set"
-  "oidc request-token"
-  "pause"
-  "pipeline upload"
-  "redactor add"
-  "resume"
-  "secret get"
-  "start"
-  "step get"
-  "step update"
-  "step cancel"
-  "stop"
-  "tool keygen"
-  "tool sign"
-)
-
 base_dir="$(git rev-parse --show-toplevel)"
+
+# Discover commands, create scaffolding for new commands, update nav and overview.
+# Full mode outputs leaf commands to stdout; stderr has status messages.
+echo "Discovering commands from agent binary..."
+commands=()
+while IFS= read -r cmd; do
+  commands+=("$cmd")
+done < <("${CLI_DISCOVER}" "${AGENT}" "${base_dir}")
+
+echo "Found ${#commands[@]} leaf commands"
 
 for command in "${commands[@]}"; do
   file="${base_dir}/pages/agent/cli/help/_${command//[- ]/_}.md"
-  if [[ ! -f "${file}" ]]; then
-    echo "File ${file} doesn't exist"
-    exit 1
-  fi
 
   echo "Updating docs for buildkite-agent ${command}"
 
