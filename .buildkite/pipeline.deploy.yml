@@ -37,7 +37,7 @@ steps:
             - organization_id
             - pipeline_slug
             - build_branch
-      - cultureamp/ecr-scan-results#v1.8.0:
+      - cultureamp/ecr-scan-results#v1.9.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
           fail-build-on-plugin-failure: true
 

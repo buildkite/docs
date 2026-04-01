@@ -14,6 +14,8 @@
               path: "pipelines/advantages/buildkite-pipelines"
             - name: "Advantages over GitHub Actions"
               path: "pipelines/advantages/buildkite-vs-gha"
+            - name: "Advantages over CircleCI"
+              path: "pipelines/advantages/buildkite-vs-circleci"
             - name: "Advantages over Jenkins"
               path: "pipelines/advantages/buildkite-vs-jenkins"
             - name: "Advantages over GitLab"
