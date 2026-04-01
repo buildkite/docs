@@ -13,7 +13,7 @@ To complete this tutorial, you need:
 
 - A Buildkite organization using the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) with EC2 instances.
 - An [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) notification service configured in your Buildkite organization settings.
-- [Terraform](https://www.terraform.io/) installed locally.
+- [Terraform](https://www.terraform.io/) installed locally, and familiarity with using Terraform.
 - An AWS account with permissions to create [S3 buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html), [Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html), [Amazon Data Firehose delivery streams](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html), [EventBridge rules](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html), and [Glue catalog resources](https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html).
 
 ## How it works
@@ -36,7 +36,7 @@ This tutorial captures two event types:
 - **Agent [Connected](/docs/pipelines/integrations/observability/amazon-eventbridge#example-event-payloads-agent-connected)/[Disconnected](/docs/pipelines/integrations/observability/amazon-eventbridge#example-event-payloads-agent-disconnected)** events: contain agent `meta_data` such as `aws:instance-id` and `aws:instance-type`. Join these with job events on `agent.uuid` to map jobs to specific EC2 instances and their hourly rates.
 
 > 📘 Cost attribution granularity
-> This approach attributes compute cost at the queue level. Mapping queues to teams requires a lookup table based on your own stack/queue naming conventions. Individual-level attribution (who triggered the build) is not available from EventBridge events, as the creator field is not included in EventBridge payloads. For individual attribution, the [OpenTelemetry integration](/docs/pipelines/integrations/observability/opentelemetry) may be a better fit, since its events contain the build author.
+> This approach attributes compute cost at the queue level. Mapping queues to teams requires a lookup table based on your own Elastic CI Stack and queue naming conventions. Individual-level attribution (who triggered the build) is not available from EventBridge events, as the creator field is not included in EventBridge payloads. For individual attribution, the [OpenTelemetry integration](/docs/pipelines/integrations/observability/opentelemetry) may be a better fit, since its events contain the build author.
 
 ## Set up the infrastructure with Terraform
 
@@ -94,13 +94,6 @@ s3_bucket_name         = "your-buildkite-cost-attribution-bucket"
 
 > 📘 Finding your event bus ARN
 > The partner event bus ARN and event source are created automatically when you [configure the Amazon EventBridge integration](/docs/pipelines/integrations/observability/amazon-eventbridge#configuring) in your Buildkite organization settings.
-
-If the S3 bucket already exists, import it rather than letting Terraform create a new one:
-
-```bash
-terraform import aws_s3_bucket.events your-bucket-name
-terraform import aws_s3_bucket_public_access_block.events your-bucket-name
-```
 
 ### Create the Lambda transformer
 
@@ -474,6 +467,15 @@ resource "aws_athena_workgroup" "buildkite" {
 }
 ```
 
+### Import existing resources
+
+If your S3 bucket already exists, import it rather than letting Terraform create a new one:
+
+```bash
+terraform import aws_s3_bucket.events your-bucket-name
+terraform import aws_s3_bucket_public_access_block.events your-bucket-name
+```
+
 ### Apply the configuration
 
 Initialize and apply the Terraform configuration:
@@ -509,7 +511,7 @@ GROUP BY detailtype
 
 ### Calculate job compute cost per pipeline and queue
 
-The following query joins job events with agent lifecycle events to calculate estimated compute cost. It maps instance types to hourly rates and multiplies by job duration:
+The following query joins job events with agent lifecycle events to calculate estimated compute cost. This query maps instance types to hourly rates and multiplies by job duration:
 
 ```sql
 SELECT
@@ -573,10 +575,14 @@ ORDER BY estimated_cost_usd DESC;
 ```
 
 > 🚧 Replace the hourly rates
-> The `CASE` statement in this query uses example EC2 on-demand pricing. Replace these values with your actual rates, including any reserved instance or spot pricing you use.
+> The `CASE` statement in this query uses example EC2 on-demand pricing (for example, `... THEN 0.0104`). Replace these values with your actual rates, including any reserved instance or spot pricing you use.
+
+Example output:
+
+<%= image "query-output.png", width: 1820/2, height: 1344/2, alt: "Screenshot of Athena query output showing cost attribution results with columns for pipeline, queue, instance type, lifecycle, job count, total job seconds, and estimated cost in USD" %>
 
 ## Next steps
 
-- To map queues to teams, create a lookup table based on your stack and queue naming conventions, then join it with the query results.
+- To map queues to teams, create a lookup table based on your Elastic CI Stack and queue naming conventions, then join it with the query results.
 - To capture more granular cost data, consider adding [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) alongside EventBridge, which includes the build author in its events.
 - For details on available EventBridge events and their payloads, see the [Amazon EventBridge integration](/docs/pipelines/integrations/observability/amazon-eventbridge) reference.
