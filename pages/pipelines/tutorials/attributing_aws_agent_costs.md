@@ -491,7 +491,7 @@ terraform apply
 Once events start flowing (after builds run and agents connect), you can query the data using the Athena workgroup created by the Terraform configuration.
 
 > 📘 Shared S3 location
-> Both Glue tables point to the same S3 location, since all event types land together. Use `WHERE detailtype = 'Job Finished'` or `WHERE detailtype = 'Agent Connected'` in your queries to filter to the relevant events.
+> Both Glue tables point to the same S3 location, since all EventBridge event types are delivered together by a single Firehose stream to S3. Use `WHERE detailtype = 'Job Finished'` or `WHERE detailtype = 'Agent Connected'` in your queries to filter to the relevant events.
 
 ### Verify events are arriving
 
