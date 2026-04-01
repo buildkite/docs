@@ -381,7 +381,7 @@ func updateNavYml(path string, commands []topLevelCommand) error {
 		}
 	}
 	if markerIdx == -1 {
-		return fmt.Errorf("could not find auto-generated comment marker in nav.yml;\nadd this line after the Overview entry under 'Command-line reference':\n            %s", navComment)
+		return fmt.Errorf("could not find auto-generated comment marker in nav.yml;\nadd this line inside the 'Command-line reference' children block, between the Overview entry and the first command entry:\n            %s", navComment)
 	}
 
 	// Consume existing command entries after the marker (pairs of name + path lines)
