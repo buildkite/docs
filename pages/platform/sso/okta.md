@@ -63,4 +63,4 @@ Resolve common issues with using Okta and Buildkite.
 
 If you notice a user's permissions changing unexpectedly and have SSO set up with Okta, it's likely because permissions are overwritten at login. When a user logs in to their Buildkite account through Okta, Okta sends the user attributes, and Buildkite updates the user's permissions to match.
 
-For example, consider a situation where you grant a user admin permission in Buildkite but not in Okta. When they next log in, they lose admin permission because Buildkite updates the user's permissions to match the attributes sent from Okta.
+For example, consider a situation where you grant a user admin permission in Buildkite (for example, Buildkite organization administrator permissions) but not in Okta. When the user next logs in, they lose this admin permission because Buildkite updates the user's permissions to match the attributes sent from Okta.
