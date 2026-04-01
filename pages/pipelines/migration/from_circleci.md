@@ -74,7 +74,6 @@ This table outlines the fundamental differences in pipeline files and their synt
 | Pipeline aspect | CircleCI | Buildkite Pipelines |
 |-----------------|----------|---------------------|
 | **Configuration file** | `.circleci/config.yml` | `pipeline.yml` (typically in `.buildkite/`) |
-| **Syntax** | YAML with CircleCI-specific keys | YAML |
 | **Reusable logic** | Orbs, commands, executors | [Plugins](https://buildkite.com/resources/plugins/), YAML aliases, scripts |
 | **Triggers** | Defined in config file or API | Configured in the web interface or API |
 
@@ -614,7 +613,6 @@ For larger deployments, these differences become more significant:
 
 - The fresh workspace model avoids state leakage between builds.
 - The pull-based agent model simplifies scaling and security.
-- Pipeline-specific plugin versioning eliminates dependency conflicts.
 
 Be aware of common pipeline-translation mistakes, which might include:
 
