@@ -18,13 +18,31 @@ The Audit Log contains two tabs:
 
 - **Events** - lists all the events that take place within your Buildkite organization. Learn more about which events are logged in [Logged events](#logged-events).
 
-    <%= image "organization-activity.png", width: 1752/2, height: 1356/2, alt: "Organization activity in Audit Log" %>
+    <%= image "audit-log-event-search.png", width: 1752/2, height: 1356/2, alt: "Events tab with search bar in Audit Log" %>
 
 - **Query & Export** - allows you to query and export your Buildkite organization's audit log using [GraphQL API](/docs/graphql-api).
 
     <%= image "query-and-export.png", width: 1752/2, height: 1250/2, alt: "Query and export of Audit Log" %>
 
 The following GraphQL `Audit Event` types are available and you can find more details about them in the [GraphQL explorer](/docs/apis/graphql-api#getting-started).
+
+## Searching events
+
+The **Events** tab has a search bar to filter events by type. The search supports the following syntax:
+
+- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`.
+- Use `-type:EVENT_TYPE` to exclude events of a specific type. For example: `-type:SECRET_READ`.
+- Combine multiple space-separated terms to search for more than one event type. Positive `type:` filters use **OR** logic (matching any of the specified types), while negative `-type:` filters use **AND-NOT** logic (excluding all specified types).
+
+For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns events where the type is either `TEAM_CREATED` or `TEAM_DELETED`, but not `TEAM_UPDATED`.
+
+The search has the following constraints:
+
+- Maximum of three unique terms (positive and negative combined).
+- Maximum of 250 characters for the query string.
+- Only events from the last 90 days are returned.
+
+The available event type names are listed in [Logged events](#logged-events) below.
 
 ## Logged events
 
