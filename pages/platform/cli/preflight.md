@@ -43,7 +43,7 @@ bk version
 Upgrade via Homebrew:
 
 ```bash
-brew upgrade buildkite/buildkite/bk
+brew upgrade buildkite/buildkite/bk@3
 ```
 
 Or with mise:
