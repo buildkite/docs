@@ -514,68 +514,62 @@ GROUP BY detailtype
 The following query joins job events with agent lifecycle events to calculate estimated compute cost. This query maps instance types to hourly rates and multiplies by job duration:
 
 ```sql
-SELECT
+WITH job_agent AS (
+  SELECT
     j.detail.pipeline.slug AS pipeline,
-    TRY(
-      split(
-        filter(a.detail.agent.meta_data, m -> m LIKE 'queue=%')[1],
-        '='
-      )[2]
-    ) AS queue,
-    TRY(
-      split(
-        filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1],
-        '='
-      )[2]
-    ) AS instance_type,
-    TRY(
-      split(
-        filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-life-cycle=%')[1],
-        '='
-      )[2]
-    ) AS lifecycle,
-    COUNT(DISTINCT j.detail.job.uuid) AS job_count,
+    j.detail.job.uuid AS job_uuid,
+    j.detail.job.started_at AS started_at,
+    j.detail.job.finished_at AS finished_at,
+    TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'queue=%')[1], '=')[2])
+      AS queue,
+    TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2])
+      AS instance_type,
+    TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-life-cycle=%')[1], '=')[2])
+      AS lifecycle
+  FROM buildkite.buildkite_job_finished j
+  JOIN buildkite.buildkite_agent_lifecycle a
+    ON j.detail.agent.uuid = a.detail.agent.uuid
+  WHERE j.detailtype = 'Job Finished'
+    AND a.detailtype = 'Agent Connected'
+    AND j.detail.job.passed = true
+)
+
+SELECT
+    pipeline,
+    queue,
+    instance_type,
+    lifecycle,
+    COUNT(DISTINCT job_uuid) AS job_count,
     SUM(
-      date_diff(
-        'second',
-        parse_datetime(j.detail.job.started_at, 'yyyy-MM-dd HH:mm:ss z'),
-        parse_datetime(j.detail.job.finished_at, 'yyyy-MM-dd HH:mm:ss z')
+      date_diff('second',
+        parse_datetime(started_at, 'yyyy-MM-dd HH:mm:ss z'),
+        parse_datetime(finished_at, 'yyyy-MM-dd HH:mm:ss z')
       )
     ) AS total_job_seconds,
     ROUND(
       SUM(
-        date_diff(
-          'second',
-          parse_datetime(j.detail.job.started_at, 'yyyy-MM-dd HH:mm:ss z'),
-          parse_datetime(j.detail.job.finished_at, 'yyyy-MM-dd HH:mm:ss z')
+        date_diff('second',
+          parse_datetime(started_at, 'yyyy-MM-dd HH:mm:ss z'),
+          parse_datetime(finished_at, 'yyyy-MM-dd HH:mm:ss z')
         )
       ) / 3600.0
-      * CASE
-          WHEN TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2]) = 't3.micro'  THEN 0.0104
-          WHEN TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2]) = 't3.small'  THEN 0.0208
-          WHEN TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2]) = 't3.medium' THEN 0.0416
-          WHEN TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2]) = 'm5.large'  THEN 0.096
-          WHEN TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2]) = 'm5.xlarge' THEN 0.192
+      * CASE instance_type
+          WHEN 't3.micro'  THEN 0.0104
+          WHEN 't3.small'  THEN 0.0208
+          WHEN 't3.medium' THEN 0.0416
+          WHEN 'm5.large'  THEN 0.096
+          WHEN 'm5.xlarge' THEN 0.192
           ELSE 0
         END,
       6
     ) AS estimated_cost_usd
-FROM buildkite.buildkite_job_finished j
-JOIN buildkite.buildkite_agent_lifecycle a
-  ON j.detail.agent.uuid = a.detail.agent.uuid
-WHERE j.detailtype = 'Job Finished'
-  AND a.detailtype = 'Agent Connected'
-  AND j.detail.job.passed = true
-GROUP BY
-    j.detail.pipeline.slug,
-    TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'queue=%')[1], '=')[2]),
-    TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-type=%')[1], '=')[2]),
-    TRY(split(filter(a.detail.agent.meta_data, m -> m LIKE 'aws:instance-life-cycle=%')[1], '=')[2])
+FROM job_agent
+GROUP BY pipeline, queue, instance_type, lifecycle
 ORDER BY estimated_cost_usd DESC;
 ```
 
 > 🚧 Replace the hourly rates
-> The `CASE` statement in this query uses example EC2 on-demand pricing (for example, `... THEN 0.0104`). Replace these values with your actual rates, including any reserved instance or spot pricing you use.
+> The `CASE` statement in this query uses example EC2 on-demand pricing (for example, `... THEN 0.0104`). Replace these values with your actual rates, including any reserved instance or spot pricing you use. Jobs running on instance types not listed in the `CASE` statement will show `0` for estimated cost.
 
 Example output:
 
@@ -584,5 +578,6 @@ Example output:
 ## Next steps
 
 - To map queues to teams, create a lookup table based on your Elastic CI Stack and queue naming conventions, then join it with the query results.
+- For a production implementation, consider moving field extraction upstream so that values like queue, instance type, and lifecycle are written as top-level columns during ingestion rather than parsed from nested JSON at query time.
 - To capture more granular cost data, consider adding [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) alongside EventBridge, which includes the build author in its events.
 - For details on available EventBridge events and their payloads, see the [Amazon EventBridge integration](/docs/pipelines/integrations/observability/amazon-eventbridge) reference.
