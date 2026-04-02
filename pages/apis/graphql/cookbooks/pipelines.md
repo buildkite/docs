@@ -131,7 +131,8 @@ query {
 
 Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
 
-**Note:** Pipeline slugs are modifiable and can change
+> 📘
+> While you can change a pipeline's name, and therefore slug, over time, the pipeline's UUID is permanent. Use the UUID when you need a way to reference a pipeline whose name might change.
 
 ```graphql
 query GetPipelineUUID {
@@ -150,7 +151,7 @@ query GetPipelineUUID {
 
 ## Get a pipeline's information
 
-You can get specific pipeline information for each of your pipeline. You can retrieve information for each build, jobs, and any other information listed on [this](/docs/apis/graphql/schemas/object/pipeline) page.
+You can get specific pipeline information for each of your pipelines. You can retrieve information for each build, job, and any other information listed on the [Pipeline object](/docs/apis/graphql/schemas/object/pipeline) page.
 
 ```graphql
 query GetPipelineInfo {

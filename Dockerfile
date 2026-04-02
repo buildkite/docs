@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.2-slim-bookworm@sha256:5ecc25c47ed7b9c75c24fb81fe92b474e4aae42742bca2845b69b22ee5632e2e
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:d8e448a56fc63242f70026718378bd4b00f8c82e78d20eefb199224a4d8e33d8
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:06e5c9f86bfa0aaa7163cf37a5eaa8805f16b9acb48e3f85645b09d459fc2a9f
 
 FROM $BASE_IMAGE AS builder
 
@@ -76,6 +76,10 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 
 FROM $BASE_IMAGE AS runtime
 
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 ARG RAILS_ENV
@@ -88,7 +92,6 @@ ENV DD_RUM_ENV=${DD_RUM_ENV}
 ENV DD_RUM_VERSION=${DD_RUM_VERSION}
 ENV DD_RUM_ENABLED=true
 ENV RAILS_SERVE_STATIC_FILES=true
-ENV SEGMENT_TRACKING_ID=q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm
 ENV SECRET_KEY_BASE=xxx
 
 COPY . /app
