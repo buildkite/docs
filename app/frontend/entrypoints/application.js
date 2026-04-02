@@ -48,10 +48,10 @@ function getCurrentSection() {
 const relatedSections = {
   "package-registries": ["pipelines", "platform"],
   "test-engine": ["pipelines", "agent"],
-  "pipelines": ["agent", "platform"],
-  "agent": ["pipelines", "platform"],
-  "platform": ["pipelines", "agent"],
-  "apis": ["pipelines", "platform"],
+  pipelines: ["agent", "platform"],
+  agent: ["pipelines", "platform"],
+  platform: ["pipelines", "agent"],
+  apis: ["pipelines", "platform"],
 };
 
 function render() {
