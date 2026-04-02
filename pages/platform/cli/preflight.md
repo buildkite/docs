@@ -34,8 +34,6 @@ You'll need:
 
 ## Install or upgrade the Buildkite CLI
 
-<%= render_markdown partial: 'platform/cli/installation' %>
-
 To check your current version:
 
 ```bash
