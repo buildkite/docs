@@ -16,7 +16,7 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
   </tr>
   <tr>
     <th><code>style</code></th>
-    <td>The style of the annotation. Can be `success`, `info`, `warning` or `error`.</td>
+    <td>The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code>, or <code>error</code>.</td>
   </tr>
   <tr>
     <th><code>scope</code></th>
@@ -130,12 +130,12 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>style</code></th>
-    <td>The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code> or <code>error</code>.
+    <td>The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code>, or <code>error</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"info"</code></p></td>
   </tr>
   <tr>
     <th><code>priority</code></th>
-    <td>The priority of the annotation (`1` to `10`). Annotations with a priority of `10` are shown first, while annotations with a priority of `1` are shown last. When this option is not specified, annotations have a default priority of `3`.
+    <td>The priority of the annotation (<code>1</code> to <code>10</code>). Annotations with a priority of <code>10</code> are shown first, while annotations with a priority of <code>1</code> are shown last. When this option is not specified, annotations have a default priority of <code>3</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>5</code></p></td>
   </tr>
   <tr>
@@ -242,12 +242,12 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>style</code></th>
-    <td>The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code> or <code>error</code>.
+    <td>The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code>, or <code>error</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"info"</code></p></td>
   </tr>
   <tr>
     <th><code>priority</code></th>
-    <td>The priority of the annotation (`1` to `10`). Annotations with a priority of `10` are shown first, while annotations with a priority of `1` are shown last. When this option is not specified, annotations have a default priority of `3`.
+    <td>The priority of the annotation (<code>1</code> to <code>10</code>). Annotations with a priority of <code>10</code> are shown first, while annotations with a priority of <code>1</code> are shown last. When this option is not specified, annotations have a default priority of <code>3</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>5</code></p></td>
   </tr>
   <tr>
