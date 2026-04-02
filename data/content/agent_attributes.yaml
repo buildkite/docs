@@ -9,6 +9,46 @@
 # agent CLI help in https://github.com/buildkite/agent and run the generation
 # script.
 attributes:
+  - name: "no-color"
+    env_var: |
+      $BUILDKITE_AGENT_NO_COLOR
+    default_value: |
+      false
+    required: false
+    desc: |
+      Don't show colors in logging
+  - name: "debug"
+    env_var: |
+      $BUILDKITE_AGENT_DEBUG
+    default_value: |
+      false
+    required: false
+    desc: |
+      Enable debug mode. Synonym for ′--log-level debug′. Takes precedence over ′--log-level′
+  - name: "log-level"
+    env_var: |
+      $BUILDKITE_AGENT_LOG_LEVEL
+    default_value: |
+      "notice"
+    required: false
+    desc: |
+      Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal
+  - name: "experiment"
+    env_var: |
+      $BUILDKITE_AGENT_EXPERIMENT
+    default_value: |
+
+    required: false
+    desc: |
+      Enable experimental features within the buildkite-agent
+  - name: "profile"
+    env_var: |
+      $BUILDKITE_AGENT_PROFILE
+    default_value: |
+
+    required: false
+    desc: |
+      Enable a profiling mode, either cpu, memory, mutex or block
   - name: "name"
     env_var: |
       $BUILDKITE_AGENT_NAME
@@ -33,11 +73,19 @@ attributes:
     required: false
     desc: |
       Start this agent and only run the specified job, disconnecting after it's finished
+  - name: "reflect-exit-status"
+    env_var: |
+      $BUILDKITE_AGENT_REFLECT_EXIT_STATUS
+    default_value: |
+      false
+    required: false
+    desc: |
+      When used with --acquire-job, causes the agent to exit with the same exit status as the job
   - name: "disconnect-after-job"
     env_var: |
       $BUILDKITE_AGENT_DISCONNECT_AFTER_JOB
     default_value: |
-
+      false
     required: false
     desc: |
       Disconnect the agent after running exactly one job. When used in conjunction with the ′--spawn′ flag, each worker booted will run exactly one job
@@ -49,6 +97,14 @@ attributes:
     required: false
     desc: |
       The maximum idle time in seconds to wait for a job before disconnecting. The default of 0 means no timeout
+  - name: "disconnect-after-uptime"
+    env_var: |
+      $BUILDKITE_AGENT_DISCONNECT_AFTER_UPTIME
+    default_value: |
+      0
+    required: false
+    desc: |
+      The maximum uptime in seconds before the agent stops accepting new jobs and shuts down after any running jobs complete. The default of 0 means no timeout
   - name: "cancel-grace-period"
     env_var: |
       $BUILDKITE_CANCEL_GRACE_PERIOD
@@ -61,7 +117,7 @@ attributes:
     env_var: |
       $BUILDKITE_ENABLE_JOB_LOG_TMPFILE
     default_value: |
-
+      false
     required: false
     desc: |
       Store the job logs in a temporary file ′BUILDKITE_JOB_LOG_TMPFILE′ that is accessible during the job and removed at the end of the job
@@ -77,10 +133,10 @@ attributes:
     env_var: |
       $BUILDKITE_WRITE_JOB_LOGS_TO_STDOUT
     default_value: |
-
+      false
     required: false
     desc: |
-      Writes job logs to the agent process' stdout. This simplifies log collection if running agents in Docker.
+      Writes job logs to the agent process' stdout. This simplifies log collection if running agents in Docker
   - name: "shell"
     env_var: |
       $BUILDKITE_SHELL
@@ -109,7 +165,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_HOST
     default_value: |
-
+      false
     required: false
     desc: |
       Include tags from the host (hostname, machine-id, os)
@@ -133,7 +189,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS
     default_value: |
-
+      false
     required: false
     desc: |
       Include the host's EC2 tags as tags
@@ -141,7 +197,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_ECS_META_DATA
     default_value: |
-
+      false
     required: false
     desc: |
       Include the host's ECS meta-data as tags (container-name, image, and task-arn)
@@ -165,7 +221,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_GCP_LABELS
     default_value: |
-
+      false
     required: false
     desc: |
       Include the host's Google Cloud instance labels as tags
@@ -201,6 +257,14 @@ attributes:
     required: false
     desc: |
       The amount of time to wait for labels from GCP before proceeding
+  - name: "skip-checkout"
+    env_var: |
+      $BUILDKITE_SKIP_CHECKOUT
+    default_value: |
+
+    required: false
+    desc: |
+      Skip the git checkout phase entirely
   - name: "git-checkout-flags"
     env_var: |
       $BUILDKITE_GIT_CHECKOUT_FLAGS
@@ -216,7 +280,7 @@ attributes:
       "-v"
     required: false
     desc: |
-      Flags to pass to the "git clone" command
+      Flags to pass to "git clone" command
   - name: "git-clean-flags"
     env_var: |
       $BUILDKITE_GIT_CLEAN_FLAGS
@@ -240,7 +304,7 @@ attributes:
       "-v"
     required: false
     desc: |
-      Flags to pass to the "git clone" command when used for mirroring
+      Flags to pass to "git clone" command when mirroring
   - name: "git-mirrors-path"
     env_var: |
       $BUILDKITE_GIT_MIRRORS_PATH
@@ -249,6 +313,14 @@ attributes:
     required: false
     desc: |
       Path to where mirrors of git repositories are stored
+  - name: "git-mirror-checkout-mode"
+    env_var: |
+      dissociate reference
+    default_value: |
+      "reference"
+    required: false
+    desc: |
+      Changes how clones of a mirror are made; available modes are [dissociate reference]. In ′dissociate′ mode, clones from a mirror uses the git clone ′--dissociate′ flag, which copies underlying objects from the mirror, making the clone robust to changes in the mirror such as garbage collection, at the expense of additional disk usage and setup time. ′reference′ mode does not pass ′--dissociate′, which causes the clone to directly use objects from the mirror, which is more fragile and can cause the clone to break under entirely normal operation of the mirror, but is slightly faster to clone and uses less disk space.
   - name: "git-mirrors-lock-timeout"
     env_var: |
       $BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
@@ -261,10 +333,26 @@ attributes:
     env_var: |
       $BUILDKITE_GIT_MIRRORS_SKIP_UPDATE
     default_value: |
-
+      false
     required: false
     desc: |
       Skip updating the Git mirror
+  - name: "git-submodule-clone-config"
+    env_var: |
+      $BUILDKITE_GIT_SUBMODULE_CLONE_CONFIG
+    default_value: |
+
+    required: false
+    desc: |
+      Comma separated key=value git config pairs applied before git submodule clone commands such as ′update --init′. If the config is needed to be applied to all git commands, supply it in a global git config file for the system that the agent runs in instead
+  - name: "git-skip-fetch-existing-commits"
+    env_var: |
+      $BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
+    default_value: |
+      false
+    required: false
+    desc: |
+      Skip git fetch if the commit already exists in the local git directory
   - name: "bootstrap-script"
     env_var: |
       $BUILDKITE_BOOTSTRAP_SCRIPT_PATH
@@ -317,7 +405,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_ANSI_TIMESTAMPS
     default_value: |
-
+      false
     required: false
     desc: |
       Do not insert ANSI timestamp codes at the start of each line of job output
@@ -325,7 +413,7 @@ attributes:
     env_var: |
       $BUILDKITE_TIMESTAMP_LINES
     default_value: |
-
+      false
     required: false
     desc: |
       Prepend timestamps on each line of job output. Has no effect unless --no-ansi-timestamps is also used
@@ -341,7 +429,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_PTY
     default_value: |
-
+      false
     required: false
     desc: |
       Do not run jobs within a pseudo terminal
@@ -349,7 +437,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_SSH_KEYSCAN
     default_value: |
-
+      false
     required: false
     desc: |
       Don't automatically run ssh-keyscan before checkout
@@ -357,7 +445,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_COMMAND_EVAL
     default_value: |
-
+      false
     required: false
     desc: |
       Don't allow this agent to run arbitrary console commands, including plugins
@@ -365,7 +453,7 @@ attributes:
     env_var: |
       $BUILDKITE_NO_PLUGINS
     default_value: |
-
+      false
     required: false
     desc: |
       Don't allow this agent to load plugins
@@ -373,15 +461,23 @@ attributes:
     env_var: |
       $BUILDKITE_NO_PLUGIN_VALIDATION
     default_value: |
-
+      true
     required: false
     desc: |
       Don't validate plugin configuration and requirements
+  - name: "plugins-always-clone-fresh"
+    env_var: |
+      $BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH
+    default_value: |
+      false
+    required: false
+    desc: |
+      Always make a new clone of plugin source, even if already present
   - name: "no-local-hooks"
     env_var: |
       $BUILDKITE_NO_LOCAL_HOOKS
     default_value: |
-
+      false
     required: false
     desc: |
       Don't allow local hooks to be run from checked out repositories
@@ -390,7 +486,7 @@ attributes:
       $BUILDKITE_NO_GIT_SUBMODULES
       $BUILDKITE_DISABLE_GIT_SUBMODULES
     default_value: |
-
+      false
     required: false
     desc: |
       Don't automatically checkout git submodules
@@ -398,7 +494,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_NO_FEATURE_REPORTING
     default_value: |
-
+      false
     required: false
     desc: |
       Disables sending a list of enabled features back to the Buildkite mothership. We use this information to measure feature usage, but if you're not comfortable sharing that information then that's totally okay :)
@@ -414,7 +510,7 @@ attributes:
     env_var: |
       $BUILDKITE_ENABLE_ENVIRONMENT_VARIABLE_ALLOWLIST
     default_value: |
-
+      false
     required: false
     desc: |
       Only run jobs where all environment variables are allowed by the allowed-environment-variables option, or have been set by Buildkite
@@ -438,7 +534,7 @@ attributes:
     env_var: |
       $BUILDKITE_METRICS_DATADOG
     default_value: |
-
+      false
     required: false
     desc: |
       Send metrics to DogStatsD for Datadog
@@ -454,7 +550,7 @@ attributes:
     env_var: |
       $BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS
     default_value: |
-
+      false
     required: false
     desc: |
       Use Datadog Distributions for Timing metrics
@@ -486,7 +582,7 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_SPAWN_WITH_PRIORITY
     default_value: |
-
+      false
     required: false
     desc: |
       Assign priorities to every spawned agent (when using --spawn or --spawn-per-cpu) equal to the agent's index
@@ -505,7 +601,7 @@ attributes:
       -1
     required: false
     desc: |
-      The number of seconds given to a subprocess to handle being sent ′cancel-signal′. After this period has elapsed, SIGKILL will be sent. Negative values are taken relative to ′cancel-grace-period′. The default is ′cancel-grace-period′ - 1.
+      The number of seconds given to a subprocess to handle being sent ′cancel-signal′. After this period has elapsed, SIGKILL will be sent. Negative values are taken relative to ′cancel-grace-period′. The default value (-1) means that the effective signal grace period is equal to ′cancel-grace-period′ minus 1.
   - name: "tracing-backend"
     env_var: |
       $BUILDKITE_TRACING_BACKEND
@@ -514,6 +610,14 @@ attributes:
     required: false
     desc: |
       Enable tracing for build jobs by specifying a backend, "datadog" or "opentelemetry"
+  - name: "tracing-propagate-traceparent"
+    env_var: |
+      $BUILDKITE_TRACING_PROPAGATE_TRACEPARENT
+    default_value: |
+      false
+    required: false
+    desc: |
+      Enable accepting traceparent context from Buildkite control plane (only supported for OpenTelemetry backend)
   - name: "tracing-service-name"
     env_var: |
       $BUILDKITE_TRACING_SERVICE_NAME
@@ -554,11 +658,19 @@ attributes:
     required: false
     desc: |
       The KMS KMS key ID, or key alias used when signing and verifying the pipeline.
+  - name: "signing-gcp-kms-key"
+    env_var: |
+      $BUILDKITE_AGENT_SIGNING_GCP_KMS_KEY
+    default_value: |
+
+    required: false
+    desc: |
+      The GCP KMS key resource name used when signing and verifying the pipeline. Format: projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*
   - name: "debug-signing"
     env_var: |
       $BUILDKITE_AGENT_DEBUG_SIGNING
     default_value: |
-
+      false
     required: false
     desc: |
       Enable debug logging for pipeline signing. This can potentially leak secrets to the logs as it prints each step in full before signing. Requires debug logging to be enabled
@@ -578,6 +690,14 @@ attributes:
     required: false
     desc: |
       A list of warning IDs to disable
+  - name: "ping-mode"
+    env_var: |
+      $BUILDKITE_AGENT_PING_MODE
+    default_value: |
+      "auto"
+    required: false
+    desc: |
+      Selects available protocols for dispatching work to this agent. One of auto (default, prefer streaming, but fall back to polling when necessary), poll-only, or stream-only.
   - name: "token"
     env_var: |
       $BUILDKITE_AGENT_TOKEN
@@ -598,15 +718,15 @@ attributes:
     env_var: |
       $BUILDKITE_NO_HTTP2
     default_value: |
-
+      false
     required: false
     desc: |
-      Disable HTTP2 when communicating with the Agent API.
+      Disable HTTP2 when communicating with the Agent API
   - name: "debug-http"
     env_var: |
       $BUILDKITE_AGENT_DEBUG_HTTP
     default_value: |
-
+      false
     required: false
     desc: |
       Enable HTTP debug mode, which dumps all request and response bodies to the log
@@ -614,55 +734,23 @@ attributes:
     env_var: |
       $BUILDKITE_AGENT_TRACE_HTTP
     default_value: |
-
+      false
     required: false
     desc: |
       Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level
-  - name: "no-color"
+  - name: "kubernetes-exec"
     env_var: |
-      $BUILDKITE_AGENT_NO_COLOR
+      $BUILDKITE_KUBERNETES_EXEC
     default_value: |
-
+      false
     required: false
     desc: |
-      Don't show colors in logging
-  - name: "debug"
-    env_var: |
-      $BUILDKITE_AGENT_DEBUG
-    default_value: |
-
-    required: false
-    desc: |
-      Enable debug mode. Synonym for ′--log-level debug′. Takes precedence over ′--log-level′
-  - name: "log-level"
-    env_var: |
-      $BUILDKITE_AGENT_LOG_LEVEL
-    default_value: |
-      "notice"
-    required: false
-    desc: |
-      Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal
-  - name: "experiment"
-    env_var: |
-      $BUILDKITE_AGENT_EXPERIMENT
-    default_value: |
-
-    required: false
-    desc: |
-      Enable experimental features within the buildkite-agent
-  - name: "profile"
-    env_var: |
-      $BUILDKITE_AGENT_PROFILE
-    default_value: |
-
-    required: false
-    desc: |
-      Enable a profiling mode, either cpu, memory, mutex or block
+      This is intended to be used only by the Buildkite k8s stack (github.com/buildkite/agent-stack-k8s); it enables a Unix socket for transporting logs and exit statuses between containers in a pod
   - name: "redacted-vars"
     env_var: |
       $BUILDKITE_REDACTED_VARS
     default_value: |
-      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING"
+      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY"
     required: false
     desc: |
       Pattern of environment variable names containing sensitive values
@@ -670,18 +758,10 @@ attributes:
     env_var: |
       $BUILDKITE_STRICT_SINGLE_HOOKS
     default_value: |
-
+      false
     required: false
     desc: |
       Enforces that only one checkout hook, and only one command hook, can be run
-  - name: "kubernetes-exec"
-    env_var: |
-      $BUILDKITE_KUBERNETES_EXEC
-    default_value: |
-
-    required: false
-    desc: |
-      This is intended to be used only by the Buildkite k8s stack (github.com/buildkite/agent-stack-k8s); it enables a Unix socket for transporting logs and exit statuses between containers in a pod
   - name: "trace-context-encoding"
     env_var: |
       $BUILDKITE_TRACE_CONTEXT_ENCODING
@@ -694,10 +774,18 @@ attributes:
     env_var: |
       $BUILDKITE_NO_MULTIPART_ARTIFACT_UPLOAD
     default_value: |
-
+      false
     required: false
     desc: |
       For Buildkite-hosted artifacts, disables the use of multipart uploads. Has no effect on uploads to other destinations such as custom cloud buckets
+  - name: "kubernetes-log-collection-grace-period"
+    env_var: |
+      $BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD
+    default_value: |
+      50s
+    required: false
+    desc: |
+      Deprecated, do not use
   - name: "tags-from-ec2"
     env_var: |
       $BUILDKITE_AGENT_TAGS_FROM_EC2
