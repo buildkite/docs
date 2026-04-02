@@ -198,7 +198,7 @@ Success response: `200 OK`
 
 ## Create an annotation on a job
 
-Creates an annotation scoped to a specific job in a build. Job-scoped annotations use the same parameters as build-scoped annotations, but the `scope` is automatically set to `job`.
+Creates an annotation scoped to a specific job in a build. Job-scoped annotations use the same parameters as build-scoped annotations. However, the `scope` is automatically set to `job`.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
