@@ -1,4 +1,4 @@
-# Triggering notifications
+# Notify
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
 
@@ -137,7 +137,7 @@ steps:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-Build-level Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Build-level Basecamp notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notify#conditional-notifications):
 
 - `build created`
 - `build started`
@@ -242,7 +242,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Build-level GitHub commit status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Build-level GitHub commit status notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notify#conditional-notifications):
 
 - `build.failing`
 - `build.finished`
@@ -349,7 +349,7 @@ buildkite-agent step update "notify.github_check.output.annotations" '[{"path":"
 
 This is particularly useful for displaying test results, code analysis findings, or other dynamic content that becomes available during the build process.
 
-Build-level GitHub check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Build-level GitHub check notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notify#conditional-notifications):
 
 - `build.finished`
 - `build.failing`
@@ -656,7 +656,7 @@ steps:
 
 ### Conditional Slack notifications
 
-You can also add [conditionals](/docs/pipelines/configure/notifications#conditional-notifications) to restrict the events on which notifications are sent:
+You can also add [conditionals](/docs/pipelines/configure/notify#conditional-notifications) to restrict the events on which notifications are sent:
 
 ```yaml
 notify:
@@ -795,7 +795,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notifications#conditional-notifications):
+Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notify#conditional-notifications):
 
 - `build created`
 - `build started`

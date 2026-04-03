@@ -630,7 +630,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 > 📘 Webhook URL
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Unlike [build states](/docs/pipelines/configure/notifications#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
+Unlike [build states](/docs/pipelines/configure/notify#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
 
 When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-step), the job object includes a `group_key` field. The value corresponds to the group step's `key` attribute, allowing you to identify which jobs belong to which logical groups in your pipeline.
 

@@ -38,7 +38,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog), [Snyk](https://snyk.io/), [Aqua Trivy](https://www.aquasec.com/products/trivy/) (also available as a [Trivy Buildkite plugin](https://buildkite.com/resources/plugins/equinixmetal-buildkite/trivy-buildkite-plugin/)), or cloud security services across your software supply chain.
 - Use [pipeline templates](/docs/pipelines/governance/templates) (a Buildkite [Enterprise](https://buildkite.com/pricing/) plan-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
 - Track dependencies using [Buildkite Annotations](/docs/agent/cli/reference/annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
-- Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notifications) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
+- Establish automated response workflows that trigger [notifications](/docs/pipelines/configure/notify) and remediation processes when [critical CVEs](https://www.cve.org/) are identified.
 
 ## Secrets management
 
