@@ -27,7 +27,7 @@ notify:
 
 ### Notify in private channels
 
-You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/add Buildkite Builds`.
+You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/invite @Buildkite Builds`.
 
 Build-level notifications:
 
