@@ -63,7 +63,7 @@ function render() {
       optionalFilters.push(`tags:${s}<score=1>`),
     );
   }
-  const searchParameters = optionalFilters.length ? { optionalFilters } : {};
+  const searchParameters = { optionalFilters, hitsPerPage: 40 };
 
   docsearch({
     container: "#search",
