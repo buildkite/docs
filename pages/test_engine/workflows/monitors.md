@@ -41,7 +41,7 @@ _Passed on retry_ refers to a test that both passes and fails on the same git co
 
 <%= image "passed-on-retry-dark.png", class: 'dark-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing multiple test results on one commit, and that a commit with a pass and a fail on the same commit is considered flaky" %>
 
-Because this monitor relies on inconsistent results on the same commit SHA, you'll need to set up automatic retries on your test pipeline. You can do this with Buildkite Pipeline's [retry jobs](/docs/pipelines/configure/step-types/command-step#retry-attributes) or by setting the [retry count environment variable](/docs/test-engine/bktec/configuring#BUILDKITE_TEST_ENGINE_RETRY_COUNT) in Buildkite Test Engine Client.
+Because this monitor relies on inconsistent results on the same commit SHA, you'll need to set up automatic retries on your test pipeline. You can do this with Buildkite Pipelines [retry jobs](/docs/pipelines/configure/retry) or by setting the [retry count environment variable](/docs/test-engine/bktec/configuring#BUILDKITE_TEST_ENGINE_RETRY_COUNT) in Buildkite Test Engine Client.
 
 The order and number of pass and fail results don't change the reportage of the passed on retry event, as long as there is at least one of each pass and fail. Other test results (for example, null, skipped, pending) are ignored in the detection of passed on retry events.
 

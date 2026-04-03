@@ -476,6 +476,8 @@
           path: "pipelines/configure/skipping"
         - name: "Build artifacts"
           path: "pipelines/configure/artifacts"
+        - name: "Retry"
+          path: "pipelines/configure/retry"
         - name: "Build timeouts"
           path: "pipelines/configure/build-timeouts"
         - name: "Pipeline tags"
