@@ -4,4 +4,8 @@ The `X-Buildkite-Signature` header contains a timestamp and an HMAC signature. T
 
 Buildkite generates the signature using HMAC-SHA256; a hash-based message authentication code [HMAC](https://en.wikipedia.org/wiki/HMAC) used with the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash function and a secret key. The webhook token value is used as the secret key. The timestamp is an integer representation of a UTC timestamp. The raw request body is the signed message.
 
+> 📘 What the timestamp represents
+> The timestamp in the `X-Buildkite-Signature` header indicates the time when the webhook HTTP request was dispatched, not the time when the underlying event occurred. Its purpose is replay-attack prevention. The timestamp is included in the HMAC so stale webhooks can be rejected.
+> For accurate event timing, use the timestamps in the webhook payload instead, such as `build.created_at`, `build.started_at`, or `build.finished_at` for builds, and `job.started_at` or `job.finished_at` for jobs. To measure end-to-end delivery latency, compare the relevant payload timestamp (for example, `build.finished_at`) against your own receipt time.
+
 The token value and header setting can be found under **Token** in your **Webhook Notification** service.
