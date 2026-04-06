@@ -23,7 +23,7 @@ Learn more about [Buildkite Pipelines architecture](/docs/pipelines/architecture
 
 The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
-While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
+While Buildkite Pipelines provides its own secrets management capabilities, you can also configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
 Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets).
 
@@ -78,7 +78,7 @@ This table outlines the fundamental differences in pipeline files and their synt
 | **Dynamic configuration** | Pipeline parameters for conditional workflows | [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) generate steps at runtime using any language |
 | **Triggers** | Defined in config file or API | Configured in the web interface or API |
 
-The YAML-based pipeline syntax of Buildkite Pipelines is simpler. Where CircleCI relies on `parameters` to conditionally include or exclude jobs and workflows, Buildkite Pipelines uses [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate the entire pipeline definition at build time using scripts written in any language. This approach provides more flexibility without the complexity of parameter declarations and conditional logic scattered throughout your configuration.
+The YAML-based pipeline syntax of Buildkite Pipelines is simpler. Where CircleCI relies on `parameters` to conditionally include or exclude jobs and workflows, Buildkite Pipelines uses dynamic pipelines to generate the entire pipeline definition at build time using scripts written in any language. This approach provides more flexibility without the complexity of parameter declarations and conditional logic scattered throughout your configuration.
 
 ### Step execution
 
@@ -451,7 +451,9 @@ This section covers translation patterns for CircleCI features not covered in th
 
 ### Environment variables
 
-CircleCI job-level `environment` maps to the `env` attribute in Buildkite Pipelines. For more information, see [environment variables](/docs/pipelines/configure/environment-variables). For pipeline-wide variables, use a top-level `env` attribute. You can also define environment variables at the agent level using [agent hooks](/docs/agent/hooks), making them available to all pipelines running on those agents. If you use the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack), you can scope agent-level variables to specific pipelines.
+CircleCI job-level `environment` maps to the `env` attribute in Buildkite Pipelines. For more information, see [environment variables](/docs/pipelines/configure/environment-variables). For pipeline-wide variables, use a top-level `env` attribute.
+
+You can also define environment variables at the agent level using [agent hooks](/docs/agent/hooks), making them available to all pipelines running on those agents. If you use the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack), you can scope agent-level variables to specific pipelines.
 
 ```yaml
 # Buildkite Pipelines
@@ -591,7 +593,7 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 | `resource_class` | `agents: { queue: "..." }` |
 | Serial groups (pipeline-number ordering) | [`priority`](/docs/pipelines/configure/step-types/command-step#priority) attribute |
 | Scheduled workflows | [Scheduled builds](/docs/pipelines/configure/scheduled-builds) |
-| Pipeline parameters (`<< pipeline.parameters.X >>`) | [Environment variables](/docs/pipelines/configure/environment-variables) (`${X}`) |
+| Pipeline parameters (`<< pipeline.parameters.X >>`) | [Environment variables](/docs/pipelines/configure/environment-variables) or [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) |
 | `setup: true` + continuation orb | `buildkite-agent pipeline upload` ([dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines)) |
 | `when: always` | `depends_on` with `allow_failure: true` |
 | `$CIRCLE_SHA1` | `$BUILDKITE_COMMIT` |
@@ -607,10 +609,7 @@ This [example pipeline translation](#translate-an-example-circleci-configuration
 - **Emoji in step labels:** Step labels support native emoji (for example, `\:test_tube\:`) for visual identification in the dashboard.
 - **Plugins replace executors and orbs:** The [Docker plugin](https://buildkite.com/resources/plugins/docker) replaces CircleCI executors, and other [plugins](https://buildkite.com/resources/plugins/) can replace orb functionality. Some orbs encapsulate significant logic, so review what each orb does and check for an equivalent plugin before replacing it with shell commands.
 
-For larger deployments, these differences become more significant:
-
-- The fresh workspace model avoids state leakage between builds.
-- The pull-based agent model simplifies scaling and security.
+For larger deployments, the pull-based agent model simplifies scaling and security, since agents connect outbound to Buildkite with no incoming firewall access required.
 
 Be aware of common pipeline-translation mistakes, which might include:
 
