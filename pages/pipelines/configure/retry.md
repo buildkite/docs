@@ -28,7 +28,7 @@ You can also see when a job has been retried and whether it was retried automati
 
 <%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
 
-In the Buildkite UI, there is a [Job Retries Report section](https://buildkite.com/organizations/~/reports/job-retries) where you can view a graphic report on jobs retried manually or automatically within the last 30 days. This can help you understand flakiness and instability across all of your pipelines.
+In the Buildkite web interface, there is a [Job Retries Report section](https://buildkite.com/organizations/~/reports/job-retries) where you can view a graphic report on jobs retried manually or automatically within the last 30 days. This can help you understand flakiness and instability across all of your pipelines.
 
 <%= image "job-retries-report.png", width: 2792/2, height: 1400/2, alt: "Information on manual and automatic job retries over the last 24 hours to 30 days" %>
 
@@ -150,9 +150,6 @@ Optional attributes:
 
 When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied. Exit statuses not matched by any rule are not retried, so you don't need to explicitly set `limit: 0` for unmatched statuses.
 
-> 📘 -1 exit status
-> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit codes](/docs/agent/lifecycle#exit-codes) for information on other such codes.
-
 ```yml
 steps:
   - label: "Tests"
@@ -165,6 +162,9 @@ steps:
           limit: 2
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘 -1 exit status
+> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See [Exit codes](/docs/agent/lifecycle#exit-codes) for information on other such codes.
 
 The following example shows a step with combined retry conditions. The first rule retries up to three times when the agent refuses the job (both the exit status and signal reason must match). The second rule retries up to two times for any other failure.
 
