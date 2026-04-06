@@ -4,7 +4,7 @@ This guide helps CircleCI users migrate to Buildkite Pipelines, covering key dif
 
 ## Understand the differences
 
-Most concepts translate directly, but there are differences to understand about the approaches.
+Most CircleCI concepts translate to Buildkite Pipelines directly, but there are still differences that need to be understood to ensure a comfortable transition from one platform to another.
 
 ### System architecture
 
@@ -15,9 +15,7 @@ Buildkite Pipelines uses a hybrid model:
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
 - [Buildkite agents](/docs/agent) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure as the [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
-This hybrid architecture means your source code and secrets stay within your own environment and are not seen by the Buildkite platform.
-
-Learn more about [Buildkite Pipelines architecture](/docs/pipelines/architecture).
+See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
 ### Security
 
@@ -29,7 +27,9 @@ Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipeli
 
 ### Pipeline configuration concepts
 
-In CircleCI, the core description of work is a _workflow_ defined in `.circleci/config.yml`, containing _jobs_ with multiple _steps_. In Buildkite Pipelines, a [_pipeline_](/docs/pipelines/glossary#pipeline) is the core description of work, typically defined in a `pipeline.yml` file (usually in `.buildkite/`).
+In CircleCI, the core description of work is a _workflow_ defined in `.circleci/config.yml`, containing _jobs_ with multiple _steps_.
+
+In Buildkite Pipelines, a [_pipeline_](/docs/pipelines/glossary#pipeline) is the core description of work, typically defined in a `pipeline.yml` file (usually in `.buildkite/`).
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
@@ -65,7 +65,7 @@ For Buildkite hosted agents, see the [Getting started](/docs/agent/buildkite-hos
 
 ## Pipeline translation fundamentals
 
-Before translating your CircleCI configuration, understand these key differences.
+Before translating your CircleCI configuration, note the key differences in pipeline syntax, step execution, artifact handling, Docker configuration, and agent targeting between CircleCI and Buildkite Pipelines.
 
 ### Files and syntax
 
@@ -133,7 +133,7 @@ Other options for sharing state between steps:
 - **External storage:** Custom solutions for complex state management.
 
 > 📘 Hosted agents cache volumes
-> If using Buildkite hosted agents, [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) provide a simpler native caching mechanism. Cache volumes are retained up to 14 days and attached on a best-effort basis.
+> If using Buildkite hosted agents, [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) provide a native caching mechanism. Cache volumes are retained up to 14 days and attached on a best-effort basis.
 
 ### Docker images and executors
 
@@ -219,7 +219,7 @@ You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tag
 
 ## Translate an example CircleCI configuration
 
-This section guides you through the process of translating a CircleCI configuration example (which builds a [Node.js](https://nodejs.org/) app) into a Buildkite pipeline. If you want to see the finished result first, skip to the [complete pipeline](#step-7-review-the-complete-pipeline) or the [refactored version with YAML aliases](#step-8-refactor-with-yaml-aliases).
+This section guides you through the process of translating a CircleCI configuration example (which builds a [Node.js](https://nodejs.org/) app) into a Buildkite pipeline. If you want to see the finished result first, skip to the [complete pipeline](/docs/pipelines/migration/from-circleci#translate-an-example-circleci-configuration-step-7-review-the-complete-pipeline) or the [refactored version with YAML aliases](/docs/pipelines/migration/from-circleci#translate-an-example-circleci-configuration-step-8-refactor-with-yaml-aliases).
 
 ### Step 1: Understand the source configuration
 
@@ -303,7 +303,7 @@ Notice the immediate differences in this pipeline syntax from CircleCI:
 
 - No `version:` declaration needed.
 - No `orbs:`, `executors:`, or `jobs:` blocks.
-- No `checkout` step—Buildkite agents check out code automatically.
+- No `checkout` step as Buildkite agents check out code automatically.
 - Emoji support in labels without plugins.
 - Key assignment for dependency references.
 
@@ -603,13 +603,14 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 
 ## Key differences and benefits of migrating to Buildkite Pipelines
 
-This [example pipeline translation](#translate-an-example-circleci-configuration) demonstrates several important advantages of the Buildkite Pipelines approach:
+Beyond the syntax differences shown in the [example pipeline translation](#translate-an-example-circleci-configuration), migrating to Buildkite Pipelines provides several architectural advantages:
 
-- **Less boilerplate:** The Buildkite pipeline doesn't require `version`, `executors`, or `jobs` blocks, and agents check out code automatically — no explicit `checkout` step needed.
-- **Emoji in step labels:** Step labels support native emoji (for example, `\:test_tube\:`) for visual identification in the dashboard.
-- **Plugins replace executors and orbs:** The [Docker plugin](https://buildkite.com/resources/plugins/docker) replaces CircleCI executors, and other [plugins](https://buildkite.com/resources/plugins/) can replace orb functionality. Some orbs encapsulate significant logic, so review what each orb does and check for an equivalent plugin before replacing it with shell commands.
+- **Hybrid architecture with infrastructure control:** Run builds on [Buildkite hosted agents](/docs/agent/buildkite-hosted), [self-hosted agents](/docs/agent/self-hosted) in your own environment, or a mix of both. Source code and secrets stay within your infrastructure, and agents connect outbound over HTTPS with no incoming firewall access required.
+- **No concurrency limits:** Scale by adding agents without platform-imposed concurrency caps. Buildkite Pipelines supports 100,000+ concurrent agents with turnkey autoscaling through the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) or [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s).
+- **Dynamic pipelines:** Instead of relying on parameters and static conditional logic, [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) generate and modify steps at runtime using any language. This is especially valuable for [monorepos](/docs/pipelines/best-practices/working-with-monorepos) and complex build graphs.
+- **Predictable pricing:** No credit-based billing or per-user charges based on commit activity. See [pricing](https://buildkite.com/pricing/) for details.
 
-For larger deployments, the pull-based agent model simplifies scaling and security, since agents connect outbound to Buildkite with no incoming firewall access required.
+For a detailed comparison, see [Advantages of migrating from CircleCI](/docs/pipelines/advantages/buildkite-vs-circleci).
 
 Be aware of common pipeline-translation mistakes, which might include:
 
