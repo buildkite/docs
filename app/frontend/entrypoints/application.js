@@ -45,12 +45,25 @@ function getCurrentSection() {
   return match ? match[1] : null;
 }
 
+const relatedSections = {
+  "package-registries": ["pipelines", "platform"],
+  "test-engine": ["pipelines", "agent"],
+  pipelines: ["agent", "platform"],
+  agent: ["pipelines", "platform"],
+  platform: ["pipelines", "agent"],
+  apis: ["pipelines", "platform"],
+};
+
 function render() {
   const section = getCurrentSection();
-  const searchParameters = {};
+  const optionalFilters = [];
   if (section) {
-    searchParameters.optionalFilters = [`tags:${section}<score=1>`];
+    optionalFilters.push(`tags:${section}<score=2>`);
+    (relatedSections[section] || []).forEach((s) =>
+      optionalFilters.push(`tags:${s}<score=1>`),
+    );
   }
+  const searchParameters = { optionalFilters, hitsPerPage: 40 };
 
   docsearch({
     container: "#search",

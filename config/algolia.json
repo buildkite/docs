@@ -2,21 +2,6 @@
   "index_name": "prod_docs",
   "start_urls": [
     {
-      "url": "https://buildkite.com/resources/plugins/",
-      "selectors_key": "plugins",
-      "tags": ["plugin"]
-    },
-    {
-      "url": "https://buildkite.com/resources/changelog/",
-      "selectors_key": "changelog",
-      "tags": ["changelog"]
-    },
-    {
-      "url": "https://buildkite.com/resources/blog/",
-      "selectors_key": "blog",
-      "tags": ["blog"]
-    },
-    {
       "url": "https://buildkite.com/docs/pipelines",
       "selectors_key": "default",
       "tags": ["docs", "pipelines"]
@@ -45,6 +30,21 @@
       "url": "https://buildkite.com/docs/apis",
       "selectors_key": "default",
       "tags": ["docs", "apis"]
+    },
+    {
+      "url": "https://buildkite.com/resources/plugins/",
+      "selectors_key": "plugins",
+      "tags": ["plugin"]
+    },
+    {
+      "url": "https://buildkite.com/resources/changelog/",
+      "selectors_key": "changelog",
+      "tags": ["changelog"]
+    },
+    {
+      "url": "https://buildkite.com/resources/blog/",
+      "selectors_key": "blog",
+      "tags": ["blog"]
     }
   ],
   "stop_urls": [
@@ -111,9 +111,9 @@
     ".Nav__section--level2"
   ],
   "custom_settings": {
-    "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"], ["k8s", "kubernetes"], ["gcp", "google cloud provider"], ["aws", "amazon web services"], ["cli", "command line interface"], ["plugin", "plug in"], ["if changed", "if_changed"], ["app", "application"], ["monorepo diff", "monorepo_diff"], ["env", "environment"], ["var", "variable"], ["llm", "large language model"], ["sla", "service level agreement"], ["mcp", "model context provider"]],
+    "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"], ["k8s", "kubernetes"], ["gcp", "google cloud provider"], ["aws", "amazon web services"], ["cli", "command line interface", "command line reference"], ["plugin", "plug in"], ["if changed", "if_changed"], ["app", "application"], ["monorepo diff", "monorepo_diff"], ["env", "environment"], ["var", "variable"], ["llm", "large language model"], ["sla", "service level agreement"], ["mcp", "model context provider"], ["otel", "opentelemetry"]],
     "ranking": ["words", "typo", "attribute", "proximity", "filters", "exact", "custom"],
     "attributesForFaceting": ["tags"],
-    "customRanking": ["desc(weight.page_rank)", "desc(weight.level)", "asc(weight.position)", "desc(importance)"]
+    "customRanking": ["desc(weight.page_rank)", "desc(importance)", "desc(weight.level)", "asc(weight.position)"]
   }
 }
