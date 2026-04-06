@@ -205,7 +205,7 @@ Optional attributes:
   <tr>
     <td><code>reason</code></td>
     <td>
-      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false.<br/>
+      A string displayed in a tooltip on the **Retry** button in Buildkite. This only appears if the <code>allowed</code> attribute is set to false.<br/>
       <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
     </td>
   </tr>
