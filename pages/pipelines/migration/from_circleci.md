@@ -75,13 +75,16 @@ This table outlines the fundamental differences in pipeline files and their synt
 |-----------------|----------|---------------------|
 | **Configuration file** | `.circleci/config.yml` | `pipeline.yml` (typically in `.buildkite/`) |
 | **Reusable logic** | Orbs, commands, executors | [Plugins](https://buildkite.com/resources/plugins/), YAML aliases, scripts |
+| **Dynamic configuration** | Pipeline parameters for conditional workflows | [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) generate steps at runtime using any language |
 | **Triggers** | Defined in config file or API | Configured in the web interface or API |
 
-The YAML-based pipeline syntax of Buildkite Pipelines is simpler. You can also generate pipeline definitions at build-time with [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
+The YAML-based pipeline syntax of Buildkite Pipelines is simpler. Where CircleCI relies on `parameters` to conditionally include or exclude jobs and workflows, Buildkite Pipelines uses [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to generate the entire pipeline definition at build time using scripts written in any language. This approach provides more flexibility without the complexity of parameter declarations and conditional logic scattered throughout your configuration.
 
 ### Step execution
 
-By default, CircleCI runs jobs within a workflow in parallel (unless you specify `requires`), while steps within a job run sequentially. Buildkite Pipelines runs all steps in parallel by default, on any available agents that can run them.
+Both CircleCI and Buildkite Pipelines run steps in parallel by default. In CircleCI, steps within a job run sequentially, but jobs within a workflow run in parallel unless you specify `requires`. In Buildkite Pipelines, all steps run in parallel unless you add explicit ordering.
+
+Each Buildkite step is fully isolated from other steps, similar to how CircleCI jobs are isolated from each other. Steps can run on different agents, with no shared filesystem or state between them.
 
 To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block).
 
@@ -216,7 +219,7 @@ You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tag
 
 ## Translate an example CircleCI configuration
 
-This section guides you through the process of translating a CircleCI configuration example (which builds a [Node.js](https://nodejs.org/) app) into a Buildkite pipeline.
+This section guides you through the process of translating a CircleCI configuration example (which builds a [Node.js](https://nodejs.org/) app) into a Buildkite pipeline. If you want to see the finished result first, skip to the [complete pipeline](#step-7-review-the-complete-pipeline) or the [refactored version with YAML aliases](#step-8-refactor-with-yaml-aliases).
 
 ### Step 1: Understand the source configuration
 
@@ -410,21 +413,20 @@ Eliminate the duplication using YAML aliases:
 ```yaml
 common:
   docker: &docker
-    plugins:
-      - docker#v5.13.0:
-          image: "node:20"
+    - docker#v5.13.0:
+        image: "node:20"
 
 steps:
   - label: "\:eslint\: Lint"
     key: lint
-    <<: *docker
+    plugins: *docker
     commands:
       - npm ci
       - npm run lint
 
   - label: "\:test_tube\: Test"
     key: test
-    <<: *docker
+    plugins: *docker
     commands:
       - npm ci
       - npm test
@@ -433,7 +435,7 @@ steps:
 
   - label: "\:wrench\: Build"
     depends_on: [lint, test]
-    <<: *docker
+    plugins: *docker
     commands:
       - npm ci
       - npm run build
@@ -441,7 +443,7 @@ steps:
       - dist/**/*
 ```
 
-The final result is shorter than the original CircleCI configuration, with no duplication and a cleaner, more readable structure.
+By anchoring the plugin array rather than the `plugins` key, individual steps can override or extend their plugin list when needed. The final result is shorter than the original CircleCI configuration, with no duplication and a cleaner, more readable structure.
 
 ## Translating common patterns
 
@@ -449,7 +451,7 @@ This section covers translation patterns for CircleCI features not covered in th
 
 ### Environment variables
 
-CircleCI job-level `environment` maps to the `env` attribute in Buildkite Pipelines. For more information, see [environment variables](/docs/pipelines/configure/environment-variables). For pipeline-wide variables, use a top-level `env` attribute:
+CircleCI job-level `environment` maps to the `env` attribute in Buildkite Pipelines. For more information, see [environment variables](/docs/pipelines/configure/environment-variables). For pipeline-wide variables, use a top-level `env` attribute. You can also define environment variables at the agent level using [agent hooks](/docs/agent/hooks), making them available to all pipelines running on those agents. If you use the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack), you can scope agent-level variables to specific pipelines.
 
 ```yaml
 # Buildkite Pipelines
@@ -517,16 +519,14 @@ steps:
           - "22"
 ```
 
-### Resource classes and parallelism
+### Parallelism
 
-CircleCI `resource_class` maps to agent queues, and `parallelism` maps to the `parallelism` attribute in Buildkite Pipelines:
+CircleCI's `parallelism` key maps to the [`parallelism` attribute](/docs/pipelines/configure/step-types/command-step#parallelism) in Buildkite Pipelines:
 
 ```yaml
 # Buildkite Pipelines
 steps:
   - label: "Test"
-    agents:
-      queue: "large"
     parallelism: 4
     command: npm test
 ```
@@ -603,11 +603,9 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 
 This [example pipeline translation](#translate-an-example-circleci-configuration) demonstrates several important advantages of the Buildkite Pipelines approach:
 
-- **Simpler pipeline configuration:** The resulting Buildkite YAML is shorter than the CircleCI configuration, with no need for `version`, `orbs`, `executors`, or `jobs` blocks.
-- **Execution model:** Buildkite Pipelines steps are parallel by default with explicit sequencing, similar to CircleCI workflow jobs but applied at the step level.
-- **No orb dependencies:** Orb commands like `node/install-packages` become simple shell commands (`npm ci`), removing a layer of abstraction and third-party dependency.
-- **Native features:** Buildkite Pipelines provides native artifact handling, build visualization, and emoji support without additional configuration.
-- **Agent flexibility:** Full control over your build environment with self-hosted agents, or use Buildkite hosted agents for a managed solution.
+- **Less boilerplate:** The Buildkite pipeline doesn't require `version`, `executors`, or `jobs` blocks, and agents check out code automatically — no explicit `checkout` step needed.
+- **Emoji in step labels:** Step labels support native emoji (for example, `\:test_tube\:`) for visual identification in the dashboard.
+- **Plugins replace executors and orbs:** The [Docker plugin](https://buildkite.com/resources/plugins/docker) replaces CircleCI executors, and other [plugins](https://buildkite.com/resources/plugins/) can replace orb functionality. Some orbs encapsulate significant logic, so review what each orb does and check for an equivalent plugin before replacing it with shell commands.
 
 For larger deployments, these differences become more significant:
 
