@@ -326,7 +326,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/links-and-images-in-log-output",                                              to: redirect("/docs/pipelines/configure/links-and-images-in-log-output")
   get "/docs/pipelines/managing-log-output",                                                         to: redirect("/docs/pipelines/configure/managing-log-output")
   get "/docs/pipelines/managing-priorities",                                                         to: redirect("/docs/pipelines/configure/workflows/job-priority")
-  get "/docs/pipelines/configure/workflows/managing-priorities",                                      to: redirect("/docs/pipelines/configure/workflows/job-priority")
+  get "/docs/pipelines/configure/workflows/managing-priorities",                                     to: redirect("/docs/pipelines/configure/workflows/job-priority")
   get "/docs/pipelines/model-providers",                                                             to: redirect("/docs/apis/model-providers")
   get "/docs/pipelines/migrate-from-jenkins",                                                        to: redirect("/docs/pipelines/migration/from-jenkins")
   get "/docs/pipelines/migration/converter",                                                         to: redirect("/docs/pipelines/converter")
