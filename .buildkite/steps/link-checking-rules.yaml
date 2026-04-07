@@ -76,7 +76,7 @@ link_checking_exemptions:
     description: |
       Exempt URLs whose response body is too large for Muffet's read buffer.
       A 404 will still be reported.
-    status_pattern: "(body size exceeds|small read buffer)"
+    status_pattern: "(body size exceeds the given limit|small read buffer)"
     url_patterns:
       - https://platform.claude.com/docs/
 
