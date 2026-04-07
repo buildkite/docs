@@ -1,6 +1,6 @@
 # Flaky tests API
 
-To retrieve flaky tests via the API, use the [list tests endpoint](/docs/apis/rest-api/test-engine/tests#list-tests) with the `label=flaky` query parameter:
+To retrieve flaky tests using the API, use the [list tests endpoint](/docs/apis/rest-api/test-engine/tests#list-tests) with the `label=flaky` query parameter:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
