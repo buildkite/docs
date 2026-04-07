@@ -500,8 +500,8 @@
           path: "pipelines/configure/example-pipelines"
         - name: "Workflows"
           children:
-            - name: "Prioritizing jobs"
-              path: "pipelines/configure/workflows/managing-priorities"
+            - name: "Job priority"
+              path: "pipelines/configure/workflows/job-priority"
             - name: "Controlling concurrency"
               path: "pipelines/configure/workflows/controlling-concurrency"
             - name: "Build matrix"
