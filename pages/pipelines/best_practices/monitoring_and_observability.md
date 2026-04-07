@@ -47,7 +47,7 @@ Establish standardized metrics collection across all pipelines to enable consist
 
 ### Set relevant alerts
 
-- Notify responsible teams for failing builds with [failure alerts](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages-conditional-slack-notifications).
+- Notify responsible teams for failing builds with [failure alerts](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications).
 - Detect bottlenecks when builds queue too long by monitoring queue depth. You can use [queue metrics (insights)](/docs/pipelines/insights/queue-metrics) for this.
 - Trigger alerts when agents go offline or degrade to monitor agent health. If individual agent health is less of a concern, then terminate an unhealthy instance and spin up a new one.
 
@@ -190,7 +190,7 @@ Buildkite pushes build, job, and agent lifecycle events to your HTTP endpoints (
 
 **Supported destinations:** Any HTTP endpoint (PagerDuty, Datadog webhook intake, custom services), or Amazon EventBridge to Lambda, SQS, or SNS.
 
-Use this approach for event-driven alerting (for example, notifying a team when a build fails), feeding CI events into incident management systems, or building custom integrations. You can also configure [pipeline-level notifications](/docs/pipelines/configure/notifications) directly in your pipeline YAML.
+Use this approach for event-driven alerting (for example, notifying a team when a build fails), feeding CI events into incident management systems, or building custom integrations. You can also configure [pipeline-level notifications](/docs/pipelines/configure/notify) directly in your pipeline YAML.
 
 ### Test-level performance metrics
 
@@ -235,7 +235,7 @@ Run [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observabili
 
 ### Build failure alerts in PagerDuty
 
-Configure a [webhook notification service](/docs/apis/webhooks) to send `build.finished` events to PagerDuty's Events API. Filter on `build.state == "failed"` in PagerDuty's event rules. You can also use [conditional notifications](/docs/pipelines/configure/notifications#conditional-notifications) in your pipeline YAML to send alerts to specific channels.
+Configure a [webhook notification service](/docs/apis/webhooks) to send `build.finished` events to PagerDuty's Events API. Filter on `build.state == "failed"` in PagerDuty's event rules. You can also use [conditional notifications](/docs/pipelines/configure/notify#conditional-notifications) in your pipeline YAML to send alerts to specific channels.
 
 ### Pipeline performance data collection
 

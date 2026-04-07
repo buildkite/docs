@@ -32,7 +32,7 @@
   "apis/graphql-api": 85,
   "pipelines/configure/dynamic-pipelines": 85,
   "pipelines/configure/step-types": 85,
-  "pipelines/configure/notifications": 85,
+  "pipelines/configure/notify": 85,
   "pipelines/configure/conditionals": 85,
   "pipelines/configure/dependencies": 85,
   "pipelines/configure/artifacts": 85,
