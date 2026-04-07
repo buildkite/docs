@@ -444,8 +444,9 @@ steps:
       - npm run build
     artifact_paths:
       - dist/**/*
+```
 
-By anchoring the plugin array rather than the `plugins` key, individual steps can override or extend their plugin list when needed. The final result is shorter than the original CircleCI configuration, with no duplication and a cleaner, more readable structure.
+By anchoring the plugin map rather than the entire `plugins` array, individual steps can override or extend their plugin list when needed. The final result is shorter than the original CircleCI configuration, with no duplication and a cleaner, more readable structure.
 
 ## Translating common patterns
 
