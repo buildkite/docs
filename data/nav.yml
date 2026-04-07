@@ -123,6 +123,8 @@
           pill: "preview"
         - name: "Triggering Pipelines Using GitHub Actions"
           path: "pipelines/tutorials/github-actions"
+        - name: "Attributing AWS agent costs"
+          path: "pipelines/tutorials/attributing-aws-agent-costs"
     - name: "Agent"
       children:
         - name: "Overview"
