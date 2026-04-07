@@ -201,6 +201,7 @@ The `client_assertion` is a JWT ([RFC 7523](https://datatracker.ietf.org/doc/htm
 
 | Claim | Value |
 |-------|-------|
+| `jti` | A unique identifier for the JWT ([RFC 7519 §4.1.7](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7)). If present, must be a non-empty string of at most 255 bytes. A UUID is a common format. After a successful token exchange, Buildkite rejects later requests that reuse the same `jti`. By default, JWTs without a `jti` are accepted. |
 | `nbf` | Not-before timestamp. If set, must not be in the future. |
 
 **Supported signing algorithms:** RS256 (RSA) and ES256 (ECDSA P-256).
@@ -223,7 +224,8 @@ The `client_assertion` is a JWT ([RFC 7523](https://datatracker.ietf.org/doc/htm
   "sub": "0123456789abcdef0123",
   "aud": "https://buildkite.com/oauth/token",
   "iat": 1710849600,
-  "exp": 1710849900
+  "exp": 1710849900,
+  "jti": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -248,6 +250,10 @@ If your application makes concurrent API calls, ensure your token cache is prote
 ### Minimize scopes
 
 Request only the [scopes](/docs/apis/managing-api-tokens#token-scopes) your application needs. Use the `scope` parameter to request a subset of the app's grantable scopes, rather than relying on the app's full default scopes.
+
+### Include a JTI claim
+
+Include a unique `jti` (JWT ID) claim in each assertion to reduce replay risk. Use a UUID or another unique value for each request. After a successful token exchange, Buildkite rejects later requests that reuse the same `jti`.
 
 ### Use short TTLs
 
@@ -275,6 +281,8 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_client` | "Invalid client assertion signature" | Check that the public key in your JWKS matches the private key used to sign the JWT |
 | `invalid_client` | "JWT `aud` claim is invalid" | Set the JWT `aud` claim to `https://buildkite.com/oauth/token` |
 | `invalid_client` | "JWT `exp` claim must be in the future" | Check your system clock for skew |
+| `invalid_client` | "JWT has already been used (jti)" | The `jti` has already been consumed. Generate a new unique `jti` for each request |
+| `invalid_client` | "JWT must contain a \`jti\` claim" | Your organization requires a `jti` claim. Add a unique `jti` (for example, a UUID) to your JWT payload |
 | `invalid_request` | "Subject user must be an active member of the organization" | Verify the email address belongs to a member of the target organization |
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
 | `invalid_target` | "Invalid audience organization" | Use the organization slug from the URL, not the display name |
