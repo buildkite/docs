@@ -16,7 +16,7 @@ Success response: `200 OK`
 > 🚧 This endpoint is deprecated
 > Use the [list tests endpoint](/docs/apis/rest-api/test-engine/tests#list-tests) with `?label=flaky` instead.
 
-The legacy flaky tests endpoint is still available but no longer recommended. It does not return the same data as the Test Engine UI.
+The legacy flaky tests endpoint is still available but no longer recommended. It does not return the same data as the Buildkite Test Engine UI.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
