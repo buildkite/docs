@@ -103,7 +103,7 @@ Yes, team maintainers can select whether a user is 'required' to use SSO or whet
 Yes, we do. Just-in-time user provisioning (JIT provisioning) creates accounts only when needed. You can grant a user access to Buildkite through your SSO provider, but their account won't be created until it's required—typically upon their first login attempt. For billing purposes, the user doesn't exist until their account is created.
 
 ### What happens if a person leaves our company?
-You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
+You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of. For Buildkite customers on an Enterprise plan, you can utilise [SCIM deprovisioning](/docs/platform/sso/okta#user-deprovisioning) to automate this removal.
 
 ### Can I use different SSO providers for my Buildkite organization at the same time?
 Yes, as an admin you need to [add and verify](/docs/platform/sso#adding-sso) a new SSO provider. Next, you need to allow login from both SSO providers in the [Organization settings](https://buildkite.com/organizations/-/sso). As long as the sign-in emails stay the same, the users in your organization can continue to sign in and use the same user accounts within Buildkite.
