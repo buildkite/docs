@@ -343,6 +343,7 @@
   platform/team-management/permissions: "Configuring user and team permissions at organization, team, pipeline, suite, and registry levels."
   platform/team-management/enforce-2fa: "Enforcing two-factor authentication for all users in a Buildkite organization."
   platform/team-management/system-banners: "Creating organization-wide announcement banners visible to all members (Enterprise plan)."
+  platform/team-management/inactive-user-list: "Identifying and managing inactive organization members using the Buildkite UI or GraphQL API."
   platform/tutorials/2fa: "Step-by-step guide to enabling two-factor authentication on your Buildkite account."
   platform/audit-log: "Viewing and exporting organization activity events in the audit log (Enterprise plan)."
   platform/emojis: "Using 300+ custom Buildkite emojis in pipelines, test suites, and registries, plus adding your own."
