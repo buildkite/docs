@@ -85,7 +85,7 @@ steps:
 
 ## Conditional notifications
 
-To trigger [Build notifications](/docs/pipelines/configure/notifications#conditional-notifications) only under certain conditions, use the same `if` syntax as in your [Steps](/docs/pipelines/configure/conditionals#conditionals-in-steps).
+To trigger [Build notifications](/docs/pipelines/configure/notify#conditional-notifications) only under certain conditions, use the same `if` syntax as in your [Steps](/docs/pipelines/configure/conditionals#conditionals-in-steps).
 
 For example, the following email notification will only be triggered if the build passes:
 
