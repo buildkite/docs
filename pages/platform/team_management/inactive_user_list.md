@@ -1,8 +1,8 @@
 # Inactive user list
 
-Buildkite organization administrators can identify inactive users within their organization. An _inactive user_ is an organization member who has not interacted with Buildkite since a specified date. This helps administrators audit their organization's membership and remove users who no longer need access.
+Buildkite organization administrators can audit inactive users within their organization using the inactive user list. An _inactive user_ is an organization member who has not interacted with Buildkite within a selected time period. This helps administrators identify and remove users who no longer need access.
 
-The inactive user list is available to all Buildkite organizations on any plan.
+The inactive user list is available to all Buildkite organizations on any [plan](https://buildkite.com/pricing).
 
 ## View inactive users
 
@@ -10,11 +10,14 @@ To view inactive users in your organization:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-1. Select **Users** to access your organization's [**Users**](https://buildkite.com/organizations/~/users) page.
+1. Select **Audit** > **User Activity Audit** to access your organization's [**User Activity Audit**](https://buildkite.com/organizations/~/user-activity-audit) page.
 
-1. Use the **Inactive since** filter to specify a date. The list updates to show only organization members who have not been active since that date.
+1. Select a time period to filter the list. For example, selecting **30 days** shows organization members who have not been active in the last 30 days.
 
-Each user entry displays their name, email address, and the date they were last seen.
+Each entry displays the member's name, email address, and the date they were last seen.
+
+> 📘 Last seen data
+> The inactive user list relies on each member's _last seen_ timestamp. Members who have never logged in may appear in the list with no last seen date.
 
 ## Remove inactive users
 
@@ -22,7 +25,7 @@ After identifying inactive users, you can remove them from your organization to 
 
 To remove an inactive user:
 
-1. From the **Users** page, select the user you want to remove.
+1. From the **User Activity Audit** page, select the user you want to remove.
 
 1. Select **Remove** to remove the user from your organization.
 
