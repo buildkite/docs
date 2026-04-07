@@ -6,7 +6,7 @@ The Buildkite CLI uses both the [REST](/docs/apis/rest-api) and [GraphQL](/docs/
 
 You can authenticate the Buildkite CLI using OAuth with the [`bk auth login`](/docs/platform/cli/reference/auth#login-auth) command, which opens your browser to complete the authentication flow.
 
-By default, `bk auth login` requests all available REST API scopes. The Buildkite platform enforces server-side restrictions, so the issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
+By default, `bk auth login` requests all available REST API scopes. The Buildkite platform enforces server-side restrictions. The issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
 
 To restrict the scopes requested during OAuth login, use the `--scopes` flag. For example, `--scopes "read_only"` requests only read access. You can also combine scope groups with individual scopes, such as `--scopes "read_only write_builds"`. Learn more about available scopes in [Token scopes](/docs/apis/managing-api-tokens#token-scopes).
 
