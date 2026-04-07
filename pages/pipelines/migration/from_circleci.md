@@ -23,7 +23,7 @@ The hybrid architecture of Buildkite Pipelines provides a unique approach to sec
 
 While Buildkite Pipelines provides its own secrets management capabilities, you can also configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
-Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets).
+Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) in Buildkite Pipelines.
 
 ### Pipeline configuration concepts
 
