@@ -24,7 +24,7 @@ If you retry a job, the information about the failed job(s) remains, and a new j
 
 <%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
 
-You can also see when a job has been retried and whether it was retried automatically or by a user. Such jobs are hidden by default — you can expand and view all the hidden retried jobs.
+You can also see when a job has been retried and whether it was retried automatically or by a user. Such jobs are hidden by default—you can expand and view all the hidden retried jobs.
 
 <%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
 
