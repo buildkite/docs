@@ -123,6 +123,8 @@
           pill: "preview"
         - name: "Triggering Pipelines Using GitHub Actions"
           path: "pipelines/tutorials/github-actions"
+        - name: "Attributing AWS agent costs"
+          path: "pipelines/tutorials/attributing-aws-agent-costs"
     - name: "Agent"
       children:
         - name: "Overview"
@@ -498,8 +500,8 @@
           path: "pipelines/configure/example-pipelines"
         - name: "Workflows"
           children:
-            - name: "Prioritizing jobs"
-              path: "pipelines/configure/workflows/managing-priorities"
+            - name: "Job priority"
+              path: "pipelines/configure/workflows/job-priority"
             - name: "Controlling concurrency"
               path: "pipelines/configure/workflows/controlling-concurrency"
             - name: "Build matrix"
