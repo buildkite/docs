@@ -64,7 +64,7 @@ Error responses:
 
 ## Reprioritize a job
 
-Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/managing-priorities). This affects the order in which jobs are picked up by agents.
+Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/job-priority). This affects the order in which jobs are picked up by agents.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

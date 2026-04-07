@@ -207,7 +207,7 @@ Optional attributes:
   <tr>
     <td><code>priority</code></td>
     <td>
-      Adjust the <a href="/docs/pipelines/configure/workflows/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br/>
+      Adjust the <a href="/docs/pipelines/configure/workflows/job-priority">priority</a> for a specific job, as a positive or negative integer.<br/>
       <em>Example:</em><br/>
       <code>- command: "will-run-first.sh"<br/>
       &nbsp;&nbsp;priority: 1</code>

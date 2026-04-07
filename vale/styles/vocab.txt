@@ -27,6 +27,7 @@ ARNs
 argumentless
 Artifactory
 Artifactory's
+Athena
 Atlassian
 auditability
 Authy
@@ -164,6 +165,7 @@ fastlane's
 favorited
 fff
 ffxdq
+Firehose
 Firewalled
 firewalled
 Flexbox
@@ -235,6 +237,7 @@ kubeconfig
 kubectl
 kubelet
 kustomize
+Kinesis
 Kuzco
 launchd
 LFS
@@ -499,6 +502,7 @@ webtask
 wget
 whoami
 Windsurf's
+workgroup
 worktree
 worktrees
 workspace's
