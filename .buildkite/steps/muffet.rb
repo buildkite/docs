@@ -69,7 +69,7 @@ muffet_cmd = [
   '--header="User-Agent: Muffet/$(/muffet --version)"',
   '--max-connections=10',
   '--timeout=15',
-  '--buffer-size=16384',
+  '--buffer-size=32768',
   '--format=json',
   # Capture successes as well as failures
   '--verbose',
