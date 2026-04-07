@@ -551,7 +551,7 @@ For pipeline-wide branch restrictions that prevent builds from being created ent
 
 ### Scheduled workflows
 
-CircleCI supports scheduled pipelines configured through the CircleCI UI, API, or the legacy `triggers:` key in YAML. In Buildkite Pipelines, [scheduled builds](/docs/pipelines/configure/scheduled-builds) are configured in the Buildkite UI under your pipeline's **Settings** > **Schedules**.
+CircleCI supports scheduled pipelines configured through the CircleCI UI, API, or the legacy `triggers:` key in YAML. In Buildkite Pipelines, [scheduled builds](/docs/pipelines/configure/workflows/scheduled-builds) are configured in the Buildkite UI under your pipeline's **Settings** > **Schedules**.
 
 ### Dynamic configuration
 
@@ -595,7 +595,7 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 | Contexts | [Cluster secrets](/docs/pipelines/security/secrets) and `env` |
 | `resource_class` | `agents: { queue: "..." }` |
 | Serial groups (pipeline-number ordering) | [`priority`](/docs/pipelines/configure/step-types/command-step#priority) attribute |
-| Scheduled workflows | [Scheduled builds](/docs/pipelines/configure/scheduled-builds) |
+| Scheduled workflows | [Scheduled builds](/docs/pipelines/configure/workflows/scheduled-builds) |
 | Pipeline parameters (`<< pipeline.parameters.X >>`) | [Environment variables](/docs/pipelines/configure/environment-variables) or [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) |
 | `setup: true` + continuation orb | `buildkite-agent pipeline upload` ([dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines)) |
 | `when: always` | `depends_on` with `allow_failure: true` |
