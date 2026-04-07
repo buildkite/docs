@@ -25,7 +25,7 @@ You can export the current filtered list of inactive users to a CSV file by sele
 
 ## Remove inactive users
 
-After identifying inactive users, you can remove them from your organization to maintain a clean membership list. Removing a user from the organization does not delete their Buildkite user account, and the user's builds will not be deleted.
+After identifying inactive users, you can remove them from your organization to maintain a clean membership list. Removing a user from the organization does not delete their user account, and builds created by the user will not be deleted.
 
 To remove inactive users:
 
