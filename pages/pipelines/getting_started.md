@@ -8,6 +8,8 @@ keywords: docs, pipelines, tutorials, getting started
 
 This getting started page is a tutorial that helps you understand Pipelines' fundamentals, by guiding you through the creation of a pipeline to automate builds of an example project, which you could use as a starting point to build your own project, or, if your have some familiarity with Buildkite, your own project.
 
+https://platform.claude.com/docs/en/api/blahblahblah
+
 ## Before you start
 
 <%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
