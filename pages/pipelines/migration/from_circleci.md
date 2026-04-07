@@ -413,20 +413,22 @@ Eliminate the duplication using YAML aliases:
 ```yaml
 common:
   docker: &docker
-    - docker#v5.13.0:
-        image: "node:20"
+    docker#v5.13.0:
+      image: "node:20"
 
 steps:
   - label: "\:eslint\: Lint"
     key: lint
-    plugins: *docker
+    plugins:
+      - *docker
     commands:
       - npm ci
       - npm run lint
 
   - label: "\:test_tube\: Test"
     key: test
-    plugins: *docker
+    plugins:
+      - *docker
     commands:
       - npm ci
       - npm test
@@ -435,13 +437,13 @@ steps:
 
   - label: "\:wrench\: Build"
     depends_on: [lint, test]
-    plugins: *docker
+    plugins:
+      - *docker
     commands:
       - npm ci
       - npm run build
     artifact_paths:
       - dist/**/*
-```
 
 By anchoring the plugin array rather than the `plugins` key, individual steps can override or extend their plugin list when needed. The final result is shorter than the original CircleCI configuration, with no duplication and a cleaner, more readable structure.
 
