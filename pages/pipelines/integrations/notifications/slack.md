@@ -41,7 +41,7 @@ Once your Slack notification services have been configured, notifications will a
 The **Choose notifications to send > When a build passes > After a failure ("Fixed")** option ensures you're notified when a build next passes after the selected **When a build is** states.
 
 > 🚧
-> If you're also using the [`notify` YAML attribute](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages) in your pipelines for more fine grained control over your Slack notifications, ensure you've selected the **Only Some Pipelines...** option, and have excluded these pipelines from receiving the automatic notifications (that is, leave these pipelines' checkboxes clear).
+> If you're also using the [`notify` YAML attribute](/docs/pipelines/configure/notify#slack-channel-and-direct-messages) in your pipelines for more fine grained control over your Slack notifications, ensure you've selected the **Only Some Pipelines...** option, and have excluded these pipelines from receiving the automatic notifications (that is, leave these pipelines' checkboxes clear).
 
 ## Changing channels and users
 
@@ -51,7 +51,7 @@ Once a Slack notification service has been [added](#adding-a-notification-servic
 
 By default, notifications are sent to all configured Slack channels. For more control over when each channel receives notifications, use the `notify` YAML attribute in your `pipeline.yml` file.
 
-See the [Slack channel message](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
+See the [Slack channel message](/docs/pipelines/configure/notify#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 ## Upgrading a legacy Slack service
 

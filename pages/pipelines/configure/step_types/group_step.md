@@ -98,7 +98,7 @@ Optional attributes:
   <tr>
     <td><code>notify</code></td>
     <td>
-      Allows you to <a href="/docs/pipelines/configure/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br/>
+      Allows you to <a href="/docs/pipelines/configure/notify">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br/>
       <em>Example:</em> <code>"github_commit_status:"</code><br/>
     </td>
   </tr>

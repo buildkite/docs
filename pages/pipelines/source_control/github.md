@@ -157,7 +157,7 @@ Your checks will appear on your pull request as **buildkite/your-pipeline-name**
 
 <%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
 
-You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notifications) attribute in your `pipeline.yml`.
+You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
 
 ### Build level
 
