@@ -55,7 +55,7 @@ Token scopes are also available to OAuth access tokens, which are issued by the 
 
 ### CLI OAuth token scopes
 
-When you authenticate with `bk auth login`, the [Buildkite CLI](/docs/platform/cli) requests all available REST API scopes by default. The Buildkite platform enforces server-side restrictions, so the issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
+When you authenticate with `bk auth login`, the [Buildkite CLI](/docs/platform/cli) requests all available REST API scopes by default. The Buildkite platform enforces server-side restrictions. The issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
 
 To restrict the scopes requested during OAuth login, use the `--scopes` flag:
 
