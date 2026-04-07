@@ -6,9 +6,11 @@ keywords: docs, pipelines, tutorials, getting started
 
 👋 Welcome to Buildkite Pipelines! You can use Pipelines to build your dream CI/CD workflows on a secure, scalable, and flexible platform.
 
-This getting started page is a tutorial that helps you understand the fundamentals of Buildkite Pipelines. It guides you through the creation of a pipeline to automate builds of an example project, which you could use as a starting point to build your own project, or, if you have some familiarity with Buildkite, your own project.
+This getting started page is a tutorial that helps you understand the fundamentals of Buildkite Pipelines. This tutorial guides you through the creation of a pipeline to automate builds of an example project, which you could use as a starting point to build your own project, or, if you have some familiarity with Buildkite, your own project.
 
-https://platform.claude.com/docs/en/api/blahblahblah
+- https://en.wikipedia.org/wiki/Buildkite-blah
+
+- https://en.wikipedia.org/wiki/Buildkite
 
 ## Before you start
 
