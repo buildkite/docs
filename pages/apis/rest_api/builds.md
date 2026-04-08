@@ -1361,7 +1361,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>states</code></th>
     <td>
-      Controls which failure types are retried. A comma-separated list of one or more of <code>canceled</code>, <code>expired</code>, <code>failed</code>, <code>soft_failed</code>, <code>timed_out</code>. If this property is omitted (or its value is empty), then all retryable failed jobs are retried.
+      Controls which failure types are retried. A comma-separated list of one or more of <code>canceled</code>, <code>expired</code>, <code>failed</code>, <code>soft_failed</code>, <code>timed_out</code>. If this property is omitted (or its value is empty), then all retriable failed jobs are retried.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"failed,soft_failed"</code></p>
     </td>
   </tr>
