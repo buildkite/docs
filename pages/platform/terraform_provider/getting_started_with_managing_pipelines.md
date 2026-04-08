@@ -26,7 +26,7 @@ data "buildkite_cluster" "default" {
 
 # Data source for existing team (name) to assign as the initial pipeline owner
 data "buildkite_team" "engineering" {
-  name = "Engineering"
+  slug = "engineering"
 }
 
 # Define a reusable pipeline template (through 'pipeline-templates')
@@ -213,7 +213,7 @@ Bear in mind that the Terraform identifiers for the `buildkite_pipeline` resourc
 
 # Data source for existing team (name) to assign pipeline access
 data "buildkite_team" "design_team" {
-  name = "Design team"
+  slug = "design-team"
 }
 
 ...
@@ -299,12 +299,12 @@ data "buildkite_cluster" "default" {
 
 # Data source for existing team (name) to assign as the initial pipeline owner
 data "buildkite_team" "engineering" {
-  name = "Engineering"
+  slug = "engineering"
 }
 
 # Data source for existing team (name) to assign access to pipelines
 data "buildkite_team" "design_team" {
-  name = "Design team"
+  slug = "design-team"
 }
 
 # Define a reusable pipeline template (through 'pipeline-templates')
@@ -421,6 +421,12 @@ resource "buildkite_pipeline_schedule" "nightly" {
 ## Applying the configuration
 
 Before you apply your Terraform configurations to your Buildkite organization, you may also want to manage your [clusters and queues](/docs/platform/terraform-provider/manage-clusters-and-queues), [teams](/docs/platform/terraform-provider/manage-teams) and [Buildkite organization's settings](/docs/platform/terraform-provider/manage-buildkite-organizations) in Terraform too. If you do this, ensure your `pipelines.tf` file has been modified to account for the additional resources you've configured for your cluster- and queue-related resources (`clusters.tf`) and team-related resources (`teams.tf`) before proceeding.
+
+Before applying your changes to your Buildkite organization with Terraform, it is recommended that you perform the following safeguards:
+
+- Temporarily disable pipeline deletion permissions. You can access this feature by selecting **Settings** in the global navigation > **Security** > **Pipelines** tab, and clear the **Delete Pipelines** checkbox.
+
+- If you're a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, create a child Buildkite organization to test your Terraform configuration first before applying them into production.
 
 Once your `pipelines.tf` file is completed (including `clusters.tf`, `teams.tf`, and `organization.tf` if you've configured these too), you can apply all of these configurations to your [configured Buildkite organization](/docs/platform/terraform-provider#define-the-buildkite-provider-for-your-terraform-configuration):
 
