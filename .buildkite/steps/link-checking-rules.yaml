@@ -83,3 +83,4 @@ link_checking_exemptions:
     status_pattern: ".*"
     url_patterns:
       - https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
+      - http://www.w3.org/2001/04/xmldsig-more
