@@ -165,9 +165,9 @@ To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-on
 
 ## Goose
 
-[Goose](https://block.github.io/goose/) is a local AI tool and agent that can be configured with different [LLM (AI model) providers](https://block.github.io/goose/docs/getting-started/providers).
+[Goose](https://github.com/aaif-goose/goose) is a local AI tool and agent that can be configured with different [LLM (AI model) providers](https://goose-docs.ai/docs/getting-started/providers).
 
-You can configure Goose with the remote Buildkite MCP server by adding the relevant configuration to the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+You can configure Goose with the remote Buildkite MCP server by adding the relevant configuration to the `extensions:` section of your [Goose `config.yaml` file](https://goose-docs.ai/docs/getting-started/using-extensions#config-entry).
 
 ```yaml
 extensions:

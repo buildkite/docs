@@ -195,11 +195,11 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 ## Goose
 
-You can configure your [Goose](https://block.github.io/goose/) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+You can configure your [Goose](https://github.com/aaif-goose/goose) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration the `extensions:` section of your [Goose `config.yaml` file](https://goose-docs.ai/docs/getting-started/using-extensions#config-entry).
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://goose-docs.ai/docs/getting-started/using-extensions#config-entry).
 
 ```yaml
 extensions:
@@ -222,7 +222,7 @@ extensions:
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://block.github.io/goose/docs/getting-started/using-extensions/#config-entry).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following YAML configuration the `extensions:` section of your [Goose `config.yaml` file](https://goose-docs.ai/docs/getting-started/using-extensions#config-entry).
 
 ```yaml
 extensions:

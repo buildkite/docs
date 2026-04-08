@@ -45,18 +45,25 @@ function getCurrentSection() {
   return match ? match[1] : null;
 }
 
+const relatedSections = {
+  "package-registries": ["pipelines", "platform"],
+  "test-engine": ["pipelines", "agent"],
+  pipelines: ["agent", "platform"],
+  agent: ["pipelines", "platform"],
+  platform: ["pipelines", "agent"],
+  apis: ["pipelines", "platform"],
+};
+
 function render() {
   const section = getCurrentSection();
-  const optionalFilters = [
-    "tags:docs<score=10>",
-    "tags:plugin<score=3>",
-    "tags:changelog<score=2>",
-    "tags:blog<score=1>",
-  ];
+  const optionalFilters = [];
   if (section) {
-    optionalFilters.push(`section:${section}<score=10>`);
+    optionalFilters.push(`tags:${section}<score=2>`);
+    (relatedSections[section] || []).forEach((s) =>
+      optionalFilters.push(`tags:${s}<score=1>`),
+    );
   }
-  const searchParameters = { optionalFilters };
+  const searchParameters = { optionalFilters, hitsPerPage: 40 };
 
   docsearch({
     container: "#search",

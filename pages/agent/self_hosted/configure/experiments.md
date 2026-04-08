@@ -70,6 +70,7 @@ has a different effect depending on this experiment:
 
 ### Descending spawn priority
 
+When using `--spawn` with `--spawn-with-priority`, the agent assigns ascending priorities to each spawned agent (1, 2, 3, ...). This experiment changes the priorities to be descending (-1, -2, -3, ...) instead. This helps jobs be assigned across all hosts in cases where the value of `--spawn` varies between hosts.
 
 > 🛠
 > To use this feature, set <code>experiment="descending-spawn-priority"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
@@ -113,6 +114,7 @@ a cancelled job should appear as a failure, regardless of the OS the agent is ru
 
 ### Propagate agent config vars
 
+Prepends agent configuration variables (such as `BUILDKITE_GIT_*`, `BUILDKITE_SHELL`, `BUILDKITE_CANCEL_GRACE_PERIOD`, etc.) to the environment file used by the job runner. This is useful in environments like Docker where the agent configuration is not otherwise available to the job process.
 
 > 🛠
 > To use this feature, set <code>experiment="propagate-agent-config-vars"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.

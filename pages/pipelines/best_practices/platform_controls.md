@@ -81,15 +81,15 @@ See more in [Monitoring and observability](/docs/pipelines/best-practices/monito
 
 ## Setting up notifications for platform teams
 
-Timely [notifications](/docs/pipelines/configure/notifications) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notifications types:
+Timely [notifications](/docs/pipelines/configure/notify) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notifications types:
 
-- [Basecamp](/docs/pipelines/configure/notifications#basecamp-campfire-message)
-- [Email](/docs/pipelines/configure/notifications#email)
-- [GitHub commit status](/docs/pipelines/configure/notifications#github-commit-status)
-- [GitHub check](/docs/pipelines/configure/notifications#github-check)
-- [PagerDuty](/docs/pipelines/configure/notifications#pagerduty-change-events)
-- [Slack](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages)
-- [Webhooks](/docs/pipelines/configure/notifications#webhooks)
+- [Basecamp](/docs/pipelines/configure/notify#basecamp-campfire-message)
+- [Email](/docs/pipelines/configure/notify#email)
+- [GitHub commit status](/docs/pipelines/configure/notify#github-commit-status)
+- [GitHub check](/docs/pipelines/configure/notify#github-check)
+- [PagerDuty](/docs/pipelines/configure/notify#pagerduty-change-events)
+- [Slack](/docs/pipelines/configure/notify#slack-channel-and-direct-messages)
+- [Webhooks](/docs/pipelines/configure/notify#webhooks)
 
 Setting up notification service(s) allows platform teams to:
 
@@ -99,7 +99,7 @@ Setting up notification service(s) allows platform teams to:
 - Use thread replies for follow-up logs or links to build pages, keeping the main channel concise.
 - Configure different channels for routine and critical events.
 
-See more in [Notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages).
+See more in [Notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages).
 
 ## Custom checkout scripts
 

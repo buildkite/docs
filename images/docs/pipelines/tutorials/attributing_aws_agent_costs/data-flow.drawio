@@ -1,0 +1,81 @@
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram name="data-flow" id="data-flow">
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="550" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- AWS bounding box (dashed border) -->
+        <mxCell id="aws-box" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 4;strokeColor=#232F3E;strokeWidth=2;fillColor=none;verticalAlign=top;align=left;spacingLeft=10;fontSize=14;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="185" y="60" width="880" height="430" as="geometry" />
+        </mxCell>
+
+        <!-- AWS label -->
+        <mxCell id="aws-label" value="AWS" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];strokeColor=none;fillColor=none;fontStyle=1;fontSize=14;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="200" y="70" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Buildkite Control Plane -->
+        <mxCell id="bk" value="Buildkite&#xa;Control Plane" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#232F3E;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.cisco.computers_and_peripherals.pc;" vertex="1" parent="1">
+          <mxGeometry x="55" y="225" width="72" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon EventBridge -->
+        <mxCell id="eb" value="Amazon&#xa;EventBridge" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#E7157B;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;" vertex="1" parent="1">
+          <mxGeometry x="285" y="225" width="72" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon Data Firehose (shifted right for balance) -->
+        <mxCell id="firehose" value="Amazon Data&#xa;Firehose" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#8C4FFF;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.kinesis_firehose;" vertex="1" parent="1">
+          <mxGeometry x="570" y="225" width="72" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon S3 -->
+        <mxCell id="s3" value="Amazon S3" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#7AA116;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="870" y="225" width="72" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Transformer Lambda (below Firehose, same x) -->
+        <mxCell id="lambda" value="Transformer&#xa;Lambda" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#FF9900;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" vertex="1" parent="1">
+          <mxGeometry x="570" y="390" width="72" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Amazon Athena (below S3, same x) -->
+        <mxCell id="athena" value="Amazon&#xa;Athena" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=none;fillColor=#8C4FFF;labelBackgroundColor=#ffffff;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.athena;" vertex="1" parent="1">
+          <mxGeometry x="870" y="390" width="72" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Buildkite → EventBridge -->
+        <mxCell id="e1" value="" style="endArrow=block;endFill=1;endSize=8;strokeColor=#555555;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="bk" target="eb" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: EventBridge → Firehose (sends records) -->
+        <mxCell id="e2" value="sends records" style="endArrow=block;endFill=1;endSize=8;strokeColor=#555555;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontColor=#555555;fontSize=11;labelBackgroundColor=none;" edge="1" source="eb" target="firehose" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Firehose → S3 (returns transformed records) -->
+        <mxCell id="e3" value="returns transformed records" style="endArrow=block;endFill=1;endSize=8;strokeColor=#555555;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontColor=#555555;fontSize=11;labelBackgroundColor=none;" edge="1" source="firehose" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Firehose → Lambda (down) -->
+        <mxCell id="e4" value="" style="endArrow=block;endFill=1;endSize=8;strokeColor=#555555;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.4;exitY=1;exitDx=0;exitDy=0;entryX=0.4;entryY=0;entryDx=0;entryDy=0;" edge="1" source="firehose" target="lambda" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: Lambda → Firehose (up) -->
+        <mxCell id="e5" value="" style="endArrow=block;endFill=1;endSize=8;strokeColor=#555555;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.6;exitY=0;exitDx=0;exitDy=0;entryX=0.6;entryY=1;entryDx=0;entryDy=0;" edge="1" source="lambda" target="firehose" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow: S3 → Athena (down) -->
+        <mxCell id="e6" value="" style="endArrow=block;endFill=1;endSize=8;strokeColor=#555555;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="s3" target="athena" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

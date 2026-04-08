@@ -188,7 +188,7 @@ Optional attributes:
 &nbsp;&nbsp;&nbsp;&nbsp;- "Linux"<code>
     </td>
   </tr>
-  <tr>
+  <tr id="parallelism">
     <td><code>parallelism</code></td>
     <td>
       The number of <a href="/docs/pipelines/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step.<br/>
@@ -204,10 +204,10 @@ Optional attributes:
 &nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
     </td>
   </tr>
-  <tr>
+  <tr id="priority">
     <td><code>priority</code></td>
     <td>
-      Adjust the <a href="/docs/pipelines/configure/workflows/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br/>
+      Adjust the <a href="/docs/pipelines/configure/workflows/job-priority">priority</a> for a specific job, as a positive or negative integer.<br/>
       <em>Example:</em><br/>
       <code>- command: "will-run-first.sh"<br/>
       &nbsp;&nbsp;priority: 1</code>

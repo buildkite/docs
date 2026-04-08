@@ -49,9 +49,10 @@ bk pipeline copy [<pipeline>] [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-c`, `--cluster=STRING` | Cluster name or ID for the new pipeline (required for cross-org copies if target org uses clusters) |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-t`, `--target=STRING` | Name for the new pipeline, or org/name to copy to a different organization |
+| `--cluster-name=STRING` | Cluster name for the new pipeline (resolved to UUID) |
+| `--cluster-uuid=STRING` | Cluster UUID for the new pipeline |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Show what would be copied without creating the pipeline |
 | `--json` | Output as JSON |
@@ -82,7 +83,13 @@ bk pipeline cp other-org/their-pipeline --target "my-copy"
 Copy to a different organization:
 
 ```bash
-bk pipeline cp my-pipeline --target "other-org/my-pipeline" --cluster "8302f0b-9b99-4663-23f3-2d64f88s693e"
+bk pipeline cp my-pipeline --target "other-org/my-pipeline" --cluster-uuid "8302f0b-9b99-4663-23f3-2d64f88s693e"
+```
+
+Copy to a different organization using cluster name:
+
+```bash
+bk pipeline cp my-pipeline --target "other-org/my-pipeline" --cluster-name "my-cluster"
 ```
 
 Interactive mode - prompts for source and target:
@@ -121,11 +128,12 @@ bk pipeline create <name> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-c`, `--cluster-id=STRING` | Cluster name or ID to assign the pipeline to |
 | `-W`, `--create-webhook` | Create an SCM webhook for the pipeline (GitHub and GitHub Enterprise only) |
 | `-d`, `--description=STRING` | Description of the pipeline |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-r`, `--repository=STRING` | Repository URL |
+| `--cluster-name=STRING` | Cluster name to assign the pipeline to (resolved to UUID) |
+| `--cluster-uuid=STRING` | Cluster UUID to assign the pipeline to |
 | `--debug` | Enable debug output for REST API calls |
 | `--dry-run` | Simulate pipeline creation without actually creating it |
 | `--json` | Output as JSON |
@@ -147,16 +155,16 @@ Create a new pipeline and view the created pipeline in JSON format:
 bk pipeline create "My Pipeline" --description "My pipeline description" --repository "git@github.com:org/repo.git" --output json
 ```
 
+Create a pipeline with a cluster (by UUID):
+
+```bash
+bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.git" --cluster-uuid "cluster-uuid-123"
+```
+
 Create a pipeline with a cluster (by name):
 
 ```bash
-bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.git" -c "my-cluster"
-```
-
-Create a pipeline with a cluster (by ID):
-
-```bash
-bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.git" -c "cluster-id-123"
+bk pipeline create "My Pipeline" -d "Description" -r "git@github.com:org/repo.git" --cluster-name "my-cluster"
 ```
 
 Create a pipeline and set up a GitHub webhook:
