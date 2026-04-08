@@ -72,6 +72,14 @@ link_checking_exemptions:
       - https://console.aws.amazon.com/cloudformation/home
       - https://console.aws.amazon.com/ec2/v2/home
 
+  - name: large-response-body
+    description: |
+      Exempt URLs whose response body is too large for Muffet's read buffer.
+      A 404 will still be reported, assuming the URL's site returns 404s.
+    status_pattern: "(body size exceeds the given limit|small read buffer)"
+    url_patterns:
+      - https://platform.claude.com/docs/en/api/messages
+
   - name: ignore-sample-dot-svg
     description: We don't expect /sample.svg to work on the test server that Muffet uses.
     status_pattern: "404"
