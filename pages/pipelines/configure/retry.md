@@ -38,7 +38,7 @@ At least one of the following attributes is required:
 
 <table>
   <tr>
-    <td><code><a href="#automatic-retry-attributes">automatic</a></code></td>
+    <td><code><a href="#retry-attributes-automatic-retry-attributes">automatic</a></code></td>
     <td>
       Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br/> If set to <code>true</code>, the retry conditions are set to the default value.<br/>
       <em>Default value:</em><br/>
@@ -50,7 +50,7 @@ At least one of the following attributes is required:
     </td>
   </tr>
   <tr>
-    <td><code><a href="#manual-retry-attributes">manual</a></code></td>
+    <td><code><a href="#retry-attributes-manual-retry-attributes">manual</a></code></td>
     <td>
       Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br/>
       <em>Default value:</em> <code>true</code><br/>
