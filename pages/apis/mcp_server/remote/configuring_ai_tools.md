@@ -7,7 +7,7 @@ This page explains how to configure your AI tool to work with the [_remote_ Buil
 
 ## Organization IP allowlist considerations
 
-If your Buildkite organization has an [API IP allowlist](/docs/apis/managing-api-tokens#limiting-api-access-by-ip-address) configured, you must add Buildkite's egress IP addresses to this allowlist for the remote MCP server to function. The remote MCP server makes API calls from Buildkite's infrastructure, and these requests are subject to your organization's API IP allowlist. Buildkite's current egress IP addresses are provided from the [meta API endpoint](/docs/apis/rest-api/meta).
+If your Buildkite organization has an [API IP allowlist](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address) configured, you must add Buildkite's egress IP addresses to this allowlist for the remote MCP server to function. The remote MCP server makes API calls from Buildkite's infrastructure, and these requests are subject to your organization's API IP allowlist. Buildkite's current egress IP addresses are provided from the [meta API endpoint](/docs/apis/rest-api/meta).
 
 ## Amp
 
