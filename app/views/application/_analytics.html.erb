@@ -75,33 +75,6 @@ var getFirstSource = function() {
   };
 <% end %>
 
-
-<%= javascript_tag nonce: true do %>
-  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="<%= ENV['SEGMENT_TRACKING_ID'] %>";;analytics.SNIPPET_VERSION="4.15.3";
-    var utmCookie = readCookie('__utmzz') || "";
-    var cookieParts = utmCookie.split('|');
-
-    var utmValues = {};
-    for (var i = 0; i < cookieParts.length; i++) {
-      var parts = cookieParts[i].split('=');
-      utmValues[parts[0]] = parts[1];
-    }
-
-    var utmMiddleware = function ({ payload, next, integrations }) {
-      payload.obj.properties.utm_campaign = utmValues['utmccn'];
-      payload.obj.properties.utm_medium = utmValues['utmcmd'];
-      payload.obj.properties.utm_source = utmValues['utmcsr'];
-      next(payload);
-    };
-    analytics.addSourceMiddleware(utmMiddleware);
-
-    analytics.load("<%= ENV['SEGMENT_TRACKING_ID'] %>");
-    analytics.page({
-      firstSource: getFirstSource()
-    });
-  }}();
- <% end %>
-
 <%= javascript_tag nonce: true do %>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
   posthog.init('phc_nL3naKOcUWn8F3LEBeIvET1WDv0HFbLqcv06wpzHTve', {

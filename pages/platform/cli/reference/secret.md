@@ -35,7 +35,7 @@ The `bk secret` command allows you to manage Buildkite secrets from the command 
 List secrets for a cluster.
 
 ```bash
-bk secret list --cluster-id=STRING [flags]
+bk secret list --cluster-uuid=STRING [flags]
 ```
 
 ### Flags
@@ -43,7 +43,7 @@ bk secret list --cluster-id=STRING [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--cluster-id=STRING` | The ID of the cluster to list secrets for |
+| `--cluster-uuid=STRING` | The UUID of the cluster to list secrets for |
 | `--debug` | Enable debug output for REST API calls |
 | `--json` | Output as JSON |
 | `--text` | Output as text |
@@ -54,13 +54,13 @@ bk secret list --cluster-id=STRING [flags]
 List all secrets in a cluster:
 
 ```bash
-bk secret list --cluster-id my-cluster-id
+bk secret list --cluster-uuid my-cluster-uuid
 ```
 
 List secrets in JSON format:
 
 ```bash
-bk secret list --cluster-id my-cluster-id -o json
+bk secret list --cluster-uuid my-cluster-uuid -o json
 ```
 
 ## Get secret
@@ -68,7 +68,7 @@ bk secret list --cluster-id my-cluster-id -o json
 View a cluster secret.
 
 ```bash
-bk secret get --cluster-id=STRING --secret-id=STRING [flags]
+bk secret get --cluster-uuid=STRING --secret-id=STRING [flags]
 ```
 
 ### Flags
@@ -76,7 +76,7 @@ bk secret get --cluster-id=STRING --secret-id=STRING [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--cluster-id=STRING` | The ID of the cluster |
+| `--cluster-uuid=STRING` | The UUID of the cluster |
 | `--debug` | Enable debug output for REST API calls |
 | `--json` | Output as JSON |
 | `--secret-id=STRING` | The UUID of the secret to view |
@@ -88,13 +88,13 @@ bk secret get --cluster-id=STRING --secret-id=STRING [flags]
 View a secret:
 
 ```bash
-bk secret get --cluster-id my-cluster-id --secret-id my-secret-id
+bk secret get --cluster-uuid my-cluster-uuid --secret-id my-secret-id
 ```
 
 View a secret in JSON format:
 
 ```bash
-bk secret get --cluster-id my-cluster-id --secret-id my-secret-id -o json
+bk secret get --cluster-uuid my-cluster-uuid --secret-id my-secret-id -o json
 ```
 
 ## Create a secret
@@ -102,7 +102,7 @@ bk secret get --cluster-id my-cluster-id --secret-id my-secret-id -o json
 Create a new cluster secret.
 
 ```bash
-bk secret create --cluster-id=STRING --key=STRING [flags]
+bk secret create --cluster-uuid=STRING --key=STRING [flags]
 ```
 
 ### Flags
@@ -110,7 +110,7 @@ bk secret create --cluster-id=STRING --key=STRING [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--cluster-id=STRING` | The ID of the cluster |
+| `--cluster-uuid=STRING` | The UUID of the cluster |
 | `--debug` | Enable debug output for REST API calls |
 | `--description=STRING` | A description of the secret |
 | `--json` | Output as JSON |
@@ -125,19 +125,19 @@ bk secret create --cluster-id=STRING --key=STRING [flags]
 Create a secret with interactive value input:
 
 ```bash
-bk secret create --cluster-id my-cluster-id --key MY_SECRET
+bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET
 ```
 
 Create a secret with the value provided inline:
 
 ```bash
-bk secret create --cluster-id my-cluster-id --key MY_SECRET --value "s3cr3t"
+bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --value "s3cr3t"
 ```
 
 Create a secret with a description:
 
 ```bash
-bk secret create --cluster-id my-cluster-id --key MY_SECRET --description "My secret description"
+bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --description "My secret description"
 ```
 
 ## Update secret
@@ -145,7 +145,7 @@ bk secret create --cluster-id my-cluster-id --key MY_SECRET --description "My se
 Update a cluster secret.
 
 ```bash
-bk secret update --cluster-id=STRING --secret-id=STRING [flags]
+bk secret update --cluster-uuid=STRING --secret-id=STRING [flags]
 ```
 
 ### Flags
@@ -153,7 +153,7 @@ bk secret update --cluster-id=STRING --secret-id=STRING [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--cluster-id=STRING` | The ID of the cluster |
+| `--cluster-uuid=STRING` | The UUID of the cluster |
 | `--debug` | Enable debug output for REST API calls |
 | `--description=STRING` | Update the description of the secret |
 | `--json` | Output as JSON |
@@ -168,19 +168,19 @@ bk secret update --cluster-id=STRING --secret-id=STRING [flags]
 Update a secret's description:
 
 ```bash
-bk secret update --cluster-id my-cluster-id --secret-id my-secret-id --description "New description"
+bk secret update --cluster-uuid my-cluster-uuid --secret-id my-secret-id --description "New description"
 ```
 
 Update a secret's value:
 
 ```bash
-bk secret update --cluster-id my-cluster-id --secret-id my-secret-id --update-value
+bk secret update --cluster-uuid my-cluster-uuid --secret-id my-secret-id --update-value
 ```
 
 Update both description and value:
 
 ```bash
-bk secret update --cluster-id my-cluster-id --secret-id my-secret-id --description "New description" --update-value
+bk secret update --cluster-uuid my-cluster-uuid --secret-id my-secret-id --description "New description" --update-value
 ```
 
 ## Delete secret
@@ -188,14 +188,14 @@ bk secret update --cluster-id my-cluster-id --secret-id my-secret-id --descripti
 Delete a cluster secret.
 
 ```bash
-bk secret delete --cluster-id=STRING --secret-id=STRING
+bk secret delete --cluster-uuid=STRING --secret-id=STRING
 ```
 
 ### Flags
 
 | Flag | Description |
 | --- | --- |
-| `--cluster-id=STRING` | The ID of the cluster |
+| `--cluster-uuid=STRING` | The UUID of the cluster |
 | `--debug` | Enable debug output for REST API calls |
 | `--secret-id=STRING` | The UUID of the secret to delete |
 
@@ -204,12 +204,12 @@ bk secret delete --cluster-id=STRING --secret-id=STRING
 Delete a secret (with confirmation prompt):
 
 ```bash
-bk secret delete --cluster-id my-cluster-id --secret-id my-secret-id
+bk secret delete --cluster-uuid my-cluster-uuid --secret-id my-secret-id
 ```
 
 Delete a secret without confirmation:
 
 ```bash
-bk secret delete --cluster-id my-cluster-id --secret-id my-secret-id --yes
+bk secret delete --cluster-uuid my-cluster-uuid --secret-id my-secret-id --yes
 ```
 

@@ -4,7 +4,7 @@ The Slack Workspace notification service in Buildkite lets you receive notificat
 
 ## Configuring notifications
 Before configuring notifications, ensure your Slack workspace is [connected to your Buildkite organization](/docs/platform/integrations/slack-workspace).
-Once the Slack workspace is connected, you can then use the `notify` attribute in the YAML syntax of your pipelines to [configure specific notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages).
+Once the Slack workspace is connected, you can then use the `notify` attribute in the YAML syntax of your pipelines to [configure specific notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages).
 
 ```yaml
 notify:
@@ -41,10 +41,10 @@ notify:
 
 Use the `notify` YAML attribute in your `pipeline.yml` file to configure conditional notifications.
 
-See the [Slack channel message](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
+See the [Slack channel message](/docs/pipelines/configure/notify#slack-channel-and-direct-messages) section of the Notifications guide for the configuration information.
 
 ### Conditional notifications with pipeline states
 
 You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. With the previous Slack integration this was done in the UI.
 
-See [Conditional Slack notifications](/docs/pipelines/configure/notifications#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
+See [Conditional Slack notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.

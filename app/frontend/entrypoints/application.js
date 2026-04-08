@@ -40,12 +40,37 @@ function cleanup() {
   cleanupFunctions = [];
 }
 
+function getCurrentSection() {
+  const match = window.location.pathname.match(/^\/docs\/([^/]+)/);
+  return match ? match[1] : null;
+}
+
+const relatedSections = {
+  "package-registries": ["pipelines", "platform"],
+  "test-engine": ["pipelines", "agent"],
+  pipelines: ["agent", "platform"],
+  agent: ["pipelines", "platform"],
+  platform: ["pipelines", "agent"],
+  apis: ["pipelines", "platform"],
+};
+
 function render() {
+  const section = getCurrentSection();
+  const optionalFilters = [];
+  if (section) {
+    optionalFilters.push(`tags:${section}<score=2>`);
+    (relatedSections[section] || []).forEach((s) =>
+      optionalFilters.push(`tags:${s}<score=1>`),
+    );
+  }
+  const searchParameters = { optionalFilters, hitsPerPage: 40 };
+
   docsearch({
     container: "#search",
     appId: __ALGOLIA_APP_ID__,
     apiKey: __ALGOLIA_API_KEY__,
     indexName: __ALGOLIA_INDEX_NAME__,
+    searchParameters,
     transformSearchClient: searchTrackingClient,
     transformItems: searchTrackingItems,
     navigator: searchTrackingNavigator,

@@ -19,7 +19,7 @@ Learn more about:
 You will need:
 
 - An Azure subscription with permissions to create App Registrations and assign RBAC roles. Note your **Subscription ID** from the Azure Portal (found on the Subscriptions page).
-- A Buildkite pipeline you want to authenticate with Azure. You'll need its **Pipeline UUID**, which you can find in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**. You can also retrieve it using the [REST API](/docs/apis/rest-api/pipelines#get-a-pipeline) (the `id` field) or the [GraphQL API](/docs/apis/graphql/cookbooks/pipelines#get-a-pipelines-uuid).
+- A Buildkite pipeline you want to authenticate with Azure. Depending on [which subject claim you use](#custom-subject-claims), you'll need its **Pipeline UUID**, **Cluster UUID**, or another identifier. You can find the Pipeline UUID in Buildkite under **Pipeline Settings** > **General**, listed as **Pipeline ID**. You can also retrieve it using the [REST API](/docs/apis/rest-api/pipelines#get-a-pipeline) (the `id` field) or the [GraphQL API](/docs/apis/graphql/cookbooks/pipelines#get-a-pipelines-uuid).
 
 ## Step 1: Register an application in Microsoft Entra ID
 
@@ -56,14 +56,14 @@ The Federated Identity Credential establishes the trust between your Buildkite p
 | Field | Value |
 | --- | --- |
 | **Issuer** | `https://agent.buildkite.com` |
-| **Subject identifier** | Your pipeline's UUID (for example, `000xx00x-000x-0000-00xx-00x0x00x00x0`) |
+| **Subject identifier** | The value of the subject claim in the OIDC token. By default, this is the pipeline UUID (for example, `000xx00x-000x-0000-00xx-00x0x00x00x0`). If you're using a [custom subject claim](#custom-subject-claims), use the corresponding identifier instead (for example, a cluster UUID). |
 | **Name** | A descriptive name (for example, `buildkite-pipeline-deploy`) |
 | **Audience** | Leave as the default `api://AzureADTokenExchange` |
 
 <%= image "federated-credential-config.png", width: 1095/2, height: 1110/2, alt: "Screenshot of the Federated Identity Credential configuration showing the Issuer, Subject identifier, Name and Audience fields" %>
 
 > 📘
-> The **Subject identifier** must be the pipeline's UUID only, not a prefixed string. To find it, go to your pipeline in Buildkite, then **Pipeline Settings** > **General**. The UUID is listed under **Pipeline ID**. Each pipeline that needs Azure access requires its own Federated Identity Credential.
+> The **Subject identifier** must match the `sub` claim in the OIDC token exactly. By default, this is the pipeline UUID. If you use `--subject-claim` to override it (see [Custom subject claims](#custom-subject-claims)), set the **Subject identifier** to the corresponding value, such as a cluster UUID. Each unique subject value that needs Azure access requires its own Federated Identity Credential.
 
 ## Step 3: Assign RBAC roles
 
@@ -107,11 +107,19 @@ You can also store these values as [Buildkite Secrets](/docs/pipelines/security/
 
 ## Step 5: Request an OIDC token in your pipeline
 
-In your pipeline steps, use the `buildkite-agent oidc request-token` command to get an OIDC token. The token is short-lived and scoped to the pipeline.
+In your pipeline steps, use the `buildkite-agent oidc request-token` command to get an OIDC token. The token is short-lived and scoped to the pipeline by default.
 
 ```bash
 BUILDKITE_OIDC_TOKEN=$(buildkite-agent oidc request-token --audience "api://AzureADTokenExchange")
 ```
+
+You can change what the token's `sub` claim contains by using the `--subject-claim` flag. For example, to scope the token to the cluster instead of the pipeline:
+
+```bash
+BUILDKITE_OIDC_TOKEN=$(buildkite-agent oidc request-token --audience "api://AzureADTokenExchange" --subject-claim cluster_id)
+```
+
+See [Custom subject claims](#custom-subject-claims) for the full list of allowed claims and guidance on when to use each one.
 
 The `--audience` value must match one of the audiences Azure accepts for federated identity credentials:
 
@@ -284,7 +292,7 @@ provider "azurerm" {
 When your pipeline step runs:
 
 1. The step calls `buildkite-agent oidc request-token` to get a JSON Web Token (JWT) from the Buildkite agent.
-1. The `sub` (subject) claim in the JWT contains the pipeline's UUID.
+1. The `sub` (subject) claim in the JWT contains the pipeline UUID by default, or a different identifier if `--subject-claim` was used.
 1. The `aud` (audience) claim in the JWT contains `api://AzureADTokenExchange`.
 1. The step presents this JWT to Microsoft Entra ID.
 1. Entra ID validates the JWT against the Federated Identity Credential configuration (matching the issuer, subject, and audience).
@@ -306,19 +314,60 @@ These logs show whether each authentication attempt succeeded or failed, along w
 
 Learn more about sign-in logs in [Sign-in logs in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins) on Microsoft Learn.
 
+## Custom subject claims
+
+By default, the `sub` claim in a Buildkite OIDC token contains the pipeline UUID. The `--subject-claim` flag lets you change the `sub` claim to a different immutable identifier, giving you control over how broadly or narrowly Azure trust is scoped.
+
+### Allowed subject claims
+
+Only immutable identifiers are allowed as subject claims. Mutable values like slugs and branch names are excluded because renaming them would silently break federated identity credentials.
+
+| Claim | Description | Scope |
+| --- | --- | --- |
+| `pipeline_id` | The pipeline UUID (default) | A single pipeline |
+| `cluster_id` | The cluster UUID | All pipelines in a cluster |
+| `queue_id` | The queue UUID | All pipelines targeting a queue |
+| `organization_id` | The organization UUID | All pipelines in the organization |
+| `build_id` | The build UUID | A single build (one-time use) |
+| `job_id` | The job UUID | A single job (one-time use) |
+| `agent_id` | The agent UUID | A single agent |
+
+### Choosing a subject claim
+
+The right subject claim depends on how you want to balance the number of federated identity credentials against the breadth of access.
+
+- **`pipeline_id` (default):** One credential per pipeline. Tight scoping, but requires a new Federated Identity Credential for each pipeline that needs Azure access.
+- **`cluster_id`:** One credential per cluster. Any pipeline in the cluster can authenticate. Fewer credentials to manage, but broader access.
+- **`queue_id`:** One credential per queue. Useful when different queues have different trust boundaries (for example, production versus staging queues).
+- **`organization_id`:** One credential for the entire organization. The broadest scope. Any pipeline in the organization can authenticate with the same Azure App Registration.
+- **`build_id`, `job_id`, `agent_id`:** Extremely narrow scope, typically used for auditing or one-time access rather than ongoing trust relationships.
+
+### Using a custom subject claim
+
+To use a custom subject claim, pass the `--subject-claim` flag when requesting the OIDC token:
+
+```bash
+BUILDKITE_OIDC_TOKEN=$(buildkite-agent oidc request-token --audience "api://AzureADTokenExchange" --subject-claim cluster_id)
+```
+
+Then set the **Subject identifier** in the Azure Federated Identity Credential to the corresponding UUID. For example, if you use `--subject-claim cluster_id`, set the **Subject identifier** to your cluster's UUID.
+
+> 📘
+> The subject claim value must also be included as an optional claim in the token. If you use `--subject-claim cluster_id`, the `cluster_id` claim is automatically included. You don't need to pass `--claim cluster_id` separately.
+
 ## Known limitations
 
-Azure federated identity credentials are scoped by the OIDC token's subject claim, which Buildkite Pipelines sets to the pipeline UUID. This creates the following constraints around access control and trust.
+Azure federated identity credentials require an exact match on the OIDC token's subject claim. This creates constraints around access control and trust, regardless of which [subject claim](#custom-subject-claims) you use.
 
-### Access control is scoped to the pipeline level
+### Access control is scoped to a single identifier
 
-Azure federated identity credentials require an exact match on the OIDC token's subject claim. Buildkite Pipelines sets this to the pipeline UUID, so the trust operates at the pipeline level only. You can't restrict Azure access by branch, build source, or other build context.
+Azure's federated identity credentials match on the `sub` claim only. You can't restrict Azure access by branch, build source, or other build context.
 
-Any build on a pipeline with a matching Federated Identity Credential can authenticate with Azure, whether it was triggered from `main`, a feature branch, or a manual build.
+Any build that produces a token with a matching subject can authenticate with Azure, whether it was triggered from `main`, a feature branch, or a manual build.
 
 ### Untrusted builds can authenticate to Azure
 
-Because OIDC trust is tied to the pipeline UUID, it doesn't distinguish between a build triggered from `main` and one triggered by an unreviewed pull request. If your pipeline accepts public pull requests and has build forks enabled, anyone who can open a PR against that repo can add a step that requests an OIDC token and hits your Azure resources with whatever RBAC roles you've assigned.
+Because OIDC trust is tied to the token's subject claim, it doesn't distinguish between a build triggered from `main` and one triggered by an unreviewed pull request. If your pipeline accepts public pull requests and has build forks enabled, anyone who can open a PR against that repo can add a step that requests an OIDC token and hits your Azure resources with whatever RBAC roles you've assigned. This applies whether you use the default `pipeline_id` subject or a broader claim like `cluster_id`.
 
 > 📘
 > This is a common constraint across CI/CD providers that support OIDC. Palo Alto's Unit 42 team [demonstrated real-world attacks using this pattern](https://unit42.paloaltonetworks.com/oidc-misconfigurations-in-ci-cd/) at DEF CON 32, and the [tj-actions/changed-files supply chain attack](https://openssf.org/blog/2025/06/11/maintainers-guide-securing-ci-cd-pipelines-after-the-tj-actions-and-reviewdog-supply-chain-attacks/) in March 2025 showed how compromised tooling inside a pipeline can exfiltrate tokens.
@@ -334,7 +383,8 @@ To reduce the risk:
 
 To limit what your pipelines can do in Azure:
 
-- **Use separate App Registrations per environment.** Create one for production, one for staging, each with RBAC roles scoped to their own resources and linked to separate Buildkite pipelines. This gives you pipeline-level isolation between environments.
+- **Use [custom subject claims](#custom-subject-claims) to match your trust boundaries.** Use `pipeline_id` (the default) for tight per-pipeline scoping, `cluster_id` or `queue_id` for shared infrastructure, or `organization_id` when a single credential should cover all pipelines.
+- **Use separate App Registrations per environment.** Create one for production, one for staging, each with RBAC roles scoped to their own resources and linked to separate Buildkite pipelines or clusters. This gives you isolation between environments.
 - **Scope RBAC roles tightly.** Assign roles to the smallest resource possible (a single resource group, not the whole subscription). Authentication might succeed, but the pipeline can only touch what it's been granted.
 - **Apply Conditional Access Policies.** Organizations with Entra ID P1/P2 can use [Conditional Access for workload identities](https://learn.microsoft.com/en-us/entra/identity/conditional-access/workload-identity) to restrict authentication by IP range or other conditions.
 

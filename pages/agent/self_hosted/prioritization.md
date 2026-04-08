@@ -22,7 +22,7 @@ When selecting from a pool of agents of the same priority level, Buildkite's job
 
 Jobs can be targeted to specific agents using [agent tags](/docs/agent/cli/reference/start#setting-tags) that define queues, and other capabilities.
 
-## Setting agent priority
+## Agent priority
 
 You can configure agent priority in the agent configuration file, by using a command line flag, or through an environment variable.
 
