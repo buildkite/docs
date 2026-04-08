@@ -83,7 +83,7 @@ steps:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
+          fail_message: "The generated code (and hence GraphQL reference docs) is out of date, or you edited the content in this repository, which is not their canonical source of truth. Run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
     command: ./scripts/update-agent-help.sh
@@ -93,7 +93,7 @@ steps:
       - docker#v5.13.0:
           image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated agent CLI docs are out of date. Run scripts/update-agent-help.sh"
+          fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated agent configuration docs"
     command: ./scripts/update-agent-configuration.sh
@@ -103,7 +103,7 @@ steps:
       - docker#v5.13.0:
           image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated agent configuration docs are out of date. Run scripts/update-agent-configuration.sh"
+          fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated BK CLI docs"
     command: ./scripts/update-bkcli-help.sh
@@ -113,7 +113,7 @@ steps:
       - docker#v5.13.0:
           image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated Buildkite CLI docs are out of date. Run scripts/update-bkcli-help.sh"
+          fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
 
   - label: ":test_tube: Check generated agent experiments docs"
     command: ./scripts/update-agent-experiments.sh
@@ -123,7 +123,7 @@ steps:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated agent experiments docs are out of date. Run scripts/update-agent-experiments.sh (Update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md first, if necessary)"
+          fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
   - label: ":test_tube: Check generated supported agent versions docs"
     command: ./scripts/update-agent-versions-directory.sh
@@ -133,7 +133,7 @@ steps:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated agent versions directory is out of date. Run scripts/update-agent-versions-directory.sh"
+          fail_message: "The generated agent versions directory page is out of date, or you edited its content in this repository. Run `scripts/update-agent-versions-directory.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - group: "Lint all the things"
     key: linting
