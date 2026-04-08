@@ -6,9 +6,6 @@ This polling-based approach is reliable and works across all network configurati
 
 ## Streaming job dispatch
 
-> 📘 Public preview
-> Streaming job dispatch is in public preview and may change before general availability. If you have feedback or run into issues, contact [support@buildkite.com](mailto:support@buildkite.com).
-
 Streaming job dispatch reduces job acceptance latency by maintaining a persistent connection between the agent and Buildkite Pipelines. Instead of the agent periodically asking for work, Buildkite Pipelines pushes jobs to idle agents as soon as they become available.
 
 To opt in to this feature, when [starting your self-hosted agent](/docs/agent/cli/reference/start), point your agent at the streaming endpoint using the [`--endpoint` option](/docs/agent/cli/reference/start#endpoint):
@@ -21,8 +18,8 @@ You can also set this using the [`BUILDKITE_AGENT_ENDPOINT` environment variable
 
 The agent's [`--ping-mode` option](/docs/agent/cli/reference/start#ping-mode) controls the dispatch behavior:
 
-- `auto` (default): Uses streaming when available, and falls back to polling if the streaming connection fails.
-- `poll-only`: Uses the classical polling-based dispatch only.
+- `auto` (the default when the `--ping-mode` option is omitted): Uses streaming when available, and falls back to polling if the streaming connection fails. This is the recommended option.
+- `poll-only`: Uses the classical polling-based dispatch only. Specify this option if network issues prevent streaming from working effectively.
 - `stream-only`: Uses streaming dispatch only, with no fallback. The agent stops if the streaming connection fails.
 
 In `auto` mode, both the streaming and polling mechanisms run concurrently. The streaming connection takes priority when healthy, and the polling loop activates automatically if the streaming connection becomes unhealthy.
