@@ -364,6 +364,7 @@ repo
 reprioritize
 reprioritizes
 resizable
+retryable
 rollout
 rollouts
 retag
