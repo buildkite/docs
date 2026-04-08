@@ -8,10 +8,6 @@ keywords: docs, pipelines, tutorials, getting started
 
 This getting started page is a tutorial that helps you understand the fundamentals of Buildkite Pipelines. This tutorial guides you through the creation of a pipeline to automate builds of an example project, which you could use as a starting point to build your own project, or, if you have some familiarity with Buildkite, your own project.
 
-- https://en.wikipedia.org/wiki/Buildkite-blah
-
-- https://en.wikipedia.org/wiki/Buildkite
-
 ## Before you start
 
 <%= render_markdown partial: 'pipelines/pipelines_tutorials_prereqs' %>
