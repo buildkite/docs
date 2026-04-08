@@ -15,7 +15,7 @@ The current version of the agent API is v3.
 
 ## Schema
 
-All API access is over HTTPS, and accessed from the `agent.buildkite.com` domain. All data is sent as JSON.
+All API access is over HTTPS, and accessed from the `agent.buildkite.com` and `agent-edge.buildkite.com` domains. Most API methods consist of a basic JSON request and response. Some parts of the API available from `agent-edge.buildkite.com` use [gRPC](https://grpc.io).
 
 ```bash
 curl https://agent.buildkite.com
