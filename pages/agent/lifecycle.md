@@ -1,6 +1,6 @@
 # Agent lifecycle
 
-The Buildkite agent goes through several stages during its operation: starting up, registering with Buildkite, polling for and running jobs, and shutting down. This page covers how the agent [handles signals](#signal-handling), the [exit codes](#exit-codes) it reports, and how to [troubleshoot](#troubleshooting) common lifecycle issues.
+The Buildkite agent goes through several stages during its operation: starting up, registering with Buildkite, receiving and running jobs, and shutting down. This page covers how the agent [handles signals](#signal-handling), the [exit codes](#exit-codes) it reports, and how to [troubleshoot](#troubleshooting) common lifecycle issues.
 
 For details on how [self-hosted agents](/docs/agent/self-hosted) receive jobs, including the streaming job dispatch feature, see [Job dispatch](/docs/agent/self-hosted/configure/job-dispatch).
 
