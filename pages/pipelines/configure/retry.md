@@ -20,7 +20,7 @@ steps:
 
 ## Retry behavior
 
-If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) `limit` on the job. When a limit is not specified on automatic retry, the default limit is two.
+If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. For automatic retries, the number of possible retries can be set with a [`limit` attribute](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) on the job's step. When a limit is not specified, the default limit is two.
 
 <%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
 
