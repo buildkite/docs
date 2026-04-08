@@ -57,11 +57,11 @@ A user who is a _team maintainer_ on an existing team can:
     * Remove a user from this team, by selecting the user's **Remove** button.
 
     * Change the permission for all users in this team on any:
-        - [pipeline](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read** or **Read Only**.
-        - [test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) in the team to **Full Access** or **Read Only**.
-        - [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) in the team to **Full Access**, **Read & Write** or **Read Only**.
+        - [pipeline](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read**, or **Read Only**.
+        - [test suite](/docs/test-engine/permissions#manage-teams-and-permissions-test-suite-level-permissions) in the team to **Full Access**, or **Read Only**.
+        - [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) in the team to **Full Access**, **Read & Write**, or **Read Only**.
 
-        To do this, select the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then select the required permission for the item, although be aware of the [caveat below](#changing-full-access-permissions-on-pipelines-test-suites-and-registries).
+        To do this, select the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then select the required permission for the item.
 
         **Note:** Managing team permissions for registries is only available once [Buildkite Package Registries has been enabled](/docs/package-registries/security/permissions#enabling-buildkite-packages).
 
