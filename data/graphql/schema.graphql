@@ -2001,7 +2001,7 @@ enum BuildRetryFailedJobsStates {
   EXPIRED
 
   """
-  Hard-failed jobs (non-zero exit status, not matching soft fail rules)
+  Hard-failed jobs (non-zero exit status not matching soft fail rules, or canceled/expired jobs with no exit status)
   """
   FAILED
 
@@ -10143,6 +10143,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestLabelsChanged: Boolean!
 
   """
+  Whether to create builds for the test merge commit of a pull request.
+  """
+  buildPullRequestMergeCommits: Boolean!
+
+  """
   Whether to create builds for pull requests that are ready for review.
   """
   buildPullRequestReadyForReview: Boolean!
@@ -10271,6 +10276,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds for pull requests when labels are added or removed.
   """
   buildPullRequestLabelsChanged: Boolean!
+
+  """
+  Whether to create builds for the test merge commit of a pull request.
+  """
+  buildPullRequestMergeCommits: Boolean!
 
   """
   Whether to create builds for pull requests that are ready for review.

@@ -39,6 +39,6 @@ The failure types that can be retried when retrying failed jobs in a build
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>CANCELED</code></strong></p><p>Jobs that were canceled</p></td></tr><tr><td><p><strong><code>EXPIRED</code></strong></p><p>Jobs that expired before being picked up by an agent</p></td></tr><tr><td><p><strong><code>FAILED</code></strong></p><p>Hard-failed jobs (non-zero exit status, not matching soft fail rules)</p></td></tr><tr><td><p><strong><code>SOFT_FAILED</code></strong></p><p>Soft-failed jobs (non-zero exit status, matching soft fail rules)</p></td></tr><tr><td><p><strong><code>TIMED_OUT</code></strong></p><p>Jobs that timed out</p></td></tr>
+    <tr><td><p><strong><code>CANCELED</code></strong></p><p>Jobs that were canceled</p></td></tr><tr><td><p><strong><code>EXPIRED</code></strong></p><p>Jobs that expired before being picked up by an agent</p></td></tr><tr><td><p><strong><code>FAILED</code></strong></p><p>Hard-failed jobs (non-zero exit status not matching soft fail rules, or canceled/expired jobs with no exit status)</p></td></tr><tr><td><p><strong><code>SOFT_FAILED</code></strong></p><p>Soft-failed jobs (non-zero exit status, matching soft fail rules)</p></td></tr><tr><td><p><strong><code>TIMED_OUT</code></strong></p><p>Jobs that timed out</p></td></tr>
   </tbody>
 </table>
