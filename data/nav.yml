@@ -480,6 +480,8 @@
           path: "pipelines/configure/environment-variables"
         - name: "Skipping builds"
           path: "pipelines/configure/skipping"
+        - name: "Retry"
+          path: "pipelines/configure/retry"
         - name: "Build artifacts"
           path: "pipelines/configure/artifacts"
         - name: "Build timeouts"

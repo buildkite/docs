@@ -311,11 +311,11 @@ Success response: `200 OK`
 
 ### Retry attributes
 
-If you have [retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes) configured on a step, be aware that these will apply to and affect a job that finished with an `exit_status` of `-1` (for example, a failure), or if the Buildkite platform generates a `signal_reason` of `stack_error` for this job, or both.
+If you have [retry attributes](/docs/pipelines/configure/retry) configured on a step, be aware that these will apply to and affect a job that finished with an `exit_status` of `-1` (for example, a failure), or if the Buildkite platform generates a `signal_reason` of `stack_error` for this job, or both.
 
 If your pipeline has numerous steps with retry attributes, and many of their jobs happen to fail, this could result in all of these jobs undergoing automatic retries.
 
-To prevent this issue from occurring, in each of these steps' [automatic retry attributes](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes), set the `signal_reason` to `stack_error`, with a `limit` value of `0`, which prevents the job from being automatically retried when its associated attribute conditions are met. For example:
+To prevent this issue from occurring, in each of these steps' [automatic retry attributes](/docs/pipelines/configure/retry#automatic-retry-attributes), set the `signal_reason` to `stack_error`, with a `limit` value of `0`, which prevents the job from being automatically retried when its associated attribute conditions are met. For example:
 
 ```yaml
 steps:
