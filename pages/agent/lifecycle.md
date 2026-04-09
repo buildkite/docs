@@ -1,10 +1,17 @@
 # Agent lifecycle
 
-The Buildkite agent goes through several stages during its operation: starting up, registering with Buildkite, polling for and running jobs, and shutting down. This page covers how the agent [handles signals](#signal-handling), the [exit codes](#exit-codes) it reports, and how to [troubleshoot](#troubleshooting) common lifecycle issues.
+The Buildkite agent goes through several stages during its operation: starting up, registering with Buildkite, receiving and running jobs, and shutting down. This page covers how the agent [receives jobs](#receiving-jobs), [handles signals](#signal-handling), the [exit codes](#exit-codes) it reports, and how to [troubleshoot](#troubleshooting) common lifecycle issues.
+
+## Receiving jobs
+
+The methods by which agents receive jobs differs, depending on whether you are using [self-hosted](/docs/agent/self-hosted) or [Buildkite hosted](/docs/agent/buildkite-hosted) agents:
+
+- For self-hosted agents, agents receive jobs either by polling Buildkite Pipelines (the Buildkite platform) for jobs, or by having jobs pushed to them from Buildkite Pipelines (through the _streaming job dispatch_ feature). See [Job dispatch](/docs/agent/self-hosted/configure/job-dispatch).
+- For Buildkite hosted agents, Buildkite handles the job dispatch processes internally.
 
 ## Signal handling
 
-When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit.
+When a build's job is canceled, the agent will send that job process a `SIGTERM` signal to allow it to exit gracefully.
 
 If the process does not exit within the 10s grace period it will be forcefully terminated with a `SIGKILL` signal. If you require a longer grace period, it can be customized on [self-hosted agents](/docs/agent/self-hosted) using the [cancel-grace-period](/docs/agent/self-hosted/configure#configuration-settings) agent configuration option.
 
