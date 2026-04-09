@@ -335,6 +335,280 @@ Bitbucket Pipelines uses `fail-fast: true` on a `parallel` block. In Buildkite P
 
 Bitbucket Pipelines uses `after-script` for commands that run regardless of step success or failure. In Buildkite Pipelines, use a shell `trap` within your command or a repository `post-command` [hook](/docs/agent/hooks).
 
+## Translate an example Bitbucket Pipelines configuration
+
+This section walks through translating a typical Bitbucket Pipelines configuration for a Node.js application into a Buildkite pipeline. The example Bitbucket pipeline demonstrates common features, including:
+
+- A global `image` applied to all steps.
+- A `parallel` block for running tests concurrently.
+- Built-in `caches` for `node_modules`.
+- `artifacts` passed between steps.
+- A `deployment` step with `trigger: manual` for production releases.
+
+### The original Bitbucket pipeline
+
+Here is the complete `bitbucket-pipelines.yml`:
+
+```yaml
+image: node:20
+
+definitions:
+  caches:
+    app-node: app/node_modules
+
+pipelines:
+  branches:
+    main:
+      - parallel:
+          - step:
+              name: Lint
+              caches:
+                - app-node
+              script:
+                - cd app && npm ci
+                - npm run lint
+          - step:
+              name: Test
+              caches:
+                - app-node
+              script:
+                - cd app && npm ci
+                - npm test
+              artifacts:
+                - app/coverage/**
+      - step:
+          name: Build
+          caches:
+            - app-node
+          script:
+            - cd app && npm ci
+            - npm run build
+          artifacts:
+            - app/dist/**
+      - step:
+          name: Deploy to production
+          deployment: production
+          trigger: manual
+          script:
+            - ./deploy.sh production
+```
+
+This pipeline runs lint and test in parallel, builds the application after both pass, and then waits for manual approval before deploying to production.
+
+### Step 1: Create a basic Buildkite pipeline structure
+
+Start by creating a `.buildkite/pipeline.yml` file with the basic step structure, translating `name` to `label` and `script` to `command`:
+
+```yaml
+steps:
+  - label: "Lint"
+    command:
+      - echo "Lint placeholder"
+
+  - label: "Test"
+    command:
+      - echo "Test placeholder"
+
+  - label: "Build"
+    command:
+      - echo "Build placeholder"
+```
+
+Notice that there is no `parallel` block. In Buildkite Pipelines, these three steps will run in parallel by default.
+
+### Step 2: Add step dependencies
+
+The build step should only run after lint and test complete. Add `key` attributes and a `depends_on` to the build step:
+
+```yaml
+steps:
+  - label: "Lint"
+    key: "lint"
+    command:
+      - echo "Lint placeholder"
+
+  - label: "Test"
+    key: "test"
+    command:
+      - echo "Test placeholder"
+
+  - label: "Build"
+    depends_on:
+      - "lint"
+      - "test"
+    command:
+      - echo "Build placeholder"
+```
+
+Without `depends_on`, all three steps would run simultaneously. This gives you the same execution order as the Bitbucket pipeline: lint and test in parallel, then build.
+
+### Step 3: Add the Docker plugin for the container image
+
+Bitbucket Pipelines' global `image: node:20` must be applied per step in Buildkite Pipelines using the [Docker plugin](https://buildkite.com/resources/plugins/docker). Use a YAML anchor to avoid repetition:
+
+```yaml
+common:
+  - docker_plugin: &docker
+      docker#v5.12.0:
+        image: node:20
+
+steps:
+  - label: "Lint"
+    key: "lint"
+    command:
+      - cd app && npm ci
+      - npm run lint
+    plugins:
+      - *docker
+
+  - label: "Test"
+    key: "test"
+    command:
+      - cd app && npm ci
+      - npm test
+    plugins:
+      - *docker
+
+  - label: "Build"
+    depends_on:
+      - "lint"
+      - "test"
+    command:
+      - cd app && npm ci
+      - npm run build
+    plugins:
+      - *docker
+```
+
+The `common` section is ignored by Buildkite but allows you to define reusable YAML anchors. This replaces Bitbucket's global `image` with an equivalent per-step configuration.
+
+### Step 4: Add artifact handling
+
+Bitbucket Pipelines makes artifacts automatically available to subsequent steps. In Buildkite Pipelines, use `artifact_paths` to upload and `buildkite-agent artifact download` to retrieve them:
+
+```yaml
+  - label: "Test"
+    key: "test"
+    command:
+      - cd app && npm ci
+      - npm test
+    plugins:
+      - *docker
+    artifact_paths:
+      - "app/coverage/**"
+
+  - label: "Build"
+    depends_on:
+      - "lint"
+      - "test"
+    command:
+      - cd app && npm ci
+      - npm run build
+    plugins:
+      - *docker
+    artifact_paths:
+      - "app/dist/**"
+```
+
+The deploy step will need to explicitly download the build artifacts before deploying:
+
+```yaml
+  - label: "Deploy to production"
+    command:
+      - buildkite-agent artifact download "app/dist/**" .
+      - ./deploy.sh production
+```
+
+### Step 5: Add the deployment gate
+
+Bitbucket Pipelines uses `trigger: manual` for manual approval. In Buildkite Pipelines, use a [`block` step](/docs/pipelines/configure/step-types/block-step) and `concurrency_group` to serialize deployments:
+
+```yaml
+  - block: "Deploy to production?"
+    depends_on: "build"
+
+  - label: "Deploy to production"
+    command:
+      - buildkite-agent artifact download "app/dist/**" .
+      - ./deploy.sh production
+    concurrency: 1
+    concurrency_group: "deploy-production"
+```
+
+### Step 6: Add branch filtering
+
+The Bitbucket pipeline runs only on the `main` branch. In Buildkite Pipelines, add `branches: "main"` to each step, or configure branch filtering in your pipeline settings.
+
+### Step 7: Review the complete result
+
+Here is the complete translated Buildkite pipeline:
+
+```yaml
+common:
+  - docker_plugin: &docker
+      docker#v5.12.0:
+        image: node:20
+
+steps:
+  - label: ":eslint: Lint"
+    key: "lint"
+    branches: "main"
+    command:
+      - cd app && npm ci
+      - npm run lint
+    plugins:
+      - *docker
+
+  - label: ":test_tube: Test"
+    key: "test"
+    branches: "main"
+    command:
+      - cd app && npm ci
+      - npm test
+    plugins:
+      - *docker
+    artifact_paths:
+      - "app/coverage/**"
+
+  - label: ":package: Build"
+    key: "build"
+    branches: "main"
+    depends_on:
+      - "lint"
+      - "test"
+    command:
+      - cd app && npm ci
+      - npm run build
+    plugins:
+      - *docker
+    artifact_paths:
+      - "app/dist/**"
+
+  - block: ":rocket: Deploy to production?"
+    branches: "main"
+    depends_on: "build"
+
+  - label: ":rocket: Deploy to production"
+    branches: "main"
+    command:
+      - buildkite-agent artifact download "app/dist/**" .
+      - ./deploy.sh production
+    concurrency: 1
+    concurrency_group: "deploy-production"
+```
+
+Compared to the original Bitbucket pipeline, this Buildkite pipeline:
+
+- Replaces the global `image` with a Docker plugin YAML anchor.
+- Removes the explicit `parallel` block, since Buildkite steps run in parallel by default.
+- Uses `depends_on` for sequential ordering instead of relying on step position.
+- Makes artifact passing explicit with `artifact_paths` and `buildkite-agent artifact download`.
+- Replaces `trigger: manual` with a `block` step for deployment approval.
+- Replaces `deployment: production` with `concurrency_group` for deployment serialization.
+
+> 📘 Caching
+> The Bitbucket pipeline used built-in `caches` for `node_modules`. For Buildkite hosted agents, enable container caching in your queue settings. For self-hosted agents, use the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin). Since each step already runs `npm ci`, caching is an optimization you can add later.
+
 ## Next steps
 
 Explore these Buildkite resources to help you enhance your migrated pipelines:
