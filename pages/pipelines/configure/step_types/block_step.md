@@ -67,6 +67,7 @@ Optional attributes:
     <td>
       The label on the button that submits the dialog and unblocks the step. Defaults to <code>"Continue"</code> if not set.<br/>
       <em>Example:</em> <code>"Yes, deploy it!"</code>
+      <em>Default:</em> <code>Continue</code><br/>
     </td>
   </tr>
   <tr>
