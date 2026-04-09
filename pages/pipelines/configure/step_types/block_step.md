@@ -63,6 +63,14 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>submit</code></td>
+    <td>
+      The label on the button that submits the dialog and unblocks the step. Defaults to <code>"Continue"</code> if not set.<br/>
+      <em>Example:</em> <code>"Yes, deploy it!"</code><br/>
+      <em>Default:</em> <code>Continue</code><br/>
+    </td>
+  </tr>
+  <tr>
     <td><code>fields</code></td>
     <td>
       A list of input fields required to be filled out before unblocking the step.<br/>
