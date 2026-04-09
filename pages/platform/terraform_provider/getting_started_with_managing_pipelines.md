@@ -159,7 +159,7 @@ resource "buildkite_pipeline" "backend" {
 }
 ```
 
-Learn more about each available `provider_settings` configuration in the Buildkite Terraform provider's [Nested Schema for `provider_settings`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline#nestedatt--provider_settings) documentation.
+Learn more about each available `provider_settings` configuration in the Buildkite Terraform provider's [Nested Schema for `provider_settings`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline#nested-schema-for-provider_settings) documentation.
 
 ## Add required repository webhooks
 
