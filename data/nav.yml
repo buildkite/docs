@@ -78,6 +78,8 @@
           path: "pipelines/migration/from-circleci"
         - name: "From Jenkins"
           path: "pipelines/migration/from-jenkins"
+        - name: "From Bitbucket Pipelines"
+          path: "pipelines/migration/from-bitbucket-pipelines"
         - name: "From Bamboo"
           path: "pipelines/migration/from-bamboo"
     - name: "Best practices"
