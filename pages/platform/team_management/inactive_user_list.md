@@ -2,7 +2,8 @@
 
 Buildkite organization administrators can audit inactive users within their organization using the inactive user list. An _inactive user_ is an organization member who has not interacted with Buildkite within a selected time period. This helps administrators identify and remove users who no longer need access.
 
-The inactive user list is available to Buildkite organizations on the [Enterprise plan](https://buildkite.com/pricing), as it requires the [Audit Logging](/docs/platform/audit-log) feature.
+> 📘 Enterprise plan feature
+> The inactive user list feature is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans, as it requires the [Audit Logging](/docs/platform/audit-log) feature.
 
 ## View inactive users
 
