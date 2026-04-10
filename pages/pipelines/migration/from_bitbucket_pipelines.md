@@ -14,7 +14,7 @@ Most Bitbucket Pipelines concepts translate to Buildkite Pipelines directly, but
 
 Bitbucket Pipelines is a fully hosted CI/CD service that runs jobs on Atlassian-managed infrastructure using Docker containers.
 
-Buildkite Pipelines offers a hybrid model:
+Buildkite Pipelines offers a hybrid model, consisting of the following components:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
 - [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
@@ -79,7 +79,7 @@ Before translating any pipeline from Bitbucket Pipelines to Buildkite Pipelines,
 | **Syntax** | YAML | YAML |
 | **Location** | Repository root | `.buildkite/` directory (by convention) |
 
-Both platforms use YAML, making the syntax transition straightforward. The main differences are in the attribute names and structure.
+Both platforms use YAML, making the syntax transition straightforward. The main differences are in the attribute names and structure. Unlike Bitbucket Pipelines, where the pipeline configuration is static, Buildkite Pipelines also supports [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines)—the ability to generate pipeline definitions programmatically at build-time.
 
 ### Step execution
 
