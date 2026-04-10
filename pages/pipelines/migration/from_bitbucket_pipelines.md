@@ -153,45 +153,6 @@ steps:
       - *docker
 ```
 
-### Plugins
-
-Bitbucket [Pipes](https://bitbucket.org/product/features/pipelines/integrations) (see [Plugin system](#understand-the-differences-plugin-system) for context) may have an equivalent Buildkite Pipelines [plugin](/docs/pipelines/integrations/plugins), which are shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks).
-
-**Bitbucket Pipelines:**
-
-A Pipe that performs a common task like deploying to AWS or sending Slack notifications, is referenced directly in the pipeline YAML:
-
-```yaml
-# Bitbucket Pipelines: Using a Pipe
-- pipe: atlassian/aws-s3-deploy:1.1.0
-  variables:
-    AWS_DEFAULT_REGION: "us-east-1"
-    S3_BUCKET: "my-bucket"
-    LOCAL_PATH: "dist"
-```
-
-**Buildkite Pipelines:**
-
-The equivalent plugin would be referenced directly in your pipeline YAML and versioned per step:
-
-```yaml
-# Buildkite Pipelines: Using a plugin
-steps:
-  - label: "Deploy to S3"
-    plugins:
-      - aws-s3-deploy#v1.0.0:
-          bucket: "my-bucket"
-          local-path: "dist"
-```
-
-Key differences between the two approaches:
-
-- Bitbucket Pipes run as separate Docker containers within a step. Buildkite plugins are shell-based hooks that run directly on the agent, giving them more flexibility to modify the build environment.
-- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/).
-- Buildkite plugin failures are isolated to individual builds, with no system-wide plugin management required.
-
-Browse available plugins in the [plugins directory](https://buildkite.com/resources/plugins/).
-
 ### Workspace state
 
 In Bitbucket Pipelines, artifacts can be passed between steps automatically. In Buildkite Pipelines, each step runs in a fresh workspace, requiring explicit artifact upload and download.
@@ -387,6 +348,39 @@ Bitbucket Pipelines uses `fail-fast: true` on a `parallel` block. In Buildkite P
 ### Cleanup commands
 
 Bitbucket Pipelines uses `after-script` for commands that run regardless of step success or failure. In Buildkite Pipelines, use a shell `trap` within your command or a repository `post-command` [hook](/docs/agent/hooks).
+
+### Plugins
+
+Bitbucket Pipelines extends its functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers that perform common tasks like deploying to AWS or sending Slack notifications. Pipes are referenced directly in your pipeline YAML:
+
+```yaml
+# Bitbucket Pipelines: Using a Pipe
+- pipe: atlassian/aws-s3-deploy:1.1.0
+  variables:
+    AWS_DEFAULT_REGION: "us-east-1"
+    S3_BUCKET: "my-bucket"
+    LOCAL_PATH: "dist"
+```
+
+Buildkite Pipelines uses [plugins](/docs/pipelines/integrations/plugins)—shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Like Pipes, plugins are referenced directly in pipeline YAML and versioned per step:
+
+```yaml
+# Buildkite Pipelines: Using a plugin
+steps:
+  - label: "Deploy to S3"
+    plugins:
+      - aws-s3-deploy#v1.0.0:
+          bucket: "my-bucket"
+          local-path: "dist"
+```
+
+Key differences between the two approaches:
+
+- Bitbucket Pipes run as separate Docker containers within a step. Buildkite plugins are shell-based hooks that run directly on the agent, giving them more flexibility to modify the build environment.
+- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/).
+- Buildkite plugin failures are isolated to individual builds, with no system-wide plugin management required.
+
+Browse available plugins in the [plugins directory](https://buildkite.com/resources/plugins/).
 
 ## Translate an example Bitbucket Pipelines configuration
 
