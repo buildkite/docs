@@ -17,8 +17,8 @@ Saved views created from any of these locations are shared across the organizati
 1. Select **Save** in the filter bar.
 1. Select one of the following options:
 
-    - **Save as default view:** Available on the **Summary** page only. Sets the view as the default for the test suite.
-    - **Create a new view:** Available on both the **Summary** and **Tests** pages. Give your view a name, then select **Save view**.
+    * **Save as default view:** Available on the **Summary** page only. Sets the view as the default for the test suite.
+    * **Create a new view:** Available on both the **Summary** and **Tests** pages. Give your view a name, then select **Save view**.
 
 <%= image "saved-views-test-index.png", width: 3144/2, height: 988/2, alt: "Screenshot of test index saved view" %>
 
