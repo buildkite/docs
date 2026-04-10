@@ -280,7 +280,7 @@
   test-engine/test-suites/tags: "Adding key:value tag dimensions to test executions for filtering, aggregation, and comparison."
   test-engine/test-suites/test-ownership: "Assigning team ownership to tests using a TESTOWNERS file with Buildkite team slugs."
   test-engine/test-suites/labels: "Creating and applying labels to tests manually, using workflows, execution tags, or the REST API."
-  test-engine/test-suites/saved-views: "Creating and managing saved filter/display views for test suite data in Test Engine."
+  test-engine/test-suites/saved-views: "Creating and managing saved filter/display views for test suite data in Test Engine, from both the Tests page and the build Tests tab."
   test-engine/test-suites/public: "Making a test suite publicly accessible with read-only access to run results and analytics."
   test-engine/test-collection: "Overview of test collectors for sending test data from various languages and test runners to Test Engine."
   test-engine/test-collection/android-collectors: "Setup instructions for the Android test collector package with unit and instrumented tests."
