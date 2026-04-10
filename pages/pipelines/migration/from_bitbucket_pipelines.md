@@ -59,6 +59,57 @@ A Buildkite pipeline contains different types of [steps](/docs/pipelines/configu
 - [Trigger step](/docs/pipelines/configure/step-types/trigger-step): Creates a build on another pipeline.
 - [Group step](/docs/pipelines/configure/step-types/group-step): Displays a group of sub-steps as one parent step.
 
+### Plugin system
+
+Bitbucket Pipelines extends its built-in functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers that perform common tasks like deploying to AWS or sending Slack notifications. Pipes are referenced directly in your pipeline YAML:
+
+```yaml
+# Bitbucket Pipelines: Using a Pipe
+- pipe: atlassian/aws-s3-deploy:1.1.0
+  variables:
+    AWS_DEFAULT_REGION: "us-east-1"
+    S3_BUCKET: "my-bucket"
+    LOCAL_PATH: "dist"
+```
+
+Buildkite Pipelines uses [plugins](/docs/pipelines/integrations/plugins) — shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Like Pipes, plugins are referenced directly in pipeline YAML and versioned per step:
+
+```yaml
+# Buildkite Pipelines: Using a plugin
+steps:
+  - label: "Deploy to S3"
+    plugins:
+      - aws-s3-deploy#v1.0.0:
+          bucket: "my-bucket"
+          local-path: "dist"
+```
+
+Key differences between the two approaches:
+
+- Bitbucket Pipes run as separate Docker containers within a step. Buildkite plugins are shell-based hooks that run directly on the agent, giving them more flexibility to modify the build environment.
+- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/docker), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose).
+- Buildkite plugin failures are isolated to individual builds, with no system-wide plugin management required.
+
+Browse available plugins in the [plugins directory](https://buildkite.com/resources/plugins/).
+
+### Try out Buildkite
+
+With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+
+## Pipeline translation fundamentals
+
+Before translating any pipeline from Bitbucket Pipelines to Buildkite Pipelines, be aware of the following fundamental differences.
+
+### Files and syntax
+
+| Pipeline aspect | Bitbucket Pipelines | Buildkite Pipelines |
+|-----------------|---------------------|---------------------|
+| **Configuration file** | `bitbucket-pipelines.yml` | `pipeline.yml` |
+| **Syntax** | YAML | YAML |
+| **Location** | Repository root | `.buildkite/` directory (by convention) |
+
+Both platforms use YAML, making the syntax transition straightforward. The main differences are in the attribute names and structure.
+
 ### Step execution
 
 Bitbucket Pipelines runs steps sequentially by default, requiring an explicit `parallel` block for concurrent execution. Buildkite Pipelines runs steps in parallel by default, requiring explicit `depends_on` for sequential execution.
@@ -130,57 +181,6 @@ steps:
     plugins:
       - *docker
 ```
-
-### Plugin system
-
-Bitbucket Pipelines extends its built-in functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations) — pre-packaged Docker containers that perform common tasks like deploying to AWS or sending Slack notifications. Pipes are referenced directly in your pipeline YAML:
-
-```yaml
-# Bitbucket Pipelines: Using a Pipe
-- pipe: atlassian/aws-s3-deploy:1.1.0
-  variables:
-    AWS_DEFAULT_REGION: "us-east-1"
-    S3_BUCKET: "my-bucket"
-    LOCAL_PATH: "dist"
-```
-
-Buildkite Pipelines uses [plugins](/docs/pipelines/integrations/plugins) — shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Like Pipes, plugins are referenced directly in pipeline YAML and versioned per step:
-
-```yaml
-# Buildkite Pipelines: Using a plugin
-steps:
-  - label: "Deploy to S3"
-    plugins:
-      - aws-s3-deploy#v1.0.0:
-          bucket: "my-bucket"
-          local-path: "dist"
-```
-
-Key differences between the two approaches:
-
-- Bitbucket Pipes run as separate Docker containers within a step. Buildkite plugins are shell-based hooks that run directly on the agent, giving them more flexibility to modify the build environment.
-- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/docker), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose).
-- Buildkite plugin failures are isolated to individual builds, with no system-wide plugin management required.
-
-Browse available plugins in the [plugins directory](https://buildkite.com/resources/plugins/).
-
-### Try out Buildkite
-
-With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
-
-## Pipeline translation fundamentals
-
-Before translating any pipeline from Bitbucket Pipelines to Buildkite Pipelines, be aware of the following fundamental differences.
-
-### Files and syntax
-
-| Pipeline aspect | Bitbucket Pipelines | Buildkite Pipelines |
-|-----------------|---------------------|---------------------|
-| **Configuration file** | `bitbucket-pipelines.yml` | `pipeline.yml` |
-| **Syntax** | YAML | YAML |
-| **Location** | Repository root | `.buildkite/` directory (by convention) |
-
-Both platforms use YAML, making the syntax transition straightforward. The main differences are in the attribute names and structure.
 
 ### Workspace state
 
