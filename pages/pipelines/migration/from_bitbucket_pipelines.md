@@ -33,7 +33,7 @@ Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipeli
 
 ### Pipeline configuration concepts
 
-The following table maps key Bitbucket Pipelines concepts to their Buildkite Pipelines equivalents.
+The following table maps key Bitbucket Pipelines concepts to their Buildkite Pipelines equivalents. These are covered in more detail in [Pipeline translation fundamentals](#pipeline-translation-fundamentals).
 
 | Bitbucket Pipelines | Buildkite Pipelines |
 |---------------------|---------------------|
@@ -155,7 +155,11 @@ steps:
 
 ### Plugins
 
-Bitbucket Pipelines extends its functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers that perform common tasks like deploying to AWS or sending Slack notifications. Pipes are referenced directly in your pipeline YAML:
+Bitbucket [Pipes](https://bitbucket.org/product/features/pipelines/integrations) (see [Plugin system](#understand-the-differences-plugin-system) for context) may have an equivalent Buildkite Pipelines [plugin](/docs/pipelines/integrations/plugins), which are shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks).
+
+**Bitbucket Pipelines:**
+
+A Pipe that performs a common task like deploying to AWS or sending Slack notifications, is referenced directly in the pipeline YAML:
 
 ```yaml
 # Bitbucket Pipelines: Using a Pipe
@@ -166,7 +170,9 @@ Bitbucket Pipelines extends its functionality through [Pipes](https://bitbucket.
     LOCAL_PATH: "dist"
 ```
 
-Buildkite Pipelines uses [plugins](/docs/pipelines/integrations/plugins)—shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Like Pipes, plugins are referenced directly in pipeline YAML and versioned per step:
+**Buildkite Pipelines:**
+
+The equivalent plugin would be referenced directly in your pipeline YAML and versioned per step:
 
 ```yaml
 # Buildkite Pipelines: Using a plugin
@@ -181,7 +187,7 @@ steps:
 Key differences between the two approaches:
 
 - Bitbucket Pipes run as separate Docker containers within a step. Buildkite plugins are shell-based hooks that run directly on the agent, giving them more flexibility to modify the build environment.
-- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/docker), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose).
+- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/).
 - Buildkite plugin failures are isolated to individual builds, with no system-wide plugin management required.
 
 Browse available plugins in the [plugins directory](https://buildkite.com/resources/plugins/).
