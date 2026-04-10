@@ -10,7 +10,7 @@ Most CircleCI concepts translate to Buildkite Pipelines directly, but there are 
 
 CircleCI is a fully hosted CI/CD platform that runs jobs on CircleCI-managed or self-hosted runners.
 
-Buildkite Pipelines offers a hybrid model:
+Buildkite Pipelines offers a hybrid model, consisting of the following components:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
 - [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
