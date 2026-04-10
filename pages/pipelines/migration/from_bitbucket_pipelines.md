@@ -235,75 +235,6 @@ steps:
     branches: "develop"
 ```
 
-### Path-based conditional execution
-
-Bitbucket Pipelines uses `condition.changesets.includePaths`. Buildkite Pipelines provides a native `if_changed` attribute.
-
-**Bitbucket Pipelines:**
-
-```yaml
-- step:
-    name: Build client
-    condition:
-      changesets:
-        includePaths:
-          - "client/**"
-    script:
-      - cd client && npm run build
-```
-
-**Buildkite Pipelines:**
-
-```yaml
-steps:
-  - label: "Build client"
-    if_changed:
-      - "client/**"
-    command:
-      - cd client && npm run build
-```
-
-> 📘 if_changed requires dynamic pipeline upload
-> The `if_changed` attribute is processed only by `buildkite-agent pipeline upload`. Store your pipeline YAML in the repository (for example, `.buildkite/pipeline.yml`) and use a pipeline upload step.
-
-### Caching
-
-Bitbucket Pipelines provides built-in caching with `definitions.caches`. Buildkite Pipelines uses the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) for self-hosted agents, or container caching for [Buildkite hosted agents](/docs/agent/buildkite-hosted).
-
-**Bitbucket Pipelines:**
-
-```yaml
-definitions:
-  caches:
-    node-modules: node_modules
-
-pipelines:
-  default:
-    - step:
-        name: Build
-        caches:
-          - node-modules
-        script:
-          - npm install && npm run build
-```
-
-**Buildkite Pipelines (self-hosted agents):**
-
-```yaml
-steps:
-  - label: "Build"
-    command:
-      - npm install && npm run build
-    plugins:
-      - cache#v1.3.0:
-          path: node_modules
-          key: "node-{{ checksum 'package-lock.json' }}"
-```
-
-### Service containers
-
-Bitbucket Pipelines uses `definitions.services` and `services` to run sidecar containers. In Buildkite Pipelines, use the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) with a `docker-compose.yml` file.
-
 ### Deployment environments
 
 Bitbucket Pipelines uses `deployment` to tag steps for environment tracking, and `trigger: manual` for manual approval. In Buildkite Pipelines, use `concurrency_group` for deployment serialization and [`block` steps](/docs/pipelines/configure/step-types/block-step) for manual approval.
@@ -332,22 +263,6 @@ steps:
     concurrency: 1
     concurrency_group: "deploy-production"
 ```
-
-### Timeouts
-
-Bitbucket Pipelines uses `options.max-time` for a global timeout and `max-time` per step. In Buildkite Pipelines, use `timeout_in_minutes` on each step, or configure a default timeout in pipeline settings.
-
-### Reusable step definitions
-
-Bitbucket Pipelines defines reusable steps under `definitions.steps` using YAML anchors. Buildkite Pipelines supports the same pattern using a `common` section (which Buildkite ignores) to hold YAML anchors.
-
-### Fail-fast behavior
-
-Bitbucket Pipelines uses `fail-fast: true` on a `parallel` block. In Buildkite Pipelines, use `cancel_on_build_failing: true` on each step that should be canceled when the build is failing.
-
-### Cleanup commands
-
-Bitbucket Pipelines uses `after-script` for commands that run regardless of step success or failure. In Buildkite Pipelines, use a shell `trap` within your command or a repository `post-command` [hook](/docs/agent/hooks).
 
 ### Plugins
 
@@ -661,6 +576,95 @@ Compared to the original Bitbucket pipeline, this Buildkite pipeline:
 
 > 📘 Caching
 > The Bitbucket pipeline used built-in `caches` for `node_modules`. For Buildkite hosted agents, enable container caching in your queue settings. For self-hosted agents, use the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin). Since each step already runs `npm ci`, caching is an optimization you can add later.
+
+## Translating common patterns
+
+This section covers additional Bitbucket Pipelines features and patterns not demonstrated in the [example translation above](#translate-an-example-bitbucket-pipelines-configuration).
+
+### Path-based conditional execution
+
+Bitbucket Pipelines uses `condition.changesets.includePaths`. Buildkite Pipelines provides a native `if_changed` attribute.
+
+**Bitbucket Pipelines:**
+
+```yaml
+- step:
+    name: Build client
+    condition:
+      changesets:
+        includePaths:
+          - "client/**"
+    script:
+      - cd client && npm run build
+```
+
+**Buildkite Pipelines:**
+
+```yaml
+steps:
+  - label: "Build client"
+    if_changed:
+      - "client/**"
+    command:
+      - cd client && npm run build
+```
+
+> 📘 if_changed requires dynamic pipeline upload
+> The `if_changed` attribute is processed only by `buildkite-agent pipeline upload`. Store your pipeline YAML in the repository (for example, `.buildkite/pipeline.yml`) and use a pipeline upload step.
+
+### Caching
+
+Bitbucket Pipelines provides built-in caching with `definitions.caches`. Buildkite Pipelines uses the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) for self-hosted agents, or container caching for [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+
+**Bitbucket Pipelines:**
+
+```yaml
+definitions:
+  caches:
+    node-modules: node_modules
+
+pipelines:
+  default:
+    - step:
+        name: Build
+        caches:
+          - node-modules
+        script:
+          - npm install && npm run build
+```
+
+**Buildkite Pipelines (self-hosted agents):**
+
+```yaml
+steps:
+  - label: "Build"
+    command:
+      - npm install && npm run build
+    plugins:
+      - cache#v1.3.0:
+          path: node_modules
+          key: "node-{{ checksum 'package-lock.json' }}"
+```
+
+### Service containers
+
+Bitbucket Pipelines uses `definitions.services` and `services` to run sidecar containers. In Buildkite Pipelines, use the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) with a `docker-compose.yml` file.
+
+### Timeouts
+
+Bitbucket Pipelines uses `options.max-time` for a global timeout and `max-time` per step. In Buildkite Pipelines, use `timeout_in_minutes` on each step, or configure a default timeout in pipeline settings.
+
+### Reusable step definitions
+
+Bitbucket Pipelines defines reusable steps under `definitions.steps` using YAML anchors. Buildkite Pipelines supports the same pattern using a `common` section (which Buildkite ignores) to hold YAML anchors.
+
+### Fail-fast behavior
+
+Bitbucket Pipelines uses `fail-fast: true` on a `parallel` block. In Buildkite Pipelines, use `cancel_on_build_failing: true` on each step that should be canceled when the build is failing.
+
+### Cleanup commands
+
+Bitbucket Pipelines uses `after-script` for commands that run regardless of step success or failure. In Buildkite Pipelines, use a shell `trap` within your command or a repository `post-command` [hook](/docs/agent/hooks).
 
 ## Next steps
 
