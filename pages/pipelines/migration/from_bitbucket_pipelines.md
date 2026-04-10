@@ -1,8 +1,8 @@
 # Migrate from Bitbucket Pipelines
 
-This guide is for people who are familiar with or already use [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines) and want to migrate to Buildkite Pipelines.
+This guide helps [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines) users migrate to Buildkite Pipelines, and covers key differences between the platforms.
 
-Bitbucket Pipelines is a CI/CD service built into Bitbucket Cloud that uses a `bitbucket-pipelines.yml` file in your repository to define your build configuration. Buildkite Pipelines uses a similar YAML-based approach with `pipeline.yml`, but differs in its hybrid architecture, execution model, and how it handles containers and caching.
+Bitbucket Pipelines is a CI/CD service built into [Bitbucket Cloud](https://bitbucket.org/product/) that uses a `bitbucket-pipelines.yml` file in your repository to define your build configuration. Buildkite Pipelines uses a similar YAML-based approach with `pipeline.yml`, but differs in its [hybrid architecture offering](/docs/pipelines/architecture), execution model, and how it handles containers and caching.
 
 Follow the steps in this guide for a smooth migration from Bitbucket Pipelines to Buildkite Pipelines.
 
@@ -14,18 +14,18 @@ Most Bitbucket Pipelines concepts translate to Buildkite Pipelines directly, but
 
 Bitbucket Pipelines is a fully hosted CI/CD service that runs jobs on Atlassian-managed infrastructure using Docker containers.
 
-Buildkite Pipelines uses a hybrid model:
+Buildkite Pipelines offers a hybrid model:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
-- [Buildkite agents](/docs/agent) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
+- [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (as a hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
-This hybrid model gives you more control over your build environment, scaling, and security compared to Bitbucket Pipelines' fully hosted approach.
+The hybrid model gives you more control over your build environment, scaling, and security compared to Bitbucket Pipelines' fully hosted approach.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
 ### Security
 
-Buildkite Pipelines' hybrid architecture provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Self-hosted Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
+The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of its SaaS platform, including user authentication, pipeline management, and the web interface. Self-hosted Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
 Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure need access to clone your repositories. Your secrets can be managed through Buildkite's own [secrets management](/docs/pipelines/security/secrets) or through secrets management tools hosted within your infrastructure.
 
@@ -40,7 +40,7 @@ The following table maps key Bitbucket Pipelines concepts to their Buildkite Pip
 | `bitbucket-pipelines.yml` | `pipeline.yml` |
 | `name` | `label` |
 | `script` | `command` |
-| `image` (global) | [Docker plugin](https://buildkite.com/resources/plugins/docker) per step |
+| `image` (global) | [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) per step |
 | `parallel` | Steps without `depends_on` (parallel by default) |
 | `caches` | [Cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) |
 | `artifacts` | `artifact_paths` / `buildkite-agent artifact` |
@@ -130,6 +130,39 @@ steps:
     plugins:
       - *docker
 ```
+
+### Plugin system
+
+Bitbucket Pipelines extends its built-in functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations) — pre-packaged Docker containers that perform common tasks like deploying to AWS or sending Slack notifications. Pipes are referenced directly in your pipeline YAML:
+
+```yaml
+# Bitbucket Pipelines: Using a Pipe
+- pipe: atlassian/aws-s3-deploy:1.1.0
+  variables:
+    AWS_DEFAULT_REGION: "us-east-1"
+    S3_BUCKET: "my-bucket"
+    LOCAL_PATH: "dist"
+```
+
+Buildkite Pipelines uses [plugins](/docs/pipelines/integrations/plugins) — shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Like Pipes, plugins are referenced directly in pipeline YAML and versioned per step:
+
+```yaml
+# Buildkite Pipelines: Using a plugin
+steps:
+  - label: "Deploy to S3"
+    plugins:
+      - aws-s3-deploy#v1.0.0:
+          bucket: "my-bucket"
+          local-path: "dist"
+```
+
+Key differences between the two approaches:
+
+- Bitbucket Pipes run as separate Docker containers within a step. Buildkite plugins are shell-based hooks that run directly on the agent, giving them more flexibility to modify the build environment.
+- Bitbucket bakes many capabilities into the platform natively (caching, artifacts, services, deployments). In Buildkite Pipelines, some of these capabilities are provided through plugins, such as the [Docker plugin](https://buildkite.com/resources/plugins/docker), [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin), and [Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose).
+- Buildkite plugin failures are isolated to individual builds, with no system-wide plugin management required.
+
+Browse available plugins in the [plugins directory](https://buildkite.com/resources/plugins/).
 
 ### Try out Buildkite
 
