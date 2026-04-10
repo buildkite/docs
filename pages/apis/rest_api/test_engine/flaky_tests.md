@@ -1,14 +1,22 @@
 # Flaky tests API
 
-> 🚧 This section documents a deprecated Buildkite API endpoint
-> Flaky tests should be accessed via the [list tests endpoint](/docs/apis/rest-api/test-engine/tests#list-tests) using the `label=flaky` query parameter.
+To retrieve flaky tests using the API, use the [list tests endpoint](/docs/apis/rest-api/test-engine/tests#list-tests) with the `label=flaky` query parameter:
 
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests?label=flaky"
+```
 
-The flaky test API endpoint provides information about tests detected as flaky in a test suite.
+Required scope: `read_suites`
 
-## List all flaky tests
+Success response: `200 OK`
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of the flaky tests detected in a test suite. Please note that the `last_resolved_at` field represents a deprecated feature in Test Engine and should not be relied upon.
+## Legacy flaky tests endpoint (deprecated)
+
+> 🚧 This endpoint is deprecated
+> Use the [list tests endpoint](/docs/apis/rest-api/test-engine/tests#list-tests) with `?label=flaky` instead.
+
+The legacy flaky tests endpoint is still available but no longer recommended. It does not return the same data as the Buildkite Test Engine UI.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

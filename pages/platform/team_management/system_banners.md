@@ -7,16 +7,15 @@ keywords: docs, tutorials, 2fa
 > 📘 Enterprise plan feature
 > The system banners feature is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans.
 
-Organization owners can create announcement banners for the organization. Banners are displayed to all organization members at the top of every page in the organization.
+Buildkite organization administrators can create announcement banners for their Buildkite organization. Banners are displayed to all members of the organization at the top of every page throughout the Buildkite interface.
 
-You can use Markdown to format your message and link to other documentation
-which you may have.
+You can use Markdown to format your message and link to other URLs or pages for more context.
 
 ## Steps to creating a banner
 
-1. Ensure you are logged in as an Administrator.
-1. Visit your organization's [**Settings**](https://buildkite.com/organizations/~/settings) page.
-1. Add a message to the **System banners** panel.
+1. Ensure you are logged in as a Buildkite organization administrator.
+1. Access your Buildkite organization's [**Settings** page](https://buildkite.com/organizations/~/settings) from the global navigation.
+1. On the **Organization Settings** page, add a message to the **System banners** text box.
 1. Select **Save Banner**.
 
 [settings page]: <https://buildkite.com/organizations/~/settings>

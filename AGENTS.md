@@ -213,6 +213,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Break long compound sentences into shorter ones. When comparing two systems or explaining cause and effect, prefer two sentences over one long sentence joined by a conjunction
 - Prefer periods over em dashes when separating independent clauses—split into two sentences instead
 - If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
+- Avoid starting sentences with "It" or "They", unless what these words reference is obvious from the previous sentence, which is typically the grammatical direct object.
 
 **Formatting standards:**
 - Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
@@ -248,6 +249,7 @@ When writing technical documentation for Buildkite:
 
 **No possessive product names:**
 - Never use possessive forms of Buildkite product names—rephrase instead
+- The exception to this is "Buildkite organization", which is not a product name, but is a term used to disambiguate a company or organization from a "Buildkite organization", which is a different concept.
 - Correct: "The syntax used in Buildkite Pipelines is simpler."
 - Incorrect: "Buildkite's syntax is simpler."
 - Correct: "The Buildkite Pipelines parallel-by-default behavior"
