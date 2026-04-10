@@ -230,6 +230,16 @@ steps:
       - ./deploy.sh
 ```
 
+Unlike Bitbucket Pipelines, where artifacts from previous steps are automatically available, Buildkite Pipelines requires you to explicitly manage state between steps. There are several options for sharing state:
+
+- **Reinstall per step**: For fast-installing dependencies like `npm ci`, reinstall them in each step rather than sharing `node_modules` between steps.
+
+- **Buildkite artifacts**: Upload [build artifacts](/docs/pipelines/configure/artifacts) from one step using `artifact_paths`, then download them in a subsequent step with `buildkite-agent artifact download`. This works best with small files and build outputs.
+
+- **Cache plugin**: Use the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) for larger dependencies using cloud storage (S3, GCS). This is the closest equivalent to Bitbucket's built-in `caches` feature.
+
+- **External storage**: Custom solutions for complex state management.
+
 ### Branch filtering
 
 Bitbucket Pipelines uses `pipelines.branches` to define different step lists per branch. In Buildkite Pipelines, use the `branches` attribute on individual steps.
