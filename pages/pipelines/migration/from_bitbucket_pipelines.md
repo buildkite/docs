@@ -40,7 +40,7 @@ The following table maps key Bitbucket Pipelines concepts to their Buildkite Pip
 | `bitbucket-pipelines.yml` | `pipeline.yml` |
 | `name` | `label` |
 | `script` | `command` |
-| `image` (global) | [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) per step |
+| `image` (global or per step) | [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) per step |
 | `parallel` | Steps without `depends_on` (parallel by default) |
 | `caches` | [Cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) |
 | `artifacts` | `artifact_paths` / `buildkite-agent artifact` |
@@ -122,7 +122,7 @@ steps:
 
 ### Container images
 
-Bitbucket Pipelines supports a global `image` that applies to all steps. Buildkite Pipelines has no global image setting. Instead, use the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) on each step, or a YAML anchor to avoid repetition.
+Bitbucket Pipelines supports a global `image` that applies to all steps, with the option to override it on individual steps. Buildkite Pipelines has no global image setting. Instead, use the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) on each step. Use a YAML anchor for your default image and override it on steps that need a different image.
 
 **Bitbucket Pipelines:**
 
@@ -135,6 +135,11 @@ pipelines:
         name: Build
         script:
           - npm run build
+    - step:
+        name: Deploy
+        image: amazon/aws-cli:latest
+        script:
+          - ./deploy.sh
 ```
 
 **Buildkite Pipelines (with YAML anchor):**
@@ -151,6 +156,13 @@ steps:
       - npm run build
     plugins:
       - *docker
+
+  - label: "Deploy"
+    command:
+      - ./deploy.sh
+    plugins:
+      - docker#v5.12.0:
+          image: amazon/aws-cli:latest
 ```
 
 ### Workspace state
