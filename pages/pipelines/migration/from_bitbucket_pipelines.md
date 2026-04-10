@@ -331,7 +331,7 @@ steps:
 
 ### Service containers
 
-Bitbucket Pipelines uses `definitions.services` and `services` to run sidecar containers. In Buildkite Pipelines, use the [Docker Compose plugin](https://buildkite.com/resources/plugins/docker-compose) with a `docker-compose.yml` file.
+Bitbucket Pipelines uses `definitions.services` and `services` to run sidecar containers. In Buildkite Pipelines, use the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) with a `docker-compose.yml` file.
 
 ### Deployment environments
 
