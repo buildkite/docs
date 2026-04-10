@@ -46,7 +46,7 @@ Google Cloud | `metadata.google.internal` (port 80, HTTP) | [GCP instance metada
 In addition to the hosts the agent itself connects to, your build scripts and [plugins](/docs/pipelines/integrations/plugins) may require access to other services. These depend on what your pipelines do, but common examples include:
 
 - **Source control:** your Git host, such as `github.com`, `gitlab.com`, or an internal Git server
-- **Package registries:** for example, `registry.npmjs.org`, `pypi.org`, `registry.yarnpkg.com`, or Docker Hub (`registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`)
+- **Package registries:** such as `registry.npmjs.org`, `pypi.org`, `registry.yarnpkg.com`, or Docker Hub (`registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`)
 - **Buildkite Package Registries:** `api.buildkite.com` (port 443) if you use [Buildkite Package Registries](/docs/package-registries) from your build scripts
 - **Other external services:** deployment targets, notification endpoints, code analysis tools, or any other services your builds interact with
 
