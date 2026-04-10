@@ -17,7 +17,7 @@ Bitbucket Pipelines is a fully hosted CI/CD service that runs jobs on Atlassian-
 Buildkite Pipelines offers a hybrid model:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
-- [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (as a hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
+- [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
 The hybrid model gives you more control over your build environment, scaling, and security compared to Bitbucket Pipelines' fully hosted approach.
 
@@ -27,7 +27,7 @@ See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more de
 
 The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of its SaaS platform, including user authentication, pipeline management, and the web interface. Self-hosted Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
-Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure need access to clone your repositories. Your secrets can be managed through Buildkite's own [secrets management](/docs/pipelines/security/secrets) or through secrets management tools hosted within your infrastructure.
+Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure need access to clone your repositories. Your secrets can be managed through Buildkite's own [secrets management](/docs/pipelines/security/secrets/buildkite-secrets) or through secrets management tools hosted within your infrastructure.
 
 Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) in Buildkite Pipelines.
 
@@ -61,7 +61,7 @@ A Buildkite pipeline contains different types of [steps](/docs/pipelines/configu
 
 ### Plugin system
 
-Bitbucket Pipelines extends its built-in functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers for common tasks. Buildkite Pipelines uses shell-based [plugins](/docs/pipelines/integrations/plugins) that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks) and are versioned per step. Both are declared directly in pipeline YAML. For detailed comparisons and examples, see [Plugins](#pipeline-translation-fundamentals-plugins) in pipeline translation fundamentals below.
+Bitbucket Pipelines extends its built-in functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers for common tasks. Buildkite Pipelines uses shell-based [plugins](/docs/pipelines/integrations/plugins) that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks) and are versioned per step. Both are declared directly in pipeline YAML. For detailed comparisons and examples, see [Plugins](#pipeline-translation-fundamentals-plugins) in [Pipeline translation fundamentals](#pipeline-translation-fundamentals).
 
 ### Try out Buildkite
 
@@ -122,7 +122,7 @@ steps:
 
 ### Container images
 
-Bitbucket Pipelines supports a global `image` that applies to all steps. Buildkite Pipelines has no global image setting. Instead, use the [Docker plugin](https://buildkite.com/resources/plugins/docker) on each step, or a YAML anchor to avoid repetition.
+Bitbucket Pipelines supports a global `image` that applies to all steps. Buildkite Pipelines has no global image setting. Instead, use the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) on each step, or a YAML anchor to avoid repetition.
 
 **Bitbucket Pipelines:**
 
@@ -487,7 +487,7 @@ Without `depends_on`, all three steps would run simultaneously. This gives you t
 
 ### Step 3: Add the Docker plugin for the container image
 
-Bitbucket Pipelines' global `image: node:20` must be applied per step in Buildkite Pipelines using the [Docker plugin](https://buildkite.com/resources/plugins/docker). Use a YAML anchor to avoid repetition:
+Bitbucket Pipelines' global `image: node:20` must be applied per step in Buildkite Pipelines using the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/). Use a YAML anchor to avoid repetition:
 
 ```yaml
 common:
