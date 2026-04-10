@@ -518,7 +518,7 @@ common:
         image: node:20
 
 steps:
-  - label: ":eslint: Lint"
+  - label: "\:eslint\: Lint"
     key: "lint"
     branches: "main"
     command:
