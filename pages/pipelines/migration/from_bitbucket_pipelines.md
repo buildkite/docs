@@ -351,7 +351,11 @@ Bitbucket Pipelines uses `after-script` for commands that run regardless of step
 
 ### Plugins
 
-Bitbucket Pipelines extends its functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers that perform common tasks like deploying to AWS or sending Slack notifications. Pipes are referenced directly in your pipeline YAML:
+Bitbucket [Pipes](https://bitbucket.org/product/features/pipelines/integrations) (see [Plugin system](#understand-the-differences-plugin-system) for context) may have an equivalent Buildkite Pipelines [plugin](/docs/pipelines/integrations/plugins), which are shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks).
+
+**Bitbucket Pipelines:**
+
+A Pipe that performs a common task like deploying to AWS or sending Slack notifications, is referenced directly in the pipeline YAML:
 
 ```yaml
 # Bitbucket Pipelines: Using a Pipe
@@ -362,7 +366,9 @@ Bitbucket Pipelines extends its functionality through [Pipes](https://bitbucket.
     LOCAL_PATH: "dist"
 ```
 
-Buildkite Pipelines uses [plugins](/docs/pipelines/integrations/plugins)—shell-based extensions that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks). Like Pipes, plugins are referenced directly in pipeline YAML and versioned per step:
+**Buildkite Pipelines:**
+
+The equivalent plugin would be referenced directly in your pipeline YAML and versioned per step:
 
 ```yaml
 # Buildkite Pipelines: Using a plugin
