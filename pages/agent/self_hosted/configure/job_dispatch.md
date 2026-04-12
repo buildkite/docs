@@ -6,7 +6,7 @@ This polling-based approach is reliable and works across all network configurati
 
 ## Streaming job dispatch
 
-Streaming job dispatch reduces job acceptance latency by maintaining a persistent connection between the agent and Buildkite Pipelines. Instead of the agent periodically asking for work, Buildkite Pipelines pushes jobs to idle agents as soon as they become available.
+Streaming job dispatch reduces job acceptance latency by maintaining a persistent connection between the agent and Buildkite Pipelines. Instead of the agent periodically asking for work, Buildkite Pipelines pushes jobs to idle agents as soon as they become available. Streaming job dispatch is available from Buildkite agent version 3.122.0 and later.
 
 To opt in to this feature, when [starting your self-hosted agent](/docs/agent/cli/reference/start), point your agent at the streaming endpoint using the [`--endpoint` option](/docs/agent/cli/reference/start#endpoint):
 
