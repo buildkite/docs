@@ -1,23 +1,24 @@
 # Network requirements
 
-Self-hosted [Buildkite agents](/docs/agent) only make outbound HTTPS connections. No inbound ports need to be opened. This page lists the hosts and ports your network must allow agents to reach.
+Self-hosted [Buildkite agents](/docs/agent) only make outbound HTTPS connections. No inbound ports need to be opened. This page lists the hosts and ports your network must allow agents to access.
 
 ## Required hosts
 
-Every self-hosted agent must be able to reach the following hosts over HTTPS (port 443):
+Every self-hosted agent must be able to access the following hosts over HTTPS (port 443):
 
 Host | Purpose
 ---- | -------
-`agent.buildkite.com` | The [Agent API](/docs/apis/agent-api) endpoint. Used for agent registration, job polling, log uploads, [artifact](/docs/pipelines/configure/artifacts) coordination, [metadata](/docs/pipelines/configure/build-meta-data), [secrets](/docs/pipelines/security/secrets), [OIDC token](/docs/pipelines/security/oidc) requests, [pipeline uploads](/docs/pipelines/configure/dynamic-pipelines), and cache operations.
+`agent-edge.buildkite.com` | The default [Agent API](/docs/apis/agent-api) endpoint for agents running version 3.122.0 or later. Supports both [streaming](/docs/agent/self-hosted/configure/job-dispatch#streaming-job-dispatch) and polling-based job dispatch, along with agent registration, log uploads, [artifact](/docs/pipelines/configure/artifacts) coordination, [metadata](/docs/pipelines/configure/build-meta-data), [secrets](/docs/pipelines/security/secrets), [OIDC token](/docs/pipelines/security/oidc) requests, [pipeline uploads](/docs/pipelines/configure/dynamic-pipelines), and cache operations.
+`agent.buildkite.com` | The default [Agent API](/docs/apis/agent-api) endpoint for agents running versions earlier than version 3.122.0. Supports polling-based job dispatch only. Provides the same functionality as `agent-edge.buildkite.com` except for streaming job dispatch.
 `buildkiteartifacts.com` | Default artifact storage. When using the built-in artifact storage, the Agent API provides upload and download URLs on this domain.
 {: class="two-column"}
 
 > 📘
-> All agent-to-Buildkite communication uses TLS encryption. The agent connects to `agent.buildkite.com` on port 443 using HTTPS. There is no need to open any inbound ports on your firewall or security groups. For more detail on how the agent communicates with Buildkite, see [Buildkite architectures](/docs/pipelines/architecture).
+> All agent-to-Buildkite communication uses TLS encryption. The agent connects to its configured endpoint on port 443 using HTTPS. There is no need to open any inbound ports on your firewall or security groups. For more detail on how the agent communicates with Buildkite, see [Buildkite architectures](/docs/pipelines/architecture).
 
 ## Optional hosts
 
-Depending on your agent configuration, agents may also need to reach the following hosts.
+Depending on your agent configuration, agents may also need to access the following hosts.
 
 ### Customer-managed artifact storage
 
@@ -45,10 +46,10 @@ Google Cloud | `metadata.google.internal` (port 80, HTTP) | [GCP instance metada
 
 In addition to the hosts the agent itself connects to, your build scripts and [plugins](/docs/pipelines/integrations/plugins) may require access to other services. These depend on what your pipelines do, but common examples include:
 
-- **Source control:** your Git host, such as `github.com`, `gitlab.com`, or an internal Git server
-- **Package registries:** such as `registry.npmjs.org`, `pypi.org`, `registry.yarnpkg.com`, or Docker Hub (`registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`)
-- **Buildkite Package Registries:** `api.buildkite.com` (port 443) if you use [Buildkite Package Registries](/docs/package-registries) from your build scripts
-- **Other external services:** deployment targets, notification endpoints, code analysis tools, or any other services your builds interact with
+- **Source control**: your Git host, such as `github.com`, `gitlab.com`, or an internal Git server
+- **Package registries**: such as `registry.npmjs.org`, `pypi.org`, `registry.yarnpkg.com`, or Docker Hub (`registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`)
+- **Buildkite Package Registries**: `api.buildkite.com` (port 443) if you use [Buildkite Package Registries](/docs/package-registries) from your build scripts
+- **Other external services**: deployment targets, notification endpoints, code analysis tools, or any other services your builds interact with
 
 ## Buildkite platform egress IPs
 
