@@ -257,6 +257,7 @@ exceptions:
   - SDKs
   - Scripted
   - Secret Manager
+  - Saved Views
   - Sequoia
   - SLA
   - Slack
@@ -270,6 +271,7 @@ exceptions:
   - SLOs
   - SSH
   - SSO
+  - Summary
   - Tahoe
   - TCP
   - Tekton
@@ -278,6 +280,7 @@ exceptions:
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - Tests
   - ToolHive
   - tvOS
   - TypeScript
