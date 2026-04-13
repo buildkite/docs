@@ -660,11 +660,96 @@ Compared to the original Bitbucket pipeline, this Buildkite pipeline:
 - Replaces `deployment: production` with `concurrency_group` for deployment serialization.
 
 > 📘 Caching
-> The Bitbucket pipeline used built-in `caches` for `node_modules`. For Buildkite hosted agents, enable container caching in your queue settings. For self-hosted agents, use the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin). Since each step already runs `npm ci`, caching is an optimization you can add later.
+> The Bitbucket pipeline used built-in `caches` for `node_modules`. For Buildkite hosted agents, use [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) and [enable container caching](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes-enabling-container-cache-volumes). For self-hosted agents, use the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin). Since each step already runs `npm ci`, caching is an optimization you can add later.
 
 ## Translating common patterns
 
 This section covers additional Bitbucket Pipelines features and patterns not demonstrated in the [example translation above](#translate-an-example-bitbucket-pipelines-configuration).
+
+### Reusable step definitions
+
+Bitbucket Pipelines defines reusable steps under `definitions.steps` using YAML anchors. Buildkite Pipelines supports the same pattern using a `common` section (which Buildkite Pipelines ignores—any top-level keys are ignored) to hold YAML anchors.
+
+**Bitbucket Pipelines:**
+
+```yaml
+definitions:
+  steps:
+    - step: &build-step
+        name: Build
+        script:
+          - npm run build
+    - step: &test-step
+        name: Test
+        script:
+          - npm test
+
+pipelines:
+  branches:
+    main:
+      - step: *build-step
+      - step: *test-step
+    develop:
+      - step: *build-step
+```
+
+**Buildkite Pipelines:**
+
+```yaml
+common:
+  - build_step: &build-step
+      label: "Build"
+      command:
+        - npm run build
+  - test_step: &test-step
+      label: "Test"
+      command:
+        - npm test
+
+steps:
+  - <<: *build-step
+    branches: "main"
+  - <<: *test-step
+    branches: "main"
+  - <<: *build-step
+    branches: "develop"
+```
+
+Use `<<: *anchor` to merge an anchor and add or override attributes like `branches`. Use `*anchor` directly when no additional attributes are needed.
+
+### Caching
+
+Bitbucket Pipelines provides built-in caching with `definitions.caches`. Buildkite Pipelines uses the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) for self-hosted agents, or [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) for [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+
+**Bitbucket Pipelines:**
+
+```yaml
+definitions:
+  caches:
+    node-modules: node_modules
+
+pipelines:
+  default:
+    - step:
+        name: Build
+        caches:
+          - node-modules
+        script:
+          - npm install && npm run build
+```
+
+**Buildkite Pipelines (self-hosted agents):**
+
+```yaml
+steps:
+  - label: "Build"
+    command:
+      - npm install && npm run build
+    plugins:
+      - cache#v1.3.0:
+          path: node_modules
+          key: "node-{{ checksum 'package-lock.json' }}"
+```
 
 ### Path-based conditional execution
 
@@ -697,59 +782,188 @@ steps:
 > 📘 if_changed requires dynamic pipeline upload
 > The `if_changed` attribute is processed only by `buildkite-agent pipeline upload`. Store your pipeline YAML in the repository (for example, `.buildkite/pipeline.yml`) and use a pipeline upload step.
 
-### Caching
+### Service containers
 
-Bitbucket Pipelines provides built-in caching with `definitions.caches`. Buildkite Pipelines uses the [cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) for self-hosted agents, or container caching for [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+Bitbucket Pipelines uses `definitions.services` and `services` to run sidecar containers. In Buildkite Pipelines, use the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) with a `docker-compose.yml` file.
 
 **Bitbucket Pipelines:**
 
 ```yaml
 definitions:
-  caches:
-    node-modules: node_modules
+  services:
+    mysql:
+      image: mysql:5.7
+      environment:
+        MYSQL_DATABASE: test_db
+        MYSQL_ROOT_PASSWORD: password
+
+pipelines:
+  default:
+    - step:
+        name: Integration tests
+        services:
+          - mysql
+        script:
+          - npm run test:integration
+```
+
+**Buildkite Pipelines:**
+
+The service definition moves out of the pipeline YAML and into a separate `docker-compose.test.yml` file:
+
+```yaml
+services:
+  app:
+    build: .
+    depends_on: [mysql]
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: test_db
+      MYSQL_ROOT_PASSWORD: password
+```
+{: codeblock-file="docker-compose.test.yml"}
+
+The pipeline step references this file through the Docker Compose plugin:
+
+```yaml
+steps:
+  - label: "Integration tests"
+    plugins:
+      - docker-compose#v5.5.0:
+          run: app
+          config: docker-compose.test.yml
+    command:
+      - npm run test:integration
+```
+
+### Timeouts
+
+Bitbucket Pipelines uses `options.max-time` for a global timeout and `max-time` per step. In Buildkite Pipelines, configure a default timeout in your pipeline's **Settings** > **Builds** > **Default command step timeout**, or use `timeout_in_minutes` on individual steps.
+
+**Bitbucket Pipelines:**
+
+```yaml
+options:
+  max-time: 40
 
 pipelines:
   default:
     - step:
         name: Build
-        caches:
-          - node-modules
         script:
-          - npm install && npm run build
+          - npm run build
+    - step:
+        name: Test
+        max-time: 10
+        script:
+          - npm test
 ```
 
-**Buildkite Pipelines (self-hosted agents):**
+**Buildkite Pipelines (pipeline settings default):**
+
+If your pipeline's default command step timeout is 40 minutes, for example, the `npm run build` command step will time out in this time, but the `npm test` one will time out in 10 minutes:
 
 ```yaml
 steps:
   - label: "Build"
-    command:
-      - npm install && npm run build
-    plugins:
-      - cache#v1.3.0:
-          path: node_modules
-          key: "node-{{ checksum 'package-lock.json' }}"
+    command: "npm run build"
+
+  - label: "Test"
+    command: "npm test"
+    timeout_in_minutes: 10
 ```
 
-### Service containers
+**Buildkite Pipelines (YAML anchor):**
 
-Bitbucket Pipelines uses `definitions.services` and `services` to run sidecar containers. In Buildkite Pipelines, use the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) with a `docker-compose.yml` file.
+Alternatively, to keep the global timeout in version control, use a YAML anchor:
 
-### Timeouts
+```yaml
+common:
+  - timeout: &default-timeout
+      timeout_in_minutes: 40
 
-Bitbucket Pipelines uses `options.max-time` for a global timeout and `max-time` per step. In Buildkite Pipelines, use `timeout_in_minutes` on each step, or configure a default timeout in pipeline settings.
+steps:
+  - label: "Build"
+    command: "npm run build"
+    <<: *default-timeout
 
-### Reusable step definitions
-
-Bitbucket Pipelines defines reusable steps under `definitions.steps` using YAML anchors. Buildkite Pipelines supports the same pattern using a `common` section (which Buildkite ignores) to hold YAML anchors.
+  - label: "Test"
+    command: "npm test"
+    timeout_in_minutes: 10
+```
 
 ### Fail-fast behavior
 
-Bitbucket Pipelines uses `fail-fast: true` on a `parallel` block. In Buildkite Pipelines, use `cancel_on_build_failing: true` on each step that should be canceled when the build is failing.
+Bitbucket Pipelines uses `fail-fast: true` on a `parallel` block to cancel remaining steps when one fails. In Buildkite Pipelines, use `cancel_on_build_failing: true` on each step that should be canceled when the build is failing.
+
+**Bitbucket Pipelines:**
+
+```yaml
+- parallel:
+    fail-fast: true
+    steps:
+      - step:
+          name: Test 1
+          script:
+            - npm run test:1
+      - step:
+          name: Test 2
+          script:
+            - npm run test:2
+```
+
+**Buildkite Pipelines:**
+
+```yaml
+steps:
+  - label: "Test 1"
+    command: "npm run test:1"
+    cancel_on_build_failing: true
+
+  - label: "Test 2"
+    command: "npm run test:2"
+    cancel_on_build_failing: true
+```
 
 ### Cleanup commands
 
-Bitbucket Pipelines uses `after-script` for commands that run regardless of step success or failure. In Buildkite Pipelines, use a shell `trap` within your command or a repository `post-command` [hook](/docs/agent/hooks).
+Bitbucket Pipelines uses `after-script` for commands that run regardless of step success or failure. In Buildkite Pipelines, use a shell `trap` within your command or a [job lifecycle `post-command` hook](/docs/agent/hooks#job-lifecycle-hooks).
+
+**Bitbucket Pipelines:**
+
+```yaml
+- step:
+    name: Build
+    script:
+      - npm install
+      - npm run build
+    after-script:
+      - echo "Cleaning up..."
+      - rm -rf temp/
+```
+
+**Buildkite Pipelines (shell trap—per step):**
+
+```yaml
+steps:
+  - label: "Build"
+    command: |
+      cleanup() { echo "Cleaning up..."; rm -rf temp/; }
+      trap cleanup EXIT
+      npm install
+      npm run build
+```
+
+**Buildkite Pipelines (job lifecycle hook):**
+
+For cleanup that applies to every step, create a `.buildkite/hooks/post-command` file in your repository:
+
+```bash
+#!/bin/bash
+echo "Cleaning up..."
+rm -rf temp/
+```
 
 ## Next steps
 
