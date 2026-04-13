@@ -612,7 +612,7 @@ steps:
     plugins:
       - *docker
 
-  - label: ":test_tube: Test"
+  - label: "\:test_tube\: Test"
     key: "test"
     branches: "main"
     command:
@@ -623,7 +623,7 @@ steps:
     artifact_paths:
       - "app/coverage/**"
 
-  - label: ":package: Build"
+  - label: "\:package\: Build"
     key: "build"
     branches: "main"
     depends_on:
@@ -637,11 +637,11 @@ steps:
     artifact_paths:
       - "app/dist/**"
 
-  - block: ":rocket: Deploy to production?"
+  - block: "\:rocket\: Deploy to production?"
     branches: "main"
     depends_on: "build"
 
-  - label: ":rocket: Deploy to production"
+  - label: "\:rocket\: Deploy to production"
     branches: "main"
     command:
       - buildkite-agent artifact download "app/dist/**" .
