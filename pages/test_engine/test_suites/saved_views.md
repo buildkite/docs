@@ -1,6 +1,6 @@
 # Saved views
 
-Saved views let you create, name, and easily access custom test views within Test Engine. This is useful for teams who frequently search using the same set of tags or labels.
+Saved views let you create, name, and easily access custom test views within Buildkite Test Engine. This is useful for teams who frequently search using the same set of tags or labels.
 
 You can create saved views from three locations:
 
