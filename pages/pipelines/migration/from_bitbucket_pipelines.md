@@ -48,8 +48,11 @@ The following table maps key Bitbucket Pipelines concepts to their Buildkite Pip
 | `size` | `agents` with `queue` attribute |
 | `condition.changesets` | `if_changed` |
 | `max-time` | `timeout_in_minutes` |
+| `pipelines.pull-requests` | Pipeline settings + `if` conditionals |
 | `definitions.steps` | YAML anchors in `common:` section |
 | `pipelines.custom` | `block` step or triggered pipeline |
+| `variables` (custom pipelines) | [`input` step](/docs/pipelines/configure/step-types/input-step) with `fields` |
+| `clone` | `BUILDKITE_GIT_CLONE_FLAGS` or `skip_checkout` |
 
 A Buildkite pipeline contains different types of [steps](/docs/pipelines/configure/step-types):
 
@@ -666,6 +669,33 @@ Compared to the original Bitbucket pipeline, this Buildkite pipeline:
 
 This section covers additional Bitbucket Pipelines features and patterns not demonstrated in the [example translation above](#translate-an-example-bitbucket-pipelines-configuration).
 
+### Pull request pipelines
+
+Bitbucket Pipelines uses `pipelines.pull-requests` to define steps that run only on pull requests. In Buildkite Pipelines, pull request (PR) triggers are configured in the pipeline settings rather than in YAML.
+
+**Bitbucket Pipelines:**
+
+```yaml
+pipelines:
+  pull-requests:
+    "**":
+      - step:
+          name: Test
+          script:
+            - npm test
+```
+
+**Buildkite Pipelines:**
+
+Configure PR builds in your pipeline settings under the source control provider section (for example, **GitHub** or **Bitbucket**) by enabling **Build pull requests**. Steps defined in your pipeline YAML will run for both branch pushes and PRs unless filtered. For PR-only steps, use an `if` conditional:
+
+```yaml
+steps:
+  - label: "PR-only tests"
+    command: "npm run test:pr"
+    if: build.pull_request.id != null
+```
+
 ### Reusable step definitions
 
 Bitbucket Pipelines defines reusable steps under `definitions.steps` using YAML anchors. Buildkite Pipelines supports the same pattern using a `common` section (which Buildkite Pipelines ignores—any top-level keys are ignored) to hold YAML anchors.
@@ -892,6 +922,107 @@ steps:
     command: "npm test"
     timeout_in_minutes: 10
 ```
+
+### Pipeline variables
+
+Bitbucket Pipelines supports static variables configured in repository settings and user-prompted variables using `pipelines.custom` with `variables`. In Buildkite Pipelines, use the `env` attribute for static variables and an [`input` step](/docs/pipelines/configure/step-types/input-step) for user-prompted values.
+
+**Bitbucket Pipelines (static variables):**
+
+Variables are defined in **Repository Settings** > **Pipelines** > **Variables** and referenced in scripts as environment variables.
+
+**Buildkite Pipelines (static variables):**
+
+```yaml
+env:
+  ENVIRONMENT: staging
+
+steps:
+  - label: "Build"
+    command: "./build.sh"
+
+  - label: "Test"
+    env:
+      ENVIRONMENT: test
+    command: "./test.sh"
+```
+
+Top-level `env` applies to all steps. Per-step `env` overrides or extends the top-level values. You can also configure pipeline-level environment variables in **Pipeline Settings** > **Environment Variables**.
+
+**Bitbucket Pipelines (user-prompted variables):**
+
+```yaml
+pipelines:
+  custom:
+    deploy:
+      - variables:
+          - name: Environment
+            default: staging
+            allowed-values:
+              - staging
+              - production
+      - step:
+          name: Deploy
+          script:
+            - ./deploy.sh $Environment
+```
+
+**Buildkite Pipelines (user-prompted variables):**
+
+```yaml
+steps:
+  - input: "Configure deployment"
+    fields:
+      - select: "Environment"
+        key: "deploy-environment"
+        default: "staging"
+        options:
+          - label: "Staging"
+            value: "staging"
+          - label: "Production"
+            value: "production"
+
+  - label: "Deploy"
+    command:
+      - ./deploy.sh $(buildkite-agent meta-data get "deploy-environment")
+```
+
+### Clone settings
+
+Bitbucket Pipelines uses `clone` to configure clone depth, Git LFS, or to skip cloning entirely. In Buildkite Pipelines, configure clone behavior using environment variables or the `skip_checkout` attribute.
+
+**Bitbucket Pipelines:**
+
+```yaml
+clone:
+  depth: 1
+  lfs: true
+```
+
+**Buildkite Pipelines:**
+
+For shallow clones, set the `BUILDKITE_GIT_CLONE_FLAGS` environment variable:
+
+```yaml
+env:
+  BUILDKITE_GIT_CLONE_FLAGS: "--depth=1"
+
+steps:
+  - label: "Build"
+    command: "npm run build"
+```
+
+To skip cloning entirely, use `skip_checkout: true` on the step:
+
+```yaml
+steps:
+  - label: "Notify"
+    command: "./send-notification.sh"
+    plugins:
+      - skip-checkout#v1.0.0: ~
+```
+
+For Git LFS, ensure `git-lfs` is installed on your agents.
 
 ### Fail-fast behavior
 
