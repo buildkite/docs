@@ -2,6 +2,17 @@
 
 The Buildkite CLI uses both the [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs to interact with Buildkite, and therefore, requires the configuration of an API access token.
 
+## Authenticate using OAuth
+
+You can authenticate the Buildkite CLI using OAuth with the [`bk auth login`](/docs/platform/cli/reference/auth#login-auth) command, which opens your browser to complete the authentication flow.
+
+By default, `bk auth login` requests all available REST API scopes. The Buildkite platform enforces server-side restrictions. The issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
+
+To restrict the scopes requested during OAuth login, use the `--scopes` flag. For example, `--scopes "read_only"` requests only read access. You can also combine scope groups with individual scopes, such as `--scopes "read_only write_builds"`. Learn more about available scopes in [Token scopes](/docs/apis/managing-api-tokens#token-scopes).
+
+> 📘 Restricting CLI token scopes
+> For organizations that enforce the principle of least privilege, use `--scopes` to issue CLI tokens with only the minimum scopes required. Without `--scopes`, the token is issued with all scopes that your account has permission for.
+
 ## Create an API access token for the Buildkite CLI
 
 To create a new API access token:

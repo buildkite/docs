@@ -34,7 +34,9 @@ The guides walk through the entire process step by step, covering the key aspect
 To get started, choose the guide that corresponds to the CI/CD tool you are migrating from:
 
 - [Migration from GitHub Actions](/docs/pipelines/migration/from-githubactions)
+- [Migrate from CircleCI](/docs/pipelines/migration/from-circleci)
 - [Migrate from Jenkins](/docs/pipelines/migration/from-jenkins)
+- [Migrate from Bitbucket Pipelines](/docs/pipelines/migration/from-bitbucket-pipelines)
 - [Migrate from Bamboo](/docs/pipelines/migration/from-bamboo)
 
 ## Plan your migration
