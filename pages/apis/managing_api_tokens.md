@@ -53,6 +53,18 @@ For REST API scopes, you can use the following:
 
 Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
+### CLI OAuth token scopes
+
+When you authenticate with `bk auth login`, the [Buildkite CLI](/docs/platform/cli) requests all available REST API scopes by default. The Buildkite platform enforces server-side restrictions. The issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
+
+To restrict the scopes requested during OAuth login, use the `--scopes` flag:
+
+- `--scopes "read_only"` requests only `read_*` scopes (read-only access).
+- `--scopes "read_only write_builds"` combines the `read_only` group with an individual scope.
+- `--scopes "read_user read_organizations"` requests specific individual scopes.
+
+For organizations that enforce the principle of least privilege, use `--scopes` to issue tokens with only the minimum scopes required. Learn more about the `--scopes` flag in the [`bk auth login` reference](/docs/platform/cli/reference/auth#login-auth).
+
 A token's REST API scopes are granular, and you can select some or all of the following Buildkite platform features and their scopes.
 
 ### CI/CD

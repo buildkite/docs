@@ -346,6 +346,8 @@
               children:
                 - name: "Overview"
                   path: "agent/self-hosted/security"
+                - name: "Network requirements"
+                  path: "agent/self-hosted/security/network-requirements"
                 - name: "Signed pipelines"
                   path: "agent/self-hosted/security/signed-pipelines"
             - name: "Agent versions directory"
