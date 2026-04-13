@@ -59,7 +59,7 @@ Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#bui
 
 ## Provision agent infrastructure
 
-Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure (self-hosted)[/docs/pipelines/architecture#self-hosted-hybrid-architecture], similar to self-hosted runners in GitHub Actions.
+Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/agent/self-hosted)), similar to self-hosted runners in GitHub Actions.
 
 For self-hosted agents, consider:
 
