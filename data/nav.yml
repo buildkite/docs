@@ -78,6 +78,8 @@
           path: "pipelines/migration/from-circleci"
         - name: "From Jenkins"
           path: "pipelines/migration/from-jenkins"
+        - name: "From Bitbucket Pipelines"
+          path: "pipelines/migration/from-bitbucket-pipelines"
         - name: "From Bamboo"
           path: "pipelines/migration/from-bamboo"
     - name: "Best practices"
@@ -344,6 +346,8 @@
               children:
                 - name: "Overview"
                   path: "agent/self-hosted/security"
+                - name: "Network requirements"
+                  path: "agent/self-hosted/security/network-requirements"
                 - name: "Signed pipelines"
                   path: "agent/self-hosted/security/signed-pipelines"
             - name: "Agent versions directory"
