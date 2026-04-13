@@ -45,7 +45,7 @@ The following table maps key Bitbucket Pipelines concepts to their Buildkite Pip
 | `caches` | [Cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) |
 | `artifacts` | `artifact_paths` / `buildkite-agent artifact` |
 | `deployment` | `concurrency_group` + `block` step |
-| `size` | `agents: { queue: "..." }` (flow-style YAML) |
+| `size` | `agents` with `queue` attribute |
 | `condition.changesets` | `if_changed` |
 | `max-time` | `timeout_in_minutes` |
 | `definitions.steps` | YAML anchors in `common:` section |
