@@ -27,7 +27,7 @@ See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more de
 
 The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of its SaaS platform, including user authentication, pipeline management, and the web interface. Self-hosted Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
-Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure need access to clone your repositories. Your secrets can be managed through Buildkite's own [secrets management](/docs/pipelines/security/secrets/buildkite-secrets) or through secrets management tools hosted within your infrastructure.
+Buildkite does not have or need access to your source code. Only the agents you host within your infrastructure need access to clone your repositories. Your secrets can be managed through the [secrets management features of Buildkite Pipelines](/docs/pipelines/security/secrets/buildkite-secrets) or through secrets management tools hosted within your infrastructure.
 
 Learn more about [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) in Buildkite Pipelines.
 
