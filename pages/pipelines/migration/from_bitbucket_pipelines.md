@@ -687,7 +687,7 @@ pipelines:
 
 **Buildkite Pipelines:**
 
-Configure PR builds in your pipeline settings under the source control provider section (for example, **GitHub** or **Bitbucket**) by enabling **Build pull requests**. Steps defined in your pipeline YAML will run for both branch pushes and PRs unless filtered. For PR-only steps, use an `if` conditional:
+Configure PR builds in your pipeline settings under the source control provider section (for example, in your pipeline's **Settings** > **GitHub** or **Bitbucket** page) by enabling **Build pull requests**. Steps defined in your pipeline YAML will run for both branch pushes and PRs unless filtered. For PR-only steps, use an `if` conditional:
 
 ```yaml
 steps:
