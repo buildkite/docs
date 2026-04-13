@@ -50,7 +50,7 @@ CircleCI uses _orbs_, which are reusable packages that bundle jobs, commands, an
 
 ## Provision agent infrastructure
 
-Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture)), similar to self-hosted runners in CircleCI.
+Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/agent/self-hosted)), similar to self-hosted runners in CircleCI.
 
 For self-hosted agents, consider:
 
@@ -215,7 +215,20 @@ steps:
       queue: "production"
 ```
 
-You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tags) beyond `queue` to target agents by capability, for example `agents: { os: "linux", arch: "arm64" }`. For Windows or macOS jobs, route to platform-specific queues using `agents: { queue: "windows" }` or `agents: { queue: "macos" }`.
+You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tags) beyond `queue` to [target agents](/docs/agent/cli/reference/start#agent-targeting) by capability, for example:
+
+```yaml
+    agents:
+      os: "linux"
+      arch: "arm64"
+```
+
+For Windows or macOS jobs, route to platform-specific queues, for example:
+
+```yaml
+    agents:
+      queue: "windows"
+```
 
 ## Translate an example CircleCI configuration
 

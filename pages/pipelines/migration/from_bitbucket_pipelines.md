@@ -45,6 +45,7 @@ The following table maps key Bitbucket Pipelines concepts to their Buildkite Pip
 | `caches` | [Cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin) |
 | `artifacts` | `artifact_paths` / `buildkite-agent artifact` |
 | `deployment` | `concurrency_group` + `block` step |
+| `size` | `agents: { queue: "..." }` (flow-style YAML) |
 | `condition.changesets` | `if_changed` |
 | `max-time` | `timeout_in_minutes` |
 | `definitions.steps` | YAML anchors in `common:` section |
@@ -59,6 +60,8 @@ A Buildkite pipeline contains different types of [steps](/docs/pipelines/configu
 - [Trigger step](/docs/pipelines/configure/step-types/trigger-step): Creates a build on another pipeline.
 - [Group step](/docs/pipelines/configure/step-types/group-step): Displays a group of sub-steps as one parent step.
 
+Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#build), and any command steps are dispatched as [_jobs_](/docs/pipelines/glossary#job) to run on agents. A common practice is to define a pipeline with a single step that uploads the `pipeline.yml` file in the code repository. The `pipeline.yml` contains the full pipeline definition and can be generated [dynamically](/docs/pipelines/configure/dynamic-pipelines).
+
 ### Plugin system
 
 Bitbucket Pipelines extends its built-in functionality through [Pipes](https://bitbucket.org/product/features/pipelines/integrations)—pre-packaged Docker containers for common tasks. Buildkite Pipelines uses shell-based [plugins](/docs/pipelines/integrations/plugins) that hook into the agent's [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks) and are versioned per step. Both are declared directly in pipeline YAML. For detailed comparisons and examples, see [Plugins](#pipeline-translation-fundamentals-plugins) in [Pipeline translation fundamentals](#pipeline-translation-fundamentals).
@@ -66,6 +69,21 @@ Bitbucket Pipelines extends its built-in functionality through [Pipes](https://b
 ### Try out Buildkite
 
 With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+
+## Provision agent infrastructure
+
+Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture)), similar to self-hosted runners in Bitbucket Pipelines.
+
+For self-hosted agents, consider:
+
+- **Infrastructure type:** On-premises, cloud ([AWS](/docs/agent/self-hosted/aws), [GCP](/docs/agent/self-hosted/gcp)), or container platforms ([Docker](/docs/agent/self-hosted/install/docker), [Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
+- **Resource usage:** Evaluate CPU, memory, and disk requirements based on your current Bitbucket Pipelines runner usage.
+- **Platform dependencies:** Ensure agents have required tools and libraries. Unlike Bitbucket Pipelines, where Docker images provide pre-configured environments, Buildkite agents require explicit tool installation or pre-built agent images.
+- **Network:** Agents poll the Buildkite [agent API](/docs/apis/agent-api) over HTTPS so no incoming firewall access is needed.
+- **Scaling:** Scale agents independently based on concurrent job requirements.
+- **Build isolation:** Use [agent tags](/docs/agent/cli/reference/start#setting-tags) and [clusters](/docs/pipelines/security/clusters) to target specific agents.
+
+For Buildkite hosted agents, see the [Getting started](/docs/agent/buildkite-hosted#getting-started-with-buildkite-hosted-agents) guide. For self-hosted agents, see the [Installation](/docs/agent/self-hosted/install/) guides for your infrastructure type.
 
 ## Pipeline translation fundamentals
 
@@ -98,6 +116,10 @@ Bitbucket Pipelines runs steps sequentially by default, requiring an explicit `p
         name: Integration tests
         script:
           - npm run test:integration
+- step:
+    name: Deploy
+    script:
+      - ./deploy.sh
 ```
 
 **Buildkite Pipelines:**
@@ -105,24 +127,43 @@ Bitbucket Pipelines runs steps sequentially by default, requiring an explicit `p
 ```yaml
 # Buildkite: Steps run in parallel by default
 steps:
-  - label: "Unit tests"
+  # These run in parallel (no depends_on)
+  - label: "\:test_tube\: Unit tests"
     key: "unit-tests"
     command: "npm run test:unit"
 
-  - label: "Integration tests"
+  - label: "\:test_tube\: Integration tests"
     key: "integration-tests"
     command: "npm run test:integration"
 
-  - label: "Deploy"
+  # This waits for the parallel steps
+  - label: "\:rocket\: Deploy"
     command: "./deploy.sh"
     depends_on:
       - "unit-tests"
       - "integration-tests"
 ```
 
+**Buildkite Pipelines (with group for visual organization):**
+
+```yaml
+steps:
+  - group: "\:test_tube\: Tests"
+    key: "tests"
+    steps:
+      - label: "Unit tests"
+        command: "npm run test:unit"
+      - label: "Integration tests"
+        command: "npm run test:integration"
+
+  - label: "\:rocket\: Deploy"
+    command: "./deploy.sh"
+    depends_on: "tests"
+```
+
 ### Container images
 
-Bitbucket Pipelines supports a global `image` that applies to all steps, with the option to override it on individual steps. Buildkite Pipelines has no global image setting. Instead, use the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) on each step. Use a YAML anchor for your default image and override it on steps that need a different image.
+Bitbucket Pipelines supports a global `image` that applies to all steps, with the option to override it on individual steps. Buildkite Pipelines has no global image setting. Instead, use the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/) on each step. To reduce repetition, use a YAML anchor for your default image and override it on steps that need a different image.
 
 **Bitbucket Pipelines:**
 
@@ -274,6 +315,38 @@ steps:
     branches: "main"
     concurrency: 1
     concurrency_group: "deploy-production"
+```
+
+### Agent targeting
+
+Bitbucket Pipelines uses the `size` attribute to select larger runners (for example, `size: 2x` for double the resources). Buildkite Pipelines uses [queues](/docs/agent/queues) to route jobs to agents with the right resources. Use the `agents` attribute on a step to target a specific queue. Map Bitbucket runner sizes to queues with agents sized to match your workload requirements.
+
+**Bitbucket Pipelines:**
+
+```yaml
+- step:
+    name: Build
+    size: 2x
+    script:
+      - npm run build
+```
+
+**Buildkite Pipelines:**
+
+```yaml
+steps:
+  - label: "Build"
+    command: "npm run build"
+    agents:
+      queue: "large"
+```
+
+You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tags) beyond `queue` to [target agents](/docs/agent/cli/reference/start#agent-targeting) by capability, for example:
+
+```yaml
+    agents:
+      os: "linux"
+      arch: "arm64"
 ```
 
 ### Plugins
