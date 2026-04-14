@@ -94,7 +94,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 apt-get update -qq && apt-get install -y -qq gh > /dev/null 2>&1
 
 # Install Claude Code
-npm install -g @anthropic-ai/claude-code > /dev/null 2>&1
+npm install -g @anthropic-ai/claude-code@2.1.74 > /dev/null 2>&1
 
 # Create non-root user (Claude Code refuses --dangerously-skip-permissions as root)
 useradd -m -s /bin/bash claude-user
