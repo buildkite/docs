@@ -28,6 +28,8 @@ The suite filter on the **Tests** tab supports two operators:
 
 You can combine multiple suite filters to include or exclude several suites at once.
 
+When tests are grouped, select **Expand failures** to expand all failure reasons at once, or select **Collapse failures** to collapse them again.
+
 You can save your filter and display column selections as [saved views](/docs/test-engine/test-suites/saved-views) directly from the **Tests** tab.
 
 ## Parallelized builds
