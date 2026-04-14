@@ -141,6 +141,13 @@ After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This mak
 > 🛠
 > To use this feature, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
 
+### Zip plugins
+
+Allows plugins to be downloaded as zip archives instead of being cloned from a Git repository. This is useful for plugins hosted as zip files on HTTP(S) URLs.
+
+> 🛠
+> To use this feature, set <code>experiment="zip-plugins"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
+
 ## Promoted experiments
 
 The following features started as experiments before being promoted to fully supported features. Therefore, these features are now a part of the Buildkite agent's default behavior, and there's no additional configuration required to use them.
