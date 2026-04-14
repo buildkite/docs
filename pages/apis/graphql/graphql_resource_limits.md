@@ -187,7 +187,7 @@ Designing your client application with best practices in mind is the simplest wa
 Consider the following best practices when designing your API usage:
 
 - Optimize the request by only requesting the data you require. We recommend using specific queries rather than a single all-purpose query.
-- Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially.
+- Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially. Some connections support a higher maximum — for example, `Build.metaData` accepts `first` values up to 10,000.
 - Use strategies like caching for data you use often that is unlikely to be updated instead of constantly calling APIs.
 - Regulate the rate of your requests for smoother distribution. You can do this using queues or scheduling API calls in appropriate intervals.
 - Use metadata about your API usage, including rate limit status to manage the behavior dynamically.
