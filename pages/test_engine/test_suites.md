@@ -21,7 +21,7 @@ Test Engine information is available on your test pipeline's build pages, in the
 
 This allows you to easily view the failing tests in a given build, and filter the test executions to analyze and surface trends about your test suite. You can also select **Display** to change the columns displayed on the **Tests** tab, so that other types of aggregate data (for example, average duration) is shown. By default, the executions are grouped by test so that retried tests are shown together.
 
-When tests are grouped, select **Expand failures** to expand all failure reasons at once. Select **Collapse failures** to collapse them again.
+When tests are grouped, select **Expand failures** to expand all failure reasons at once, or select **Collapse failures** to collapse them again.
 
 You can save your filter and display column selections as [saved views](/docs/test-engine/test-suites/saved-views) directly from the **Tests** tab.
 
