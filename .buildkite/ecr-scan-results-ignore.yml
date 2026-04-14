@@ -1,25 +1,38 @@
 ignores:
-  - id: CVE-2023-29007 # git 1:2.39.2-1.1
-  - id: CVE-2023-25652 # git 1:2.39.2-1.1
-  - id: CVE-2021-3864 # linux 6.1.55-1
-  - id: CVE-2013-7445 # linux 6.1.55-1
-  - id: CVE-2019-19814 # linux 6.1.55-1
-  - id: CVE-2019-19449 # linux 6.1.55-1
-  - id: CVE-2021-3847 # linux 6.1.55-1
-  - id: CVE-2023-35827 # linux 6.1.55-1
-  - id: CVE-2023-2953 # openldap 2.5.13+dfsg-5
-  - id: CVE-2023-31484 # perl 5.36.0-7
-  - id: CVE-2023-24329 # python3.11 3.11.2-6
-  - id: CVE-2023-3640 # linux 6.1.55-1
-  - id: CVE-2023-45853 # zlib 1:1.2.13.dfsg-1
-  - id: CVE-2023-5717 # linux 6.1.55-1
-  - id: CVE-2023-5678  # openssl 3.0.11-1~deb12u1
-  - id: CVE-2023-50495 # ncurses 6.4-4
-  - id: CVE-2024-0567 # gnutls28 3.7.9-2+deb12u1
-  - id: CVE-2023-50387 # systemd 252.17-1~deb12u1
-  - id: CVE-2024-0553 # gnutls28 3.7.9-2
-  - id: CVE-2024-0567 # gnutls28 3.7.9-2+deb12u1
-  - id: CVE-2024-37371 # krb5 1.20.1-2+deb12u1
-  - id: CVE-2024-37370 # krb5 1.20.1-2+deb12u1
-  - id: CVE-2024-10963 # pam 1.5.2-6+deb12u1
-  - id: CVE-2025-32990 # gnutls28 3.7.9-2+deb12u3
+  - id: CVE-2023-50495
+    reason: ncurses 6.4-4 segfault in _nc_wrap_entry(). Fix only in Trixie (6.5+), no DSA for Bookworm. Minor issue, not remotely exploitable.
+  - id: CVE-2025-6297
+    reason: dpkg 1.21.22. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2025-69720
+    reason: ncurses 6.4-4. Not exploitable in this containerized Rails app — ncurses is not exposed to untrusted terminal input. Waiting for Debian Bookworm upstream fix.
+  - id: CVE-2026-2219
+    reason: dpkg 1.21.22. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2026-4878
+    reason: libcap2 2.66-4+deb12u2. No fix available for Bookworm.
+    until: 2026-07-13
+  - id: CVE-2026-5704
+    reason: tar 1.34+dfsg-1.2+deb12u1. No fix available for Bookworm.
+    until: 2026-07-13
+  - id: CVE-2026-28387
+    reason: openssl 3.0.18-1~deb12u2. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2026-28388
+    reason: openssl 3.0.18-1~deb12u2. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2026-28389
+    reason: openssl 3.0.18-1~deb12u2. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2026-28390
+    reason: openssl 3.0.18-1~deb12u2. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2026-29111
+    reason: systemd 252.39-1~deb12u1. Local-only attack vector (AV:L), not exploitable in this container context. Waiting for Debian Bookworm upstream fix.
+    until: 2026-06-13
+  - id: CVE-2026-31789
+    reason: openssl 3.0.18-1~deb12u2. No fix available for Bookworm.
+    until: 2026-06-13
+  - id: CVE-2026-31790
+    reason: openssl 3.0.18-1~deb12u2. No fix available for Bookworm.
+    until: 2026-06-13

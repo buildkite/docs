@@ -873,6 +873,8 @@
           path: "platform/team-management/enforce-2fa"
         - name: "System banners"
           path: "platform/team-management/system-banners"
+        - name: "Inactive user list"
+          path: "platform/team-management/inactive-user-list"
     - name: "Tutorials"
       children:
         - name: "Two-factor authentication (2FA)"
