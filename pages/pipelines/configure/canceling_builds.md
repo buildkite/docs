@@ -11,7 +11,7 @@ To cancel running builds on the same branch:
 1. Navigate to your pipeline's **Settings**.
 1. Select **Builds**.
 1. Select **Cancel Intermediate Builds**.
-1. (Optional) Limit which branches build canceling applies to by adding branch names in the text box below **Cancel Intermediate Builds**. For example, "branch-one" means Buildkite only cancels intermediate builds on branch-one. You can also use not-equals: "!main" cancels intermediate builds on all branches except main.
+1. (Optional) Limit which branches build canceling applies to by adding branch names in the text box below **Cancel Intermediate Builds**. For example, "branch-one" means Buildkite Pipelines only cancels intermediate builds on branch-one. You can also use not-equals: "!main" cancels intermediate builds on all branches except main.
 
 You can also configure these options using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
