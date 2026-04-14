@@ -116,6 +116,10 @@ PR_JSON=$(gh pr view "${UPSTREAM_PR_NUMBER}" \
   --json title,body,url,comments,reviews)
 
 PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
+
+# Strip Linear issue IDs (e.g. "A-970", "PKG-1234") from the title to prevent
+# the GitHub/Linear integration from reopening issues on the docs PR.
+PR_TITLE_CLEAN=$(echo "${PR_TITLE}" | sed -E 's/\[?[A-Z]{1,5}-[0-9]+\]?[[:space:]:/-]*//' | sed 's/^[[:space:]]*//')
 PR_BODY=$(echo "${PR_JSON}" | jq -r '.body // "No description provided."')
 PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
 PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
@@ -279,7 +283,7 @@ else
     --repo buildkite/docs-private \
     --base main \
     --head "${BRANCH_NAME}" \
-    --title "[Docs Draft] ${PR_TITLE}" \
+    --title "[Docs Draft] ${PR_TITLE_CLEAN}" \
     --body "${PR_BODY_CONTENT}")
   echo "Created new PR: ${DOCS_PR_URL}"
 fi
