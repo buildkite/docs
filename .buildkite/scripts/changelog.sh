@@ -101,6 +101,10 @@ PR_JSON=$(gh pr view "${UPSTREAM_PR_NUMBER}" \
   --json title,body,url,comments,reviews)
 
 PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
+
+# Strip Linear issue IDs (e.g. "A-970", "PKG-1234") from the title to prevent
+# the GitHub/Linear integration from reopening issues on the changelog PR.
+PR_TITLE_CLEAN=$(echo "${PR_TITLE}" | sed -E 's/\[?[A-Z]{1,5}-[0-9]+\]?[[:space:]:/-]*//' | sed 's/^[[:space:]]*//')
 PR_BODY=$(echo "${PR_JSON}" | jq -r '.body // "No description provided."')
 PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
 PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
@@ -144,11 +148,15 @@ git checkout -B "${BRANCH_NAME}" origin/main
 
 echo "--- :writing_hand: Build prompt"
 PROMPT_FILE="/tmp/changelog-prompt.md"
+TODAY=$(date +%Y-%m-%d)
+CURRENT_YEAR=$(date +%Y)
 
 PR_TITLE_SAFE=$(printf '%s' "${PR_TITLE}" | sed 's/[|&\\]/\\&/g')
 
 cat > "${PROMPT_FILE}" <<EOF
 You are working in the Buildkite changelog repository.
+
+Today's date is ${TODAY}. Write changelog files to \`changelogs/${CURRENT_YEAR}/\`.
 
 An engineer has requested a changelog entry for the following upstream pull request:
 
@@ -221,7 +229,7 @@ su claude-user -c "
 # --- Check for changes ---
 
 echo "--- :git: Check for changes"
-if git diff --quiet && git diff --cached --quiet; then
+if [ -z "$(git status --porcelain)" ]; then
   echo "No changelog entry was created."
 
   gh pr comment "${UPSTREAM_PR_NUMBER}" \
@@ -264,7 +272,7 @@ else
     --repo buildkite/changelog \
     --base main \
     --head "${BRANCH_NAME}" \
-    --title "[Changelog] ${PR_TITLE}" \
+    --title "[Changelog] ${PR_TITLE_CLEAN}" \
     --body "${PR_BODY_CONTENT}")
   echo "Created new PR: ${CHANGELOG_PR_URL}"
 fi

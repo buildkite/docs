@@ -145,6 +145,14 @@ attributes:
     required: false
     desc: |
       The shell command used to interpret build commands, e.g /bin/bash -e -c
+  - name: "hooks-shell"
+    env_var: |
+      $BUILDKITE_HOOKS_SHELL
+    default_value: |
+
+    required: false
+    desc: |
+      The shell command used to interpret hooks commands, e.g pwsh -Command
   - name: "queue"
     env_var: |
       $BUILDKITE_AGENT_QUEUE
@@ -353,6 +361,14 @@ attributes:
     required: false
     desc: |
       Skip git fetch if the commit already exists in the local git directory
+  - name: "checkout-attempts"
+    env_var: |
+      $BUILDKITE_CHECKOUT_ATTEMPTS
+    default_value: |
+      6
+    required: false
+    desc: |
+      Number of checkout attempts (including the initial attempt). Failed attempts are retried with exponential backoff (factor of 2, starting at 1s: 1s, 2s, 4s, ...)
   - name: "bootstrap-script"
     env_var: |
       $BUILDKITE_BOOTSTRAP_SCRIPT_PATH
@@ -746,6 +762,14 @@ attributes:
     required: false
     desc: |
       This is intended to be used only by the Buildkite k8s stack (github.com/buildkite/agent-stack-k8s); it enables a Unix socket for transporting logs and exit statuses between containers in a pod
+  - name: "kubernetes-container-start-timeout"
+    env_var: |
+      $BUILDKITE_KUBERNETES_CONTAINER_START_TIMEOUT
+    default_value: |
+      5m
+    required: false
+    desc: |
+      Timeout for waiting for all containers to start in a Kubernetes pod
   - name: "redacted-vars"
     env_var: |
       $BUILDKITE_REDACTED_VARS
