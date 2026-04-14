@@ -125,7 +125,7 @@ steps:
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
-  - label: ":test_tube: Check generated supported agent versions docs"
+  - label: ":test_tube: Check generated agent versions directory docs"
     command: ./scripts/update-agent-versions-directory.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"

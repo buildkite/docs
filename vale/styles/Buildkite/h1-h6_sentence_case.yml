@@ -16,6 +16,7 @@ exceptions:
   - '^Storage account key access is disabled' # Allow Azure error message headings
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - OAuth
   - 1Password
   - 2FA
   - ADFS
@@ -270,6 +271,7 @@ exceptions:
   - SLOs
   - SSH
   - SSO
+  - Summary
   - Tahoe
   - TCP
   - Tekton
@@ -278,6 +280,7 @@ exceptions:
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - Tests
   - ToolHive
   - tvOS
   - TypeScript

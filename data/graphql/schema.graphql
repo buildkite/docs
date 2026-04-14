@@ -1489,6 +1489,11 @@ type Build implements Node {
     Order the annotations
     """
     order: AnnotationOrder = RECENTLY_CREATED
+
+    """
+    Filter annotations by scope. Defaults to BUILD.
+    """
+    scope: [AnnotationScope!]
     style: [AnnotationStyle!]
   ): AnnotationConnection
 

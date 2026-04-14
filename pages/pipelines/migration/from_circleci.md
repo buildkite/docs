@@ -1,6 +1,6 @@
 # Migrate from CircleCI
 
-This guide helps CircleCI users migrate to Buildkite Pipelines, covering key differences between the platforms.
+This guide helps [CircleCI](https://circleci.com/) users migrate to Buildkite Pipelines, and covers key differences between the platforms.
 
 ## Understand the differences
 
@@ -10,16 +10,16 @@ Most CircleCI concepts translate to Buildkite Pipelines directly, but there are 
 
 CircleCI is a fully hosted CI/CD platform that runs jobs on CircleCI-managed or self-hosted runners.
 
-Buildkite Pipelines uses a hybrid model:
+Buildkite Pipelines offers a hybrid model, consisting of the following components:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
-- [Buildkite agents](/docs/agent) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure as the [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
+- [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
 ### Security
 
-The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
+The hybrid architecture of Buildkite Pipelines provides a unique approach to security. Buildkite Pipelines takes care of the security of its SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
 While Buildkite Pipelines provides its own secrets management capabilities, you can also configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
@@ -50,7 +50,7 @@ CircleCI uses _orbs_, which are reusable packages that bundle jobs, commands, an
 
 ## Provision agent infrastructure
 
-Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture)), similar to self-hosted runners in CircleCI.
+Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/agent/self-hosted)), similar to self-hosted runners in CircleCI.
 
 For self-hosted agents, consider:
 
@@ -215,7 +215,20 @@ steps:
       queue: "production"
 ```
 
-You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tags) beyond `queue` to target agents by capability, for example `agents: { os: "linux", arch: "arm64" }`. For Windows or macOS jobs, route to platform-specific queues using `agents: { queue: "windows" }` or `agents: { queue: "macos" }`.
+You can also use custom [agent tags](/docs/agent/cli/reference/start#setting-tags) beyond `queue` to [target agents](/docs/agent/cli/reference/start#agent-targeting) by capability, for example:
+
+```yaml
+    agents:
+      os: "linux"
+      arch: "arm64"
+```
+
+For Windows or macOS jobs, route to platform-specific queues, for example:
+
+```yaml
+    agents:
+      queue: "windows"
+```
 
 ## Translate an example CircleCI configuration
 
