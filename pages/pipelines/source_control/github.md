@@ -97,6 +97,9 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 
 <%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
+> 📘 Build branches vs build pull requests
+> If **Build branches** is enabled, Buildkite will run builds when someone pushes to a branch, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs PR information, make sure **Build pull requests** is enabled, and consider turning off **Build branches** or limiting it to just your default branch (like **main**) so you don't end up with branch builds when you were expecting PR builds.
+
 ## Running builds on pull requests
 
 To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and choose the **Build Pull Requests** checkbox.
