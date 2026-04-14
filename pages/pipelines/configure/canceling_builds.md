@@ -4,7 +4,7 @@ Buildkite Pipelines provides several ways to cancel builds and jobs, either auto
 
 ## Cancel running intermediate builds
 
-Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can configure your pipeline to always cancel any running builds, and only build the latest commit.
+Sometimes you may push several commits in quick succession, leading to Buildkite Pipelines building each commit in turn. You can configure your pipeline to always cancel any running builds, and only build the latest commit.
 
 To cancel running builds on the same branch:
 
