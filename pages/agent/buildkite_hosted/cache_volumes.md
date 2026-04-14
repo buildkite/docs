@@ -185,7 +185,7 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 ## Configuring cache operation concurrency
 
-When saving or restoring multiple cache volumes, the agent processes them concurrently. You can control the number of concurrent operations using the `BUILDKITE_CACHE_CONCURRENCY` environment variable. The default is `2`.
+When saving or restoring multiple cache volumes, the agent processes them concurrently. Control the number of concurrent operations using the `BUILDKITE_CACHE_CONCURRENCY` environment variable. The default is `2`.
 
 Increasing this value can reduce overall cache operation time for pipelines that use many small cache volumes:
 
