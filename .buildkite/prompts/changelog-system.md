@@ -27,7 +27,7 @@ If no changelog entry is needed, explain why and stop.
 
 ### Step 2: Plan
 
-1. Read a few recent entries in `changelogs/2025/` to match the current tone and format
+1. Read a few recent entries from the current year's directory (e.g. `changelogs/2026/`) to match the current tone and format — use Glob to find the most recent entries if unsure of the year
 2. Determine the appropriate `tag` — use `feature` for new capabilities, `update` for improvements to existing features
 3. Determine the `products` array — use the correct product slugs: `pipelines`, `test-engine`, `packages`, `platform`
 4. Draft a filename: `YYYYMMDD-slug-description.md` using today's date and a short kebab-case slug
