@@ -185,7 +185,7 @@ Learn more about this resource in the [`buildkite_cluster_agent_token` resource]
 
 For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster)—aim for at least one for each of these clusters, within your cluster resources HCL file (for example, `clusters.tf`). Otherwise, a cluster with no cluster maintainers can only be administered by a Buildkite organization administrator.
 
-Use the `buildkite_cluster_maintainer` resource to grant users or teams permission to manage a cluster (referenced by its `cluster_uuid` argument). Specify either a Buildkite user (referenced by `user_uuid`) or team (referenced by `team_uuid`), but not both.
+Use the `buildkite_cluster_maintainer` resource to grant users or teams permission to manage a cluster (referenced by its `cluster_uuid` argument). Specify either a Buildkite [user (referenced by `user_uuid`)](#define-cluster-maintainers-obtain-a-user-uuid) or [team (referenced by `team_uuid`)](#define-cluster-maintainers-obtain-a-team-uuid), but not both.
 
 In the following example, the Buildkite team with UUID `01234567-89ab-cdef-0123-456789abcdef` will be made a maintainer of the [**Primary cluster**](#define-your-cluster-resources), with `terraform plan` and `terraform apply`.
 
@@ -198,6 +198,48 @@ resource "buildkite_cluster_maintainer" "platform_team" {
 ```
 
 Learn more about this resource in the [`buildkite_cluster_maintainer` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_maintainer) documentation.
+
+### Obtain a user UUID
+
+To find the `user_uuid` for use in a `buildkite_cluster_maintainer` resource, run the following [GraphQL](/docs/apis/graphql) query, replacing `your-buildkite-org-slug` with your Buildkite organization's slug:
+
+```graphql
+query {
+  organization(slug: "your-buildkite-org-slug") {
+    members(first: 100) {
+      edges {
+        node {
+          user {
+            name
+            uuid
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Obtain a team UUID
+
+To find the `team_uuid` for use in a `buildkite_cluster_maintainer` resource, run the following [GraphQL](/docs/apis/graphql) query, replacing `your-buildkite-org-slug` with your Buildkite organization's slug:
+
+```graphql
+query {
+  organization(slug: "your-buildkite-org-slug") {
+    teams(first: 100) {
+      edges {
+        node {
+          name
+          uuid
+        }
+      }
+    }
+  }
+}
+```
+
+For more GraphQL queries related to teams, see the [Teams cookbook](/docs/apis/graphql/cookbooks/teams).
 
 ## Define Buildkite secrets
 
