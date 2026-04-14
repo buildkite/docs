@@ -290,6 +290,7 @@ security:
     - "pipelines/best-practices/secrets-management"
     - "agent/buildkite-hosted/network-security"
     - "platform/team-management/enforce-2fa"
+    - "platform/team-management/inactive-user-list"
     - "platform/tutorials/2fa"
     - "apis/managing-api-tokens"
   related_topics:

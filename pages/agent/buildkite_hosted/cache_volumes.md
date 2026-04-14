@@ -183,6 +183,27 @@ A Git mirror volume's name is based on your cloud-based Git service's account an
 
 You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
 
+## Configuring cache operation concurrency
+
+When saving or restoring multiple cache volumes, the agent processes them concurrently. Control the number of concurrent operations using the `BUILDKITE_CACHE_CONCURRENCY` environment variable. The default is `2`.
+
+Increase this value to reduce overall cache operation time for pipelines that use many small cache volumes:
+
+```yaml
+steps:
+  - command: "your-build-command"
+    env:
+      BUILDKITE_CACHE_CONCURRENCY: 4
+    cache:
+      paths:
+        - "node_modules"
+        - ".build"
+        - "vendor/bundle"
+```
+{: codeblock-file="pipeline.yml"}
+
+Setting `BUILDKITE_CACHE_CONCURRENCY` to `0` or a negative value causes the agent to use the number of available CPU cores as the concurrency limit.
+
 ## Viewing and deleting volumes
 
 Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/buildkite-hosted/linux/remote-docker-builders#additional-volumes) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
