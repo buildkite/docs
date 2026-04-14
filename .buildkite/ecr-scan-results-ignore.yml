@@ -1,6 +1,11 @@
 ignores:
   - id: CVE-2023-50495
     reason: ncurses 6.4-4 segfault in _nc_wrap_entry(). Fix only in Trixie (6.5+), no DSA for Bookworm. Minor issue, not remotely exploitable.
+  - id: CVE-2025-69720
+    reason: ncurses 6.4-4. Not exploitable in this containerized Rails app — ncurses is not exposed to untrusted terminal input. Waiting for Debian Bookworm upstream fix.
+  - id: CVE-2026-29111
+    reason: systemd 252.39-1~deb12u1. Local-only attack vector (AV:L), not exploitable in this container context. Waiting for Debian Bookworm upstream fix.
+    until: 2026-06-13
   - id: CVE-2025-6297
     reason: dpkg 1.21.22. No fix available for Bookworm.
     until: 2026-06-13
