@@ -19,7 +19,13 @@ Test Engine information is available on your test pipeline's build pages, in the
 
 <%= image "tests-tab.png", width: 3170, height: 1668, alt: "Screenshot of the tests tab on the build page" %>
 
-You can view the failing tests in a given build, and filter the test executions to analyze and surface trends about your test suite. You can filter by result, state, owner, label, suite, and tag. Filtering by suite is useful when a build has tests from multiple suites (for example, RSpec and Jest), allowing you to focus on results from specific suites. You can also select **Display** to change the columns displayed on the **Tests** tab, so that other types of aggregate data (for example, average duration) appear. By default, the executions are grouped by test so that retried tests appear together.
+You can view the failing tests in a given build, and filter the test executions to analyze and surface trends about your test suite.
+
+You can filter by result, state, owner, label, suite, and tag. Filtering by suite is useful when a build has tests from multiple suites (for example, RSpec and Jest), allowing you to focus on results from specific suites.
+
+You can also select **Display** to change the columns displayed on the **Tests** tab, so that other types of aggregate data (for example, average duration) appear. By default, the executions are grouped by test so that retried tests appear together.
+
+When tests are grouped, select **Expand failures** to expand all failure reasons at once, or select **Collapse failures** to collapse them again.
 
 The suite filter on the **Tests** tab supports two operators:
 
@@ -27,8 +33,6 @@ The suite filter on the **Tests** tab supports two operators:
 - `is not`: excludes the selected suite from the results
 
 You can combine multiple suite filters to include or exclude several suites at once.
-
-When tests are grouped, select **Expand failures** to expand all failure reasons at once, or select **Collapse failures** to collapse them again.
 
 You can save your filter and display column selections as [saved views](/docs/test-engine/test-suites/saved-views) directly from the **Tests** tab.
 
