@@ -1,6 +1,6 @@
 # Canceling builds
 
-Buildkite provides several ways to cancel builds and jobs, either automatically or manually.
+Buildkite Pipelines provides several ways to cancel builds and jobs, either automatically or manually.
 
 ## Cancel running intermediate builds
 
