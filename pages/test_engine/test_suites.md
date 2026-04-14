@@ -23,7 +23,7 @@ This allows you to easily view the failing tests in a given build, and filter th
 
 The suite filter on the **Tests** tab supports two operators:
 
-- **is**: includes only the selected suite in the results
+- `is`: includes only the selected suite in the results
 - **is not**: excludes the selected suite from the results
 
 You can combine multiple suite filters to include or exclude several suites at once.
