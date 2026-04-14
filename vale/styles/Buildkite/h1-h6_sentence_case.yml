@@ -271,6 +271,7 @@ exceptions:
   - SLOs
   - SSH
   - SSO
+  - Summary
   - Tahoe
   - TCP
   - Tekton
@@ -279,6 +280,7 @@ exceptions:
   - Test Engine
   - Test Engine Client
   - TESTOWNER
+  - Tests
   - ToolHive
   - tvOS
   - TypeScript
