@@ -34,7 +34,7 @@ To manually cancel a job:
 
 ## Cancel a build using the agent CLI
 
-You can cancel a build using the [`buildkite-agent build cancel` command](/docs/agent/cli/reference/build#canceling-a-build). This is a job-level command, meaning it runs within the context of a job and authenticates using the `$BUILDKITE_AGENT_ACCESS_TOKEN` that Buildkite automatically provides to every running job—on both [self-hosted](/docs/agent/self-hosted) and [Buildkite hosted](/docs/agent/buildkite-hosted) agents.
+You can cancel a build using the [`buildkite-agent build cancel` command](/docs/agent/cli/reference/build#canceling-a-build). This is a job-level command, meaning it runs within the context of a job and authenticates using the `$BUILDKITE_AGENT_ACCESS_TOKEN` environment variable that Buildkite Pipeline automatically provides to every running job—on both [self-hosted](/docs/agent/self-hosted) and [Buildkite hosted](/docs/agent/buildkite-hosted) agents.
 
 ```shell
 buildkite-agent build cancel
