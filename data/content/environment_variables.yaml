@@ -232,7 +232,7 @@ variables:
     example: "-v --prune"
   - name: BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
     desc: |
-      The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository.
+      The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When set to `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository.
     modifiable: false
     values:
       - true
