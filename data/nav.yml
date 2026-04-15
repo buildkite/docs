@@ -484,6 +484,8 @@
           path: "pipelines/configure/environment-variables"
         - name: "Skipping builds"
           path: "pipelines/configure/skipping"
+        - name: "Canceling builds"
+          path: "pipelines/configure/canceling-builds"
         - name: "Retry"
           path: "pipelines/configure/retry"
         - name: "Build artifacts"
