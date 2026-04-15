@@ -42,4 +42,4 @@ buildkite-agent build cancel
 
 This cancels the build associated with the current job's context. You can also target a specific build using the [`--build` flag](/docs/agent/cli/reference/build#build) with the build UUID, or by setting the `$BUILDKITE_BUILD_ID` environment variable.
 
-This command is typically called from within a pipeline step script. If you are using Buildkite hosted agents, you can also run it interactively from a [terminal session](/docs/agent/buildkite-hosted/terminal-access) open on a running job, though that is a separate browser-based feature for investigating the job environment.
+This command is typically called from within a pipeline step script. If you are using Buildkite hosted agents, you can also run the command interactively from a [terminal session](/docs/agent/buildkite-hosted/terminal-access) open on a running job. This is a separate browser-based feature for investigating the job environment.
