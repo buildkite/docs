@@ -413,6 +413,16 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td>The slug of the pipeline the current build is from</td>
 	</tr>
 	<tr>
+		<td><code>pipeline.started_failing</code></td>
+		<td><code>Boolean</code></td>
+		<td>Whether the pipeline has transitioned from a passing state to a failing state with the current build. Only available in <a href="/docs/pipelines/configure/notify">build-level notification</a> conditionals</td>
+	</tr>
+	<tr>
+		<td><code>pipeline.started_passing</code></td>
+		<td><code>Boolean</code></td>
+		<td>Whether the pipeline has transitioned from a failing state to a passing state with the current build. Only available in <a href="/docs/pipelines/configure/notify">build-level notification</a> conditionals</td>
+	</tr>
+	<tr>
 		<td><code>organization.id</code></td>
 		<td><code>String</code></td>
 		<td>The ID of the organization the current build is running in</td>
