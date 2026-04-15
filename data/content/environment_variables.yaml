@@ -505,6 +505,13 @@ variables:
       The value of the `shell` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
     example: '"/bin/bash -e -c"'
+  - name: BUILDKITE_SKIP_CHECKOUT
+    desc: |
+      Whether the agent should skip the git checkout phase entirely. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks. It can also be set via the `skip-checkout` [agent configuration option](/docs/agent/self-hosted/configure).
+    modifiable: true
+    values:
+      - true
+      - false
   - name: BUILDKITE_SOURCE
     desc: |
       The source of the event that created the build.
