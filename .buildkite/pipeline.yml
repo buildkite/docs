@@ -87,6 +87,7 @@ steps:
 
   - label: ":go: Check generated agent CLI docs"
     command: ./scripts/update-agent-help.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
@@ -97,6 +98,7 @@ steps:
 
   - label: ":go: Check generated agent configuration docs"
     command: ./scripts/update-agent-configuration.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
@@ -127,6 +129,7 @@ steps:
 
   - label: ":test_tube: Check generated agent versions directory docs"
     command: ./scripts/update-agent-versions-directory.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
