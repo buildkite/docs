@@ -28,7 +28,7 @@ link_checking_exemptions:
       - https://buildkite.com/user/
       - https://buildkite.com/(~|%7E)/
       - https://portal.azure.com/
-      - https://entra.microsoft.com/
+      - https://entra.microsoft.com
 
   - name: accept-anti-scraping-measures
     description: Muffet resembles a scraper to some sites
