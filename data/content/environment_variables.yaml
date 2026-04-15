@@ -230,6 +230,13 @@ variables:
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
     modifiable: true
     example: "-v --prune"
+  - name: BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
+    desc: |
+      The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When set to `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository.
+    modifiable: false
+    values:
+      - true
+      - false
   - name: BUILDKITE_GIT_SUBMODULES
     desc: |
       The opposite of the value of the `no-git-submodules` [agent configuration option](/docs/agent/self-hosted/configure).
