@@ -138,12 +138,20 @@ Jobs are the individual units of work within a build.
     <td>Step information including signature details</td>
   </tr>
   <tr>
+    <th><code>priority</code></th>
+    <td>Priority of the job</td>
+  </tr>
+  <tr>
     <th><code>agent_query_rules</code></th>
     <td>Agent query rules used to route this job</td>
   </tr>
   <tr>
     <th><code>state</code></th>
     <td>Current state: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code></td>
+  </tr>
+  <tr>
+    <th><code>build_url</code></th>
+    <td>URL of the build on Buildkite</td>
   </tr>
   <tr>
     <th><code>web_url</code></th>
@@ -156,6 +164,10 @@ Jobs are the individual units of work within a build.
   <tr>
     <th><code>raw_log_url</code></th>
     <td>API URL for the job's raw log text</td>
+  </tr>
+  <tr>
+    <th><code>artifact_url</code></th>
+    <td>Artifact URL for the artifacts associated with the job</td>
   </tr>
   <tr>
     <th><code>command</code></th>
@@ -208,6 +220,10 @@ Jobs are the individual units of work within a build.
   <tr>
     <th><code>retries_count</code></th>
     <td>Number of retries for this job</td>
+  </tr>
+  <tr>
+    <th><code>retry_source</code></th>
+    <td>Source of the retry job</td>
   </tr>
   <tr>
     <th><code>retry_type</code></th>
