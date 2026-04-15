@@ -312,7 +312,7 @@ steps:
       include: "pages/**/*.md"
       exclude:
         - "pages/**/cli/reference/**.md"
-        - "pages/**/_*.md"
+        - "pages/agent/cli/help/_*.md"
     agents:
       queue: hosted
     timeout_in_minutes: 3
