@@ -16,7 +16,7 @@ The stack is organized into four Terraform modules:
 The Buildkite Elastic CI Stack for GCP supports:
 
 - All GCP regions
-- Linux operating system (Debian 12)
+- Linux operating system (Debian 13)
 - Configurable machine types (including ARM instances)
 - Configurable autoscaling based on build queue activity
 - Docker and Docker Compose v2
@@ -53,7 +53,7 @@ The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https
 
 This is the list of contents on each machine running the Buildkite Elastic CI Stack for GCP:
 
-- [Debian 12 (Bookworm)](https://www.debian.org/releases/bookworm/)
+- [Debian 13 (Bookworm)](https://www.debian.org/releases/bookworm/)
 - [The Buildkite agent](/docs/agent)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com)
