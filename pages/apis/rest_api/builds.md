@@ -167,7 +167,7 @@ Jobs are the individual units of work within a build.
   </tr>
   <tr>
     <th><code>artifact_url</code></th>
-    <td>Artifact URL for the artifacts associated with the job</td>
+    <td>API URL for the artifacts associated with the job</td>
   </tr>
   <tr>
     <th><code>command</code></th>
