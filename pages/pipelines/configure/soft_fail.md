@@ -107,3 +107,5 @@ steps:
         soft_fail: true
 ```
 {: codeblock-file="pipeline.yml"}
+
+See also [Matrix adjustments](/docs/pipelines/configure/step-types/command-step#matrix-attributes) on the [Command step](/docs/pipelines/configure/step-types/command-step) page for more information.
