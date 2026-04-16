@@ -212,7 +212,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Remove hedging phrases like "most of the," "some of the" when they add no precision—for example, write "Most concepts translate" not "Most of the concepts translate"
 - Break long compound sentences into shorter ones. When comparing two systems or explaining cause and effect, prefer two sentences over one long sentence joined by a conjunction
 - Prefer periods over em dashes when separating independent clauses—split into two sentences instead
-- If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
+- If the verb "display" or "displays" is used intransitively, which is incorrect, modify the sentence structure so that this verb is used in the passive voice—that is, "is displayed" or "is shown". Alternatively, replace this verb with "appear" or "appears", which can be used intransitively.
 - Avoid starting sentences with "It" or "They", unless what these words reference is obvious from the previous sentence, which is typically the grammatical direct object.
 
 **Formatting standards:**
@@ -634,13 +634,15 @@ Content 1         | Content 2
 
 **Refer to meaning, not source:**
 - Describe what the YAML represents (command, step, pipeline) rather than the literal YAML syntax
-- Never use code formatting when referring to an abstract meaning
-- Use code formatting only for literal YAML source or filenames
+- Use code formatting for literal YAML source or filenames
+- Avoid code formatting when referring to an abstract meaning
 
 **Examples:**
+- Correct: "The `retry` attribute of a step is a map of maps…"
 - Correct: "Here is an example pipeline configuration…"
 - Correct: "Add this step to the pipeline…"
-- Incorrect: "Add a `command` to `pipeline.yml`…"
+- Correct: "Add a command to `pipeline.yml`…"
+- Incorrect: "Modify pipeline.yml…"
 
 **Avoid YAML specification terminology:**
 - Never use: *block*, *flow*, *sequence*, *scalar* as these terms conflict with product terminology or are unclear to users
