@@ -488,6 +488,8 @@
           path: "pipelines/configure/canceling-builds"
         - name: "Retry"
           path: "pipelines/configure/retry"
+        - name: "Soft fail"
+          path: "pipelines/configure/soft-fail"
         - name: "Build artifacts"
           path: "pipelines/configure/artifacts"
         - name: "Build timeouts"
