@@ -261,7 +261,7 @@ DEPENDENCIES
   matrix
   ostruct
   pry
-  puma
+  puma (~> 8.0)
   railties (~> 8.1.0)
   redcarpet
   rouge (= 4.7.0)
