@@ -24,35 +24,62 @@ The `bk artifacts` command allows you to manage build artifacts from the command
 
 | Command | Description |
 | --- | --- |
-| `bk artifacts download` | Download an artifact by its UUID. |
+| `bk artifacts download` | Download artifacts from a build. |
 | `bk artifacts list` | List artifacts for a build or a job in a build. |
 
 ## Download an artifact
 
-Download an artifact by its UUID.
+Download artifacts from a build.
 
 ```bash
-bk artifacts download <artifact-id>
+bk artifacts download [<artifact-id>] [flags]
 ```
 
 ### Arguments
 
 | Argument | Description |
 | --- | --- |
-| `<artifact-id>` | Artifact UUID to download |
+| `[<artifact-id>]` | Artifact ID to download. If omitted, all artifacts are downloaded. Use 'bk artifacts list' to find IDs. |
 
 ### Flags
 
 | Flag | Description |
 | --- | --- |
+| `-b`, `--build=STRING` | Build number containing the artifact. If omitted, the most recent build on the current branch will be used. |
+| `-j`, `--job-uuid=STRING` | The job UUID containing the artifact. |
+| `-p`, `--pipeline=STRING` | The pipeline containing the artifact. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
-Download an artifact by UUID:
+Download all artifacts from the most recent build on the current branch:
 
 ```bash
-bk artifacts download 0191727d-b5ce-4576-b37d-477ae0ca830c
+bk artifacts download
+```
+
+Download all artifacts from a specific build:
+
+```bash
+bk artifacts download --build 429
+```
+
+Download all artifacts from a specific job:
+
+```bash
+bk artifacts download --build 429 --job-uuid 0193903e-ecd9-4c51-9156-0738da987e87
+```
+
+Download a specific artifact:
+
+```bash
+bk artifacts download 0191727d-b5ce-4576-b37d-477ae0ca830c --build 429
+```
+
+Specify the pipeline explicitly:
+
+```bash
+bk artifacts download --build 429 -p monolith
 ```
 
 ## List artifacts
@@ -73,7 +100,7 @@ bk artifacts list [<build-number>] [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-j`, `--job=STRING` | List artifacts for a specific job on the given build. |
+| `-j`, `--job-uuid=STRING` | List artifacts for a specific job on the given build. |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
@@ -98,7 +125,7 @@ bk artifacts list 429
 To list artifacts of a specific job in a build:
 
 ```bash
-bk artifacts list 429 --job 0193903e-ecd9-4c51-9156-0738da987e87
+bk artifacts list 429 --job-uuid 0193903e-ecd9-4c51-9156-0738da987e87
 ```
 
 If not inside a repository or to use a specific pipeline, pass -p:
