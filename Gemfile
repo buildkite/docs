@@ -2,6 +2,9 @@
 
 source "https://rubygems.org"
 
+# Keep in sync with mise.toml and the Dockerfile base image.
+ruby "~> 4.0"
+
 # Choo choo 🚝 (only include the Rails gems we need)
 gem "actionpack", "~> 8.1.0"
 gem "actionview", "~> 8.1.0"
