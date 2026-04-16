@@ -53,7 +53,7 @@ The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https
 
 This is the list of contents on each machine running the Buildkite Elastic CI Stack for GCP:
 
-- [Debian 13 (Bookworm)](https://www.debian.org/releases/bookworm/)
+- [Debian 13 (Trixie)](https://www.debian.org/releases/trixie/)
 - [The Buildkite agent](/docs/agent)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com)
