@@ -212,7 +212,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Remove hedging phrases like "most of the," "some of the" when they add no precision—for example, write "Most concepts translate" not "Most of the concepts translate"
 - Break long compound sentences into shorter ones. When comparing two systems or explaining cause and effect, prefer two sentences over one long sentence joined by a conjunction
 - Prefer periods over em dashes when separating independent clauses—split into two sentences instead
-- If the verb "display" or "displays" is used intransitively, which is incorrect, modify the sentence structure so that this verb is used in the passive voice—that is, "is displayed" or "is shown". Alternatively, replace this verb with "appear" or "appears", which can be used intransitively.
+- If the verb "display" or "displays" is used intransitively, which is incorrect, modify the sentence structure (if necessary) so that this verb is used in the passive voice—that is, "is displayed" or "is shown". Alternatively, replace this verb with "appear" or "appears", which can be used intransitively.
 - Avoid starting sentences with "It" or "They", unless what these words reference is obvious from the previous sentence, which is typically the grammatical direct object.
 
 **Formatting standards:**
