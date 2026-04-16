@@ -140,17 +140,21 @@ $_pills: (
     border-color: map-get($_styles, border-color);
     color: map-get($_styles, color);
     content: map-get($_styles, content);
+  }
+}
 
-    &[href] {
+@mixin pill-style-interactive($type) {
+  $_styles: map-get($_pills, $type);
+
+  &[href] {
+    color: map-get($_styles, color);
+    text-decoration: none;
+    text-decoration-color: rgba(map-get($_styles, color), 0);
+
+    &:hover {
+      border-color: map-get($_styles, color);
       color: map-get($_styles, color);
-      text-decoration: none;
-      text-decoration-color: rgba(map-get($_styles, color), 0);
-
-      &:hover {
-        border-color: map-get($_styles, color);
-        color: map-get($_styles, color);
-        text-decoration-color: map-get($_styles, color);
-      }
+      text-decoration-color: map-get($_styles, color);
     }
   }
 }
@@ -183,6 +187,7 @@ $_pills: (
 @each $type, $styles in $_pills {
   .pill--#{$type} {
     @include pill-style($type);
+    @include pill-style-interactive($type);
   }
 
   .has-pill-#{$type} {

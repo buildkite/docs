@@ -130,7 +130,7 @@ cd packer
 ./build --project-id your-gcp-project-id
 ```
 
-This builds a Debian 12-based image with:
+This builds a Debian 13-based image with:
 
 - Pre-installed Buildkite agent
 - Docker Engine with Compose v2 and Buildx
