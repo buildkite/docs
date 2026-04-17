@@ -69,12 +69,12 @@ You can configure the new test monitor to trigger actions that help track and ma
 
 ## Duration threshold
 
-The duration threshold monitor tracks how long individual tests take to run, and triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
+The duration threshold monitor tracks how long individual tests take to run. It triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
 
 The monitor maintains a rolling window of recent [execution](/docs/test-engine/glossary#execution) durations for each test. The aggregated duration across the window is calculated and compared to the configured thresholds:
 
-- When the aggregated duration is greater than or equal to the _alarm threshold_, an _alarm_ [action](/docs/test-engine/workflows/actions) is triggered.
-- When the aggregated duration is less than or equal to the _recover threshold_, a _recover_ action is triggered.
+- When the aggregated duration is greater than or equal to the **alarm threshold**, an _alarm_ [action](/docs/test-engine/workflows/actions) is triggered.
+- When the aggregated duration is less than or equal to the **recover threshold**, a _recover_ action is triggered.
 
 ### Configuration
 
@@ -83,7 +83,7 @@ Configure the following when setting up a duration threshold monitor:
 - **Aggregation function**: The function used to aggregate execution durations within the window. Only `p50` (median) is currently supported.
 - **Evaluation window**: The number of most recent executions used to calculate the aggregated duration. Accepts integers up to 100. Default: 5.
 - **Alarm threshold**: The duration, in seconds, that triggers an _alarm_ action.
-- **Recover threshold**: The duration, in seconds, that triggers a _recover_ action. Must be lower than the alarm threshold.
+- **Recover threshold**: The duration, in seconds, that triggers a _recover_ action. Must be lower than the **alarm threshold**.
 
 As with the [transition count](#transition-count) monitor, the duration threshold monitor is most useful when pointed at a single branch. Configure a branch [tag filter](#tag-filters) set to your default branch so that variance from feature branch executions does not affect the monitor. Without a branch filter, longer-running executions on feature branches can inflate the aggregated duration and cause spurious alarms.
 
