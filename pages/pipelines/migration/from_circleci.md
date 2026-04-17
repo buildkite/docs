@@ -86,7 +86,7 @@ Both CircleCI and Buildkite Pipelines run steps in parallel by default. In Circl
 
 Each Buildkite step is fully isolated from other steps, similar to how CircleCI jobs are isolated from each other. Steps can run on different agents, with no shared filesystem or state between them.
 
-To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block).
+To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block).
 
 ```yaml
 # Buildkite Pipelines: Explicit sequencing with depends_on
@@ -332,7 +332,7 @@ The build step should run only after lint and test complete successfully. Config
       - echo "Build step placeholder"
 ```
 
-Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to the [parallel-by-default behavior of Buildkite Pipelines](#pipeline-translation-fundamentals-step-execution).
+Without this [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies), all three steps would run simultaneously, due to the [parallel-by-default behavior of Buildkite Pipelines](#pipeline-translation-fundamentals-step-execution).
 
 ### Step 4: Add the actual commands
 
@@ -596,7 +596,7 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 | Step (`run:`) | Shell command within a command step |
 | Executor | Agent queue or [Docker plugin](https://buildkite.com/resources/plugins/docker) |
 | Orb | [Plugin](https://buildkite.com/resources/plugins/) |
-| `requires` | [`depends_on`](/docs/pipelines/configure/dependencies) |
+| `requires` | [`depends_on`](/docs/pipelines/configure/depends-on) |
 | `type: approval` | [Block step](/docs/pipelines/configure/step-types/block-step) |
 | `store_artifacts` | [`artifact_paths`](/docs/pipelines/configure/artifacts) |
 | `store_test_results` | [Test Engine](/docs/test-engine) |

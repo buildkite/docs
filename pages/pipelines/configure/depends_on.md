@@ -1,4 +1,4 @@
-# Managing step dependencies
+# depends_on
 
 All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
 
@@ -219,7 +219,7 @@ steps:
 
 ## Allowed failure and soft fail
 
-Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/dependencies#allowing-dependency-failures) is set on the subsequent step.
+Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/depends-on#allowing-dependency-failures) is set on the subsequent step.
 
 In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
 

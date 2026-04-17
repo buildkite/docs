@@ -479,7 +479,7 @@
         - name: "Using conditionals"
           path: "pipelines/configure/conditionals"
         - name: "Step dependencies"
-          path: "pipelines/configure/dependencies"
+          path: "pipelines/configure/depends-on"
         - name: "Environment variables"
           path: "pipelines/configure/environment-variables"
         - name: "Skipping builds"
