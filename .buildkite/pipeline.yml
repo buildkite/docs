@@ -65,7 +65,7 @@ steps:
             - BUILDKITE_PULL_REQUEST
             - BUILDKITE_BRANCH
 
-  - label: ":graphql: Check generated code is up to date"
+  - label: ":graphql: Check generated GraphQL docs are correct"
     command: bundle exec rake graphql:generate
     agents:
       queue: hosted
@@ -83,7 +83,7 @@ steps:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
-          fail_message: "The generated code (and hence GraphQL reference docs) is out of date, or you edited the content in this repository, which is not their canonical source of truth. Run `bundle exec rake graphql:generate` and commit the changes."
+          fail_message: "The generated code (and hence GraphQL reference docs) is out of date, or you edited the content in this repository, which is not their canonical source of truth. A check for these docs runs daily and an update is created if necessary. Otherwise, run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
     command: ./scripts/update-agent-help.sh
@@ -109,6 +109,7 @@ steps:
 
   - label: ":go: Check generated BK CLI docs"
     command: ./scripts/update-bkcli-help.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
@@ -119,6 +120,7 @@ steps:
 
   - label: ":test_tube: Check generated agent experiments docs"
     command: ./scripts/update-agent-experiments.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
