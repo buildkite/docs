@@ -218,7 +218,7 @@ The following table shows how different step states affect dependencies:
 
 ### Skipped dependency behavior
 
-In this example, when building a branch other than `main`, the `Conditional Step` will be skipped but the `Dependent Step` will still run because the skipped dependency is satisfied.
+In this example, when building a branch other than `main`, the **Conditional Step** will be skipped but the **Dependent Step** will still run because the skipped dependency is satisfied.
 
 ```yaml
 steps:
