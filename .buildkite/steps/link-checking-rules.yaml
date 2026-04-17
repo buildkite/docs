@@ -28,6 +28,7 @@ link_checking_exemptions:
       - https://buildkite.com/user/
       - https://buildkite.com/(~|%7E)/
       - https://portal.azure.com/
+      - https://entra.microsoft.com
 
   - name: accept-anti-scraping-measures
     description: Muffet resembles a scraper to some sites
@@ -63,6 +64,7 @@ link_checking_exemptions:
       - https://docs.cursor.com/
       - https://developer.hashicorp.com/terraform/registry/modules/publish
       - https://docs.windsurf.com/windsurf/cascade/mcp
+      - https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline
 
   - name: surprising-fragment-failures
     description: Surprisingly, these links fail because of missing anchors, not authentication.

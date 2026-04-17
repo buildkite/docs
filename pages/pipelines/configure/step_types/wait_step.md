@@ -11,6 +11,24 @@ A wait step can be defined in your pipeline settings, or in your [pipeline.yml](
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Dynamically uploaded steps
+
+If any step before a wait step uploads new steps using [`pipeline upload`](/docs/agent/cli/reference/pipeline#uploading-pipelines), the wait step automatically waits for those uploaded steps to complete as well. This applies recursively. If an uploaded step uploads further steps, the wait step also waits for those.
+
+For example, if step A uploads steps B1 and B2 during its execution:
+
+```yaml
+steps:
+  - label: "Step A"
+    command: "buildkite-agent pipeline upload extra-steps.yml"
+  - wait: ~
+  - label: "Step C"
+    command: "echo 'Runs after A, B1, and B2 complete'"
+```
+{: codeblock-file="pipeline.yml"}
+
+Step C only runs after step A _and_ the uploaded steps B1 and B2 have all completed. A single wait step is sufficient. You do not need multiple consecutive wait steps to cover dynamically uploaded steps.
+
 Optional attributes:
 
 <table data-attributes>

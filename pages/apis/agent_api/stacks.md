@@ -315,7 +315,7 @@ If you have [retry attributes](/docs/pipelines/configure/retry) configured on a 
 
 If your pipeline has numerous steps with retry attributes, and many of their jobs happen to fail, this could result in all of these jobs undergoing automatic retries.
 
-To prevent this issue from occurring, in each of these steps' [automatic retry attributes](/docs/pipelines/configure/retry#automatic-retry-attributes), set the `signal_reason` to `stack_error`, with a `limit` value of `0`, which prevents the job from being automatically retried when its associated attribute conditions are met. For example:
+To prevent this issue from occurring, in each of these steps' [automatic retry attributes](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes), set the `signal_reason` to `stack_error`, with a `limit` value of `0`, which prevents the job from being automatically retried when its associated attribute conditions are met. For example:
 
 ```yaml
 steps:

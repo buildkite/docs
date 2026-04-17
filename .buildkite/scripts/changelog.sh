@@ -113,7 +113,9 @@ PR_REVIEWS=$(echo "${PR_JSON}" | jq -r '
   [.reviews[]? | "\(.author.login) (\(.state)):\n\(.body // "No body")"] | join("\n\n---\n\n") // "No reviews."')
 
 # Cap the diff size to avoid overwhelming the prompt
-PR_DIFF=$(gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" | head -n "${DIFF_MAX_LINES}")
+# Write to a temp file first to avoid SIGPIPE when head closes the pipe early on large diffs
+gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" > /tmp/pr_diff.txt 2>/dev/null || true
+PR_DIFF=$(head -n "${DIFF_MAX_LINES}" /tmp/pr_diff.txt)
 
 echo "PR: ${PR_TITLE}"
 echo "URL: ${PR_URL}"
