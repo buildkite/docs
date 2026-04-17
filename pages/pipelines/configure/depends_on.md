@@ -22,7 +22,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-A [block step](/docs/pipelines/configure/step-types/block-step) performs the same function, but also require unblocking either manually or using an API call before the following steps can be run.
+A [block step](/docs/pipelines/configure/step-types/block-step) performs the same function, but also requires unblocking either manually or using an API call before the following steps can be run.
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 
