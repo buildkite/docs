@@ -1,6 +1,6 @@
-# depends_on
+# Depends on
 
-All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
+All steps in pipelines have implicit dependencies, often managed with [wait](/docs/pipelines/configure/step-types/wait-step) and [block](/docs/pipelines/configure/step-types/block-step) steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
 
 ## Implicit dependencies with wait and block
 
@@ -10,7 +10,7 @@ By adding these steps to your pipeline, the Buildkite scheduler will automatical
 
 <%= image "steps.png", width: 2028/2, height: 880/2, alt: "Screenshot of the edit step view, highlighting the Wait, Block and Input Steps in the right column" %>
 
-A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't proceed until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step is satisfied.
+A [wait step](/docs/pipelines/configure/step-types/wait-step), in the following example, is dependent on all previous steps completing successfully. The `wait` won't proceed until all steps defined above it have passed. All steps following the wait step are dependent on this wait step—none of them will run until the wait step is satisfied.
 
 ```yml
 steps:
@@ -22,7 +22,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-[Block steps](/docs/pipelines/configure/step-types/block-step) perform the same function, but also require unblocking either manually or using an API call before the rest of the steps can be run.
+A [block step](/docs/pipelines/configure/step-types/block-step) performs the same function, but also require unblocking either manually or using an API call before the following steps can be run.
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 
@@ -55,15 +55,19 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
+In this example, the second command step (`build.sh`) will not run until the first command step (`tests.sh`) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
 > 🚧 `depends_on` and `block` / `wait`
 > Note that a step with an explicit dependency specified with the `depends_on` attribute will run immediately after the dependency step has completed, without waiting for `block` or `wait` steps unless those are also explicit dependencies.
 
-Dependencies can also be added as a list of strings, or a list of steps. Both formats use the the step `key` to refer to the step.
+Dependencies can also be added as a list of strings, or a list of steps. Both formats use the step `key` to refer to the step.
 
 ```yml
 steps:
+  - command: "test-suite.sh"
+    key: "test-suite"
+  - command: "another-thing.sh"
+    key: "another-thing"
   - command: "tests.sh"
     depends_on:
       - "test-suite"
@@ -71,8 +75,14 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+Or alternatively:
+
 ```yml
 steps:
+  - command: "test-suite.sh"
+    key: "test-suite"
+  - command: "another-thing.sh"
+    key: "another-thing"
   - command: "tests.sh"
     depends_on:
       - step: "test-suite"
@@ -83,7 +93,9 @@ steps:
 > 🚧 Explicit dependencies in uploaded steps
 > If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
-To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML), `null` (JSON) or `[]` (JSON and YAML). This also ensures that the step will run immediately regardless of implicit dependencies. For example wait or upload steps:
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML), `null` (JSON) or `[]` (JSON and YAML). This also ensures that the step will run immediately regardless of implicit dependencies. For example:
+
+In YAML:
 
 ```yml
 steps:
@@ -93,6 +105,8 @@ steps:
     depends_on: ~
 ```
 
+Or alternatively:
+
 ```yml
 steps:
   - command: "tests.sh"
@@ -100,6 +114,8 @@ steps:
   - command: "lint.sh"
     depends_on: []
 ```
+
+In JSON:
 
 ```json
 {
@@ -119,9 +135,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build.
+While the second command step in these examples is defined after a wait step, its empty dependency directs this command to not depend on the `wait` step, so that both commands steps are available to run immediately at the start of the build.
 
-Explicit dependencies on block steps can be added without setting additional input values. You can use this to define a "Deploy" button, for example.
+Explicit dependencies on block steps can be added without setting additional input values. You can use this to define a **Deploy** button, for example.
 
 ```yml
 steps:
@@ -202,7 +218,7 @@ The following table shows how different step states affect dependencies:
 
 ### Skipped dependency behavior
 
-In this example, when building a branch other than `main`, the "Conditional Step" will be skipped but the "Dependent Step" will still run because the skipped dependency is satisfied.
+In this example, when building a branch other than `main`, the `Conditional Step` will be skipped but the `Dependent Step` will still run because the skipped dependency is satisfied.
 
 ```yaml
 steps:
