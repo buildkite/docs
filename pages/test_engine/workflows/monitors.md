@@ -69,7 +69,7 @@ You can configure the new test monitor to trigger actions that help track and ma
 
 ## Duration threshold
 
-The duration threshold monitor tracks how long individual tests take to run. It triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
+The duration threshold monitor tracks how long individual tests take to run, and triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
 
 The monitor maintains a rolling window of recent [execution](/docs/test-engine/glossary#execution) durations for each test. The aggregated duration across the window is calculated and compared to the configured thresholds:
 
