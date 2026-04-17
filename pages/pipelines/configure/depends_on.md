@@ -1,6 +1,43 @@
 # Depends on
 
-All steps in pipelines have implicit dependencies, often managed with [wait](/docs/pipelines/configure/step-types/wait-step) and [block](/docs/pipelines/configure/step-types/block-step) steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
+All steps in pipelines have _implicit dependencies_, usually managed with [wait and block](#implicit-dependencies-with-wait-and-block) steps. However, you can manually change the dependency structure of your steps, by defining _explicit dependencies_ using the [`depends_on` attribute](#defining-explicit-dependencies).
+
+## Implicit dependencies with wait and block
+
+[Wait](/docs/pipelines/configure/step-types/wait-step) and [block](/docs/pipelines/configure/step-types/block-step) steps provide an implicit dependency structure to your pipeline.
+
+By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
+
+<%= image "steps.png", width: 2028/2, height: 880/2, alt: "Screenshot of the edit step view, highlighting the Wait, Block and Input Steps in the right column" %>
+
+A [wait step](/docs/pipelines/configure/step-types/wait-step), in the following example, is dependent on all previous steps completing successfully. The `wait` won't proceed until all steps defined above it have passed. All steps following the wait step are dependent on this wait step—none of them will run until the wait step is satisfied.
+
+```yml
+steps:
+  - command: "one.sh"
+  - command: "two.sh"
+  - wait: ~
+  - command: "three.sh"
+  - command: "four.sh"
+```
+{: codeblock-file="pipeline.yml"}
+
+A [block step](/docs/pipelines/configure/step-types/block-step) performs the same function, but also requires unblocking either manually or using an API call before the subsequent steps can be run.
+
+<%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
+
+If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/configure/step-types/input-step).
+
+```yml
+steps:
+  - input: "Who is running this script?"
+    fields:
+      - text: "Your name"
+        key: "name"
+```
+{: codeblock-file="pipeline.yml"}
+
+<%= image "input.png", width: 600, height: 268, alt: "Screenshot of an input step titled 'Who is running this script?' with a required 'Your name' text input" %>
 
 ## Defining explicit dependencies
 
@@ -56,7 +93,7 @@ steps:
 > 🚧 Explicit dependencies in uploaded steps
 > If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
-To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML), `null` (JSON) or `[]` (JSON and YAML). This also ensures that the step will run immediately regardless of implicit dependencies. For example:
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML), `null` (JSON) or `[]` (JSON and YAML). This also ensures that the step will run immediately regardless of [implicit dependencies](#implicit-dependencies-with-wait-and-block). For example:
 
 In YAML:
 
@@ -235,40 +272,3 @@ steps:
       - step: step-b
         allow_failure: true
 ```
-
-## Implicit dependencies with wait and block
-
-[Wait](/docs/pipelines/configure/step-types/wait-step) and [block](/docs/pipelines/configure/step-types/block-step) steps provide an implicit dependency structure to your pipeline.
-
-By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
-
-<%= image "steps.png", width: 2028/2, height: 880/2, alt: "Screenshot of the edit step view, highlighting the Wait, Block and Input Steps in the right column" %>
-
-A [wait step](/docs/pipelines/configure/step-types/wait-step), in the following example, is dependent on all previous steps completing successfully. The `wait` won't proceed until all steps defined above it have passed. All steps following the wait step are dependent on this wait step—none of them will run until the wait step is satisfied.
-
-```yml
-steps:
-  - command: "one.sh"
-  - command: "two.sh"
-  - wait: ~
-  - command: "three.sh"
-  - command: "four.sh"
-```
-{: codeblock-file="pipeline.yml"}
-
-A [block step](/docs/pipelines/configure/step-types/block-step) performs the same function, but also requires unblocking either manually or using an API call before the subsequent steps can be run.
-
-<%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
-
-If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/configure/step-types/input-step).
-
-```yml
-steps:
-  - input: "Who is running this script?"
-    fields:
-      - text: "Your name"
-        key: "name"
-```
-{: codeblock-file="pipeline.yml"}
-
-<%= image "input.png", width: 600, height: 268, alt: "Screenshot of an input step titled 'Who is running this script?' with a required 'Your name' text input" %>
