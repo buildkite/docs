@@ -478,7 +478,7 @@
           path: "pipelines/configure/writing-build-scripts"
         - name: "Using conditionals"
           path: "pipelines/configure/conditionals"
-        - name: "Step dependencies"
+        - name: "Depends on"
           path: "pipelines/configure/depends-on"
         - name: "Environment variables"
           path: "pipelines/configure/environment-variables"
