@@ -85,7 +85,7 @@ Configure the following when setting up a duration threshold monitor:
 - **Alarm threshold**: The duration, in seconds, that triggers an _alarm_ action.
 - **Recover threshold**: The duration, in seconds, that triggers a _recover_ action. Must be lower than the **alarm threshold**.
 
-As with the [transition count](#transition-count) monitor, the duration threshold monitor is most useful when pointed at a single branch. Configure a branch [tag filter](#tag-filters) set to your default branch so that variance from feature branch executions does not affect the monitor. Without a branch filter, longer-running executions on feature branches can inflate the aggregated duration and cause spurious alarms.
+Like the [transition count](#transition-count) monitor, the duration threshold monitor is most useful when pointed at a single branch. Configure a branch [tag filter](#tag-filters) set to your default branch so that variance from feature branch executions does not affect the monitor. Without a branch filter, longer-running executions on feature branches can inflate the aggregated duration and cause spurious alarms.
 
 ## Tag filters
 
