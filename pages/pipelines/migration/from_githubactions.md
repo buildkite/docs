@@ -91,7 +91,7 @@ The syntax used in Buildkite Pipelines is simpler. You can also generate pipelin
 
 By default, GitHub Actions runs jobs in parallel (unless you specify `needs`), while steps within a job run sequentially. Buildkite Pipelines runs all steps in parallel by default, on any available agents that can run them.
 
-To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block).
+To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block).
 
 For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
 
@@ -251,7 +251,7 @@ The build step should run only after lint and test complete successfully. Config
       - echo "Build step placeholder"
 ```
 
-Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite Pipelines parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
+Without this [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite Pipelines parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
 
 ### Step 4: Add the actual commands
 

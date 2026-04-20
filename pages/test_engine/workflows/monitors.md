@@ -8,6 +8,7 @@ Test Engine supports the following types of monitors:
 - [Passed on retry](#passed-on-retry)
 - [Probabilistic flakiness](#probabilistic-flakiness)
 - [New test](#new-test)
+- [Duration threshold](#duration-threshold)
 
 You can alter and reduce the amount of test executions that a monitor receives using [tag filters](#tag-filters).
 
@@ -65,6 +66,26 @@ The probabilistic flakiness monitor is best suited to large and complex test sui
 The new test monitor triggers when a test executes for the first time and becomes a [managed test](/docs/test-engine/glossary#managed-test). A test is considered new only if the combination of its scope and name is unique and has not previously existed. If a test executes for the first time but its scope and name match an existing managed test, the monitor does not trigger.
 
 You can configure the new test monitor to trigger actions that help track and manage the performance and reliability of new tests to prevent flaky tests from being introduced to your test suite.
+
+## Duration threshold
+
+The duration threshold monitor tracks how long individual tests take to run. The monitor triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
+
+The monitor maintains a rolling window of recent [execution](/docs/test-engine/glossary#execution) durations for each test. The monitor calculates the aggregated duration across the window and compares it to the configured thresholds:
+
+- When the aggregated duration is greater than or equal to the **alarm threshold**, an _alarm_ [action](/docs/test-engine/workflows/actions) is triggered.
+- When the aggregated duration is less than or equal to the **recover threshold**, a _recover_ action is triggered.
+
+### Configuration
+
+Configure the following when setting up a duration threshold monitor:
+
+- **Aggregation function**: The function used to aggregate execution durations within the window. Only `p50` (median) is currently supported.
+- **Evaluation window**: The number of most recent executions used to calculate the aggregated duration. Accepts integers up to 100. Default: 5.
+- **Alarm threshold**: The duration, in seconds, that triggers an _alarm_ action.
+- **Recover threshold**: The duration, in seconds, that triggers a _recover_ action. Must be lower than the **alarm threshold**.
+
+Like the [transition count](#transition-count) monitor, the duration threshold monitor is most useful when pointed at a single branch. Configure a branch [tag filter](#tag-filters) set to your default branch so that variance from feature branch executions does not affect the monitor. Without a branch filter, longer-running executions on feature branches can inflate the aggregated duration and cause spurious alarms.
 
 ## Tag filters
 
