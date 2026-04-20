@@ -241,6 +241,7 @@ Optional attributes:
       <code>- exit_status: 1</code><br/>
       <em>Example:</em><br/>
       <code>- exit_status: "*"</code><br/>
+      See <a href="/docs/pipelines/configure/soft-fail">Soft fail</a> for more details.
     </td>
   </tr>
   <tr id="timeout_in_minutes">
@@ -312,37 +313,6 @@ steps:
     # No image specified in this step.
     # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
-
-## Soft fail attributes
-
-Optional attributes:
-
-<table>
-  <tr>
-    <td><code>exit_status</code></td>
-    <td>
-      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
-      <br/>
-      <em>Example:</em> <code>"*"</code><br/>
-      <em>Example:</em> <code>1</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-steps:
-  - label: "Specific exit status"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: 1
-
-  - label: "All non-zero exit statuses"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: "*"
-```
-{: codeblock-file="pipeline.yml"}
-
 
 ## Matrix attributes
 
