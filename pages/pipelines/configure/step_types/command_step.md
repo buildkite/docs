@@ -253,6 +253,9 @@ Optional attributes:
   </tr>
 </table>
 
+> 📘 Signed pipelines
+> When [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) are enabled, command steps also include a `signature` object with fields such as `value`, `version`, `hashing_algorithm`, and `signed_attributes`. This object is computed by the agent during pipeline upload and is not user-configurable.
+
 ## Agent-applied attributes
 
 <%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
