@@ -920,6 +920,8 @@
               path: "platform/cli/reference/init"
             - name: "job"
               path: "platform/cli/reference/job"
+            - name: "maintainer"
+              path: "platform/cli/reference/maintainer"
             - name: "organization"
               path: "platform/cli/reference/organization"
             - name: "package"
