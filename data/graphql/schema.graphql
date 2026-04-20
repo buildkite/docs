@@ -313,12 +313,14 @@ type Agent implements Node {
   """
   The time the agent was first asked to stop
   """
-  stoppedAt: DateTime @deprecated(reason: "Use either `stoppedGracefullyAt` or `stopForcedAt`")
+  stoppedAt: DateTime
+    @deprecated(reason: "Use either `stoppedGracefullyAt` or `stopForcedAt`")
 
   """
   The user that initially stopped this agent
   """
-  stoppedBy: User @deprecated(reason: "Use either `stoppedGracefullyBy` or `stopForcedBy`")
+  stoppedBy: User
+    @deprecated(reason: "Use either `stoppedGracefullyBy` or `stopForcedBy`")
 
   """
   The time the agent was gracefully stopped by a user
@@ -528,7 +530,10 @@ type AgentToken implements Node {
   """
   The token value used to register a new agent
   """
-  token: String! @deprecated(reason: "Hiding these after creation to improve security. Use the `token_value` field on AgentTokenCreate instead.")
+  token: String!
+    @deprecated(
+      reason: "Hiding these after creation to improve security. Use the `token_value` field on AgentTokenCreate instead."
+    )
 
   """
   The public UUID for the agent
@@ -793,7 +798,7 @@ enum AnnotationStyle {
   DEFAULT
 
   """
-   The annotation has a red border with a cross next to it
+  The annotation has a red border with a cross next to it
   """
   ERROR
 
@@ -1257,7 +1262,56 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode =
+  | APIAccessToken
+  | APIApplication
+  | AgentToken
+  | AuthorizationBitbucket
+  | AuthorizationGitHub
+  | AuthorizationGitHubEnterprise
+  | Cluster
+  | ClusterPermission
+  | ClusterQueue
+  | ClusterQueueToken
+  | ClusterToken
+  | CompositeRegistryUpstream
+  | Email
+  | JobTypeBlock
+  | JobTypeCommand
+  | JobTypeTrigger
+  | JobTypeWait
+  | NotificationServiceOpenTelemetryTracing
+  | NotificationServiceSlack
+  | NotificationServiceWebhook
+  | Organization
+  | OrganizationBanner
+  | OrganizationImpersonationRequest
+  | OrganizationInvitation
+  | OrganizationMember
+  | OrganizationRepositoryProviderGitHub
+  | OrganizationRepositoryProviderGitHubEnterpriseServer
+  | Pipeline
+  | PipelineSchedule
+  | PipelineTemplate
+  | Registry
+  | RegistryToken
+  | Rule
+  | SCMPipelineSettings
+  | SCMRepositoryHost
+  | SCMService
+  | SSOProviderGitHubApp
+  | SSOProviderGoogleGSuite
+  | SSOProviderSAML
+  | Secret
+  | Subscription
+  | Suite
+  | TOTP
+  | Team
+  | TeamMember
+  | TeamPipeline
+  | TeamRegistry
+  | TeamSuite
+  | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -2803,7 +2857,10 @@ type ClusterToken implements Node {
   The token value used to register a new agent to this tokens cluster. This will
   soon return an empty string before we finally remove this field.
   """
-  token: String! @deprecated(reason: "Hiding these after creation to improve security. Use the `token_value` field on ClusterAgentTokenCreate instead.")
+  token: String!
+    @deprecated(
+      reason: "Hiding these after creation to improve security. Use the `token_value` field on ClusterAgentTokenCreate instead."
+    )
 
   """
   The public UUID for this cluster token
@@ -5427,7 +5484,7 @@ type Mutation {
   """
   Sets an allowlist of IP addresses for API access to an organization. Please
   note that this is a beta feature and is not yet available to all
-  organizations. 
+  organizations.
   """
   organizationApiIpAllowlistUpdate(
     """
@@ -10071,6 +10128,26 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
+  Whether to create builds when a check run completes.
+  """
+  buildCheckRunCompleted: Boolean!
+
+  """
+  Whether to create builds when a branch or tag is created.
+  """
+  buildCreateEvent: Boolean!
+
+  """
+  Whether to create builds when a deployment status is created.
+  """
+  buildDeploymentStatusCreated: Boolean!
+
+  """
+  Whether to create builds when an issue comment is created on a pull request.
+  """
+  buildIssueCommentCreated: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10079,6 +10156,16 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds when a pull request is converted to draft.
+  """
+  buildPullRequestConvertedToDraft: Boolean!
+
+  """
+  Whether to create builds when a pull request is edited.
+  """
+  buildPullRequestEdited: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -10101,9 +10188,44 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestReadyForReview: Boolean!
 
   """
+  Whether to create builds when a pull request is reopened.
+  """
+  buildPullRequestReopened: Boolean!
+
+  """
+  Whether to create builds when a pull request review is dismissed.
+  """
+  buildPullRequestReviewDismissed: Boolean!
+
+  """
+  Whether to create builds when a pull request review is requested.
+  """
+  buildPullRequestReviewRequested: Boolean!
+
+  """
+  Whether to create builds when a pull request review is submitted.
+  """
+  buildPullRequestReviewSubmitted: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when a release is created.
+  """
+  buildReleaseCreated: Boolean!
+
+  """
+  Whether to create builds when a release is published.
+  """
+  buildReleasePublished: Boolean!
+
+  """
+  Whether to create builds when a release is released.
+  """
+  buildReleaseReleased: Boolean!
 
   """
   Whether to create builds when tags are pushed.
@@ -10134,6 +10256,12 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
   """
   ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  The command word used to trigger builds from issue comments (e.g. "\bk"). Only
+  comments containing this word will trigger builds.
+  """
+  issueCommentCommandWord: String
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger
@@ -10206,6 +10334,26 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildBranches: Boolean!
 
   """
+  Whether to create builds when a check run completes.
+  """
+  buildCheckRunCompleted: Boolean!
+
+  """
+  Whether to create builds when a branch or tag is created.
+  """
+  buildCreateEvent: Boolean!
+
+  """
+  Whether to create builds when a deployment status is created.
+  """
+  buildDeploymentStatusCreated: Boolean!
+
+  """
+  Whether to create builds when an issue comment is created on a pull request.
+  """
+  buildIssueCommentCreated: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10214,6 +10362,16 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds when a pull request is converted to draft.
+  """
+  buildPullRequestConvertedToDraft: Boolean!
+
+  """
+  Whether to create builds when a pull request is edited.
+  """
+  buildPullRequestEdited: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -10236,9 +10394,44 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildPullRequestReadyForReview: Boolean!
 
   """
+  Whether to create builds when a pull request is reopened.
+  """
+  buildPullRequestReopened: Boolean!
+
+  """
+  Whether to create builds when a pull request review is dismissed.
+  """
+  buildPullRequestReviewDismissed: Boolean!
+
+  """
+  Whether to create builds when a pull request review is requested.
+  """
+  buildPullRequestReviewRequested: Boolean!
+
+  """
+  Whether to create builds when a pull request review is submitted.
+  """
+  buildPullRequestReviewSubmitted: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when a release is created.
+  """
+  buildReleaseCreated: Boolean!
+
+  """
+  Whether to create builds when a release is published.
+  """
+  buildReleasePublished: Boolean!
+
+  """
+  Whether to create builds when a release is released.
+  """
+  buildReleaseReleased: Boolean!
 
   """
   Whether to create builds when tags are pushed.
@@ -10269,6 +10462,12 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
   """
   ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  The command word used to trigger builds from issue comments (e.g. "\bk"). Only
+  comments containing this word will trigger builds.
+  """
+  issueCommentCommandWord: String
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger
@@ -12330,7 +12529,8 @@ type Team implements Node {
   """
   Whether or not team members can delete pipelines in this team
   """
-  membersCanDeletePipelines: Boolean! @deprecated(reason: "This property has been removed without replacement")
+  membersCanDeletePipelines: Boolean!
+    @deprecated(reason: "This property has been removed without replacement")
 
   """
   Whether or not team members can delete packages in this team
@@ -13453,7 +13653,13 @@ type User implements Node {
   """
   Returns builds that this user has created.
   """
-  builds(branch: [String!], first: Int, last: Int, metaData: [String!], state: [BuildStates!]): BuildConnection
+  builds(
+    branch: [String!]
+    first: Int
+    last: Int
+    metaData: [String!]
+    state: [BuildStates!]
+  ): BuildConnection
 
   """
   The primary email for the user
@@ -13508,7 +13714,13 @@ type Viewer implements Node {
     last: Int
     type: [AuthorizationType!]
   ): AuthorizationConnection
-  builds(branch: String, first: Int, last: Int, metaData: [String!], state: [BuildStates!]): BuildConnection
+  builds(
+    branch: String
+    first: Int
+    last: Int
+    metaData: [String!]
+    state: [BuildStates!]
+  ): BuildConnection
 
   """
   Emails associated with the current user
