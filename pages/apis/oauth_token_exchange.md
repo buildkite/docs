@@ -1,7 +1,7 @@
 # OAuth token exchange
 
-> 📘 Private preview feature
-> OAuth Token Exchange is currently in private preview and is not yet generally available.
+> 📘 Public preview feature
+> OAuth Token Exchange is currently in public preview and is not yet generally available.
 
 [OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived [Buildkite API access tokens](/docs/apis/managing-api-tokens) associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite [REST](/docs/apis/rest-api) or [GraphQL](/docs/apis/graphql-api) API on behalf of a user.
 
@@ -35,7 +35,7 @@ OAuth Token Exchange is ideal for security-conscious workflows where a central s
 
 To use OAuth Token Exchange, you need:
 
-1. Your organization enrolled in the private preview. To enable this feature for your Buildkite organization, contact [support@buildkite.com](mailto:support@buildkite.com).
+1. Your organization enrolled in the public preview.
 1. A Token Exchange application configured by Buildkite. Provide the following details:
 
 - **Name:** A display name for the application.
@@ -286,6 +286,6 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_request` | "Subject user must be an active member of the organization" | Verify the email address belongs to a member of the target organization |
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
 | `invalid_target` | "Invalid audience organization" | Use the organization slug from the URL, not the display name |
-| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | The organization must be enrolled in the private preview |
+| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | The organization must be enrolled in the public preview |
 
 <!-- vale Buildkite.existence = YES -->
