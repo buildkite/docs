@@ -158,7 +158,7 @@ parallel(
 )
 ```
 
-Conversely, to make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) in the step you want to run after others have run first. For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
+Conversely, to make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies) in the step you want to run after others have run first. For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
 
 ```yaml
 # Buildkite: Explicit sequencing is required to make steps run in sequence
@@ -191,7 +191,7 @@ stage('Test') {
 }
 ```
 
-In Buildkite, each step is executed in a fresh workspace. Therefore, even if you implement a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block), artifacts from previously processed steps won't be available in subsequent steps.
+In Buildkite, each step is executed in a fresh workspace. Therefore, even if you implement a [`wait` step](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block), artifacts from previously processed steps won't be available in subsequent steps.
 
 ```yaml
 # This won't work in Buildkite
@@ -324,7 +324,7 @@ The build step should run only after lint and test complete successfully. Otherw
       - echo "Build step placeholder"
 ```
 
-Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite's parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
+Without this [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite's parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
 
 **You should now see** that the build step will wait for both lint and test to complete. This is the key difference from Jenkins' sequential-by-default model.
 
