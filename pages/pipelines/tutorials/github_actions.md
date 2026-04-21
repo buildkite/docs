@@ -36,8 +36,8 @@ For full configuration details, see the [GitHub integration docs](/docs/pipeline
 
 The Trigger Buildkite Pipeline GitHub Action allows you to:
 
-* Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
-* Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
+- Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
+- Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
 
 Find the Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline) directly.
 
