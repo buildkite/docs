@@ -126,6 +126,13 @@ Optional attributes:
       <em>Default:</em> <code>false</code><br/>
     </td>
   </tr>
+  <tr>
+    <td><code>parallelism</code></td>
+    <td>
+      The number of parallel triggered builds to create. When set, Buildkite creates multiple triggered builds from a single trigger step. Each triggered build receives a <code>BUILDKITE_PARALLEL_JOB</code> environment variable (0-based index) and <code>BUILDKITE_PARALLEL_JOB_COUNT</code> (total number of parallel builds).<br/>
+      <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
 </table>
 
 Optional `build` attributes:
@@ -179,6 +186,21 @@ Optional `build` attributes:
       release-version: "1.1"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Example: Triggering parallel builds
+
+```yml
+steps:
+  - trigger: "data-generator"
+    label: "\:package\: Generate data"
+    parallelism: 3
+    build:
+      meta_data:
+        release-version: "1.1"
+```
+{: codeblock-file="pipeline.yml"}
+
+This creates three builds on the `data-generator` pipeline, each with a different `BUILDKITE_PARALLEL_JOB` value (0, 1, 2).
 
 ## Agent-applied attributes
 
