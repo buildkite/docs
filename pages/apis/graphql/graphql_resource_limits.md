@@ -124,7 +124,7 @@ As a best practice, we recommend utilizing client-side strategies like the follo
 - Queues to schedule API calls.
 - Pagination to only request the necessary data.
 
-If an organization exceeds the 20,000 point limit, the response returns HTTP 429 status code with the following error.
+If an organization exceeds the 20,000 point limit, the response returns an HTTP 429 status code with the following error.
 
 ```json
 {
@@ -144,7 +144,7 @@ Per-user limits are evaluated for the authenticated user associated with the API
 
 A request's complexity counts towards both the per-user limit and the [organization-level limit](#rate-limits-organization-time-based-rate-limit). The request is rejected with a `429` status code if either limit is exceeded. The `RateLimit-Scope` response header indicates which limit was reached.
 
-If a user exceeds their per-user complexity limit, the response returns HTTP 429 status code with the following error. The `RateLimit-Scope` response header is set to `user` to indicate that the per-user limit was exceeded, rather than the organization-level limit.
+If a user exceeds their per-user complexity limit, the response returns an HTTP 429 status code with the following error. The `RateLimit-Scope` response header is set to `user` to indicate that the per-user limit was exceeded, rather than the organization-level limit.
 
 ```json
 {
