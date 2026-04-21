@@ -89,7 +89,7 @@ query RecentPipelineSlugs {
 
 ## Rate limits
 
-Buildkite enforces rate limits at two levels for the GraphQL API: an [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users, and a [per-user limit](#rate-limits-per-user-rate-limit) scoped to each authenticated user. A request is rejected if _either_ limit is exceeded.
+The GraphQL API enforces rate limits at two levels: an [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users, and a [per-user limit](#rate-limits-per-user-rate-limit) scoped to each authenticated user. A request is rejected if _either_ limit is exceeded.
 
 > 📘 Per-user rate limits
 > Buildkite enforces per-user complexity limits in addition to existing organization-level limits. Each authenticated user has their own complexity budget of 5,000 points per 5 minutes, tracked independently from the organization's shared quota.
