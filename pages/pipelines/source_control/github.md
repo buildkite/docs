@@ -122,6 +122,18 @@ When you create a pull request, two builds are triggered: one for the pull reque
 > 📘 Webhook events from GitHub pull requests that trigger Buildkite pipeline builds
 > A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (using **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
 
+### Expanded pull request actions
+
+Pull request triggers support additional actions beyond `opened` and `synchronize`. These can be individually enabled in your pipeline's GitHub settings:
+
+- **Edited** — build when the title, body, or base branch of a pull request is changed
+- **Reopened** — build when a closed pull request is reopened
+- **Labeled / Unlabeled** — build when labels are added or removed
+- **Ready for review** — build when a draft pull request is marked ready for review
+- **Converted to draft** — build when a pull request is converted to a draft
+- **Review requested** — build when a review is requested on a pull request
+- **Dequeued** — build when a pull request is removed from a merge queue
+
 ## Running builds on merge queues
 
 To enable merge queue builds, edit the GitHub settings for the pipeline and select **Build merge queues**.
@@ -143,6 +155,21 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 
 > 📘 Build tags and `BUILDKITE_BRANCH`
 > When a build is triggered from a GitHub tag `push` event webhook, both the `BUILDKITE_TAG` and `BUILDKITE_BRANCH` environment variables are set to the name of the git tag being built.
+
+## Running builds on additional GitHub events
+
+Beyond pushes, pull requests, and tags, Buildkite can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
+
+- **Pull request reviews** — trigger builds when a review is submitted or dismissed. Exposes `BUILDKITE_GITHUB_REVIEW_STATE` and `BUILDKITE_GITHUB_REVIEW_ID`.
+- **Check runs** — trigger builds when a check run from another GitHub App completes. Buildkite's own check runs are automatically skipped to prevent feedback loops. Exposes `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_STATUS`, and `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`.
+- **Releases** — trigger builds when a GitHub release is published, created, or released. Exposes `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_NAME`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, and `BUILDKITE_GITHUB_RELEASE_PRERELEASE`.
+- **Issue comments** — trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes. Exposes `BUILDKITE_GITHUB_COMMENT_ID`.
+- **Pull request review comments** — trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`). Exposes `BUILDKITE_GITHUB_COMMENT_ID`.
+- **Deployment statuses** — trigger builds when a deployment status changes. Requires the **Deployment** trigger mode. Exposes `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE` and `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`.
+- **Branch and tag creation** — trigger builds when a new branch or tag is created. Can be enabled independently of trigger mode.
+- **Branch and tag deletion** — when a branch is deleted, running builds for that branch are automatically cancelled (if `cancel_deleted_branch_builds` is enabled).
+
+All GitHub webhook-triggered builds include `BUILDKITE_GITHUB_EVENT` (the event type) and `BUILDKITE_GITHUB_ACTION` (the event action) environment variables. These are also available in [conditional expressions](/docs/pipelines/conditionals) via `build.source_event` and `build.source_action`.
 
 ## Noreply email handling
 

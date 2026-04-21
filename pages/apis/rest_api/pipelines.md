@@ -1545,6 +1545,126 @@ Additional properties available for GitHub and GitHub Enterprise:
       </td>
     </tr>
     <tr>
+      <th><code>build_pull_request_reopened</code></th>
+      <td>Whether to create builds when a pull request is reopened.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_edited</code></th>
+      <td>Whether to create builds when a pull request is edited (title, body, or base branch changed).
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_converted_to_draft</code></th>
+      <td>Whether to create builds when a pull request is converted to draft.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_review_requested</code></th>
+      <td>Whether to create builds when a review is requested on a pull request.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_check_run_completed</code></th>
+      <td>Whether to create builds when a check run completes. Builds from Buildkite's own check runs are automatically skipped to prevent loops.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_review_submitted</code></th>
+      <td>Whether to create builds when a pull request review is submitted.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_review_dismissed</code></th>
+      <td>Whether to create builds when a pull request review is dismissed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_release_published</code></th>
+      <td>Whether to create builds when a GitHub release is published.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_release_created</code></th>
+      <td>Whether to create builds when a GitHub release is created.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_release_released</code></th>
+      <td>Whether to create builds when a GitHub release is released.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_issue_comment_created</code></th>
+      <td>Whether to create builds when a comment is posted on a pull request. Comments must match the configured command word (default: <code>/bk</code>) and come from a trusted author (owner, member, or collaborator).
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>issue_comment_command_word</code></th>
+      <td>The command word that a PR comment must match to trigger a build. Only used when <code>build_issue_comment_created</code> is <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>/bk</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_deployment_status_created</code></th>
+      <td>Whether to create builds when a GitHub deployment status is created. Requires the <code>deployment</code> trigger mode. Deployment statuses posted by Buildkite are automatically skipped to prevent loops.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_review_comment_created</code></th>
+      <td>Whether to create builds when an inline diff comment is posted on a pull request. Comments must match the configured review comment command word and come from a trusted author.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>review_comment_command_word</code></th>
+      <td>The command word that a PR review comment must match to trigger a build. Only used when <code>build_pull_request_review_comment_created</code> is <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>/bk</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>review_comment_match_mode</code></th>
+      <td>How the review comment command word is matched against the comment body. <code>exact</code> requires the entire comment to match; <code>contains</code> matches if the command word appears anywhere in the comment.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>issue_comment_match_mode</code></th>
+      <td>How the issue comment command word is matched against the comment body. <code>exact</code> requires the entire comment to match; <code>contains</code> matches if the command word appears anywhere in the comment.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_dequeued</code></th>
+      <td>Whether to create builds when a pull request is removed from a merge queue.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_create_event</code></th>
+      <td>Whether to create builds when a branch or tag is created.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>cancel_deleted_branch_builds</code></th>
+      <td>Whether to cancel running builds when a branch is deleted.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>build_merge_group_checks_requested</code></th>
       <td>Whether to create merge queue builds for merge queue enabled GitHub repository with required status checks.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
