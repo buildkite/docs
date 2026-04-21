@@ -166,7 +166,7 @@ Beyond pushes, pull requests, and tags, Buildkite can trigger builds from a broa
 - **Issue comments** — trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes. Exposes `BUILDKITE_GITHUB_COMMENT_ID`.
 - **Pull request review comments** — trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`). Exposes `BUILDKITE_GITHUB_COMMENT_ID`.
 - **Deployment statuses** — trigger builds when a deployment status changes. Requires the **Deployment** trigger mode. Exposes `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE` and `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`.
-- **Branch and tag creation** — trigger builds when a new branch or tag is created. Can be enabled independently of trigger mode.
+- **Branch and tag creation** — trigger builds when a new branch or tag is created.
 - **Branch and tag deletion** — when a branch is deleted, running builds for that branch are automatically cancelled (if `cancel_deleted_branch_builds` is enabled).
 
 All GitHub webhook-triggered builds include `BUILDKITE_GITHUB_EVENT` (the event type) and `BUILDKITE_GITHUB_ACTION` (the event action) environment variables. These are also available in [conditional expressions](/docs/pipelines/conditionals) via `build.source_event` and `build.source_action`.
