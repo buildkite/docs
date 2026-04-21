@@ -187,7 +187,7 @@ Optional `build` attributes:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Example: Triggering parallel builds
+## Example: triggering parallel builds
 
 ```yml
 steps:
