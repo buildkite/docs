@@ -173,7 +173,7 @@ The rate limit status is available in the following response headers of each Gra
 | `RateLimit-Reset` | The number of seconds remaining until the limits are reset. |
 | `RateLimit-Scope` | The scope of the rate limit that applies to the current response. Either `organization` or `user`. |
 
-The response headers reflect whichever limit (organization or per-user) is _closest_ to being exhausted. Use the `RateLimit-Scope` header to determine which limit the remaining values refer to.
+The response headers reflect whichever limit (organization or per-user) is closest to being exhausted. Use the `RateLimit-Scope` header to determine which limit the remaining values refer to.
 
 For example, the following headers show a per-user rate limit:
 
