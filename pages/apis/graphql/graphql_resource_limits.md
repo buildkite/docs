@@ -114,7 +114,7 @@ If the query exceeds the limit, the response will return HTTP 200 status code wi
 }
 ```
 
-### Organization time-based rate limit
+### Organization-level time-based rate limit
 
 To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5-minute period. By allowing a set number of actual complexity points, you have the flexibility to run queries of different sizes within a 5-minute window.
 
