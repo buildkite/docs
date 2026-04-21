@@ -773,10 +773,10 @@
     yargs "^17.6.0"
     zod "^4.0.5"
 
-"@netlify/db-dev@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@netlify/db-dev/-/db-dev-0.7.0.tgz#29ac1629510fa045c9ac254680c20150e4ebbe58"
-  integrity sha512-xB2ciUJsWFw34DtMMmAh19qGUJy1N5mFAi6yYFFqeBlnd8StSxoUblXcqVZcQJLXm68OAxSxkfGf1qUucIDyMA==
+"@netlify/database-dev@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@netlify/database-dev/-/database-dev-0.8.0.tgz#6851b2de858277f3937f040774fa39e1eac78bec"
+  integrity sha512-q53dx7QgLMMN3vKRFvX/guDOPXscYaF4qtHoG0JYZorC0vcJagw6s3nV8cNob9sCjA3Tj/BNf7MnWwOSF0E1Cw==
   dependencies:
     "@electric-sql/pglite" "^0.3.15"
     pg-gateway "0.3.0-beta.4"
@@ -823,18 +823,18 @@
     uuid "^13.0.0"
     write-file-atomic "^5.0.1"
 
-"@netlify/dev@4.16.4":
-  version "4.16.4"
-  resolved "https://registry.yarnpkg.com/@netlify/dev/-/dev-4.16.4.tgz#49e933e0c6ddb4766ccf0aeeb0dbcd15396c8a1d"
-  integrity sha512-IhyLtiEgOFCwpW/qYqCnY0LSwmw4PNgu4hJYIddLpIr/RPHAsDN+Ni3hEEW9RH8wkmvYmbc+xtxHPQZdyDUSgg==
+"@netlify/dev@4.17.1":
+  version "4.17.1"
+  resolved "https://registry.yarnpkg.com/@netlify/dev/-/dev-4.17.1.tgz#bbdf093ae5235150633abaf5fa9ef99069b6334c"
+  integrity sha512-+VRNcqPcFFHDbT5d4FOiu3uZAB+dQniFNezD3hTO6LpoKqS2zwNNa0kZHMRFybAUHxYJk30m3QDrdHwzy9Jd0Q==
   dependencies:
     "@netlify/ai" "^0.4.1"
     "@netlify/blobs" "10.7.4"
     "@netlify/config" "^24.4.3"
-    "@netlify/db-dev" "0.7.0"
+    "@netlify/database-dev" "0.8.0"
     "@netlify/dev-utils" "4.4.3"
     "@netlify/edge-functions-dev" "1.0.16"
-    "@netlify/functions-dev" "1.2.4"
+    "@netlify/functions-dev" "1.2.6"
     "@netlify/headers" "2.1.8"
     "@netlify/images" "1.3.7"
     "@netlify/redirects" "3.1.10"
@@ -899,14 +899,14 @@
   dependencies:
     "@netlify/types" "2.6.0"
 
-"@netlify/functions-dev@1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@netlify/functions-dev/-/functions-dev-1.2.4.tgz#0e7f85330fa570f3965332f743661c7afd10df57"
-  integrity sha512-Ejrb+1HL11zgVgaaMHWukH4hOXFy3FUtue8hD5rgBiLWeGp03uOlGehmbRz47FXvGBMK7Z4t7HZRZU/vpaN5+g==
+"@netlify/functions-dev@1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@netlify/functions-dev/-/functions-dev-1.2.6.tgz#8a8d98c47f00a1fe8b06596a79450c8f13c7a794"
+  integrity sha512-hhfgKGZ2mQAv85jb3o4hYZ7s8Ad/+99qz51AoxhE26KkU1IKuRuKwEowWZUtvih0KPmvmGcVHbd49KYVIlf0tA==
   dependencies:
     "@netlify/blobs" "10.7.4"
     "@netlify/dev-utils" "4.4.3"
-    "@netlify/functions" "5.1.5"
+    "@netlify/functions" "5.2.0"
     "@netlify/zip-it-and-ship-it" "^14.5.0"
     cron-parser "^4.9.0"
     decache "^4.6.2"
@@ -927,10 +927,10 @@
     cpy "^11.0.0"
     path-exists "^5.0.0"
 
-"@netlify/functions@5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-5.1.5.tgz#061b290e90b152754fad872fe58e5f5a9df722f8"
-  integrity sha512-mhTl6x3TWoRwNgz8HZ9zvSR9OHB/hDEA6VinBmWY5ubgycKNCerf6XyFaFnujH2Ygx3c32yg6QOOr1v9y8euug==
+"@netlify/functions@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@netlify/functions/-/functions-5.2.0.tgz#49416c735ee6717a3fa6c99f46083b1af01ddbee"
+  integrity sha512-Pj93qeQd1tkQ5xm9gWJZmBf/1riLYqYHc0OzFukrJomrj82Ott53Rr/Q88H1ms5cF+P5QXRKWmA2JSxSybKfjA==
   dependencies:
     "@netlify/types" "2.6.0"
 
@@ -3603,10 +3603,10 @@ fastify-plugin@^5.0.0:
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-5.1.0.tgz#7083e039d6418415f9a669f8c25e72fc5bf2d3e7"
   integrity sha512-FAIDA8eovSt5qcDgcBvDuX/v0Cjz0ohGhENZ/wpc3y+oZCY2afZ9Baqql3g/lC+OHRnciQol4ww7tuthOb9idw==
 
-fastify@5.8.3:
-  version "5.8.3"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-5.8.3.tgz#78b5006cf0731d788457b19bd482805316424c8c"
-  integrity sha512-XJXpRQ41+rsJ/GLeP9vyDC+fBXilcTlEXokMSexkdEkla4uf7ZQNaI5xl3el+kW5TZQulqYxLr659ey/KX7XmQ==
+fastify@5.8.5:
+  version "5.8.5"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-5.8.5.tgz#c452224295e0ca550bcd0efc3f7d3e90e9c11955"
+  integrity sha512-Yqptv59pQzPgQUSIm87hMqHJmdkb1+GPxdE6vW6FRyVE9G86mt7rOghitiU4JHRaTyDUk9pfeKmDeu70lAwM4Q==
   dependencies:
     "@fastify/ajv-compiler" "^4.0.5"
     "@fastify/error" "^4.0.0"
@@ -5315,10 +5315,10 @@ negotiator@^1.0.0:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-1.0.0.tgz#b6c91bb47172d69f93cfd7c357bbb529019b5f6a"
   integrity sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==
 
-netlify-cli@^24.0.0:
-  version "24.11.3"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-24.11.3.tgz#ac24535548f09a7c3683307f3944cb00f8d02792"
-  integrity sha512-UbvXw79G85hDC19NXsi4DV/OZtEBvFhCAwywtJnGPu/DHFfBsfcoiJXtdBGqUF0YnSWbEONUjntYb2Hrjuo+Gg==
+netlify-cli@^25.0.0:
+  version "25.1.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-25.1.1.tgz#e2e763f60d545807c1735020d9617332ab98afa7"
+  integrity sha512-4JbjCqyZOiHMLUBDAr0CAxF1VP7ufHKB9D+J9dfVk0SsAcsW5YRvUOY8HJXHM0HcZF00+BLGuvA3yX2IAdiqOQ==
   dependencies:
     "@fastify/static" "9.0.0"
     "@netlify/ai" "0.4.1"
@@ -5327,7 +5327,7 @@ netlify-cli@^24.0.0:
     "@netlify/build" "35.13.1"
     "@netlify/build-info" "10.5.0"
     "@netlify/config" "24.5.0"
-    "@netlify/dev" "4.16.4"
+    "@netlify/dev" "4.17.1"
     "@netlify/dev-utils" "4.4.3"
     "@netlify/edge-bundler" "14.10.0"
     "@netlify/edge-functions" "3.0.6"
@@ -5366,7 +5366,7 @@ netlify-cli@^24.0.0:
     express-logging "1.1.1"
     extract-zip "2.0.1"
     fastest-levenshtein "1.0.16"
-    fastify "5.8.3"
+    fastify "5.8.5"
     find-up "8.0.0"
     folder-walker "3.2.0"
     fuzzy "0.1.3"
@@ -5401,6 +5401,7 @@ netlify-cli@^24.0.0:
     p-map "7.0.3"
     p-wait-for "6.0.0"
     parallel-transform "1.2.0"
+    parse-duration "^2.1.6"
     parse-github-url "1.0.3"
     pg "8.20.0"
     prettyjson "1.2.5"
@@ -5812,6 +5813,11 @@ parallel-transform@1.2.0:
     cyclist "^1.0.1"
     inherits "^2.0.3"
     readable-stream "^2.1.5"
+
+parse-duration@^2.1.6:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/parse-duration/-/parse-duration-2.1.6.tgz#0706b952e20623114facb81e51b1a9df6cfa6e02"
+  integrity sha512-1/A2Exg3NcJGcYdgV/dn4frR7vO2hOW/ohQ4KIgbT4W3raVcpYSszPWiL6I6cKufi4jQM5NbGRXLBj8AoLM4iQ==
 
 parse-github-url@1.0.3:
   version "1.0.3"
