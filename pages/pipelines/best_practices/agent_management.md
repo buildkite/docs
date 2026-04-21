@@ -89,7 +89,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 
 ## Agent lifecycle
 
-- Long-running agents provide caching benefits ([Git mirrors](/docs/agent/self-hosted/configure/git-mirrors), [dependencies](/docs/pipelines/configure/dependencies)):
+- Long-running agents provide caching benefits ([Git mirrors](/docs/agent/self-hosted/configure/git-mirrors), [dependencies](/docs/pipelines/configure/depends-on)):
   * Retire oldest agents first during scale-down
   * Add telemetry to detect flaky agents
 - Ephemeral agents reduce attack surface and configuration drift. [Buildkite hosted agents](/docs/agent/buildkite-hosted/linux#agent-images) support repository caches and shared volumes.

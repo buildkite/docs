@@ -135,7 +135,7 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/depends-on">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
@@ -241,6 +241,7 @@ Optional attributes:
       <code>- exit_status: 1</code><br/>
       <em>Example:</em><br/>
       <code>- exit_status: "*"</code><br/>
+      See <a href="/docs/pipelines/configure/soft-fail">Soft fail</a> for more details.
     </td>
   </tr>
   <tr id="timeout_in_minutes">
@@ -252,6 +253,9 @@ Optional attributes:
     </td>
   </tr>
 </table>
+
+> 📘 Signed pipelines
+> When [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) are enabled, command steps also include a `signature` object with fields such as `value`, `version`, `hashing_algorithm`, and `signed_attributes`. This object is computed by the agent during pipeline upload and is not user-configurable.
 
 ## Agent-applied attributes
 
@@ -309,37 +313,6 @@ steps:
     # No image specified in this step.
     # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
-
-## Soft fail attributes
-
-Optional attributes:
-
-<table>
-  <tr>
-    <td><code>exit_status</code></td>
-    <td>
-      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
-      <br/>
-      <em>Example:</em> <code>"*"</code><br/>
-      <em>Example:</em> <code>1</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-steps:
-  - label: "Specific exit status"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: 1
-
-  - label: "All non-zero exit statuses"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: "*"
-```
-{: codeblock-file="pipeline.yml"}
-
 
 ## Matrix attributes
 

@@ -2,7 +2,7 @@
 
 A _block_ step is used to pause the execution of a build and wait on a team member to unblock it using the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-A block step is functionally identical to an [input step](/docs/pipelines/configure/step-types/input-step), however a block step creates [implicit dependencies](/docs/pipelines/configure/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
+A block step is functionally identical to an [input step](/docs/pipelines/configure/step-types/input-step), however a block step creates [implicit dependencies](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
 
 A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/configure/defining-steps) file.
 
@@ -110,7 +110,7 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
+      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/configure/depends-on">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>

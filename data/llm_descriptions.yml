@@ -68,7 +68,7 @@
   pipelines/configure/dynamic-pipelines/sdk: "Multi-language SDK (JS, Python, Go, Ruby, C#) for programmatically generating dynamic pipeline steps."
   pipelines/configure/writing-build-scripts: "Guidelines for writing shell scripts for builds, including Bash options, debugging, and exit status handling."
   pipelines/configure/conditionals: "Using if/unless expressions with C-like syntax to conditionally run steps or filter pipeline builds from webhooks."
-  pipelines/configure/dependencies: "Managing step execution order with implicit dependencies (wait/block) and explicit dependencies (depends_on)."
+  pipelines/configure/depends-on: "Managing step execution order with implicit dependencies (wait/block) and explicit dependencies (depends_on)."
   pipelines/configure/environment-variables: "Complete reference of Buildkite environment variables available in build steps, hooks, and plugins."
   pipelines/configure/skipping: "Skipping or canceling intermediate builds, and skipping builds using commit messages or the API."
   pipelines/configure/artifacts: "Uploading, downloading, and managing build artifacts using step attributes, CLI commands, and the API."

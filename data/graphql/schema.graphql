@@ -10071,6 +10071,26 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
+  Whether to create builds when a check run completes.
+  """
+  buildCheckRunCompleted: Boolean!
+
+  """
+  Whether to create builds when a branch or tag is created.
+  """
+  buildCreateEvent: Boolean!
+
+  """
+  Whether to create builds when a deployment status is created.
+  """
+  buildDeploymentStatusCreated: Boolean!
+
+  """
+  Whether to create builds when an issue comment is created on a pull request.
+  """
+  buildIssueCommentCreated: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10079,6 +10099,16 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds when a pull request is converted to draft.
+  """
+  buildPullRequestConvertedToDraft: Boolean!
+
+  """
+  Whether to create builds when a pull request is edited.
+  """
+  buildPullRequestEdited: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -10101,9 +10131,44 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestReadyForReview: Boolean!
 
   """
+  Whether to create builds when a pull request is reopened.
+  """
+  buildPullRequestReopened: Boolean!
+
+  """
+  Whether to create builds when a pull request review is dismissed.
+  """
+  buildPullRequestReviewDismissed: Boolean!
+
+  """
+  Whether to create builds when a pull request review is requested.
+  """
+  buildPullRequestReviewRequested: Boolean!
+
+  """
+  Whether to create builds when a pull request review is submitted.
+  """
+  buildPullRequestReviewSubmitted: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when a release is created.
+  """
+  buildReleaseCreated: Boolean!
+
+  """
+  Whether to create builds when a release is published.
+  """
+  buildReleasePublished: Boolean!
+
+  """
+  Whether to create builds when a release is released.
+  """
+  buildReleaseReleased: Boolean!
 
   """
   Whether to create builds when tags are pushed.
@@ -10134,6 +10199,12 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
   """
   ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  The command word used to trigger builds from issue comments (e.g. "\bk"). Only
+  comments containing this word will trigger builds.
+  """
+  issueCommentCommandWord: String
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger
@@ -10206,6 +10277,26 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildBranches: Boolean!
 
   """
+  Whether to create builds when a check run completes.
+  """
+  buildCheckRunCompleted: Boolean!
+
+  """
+  Whether to create builds when a branch or tag is created.
+  """
+  buildCreateEvent: Boolean!
+
+  """
+  Whether to create builds when a deployment status is created.
+  """
+  buildDeploymentStatusCreated: Boolean!
+
+  """
+  Whether to create builds when an issue comment is created on a pull request.
+  """
+  buildIssueCommentCreated: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10214,6 +10305,16 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds when a pull request is converted to draft.
+  """
+  buildPullRequestConvertedToDraft: Boolean!
+
+  """
+  Whether to create builds when a pull request is edited.
+  """
+  buildPullRequestEdited: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -10236,9 +10337,44 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildPullRequestReadyForReview: Boolean!
 
   """
+  Whether to create builds when a pull request is reopened.
+  """
+  buildPullRequestReopened: Boolean!
+
+  """
+  Whether to create builds when a pull request review is dismissed.
+  """
+  buildPullRequestReviewDismissed: Boolean!
+
+  """
+  Whether to create builds when a pull request review is requested.
+  """
+  buildPullRequestReviewRequested: Boolean!
+
+  """
+  Whether to create builds when a pull request review is submitted.
+  """
+  buildPullRequestReviewSubmitted: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when a release is created.
+  """
+  buildReleaseCreated: Boolean!
+
+  """
+  Whether to create builds when a release is published.
+  """
+  buildReleasePublished: Boolean!
+
+  """
+  Whether to create builds when a release is released.
+  """
+  buildReleaseReleased: Boolean!
 
   """
   Whether to create builds when tags are pushed.
@@ -10269,6 +10405,12 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
   """
   ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  The command word used to trigger builds from issue comments (e.g. "\bk"). Only
+  comments containing this word will trigger builds.
+  """
+  issueCommentCommandWord: String
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger

@@ -185,11 +185,6 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
         "tool": "create_build",
         "description": "Uses the [Create a build](/docs/apis/rest-api/builds#create-a-build) REST API endpoint to trigger a new build on a Buildkite pipeline for a specific commit and branch, with optional environment variables, metadata, and author information.",
         "scope": "write_builds"
-      },
-      {
-        "tool": "wait_for_build",
-        "description": "Waits for a specific build to be completed. This tool uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve the status of the build from its logs. If the build is still running, the `wait_for_build` tool automatically calls this same endpoint again, and does so repeatedly with increasingly less frequency, to reduce text tokenization usage and traffic, until the returned build status is completed.",
-        "scope": "read_builds"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
