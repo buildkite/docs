@@ -57,7 +57,7 @@ The REST API rate limit time window is 60 seconds.
 
 ### GraphQL API
 
-The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-time-based-rate-limit) for the Buildkite organization.
+The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-time-based-rate-limit) for the Buildkite organization.
 
 Field | Type | Description
 ----- | ---- | -----------
@@ -68,17 +68,4 @@ Field | Type | Description
 `enforced` | boolean | Indicates if rate limiting is currently enforced for this Buildkite organization.
 {: class="responsive-table"}
 
-The GraphQL API rate limit time window is 300 seconds (five minutes).
-
-## Per-user rate limits
-
-In addition to the organization-level limits above, Buildkite enforces [per-user rate limits](/docs/apis/rest-api/rate-limits#per-user-rate-limits) on API requests. These limits prevent a single user from consuming the entire organization's API quota. The default per-user limit is 50 requests per minute for the REST API and 5,000 complexity points per 5 minutes for the GraphQL API.
-
-Per-user rate limit information is not available through this endpoint. Instead, inspect the response headers on any REST or GraphQL API call:
-
-- `RateLimit-Remaining`: The remaining requests or complexity points within the current time window.
-- `RateLimit-Limit`: The rate limit for the current time window.
-- `RateLimit-Reset`: The number of seconds remaining until the time window resets.
-- `RateLimit-Scope`: Either `organization` or `user`, indicating which limit the header values refer to.
-
-The headers reflect whichever limit is closest to being exhausted. When `RateLimit-Scope` is `user`, the values refer to your per-user limit. Learn more in [REST API rate limits](/docs/apis/rest-api/rate-limits) and [GraphQL resource limits](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit).
+This GraphQL API rate limit time window is 300 seconds (five minutes).

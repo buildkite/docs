@@ -89,12 +89,9 @@ query RecentPipelineSlugs {
 
 ## Rate limits
 
-The GraphQL API enforces rate limits at two levels: an [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users, and a [per-user limit](#rate-limits-per-user-rate-limit) scoped to each authenticated user. A request is rejected if _either_ limit is exceeded.
+Buildkite has implemented two distinct limits to the GraphQL endpoints. These limits play a critical role in ensuring the platform operates smoothly and efficiently, while minimizing the risk of unnecessary downtime or system failures.
 
-> 📘 Per-user rate limits
-> Buildkite enforces per-user complexity limits in addition to existing organization-level limits. Each authenticated user has their own complexity budget of 5,000 points per 5 minutes, tracked independently from the organization's shared quota.
-
-Both levels are measured in actual complexity points. There is also a [single query limit](#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
+By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
 
 ### Single query limit
 
@@ -114,9 +111,9 @@ If the query exceeds the limit, the response will return HTTP 200 status code wi
 }
 ```
 
-### Organization-level time-based rate limit
+### Time-based rate limit
 
-To ensure optimal performance, a Buildkite organization can use up to 20,000 actual complexity points within a 5-minute period. By allowing a set number of actual complexity points, you have the flexibility to run queries of different sizes within a 5-minute window.
+To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5-minute period. By allowing a set number of actual complexity points, you have the flexibility to run queries of different sizes within a 5-minute window.
 
 As a best practice, we recommend utilizing client-side strategies like the following to manage time-based rate limits:
 
@@ -124,7 +121,7 @@ As a best practice, we recommend utilizing client-side strategies like the follo
 - Queues to schedule API calls.
 - Pagination to only request the necessary data.
 
-If an organization exceeds the 20,000 point limit, the response returns an HTTP 429 status code with the following error.
+If an organization exceeds the 20,000 point limit, the response will return HTTP 429 status code with the following error.
 
 ```json
 {
@@ -135,28 +132,6 @@ If an organization exceeds the 20,000 point limit, the response returns an HTTP 
     ]
 }
 ```
-
-### Per-user rate limit
-
-In addition to the organization-level limit, Buildkite enforces a per-user complexity limit on GraphQL API requests. This limit prevents a single user from consuming the entire organization's GraphQL quota.
-
-Per-user limits are evaluated for the authenticated user associated with the API access token. The default per-user limit is 5,000 complexity points per 5 minutes.
-
-A request's complexity counts towards both the per-user limit and the [organization-level limit](#rate-limits-organization-time-based-rate-limit). The request is rejected with a `429` status code if either limit is exceeded. The `RateLimit-Scope` response header indicates which limit was reached.
-
-If a user exceeds their per-user complexity limit, the response returns an HTTP 429 status code with the following error. The `RateLimit-Scope` response header is set to `user` to indicate that the per-user limit was exceeded, rather than the organization-level limit.
-
-```json
-{
-    "errors": [
-        {
-            "message": "You have exceeded your per-user limit of 5000 complexity points. Please try again in 187 seconds."
-        }
-    ]
-}
-```
-
-You can view the per-user limits that apply to your organization on the [**Service Quotas** page](/docs/platform/limits#viewing-your-organizations-service-quotas) in **Organization Settings**.
 
 ## Accessing limit details
 
@@ -171,26 +146,13 @@ The rate limit status is available in the following response headers of each Gra
 | `RateLimit-Remaining` | The remaining complexity left within the current time window. |
 | `RateLimit-Limit` | The complexity limit for the time window. |
 | `RateLimit-Reset` | The number of seconds remaining until the limits are reset. |
-| `RateLimit-Scope` | The scope of the rate limit that applies to the current response. Either `organization` or `user`. |
 
-The response headers reflect whichever limit (organization or per-user) is closest to being exhausted. Use the `RateLimit-Scope` header to determine which limit the remaining values refer to.
-
-For example, the following headers show a per-user rate limit:
-
-```js
-RateLimit-Remaining: 2000
-RateLimit-Limit: 5000
-RateLimit-Reset: 120
-RateLimit-Scope: user
-```
-
-The following headers show an organization-level rate limit:
+For example:
 
 ```js
 RateLimit-Remaining: 20
 RateLimit-Limit: 20000
 RateLimit-Reset: 120
-RateLimit-Scope: organization
 ```
 
 ### View query complexity
@@ -224,10 +186,9 @@ Designing your client application with best practices in mind is the simplest wa
 
 Consider the following best practices when designing your API usage:
 
-- **Distribute load across tokens:** If you have multiple automated processes, use separate API tokens so that their usage is tracked independently against per-user limits.
-- Optimize the request by only requesting the data you require. Use specific queries rather than a single all-purpose query.
+- Optimize the request by only requesting the data you require. We recommend using specific queries rather than a single all-purpose query.
 - Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially. Some connections support a higher maximum — for example, `Build.metaData` accepts `first` values up to 10,000.
 - Use strategies like caching for data you use often that is unlikely to be updated instead of constantly calling APIs.
 - Regulate the rate of your requests for smoother distribution. You can do this using queues or scheduling API calls in appropriate intervals.
-- Use metadata about your API usage, including rate limit status, to manage the behavior dynamically.
-- Be mindful of retries, errors, loops, and the frequency of API calls.
+- Use metadata about your API usage, including rate limit status to manage the behavior dynamically.
+- Think of rate limiting while designing your client application. Be mindful of retries, errors, loops, and the frequency of API calls.
