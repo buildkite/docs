@@ -1570,7 +1570,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>build_check_run_completed</code></th>
-      <td>Whether to create builds when a check run completes. Builds from Buildkite's own check runs are automatically skipped to prevent loops.
+      <td>Whether to create builds when a check run completes. The check runs from Buildkite Pipelines builds are automatically skipped to prevent loops.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
