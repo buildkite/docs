@@ -9,7 +9,7 @@ Buildkite Pipelines now supports many of the same GitHub webhook events that Git
 The following GitHub webhook events can trigger Buildkite Pipelines builds:
 
 - Pull request reviews (`pull_request_review`)
-- Pull request review comments (`pull_request_review_comment`) — inline diff comments
+- Pull request review comments (`pull_request_review_comment`)—inline diff comments
 - Check runs (`check_run`)
 - Releases (`release`)
 - Issue comments (`issue_comment`)
