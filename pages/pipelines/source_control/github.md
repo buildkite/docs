@@ -174,17 +174,17 @@ GitHub webhook-triggered builds expose environment variables that you can use at
 
 **Available at runtime and in conditionals:**
 
-- `BUILDKITE_GITHUB_COMMENT_ID` — the comment that triggered the build (issue comments and review comments)
-- `BUILDKITE_GITHUB_REVIEW_ID` — the review that triggered the build (pull request reviews)
-- `BUILDKITE_GITHUB_EVENT` — the GitHub webhook event name (for example, `pull_request`, `check_run`, `release`)
-- `BUILDKITE_GITHUB_ACTION` — the GitHub webhook action (for example, `opened`, `completed`, `published`)
+- `BUILDKITE_GITHUB_COMMENT_ID`: the comment that triggered the build (issue comments and review comments)
+- `BUILDKITE_GITHUB_REVIEW_ID`: the review that triggered the build (pull request reviews)
+- `BUILDKITE_GITHUB_EVENT`: the GitHub webhook event name (for example, `pull_request`, `check_run`, `release`)
+- `BUILDKITE_GITHUB_ACTION`: the GitHub webhook action (for example, `opened`, `completed`, `published`)
 
 **Available in conditionals only:**
 
-- `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION` — check run details
-- `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE` — release details
-- `BUILDKITE_GITHUB_REVIEW_STATE` — the review state (`approved`, `changes_requested`, etc.)
-- `BUILDKITE_GITHUB_DEPLOYMENT_ID`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT` — deployment status details
+- `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`: check run details
+- `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE`: release details
+- `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, etc.)
+- `BUILDKITE_GITHUB_DEPLOYMENT_ID`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`: deployment status details
 
 ## Noreply email handling
 
