@@ -24,9 +24,9 @@ Beyond `opened` and `synchronize`, Buildkite Pipelines now supports these pull r
 
 Use the following variables to write fine-grained build filters similar to the GitHub Actions `on.<event>.types` filtering:
 
-- `build.source_event` — the GitHub webhook event that triggered the build.
-- `build.source_action` — the specific action within that event.
-- `build.pull_request.label` — the specific label that was just added or removed, so you can filter on exactly which label changed.
+- `build.source_event`: the GitHub webhook event that triggered the build.
+- `build.source_action`: the specific action within that event.
+- `build.pull_request.label`: the specific label that was just added or removed, so you can filter on exactly which label changed.
 
 For full configuration details, see the [GitHub integration docs](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
 
