@@ -160,13 +160,13 @@ Your existing trigger settings are preserved. To resume webhook-triggered builds
 
 Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
 
-- **Pull request reviews** — trigger builds when a review is submitted or dismissed.
-- **Check runs** — trigger builds when a check run from another GitHub App completes. Check runs from Buildkite Pipelines are automatically skipped to prevent feedback loops.
-- **Releases** — trigger builds when a GitHub release is published, created, or released.
-- **Issue comments** — trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes.
-- **Pull request review comments** — trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
-- **Deployment statuses** — trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
-- **Branch and tag creation** — trigger builds when a new branch or tag is created.
+- **Pull request reviews**: trigger builds when a review is submitted or dismissed.
+- **Check runs**: trigger builds when a check run from another GitHub App completes. Check runs from Buildkite Pipelines are automatically skipped to prevent feedback loops.
+- **Releases**: trigger builds when a GitHub release is published, created, or released.
+- **Issue comments**: trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes.
+- **Pull request review comments**: trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
+- **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
+- **Branch and tag creation**: trigger builds when a new branch or tag is created.
 
 ### Environment variables
 
