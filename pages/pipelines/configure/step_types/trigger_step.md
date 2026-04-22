@@ -99,7 +99,7 @@ Optional attributes:
       A unique string to identify the trigger step.<br/>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
       <em>Example:</em> <code>"trigger-deploy"</code><br/>
-      <em>Alias:</em> <code>identifier</code>
+      <em>Aliases:</em> <code>identifier</code>, <code>id</code>
     </td>
    </tr>
    <tr>
