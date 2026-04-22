@@ -150,6 +150,12 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 > 📘 Build tags and `BUILDKITE_BRANCH`
 > When a build is triggered from a GitHub tag `push` event webhook, both the `BUILDKITE_TAG` and `BUILDKITE_BRANCH` environment variables are set to the name of the git tag being built.
 
+## Disabling GitHub webhooks
+
+To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable GitHub Webhooks** button in the **Disable Webhooks** section of your pipeline's GitHub settings. This blocks all webhook processing — no new builds will be created from any GitHub event.
+
+Your existing trigger settings are preserved. To resume webhook-triggered builds, select **Enable GitHub Webhooks** and your previous configuration will be restored.
+
 ## Running builds on additional GitHub events
 
 Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
