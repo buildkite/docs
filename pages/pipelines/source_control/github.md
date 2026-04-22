@@ -106,14 +106,14 @@ To run builds for GitHub pull requests, edit the GitHub settings for your Buildk
 
 You can enable additional pull request actions to trigger builds:
 
-- **Build when pull request becomes ready for review** — build when a draft pull request is marked ready for review
-- **Build when pull request is edited** — build when the title, description, or base branch of a pull request is changed. Choose between **Any edit** (triggers on all edits) and **Base branch changed only** (triggers only when the base branch is changed).
-- **Build when pull request labels are changed** — build when labels are added to or removed from a pull request. Use the `build.pull_request.labels` conditional variable to filter by individual label names.
-- **Build when pull request is reopened** — build when a closed pull request is reopened
-- **Build when pull request is converted to draft** — build when a pull request is converted to a draft
-- **Build when a review is requested** — build when a review is requested on a pull request
-- **Build when pull request is removed from merge queue** — build when a pull request is dequeued from a GitHub merge queue
-- **Build when pull request is from third-party forked repository** — build pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
+- **Build when pull request becomes ready for review**: build when a draft pull request is marked ready for review
+- **Build when pull request is edited**: build when the title, description, or base branch of a pull request is changed. Choose between **Any edit** (triggers on all edits) and **Base branch changed only** (triggers only when the base branch is changed).
+- **Build when pull request labels are changed**: build when labels are added to or removed from a pull request. Use the `build.pull_request.labels` conditional variable to filter by individual label names.
+- **Build when pull request is reopened**: build when a closed pull request is reopened
+- **Build when pull request is converted to draft**: build when a pull request is converted to a draft
+- **Build when a review is requested**: build when a review is requested on a pull request
+- **Build when pull request is removed from merge queue**: build when a pull request is dequeued from a GitHub merge queue
+- **Build when pull request is from third-party forked repository**: build pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 
 You can also configure these options:
 
