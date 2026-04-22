@@ -91,8 +91,9 @@ Optional attributes:
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite (name of the group in the UI). Supports emoji.<br/>
+      The label that will be displayed in the pipeline visualization in Buildkite (name of the group in the UI). Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>

@@ -174,6 +174,7 @@ Optional attributes:
     <td>
       The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>
