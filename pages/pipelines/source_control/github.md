@@ -152,7 +152,7 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 
 ## Running builds on additional GitHub events
 
-Beyond pushes, pull requests, and tags, Buildkite can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
+Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
 
 - **Pull request reviews** — trigger builds when a review is submitted or dismissed.
 - **Check runs** — trigger builds when a check run from another GitHub App completes. Buildkite's own check runs are automatically skipped to prevent feedback loops.

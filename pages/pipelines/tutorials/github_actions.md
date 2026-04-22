@@ -2,11 +2,11 @@
 
 ## Migrating from GitHub Actions to Buildkite
 
-Buildkite now supports many of the same GitHub webhook events that GitHub Actions uses as workflow triggers, making incremental migration easier.
+Buildkite Pipelines now supports many of the same GitHub webhook events that GitHub Actions uses as workflow triggers, making incremental migration easier.
 
 ### Webhook event triggers
 
-The following GitHub webhook events can trigger Buildkite builds:
+The following GitHub webhook events can trigger Buildkite Pipelines builds:
 
 - Pull request reviews (`pull_request_review`)
 - Pull request review comments (`pull_request_review_comment`) — inline diff comments
@@ -18,11 +18,11 @@ The following GitHub webhook events can trigger Buildkite builds:
 
 ### Expanded pull request actions
 
-Beyond `opened` and `synchronize`, Buildkite now supports these pull request actions: `edited`, `reopened`, `labeled`, `unlabeled`, `ready_for_review`, `converted_to_draft`, `review_requested`, and `dequeued`.
+Beyond `opened` and `synchronize`, Buildkite Pipelines now supports these pull request actions: `edited`, `reopened`, `labeled`, `unlabeled`, `ready_for_review`, `converted_to_draft`, `review_requested`, and `dequeued`.
 
 ### Conditional variables
 
-Use the following variables to write fine-grained build filters similar to GitHub Actions' `on.<event>.types` filtering:
+Use the following variables to write fine-grained build filters similar to the GitHub Actions `on.<event>.types` filtering:
 
 - `build.source_event` — the GitHub webhook event that triggered the build.
 - `build.source_action` — the specific action within that event.

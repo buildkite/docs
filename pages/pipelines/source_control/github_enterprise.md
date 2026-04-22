@@ -64,7 +64,7 @@ For Buildkite to mark commits and pull requests as pass or fail, you need to aut
 
 ## Known limitations for additional webhook events
 
-Buildkite's GHES App manifest subscribes to `create`, `delete`, and `release` webhook events. However, GitHub only delivers these events if the App has `contents: read` permission. In the GHES App manifest, `contents: read` is only included when the customer opts in to code access by choosing "Buildkite (with code access)" during setup.
+The Buildkite GHES App manifest subscribes to `create`, `delete`, and `release` webhook events. However, GitHub only delivers these events if the App has `contents: read` permission. In the GHES App manifest, `contents: read` is only included when the customer opts in to code access by choosing "Buildkite (with code access)" during setup.
 
 This means GHES installations **without** code access will not receive `create`, `delete`, or `release` events. The corresponding pipeline settings (branch and tag creation, `cancel_deleted_branch_builds`, and release triggers) will have no effect.
 
