@@ -160,16 +160,32 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 
 Beyond pushes, pull requests, and tags, Buildkite can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
 
-- **Pull request reviews** — trigger builds when a review is submitted or dismissed. Exposes `BUILDKITE_GITHUB_REVIEW_STATE` and `BUILDKITE_GITHUB_REVIEW_ID`.
-- **Check runs** — trigger builds when a check run from another GitHub App completes. Buildkite's own check runs are automatically skipped to prevent feedback loops. Exposes `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_STATUS`, and `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`.
-- **Releases** — trigger builds when a GitHub release is published, created, or released. Exposes `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_NAME`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, and `BUILDKITE_GITHUB_RELEASE_PRERELEASE`.
-- **Issue comments** — trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes. Exposes `BUILDKITE_GITHUB_COMMENT_ID`.
-- **Pull request review comments** — trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`). Exposes `BUILDKITE_GITHUB_COMMENT_ID`.
-- **Deployment statuses** — trigger builds when a deployment status changes. Requires the **Deployment** trigger mode. Exposes `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE` and `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`.
+- **Pull request reviews** — trigger builds when a review is submitted or dismissed.
+- **Check runs** — trigger builds when a check run from another GitHub App completes. Buildkite's own check runs are automatically skipped to prevent feedback loops.
+- **Releases** — trigger builds when a GitHub release is published, created, or released.
+- **Issue comments** — trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes.
+- **Pull request review comments** — trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
+- **Deployment statuses** — trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation** — trigger builds when a new branch or tag is created.
 - **Branch and tag deletion** — when a branch is deleted, running builds for that branch are automatically cancelled (if `cancel_deleted_branch_builds` is enabled).
 
-All GitHub webhook-triggered builds include `BUILDKITE_GITHUB_EVENT` (the event type) and `BUILDKITE_GITHUB_ACTION` (the event action) environment variables. These are also available in [conditional expressions](/docs/pipelines/conditionals) via `build.source_event` and `build.source_action`.
+### Environment variables
+
+All GitHub webhook-triggered builds set `BUILDKITE_GITHUB_EVENT` and `BUILDKITE_GITHUB_ACTION`, which are available both at runtime and in [step conditionals](/docs/pipelines/conditionals) via `build.env()`, `build.source_event`, and `build.source_action`.
+
+Each event type also exposes event-specific variables. Some are available at runtime (in your build scripts and hooks), while others are only available in [step conditionals](/docs/pipelines/conditionals) via `build.env()`:
+
+**Available at runtime and in step conditionals:**
+
+- `BUILDKITE_GITHUB_COMMENT_ID` — the comment that triggered the build (issue comments and review comments)
+- `BUILDKITE_GITHUB_REVIEW_ID` — the review that triggered the build (pull request reviews)
+
+**Available in step conditionals only:**
+
+- `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION` — check run details
+- `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE` — release details
+- `BUILDKITE_GITHUB_REVIEW_STATE` — the review state (`approved`, `changes_requested`, etc.)
+- `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT` — deployment status details
 
 ## Noreply email handling
 

@@ -269,71 +269,21 @@ variables:
       The GitHub webhook action that triggered the build (for example, `opened`, `synchronize`, `labeled`, `submitted`). Only available on builds triggered by GitHub webhook events that include an action.
     modifiable: false
     example: "opened"
-  - name: BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION
-    desc: |
-      The conclusion of the check run that triggered the build. Only available on builds triggered by a GitHub `check_run` event.
-    modifiable: false
-    example: "success"
-  - name: BUILDKITE_GITHUB_CHECK_RUN_NAME
-    desc: |
-      The name of the check run that triggered the build. Only available on builds triggered by a GitHub `check_run` event.
-    modifiable: false
-    example: "build"
-  - name: BUILDKITE_GITHUB_CHECK_RUN_STATUS
-    desc: |
-      The status of the check run that triggered the build. Only available on builds triggered by a GitHub `check_run` event.
-    modifiable: false
-    example: "completed"
   - name: BUILDKITE_GITHUB_COMMENT_ID
     desc: |
       The ID of the issue comment that triggered the build. Only available on builds triggered by a GitHub `issue_comment` event.
     modifiable: false
     example: "1234567890"
-  - name: BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT
-    desc: |
-      The environment of the deployment status that triggered the build. Only available on builds triggered by a GitHub `deployment_status` event.
-    modifiable: false
-    example: "production"
-  - name: BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE
-    desc: |
-      The state of the deployment status that triggered the build. Only available on builds triggered by a GitHub `deployment_status` event.
-    modifiable: false
-    example: "success"
   - name: BUILDKITE_GITHUB_EVENT
     desc: |
       The GitHub webhook event type that triggered the build (for example, `push`, `pull_request`, `release`, `check_run`). Only available on builds triggered by GitHub webhook events.
     modifiable: false
     example: "pull_request"
-  - name: BUILDKITE_GITHUB_RELEASE_DRAFT
-    desc: |
-      Whether the release that triggered the build is a draft. Only available on builds triggered by a GitHub `release` event.
-    modifiable: false
-    example: "false"
-  - name: BUILDKITE_GITHUB_RELEASE_NAME
-    desc: |
-      The name of the release that triggered the build. Only available on builds triggered by a GitHub `release` event.
-    modifiable: false
-    example: "v1.0.0"
-  - name: BUILDKITE_GITHUB_RELEASE_PRERELEASE
-    desc: |
-      Whether the release that triggered the build is a prerelease. Only available on builds triggered by a GitHub `release` event.
-    modifiable: false
-    example: "false"
-  - name: BUILDKITE_GITHUB_RELEASE_TAG
-    desc: |
-      The tag name of the release that triggered the build. Only available on builds triggered by a GitHub `release` event.
-    modifiable: false
-    example: "v1.0.0"
   - name: BUILDKITE_GITHUB_REVIEW_ID
     desc: |
       The ID of the pull request review that triggered the build. Only available on builds triggered by a GitHub `pull_request_review` event.
     modifiable: false
     example: "1234567890"
-  - name: BUILDKITE_GITHUB_REVIEW_STATE
-    desc: |
-      The state of the pull request review that triggered the build. Only available on builds triggered by a GitHub `pull_request_review` event.
-    modifiable: false
-    example: "approved"
   - name: BUILDKITE_GROUP_ID
     desc: |
       The UUID of the [group step](/docs/pipelines/group-step) the job belongs to. This variable is only available if the job belongs to a group step.
