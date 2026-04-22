@@ -117,10 +117,10 @@ You can enable additional pull request actions to trigger builds:
 
 You can also configure these options:
 
-- **Limit pull request branches** — filter which branches trigger pull request builds
-- **Skip when pull request has existing build for commit and branch** — skip creating a duplicate build if one already exists for the same commit and branch
-- **Skip when pull request source is default branch** — skip pull request builds when the source branch is the default branch
-- **Cancel deleted branch builds** — cancel running builds for a branch when the branch is deleted from GitHub
+- **Limit pull request branches**: filter which branches trigger pull request builds
+- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
+- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
+- **Cancel deleted branch builds**: cancel running builds for a branch when the branch is deleted from GitHub
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
