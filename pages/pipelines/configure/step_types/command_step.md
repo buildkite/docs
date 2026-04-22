@@ -93,7 +93,8 @@ Optional attributes:
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
-      <code>- "coverage/**/*"</code>
+      <code>- "coverage/**/*"</code><br/>
+      <em>Alias:</em> <code>artifacts</code>
     </td>
   </tr>
   <tr>
