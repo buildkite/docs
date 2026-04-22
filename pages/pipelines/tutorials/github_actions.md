@@ -14,7 +14,7 @@ The following GitHub webhook events can trigger Buildkite builds:
 - Releases (`release`)
 - Issue comments (`issue_comment`)
 - Deployment statuses (`deployment_status`)
-- Branch/tag creation (`create`) and deletion (`delete`)
+- Branch/tag creation (`create`)
 
 ### Expanded pull request actions
 
