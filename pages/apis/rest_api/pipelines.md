@@ -1636,13 +1636,13 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>review_comment_match_mode</code></th>
-      <td>How the review comment command word is matched against the comment body. <code>exact</code> requires the entire comment to match; <code>contains</code> matches if the command word appears anywhere in the comment.
+      <td>How the review comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the command word; <code>contains</code> matches if the command word appears anywhere in the comment. Both modes are case-insensitive.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
       </td>
     </tr>
     <tr>
       <th><code>issue_comment_match_mode</code></th>
-      <td>How the issue comment command word is matched against the comment body. <code>exact</code> requires the entire comment to match; <code>contains</code> matches if the command word appears anywhere in the comment.
+      <td>How the issue comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the command word; <code>contains</code> matches if the command word appears anywhere in the comment. Both modes are case-insensitive.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
       </td>
     </tr>

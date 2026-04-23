@@ -322,6 +322,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD</code><br>
 		<code>BUILDKITE_GITHUB_ACTION</code><br>
 		<code>BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION</code><br>
+		<code>BUILDKITE_GITHUB_COMMENT_ID</code><br>
 		<code>BUILDKITE_GITHUB_CHECK_RUN_NAME</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE</code><br>
@@ -329,6 +330,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_GITHUB_RELEASE_DRAFT</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_PRERELEASE</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_TAG</code><br>
+		<code>BUILDKITE_GITHUB_REVIEW_ID</code><br>
 		<code>BUILDKITE_GITHUB_REVIEW_STATE</code><br>
 	  </td>
 	</tr>

@@ -168,23 +168,24 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
 
-### Environment variables
+## Environment variables
 
-GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks) and in conditionals via `build.env()`, while others are only available in conditionals:
+GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation via `build.env()`, while others are only available in conditionals and pipeline interpolation:
 
-**Available at runtime and in conditionals:**
+**Available at runtime, conditionals, and pipeline interpolation:**
 
 - `BUILDKITE_GITHUB_COMMENT_ID`: the comment that triggered the build (issue comments and review comments)
 - `BUILDKITE_GITHUB_REVIEW_ID`: the review that triggered the build (pull request reviews)
 - `BUILDKITE_GITHUB_EVENT`: the GitHub webhook event name (for example, `pull_request`, `check_run`, `release`)
 - `BUILDKITE_GITHUB_ACTION`: the GitHub webhook action (for example, `opened`, `completed`, `published`)
+- `BUILDKITE_GITHUB_DEPLOYMENT_ID`: the deployment ID (deployment status events)
 
-**Available in conditionals only:**
+**Available in conditionals and pipeline interpolation only:**
 
 - `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`: check run details
 - `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE`: release details
 - `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, etc.)
-- `BUILDKITE_GITHUB_DEPLOYMENT_ID`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`: deployment status details
+- `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`: deployment status details
 
 ## Noreply email handling
 

@@ -271,7 +271,7 @@ variables:
     example: "opened"
   - name: BUILDKITE_GITHUB_COMMENT_ID
     desc: |
-      The ID of the issue comment that triggered the build. Only available on builds triggered by a GitHub `issue_comment` event.
+      The ID of the comment that triggered the build. Available on builds triggered by GitHub `issue_comment` and `pull_request_review_comment` events.
     modifiable: false
     example: "1234567890"
   - name: BUILDKITE_GITHUB_EVENT
