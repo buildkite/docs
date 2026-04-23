@@ -320,6 +320,18 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_TASK</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD</code><br>
+		<code>BUILDKITE_GITHUB_ACTION</code><br>
+		<code>BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION</code><br>
+		<code>BUILDKITE_GITHUB_COMMENT_ID</code><br>
+		<code>BUILDKITE_GITHUB_CHECK_RUN_NAME</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE</code><br>
+		<code>BUILDKITE_GITHUB_EVENT</code><br>
+		<code>BUILDKITE_GITHUB_RELEASE_DRAFT</code><br>
+		<code>BUILDKITE_GITHUB_RELEASE_PRERELEASE</code><br>
+		<code>BUILDKITE_GITHUB_RELEASE_TAG</code><br>
+		<code>BUILDKITE_GITHUB_REVIEW_ID</code><br>
+		<code>BUILDKITE_GITHUB_REVIEW_STATE</code><br>
 	  </td>
 	</tr>
 	<tr>
@@ -358,6 +370,11 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td>An array of label names attached to the pull request</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.label</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The name of the specific label that was added or removed in a <code>labeled</code> or <code>unlabeled</code> pull request event, otherwise <code>null</code></td>
+	</tr>
+	<tr>
 		<td><code>build.pull_request.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
  		<td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
@@ -381,6 +398,16 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td><code>build.source</code></td>
 		<td><code>String</code></td>
 		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
+	</tr>
+	<tr>
+		<td><code>build.source_event</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The GitHub webhook event type that triggered the build (for example, <code>push</code>, <code>pull_request</code>, <code>release</code>). <code>null</code> for non-webhook builds</td>
+	</tr>
+	<tr>
+		<td><code>build.source_action</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The GitHub webhook event action (for example, <code>opened</code>, <code>labeled</code>, <code>submitted</code>). <code>null</code> for non-webhook builds or events without an action</td>
 	</tr>
 	<tr>
 		<td><code>build.state</code></td>

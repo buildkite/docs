@@ -147,6 +147,7 @@ dotenv
 DSCs
 ecr
 emptyDir
+dequeued
 enqueued
 Entra
 enum
