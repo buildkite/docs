@@ -1624,7 +1624,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>build_pull_request_review_comment_created</code></th>
-      <td>Whether to create builds when an inline diff comment is posted on a pull request. Comments must match the configured review comment command word and come from a trusted author.
+      <td>Whether to create builds when an inline diff comment is posted on a pull request. Comments must match the configured review comment command word and come from a trusted author (owner, member, or collaborator).
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
