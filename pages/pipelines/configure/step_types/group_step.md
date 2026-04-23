@@ -41,7 +41,7 @@ Required attributes:
 <tr>
     <td><code>group</code></td>
     <td>
-      Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` or `name` attribute if `null` is provided to the `group` attribute. If multiple are specified, `group` takes precedence over `name`, which takes precedence over `label`.<br/>
+      Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` or `name` attribute if `null` is provided to the `group` attribute. If multiple are specified, `group` takes precedence.<br/>
       <em>Type:</em> <code>string</code> or <code>null</code>
     </td>
   </tr>
