@@ -1534,37 +1534,37 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>build_pull_request_labels_changed</code></th>
-      <td>Whether to create builds for pull requests when labels are added or removed.
+      <td>Whether to create builds for pull requests when labels are added or removed. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
     <tr>
       <th><code>build_pull_request_ready_for_review</code></th>
-      <td>Whether to create builds for pull requests that are ready for review.
+      <td>Whether to create builds for pull requests that are ready for review. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
     <tr>
       <th><code>build_pull_request_reopened</code></th>
-      <td>Whether to create builds when a pull request is reopened.
+      <td>Whether to create builds when a pull request is reopened. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
     <tr>
       <th><code>build_pull_request_edited</code></th>
-      <td>Whether to create builds when a pull request is edited (title, body, or base branch changed).
+      <td>Whether to create builds when a pull request is edited (title, description, or base branch changed). Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
     <tr>
       <th><code>build_pull_request_converted_to_draft</code></th>
-      <td>Whether to create builds when a pull request is converted to draft.
+      <td>Whether to create builds when a pull request is converted to draft. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
     <tr>
       <th><code>build_pull_request_review_requested</code></th>
-      <td>Whether to create builds when a review is requested on a pull request.
+      <td>Whether to create builds when a review is requested on a pull request. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -1648,7 +1648,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>build_pull_request_dequeued</code></th>
-      <td>Whether to create builds when a pull request is removed from a merge queue.
+      <td>Whether to create builds when a pull request is removed from a merge queue. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
