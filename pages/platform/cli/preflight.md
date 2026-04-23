@@ -28,7 +28,7 @@ Everything runs on your existing Buildkite infrastructure — the same agents, t
 
 You'll need:
 
-- The [Buildkite CLI](/docs/platform/cli/installation) version 3.34.0 or later.
+- The [Buildkite CLI](/docs/platform/cli/installation) version 3.37.0 or later.
 - A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes.
 - Git commit and push access to the repository.
 
