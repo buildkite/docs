@@ -962,6 +962,8 @@
     path: apis/graphql/schemas/enum/clusterorder
   - name: ClusterQueueOrder
     path: apis/graphql/schemas/enum/clusterqueueorder
+  - name: CommandWordMatchMode
+    path: apis/graphql/schemas/enum/commandwordmatchmode
   - name: HostedAgentArchitecture
     path: apis/graphql/schemas/enum/hostedagentarchitecture
   - name: HostedAgentInstanceShapeName
