@@ -251,10 +251,8 @@ Optional attributes:
     <td>
       <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, it automatically times out. A job that times out with an exit status of <code>0</code> is marked as <code>passed</code>.</p>
       <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI, or <a href="/docs/pipelines/configure/build-timeouts#command-timeouts-updating-timeouts-during-a-job">update a job's timeout dynamically</a> while it is running.</p>
-      <p><em>Example:</em><br/>
-      <code>60</code><br/>
-      <em>Alias:</em><br/>
-      <code>timeout</code><br/>
+      <p><em>Example:</em> <code>60</code><br/>
+      <em>Alias:</em> <code>timeout</code><br/>
     </td>
 </table>
 
