@@ -41,7 +41,7 @@ Required attributes:
 <tr>
     <td><code>group</code></td>
     <td>
-      Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` attribute if `null` is provided to the `group` attribute.<br/>
+      Name of the group in the UI. In YAML, if you don't want a label, pass a <code>~</code>. Can also be provided in the <code>label</code> or <code>name</code> attribute if <code>null</code> is provided to the <code>group</code> attribute. If multiple are specified, <code>group</code> takes precedence.<br/>
       <em>Type:</em> <code>string</code> or <code>null</code>
     </td>
   </tr>
@@ -91,8 +91,9 @@ Optional attributes:
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite (name of the group in the UI). Supports emoji.<br/>
+      The label that will be displayed in the pipeline visualization in Buildkite (name of the group in the UI). Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>

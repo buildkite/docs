@@ -62,6 +62,7 @@ Optional attributes:
     <td>
       The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:rocket\: Deploy"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>
