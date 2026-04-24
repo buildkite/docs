@@ -110,10 +110,10 @@ If your identity provider publishes a JWKS endpoint, use that directly. If you h
 }
 ```
 
-All key component values (`n`, `e`, `x`, `y`) must be [base64url](https://datatracker.ietf.org/doc/html/rfc7515#appendix-C) encoded.
+All key component values (`n`, `e`, `x`, `y`) must be [base64url](https://datatracker.ietf.org/doc/html/rfc7515#appendix-C)-encoded.
 
 > 📘
-> If you provide your JWKS via an HTTPS URI, Buildkite caches it for up to 1 hour. During key rotation, publish both old and new keys together for at least the cache duration.
+> If you provide your JWKS using an HTTPS URI, Buildkite caches it for up to 1 hour. During key rotation, publish both old and new keys together for at least the cache duration.
 
 <!-- vale Buildkite.existence = NO -->
 
