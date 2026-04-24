@@ -83,7 +83,7 @@ steps:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
-          fail_message: "The generated code (and hence GraphQL reference docs) is out of date, or you edited the content in this repository, which is not their canonical source of truth. A check for these docs runs daily and an update is created if necessary. Otherwise, run `bundle exec rake graphql:generate` and commit the changes."
+          fail_message: "The generated code (and hence GraphQL reference docs) is out of date, or you edited the content in this repository, which is not their canonical source of truth. A check for these docs runs daily and an update, created if necessary, ensuring that this step/job should rarely fail. Otherwise, if you absolutely need to, run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
     command: ./scripts/update-agent-help.sh
