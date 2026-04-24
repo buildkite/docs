@@ -41,7 +41,7 @@ Required attributes:
 <tr>
     <td><code>group</code></td>
     <td>
-      Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` attribute if `null` is provided to the `group` attribute.<br/>
+      Name of the group in the UI. In YAML, if you don't want a label, pass a <code>~</code>. Can also be provided in the <code>label</code> or <code>name</code> attribute if <code>null</code> is provided to the <code>group</code> attribute. If multiple are specified, <code>group</code> takes precedence.<br/>
       <em>Type:</em> <code>string</code> or <code>null</code>
     </td>
   </tr>
@@ -67,7 +67,7 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
+      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/configure/depends-on">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
@@ -85,14 +85,15 @@ Optional attributes:
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
       When set on a group step, all jobs within the group will include a <code>group_key</code> field in <a href="/docs/apis/rest-api/builds">REST API builds endpoint</a> responses with this value, allowing you to identify which jobs belong to this group.<br/>
       <em>Example:</em> <code>"test-suite"</code><br/>
-      <em>Alias:</em> <code>identifier</code>
+      <em>Aliases:</em> <code>identifier</code>, <code>id</code>
     </td>
   </tr>
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite (name of the group in the UI). Supports emoji.<br/>
+      The label that will be displayed in the pipeline visualization in Buildkite (name of the group in the UI). Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>

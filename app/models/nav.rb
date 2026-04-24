@@ -13,6 +13,22 @@ class Nav
     data.find { |item| item["name"] == current[:parents][0] }
   end
 
+  # Returns top-level sections with children only on the section the user is
+  # currently in. Other sections render as navigable links without their subtree.
+  # Used by the global top-nav to avoid rendering the full tree on every page.
+  def data_for_top_nav(request)
+    current = current_item(request)
+    current_root_name = current && current[:parents].first
+
+    data.map do |section|
+      if section["name"] == current_root_name
+        section
+      else
+        section.reject { |k, _| k == "children" }
+      end
+    end
+  end
+
   # Returns the current nav item
   def current_item(request)
     return nil if request.path == "/docs"

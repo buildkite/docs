@@ -62,6 +62,7 @@ Optional attributes:
     <td>
       The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:rocket\: Deploy"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>
@@ -89,7 +90,7 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/depends-on">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
@@ -99,7 +100,7 @@ Optional attributes:
       A unique string to identify the trigger step.<br/>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
       <em>Example:</em> <code>"trigger-deploy"</code><br/>
-      <em>Alias:</em> <code>identifier</code>
+      <em>Aliases:</em> <code>identifier</code>, <code>id</code>
     </td>
    </tr>
    <tr>
@@ -124,6 +125,13 @@ Optional attributes:
     <td>
       When <code>true</code>, failure of the triggered build will not cause the triggering build to fail.<br/>
       <em>Default:</em> <code>false</code><br/>
+    </td>
+  </tr>
+  <tr>
+    <td><code>parallelism</code></td>
+    <td>
+      The number of parallel triggered builds to create. When set, Buildkite creates multiple triggered builds from a single trigger step. Each triggered build receives a <code>BUILDKITE_PARALLEL_JOB</code> environment variable (0-based index) and <code>BUILDKITE_PARALLEL_JOB_COUNT</code> (total number of parallel builds).<br/>
+      <em>Example:</em> <code>3</code>
     </td>
   </tr>
 </table>
@@ -179,6 +187,21 @@ Optional `build` attributes:
       release-version: "1.1"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Example: triggering parallel builds
+
+```yml
+steps:
+  - trigger: "data-generator"
+    label: "\:package\: Generate data"
+    parallelism: 3
+    build:
+      meta_data:
+        release-version: "1.1"
+```
+{: codeblock-file="pipeline.yml"}
+
+This creates three builds on the `data-generator` pipeline, each with a different `BUILDKITE_PARALLEL_JOB` value (0, 1, 2).
 
 ## Agent-applied attributes
 

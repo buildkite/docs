@@ -76,7 +76,8 @@ Optional attributes:
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/cli/reference/start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/cli/reference/start#agent-targeting">target specific agents</a> for this step.<br/>
-      <em>Example:</em> <code>npm: "true"</code>
+      <em>Example:</em> <code>npm: "true"</code><br/>
+      <em>Alias:</em> <code>agent_query_rules</code>
     </td>
   </tr>
   <tr>
@@ -93,7 +94,8 @@ Optional attributes:
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
-      <code>- "coverage/**/*"</code>
+      <code>- "coverage/**/*"</code><br/>
+      <em>Alias:</em> <code>artifacts</code>
     </td>
   </tr>
   <tr>
@@ -135,7 +137,7 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/depends-on">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
@@ -166,7 +168,7 @@ Optional attributes:
       A unique string to identify the command step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
       <em>Example:</em> <code>"linter"</code><br/>
-      <em>Alias:</em> <code>identifier</code>
+      <em>Aliases:</em> <code>identifier</code>, <code>id</code>
     </td>
   </tr>
   <tr id="label">
@@ -174,6 +176,7 @@ Optional attributes:
     <td>
       The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>
@@ -241,6 +244,7 @@ Optional attributes:
       <code>- exit_status: 1</code><br/>
       <em>Example:</em><br/>
       <code>- exit_status: "*"</code><br/>
+      See <a href="/docs/pipelines/configure/soft-fail">Soft fail</a> for more details.
     </td>
   </tr>
   <tr id="timeout_in_minutes">
@@ -248,10 +252,13 @@ Optional attributes:
     <td>
       <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, it automatically times out. A job that times out with an exit status of <code>0</code> is marked as <code>passed</code>.</p>
       <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI, or <a href="/docs/pipelines/configure/build-timeouts#command-timeouts-updating-timeouts-during-a-job">update a job's timeout dynamically</a> while it is running.</p>
-      <p><em>Example:</em> <code>60</code></p>
+      <p><em>Example:</em> <code>60</code><br/>
+      <em>Alias:</em> <code>timeout</code><br/>
     </td>
-  </tr>
 </table>
+
+> 📘 Signed pipelines
+> When [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) are enabled, command steps also include a `signature` object with fields such as `value`, `version`, `hashing_algorithm`, and `signed_attributes`. This object is computed by the agent during pipeline upload and is not user-configurable.
 
 ## Agent-applied attributes
 
@@ -309,37 +316,6 @@ steps:
     # No image specified in this step.
     # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
-
-## Soft fail attributes
-
-Optional attributes:
-
-<table>
-  <tr>
-    <td><code>exit_status</code></td>
-    <td>
-      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
-      <br/>
-      <em>Example:</em> <code>"*"</code><br/>
-      <em>Example:</em> <code>1</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-steps:
-  - label: "Specific exit status"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: 1
-
-  - label: "All non-zero exit statuses"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: "*"
-```
-{: codeblock-file="pipeline.yml"}
-
 
 ## Matrix attributes
 

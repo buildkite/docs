@@ -2860,6 +2860,21 @@ type ClusterUpdatePayload {
 }
 
 """
+The match mode for command word matching
+"""
+enum CommandWordMatchMode {
+  """
+  Match if the command word appears anywhere
+  """
+  CONTAINS
+
+  """
+  Match the command word exactly
+  """
+  EXACT
+}
+
+"""
 A composite registry's upstream
 """
 type CompositeRegistryUpstream implements Node {
@@ -10071,6 +10086,26 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildBranches: Boolean!
 
   """
+  Whether to create builds when a check run completes.
+  """
+  buildCheckRunCompleted: Boolean!
+
+  """
+  Whether to create builds when a branch or tag is created.
+  """
+  buildCreateEvent: Boolean!
+
+  """
+  Whether to create builds when a deployment status is created.
+  """
+  buildDeploymentStatusCreated: Boolean!
+
+  """
+  Whether to create builds when an issue comment is created on a pull request.
+  """
+  buildIssueCommentCreated: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10079,6 +10114,21 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds when a pull request is converted to draft.
+  """
+  buildPullRequestConvertedToDraft: Boolean!
+
+  """
+  Whether to create builds when a pull request is removed from a merge queue.
+  """
+  buildPullRequestDequeued: Boolean!
+
+  """
+  Whether to create builds when a pull request is edited.
+  """
+  buildPullRequestEdited: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -10101,9 +10151,49 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestReadyForReview: Boolean!
 
   """
+  Whether to create builds when a pull request is reopened.
+  """
+  buildPullRequestReopened: Boolean!
+
+  """
+  Whether to create builds when an inline review comment is created on a pull request.
+  """
+  buildPullRequestReviewCommentCreated: Boolean!
+
+  """
+  Whether to create builds when a pull request review is dismissed.
+  """
+  buildPullRequestReviewDismissed: Boolean!
+
+  """
+  Whether to create builds when a pull request review is requested.
+  """
+  buildPullRequestReviewRequested: Boolean!
+
+  """
+  Whether to create builds when a pull request review is submitted.
+  """
+  buildPullRequestReviewSubmitted: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when a release is created.
+  """
+  buildReleaseCreated: Boolean!
+
+  """
+  Whether to create builds when a release is published.
+  """
+  buildReleasePublished: Boolean!
+
+  """
+  Whether to create builds when a release is released.
+  """
+  buildReleaseReleased: Boolean!
 
   """
   Whether to create builds when tags are pushed.
@@ -10131,9 +10221,25 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   filterEnabled: Boolean
 
   """
+  Whether all GitHub webhook processing is disabled for this pipeline.
+  """
+  githubWebhooksDisabled: Boolean!
+
+  """
   Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
   """
   ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  The command word used to trigger builds from issue comments (e.g. "/bk"). Only
+  comments containing this word will trigger builds.
+  """
+  issueCommentCommandWord: String
+
+  """
+  The match mode for issue comment command words.
+  """
+  issueCommentMatchMode: CommandWordMatchMode
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger
@@ -10168,6 +10274,17 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to limit the creation of builds to specific branches or patterns.
   """
   pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  The command word used to trigger builds from inline PR review comments (e.g.
+  "/bk"). Only comments containing this word will trigger builds.
+  """
+  reviewCommentCommandWord: String
+
+  """
+  The match mode for review comment command words.
+  """
+  reviewCommentMatchMode: CommandWordMatchMode
 
   """
   Whether to create a separate status for pull request builds, allowing you to
@@ -10206,6 +10323,26 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildBranches: Boolean!
 
   """
+  Whether to create builds when a check run completes.
+  """
+  buildCheckRunCompleted: Boolean!
+
+  """
+  Whether to create builds when a branch or tag is created.
+  """
+  buildCreateEvent: Boolean!
+
+  """
+  Whether to create builds when a deployment status is created.
+  """
+  buildDeploymentStatusCreated: Boolean!
+
+  """
+  Whether to create builds when an issue comment is created on a pull request.
+  """
+  buildIssueCommentCreated: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10214,6 +10351,21 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds for pull requests when the base branch is changed.
   """
   buildPullRequestBaseBranchChanged: Boolean!
+
+  """
+  Whether to create builds when a pull request is converted to draft.
+  """
+  buildPullRequestConvertedToDraft: Boolean!
+
+  """
+  Whether to create builds when a pull request is removed from a merge queue.
+  """
+  buildPullRequestDequeued: Boolean!
+
+  """
+  Whether to create builds when a pull request is edited.
+  """
+  buildPullRequestEdited: Boolean!
 
   """
   Whether to create builds for pull requests from third-party forks.
@@ -10236,9 +10388,49 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildPullRequestReadyForReview: Boolean!
 
   """
+  Whether to create builds when a pull request is reopened.
+  """
+  buildPullRequestReopened: Boolean!
+
+  """
+  Whether to create builds when an inline review comment is created on a pull request.
+  """
+  buildPullRequestReviewCommentCreated: Boolean!
+
+  """
+  Whether to create builds when a pull request review is dismissed.
+  """
+  buildPullRequestReviewDismissed: Boolean!
+
+  """
+  Whether to create builds when a pull request review is requested.
+  """
+  buildPullRequestReviewRequested: Boolean!
+
+  """
+  Whether to create builds when a pull request review is submitted.
+  """
+  buildPullRequestReviewSubmitted: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when a release is created.
+  """
+  buildReleaseCreated: Boolean!
+
+  """
+  Whether to create builds when a release is published.
+  """
+  buildReleasePublished: Boolean!
+
+  """
+  Whether to create builds when a release is released.
+  """
+  buildReleaseReleased: Boolean!
 
   """
   Whether to create builds when tags are pushed.
@@ -10266,9 +10458,25 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   filterEnabled: Boolean
 
   """
+  Whether all GitHub webhook processing is disabled for this pipeline.
+  """
+  githubWebhooksDisabled: Boolean!
+
+  """
   Ensure that even if Build Pull Requests is disabled, all commits to the default branch will trigger a build.
   """
   ignoreDefaultBranchPullRequests: Boolean!
+
+  """
+  The command word used to trigger builds from issue comments (e.g. "/bk"). Only
+  comments containing this word will trigger builds.
+  """
+  issueCommentCommandWord: String
+
+  """
+  The match mode for issue comment command words.
+  """
+  issueCommentMatchMode: CommandWordMatchMode
 
   """
   Prefix branch names for third-party fork builds to ensure they don't trigger
@@ -10303,6 +10511,17 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to limit the creation of builds to specific branches or patterns.
   """
   pullRequestBranchFilterEnabled: Boolean!
+
+  """
+  The command word used to trigger builds from inline PR review comments (e.g.
+  "/bk"). Only comments containing this word will trigger builds.
+  """
+  reviewCommentCommandWord: String
+
+  """
+  The match mode for review comment command words.
+  """
+  reviewCommentMatchMode: CommandWordMatchMode
 
   """
   Whether to create a separate status for pull request builds, allowing you to

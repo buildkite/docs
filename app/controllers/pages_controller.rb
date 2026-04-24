@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
   append_view_path "pages"
 
+  before_action :negotiate_markdown_from_accept_header, only: :show
+
   def index
     @nav = default_nav
 
@@ -41,6 +43,16 @@ class PagesController < ApplicationController
   end
 
   private
+
+  # Rails' respond_to prefers the first declared format when Accept includes */*,
+  # which most AI fetchers send (e.g. Claude Code: "text/markdown, text/html, */*").
+  # Explicitly route to markdown when the client lists text/markdown as acceptable.
+  def negotiate_markdown_from_accept_header
+    return if params[:format].present?
+
+    accepted = request.accept.to_s.split(",").map { |type| type.split(";").first.to_s.strip }
+    request.format = :md if accepted.include?("text/markdown")
+  end
 
   def beta?
     @page && @page.beta?

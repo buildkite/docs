@@ -679,7 +679,7 @@ Step-level Slack notifications happen at the following [events](/docs/apis/webho
 - `step.finished`
 - `step.failing`
 
-An example to deliver slack notification when a step is soft-failed:
+An example to deliver slack notification when a step is [soft-failed](/docs/pipelines/configure/soft-fail):
 
 ```yaml
 steps:

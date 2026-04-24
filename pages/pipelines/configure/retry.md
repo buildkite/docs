@@ -34,7 +34,7 @@ In the Buildkite web interface, there is a [Job Retries Report section](https://
 
 ## Retry attributes
 
-At least one of the following attributes is required:
+The `retry` attribute requires one of the following attributes:
 
 <table>
   <tr>
@@ -86,7 +86,7 @@ steps:
 
 ### Automatic retry attributes
 
-Optional attributes:
+The `retry.automatic` attribute has the following optional attributes:
 
 <table>
   <tr>
@@ -184,7 +184,7 @@ steps:
 
 ### Manual retry attributes
 
-Optional attributes:
+The `retry.manual` attribute has the following optional attributes:
 
 <table>
   <tr>

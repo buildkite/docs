@@ -102,25 +102,31 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 
 ## Running builds on pull requests
 
-To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and choose the **Build Pull Requests** checkbox.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**. This triggers builds for the `opened` and `synchronize` pull request actions.
 
-Optionally, select one or more of the following:
+You can enable additional pull request actions to trigger builds:
 
-- **Limit pull request branches**
-- **Skip pull request builds for existing commits**
-- **Rebuild pull requests when they become ready for review**
-- **Build when pull request base branch is changed**
-- **Build when pull request labels are changed**
-- **Build pull requests from third-party forked repositories**. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
+- **Build when pull request becomes ready for review**: build when a draft pull request is marked ready for review
+- **Build when pull request is edited**: build when the title, description, or base branch of a pull request is changed. Choose between **Any edit** (triggers on all edits) and **Base branch changed only** (triggers only when the base branch is changed).
+- **Build when pull request labels are changed**: build when labels are added to or removed from a pull request. Use the `build.pull_request.labels` conditional variable to filter by individual label names.
+- **Build when pull request is reopened**: build when a closed pull request is reopened
+- **Build when pull request is converted to draft**: build when a pull request is converted to a draft
+- **Build when a review is requested**: build when a review is requested on a pull request
+- **Build when pull request is removed from merge queue**: build when a pull request is dequeued from a GitHub merge queue
+- **Build when pull request is from third-party forked repository**: build pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
+
+You can also configure these options:
+
+- **Limit pull request branches**: filter which branches trigger pull request builds
+- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
+- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
+- **Cancel deleted branch builds**: cancel running builds for a branch when the branch is deleted from GitHub
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
 If you want to run builds only on pull requests, set the **Branch Filter Pattern** in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the **Branch Filter Pattern**, and all pushes to other branches that don't match the pattern are ignored.
 
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
-
-> 📘 Webhook events from GitHub pull requests that trigger Buildkite pipeline builds
-> A Buildkite pipeline's build can be triggered by pull request-related events, such as when a pull request (PR) is opened, a PR's stage is changed from **Draft** to **Open** (using **Ready for review**), and when a PR's labels are changed (if this setting is enabled in your pipeline's settings).
 
 ## Running builds on merge queues
 
@@ -143,6 +149,43 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 
 > 📘 Build tags and `BUILDKITE_BRANCH`
 > When a build is triggered from a GitHub tag `push` event webhook, both the `BUILDKITE_TAG` and `BUILDKITE_BRANCH` environment variables are set to the name of the git tag being built.
+
+## Disabling GitHub webhooks
+
+To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable GitHub Webhooks** button in the **Disable Webhooks** section of your pipeline's GitHub settings. This blocks all webhook processing — no new builds will be created from any GitHub event.
+
+Your existing trigger settings are preserved. To resume webhook-triggered builds, select **Enable GitHub Webhooks** and your previous configuration will be restored.
+
+## Running builds on additional GitHub events
+
+Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
+
+- **Pull request reviews**: trigger builds when a review is submitted or dismissed.
+- **Check runs**: trigger builds when a check run from another GitHub App completes. Check runs from Buildkite Pipelines are automatically skipped to prevent feedback loops.
+- **Releases**: trigger builds when a GitHub release is published, created, or released.
+- **Issue comments**: trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author (owner, member, or collaborator). Supports `exact` (default) and `contains` match modes.
+- **Pull request review comments**: trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and trusted author (owner, member, or collaborator). Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
+- **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
+- **Branch and tag creation**: trigger builds when a new branch or tag is created.
+
+## Environment variables
+
+GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation via `build.env()`, while others are only available in conditionals and pipeline interpolation:
+
+**Available at runtime, conditionals, and pipeline interpolation:**
+
+- `BUILDKITE_GITHUB_COMMENT_ID`: the comment that triggered the build (issue comments and review comments)
+- `BUILDKITE_GITHUB_REVIEW_ID`: the review that triggered the build (pull request reviews)
+- `BUILDKITE_GITHUB_EVENT`: the GitHub webhook event name (for example, `pull_request`, `check_run`, `release`)
+- `BUILDKITE_GITHUB_ACTION`: the GitHub webhook action (for example, `opened`, `completed`, `published`)
+- `BUILDKITE_GITHUB_DEPLOYMENT_ID`: the deployment ID (deployment status events)
+
+**Available in conditionals and pipeline interpolation only:**
+
+- `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`: check run details
+- `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE`: release details
+- `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, etc.)
+- `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`: deployment status details
 
 ## Noreply email handling
 

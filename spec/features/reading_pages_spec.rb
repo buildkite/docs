@@ -51,6 +51,30 @@ RSpec.feature "reading pages" do
       expect(page.status_code).to eq(404)
       expect(page.html).to include('The documentation page `non_existent_page` does not exist')
     end
+
+    it "serves markdown when Accept header lists text/markdown (Claude Code style)" do
+      page.driver.header "Accept", "text/markdown, text/html, */*"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(200)
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+      expect(page.html).to include("# The Buildkite platform")
+      expect(page.html).not_to include("<html")
+    end
+
+    it "serves HTML when Accept header is a typical browser default" do
+      page.driver.header "Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(200)
+      expect(page.response_headers["Content-Type"]).to include("text/html")
+      expect(page.html).to include("<html")
+    end
+
+    it "serves markdown when Accept header is only text/markdown" do
+      page.driver.header "Accept", "text/markdown"
+      page.driver.get("/docs/platform")
+      expect(page.status_code).to eq(200)
+      expect(page.response_headers["Content-Type"]).to include("text/markdown")
+    end
   end
 
   describe "all pages" do
