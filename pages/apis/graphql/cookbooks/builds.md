@@ -42,7 +42,7 @@ query GetEnvVarsBuild {
 
 ## Get builds for a pipeline
 
-Retrieve (all of) the builds for a given pipeline, including each build's ID, number, and URL.
+Retrieve (all of) the builds for a given pipeline, including each build's ID and UUID, number, and URL.
 
 ```graphql
 query GetBuilds {
@@ -51,6 +51,7 @@ query GetBuilds {
       edges {
         node {
           id
+          uuid
           number
           url
         }

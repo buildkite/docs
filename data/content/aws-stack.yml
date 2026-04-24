@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.58.2"
+Description: "Buildkite stack v6.60.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -106,6 +106,7 @@ Metadata:
         - RootVolumeName
         - RootVolumeType
         - RootVolumeEncrypted
+        - RootVolumeDeleteOnTermination
         - RootVolumeIops
         - RootVolumeThroughput
         - ManagedPolicyARNs
@@ -787,6 +788,14 @@ Parameters:
       - "true"
       - "false"
     Default: "false"
+
+  RootVolumeDeleteOnTermination:
+    Description: Whether to delete the root EBS volume when the instance is terminated.
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "true"
 
   SecurityGroupIds:
     Type: String
@@ -1482,26 +1491,39 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gn" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c8g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c8gb" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c8gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c8gn" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "g5g" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "hpc7g" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "i4g" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "Im4gn" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "Is4gen" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "i8g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "i8ge" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "im4gn" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "is4gen" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8gb" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m8gn" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8gb" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8gn" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
-        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
+        - !Or
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x8g" ]
 
     UsingBurstableInstances:
       !Or
@@ -1553,26 +1575,25 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0271fc75e6d329c1d, linuxarm64: ami-0b903164010010161, windows: ami-0847126cd4a1956ee }
-    us-east-2 : { linuxamd64: ami-031fb64dd333667f1, linuxarm64: ami-0becdc45832361107, windows: ami-0f3af397449ee3dd4 }
-    us-west-1 : { linuxamd64: ami-0b1d694fd461e724e, linuxarm64: ami-07640af87fdaab4a2, windows: ami-0a691a3b0cbf56149 }
-    us-west-2 : { linuxamd64: ami-04a0994ae65b8a582, linuxarm64: ami-0133b1075410d9102, windows: ami-0ffbaafed335db443 }
-    af-south-1 : { linuxamd64: ami-0a0e09a576ec8bab0, linuxarm64: ami-0576024b46367af28, windows: ami-07e47e42aef789519 }
-    ap-east-1 : { linuxamd64: ami-03999f3b30496e766, linuxarm64: ami-0e4e202951b7568a2, windows: ami-0417386fcb0d9e6ee }
-    ap-south-1 : { linuxamd64: ami-081470cdf4640f056, linuxarm64: ami-07f8f24afc171de02, windows: ami-01d7556544098a40a }
-    ap-northeast-2 : { linuxamd64: ami-0b2ca19631568d3fd, linuxarm64: ami-037292ceabe3cb603, windows: ami-07c0dcd2aa555630a }
-    ap-northeast-1 : { linuxamd64: ami-0f75a447795f57e37, linuxarm64: ami-0fe55786e1466a1f5, windows: ami-03fd142ccc0c17d5e }
-    ap-southeast-2 : { linuxamd64: ami-0a9a0282a416b4595, linuxarm64: ami-048b0959289773b56, windows: ami-03d10d305764c975e }
-    ap-southeast-1 : { linuxamd64: ami-0fa6370365c92165d, linuxarm64: ami-0c8ca807d4d116435, windows: ami-0477e9ec04ec05635 }
-    ca-central-1 : { linuxamd64: ami-0bea7e273a3432dd5, linuxarm64: ami-0049a3f1ddd116efa, windows: ami-06fd9804cc05f79e8 }
-    eu-central-1 : { linuxamd64: ami-09cda7aae75beea58, linuxarm64: ami-077e8be19f401fdb4, windows: ami-0a9d8682431d0773b }
-    eu-west-1 : { linuxamd64: ami-01658bb532bd0e837, linuxarm64: ami-087ab9a7be2b60825, windows: ami-00427a773301d896c }
-    eu-west-2 : { linuxamd64: ami-06bab76cb8aa10a7f, linuxarm64: ami-04cd58c38a4c6d191, windows: ami-01d53cc096ef38a70 }
-    eu-south-1 : { linuxamd64: ami-0b90db91011a3c391, linuxarm64: ami-0ca40f8e44841c8c4, windows: ami-0c0142d6eddec8ef5 }
-    eu-west-3 : { linuxamd64: ami-0ff257bfef01331d4, linuxarm64: ami-0ff48b5a3f8b85030, windows: ami-0a1a80498adda80a1 }
-    eu-north-1 : { linuxamd64: ami-0899d09856a41a605, linuxarm64: ami-06ae91f69fdb92611, windows: ami-0afb2c3ec546f97d3 }
-    me-south-1 : { linuxamd64: ami-01c34326e549f596b, linuxarm64: ami-03ab39c45f81185f7, windows: ami-0684bdcab3c7a67c9 }
-    sa-east-1 : { linuxamd64: ami-0dec15537e867c00f, linuxarm64: ami-037797b1e04f9b527, windows: ami-0c809ddf32c8351d3 }
+    us-east-1 : { linuxamd64: ami-04843998c8abaf053, linuxarm64: ami-007e22efd5dc90ff9, windows: ami-08df51227097bd413 }
+    us-east-2 : { linuxamd64: ami-0c18163f73469a7b1, linuxarm64: ami-08f9f1bc4b06cc4d4, windows: ami-057a9a600ee22a967 }
+    us-west-1 : { linuxamd64: ami-098ee5e157893c3aa, linuxarm64: ami-0f364cba7c049dd75, windows: ami-03280ad353cd2dd72 }
+    us-west-2 : { linuxamd64: ami-0296c2ef6d3ef3b1d, linuxarm64: ami-0f1b99cb6b16d90b2, windows: ami-0b65b6119b88edfa2 }
+    af-south-1 : { linuxamd64: ami-0a461c51a19a678f8, linuxarm64: ami-0d0df9cf7c6a7cb67, windows: ami-06b66d55c0263c387 }
+    ap-east-1 : { linuxamd64: ami-0e6b30f6d56c2cf8f, linuxarm64: ami-084095d9ff47a4385, windows: ami-068348aa47658cef6 }
+    ap-south-1 : { linuxamd64: ami-0ec2809cc5890c13d, linuxarm64: ami-09b12371fdf6ff0b0, windows: ami-0744076a58b6a15ea }
+    ap-northeast-2 : { linuxamd64: ami-0858f1f8f56e767dd, linuxarm64: ami-0df6cff12aacc7338, windows: ami-0e83a639e05b6bb28 }
+    ap-northeast-1 : { linuxamd64: ami-0df56ec158b78bf42, linuxarm64: ami-00067f5558a84a274, windows: ami-0f14467485948ba6f }
+    ap-southeast-2 : { linuxamd64: ami-02acadd5cd5c799a5, linuxarm64: ami-031df6a32aa3287d2, windows: ami-0416250b2ace110ec }
+    ap-southeast-1 : { linuxamd64: ami-041716e58afb1e704, linuxarm64: ami-04c3caddb45465636, windows: ami-0af7bd71494f8e02a }
+    ca-central-1 : { linuxamd64: ami-0c9cfa9ffa7c91e4d, linuxarm64: ami-01f387172279cf675, windows: ami-0b8b11e54532254d4 }
+    eu-central-1 : { linuxamd64: ami-061514b225cea63e0, linuxarm64: ami-056a66ceff459c880, windows: ami-0b2dcef9295d06cac }
+    eu-west-1 : { linuxamd64: ami-0a40acc838c2629b8, linuxarm64: ami-02b2d6ad68bea6a43, windows: ami-0ad15f12eeed0a6ad }
+    eu-west-2 : { linuxamd64: ami-06c52be6cfe336616, linuxarm64: ami-0f431ea942c2e159f, windows: ami-0ac90192a4db587f7 }
+    eu-south-1 : { linuxamd64: ami-0157d60e717153789, linuxarm64: ami-0ae8040370a1e3402, windows: ami-0d34787e4f85f64f2 }
+    eu-west-3 : { linuxamd64: ami-037036978936b0a82, linuxarm64: ami-01d18fc608abb912d, windows: ami-05cfa71991b7822dc }
+    eu-north-1 : { linuxamd64: ami-07ee6d736eca681a9, linuxarm64: ami-0bf51bcd5b2dd9b48, windows: ami-0a921b7e978828b89 }
+    sa-east-1 : { linuxamd64: ami-01f11a77ee61cbaf1, linuxarm64: ami-00eb950b384a0b4df, windows: ami-08929d5b37f2f9351 }
 
 Resources:
   Vpc:
@@ -2245,6 +2266,7 @@ Resources:
                 VolumeSize: !Ref RootVolumeSize
                 VolumeType: !Ref RootVolumeType
                 Encrypted: !Ref RootVolumeEncrypted
+                DeleteOnTermination: !Ref RootVolumeDeleteOnTermination
                 Throughput: !If [ IsRootVolumeIsGp3, !Ref RootVolumeThroughput, !Ref "AWS::NoValue" ]
                 Iops: !If [ IsRootVolumeIsIo1OrIo2OrGp3, !Ref RootVolumeIops, !Ref "AWS::NoValue" ]
           CreditSpecification: !If
@@ -2291,7 +2313,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.58.2"
+                  $Env:BUILDKITE_STACK_VERSION="v6.60.0"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
@@ -2393,7 +2415,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.58.2" \
+                  BUILDKITE_STACK_VERSION="v6.60.0" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \

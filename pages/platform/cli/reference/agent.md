@@ -24,11 +24,101 @@ The `bk agent` command allows you to manage Buildkite agents from the command li
 
 | Command | Description |
 | --- | --- |
+| `bk agent install` | Install the buildkite-agent binary locally. |
+| `bk agent run` | Run an ephemeral buildkite-agent locally. |
 | `bk agent pause` | Pause a Buildkite agent. |
 | `bk agent list` | List agents. |
 | `bk agent resume` | Resume a Buildkite agent. |
 | `bk agent stop` | Stop Buildkite agents. |
 | `bk agent view` | View details of an agent. |
+
+## Install agent
+
+Install the buildkite-agent binary locally.
+
+```bash
+bk agent install [flags]
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--cluster-uuid=STRING` | Cluster UUID to create the agent token on (default: the "Default" cluster) |
+| `--config-path=STRING` | Path to write the agent config file |
+| `--debug` | Enable debug output for REST API calls |
+| `--dest=STRING` | Destination directory for the binary |
+| `--no-token` | Skip creating an agent token and config file |
+| `--version="latest"` | Specify an agent version to install |
+
+### Examples
+
+Install the latest version of the agent:
+
+```bash
+bk agent install
+```
+
+Install a specific version:
+
+```bash
+bk agent install --version "3.112.0"
+```
+
+Install to a custom location:
+
+```bash
+bk agent install --dest ~/.local/bin
+```
+
+Install without creating a token/config:
+
+```bash
+bk agent install --no-token
+```
+
+## Run agent
+
+Run an ephemeral buildkite-agent locally.
+
+```bash
+bk agent run [flags]
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--cluster-uuid=STRING` | Cluster UUID to create the agent token on (default: the "Default" cluster) |
+| `--debug` | Enable debug output for REST API calls |
+| `--queue="default"` | Queue for the agent to listen on |
+| `--version="latest"` | Specify an agent version to run |
+
+### Examples
+
+Run the latest agent on the Default cluster:
+
+```bash
+bk agent run
+```
+
+Run a specific version:
+
+```bash
+bk agent run --version "3.112.0"
+```
+
+Run on a specific cluster:
+
+```bash
+bk agent run --cluster-uuid "01234567-89ab-cdef-0123-456789abcdef"
+```
+
+Run on a specific queue:
+
+```bash
+bk agent run --queue "deploy"
+```
 
 ## Pause an agent
 

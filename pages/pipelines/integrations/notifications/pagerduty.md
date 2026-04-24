@@ -34,7 +34,7 @@ Copy the **Integration Key** from your Integrations list and use it in [Sending 
 
 By default, after you've added an Integration API Key, Buildkite will send PagerDuty a Change Event every build regardless of whether the build passed or failed.
 
-Add the PagerDuty [Integration API Key](#generating-a-pagerduty-integration-api-key) to the [`notify` attribute](/docs/pipelines/configure/notifications) of your build configuration.
+Add the PagerDuty [Integration API Key](#generating-a-pagerduty-integration-api-key) to the [`notify` attribute](/docs/pipelines/configure/notify) of your build configuration.
 
 Make sure that you're using a secure secrets management solution to handle the PagerDuty Integration key, and never commit it in plaintext to source control in a YAML file. See [Managing pipeline secrets](/docs/pipelines/security/secrets/managing) for more information on safely handling secrets within your infrastructure.
 

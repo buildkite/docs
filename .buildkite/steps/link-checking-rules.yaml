@@ -28,6 +28,7 @@ link_checking_exemptions:
       - https://buildkite.com/user/
       - https://buildkite.com/(~|%7E)/
       - https://portal.azure.com/
+      - https://entra.microsoft.com
 
   - name: accept-anti-scraping-measures
     description: Muffet resembles a scraper to some sites
@@ -63,6 +64,7 @@ link_checking_exemptions:
       - https://docs.cursor.com/
       - https://developer.hashicorp.com/terraform/registry/modules/publish
       - https://docs.windsurf.com/windsurf/cascade/mcp
+      - https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/pipeline
 
   - name: surprising-fragment-failures
     description: Surprisingly, these links fail because of missing anchors, not authentication.
@@ -71,6 +73,14 @@ link_checking_exemptions:
       - https://console.cloud.google.com/compute/instancesAdd
       - https://console.aws.amazon.com/cloudformation/home
       - https://console.aws.amazon.com/ec2/v2/home
+
+  - name: large-response-body
+    description: |
+      Exempt URLs whose response body is too large for Muffet's read buffer.
+      A 404 will still be reported, assuming the URL's site returns 404s.
+    status_pattern: "(body size exceeds the given limit|small read buffer)"
+    url_patterns:
+      - https://platform.claude.com/docs/en/api/messages
 
   - name: ignore-sample-dot-svg
     description: We don't expect /sample.svg to work on the test server that Muffet uses.
@@ -89,3 +99,4 @@ link_checking_exemptions:
     status_pattern: ".*"
     url_patterns:
       - https://schemas.xmlsoap.org/ws/2005/05/identity/claims/name
+      - http://www.w3.org/2001/04/xmldsig-more

@@ -125,7 +125,7 @@ For more example steps and detailed configuration options, see the example `pipe
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/configure/step-types/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
 >🚧 Explicit dependencies in uploaded steps
-> If a step <a href="/docs/pipelines/configure/dependencies">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
+> If a step <a href="/docs/pipelines/configure/depends-on">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
 When a step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/configure/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps in parallel to speed up your build.
 

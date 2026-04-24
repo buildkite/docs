@@ -124,7 +124,7 @@ If you are using any version of the controller older than [v0.2.7](https://githu
 
 ### Wrong exit code affects auto job retries
 
-Error code from the Kubernetes pods may not be passed through the agent, preventing the use of [exit-based retries](/docs/pipelines/configure/step-types/command-step#retry-attributes). This is what the error could look like:
+Error code from the Kubernetes pods may not be passed through the agent, preventing the use of [exit-based retries](/docs/pipelines/configure/retry). This is what the error could look like:
 
 ```
 The following init containers failed:

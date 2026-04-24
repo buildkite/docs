@@ -1,6 +1,6 @@
 # Migrate from GitHub Actions
 
-This guide helps GitHub Actions users migrate to Buildkite Pipelines, covering key differences between the platforms.
+This guide helps [GitHub Actions](https://github.com/features/actions) users migrate to Buildkite Pipelines, and covers key differences between the platforms.
 
 ## Understand the differences
 
@@ -10,10 +10,10 @@ Most concepts will feel familiar, but there are some differences to understand a
 
 GitHub Actions is fully hosted by GitHub.
 
-Buildkite Pipelines uses a hybrid model:
+Buildkite Pipelines offers a hybrid model, consisting of the following components:
 
 - A SaaS platform (the _Buildkite dashboard_) for visualization and pipeline management.
-- [Buildkite agents](/docs/agent) for executing jobs — through [Buildkite hosted agents](/docs/pipelines/architecture#buildkite-hosted-architecture) or through [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) agents in your own infrastructure as the [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
+- [Buildkite agents](/docs/agent) for executing jobs—through [Buildkite hosted agents](/docs/agent/buildkite-hosted) as a fully-managed service, or [self-hosted](/docs/agent/self-hosted) agents (hybrid model architecture) that you manage in your own infrastructure. The [Buildkite agent](https://github.com/buildkite/agent) is open source and can run on local machines, cloud servers, or containers.
 
 See [Buildkite Pipelines architecture](/docs/pipelines/architecture) for more details.
 
@@ -34,7 +34,7 @@ Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-che
 
 ### Security
 
-Buildkite's hybrid architecture, which combines the centralized Buildkite SaaS platform with your own Buildkite agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
+The hybrid architecture of Buildkite Pipelines, which combines the centralized Buildkite SaaS platform with your own Buildkite agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. The Buildkite agents, which run on your infrastructure, allow you to maintain control over the environment, security, and other build-related resources.
 
 While Buildkite Pipelines provides its own secrets management capabilities, you are also able to configure Buildkite Pipelines so that it doesn't store your secrets. Buildkite Pipelines does not have or need access to your source code. Only the agents you host within your infrastructure would need access to clone your repositories, and your secrets that provide this access can also be managed through secrets management tools hosted within your infrastructure.
 
@@ -59,7 +59,7 @@ Triggering a Buildkite pipeline creates a [_build_](/docs/pipelines/glossary#bui
 
 ## Provision agent infrastructure
 
-Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure (self-hosted)[/docs/pipelines/architecture#self-hosted-hybrid-architecture], similar to self-hosted runners in GitHub Actions.
+Buildkite agents run your builds, tests, and deployments. They can run as [Buildkite hosted agents](/docs/agent/buildkite-hosted) where the infrastructure is provided for you, or on your own infrastructure ([self-hosted](/docs/agent/self-hosted)), similar to self-hosted runners in GitHub Actions.
 
 For self-hosted agents, consider:
 
@@ -91,7 +91,7 @@ The syntax used in Buildkite Pipelines is simpler. You can also generate pipelin
 
 By default, GitHub Actions runs jobs in parallel (unless you specify `needs`), while steps within a job run sequentially. Buildkite Pipelines runs all steps in parallel by default, on any available agents that can run them.
 
-To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block).
+To make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies) or a [`wait` step](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block).
 
 For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
 
@@ -251,7 +251,7 @@ The build step should run only after lint and test complete successfully. Config
       - echo "Build step placeholder"
 ```
 
-Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite Pipelines parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
+Without this [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite Pipelines parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
 
 ### Step 4: Add the actual commands
 

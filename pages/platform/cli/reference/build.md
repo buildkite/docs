@@ -131,6 +131,7 @@ bk build view [<build-number>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-b`, `--branch=STRING` | Filter builds to this branch. |
+| `-s`, `--job-states=JOB-STATES,...` | Filter jobs by state. Valid states: running, scheduled, passed, failed, canceled, skipped, not_run, broken. |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
@@ -183,6 +184,12 @@ A shortcut to view your builds is --mine:
 
 ```bash
 bk build view --mine
+```
+
+Filter to only show failed and broken jobs:
+
+```bash
+bk build view -s failed,broken
 ```
 
 To view most recent build by greg on the deploy-pipeline:

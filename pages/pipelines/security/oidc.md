@@ -16,4 +16,6 @@ A Buildkite OIDC token is issued by a Buildkite agent, asserting claims about th
 
 The [Buildkite agent's `oidc` command](/docs/agent/cli/reference/oidc) allows you to request an OIDC token from Buildkite containing claims about the pipeline's current job. These tokens can then be consumed by federated systems like AWS, and exchanged for authenticated role-based access with specific permissions to interact with your cloud environments.
 
+By default, the token's `sub` (subject) claim identifies the pipeline. You can use the `--subject-claim` flag to set it to a different immutable identifier, such as a cluster UUID or organization UUID, giving you control over how broadly or narrowly trust is scoped. See [Custom subject claims](/docs/agent/cli/reference/oidc#custom-subject-claims) for details.
+
 This section of the Buildkite Docs covers Buildkite's OIDC implementation with other federated systems, such as [AWS](/docs/pipelines/security/oidc/aws) and [Azure](/docs/pipelines/security/oidc/azure).

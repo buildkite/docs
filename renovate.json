@@ -23,6 +23,12 @@
     ],
     "packageRules": [
         {
+            "description": "Vite packages (Ruby gems + npm) must be upgraded together",
+            "matchPackageNames": ["vite_rails", "vite_ruby", "vite-plugin-ruby"],
+            "groupName": "vite packages",
+            "automerge": true
+        },
+        {
             "description": "Buildkite plugins",
             "matchManagers": ["buildkite"],
             "groupName": "buildkite plugins",

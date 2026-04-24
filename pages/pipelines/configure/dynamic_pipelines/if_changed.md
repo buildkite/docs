@@ -73,7 +73,7 @@ Alternatively, set it through [agent configuration](/docs/agent/cli/reference/pi
 
 ## What happens when steps are skipped
 
-When the `if_changed` pattern doesn't match any changed files, the step is [skipped](/docs/pipelines/configure/dependencies#how-skipped-steps-affect-dependencies). In the Buildkite Pipelines interface:
+When the `if_changed` pattern doesn't match any changed files, the step is [skipped](/docs/pipelines/configure/depends-on#how-skipped-steps-affect-dependencies). In the Buildkite Pipelines interface:
 
 - This step appears in your build with a "skipped" status
 - The step's dependencies and dependents are handled appropriately

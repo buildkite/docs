@@ -11,7 +11,7 @@ steps:
 
       git push "https://dummy-user:$${GH_TOKEN}@github.com/buildkite/docs.git" ${BUILDKITE_COMMIT}:main
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug

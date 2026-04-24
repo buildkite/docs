@@ -175,7 +175,7 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
       {
         flag: "--max-in-flight",
         type: "integer",
-        description: "The maximum jobs in flight, where a value of 0 means no maximum.",
+        description: "The maximum jobs in flight, where a value of 0 means no maximum. This number includes any pods for Buildkite Pipelines jobs in states Running, Pending (unschedulable, pulling image, or with containers terminating).",
         default_value: "25"
       },
       {

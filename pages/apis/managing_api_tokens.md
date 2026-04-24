@@ -53,6 +53,18 @@ For REST API scopes, you can use the following:
 
 Token scopes are also available to OAuth access tokens, which are issued by the Buildkite platform on behalf of your Buildkite user account for certain processes. However, when these processes occur, while you can select a Buildkite organization you're a member of, which the OAuth token grants access to, the Buildkite platform defines the scopes for these access tokens.
 
+### CLI OAuth token scopes
+
+When you authenticate with `bk auth login`, the [Buildkite CLI](/docs/platform/cli) requests all available REST API scopes by default. The Buildkite platform enforces server-side restrictions. The issued token only grants permissions that your Buildkite user account actually has. The `graphql` scope is excluded from this process due to its unscoped nature.
+
+To restrict the scopes requested during OAuth login, use the `--scopes` flag:
+
+- `--scopes "read_only"` requests only `read_*` scopes (read-only access).
+- `--scopes "read_only write_builds"` combines the `read_only` group with an individual scope.
+- `--scopes "read_user read_organizations"` requests specific individual scopes.
+
+For organizations that enforce the principle of least privilege, use `--scopes` to issue tokens with only the minimum scopes required. Learn more about the `--scopes` flag in the [`bk auth login` reference](/docs/platform/cli/reference/auth#login-auth).
+
 A token's REST API scopes are granular, and you can select some or all of the following Buildkite platform features and their scopes.
 
 ### CI/CD
@@ -345,12 +357,12 @@ Scroll to the end of the specific token's page, then select **Remove Organizatio
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
-## Limiting API access by IP address
+## Restricting API access by IP address
 
 > 📘 Enterprise plan feature
-> Limiting API access by IP address is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+> Restricting API access by IP address is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
-If you'd like to limit an API token's access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
+If you'd like to limit an API token's access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api). You can specify multiple IP addresses, separated by individual spaces, as well as [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to specify a range of IP addresses.
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
@@ -411,7 +423,7 @@ If you own the token, you can revoke your token from the [API access token page]
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
 
-### Does limiting API access by IP address apply to the remote MCP server?
+### Does restricting API access by IP address apply to the remote MCP server?
 
 Yes. Although the [Buildkite remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) makes API calls from Buildkite's infrastructure, these requests are still subject to your organization's IP allowlist for API token access.
 

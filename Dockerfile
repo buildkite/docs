@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.1-slim-bookworm@sha256:ec6d9a346d1ecdf9d27f76dc6d706d7a603a73bdfea84b94e7a4ce82294a79a8
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:e8e2e91b1378f83c5b2dd15f0247f34110e2fe895f6ca7719dbb780f929368eb
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.2-slim-bookworm@sha256:ec909cc0a643fd2a6df9ebf4a1789594e389f029c148df477be646dcd06361c2
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:879b21aec4a1ad820c27ccd565e7c7ed955f24b92e6694556154f251e4bdb240
 
 FROM $BASE_IMAGE AS builder
 
@@ -31,7 +31,7 @@ RUN echo "--- :package: Installing system deps" \
 
 FROM builder AS bundle
 
-COPY Gemfile Gemfile.lock .ruby-version ./
+COPY Gemfile Gemfile.lock ./
 
 ARG RAILS_ENV
 
@@ -76,6 +76,10 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 
 FROM $BASE_IMAGE AS runtime
 
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 ARG RAILS_ENV
@@ -88,7 +92,6 @@ ENV DD_RUM_ENV=${DD_RUM_ENV}
 ENV DD_RUM_VERSION=${DD_RUM_VERSION}
 ENV DD_RUM_ENABLED=true
 ENV RAILS_SERVE_STATIC_FILES=true
-ENV SEGMENT_TRACKING_ID=q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm
 ENV SECRET_KEY_BASE=xxx
 
 COPY . /app

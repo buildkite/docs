@@ -6,7 +6,7 @@ A job can be in various states during its lifecycle, such as `pending`, `schedul
 
 ## Retry a job
 
-Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/configure/step-types/command-step#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
+Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/configure/retry#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -64,7 +64,7 @@ Error responses:
 
 ## Reprioritize a job
 
-Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/managing-priorities). This affects the order in which jobs are picked up by agents.
+Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/job-priority). This affects the order in which jobs are picked up by agents.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

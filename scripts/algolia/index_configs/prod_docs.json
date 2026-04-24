@@ -1,0 +1,71 @@
+{
+  "indexName": "prod_docs",
+  "settings": {
+    "attributesForFaceting": ["type", "lang", "tags"],
+    "attributesToRetrieve": [
+      "hierarchy",
+      "content",
+      "anchor",
+      "url",
+      "url_without_anchor",
+      "type"
+    ],
+    "attributesToHighlight": ["hierarchy", "content"],
+    "attributesToSnippet": ["content:10"],
+    "camelCaseAttributes": ["hierarchy", "content"],
+    "searchableAttributes": [
+      "unordered(hierarchy.lvl0)",
+      "unordered(hierarchy.lvl1)",
+      "unordered(hierarchy.lvl2)",
+      "unordered(hierarchy.lvl3)",
+      "unordered(hierarchy.lvl4)",
+      "unordered(hierarchy.lvl5)",
+      "unordered(hierarchy.lvl6)",
+      "content"
+    ],
+    "distinct": true,
+    "attributeForDistinct": "url_without_anchor",
+    "customRanking": [
+      "desc(weight.pageRank)",
+      "desc(importance)",
+      "desc(weight.level)",
+      "asc(weight.position)"
+    ],
+    "ranking": [
+      "words",
+      "typo",
+      "attribute",
+      "proximity",
+      "filters",
+      "exact",
+      "custom"
+    ],
+    "highlightPreTag": "<span class=\"algolia-docsearch-suggestion--highlight\">",
+    "highlightPostTag": "</span>",
+    "minWordSizefor1Typo": 3,
+    "minWordSizefor2Typos": 7,
+    "allowTyposOnNumericTokens": false,
+    "minProximity": 1,
+    "ignorePlurals": true,
+    "advancedSyntax": true,
+    "attributeCriteriaComputedByMinProximity": true,
+    "removeWordsIfNoResults": "allOptional"
+  },
+  "synonyms": [
+    ["buildkite.yml", "buildkite.yaml", "buildkite.json", "pipeline.yml", "pipeline.yaml", "pipeline.json"],
+    ["k8s", "kubernetes"],
+    ["gcp", "google cloud platform"],
+    ["aws", "amazon web services"],
+    ["cli", "command line interface", "command line reference"],
+    ["plugin", "plug in", "plug-in"],
+    ["if changed", "if_changed"],
+    ["app", "application"],
+    ["monorepo diff", "monorepo_diff", "monorepo-diff"],
+    ["env", "environment"],
+    ["var", "variable"],
+    ["llm", "large language model"],
+    ["sla", "service level agreement"],
+    ["mcp", "model context protocol"],
+    ["otel", "opentelemetry", "open telemetry"]
+  ]
+}

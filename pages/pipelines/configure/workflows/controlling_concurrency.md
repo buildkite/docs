@@ -120,4 +120,4 @@ steps:
 
 ### Concurrency and prioritization
 
-If you're using `eager` concurrency and [job prioritization](/docs/pipelines/configure/workflows/managing-priorities), higher priority jobs will always take precedence when a concurrency slot becomes available.
+If you're using `eager` concurrency and [job prioritization](/docs/pipelines/configure/workflows/job-priority), higher priority jobs will always take precedence when a concurrency slot becomes available.

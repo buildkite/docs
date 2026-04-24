@@ -33,7 +33,6 @@ Rails.application.config.content_security_policy do |policy|
   policy.script_src(
     :self,
     "https://www.googletagmanager.com/",
-    "https://cdn.segment.com/",
     "https://beacon-v2.helpscout.net",
     "https://rum.browser-intake-datadoghq.com",
     "https://www.datadoghq-browser-agent.com",
@@ -51,9 +50,6 @@ Rails.application.config.content_security_policy do |policy|
     "https://#{ENV['ALGOLIA_APP_ID']}-1.algolianet.com",
     "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com",
     "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com",
-
-    "https://cdn.segment.com/",
-    "https://api.segment.io/",
 
     # We have Datadog Real User Monitoring enabled
     "https://rum.browser-intake-datadoghq.com",

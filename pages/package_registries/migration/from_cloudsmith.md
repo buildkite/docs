@@ -6,7 +6,7 @@ To migrate your packages from Cloudsmith to Buildkite Package Registries, you'll
 
 Cloudsmith offers two options to download specific packages from a Cloudsmith repository through its interface, one of which also involves command execution through a command line interface (CLI):
 
-- To download individual packages, follow Cloudsmith's [Download via Website UI](https://help.cloudsmith.io/docs/download-a-package#download-via-website-ui) guide for either [public](https://help.cloudsmith.io/docs/download-a-package#public-repositories) or [private](https://help.cloudsmith.io/docs/download-a-package#private-repositories) repositories.
+- To download individual packages, follow the [Download via Cloudsmith web app](https://help.cloudsmith.io/docs/download-a-package#download-via-cloudsmith-web-app) guide for either [public](https://help.cloudsmith.io/docs/download-a-package#public-repositories) or [private](https://help.cloudsmith.io/docs/download-a-package#private-repositories) repositories.
 
 - To download packages using native package management tools (for example, `npm`  or `gem`), follow Cloudsmith's [Downloading via Native Package Manager](https://help.cloudsmith.io/docs/download-a-package#download-via-native-package-manager) guide. This guide provides details on how to use the Cloudsmith interface to access specific instructions for each native package management tool. These specific instructions then provide guidance on using the relevant native package management's own CLI tools to download packages from Cloudsmith.
 

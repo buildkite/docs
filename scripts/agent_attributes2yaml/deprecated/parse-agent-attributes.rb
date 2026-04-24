@@ -15,7 +15,8 @@ exclude_options = ["config"]
 home_dir = ENV['HOME'] || Dir.home
 
 # Run the help command and get output
-help_output = `buildkite-agent start --help`
+agent_binary = ENV.fetch('BUILDKITE_AGENT_BINARY', 'buildkite-agent')
+help_output = `#{agent_binary} start --help`
 
 # Process each line that starts with "  --"
 help_output.lines.each do |line|

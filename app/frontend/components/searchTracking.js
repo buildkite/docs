@@ -101,13 +101,19 @@ export function initSearchTracking() {
 
 /**
  * DocSearch transformSearchClient option.
- * Wraps the Algolia search client to capture queries with dwell-based debounce.
+ * Wraps the Algolia search client to sort hits by content type priority
+ * (docs > plugins > blog > changelog) before DocSearch groups them into
+ * sections, and to capture queries with dwell-based debounce.
  */
 export function searchTrackingClient(searchClient) {
   return {
     ...searchClient,
     search(queries) {
       return searchClient.search(queries).then((response) => {
+        response.results?.forEach((result) => {
+          result.hits?.sort((a, b) => sectionPriority(a) - sectionPriority(b));
+        });
+
         const query = Array.isArray(queries)
           ? queries[0]?.query || queries[0]?.params?.query || ""
           : "";
@@ -131,6 +137,24 @@ export function searchTrackingClient(searchClient) {
       });
     },
   };
+}
+
+// hierarchy.lvl0 is the section label set by DocSearch selectors.
+// Unlisted doc sections (e.g. "Test Engine", "Package Registries") fall
+// through to the default of 3, sitting between APIs and Plugins.
+const SECTION_PRIORITY = {
+  Pipelines: 0,
+  Platform: 1,
+  "Test Engine": 2,
+  "Package Registries": 3,
+  APIs: 4,
+  Plugins: 5,
+  Blog: 6,
+  Changelog: 7,
+};
+
+function sectionPriority(item) {
+  return SECTION_PRIORITY[item.hierarchy?.lvl0] ?? 5;
 }
 
 /**

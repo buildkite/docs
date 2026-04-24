@@ -10,7 +10,7 @@ steps:
     soft_fail:
       - exit_status: 1
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -32,13 +32,16 @@ steps:
     if: build.branch != "main" && !build.pull_request.labels includes "Reviewer-assigned"
     soft_fail: true
     command: bin/assign-reviewer
+    retry:
+      manual:
+        permit_on_passed: true
     agents:
       queue: hosted
     env:
       GH_REPO: buildkite/docs-private
       DRY_RUN: "false"
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           # Uses docs-private role for access to gh-token SSM parameter
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
@@ -67,7 +70,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -80,21 +83,31 @@ steps:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Generated code is out of date. Run `bundle exec rake graphql:generate` and commit the changes."
+          fail_message: "The generated code (and hence GraphQL reference docs) is out of date, or you edited the content in this repository, which is not their canonical source of truth. Run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
-    if_changed: pages/agent/cli/help/*.md
     command: ./scripts/update-agent-help.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.24"
+          image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit agent CLI docs directly - use scripts/update-agent-help.sh"
+          fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
+
+  - label: ":go: Check generated agent configuration docs"
+    command: ./scripts/update-agent-configuration.sh
+    soft_fail: true
+    agents:
+      queue: "${AGENT_QUEUE:-hosted-m}"
+    plugins:
+      - docker#v5.13.0:
+          image: "golang:1.25"
+      - .buildkite/plugins/check-for-changes:
+          fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated BK CLI docs"
-    if_changed: pages/platform/cli/*.md
     command: ./scripts/update-bkcli-help.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -102,10 +115,9 @@ steps:
       - docker#v5.13.0:
           image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help.sh"
+          fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
 
   - label: ":test_tube: Check generated agent experiments docs"
-    if_changed: pages/agent/self_hosted/configure/experiments.md
     command: ./scripts/update-agent-experiments.sh
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -113,18 +125,18 @@ steps:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit experiments.md directly - update https://github.com/buildkite/agent/blob/main/EXPERIMENTS.md and use scripts/update-agent-experiments.sh"
+          fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
-  - label: ":test_tube: Check generated supported agent versions docs"
-    if_changed: pages/agent/self_hosted/versions_directory.md
+  - label: ":test_tube: Check generated agent versions directory docs"
     command: ./scripts/update-agent-versions-directory.sh
+    soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
           image: "ruby:3.3"
       - .buildkite/plugins/check-for-changes:
-          fail_message: "Do not edit versions_directory.md directly - use scripts/update-agent-versions-directory.sh"
+          fail_message: "The generated agent versions directory page is out of date, or you edited its content in this repository. Run `scripts/update-agent-versions-directory.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - group: "Lint all the things"
     key: linting
@@ -136,7 +148,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.4.0:
+          - aws-assume-role-with-web-identity#v1.5.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -161,7 +173,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.4.0:
+          - aws-assume-role-with-web-identity#v1.5.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -183,7 +195,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.4.0:
+          - aws-assume-role-with-web-identity#v1.5.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -200,7 +212,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.4.0:
+          - aws-assume-role-with-web-identity#v1.5.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -217,7 +229,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.4.0:
+          - aws-assume-role-with-web-identity#v1.5.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -239,7 +251,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -270,7 +282,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -301,13 +313,15 @@ steps:
     if: build.branch != "main" && build.pull_request.draft != true && !(build.pull_request.labels includes "ai-reviewed")
     if_changed:
       include: "pages/**/*.md"
-      exclude: "pages/**/cli/reference/**.md"
+      exclude:
+        - "pages/**/cli/reference/**.md"
+        - "pages/agent/cli/help/_*.md"
     agents:
       queue: hosted
     timeout_in_minutes: 3
     soft_fail: true
     plugins:
-      - aws-assume-role-with-web-identity#v1.4.0:
+      - aws-assume-role-with-web-identity#v1.5.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug

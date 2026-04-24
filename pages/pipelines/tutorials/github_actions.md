@@ -1,11 +1,43 @@
-# Triggering pipelines using GitHub Actions
+# GitHub Actions
+
+## Migrating from GitHub Actions to Buildkite
+
+Buildkite Pipelines now supports many of the same GitHub webhook events that GitHub Actions uses as workflow triggers, making incremental migration easier.
+
+### Webhook event triggers
+
+The following GitHub webhook events can trigger Buildkite Pipelines builds:
+
+- Pull request reviews (`pull_request_review`)
+- Pull request review comments (`pull_request_review_comment`)—inline diff comments
+- Check runs (`check_run`)
+- Releases (`release`)
+- Issue comments (`issue_comment`)
+- Deployment statuses (`deployment_status`)
+- Branch/tag creation (`create`)
+
+### Expanded pull request actions
+
+Beyond `opened` and `synchronize`, Buildkite Pipelines now supports these pull request actions: `edited`, `reopened`, `labeled`, `unlabeled`, `ready_for_review`, `converted_to_draft`, `review_requested`, and `dequeued`.
+
+### Conditional variables
+
+Use the following variables to write fine-grained build filters similar to the GitHub Actions `on.<event>.types` filtering:
+
+- `build.source_event`: the GitHub webhook event that triggered the build.
+- `build.source_action`: the specific action within that event.
+- `build.pull_request.label`: the specific label that was just added or removed, so you can filter on exactly which label changed.
+
+For full configuration details, see the [GitHub integration docs](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
+
+## Triggering pipelines using GitHub Actions
 
 [GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the GitHub actions [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
 
 The Trigger Buildkite Pipeline GitHub Action allows you to:
 
-* Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
-* Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
+- Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
+- Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
 
 Find the Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline) directly.
 

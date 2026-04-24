@@ -12,11 +12,9 @@ There are two ways to develop and contribute to the Buildkite Documentation—no
 
 #### Non-containerized development
 
-You will need both Ruby and Yarn.
+You will need Ruby, Node.js, and Yarn. Required versions are defined in [`mise.toml`](mise.toml).
 
-See [`.ruby-version`](.ruby-version) for the current required version. Use/install [rbenv](https://github.com/rbenv/rbenv) to install the correct version of Ruby.
-
-Ensure you have installed [Yarn](https://classic.yarnpkg.com/en/) too. If you use macOS, [you can do this conveniently with Homebrew](https://formulae.brew.sh/formula/yarn).
+Install [mise](https://mise.jdx.dev/) and run `mise install` to set up the correct versions automatically.
 
 #### Containerized development
 

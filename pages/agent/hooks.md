@@ -171,6 +171,8 @@ In the table above, if any of the hooks above `command` (from `pre-bootstrap` to
 
 Since all the hooks below `command` (from `post-command` to `pre-exit`, inclusive) run _after_ the `command` phase of the pipeline job, then any non-zero exit code failure in these hooks would still fail the entire job. Be aware, however, that any actions in the `command` phase of the pipeline job would have already run successfully.
 
+<%= render_markdown partial: 'agent/pre_exit_hook_job_exit_code' %>
+
 ### Hook exceptions
 
 Typically, if there are multiple hooks of the same type, all of them will be run (in the order shown in the table).

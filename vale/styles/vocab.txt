@@ -27,6 +27,7 @@ ARNs
 argumentless
 Artifactory
 Artifactory's
+Athena
 Atlassian
 auditability
 Authy
@@ -74,6 +75,7 @@ Bundler
 bursty
 cancelation
 carthage
+Cachew
 CCMenu
 ccnet
 CCTray
@@ -146,6 +148,7 @@ dotenv
 DSCs
 ecr
 emptyDir
+dequeued
 enqueued
 Entra
 enum
@@ -164,6 +167,7 @@ fastlane's
 favorited
 fff
 ffxdq
+Firehose
 Firewalled
 firewalled
 Flexbox
@@ -237,6 +241,7 @@ kubeconfig
 kubectl
 kubelet
 kustomize
+Kinesis
 Kuzco
 launchd
 LFS
@@ -283,6 +288,7 @@ Nodejs
 nodeName
 nodeSelector
 Noreply
+not_run
 npm
 ns
 nsc
@@ -307,6 +313,7 @@ Packagecloud's
 Palo
 parsable
 parallelization
+parameterization
 pbuilder
 pbuilder's
 perl
@@ -327,12 +334,16 @@ polyrepos
 Postgres
 PowerShell
 PR's
+predeclare
+predeclared
+Prepends
 Prometheus
 protobuf
 preemptible
 prefill
 prefetch
 preinstall
+prepends
 preprovisioned
 proxied
 ptrace
@@ -357,6 +368,7 @@ repo
 reprioritize
 reprioritizes
 resizable
+retryable
 rollout
 rollouts
 retag
@@ -496,6 +508,7 @@ webtask
 wget
 whoami
 Windsurf's
+workgroup
 worktree
 worktrees
 workspace's

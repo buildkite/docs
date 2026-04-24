@@ -8,8 +8,10 @@ threads_count = ENV.fetch("RAILS_MAX_THREADS") { 20 }
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Bind explicitly to IPv4 0.0.0.0 because puma 8.0 changed the default bind host to
+# :: on dual-stack hosts (see puma/puma#3847).
 #
-port        ENV.fetch("PORT") { 3000 }
+bind        "tcp://0.0.0.0:#{ENV.fetch("PORT") { 3000 }}"
 
 # Specifies the `environment` that Puma will run in.
 #

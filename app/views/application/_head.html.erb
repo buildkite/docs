@@ -14,6 +14,9 @@
 
 <%= tag :link, rel: "canonical", href: seo_canonical_url %>
 <%= tag :link, rel: "help", href: "/docs/llms.txt", type: "text/plain", title: "LLMs.txt - LLM-readable documentation index" %>
+<% if @markdown_alternate_url %>
+<%= tag :link, rel: "alternate", type: "text/markdown", href: @markdown_alternate_url %>
+<% end %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

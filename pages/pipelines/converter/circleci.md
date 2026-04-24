@@ -16,7 +16,7 @@ Here are some examples of translations that the Buildkite pipeline converter wil
 
 - **Jobs** become Buildkite Pipelines [command steps](/docs/pipelines/configure/step-types/command-step) with `key` attributes. The `key` enables dependency references between steps. Multiple `run` steps within a job are combined into a single `command` array.
 
-- **Workflows** are flattened into Buildkite Pipelines [step dependencies](/docs/pipelines/configure/dependencies). Job dependencies specified with `requires` become `depends_on` attributes. When multiple workflows exist, they may be organized using [group steps](/docs/pipelines/configure/step-types/group-step).
+- **Workflows** are flattened into Buildkite Pipelines [step dependencies](/docs/pipelines/configure/depends-on). Job dependencies specified with `requires` become `depends_on` attributes. When multiple workflows exist, they may be organized using [group steps](/docs/pipelines/configure/step-types/group-step).
 
 - **Checkout** steps are removed since Buildkite agents automatically check out the repository.
 

@@ -70,7 +70,7 @@
         var email = document.getElementById('page-rating-email').value.trim();
 
         if (typeof posthog !== 'undefined') {
-          posthog.capture('✍️ Docs page feedback', {
+          posthog.capture('docs:page_feedback', {
             rating: selectedRating,
             page_url: window.location.href,
             page_path: window.location.pathname,

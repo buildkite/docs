@@ -26,6 +26,9 @@ The `bk cluster` command allows you to manage Buildkite organization clusters fr
 | --- | --- |
 | `bk cluster list` | List clusters. |
 | `bk cluster view` | View cluster information. |
+| `bk cluster create` | Create a new cluster. |
+| `bk cluster update` | Update a cluster. |
+| `bk cluster delete` | Delete a cluster. |
 
 ## List clusters
 
@@ -64,14 +67,14 @@ bk cluster list -o json
 View cluster information.
 
 ```bash
-bk cluster view <cluster-id> [flags]
+bk cluster view <cluster-uuid> [flags]
 ```
 
 ### Arguments
 
 | Argument | Description |
 | --- | --- |
-| `<cluster-id>` | Cluster ID to view |
+| `<cluster-uuid>` | Cluster UUID to view |
 
 ### Flags
 
@@ -88,12 +91,143 @@ bk cluster view <cluster-id> [flags]
 View a cluster:
 
 ```bash
-bk cluster view my-cluster-id
+bk cluster view my-cluster-uuid
 ```
 
 View cluster in JSON format:
 
 ```bash
-bk cluster view my-cluster-id -o json
+bk cluster view my-cluster-uuid -o json
+```
+
+## Create a cluster
+
+Create a new cluster.
+
+```bash
+bk cluster create --name=STRING [flags]
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `--color=STRING` | A color hex code for the cluster (e.g. #FF0000) |
+| `--debug` | Enable debug output for REST API calls |
+| `--description=STRING` | A description of the cluster |
+| `--emoji=STRING` | An emoji for the cluster (e.g. :rocket:) |
+| `--json` | Output as JSON |
+| `--name=STRING` | The name of the cluster |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+Create a cluster with just a name:
+
+```bash
+bk cluster create --name "My Cluster"
+```
+
+Create a cluster with all fields:
+
+```bash
+bk cluster create --name "My Cluster" --description "Runs production workloads" --emoji :rocket: --color "#FF0000"
+```
+
+Create a cluster and output as JSON:
+
+```bash
+bk cluster create --name "My Cluster" -o json
+```
+
+## Update cluster
+
+Update a cluster.
+
+```bash
+bk cluster update <cluster-uuid> [flags]
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<cluster-uuid>` | Cluster UUID to update |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `--color=STRING` | New color hex code for the cluster (e.g. #FF0000) |
+| `--debug` | Enable debug output for REST API calls |
+| `--default-queue-id=STRING` | UUID of the queue to set as the default |
+| `--description=STRING` | New description for the cluster |
+| `--emoji=STRING` | New emoji for the cluster (e.g. :rocket:) |
+| `--json` | Output as JSON |
+| `--name=STRING` | New name for the cluster |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
+
+### Examples
+
+Update a cluster's name:
+
+```bash
+bk cluster update my-cluster-uuid --name "New Name"
+```
+
+Update description and color:
+
+```bash
+bk cluster update my-cluster-uuid --description "Updated description" --color "#00FF00"
+```
+
+Set the default queue:
+
+```bash
+bk cluster update my-cluster-uuid --default-queue-id my-queue-uuid
+```
+
+Output the updated cluster as JSON:
+
+```bash
+bk cluster update my-cluster-uuid --name "New Name" -o json
+```
+
+## Delete cluster
+
+Delete a cluster.
+
+```bash
+bk cluster delete <cluster-uuid>
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<cluster-uuid>` | Cluster UUID to delete |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
+### Examples
+
+Delete a cluster (with confirmation prompt):
+
+```bash
+bk cluster delete my-cluster-uuid
+```
+
+Delete a cluster without confirmation:
+
+```bash
+bk cluster delete my-cluster-uuid --yes
 ```
 

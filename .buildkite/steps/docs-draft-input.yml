@@ -48,10 +48,12 @@ steps:
 
       if [[ "$$OUTPUT_TYPES" == *"docs"* ]]; then
         echo "Uploading docs draft step"
+        export WRITE_DOCS=true
         buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
       fi
 
       if [[ "$$OUTPUT_TYPES" == *"changelog"* ]]; then
         echo "Uploading changelog step"
+        export WRITE_CHANGELOG=true
         buildkite-agent pipeline upload .buildkite/steps/docs-draft-changelog.yml
       fi

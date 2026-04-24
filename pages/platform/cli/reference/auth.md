@@ -28,6 +28,7 @@ The `bk auth` command allows you to manage authorization from the command line.
 | `bk auth logout` | Logout and remove stored credentials |
 | `bk auth status` | Print the current user auth status |
 | `bk auth switch` | Switch to a different organization |
+| `bk auth token` | Print the stored API token for the current organization |
 
 ## Login auth
 
@@ -48,7 +49,7 @@ bk auth login [flags]
 
 ### Examples
 
-Login (select organization in browser):
+Login with full permissions (inherits your account's scopes):
 
 ```bash
 bk auth login
@@ -60,7 +61,19 @@ Login non-interactively with an API token:
 bk auth login --org my-org --token my-token
 ```
 
-Login with custom scopes (e.g., for cluster management):
+Login with read-only access:
+
+```bash
+bk auth login --scopes read_only
+```
+
+Login with read-only plus write access to builds:
+
+```bash
+bk auth login --scopes "read_only write_builds"
+```
+
+Login with specific scopes:
 
 ```bash
 bk auth login --scopes "read_user read_organizations read_clusters write_clusters"
@@ -140,5 +153,33 @@ Interactively select an organization:
 
 ```bash
 bk auth switch
+```
+
+## Token auth
+
+Print the stored API token for the current organization
+
+```bash
+bk auth token
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
+### Examples
+
+Print the current token:
+
+```bash
+bk auth token
+```
+
+Use the token in a curl request:
+
+```bash
+curl -H "Authorization: Bearer $(bk auth token)" https://api.buildkite.com/v2/user
 ```
 

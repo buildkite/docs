@@ -32,6 +32,7 @@ Use these agent configuration options:
 - [git-mirrors-lock-timeout](/docs/agent/self-hosted/configure#git-mirrors-lock-timeout)
 - [git-mirrors-path](/docs/agent/self-hosted/configure#git-mirrors-path)
 - [git-mirrors-skip-update](/docs/agent/self-hosted/configure#git-mirrors-skip-update)
+- [git-skip-fetch-existing-commits](/docs/agent/self-hosted/configure#git-skip-fetch-existing-commits)
 
 ## Git submodules
 

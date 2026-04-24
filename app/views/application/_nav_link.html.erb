@@ -1,39 +1,11 @@
 <%
-  css_classes_nav_link = "
-    Nav__link
-    Nav__link--level#{nav_level}
-    #{"Nav__link--type-#{type}" if type}
-    #{start_expanded && "Nav__toggle--on"}
-  "
-%>
-
-<% if path %>
-  <%
-    title = "Go to #{name}"
-    if type == "link"
-      title = "Shortcut link to '#{name}' under the #{top_level_nav_item_name(path)} section"
-    end
-  %>
-  <a
-    class="<%= css_classes_nav_link %> <%= 'Nav__link--current' if current %>"
-    href="<%= nav_path(path) %>"
-    title="<%= title %>"
-    <%= new_window && 'target=_blank' %>
-  >
-    <%= name %>
-
-    <% if pill %>
-      <span class="Nav__pill pill pill--<%= pill %> pill--small" data-algolia-exclude><%= pill %></span>
-    <% end %>
-  </a>
-<% else %>
-  <button
-    class="<%= css_classes_nav_link %> <%= 'Nav__link--parent' if current %> <%= type == "dropdown" ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
-    data-toggle-nav-level="<%= nav_level %>"
-  >
-    <%= name %>
-    <% if pill %>
-      <span class="Nav__pill pill pill--<%= pill %> pill--small" data-algolia-exclude><%= pill %></span>
-    <% end %>
-  </button>
-<% end %>
+  css_classes_nav_link = "Nav__link Nav__link--level#{nav_level}"
+  css_classes_nav_link += " Nav__link--type-#{type}" if type
+  css_classes_nav_link += " Nav__toggle--on" if start_expanded
+-%>
+<% if path -%>
+<% title = type == "link" ? "Shortcut link to '#{name}' under the #{top_level_nav_item_name(path)} section" : "Go to #{name}" -%>
+<a class="<%= css_classes_nav_link %><%= ' Nav__link--current' if current %>" href="<%= nav_path(path) %>" title="<%= title %>"<%= ' target=_blank' if new_window %>><%= name %><% if pill %> <span class="Nav__pill pill pill--<%= pill %> pill--small" data-algolia-exclude><%= pill %></span><% end %></a>
+<% else -%>
+<button class="<%= css_classes_nav_link %><%= ' Nav__link--parent' if current %> <%= type == "dropdown" ? "Nav__dropdown-toggle" : "Nav__toggle" %>" data-toggle-nav-level="<%= nav_level %>"><%= name %><% if pill %> <span class="Nav__pill pill pill--<%= pill %> pill--small" data-algolia-exclude><%= pill %></span><% end %></button>
+<% end -%>

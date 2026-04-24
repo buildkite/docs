@@ -1,10 +1,10 @@
 # Migrate from Jenkins
 
-This guide is for people who are familiar with or already use [Jenkins](https://www.jenkins.io) and want to migrate to the Buildkite platform.
+This guide helps [Jenkins](https://www.jenkins.io) users migrate to Buildkite Pipelines, and covers key differences between the products.
 
-The Buildkite platform is a modern and flexible continuous integration and deployment (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
+Buildkite Pipelines is a modern and flexible continuous integration and deployment (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
 
-While Jenkins and the Buildkite platform (which offers Buildkite Pipelines) have similar goals as CI/CD platforms, their approach differs. Buildkite Pipelines uses a hybrid model consisting of the following:
+While Jenkins and Buildkite Pipelines have similar goals as CI/CD products, their approach differs. Buildkite Pipelines offers a hybrid model consisting of the following:
 
 - A software-as-a-service (SaaS) platform for visualization and management of CI/CD pipelines.
 - Agents for executing jobs—hosted by you, either on-premises or in the cloud.
@@ -158,7 +158,7 @@ parallel(
 )
 ```
 
-Conversely, to make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies) in the step you want to run after others have run first. For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
+Conversely, to make a Buildkite pipeline run its steps in a specific order, use the [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies) in the step you want to run after others have run first. For instance, in the following Buildkite pipeline example, the `Lint` and `Test` steps are run in parallel (by default) first, whereas the `Build` step is run after the `Lint` and `Test` steps have completed.
 
 ```yaml
 # Buildkite: Explicit sequencing is required to make steps run in sequence
@@ -191,7 +191,7 @@ stage('Test') {
 }
 ```
 
-In Buildkite, each step is executed in a fresh workspace. Therefore, even if you implement a [`wait` step](/docs/pipelines/configure/dependencies#implicit-dependencies-with-wait-and-block), artifacts from previously processed steps won't be available in subsequent steps.
+In Buildkite, each step is executed in a fresh workspace. Therefore, even if you implement a [`wait` step](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block), artifacts from previously processed steps won't be available in subsequent steps.
 
 ```yaml
 # This won't work in Buildkite
@@ -324,7 +324,7 @@ The build step should run only after lint and test complete successfully. Otherw
       - echo "Build step placeholder"
 ```
 
-Without this [`depends_on` attribute](/docs/pipelines/configure/dependencies#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite's parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
+Without this [`depends_on` attribute](/docs/pipelines/configure/depends-on#defining-explicit-dependencies), all three steps would run simultaneously, due to [Buildkite's parallel-by-default behavior](#pipeline-translation-fundamentals-step-execution).
 
 **You should now see** that the build step will wait for both lint and test to complete. This is the key difference from Jenkins' sequential-by-default model.
 

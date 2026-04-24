@@ -15,6 +15,7 @@ var commandDescriptions = map[string]string{
 	"configure":    "configure your Buildkite CLI settings",
 	"init":         "initialize a pipeline file with Buildkite Pipelines",
 	"job":          "manage jobs within builds",
+	"maintainer":   "manage cluster maintainers",
 	"organization": "manage Buildkite organizations",
 	"package":      "manage packages",
 	"pipeline":     "manage pipelines",

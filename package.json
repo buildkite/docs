@@ -3,11 +3,11 @@
   "private": true,
   "devDependencies": {
     "husky": "^9.0.0",
-    "netlify-cli": "^24.0.0",
-    "prettier": "3.8.1",
+    "netlify-cli": "^25.0.0",
+    "prettier": "3.8.3",
     "sass": "^1.66.1",
-    "vite": "^7.3.1",
-    "vite-plugin-ruby": "^5.1.1"
+    "vite": "^8.0.0",
+    "vite-plugin-ruby": "^5.2.0"
   },
   "scripts": {
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",

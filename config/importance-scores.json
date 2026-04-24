@@ -9,6 +9,13 @@
   "pipelines/configure": 90,
   "pipelines/configure/defining-steps": 90,
   "pipelines/configure/environment-variables": 90,
+  "pipelines/configure/step-types/trigger-step": 85,
+  "pipelines/configure/step-types/command-step": 85,
+  "pipelines/configure/step-types/block-step": 80,
+  "pipelines/configure/step-types/input-step": 80,
+  "pipelines/configure/step-types/wait-step": 80,
+  "pipelines/configure/step-types/group-step": 80,
+  "pipelines/configure/workflows/controlling-concurrency": 85,
   "pipelines/architecture": 90,
   "agent/queues": 90,
   "agent/hooks": 90,
@@ -25,7 +32,7 @@
   "apis/graphql-api": 85,
   "pipelines/configure/dynamic-pipelines": 85,
   "pipelines/configure/step-types": 85,
-  "pipelines/configure/notifications": 85,
+  "pipelines/configure/notify": 85,
   "pipelines/configure/conditionals": 85,
   "pipelines/configure/dependencies": 85,
   "pipelines/configure/artifacts": 85,
@@ -57,7 +64,9 @@
   "pipelines/best-practices": 80,
   "agent/self-hosted/aws": 80,
   "agent/self-hosted/security": 80,
+  "agent/cli/reference": 85,
   "agent/buildkite-hosted/linux": 80,
+  "agent/buildkite-hosted/cache-volumes": 80,
   "agent/buildkite-hosted/macos": 80,
   "test-engine/reduce-flaky-tests": 80,
   "test-engine/glossary": 80,
@@ -68,5 +77,7 @@
   "pipelines/deployments": 70,
   "apis/mcp-server": 70,
   "package-registries/security": 70,
-  "package-registries/ecosystems": 70
+  "package-registries/ecosystems": 70,
+
+  "pipelines/announcements/database-migration": 20
 }

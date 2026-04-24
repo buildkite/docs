@@ -85,7 +85,7 @@ Platform and organization-level limits apply to all Buildkite products. These li
       },
       {
         title: "Remote MCP server rate limit per user",
-        description: "The number of REST API requests a user can make through the <a href=\"/docs/apis/mcp-server/remote/limits\">remote Buildkite MCP server</a>, per minute. This limit is separate from the organization-wide REST API rate limit.",
+        description: "The number of REST API requests a user can make through the <a href=\"/docs/apis/mcp-server/remote/rate-limits\">remote Buildkite MCP server</a>, per minute. This limit is separate from the organization-wide REST API rate limit.",
         default_value: "50 requests per minute"
       },
       {

@@ -1,7 +1,7 @@
 <nav class="Nav">
   <%=
     render 'nav_children',
-    children: @nav.data,
+    children: @nav.data_for_top_nav(request),
     current_nav_item: @nav.current_item(request),
     is_dropdown: nil,
     nav_level: 0,

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# Heroku likes the version here; we like only updating one place
-ruby File.read(".ruby-version").strip
-
 source "https://rubygems.org"
+
+# Keep in sync with mise.toml and the Dockerfile base image.
+ruby "~> 4.0"
 
 # Choo choo 🚝 (only include the Rails gems we need)
 gem "actionpack", "~> 8.1.0"
@@ -12,7 +12,7 @@ gem "activesupport", "~> 8.1.0"
 gem "railties", "~> 8.1.0"
 
 # Use Puma as the app server
-gem "puma"
+gem "puma", "~> 8.0"
 
 # Helps with running the server locally
 gem "foreman"

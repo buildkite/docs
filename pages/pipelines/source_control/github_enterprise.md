@@ -62,6 +62,14 @@ For Buildkite to mark commits and pull requests as pass or fail, you need to aut
     That's it! Next time you create a pipeline with a repository that's either `https://git.mycompany.com/acme-inc/app.git` or `git@git.mycompany.com:acme-inc/app.git`.
     Buildkite will recognize that it's hosted on your GitHub Enterprise Server, and use your newly created OAuth authorization to update the commit statuses.
 
+## Known limitations for additional webhook events
+
+The Buildkite GHES App manifest subscribes to `create`, `delete`, and `release` webhook events. However, GitHub only delivers these events if the App has `contents: read` permission. In the GHES App manifest, `contents: read` is only included when the customer opts in to code access by choosing "Buildkite (with code access)" during setup.
+
+This means GHES installations **without** code access will not receive `create`, `delete`, or `release` events. The corresponding pipeline settings (branch and tag creation and release triggers) will have no effect. The `cancel_deleted_branch_builds` setting is not affected, because branch deletion is also detected through `push` events.
+
+> 📘 To enable these events, reinstall the GitHub App with code access enabled. See the [GitHub integration docs](/docs/pipelines/source-control/github#running-builds-on-additional-github-events) for details on additional webhook events.
+
 ## Transferring ownership
 
 If you need to leave your current GitHub Enterprise Organization, you need to transfer the OAuth ownership first. Without this, the remaining members of your Buildkite team who are using that GitHub Enterprise Organization for OAuth won't be able to log in.

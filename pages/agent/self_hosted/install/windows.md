@@ -1,10 +1,12 @@
 # Installing Buildkite agent on Windows
 
-The Buildkite agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
+The Buildkite agent is supported on Windows 10, Windows Server 2016, and newer. You can use either of the two installation methods:
 
-## Security considerations
+- [Automated installation (using PowerShell)](/docs/agent/self-hosted/install/windows#automated-install-with-powershell)
+- [Manual installation](/docs/agent/self-hosted/install/windows#manual-installation)
 
-The agent runs scripts from the agent's hooks directory, and checks-out and runs scripts from code repositories. Please consider the file system permissions for these directories carefully, especially when operating in a multi-user environment.
+> 🚧 Security considerations
+> The agent runs scripts from the agent's hooks directory, and checks out and runs scripts from code repositories. Please consider the file system permissions for these directories carefully, especially when operating in a multi-user environment.
 
 ## Automated install with PowerShell
 
@@ -21,9 +23,9 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 ## Manual installation
 
 1. Download the latest Windows release from <a href="https://github.com/buildkite/agent/releases">Buildkite agent releases on GitHub</a>
-2. Extract the files to a directory of your choice (we recommend `C:\buildkite-agent`)
-3. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/self-hosted/tokens)
-4. Run `buildkite-agent.exe start` from a command prompt
+1. Extract the files to a directory of your choice (for example, `C:\buildkite-agent`)
+1. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/self-hosted/tokens)
+1. Run `buildkite-agent.exe start` from a command prompt
 
 ## SSH key configuration
 
@@ -37,10 +39,10 @@ See the [Buildkite agent code access](/docs/agent/self-hosted/code-access) docum
 
 ## File locations
 
-* Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
-* Agent Hooks: `C:\buildkite-agent\hooks`
-* Builds: `C:\buildkite-agent\builds`
-* SSH keys: `%USERPROFILE%\.ssh`
+- Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
+- Agent Hooks: `C:\buildkite-agent\hooks`
+- Builds: `C:\buildkite-agent\builds`
+- SSH keys: `%USERPROFILE%\.ssh`
 
 ## Configuration
 
@@ -48,8 +50,8 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 
 There are two options to be aware of for this initial setup:
 
-* Set your [agent token](/docs/agent/self-hosted/tokens), if you did not set it as an environment variable during installation.
-* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
+- Set your [agent token](/docs/agent/self-hosted/tokens), if you did not set it as an environment variable during installation.
+- You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
     #Provide the path to PowerShell executables
@@ -65,7 +67,7 @@ Rerun the install script.
 
 ## Git for Windows
 
-While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git. You will need Git Bash to use SSH on Windows 7 or below.
+While the agent will work without Git installed, you will need [Git for Windows](https://gitforwindows.org/) to interact with Git.
 
 > 📘
 > Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline. We recommend using CMD (default) or PowerShell 5.x. You can also use PowerShell Core, but be aware of the odd behavior around pipeline upload steps. Refer to <a href="/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for more information.
@@ -107,13 +109,13 @@ nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 ```
 
 > 📘
-> Ensure that this new user is a local admin on the system or has been granted all the necessary permissions to run the buildkite-agent service via nssm.
+> Ensure that this new user is a local admin on the system or has been granted all the necessary permissions to run the buildkite-agent service using nssm.
 
 Replace the following:
 
-* `COMPUTER_NAME`: The system name under **Settings**. For example, `PC`.
-* `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
-* `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
+- `COMPUTER_NAME`: The system name under **Settings**. For example, `PC`.
+- `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
+- `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
 
 ## Which user the agent runs as
 

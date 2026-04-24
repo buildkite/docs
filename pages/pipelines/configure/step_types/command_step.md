@@ -76,7 +76,8 @@ Optional attributes:
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/cli/reference/start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/cli/reference/start#agent-targeting">target specific agents</a> for this step.<br/>
-      <em>Example:</em> <code>npm: "true"</code>
+      <em>Example:</em> <code>npm: "true"</code><br/>
+      <em>Alias:</em> <code>agent_query_rules</code>
     </td>
   </tr>
   <tr>
@@ -93,7 +94,8 @@ Optional attributes:
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
-      <code>- "coverage/**/*"</code>
+      <code>- "coverage/**/*"</code><br/>
+      <em>Alias:</em> <code>artifacts</code>
     </td>
   </tr>
   <tr>
@@ -135,7 +137,7 @@ Optional attributes:
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/dependencies">managing step dependencies</a> for more information.<br/>
+      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/configure/depends-on">managing step dependencies</a> for more information.<br/>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>
@@ -166,7 +168,7 @@ Optional attributes:
       A unique string to identify the command step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/configure/environment-variables">environment variable</a>.<br/>
       Keys can not have the same pattern as a UUID (<code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>).<br/>
       <em>Example:</em> <code>"linter"</code><br/>
-      <em>Alias:</em> <code>identifier</code>
+      <em>Aliases:</em> <code>identifier</code>, <code>id</code>
     </td>
   </tr>
   <tr id="label">
@@ -174,6 +176,7 @@ Optional attributes:
     <td>
       The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>
@@ -188,7 +191,7 @@ Optional attributes:
 &nbsp;&nbsp;&nbsp;&nbsp;- "Linux"<code>
     </td>
   </tr>
-  <tr>
+  <tr id="parallelism">
     <td><code>parallelism</code></td>
     <td>
       The number of <a href="/docs/pipelines/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step.<br/>
@@ -204,10 +207,10 @@ Optional attributes:
 &nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
     </td>
   </tr>
-  <tr>
+  <tr id="priority">
     <td><code>priority</code></td>
     <td>
-      Adjust the <a href="/docs/pipelines/configure/workflows/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br/>
+      Adjust the <a href="/docs/pipelines/configure/workflows/job-priority">priority</a> for a specific job, as a positive or negative integer.<br/>
       <em>Example:</em><br/>
       <code>- command: "will-run-first.sh"<br/>
       &nbsp;&nbsp;priority: 1</code>
@@ -217,7 +220,8 @@ Optional attributes:
     <td><code>retry</code></td>
     <td>
       The conditions for retrying this step.<br/>
-      Available types: <code>automatic</code>, <code>manual</code>
+      Available types: <code>automatic</code>, <code>manual</code><br/>
+      For detailed configuration options, see <a href="/docs/pipelines/configure/retry">Retry</a>.
     </td>
   </tr>
   <tr>
@@ -240,17 +244,21 @@ Optional attributes:
       <code>- exit_status: 1</code><br/>
       <em>Example:</em><br/>
       <code>- exit_status: "*"</code><br/>
+      See <a href="/docs/pipelines/configure/soft-fail">Soft fail</a> for more details.
     </td>
   </tr>
   <tr id="timeout_in_minutes">
     <td><code>timeout_in_minutes</code></td>
     <td>
-      <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of <code>0</code> are marked as <code>passed</code>.</p>
+      <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, it automatically times out. A job that times out with an exit status of <code>0</code> is marked as <code>passed</code>.</p>
       <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI, or <a href="/docs/pipelines/configure/build-timeouts#command-timeouts-updating-timeouts-during-a-job">update a job's timeout dynamically</a> while it is running.</p>
-      <p><em>Example:</em> <code>60</code></p>
+      <p><em>Example:</em> <code>60</code><br/>
+      <em>Alias:</em> <code>timeout</code><br/>
     </td>
-  </tr>
 </table>
+
+> 📘 Signed pipelines
+> When [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) are enabled, command steps also include a `signature` object with fields such as `value`, `version`, `hashing_algorithm`, and `signed_attributes`. This object is computed by the agent during pipeline upload and is not user-configurable.
 
 ## Agent-applied attributes
 
@@ -308,260 +316,6 @@ steps:
     # No image specified in this step.
     # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
-
-## Retry attributes
-
-At least one of the following attributes is required:
-
-<table>
-  <tr>
-    <td><code><a href="/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes">automatic</a></code></td>
-    <td>
-      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br/> If set to <code>true</code>, the retry conditions are set to the default value.<br/>
-      <em>Default value:</em><br/>
-      <code>exit_status: "*"</code><br/>
-      <code>signal: "*"</code><br/>
-      <code>signal_reason: "*"</code><br/>
-      <code>limit: 2</code><br/>
-      <em>Example:</em> <code>true</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code><a href="/docs/pipelines/configure/step-types/command-step#retry-attributes-manual-retry-attributes">manual</a></code></td>
-    <td>
-      Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br/>
-      <em>Default value:</em> <code>true</code><br/>
-      <em>Example:</em> <code>false</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic: true
-
-  - wait: ~
-
-  - label: "Deploy"
-    command: "deploy.sh"
-    retry:
-      manual: false
-```
-{: codeblock-file="pipeline.yml"}
-
-If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/configure/step-types/command-step#retry-attributes-automatic-retry-attributes) on the job. When a limit is not specified on automatic retry, the default limit is two.
-
-<%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
-
-You can also see when a job has been retried and whether it was retried automatically or by a user. Such jobs will hidden - you can expand and view all the hidden retried jobs.
-
-<%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
-
-In the Buildkite UI, there is a [Job Retries Report section](https://buildkite.com/organizations/~/reports/job-retries) where you can view a graphic report on jobs retried manually or automatically within the last 30 days. This can help you understand flakiness and instability across all of your pipelines.
-
-<%= image "job-retries-report.png", width: 2792/2, height: 1400/2, alt: "Information on manual and automatic job retries over the last 24 hours to 30 days " %>
-
-Conditions on retries can be specified. For example, it's possible to set steps to be retried automatically if they exit with particular exit codes, or prevent retries on important steps like deployments. The following example shows different retry configurations:
-
-```yml
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic:
-        - exit_status: 5
-          limit: 2
-        - exit_status: "*"
-          limit: 4
-  - wait: ~
-  - label: "Deploy"
-    command: "deploy.sh"
-    branches: "main"
-    retry:
-      manual:
-        allowed: false
-        reason: "Deploys shouldn't be retried"
-```
-{: codeblock-file="pipeline.yml"}
-
-### Automatic retry attributes
-
-Optional attributes:
-
-<table>
-  <tr>
-    <td><code>exit_status</code></td>
-    <td>
-      The exit status number or numbers that cause this job to be retried. This attribute accepts a single integer, an array of integers, or <code>"*"</code> (wildcard). Valid exit status values are between 0 and 255, plus <code>-1</code> (the value returned when an agent is lost and Buildkite no longer receives contact from the agent). A <code>"*"</code> matches any value between 1 and 255 (excluding <code>0</code>).<br/>
-      <em>Default value:</em> <code>"*"</code>
-      <p><em>Examples:</em></p>
-      <ul>
-        <li><code>"*"</code></li>
-        <li><code>2</code></li>
-        <li><code>-1</code></li>
-        <li><code>[1, 5, 42, 255]</code></li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td><code>signal</code></td>
-    <td>
-      The signal that causes this job to be retried. This attribute accepts a string, an array of strings, or <code>"*"</code> (wildcard). This signal only appears if the agent sends a signal to the job and an interior process does not handle the signal. <code>SIGKILL</code> propagates reliably because it cannot be handled, and is a useful way to differentiate graceful cancelation and timeouts. Signal matching is case-insensitive and the <code>SIG</code> prefix is optional (for example, <code>SIGKILL</code> and <code>kill</code> are equivalent). Use <code>"none"</code> to match jobs that received no signal.<br/>
-      <em>Default value:</em> <code>"*"</code>
-      <p><em>Examples:</em></p>
-      <ul>
-        <li><code>"*"</code></li>
-        <li><code>"none"</code></li>
-        <li><code>kill</code></li>
-        <li><code>SIGINT</code></li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td><code>signal_reason</code></td>
-    <td>
-      The reason associated with a job failure. This attribute accepts a string, an array of strings, or <code>"*"</code> (wildcard). Use <code>"none"</code> to match jobs with no signal reason.<br/>
-      Some signal reasons represent cases where a running job was signaled to stop, for example, <code>cancel</code> or <code>agent_stop</code>. Other signal reasons indicate that the job never ran in the first place, for example, <code>signature_rejected</code>, <code>agent_incompatible</code>, or <code>stack_error</code>.<br/>
-      <em>Default value:</em> <code>"*"</code>
-      <p><em>Available values:</em></p>
-      <ul>
-        <li><code>"*"</code> — matches any signal reason</li>
-        <li><code>none</code> — matches jobs with no signal reason</li>
-        <li><code>cancel</code> — the job was canceled or timed out</li>
-        <li><code>agent_stop</code> — the agent was stopped while running the job</li>
-        <li><code>agent_refused</code> — the agent refused the job</li>
-        <li><code>agent_incompatible</code> — the agent was incompatible with the job</li>
-        <li><code>process_run_error</code> — the process failed to start</li>
-        <li><code>signature_rejected</code> — the job signature was rejected</li>
-        <li><code>stack_error</code> — an error occurred provisioning infrastructure for the job</li>
-      </ul>
-    </td>
-  </tr>
-  <tr>
-    <td><code>limit</code></td>
-    <td>
-      The number of times this job can be retried. The maximum value this can be set to is 10. Each retry rule tracks its own count independently.<br/>
-      <em>Default value:</em> <code>2</code><br/>
-      <em>Example:</em> <code>3</code><br/>
-      You can also set this value to <code>0</code> to prevent a job from being retried. This is useful if, for example, the job returns a <code>signal_reason</code> of <code>stack_error</code>. Learn more about this in the <a href="/docs/apis/agent-api/stacks#finish-a-job-retry-attributes">Retry attributes</a> section of the <a href="/docs/apis/agent-api/stacks">Stacks API</a>.
-    </td>
-  </tr>
-</table>
-
-When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied. Exit statuses not matched by any rule are not retried, so you don't need to explicitly set `limit: 0` for unmatched statuses.
-
-> 📘 -1 exit status
-> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit codes](/docs/agent/lifecycle#exit-codes) for information on other such codes.
-
-```yml
-steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic:
-        - exit_status: -1  # Agent was lost
-          limit: 2
-        - exit_status: 255 # Forced agent shutdown
-          limit: 2
-```
-{: codeblock-file="pipeline.yml"}
-
-The following example shows a step with combined retry conditions. The first rule retries up to three times when the agent refuses the job (both the exit status and signal reason must match). The second rule retries up to two times for any other failure.
-
-```yml
-steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic:
-        - exit_status: -1
-          signal_reason: agent_refused
-          limit: 3
-        - exit_status: "*"
-          limit: 2
-```
-{: codeblock-file="pipeline.yml"}
-
-### Manual retry attributes
-
-Optional attributes:
-
-<table>
-  <tr>
-    <td><code>allowed</code></td>
-    <td>
-      A boolean value that defines whether or not this job can be retried manually.<br/>
-      <em>Default value:</em> <code>true</code><br/>
-      <em>Example:</em> <code>false</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>permit_on_passed</code></td>
-    <td>
-      A boolean value that defines whether or not this job can be retried after it has passed.<br/>
-      <em>Example:</em> <code>false</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>reason</code></td>
-    <td>
-      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false.<br/>
-      <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      manual:
-        permit_on_passed: true
-
-  - wait: ~
-
-  - label: "Deploy"
-    command: "deploy.sh"
-    retry:
-      manual:
-        allowed: false
-        reason: "Sorry, you can't retry a deployment"
-```
-{: codeblock-file="pipeline.yml"}
-
-## Soft fail attributes
-
-Optional attributes:
-
-<table>
-  <tr>
-    <td><code>exit_status</code></td>
-    <td>
-      Allow specified non-zero exit statuses not to fail the build. Use <code>"*"</code> to allow all non-zero exit statuses or specify individual exit status codes.
-      <br/>
-      <em>Example:</em> <code>"*"</code><br/>
-      <em>Example:</em> <code>1</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-steps:
-  - label: "Specific exit status"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: 1
-
-  - label: "All non-zero exit statuses"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: "*"
-```
-{: codeblock-file="pipeline.yml"}
-
 
 ## Matrix attributes
 

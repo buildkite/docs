@@ -19,6 +19,7 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`configure`](/docs/platform/cli/reference/configure)
 - [`init`](/docs/platform/cli/reference/init)
 - [`job`](/docs/platform/cli/reference/job)
+- [`maintainer`](/docs/platform/cli/reference/maintainer)
 - [`organization`](/docs/platform/cli/reference/organization)
 - [`package`](/docs/platform/cli/reference/package)
 - [`pipeline`](/docs/platform/cli/reference/pipeline)
