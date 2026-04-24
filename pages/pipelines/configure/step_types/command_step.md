@@ -76,7 +76,8 @@ Optional attributes:
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/cli/reference/start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/cli/reference/start#agent-targeting">target specific agents</a> for this step.<br/>
-      <em>Example:</em> <code>npm: "true"</code>
+      <em>Example:</em> <code>npm: "true"</code><br/>
+      <em>Alias:</em> <code>agent_query_rules</code>
     </td>
   </tr>
   <tr>
