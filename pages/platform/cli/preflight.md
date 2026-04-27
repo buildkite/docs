@@ -16,17 +16,6 @@ Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that:
 
 Preflight is designed to be used with a coding agent, to run a build against your local working tree, and provide actionable failures for the agent to iterate against.
 
-## What preflight is not
-
-Preflight is not a local test runner. It does not:
-
-- Run your test suite on your machine.
-- Run your linter or formatter locally.
-- Replace or act as a pre-commit git hook.
-- Require any local language runtimes or dependencies to be installed.
-
-Everything runs on your existing Buildkite infrastructure — the same agents, the same environment. Preflight just gets your changes there faster.
-
 ## Before you begin
 
 You'll need:
