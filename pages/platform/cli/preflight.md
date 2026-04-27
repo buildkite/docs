@@ -88,7 +88,7 @@ bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 # Don't cancel the build or remove the branch on exit
 bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
 
-# Wait for the build to run to completion, skip exit on failing.
+# Wait for the build to run to completion, skips the default exit on build failing.
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
