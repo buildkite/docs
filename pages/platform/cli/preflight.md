@@ -5,15 +5,14 @@ Preflight runs your uncommitted changes against a Buildkite CI pipeline. It moni
 > 📘 Experimental feature
 > The preflight feature is currently experimental. It is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
-
 ## What preflight is
 
 Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that:
 
-- **Snapshots** your uncommitted changes (staged changes, changes that are not staged, and new files) as a temporary commit on a new branch, without touching your working tree.
-- **Pushes** that commit to a temporary branch and triggers a real build on your chosen Buildkite pipeline.
-- **Monitors failures** in your terminal in real time as jobs complete. Exits if the build starts failing.
-- **Cleans up** the temporary branch automatically when the build finishes.
+- Snapshots your uncommitted changes (staged changes, changes that are not staged, and new files) as a temporary commit on a new branch, without touching your working tree.
+- Pushes that commit to a temporary branch and triggers a real build on your chosen Buildkite pipeline.
+- Monitors failures in your terminal in real time as jobs complete. Exits if the build starts failing.
+- Cleans up the temporary branch automatically when the build finishes.
 
 Preflight is designed to be used with a coding agent, to run a build against your local working tree, and provide actionable failures for the agent to iterate against.
 
