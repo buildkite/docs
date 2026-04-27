@@ -1,20 +1,20 @@
 # Preflight
 
-Preflight runs your uncommitted changes against Buildkite Pipelines. It monitors failures as they happen, so your AI agent knows what to fix.
+> 🚧 Experimental feature
+> The Preflight feature is currently in experimental stage. Its behavior is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
-> 📘 Experimental command
-> The preflight command is currently experimental. It is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that runs your uncommitted changes against Buildkite Pipelines. It monitors failures as they happen, so your AI agent knows what to fix.
 
-## What preflight is
+Preflight is designed to be used with a coding agent, to run a build against your local working tree, and provide actionable failures for the agent to iterate against.
 
-Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that:
+## What preflight does
+
+The preflight command:
 
 - Snapshots your uncommitted changes (staged changes, changes that are not staged, and new files) as a temporary commit on a new branch, without touching your working tree.
 - Pushes that commit to a temporary branch and triggers a real build on your chosen Buildkite pipeline.
-- Monitors failures in your terminal in real time as jobs complete. Exits if the build starts failing.
+- Monitors failures in your terminal in real time as jobs complete and exits if the build starts failing.
 - Cleans up the temporary branch automatically when the build finishes.
-
-Preflight is designed to be used with a coding agent, to run a build against your local working tree, and provide actionable failures for the agent to iterate against.
 
 ## Before you begin
 
@@ -26,7 +26,7 @@ You'll need:
 
 ## Install or upgrade the Buildkite CLI
 
-To check your current version:
+To check your current version, run:
 
 ```bash
 bk version
@@ -38,7 +38,7 @@ Upgrade using Homebrew:
 brew upgrade buildkite/buildkite/bk@3
 ```
 
-Or with mise:
+Or using mise:
 
 ```bash
 mise use -g github:buildkite/cli@latest
@@ -46,13 +46,13 @@ mise use -g github:buildkite/cli@latest
 
 ## Enable the preflight experiment
 
-Preflight is currently behind an experiment flag. Enable it once with:
+Preflight is currently behind an experiment flag. You can enable preflight once, globally, with:
 
 ```bash
 bk config set experiments preflight
 ```
 
-Alternatively, set it per-invocation with an environment variable:
+Alternatively, you can set preflight per-invocation with an environment variable:
 
 ```bash
 BUILDKITE_EXPERIMENTS=preflight bk preflight --pipeline my-org/my-pipeline
@@ -60,11 +60,13 @@ BUILDKITE_EXPERIMENTS=preflight bk preflight --pipeline my-org/my-pipeline
 
 ## Run a preflight build
 
+To run a preflight build, use:
+
 ```bash
 bk preflight --pipeline my-org/my-pipeline --watch
 ```
 
-The `--pipeline` flag accepts either `{org-slug}/{pipeline-slug}` or just `{pipeline-slug}` if your org is already set in your `bk` config.
+The `--pipeline` flag accepts either `{org-slug}/{pipeline-slug}` or just `{pipeline-slug}` if your Buildkite organization is already set in your `bk` config.
 
 ```bash
 # Watch for failures in real time
@@ -92,23 +94,23 @@ bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
-In watch mode, by default Preflight will exit with code `10` when the build enters the failing state. Preflight exits with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list.
+In the `--watch` mode, by default, Preflight will exit with code `10` when the build enters the failing state. Preflight will exit with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list of potential outcomes.
 
 ## Build summary
 
-On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Buildkite Test Engine to summarize the build's test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
+On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Buildkite [Test Engine](/docs/test-engine) to summarize the build's test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
 
 Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This excludes tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
 
-Preflight reports up to 10 test failures in the TUI, and up to 100 test failures in JSON events.
+Preflight reports up to 10 test failures in the Test Engine web interface, and up to 100 test failures in JSON events.
 
-## Customizing pipelines for preflight
+## Customizing pipelines for Preflight
 
 Preflight sets the following environment variables when creating the build. This allows you to customize your pipeline for preflight builds.
 
 - `PREFLIGHT` - Set to `true`
-- `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run.
-- `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run.
+- `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run
+- `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run
 
 These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline, or to modify its behavior.
 
@@ -135,7 +137,6 @@ steps:
       fi
 ```
 {: codeblock-file="pipeline.yml"}
-
 
 ## Capturing local changes
 

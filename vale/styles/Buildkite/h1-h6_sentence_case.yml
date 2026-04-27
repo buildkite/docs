@@ -233,6 +233,7 @@ exceptions:
   - PodSpec
   - podSpecPatch
   - PowerShell
+  - Preflight
   - Prometheus
   - PTY
   - pytest
