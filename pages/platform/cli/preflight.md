@@ -28,8 +28,8 @@ Everything runs on your existing Buildkite infrastructure — the same agents, t
 
 You'll need:
 
-- The [Buildkite CLI](/docs/platform/cli/installation) version 3.37.0 or later.
-- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes.
+- The [Buildkite CLI](/docs/platform/cli/installation) version 3.38.1 or later.
+- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes. To use with Test Engine the `read_suites` is required.
 - Git commit and push access to the repository.
 
 ## Install or upgrade the Buildkite CLI
@@ -111,3 +111,7 @@ Preflight exits with code `0` if all jobs pass, or `9` if failures are detected.
 | `--no-input` | `false` | Disable all interactive prompts |
 | `--quiet`, `-q` | `false` | Suppress progress output |
 | `--debug` | `false` | Enable debug output for API calls |
+
+## Test results
+
+Preflight considers a test with a non-failed execution as passed. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
