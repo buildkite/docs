@@ -64,7 +64,7 @@ bk preflight --pipeline my-org/my-pipeline --watch
 
 The `--pipeline` flag accepts either `{org-slug}/{pipeline-slug}` or just `{pipeline-slug}` if your Buildkite organization is already set in your `bk` config.
 
-In `--watch` mode, Preflight exits with code `0` if all jobs pass, `10` when the build first enters the failing state (the default), or `9` if the build completes with failures. See [exit codes](#exit-codes) for the full list.
+In `--watch` mode, Preflight exits with code `0` if all jobs pass, `10` when the build first enters the failing state (the default), or `9` if the build completes with failures. See [exit codes](/docs/platform/cli/preflight#exit-codes) for the full list.
 
 The following examples show common variations:
 
