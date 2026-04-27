@@ -479,6 +479,7 @@ unscoped
 unset
 unsets
 unsetting
+unstaged
 untrusted
 unxip
 uploaders
