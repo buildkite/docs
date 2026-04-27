@@ -89,7 +89,9 @@ query RecentPipelineSlugs {
 
 ## Rate limits
 
-Rate limits help keep the GraphQL API stable and performant by capping how many resources a single client or organization can consume at once. They also protect the platform from unintentional misuse, such as runaway automation or inefficient queries.
+Buildkite has implemented two distinct limits to the GraphQL endpoints. These limits play a critical role in ensuring the platform operates smoothly and efficiently, while minimizing the risk of unnecessary downtime or system failures.
+
+By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
 
 The GraphQL API enforces two rate limits, both measured in actual complexity points. A request is rejected if either is exceeded:
 
