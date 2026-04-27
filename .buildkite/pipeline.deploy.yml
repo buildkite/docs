@@ -11,7 +11,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -30,7 +30,7 @@ steps:
       queue: hosted
     depends_on: "ecr-push"
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -66,7 +66,7 @@ steps:
       queue: hosted
     command: scripts/deploy-ecs
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug

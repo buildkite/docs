@@ -61,6 +61,7 @@ bktec's
 boolean
 Boomper
 bottlenecked
+Brewfile
 Buildbox
 buildevents
 Buildah

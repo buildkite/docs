@@ -10,7 +10,7 @@ steps:
     soft_fail:
       - exit_status: 1
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -41,7 +41,7 @@ steps:
       GH_REPO: buildkite/docs-private
       DRY_RUN: "false"
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           # Uses docs-private role for access to gh-token SSM parameter
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
@@ -70,7 +70,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -150,7 +150,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.5.0:
+          - aws-assume-role-with-web-identity#v1.6.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -175,7 +175,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.5.0:
+          - aws-assume-role-with-web-identity#v1.6.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -197,7 +197,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.5.0:
+          - aws-assume-role-with-web-identity#v1.6.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -214,7 +214,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.5.0:
+          - aws-assume-role-with-web-identity#v1.6.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -231,7 +231,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - aws-assume-role-with-web-identity#v1.5.0:
+          - aws-assume-role-with-web-identity#v1.6.0:
               role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
               session-tags:
                 - organization_slug
@@ -253,7 +253,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -284,7 +284,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
           session-tags:
             - organization_slug
@@ -323,7 +323,7 @@ steps:
     timeout_in_minutes: 3
     soft_fail: true
     plugins:
-      - aws-assume-role-with-web-identity#v1.5.0:
+      - aws-assume-role-with-web-identity#v1.6.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
