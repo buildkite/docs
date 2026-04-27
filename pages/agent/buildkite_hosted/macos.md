@@ -321,6 +321,87 @@ To find the [Homebrew package](#homebrew-packages) version used by your macOS ho
 1. Select **Agents** in the global navigation > your [cluster](/docs/pipelines/security/clusters/manage) containing the [macOS Buildkite hosted agent queue](/docs/agent/queues/managing) > your macOS hosted agent.
 1. On your macOS hosted agent's page, select **Base image** and scroll down to **Specifications** > **Homebrew packages** to view these packages, along with their respective versions.
 
+### Managing Homebrew package versions
+
+Homebrew package versions are periodically updated when macOS hosted agent images are refreshed. If your builds require explicit, repeatable versions, pin the versions you need as part of your pipeline rather than relying on the image defaults.
+
+#### Inspect currently installed packages
+
+To view installed packages and their versions on the agent:
+
+```bash
+brew list --versions
+brew info <formula>
+brew info <formula>@<major>     # when the formula supports versioned installs
+```
+
+For example:
+
+```bash
+brew list --versions ruby ruby@3.4 rbenv
+brew info ruby@3.4
+ruby --version
+bundler --version
+```
+
+#### Use a version manager for language runtimes
+
+For languages that support version managers (such as Ruby, Node.js, and Python), pin the language version in your build using a version manager rather than relying on the image's installed runtime.
+
+Example using Ruby with `rbenv`, including a cache for installed Ruby versions:
+
+```yaml
+steps:
+  - label: "Pin Ruby with rbenv"
+    command: |
+      eval "$(rbenv init -)"
+      rbenv install 3.4.7 --skip-existing
+      rbenv global 3.4.7
+      ruby -v
+      gem install bundler
+      bundler -v
+    cache:
+      paths:
+        - "~/.rbenv/versions"
+      size: 20g
+      name: "rbenv-versions"
+```
+
+#### Pin dependencies using a Brewfile
+
+Commit a `Brewfile` to your repository and install from it during the build to make Homebrew dependencies explicit and reduce unexpected version changes.
+
+Example `Brewfile`:
+
+```ruby
+brew "wget"
+brew "jq"
+brew "rbenv"
+brew "ruby@3.4"
+```
+{: codeblock-file="Brewfile"}
+
+Pipeline step:
+
+```yaml
+steps:
+  - label: "Install Homebrew deps"
+    command: |
+      brew update
+      brew bundle --file Brewfile
+      brew list --versions
+```
+
+When a versioned formula is available (for example, `ruby@3.4` or `python@3.12`), use it to pin to a specific major version.
+
+#### Pin an exact formula version
+
+Homebrew does not support installing an arbitrary historical version of every formula. Options for stricter version control include:
+
+- Using a versioned formula when available (for example, `ruby@3.4` or `python@3.12`)
+- Using a language or tool version manager (recommended for runtimes)
+- Downloading an exact version from upstream release binaries with a pinned URL and checksum
+
 ## Security
 
 <%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
