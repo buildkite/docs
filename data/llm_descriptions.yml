@@ -351,7 +351,7 @@
   platform/cli: "Overview of the Buildkite CLI (bk) for managing agents, builds, jobs, artifacts, and packages."
   platform/cli/installation: "Installing the Buildkite CLI on Debian/Ubuntu, Red Hat, macOS (Homebrew), and Windows."
   platform/cli/configuration: "Creating and configuring API access tokens for the Buildkite CLI."
-  platform/cli/preflight: "Running uncommitted local changes against a Buildkite pipeline using bk preflight (experimental): snapshots staged, unstaged, and untracked files to a temporary branch, triggers a real build, monitors failures in real time, integrates with Buildkite Test Engine, and exposes flags, environment variables (PREFLIGHT, PREFLIGHT_SOURCE_COMMIT, PREFLIGHT_SOURCE_BRANCH), and exit codes for use with AI coding agents."
+  platform/cli/preflight: "Running uncommitted local changes against a Buildkite pipeline using bk preflight (experimental): snapshots staged, unstaged, and untracked files to a temporary branch, triggers a build, monitors failures in real time, integrates with Buildkite Test Engine, and exposes flags, environment variables (PREFLIGHT, PREFLIGHT_SOURCE_COMMIT, PREFLIGHT_SOURCE_BRANCH), and exit codes for use with AI coding agents."
   platform/cli/reference: "Index of all bk CLI command categories: agent, api, build, cluster, job, package, pipeline, and more."
   platform/cli/reference/agent: "CLI reference for bk agent: list, pause, resume, stop, and view agents."
   platform/cli/reference/api: "CLI reference for bk api: interact with REST and GraphQL APIs from the command line."

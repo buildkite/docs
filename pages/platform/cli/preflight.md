@@ -3,13 +3,13 @@
 > 🚧 Experimental feature
 > The Preflight feature is currently in experimental stage. Its behavior is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
-Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that runs your uncommitted local changes against Buildkite Pipelines and monitors failures as they happen. It is designed for use with a coding agent, providing a real build against your working tree and surfacing actionable failures for the agent to iterate against.
+Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that runs your uncommitted local changes against Buildkite Pipelines and monitors failures as they happen. It is designed for use with a coding agent, triggering a build against the changes in your working tree and surfacing failures for the agent to iterate against.
 
 The Preflight (`bk preflight`) command:
 
 - Snapshots your uncommitted changes (staged, unstaged, and untracked files) as a temporary commit on a new branch, without touching your working tree. Files matched by `.gitignore` are excluded.
 - Pushes that commit to a branch prefixed with `bk/preflight/` on the repository's `origin` remote, then triggers a build on your chosen Buildkite pipeline.
-- Streams failures to your terminal in real time and exits as soon as the build starts failing.
+- Monitors failures in your terminal in real time and exits as soon as the build starts failing.
 - Cleans up the temporary branch automatically when the build finishes.
 
 ## Before you begin
@@ -87,7 +87,7 @@ bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 # Don't cancel the build or remove the branch on exit
 bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
 
-# Wait for the build to reach a terminal state instead of exiting on first failure
+# Wait for the build to reach a terminal state instead of exiting on the failing state
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
