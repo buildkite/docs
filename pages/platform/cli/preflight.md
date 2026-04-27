@@ -1,6 +1,6 @@
 # Preflight
 
-Preflight runs your uncommitted changes against a Buildkite CI pipeline. It monitors failures as they happen, so your AI agent knows what to fix.
+Preflight runs your uncommitted changes against Buildkite Pipelines. It monitors failures as they happen, so your AI agent knows what to fix.
 
 > 📘 Experimental command
 > The preflight command is currently experimental. It is subject to change or removal without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
@@ -21,7 +21,7 @@ Preflight is designed to be used with a coding agent, to run a build against you
 You'll need:
 
 - The [Buildkite CLI](/docs/platform/cli/installation) version 3.38.1 or later.
-- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes. To use with Test Engine the `read_suites` is required.
+- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes. To use with Buildkite Test Engine the `read_suites` scope is required.
 - Git commit and push access to the repository.
 
 ## Install or upgrade the Buildkite CLI
@@ -32,7 +32,7 @@ To check your current version:
 bk version
 ```
 
-Upgrade via Homebrew:
+Upgrade using Homebrew:
 
 ```bash
 brew upgrade buildkite/buildkite/bk@3
@@ -96,7 +96,7 @@ In watch mode, by default Preflight will exit with code `10` when the build ente
 
 ## Build summary
 
-On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Test Engine to summarise the builds test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
+On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Buildkite Test Engine to summarize the build's test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
 
 Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This is intended to exclude tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
 
@@ -104,13 +104,13 @@ Preflight reports up to 10 test failures in the TUI, and up to 100 test failures
 
 ## Customizing pipelines for preflight
 
-Preflight sets the following environment variable when creating the build. This allows you to customize your pipeline for preflight builds.
+Preflight sets the following environment variables when creating the build. This allows you to customize your pipeline for preflight builds.
 
 - `PREFLIGHT` - Set to `true`
 - `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run.
 - `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run.
 
-These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline, or to modify it's behaviour.
+These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline, or to modify its behavior.
 
 To skip linting on builds triggered by Preflight:
 
