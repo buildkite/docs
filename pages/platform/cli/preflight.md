@@ -108,19 +108,19 @@ In watch mode, by default Preflight will exit with code `10` when the build ente
 
 ## Test results
 
-Preflight considers a test with 1 passed execution as passed and a test with only failed executions as failed in the test run summary. This is intended to exclude tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
+Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This is intended to exclude tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
 
 Preflight reports up to 10 test failures in the TUI, and up to 100 test failures in JSON events.
 
-## Customising Pipelines for Preflight
+## Customizing pipelines for Preflight
 
-Preflight sets the following environment variable when creating the Build. This allows you to customize your pipeline for preflight builds.
+Preflight sets the following environment variable when creating the build. This allows you to customize your pipeline for preflight builds.
 
 - `PREFLIGHT` - Set to `true`
 - `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run.
 - `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run.
 
-These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline.
+These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline, or to modify it's behaviour.
 
 To skip linting on builds triggered by Preflight:
 
@@ -147,9 +147,9 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 
-## Snapshots
+## Capturing local changes
 
-Preflight captures staged changes, changes that are not staged, and untracked files in your working directories into a temporary commit. It respects `.gitignore` and will not commit ingnored files. Preflight will push snapshot commits to the remote `origin` configured in the repository, and will push changes to a branch prefixed with `bk/preflight/`.
+Preflight captures staged changes, changes that are not staged, and untracked files in your working directories into a temporary commit. It respects `.gitignore` and will not commit ignored files. Preflight will push snapshot commits to the remote `origin` configured in the repository, and will push changes to a branch prefixed with `bk/preflight/`.
 
 ## Exit codes
 
