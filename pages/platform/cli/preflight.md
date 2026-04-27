@@ -1,14 +1,18 @@
 # Preflight
 
-Preflight runs your uncommitted changes against a real Buildkite CI pipeline — before you push. It streams failures back to your terminal as they happen, so you know exactly what to fix without leaving your editor or waiting for a pipeline notification.
+Preflight runs your uncommitted changes against a Buildkite CI pipeline. It monitors failures as they happen, so your AI agent knows what to fix.
+
+> 📘 Experimental feature
+> The preflight feature is currently experimental. It is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+
 
 ## What Preflight is
 
 Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that:
 
-- **Snapshots** your uncommitted changes (staged, unstaged, and untracked files) as a temporary commit — without touching your working tree.
+- **Snapshots** your uncommitted changes (staged, unstaged, and untracked files) as a temporary commit on a new branch, without touching your working tree.
 - **Pushes** that commit to a temporary branch and triggers a real build on your chosen Buildkite pipeline.
-- **Streams failures** back to your terminal in real time as jobs complete. Only failures are surfaced — passing jobs are silent.
+- **Monitors failures** in your terminal in real time as jobs complete. Exits if the build starts failing.
 - **Cleans up** the temporary branch automatically when the build finishes.
 
 Your working tree is never disrupted. You can keep editing while the build runs.
@@ -83,9 +87,49 @@ bk preflight --pipeline my-org/my-pipeline --no-watch
 
 # Skip confirmation prompts
 bk preflight --pipeline my-org/my-pipeline --watch --yes
+
+# Use plain text output in non-interactive environments
+bk preflight --pipeline my-org/my-pipeline --watch --text
+
+# Use JSONL output when another tool needs structured events
+bk preflight --pipeline my-org/my-pipeline --watch --json
+
+# Wait for 30s for Test Engine results after build completion
+bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
+
+# Wait for the build to run to completion, skip exit on failing.
+bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
+In watch mode Preflight will exit when the build enters the failing state.
+
 Preflight exits with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list.
+
+## Test results
+
+Preflight considers a test with 1 passed execution as passed and a test with only failed executions as failed in the test run summary. This is intended to exclude tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
+
+Preflight reports up to 10 test failures in the TUI, and up to 100 test failures in JSON events.
+
+## Environment variables
+
+Preflight sets the following environment variable when creating the Build. This allows you to customise your pipeline for preflight builds.
+
+- `PREFLIGHT` - Set to `true`
+- `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run.
+- `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run.
+
+These environment variables can be used with Conditionals and Dynamic Pipelines to customise Preflight builds to run a subset of a pipeline.
+
+
+Skip linting on builds triggered by Preflight:
+```yaml
+steps:
+  - command: ./scripts/lint.sh
+    label: lints
+    if: build.env("PREFLIGHT") != "true"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Exit codes
 
@@ -106,12 +150,12 @@ Preflight exits with code `0` if all jobs pass, or `9` if failures are detected.
 | `--pipeline`, `-p` | — | Pipeline slug (`{slug}` or `{org}/{slug}`) — required |
 | `--watch` / `--no-watch` | — | Watch the build until completion |
 | `--interval` | `2` | Polling interval in seconds |
+| `--exit-on` | `build-failing` | Exit when a condition is met. Options: build-failing (default, exits when a build enters the failing state), build-terminal (exits when the build reaches a terminal state). |
 | `--no-cleanup` | `false` | Keep the remote preflight branch after the build |
+| `--await-test-results` | — | Wait for Test Engine summaries after build completion |
+| `--text` | `false` | Use plain text output |
+| `--json` | `false` | Emit one JSON object per event (JSONL) |
 | `--yes`, `-y` | `false` | Skip confirmation prompts |
 | `--no-input` | `false` | Disable all interactive prompts |
 | `--quiet`, `-q` | `false` | Suppress progress output |
 | `--debug` | `false` | Enable debug output for API calls |
-
-## Test results
-
-Preflight considers a test with a non-failed execution as passed. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
