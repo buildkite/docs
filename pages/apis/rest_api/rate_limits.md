@@ -47,7 +47,7 @@ Per-user headers:
 - `RateLimit-User-Limit`: The per-user rate limit.
 - `RateLimit-User-Reset`: The number of seconds remaining until the per-user time window resets.
 
-For example, the following response headers show an authenticated user with 35 requests remaining against their per-user limit of 50. The organization has 80 requests remaining against its limit of 200, reflecting usage from multiple users across the organization.
+For example, the following response headers show an authenticated user with 35 requests remaining against their per-user limit of 50. The organization has 80 requests remaining against its limit of 200, reflecting usage from multiple users across the organization:
 
 ```js
 RateLimit-User-Scope: rest_user
@@ -66,7 +66,7 @@ You can also programmatically query your organization's rate limit status using 
 
 ## Exceeding the rate limit
 
-Once a rate limit is exceeded, subsequent API requests return a `429` HTTP status code. You should not make any further requests until the relevant `RateLimit-Reset` or `RateLimit-User-Reset` header specifies a new availability window.
+Once the rate limit is exceeded, subsequent API requests return a `429` HTTP status code. You should not make any further requests until the relevant `RateLimit-Reset` or `RateLimit-User-Reset` header specifies a new availability window.
 
 The `429` response body includes additional context about which limit was exceeded:
 

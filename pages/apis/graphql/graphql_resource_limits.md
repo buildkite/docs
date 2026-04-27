@@ -92,7 +92,7 @@ query RecentPipelineSlugs {
 The GraphQL API enforces two rate limits, both measured in actual complexity points. A request is rejected if either is exceeded:
 
 - An [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users in the organization.
-- A [per-user limit](#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per 5 minutes.
+- A [per-user limit](#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per five minutes.
 
 There is also a [single query limit](#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
 
@@ -124,7 +124,7 @@ As a best practice, we recommend utilizing client-side strategies like the follo
 - Queues to schedule API calls.
 - Pagination to only request the necessary data.
 
-If an organization exceeds the 20,000 point limit, the response returns an HTTP 429 status code with the following error.
+If an organization exceeds the 20,000 point limit, the response returns HTTP 429 status code with the following error.
 
 ```json
 {
@@ -140,11 +140,11 @@ If an organization exceeds the 20,000 point limit, the response returns an HTTP 
 
 In addition to the organization-level limit, the GraphQL API enforces a per-user complexity limit on requests. This limit prevents a single user from consuming the entire organization's GraphQL quota.
 
-The per-user limit is evaluated for the authenticated user associated with the API access token. The default per-user limit is 5,000 complexity points per 5 minutes.
+The per-user limit is evaluated for the authenticated user associated with the API access token. The default per-user limit is 5,000 complexity points per five minutes.
 
 A request's complexity counts towards both the per-user limit and the [organization-level limit](#rate-limits-organization-time-based-rate-limit). The request is rejected with a `429` status code if either limit is exceeded. Check the `RateLimit-User-Remaining` response header to monitor your per-user quota.
 
-If a user exceeds their per-user complexity limit, the response returns an HTTP 429 status code with the following error.
+If a user exceeds their per-user complexity limit, the response returns HTTP 429 status code with the following error.
 
 ```json
 {
@@ -164,7 +164,12 @@ You can access both time-based limits and query complexity information through t
 
 ### Check time-based limits
 
-Every GraphQL API response includes two independent sets of rate limit headers: one for the [organization-level limit](#rate-limits-organization-time-based-rate-limit) and one for the [per-user limit](#rate-limits-per-user-rate-limit). You can monitor both limits independently and determine which one your application is closer to reaching.
+Every GraphQL API response includes two independent sets of rate limit headers:
+
+-  one for the [organization-level limit](#rate-limits-organization-time-based-rate-limit)
+-  one for the [per-user limit](#rate-limits-per-user-rate-limit).
+
+You can monitor both limits independently and determine which one your application is closer to reaching.
 
 The `RateLimit-*` headers track the organization's shared complexity quota, while the `RateLimit-User-*` headers track the quota for the authenticated user making the request. A `429` response is returned if either limit is exceeded.
 
@@ -184,7 +189,7 @@ Per-user headers:
 | `RateLimit-User-Limit` | The per-user complexity limit for the time window. |
 | `RateLimit-User-Reset` | The number of seconds remaining until the per-user time window resets. |
 
-For example, the following response headers show an authenticated user with 3,500 complexity points remaining against their per-user limit of 5,000. The organization has 15,000 points remaining against its limit of 20,000.
+For example, the following response headers show an authenticated user with 3,500 complexity points remaining against their per-user limit of 5,000. The organization has 15,000 points remaining against its limit of 20,000:
 
 ```js
 RateLimit-Remaining: 15000
