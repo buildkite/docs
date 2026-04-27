@@ -3,7 +3,7 @@
 Preflight runs your uncommitted changes against Buildkite Pipelines. It monitors failures as they happen, so your AI agent knows what to fix.
 
 > 📘 Experimental command
-> The preflight command is currently experimental. It is subject to change or removal without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> The preflight command is currently experimental. It is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 ## What preflight is
 
