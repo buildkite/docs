@@ -385,7 +385,7 @@ Pipeline step:
 
 ```yaml
 steps:
-  - label: "Install Homebrew deps"
+  - label: "Install Homebrew dependencies"
     command: |
       brew update
       brew bundle --file Brewfile
