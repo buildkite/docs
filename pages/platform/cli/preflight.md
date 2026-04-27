@@ -97,6 +97,9 @@ bk preflight --pipeline my-org/my-pipeline --watch --json
 # Wait for 30s for Test Engine results after build completion
 bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 
+# Don't cancel the build or remove the branch on exit
+bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
+
 # Wait for the build to run to completion, skip exit on failing.
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
@@ -109,7 +112,7 @@ Preflight considers a test with 1 passed execution as passed and a test with onl
 
 Preflight reports up to 10 test failures in the TUI, and up to 100 test failures in JSON events.
 
-## Environment variables
+## Customising Pipelines for Preflight
 
 Preflight sets the following environment variable when creating the Build. This allows you to customize your pipeline for preflight builds.
 
@@ -120,6 +123,7 @@ Preflight sets the following environment variable when creating the Build. This 
 These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline.
 
 To skip linting on builds triggered by Preflight:
+
 ```yaml
 steps:
   - command: ./scripts/lint.sh
@@ -127,6 +131,25 @@ steps:
     if: build.env("PREFLIGHT") != "true"
 ```
 {: codeblock-file="pipeline.yml"}
+
+To run a test suite with `--fast-fail` when Preflight is in use:
+
+```yaml
+steps:
+  - label: ":test_tube: Tests"
+    command: |
+      if [ "$PREFLIGHT" = "true" ]; then
+        ./scripts/test.sh --fast-fail
+      else
+        ./scripts/test.sh
+      fi
+```
+{: codeblock-file="pipeline.yml"}
+
+
+## Snapshots
+
+Preflight captures staged changes, changes that are not staged, and untracked files in your working directories into a temporary commit. It respects `.gitignore` and will not commit ingnored files. Preflight will push snapshot commits to the remote `origin` configured in the repository, and will push changes to a branch prefixed with `bk/preflight/`.
 
 ## Exit codes
 
