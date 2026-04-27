@@ -89,6 +89,8 @@ query RecentPipelineSlugs {
 
 ## Rate limits
 
+Rate limits help keep the GraphQL API stable and performant by capping how many resources a single client or organization can consume at once. They also protect the platform from unintentional misuse, such as runaway automation or inefficient queries.
+
 The GraphQL API enforces two rate limits, both measured in actual complexity points. A request is rejected if either is exceeded:
 
 - An [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users in the organization.
