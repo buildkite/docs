@@ -100,7 +100,7 @@ Preflight considers a test with one passed execution as passed and a test with o
 
 Preflight reports up to 10 test failures in the TUI, and up to 100 test failures in JSON events.
 
-## Customizing pipelines for Preflight
+## Customizing pipelines for preflight
 
 Preflight sets the following environment variable when creating the build. This allows you to customize your pipeline for preflight builds.
 
