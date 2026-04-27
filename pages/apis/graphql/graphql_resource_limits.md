@@ -164,7 +164,7 @@ You can access both time-based limits and query complexity information through t
 
 ### Check time-based limits
 
-Every GraphQL API response includes two independent sets of rate limit headers: one for the [organization-level limit](#rate-limits-organization-time-based-rate-limit) and one for the [per-user limit](#rate-limits-per-user-rate-limit). This allows you to monitor both limits independently and determine which one your application is closer to reaching.
+Every GraphQL API response includes two independent sets of rate limit headers: one for the [organization-level limit](#rate-limits-organization-time-based-rate-limit) and one for the [per-user limit](#rate-limits-per-user-rate-limit). You can monitor both limits independently and determine which one your application is closer to reaching.
 
 The `RateLimit-*` headers track the organization's shared complexity quota, while the `RateLimit-User-*` headers track the quota for the authenticated user making the request. A `429` response is returned if either limit is exceeded.
 
