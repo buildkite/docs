@@ -340,6 +340,9 @@ This section outlines the complete migration process from unclustered to cluster
     * [self-hosted queues](/docs/agent/queues/managing#create-a-self-hosted-queue) (using the [Buildkite interface](/docs/agent/queues/managing#create-a-self-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/queues/managing#create-a-self-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/queues/managing#create-a-self-hosted-queue-using-the-graphql-api) APIs), or
     * [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) (also using the [Buildkite interface](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-buildkite-interface), or [REST](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-graphql-api) APIs).
 
+> 📘 Cluster queue limit
+> By default, you can create up to 50 queues per cluster. If your organization requires more than 50 queues in a cluster, contact [support@buildkite.com](mailto:support@buildkite.com) to request a higher limit.
+
 1. Configure the necessary permissions for each cluster. As part of this process, consider how you'll set up [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) so that infrastructure teams are enabled to self-manage agent resources.
 
 If you'll be:
