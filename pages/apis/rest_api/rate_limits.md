@@ -29,7 +29,7 @@ Organization administrators can view the per-user limits that apply to their org
 
 ## Checking rate limit details
 
-Every API response includes two independent sets of rate limit headers: one for the [organization-level limit](#organization-rate-limit) and one for the [per-user limit](#per-user-rate-limits). This allows you to monitor both limits independently and determine which one your application is closer to reaching.
+Every API response includes two independent sets of rate limit headers: one for the [organization-level limit](#organization-rate-limit) and one for the [per-user limit](#per-user-rate-limits). You can monitor both limits independently and determine which one your application is closer to reaching.
 
 The `RateLimit-*` headers track the organization's shared quota, while the `RateLimit-User-*` headers track the quota for the authenticated user making the request. A `429` response is returned if either limit is exceeded.
 
