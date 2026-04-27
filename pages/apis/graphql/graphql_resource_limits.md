@@ -89,9 +89,12 @@ query RecentPipelineSlugs {
 
 ## Rate limits
 
-Buildkite has implemented two distinct limits to the GraphQL endpoints. These limits play a critical role in ensuring the platform operates smoothly and efficiently, while minimizing the risk of unnecessary downtime or system failures.
+The GraphQL API enforces two rate limits, both measured in actual complexity points. A request is rejected if _either_ is exceeded:
 
-By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
+- An [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users in the organization.
+- A [per-user limit](#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per 5 minutes.
+
+There is also a [single query limit](#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
 
 ### Single query limit
 
@@ -111,9 +114,9 @@ If the query exceeds the limit, the response will return HTTP 200 status code wi
 }
 ```
 
-### Time-based rate limit
+### Organization-level time-based rate limit
 
-To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5-minute period. By allowing a set number of actual complexity points, you have the flexibility to run queries of different sizes within a 5-minute window.
+To ensure optimal performance, a Buildkite organization can use up to 20,000 actual complexity points within a 5-minute period. By allowing a set number of actual complexity points, you have the flexibility to run queries of different sizes within a 5-minute window.
 
 As a best practice, we recommend utilizing client-side strategies like the following to manage time-based rate limits:
 
@@ -121,7 +124,7 @@ As a best practice, we recommend utilizing client-side strategies like the follo
 - Queues to schedule API calls.
 - Pagination to only request the necessary data.
 
-If an organization exceeds the 20,000 point limit, the response will return HTTP 429 status code with the following error.
+If an organization exceeds the 20,000 point limit, the response returns an HTTP 429 status code with the following error.
 
 ```json
 {
@@ -133,26 +136,63 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 }
 ```
 
+### Per-user rate limit
+
+In addition to the organization-level limit, the GraphQL API enforces a per-user complexity limit on requests. This limit prevents a single user from consuming the entire organization's GraphQL quota.
+
+The per-user limit is evaluated for the authenticated user associated with the API access token. The default per-user limit is 5,000 complexity points per 5 minutes.
+
+A request's complexity counts towards both the per-user limit and the [organization-level limit](#rate-limits-organization-time-based-rate-limit). The request is rejected with a `429` status code if either limit is exceeded. Check the `RateLimit-User-Remaining` response header to monitor your per-user quota.
+
+If a user exceeds their per-user complexity limit, the response returns an HTTP 429 status code with the following error.
+
+```json
+{
+    "errors": [
+        {
+            "message": "You have exceeded your per-user limit of 5000 complexity points. Please try again in 187 seconds."
+        }
+    ]
+}
+```
+
+Organization administrators can view the per-user limits that apply to their organization on the [**Service Quotas**](https://buildkite.com/organizations/~/quotas) page, accessible from **Settings** > **Quotas** in the Buildkite interface.
+
 ## Accessing limit details
 
 You can access both time-based limits and query complexity information through the API. Accessing limit details will not incur any additional complexity points.
 
 ### Check time-based limits
 
-The rate limit status is available in the following response headers of each GraphQL call:
+Every GraphQL API response includes two independent sets of rate limit headers: one for the [organization-level limit](#rate-limits-organization-time-based-rate-limit) and one for the [per-user limit](#rate-limits-per-user-rate-limit). This allows you to monitor both limits independently and determine which one your application is closer to reaching.
+
+The `RateLimit-*` headers track the organization's shared complexity quota, while the `RateLimit-User-*` headers track the quota for the authenticated user making the request. A `429` response is returned if either limit is exceeded.
+
+Organization-level headers:
 
 | Header | Description |
 |--------|-------------|
-| `RateLimit-Remaining` | The remaining complexity left within the current time window. |
-| `RateLimit-Limit` | The complexity limit for the time window. |
-| `RateLimit-Reset` | The number of seconds remaining until the limits are reset. |
+| `RateLimit-Remaining` | The remaining complexity points within the current organization time window. |
+| `RateLimit-Limit` | The organization complexity limit for the time window. |
+| `RateLimit-Reset` | The number of seconds remaining until the organization time window resets. |
 
-For example:
+Per-user headers:
+
+| Header | Description |
+|--------|-------------|
+| `RateLimit-User-Remaining` | The remaining complexity points for the authenticated user within the current time window. |
+| `RateLimit-User-Limit` | The per-user complexity limit for the time window. |
+| `RateLimit-User-Reset` | The number of seconds remaining until the per-user time window resets. |
+
+For example, the following response headers show an authenticated user with 3,500 complexity points remaining against their per-user limit of 5,000. The organization has 15,000 points remaining against its limit of 20,000.
 
 ```js
-RateLimit-Remaining: 20
+RateLimit-Remaining: 15000
 RateLimit-Limit: 20000
-RateLimit-Reset: 120
+RateLimit-Reset: 300
+RateLimit-User-Remaining: 3500
+RateLimit-User-Limit: 5000
+RateLimit-User-Reset: 300
 ```
 
 ### View query complexity
