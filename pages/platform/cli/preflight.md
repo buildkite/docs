@@ -6,18 +6,18 @@ Preflight runs your uncommitted changes against a Buildkite CI pipeline. It moni
 > The preflight feature is currently experimental. It is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 
-## What Preflight is
+## What preflight is
 
 Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that:
 
-- **Snapshots** your uncommitted changes (staged, unstaged, and untracked files) as a temporary commit on a new branch, without touching your working tree.
+- **Snapshots** your uncommitted changes (staged changes, changes that are not staged, and new files) as a temporary commit on a new branch, without touching your working tree.
 - **Pushes** that commit to a temporary branch and triggers a real build on your chosen Buildkite pipeline.
 - **Monitors failures** in your terminal in real time as jobs complete. Exits if the build starts failing.
 - **Cleans up** the temporary branch automatically when the build finishes.
 
-Your working tree is never disrupted. You can keep editing while the build runs.
+Preflight is designed to be used with a coding agent, to run a build against your local working tree, and provide actionable failures for the agent to iterate against.
 
-## What Preflight is not
+## What preflight is not
 
 Preflight is not a local test runner. It does not:
 
@@ -26,7 +26,7 @@ Preflight is not a local test runner. It does not:
 - Replace or act as a pre-commit git hook.
 - Require any local language runtimes or dependencies to be installed.
 
-Everything runs on your existing Buildkite infrastructure — the same agents, the same environment, the same pipeline steps. Preflight just gets your changes there faster.
+Everything runs on your existing Buildkite infrastructure — the same agents, the same environment. Preflight just gets your changes there faster.
 
 ## Before you begin
 
@@ -56,7 +56,7 @@ Or with mise:
 mise use -g github:buildkite/cli@latest
 ```
 
-## Enable the Preflight experiment
+## Enable the preflight experiment
 
 Preflight is currently behind an experiment flag. Enable it once with:
 
@@ -70,7 +70,7 @@ Alternatively, set it per-invocation with an environment variable:
 BUILDKITE_EXPERIMENTS=preflight bk preflight --pipeline my-org/my-pipeline
 ```
 
-## Run a Preflight build
+## Run a preflight build
 
 ```bash
 bk preflight --pipeline my-org/my-pipeline --watch
@@ -101,9 +101,7 @@ bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
-In watch mode Preflight will exit when the build enters the failing state.
-
-Preflight exits with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list.
+In watch mode, by default Preflight will exit with code `10` when the build enters the failing state. Preflight exits with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list.
 
 ## Test results
 
@@ -113,16 +111,15 @@ Preflight reports up to 10 test failures in the TUI, and up to 100 test failures
 
 ## Environment variables
 
-Preflight sets the following environment variable when creating the Build. This allows you to customise your pipeline for preflight builds.
+Preflight sets the following environment variable when creating the Build. This allows you to customize your pipeline for preflight builds.
 
 - `PREFLIGHT` - Set to `true`
 - `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run.
 - `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run.
 
-These environment variables can be used with Conditionals and Dynamic Pipelines to customise Preflight builds to run a subset of a pipeline.
+These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline.
 
-
-Skip linting on builds triggered by Preflight:
+To skip linting on builds triggered by Preflight:
 ```yaml
 steps:
   - command: ./scripts/lint.sh
