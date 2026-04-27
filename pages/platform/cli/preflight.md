@@ -21,7 +21,7 @@ Preflight is designed to be used with a coding agent, to run a build against you
 You'll need:
 
 - The [Buildkite CLI](/docs/platform/cli/installation) version 3.38.1 or later.
-- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes. To use with Buildkite Test Engine the `read_suites` scope is required.
+- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes. To use with Buildkite Test Engine the, `read_suites` scope is required.
 - Git commit and push access to the repository.
 
 ## Install or upgrade the Buildkite CLI
@@ -88,7 +88,7 @@ bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 # Don't cancel the build or remove the branch on exit
 bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
 
-# Wait for the build to run to completion, skips the default exit on build failing.
+# Wait for the build to run to completion. Skips the default exit on build failing.
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
@@ -98,7 +98,7 @@ In watch mode, by default Preflight will exit with code `10` when the build ente
 
 On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Buildkite Test Engine to summarize the build's test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
 
-Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This is intended to exclude tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
+Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This excludes tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
 
 Preflight reports up to 10 test failures in the TUI, and up to 100 test failures in JSON events.
 
@@ -139,7 +139,7 @@ steps:
 
 ## Capturing local changes
 
-Preflight captures staged changes, changes that are not staged, and untracked files in your working directories into a temporary commit. It respects `.gitignore` and will not commit ignored files. Preflight will push snapshot commits to the remote `origin` configured in the repository, and will push changes to a branch prefixed with `bk/preflight/`.
+Preflight captures staged changes, changes that are not staged, and untracked files in your working directories into a temporary commit. Preflight respects `.gitignore` and will not commit ignored files. Preflight will push snapshot commits to the remote `origin` configured in the repository, and will push changes to a branch prefixed with `bk/preflight/`.
 
 ## Exit codes
 
