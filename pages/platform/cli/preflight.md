@@ -3,17 +3,13 @@
 > 🚧 Experimental feature
 > The Preflight feature is currently in experimental stage. Its behavior is subject to change without notice. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
-Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that runs your uncommitted changes against Buildkite Pipelines. It monitors failures as they happen, so your AI agent knows what to fix.
+Preflight is a subcommand of the Buildkite CLI (`bk preflight`) that runs your uncommitted local changes against Buildkite Pipelines and monitors failures as they happen. It is designed for use with a coding agent, providing a real build against your working tree and surfacing actionable failures for the agent to iterate against.
 
-Preflight is designed to be used with a coding agent, to run a build against your local working tree, and provide actionable failures for the agent to iterate against.
+The Preflight (`bk preflight`) command:
 
-## What preflight does
-
-The preflight command:
-
-- Snapshots your uncommitted changes (staged changes, changes that are not staged, and new files) as a temporary commit on a new branch, without touching your working tree.
-- Pushes that commit to a temporary branch and triggers a real build on your chosen Buildkite pipeline.
-- Monitors failures in your terminal in real time as jobs complete and exits if the build starts failing.
+- Snapshots your uncommitted changes (staged, unstaged, and untracked files) as a temporary commit on a new branch, without touching your working tree. Files matched by `.gitignore` are excluded.
+- Pushes that commit to a branch prefixed with `bk/preflight/` on the repository's `origin` remote, then triggers a build on your chosen Buildkite pipeline.
+- Streams failures to your terminal in real time and exits as soon as the build starts failing.
 - Cleans up the temporary branch automatically when the build finishes.
 
 ## Before you begin
@@ -21,24 +17,24 @@ The preflight command:
 You'll need:
 
 - The [Buildkite CLI](/docs/platform/cli/installation) version 3.38.1 or later.
-- A [configured API access token](/docs/platform/cli/configuration) with `read_builds`, `write_builds`, and `read_pipelines` scopes. To use with Buildkite Test Engine the, `read_suites` scope is required.
+- A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Buildkite Test Engine.
 - Git commit and push access to the repository.
 
 ## Install or upgrade the Buildkite CLI
 
-To check your current version, run:
+To check your current Buildkite CLI version, run:
 
 ```bash
 bk version
 ```
 
-Upgrade using Homebrew:
+To upgrade using Homebrew:
 
 ```bash
 brew upgrade buildkite/buildkite/bk@3
 ```
 
-Or using mise:
+To upgrade using mise:
 
 ```bash
 mise use -g github:buildkite/cli@latest
@@ -46,21 +42,21 @@ mise use -g github:buildkite/cli@latest
 
 ## Enable the preflight experiment
 
-Preflight is currently behind an experiment flag. You can enable preflight once, globally, with:
+Preflight is currently behind an experiment flag. To enable it globally, run:
 
 ```bash
 bk config set experiments preflight
 ```
 
-Alternatively, you can set preflight per-invocation with an environment variable:
+Alternatively, enable Preflight per invocation with an environment variable:
 
 ```bash
 BUILDKITE_EXPERIMENTS=preflight bk preflight --pipeline my-org/my-pipeline
 ```
 
-## Run a preflight build
+## Run a Preflight build
 
-To run a preflight build, use:
+To run a build with Preflight enabled:
 
 ```bash
 bk preflight --pipeline my-org/my-pipeline --watch
@@ -68,10 +64,11 @@ bk preflight --pipeline my-org/my-pipeline --watch
 
 The `--pipeline` flag accepts either `{org-slug}/{pipeline-slug}` or just `{pipeline-slug}` if your Buildkite organization is already set in your `bk` config.
 
-```bash
-# Watch for failures in real time
-bk preflight --pipeline my-org/my-pipeline --watch
+In `--watch` mode, Preflight exits with code `0` if all jobs pass, `10` when the build first enters the failing state (the default), or `9` if the build completes with failures. See [exit codes](#exit-codes) for the full list.
 
+The following examples show common variations:
+
+```bash
 # Start the build and exit immediately (don't wait)
 bk preflight --pipeline my-org/my-pipeline --no-watch
 
@@ -84,35 +81,33 @@ bk preflight --pipeline my-org/my-pipeline --watch --text
 # Use JSONL output when another tool needs structured events
 bk preflight --pipeline my-org/my-pipeline --watch --json
 
-# Wait for 30s for Test Engine results after build completion
+# Wait up to 30s for Test Engine results after build completion
 bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 
 # Don't cancel the build or remove the branch on exit
 bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
 
-# Wait for the build to run to completion. Skips the default exit on build failing.
+# Wait for the build to reach a terminal state instead of exiting on first failure
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
 
-In the `--watch` mode, by default, Preflight will exit with code `10` when the build enters the failing state. Preflight will exit with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list of potential outcomes.
-
 ## Build summary
 
-On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Buildkite [Test Engine](/docs/test-engine) to summarize the build's test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
+On exit, Preflight prints a summary of the jobs that failed. When integrated with Buildkite [Test Engine](/docs/test-engine), the summary also includes test results. This integration requires the `read_suites` scope on your [API access token](/docs/platform/cli/configuration).
 
-Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This excludes tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
+A test with at least one passed execution is treated as passed, and a test with only failed executions is treated as failed. Tests that pass on retry are not counted as failures. Tests with only pending, skipped, or unknown executions are excluded from the summary.
 
-Preflight reports up to 10 test failures in the Test Engine web interface, and up to 100 test failures in JSON events.
+Preflight reports up to 10 test failures in the terminal output, and up to 100 test failures in JSON events.
 
 ## Customizing pipelines for Preflight
 
-Preflight sets the following environment variables when creating the build. This allows you to customize your pipeline for preflight builds.
+Preflight sets the following environment variables on the build, so you can customize pipeline behavior for preflight runs:
 
-- `PREFLIGHT` - Set to `true`
-- `PREFLIGHT_SOURCE_COMMIT` - The HEAD commit when Preflight was run
-- `PREFLIGHT_SOURCE_BRANCH` - The current branch when Preflight was run
+- `PREFLIGHT`: Set to `true`.
+- `PREFLIGHT_SOURCE_COMMIT`: The HEAD commit when Preflight was run.
+- `PREFLIGHT_SOURCE_BRANCH`: The current branch when Preflight was run.
 
-These environment variables can be used with [Conditionals](/docs/pipelines/configure/conditionals) and [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to customize Preflight builds to run a subset of a pipeline, or to modify its behavior.
+Use these with [conditionals](/docs/pipelines/configure/conditionals) and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) to run a subset of a pipeline or otherwise modify its behavior under Preflight.
 
 To skip linting on builds triggered by Preflight:
 
@@ -138,10 +133,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Capturing local changes
-
-Preflight captures staged changes, changes that are not staged, and untracked files in your working directories into a temporary commit. Preflight respects `.gitignore` and will not commit ignored files. Preflight will push snapshot commits to the remote `origin` configured in the repository, and will push changes to a branch prefixed with `bk/preflight/`.
-
 ## Exit codes
 
 | Exit code | Meaning |
@@ -161,7 +152,7 @@ Preflight captures staged changes, changes that are not staged, and untracked fi
 | `--pipeline`, `-p` | — | Pipeline slug (`{slug}` or `{org}/{slug}`) — required |
 | `--watch` / `--no-watch` | — | Watch the build until completion |
 | `--interval` | `2` | Polling interval in seconds |
-| `--exit-on` | `build-failing` | Exit when a condition is met. Options: build-failing (default, exits when a build enters the failing state), build-terminal (exits when the build reaches a terminal state). |
+| `--exit-on` | `build-failing` | Condition that triggers exit. `build-failing` exits when the build enters the failing state; `build-terminal` exits when the build reaches a terminal state. |
 | `--no-cleanup` | `false` | Keep the remote preflight branch after the build |
 | `--await-test-results` | — | Wait for Test Engine summaries after build completion |
 | `--text` | `false` | Use plain text output |
