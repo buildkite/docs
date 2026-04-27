@@ -61,6 +61,7 @@ bktec's
 boolean
 Boomper
 bottlenecked
+Brewfile
 Buildbox
 buildevents
 Buildah
@@ -147,6 +148,7 @@ dotenv
 DSCs
 ecr
 emptyDir
+dequeued
 enqueued
 Entra
 enum

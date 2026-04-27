@@ -264,6 +264,26 @@ variables:
       The GitHub deployment payload data as serialized JSON. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
     modifiable: false
     example: "production"
+  - name: BUILDKITE_GITHUB_ACTION
+    desc: |
+      The GitHub webhook action that triggered the build (for example, `opened`, `synchronize`, `labeled`, `submitted`). Only available on builds triggered by GitHub webhook events that include an action.
+    modifiable: false
+    example: "opened"
+  - name: BUILDKITE_GITHUB_COMMENT_ID
+    desc: |
+      The ID of the comment that triggered the build. Available on builds triggered by GitHub `issue_comment` and `pull_request_review_comment` events.
+    modifiable: false
+    example: "1234567890"
+  - name: BUILDKITE_GITHUB_EVENT
+    desc: |
+      The GitHub webhook event type that triggered the build (for example, `push`, `pull_request`, `release`, `check_run`). Only available on builds triggered by GitHub webhook events.
+    modifiable: false
+    example: "pull_request"
+  - name: BUILDKITE_GITHUB_REVIEW_ID
+    desc: |
+      The ID of the pull request review that triggered the build. Only available on builds triggered by a GitHub `pull_request_review` event.
+    modifiable: false
+    example: "1234567890"
   - name: BUILDKITE_GROUP_ID
     desc: |
       The UUID of the [group step](/docs/pipelines/group-step) the job belongs to. This variable is only available if the job belongs to a group step.

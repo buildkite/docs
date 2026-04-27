@@ -76,7 +76,8 @@ Optional attributes:
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/cli/reference/start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/cli/reference/start#agent-targeting">target specific agents</a> for this step.<br/>
-      <em>Example:</em> <code>npm: "true"</code>
+      <em>Example:</em> <code>npm: "true"</code><br/>
+      <em>Alias:</em> <code>agent_query_rules</code>
     </td>
   </tr>
   <tr>
@@ -93,7 +94,8 @@ Optional attributes:
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br/>
       <em>Example:</em><br/>
       <code>- "logs/**/*"</code><br/>
-      <code>- "coverage/**/*"</code>
+      <code>- "coverage/**/*"</code><br/>
+      <em>Alias:</em> <code>artifacts</code>
     </td>
   </tr>
   <tr>
@@ -174,6 +176,7 @@ Optional attributes:
     <td>
       The label that will be displayed in the pipeline visualization in Buildkite. Supports emoji.<br/>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as ":hammer: Tests"</code><br/>
+      <em>Alias:</em> <code>name</code>
     </td>
   </tr>
   <tr>
@@ -249,9 +252,9 @@ Optional attributes:
     <td>
       <p>The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, it automatically times out. A job that times out with an exit status of <code>0</code> is marked as <code>passed</code>.</p>
       <p>You can also set <a href="/docs/pipelines/configure/build-timeouts">default and maximum timeouts</a> in the Buildkite UI, or <a href="/docs/pipelines/configure/build-timeouts#command-timeouts-updating-timeouts-during-a-job">update a job's timeout dynamically</a> while it is running.</p>
-      <p><em>Example:</em> <code>60</code></p>
+      <p><em>Example:</em> <code>60</code><br/>
+      <em>Alias:</em> <code>timeout</code><br/>
     </td>
-  </tr>
 </table>
 
 > 📘 Signed pipelines
