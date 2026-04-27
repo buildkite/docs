@@ -80,7 +80,7 @@ The `429` response body includes additional context about which limit was exceed
 }
 ```
 
-The `scope` field indicates which limit was exceeded, for example `rest` for the organization limit or `rest_user` for the per-user limit.
+The `scope` field indicates which limit was exceeded. For example, `rest` for the organization limit or `rest_user` for the per-user limit.
 
 ## Best practices to avoid rate limits
 
