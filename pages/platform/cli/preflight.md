@@ -94,7 +94,9 @@ bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 
 In watch mode, by default Preflight will exit with code `10` when the build enters the failing state. Preflight exits with code `0` if all jobs pass, or `9` if failures are detected. See [exit codes](#exit-codes) for the full list.
 
-## Test results
+## Build summary
+
+On exit, Preflight prints a summary of the jobs that failed. Preflight integrates with Test Engine to summarise the builds test results. This requires the `read_suites` scope on your [API Access Token](/docs/platform/cli/configuration) to access Test Engine runs for a build.
 
 Preflight considers a test with one passed execution as passed and a test with only failed executions as failed in the test run summary. This is intended to exclude tests that passed on retry from being considered failures. Tests with only a pending, skipped, or unknown execution are excluded from being considered passed or failed.
 
