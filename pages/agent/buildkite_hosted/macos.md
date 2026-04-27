@@ -346,7 +346,7 @@ bundler --version
 
 #### Use a version manager for language runtimes
 
-For languages that support version managers (such as Ruby, Node.js, and Python), pin the language version in your build using a version manager rather than relying on the image's installed runtime.
+For languages that have version managers such as Ruby, pin the language version in your jobs using a version manager rather than relying on the image's installed runtime.
 
 Example using Ruby with `rbenv`, including a cache for installed Ruby versions:
 
