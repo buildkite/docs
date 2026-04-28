@@ -123,7 +123,7 @@ For more example steps and detailed configuration options, see the example `pipe
 - [group steps](/docs/pipelines/configure/step-types/group-step)
 
 > 📘
-> It is also possible to upload additional steps while a build is in progress. This is not a separate step type but an action performed by an agent within the context of a job. See [Dynamic pipelines](/docs/pipelines/configure/dynamic_pipelines) for more information.
+> You can also upload additional steps while a build is in progress. This is not a separate step type but an action performed by an agent within the context of a job. See [Dynamic pipelines](/docs/pipelines/configure/dynamic_pipelines) for more information.
 
 If your pipeline has more than one step and you have multiple agents available to run them, the steps will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/configure/step-types/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' can be run.
 
