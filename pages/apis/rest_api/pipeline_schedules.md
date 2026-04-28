@@ -8,19 +8,19 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
 <tbody>
   <tr>
     <th><code>id</code></th>
-    <td>UUID of the pipeline schedule</td>
+    <td>UUID of the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>graphql_id</code></th>
-    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the pipeline schedule</td>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>url</code></th>
-    <td>Canonical API URL of the pipeline schedule</td>
+    <td>Canonical API URL of the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>label</code></th>
-    <td>Label describing the pipeline schedule</td>
+    <td>Label describing the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>cronline</code></th>
@@ -28,7 +28,7 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
   </tr>
   <tr>
     <th><code>message</code></th>
-    <td>Message used for the builds created by the pipeline schedule</td>
+    <td>Message used for the builds created by the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>commit</code></th>
@@ -40,35 +40,35 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
   </tr>
   <tr>
     <th><code>env</code></th>
-    <td>JSON object of environment variables to set on the builds created by the pipeline schedule</td>
+    <td>JSON object of environment variables to set on the builds created by the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>enabled</code></th>
-    <td>Whether the pipeline schedule is enabled</td>
+    <td>Whether the pipeline schedule is enabled.</td>
   </tr>
   <tr>
     <th><code>next_build_at</code></th>
-    <td>When the next build will be created</td>
+    <td>When the next build will be created.</td>
   </tr>
   <tr>
     <th><code>failed_message</code></th>
-    <td>Failure message from the most recent failed attempt to create a build, or <code>null</code> if the most recent attempt succeeded</td>
+    <td>Failure message from the most recent failed attempt to create a build, or <code>null</code> if the most recent attempt succeeded.</td>
   </tr>
   <tr>
     <th><code>failed_at</code></th>
-    <td>When the most recent failed attempt to create a build occurred, or <code>null</code> if the most recent attempt succeeded</td>
+    <td>When the most recent failed attempt to create a build occurred, or <code>null</code> if the most recent attempt succeeded.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
-    <td>When the pipeline schedule was created</td>
+    <td>When the pipeline schedule was created.</td>
   </tr>
   <tr>
     <th><code>created_by</code></th>
-    <td><a href="/docs/apis/rest-api/user">User</a> who created the pipeline schedule</td>
+    <td><a href="/docs/apis/rest-api/user">User</a> who created the pipeline schedule.</td>
   </tr>
   <tr>
     <th><code>pipeline</code></th>
-    <td>Reference to the parent pipeline, including its <code>id</code>, <code>slug</code>, and API <code>url</code></td>
+    <td>Reference to the parent pipeline, including its <code>id</code>, <code>slug</code>, and API <code>url</code>.</td>
   </tr>
 </tbody>
 </table>
@@ -77,10 +77,14 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of the schedules for a pipeline, with the most recently created first.
 
+_Example request:_
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/schedules"
 ```
+
+_Example response:_
 
 ```json
 [
@@ -126,10 +130,14 @@ Success response: `200 OK`
 
 Returns the details for a single pipeline schedule.
 
+_Example request:_
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/schedules/{id}"
 ```
+
+_Example response:_
 
 ```json
 {
@@ -173,6 +181,8 @@ Success response: `200 OK`
 
 Creates a new pipeline schedule.
 
+_Example request:_
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/schedules" \
@@ -189,6 +199,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "enabled": true
   }'
 ```
+
+_Example response:_
 
 ```json
 {
@@ -285,6 +297,8 @@ Error responses:
 
 Updates a pipeline schedule.
 
+_Example request:_
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/schedules/{id}" \
@@ -294,6 +308,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "enabled": false
   }'
 ```
+
+_Example response:_
 
 ```json
 {
@@ -382,6 +398,8 @@ Error responses:
 ## Delete a pipeline schedule
 
 Deletes a pipeline schedule.
+
+_Example request:_
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
