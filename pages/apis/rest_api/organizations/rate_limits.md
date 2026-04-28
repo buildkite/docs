@@ -57,7 +57,7 @@ The REST API rate limit time window is 60 seconds.
 
 ### GraphQL API
 
-The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-time-based-rate-limit) for the Buildkite organization.
+The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-time-based-rate-limit) for the Buildkite organization.
 
 Field | Type | Description
 ----- | ---- | -----------
@@ -68,4 +68,17 @@ Field | Type | Description
 `enforced` | boolean | Indicates if rate limiting is currently enforced for this Buildkite organization.
 {: class="responsive-table"}
 
-This GraphQL API rate limit time window is 300 seconds (five minutes).
+The GraphQL API rate limit time window is 300 seconds (five minutes).
+
+## Per-user rate limits
+
+In addition to the organization-level limits above, Buildkite enforces a [per-user rate limit](/docs/apis/rest-api/rate-limits#per-user-rate-limits) on API requests. This limit prevents a single user from consuming the entire organization's API quota. The default per-user limit is 50 requests per minute for the REST API and 5,000 complexity points per 5 minutes for the GraphQL API.
+
+Per-user rate limit information is not available through this endpoint. Instead, inspect the response headers on any REST or GraphQL API call:
+
+- `RateLimit-User-Scope`: The scope of the per-user rate limit (`rest_user` or `graphql_user`).
+- `RateLimit-User-Remaining`: The remaining requests or complexity points for the authenticated user.
+- `RateLimit-User-Limit`: The per-user rate limit.
+- `RateLimit-User-Reset`: The number of seconds remaining until the per-user time window resets.
+
+These headers are returned alongside the organization-level `RateLimit-*` headers on every API response. Learn more in [REST API rate limits](/docs/apis/rest-api/rate-limits) and [GraphQL resource limits](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit).
