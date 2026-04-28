@@ -6,7 +6,7 @@ You can create and manage schedules in the **Schedules** section of your pipelin
 
 <%= image "pipeline-settings-schedules.png", width: 1756/2, height: 312/2, alt: "Screenshot of the Schedules section of Pipeline Settings with an Hourly Security Checks schedule listed" %>
 
-You can also create and manage schedules using the [Buildkite GraphQL API](/docs/apis/graphql-api).
+You can also create and manage schedules using the [pipeline schedules REST API](/docs/apis/rest-api/pipeline-schedules) or the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
 ## Cron job permission consideration
 

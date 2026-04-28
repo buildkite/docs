@@ -1064,6 +1064,8 @@
               path: "apis/rest-api/pipeline-templates"
             - name: "Rules"
               path: "apis/rest-api/rules"
+            - name: "Schedules"
+              path: "apis/rest-api/pipeline-schedules"
         - name: "Teams"
           children:
             - name: "Overview"

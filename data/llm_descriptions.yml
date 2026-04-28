@@ -397,6 +397,7 @@
   apis/rest-api/package-registries/registry-tokens: "REST endpoints to create and manage registry tokens for package installation."
   apis/rest-api/package-registries/packages: "REST endpoints to publish, list, get, and delete packages in a registry."
   apis/rest-api/pipelines: "REST endpoints to create, list, get, update, archive, and delete pipelines."
+  apis/rest-api/pipeline-schedules: "REST endpoints to list, get, create, update, and delete pipeline schedules that automatically trigger builds at specified intervals."
   apis/rest-api/agents: "REST endpoints to list, get, stop, pause, and resume agents."
   apis/rest-api/annotations: "REST endpoints to list and create Markdown annotations on builds."
   apis/rest-api/artifacts: "REST endpoints to list and download build artifacts by build or job."

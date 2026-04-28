@@ -75,13 +75,23 @@ Platform and organization-level limits apply to all Buildkite products. These li
       },
       {
         title: "GraphQL API rate limit per organization",
-        description: "The number of requests an organization can make to Organization endpoints on the GraphQL API, per minute.",
-        default_value: "20,000 requests per minute"
+        description: "The total <a href=\"/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-time-based-rate-limit\">actual complexity points</a> an organization can consume on the GraphQL API within a 5-minute window.",
+        default_value: "20,000 complexity points per 5 minutes"
       },
       {
         title: "Portal API rate limit per organization",
         description: "The number of requests an organization can make to Organization endpoints on the Portal API, per minute.",
         default_value: "200 requests per minute"
+      },
+      {
+        title: "REST API rate limit per user",
+        description: "The default number of <a href=\"/docs/apis/rest-api/rate-limits#per-user-rate-limits\">per-user</a> requests a single user can make to the REST API, per minute. This limit applies in addition to the organization-wide REST API rate limit.",
+        default_value: "50 requests per minute"
+      },
+      {
+        title: "GraphQL API rate limit per user",
+        description: "The default <a href=\"/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit\">per-user</a> complexity points a single user can consume on the GraphQL API within a 5-minute window. This limit applies in addition to the organization-wide GraphQL API rate limit.",
+        default_value: "5,000 complexity points per 5 minutes"
       },
       {
         title: "Remote MCP server rate limit per user",
