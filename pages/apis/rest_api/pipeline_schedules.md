@@ -295,7 +295,7 @@ Error responses:
 
 ## Update a pipeline schedule
 
-Updates a pipeline schedule.
+Updates the pipeline schedule.
 
 _Example request:_
 
