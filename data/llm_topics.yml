@@ -93,6 +93,7 @@ pipelines:
     - "apis/managing-api-tokens"
     - "apis/rest-api"
     - "apis/rest-api/pipelines"
+    - "apis/rest-api/pipeline-schedules"
     - "apis/rest-api/builds"
     - "apis/rest-api/jobs"
     - "apis/rest-api/agents"
