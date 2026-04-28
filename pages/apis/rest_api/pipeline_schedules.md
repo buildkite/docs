@@ -24,7 +24,7 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
   </tr>
   <tr>
     <th><code>cronline</code></th>
-    <td>The interval used to trigger builds. Either a <a href="/docs/pipelines/configure/workflows/scheduled-builds#schedule-intervals">predefined interval</a> (such as <code>@hourly</code> or <code>@daily</code>) or a <a href="/docs/pipelines/configure/workflows/scheduled-builds#crontab-time-syntax">crontab time syntax</a> string.</td>
+    <td>The interval used to trigger builds. Either a <a href="/docs/pipelines/configure/workflows/scheduled-builds#schedule-intervals">predefined interval</a> (such as <code>@hourly</code> or <code>@daily</code>) or a <a href="/docs/pipelines/configure/workflows/scheduled-builds#schedule-intervals-crontab-time-syntax">crontab time syntax</a> string.</td>
   </tr>
   <tr>
     <th><code>message</code></th>
@@ -75,7 +75,7 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
 
 ## List pipeline schedules
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of the schedules for a pipeline, ordered by most recently created first.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the schedules for a pipeline, with the most recently created first.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -230,7 +230,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>cronline</code></th>
-    <td>The interval used to trigger builds. Either a <a href="/docs/pipelines/configure/workflows/scheduled-builds#schedule-intervals">predefined interval</a> or a <a href="/docs/pipelines/configure/workflows/scheduled-builds#crontab-time-syntax">crontab time syntax</a> string.<br><em>Example:</em> <code>"@daily"</code></td>
+    <td>The interval used to trigger builds. Either a <a href="/docs/pipelines/configure/workflows/scheduled-builds#schedule-intervals">predefined interval</a> or a <a href="/docs/pipelines/configure/workflows/scheduled-builds#schedule-intervals-crontab-time-syntax">crontab time syntax</a> string.<br><em>Example:</em> <code>"@daily"</code></td>
   </tr>
 </tbody>
 </table>
