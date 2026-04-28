@@ -75,7 +75,7 @@ The pipeline schedules API endpoint allows you to manage [scheduled builds](/doc
 
 ## List pipeline schedules
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's schedules, ordered by most recently created first.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the schedules for a pipeline, ordered by most recently created first.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
