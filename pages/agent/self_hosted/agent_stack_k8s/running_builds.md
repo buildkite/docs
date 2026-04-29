@@ -25,6 +25,9 @@ For defining of more complicated pipeline steps, additional configurations can b
 
 Unlike other [Buildkite plugins](/docs/pipelines/integrations/plugins), there is no corresponding plugin repository for the `kubernetes` plugin. Instead, this `kubernetes` plugin syntax is reserved for and interpreted by the `agent-stack-k8s` controller. For example, defining `checkout.skip: true` will skip cloning the pipeline's repo for the job:
 
+> 📘 Runtime plugin configuration
+> The Buildkite Agent Stack for Kubernetes controller consumes the `kubernetes` plugin configuration when it creates the Kubernetes Job. Do not rely on the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables#BUILDKITE_PLUGINS) inside runtime containers to include controller-only settings such as `podTemplate`, `podSpec`, `podSpecPatch`, or `checkout`.
+
 ```yaml
 steps:
 - label: "\:kubernetes\: Hello World!"
