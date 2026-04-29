@@ -16,7 +16,7 @@ The Preflight (`bk preflight`) command:
 
 You'll need:
 
-- The [Buildkite CLI](/docs/platform/cli/installation) version 3.38.1 or later.
+- The [Buildkite CLI](/docs/platform/cli/installation) version 3.39.0 or later.
 - A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Buildkite Test Engine.
 - Git commit and push access to the repository.
 
@@ -40,19 +40,6 @@ To upgrade using mise:
 mise use -g github:buildkite/cli@latest
 ```
 
-## Enable the preflight experiment
-
-Preflight is currently behind an experiment flag. To enable it globally, run:
-
-```bash
-bk config set experiments preflight
-```
-
-Alternatively, enable Preflight per invocation with an environment variable:
-
-```bash
-BUILDKITE_EXPERIMENTS=preflight bk preflight --pipeline my-org/my-pipeline
-```
 
 ## Run a Preflight build
 
