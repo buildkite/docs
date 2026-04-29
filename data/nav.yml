@@ -895,6 +895,9 @@
           path: "platform/cli/installation"
         - name: "Configuration"
           path: "platform/cli/configuration"
+        - name: "Preflight"
+          path: "platform/cli/preflight"
+          pill: "experiment"
         - name: "Command-line reference"
           children:
             - name: "Overview"
