@@ -415,6 +415,8 @@ variables:
   - name: BUILDKITE_PLUGINS
     desc: |
       A JSON object containing a list plugins used in the step, and their configuration.
+
+      In the Buildkite Agent Stack for Kubernetes, controller-consumed `kubernetes` plugin settings are not available through this environment variable at runtime.
     example: '[{"github.com/buildkite-plugins/docker-buildkite-plugin#v3.7.0":{"image":"node:lts-alpine3.14"}}]'
   - name: BUILDKITE_PLUGINS_ENABLED
     desc: |
