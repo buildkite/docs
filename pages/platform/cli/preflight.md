@@ -16,7 +16,7 @@ The Preflight (`bk preflight`) command:
 
 You'll need:
 
-- The [Buildkite CLI](/docs/platform/cli/installation) version 3.39.0 or later.
+- The [Buildkite CLI](/docs/platform/cli/installation) version 3.40.0 or later.
 - A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Buildkite Test Engine.
 - Git commit and push access to the repository.
 
@@ -40,6 +40,15 @@ To upgrade using mise:
 mise use -g github:buildkite/cli@latest
 ```
 
+### Install the Preflight skill
+
+To install the Preflight skill into your coding agent:
+
+```bash
+bk skill add buildkite-preflight
+```
+
+Using the skill requires [Buildkite CLI](/docs/platform/cli/installation) version 3.40.0 or later.
 
 ## Run a Preflight build
 
