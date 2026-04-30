@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get "/docs/agent/buildkite-hosted/linux/custom-base-images",                                       to: redirect("/docs/agent/buildkite-hosted/linux/custom-agent-images")
   get "/docs/agent/clusters",                                                                        to: redirect("/docs/pipelines/security/clusters")
+  get "/docs/agent/elastic-ci-stack-for-aws",                                                        to: redirect("/docs/agent/self-hosted/aws/elastic-ci-stack")
   get "/docs/agent/v3",                                                                              to: redirect("/docs/agent")
   get "/docs/agent/v3/agent-stack-k8s",                                                              to: redirect("/docs/agent/self-hosted/agent-stack-k8s")
   get "/docs/agent/v3/agent-stack-k8s/agent-configuration",                                          to: redirect("/docs/agent/self-hosted/agent-stack-k8s/agent-configuration")
@@ -86,6 +87,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/configuration",                                                                to: redirect("/docs/agent/self-hosted/configure")
   get "/docs/agent/v3/debian",                                                                       to: redirect("/docs/agent/self-hosted/install/debian")
   get "/docs/agent/v3/docker",                                                                       to: redirect("/docs/agent/self-hosted/install/docker")
+  get "/docs/agent/v3/elastic-ci-stack-for-aws",                                                     to: redirect("/docs/agent/self-hosted/aws/elastic-ci-stack")
   get "/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal",                           to: redirect("/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-mac/setup")
   get "/docs/agent/v3/elastic-ci-stack-for-ec2-mac/troubleshooting",                                 to: redirect("/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-mac/troubleshooting")
   get "/docs/agent/v3/elastic-ci-aws",                                                               to: redirect("/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup")
