@@ -270,7 +270,6 @@ Rails.application.routes.draw do
   get "/docs/pipelines/block-step",                                                                  to: redirect("/docs/pipelines/configure/step-types/block-step")
   get "/docs/pipelines/block-step-example",                                                          to: redirect("/docs/pipelines/configure/step-types/block-step")
   get "/docs/pipelines/buildkite-sdk",                                                               to: redirect("/docs/pipelines/configure/dynamic-pipelines/sdk")
-  get "/docs/pipelines/configure/dynamic-pipelines/guide",                                           to: redirect("/docs/pipelines/configure/dynamic-pipelines/dynamic-pipelines-guide")
   get "/docs/pipelines/branch-configuration",                                                        to: redirect("/docs/pipelines/configure/workflows/branch-configuration")
   get "/docs/pipelines/build-exports",                                                               to: redirect("/docs/pipelines/governance/build-exports")
   get "/docs/pipelines/build-matrix",                                                                to: redirect("/docs/pipelines/configure/workflows/build-matrix")
