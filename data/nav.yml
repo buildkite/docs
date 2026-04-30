@@ -741,6 +741,8 @@
               path: "test-engine/test-collection/your-own-collectors"
         - name: "CI environment variables"
           path: "test-engine/test-collection/ci-environments"
+        - name: "OIDC authentication"
+          path: "test-engine/test-collection/oidc"
     - name: "Tutorials"
       children:
         - name: "Getting started with a Ruby project"
