@@ -48,7 +48,7 @@ To install the Preflight skill into your coding agent:
 bk skill add buildkite-preflight
 ```
 
-Requires [Buildkite CLI](/docs/platform/cli/installation) version v3.40.0.
+Requires [Buildkite CLI](/docs/platform/cli/installation) version 3.40.0 or later.
 
 ## Run a Preflight build
 
