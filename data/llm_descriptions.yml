@@ -66,6 +66,7 @@
   pipelines/configure/dynamic-pipelines: "Generating pipeline steps at runtime using scripts that output YAML/JSON and pipe to buildkite-agent pipeline upload."
   pipelines/configure/dynamic-pipelines/if-changed: "Using the if_changed step attribute to skip steps based on Git diff file changes, with glob patterns, monorepo workflows, and comparison strategies."
   pipelines/configure/dynamic-pipelines/sdk: "Multi-language SDK (JS, Python, Go, Ruby, C#) for programmatically generating dynamic pipeline steps."
+  pipelines/configure/dynamic-pipelines/dynamic-pipelines-guide: "End-to-end guide to dynamic pipelines: when to use them, building your first bootstrap-to-generate pipeline, monorepo and matrix patterns, advanced orchestration, and troubleshooting."
   pipelines/configure/writing-build-scripts: "Guidelines for writing shell scripts for builds, including Bash options, debugging, and exit status handling."
   pipelines/configure/conditionals: "Using if/unless expressions with C-like syntax to conditionally run steps or filter pipeline builds from webhooks."
   pipelines/configure/depends-on: "Managing step execution order with implicit dependencies (wait/block) and explicit dependencies (depends_on)."
