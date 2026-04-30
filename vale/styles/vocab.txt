@@ -200,6 +200,7 @@ hard-code
 hard-coded
 hard-coding
 Hashicorp
+heredoc
 Homebrew
 heroku
 Honeycomb
