@@ -40,7 +40,7 @@ To upgrade using mise:
 mise use -g github:buildkite/cli@latest
 ```
 
-# Install the Preflight skill
+### Install the Preflight skill
 
 To install the Preflight skill into your coding agent:
 
