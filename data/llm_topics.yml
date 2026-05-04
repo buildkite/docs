@@ -272,6 +272,8 @@ integrations:
     - "pipelines/deployments"
     - "platform/integrations"
     - "test-engine/integrations"
+  exact_paths:
+    - "pipelines/tutorials/slack-notifications-on-failure"
   related_topics:
     - pipelines
     - deployments
