@@ -91,6 +91,31 @@ The `notify-creator.sh` script (not shown) is responsible for:
 
 For more on generating pipeline configuration at runtime, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
+### Send a Slack DM to the user who triggered the build
+
+You cannot supply environment variables or [build meta-data](/docs/pipelines/configure/build-meta-data) directly to the `notify` attribute. To send a Slack direct message to the user who triggered the build—on events such as build started, discovery finished, a test failure, or build finished—use a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) upload that interpolates the resolved Slack user ID into a generated `notify` block.
+
+The following example uses a shell `<<EOF` here document to upload a step whose `notify` attribute references a `SLACK_USER_ID` environment variable. Set `SLACK_USER_ID` earlier in the build (for example, by mapping `BUILDKITE_BUILD_CREATOR_EMAIL` to a Slack user ID in a hook or a preceding step):
+
+```yaml
+steps:
+  - label: ":slack: Notify triggering user"
+    command: |
+      buildkite-agent pipeline upload <<EOF
+      steps:
+        - command: "echo 'Notifying user...'"
+          notify:
+            - slack:
+                channels:
+                  - "${SLACK_USER_ID}"
+                message: |
+                  Your custom message here.
+      EOF
+```
+{: codeblock-file="pipeline.yml"}
+
+Repeat this pattern at different points in the pipeline to send a DM on each event of interest, such as discovery finishing, a specific test failing, or the build completing. Use `if` conditionals on the generated step to fire the DM only when the corresponding outcome occurs.
+
 ## Notify only specific failure scenarios
 
 By default, restricting notifications to `build.state == "failed"` only sends one notification per failed build. The next sections show how to refine that behavior for common scenarios.
@@ -110,6 +135,11 @@ notify:
 {: codeblock-file="pipeline.yml"}
 
 The `pipeline.started_failing` conditional is only available with the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service.
+
+> 📘 Limiting by consecutive failures
+> Buildkite Pipelines supports limiting Slack notifications to the first failure (`pipeline.started_failing`) and to the first pass after a failure (`pipeline.started_passing`). There is no built-in conditional for triggering a notification only after _N_ consecutive failed or passed builds.
+>
+> If you have configured automatic [job retries](/docs/pipelines/configure/retry), one workaround is to use a [`post-command` or `pre-exit` hook](/docs/agent/hooks) to perform a dynamic `buildkite-agent pipeline upload` of a command step that posts a Slack notification once `BUILDKITE_RETRY_COUNT` reaches a threshold. This approach checks consecutive failures at the job level rather than the build level.
 
 ### Notify when a previously failing build passes
 
@@ -208,6 +238,27 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 Each entry is evaluated independently, so a single failed build can trigger more than one of these messages.
+
+## Notifications in dynamic pipelines
+
+Build-level `notify` in your initial `pipeline.yml` covers the whole build, including any steps added by `buildkite-agent pipeline upload`. You do not need to repeat the build-level `notify` in each uploaded fragment.
+
+Step-level `notify` is different. To send a notification when a specific generated step fails, your generator must include `notify` on that step—it is not inherited from the initial `pipeline.yml`. Only Slack, GitHub checks, GitHub commit statuses, and Basecamp are available at step level. Email, PagerDuty, and webhook notifications are build-level only, so configure those in the initial `pipeline.yml`.
+
+The following example shows a generated step that posts to Slack when it hard-fails:
+
+```yaml
+steps:
+  - label: ":rocket: Deploy to production"
+    command: "make deploy"
+    notify:
+      - slack:
+          channels:
+            - "buildkite-community#deploys"
+          message: "Production deploy failed."
+        if: step.outcome == "hard_failed"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Verify your notifications
 
