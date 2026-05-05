@@ -2,7 +2,9 @@
 
 A group step can contain various sub-steps, and display them in a single logical group on the Build page.
 
-For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
+For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported—a pipeline upload that places a group step inside another group is rejected.
+
+If you need a sense of hierarchy across many groups (for example, when a pipeline generator script in a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) loops over teams and services), use flat sibling groups with a `Category: Subcategory` naming convention in the group label, such as `Backend: Auth Tests` and `Backend: API Tests`. To run a downstream stage after several related groups, give those groups related keys and reference them in an array under [`depends_on`](/docs/pipelines/configure/depends-on).
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/configure/step-types/group-step#group-step-attributes) everything in "group Y".
 
@@ -115,6 +117,31 @@ Optional attributes:
   </tr>
 </table>
 
+## Concurrency in groups
+
+The `concurrency`, `concurrency_group`, and `concurrency_method` attributes are not group step attributes. To limit how many jobs can run in parallel for work inside a group, set these attributes on the [command steps](/docs/pipelines/configure/step-types/command-step) within the group, not on the group step itself. See [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) for details.
+
+For example, to limit each service deploy in a group to one concurrent job:
+
+```yaml
+steps:
+  - group: "\:rocket\: Deploy"
+    key: "deploy"
+    depends_on: "tests"
+    steps:
+      - label: "Deploy auth"
+        command: "make deploy-auth"
+        concurrency: 1
+        concurrency_group: "deploy/auth"
+      - label: "Deploy payments"
+        command: "make deploy-payments"
+        concurrency: 1
+        concurrency_group: "deploy/payments"
+```
+{: codeblock-file="pipeline.yml"}
+
+In the example above, `deploy/auth` and `deploy/payments` are separate concurrency groups, so the auth and payments deploys can run in parallel, but two auth deploys from different builds cannot.
+
 ## Agent-applied attributes
 
 <%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
@@ -188,7 +215,7 @@ If you upload a pipeline that has a `group` or `label` that matches the group of
 
 This merging behavior only applies if the group step with the matching `group` or `label` is the first step within the uploaded pipeline.
 
-Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
+Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI. The same applies when multiple separate `pipeline upload` calls each create a group with the same name—each upload produces its own group, and the UI shows two distinct groups with the same label. To avoid this in dynamic pipelines that run several uploads, give each generator's groups a distinct label, or consolidate the steps into a single upload.
 
 > 📘 You can't define the same key twice
 > Trying to create different groups or steps with the same `key` attribute will result in an error.
