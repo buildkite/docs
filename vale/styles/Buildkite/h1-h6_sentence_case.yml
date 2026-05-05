@@ -201,6 +201,7 @@ exceptions:
   - MCP
   - Microsoft Entra ID
   - Microsoft Azure
+  - Microsoft Teams
   - minitest
   - Mobile Delivery Cloud
   - Model Context Protocol
@@ -275,6 +276,7 @@ exceptions:
   - Summary
   - Tahoe
   - TCP
+  - Teams
   - Tekton
   - Tempo
   - Terraform

@@ -349,6 +349,48 @@ steps:
 
 The `$${BUILDKITE_BUILD_URL}` reference uses `$$` to escape the variable so the agent passes it through to the uploaded pipeline, where it is resolved at run time. The same pattern works for any notification target that is not natively supported in `notify`, such as a custom HTTP endpoint or a third-party chat application — replace the plugin and message with whatever delivery mechanism you need.
 
+## Guarantee a final Slack notification runs
+
+If an earlier step hard-fails, Buildkite Pipelines does not run subsequent steps in the build, so a trailing Slack notification step never executes. The following patterns ensure a final notification always runs and can report on the overall outcome.
+
+### Use a wait step with continue_on_failure
+
+Place a `wait` step with `continue_on_failure: true` before the final notification step so the notification step still runs even if earlier steps hard-fail. Use `buildkite-agent step get state --step <key>` from the notification step's command to inspect the outcome of a specific earlier step (identified by its `key`, or by `BUILDKITE_STEP_ID` for the current step), instead of relying on the overall build state:
+
+```yaml
+steps:
+  - label: "Tests"
+    key: "tests"
+    command: "npm test"
+
+  - wait: ~
+    continue_on_failure: true
+
+  - label: ":slack: Final report"
+    command: |
+      tests_state=$(buildkite-agent step get state --step tests)
+      echo "Tests step finished with state: $tests_state"
+    notify:
+      - slack:
+          channels:
+            - "developer-team#builds"
+          message: "Build #${BUILDKITE_BUILD_NUMBER} finished. Check the final report step for per-step outcomes."
+```
+{: codeblock-file="pipeline.yml"}
+
+If you would prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
+
+### Send notifications from a job hook
+
+For notifications that should fire after every job, not just at the end of the build, use a [`post-command` or `pre-exit` agent hook](/docs/agent/hooks). The `post-command` hook runs immediately after each step's command, and `pre-exit` runs just before the job ends. Both have access to the job's exit status and the `BUILDKITE_*` environment variables, so a shell script can call the Slack API directly without adding any steps to `pipeline.yml`. This approach is best when the same notification logic should apply across many pipelines or jobs.
+
+### Wrap pipeline upload to inject a final step
+
+To enforce a final Slack notification across every pipeline in your organization without per-pipeline configuration, wrap `buildkite-agent pipeline upload` with a script that reads the YAML being uploaded, appends a `wait` step with `continue_on_failure: true` followed by the notification step, then forwards the modified YAML to the real `buildkite-agent pipeline upload`. Invoke the wrapper from an agent hook so it intercepts every upload automatically.
+
+> 🚧 Wrapper script considerations
+> A wrapper around `buildkite-agent pipeline upload` is powerful but adds operational complexity. The wrapper must handle YAML parsing, error cases, and pipelines that already include their own final notification step, and it can be difficult to debug when something goes wrong. Reserve this approach for environments where consistent end-of-build behavior is mandatory and per-pipeline configuration is not viable.
+
 ## Verify your notifications
 
 To confirm the notifications work as expected:
