@@ -2,7 +2,7 @@
 
 A group step can contain various sub-steps, and display them in a single logical group on the Build page.
 
-For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported—a pipeline upload that places a group step inside another group is rejected.
+For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported. A pipeline upload that places a group step inside another group is rejected.
 
 If you need a sense of hierarchy across many groups (for example, when a pipeline generator script in a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) loops over teams and services), use flat sibling groups with a `Category: Subcategory` naming convention in the group label, such as `Backend: Auth Tests` and `Backend: API Tests`. To run a downstream stage after several related groups, give those groups related keys and reference them in an array under [`depends_on`](/docs/pipelines/configure/depends-on).
 
