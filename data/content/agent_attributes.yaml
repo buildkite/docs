@@ -265,6 +265,14 @@ attributes:
     required: false
     desc: |
       The amount of time to wait for labels from GCP before proceeding
+  - name: "fail-on-missing-tags"
+    env_var: |
+      $BUILDKITE_AGENT_FAIL_ON_MISSING_TAGS
+    default_value: |
+      false
+    required: false
+    desc: |
+      Exit the agent with an error if any enabled cloud tag source (EC2, ECS, GCP) fails to return tags
   - name: "skip-checkout"
     env_var: |
       $BUILDKITE_SKIP_CHECKOUT
