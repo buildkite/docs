@@ -353,7 +353,7 @@ The `$${BUILDKITE_BUILD_URL}` reference uses `$$` to escape the variable so the 
 
 If an earlier step hard-fails, Buildkite Pipelines does not run subsequent steps in the build, so a trailing Slack notification step never executes. The following patterns ensure a final notification always runs and can report on the overall outcome.
 
-### Use a wait step with continue_on_failure
+### Use a wait step with `continue_on_failure`
 
 Place a `wait` step with `continue_on_failure: true` before the final notification step so the notification step still runs even if earlier steps hard-fail. Use `buildkite-agent step get state --step <key>` from the notification step's command to inspect the outcome of a specific earlier step (identified by its `key`, or by `BUILDKITE_STEP_ID` for the current step), instead of relying on the overall build state:
 
