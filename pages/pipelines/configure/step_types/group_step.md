@@ -215,7 +215,7 @@ If you upload a pipeline that has a `group` or `label` that matches the group of
 
 This merging behavior only applies if the group step with the matching `group` or `label` is the first step within the uploaded pipeline.
 
-Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI. The same applies when multiple separate `pipeline upload` calls each create a group with the same name—each upload produces its own group, and the UI shows two distinct groups with the same label. To avoid this in dynamic pipelines that run several uploads, give each generator's groups a distinct label, or consolidate the steps into a single upload.
+Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI. The same applies when multiple separate `pipeline upload` calls each create a group with the same name. Each upload produces its own group, and the UI shows two distinct groups with the same label. To avoid this in dynamic pipelines that run several uploads, give each generator's groups a distinct label, or consolidate the steps into a single upload.
 
 > 📘 You can't define the same key twice
 > Trying to create different groups or steps with the same `key` attribute will result in an error.
