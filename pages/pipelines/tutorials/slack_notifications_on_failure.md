@@ -31,7 +31,7 @@ Add the following to your `pipeline.yml`:
 
 ```yaml
 notify:
-  - slack: "buildkite-community#builds"
+  - slack: "developer-team#builds"
     if: build.state == "failed"
 
 steps:
@@ -40,7 +40,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-This sends a notification to the `#builds` channel in the `buildkite-community` workspace whenever a build finishes in the `failed` state. Replace the workspace and channel name with values that match your own Slack notification service.
+This sends a notification to the `#builds` channel in the `developer-team` workspace whenever a build finishes in the `failed` state. Replace the workspace and channel name with values that match your own Slack notification service.
 
 > 🚧
 > When using only a channel name, you must specify this name in quotes. Otherwise, the `#` will cause the channel name to be treated as a YAML comment.
@@ -55,7 +55,7 @@ The following example posts a custom message to `#builds` and mentions a specifi
 notify:
   - slack:
       channels:
-        - "buildkite-community#builds"
+        - "developer-team#builds"
       message: "Build failed for `${BUILDKITE_BRANCH}` <@U024BE7LH>, please take a look."
     if: build.state == "failed"
 ```
@@ -128,7 +128,7 @@ If a pipeline fails repeatedly, you might not want a notification for every fail
 notify:
   - slack:
       channels:
-        - "buildkite-community#builds"
+        - "developer-team#builds"
       message: ":rotating_light: `${BUILDKITE_PIPELINE_SLUG}` started failing on `main`."
     if: build.branch == "main" && pipeline.started_failing
 ```
@@ -149,7 +149,7 @@ To follow up the previous notification with confirmation that the pipeline has r
 notify:
   - slack:
       channels:
-        - "buildkite-community#builds"
+        - "developer-team#builds"
       message: ":white_check_mark: `${BUILDKITE_PIPELINE_SLUG}` is back to passing on `main`."
     if: build.branch == "main" && pipeline.started_passing
 ```
@@ -163,7 +163,7 @@ To restrict failure notifications to pull request builds, combine `build.state` 
 notify:
   - slack:
       channels:
-        - "buildkite-community#pr-failures"
+        - "developer-team#pr-failures"
       message: "Build #${BUILDKITE_BUILD_NUMBER} for PR #${BUILDKITE_PULL_REQUEST} failed."
     if: build.state == "failed" && build.pull_request.id != null
 ```
@@ -182,7 +182,7 @@ steps:
     notify:
       - slack:
           channels:
-            - "buildkite-community#qa"
+            - "developer-team#qa"
           message: "Integration tests failed in build #${BUILDKITE_BUILD_NUMBER}."
         if: step.outcome == "hard_failed"
 ```
@@ -203,7 +203,7 @@ steps:
     notify:
       - slack:
           channels:
-            - "buildkite-community#builds"
+            - "developer-team#builds"
           message: "Lint reported issues but the build continued."
         if: step.outcome == "soft_failed"
 ```
@@ -217,17 +217,17 @@ You can declare more than one `notify` entry to route different events to differ
 notify:
   - slack:
       channels:
-        - "buildkite-community#builds"
+        - "developer-team#builds"
       message: ":rotating_light: `${BUILDKITE_PIPELINE_SLUG}` started failing."
     if: build.branch == "main" && pipeline.started_failing
   - slack:
       channels:
-        - "buildkite-community#oncall"
+        - "developer-team#oncall"
       message: "On-call <@U024BE7LH>, the `main` branch build failed."
     if: build.branch == "main" && build.state == "failed"
   - slack:
       channels:
-        - "buildkite-community#pr-failures"
+        - "developer-team#pr-failures"
       message: "PR #${BUILDKITE_PULL_REQUEST} build failed: ${BUILDKITE_BUILD_URL}"
     if: build.state == "failed" && build.pull_request.id != null
 
@@ -254,11 +254,40 @@ steps:
     notify:
       - slack:
           channels:
-            - "buildkite-community#deploys"
+            - "developer-team#deploys"
           message: "Production deploy failed."
         if: step.outcome == "hard_failed"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Post a final Slack summary after dynamically generated steps
+
+When earlier steps in a build use `buildkite-agent pipeline upload` to generate more steps, you might want a final step that waits for everything to finish and then posts a Slack summary. To make the final step wait for the generated steps, declare the upload steps, the `wait`, and the summary step together in a single parent `pipeline.yml`.
+
+The following parent pipeline runs two steps that each generate and upload more steps, waits for all uploaded steps to complete, then runs a validation step that posts a Slack message:
+
+```yaml
+steps:
+  - label: "Part 1"
+    command: ".buildkite/generate-part1.sh | buildkite-agent pipeline upload"
+
+  - label: "Part 2"
+    command: ".buildkite/generate-part2.sh | buildkite-agent pipeline upload"
+
+  - wait
+
+  - label: ":white_check_mark: Validation"
+    command: ".buildkite/validate.sh"
+    notify:
+      - slack:
+          channels:
+            - "developer-team#builds"
+          message: "Build #${BUILDKITE_BUILD_NUMBER} validation summary posted."
+        if: step.outcome == "passed" || step.outcome == "hard_failed"
+```
+{: codeblock-file="pipeline.yml"}
+
+Each `Part N` step can upload as many steps as needed. Because the `wait` and the validation step are declared in the parent `pipeline.yml`, the validation step only runs after every uploaded step has finished. Keep the `wait` and the final summary step at the end of the parent pipeline so the summary always runs after everything else, regardless of how many chunked upload steps precede them.
 
 ## Verify your notifications
 
