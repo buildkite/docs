@@ -116,6 +116,31 @@ steps:
 
 Repeat this pattern at different points in the pipeline to send a DM on each event of interest, such as discovery finishing, a specific test failing, or the build completing. Use `if` conditionals on the generated step to fire the DM only when the corresponding outcome occurs.
 
+## Mention the user who unblocked a build
+
+The `BUILDKITE_UNBLOCKER` environment variable is only set after a [block step](/docs/pipelines/configure/step-types/block-step) is unblocked, so it cannot be resolved at the time the initial `pipeline.yml` is uploaded. To include the unblocker's name in a Slack message, add a step after the block step that uploads a dynamic pipeline fragment containing the `notify` attribute. Escape the variable with `$$` so the agent passes it through to the uploaded pipeline, where it is resolved at run time:
+
+```yaml
+steps:
+  - block: ":warning: Unblock this pipeline"
+
+  - label: ":slack: Unblocker notification"
+    command: |
+      buildkite-agent pipeline upload <<EOF
+      notify:
+        - slack:
+            channels:
+              - "developer-team#builds"
+            message: '$$BUILDKITE_UNBLOCKER has unblocked the pipeline.'
+      EOF
+
+  - label: "Build"
+    command: "make build"
+```
+{: codeblock-file="pipeline.yml"}
+
+The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_UNBLOCKER_ID`, and `BUILDKITE_UNBLOCKER_TEAMS` variables. To mention the unblocker as a Slack user instead of including their name, map `BUILDKITE_UNBLOCKER_EMAIL` to a Slack user ID using the same approach described in [Dynamically mention the build creator](#mention-the-pull-request-creator-dynamically-mention-the-build-creator).
+
 ## Notify only specific failure scenarios
 
 By default, restricting notifications to `build.state == "failed"` only sends one notification per failed build. The next sections show how to refine that behavior for common scenarios.
