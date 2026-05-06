@@ -87,6 +87,7 @@ chroots
 CI
 ClamAV
 classpath
+claude
 cli
 CLI
 CLIs

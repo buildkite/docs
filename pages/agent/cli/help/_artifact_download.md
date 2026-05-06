@@ -75,7 +75,7 @@ You can also use the step&#39;s jobs id (provided by the environment variable $B
 <tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step. Can be the step's key or label, or a Job ID</p></td></tr>
 <tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifacts were uploaded to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
 <tr id="include-retried-jobs"><th><code>--include-retried-jobs </code> <a class="Docs__attribute__link" href="#include-retried-jobs">#</a></th><td><p>Include artifacts from retried jobs in the search (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></p></td></tr>
-<tr id="no-s3-multipart-download"><th><code>--no-s3-multipart-download </code> <a class="Docs__attribute__link" href="#no-s3-multipart-download">#</a></th><td><p>Disable multipart download for custom S3 bucket<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_S3_MULTIPART_DOWNLOAD</code></p></td></tr>
+<tr id="no-s3-multipart-download"><th><code>--no-s3-multipart-download </code> <a class="Docs__attribute__link" href="#no-s3-multipart-download">#</a></th><td><p>Disable multipart download for custom s3 bucket<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_S3_MULTIPART_DOWNLOAD</code></p></td></tr>
 </table>
 
 <!-- vale on -->

@@ -23,7 +23,10 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`organization`](/docs/platform/cli/reference/organization)
 - [`package`](/docs/platform/cli/reference/package)
 - [`pipeline`](/docs/platform/cli/reference/pipeline)
+- [`preflight`](/docs/platform/cli/reference/preflight)
+- [`queue`](/docs/platform/cli/reference/queue)
 - [`secret`](/docs/platform/cli/reference/secret)
+- [`skill`](/docs/platform/cli/reference/skill)
 - [`user`](/docs/platform/cli/reference/user)
 - [`version`](/docs/platform/cli/reference/version)
 <!-- END auto-generated command list -->
