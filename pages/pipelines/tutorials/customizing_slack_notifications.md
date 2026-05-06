@@ -4,9 +4,16 @@ keywords: docs, pipelines, tutorials, slack, notifications, customize, pull requ
 
 # Customizing Slack notifications
 
-This tutorial walks through configuring Buildkite Pipelines to send custom Slack notifications throughout a build's lifecycle. It covers how to notify on failure, mention the pull request creator or the user who unblocked a build, restrict which events trigger messages, post notifications from dynamically generated steps, and guarantee that a final notification step runs.
+This page is a collection of how-tos for customizing Slack notifications in Buildkite Pipelines. Each section addresses a specific use case independently. Pick the ones that match your needs and combine the relevant `notify` attributes into your own `pipeline.yml`. The use cases are not designed to be applied all at once.
 
-By the end of this tutorial, you will have a `pipeline.yml` file that posts targeted Slack messages tailored to your team's workflow, while avoiding notification fatigue.
+The how-tos cover:
+
+- [Sending a Slack message on build failure](#send-a-slack-message-on-build-failure).
+- Mentioning the [pull request creator](#mention-the-pull-request-creator) or the [user who unblocked a build](#mention-the-user-who-unblocked-a-build).
+- [Restricting notifications to specific failure scenarios](#notify-only-specific-failure-scenarios) using conditionals.
+- [Combining multiple notification rules](#combine-multiple-notification-rules) to route different events to different channels.
+- [Posting notifications from dynamically generated steps](#notifications-in-dynamic-pipelines).
+- [Guaranteeing that a final notification step runs](#guarantee-a-final-slack-notification-runs) regardless of build outcome.
 
 For the full reference of `notify` attributes and conditionals, see [Triggering notifications](/docs/pipelines/configure/notify) and [Conditionals](/docs/pipelines/configure/conditionals).
 
@@ -58,7 +65,7 @@ notify:
   - slack:
       channels:
         - "developer-team#builds"
-      message: "Build failed for `${BUILDKITE_BRANCH}` <@U024BE7LH>, please take a look."
+      message: "Build failed for `${BUILDKITE_BRANCH}` <@U018FG***>, please take a look."
     if: build.state == "failed"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -85,11 +92,53 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The `notify-creator.sh` script (not shown) is responsible for:
+The example `notify-creator.sh` script below reads `BUILDKITE_BUILD_CREATOR_EMAIL` from the environment, looks up the corresponding Slack user ID from a JSON map file checked into the repository, and emits a YAML pipeline fragment containing a `notify` attribute with the resolved `<@user-id>` mention.
 
-1. Reading `BUILDKITE_BUILD_CREATOR_EMAIL` from the environment.
-1. Mapping that email to a Slack user ID using whatever directory you maintain (for example, a JSON file in the repository or a Slack API call).
-1. Emitting a YAML pipeline fragment that contains a `notify` attribute with a `<@user-id>` mention.
+The map file `.buildkite/slack-user-map.json` lists the email-to-Slack-user-ID pairs:
+
+```json
+{
+  "alex@example.com": "U045*****",
+  "sam@example.com": "U07DCC***"
+}
+```
+{: codeblock-file=".buildkite/slack-user-map.json"}
+
+The script uses [`jq`](https://jqlang.org/) to perform the lookup:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+email="${BUILDKITE_BUILD_CREATOR_EMAIL:-}"
+map_file=".buildkite/slack-user-map.json"
+
+if [[ -z "$email" ]]; then
+  echo "BUILDKITE_BUILD_CREATOR_EMAIL is not set; skipping creator mention." >&2
+  exit 0
+fi
+
+slack_user_id=$(jq -r --arg email "$email" '.[$email] // empty' "$map_file")
+
+if [[ -z "$slack_user_id" ]]; then
+  echo "No Slack user ID mapped for $email; skipping creator mention." >&2
+  exit 0
+fi
+
+cat <<EOF
+notify:
+  - slack:
+      channels:
+        - "developer-team#builds"
+      message: "Build #\${BUILDKITE_BUILD_NUMBER} failed. <@$slack_user_id>, please take a look."
+    if: build.state == "failed"
+EOF
+```
+{: codeblock-file=".buildkite/notify-creator.sh"}
+
+The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script run time. The agent then interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
+
+If you do not maintain a JSON map file, replace the `jq` lookup with a Slack API call (`users.lookupByEmail`) or any other directory that maps Buildkite emails to Slack user IDs.
 
 For more on generating pipeline configuration at runtime, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
@@ -145,7 +194,7 @@ The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_U
 
 ## Notify only specific failure scenarios
 
-By default, restricting notifications to `build.state == "failed"` only sends one notification per failed build. The next sections show how to refine that behavior for common scenarios. For the full list of supported conditionals (including patterns such as "all failures and first successful pass"), see [Conditional Slack notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications) in the `notify` reference.
+By default, restricting notifications to `build.state == "failed"` only sends one notification per failed build. The following sections show how to refine that behavior for common scenarios. For the full list of supported conditionals (including patterns such as "all failures and first successful pass"), see [Conditional Slack notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications) in the `notify` reference.
 
 ### Notify on first failure only
 
@@ -250,7 +299,7 @@ notify:
   - slack:
       channels:
         - "developer-team#oncall"
-      message: "On-call <@U024BE7LH>, the `main` branch build failed."
+      message: "On-call <@U045GK***>, the `main` branch build failed."
     if: build.branch == "main" && build.state == "failed"
   - slack:
       channels:
@@ -270,7 +319,7 @@ Each entry is evaluated independently, so a single failed build can trigger more
 
 Build-level `notify` in your initial `pipeline.yml` covers the whole build, including any steps added by `buildkite-agent pipeline upload`. You do not need to repeat the build-level `notify` in each uploaded fragment.
 
-Step-level `notify` is different. To send a notification when a specific generated step fails, your generator must include `notify` on that step—it is not inherited from the initial `pipeline.yml`. Only Slack, GitHub checks, GitHub commit statuses, and Basecamp are available at step level. Email, PagerDuty, and webhook notifications are build-level only, so configure those in the initial `pipeline.yml`.
+Step-level `notify` is different. To send a notification when a specific generated step fails, your generator script must include `notify` on that step as it is not inherited from the initial `pipeline.yml`. Only Slack, GitHub checks, GitHub commit statuses, and Basecamp are available at step level. Email, PagerDuty, and webhook notifications are build-level only, so configure those in the initial `pipeline.yml`.
 
 The following example shows a generated step that posts to Slack when it hard-fails:
 
@@ -360,12 +409,11 @@ To enforce a final Slack notification across every pipeline in your organization
 
 ## Verify your notifications
 
-To confirm the notifications work as expected:
+After applying any of the how-tos above, confirm the resulting notifications behave as expected:
 
 1. Commit and push your `pipeline.yml` changes to a branch.
-1. Open a pull request that intentionally fails the build (for example, by introducing a failing test).
+1. Trigger a build that exercises the scenario you configured. For failure-related conditionals, this might mean introducing a failing test; for unblocker mentions, this means unblocking a block step; for `pipeline.started_passing`, this means pushing a fix after a previous failure.
 1. Confirm that the configured Slack channels receive the expected messages, and that any user mentions resolve to the correct Slack users.
-1. Push a fix to the same branch and confirm that recovery notifications (such as `pipeline.started_passing`) fire as expected.
 
 If a notification does not arrive, check the following:
 
