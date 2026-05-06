@@ -1,16 +1,18 @@
 ---
-keywords: docs, pipelines, tutorials, slack, notifications, failure, pull request
+keywords: docs, pipelines, tutorials, slack, notifications, customize, pull request
 ---
 
-# Sending Slack notifications on failure
+# Customizing Slack notifications
 
-This tutorial walks through configuring Buildkite Pipelines to send custom Slack notifications when a build fails, including how to mention the pull request creator and how to handle different failure scenarios.
+This tutorial walks through configuring Buildkite Pipelines to send custom Slack notifications throughout a build's lifecycle. It covers how to notify on failure, mention the pull request creator or the user who unblocked a build, restrict which events trigger messages, post notifications from dynamically generated steps, and guarantee that a final notification step runs.
 
-By the end of this tutorial, you will have a `pipeline.yml` file that posts targeted Slack messages on failure events, mentions the user who created the build, and avoids notification fatigue by restricting which events trigger messages.
+By the end of this tutorial, you will have a `pipeline.yml` file that posts targeted Slack messages tailored to your team's workflow, while avoiding notification fatigue.
+
+For the full reference of `notify` attributes and conditionals, see [Triggering notifications](/docs/pipelines/configure/notify) and [Conditionals](/docs/pipelines/configure/conditionals).
 
 ## Before you start
 
-Before configuring failure notifications in your pipeline, make sure you have:
+Before configuring Slack notifications in your pipeline, make sure you have:
 
 - An existing pipeline in Buildkite Pipelines that builds pull requests. To set up pull request builds, see [Source control](/docs/pipelines/source-control).
 - A Slack notification service connected to your Buildkite organization. Either of the following options works for this tutorial:
@@ -143,7 +145,7 @@ The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_U
 
 ## Notify only specific failure scenarios
 
-By default, restricting notifications to `build.state == "failed"` only sends one notification per failed build. The next sections show how to refine that behavior for common scenarios.
+By default, restricting notifications to `build.state == "failed"` only sends one notification per failed build. The next sections show how to refine that behavior for common scenarios. For the full list of supported conditionals (including patterns such as "all failures and first successful pass"), see [Conditional Slack notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications) in the `notify` reference.
 
 ### Notify on first failure only
 
@@ -313,41 +315,6 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 Each `Part N` step can upload as many steps as needed. Because the `wait` and the validation step are declared in the parent `pipeline.yml`, the validation step only runs after every uploaded step has finished. Keep the `wait` and the final summary step at the end of the parent pipeline so the summary always runs after everything else, regardless of how many chunked upload steps precede them.
-
-### Send a failure notification to Microsoft Teams
-
-Buildkite Pipelines does not include a native Microsoft Teams notification target. To post a failure message to Teams, use a follow-up step that checks the outcome of an earlier step with `buildkite-agent step get`, and uploads a Teams notification step only when the earlier step hard-failed. The notification step itself uses a community Microsoft Teams plugin to deliver the message.
-
-Replace `previous-step` with the `key` of the step you want to monitor and replace the webhook URL with the value from your Microsoft Teams incoming webhook configuration:
-
-```yaml
-steps:
-  - label: "Tests"
-    key: "previous-step"
-    command: "npm test"
-
-  - wait: ~
-    continue_on_failure: true
-
-  - label: "Check for failed steps"
-    command: |
-      if [ "$(buildkite-agent step get outcome --step previous-step)" == "hard_failed" ]; then
-        echo "~~~ Creating Teams notification step"
-        cat <<EOF | buildkite-agent pipeline upload
-        steps:
-          - label: "Send Teams notification"
-            key: "send-teams-notification"
-            command: "echo 'Sending Teams notification'"
-            plugins:
-              - teams-notification#v1.0.1:
-                  webhook_url: "https://example.com/webhook"
-                  message: "Build failed: $${BUILDKITE_BUILD_URL}"
-        EOF
-      fi
-```
-{: codeblock-file="pipeline.yml"}
-
-The `$${BUILDKITE_BUILD_URL}` reference uses `$$` to escape the variable so the agent passes it through to the uploaded pipeline, where it is resolved at run time. The same pattern works for any notification target that is not natively supported in `notify`, such as a custom HTTP endpoint or a third-party chat application — replace the plugin and message with whatever delivery mechanism you need.
 
 ## Guarantee a final Slack notification runs
 

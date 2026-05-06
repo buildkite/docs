@@ -129,8 +129,8 @@
           path: "pipelines/tutorials/github-actions"
         - name: "Attributing AWS agent costs"
           path: "pipelines/tutorials/attributing-aws-agent-costs"
-        - name: "Sending Slack notifications on failure"
-          path: "pipelines/tutorials/slack-notifications-on-failure"
+        - name: "Customizing Slack notifications"
+          path: "pipelines/tutorials/customizing-slack-notifications"
     - name: "Agent"
       children:
         - name: "Overview"

@@ -201,7 +201,6 @@ exceptions:
   - MCP
   - Microsoft Entra ID
   - Microsoft Azure
-  - Microsoft Teams
   - minitest
   - Mobile Delivery Cloud
   - Model Context Protocol

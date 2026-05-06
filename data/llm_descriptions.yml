@@ -53,6 +53,7 @@
   pipelines/tutorials/pipeline-upgrade: "Migrating from the web-based step editor to the YAML Steps editor, including compatibility and bulk migration."
   pipelines/tutorials/github-merge-queue: "Configuring Buildkite to work with GitHub merge queues, including build behavior, conditionals, and environment variables."
   pipelines/tutorials/github-actions: "Using the Trigger Buildkite Pipeline GitHub Action to create Buildkite builds from GitHub Actions workflows."
+  pipelines/tutorials/customizing-slack-notifications: "Tutorial for customizing Slack notifications: notify on failure, mention pull request creators and unblockers, restrict events with conditionals, post notifications from dynamic pipelines, and guarantee a final notification step runs."
   pipelines/configure: "Overview of pipeline configuration concepts: what pipelines are, step types, and links to key configuration topics."
   pipelines/configure/defining-steps: "How to define pipeline steps in YAML, set up webhooks, configure step defaults, and manage pipeline.yml files."
   pipelines/configure/step-types: "Index of available step types: command, wait, block, input, trigger, and group steps."
