@@ -44,7 +44,20 @@ See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/secur
 
 Like GitHub Actions, Buildkite Pipelines lets you define pipelines in the web interface or in files checked into a repository. The equivalent of `.github/workflows/*.yml` is a `pipeline.yml` (typically in `.buildkite/`). See [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) for details.
 
-In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. In Buildkite Pipelines, a [_pipeline_](/docs/pipelines/glossary#pipeline) is the core description of work.
+In GitHub Actions, the core description of work is a _workflow_ containing _jobs_, each with multiple _steps_. In Buildkite Pipelines, a [_pipeline_](/docs/pipelines/glossary#pipeline) is the core description of work. A Buildkite Pipelines step is equivalent to a GitHub Actions job, not a GitHub Actions step. Each Buildkite Pipelines step gets its own agent and workspace, potentially on a different machine. Routing is per-step, not per-job.
+
+The following table maps key concepts between the two platforms:
+
+| Buildkite Pipelines | What it means | GitHub Actions equivalent |
+|-----------|---------------|----------------|
+| Pipeline | Named workflow tied to a repository | Workflow YAML file |
+| Step | Single unit of work, runs on its own agent | A GitHub Actions **job** (not a step) |
+| Agent | Build runner, polls for work | Runner |
+| Queue | Named group of agents for routing | Runner labels (`runs-on:`) |
+| `pipeline upload` | Injects new steps into a running build | No equivalent—GitHub Actions workflows are static once triggered. |
+| Trigger step | Starts a build on a different pipeline | `workflow_dispatch` / `repository_dispatch` |
+| Build metadata | Key-value pairs any step can read/write | Job outputs, but global across the build |
+| Plugin | Reusable hook package | Action from the marketplace |
 
 A Buildkite pipeline contains different types of [_steps_](/docs/pipelines/configure/step-types) for different tasks:
 
@@ -119,10 +132,13 @@ In Buildkite Pipelines, each step runs in a fresh workspace on potentially diffe
 
 Options for sharing state between steps:
 
+- **[Build metadata](/docs/pipelines/configure/build-meta-data):** Key-value pairs using `buildkite-agent meta-data set/get`. Use metadata for small values that later steps need to read, such as a version string, a commit hash, or a feature flag.
+- **[Buildkite artifacts](/docs/pipelines/configure/artifacts):** Upload build artifacts from one step for use in subsequent steps. Use artifacts for files like test results, generated configs, or build outputs.
 - **Reinstall per step:** Simple for fast-installing dependencies like `npm ci`.
-- **Buildkite artifacts:** Upload [build artifacts](/docs/pipelines/configure/artifacts) from one step for use in subsequent steps. Best for small files and build outputs.
 - **Cache plugin:** Similar to `actions/cache`, use the [Buildkite cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) for larger dependencies using cloud storage (S3, GCS).
 - **External storage:** Custom solutions for complex state management.
+
+If you need to pass data to a build in a _different_ pipeline, use environment variables on a [trigger step](/docs/pipelines/configure/step-types/trigger-step), since metadata and artifacts are scoped to a single build.
 
 ### Agent targeting
 

@@ -19,7 +19,10 @@ var commandDescriptions = map[string]string{
 	"organization": "manage Buildkite organizations",
 	"package":      "manage packages",
 	"pipeline":     "manage pipelines",
+	"preflight":    "run a build against a snapshot of the local working tree (experimental)",
+	"queue":        "manage cluster queues",
 	"secret":       "manage Buildkite secrets",
+	"skill":        "manage Buildkite skills for AI coding agents",
 	"user":         "manage users in your Buildkite organization",
 	"version":      "display which version of the Buildkite CLI you're using",
 }
