@@ -55,7 +55,7 @@ The `--dry-run` flag parses and validates the YAML without uploading it. It catc
 
 ### Generator language
 
-The generator script can be written in any language that can produce valid YAML or JSON on stdout. The agent doesn't care what language your script is written in; it pipes the output straight to `pipeline upload`. In production, teams use Bash, Python, Ruby, Node.js, Go, and PHP.
+The generator script can be written in any language that can produce valid YAML or JSON on stdout. The agent does not care what language your script is written in; it pipes the output straight to `pipeline upload`. In production, teams use Bash, Python, Ruby, Node.js, Go, and PHP.
 
 If you want type safety, IDE support, and the ability to unit test your pipeline definitions, the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) supports JavaScript/TypeScript, Python, Go, and Ruby.
 
