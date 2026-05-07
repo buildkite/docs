@@ -63,7 +63,7 @@ Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle
 
 ### Implementation with dynamic pipelines
 
-In many monorepos, services share code. Changing a shared library means you need to rebuild and test every service that depends on it, not just the ones with direct file changes. The `monorepo-diff` plugin watches file paths, but it doesn't understand dependency graphs. For that, you need a generator script that resolves transitive dependencies:
+In many monorepos, services share code. Changing a shared library means you need to rebuild and test every service that depends on it, not just the ones with direct file changes. The `monorepo-diff` plugin watches file paths, but it doesn't understand dependency graphs. For that, you need a pipeline generator script that resolves transitive dependencies:
 
 ```bash
 #!/bin/bash
