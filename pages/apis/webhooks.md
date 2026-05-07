@@ -8,7 +8,7 @@ Buildkite webhooks send JSON payloads through HTTP requests to specific URL endp
 
 Common use cases for implementing Buildkite webhooks include:
 
-- Generating chat alerts in Slack that aren't covered by the [Slack Workspace](/docs/platform/integrations/slack-workspace) and [Slack](/docs/pipelines/integrations/notifications/slack) notification service integrations, as well as in other chat applications like Microsoft Teams.
+- Generating chat alerts in Slack that aren't covered by the [Slack Workspace](/docs/platform/integrations/slack-workspace) notification service integration, as well as in other chat applications like Microsoft Teams.
 - Automating infrastructure, such as scaling agents.
 - Allowing your third party applications to:
     * Ingest analytics or data on specific activities from the Buildkite platform.

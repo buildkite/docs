@@ -129,8 +129,6 @@
           path: "pipelines/tutorials/github-actions"
         - name: "Attributing AWS agent costs"
           path: "pipelines/tutorials/attributing-aws-agent-costs"
-        - name: "Customizing Slack notifications"
-          path: "pipelines/tutorials/customizing-slack-notifications"
     - name: "Agent"
       children:
         - name: "Overview"
@@ -624,10 +622,10 @@
           children:
             - name: "PagerDuty"
               path: "pipelines/integrations/notifications/pagerduty"
-            - name: "Slack"
-              path: "pipelines/integrations/notifications/slack"
             - name: "Slack Workspace"
               path: "pipelines/integrations/notifications/slack-workspace"
+            - name: "Slack (legacy)"
+              path: "pipelines/integrations/notifications/slack"
             - name: "CCMenu and CCTray"
               path: "pipelines/integrations/notifications/cc-menu"
             - name: "Notification plugins"

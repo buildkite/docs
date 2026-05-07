@@ -272,8 +272,6 @@ integrations:
     - "pipelines/deployments"
     - "platform/integrations"
     - "test-engine/integrations"
-  exact_paths:
-    - "pipelines/tutorials/customizing-slack-notifications"
   related_topics:
     - pipelines
     - deployments
