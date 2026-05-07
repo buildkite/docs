@@ -96,7 +96,7 @@ If one service out of 50 changed, only that service's build and test steps are g
 
 ### Bazel monorepo example
 
-For more sophisticated dependency resolution (including transitive dependencies), a generator can parse a dependency graph and produce a parallel-safe pipeline with correct `depends_on` links. You can see a hands-on implementation in the [Bazel monorepo example](https://github.com/buildkite/bazel-monorepo-example). The example analyzes Git changes to determine which projects need to be built, then constructs a dependency graph to ensure that the projects build in the correct order.
+For more sophisticated dependency resolution (including transitive dependencies), a generator script can parse a dependency graph and produce a parallel-safe pipeline with correct `depends_on` links. You can see a hands-on implementation in the [Bazel monorepo example](https://github.com/buildkite/bazel-monorepo-example). The example analyzes Git changes to determine which projects need to be built, then constructs a dependency graph to ensure that the projects build in the correct order.
 
 How the example works:
 
@@ -115,7 +115,7 @@ For example, if you need to detect changes in a Bazel- or Gradle-based monorepo,
 
 ### Features that work well with monorepo dynamic generation
 
-These features pair well with dynamic generation because your generator can set them differently for each step based on what it knows at build time:
+The following features pair well with dynamic pipeline generation because your generator script can set them differently for each step based on what it knows at build time:
 
 - **[Retry configuration](/docs/pipelines/configure/step-retry):** for transient failures like spot instance preemption, network timeouts, or flaky dependencies. Set `automatic` retry with `limit: 2` and your generator applies it to every step it produces, so you don't need to maintain retry policies per-pipeline.
 - **[Agent targeting](/docs/pipelines/configure/defining-steps#targeting-specific-agents):** lets your generator route steps to the right infrastructure at runtime. GPU training jobs go to `gpu-a100` queues, integration tests to `large-memory` agents, linting to cheap spot instances. A single pipeline can span multiple infrastructure tiers without needing separate pipelines for each. See [How to lower costs while scaling your CI/CD: Use Spot Instances](https://buildkite.com/resources/blog/lower-cost-while-scaling-ci-cd-spot-instances/) for more on cost-optimized agent strategies.
