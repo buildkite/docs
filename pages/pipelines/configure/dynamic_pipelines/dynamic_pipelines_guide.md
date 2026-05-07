@@ -134,7 +134,7 @@ The agent redacts environment variable values matching certain name patterns (`*
 
 The [`if_changed`](/docs/pipelines/configure/dynamic-pipelines/if-changed) attribute skips or includes steps based on which files changed, without requiring a generator script. See the full [`if_changed` reference](/docs/pipelines/configure/dynamic-pipelines/if-changed) for syntax, agent version requirements, and configuration options.
 
-If you want to combine `if` and `if_changed` with OR logic (for example, "run this step on main OR when these files changed"), you need a generator script. There's no way to express this in a single step definition. The generator checks both conditions and produces the appropriate steps:
+If you want to combine `if` and `if_changed` with OR logic (for example, "run this step on main OR when these files changed"), you need a generator script. There is no way to express this in a single step definition. The generator checks both conditions and produces the appropriate steps:
 
 ```bash
 #!/bin/bash
