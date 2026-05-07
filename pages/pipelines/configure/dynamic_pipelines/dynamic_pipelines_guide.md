@@ -249,7 +249,7 @@ With a static pipeline, the YAML is in the repository and can be read directly. 
 .buildkite/generate-pipeline.sh | buildkite-agent pipeline upload --dry-run
 ```
 
-If the YAML is invalid, the agent exits with an error like `buildkite-agent: fatal: pipeline parsing of "(stdin)" failed: <parse error details>`. The parse error may not pinpoint the exact line, so for complex generators, redirecting the output to a file and running it through a YAML linter can be faster. You can also validate pipeline YAML with [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline).
+If the YAML is invalid, the agent exits with an error like `buildkite-agent: fatal: pipeline parsing of "(stdin)" failed: <parse error details>`. The parse error might not pinpoint the exact line, so for complex generators, redirecting the output to a file and running it through a YAML linter can be faster. You can also validate pipeline YAML with [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline).
 
 **Production validation with artifact capture.** In production, the generator runs at build time and you need an automated record of what it produced. The following pattern saves the generated YAML as a [build artifact](/docs/pipelines/configure/artifacts), validates it, then uploads it:
 
