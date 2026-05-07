@@ -92,36 +92,30 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The example `notify-creator.sh` script below reads `BUILDKITE_BUILD_CREATOR_EMAIL` from the environment, looks up the corresponding Slack user ID from a JSON map file checked into the repository, and emits a YAML pipeline fragment containing a `notify` attribute with the resolved `<@user-id>` mention.
+The example `notify-creator.sh` script below reads `BUILDKITE_BUILD_CREATOR_EMAIL` from the environment, calls Slack's [`users.lookupByEmail`](https://api.slack.com/methods/users.lookupByEmail) API to resolve the email to a Slack user ID, and emits a YAML pipeline fragment containing a `notify` attribute with the `<@user-id>` mention. This avoids maintaining a separate email-to-user-ID map.
 
-The map file `.buildkite/slack-user-map.json` lists the email-to-Slack-user-ID pairs:
-
-```json
-{
-  "alex@example.com": "U045*****",
-  "sam@example.com": "U07DCC***"
-}
-```
-{: codeblock-file=".buildkite/slack-user-map.json"}
-
-The script uses [`jq`](https://jqlang.org/) to perform the lookup:
+The script needs a Slack bot token with the `users:read.email` scope. Store the token as a [secret](/docs/pipelines/security/secrets) and expose it to the script as the `SLACK_BOT_TOKEN` environment variable:
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
 email="${BUILDKITE_BUILD_CREATOR_EMAIL:-}"
-map_file=".buildkite/slack-user-map.json"
+token="${SLACK_BOT_TOKEN:-}"
 
-if [[ -z "$email" ]]; then
-  echo "BUILDKITE_BUILD_CREATOR_EMAIL is not set; skipping creator mention." >&2
+if [[ -z "$email" || -z "$token" ]]; then
+  echo "Email or Slack bot token is not set; skipping creator mention." >&2
   exit 0
 fi
 
-slack_user_id=$(jq -r --arg email "$email" '.[$email] // empty' "$map_file")
+slack_user_id=$(curl --silent --get \
+  --data-urlencode "email=$email" \
+  --header "Authorization: Bearer $token" \
+  https://slack.com/api/users.lookupByEmail \
+  | jq -r 'select(.ok) | .user.id')
 
 if [[ -z "$slack_user_id" ]]; then
-  echo "No Slack user ID mapped for $email; skipping creator mention." >&2
+  echo "No Slack user found for $email; skipping creator mention." >&2
   exit 0
 fi
 
@@ -136,9 +130,9 @@ EOF
 ```
 {: codeblock-file=".buildkite/notify-creator.sh"}
 
-The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script run time. The agent then interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
+The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script run time. The agent interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
 
-If you do not maintain a JSON map file, replace the `jq` lookup with a Slack API call (`users.lookupByEmail`) or any other directory that maps Buildkite emails to Slack user IDs.
+If provisioning a Slack bot token is not viable, replace the `curl` call with a `jq` lookup against a JSON map file (for example, `.buildkite/slack-user-map.json`) checked into the repository.
 
 For more on generating pipeline configuration at runtime, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
