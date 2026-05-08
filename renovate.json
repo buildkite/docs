@@ -15,7 +15,7 @@
         {
             "customType": "regex",
             "description": "bk CLI version in update-bkcli-help.sh",
-            "managerFilePatterns": ["/^scripts/update-bkcli-help\\.sh$/"],
+            "managerFilePatterns": ["^/scripts/update-bkcli-help\\.sh$/"],
             "matchStrings": ["CLI_VERSION=\"(?<currentValue>v[\\d.]+)\""],
             "depNameTemplate": "buildkite/cli",
             "datasourceTemplate": "github-releases"
