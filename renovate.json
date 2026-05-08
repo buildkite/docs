@@ -15,16 +15,16 @@
         {
             "customType": "regex",
             "description": "bk CLI version in update-bkcli-help.sh",
-            "managerFilePatterns": ["/scripts/update-bkcli-help\\.sh$/"],
+            "managerFilePatterns": ["/^scripts/update-bkcli-help\\.sh$/"],
             "matchStrings": ["CLI_VERSION=\"(?<currentValue>v[\\d.]+)\""],
             "depNameTemplate": "buildkite/cli",
             "datasourceTemplate": "github-releases"
         },
         {
             "customType": "regex",
-            "description": "Ruby Docker images in Buildkite pipelines",
+            "description": "Runtime Docker images in Buildkite pipelines",
             "managerFilePatterns": ["/^\\.buildkite\/.*\\.ya?ml$/"],
-            "matchStrings": ["image:\\s*\"(?<depName>(?:public\\.ecr\\.aws\\/docker\\/library\\/)?ruby):(?<currentValue>[^\"@]+)\""],
+            "matchStrings": ["image:\\s*\"(?<depName>(?:public\\.ecr\\.aws\\/docker\\/library\\/)?(?:ruby|node|golang)):(?<currentValue>[^\"@]+)\""],
             "datasourceTemplate": "docker"
         }
     ],
