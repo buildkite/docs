@@ -222,9 +222,9 @@ If you upload a pipeline that has a `group` or `label` that matches the group of
 
 For merging to happen, all of the following must be true:
 
-- The step that runs `buildkite-agent pipeline upload` is itself inside a group step.
-- The first step in the uploaded pipeline is a group step.
-- The `group` or `label` on the uploaded group matches the `group` or `label` of the group containing the upload step.
+* The step that runs `buildkite-agent pipeline upload` is itself inside a group step.
+* The first step in the uploaded pipeline is a group step.
+* The `group` or `label` on the uploaded group matches the `group` or `label` of the group containing the upload step.
 
 If any of these conditions are not met, the uploaded group is added as a separate group in the Buildkite interface, even when its label matches an existing group.
 
