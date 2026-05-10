@@ -21,7 +21,9 @@ The generated steps are inserted into the running build immediately after the bo
 
 ### An example pipeline generator script
 
-The following Bash script is one example of a pipeline generator script. A pipeline generator script can be written in any language that can produce valid YAML or JSON on stdout — see [Pipeline generator script language](#pipeline-generator-script-language) for the full list.
+A pipeline generator script can be written in any language that produces valid YAML or JSON on stdout. The Buildkite agent pipes the output straight to `pipeline upload`, so the language choice is yours; teams commonly use Bash, Python, Ruby, Node.js, Go, and PHP. For type safety, IDE support, and unit-testable pipeline definitions, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) (JavaScript/TypeScript, Python, Go, and Ruby).
+
+The following Bash example generates a test step for each subdirectory of `tests/`:
 
 ```bash
 #!/bin/bash
@@ -29,7 +31,6 @@ set -euo pipefail
 
 echo "steps:"
 
-# Discover test directories and generate a step for each
 for test_dir in tests/*/; do
   suite=$(basename "$test_dir")
   cat <<YAML
@@ -41,9 +42,7 @@ YAML
 done
 ```
 
-Save this as `.buildkite/generate-pipeline.sh` and ensure it is executable. If the repository contains `tests/unit/`, `tests/integration/`, and `tests/e2e/`, the build gets three test steps. Adding a new test directory requires no pipeline YAML changes.
-
-For a working implementation of this pattern, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
+Save it as `.buildkite/generate-pipeline.sh` and ensure it is executable. With `tests/unit/`, `tests/integration/`, and `tests/e2e/` in the repository, the build gets three test steps, and adding a new test directory requires no pipeline YAML changes. For a working implementation, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
 
 ### Testing locally with dry-run
 
@@ -55,19 +54,11 @@ Validate the generated YAML locally before pushing:
 
 The `--dry-run` flag parses and validates the YAML without uploading it. It catches syntax errors and step validation issues before they fail a build.
 
-### Pipeline generator script language
-
-A pipeline generator script can be written in any language that can produce valid YAML or JSON on stdout. The Buildkite agent pipes the output straight to `pipeline upload`, so the language choice is yours. In production, teams use Bash, Python, Ruby, Node.js, Go, and PHP.
-
-If you want type safety, IDE support, and the ability to unit test pipeline definitions, the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) supports JavaScript/TypeScript, Python, Go, and Ruby.
-
-### Things to know
-
-#### Step insertion order
+### Step insertion order
 
 `pipeline upload` inserts new steps immediately after the step that called it. If a single step uploads three batches (A, then B, then C), they appear as C, B, A in the build because each new batch is inserted at the same position, pushing earlier batches down. Use `depends_on` to control execution order explicitly.
 
-#### Environment variable interpolation
+### Environment variable interpolation
 
 When the Buildkite agent uploads pipeline YAML, it interpolates environment variables *before* the steps run. References like `$VAR` and `${VAR}` are resolved at upload time, so the values are baked into the pipeline definition.
 
@@ -91,11 +82,11 @@ buildkite-agent pipeline upload --no-interpolation
 
 For required-variable, default-value, and substring syntax, see the [`pipeline upload` CLI reference](/docs/agent/cli/reference/pipeline#environment-variable-substitution).
 
-#### Job limits
+### Job limits
 
 Pipeline uploads are subject to default quotas (500 jobs per upload, 500 uploads per build, and 4,000 jobs per build). If a pipeline generator script produces more than 500 jobs in a single upload, split the output across multiple uploads (see [Upload performance at scale](#upload-performance-at-scale)) or request a quota increase. See [Managing job limits](/docs/pipelines/best-practices/using-dynamic-pipelines#managing-job-limits) for the full set of limits and strategies for staying within them.
 
-#### Secret detection
+### Secret detection
 
 The Buildkite agent redacts environment variable values matching certain name patterns (`*_TOKEN`, `*_SECRET`, `*_KEY`, and others) in log output. To also reject pipeline uploads that contain these values, pass the `--reject-secrets` flag to `pipeline upload`. This is opt-in (disabled by default). For more details, see the [`pipeline upload` CLI reference](/docs/agent/cli/reference/pipeline).
 
@@ -215,13 +206,9 @@ The `limit: 1` on the uploaded step prevents an infinite retry loop if the large
 
 ## Upload failures
 
-In a static pipeline, a YAML syntax error is caught before the build runs. In a dynamic pipeline, the YAML is generated at build time and uploaded mid-build, so upload failures happen while the build is already running.
+In a static pipeline, a YAML syntax error is caught before the build runs. In a dynamic pipeline, the YAML is generated and uploaded mid-build, so a rejected upload (invalid YAML, validation error) or a transient failure (system error, timeout) happens while the build is already running. `pipeline upload` exits non-zero in both cases, but Bash does not exit on errors by default — so a failed upload inside a script does not fail the build step, and the build continues with no record that steps were expected.
 
-When an upload is rejected (invalid YAML, validation error) or fails (system error, timeout), `pipeline upload` exits with a non-zero status. The Buildkite agent polls the control plane for the result after submitting the upload, and retries with backoff if processing takes longer than expected.
-
-The risk is that the pipeline generator script does not propagate that failure. Bash does not exit on errors by default, so a failed `pipeline upload` in the middle of a script does not stop the script or fail the build step. The build continues without the uploaded steps, and nothing in the interface indicates they were expected.
-
-To prevent this, add [`set -euo pipefail`](/docs/pipelines/configure/writing-build-scripts) to the top of the pipeline generator script:
+To prevent this, add [`set -euo pipefail`](/docs/pipelines/configure/writing-build-scripts) to the top of every pipeline generator script:
 
 ```bash
 #!/bin/bash
@@ -230,58 +217,45 @@ set -euo pipefail
 .buildkite/generate-pipeline.sh | buildkite-agent pipeline upload
 ```
 
-The `e` flag causes the script to exit on any non-zero return. The `pipefail` option means a failure anywhere in a pipe (not just the last command) fails the whole pipe. Together, they ensure that if `pipeline upload` fails for any reason, the build step also fails. See [Writing build scripts](/docs/pipelines/configure/writing-build-scripts) for more on these options.
+`-e` exits on any non-zero return, and `pipefail` makes a failure anywhere in a pipe fail the whole pipe. Together they ensure a failed `pipeline upload` also fails the build step. See [Writing build scripts](/docs/pipelines/configure/writing-build-scripts) for more on these options.
 
 ## Debugging your pipeline generator script
 
-With a static pipeline, the YAML is in the repository and can be read directly. With a dynamic pipeline, the output only exists at runtime. The approaches below cover local development through to production validation.
+With a static pipeline, the YAML is in the repository. With a dynamic pipeline, the output only exists at runtime, so problems surface during builds rather than in code review.
 
-**Local validation with `--dry-run`.** The [`--dry-run`](/docs/agent/cli/reference/pipeline#uploading-pipelines) flag parses and interpolates the pipeline definition, then prints the result to stdout instead of uploading it. Use this during development to catch YAML syntax errors and step validation issues before committing:
+**Local validation with `--dry-run`.** The [`--dry-run`](/docs/agent/cli/reference/pipeline#uploading-pipelines) flag parses and interpolates the pipeline definition, then prints the result to stdout instead of uploading it. Use it during development to catch YAML syntax and step validation errors before committing:
 
 ```bash
 .buildkite/generate-pipeline.sh | buildkite-agent pipeline upload --dry-run
 ```
 
-If the YAML is invalid, the Buildkite agent exits with an error like `buildkite-agent: fatal: pipeline parsing of "(stdin)" failed: <parse error details>`. The parse error might not pinpoint the exact line, so for complex pipeline generator scripts, redirecting the output to a file and running it through a YAML linter can be faster. You can also validate pipeline YAML with [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline).
+The parse error message might not pinpoint the exact line, so for complex scripts, redirect the output to a file and run it through a YAML linter or [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline).
 
-**Production validation with artifact capture.** In production, the pipeline generator script runs at build time and you need an automated record of what it produced. The following pattern saves the generated YAML as a [build artifact](/docs/pipelines/configure/artifacts), validates it, then uploads it:
+**Production validation with artifact capture.** Save the generated YAML as a [build artifact](/docs/pipelines/configure/artifacts) before uploading, so each build has an auditable record of what the script produced:
 
 ```bash
 #!/bin/bash
 set -euo pipefail
 
-# Generate and save output
 .buildkite/generate-pipeline.sh > /tmp/generated-pipeline.yml
-
-# Validate before uploading
 buildkite-agent pipeline upload --dry-run < /tmp/generated-pipeline.yml > /dev/null
-
-# Save as artifact for auditing and debugging
 buildkite-agent artifact upload /tmp/generated-pipeline.yml
-
-# Upload the validated pipeline
 buildkite-agent pipeline upload /tmp/generated-pipeline.yml
 ```
 
-This gives you three things: the `--dry-run` step catches invalid YAML before it reaches the control plane (and fails the build using `set -e` if it does), the artifact provides a record of what was generated for every build, and `set -euo pipefail` ensures any failure at any stage stops the build (see [Upload failures](#upload-failures)).
-
-The artifact is available on the build page and using [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts).
+Combined with `set -euo pipefail` (see [Upload failures](#upload-failures)), any failure at any stage stops the build. The artifact is available on the build page and using [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts).
 
 ## Upload performance at scale
 
-After a `pipeline upload` call, the control plane parses, validates, and merges the uploaded steps into the running build. The Buildkite agent waits for this processing to complete, polling the control plane with dynamic backoff. For small uploads this takes under a second. For large uploads (hundreds of steps), processing can take significantly longer.
+After each `pipeline upload` call, the control plane parses, validates, and merges the uploaded steps into the running build. The Buildkite agent waits for this processing to complete, polling with backoff and retrying if the server-side timeout is exceeded. Small uploads complete in under a second; uploads of hundreds of steps can take significantly longer. With `set -euo pipefail` (see [Upload failures](#upload-failures)), the build step fails if the agent exhausts its retries.
 
-If processing exceeds the server-side timeout, the Buildkite agent retries automatically with backoff. With `set -euo pipefail` in the pipeline generator script (see [Upload failures](#upload-failures)), the build step fails if the agent exhausts its retries.
-
-For pipeline generator scripts that produce large numbers of steps, splitting the output across multiple smaller `pipeline upload` calls reduces the chance of hitting processing timeouts. Each upload is processed independently, so two uploads of 300 steps each process faster and more reliably than a single upload of 600. Both the [monorepo best practices](/docs/pipelines/best-practices/working-with-monorepos#tip-for-large-monorepos) page and [`pipeline upload` reference](/docs/agent/cli/reference/pipeline#uploading-pipelines) recommend this approach for large pipelines.
+To stay well under the timeout, split large outputs across multiple smaller `pipeline upload` calls. Each upload is processed independently, so two uploads of 300 steps each process faster and more reliably than a single upload of 600. Both the [monorepo best practices](/docs/pipelines/best-practices/working-with-monorepos#tip-for-large-monorepos) page and [`pipeline upload` reference](/docs/agent/cli/reference/pipeline#uploading-pipelines) recommend this approach for large pipelines:
 
 ```bash
 #!/bin/bash
 set -euo pipefail
 
-# Upload steps per service instead of one large pipeline document.
-# Each pipeline upload call is processed independently on the control plane.
-
+# One pipeline upload per service, processed independently on the control plane.
 for service in api web worker payments notifications search; do
   cat <<YAML | buildkite-agent pipeline upload
 steps:
@@ -295,35 +269,27 @@ YAML
 done
 ```
 
-Each upload is small enough to process quickly. The same approach works for any pipeline generator script that iterates over a list of targets: test shards, changed paths, or matrix combinations. Use `depends_on` to control execution order, since multiple uploads from a single step are inserted in reverse order (see [Things to know](#things-to-know)).
+The same approach works for any pipeline generator script that iterates over targets such as test shards, changed paths, or matrix combinations. Use `depends_on` to control execution order, since multiple uploads from a single step are inserted in reverse order (see [Step insertion order](#step-insertion-order)).
 
-For even larger workloads, use [trigger steps](/docs/pipelines/configure/step-types/trigger-step) to fan work out across separate builds. Each triggered build has its own upload and job limits, which avoids large single-build step counts entirely.
+For even larger workloads, use [trigger steps](/docs/pipelines/configure/step-types/trigger-step) to fan work out across separate builds. Each triggered build has its own upload and job limits.
 
 ## Retrying steps that upload
 
-A step that runs `pipeline upload` can fail and be retried. When it retries, the pipeline generator script runs again and calls `pipeline upload`, but the steps from the first run are still in the build.
+A step that runs `pipeline upload` can fail and be retried. When it retries, the pipeline generator script runs again, but the steps from the first run are still in the build. Without `key` values, duplicate steps are silently added; with `key` values, the second upload fails loudly with a duplicate-key error — which is the desired outcome. Always set `key` on every step the script produces.
 
-If those steps have `key` values, the second upload fails with a duplicate key error. If they don't have keys, duplicate steps are silently added to the build.
-
-Always set `key` on every step the pipeline generator script produces. This ensures a retried upload fails with a clear error instead of creating duplicates.
-
-If the upload step is responsible for the entire remaining pipeline, use the `--replace` flag to make retries safe:
+If the upload step is responsible for the entire remaining pipeline, use `--replace` to make retries safe:
 
 ```bash
 .buildkite/generate-pipeline.sh | buildkite-agent pipeline upload --replace
 ```
 
-The `--replace` flag removes all pending steps before adding the new ones. Jobs already running are not affected. Learn more in the [`pipeline upload` CLI reference](/docs/agent/cli/reference/pipeline).
-
-Do not use `--replace` when multiple steps each upload their own portion of the build. A retry of one step would remove the steps uploaded by the others.
+`--replace` removes all pending steps before adding the new ones; jobs already running are not affected. See the [`pipeline upload` CLI reference](/docs/agent/cli/reference/pipeline) for details. Do not use `--replace` when multiple steps each upload their own portion of the build, since a retry of one would remove the steps uploaded by the others.
 
 ## Observability for dynamic builds
 
-Dynamic pipelines can produce different steps on every build. A monorepo pipeline generator script might produce three steps on one commit and 47 on the next. To debug failures or compare build times across runs, you need to know which steps the script produced and why.
+Dynamic pipelines can produce different steps on every build — a monorepo pipeline generator script might produce three steps on one commit and 47 on the next. To debug failures or compare build times across runs, have the script record what it decided: use [build annotations](/docs/pipelines/configure/annotations) to surface a summary on the build page, and [build meta-data](/docs/pipelines/configure/build-meta-data) to store the inputs for querying later using the API.
 
-For general pipeline monitoring, including fleet health, build lifecycle traces, and queue metrics, see the [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability) page.
-
-For dynamic pipelines, add a step to the pipeline generator script that records what it decided. Use [build annotations](/docs/pipelines/configure/annotations) to surface a summary on the build page, and [build meta-data](/docs/pipelines/configure/build-meta-data) to store the decision inputs for querying later using the API.
+For general pipeline monitoring, including fleet health, build lifecycle traces, and queue metrics, see [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
 
 ```bash
 #!/bin/bash
@@ -380,8 +346,8 @@ fi
 buildkite-agent pipeline upload
 ```
 
-This can also be done with a static `if` conditional on a block step (`if: build.pull_request_repo != "" && build.pull_request_repo != build.repository`). The pipeline generator script approach is useful for more complex logic, such as checking an allowlist of trusted fork repositories.
+A static `if` conditional on a block step achieves the same result (`if: build.pull_request_repo != "" && build.pull_request_repo != build.repository`). The pipeline generator script approach is useful for more complex logic, such as checking an allowlist of trusted fork repositories.
 
-[Pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) prevents unsigned steps from being injected using `pipeline upload`. For dynamic pipelines, this means both the pipeline generator script and the steps it produces must be signed. See the [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) documentation for setup.
+[Pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) prevents unsigned steps from being injected using `pipeline upload`. For dynamic pipelines, both the pipeline generator script and the steps it produces must be signed.
 
-In Kubernetes environments, `pipeline upload` can be used to inject steps that run with higher-privilege service accounts, creating a privilege escalation path. Audit which steps can call `pipeline upload` and what service accounts those steps run under.
+In Kubernetes environments, `pipeline upload` can inject steps that run with higher-privilege service accounts, creating a privilege escalation path. Audit which steps can call `pipeline upload` and what service accounts those steps run under.

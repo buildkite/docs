@@ -4,7 +4,7 @@
 
 ## When to use dynamic pipelines
 
-Use the following table to find the right starting point for your situation:
+Use the following decision matrix to find the right starting point for your situation:
 
 | Your situation | Approach | Where to start |
 |----------------|----------|----------------|
