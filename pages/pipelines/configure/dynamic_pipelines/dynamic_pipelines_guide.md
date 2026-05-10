@@ -19,7 +19,9 @@ steps:
 
 The generated steps are inserted into the running build immediately after the bootstrap step.
 
-### The pipeline generator script
+### An example pipeline generator script
+
+The following Bash script is one example of a pipeline generator script. A pipeline generator script can be written in any language that can produce valid YAML or JSON on stdout — see [Pipeline generator script language](#pipeline-generator-script-language) for the full list.
 
 ```bash
 #!/bin/bash
@@ -39,7 +41,7 @@ YAML
 done
 ```
 
-Save this as `.buildkite/generate-pipeline.sh` and make it executable (`chmod +x`). If the repository contains `tests/unit/`, `tests/integration/`, and `tests/e2e/`, the build gets three test steps. Adding a new test directory requires no pipeline YAML changes.
+Save this as `.buildkite/generate-pipeline.sh` and ensure it is executable. If the repository contains `tests/unit/`, `tests/integration/`, and `tests/e2e/`, the build gets three test steps. Adding a new test directory requires no pipeline YAML changes.
 
 For a working implementation of this pattern, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
 

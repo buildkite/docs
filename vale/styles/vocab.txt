@@ -438,6 +438,7 @@ subnet
 subnets
 subnet's
 subpatterns
+substring
 substrings
 sudo
 svg
