@@ -13,7 +13,7 @@ The `.buildkite/pipeline.yml` file contains a single step that runs the pipeline
 ```yaml
 # .buildkite/pipeline.yml
 steps:
-  - label: ":pipeline: Generate pipeline"
+  - label: "\:pipeline\: Generate pipeline"
     command: ".buildkite/generate-pipeline.sh | buildkite-agent pipeline upload"
 ```
 
@@ -34,7 +34,7 @@ echo "steps:"
 for test_dir in tests/*/; do
   suite=$(basename "$test_dir")
   cat <<YAML
-  - label: ":test_tube: Test ${suite}"
+  - label: "\:test_tube\: Test ${suite}"
     command: "make test SUITE=${suite}"
     agents:
       queue: "default"
@@ -108,7 +108,7 @@ DEPLOY_FILES_CHANGED=$(echo "$CHANGED_FILES" | grep -c '^deploy/' || true)
 if [[ "$BRANCH" == "main" ]] || [[ "$DEPLOY_FILES_CHANGED" -gt 0 ]]; then
   cat <<YAML
 steps:
-  - label: ":rocket: Deploy"
+  - label: "\:rocket\: Deploy"
     command: "make deploy"
     agents:
       queue: "deploy"
@@ -133,7 +133,7 @@ The bootstrap `pipeline.yml` file has a single step that runs the pipeline gener
 ```yaml
 # .buildkite/pipeline.yml
 steps:
-  - label: ":pipeline: Generate pipeline"
+  - label: "\:pipeline\: Generate pipeline"
     command: ".buildkite/scripts/generate-pipeline.sh"
 ```
 
@@ -146,11 +146,11 @@ set -euo pipefail
 
 buildkite-agent pipeline upload --replace <<'YAML'
 steps:
-  - label: ":test_tube: Run tests"
+  - label: "\:test_tube\: Run tests"
     command: "make test"
     key: "tests"
   - wait
-  - label: ":rocket: Deploy"
+  - label: "\:rocket\: Deploy"
     command: "make deploy"
 YAML
 ```
@@ -190,7 +190,7 @@ if [[ "$BUILDKITE_COMMAND_EXIT_STATUS" == "137" ]]; then
   echo "OOM detected. Retrying on memory-optimized agent."
   buildkite-agent pipeline upload <<YAML
 steps:
-  - label: ":repeat: Retry ${BUILDKITE_LABEL} (memory-optimized)"
+  - label: "\:repeat\: Retry ${BUILDKITE_LABEL} (memory-optimized)"
     command: "${BUILDKITE_COMMAND}"
     agents:
       queue: "memory-optimized"
@@ -259,10 +259,10 @@ set -euo pipefail
 for service in api web worker payments notifications search; do
   cat <<YAML | buildkite-agent pipeline upload
 steps:
-  - label: ":test_tube: Test ${service}"
+  - label: "\:test_tube\: Test ${service}"
     command: "make test -C services/${service}"
     key: "test-${service}"
-  - label: ":rocket: Deploy ${service}"
+  - label: "\:rocket\: Deploy ${service}"
     command: "make deploy -C services/${service}"
     depends_on: "test-${service}"
 YAML
@@ -316,7 +316,7 @@ buildkite-agent annotate "Generated steps for: ${CHANGED}" \
 for service in $CHANGED; do
   cat <<YAML | buildkite-agent pipeline upload
 steps:
-  - label: ":test_tube: Test ${service}"
+  - label: "\:test_tube\: Test ${service}"
     command: "make test -C services/${service}"
     key: "test-${service}"
 YAML
@@ -337,7 +337,7 @@ if [ "${BUILDKITE_PULL_REQUEST_REPO}" != "" ] && \
    [ "${BUILDKITE_PULL_REQUEST_REPO}" != "${BUILDKITE_REPO}" ]; then
   buildkite-agent pipeline upload <<'YAML'
 steps:
-  - block: ":lock: Approve fork build"
+  - block: "\:lock\: Approve fork build"
     prompt: "This build is from a fork. Review the code before allowing it to run on our agents."
 YAML
 fi
