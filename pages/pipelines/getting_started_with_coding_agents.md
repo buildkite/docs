@@ -4,11 +4,13 @@ keywords: docs, pipelines, AI coding agents, Claude, MCP server, skills, LLM, ge
 
 # Getting started with coding agents
 
-AI coding agents like [Claude Code](https://claude.ai/code), [Cursor](https://cursor.com/), and [GitHub Copilot](https://github.com/features/copilot) can help you build, debug, and maintain your Buildkite-based workflows more effectively—whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), or working with the [Buildkite APIs](/docs/apis). This page covers three ways to give your AI coding agent the context and tools it needs to work with Buildkite. The same approaches apply across Buildkite Pipelines, Buildkite Test Engine, and Buildkite Package Registries.
+AI coding agents like [Claude Code](https://claude.ai/code), [Cursor](https://cursor.com/), and other AI coding agents can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), or working with the [Buildkite APIs](/docs/apis).
 
-## Connect to the MCP server
+This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite products. The same approaches apply across Buildkite Pipelines and Buildkite Test Engine.
 
-The [Buildkite MCP server](/docs/apis/mcp-server) uses the Model Context Protocol (MCP) to give your AI agent live access to the Buildkite REST API—build logs, pipeline configuration, cluster state, test suite results, and more. This means your agent can inspect running builds, diagnose failures, and iterate on configuration using real data.
+## Connecting to the MCP server
+
+The [Buildkite MCP server](/docs/apis/mcp-server) uses the Model Context Protocol (MCP) to give your AI agent live access to the Buildkite REST API: build logs, pipeline configuration, cluster state, test suite results, and more. This means your agent can inspect running builds, diagnose failures, and iterate on configurations using real data from your pipelines and builds.
 
 With the MCP server connected, your agent can:
 
@@ -19,9 +21,9 @@ With the MCP server connected, your agent can:
 
 To set up the MCP server, see the [MCP server](/docs/apis/mcp-server) documentation.
 
-## Install Buildkite skills
+## Installing Buildkite skills
 
-[Buildkite skills](https://github.com/buildkite/skills) encode the judgment an experienced Buildkite user applies—not just documentation, but patterns, best practices, and common solutions. Installing them into your AI coding agent gives it deep Buildkite expertise without you having to re-explain conventions in every session. The skills available today focus on Buildkite Pipelines, but the MCP server and `llms.txt` approaches described on this page apply equally to Buildkite Test Engine and Buildkite Package Registries.
+[Buildkite skills](https://github.com/buildkite/skills) encode the judgment an experienced Buildkite user would apply. They contain documentation, patterns, best practices, and common solutions. Installing them into your AI coding agent gives it deep Buildkite expertise without you having to re-explain basic conventions in every session. The skills available today focus on Buildkite Pipelines, but the MCP server and `llms.txt` approaches described on this page apply equally to Buildkite Test Engine and Buildkite Package Registries.
 
 | Skill | Description |
 |---|---|
@@ -40,7 +42,7 @@ Skills are organized into two groups:
 
 To install skills, follow the instructions in the [Buildkite skills repository](https://github.com/buildkite/skills).
 
-## Use Buildkite docs as context
+## Using Buildkite documentation as context
 
 Every Buildkite documentation page is available in Markdown format—append `.md` to any URL. For example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context when working on a specific topic.
 

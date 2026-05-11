@@ -22,17 +22,17 @@ Install them to avoid re-explaining Buildkite conventions in every session. Avai
 - Agent runtime commands
 - The Buildkite CLI and REST/GraphQL APIs
 
-See [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents#install-buildkite-skills) for the full skill list and installation instructions.
+See [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents#installing-buildkite-skills) for the full skill list and installation instructions.
 
 ### MCP server
 
-The [Buildkite MCP server](/docs/apis/mcp) uses the Model Context Protocol (MCP) to connect your AI agent to the Buildkite REST API in real time. Your agent can inspect build state, read logs, trigger runs, and iterate on pipeline configuration using live data.
+The [Buildkite MCP server](/docs/apis/mcp-server) uses the Model Context Protocol (MCP) to connect your AI agent to the Buildkite REST API in real time. Your agent can inspect build state, read logs, trigger runs, and iterate on pipeline configuration using live data.
 
 ### Docs as context
 
 Every Buildkite docs page is available in Markdown format—append `.md` to any URL (for example, `/docs/pipelines/getting-started.md`). Per-section `llms.txt` files are available for loading entire topic areas into your agent's context at once.
 
-See [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents#use-buildkite-docs-as-context) for the full list of `llms.txt` URLs.
+See [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents#using-buildkite-documentation-as-context) for the full list of `llms.txt` URLs.
 
 ## Use agents in CI
 
