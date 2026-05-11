@@ -75,7 +75,7 @@ Platform and organization-level limits apply to all Buildkite products. These li
       },
       {
         title: "GraphQL API rate limit per organization",
-        description: "The total <a href=\"/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-time-based-rate-limit\">actual complexity points</a> an organization can consume on the GraphQL API within a 5-minute window.",
+        description: "The total <a href=\"/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit\">actual complexity points</a> an organization can consume on the GraphQL API within a 5-minute window.",
         default_value: "20,000 complexity points per 5 minutes"
       },
       {
