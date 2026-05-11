@@ -1,10 +1,10 @@
 ---
-keywords: docs, pipelines, AI agents, Claude, MCP server, skills, LLM, getting started
+keywords: docs, pipelines, AI coding agents, Claude, MCP server, skills, LLM, getting started
 ---
 
-# Getting started with agents
+# Getting started with coding agents
 
-AI coding agents like [Claude Code](https://claude.ai/code), Cursor, and GitHub Copilot can help you build, debug, and maintain Buildkite Pipelines more effectively. This page covers three ways to give your AI agent the context and tools it needs to work with Buildkite.
+AI coding agents like [Claude Code](https://claude.ai/code), Cursor, and GitHub Copilot can help you build, debug, and maintain Buildkite Pipelines more effectively. This page covers three ways to give your AI coding agent the context and tools it needs to work with Buildkite.
 
 ## Connect to the MCP server
 
