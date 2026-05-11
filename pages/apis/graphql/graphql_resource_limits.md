@@ -95,10 +95,10 @@ By enforcing these limits, we can effectively manage and allocate the necessary 
 
 The GraphQL API enforces two rate limits, both measured in actual complexity points. A request is rejected if either is exceeded:
 
-- An [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users in the organization.
-- A [per-user limit](#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per five minutes.
+- An [organization-level limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit) shared across all users in the organization.
+- A [per-user limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per five minutes.
 
-There is also a [single query limit](#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
+There is also a [single query limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
 
 ### Single query limit
 
