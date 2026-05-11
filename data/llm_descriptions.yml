@@ -382,7 +382,7 @@
   platform/legal-and-policies: "Buildkite legal documents including terms of service, privacy policies, and data processing agreements."
   apis: "Overview of Buildkite APIs: REST, GraphQL, webhooks, MCP server, agent API, and authentication."
   apis/managing-api-tokens: "Creating, editing, auditing, and securing API access tokens with scopes and IP restrictions."
-  apis/oauth-token-exchange: "OAuth Token Exchange (private preview) for minting short-lived Buildkite API tokens programmatically using signed JWT assertions, without interactive login flows. Covers setup, key generation, JWKS configuration, token exchange requests, JWT claims, scopes, caching, and troubleshooting."
+  apis/oauth-token-exchange: "OAuth Token Exchange (public preview) for minting short-lived Buildkite API tokens programmatically using signed JWT assertions, without interactive login flows. Covers setup, key generation, JWKS configuration, token exchange requests, JWT claims, scopes, caching, and troubleshooting."
   apis/api-differences: "Feature comparison between REST and GraphQL APIs, listing capabilities unique to each."
   apis/rest-api: "REST API overview: schema, authentication, pagination, endpoints, and response conventions."
   apis/rest-api/limits: "REST API rate limits (200 requests/min per org), response headers, and handling limit exceeded errors."

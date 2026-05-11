@@ -35,8 +35,7 @@ OAuth Token Exchange is ideal for security-conscious workflows where a central s
 
 To use OAuth Token Exchange, you need:
 
-1. Your organization enrolled in the public preview.
-1. A Token Exchange application configured by Buildkite. Provide the following details:
+1. A Token Exchange application configured on the Buildkite's side. Provide the following details for configuration:
 
 - **Name:** A display name for the application.
 - **Description:** A description of the application.
@@ -46,7 +45,7 @@ To use OAuth Token Exchange, you need:
 - **Allowed IP addresses** (optional, **recommended**): Restrict token usage to specific IP addresses.
 - **Maximum token TTL** (optional): The maximum token lifetime in seconds. Defaults to 3600 (one hour).
 
-After configuration, Buildkite provides you with a **client ID** for your application.
+After configuration, you will be provided with a **client ID** for your application.
 
 ### Generate a key pair
 
