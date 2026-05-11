@@ -88,12 +88,6 @@ link_checking_exemptions:
     url_patterns:
       - "http://app:3000/sample.svg\\?"
 
-  - name: unpublished-repos
-    description: Repos that will be published alongside the docs but are not yet live.
-    status_pattern: "404"
-    url_patterns:
-      - https://github.com/buildkite/buildkite-token-exchange-example
-
   - name: not-actually-links
     description: Muffet can be a bit greedy sometimes, and pick up URLs that are not actually links, but (for example) part of code samples.
     status_pattern: ".*"
