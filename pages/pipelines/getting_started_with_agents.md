@@ -6,6 +6,19 @@ keywords: docs, pipelines, AI agents, Claude, MCP server, skills, LLM, getting s
 
 AI coding agents like [Claude Code](https://claude.ai/code), Cursor, and GitHub Copilot can help you build, debug, and maintain Buildkite Pipelines more effectively. This page covers three ways to give your AI agent the context and tools it needs to work with Buildkite.
 
+## Connect to the MCP server
+
+The [Buildkite MCP server](/docs/apis/mcp) uses the Model Context Protocol (MCP) to give your AI agent live access to Buildkite's REST API features—build logs, pipeline configuration, cluster state, and more. This means your agent can inspect running builds, diagnose failures, and iterate on configuration using real data.
+
+With the MCP server connected, your agent can:
+
+- Fetch build logs and identify root causes of failures
+- Query pipeline configuration and suggest improvements
+- Trigger new builds and monitor their progress
+- Access cluster and queue state to debug job routing issues
+
+To set up the MCP server, see the [MCP server](/docs/apis/mcp) documentation.
+
 ## Install Buildkite skills
 
 [Buildkite skills](https://github.com/buildkite/skills) encode the judgment an experienced Buildkite user applies—not just documentation, but patterns, best practices, and common solutions. Installing them into your AI coding agent gives it deep Buildkite expertise without you having to re-explain conventions in every session.
@@ -26,19 +39,6 @@ Skills are organized into two groups:
 - **Cross-cutting skills**: Preflight, Agent Runtime, CLI, and API cover specific capabilities you reach for throughout development.
 
 To install skills, follow the instructions in the [Buildkite skills repository](https://github.com/buildkite/skills).
-
-## Connect to the MCP server
-
-The [Buildkite MCP server](/docs/apis/mcp) uses the Model Context Protocol (MCP) to give your AI agent live access to Buildkite's REST API features—build logs, pipeline configuration, cluster state, and more. This means your agent can inspect running builds, diagnose failures, and iterate on configuration using real data.
-
-With the MCP server connected, your agent can:
-
-- Fetch build logs and identify root causes of failures
-- Query pipeline configuration and suggest improvements
-- Trigger new builds and monitor their progress
-- Access cluster and queue state to debug job routing issues
-
-To set up the MCP server, see the [MCP server](/docs/apis/mcp) documentation.
 
 ## Use Buildkite docs as context
 
