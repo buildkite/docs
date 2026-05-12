@@ -55,12 +55,6 @@ If a Buildkite test collector is not available for one of these test runners, yo
 > 📘 Data retention
 > The execution data uploaded to Test Engine is stored in S3 and deleted after 120 days.
 
-## Coding agents
-
-AI coding agents like [Claude Code](https://claude.ai/code), [Cursor](https://cursor.com/), and [GitHub Copilot](https://github.com/features/copilot) can help you configure test collectors, debug flaky tests, and work with your Buildkite Test Engine test suites. The [Buildkite MCP server](/docs/apis/mcp-server) gives your AI agent live access to test suite data, and every Buildkite documentation page is available in Markdown format (append `.md` to any URL) for direct use as agent context.
-
-For setup details and the full list of cross-product approaches, see [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents).
-
 ## API & references
 
 Learn more about:
