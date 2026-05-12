@@ -24,6 +24,9 @@
               path: "pipelines/advantages/faq"
         - name: "Getting started"
           path: "pipelines/getting-started"
+        - name: "Getting started with coding agents"
+          path: "pipelines/getting-started-with-coding-agents"
+          pill: "new"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
         - name: "Buildkite Pipelines architecture"
@@ -866,6 +869,9 @@
   children:
     - name: "Overview"
       path: "platform"
+    - name: "AI agents"
+      path: "platform/ai-agents"
+      pill: "new"
     - name: "Team management"
       start_expanded: true
       children:
