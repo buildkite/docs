@@ -4,13 +4,13 @@ keywords: docs, pipelines, AI coding agents, Claude, MCP server, skills, LLM, ge
 
 # Getting started with coding agents
 
-AI coding agents like [Claude Code](https://claude.ai/code), [Cursor](https://cursor.com/), and other AI coding agents can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), or working with the [Buildkite APIs](/docs/apis).
+AI coding agents like [Claude Code](https://claude.ai/code) and [Cursor](https://cursor.com/) can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're, instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), working with the [Buildkite APIs](/docs/apis), or configuring [Buildkite Pipelines](/docs/pipelines).
 
-This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite products. The same approaches apply across Buildkite Pipelines and Buildkite Test Engine.
+This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite products. The same approaches apply across Buildkite Pipelines, Buildkite Test Engine, and Buildkite Package Registries.
 
 ## Connecting to the MCP server
 
-The [Buildkite MCP server](/docs/apis/mcp-server) uses the Model Context Protocol (MCP) to give your AI agent live access to the Buildkite REST API: build logs, pipeline configuration, cluster state, test suite results, and more. This means your agent can inspect running builds, diagnose failures, and iterate on configurations using real data from your pipelines and builds.
+The [Buildkite MCP server](/docs/apis/mcp-server) uses the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro) to give your AI agent live access to the Buildkite REST API: build logs, pipeline configuration, cluster state, test suite results, and more.
 
 With the MCP server connected, your agent can:
 
@@ -18,12 +18,15 @@ With the MCP server connected, your agent can:
 - Query pipeline configuration and suggest improvements
 - Trigger new builds and monitor their progress
 - Access cluster and queue state to debug job routing issues
+- And more — see the [MCP server](/docs/apis/mcp-server) documentation for the full list of tools
 
 To set up the MCP server, see the [MCP server](/docs/apis/mcp-server) documentation.
 
 ## Installing Buildkite skills
 
-[Buildkite skills](https://github.com/buildkite/skills) encode the judgment an experienced Buildkite user would apply. They contain documentation, patterns, best practices, and common solutions. Installing them into your AI coding agent gives it deep Buildkite expertise without you having to re-explain basic conventions in every session. The skills available today focus on Buildkite Pipelines, but the MCP server and `llms.txt` approaches described on this page apply equally to Buildkite Test Engine and Buildkite Package Registries.
+[Buildkite skills](https://github.com/buildkite/skills) capture how an experienced Buildkite user thinks and works, so your AI agent can follow the same approach. They contain documentation, patterns, best practices, and common solutions. Installing these skills into your AI coding agent gives it deep Buildkite expertise without you having to re-explain basic conventions in every session.
+
+The skills available today focus on Buildkite Pipelines, but the MCP server and `llms.txt` approaches described on this page apply equally to Buildkite Test Engine and Buildkite Package Registries.
 
 | Skill | Description |
 |---|---|
@@ -44,7 +47,7 @@ To install skills, follow the instructions in the [Buildkite skills repository](
 
 ## Using Buildkite documentation as context
 
-Every Buildkite documentation page is available in Markdown format—append `.md` to any URL. For example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context when working on a specific topic.
+Every Buildkite documentation page is available in Markdown format. Append `.md` to any documentation URL to get the source Markdown—for example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context for a specific topic.
 
 For broader context, Buildkite provides `llms.txt` files per documentation section, listing all pages in that section in a format optimized for LLMs:
 
@@ -58,7 +61,7 @@ For broader context, Buildkite provides `llms.txt` files per documentation secti
 | Platform | `/docs/platform/llms.txt` |
 {: class="responsive-table"}
 
-Use a section's `llms.txt` as a starting point to give your agent a comprehensive overview of that area, then pass individual `.md` pages for deeper context on specific tasks.
+Use a section's `llms.txt` as a starting point to give your agent a broad overview of that area, then pass individual `.md` pages for deeper context on specific tasks.
 
 ## Next steps
 
