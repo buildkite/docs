@@ -94,39 +94,19 @@ The `--dry-run` flag parses and validates the YAML without uploading it. It catc
 
 ### Step insertion order
 
-`pipeline upload` inserts new steps immediately after the step that called it. If a single step uploads three batches (A, then B, then C), they appear as C, B, A in the build because each new batch is inserted at the same position, pushing earlier batches down. Use `depends_on` to control execution order explicitly.
+`pipeline upload` inserts new steps immediately after the step that called it, so multiple uploads from a single step appear in reverse order. Use `depends_on` to control execution order explicitly. See [Insertion order](/docs/agent/cli/reference/pipeline#insertion-order) in the `pipeline upload` CLI reference for details.
 
 ### Environment variable interpolation
 
-When the Buildkite agent uploads pipeline YAML, it interpolates environment variables *before* the steps run. References like `$VAR` and `${VAR}` are resolved at upload time, so the values are baked into the pipeline definition.
+The Buildkite agent interpolates environment variables in the uploaded YAML at upload time, before the steps run. To defer resolution until the step runs (so a step's own `env` attribute takes effect), escape the dollar sign with `$$` or `\$`, or pass `--no-interpolation` to skip interpolation for the entire upload. See [Environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution) in the `pipeline upload` CLI reference for the full syntax.
 
-If a generated step needs a variable to be resolved when the step runs (not when the pipeline is uploaded), escape the dollar sign with `$$` or `\$`:
+### Job and upload limits
 
-```yaml
-steps:
-  - label: "Deploy"
-    command: "deploy.sh $$DEPLOY_TARGET"
-    env:
-      DEPLOY_TARGET: "production"
-```
-
-Without the escaping, the agent tries to resolve `$DEPLOY_TARGET` at upload time, before the step's `env` attribute takes effect, and the value is empty.
-
-If a generated pipeline contains many references that should all be evaluated at runtime, pass `--no-interpolation` to skip interpolation for the entire upload:
-
-```bash
-buildkite-agent pipeline upload --no-interpolation
-```
-
-For required-variable, default-value, and substring syntax, see the [`pipeline upload` CLI reference](/docs/agent/cli/reference/pipeline#environment-variable-substitution).
-
-### Job limits
-
-Pipeline uploads are subject to default quotas (500 jobs per upload, 500 uploads per build, and 4,000 jobs per build). If a pipeline generator script produces more than 500 jobs in a single upload, split the output across multiple uploads (see [Upload performance at scale](#upload-performance-at-scale)) or request a quota increase. See the [Buildkite platform limits](/docs/platform/limits) page for the full set of limits and how to raise them.
+Pipeline uploads are subject to default quotas. If a pipeline generator script produces more jobs than the per-upload quota allows, split the output across multiple uploads (see [Upload performance at scale](#upload-performance-at-scale)). For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
 ### Secret detection
 
-The Buildkite agent redacts environment variable values matching certain name patterns (`*_TOKEN`, `*_SECRET`, `*_KEY`, and others) in log output. To also reject pipeline uploads that contain these values, pass the `--reject-secrets` flag to `pipeline upload`. This is opt-in (disabled by default). For more details, see the [`pipeline upload` CLI reference](/docs/agent/cli/reference/pipeline).
+To reject pipeline uploads containing values that match secret-name patterns (`*_TOKEN`, `*_SECRET`, `*_KEY`, and others), pass the `--reject-secrets` flag to `pipeline upload`. See [Secrets management](/docs/pipelines/best-practices/security-controls#secrets-management) for related guidance.
 
 ## Combining file-change and branch conditions with if_changed
 
