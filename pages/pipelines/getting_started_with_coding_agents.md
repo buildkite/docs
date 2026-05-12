@@ -6,7 +6,7 @@ keywords: docs, pipelines, AI coding agents, Claude, MCP server, skills, LLM, ge
 
 AI coding agents like [Claude Code](https://claude.ai/code) and [Cursor](https://cursor.com/) can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), or working with the [Buildkite APIs](/docs/apis).
 
-This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite products. The same approaches apply across Buildkite Pipelines, Buildkite Test Engine, and Buildkite Package Registries.
+This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite products. The same approaches apply across Buildkite Pipelines and Buildkite Test Engine.
 
 ## Connecting to the MCP server
 
@@ -47,7 +47,7 @@ To install skills, follow the instructions in the [Buildkite skills repository](
 
 ## Using Buildkite documentation as context
 
-Every Buildkite documentation page is available in Markdown format. Append `.md` to any documentation URL to get the source Markdown—for example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context for a specific topic.
+Every Buildkite documentation page is available in Markdown format. Append `.md` to any documentation URL to get the source Markdown file, for example, [`/docs/pipelines/getting-started.md`](/docs/pipelines/getting-started.md). Pass these URLs directly to your AI agent as focused context for a specific topic.
 
 For broader context, Buildkite provides `llms.txt` files per documentation section, listing all pages in that section in a format optimized for LLMs:
 
