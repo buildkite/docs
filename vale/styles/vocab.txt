@@ -59,6 +59,7 @@ Bitbucket
 Bitrise
 bktec
 bktec's
+bktx
 boolean
 Boomper
 bottlenecked
@@ -184,6 +185,7 @@ globbing
 gmp
 gnupg
 goroutines
+grantable
 gotestsum
 gpg
 GPU
@@ -229,6 +231,7 @@ job_watcher
 jobWatcher
 jpegs
 jq
+jti
 json
 junit
 JWT
@@ -462,6 +465,7 @@ toolsets
 tooltip
 TOTP's
 TPUs
+TTLs
 traceparent
 Trivy
 trixie

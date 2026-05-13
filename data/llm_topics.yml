@@ -297,6 +297,7 @@ security:
     - "platform/team-management/inactive-user-list"
     - "platform/tutorials/2fa"
     - "apis/managing-api-tokens"
+    - "apis/oauth-token-exchange"
   related_topics:
     - governance
     - user-management
@@ -334,6 +335,7 @@ user-management:
     - "test-engine/permissions"
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
+    - "apis/oauth-token-exchange"
   related_topics:
     - security
     - governance

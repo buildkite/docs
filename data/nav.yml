@@ -1010,8 +1010,13 @@
   children:
     - name: "Overview"
       path: "apis"
-    - name: "Managing API access tokens"
-      path: "apis/managing-api-tokens"
+    - name: "Authentication"
+      children:
+        - name: "Managing API access tokens"
+          path: "apis/managing-api-tokens"
+        - name: "OAuth Token Exchange"
+          path: "apis/oauth-token-exchange"
+          pill: "preview"
     - name: "API differences"
       path: "apis/api-differences"
     - name: "REST"
