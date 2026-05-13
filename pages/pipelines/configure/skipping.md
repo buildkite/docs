@@ -6,6 +6,8 @@ Build skipping allows you to avoid unnecessary rebuilds, conserving resources an
 
 Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can configure your pipeline to always skip these intermediate builds, and only build the latest commit.
 
+This feature applies to builds in the _scheduled_ and _creating_ states. This does not affect builds that are already running. For information on how to cancel such builds, see [Cancel intermediate builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds).
+
 To skip pending builds on the same branch:
 
 1. Navigate to your pipeline's **Settings**.
