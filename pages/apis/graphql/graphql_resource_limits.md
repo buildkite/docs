@@ -95,10 +95,10 @@ By enforcing these limits, we can effectively manage and allocate the necessary 
 
 The GraphQL API enforces two rate limits, both measured in actual complexity points. A request is rejected if either is exceeded:
 
-- An [organization-level limit](#rate-limits-organization-time-based-rate-limit) shared across all users in the organization.
-- A [per-user limit](#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per five minutes.
+- An [organization-level limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit) shared across all users in the organization.
+- A [per-user limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit). The default per-user limit is 5,000 complexity points per five minutes.
 
-There is also a [single query limit](#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
+There is also a [single query limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-single-query-limit) that caps the maximum complexity of any individual query.
 
 ### Single query limit
 
@@ -146,7 +146,7 @@ In addition to the organization-level limit, the GraphQL API enforces a per-user
 
 The per-user limit is evaluated for the authenticated user associated with the API access token. The default per-user limit is 5,000 complexity points per five minutes.
 
-A request's complexity counts towards both the per-user limit and the [organization-level limit](#rate-limits-organization-time-based-rate-limit). The request is rejected with a `429` status code if either limit is exceeded. Check the `RateLimit-User-Remaining` response header to monitor your per-user quota.
+A request's complexity counts towards both the per-user limit and the [organization-level limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit). The request is rejected with a `429` status code if either limit is exceeded. Check the `RateLimit-User-Remaining` response header to monitor your per-user quota.
 
 If a user exceeds their per-user complexity limit, the response returns HTTP 429 status code with the following error.
 
@@ -170,8 +170,8 @@ You can access both time-based limits and query complexity information through t
 
 Every GraphQL API response includes two independent sets of rate limit headers:
 
--  one for the [organization-level limit](#rate-limits-organization-time-based-rate-limit)
--  one for the [per-user limit](#rate-limits-per-user-rate-limit).
+-  one for the [organization-level limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit)
+-  one for the [per-user limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit).
 
 You can monitor both limits independently and determine which one your application is closer to reaching.
 
