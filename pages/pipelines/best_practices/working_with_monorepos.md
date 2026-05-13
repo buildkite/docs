@@ -24,20 +24,19 @@ A typical example of the static approach would be a single main pipeline that co
 
 ```yaml
 steps:
-  - label: ":pipeline: Detect changes"
+  - label: "Detect changed projects"
+    key: diff
+    soft_fail: true
     plugins:
-      - monorepo-diff#v1.0.0:
-          diff: ".buildkite/diff"
+      - monorepo-diff#v1.3.0:
+          diff: .buildkite/scripts/git-diff-files.sh
           watch:
-            - path: "services/api/"
+            - path: "service-app"
               config:
-                trigger: "api-tests"
-            - path: "services/web/"
+                trigger: "monorepo-service-app-example"
+            - path: "test"
               config:
-                trigger: "web-tests"
-            - path: "shared/"
-              config:
-                trigger: "full-test-suite"
+                trigger: "monorepo-test-example"
 ```
 
 You can check out the [Monorepo example](https://buildkite.com/resources/examples/buildkite/monorepo-example/) pipeline to see a working implementation you can clone and adapt.
