@@ -49,16 +49,6 @@ done
 
 Save this script to the `.buildkite/` directory and ensure it is executable. With `tests/unit/`, `tests/integration/`, and `tests/e2e/` in the repository, the build gets three test steps, and adding a new test directory requires no pipeline YAML changes. For a working implementation, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
 
-### Testing locally with dry-run
-
-Validate the generated YAML locally before pushing:
-
-```bash
-.buildkite/generate-pipeline.sh | buildkite-agent pipeline upload --dry-run
-```
-
-The `--dry-run` flag parses and validates the YAML without uploading it. It catches syntax errors and step validation issues before they fail a build.
-
 ### Step insertion order
 
 `pipeline upload` inserts new steps immediately after the step that called it. Multiple uploads from a single step therefore appear in reverse order. Use `depends_on` to control execution order explicitly. See [Insertion order](/docs/agent/cli/reference/pipeline#insertion-order) in the `pipeline upload` CLI reference for details.
@@ -261,24 +251,9 @@ fi
 
 The `limit: 1` value on the uploaded step prevents an infinite retry loop if the larger agent also runs out of memory. For high-volume pipelines, keep retry caps low to prevent retry storms during fleet-wide infrastructure issues.
 
-## Upload failures
+## Testing dynamic pipelines
 
-In a static pipeline, a YAML syntax error is caught before the build runs. In a dynamic pipeline, the YAML is generated and uploaded mid-build, so a rejected upload (invalid YAML, validation error) or a transient failure (system error, timeout) happens while the build is already running. `pipeline upload` exits non-zero in both cases, but Bash does not exit on errors by default. A failed upload inside a script does not fail the build step, and the build continues with no record that steps were expected.
-
-To prevent this, add [`set -euo pipefail`](/docs/pipelines/configure/writing-build-scripts) to the top of every pipeline generator script:
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-.buildkite/generate-pipeline.sh | buildkite-agent pipeline upload
-```
-
-`-e` exits on any non-zero return, and `pipefail` makes a failure anywhere in a pipe fail the whole pipe. Together they ensure a failed `pipeline upload` also fails the build step. See [Writing build scripts](/docs/pipelines/configure/writing-build-scripts) for more on these options.
-
-## Debugging your pipeline generator script
-
-With a static pipeline, the YAML is in the repository. With a dynamic pipeline, the output only exists at runtime, so problems surface during builds rather than in code review.
+With a static pipeline, the YAML lives in the repository and can be reviewed before it runs. With a dynamic pipeline, the output only exists at runtime, so it pays to validate the generated YAML both during development and on every build.
 
 ### Local validation with dry-run
 
@@ -304,11 +279,34 @@ buildkite-agent artifact upload /tmp/generated-pipeline.yml
 buildkite-agent pipeline upload /tmp/generated-pipeline.yml
 ```
 
-Combined with `set -euo pipefail` (see [Upload failures](#upload-failures)), any failure at any stage stops the build. The artifact is available on the build page and using [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts).
+Combined with `set -euo pipefail` (see [Handling upload failures](#troubleshooting-dynamic-pipelines-handling-upload-failures)), any failure at any stage stops the build. The artifact is available on the build page and using [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts).
+
+## Troubleshooting dynamic pipelines
+
+When a dynamic pipeline misbehaves, the cause is usually one of two things: a failed upload that did not stop the build, or a successful upload that produced steps you did not expect. The following sections cover both.
+
+### Handling upload failures
+
+In a static pipeline, a YAML syntax error is caught before the build runs. In a dynamic pipeline, the YAML is generated and uploaded mid-build, so a rejected upload (invalid YAML, validation error) or a transient failure (system error, timeout) happens while the build is already running. `pipeline upload` exits non-zero in both cases, but Bash does not exit on errors by default. A failed upload inside a script does not fail the build step, and the build continues with no record that steps were expected.
+
+To prevent this, add [`set -euo pipefail`](/docs/pipelines/configure/writing-build-scripts) to the top of every pipeline generator script:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+.buildkite/generate-pipeline.sh | buildkite-agent pipeline upload
+```
+
+`-e` exits on any non-zero return, and `pipefail` makes a failure anywhere in a pipe fail the whole pipe. Together they ensure a failed `pipeline upload` also fails the build step. See [Writing build scripts](/docs/pipelines/configure/writing-build-scripts) for more on these options.
+
+### Debugging the generator output
+
+When a build produces unexpected steps, retrieve the YAML the script actually uploaded rather than re-running the script locally and guessing. Use the artifact-capture approach in [Production validation with artifact capture](#testing-dynamic-pipelines-production-validation-with-artifact-capture) so every build has an auditable copy of the generated YAML, then download it with [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts) and replay it locally with `--dry-run` to inspect the parsed result.
 
 ## Upload performance at scale
 
-After each `pipeline upload` call, the control plane parses, validates, and merges the uploaded steps into the running build. The Buildkite agent waits for this processing to complete, polling with backoff and retrying if the server-side timeout is exceeded. Small uploads complete in under a second; uploads of hundreds of steps can take significantly longer. With `set -euo pipefail` (see [Upload failures](#upload-failures)), the build step fails if the agent exhausts its retries.
+After each `pipeline upload` call, the control plane parses, validates, and merges the uploaded steps into the running build. The Buildkite agent waits for this processing to complete, polling with backoff and retrying if the server-side timeout is exceeded. Small uploads complete in under a second; uploads of hundreds of steps can take significantly longer. With `set -euo pipefail` (see [Handling upload failures](#troubleshooting-dynamic-pipelines-handling-upload-failures)), the build step fails if the agent exhausts its retries.
 
 To stay well under the timeout, split large outputs across multiple smaller `pipeline upload` calls. Each upload is processed independently, so two uploads of 300 steps each process faster and more reliably than a single upload of 600. Both the [monorepo best practices](/docs/pipelines/best-practices/working-with-monorepos#tip-for-large-monorepos) page and [`pipeline upload` reference](/docs/agent/cli/reference/pipeline#uploading-pipelines) recommend this approach for large pipelines:
 
