@@ -1,10 +1,14 @@
 # Working with monorepos
 
-A monorepo development strategy means that the code for multiple projects is stored in a single, centralized version-controlled repository. This strategy provides advantages like easier code sharing, unified versioning, and consistent tooling, but it also poses challenges such as longer build times and potential conflicts if not managed effectively. This page covers approaches and best practices for effectively managing and running monorepos.
+A monorepo development strategy means that the code for multiple projects is stored in a single, centralized version-controlled repository. This strategy provides advantages like easier code sharing, unified versioning, and consistent tooling, but it also poses challenges such as longer build times and potential conflicts if not managed effectively.
+
+This page covers approaches and best practices for effectively managing and running monorepos.
 
 ## Approaches to running monorepos
 
-All such approaches start with detecting changes in your monorepo, usually at the folder level. To detect these changes, add an [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) to your [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes), or [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes) steps, then run the [pipeline upload command](/docs/agent/cli/reference/pipeline) with the [`--apply-if-changed` option](/docs/agent/cli/reference/pipeline#apply-if-changed). The Buildkite agent then evaluates each step's `if_changed` expression against the changed files in the build.
+Any approach to running monorepos needs to start with detecting changes in your monorepo, usually at the folder level.
+
+To detect the changes in your monorepo, add an [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) to your [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes), or [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes) steps, then run the [pipeline upload command](/docs/agent/cli/reference/pipeline) with the [`--apply-if-changed` option](/docs/agent/cli/reference/pipeline#apply-if-changed). The Buildkite agent then evaluates each step's `if_changed` expression against the changed files in the build.
 
 > 📘
 > In Buildkite Pipelines, you can structure your monorepo pipeline as a single pipeline that orchestrates other pipelines by triggering them, or as a single pipeline containing many steps. Both approaches have tradeoffs. Some users prefer the clean separation that triggering pipelines by another provides, while others prefer all their steps to run conditionally in a single pipeline.
@@ -62,7 +66,7 @@ Buildkite customers who use [Bazel](/docs/pipelines/tutorials/bazel) and [Gradle
 
 ### Implementation with dynamic pipelines
 
-In many monorepos, services share code. Changing a shared library means you need to rebuild and test every service that depends on it, not just the ones with direct file changes. The `monorepo-diff` plugin watches file paths, but it doesn't understand dependency graphs. For that, you need a pipeline generator script that resolves transitive dependencies:
+In many monorepos, services share code. Changing a shared library means you need to rebuild and test every service that depends on it, not just the ones with direct file changes. The `monorepo-diff` plugin watches file paths, but it doesn't understand dependency graphs. For that, you will need a pipeline generator script that resolves transitive dependencies. For example:
 
 ```bash
 #!/bin/bash
@@ -112,7 +116,7 @@ YAML
 done
 ```
 
-If one service out of 50 changed, only that service's build and test steps are generated.
+In the example, if only one service out of 50 gets changed, only that service's build and test steps will be generated.
 
 ### Bazel monorepo example
 
@@ -144,7 +148,7 @@ The following features pair well with dynamic pipeline generation because your g
 
 ### Shared configuration across pipelines
 
-Platform teams managing dozens of pipelines often need retry policies, timeouts, and environment variables applied consistently. Instead of duplicating that configuration across every pipeline YAML, a generator can read from a single centrally managed file and apply it at build time:
+Platform teams managing dozens of pipelines often need retry policies, timeouts, and environment variables applied consistently. Instead of duplicating that configuration across every pipeline YAML, a generator script can read from a single centrally managed file and apply it at build time:
 
 ```python
 #!/usr/bin/env python3
@@ -172,7 +176,7 @@ yaml.safe_dump({"steps": team_steps["steps"]}, sys.stdout, sort_keys=False)
 
 When you update the retry policy in `shared-config.yml`, every pipeline picks it up on its next build. If your shared configuration lives in a separate repository, your generator can clone it at build time and pipe its output to `pipeline upload`.
 
-## Combined approach
+## Combining approaches
 
 You don't need to limit your CI/CD process to a single one of these approaches when working with a monorepo. Many customers, especially those with large Buildkite organizations, combine static and dynamic approaches based on their specific requirements.
 
