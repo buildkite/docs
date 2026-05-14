@@ -93,8 +93,6 @@
           path: "pipelines/best-practices/pipeline-design-and-structure"
         - name: "Agent management"
           path: "pipelines/best-practices/agent-management"
-        - name: "Using dynamic pipelines"
-          path: "pipelines/best-practices/using-dynamic-pipelines"
         - name: "Docker-based builds"
           path: "pipelines/best-practices/docker-containerized-builds"
         - name: "Parallelizing builds"

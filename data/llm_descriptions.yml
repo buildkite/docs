@@ -40,7 +40,6 @@
   pipelines/best-practices/docker-containerized-builds: "Running builds in Docker containers using the Docker and Docker Compose plugins, with configuration examples."
   pipelines/best-practices/parallel-builds: "Running steps in parallel across multiple agents and using job parallelism to split test suites for faster builds."
   pipelines/best-practices/working-with-monorepos: "Static and dynamic approaches for running monorepo pipelines with change detection using if_changed and diff plugins."
-  pipelines/best-practices/using-dynamic-pipelines: "End-to-end guide to dynamic pipelines: when to use them, building your first bootstrap-to-generate pipeline, monorepo and matrix patterns, advanced orchestration, and troubleshooting."
   pipelines/best-practices/environment-and-dependency: "Best practices for containerized builds, dependency locking, caching, environment variable management, and tool versioning."
   pipelines/best-practices/secrets-management: "Recommendations for secrets management: native tools, rotation, scoping, and audit logging."
   pipelines/best-practices/iac: "Managing Buildkite organizations, pipelines, and agents as code using Terraform, GitOps workflows, and OIDC."
