@@ -266,6 +266,55 @@ steps:
 
 When you set a custom commit status on a group step, GitHub only displays one status for the group. A passing result only shows when all jobs in the group pass. If you want to show custom commit statuses for each job, set them on the individual step.
 
+> 📘 Commit statuses and GitHub API rate limits
+> Enabling **Create a status for each job** generates at least two GitHub API requests per job. Pipelines with high job counts can consume a significant portion of your hourly rate limit budget. See [GitHub API rate limits](#github-api-rate-limits) for details on monitoring and managing your usage.
+
+## GitHub API rate limits
+
+GitHub imposes hourly [rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api) on REST API requests made through each GitHub App installation. Buildkite uses these API calls primarily for posting [commit statuses](#customizing-commit-statuses) to your repositories. When Buildkite encounters a rate limit from GitHub, it automatically retries the request.
+
+### Checking your rate limit usage
+
+To view your current GitHub API rate limit usage, go to your organization's **Settings** > **Repository Providers**, and select your connected GitHub provider. The **GitHub API Rate Limit** panel displays the following values:
+
+`x-ratelimit-limit`: The maximum number of requests that Buildkite can make per hour, as set by GitHub.
+
+`x-ratelimit-remaining`: The number of requests remaining in the current rate limit window.
+
+`x-ratelimit-reset`: The time at which the current rate limit window resets, in UTC epoch seconds.
+
+`x-ratelimit-used`: The number of API requests that Buildkite has made in the current rate limit window.
+
+This panel is available for both the full-access **GitHub** and **GitHub (Limited Access)** App integrations.
+
+You can also query rate limit data programmatically using the [Buildkite GraphQL API](/docs/apis/graphql/cookbooks/github-rate-limits).
+
+### What causes high API usage
+
+The biggest contributor to GitHub API usage is commit statuses. Each status update requires at least one API request. When you enable **Create a status for each job** in a pipeline's GitHub settings, every job in the build generates at least two status update requests (one when the job starts, one when it finishes). A build with 500 jobs could consume over 1,000 API requests from a single build.
+
+Other factors that increase API usage:
+
+- Running many pipelines that report commit statuses against the same GitHub App installation
+- High build frequency across branches and pull requests
+
+### What happens when rate limits are exceeded
+
+When Buildkite receives a rate-limited response from GitHub, it automatically retries the request after the rate limit window resets. During this period, commit status updates to GitHub may be delayed.
+
+If rate-limited requests continue to fail, Buildkite may temporarily disable commit status updates for affected pipelines. When this happens, a notice appears on the pipeline's GitHub settings page with instructions for re-enabling status updates.
+
+### Reducing API usage
+
+To reduce your GitHub API usage:
+
+- Disable **Create a status for each job** on pipelines with high job counts, and rely on the single pipeline-level commit status instead.
+- Review which pipelines have **Update commit statuses** enabled, and disable it for pipelines where GitHub status reporting is not needed.
+
+### Raising your rate limit
+
+The rate limit is set by GitHub on the GitHub App installation, not by Buildkite. To request a higher rate limit, [contact GitHub support](https://support.github.com/contact?source=subtitle&tags=rr-general-technical).
+
 ## Using one repository in multiple pipelines and organizations
 
 <%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org' %>
