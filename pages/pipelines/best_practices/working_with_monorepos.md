@@ -70,12 +70,34 @@ set -euo pipefail
 
 CHANGED_FILES=$(git diff --name-only --merge-base origin/main)
 
+services=("api" "web" "worker")
+watched_paths=(
+  "services/api libs/auth libs/database"
+  "services/web libs/ui libs/auth"
+  "services/worker libs/database"
+)
+
+services_to_build=()
+
+for i in "${!services[@]}"; do
+  service="${services[$i]}"
+  for path in ${watched_paths[$i]}; do
+    if grep -q "^${path}/" <<< "$CHANGED_FILES"; then
+      services_to_build+=("$service")
+      break
+    fi
+  done
+done
+
+if (( ${#services_to_build[@]} == 0 )); then
+  echo "steps: []"
+  exit 0
+fi
+
 echo "steps:"
 
-for service_dir in services/*/; do
-  service=$(basename "$service_dir")
-  if echo "$CHANGED_FILES" | grep -q "^services/${service}/"; then
-    cat <<YAML
+for service in "${services_to_build[@]}"; do
+  cat <<YAML
   - label: ":hammer: Build ${service}"
     command: "make build -C services/${service}"
     key: "build-${service}"
@@ -87,7 +109,6 @@ for service_dir in services/*/; do
     agents:
       queue: "default"
 YAML
-  fi
 done
 ```
 
@@ -127,22 +148,26 @@ Platform teams managing dozens of pipelines often need retry policies, timeouts,
 
 ```python
 #!/usr/bin/env python3
-import yaml, sys
+import copy
+import sys
+import yaml
 
-# Shared config lives in one place
-shared = yaml.safe_load(open(".buildkite/shared-config.yml"))
+with open(".buildkite/shared-config.yml") as shared_file:
+    shared = yaml.safe_load(shared_file)
 
-# Team-specific steps
-team_steps = yaml.safe_load(open(f".buildkite/{sys.argv[1]}-steps.yml"))
+with open(f".buildkite/{sys.argv[1]}-steps.yml") as steps_file:
+    team_steps = yaml.safe_load(steps_file)
 
-# Apply shared retry, timeout, env vars to each step
 for step in team_steps["steps"]:
-    if "command" in step:
-        step.setdefault("retry", shared["retry"])
-        step.setdefault("timeout_in_minutes", shared["timeout"])
-        step.setdefault("env", {}).update(shared["env"])
+    if "command" in step or "commands" in step:
+        if "retry" in shared:
+            step.setdefault("retry", copy.deepcopy(shared["retry"]))
+        if "timeout" in shared:
+            step.setdefault("timeout_in_minutes", shared["timeout"])
+        if "env" in shared:
+            step["env"] = {**shared["env"], **step.get("env", {})}
 
-yaml.dump({"steps": team_steps["steps"]}, sys.stdout)
+yaml.safe_dump({"steps": team_steps["steps"]}, sys.stdout, sort_keys=False)
 ```
 
 When you update the retry policy in `shared-config.yml`, every pipeline picks it up on its next build. If your shared configuration lives in a separate repo, your generator can clone it at build time and pipe its output to `pipeline upload`.
