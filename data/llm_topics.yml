@@ -12,6 +12,8 @@ ai-tools-and-mcp:
     - "apis/mcp-server"
     - "apis/model-providers"
   exact_paths:
+    - "pipelines/getting-started-with-coding-agents"
+    - "platform/ai-agents"
     - "apis/graphql/portals"
     - "apis/graphql/portals/limits"
     - "apis/graphql/portals/ephemeral-portal-tokens"
@@ -30,6 +32,7 @@ getting-started:
   exact_paths:
     - "pipelines"
     - "pipelines/getting-started"
+    - "pipelines/getting-started-with-coding-agents"
     - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/dashboard-walkthrough"
@@ -294,6 +297,7 @@ security:
     - "platform/team-management/inactive-user-list"
     - "platform/tutorials/2fa"
     - "apis/managing-api-tokens"
+    - "apis/oauth-token-exchange"
   related_topics:
     - governance
     - user-management
@@ -331,6 +335,7 @@ user-management:
     - "test-engine/permissions"
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
+    - "apis/oauth-token-exchange"
   related_topics:
     - security
     - governance

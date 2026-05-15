@@ -2,7 +2,9 @@
 
 A group step can contain various sub-steps, and display them in a single logical group on the Build page.
 
-For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
+For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported. A pipeline upload that places a group step inside another group is rejected.
+
+If you need a sense of hierarchy across many groups (for example, when a pipeline generator script in a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) loops over teams and services), use flat sibling groups with a `Category: Subcategory` naming convention in the group label, such as `Backend: Auth Tests` and `Backend: API Tests`. To run a downstream stage after several related groups, give those groups related keys and reference them in an array under [`depends_on`](/docs/pipelines/configure/depends-on).
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/configure/step-types/group-step#group-step-attributes) everything in "group Y".
 
@@ -32,6 +34,8 @@ This is how it's displayed in the UI:
 
 Only the first 50 jobs within a build header can ever be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page.
 
+> 📘 Jobs per upload limit
+> A single `pipeline upload` call can create at most 500 jobs by default, including all jobs across every group in that upload. Teams generating large [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) often hit this limit. If you need to create more jobs, split the work across multiple uploads or request a higher limit. See [Pipelines limits](/docs/platform/limits#pipelines-limits) for the full set of pipeline-related platform limits.
 
 ## Group step attributes
 
@@ -74,7 +78,7 @@ Optional attributes:
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions.<br/>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/configure/conditionals">Using conditionals</a> for supported expressions. When set on a group step, the expression is merged into the <code>if</code> attribute of each step inside the group, rather than applied to the group itself. As a result, the group container is still shown in the Buildkite interface even when every step inside it is omitted by the conditional.<br/>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
@@ -106,7 +110,7 @@ Optional attributes:
   <tr>
     <td><code>skip</code></td>
     <td>
-      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>. When set on a group step, the value is merged into the <code>skip</code> attribute of each step inside the group, rather than applied to the group itself. As a result, the group container is still shown in the Buildkite interface even when every step inside it is skipped.<br/>
       Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
@@ -114,6 +118,31 @@ Optional attributes:
     </td>
   </tr>
 </table>
+
+## Concurrency in groups
+
+The `concurrency`, `concurrency_group`, and `concurrency_method` attributes are not group step attributes. To limit how many jobs can run in parallel for work inside a group, set these attributes on the [command steps](/docs/pipelines/configure/step-types/command-step) within the group, not on the group step itself. See [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) for details.
+
+For example, to limit each service deploy in a group to one concurrent job:
+
+```yaml
+steps:
+  - group: "\:rocket\: Deploy"
+    key: "deploy"
+    depends_on: "tests"
+    steps:
+      - label: "Deploy auth"
+        command: "make deploy-auth"
+        concurrency: 1
+        concurrency_group: "deploy/auth"
+      - label: "Deploy payments"
+        command: "make deploy-payments"
+        concurrency: 1
+        concurrency_group: "deploy/payments"
+```
+{: codeblock-file="pipeline.yml"}
+
+In the example above, `deploy/auth` and `deploy/payments` are separate concurrency groups, so the auth and payments deploys can run in parallel, but two auth deploys from different builds cannot.
 
 ## Agent-applied attributes
 
@@ -124,6 +153,11 @@ Optional attributes:
 <%= render_markdown partial: 'pipelines/configure/step_types/if_changed_attribute' %>
 
 ## Parallel groups
+
+Adding a group step to a pipeline switches the entire build to _directed acyclic graph_ (DAG) scheduling, which you can view through the **DAG** tab on the build page. Instead of running steps in the order they're listed in `pipeline.yml` (with `wait` steps as barriers), Buildkite schedules each step as soon as its [explicit](/docs/pipelines/configure/depends-on#defining-explicit-dependencies) and [implicit](/docs/pipelines/configure/depends-on#implicit-dependencies-with-wait-and-block) dependencies are satisfied. This is why consecutive group steps run in parallel.
+
+> 🚧 Adding a group can reorder existing steps
+> Because a group step puts the whole build into DAG scheduling, adding one to an existing pipeline can change the order in which other steps run. If your pipeline relies on the listed order of steps without `wait` or `depends_on` between them, add explicit dependencies before introducing a group step.
 
 If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:
 
@@ -186,9 +220,15 @@ steps:
 
 If you upload a pipeline that has a `group` or `label` that matches the group of the step that uploaded it, those groups will be merged together in the Buildkite UI.
 
-This merging behavior only applies if the group step with the matching `group` or `label` is the first step within the uploaded pipeline.
+For merging to happen, all of the following must be true:
 
-Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
+* The step that runs `buildkite-agent pipeline upload` is itself inside a group step.
+* The first step in the uploaded pipeline is a group step.
+* The `group` or `label` on the uploaded group matches the `group` or `label` of the group containing the upload step.
+
+If any of these conditions are not met, the uploaded group is added as a separate group in the Buildkite interface, even when its label matches an existing group.
+
+Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI. The same applies when multiple separate `pipeline upload` calls each create a group with the same name. Each upload produces its own group, and the UI shows two distinct groups with the same label. To avoid this in dynamic pipelines that run several uploads, give each generator's groups a distinct label, or consolidate the steps into a single upload.
 
 > 📘 You can't define the same key twice
 > Trying to create different groups or steps with the same `key` attribute will result in an error.
@@ -242,6 +282,28 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 These groups will be merged into one in the UI, and the `echo "proceed"` step will be added to the existing group.
+
+### When merging does not happen
+
+In the following example, the `buildkite-agent pipeline upload` command runs from a top-level command step rather than from inside a group:
+
+```yml
+steps:
+  - command: "buildkite-agent pipeline upload"
+```
+{: codeblock-file="pipeline.yml"}
+
+If the uploaded pipeline contains a group with the same label as an existing group on the build, merging does not happen, because the upload step is not itself inside a group:
+
+```yml
+steps:
+  - group: "Setup"
+    steps:
+      - command: "docker build"
+```
+{: codeblock-file="pipeline.yml"}
+
+The uploaded `Setup` group is shown as a separate group in the Buildkite interface, even when another `Setup` group already exists on the build. To merge the groups, move the upload command into a group step with the matching label.
 
 ## Example
 
