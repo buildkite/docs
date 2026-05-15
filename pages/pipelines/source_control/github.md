@@ -267,11 +267,11 @@ steps:
 When you set a custom commit status on a group step, GitHub only displays one status for the group. A passing result only shows when all jobs in the group pass. If you want to show custom commit statuses for each job, set them on the individual step.
 
 > 📘 Commit statuses and GitHub API rate limits
-> Enabling **Create a status for each job** generates at least two GitHub API requests per job. Pipelines with high job counts can consume a significant portion of your hourly rate limit budget. See [GitHub API rate limits](#github-api-rate-limits) for details on monitoring and managing your usage.
+> Enabling **Create a status for each job** generates at least two GitHub API requests per job. Pipelines with high job counts can consume a significant portion of your hourly rate limit budget. See [GitHub API rate limits](/docs/pipelines/source-control/github#github-api-rate-limits) for details on monitoring and managing your usage.
 
 ## GitHub API rate limits
 
-GitHub imposes hourly [rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api) on REST API requests made through each GitHub App installation. Buildkite uses these API calls primarily for posting [commit statuses](#customizing-commit-statuses) to your repositories. When Buildkite encounters a rate limit from GitHub, it automatically retries the request.
+GitHub imposes hourly [rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api) on REST API requests made through each GitHub App installation. Buildkite uses these API calls primarily for posting [commit statuses](/docs/pipelines/source-control/github#customizing-commit-statuses) to your repositories. When Buildkite encounters a rate limit from GitHub, it automatically retries the request.
 
 ### Checking your rate limit usage
 
