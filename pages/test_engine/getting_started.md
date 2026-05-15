@@ -81,3 +81,4 @@ Learn more about:
 - How to work with [test suites](/docs/test-engine/test-suites) in Buildkite Test Engine.
 - [CI environment variables](/docs/test-engine/test-collection/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
 - Other tutorials for specific testing frameworks, such as [Setting up a Ruby project for Test Engine](/docs/test-engine/tutorials/setting-up-a-ruby-project).
+- How to give AI coding agents the context they need to work with Buildkite, in [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents). The MCP server, `llms.txt` files, and Markdown-formatted documentation pages described there apply equally to Buildkite Test Engine.

@@ -6,6 +6,8 @@ Buildkite Pipelines provides several ways to cancel builds and jobs, either auto
 
 Sometimes you may push several commits in quick succession, leading to Buildkite Pipelines building each commit in turn. You can configure your pipeline to cancel these running builds and only build the latest commit.
 
+This feature applies to builds in the _started_, _failing_, and _blocked_ (running) states. It does not affect builds that are queued but have not started yet. For information on how to skip such builds, see [Skip intermediate builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds).
+
 To cancel running builds on the same branch:
 
 1. Navigate to your pipeline's **Settings**.
@@ -23,7 +25,7 @@ You can also configure these options using the [REST API](/docs/apis/rest-api/pi
 
 If your pipeline has multiple command steps, you can manually cancel a step, which will cause the build to fail.
 
-If you do _not_ want the build to fail when you cancel a specific step, you can set [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes).
+If you do _not_ want the build to fail when you cancel a specific step, you can set [`soft_fail`](/docs/pipelines/configure/soft-fail).
 
 To manually cancel a job:
 

@@ -57,7 +57,7 @@ The REST API rate limit time window is 60 seconds.
 
 ### GraphQL API
 
-The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-time-based-rate-limit) for the Buildkite organization.
+The `graphql` scope provides current GraphQL API [complexity points](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit) for the Buildkite organization.
 
 Field | Type | Description
 ----- | ---- | -----------

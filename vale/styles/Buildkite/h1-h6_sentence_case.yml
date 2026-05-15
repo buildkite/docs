@@ -184,6 +184,7 @@ exceptions:
   - JSON
   - JUnit
   - JWKS
+  - JWT
   - Kaniko
   - KMS
   - Kotlin
@@ -213,6 +214,7 @@ exceptions:
   - nodeSelector
   - Nomad
   - NuGet
+  - OAuth
   - OIDC
   - Okta
   - OneLogin
@@ -275,7 +277,8 @@ exceptions:
   - Summary
   - Tahoe
   - TCP
-  - Teams
+  - TTL
+  - TTLs
   - Tekton
   - Tempo
   - Terraform
