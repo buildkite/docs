@@ -288,7 +288,7 @@ You can also query rate limit data programmatically using the [Buildkite GraphQL
 
 ### What causes high API usage
 
-The biggest contributor to GitHub API usage is commit statuses. Each status update requires at least one API request. When you enable **Create a status for each job** in a pipeline's GitHub settings, every job in the build generates at least two status update requests (one when the job starts, one when it finishes). A build with 500 jobs could consume over 1,000 API requests.
+The biggest contributor to GitHub API usage is commit statuses. Each status update requires at least one API request. When you enable **Create a status for each job** in the GitHub settings for a pipeline, every job in the build generates at least two status update requests (one when the job starts, one when it finishes). A build with 500 jobs could consume over 1,000 API requests.
 
 Other factors that increase API usage:
 
