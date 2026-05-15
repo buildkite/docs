@@ -345,10 +345,10 @@
     http-errors "^2.0.0"
     mime "^3"
 
-"@fastify/static@9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@fastify/static/-/static-9.0.0.tgz#d111b905ed54d647e2693cf317a61d60d143b843"
-  integrity sha512-r64H8Woe/vfilg5RTy7lwWlE8ZZcTrc3kebYFMEUBrMqlydhQyoiExQXdYAy2REVpST/G35+stAM8WYp1WGmMA==
+"@fastify/static@9.1.1":
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/@fastify/static/-/static-9.1.1.tgz#e70fb7a31f9a50a0002e6a0de4c1a14473707acc"
+  integrity sha512-LHxFea3qdwe0Pbbkh/yux7/k6nFNLGTNcbLKVYgmRDB6LdDE/8TFSO7qWZ0IzM/nF6iwR8W03oFlwe4v79R1Ow==
   dependencies:
     "@fastify/accept-negotiator" "^2.0.0"
     "@fastify/send" "^4.0.0"
@@ -766,10 +766,10 @@
     yargs "^17.6.0"
     zod "^4.0.5"
 
-"@netlify/database-dev@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@netlify/database-dev/-/database-dev-0.10.0.tgz#19d46ca380725f0e5da363487f28f8e4969dfe7c"
-  integrity sha512-kdootHVxNsIZK8B6p2pAeIXs1VsVOCGsApzyi7JhA60Sdqemk9DT2Pf4FeIcGJb205o9VX1AXEbErOmDzjnnnA==
+"@netlify/database-dev@0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@netlify/database-dev/-/database-dev-0.10.1.tgz#ad419fad3c95f6e2a3154cb7f5d08d9d13e67b9b"
+  integrity sha512-kHLdS6r45TsDiS5aBrHUmzqPvoaWQEUZnaZeMwnIrLMwX8f2bIa6YAMOJJYJhyKm2drVo3C/T92/lJ5iGV/VBQ==
   dependencies:
     "@electric-sql/pglite" "^0.3.15"
     pg-gateway "0.3.0-beta.4"
@@ -816,15 +816,15 @@
     uuid "^13.0.0"
     write-file-atomic "^5.0.1"
 
-"@netlify/dev@4.17.3":
-  version "4.17.3"
-  resolved "https://registry.yarnpkg.com/@netlify/dev/-/dev-4.17.3.tgz#da8c2b139be41ad9f852c3ba191b2d729f2c649b"
-  integrity sha512-EU8EqY2E3BdNCzimZS5PMat8ETAsUFJMBKcOaAMhw0dJFckUj+oZ5OijxfBHJe0sfvDj8eq3E/nQtBlnaoKpHw==
+"@netlify/dev@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.yarnpkg.com/@netlify/dev/-/dev-4.18.0.tgz#04ff1768ecfc01b9d37ca3c59f741ea4d4b2834b"
+  integrity sha512-8wzQT8IdCDOnhaMe65u+R8slRVgUe6Q/EODPVIhgIqGgNd9rVCgLjNcZjJho6gdLRYRIRYtoiZoVUDw20/Ptag==
   dependencies:
     "@netlify/ai" "^0.4.1"
     "@netlify/blobs" "10.7.4"
     "@netlify/config" "^24.4.3"
-    "@netlify/database-dev" "0.10.0"
+    "@netlify/database-dev" "0.10.1"
     "@netlify/dev-utils" "4.4.3"
     "@netlify/edge-functions-dev" "1.0.16"
     "@netlify/functions-dev" "1.2.6"
@@ -5263,19 +5263,19 @@ negotiator@^1.0.0:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-1.0.0.tgz#b6c91bb47172d69f93cfd7c357bbb529019b5f6a"
   integrity sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==
 
-netlify-cli@^25.0.0:
-  version "25.6.2"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-25.6.2.tgz#41da94b957fca5be2048c8a45d698f3e2c415d64"
-  integrity sha512-cjiDH1gpwN0dC8sAoUvXIiICix8pvYORB9SSjc+/L0VMuDbLeMyAcuP4xyCJBbCUfDZF0r6eoR3LJ8y5fSX+Eg==
+netlify-cli@^26.0.0:
+  version "26.0.1"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-26.0.1.tgz#99f2351f69d2bf3c91b4ce929292d69a15ef3197"
+  integrity sha512-/OuGJjkpVKSGnvmCJ4TXR/5C7Z6lHHXd4LDR7ISODx+AKf4FfMrJ05E2MDeXMDr1bKyMV6Sa0ayGR9rfYfoxnw==
   dependencies:
-    "@fastify/static" "9.0.0"
+    "@fastify/static" "9.1.1"
     "@netlify/ai" "0.4.1"
     "@netlify/api" "14.0.18"
     "@netlify/blobs" "10.7.0"
     "@netlify/build" "35.13.4"
     "@netlify/build-info" "10.5.1"
     "@netlify/config" "24.5.0"
-    "@netlify/dev" "4.17.3"
+    "@netlify/dev" "4.18.0"
     "@netlify/dev-utils" "4.4.3"
     "@netlify/edge-bundler" "14.10.1"
     "@netlify/edge-functions" "3.0.6"
