@@ -277,13 +277,10 @@ GitHub imposes hourly [rate limits](https://docs.github.com/en/rest/using-the-re
 
 To view your current GitHub API rate limit usage, go to your organization's **Settings** > **Repository Providers**, and select your connected GitHub provider. The **GitHub API Rate Limit** panel displays the following values:
 
-`x-ratelimit-limit`: The maximum number of requests that Buildkite can make per hour, as set by GitHub.
-
-`x-ratelimit-remaining`: The number of requests remaining in the current rate limit window.
-
-`x-ratelimit-reset`: The time at which the current rate limit window resets, in UTC epoch seconds.
-
-`x-ratelimit-used`: The number of API requests that Buildkite has made in the current rate limit window.
+- `x-ratelimit-limit`: The maximum number of requests that Buildkite can make per hour, as set by GitHub.
+- `x-ratelimit-remaining`: The number of requests remaining in the current rate limit window.
+- `x-ratelimit-reset`: The time at which the current rate limit window resets, in UTC epoch seconds.
+- `x-ratelimit-used`: The number of API requests that Buildkite has made in the current rate limit window.
 
 This panel is available for both the full-access **GitHub** and **GitHub (Limited Access)** App integrations.
 
@@ -291,7 +288,7 @@ You can also query rate limit data programmatically using the [Buildkite GraphQL
 
 ### What causes high API usage
 
-The biggest contributor to GitHub API usage is commit statuses. Each status update requires at least one API request. When you enable **Create a status for each job** in a pipeline's GitHub settings, every job in the build generates at least two status update requests (one when the job starts, one when it finishes). A build with 500 jobs could consume over 1,000 API requests from a single build.
+The biggest contributor to GitHub API usage is commit statuses. Each status update requires at least one API request. When you enable **Create a status for each job** in a pipeline's GitHub settings, every job in the build generates at least two status update requests (one when the job starts, one when it finishes). A build with 500 jobs could consume over 1,000 API requests.
 
 Other factors that increase API usage:
 
