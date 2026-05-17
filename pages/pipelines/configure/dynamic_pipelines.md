@@ -74,29 +74,45 @@ Buildkite Pipelines supports several approaches to varying what runs in a build,
 
 ## Combining file-change and branch conditions with if_changed
 
-The [`if_changed`](/docs/pipelines/configure/dynamic-pipelines/if-changed) attribute skips or includes steps based on which files changed, without requiring a pipeline generator script. To combine `if` and `if_changed` with OR logic (for example, "run this step on `main` OR when certain files changed"), use a pipeline generator script, since a single step definition cannot express OR across these two conditions:
+The [`if_changed`](/docs/pipelines/configure/dynamic-pipelines/if-changed) attribute skips or includes steps based on which files changed, without requiring a pipeline generator script. A single step definition combines `if` and `if_changed` with AND logic—both conditions must be true for the step to run. To express OR logic (for example, "run on `main` OR when certain files changed"), define two steps that share the same `command` and `key` prefix: one guarded by `if`, the other by `if_changed` (with an `if` clause that excludes the branch already covered by the first step, so the work does not run twice).
 
-```bash
-#!/bin/bash
-# Run deploy if on main branch OR if deploy-related files changed
-
-BRANCH="$BUILDKITE_BRANCH"
-CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
-DEPLOY_FILES_CHANGED=$(echo "$CHANGED_FILES" | grep -c '^deploy/' || true)
-
-if [[ "$BRANCH" == "main" ]] || [[ "$DEPLOY_FILES_CHANGED" -gt 0 ]]; then
-  cat <<YAML
+```yaml
 steps:
-  - label: "\:rocket\: Deploy"
+  - label: "\:rocket\: Deploy from main"
+    key: "deploy-main"
+    if: build.branch == "main"
     command: "make deploy"
     agents:
       queue: "deploy"
-YAML
-else
-  echo "steps: []"
-fi
+  - label: "\:rocket\: Deploy for deploy/ changes"
+    key: "deploy-changed"
+    if: build.branch != "main"
+    if_changed: "deploy/**"
+    command: "make deploy"
+    agents:
+      queue: "deploy"
 ```
-{: codeblock-file=".buildkite/scripts/conditional-deploy.sh"}
+
+The same pattern applies when one variant of a step needs different environment or tagging than the other. For example, build and publish a container image on every commit to `release/*`, and also on any branch that touches the `Dockerfile` or `docker/` directory:
+
+```yaml
+steps:
+  - label: "\:docker\: Build release image"
+    key: "image-release"
+    if: build.branch =~ /^release\//
+    env:
+      IMAGE_TAG: "release-${BUILDKITE_COMMIT:0:7}"
+    command: "./scripts/build-and-push.sh"
+  - label: "\:docker\: Build preview image"
+    key: "image-preview"
+    if: build.branch !~ /^release\//
+    if_changed:
+      - "Dockerfile"
+      - "docker/**"
+    env:
+      IMAGE_TAG: "preview-${BUILDKITE_BRANCH//\\//-}"
+    command: "./scripts/build-and-push.sh"
+```
 
 For more complex needs, see [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos) or the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
 
@@ -116,22 +132,28 @@ See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](ht
 
 ## Advanced patterns
 
+The patterns in this section build on the bootstrap pattern in [Your first dynamic pipeline](#your-first-dynamic-pipeline) to solve specific problems: replacing the bootstrap step in the interface so it does not appear alongside the generated work, varying entire pipeline definitions per branch, and recovering from infrastructure failures by retrying on a different queue. Each pattern is independent—pick the ones that match the problems you face.
+
 ### Replacing the bootstrap step with --replace
 
-Some pipelines need a two-phase start: the first step sets build context (environment variables, metadata), and the second step generates the real work. Passing `--replace` to `pipeline upload` removes the initial steps from the build and replaces them with the uploaded ones, so the bootstrap step does not linger in the interface after it finishes:
+Some pipelines need a two-phase start: the first step sets build context (environment variables, build meta-data), and the second step generates the real work based on that context. Passing `--replace` to `pipeline upload` removes the pending bootstrap steps from the build and replaces them with the uploaded ones, so the bootstrap step does not linger in the interface after it finishes:
 
 ```bash
 #!/bin/bash
 set -euo pipefail
 
-buildkite-agent pipeline upload --replace <<'YAML'
+# Read context recorded by an earlier step using buildkite-agent meta-data set.
+SERVICE=$(buildkite-agent meta-data get "service")
+ENVIRONMENT=$(buildkite-agent meta-data get "environment")
+
+buildkite-agent pipeline upload --replace <<YAML
 steps:
-  - label: "\:test_tube\: Run tests"
-    command: "make test"
+  - label: "\:test_tube\: Test ${SERVICE}"
+    command: "make test SERVICE=${SERVICE}"
     key: "tests"
   - wait
-  - label: "\:rocket\: Deploy"
-    command: "make deploy"
+  - label: "\:rocket\: Deploy ${SERVICE} to ${ENVIRONMENT}"
+    command: "make deploy SERVICE=${SERVICE} ENV=${ENVIRONMENT}"
 YAML
 ```
 {: codeblock-file=".buildkite/scripts/generate-pipeline.sh"}
