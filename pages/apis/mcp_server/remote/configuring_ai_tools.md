@@ -113,7 +113,9 @@ Repeat this process for each toolset you want to enable. You'll end up with mult
 
 ## Cursor
 
-You can install the remote Buildkite MCP server in [Cursor](https://cursor.com/) with one click using the deep link button below. Clicking the button will open Cursor and prompt you to confirm the installation on the **MCP & Integrations** page.
+The easiest way to install the remote Buildkite MCP server in [Cursor](https://cursor.com/) is through the [Buildkite plugin on the Cursor Marketplace](https://cursor.com/marketplace/buildkite), which installs both the Buildkite MCP server and the accompanying Buildkite skills in one step.
+
+Alternatively, you can install just the remote Buildkite MCP server with one click using the deep link button below. Clicking the button will open Cursor and prompt you to confirm the installation on the **MCP & Integrations** page.
 
 <a class="light-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add Buildkite MCP server to Cursor" height="32" /></a><a class="dark-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-light.svg" alt="Add Buildkite MCP server to Cursor" height="32" /></a>
 
