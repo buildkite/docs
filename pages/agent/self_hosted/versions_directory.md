@@ -32,6 +32,11 @@ Agent versions with known issues are indicated in these tables.
   <tbody>
     <% [
       {
+        version: "v3.127.0",
+        date: "2026-05-13",
+        known_issues: false
+      },
+      {
         version: "v3.126.0",
         date: "2026-05-07",
         known_issues: false
