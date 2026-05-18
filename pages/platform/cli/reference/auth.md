@@ -43,9 +43,9 @@ bk auth login [flags]
 | Flag | Description |
 | --- | --- |
 | `--debug` | Enable debug output for REST API calls |
-| `--org=STRING` | Organization slug (required with --token) |
+| `--org=STRING` | Organization slug or UUID to request access for |
 | `--scopes=""` | OAuth scopes to request |
-| `--token=STRING` | API token to store (non-OAuth login) |
+| `--token=STRING` | API token to store (non-OAuth login, requires --org) |
 
 ### Examples
 
@@ -53,6 +53,12 @@ Login with full permissions (inherits your account's scopes):
 
 ```bash
 bk auth login
+```
+
+Login to a specific organization:
+
+```bash
+bk auth login --org my-org
 ```
 
 Login non-interactively with an API token:

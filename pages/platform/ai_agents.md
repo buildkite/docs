@@ -12,7 +12,7 @@ Give your AI coding agent the context and tools it needs to work with Buildkite 
 
 ### Skills
 
-[Buildkite skills](https://github.com/buildkite/skills) encode expert knowledge about Buildkite. These include YAML configuration patterns, migration strategies, CLI usage, and API patterns, all formatted for AI coding agents like [Claude Code](https://claude.ai/code), Cursor, and GitHub Copilot.
+[Buildkite skills](https://github.com/buildkite/skills) encode expert knowledge about Buildkite. These include YAML configuration patterns, migration strategies, CLI usage, and API patterns, all formatted for AI coding agents like [Claude Code](https://claude.ai/code/), Cursor, and GitHub Copilot.
 
 Install them to avoid re-explaining Buildkite conventions in every session. Available skills cover:
 
@@ -42,7 +42,7 @@ Run AI agents as steps in your pipelines to automate analysis, summarize failure
 
 [Model providers](/docs/apis/model-providers) connect LLMs directly into pipeline steps, giving agents access to build logs, artifacts, security policies, and real-time pipeline data. This is Buildkite's native approach to running agentic steps.
 
-Agent steps authenticate using the existing `$BUILDKITE_AGENT_ACCESS_TOKEN`—no separate API key is required when using a [Buildkite hosted token](/docs/apis/model-providers#buildkite-hosted-token) (available on Pro and Enterprise plans). Teams that manage their own credentials can use [Bring Your Own Token](/docs/apis/model-providers#bring-your-own-token) instead.
+Agent steps authenticate using the existing `$BUILDKITE_AGENT_ACCESS_TOKEN`—no separate API key is required when using a [Buildkite hosted token](/docs/apis/model-providers#connect-to-a-model-provider-buildkite-hosted-token) (available on Pro and Enterprise plans). Teams that manage their own credentials can use [Bring Your Own Token](/docs/apis/model-providers#connect-to-a-model-provider-bring-your-own-token) instead.
 
 ```yaml
 steps:
