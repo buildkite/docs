@@ -353,6 +353,14 @@ attributes:
     required: false
     desc: |
       Skip updating the Git mirror
+  - name: "git-checkout-timeout"
+    env_var: |
+      $BUILDKITE_GIT_CHECKOUT_TIMEOUT
+    default_value: |
+      0
+    required: false
+    desc: |
+      Seconds to allow for each git checkout attempt before it is killed and retried (0 means no timeout)
   - name: "git-submodule-clone-config"
     env_var: |
       $BUILDKITE_GIT_SUBMODULE_CLONE_CONFIG
