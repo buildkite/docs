@@ -4,7 +4,7 @@ keywords: docs, pipelines, AI coding agents, Claude, MCP server, skills, LLM, ge
 
 # Getting started with coding agents
 
-AI coding agents like [Claude Code](https://claude.ai/code) and [Cursor](https://cursor.com/) can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), or working with the [Buildkite APIs](/docs/apis).
+AI coding agents like [Claude Code](https://claude.ai/code/) and [Cursor](https://cursor.com/) can help you build, debug, and maintain your Buildkite-based workflows more effectively, whether you're configuring [Buildkite Pipelines](/docs/pipelines), instrumenting test suites with [Buildkite Test Engine](/docs/test-engine), or working with the [Buildkite APIs](/docs/apis).
 
 This page covers three ways of giving your AI coding agent the context and tools it needs to work with Buildkite products. The same approaches apply across Buildkite Pipelines and Buildkite Test Engine.
 

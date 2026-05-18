@@ -12,7 +12,7 @@ Give your AI coding agent the context and tools it needs to work with Buildkite 
 
 ### Skills
 
-[Buildkite skills](https://github.com/buildkite/skills) encode expert knowledge about Buildkite. These include YAML configuration patterns, migration strategies, CLI usage, and API patterns, all formatted for AI coding agents like [Claude Code](https://claude.ai/code/family), Cursor, and GitHub Copilot.
+[Buildkite skills](https://github.com/buildkite/skills) encode expert knowledge about Buildkite. These include YAML configuration patterns, migration strategies, CLI usage, and API patterns, all formatted for AI coding agents like [Claude Code](https://claude.ai/code/), Cursor, and GitHub Copilot.
 
 Install them to avoid re-explaining Buildkite conventions in every session. Available skills cover:
 
