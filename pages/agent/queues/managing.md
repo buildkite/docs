@@ -34,7 +34,7 @@ Self-hosted queues use [Buildkite agents installed in your own infrastructure](/
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
-When you [create a new cluster](/docs/pipelines/security/clusters/manage#create-a-cluster) through the [Buildkite interface](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-buildkite-interface), this cluster will automatically have five queues - linux-small (the default), linux-medium, linux-large, macos-medium, and macos-large.
+When you [create a new cluster](/docs/pipelines/security/clusters/manage#create-a-cluster) through the [Buildkite interface](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-buildkite-interface), this cluster will automatically have five queues: **linux-small** (the default), **linux-medium**, **linux-large**, **macos-medium**, and **macos-large**.
 
 Multiple self-hosted agents can connect to your self-hosted queue by ensuring that the agent is configured to use both of the following:
 
