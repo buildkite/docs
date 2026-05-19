@@ -625,10 +625,10 @@
           children:
             - name: "PagerDuty"
               path: "pipelines/integrations/notifications/pagerduty"
-            - name: "Slack"
-              path: "pipelines/integrations/notifications/slack"
             - name: "Slack Workspace"
               path: "pipelines/integrations/notifications/slack-workspace"
+            - name: "Slack (legacy)"
+              path: "pipelines/integrations/notifications/slack"
             - name: "CCMenu and CCTray"
               path: "pipelines/integrations/notifications/cc-menu"
             - name: "Notification plugins"
