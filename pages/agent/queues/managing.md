@@ -4,7 +4,7 @@ This page provides details on how to manage queues within a [cluster](/docs/pipe
 
 ## Setting up queues
 
-A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite agents](/docs/agent) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/security/clusters/manage#setting-up-clusters) (named **Default cluster**), five queues - linux-small (the default), linux-medium, linux-large, macos-medium, and macos-large are also created within this cluster.
+A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite agents](/docs/agent) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/security/clusters/manage#setting-up-clusters) (named **Default cluster**), five queues are also created within this cluster: **linux-small** (the default), **linux-medium**, **linux-large**, **macos-medium**, and **macos-large**.
 
 A cluster can be configured with multiple queues. Each queue can be used for workload routing to specific combinations of your [build/agent infrastructure](#agent-infrastructure), based on:
 
