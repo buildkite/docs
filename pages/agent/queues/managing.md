@@ -4,7 +4,7 @@ This page provides details on how to manage queues within a [cluster](/docs/pipe
 
 ## Setting up queues
 
-A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite agents](/docs/agent) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/security/clusters/manage#setting-up-clusters) (named **Default cluster**), a default queue (named **default-queue**) within this cluster is also created.
+A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite agents](/docs/agent) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/security/clusters/manage#setting-up-clusters) (named **Default cluster**), five queues - linux-small (the default), linux-medium, linux-large, macos-medium, and macos-large are also created within this cluster.
 
 A cluster can be configured with multiple queues. Each queue can be used for workload routing to specific combinations of your [build/agent infrastructure](#agent-infrastructure), based on:
 
@@ -34,7 +34,7 @@ Self-hosted queues use [Buildkite agents installed in your own infrastructure](/
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the queue will be created in.
 
-When you [create a new cluster](/docs/pipelines/security/clusters/manage#create-a-cluster) through the [Buildkite interface](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-buildkite-interface), this cluster automatically has an initial **default** queue.
+When you [create a new cluster](/docs/pipelines/security/clusters/manage#create-a-cluster) through the [Buildkite interface](/docs/pipelines/security/clusters/manage#create-a-cluster-using-the-buildkite-interface), this cluster will automatically have five queues - linux-small (the default), linux-medium, linux-large, macos-medium, and macos-large.
 
 Multiple self-hosted agents can connect to your self-hosted queue by ensuring that the agent is configured to use both of the following:
 
