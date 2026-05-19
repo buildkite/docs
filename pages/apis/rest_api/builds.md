@@ -681,6 +681,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <table>
 <tbody>
   <tr>
+    <th><code>exclude_jobs</code></th>
+    <td>Exclude the list of jobs from the build's details.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
     <th><code>include_retried_jobs</code></th>
     <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_retried_jobs=true</code></p></td>
