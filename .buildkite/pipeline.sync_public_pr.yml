@@ -21,7 +21,7 @@ steps:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
       - docker#v5.13.0:
-          image: "ruby:4.0.2-bookworm"
+          image: "ruby:4.0.4-bookworm"
           propagate-environment: true
           mount-buildkite-agent: true
           environment:
