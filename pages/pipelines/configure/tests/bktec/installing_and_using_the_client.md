@@ -136,6 +136,35 @@ The following mandatory environment variables must be set.
   </tbody>
 </table>
 
+<h4 id="optional-environment-variables">Authentication environment variables</h4>
+
+The following optional environment variables control authentication for `bktec` and test collection in the configured runner.
+
+<table class="Docs__attribute__table">
+  <tbody>
+    <% TEST_SPLITTING_ENV['optional']['auth'].each do |var| %>
+      <tr id="<%= var['name'] %>">
+        <th>
+          <code><%= var['name'] %> <a class="Docs__attribute__link" href="#<%= var['name'] %>">#</a></code>
+        </th>
+        <td>
+          <% var['desc'].each do |d| %>
+            <%= render_markdown(text: d) %>
+          <% end %>
+
+          <% if var['note'].present? %>
+            <section class="callout callout--info">
+              <% var['note'].each do |d| %>
+                <%= render_markdown(text: d) %>
+              <% end %>
+            </section>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <h4 id="optional-rspec-environment-variables">Optional RSpec environment variables</h4>
 
 The following optional RSpec environment variables can also be used to configure bktec's behavior.
@@ -213,7 +242,6 @@ steps:
     command: bktec run
     parallelism: 10
     env:
-      BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN: your-secret-token
       BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
       BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
       BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
