@@ -4,7 +4,7 @@ Test collectors can use [ephemeral OIDC tokens](/docs/agent/cli/reference/oidc#r
 
 ## Configure a project to use OIDC
 
-Given a project that is [already configured to use test collection](/test-engine/getting-started), first set an **OIDC policy** in the settings for the suite you wish to upload to, listing the pipelines you wish to upload test results from.
+Given a project that is already configured to use test collection, first set an **OIDC policy** in the settings for the suite you wish to upload to, listing the pipelines you wish to upload test results from.
 
 ```yaml
 - iss: "https://agent.buildkite.com"
