@@ -407,7 +407,7 @@ Once a Slack channel or workspace has been configured in your organization, add 
 
 > 🚧
 > When using only a channel name, you must specify this name in quotes. Otherwise, the `#` will cause the channel name to be treated as a comment.
-> If you have a Slack notification service configured for a given Slack channel and you either rename this channel, or change the channel's visibility from public to private, then you will need to set up a new Slack notification service to accommodate this modification. This issue does not affect the Slack Workspace notification service, since only one service needs to be configured for a given Slack workspace. To avoid this issue entirely, consider using a [Slack channel ID](#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) instead.
+> If you have a Slack notification service configured for a given Slack channel and you either rename this channel, or change the channel's visibility from public to private, then you will need to set up a new Slack notification service to accommodate this modification. This issue does not affect the Slack Workspace notification service, since only one service needs to be configured for a given Slack workspace. To avoid this issue entirely, consider using a [Slack channel ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) instead.
 
 ### Notify a channel in all workspaces
 
@@ -523,11 +523,11 @@ steps:
 
 ### Notify using a Slack channel or conversation ID
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), you can specify a Slack ID instead of a channel name. Slack IDs are more stable than channel names—they remain valid even if the channel is renamed or its visibility changes.
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), you can specify a Slack ID instead of a channel name. Slack IDs are more stable than channel names as they remain valid even if the channel is renamed or its visibility changes.
 
 Supported ID prefixes:
 
-- `C` — public or private channel ID (for example, `C0B1SRLV4DS`)
+- `C` — public or private channel ID (for example, `C0B1SRLV43S`)
 - `D` — direct message ID (the Buildkite Builds app must be invited to the conversation)
 - `G` — multi-person group direct message ID
 
@@ -535,7 +535,7 @@ Build-level notification using a channel ID:
 
 ```yaml
 notify:
-  - slack: "C0B1SRLV4DS"
+  - slack: "C0B1SRLV43S"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -546,12 +546,12 @@ steps:
   - label: "Example test"
     command: echo "Hello!"
     notify:
-      - slack: "C0B1SRLV4DS"
+      - slack: "C0B1SRLV43S"
 ```
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is shown at the bottom of the panel.
+> To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
 
 > 🚧
 > Notification delivery can still fail if the Buildkite Builds app does not have permission to post to that destination. For private channels, a Slack admin may need to reinstall the app or add it to the channel. For direct messages (`D` prefix), the app must be explicitly invited to the conversation.
