@@ -1,6 +1,6 @@
 # Organization members API
 
-The organization members API endpoint allows users to view all members of a Buildkite organization.
+The organization members API endpoint allows users to view and manage members of a Buildkite organization.
 
 ## Organization member data model
 
@@ -67,3 +67,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `read_organizations`
 
 Success response: `200 OK`
+
+## Remove an organization member
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/members/{user.uuid}"
+```
+
+Required scope: `write_organizations`
+
+Success response: `204 No Content`
