@@ -22,7 +22,7 @@ Given a project that is [already configured to use test collection](/test-engine
 Add a script to generate and export an OIDC token to `BUILDKITE_ANALYTICS_TOKEN` before each run.
 
 > 📘
-> When using `bktec`, the steps below can be skipped. `bktec` will [generate OIDC tokens](/docs/test_engine/bktec//installing-and-using-the-client#using-bktec-configure-environment-variables) automatically.
+> When using `bktec`, the steps below can be skipped. `bktec` will [generate OIDC tokens](/docs/test-engine/bktec/installing-and-using-the-client#using-bktec-configure-environment-variables) automatically.
 
 ```bash
 SUITE_URL="https://buildkite.com/organizations/my-org/analytics/suites/my-project-test-suite"
