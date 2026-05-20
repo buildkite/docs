@@ -46,7 +46,7 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
         description: "Security-related topics relevant to the entire Buildkite platform."
       },
       {
-        topic: "[Integrations](/docs/platform/integrations/slack-workspace)",
+        topic: "[Integrations](/docs/pipelines/integrations/notifications/slack-workspace)",
         description: "Integrations with the Buildkite platform that function across multiple Buildkite products."
       },
       {

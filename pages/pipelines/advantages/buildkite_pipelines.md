@@ -92,7 +92,7 @@ The Buildkite Pipelines interface provides immediate visibility into pipeline be
 - Configurable [log grouping](/docs/pipelines/configure/managing-log-output#grouping-log-output) (`---`, `+++`, `~~~`) organizes output into [collapsible sections](/docs/pipelines/configure/managing-log-output#grouping-log-output-collapsed-groups).
 - Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links.
 - Builds running on your own infrastructure let you SSH into the machine, inspect the environment, and reproduce failures locally.
-- [Buildkite Test Engine](/docs/test-engine) detects [flaky tests](/docs/test-engine/glossary#flaky-test), automatically [mutes](/docs/test-engine/test-suites/test-state-and-quarantine#automatic-quarantine) unreliable ones, and assigns follow-up, so teams get a clean signal from their test suites.
+- [Buildkite Test Engine](/docs/test-engine) detects [flaky tests](/docs/pipelines/glossary#flaky-test), automatically [mutes](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine#automatic-quarantine) unreliable ones, and assigns follow-up, so teams get a clean signal from their test suites.
 
 ## Extensibility and integrations
 

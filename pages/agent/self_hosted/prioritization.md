@@ -157,7 +157,7 @@ The configuration described in the previous section creates a spillover system t
 
 When a job fails on a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue), and you retry it, Buildkite Pipelines will (by default) retry the job the agent that has most recently finished a job. Often, this can be the agent that ran the job that originally failed.
 
-There may be scenarios where you might want to retry the job on a different agent, such as a [flaky test](/docs/test-engine/glossary#flaky-test), where environment settings that could have caused the job to fail are unlikely to be present. Therefore, you can configure your self-hosted queue to instead retry the job on a different agent, where such an agent is available.
+There may be scenarios where you might want to retry the job on a different agent, such as a [flaky test](/docs/pipelines/glossary#flaky-test), where environment settings that could have caused the job to fail are unlikely to be present. Therefore, you can configure your self-hosted queue to instead retry the job on a different agent, where such an agent is available.
 
 This type of configuration is known as _agent affinity_, which has the following settings:
 

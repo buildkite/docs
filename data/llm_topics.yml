@@ -332,7 +332,7 @@ user-management:
     - "platform/audit-log"
     - "platform/security/tokens"
     - "pipelines/security/permissions"
-    - "test-engine/permissions"
+    - "platform/team-management/permissions"
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
@@ -398,7 +398,7 @@ test-engine:
   name: "Buildkite Test Engine Documentation"
   description: "Buildkite documentation for Buildkite Test Engine, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."
   paths:
-    - "test-engine"
+    - "pipelines/configure/tests"
     - "apis/rest-api/test-engine"
   exact_paths:
     - "platform/team-management"
@@ -410,7 +410,7 @@ test-engine:
     - "apis/rest-api/teams/suites"
     - "apis/graphql-api"
     - "apis/webhooks/test-engine"
-    - "platform/integrations/slack-workspace"
+    - "pipelines/integrations/notifications/slack-workspace"
   related_topics:
     - buildkite-apis
     - integrations
@@ -431,7 +431,7 @@ packages:
     - "apis/graphql-api"
     - "apis/graphql/cookbooks/registries"
     - "apis/webhooks/package-registries"
-    - "platform/integrations/slack-workspace"
+    - "pipelines/integrations/notifications/slack-workspace"
   related_topics:
     - buildkite-apis
     - integrations
