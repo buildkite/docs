@@ -5,12 +5,15 @@ set -euo pipefail
 #
 # This script:
 #   1. Installs dependencies (git, gh CLI, Claude Code)
-#   2. Removes the "needs-docs" label from the upstream PR (one-shot trigger)
+#   2. Decides whether to proceed:
+#        buildkite/buildkite — always runs (no label needed)
+#        buildkite/agent     — requires "needs-docs" label
 #   3. Fetches PR context (title, body, diff, comments, reviews)
-#   4. Builds a prompt and runs Claude Code to analyze/write docs
-#   5. Commits and pushes any changes
-#   6. Opens (or updates) a draft PR on docs-private
-#   7. Comments on the upstream PR with the result
+#   4. Checks for feature flags in the diff and annotates the build
+#   5. Builds a prompt and runs Claude Code to analyze/write docs
+#   6. Commits and pushes any changes
+#   7. Opens (or updates) a draft PR on docs-private
+#   8. Annotates the build with the result; comments on the upstream PR only if a PR was created
 #
 # Required environment variables:
 #   UPSTREAM_REPO                — GitHub repo slug (e.g. "buildkite/agent")
@@ -68,11 +71,22 @@ export GH_TOKEN="${GITHUB_TOKEN}"
 echo "--- :hammer: Install dependencies"
 apt-get update -qq && apt-get install -y -qq git curl jq > /dev/null 2>&1
 
-# --- Check for "needs-docs" label (unless WRITE_DOCS is already set) ---
-# When triggered automatically from an upstream pipeline, WRITE_DOCS may not be set.
-# In that case, check the PR's labels to decide whether to proceed.
+# --- Decide whether to proceed based on repo and labels ---
+# buildkite/buildkite: always run — docs are a human gate after every merge
+# buildkite/agent:     requires "needs-docs" label — agent releases are batched,
+#                      so docs should only be drafted when the feature is ready to ship
 
-if [ "${WRITE_DOCS:-}" != "true" ]; then
+if [ "${WRITE_DOCS:-}" = "true" ]; then
+  echo "WRITE_DOCS=true set explicitly, proceeding"
+  buildkite-agent annotate --style "info" --context "docs-trigger" \
+    ":memo: Docs draft triggered explicitly (\`WRITE_DOCS=true\`) for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
+    || true
+elif [ "${UPSTREAM_REPO}" = "buildkite/buildkite" ]; then
+  echo "Repo is buildkite/buildkite — docs run on every merge, no label required"
+  buildkite-agent annotate --style "info" --context "docs-trigger" \
+    ":memo: Docs draft triggered automatically — \`buildkite/buildkite\` runs on every merge" \
+    || true
+else
   echo "--- :label: Checking for 'needs-docs' label on ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
   LABELS=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
     "https://api.github.com/repos/${UPSTREAM_REPO}/pulls/${UPSTREAM_PR_NUMBER}" \
@@ -81,9 +95,15 @@ if [ "${WRITE_DOCS:-}" != "true" ]; then
 
   if ! echo "${LABELS}" | grep -q "^needs-docs$"; then
     echo "No 'needs-docs' label found, skipping docs draft"
+    buildkite-agent annotate --style "info" --context "docs-trigger" \
+      ":skip: No \`needs-docs\` label on **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** — skipping docs draft. Add the label when the feature is ready to ship." \
+      || true
     exit 0
   fi
   echo "'needs-docs' label found, proceeding"
+  buildkite-agent annotate --style "info" --context "docs-trigger" \
+    ":memo: Docs draft triggered by \`needs-docs\` label on **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
+    || true
 fi
 
 # Install gh CLI
@@ -133,6 +153,18 @@ PR_DIFF=$(gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" | head -n
 echo "PR: ${PR_TITLE}"
 echo "URL: ${PR_URL}"
 
+# --- Check for feature flags in the diff ---
+
+echo "--- :triangular_flag_on_post: Checking for feature flags"
+if echo "${PR_DIFF}" | grep -qE "(Feature::[A-Z][A-Z_]+|Feature\.new\b|\.active_for_(organization|user|all_users|request|current_organization)|\.active\?\(|activate_for_|deactivate_for_|Billing::Plan::Feature|lib/buildkite/feature_flags/)"; then
+  echo "Feature flag indicators detected in diff"
+  buildkite-agent annotate --style "warning" --context "feature-flag" \
+    ":triangular_flag_on_post: **Feature flag detected** — this PR may introduce a feature behind a flag. Review whether docs should note limited availability or be held until GA." \
+    || true
+else
+  echo "No feature flag indicators found"
+fi
+
 # --- Cache templates before branch switch ---
 # The checkout dir currently has our pipeline branch files. Once we switch to
 # origin/main these will disappear, so read everything into variables and /tmp now.
@@ -141,7 +173,6 @@ echo "--- :file_folder: Cache templates"
 PROMPT_TEMPLATE=$(cat "${TEMPLATES_DIR}/docs-draft-prompt.md")
 SYSTEM_PROMPT_FILE="/tmp/docs-draft-system.md"
 cp "${SCRIPT_DIR}/../prompts/docs-draft-system.md" "${SYSTEM_PROMPT_FILE}"
-COMMENT_NO_CHANGES=$(cat "${TEMPLATES_DIR}/comment-no-changes.md")
 COMMENT_DOCS_CREATED_TEMPLATE=$(cat "${TEMPLATES_DIR}/comment-docs-created.md")
 DRAFT_PR_BODY_TEMPLATE=$(cat "${TEMPLATES_DIR}/draft-pr-body.md")
 
@@ -241,12 +272,9 @@ su claude-user -c "
 echo "--- :git: Check for changes"
 if git diff --quiet && git diff --cached --quiet; then
   echo "No documentation changes were made."
-
-  gh pr comment "${UPSTREAM_PR_NUMBER}" \
-    --repo "${UPSTREAM_REPO}" \
-    --body "${COMMENT_NO_CHANGES}" \
+  buildkite-agent annotate --style "info" --context "docs-result" \
+    ":white_check_mark: Claude reviewed **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** and determined no documentation changes were needed." \
     || true
-
   exit 0
 fi
 
@@ -288,7 +316,11 @@ else
   echo "Created new PR: ${DOCS_PR_URL}"
 fi
 
-# --- Comment on upstream PR ---
+# --- Annotate build and comment on upstream PR ---
+
+buildkite-agent annotate --style "success" --context "docs-result" \
+  ":memo: Docs draft PR created for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**: ${DOCS_PR_URL}" \
+  || true
 
 echo "--- :mega: Comment on upstream PR"
 COMMENT_BODY=$(echo "${COMMENT_DOCS_CREATED_TEMPLATE}" | sed \
