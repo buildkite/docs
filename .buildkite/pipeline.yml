@@ -55,7 +55,7 @@ steps:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
       - docker#v5.13.0:
-          image: "public.ecr.aws/docker/library/ruby:4.0.2-slim-bookworm"
+          image: "public.ecr.aws/docker/library/ruby:4.0.4-slim-bookworm"
           propagate-environment: true
           environment:
             - GH_REPO
@@ -125,7 +125,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "ruby:4.0.2-bookworm"
+          image: "ruby:4.0.4-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
@@ -136,7 +136,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "ruby:4.0.2-bookworm"
+          image: "ruby:4.0.4-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent versions directory page is out of date, or you edited its content in this repository. Run `scripts/update-agent-versions-directory.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
