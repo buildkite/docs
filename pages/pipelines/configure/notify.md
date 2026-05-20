@@ -523,7 +523,7 @@ steps:
 
 ### Notify using a Slack channel or conversation ID
 
-When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), you can specify a Slack ID instead of a channel name. Slack IDs are more stable than channel names — they remain valid even if the channel is renamed or its visibility changes.
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), you can specify a Slack ID instead of a channel name. Slack IDs are more stable than channel names—they remain valid even if the channel is renamed or its visibility changes.
 
 Supported ID prefixes:
 
