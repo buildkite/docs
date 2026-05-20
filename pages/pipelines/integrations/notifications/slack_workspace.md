@@ -37,7 +37,7 @@ notify:
   - slack: "buildkite-community#private-channel"
 ```
 
-You can also use a channel ID (prefixed with `C`) to target a private channel. Channel IDs are more stable than names — they remain valid if the channel is renamed. See [Notify using a Slack channel or conversation ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) for details.
+You can also use a channel ID (prefixed with `C`) to target a private channel. Channel IDs are more stable than names—they remain valid if the channel is renamed. See [Notify using a Slack channel or conversation ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) for details.
 
 ## Conditional notifications
 
