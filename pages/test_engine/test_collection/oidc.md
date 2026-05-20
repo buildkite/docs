@@ -33,7 +33,7 @@ export BUILDKITE_ANALYTICS_TOKEN
 {: codeblock-file="generate-test-engine-oidc-token"}
 
 > 📘
-> Specify a lifetime that is greater than the longest expected duration of your build script to ensure the token does not expire during the build.
+> Specify a lifetime that exceeds the duration of your longest expected build script to ensure the token does not expire during the build.
 
 Remove any existing configuration that sets `BUILDKITE_ANALYTICS_TOKEN` and call the token generation script before your build script.
 
