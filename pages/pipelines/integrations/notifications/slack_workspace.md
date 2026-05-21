@@ -5,9 +5,7 @@ The Slack Workspace notification service is the recommended way to send Buildkit
 > 📘
 > If you are still using one or more individual [Slack (legacy)](/docs/pipelines/integrations/notifications/slack) notification services—where each service is bound to a single channel or user—Buildkite recommends migrating to the Slack Workspace notification service for a simpler configuration experience and access to additional features such as [`pipeline.started_failing` and `pipeline.started_passing`](#customizing-notifications-notify-only-specific-failure-scenarios) conditionals.
 
-## Configuring notifications
-
-Before configuring notifications, ensure your Slack workspace is connected to your Buildkite organization.
+## Connect Slack workspace
 
 The Slack Workspace integration lets you receive notifications in your [Slack](https://slack.com/) workspace. This integration supports:
 
@@ -18,8 +16,6 @@ The Slack Workspace integration lets you receive notifications in your [Slack](h
 
 > 📘
 > Setting up a Workspace requires Buildkite organization admin access.
-
-## Connect Slack workspace
 
 1. Select **Settings** in the global navigation and select **Notification Services** in the left sidebar.
 
@@ -37,9 +33,7 @@ The Slack Workspace integration lets you receive notifications in your [Slack](h
 
 1. After granting access, you can then configure [Pipeline build notifications](/docs/pipelines/integrations/notifications/slack-workspace) and [Test Engine workflow Slack notifications](/docs/pipelines/configure/tests/workflows/actions#send-slack-notification).
 
-## Privacy policy
-
-For details on how Buildkite handles your information, please see Buildkite's [Privacy Policy](https://buildkite.com/about/legal/privacy-policy/).
+## Configuring notifications
 
 Once the Slack workspace is connected, use the `notify` attribute in the YAML syntax of your pipelines to [configure specific notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages):
 
@@ -486,6 +480,10 @@ If a notification does not arrive, check the following:
 - The Slack workspace is connected and the relevant pipeline is included in the workspace's notification settings.
 - The Slack channel exists and the **Buildkite Builds** Slack app has been invited to it.
 - The `if` expression matches the build state at the moment the notification event fires. See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for the full list of conditionals.
+
+## Privacy policy
+
+For details on how Buildkite handles your information, please see Buildkite's [Privacy Policy](https://buildkite.com/about/legal/privacy-policy/).
 
 ## Next steps
 

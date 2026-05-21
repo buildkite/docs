@@ -1,5 +1,8 @@
 # Linear
 
+>📘
+>This integration only works with Test Engine workflows
+
 The Linear integration lets you synchronize issues between [Linear](https://linear.app) and Buildkite Test Engine. This integration supports the creation of Linear issues based on [Test Engine workflows](/docs/pipelines/configure/tests/workflows/actions#creating-a-linear-issue).
 
 > 📘

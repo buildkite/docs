@@ -2,16 +2,16 @@
 template: "landing_page"
 ---
 
-# Buildkite Test Engine
+# Test Engine overview
 
-Scale out your testing across any framework with _Buildkite Test Engine_. Speed up builds with real-time flaky test management and intelligent test splitting. Drive accountability and get more out of your existing CI compute with performance insights and analytics.
+Test Engine is the testing layer of [Buildkite Pipelines](/docs/pipelines). It collects test results from the jobs your pipelines run, then provides tools to track, analyze, and act on those results across any testing framework. Test Engine also accepts results from non-Buildkite CI systems, so you can use it alongside an existing CI/CD setup while migrating to Buildkite Pipelines.
 
-Where [Buildkite Pipelines](/docs/pipelines) helps you automate your CI/CD pipelines, Test Engine helps you track and analyze the steps in these pipelines, by:
+Use Test Engine to:
 
-- Shipping code to production faster through test optimization.
-- Working directly with Buildkite Pipelines, as well as other CI/CD applications.
-- Identifying, fixing, and monitoring test performance.
-- Tracking, improving, and monitoring test reliability.
+- Detect and quarantine flaky tests so they stop blocking builds.
+- Split tests across parallel jobs to reduce build duration.
+- Monitor test performance, reliability, and ownership over time.
+- Surface the slowest and least reliable tests in each suite.
 
 <%= image "overview.png", width: 2594, height: 624, alt: "Screenshot of test suite trend showing six metrics over the last day" %>
 
