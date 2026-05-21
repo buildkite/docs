@@ -2,7 +2,7 @@
 
 When your source code projects are built with Buildkite Pipelines, you can write scripts that generate new pipeline steps at build time, in either YAML or JSON, and upload them to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps run on the same Buildkite agent as part of the same build, and appear as their own steps in the build, giving you the flexibility to structure pipelines however you require.
 
-A pipeline generator script can be written in any language that produces YAML or JSON on stdout—teams commonly use Bash, Python, Ruby, Node.js, Go, and PHP. For type-safe, unit-testable pipeline definitions in JavaScript/TypeScript, Python, Go, and Ruby, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
+A pipeline generator script can be written in any language that produces YAML or JSON on stdout—teams commonly use Bash, Python, Ruby, Node.js, Go, C#, and PHP. For type-safe, unit-testable pipeline definitions in JavaScript/TypeScript, Python, Go, and Ruby, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
 
 ## Your first dynamic pipeline
 
@@ -110,7 +110,7 @@ steps:
       - "Dockerfile"
       - "docker/**"
     env:
-      IMAGE_TAG: "preview-${BUILDKITE_BRANCH//\\//-}"
+      IMAGE_TAG: "preview-build-${BUILDKITE_BUILD_NUMBER}"
     command: "./scripts/build-and-push.sh"
 ```
 
