@@ -16,7 +16,7 @@ Once you have met the prerequisites (see [Before you start](#before-you-start)) 
 
 - **Organizations**: Configure organization-level settings (such as [two-factor authentication](/docs/platform/team-management/enforce-2fa) and [restricting API access by IP address](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address)), and [system banners](/docs/platform/team-management/system-banners). See [Manage Buildkite organizations](/docs/platform/terraform-provider/manage-buildkite-organizations) for more information.
 
-- **Test suites**: Set up [Test Engine](/docs/test-engine) test suites and manage team access. See the [`buildkite_test_suite`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/test_suite) and [`buildkite_test_suite_team`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/test_suite_team) resources in the Terraform provider docs for details.
+- **Test suites**: Set up [Test Engine](/docs/pipelines/configure/tests) test suites and manage team access. See the [`buildkite_test_suite`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/test_suite) and [`buildkite_test_suite_team`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/test_suite_team) resources in the Terraform provider docs for details.
 
 - **Package registries**: Manage [Package Registries](/docs/package-registries) resources. See the [`buildkite_registry`](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/registry) resource in the Terraform provider docs for details.
 
@@ -26,7 +26,7 @@ The Terraform provider requires the following Buildkite configuration values:
 
 - **API access token**: A [Buildkite API access token](/docs/apis/managing-api-tokens) (`BUILDKITE_API_TOKEN`) with `write_pipelines` and `read_pipelines` [REST API scopes and _GraphQL API access_](/docs/apis/managing-api-tokens#token-scopes) enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
 
-    **Note:** You can also add the `write_suites` REST API scope to this token, although this is only required if you plan to manage [Buildkite Test Engine](/docs/test-engine) test suites using the Terraform provider.
+    **Note:** You can also add the `write_suites` REST API scope to this token, although this is only required if you plan to manage [Buildkite Test Engine](/docs/pipelines/configure/tests) test suites using the Terraform provider.
 
 - **Buildkite organization slug**: Your Buildkite organization slug, which you can find in your Buildkite URL: `https://buildkite.com/<your-buildkite-org-slug>`.
 

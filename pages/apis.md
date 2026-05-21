@@ -1,6 +1,6 @@
 # Buildkite APIs
 
-The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries).
+The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines) (including its [test suites](/docs/pipelines/configure/tests) features) and [Package Registries](/docs/package-registries).
 
 ## Authentication
 
@@ -69,7 +69,7 @@ Buildkite's webhooks allow your third-party applications and systems to monitor 
 
 For Pipelines, webhooks can be [added and configured](/docs/apis/webhooks/pipelines#add-a-webhook) on your Buildkite organization's [**Notification Services** settings](https://buildkite.com/organizations/-/services) page.
 
-For Test Engine and Package Registries, webhooks can be configured through their specific [test suites](/docs/apis/webhooks/test-engine) and [registries](/docs/apis/webhooks/package-registries#add-a-webhook), respectively.
+For Pipelines [test suites](/docs/apis/webhooks/test-engine) and Package Registries [registries](/docs/apis/webhooks/package-registries#add-a-webhook), webhooks can be configured directly on each suite or registry.
 
 This section also covers documentation on how to configure incoming webhooks for the Buildkite platform, available through [pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
 

@@ -44,7 +44,7 @@ Buildkite handles large [monorepos](/docs/pipelines/best-practices/working-with-
 
 GitHub has no native test intelligence—teams must rely on custom scripts or marketplace actions.
 
-[Buildkite Test Engine](/docs/test-engine) provides intelligent test splitting that balances suites dynamically using historical runtime data, automatic flaky test retries, flaky test quarantine, and rich analytics.
+[Buildkite Test Engine](/docs/pipelines/configure/tests) provides intelligent test splitting that balances suites dynamically using historical runtime data, automatic flaky test retries, flaky test quarantine, and rich analytics.
 
 ## Predictable pricing
 

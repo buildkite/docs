@@ -14,7 +14,7 @@ You can also upload test results by importing [JSON](/docs/pipelines/configure/t
 
 Before you start, make sure XCTest runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 
-1. [Create a test suite](/docs/test-engine) and copy the test suite API token.
+1. [Create a test suite](/docs/pipelines/configure/tests) and copy the test suite API token.
 
 1. [Securely](/docs/pipelines/security/secrets/managing) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from the previous step.
 

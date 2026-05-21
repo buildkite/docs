@@ -44,7 +44,7 @@ In Buildkite Pipelines, you can run tests in parallel when they are configured a
 
 > 📘
 > When tests are run in parallel across multiple agents, they can be grouped into the same run by defining the same `run_env[key]` environment variable. Learn more about this environment variable and others in [CI environments](/docs/pipelines/configure/tests/test-collection/ci-environments).
-> The best way to coordinate the distribution of tests in a parallelized build is by implementing [test splitting](/docs/test-engine/test-splitting).
+> The best way to coordinate the distribution of tests in a parallelized build is by implementing [test splitting](/docs/pipelines/speed-up-builds-with-bktec).
 
 ## View by branch
 

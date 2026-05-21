@@ -396,11 +396,15 @@ developer-experience:
 
 test-engine:
   name: "Buildkite Test Engine Documentation"
-  description: "Buildkite documentation for Buildkite Test Engine, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."
+  description: "Buildkite documentation for Test Engine, the testing layer of Buildkite Pipelines, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."
   paths:
     - "pipelines/configure/tests"
     - "apis/rest-api/test-engine"
   exact_paths:
+    - "pipelines/test-engine-getting-started"
+    - "pipelines/reduce-flaky-tests"
+    - "pipelines/speed-up-builds-with-bktec"
+    - "pipelines/integrations/notifications/linear"
     - "platform/team-management"
     - "platform/team-management/permissions"
     - "apis"

@@ -344,7 +344,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkit
 
 ## Test Engine limits
 
-The following table lists the default service limits for [Test Engine](/docs/test-engine).
+The following table lists the default service limits for [Test Engine](/docs/pipelines/configure/tests).
 
 <table>
   <thead>

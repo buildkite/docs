@@ -50,7 +50,7 @@ Currently, bktec supports the following test frameworks for:
 - muting tests—RSpec, Jest, and Playwright
 - skipping tests—RSpec only
 
-When using a supported test framework, bktec automatically handles quarantined tests, along with providing the benefits of efficient [test splitting](/docs/test-engine/test-splitting) and retry support.
+When using a supported test framework, bktec automatically handles quarantined tests, along with providing the benefits of efficient [test splitting](/docs/pipelines/speed-up-builds-with-bktec) and retry support.
 
 ```yaml
 - name: "Run tests, excluding quarantined ones, with bktec"

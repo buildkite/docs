@@ -6,7 +6,7 @@ template: "landing_page"
 
 Buildkite is an adaptable, composable, and scalable platform with everything platform teams need to build software delivery systems for their businesses—and rapidly deliver value to users.
 
-The Buildkite platform documentation contains docs for _common_ features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries). This area of the docs covers the following topics:
+The Buildkite platform documentation contains docs for _common_ features of Buildkite available across Buildkite [Pipelines](/docs/pipelines) (including its [test suites](/docs/pipelines/configure/tests) features) and [Package Registries](/docs/package-registries). This area of the docs covers the following topics:
 
 <table>
   <thead>
@@ -19,7 +19,7 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
     <% [
       {
         topic: "[Team management](/docs/platform/team-management)",
-        description: "Guidelines on how to manage your users and teams across the Buildkite platform for Pipelines, Test Engine, and Package Registries."
+        description: "Guidelines on how to manage your users and teams across the Buildkite platform for Pipelines and Package Registries."
       },
       {
         topic: "[Audit log](/docs/platform/audit-log)",

@@ -53,7 +53,7 @@ Establish standardized metrics collection across all pipelines to enable consist
 
 ## Getting metrics out of Buildkite Pipelines
 
-Buildkite Pipelines provides multiple ways to export CI/CD metrics depending on your needs (agent fleet health, build performance, trace correlation, [test quality](/docs/test-engine), and so on) and where you want the data (Datadog, Prometheus, Grafana, CloudWatch, your own OpenTelemetry collector, or Buildkite's [built-in dashboards](/docs/pipelines/insights/clusters)).
+Buildkite Pipelines provides multiple ways to export CI/CD metrics depending on your needs (agent fleet health, build performance, trace correlation, [test quality](/docs/pipelines/configure/tests), and so on) and where you want the data (Datadog, Prometheus, Grafana, CloudWatch, your own OpenTelemetry collector, or Buildkite's [built-in dashboards](/docs/pipelines/insights/clusters)).
 
 Most teams need two or three of these approaches working together, as they are complementary rather than competing. The following sections introduce each approach, explain when to use it, and link to detailed setup documentation.
 
@@ -67,7 +67,7 @@ Build and job lifecycle traces¹ (spans, durations, wait times) | [OpenTelemetry
 Agent-side job execution traces | [OpenTelemetry agent tracing](/docs/agent/self-hosted/monitoring-and-observability/tracing) | All | Push (OTel) | Any OTel-compatible collector
 Queue depth, wait times, concurrency² | [Cluster insights](/docs/pipelines/insights/clusters) and [GraphQL API](/docs/apis/graphql-api) | Varies | Pull or UI | Built-in UI; GraphQL or REST for custom dashboards
 Build events for alerting and dashboards | [Webhooks](/docs/apis/webhooks) and [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) | All | Push | PagerDuty, Datadog, custom endpoints
-Test performance and flaky tests | [Test Engine](/docs/test-engine) | Add-on | UI and API | Built-in UI; API for export
+Test performance and flaky tests | [Test Engine](/docs/pipelines/configure/tests) | Built-in | UI and API | Built-in UI; API for export
 {: class="responsive-table"}
 
 ¹ The `buildkite.job` span includes the pipeline slug, build number, and a `wait_time_ms` attribute. You can also use a [Signals to Metrics Connector](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/10f63383121cea32bcbc32ecc76fe9e431332816/connector/signaltometricsconnector/README.md) to produce metrics from spans.
@@ -194,7 +194,7 @@ Use this approach for event-driven alerting (for example, notifying a team when 
 
 ### Test-level performance metrics
 
-[Buildkite Test Engine](/docs/test-engine) ingests test results and provides test-level metrics.
+[Buildkite Test Engine](/docs/pipelines/configure/tests) ingests test results and provides test-level metrics.
 
 **Metrics provided:**
 
@@ -205,8 +205,8 @@ Use this approach for event-driven alerting (for example, notifying a team when 
 
 Use this approach when you care about test health independently from build infrastructure health. This is best for engineering teams focused on test suite reliability and performance.
 
-> 🚧
-> Test Engine is a separate product from build and agent metrics. It covers test execution quality, not CI infrastructure health.
+> 📘
+> Test Engine metrics cover test execution quality, not CI infrastructure health. Use the build and agent metrics described elsewhere on this page to monitor your CI infrastructure.
 
 ## Common metrics recipes
 

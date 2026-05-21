@@ -20,7 +20,7 @@ Test collectors are available for the following languages and their test runners
 - [Ruby (RSpec, minitest)](/docs/pipelines/configure/tests/test-collection/ruby-collectors)
 - [Rust (Cargo test)](/docs/pipelines/configure/tests/test-collection/rust-collectors)
 - [Swift (XCTest)](/docs/pipelines/configure/tests/test-collection/swift-collectors)
-- [Other languages or test runners](/docs/test-engine/other-collectors)
+- [Other languages or test runners](/docs/pipelines/configure/tests/test-collection/other-collectors)
 
 Note that you can also [create your own test collectors](/docs/pipelines/configure/tests/test-collection/your-own-collectors).
 

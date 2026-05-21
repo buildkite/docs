@@ -10,4 +10,4 @@ Test Engine webhooks are configured as part of a test suite's [workflow](/docs/p
 
 Webhooks are delivered to an HTTP POST endpoint of your choosing with a `Content-Type: application/json` header and a JSON encoded request body.
 
-To learn more about Test Engine webhooks and to see examples of their different payload types, see [Send webhook notification](/docs/pipelines/configure/tests/workflows/actions#send-webhook-notification) of the [Workflows > Actions](/docs/pipelines/configure/tests/workflows/actions) in the [Test Engine documentation](/docs/test-engine).
+To learn more about Test Engine webhooks and to see examples of their different payload types, see [Send webhook notification](/docs/pipelines/configure/tests/workflows/actions#send-webhook-notification) of the [Workflows > Actions](/docs/pipelines/configure/tests/workflows/actions) in the [Test Engine documentation](/docs/pipelines/configure/tests).

@@ -36,13 +36,13 @@ Here are some examples of translations that the Buildkite pipeline converter wil
 
 - **Artifacts** (`store_artifacts`) are translated to `artifact_paths` on the step.
 
-- **Test results** (`store_test_results`) are documented with guidance on configuring [Buildkite Test Engine](/docs/test-engine) for test analytics and insights.
+- **Test results** (`store_test_results`) are documented with guidance on configuring [Buildkite Test Engine](/docs/pipelines/configure/tests) for test analytics and insights.
 
 - **Branch and tag filters** (`filters.branches` and `filters.tags`) are translated to step [conditionals](/docs/pipelines/configure/conditionals) using `if:` expressions.
 
 - **Approval jobs** (jobs with `type: approval`) are translated to [block steps](/docs/pipelines/configure/step-types/block-step).
 
-- **Parallelism** is translated using Buildkite Pipelines' native `parallelism` attribute. Test splitting with `circleci tests split` requires [Buildkite Test Engine](/docs/test-engine) for equivalent functionality.
+- **Parallelism** is translated using Buildkite Pipelines' native `parallelism` attribute. Test splitting with `circleci tests split` requires [Buildkite Test Engine](/docs/pipelines/configure/tests) for equivalent functionality.
 
 - **Scheduled workflows** are documented with guidance on configuring [scheduled builds](/docs/pipelines/configure/workflows/scheduled-builds) through the Buildkite Pipelines web interface.
 

@@ -549,7 +549,7 @@ steps:
     command: npm test
 ```
 
-Buildkite Pipelines parallelism creates multiple jobs with `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables. For intelligent test distribution based on timing data (equivalent to `circleci tests split --split-by=timings`), use [Test Engine](/docs/test-engine).
+Buildkite Pipelines parallelism creates multiple jobs with `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables. For intelligent test distribution based on timing data (equivalent to `circleci tests split --split-by=timings`), use [Test Engine](/docs/pipelines/configure/tests).
 
 ### Branch and tag filtering
 
@@ -599,7 +599,7 @@ This table provides a mapping between CircleCI concepts and their Buildkite Pipe
 | `requires` | [`depends_on`](/docs/pipelines/configure/depends-on) |
 | `type: approval` | [Block step](/docs/pipelines/configure/step-types/block-step) |
 | `store_artifacts` | [`artifact_paths`](/docs/pipelines/configure/artifacts) |
-| `store_test_results` | [Test Engine](/docs/test-engine) |
+| `store_test_results` | [Test Engine](/docs/pipelines/configure/tests) |
 | `persist_to_workspace` | `buildkite-agent artifact upload` |
 | `attach_workspace` | `buildkite-agent artifact download` |
 | `save_cache` / `restore_cache` | [Cache plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/) |
@@ -648,7 +648,7 @@ Explore these resources to enhance your migrated pipelines:
 - [Annotations](/docs/agent/cli/reference/annotate)
 - [Security](/docs/pipelines/security), [Secrets](/docs/pipelines/security/secrets), and [permissions](/docs/pipelines/security/permissions)
 - [Integrations](/docs/pipelines/integrations)
-- [Test Engine](/docs/test-engine) for test insights
+- [Test Engine](/docs/pipelines/configure/tests) for test insights
 
 You can try the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing CircleCI configuration might look converted to Buildkite Pipelines.
 
