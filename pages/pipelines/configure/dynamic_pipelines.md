@@ -1,6 +1,6 @@
 # Dynamic pipelines
 
-When your source code projects are built with Buildkite Pipelines, you can write scripts that generate new pipeline steps at build time, in either YAML or JSON, and upload them to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps run on the same Buildkite agent as part of the same build, and appear as their own steps in the build, giving you the flexibility to structure pipelines however you require.
+When your source code projects are built with Buildkite Pipelines, you can write scripts that generate new pipeline steps at build time, in either YAML or JSON, and upload them to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps are added to the same build and appear as their own steps. Each generated step is scheduled as its own job and runs on any [agent](/docs/agent) that matches its [`agents`](/docs/pipelines/configure/step-types/command-step#agent-targeting) query or [queue](/docs/agent/queues), so different steps in the same build can run on different agents. This gives you the flexibility to structure pipelines however you require and to route work to the most appropriate agents.
 
 A pipeline generator script can be written in any language that produces YAML or JSON on stdout—teams commonly use Bash, Python, Ruby, Node.js, Go, C#, and PHP. For type-safe, unit-testable pipeline definitions in JavaScript/TypeScript, Python, Go, and Ruby, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
 
@@ -132,11 +132,11 @@ See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](ht
 
 ## Advanced patterns
 
-The patterns in this section build on the bootstrap pattern in [Your first dynamic pipeline](#your-first-dynamic-pipeline) to solve specific problems: replacing the bootstrap step in the interface so it does not appear alongside the generated work, varying entire pipeline definitions per branch, and recovering from infrastructure failures by retrying on a different queue. Each pattern is independent—pick the ones that match the problems you face.
+The patterns in this section build on the bootstrap pattern in [Your first dynamic pipeline](#your-first-dynamic-pipeline) to solve specific problems: replacing the remaining pending steps in a build with a freshly generated set, varying entire pipeline definitions per branch, and recovering from infrastructure failures by retrying on a different queue. Each pattern is independent—pick the ones that match the problems you face.
 
-### Replacing the bootstrap step with --replace
+### Replacing pending steps with --replace
 
-Some pipelines need a two-phase start: the first step sets build context (environment variables, build meta-data), and the second step generates the real work based on that context. Passing `--replace` to `pipeline upload` removes the pending bootstrap steps from the build and replaces them with the uploaded ones, so the bootstrap step does not linger in the interface after it finishes:
+Some pipelines need a two-phase start: the first step sets build context (for example, environment variables or build meta-data), and the second step generates the real work based on that context. Passing `--replace` to `pipeline upload` removes all pending steps from the build before adding the uploaded ones. Jobs that are already running (including the upload step itself) and jobs that have already completed are not affected, so this is useful when a placeholder or skeleton step needs to be swapped out for the generated work without leaving the original pending steps in the build:
 
 ```bash
 #!/bin/bash
