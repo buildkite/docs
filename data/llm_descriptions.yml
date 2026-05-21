@@ -298,6 +298,7 @@
   pipelines/configure/tests/test-collection/importing-json: "JSON format specification and import methods for uploading test results to Test Engine."
   pipelines/configure/tests/test-collection/your-own-collectors: "Guidance on building custom test collectors, with reference to the Ruby collector source code."
   pipelines/configure/tests/test-collection/ci-environments: "CI environment variables auto-detected by test collectors for Buildkite, CircleCI, and GitHub Actions."
+  pipelines/configure/tests/test-collection/oidc: "Configuring test collectors to authenticate to Buildkite Test Engine using ephemeral OIDC tokens issued by buildkite-agent instead of long-lived suite tokens."
   pipelines/configure/tests/workflows: "How workflows map test observations (flakiness, new tests) to automatic actions using monitors and events."
   pipelines/configure/tests/workflows/monitors: "Monitor types for detecting test issues: transition count, passed on retry, probabilistic flakiness, new test."
   pipelines/configure/tests/workflows/actions: "Workflow actions triggered on alarm/recover: add/remove labels, change state, send webhooks, Slack, Linear."

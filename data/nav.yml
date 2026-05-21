@@ -587,6 +587,8 @@
                   path: "pipelines/configure/tests/test-collection/your-own-collectors"
             - name: "CI environment variables"
               path: "pipelines/configure/tests/test-collection/ci-environments"
+            - name: "OIDC authentication"
+              path: "pipelines/configure/tests/test-collection/oidc"
         - name: "Workflows"
           children:
             - name: "Overview"
