@@ -101,6 +101,7 @@ enum APIAccessTokenScopes {
   WRITE_BUILDS
   WRITE_BUILD_LOGS
   WRITE_CLUSTERS
+  WRITE_ORGANIZATIONS
   WRITE_PACKAGES
   WRITE_PIPELINES
   WRITE_PIPELINE_TEMPLATES
@@ -4281,6 +4282,11 @@ enum JobEventType {
   The Job is limited by a platform limit
   """
   PLATFORM_LIMITED
+
+  """
+  The Job declared an early failure with a promised exit status
+  """
+  PROMISED_EXIT_STATUS
 
   """
   The Job's priority was changed
