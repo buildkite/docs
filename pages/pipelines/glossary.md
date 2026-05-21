@@ -1,10 +1,10 @@
 # Pipelines glossary
 
-The following terms describe key concepts to help you use Pipelines and Test Engine.
+The following terms describe key concepts to help you use Buildkite Pipelines, including its [test suites](/docs/pipelines/configure/tests) features (Test Engine).
 
 ## Action
 
-An action is part of a [workflow](#workflow) and provides a user defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can be for operations that happen within the Test Engine system (that is, changing a test's [state](#test-state) or [label](/docs/pipelines/configure/tests/test-suites/labels)), or externally to Test Engine (for example, sending a Slack notification about the test).
+An action is part of a [workflow](#workflow) and provides a user defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can apply to the test itself (for example, changing its [state](#test-state) or [label](/docs/pipelines/configure/tests/test-suites/labels)), or to an external system (for example, sending a Slack notification about the test).
 
 Learn more about actions in [Alarm and recover actions](/docs/pipelines/configure/tests/workflows/actions).
 
@@ -44,7 +44,7 @@ To learn more, see the [Clusters overview](/docs/pipelines/security/clusters).
 
 ## Dimensions
 
-In the context of Test Engine, dimensions are structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/pipelines/configure/tests/test-suites/tags).
+In the context of [test suites](/docs/pipelines/configure/tests), dimensions are structured data, consisting of [tags](#tag), which can be used to filter or group (that is, aggregate) test [executions](#execution). Dimensions are added to test executions using the tags feature, which you can learn more about in [Tags](/docs/pipelines/configure/tests/test-suites/tags).
 
 ## Dynamic pipeline
 
@@ -100,7 +100,7 @@ For example, each of the following three tests are unique managed tests:
 
 - Test Suite 2 - here.is.scope.one - Login Test name
 
-Test Engine uses managed tests to track key areas [test runs](#run), and for billing purposes.
+Managed tests are used to track key areas of [test runs](#run), and for billing purposes.
 
 ## Monitor
 
@@ -126,11 +126,11 @@ To learn more, see [Plugins](/docs/pipelines/integrations/plugins).
 
 ## Quarantine
 
-Quarantine is a classification applied to a [test](#test) that, based on the [state of the test](#test-state), changes how Test Engine [executes](#execution) that test as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
+Quarantine is a classification applied to a [test](#test) that, based on the [state of the test](#test-state), changes how that test is [executed](#execution) as part of a [run](#run). When a test is quarantined, and its test state is flagged as:
 
 - **muted**, the test is [executed](#execution) as part of the [run](#run), but its failure does not cause the pipeline build to fail, allowing the test's metadata to still be collected.
 
-- **skipped**, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
+- **skipped**, the test is not [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
 
 Learn more about quarantining tests in [Test state and quarantine](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine).
 
@@ -148,7 +148,7 @@ Recover [actions](#action) are performed when the recover event is reported by t
 
 ## Run
 
-A run is the [execution](#execution) of one or more tests in a [test suite](#test-suite). A _run_ is sometimes referred to as a _test run_, bearing in mind that a single test run usually involves the [execution](#execution) of multiple [tests](#test). A Test Engine _run_ is analogous to a Pipeline [_build_](#build).
+A run is the [execution](#execution) of one or more tests in a [test suite](#test-suite). A _run_ is sometimes referred to as a _test run_, bearing in mind that a single test run usually involves the [execution](#execution) of multiple [tests](#test). A test suite _run_ is analogous to a pipeline [_build_](#build).
 
 ## Scope
 
@@ -201,7 +201,7 @@ A tag is a `key:value` pair containing two parts:
 - The tag's `key` is the identifier, which can only exist once on each test, and is case sensitive.
 - The tag's `value` is the specific data or information associated with the `key`.
 
-In Test Engine, tags add [dimensions](#dimensions) to test execution metadata, so that [tests](#test) and their [executions](#execution) can be better filtered, aggregated, and compared in Test Engine visualizations.
+Within [test suites](/docs/pipelines/configure/tests), tags add [dimensions](#dimensions) to test execution metadata, so that [tests](#test) and their [executions](#execution) can be better filtered, aggregated, and compared in test suite visualizations.
 
 Tagging can be used to observe aggregated data points—for example, to observe aggregated performance across several tests, and (optionally) narrow the dataset further based on specific constraints.
 
@@ -231,17 +231,17 @@ A test runner is a synonymous term used for a _test framework_, which is typical
 
 A test state is a configurable flag that can be applied to a [test](#test) (typically [flaky tests](#flaky-test)), which [quarantines](#quarantine) the test and affects how the test is [executed](#execution) as part of a [run](#run).
 
-When a test is in a trusted state, its test state is flagged as **enabled**, and the following test state flags are supported when a test is being quarantined:
+The supported test state flags are:
 
-- **muted**, the test is [executed](#execution) as part of the [run](#run), but its failure does not cause the pipeline build to fail, allowing the test's metadata to still be collected.
-
-- **skipped**, the test is not be [executed](#execution) as part of the [run](#run), which can allow pipeline builds to execute more rapidly and can reduce costs, but no data is recorded from the test.
+- **enabled**: the test is in a trusted state and runs normally.
+- **muted**: the test is quarantined—see [Quarantine](#quarantine) for the resulting run behavior.
+- **skipped**: the test is quarantined—see [Quarantine](#quarantine) for the resulting run behavior.
 
 Learn more about test states in [Test state and quarantine](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine).
 
 ## Test suite
 
-A test suite is a collection of [tests](#test), which is managed through Buildkite Test Engine. A _test suite_ is sometimes abbreviated to _suite_.
+A test suite is a collection of [tests](#test), managed within Buildkite Pipelines through its [test suites](/docs/pipelines/configure/tests) features (Test Engine). A _test suite_ is sometimes abbreviated to _suite_.
 
 In a development project configured with of one or more [test runners](#test-runner), it is usually typical to configure a separate test suite each of the project's test runners.
 
