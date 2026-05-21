@@ -1,8 +1,10 @@
 # Getting started with Test Engine
 
-👋 Welcome to Buildkite Test Engine! You can use Test Engine to help you track and analyze the test steps automated through CI/CD using either [Buildkite Pipelines](/docs/pipelines) or another CI/CD application.
+This tutorial walks you through the three steps to start using [Test Engine](/docs/pipelines/configure/tests), the testing layer of [Buildkite Pipelines](/docs/pipelines):
 
-This getting started page is a tutorial that helps you understand Buildkite Test Engine's fundamentals, by providing you with high level guidance on how you'd create a new Test Engine [test suite](/docs/pipelines/configure/tests/test-suites), configure a test collector for your development project (to send data to your test suite), and how to automate your tests with Buildkite Pipelines.
+1. Create a [test suite](/docs/pipelines/configure/tests/test-suites) in Buildkite.
+1. Configure a [test collector](/docs/pipelines/configure/tests/test-collection) in your development project so its test results flow into the suite.
+1. Automate the test runner with Buildkite Pipelines so each build populates the suite.
 
 ## Before you start
 
@@ -74,10 +76,10 @@ You can automate your test suite by automating builds of your project in Buildki
 
 ## Next steps
 
-That's it! You've successfully created a test suite, configured your development project with a test collector, executed the project's test runner to send its test data to your test suite, and automated the process in Buildkite Pipelines. 🎉
+That's it! You've created a test suite, configured your project with a test collector, sent test data to the suite, and automated the process in Buildkite Pipelines. 🎉
 
-Learn more about:
+From here:
 
-- How to work with [test suites](/docs/pipelines/configure/tests/test-suites) in Buildkite Test Engine.
-- [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) that test collectors (and other test collection mechanisms) provide to your Buildkite test suites, when your test runs are automated through CI/CD.
-- How to give AI coding agents the context they need to work with Buildkite, in [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents). The MCP server, `llms.txt` files, and Markdown-formatted documentation pages described there apply equally to Buildkite Test Engine.
+- Browse the [Test Engine overview](/docs/pipelines/configure/tests) for the full set of features available on your suite, including [workflows](/docs/pipelines/configure/tests/workflows) for flaky test detection and [bktec](/docs/pipelines/speed-up-builds-with-bktec) for test splitting.
+- Review the [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) that collectors auto-detect when running under CI/CD.
+- Give AI coding agents the context they need to work with Buildkite in [Getting started with coding agents](/docs/pipelines/getting-started-with-coding-agents).

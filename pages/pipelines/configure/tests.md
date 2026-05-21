@@ -17,11 +17,9 @@ Use Test Engine to:
 
 ## Get started
 
-Run through the [Getting started](/docs/pipelines/test-engine-getting-started) tutorial for a step-by-step guide on how to use Buildkite Test Engine.
+New to Test Engine? Work through the [Getting started](/docs/pipelines/test-engine-getting-started) tutorial, which walks you through creating a [test suite](/docs/pipelines/configure/tests/test-suites), configuring a [test collector](/docs/pipelines/configure/tests/test-collection) for your project, and automating the test runner with Buildkite Pipelines.
 
-If you're familiar with the basics, understand how to run your tests within your development project, and analyze and report on them through a Test Engine [_test suite_](/docs/pipelines/configure/tests/test-suites).
-
-As part of configuring a test suite, you'll need to configure [test collection](/docs/pipelines/configure/tests/test-collection) for your development project. Do this by setting it up with the required Buildkite _test collectors_ for your project's testing frameworks (also known as _test runners_), which sends the required test data information to Test Engine:
+If you're already familiar with the basics, jump directly to a collector for your testing framework (also known as a _test runner_):
 
 <!-- vale off -->
 
@@ -59,7 +57,7 @@ If a Buildkite test collector is not available for one of these test runners, yo
 
 Learn more about:
 
-- Test Engine's APIs through the [REST API documentation](/docs/apis/rest-api), and related endpoints, starting with [test suites](/docs/apis/rest-api/test-engine/suites).
-- The [Buildkite MCP server](/docs/apis/mcp-server) and its Test Engine-specific MCP [tools](/docs/apis/mcp-server/tools#available-mcp-tools-test-engine) and [toolsets](/docs/apis/mcp-server/tools/toolsets#available-toolsets).
-- Test Engine's [webhooks](/docs/apis/webhooks/test-engine).
-- Test Engine [glossary](/docs/pipelines/glossary) of important terms.
+- The Test Engine [REST API endpoints](/docs/apis/rest-api/test-engine/suites), starting with test suites.
+- The [Buildkite MCP server](/docs/apis/mcp-server) and its Test Engine-specific [tools](/docs/apis/mcp-server/tools#available-mcp-tools-test-engine) and [toolsets](/docs/apis/mcp-server/tools/toolsets#available-toolsets).
+- Test Engine [webhooks](/docs/apis/webhooks/test-engine).
+- Test Engine terms in the Pipelines [glossary](/docs/pipelines/glossary).
