@@ -279,6 +279,7 @@ exceptions:
   - TCP
   - TTL
   - TTLs
+  - Teams
   - Tekton
   - Tempo
   - Terraform

@@ -104,7 +104,7 @@ Buildkite Pipelines specializes in CI/CD rather than bundling source code manage
 
 - Source control: [GitHub](/docs/pipelines/source-control/github), [GitLab](/docs/pipelines/source-control/gitlab), [Bitbucket](/docs/pipelines/source-control/bitbucket).
 - Observability: [Datadog](/docs/pipelines/integrations/observability/datadog), [Honeycomb](/docs/pipelines/integrations/observability/honeycomb), [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge), [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry).
-- Notifications: [Slack](/docs/pipelines/integrations/notifications/slack), [PagerDuty](/docs/pipelines/integrations/notifications/pagerduty), [CCMenu and CCTray](/docs/pipelines/integrations/notifications/cc-menu), and [notification plugins](/docs/pipelines/integrations/notifications/plugins).
+- Notifications: [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace), [PagerDuty](/docs/pipelines/integrations/notifications/pagerduty), [CCMenu and CCTray](/docs/pipelines/integrations/notifications/cc-menu), and [notification plugins](/docs/pipelines/integrations/notifications/plugins).
 - Secrets management: [HashiCorp Vault or AWS Secrets Manager](/docs/pipelines/security/secrets/managing).
 
 ### Buildkite plugins

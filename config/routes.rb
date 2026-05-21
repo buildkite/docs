@@ -365,6 +365,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/step-reference",                                                              to: redirect("/docs/pipelines/configure/step-types")
   get "/docs/pipelines/tags",                                                                        to: redirect("/docs/pipelines/configure/tags")
   get "/docs/pipelines/templates",                                                                   to: redirect("/docs/pipelines/governance/templates")
+  get "/docs/pipelines/tutorials/customizing-slack-notifications",                                   to: redirect("/docs/pipelines/integrations/notifications/slack-workspace#customizing-notifications")
   get "/docs/pipelines/tutorials/parallel-builds",                                                   to: redirect("/docs/pipelines/best-practices/parallel-builds")
   get "/docs/pipelines/tutorials/docker-containerized-builds",                                       to: redirect("/docs/pipelines/best-practices/docker-containerized-builds")
   get "/docs/pipelines/trigger-step",                                                                to: redirect("/docs/pipelines/configure/step-types/trigger-step")

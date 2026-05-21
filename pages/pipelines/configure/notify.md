@@ -22,7 +22,7 @@ Available notification types:
 - [GitHub commit status](#github-commit-status): Create a GitHub commit status.
 - [GitHub check](#github-check): Create a GitHub check status.
 - [PagerDuty](#pagerduty-change-events)
-- [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack Workspace or individual Slack notification services to be enabled for each channel.
+- [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack channel. Requires the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended) or one or more legacy Slack notification services to be configured for your Buildkite organization.
 - [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 
 These types of notifications are available at the following levels.
@@ -101,7 +101,7 @@ steps:
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 > 🚧
-> To trigger conditional notifications to a Slack channel, you will first need to configure [Conditional notifications for Slack](/docs/pipelines/integrations/notifications/slack#conditional-notifications).
+> To trigger conditional notifications to a Slack channel, you must first configure the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service for your Buildkite organization.
 
 ## Basecamp Campfire message
 
@@ -392,22 +392,22 @@ notify:
 
 You can set notifications:
 
-- On step status and other non-build events, by extending your Slack or Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
-- On build status events in the Buildkite interface, by using your Slack notification service's **Build state filtering** settings.
+- On step status and other non-build events, by extending your Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
+- On build status events in the Buildkite interface, by using a legacy Slack notification service's **Build state filtering** settings.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up either the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (a once-off configuration for each workspace), or the required [Slack](/docs/pipelines/integrations/notifications/slack) notification services, to send notifications to a channel or a user. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
+Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended), which requires only a once-off configuration for each Slack workspace and lets you notify any channel or user. The legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification service is also supported but is no longer recommended for new integrations. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
 
-- The _Slack Workspace_ notification service requires a once-off configuration (only one per Slack workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps.
+- The recommended _Slack Workspace_ notification service requires a once-off configuration (only one per Slack workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps.
 
-- The _Slack_ notification service requires you to first configure one or more of these services for a channel or user, along with the pipelines, branches and build states that these channels or users receive notifications for. Once configured, your pipelines will generate automated notifications whenever the conditions in these notification services are met. You can also use the `notify` attribute in your `pipeline.yml` file for more fine grained control, by mentioning specific channels and users in these attributes, as long as Slack notification services have been created for these channels and users. If you mention any channels or users in a pipeline `notify` attribute for whom a Slack notification service has not yet been configured, the notification will not be sent. For a simplified configuration experience, use the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service instead.
+- The legacy _Slack_ notification service requires you to first configure one or more of these services for a channel or user, along with the pipelines, branches and build states that these channels or users receive notifications for. Once configured, your pipelines generate automated notifications whenever the conditions in these notification services are met. You can also use the `notify` attribute in your `pipeline.yml` file for more fine grained control, by mentioning specific channels and users in these attributes, as long as legacy Slack notification services have been created for these channels and users. If you mention any channels or users in a pipeline `notify` attribute for whom a legacy Slack notification service has not yet been configured, the notification is not sent. For a simplified configuration experience, use the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service instead.
 
-Learn more about these different [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) and [Slack](/docs/pipelines/integrations/notifications/slack) notification services within [Other integrations](/docs/pipelines/integrations).
+Learn more about the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) and legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification services within [Other integrations](/docs/pipelines/integrations).
 
 Once a Slack channel or workspace has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block.
 
 > 🚧
 > When using only a channel name, you must specify this name in quotes. Otherwise, the `#` will cause the channel name to be treated as a comment.
-> If you have a Slack notification service configured for a given Slack channel and you either rename this channel, or change the channel's visibility from public to private, then you will need to set up a new Slack notification service to accommodate this modification. This issue does not affect the Slack Workspace notification service, since only one service needs to be configured for a given Slack workspace.
+> If you have a Slack notification service configured for a given Slack channel and you either rename this channel, or change the channel's visibility from public to private, then you will need to set up a new Slack notification service to accommodate this modification. This issue does not affect the Slack Workspace notification service, since only one service needs to be configured for a given Slack workspace. To avoid this issue entirely, consider using a [Slack channel ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) instead.
 
 ### Notify a channel in all workspaces
 
@@ -447,7 +447,7 @@ You can notify a user in all workspaces configured through your Slack or Slack W
 
 #### Build-level notifications
 
-When using [Slack notification services](/docs/pipelines/integrations/notifications/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
+When using legacy [Slack notification services](/docs/pipelines/integrations/notifications/slack), specify the user's handle (for example, `@someuser`) to notify this user about a build. The user receives a notification in all Slack workspaces they have been configured for with this service type. For example:
 
 ```yaml
 notify:
@@ -499,7 +499,7 @@ notify:
 
 #### Step-level notifications
 
-When using the [Slack notification services](/docs/pipelines/integrations/notifications/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job. The user will receive a notification in all Slack workspaces they have been configured for with this service type. For example:
+When using the legacy [Slack notification services](/docs/pipelines/integrations/notifications/slack), specify the user's handle (for example, `@someuser`) to notify this user about this step's job. The user receives a notification in all Slack workspaces they have been configured for with this service type. For example:
 
 ```yaml
 steps:
@@ -520,6 +520,41 @@ steps:
       - slack: "U12AB3C456D"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Notify using a Slack channel or conversation ID
+
+When using the [Slack Workspace notification service](/docs/pipelines/integrations/notifications/slack-workspace), you can specify a Slack ID instead of a channel name. Slack IDs are more stable than channel names as they remain valid even if the channel is renamed or its visibility changes.
+
+Supported ID prefixes:
+
+- `C` — public or private channel ID (for example, `C0B1SRLV43S`)
+- `D` — direct message ID (the Buildkite Builds app must be invited to the conversation)
+- `G` — multi-person group direct message ID
+
+Build-level notification using a channel ID:
+
+```yaml
+notify:
+  - slack: "C0B1SRLV43S"
+```
+{: codeblock-file="pipeline.yml"}
+
+Step-level notification using a channel ID:
+
+```yaml
+steps:
+  - label: "Example test"
+    command: echo "Hello!"
+    notify:
+      - slack: "C0B1SRLV43S"
+```
+{: codeblock-file="pipeline.yml"}
+
+> 📘
+> To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
+
+> 🚧
+> Notification delivery can still fail if the Buildkite Builds app does not have permission to post to that destination. For private channels, a Slack admin may need to reinstall the app or add it to the channel. For direct messages (`D` prefix), the app must be explicitly invited to the conversation.
 
 ### Notify a channel in one workspace
 
@@ -620,7 +655,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 > 📘
-> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on your configured the Slack or Slack Workspace notification service(s).
+> You can also send notifications with custom messages to specific users with the relevant syntax mentioned in [Notify a user in all workspaces](#slack-channel-and-direct-messages-notify-a-user-in-all-workspaces). Employ the appropriate user notification syntax based on whether you have configured the recommended Slack Workspace or the legacy Slack notification service.
 
 ### Custom messages with user mentions
 
@@ -667,7 +702,7 @@ notify:
 
 See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
-You are able to use `pipeline.started_passing` and `pipeline.started_failing` in your if statements if you are using the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration.
+You can use `pipeline.started_passing` and `pipeline.started_failing` in your `if` statements when you are using the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service. These conditionals are not supported by the legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification service.
 
 Build-level Slack notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 

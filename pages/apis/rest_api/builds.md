@@ -681,6 +681,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <table>
 <tbody>
   <tr>
+    <th><code>exclude_jobs</code></th>
+    <td>Exclude the list of jobs from the build's details.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
     <th><code>include_retried_jobs</code></th>
     <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_retried_jobs=true</code></p></td>
@@ -689,6 +694,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <th><code>include_test_engine</code></th>
     <td>Include all Test Engine-related data for the build in the response. Without this parameter, you'll only see all Buildkite Pipelines-related build data in the response.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_test_engine=true</code></p></td>
+  </tr>
+  <tr>
+    <th><code>job_states[]</code></th>
+    <td>Filter the jobs included in the response to only those matching the specified API states. Accepts one or more values: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>canceled</code>, <code>broken</code>, <code>unblocked</code>, and others. When omitted, all jobs are returned.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?job_states[]=failed&amp;job_states[]=canceled</code></p></td>
   </tr>
 </tbody>
 </table>
