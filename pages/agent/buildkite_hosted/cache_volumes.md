@@ -91,7 +91,9 @@ steps:
     <td><code>name</code></td>
     <td>
       A name for the volume. This allows you to use multiple volumes in a single pipeline. If no <code>name</code> is specified, the value of this attribute defaults to the pipeline slug.<br>
-      <em>Example:</em> <code>"node-modules-volume"</code>
+      The name must start and end with a letter or number, contain only letters, numbers, and hyphens, and be no more than 100 characters. Environment variable interpolation for <code>${BUILDKITE_*}</code> is supported so you can create branch-scoped or dynamic volume names.<br>
+      <em>Example:</em> <code>"node-modules-volume"</code><br>
+      <em>Example with environment variable:</em> <code>"${BUILDKITE_BRANCH}-cache"</code>
     </td>
   </tr>
 
