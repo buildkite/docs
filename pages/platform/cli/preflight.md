@@ -17,7 +17,7 @@ The Preflight (`bk preflight`) command:
 You'll need:
 
 - The [Buildkite CLI](/docs/platform/cli/installation) version 3.40.0 or later.
-- A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Buildkite Test Engine.
+- A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Test Engine.
 - Git commit and push access to the repository.
 
 ## Install or upgrade the Buildkite CLI

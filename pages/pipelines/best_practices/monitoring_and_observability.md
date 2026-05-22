@@ -194,7 +194,7 @@ Use this approach for event-driven alerting (for example, notifying a team when 
 
 ### Test-level performance metrics
 
-[Buildkite Test Engine](/docs/pipelines/configure/tests) ingests test results and provides test-level metrics.
+[Test Engine](/docs/pipelines/configure/tests) ingests test results and provides test-level metrics.
 
 **Metrics provided:**
 

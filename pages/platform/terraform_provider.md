@@ -26,7 +26,7 @@ The Terraform provider requires the following Buildkite configuration values:
 
 - **API access token**: A [Buildkite API access token](/docs/apis/managing-api-tokens) (`BUILDKITE_API_TOKEN`) with `write_pipelines` and `read_pipelines` [REST API scopes and _GraphQL API access_](/docs/apis/managing-api-tokens#token-scopes) enabled. You can generate a token from your [API Access Tokens](https://buildkite.com/user/api-access-tokens) page.
 
-    **Note:** You can also add the `write_suites` REST API scope to this token, although this is only required if you plan to manage [Buildkite Test Engine](/docs/pipelines/configure/tests) test suites using the Terraform provider.
+    **Note:** You can also add the `write_suites` REST API scope to this token, although this is only required if you plan to manage [Test Engine](/docs/pipelines/configure/tests) test suites using the Terraform provider.
 
 - **Buildkite organization slug**: Your Buildkite organization slug, which you can find in your Buildkite URL: `https://buildkite.com/<your-buildkite-org-slug>`.
 

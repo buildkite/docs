@@ -81,7 +81,7 @@ pipelines/            pipelines
 
 ### Permission requirements
 
-The teams listed in your TESTOWNERS file must have [permission to access the test suite](/docs/platform/team-management/permissions#manage-teams-and-permissions-test-suite-level-permissions) _before_ ownership records are created.
+The teams listed in your TESTOWNERS file must have [permission to access the test suite](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) _before_ ownership records are created.
 
 ## Setting test ownership
 

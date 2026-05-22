@@ -11,7 +11,7 @@ Quarantining [flaky tests](/docs/pipelines/reduce-flaky-tests) and then using [b
 
 ## Lifecycle states
 
-Users with the [**Full Access** permission to a test suite](/docs/platform/team-management/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a **Test state** in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
+Users with the [**Full Access** permission to a test suite](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a **Test state** in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
 
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
 
