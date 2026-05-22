@@ -2,7 +2,7 @@
 
 When your source code projects are built with Buildkite Pipelines, you can write scripts that generate new pipeline steps at build time, in either YAML or JSON, and upload them to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps are added to the same build and appear as their own steps. Each generated step is scheduled as its own job and runs on any [agent](/docs/agent) that matches its [`agents`](/docs/pipelines/configure/step-types/command-step#agent-targeting) query or [queue](/docs/agent/queues), so different steps in the same build can run on different agents. This gives you the flexibility to structure pipelines however you require and to route work to the most appropriate agents.
 
-A pipeline generator script can be written in any language that produces YAML or JSON on stdout—teams commonly use Bash, Python, Ruby, Node.js, Go, C#, and PHP. For type-safe, unit-testable pipeline definitions in JavaScript/TypeScript, Python, Go, and Ruby, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
+A pipeline generator script can be written in any language that produces YAML or JSON on stdout — the commonly used ones are Bash, Python, Ruby, Node.js, Go, C#, and PHP. For type-safe, unit-testable pipeline definitions in JavaScript/TypeScript, Python, Go, and Ruby, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
 
 ## Your first dynamic pipeline
 
