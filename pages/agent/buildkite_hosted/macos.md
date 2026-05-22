@@ -53,16 +53,14 @@ While you currently cannot provide custom base images for macOS hosted agents (a
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
-## macOS Tahoe Slim
-
 > 📘
-> Two macOS Tahoe versions are available. Tahoe Slim (26.5) includes the newer Xcode 26.x versions, while [Tahoe (26.3.1)](#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image.
+> Two macOS Tahoe versions are available. [Tahoe (26.3.1)](#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image, while [Tahoe Slim (26.5)](#macos-tahoe-slim) includes the newer Xcode 26.x versions.
+
+## macOS Tahoe Slim
 
 - 26.5
 
 ### Xcode
-
-<!-- TODO: Confirm the complete list of Xcode versions available for Tahoe (26.5). The PR verification mentions at least 26.5 and 26.4. -->
 
 - 26.5
 - 26.4
