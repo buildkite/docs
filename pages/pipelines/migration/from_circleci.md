@@ -652,6 +652,6 @@ Explore these resources to enhance your migrated pipelines:
 
 You can try the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing CircleCI configuration might look converted to Buildkite Pipelines.
 
-With a basic understanding of the differences between Buildkite Pipelines and CircleCI, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite Pipelines, and [create your own pipeline](/docs/pipelines/create-your-own).
+With a basic understanding of the differences between Buildkite Pipelines and CircleCI, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite Pipelines, and [create your own pipeline](/docs/pipelines/getting-started#create-your-own-pipeline).
 
 For migration assistance, contact support@buildkite.com.

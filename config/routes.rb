@@ -491,7 +491,9 @@ Rails.application.routes.draw do
   get "/docs/test-analytics/integrations", to: redirect("/docs/test-engine", status: 301)
 
   # Test Engine content moved to Pipelines
-  get "/docs/test-engine/getting-started",                                                         to: redirect("/docs/pipelines/test-engine-getting-started")
+  get "/docs/test-engine/getting-started",                                                         to: redirect("/docs/pipelines/getting-started#add-a-test-suite")
+  get "/docs/pipelines/test-engine-getting-started",                                               to: redirect("/docs/pipelines/getting-started#add-a-test-suite")
+  get "/docs/pipelines/create-your-own",                                                           to: redirect("/docs/pipelines/getting-started#create-your-own-pipeline")
   get "/docs/test-engine/speed-up-builds-with-bktec",                                             to: redirect("/docs/pipelines/speed-up-builds-with-bktec")
   get "/docs/test-engine/reduce-flaky-tests",                                                      to: redirect("/docs/pipelines/reduce-flaky-tests")
   get "/docs/test-engine/test-suites",                                                             to: redirect("/docs/pipelines/configure/tests/test-suites")

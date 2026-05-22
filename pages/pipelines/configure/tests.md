@@ -17,7 +17,7 @@ Use Test Engine to:
 
 ## Get started
 
-New to Test Engine? Work through the [Getting started](/docs/pipelines/test-engine-getting-started) tutorial, which walks you through creating a [test suite](/docs/pipelines/configure/tests/test-suites), configuring a [test collector](/docs/pipelines/configure/tests/test-collection) for your project, and automating the test runner with Buildkite Pipelines.
+New to Test Engine? Work through the [Add a test suite](/docs/pipelines/getting-started#add-a-test-suite) section of the Pipelines getting started tutorial, which walks you through creating a [test suite](/docs/pipelines/configure/tests/test-suites), configuring a [test collector](/docs/pipelines/configure/tests/test-collection) for your project, and automating the test runner with Buildkite Pipelines.
 
 If you're already familiar with the basics, jump directly to a collector for your testing framework (also known as a _test runner_):
 

@@ -71,7 +71,7 @@ Bitbucket Pipelines extends its built-in functionality through [Pipes](https://b
 
 ### Try out Buildkite
 
-With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/getting-started#create-your-own-pipeline).
 
 ## Provision agent infrastructure
 

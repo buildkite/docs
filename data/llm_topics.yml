@@ -33,7 +33,6 @@ getting-started:
     - "pipelines"
     - "pipelines/getting-started"
     - "pipelines/getting-started-with-coding-agents"
-    - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/dashboard-walkthrough"
     - "pipelines/build-page"
@@ -58,7 +57,6 @@ why-buildkite-pipelines:
   exact_paths:
     - "pipelines"
     - "pipelines/getting-started"
-    - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/dashboard-walkthrough"
     - "pipelines/build-page"
@@ -78,7 +76,6 @@ migrating-to-buildkite:
     - "pipelines/converter"
   exact_paths:
     - "pipelines/getting-started"
-    - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/source-control"
   related_topics:
@@ -401,7 +398,7 @@ test-engine:
     - "pipelines/configure/tests"
     - "apis/rest-api/test-engine"
   exact_paths:
-    - "pipelines/test-engine-getting-started"
+    - "pipelines/getting-started"
     - "pipelines/reduce-flaky-tests"
     - "pipelines/speed-up-builds-with-bktec"
     - "pipelines/integrations/notifications/linear"

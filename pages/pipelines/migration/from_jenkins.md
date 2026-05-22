@@ -99,7 +99,7 @@ Buildkite plugins are shell-based, run on individual Buildkite agents, and are p
 
 ### Try out Buildkite
 
-With a basic understanding of the differences between Buildkite and Jenkins, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+With a basic understanding of the differences between Buildkite and Jenkins, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/getting-started#create-your-own-pipeline).
 
 ## Provision agent infrastructure
 
@@ -252,7 +252,7 @@ The declarative Jenkins pipeline example can be found in the [jenkins-to-buildki
 
 Make a copy or fork this repository (within your own GitHub account) to examine it further. This repository has its own containerized version of Jenkins, which you can run locally to see how it builds the Jenkins pipeline and app included within this repository.
 
-In your Buildkite organization, which you would have created or began working with when [trying out Buildkite](#understand-the-differences-try-out-buildkite), [create a new pipeline](/docs/pipelines/create-your-own#create-a-pipeline) for this jenkins-to-buildkite repository, so that you can see and compare the same Node.js project being built in both Jenkins and Buildkite.
+In your Buildkite organization, which you would have created or began working with when [trying out Buildkite](#understand-the-differences-try-out-buildkite), [create a new pipeline](/docs/pipelines/getting-started#create-your-own-pipeline-create-a-pipeline) for this jenkins-to-buildkite repository, so that you can see and compare the same Node.js project being built in both Jenkins and Buildkite.
 
 ### Step 2: Examine the Jenkins pipeline
 

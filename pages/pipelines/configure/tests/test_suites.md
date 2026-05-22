@@ -9,7 +9,7 @@ Each suite inside Test Engine has a unique API token that you can use to route t
 > 📘 Test suite API token versus user API access token
 > The test suite API token is only for uploading test results to the test suite. To perform other operations using the [Test Engine REST API](/docs/apis/rest-api/test-engine/suites) (such as listing [suites](/docs/apis/rest-api/test-engine/suites#list-all-suites), [runs](/docs/apis/rest-api/test-engine/runs#list-all-runs), or [tests](/docs/apis/rest-api/test-engine/tests#list-tests)), use a [Buildkite API access token](/docs/apis/managing-api-tokens) for your user account with the appropriate scopes.
 
-When [creating a test suite](/docs/pipelines/test-engine-getting-started#create-a-test-suite) for your development project, you'll need to have configured the appropriate _test collectors_ for your project's test runners before your test suite can fully function and start collecting test data. Learn more about how to do this from the [Test collection](/docs/pipelines/configure/tests/test-collection) section of these docs.
+When [creating a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) for your development project, you'll need to have configured the appropriate _test collectors_ for your project's test runners before your test suite can fully function and start collecting test data. Learn more about how to do this from the [Test collection](/docs/pipelines/configure/tests/test-collection) section of these docs.
 
 To delete a suite, or regenerate its API token, go to suite settings.
 

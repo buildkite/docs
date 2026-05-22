@@ -6,7 +6,7 @@ This guide distills practical patterns for designing Buildkite pipelines that ar
 
 - Start simple, then evolve:
 
-    * Begin with [static pipelines](/docs/pipelines/create-your-own) for clarity and quick onboarding.
+    * Begin with [static pipelines](/docs/pipelines/getting-started#create-your-own-pipeline) for clarity and quick onboarding.
     * Move to [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) as your repositories and requirements grow to avoid YAML sprawl and enable conditional generation of steps at runtime.
 
 - Separate concerns:
