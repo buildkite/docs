@@ -54,7 +54,7 @@ While you currently cannot provide custom base images for macOS hosted agents (a
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
 > 📘
-> Two macOS Tahoe versions are available. [Tahoe (26.3.1)](#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image, while [Tahoe Slim (26.5)](#macos-tahoe-slim) includes the newer Xcode 26.x versions.
+> Two macOS Tahoe versions are available. [Tahoe (26.3.1)](#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image, while [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) includes the newer Xcode 26.x versions.
 
 ## macOS Tahoe 26.5
 
