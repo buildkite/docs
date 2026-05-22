@@ -57,7 +57,7 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 - 26.5
 
-Two macOS Tahoe versions are available. Tahoe (26.5) includes the newer Xcode 26.x versions, while [Tahoe (26.3.1)](#macos-tahoe-2631) includes older Xcode versions. This is because certain older Xcode versions are incompatible with the macOS 26.5 base image.
+Two macOS Tahoe versions are available. Tahoe (26.5) includes the newer Xcode 26.x versions, while [Tahoe (26.3.1)](#macos-tahoe-2631) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image.
 
 ### Xcode
 
