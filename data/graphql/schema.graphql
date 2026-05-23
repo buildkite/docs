@@ -3311,19 +3311,24 @@ Possible macOS versions for the Hosted Agent instance
 """
 enum HostedAgentMacOSVersion {
   """
-  macOS Sequoia (15.5)
+  macOS Sequoia (15.7.5)
   """
   SEQUOIA
 
   """
-  macOS Sonoma (14.6.1)
+  macOS Sonoma (14.8.3)
   """
   SONOMA
 
   """
-  macOS Tahoe (26.0)
+  macOS Tahoe (26.3.1)
   """
   TAHOE
+
+  """
+  macOS Tahoe (26.5)
+  """
+  TAHOE_SLIM
 }
 
 """
