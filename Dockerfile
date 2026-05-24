@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.4-slim-bookworm@sha256:8e2d29bf7fe1442b1b0ddedf52862c4e6cc6414b0e775511920076d30b6f1350
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.5-slim-bookworm@sha256:53c027bbb00469b5237eabadde82b0b7f0e1c38c4b0090c78b8553b85fcee2ff
 ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:03eae3ef7e88a9de535496fb488d67e02b9d96a063a8967bae657744ecd513f2
 
 FROM $BASE_IMAGE AS builder
