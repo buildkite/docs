@@ -1,6 +1,8 @@
 # Ruby collectors
 
-To use Test Engine with your [Ruby](https://www.ruby-lang.org/) projects use the :github: [`test-collectors-ruby`](https://github.com/buildkite/test-collector-ruby) gem with RSpec or minitest.
+To use Buildkite Test Engine with your [Ruby](https://www.ruby-lang.org/) projects, use the :github: [`test-collectors-ruby`](https://github.com/buildkite/test-collector-ruby) gem with RSpec or minitest.
+
+<%= render_markdown partial: 'pipelines/configure/tests/test_collection/tests_plugin_recommendation' %>
 
 You can also upload test results by importing [JSON](/docs/pipelines/configure/tests/test-collection/importing-json) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 

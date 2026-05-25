@@ -4,7 +4,9 @@ toc: false
 
 # Android collectors
 
-To use Test Engine with your Android projects use the :github: [`test-collector-android`](https://github.com/buildkite/test-collector-android) package.
+To use Buildkite Test Engine with your Android projects, use the :github: [`test-collector-android`](https://github.com/buildkite/test-collector-android) package.
+
+<%= render_markdown partial: 'pipelines/configure/tests/test_collection/tests_plugin_recommendation' %>
 
 You can also upload test results by importing [JSON](/docs/pipelines/configure/tests/test-collection/importing-json) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 

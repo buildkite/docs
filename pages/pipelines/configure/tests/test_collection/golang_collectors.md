@@ -2,9 +2,11 @@
 toc: false
 ---
 
-# Configuring Go with Test Engine
+# Configuring Go with Buildkite Test Engine
 
-To use Test Engine with your [Go](https://go.dev/) language projects use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/pipelines/configure/tests/test-collection/importing-junit-xml) to Test Engine.
+To use Buildkite Test Engine with your [Go](https://go.dev/) language projects, use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/pipelines/configure/tests/test-collection/importing-junit-xml) to Buildkite Test Engine.
+
+<%= render_markdown partial: 'pipelines/configure/tests/test_collection/tests_plugin_recommendation' %>
 
 1. Install [gotestsum](https://github.com/gotestyourself/gotestsum):
 

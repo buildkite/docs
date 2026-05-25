@@ -1,6 +1,6 @@
 # JavaScript collectors
 
-To use Test Engine with your JavaScript (npm) projects, use the :github: [`test-collector-javascript`](https://github.com/buildkite/test-collector-javascript) package with a supported test framework. Test Engine supports the following test frameworks:
+To use Buildkite Test Engine with your JavaScript (npm) projects, use the :github: [`test-collector-javascript`](https://github.com/buildkite/test-collector-javascript) package with a supported test framework. Buildkite Test Engine supports the following test frameworks:
 
 - [Jest](https://jestjs.io/)
 - [Jasmine](https://jasmine.github.io/)
@@ -8,6 +8,8 @@ To use Test Engine with your JavaScript (npm) projects, use the :github: [`test-
 - [Cypress](https://www.cypress.io)
 - [Playwright](https://playwright.dev)
 - [Vitest](https://vitest.dev/)
+
+<%= render_markdown partial: 'pipelines/configure/tests/test_collection/tests_plugin_recommendation' %>
 
 You can also upload test results by importing [JSON](/docs/pipelines/configure/tests/test-collection/importing-json) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 
