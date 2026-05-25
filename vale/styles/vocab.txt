@@ -44,6 +44,7 @@ autoscaling
 aws
 awscli
 azcopy
+backoff
 Backstage
 Backstage Software Catalog
 Basecamp
@@ -204,6 +205,7 @@ hard-coded
 hard-coding
 Hashicorp
 Homebrew
+heredoc
 heroku
 Honeycomb
 hostname
@@ -367,6 +369,7 @@ reimagined
 remediation
 remediations
 repo
+repos
 reprioritize
 reprioritizes
 resizable
@@ -397,6 +400,7 @@ SDKs
 semver
 sha
 SHAs
+sharded
 sharding
 Shardy
 shasum
@@ -437,6 +441,7 @@ subnet
 subnets
 subnet's
 subpatterns
+substring
 substrings
 sudo
 svg
