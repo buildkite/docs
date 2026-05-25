@@ -158,11 +158,13 @@ echo "URL: ${PR_URL}"
 echo "--- :triangular_flag_on_post: Checking for feature flags"
 if echo "${PR_DIFF}" | grep -qE "(Feature::[A-Z][A-Z_]+|Feature\.new\b|\.active_for_(organization|user|all_users|request|current_organization)|\.active\?\(|activate_for_|deactivate_for_|Billing::Plan::Feature|lib/buildkite/feature_flags/)"; then
   echo "Feature flag indicators detected in diff"
+  FEATURE_FLAG_DETECTED="true"
   buildkite-agent annotate --style "warning" --context "feature-flag" \
     ":triangular_flag_on_post: **Feature flag detected** — this PR may introduce a feature behind a flag. Review whether docs should note limited availability or be held until GA." \
     || true
 else
   echo "No feature flag indicators found"
+  FEATURE_FLAG_DETECTED="false"
 fi
 
 # --- Cache templates before branch switch ---
@@ -303,9 +305,12 @@ if [ -n "${EXISTING_PR}" ]; then
   DOCS_PR_URL="https://github.com/buildkite/docs-private/pull/${EXISTING_PR}"
 else
   # Build the PR body from template
+  FEATURE_FLAG_STATUS=$([ "${FEATURE_FLAG_DETECTED}" = "true" ] && echo "Yes — review whether docs should note limited availability" || echo "No")
   PR_BODY_CONTENT=$(echo "${DRAFT_PR_BODY_TEMPLATE}" | sed \
     -e "s|\${PR_URL}|${PR_URL}|g" \
-    -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g")
+    -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g" \
+    -e "s|\${FEATURE_FLAG_STATUS}|${FEATURE_FLAG_STATUS}|g" \
+    -e "s|\${BUILD_URL}|${BUILDKITE_BUILD_URL}|g")
 
   DOCS_PR_URL=$(gh pr create \
     --repo buildkite/docs-private \
