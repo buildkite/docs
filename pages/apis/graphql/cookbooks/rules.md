@@ -46,6 +46,101 @@ query getRules {
 > A user typically gains **Read Only** permission to access pipelines if the user is associated with one or more [teams](/docs/platform/team-management/permissions#manage-teams-and-permissions) that the source and target pipelines (with at least the **Read Only** permission) are also associated with.
 > Learn more about associating pipelines with teams in [Team-level permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions).
 
+## Filter rules by pipeline
+
+The `rules` query supports filtering by source or target pipeline using the pipeline's GraphQL ID (`sourceId` and `targetId` arguments). These filters are composable — you can combine them with each other and with the `sourceType`, `targetType`, and `action` filters to narrow results further.
+
+To obtain a pipeline's GraphQL ID, run a pipelines query and use the `id` field from the response.
+
+### Filter by target pipeline
+
+Get all rules where a specific pipeline is the target:
+
+```graphql
+query getRulesByTarget($slug: ID!, $targetId: ID!) {
+  organization(slug: $slug) {
+    rules(first: 10, targetId: $targetId) {
+      edges {
+        node {
+          id
+          type
+          action
+          source {
+            ... on Pipeline {
+              slug
+            }
+          }
+          target {
+            ... on Pipeline {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Filter by source pipeline
+
+Get all rules where a specific pipeline is the source:
+
+```graphql
+query getRulesBySource($slug: ID!, $sourceId: ID!) {
+  organization(slug: $slug) {
+    rules(first: 10, sourceId: $sourceId) {
+      edges {
+        node {
+          id
+          type
+          action
+          source {
+            ... on Pipeline {
+              slug
+            }
+          }
+          target {
+            ... on Pipeline {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Combine multiple filters
+
+Filters are additive — each additional argument narrows the result set. For example, get all `TRIGGER_BUILD` rules targeting a specific pipeline:
+
+```graphql
+query getRulesByTargetAndAction($slug: ID!, $targetId: ID!) {
+  organization(slug: $slug) {
+    rules(first: 10, targetId: $targetId, action: TRIGGER_BUILD) {
+      edges {
+        node {
+          id
+          action
+          source {
+            ... on Pipeline {
+              slug
+            }
+          }
+          target {
+            ... on Pipeline {
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get a rule
 
 Get the details of a specific rule by using its `id` using a `node` query. The `id` of a rule can can be obtained:
