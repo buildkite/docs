@@ -114,7 +114,7 @@ query getRulesBySource($slug: ID!, $sourceId: ID!) {
 
 ### Combine multiple filters
 
-Filters are additive — each additional argument narrows the result set. For example, get all `TRIGGER_BUILD` rules targeting a specific pipeline:
+Filters are additive. Each additional argument narrows the result set. For example, get all `TRIGGER_BUILD` rules targeting a specific pipeline:
 
 ```graphql
 query getRulesByTargetAndAction($slug: ID!, $targetId: ID!) {
