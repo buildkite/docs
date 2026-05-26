@@ -695,6 +695,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <td>Include all Test Engine-related data for the build in the response. Without this parameter, you'll only see all Buildkite Pipelines-related build data in the response.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_test_engine=true</code></p></td>
   </tr>
+  <tr>
+    <th><code>job_states[]</code></th>
+    <td>Filter the jobs included in the response to only those matching the specified API states. Accepts one or more values: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>canceled</code>, <code>broken</code>, <code>unblocked</code>, and others. When omitted, all jobs are returned.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?job_states[]=failed&amp;job_states[]=canceled</code></p></td>
+  </tr>
 </tbody>
 </table>
 

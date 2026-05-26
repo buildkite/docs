@@ -200,7 +200,7 @@ GEM
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
     securerandom (0.4.1)
-    sitemap_generator (6.3.0)
+    sitemap_generator (7.0.1)
       builder (~> 3.0)
     stringex (2.8.6)
     stringio (3.2.0)
@@ -363,7 +363,7 @@ CHECKSUMS
   rspec-support (3.13.7) sha256=0640e5570872aafefd79867901deeeeb40b0c9875a36b983d85f54fb7381c47c
   rspec_junit_formatter (0.6.0) sha256=40dde674e6ae4e6cc0ff560da25497677e34fefd2338cc467a8972f602b62b15
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
-  sitemap_generator (6.3.0) sha256=1d803cbf03c44736bea05b9e3363d3523fec4e24f3abedad294d9c57cab994f3
+  sitemap_generator (7.0.1) sha256=cb436da1c6cb073261a63c27e714e27b8292fca1e17ad503dac1db6518b3d2a8
   stringex (2.8.6) sha256=c7b382d2b2a47a1e1646f256df201c48d487d6296fbb289d76802f67f5e929c4
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73

@@ -59,6 +59,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/jobeventgeneric" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventGeneric">
   <code>JobEventGeneric</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/jobeventpromisedexitstatus" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventPromisedExitStatus">
+  <code>JobEventPromisedExitStatus</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/jobeventreprioritized" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventReprioritized">
   <code>JobEventReprioritized</code>
 </a>

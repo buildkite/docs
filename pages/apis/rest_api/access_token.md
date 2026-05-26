@@ -21,6 +21,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "scopes": ["read_build"],
   "description": "Development Token",
   "created_at": "2025-07-16 06:07:42 UTC",
+  "expires_at": "2025-07-23 06:07:42 UTC",
   "user": {
     "email": "algernon.m@buildkite.com",
     "name": "Algernon Moncrieff"

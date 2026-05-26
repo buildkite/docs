@@ -101,6 +101,7 @@ enum APIAccessTokenScopes {
   WRITE_BUILDS
   WRITE_BUILD_LOGS
   WRITE_CLUSTERS
+  WRITE_ORGANIZATIONS
   WRITE_PACKAGES
   WRITE_PIPELINES
   WRITE_PIPELINE_TEMPLATES
@@ -3208,6 +3209,11 @@ enum HostedAgentInstanceShapeName {
   LINUX_AMD64_2X4
 
   """
+  Linux 32 vCPU x 128 GB Memory
+  """
+  LINUX_AMD64_32X128
+
+  """
   Linux 4 vCPU x 16 GB Memory
   """
   LINUX_AMD64_4X16
@@ -3226,6 +3232,11 @@ enum HostedAgentInstanceShapeName {
   Linux 2 vCPU x 4 GB Memory
   """
   LINUX_ARM64_2X4
+
+  """
+  Linux 32 vCPU x 128 GB Memory
+  """
+  LINUX_ARM64_32X128
 
   """
   Linux 4 vCPU x 16 GB Memory
@@ -3300,19 +3311,24 @@ Possible macOS versions for the Hosted Agent instance
 """
 enum HostedAgentMacOSVersion {
   """
-  macOS Sequoia (15.5)
+  macOS Sequoia (15.7.5)
   """
   SEQUOIA
 
   """
-  macOS Sonoma (14.6.1)
+  macOS Sonoma (14.8.3)
   """
   SONOMA
 
   """
-  macOS Tahoe (26.0)
+  macOS Tahoe (26.3.1)
   """
   TAHOE
+
+  """
+  macOS Tahoe (26.5)
+  """
+  TAHOE_SLIM
 }
 
 """
@@ -3365,7 +3381,12 @@ Possible sizes for the hosted agent instance, specifying vCPU and memory allocat
 """
 enum HostedAgentSize {
   """
-  Extra large capacity size: 12 vCPU, 28GB RAM (Linux); Not applicable for macOS.
+  Extra extra large capacity size: 32 vCPU, 128GB RAM (Linux); Not applicable for macOS.
+  """
+  EXTRA_EXTRA_LARGE
+
+  """
+  Extra large capacity size: 16 vCPU, 64GB RAM (Linux); 12 vCPU, 56GB RAM (macOS).
   """
   EXTRA_LARGE
 
@@ -3886,6 +3907,47 @@ type JobEventGeneric implements JobEvent & Node {
 }
 
 """
+A job event for when a running job has declared an early failure with a promised exit status
+"""
+type JobEventPromisedExitStatus implements JobEvent & Node {
+  """
+  The actor that caused this event to occur
+  """
+  actor: JobEventActor!
+  id: ID!
+
+  """
+  The job that this event belongs to
+  """
+  job: JobTypeCommand!
+
+  """
+  The exit status that the job has declared it will finish with
+  """
+  promisedExitStatus: JSInt!
+
+  """
+  An optional human-readable reason for the declared early failure
+  """
+  promisedExitStatusReason: String
+
+  """
+  The time when the event occurred
+  """
+  timestamp: DateTime!
+
+  """
+  The type of event
+  """
+  type: JobEventType!
+
+  """
+  The public UUID for this job event
+  """
+  uuid: ID!
+}
+
+"""
 A job event for when a job's priority has been changed
 """
 type JobEventReprioritized implements JobEvent & Node {
@@ -4281,6 +4343,11 @@ enum JobEventType {
   The Job is limited by a platform limit
   """
   PLATFORM_LIMITED
+
+  """
+  The Job declared an early failure with a promised exit status
+  """
+  PROMISED_EXIT_STATUS
 
   """
   The Job's priority was changed

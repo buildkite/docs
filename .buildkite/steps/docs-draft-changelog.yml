@@ -21,7 +21,7 @@ steps:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-draft-writer/github-token
       - docker#v5.13.0:
-          image: "node:22-slim"
+          image: "node:24-slim"
           propagate-environment: true
           volumes:
             - "/gitmirror:/gitmirror:ro"

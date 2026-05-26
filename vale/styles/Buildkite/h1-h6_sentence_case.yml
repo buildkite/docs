@@ -270,12 +270,14 @@ exceptions:
   - SonarQube
   - SonarScanner
   - Sonoma
+  - Slim
   - SLO
   - SLOs
   - SSH
   - SSO
   - Summary
   - Tahoe
+  - Tahoe Slim
   - TCP
   - TTL
   - TTLs
