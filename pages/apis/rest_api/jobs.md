@@ -10,14 +10,14 @@ Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry afte
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/retry"
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/retry"
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"
 ```
 
 ```json
@@ -75,16 +75,16 @@ Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/w
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/reprioritize" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/reprioritize" \
   -H "Content-Type: application/json" \
   -d '{"priority": 5}'
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/reprioritize" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/reprioritize" \
   -H "Content-Type: application/json" \
   -d '{"priority": 5}'
 ```
@@ -155,7 +155,7 @@ Unblocks a build's "Block pipeline" job. The job's `unblockable` property indica
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/unblock" \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {
@@ -165,11 +165,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   }'
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/unblock" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock" \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {
@@ -240,14 +240,14 @@ Error responses:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
 ```json
@@ -284,14 +284,14 @@ Alternative formats (using `Accept` header or file extension):
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
 Required scope: `write_build_logs`
@@ -302,14 +302,14 @@ Success response: `204 No Content`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/env"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/env"
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/env"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/env"
 ```
 
 ```json

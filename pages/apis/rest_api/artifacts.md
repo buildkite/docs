@@ -112,17 +112,17 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of a job's artifa
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
-
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts"
-```
 
 ```json
 [
@@ -152,17 +152,17 @@ Success response: `200 OK`
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
-
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}"
-```
 
 ```json
 {
@@ -194,17 +194,17 @@ You should assume the URL returned will only be valid for 60 seconds, unless you
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}/download"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}/download"
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
-
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}/download"
-```
 
 ```json
 {
@@ -224,14 +224,14 @@ If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/cli/r
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}"
 ```
 
-If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
 ```
 
 Required scope: `write_artifacts`
