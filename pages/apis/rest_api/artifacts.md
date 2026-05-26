@@ -117,6 +117,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts"
+```
+
 ```json
 [
   {
@@ -149,6 +156,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}"
+```
 
 ```json
 {
@@ -185,6 +199,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}/download"
+```
+
 ```json
 {
   "url": "https://buildkiteartifacts.com/artifacts/2196c80a1ff393a88482aebe929f9648/dist/app.tar.gz?AWSAccessKeyId=AKIAIPPJ2IPWN5U3O1OA&Expires=1288526454&Signature=5i4%2B99rUwhpP2SbNsJKhT/nSzsQ"
@@ -203,7 +224,14 @@ If the artifact was uploaded using the agent's custom [AWS S3](/docs/agent/cli/r
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "http://api.buildkite.com/v2/organizations/{artifact.job.build.project.account.slug}/pipelines/{artifact.job.build.project.slug}/builds/{artifact.job.build.number}/jobs/{artifact.job.uuid}/artifacts/{artifact.uuid}?access_token={access_token.token}"
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
+```
+
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/artifacts/{id}"
 ```
 
 Required scope: `write_artifacts`

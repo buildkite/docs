@@ -177,6 +177,13 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/annotations"
 ```
 
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/annotations"
+```
+
 ```json
 [
   {
@@ -203,6 +210,19 @@ Creates an annotation scoped to a specific job in a build. Job-scoped annotation
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/annotations" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "body": "Test results: 42 passed",
+    "style": "success",
+    "context": "test-results"
+  }'
+```
+
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/annotations" \
   -H "Content-Type: application/json" \
   -d '{
     "body": "Test results: 42 passed",
@@ -274,6 +294,13 @@ Deletes an annotation on a job.
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/annotations/{annotation.uuid}"
+```
+
+If you only have the job UUID and not the pipeline or build details, use the organization-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/annotations/{annotation.uuid}"
 ```
 
 Required scope: `write_builds`
