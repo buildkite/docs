@@ -6,6 +6,22 @@ To use Buildkite Test Engine with your [Ruby](https://www.ruby-lang.org/) projec
 
 You can also upload test results by importing [JSON](/docs/pipelines/configure/tests/test-collection/importing-json) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 
+## Tests Buildkite plugin example for RSpec
+
+The following step uses the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) to run an RSpec suite through [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client). The plugin downloads bktec, requests an OIDC token, ensures the test suite exists, and exports the environment variables that bktec expects, so the step's command only needs to invoke `bktec run`:
+
+```yaml
+steps:
+  - label: "RSpec"
+    command: bktec run
+    plugins:
+      - tests#v1.0.0:
+          test-runner: rspec
+          result-path: tmp/rspec-result.json
+    parallelism: 2
+```
+
+See the [Tests Buildkite plugin page](https://buildkite.com/resources/plugins/tests-buildkite-plugin) for the full plugin reference, including all supported options and dynamic parallelism with `bktec plan`.
 
 ## RSpec collector
 

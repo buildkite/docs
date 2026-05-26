@@ -163,6 +163,16 @@ Creating a new pipeline with a name that matches an existing pipeline's name res
 
 Once your pipeline runs its test runners, layer [Test Engine](/docs/pipelines/configure/tests)—the testing layer of Buildkite Pipelines—on top to collect, analyze, and manage results. The three steps are: create a [test suite](/docs/pipelines/configure/tests/test-suites), configure a [test collector](/docs/pipelines/configure/tests/test-collection) in your project, and wire the suite's API token into your pipeline.
 
+<!--
+TODO(tests-buildkite-plugin): The links to the Tests Buildkite plugin and the
+Test Collector Buildkite plugin below are placeholders pending the release of
+the new Tests Buildkite plugin (formal name pending). Update both URLs once
+the plugins are published to https://buildkite.com/resources/plugins/.
+-->
+
+> 📘 Recommended setup
+> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) together with the [Test Collector Buildkite plugin](https://buildkite.com/resources/plugins/test-collector-buildkite-plugin) to the step that runs your tests. This pairing is configuration-only—you can get a test suite reporting to Buildkite Test Engine through changes to `pipeline.yml` alone, with no modifications to your application code. Use a [language-specific test collector](/docs/pipelines/configure/tests/test-collection) when you want deeper framework integration.
+
 ### Create a test suite
 
 To create a new test suite:

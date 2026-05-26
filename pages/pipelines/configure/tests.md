@@ -19,6 +19,16 @@ Use Test Engine to:
 
 New to Test Engine? Work through the [Add a test suite](/docs/pipelines/getting-started#add-a-test-suite) section of the Pipelines getting started tutorial, which walks you through creating a [test suite](/docs/pipelines/configure/tests/test-suites), configuring a [test collector](/docs/pipelines/configure/tests/test-collection) for your project, and automating the test runner with Buildkite Pipelines.
 
+<!--
+TODO(tests-buildkite-plugin): The links to the Tests Buildkite plugin and the
+Test Collector Buildkite plugin below are placeholders pending the release of
+the new Tests Buildkite plugin (formal name pending). Update both URLs once
+the plugins are published to https://buildkite.com/resources/plugins/.
+-->
+
+> 📘 Recommended setup
+> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) together with the [Test Collector Buildkite plugin](https://buildkite.com/resources/plugins/test-collector-buildkite-plugin) to the step that runs your tests. This pairing is configuration-only—you can get a test suite reporting to Test Engine through changes to `pipeline.yml` alone, with no modifications to your application code, and it works with every test runner that [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client) supports. Use a [language-specific test collector](/docs/pipelines/configure/tests/test-collection) when you want deeper framework integration.
+
 If you're already familiar with the basics, jump directly to a collector for your testing framework (also known as a _test runner_):
 
 <!-- vale off -->
