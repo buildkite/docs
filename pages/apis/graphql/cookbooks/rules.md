@@ -48,7 +48,7 @@ query getRules {
 
 ## Filter rules by pipeline
 
-The `rules` query supports filtering by source or target pipeline using the pipeline's GraphQL ID (`sourceId` and `targetId` arguments). These filters are composable — you can combine them with each other and with the `sourceType`, `targetType`, and `action` filters to narrow results further.
+The `rules` query supports filtering by source or target pipeline using the pipeline's GraphQL ID (`sourceId` and `targetId` arguments). These filters are composable—you can combine them with each other and with the `sourceType`, `targetType`, and `action` filters to narrow results further.
 
 To obtain a pipeline's GraphQL ID, run a pipelines query and use the `id` field from the response.
 
