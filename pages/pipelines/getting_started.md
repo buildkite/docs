@@ -8,11 +8,12 @@ Welcome to Buildkite Pipelines, a secure, scalable, and flexible platform for bu
 
 1. [Create a new pipeline](#create-a-new-pipeline) from one of the Buildkite-provided examples, to learn the **New Pipeline** page and see how a build runs.
 1. [Create your own pipeline](#create-your-own-pipeline) by adding a pipeline definition to your own repository.
-1. [Add a test suite](#add-a-test-suite) using [Test Engine](/docs/pipelines/configure/tests)—the testing layer of Buildkite Pipelines—to collect results from your test runners.
+1. [Add a test suite](#add-a-test-suite) using [Test Engine](/docs/pipelines/configure/tests) — the testing layer of Buildkite Pipelines — to collect results from your test runners.
 
 ## Before you start
 
-This tutorial assumes that you're new to Buildkite Pipelines. To begin, [create a free, personal Buildkite account](<%= buildkite_url.signup_path %>).
+> 📘
+> This tutorial assumes that you're new to Buildkite Pipelines. To begin, [create a free, personal Buildkite account](<%= buildkite_url.signup_path %>).
 
 From the **Start building for free** page, do either of the following:
 
@@ -85,7 +86,7 @@ Try creating and building other **Buildkite Examples** that suit the technologie
 
 ## Create your own pipeline
 
-This section walks you through writing a pipeline definition for your own code—stored as a `.buildkite/pipeline.yml` file in your repository—and creating a Buildkite pipeline that uploads and runs it. You'll need a repository (real or experimental) and a task to perform with it, such as running tests or a script.
+This section walks you through writing a pipeline definition for your own code — stored as a `.buildkite/pipeline.yml` file in your repository — and creating a Buildkite pipeline that uploads and runs it. You'll need a repository (real or experimental) and a task to perform with it, such as running tests or a script.
 
 ### Define the steps
 
@@ -161,7 +162,11 @@ Creating a new pipeline with a name that matches an existing pipeline's name res
 
 ## Add a test suite
 
-Once your pipeline runs its test runners, layer [Test Engine](/docs/pipelines/configure/tests)—the testing layer of Buildkite Pipelines—on top to collect, analyze, and manage results. The three steps are: create a [test suite](/docs/pipelines/configure/tests/test-suites), configure a [test collector](/docs/pipelines/configure/tests/test-collection) in your project, and wire the suite's API token into your pipeline.
+Once your pipeline runs its test runners, layer [Test Engine](/docs/pipelines/configure/tests) on top to collect, analyze, and manage results. The three steps are:
+
+1. Create a [test suite](/docs/pipelines/configure/tests/test-suites)
+1. Configure a [test collector](/docs/pipelines/configure/tests/test-collection) in your project
+1. Wire the suite's API token into your pipeline
 
 <!--
 TODO(tests-buildkite-plugin): The links to the Tests Buildkite plugin and the
@@ -171,7 +176,8 @@ the plugins are published to https://buildkite.com/resources/plugins/.
 -->
 
 > 📘 Recommended setup
-> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) together with the [Test Collector Buildkite plugin](https://buildkite.com/resources/plugins/test-collector-buildkite-plugin) to the step that runs your tests. This pairing is configuration-only—you can get a test suite reporting to Buildkite Test Engine through changes to `pipeline.yml` alone, with no modifications to your application code. Use a [language-specific test collector](/docs/pipelines/configure/tests/test-collection) when you want deeper framework integration.
+> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) together with the [Test Collector Buildkite plugin](https://buildkite.com/resources/plugins/test-collector-buildkite-plugin) to the step that runs your tests.
+> This pairing is configuration-only — you can get a test suite reporting to Buildkite Test Engine through changes to `pipeline.yml` alone, with no modifications to your application code. Use a [language-specific test collector](/docs/pipelines/configure/tests/test-collection) when you want deeper framework integration.
 
 ### Create a test suite
 
