@@ -39,7 +39,7 @@ With multiple `PodSpec` inputs provided, here is how the Agent Stack for Kuberne
 
 ## PodSpec command and interpretation of arguments
 
-In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/core/pod-v1/#entrypoint). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite agent instead of the container's default entrypoint.
+In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/core/pod-v1/). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite agent instead of the container's default entrypoint.
 
 To run a command, the controller must _re-interpret_ `command` into input for the Buildkite agent. By default, the controller treats `command` as a sequence of multiple commands, similar to steps and commands in a `pipeline.yaml` file which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
 

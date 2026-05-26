@@ -3,7 +3,7 @@
 A _package_ is a combination of _metadata_, _configuration_, and _software_ that is prepared in a way that a package management tool can use to properly and reliably install software and related configuration data on a computer. Some examples of package management tools include:
 
 - [apt](https://help.ubuntu.com/community/Repositories/CommandLine) on Ubuntu
-- [yum](https://docs.redhat.com/en/documentation/Red_Hat_Enterprise_Linux/5/html/Deployment_Guide/c1-yum.html) on RedHat Enterprise Linux (RHEL)
+- [yum](https://docs.redhat.com/en/documentation/Red_Hat_Enterprise_Linux/5/html/deployment_guide/c1-yum) on RedHat Enterprise Linux (RHEL)
 - [pip](https://pip.pypa.io/) for Python packages
 - [gem](http://guides.rubygems.org/) for RubyGems
 
