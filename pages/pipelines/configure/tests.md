@@ -27,7 +27,7 @@ the plugins are published to https://buildkite.com/resources/plugins/.
 -->
 
 > 📘 Recommended setup
-> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) together with the [Test Collector Buildkite plugin](https://buildkite.com/resources/plugins/test-collector-buildkite-plugin) to the step that runs your tests. This pairing is configuration-only—you can get a test suite reporting to Test Engine through changes to `pipeline.yml` alone, with no modifications to your application code, and it works with every test runner that [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client) supports. Use a [language-specific test collector](/docs/pipelines/configure/tests/test-collection) when you want deeper framework integration.
+> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) together with the [Test Collector Buildkite plugin](https://buildkite.com/resources/plugins/test-collector-buildkite-plugin) to the step that runs your tests. Learn more in the [Test collection overview](/docs/pipelines/configure/tests/test-collection).
 
 If you're already familiar with the basics, jump directly to a collector for your testing framework (also known as a _test runner_):
 
