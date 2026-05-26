@@ -71,9 +71,16 @@ Or, to add the Test Engine Client binary to your Docker image, include the follo
 COPY --from=buildkite/test-engine-client /usr/local/bin/bktec /usr/local/bin/bktec
 ```
 
+<!--
+TODO(tests-buildkite-plugin): The link, plugin name, and YAML reference below
+are placeholders pending the release of the new Tests Buildkite plugin (formal
+name pending). Update them once the plugin is published to
+https://buildkite.com/resources/plugins/.
+-->
+
 ### Buildkite plugin
 
-The [Test Engine Buildkite plugin](https://github.com/buildkite-plugins/test-engine-buildkite-plugin) installs bktec automatically by default. Manual installation of bktec is not required when using the plugin.
+The [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) installs bktec automatically by default. Manual installation of bktec is not required when using the plugin.
 
 Before downloading, the plugin checks whether bktec is already available on the `PATH`. If bktec is already installed and no specific `client-version`, `client-os`, or `client-arch` is configured, the plugin uses the existing binary and skips the download.
 
@@ -81,9 +88,11 @@ Set `install-client: false` in the plugin configuration to skip automatic instal
 
 ```yaml
 steps:
-  - name: "RSpec"
+  - label: "RSpec"
+    command: bktec run
     plugins:
-      - test-engine#v1.0.0:
+      - tests#v1.0.0:
+          test-runner: rspec
           install-client: false
 ```
 {: codeblock-file="pipeline.yml"}
