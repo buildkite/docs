@@ -98,7 +98,7 @@ The following set of code snippets are descriptions of what each code snippet do
 Configure your Red Hat registry as the source for your Red Hat (RPM) packages:
 
 ```bash
-sudo sh -c 'echo -e "[{registry.slug}]\nname={registry.name}\nbaseurl=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/rpm_any/rpm_any/\$basearch\nenabled=1\nrepo_gpgcheck=1\ngpgcheck=0\ngpgkey=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/gpgkey\npriority=1"' > /etc/yum.repos.d/{registry.slug}.repo
+sudo sh -c 'echo -e "[{registry.slug}]\nname={registry.name}\nbaseurl=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/rpm_any/rpm_any/\$basearch\nenabled=1\nrepo_gpgcheck=1\ngpgcheck=0\ngpgkey=https://buildkite:{registry.read.token}@packages.buildkite.com/{org.slug}/{registry.slug}/gpgkey\npriority=1" > /etc/yum.repos.d/{registry.slug}.repo'
 ```
 
 where:
