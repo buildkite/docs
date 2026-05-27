@@ -136,6 +136,8 @@
       children:
         - name: "Overview"
           path: "agent"
+        - name: "v3 to v4 upgrade guide"
+          path: "agent/v3-v4-upgrade-guide"
         - name: "Self-hosted agents"
           children:
             - name: "Overview"
