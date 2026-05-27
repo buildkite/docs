@@ -13,8 +13,10 @@ class PagesController < ApplicationController
     @nav = default_nav
     @page = Page.new(view_context, params[:path])
 
-    # If the page doesn't exist, redirect to the nearest parent that does exist,
-    # falling back all the way to /docs if nothing else matches.
+    # If the page doesn't exist, walk up the URL looking for the nearest ancestor
+    # page that does exist and redirect there (302). If no ancestor page exists
+    # (e.g. a single-segment unknown path, or a .md request), fall through to a
+    # 404 so callers get a clear signal rather than an unexpected redirect.
     unless @page.exists?
       segments = params[:path].to_s.split("/")
       parent_path = loop do
@@ -23,7 +25,12 @@ class PagesController < ApplicationController
         candidate = Page.new(view_context, segments.join("/"))
         break "/docs/#{segments.join("/")}" if candidate.exists?
       end
-      redirect_to(parent_path || "/docs", status: :found)
+
+      if parent_path
+        redirect_to parent_path, status: :found
+      else
+        raise ActionController::RoutingError.new("The documentation page `#{@page.basename}` does not exist")
+      end
       return
     end
 
