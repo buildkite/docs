@@ -229,7 +229,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_UNBLOCKER_ID`, and `BUILDKITE_UNBLOCKER_TEAMS` variables. To mention the unblocker as a Slack user instead of including their name, map `BUILDKITE_UNBLOCKER_EMAIL` to a Slack user ID using the same approach described in [Dynamically mention the build creator](#customizing-notifications-mention-the-pull-request-creator-dynamically-mention-the-build-creator).
+The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_UNBLOCKER_ID`, and `BUILDKITE_UNBLOCKER_TEAMS` variables. To mention the unblocker as a Slack user instead of including their name, map `BUILDKITE_UNBLOCKER_EMAIL` to a Slack user ID using the same approach described in [Dynamically mention the build creator](/docs/pipelines/integrations/notifications/slack-workspace#customizing-notifications-mention-the-pull-request-creator).
 
 ### Notify only specific failure scenarios
 
