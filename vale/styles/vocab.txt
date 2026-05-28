@@ -107,6 +107,7 @@ codesign
 codesigning
 Cognito
 commit_sha
+commit's
 completion_watcher
 composable
 config
@@ -292,6 +293,7 @@ Nodejs
 nodeName
 nodeSelector
 Noreply
+noreply
 not_run
 npm
 ns

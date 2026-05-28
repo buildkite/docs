@@ -6712,9 +6712,19 @@ type Organization implements Node {
     order: RuleOrder = RECENTLY_CREATED
 
     """
+    Filter the rules by source Pipeline GraphQL ID
+    """
+    sourceId: ID
+
+    """
     Filter the rules by source type
     """
     sourceType: [RuleSourceType!]
+
+    """
+    Filter the rules by target Pipeline GraphQL ID
+    """
+    targetId: ID
 
     """
     Filter the rules by target type

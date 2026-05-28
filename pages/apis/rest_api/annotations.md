@@ -174,6 +174,13 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of a job's annota
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/annotations"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/annotations"
 ```
 
@@ -199,6 +206,19 @@ Success response: `200 OK`
 ## Create an annotation on a job
 
 Creates an annotation scoped to a specific job in a build. Job-scoped annotations use the same parameters as build-scoped annotations. However, the `scope` is automatically set to `job`.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/annotations" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "body": "Test results: 42 passed",
+    "style": "success",
+    "context": "test-results"
+  }'
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -270,6 +290,13 @@ Success response: `201 Created`
 ## Delete an annotation on a job
 
 Deletes an annotation on a job.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/annotations/{annotation.uuid}"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
