@@ -22,7 +22,7 @@ notify:
 
 ### Mentions in build notifications
 
-The build's author is mentioned automatically when the build can be linked to a Buildkite user, and that user's verified email matches the email on their Slack account. The build is linked to a Buildkite user when either the commit's git author email matches a verified Buildkite email, or the commit's source control user matches a connected account on a Buildkite user (managed under **Personal Settings > Connected Apps**). Both the Buildkite user and their Slack account must be in the connected organization and workspace.
+The build's author is mentioned automatically when the build can be linked to a Buildkite user and that user's verified email matches the email on their Slack account. A build is linked to a Buildkite user when the commit's git author email matches a verified Buildkite email or when the commit's source control user matches a connected account on a Buildkite user (managed under **Personal Settings > Connected Apps**). Both the Buildkite user and their Slack account must be in the connected organization and workspace.
 
 > 📘 GitHub noreply addresses
 > If a contributor commits with a `12345+username@users.noreply.github.com` address, that address cannot be added as a verified Buildkite email (verification emails to it bounce). Connect a GitHub account under **Personal Settings > Connected Apps** in Buildkite to enable automatic mentions for that contributor.
