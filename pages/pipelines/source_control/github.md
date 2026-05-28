@@ -130,7 +130,7 @@ When you create a pull request, two builds are triggered: one for the pull reque
 
 ### Building the test merge commit
 
-By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the pull request into its base branch.
+By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the Buildkite agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the pull request into its base branch.
 
 This is useful when you want builds to reflect the post-merge state of the code, rather than the pull request branch in isolation.
 
