@@ -126,7 +126,31 @@ do
 done
 ```
 
-You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set. For example, the following `pre-bootstrap` hook blocks a job from executing if the `ENVIRONMENT_VARIABLE_TO_DENY` environment variable is set.
+You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set. 
+As an alternative to `$BUILDKITE_ENV_FILE`, you can use `$BUILDKITE_ENV_JSON_FILE`, which points to the same environment data in JSON format. This can be more convenient when you want to inspect values using tools like jq.
+
+For example, the following pre-bootstrap hook uses `$BUILDKITE_ENV_JSON_FILE` and jq to enforce the same repository and command allowlist as the example above.
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+repo="$(jq -r '.BUILDKITE_REPO' "${BUILDKITE_ENV_JSON_FILE}")"
+if [ "${repo}" != "git@server:repo.git" ]
+then
+  echo "Repository not allowed: ${repo}"
+  exit 1
+fi
+
+command="$(jq -r '.BUILDKITE_COMMAND' "${BUILDKITE_ENV_JSON_FILE}")"
+if [ "${command}" != "some-script.sh" ]
+then
+  echo "Command not allowed: ${command}"
+  exit 1
+fi
+```
+
+For example, the following `pre-bootstrap` hook blocks a job from executing if the `ENVIRONMENT_VARIABLE_TO_DENY` environment variable is set.
 
 ```bash
 #!/bin/bash
