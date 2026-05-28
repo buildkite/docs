@@ -2,14 +2,14 @@
 
 The Slack Workspace notification service is the recommended way to send Buildkite Pipelines build notifications to [Slack](https://slack.com/). It requires a single, once-off configuration per Slack workspace, after which any pipeline can use the [`notify` attribute](/docs/pipelines/configure/notify#slack-channel-and-direct-messages) in its `pipeline.yml` to post messages to any channel or user in that workspace.
 
-> 📘
-> If you are still using one or more individual [Slack (legacy)](/docs/pipelines/integrations/notifications/slack) notification services—where each service is bound to a single channel or user—Buildkite recommends migrating to the Slack Workspace notification service for a simpler configuration experience and access to additional features such as [`pipeline.started_failing` and `pipeline.started_passing`](#customizing-notifications-notify-only-specific-failure-scenarios) conditionals.
+> 📘 Migrate from the legacy Slack notification service
+> If you are still using one or more individual [Slack (legacy)](/docs/pipelines/integrations/notifications/slack) notification services—where each service is bound to a single channel or user—Buildkite recommends migrating to the Slack Workspace notification service. The Slack Workspace notification service offers a simpler configuration experience and additional features such as the [`pipeline.started_failing` and `pipeline.started_passing`](#customizing-notifications-notify-only-specific-failure-scenarios) conditionals.
 
 ## Configuring notifications
 
 Before configuring notifications, ensure your Slack workspace is [connected to your Buildkite organization](/docs/platform/integrations/slack-workspace).
 
-Once the Slack workspace is connected, use the `notify` attribute in the YAML syntax of your pipelines to [configure specific notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages):
+Once the Slack workspace is connected, use the `notify` attribute in your `pipeline.yml` to [configure specific notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages):
 
 ```yaml
 notify:
@@ -22,9 +22,12 @@ notify:
 
 ### Mentions in build notifications
 
-Mentions occur when there's a corresponding Slack account using one of the emails connected to the Buildkite account that triggered a build.
+The build's author is mentioned automatically when the build can be linked to a Buildkite user and that user's verified email matches the email on their Slack account. A build is linked to a Buildkite user when the email of the commit's Git author matches a verified Buildkite email or when the commit's source control user matches a connected account of a Buildkite user (managed under **Personal Settings > Connected Apps**). Both the Buildkite user and their Slack account must be in the connected organization and workspace.
 
-Provide the Slack user ID, which you can access from **User > More options > Copy member ID**.
+> 📘 GitHub noreply addresses
+> If a contributor commits with their actual email address hidden and a placeholder address like `12345+username@users.noreply.github.com` is used, that address cannot be added as a verified Buildkite email (verification emails to it bounce). You need to connect a GitHub account under **Personal Settings > Connected Apps** in Buildkite to enable automatic mentions for that contributor.
+
+To mention a specific Slack user explicitly, provide their Slack user ID, which you can access from **User > More options > Copy member ID**.
 
 ```yaml
 notify:
@@ -34,7 +37,7 @@ notify:
 
 ### Notify in private channels
 
-You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/invite @Buildkite Builds`.
+You can notify individuals in private channels by inviting the **Buildkite Builds** Slack app into the channel with `/invite @Buildkite Builds`.
 
 Build-level notifications:
 
@@ -45,7 +48,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also use a channel ID (prefixed with `C`) to target a private channel. Channel IDs are more stable than names as they remain valid if the channel is renamed. See [Notify using a Slack channel or conversation ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) for details.
+You can also use a channel ID (prefixed with an uppercase `C`) to target a private channel. Channel IDs are more stable than names as they remain valid if the channel is renamed. See [Notify using a Slack channel or conversation ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) for details.
 
 ## Conditional notifications
 
@@ -55,7 +58,7 @@ See the [Slack channel message](/docs/pipelines/configure/notify#slack-channel-a
 
 ### Conditional notifications with pipeline states
 
-You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. With the previous Slack integration this was done in the user interface.
+You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. Previously, these notification rules were configured in the user interface of the Slack (legacy) notification service.
 
 See [Conditional Slack notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
 
@@ -93,8 +96,8 @@ steps:
 
 This sends a notification to the `#builds` channel in the `buildkite-community` workspace whenever a build finishes in the `failed` state. Replace the workspace and channel name with values that match your own Slack workspace.
 
-> 🚧
-> When using only a channel name, you must specify this name in quotes. Otherwise, the `#` will cause the channel name to be treated as a YAML comment.
+> 🚧 Quote channel names in YAML
+> When using only a channel name, you must specify this name in quotes. Otherwise, the `#` causes the channel name to be treated as a YAML comment.
 
 ### Mention the pull request creator
 
@@ -172,15 +175,15 @@ EOF
 ```
 {: codeblock-file=".buildkite/notify-creator.sh"}
 
-The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script run time. The agent interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
+The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script runtime. The agent interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
 
 If provisioning a Slack bot token is not viable, replace the `curl` call with a `jq` lookup against a JSON map file (for example, `.buildkite/slack-user-map.json`) checked into the repository.
 
 For more on generating pipeline configuration at runtime, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
-#### Send a Slack DM to the user who triggered the build
+#### Send a Slack direct message to the user who triggered the build
 
-You cannot supply environment variables or [build meta-data](/docs/pipelines/configure/build-meta-data) directly to the `notify` attribute. To send a Slack direct message to the user who triggered the build—on events such as build started, discovery finished, a test failure, or build finished—use a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) upload that interpolates the resolved Slack user ID into a generated `notify` block.
+You cannot supply environment variables or [build meta-data](/docs/pipelines/configure/build-meta-data) directly to the `notify` attribute. To send a Slack direct message (DM) to the user who triggered the build—on events such as build started, discovery finished, a test failure, or build finished—use a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) upload that interpolates the resolved Slack user ID into a generated `notify` block.
 
 The following example uses a shell `<<EOF` here document to upload a step whose `notify` attribute references a `SLACK_USER_ID` environment variable. Set `SLACK_USER_ID` earlier in the build (for example, by mapping `BUILDKITE_BUILD_CREATOR_EMAIL` to a Slack user ID in a hook or a preceding step):
 
@@ -205,7 +208,7 @@ Repeat this pattern at different points in the pipeline to send a DM on each eve
 
 ### Mention the user who unblocked a build
 
-The `BUILDKITE_UNBLOCKER` environment variable is only set after a [block step](/docs/pipelines/configure/step-types/block-step) is unblocked, so it cannot be resolved at the time the initial `pipeline.yml` is uploaded. To include the unblocker's name in a Slack message, add a step after the block step that uploads a dynamic pipeline fragment containing the `notify` attribute. Escape the variable with `$$` so the agent passes it through to the uploaded pipeline, where it is resolved at run time:
+The `BUILDKITE_UNBLOCKER` environment variable is only set after a [block step](/docs/pipelines/configure/step-types/block-step) is unblocked, so it cannot be resolved at the time the initial `pipeline.yml` is uploaded. To include the unblocker's name in a Slack message, add a step after the block step that uploads a dynamic pipeline fragment containing the `notify` attribute. Escape the variable with `$$` so the agent passes it through to the uploaded pipeline, where it is resolved at runtime:
 
 ```yaml
 steps:
@@ -226,7 +229,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_UNBLOCKER_ID`, and `BUILDKITE_UNBLOCKER_TEAMS` variables. To mention the unblocker as a Slack user instead of including their name, map `BUILDKITE_UNBLOCKER_EMAIL` to a Slack user ID using the same approach described in [Dynamically mention the build creator](#customizing-notifications-mention-the-pull-request-creator-dynamically-mention-the-build-creator).
+The same pattern works for the related `BUILDKITE_UNBLOCKER_EMAIL`, `BUILDKITE_UNBLOCKER_ID`, and `BUILDKITE_UNBLOCKER_TEAMS` variables. To mention the unblocker as a Slack user instead of including their name, map `BUILDKITE_UNBLOCKER_EMAIL` to a Slack user ID using the same approach described in [Dynamically mention the build creator](/docs/pipelines/integrations/notifications/slack-workspace#customizing-notifications-mention-the-pull-request-creator).
 
 ### Notify only specific failure scenarios
 
@@ -298,7 +301,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 🚧
+> 🚧 Build-state conditionals are build-level only
 > Build-state conditionals (`build.state`) cannot be used on step-level notifications, since a step cannot know the state of the entire build.
 
 #### Notify on soft-failed steps
@@ -405,7 +408,7 @@ If an earlier step hard-fails, Buildkite Pipelines does not run subsequent steps
 
 #### Use a wait step that continues on failure
 
-Place a `wait` step with `continue_on_failure: true` before the final notification step so the notification step still runs even if earlier steps hard-fail. Use `buildkite-agent step get state --step <key>` from the notification step's command to inspect the outcome of a specific earlier step (identified by its `key`, or by `BUILDKITE_STEP_ID` for the current step), instead of relying on the overall build state:
+Place a `wait` step with `continue_on_failure: true` before the final notification step so the notification step still runs even if earlier steps hard-fail. From the notification step's command, use `buildkite-agent step get state --step <key>` to inspect the outcome of a specific earlier step, identified by its `key` (or by `BUILDKITE_STEP_ID` for the current step). This is more reliable than depending on the overall build state:
 
 ```yaml
 steps:
@@ -428,7 +431,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you would prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
+If you prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
 
 #### Send notifications from a job hook
 
@@ -436,7 +439,7 @@ For notifications that should fire after every job, not just at the end of the b
 
 #### Wrap pipeline upload to inject a final step
 
-To enforce a final Slack notification across every pipeline in your organization without per-pipeline configuration, wrap `buildkite-agent pipeline upload` with a script that reads the YAML being uploaded, appends a `wait` step with `continue_on_failure: true` followed by the notification step, then forwards the modified YAML to the real `buildkite-agent pipeline upload`. Invoke the wrapper from an agent hook so it intercepts every upload automatically.
+To enforce a final Slack notification across every pipeline in your organization without per-pipeline configuration, wrap `buildkite-agent pipeline upload` with a script. The wrapper reads the YAML being uploaded, appends a `wait` step with `continue_on_failure: true` followed by the notification step, then forwards the modified YAML to the real `buildkite-agent pipeline upload`. Invoke the wrapper from an agent hook so it intercepts every upload automatically.
 
 > 🚧 Wrapper script considerations
 > A wrapper around `buildkite-agent pipeline upload` is powerful but adds operational complexity. The wrapper must handle YAML parsing, error cases, and pipelines that already include their own final notification step, and it can be difficult to debug when something goes wrong. Reserve this approach for environments where consistent end-of-build behavior is mandatory and per-pipeline configuration is not viable.
