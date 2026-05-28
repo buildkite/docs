@@ -2,14 +2,14 @@
 
 The Slack Workspace notification service is the recommended way to send Buildkite Pipelines build notifications to [Slack](https://slack.com/). It requires a single, once-off configuration per Slack workspace, after which any pipeline can use the [`notify` attribute](/docs/pipelines/configure/notify#slack-channel-and-direct-messages) in its `pipeline.yml` to post messages to any channel or user in that workspace.
 
-> 📘
-> If you are still using one or more individual [Slack (legacy)](/docs/pipelines/integrations/notifications/slack) notification services—where each service is bound to a single channel or user—Buildkite recommends migrating to the Slack Workspace notification service for a simpler configuration experience and access to additional features such as [`pipeline.started_failing` and `pipeline.started_passing`](#customizing-notifications-notify-only-specific-failure-scenarios) conditionals.
+> 📘 Migrate from the legacy Slack notification service
+> If you are still using one or more individual [Slack (legacy)](/docs/pipelines/integrations/notifications/slack) notification services—where each service is bound to a single channel or user—Buildkite recommends migrating to the Slack Workspace notification service. The Slack Workspace notification service offers a simpler configuration experience and additional features such as the [`pipeline.started_failing` and `pipeline.started_passing`](#customizing-notifications-notify-only-specific-failure-scenarios) conditionals.
 
 ## Configuring notifications
 
 Before configuring notifications, ensure your Slack workspace is [connected to your Buildkite organization](/docs/platform/integrations/slack-workspace).
 
-Once the Slack workspace is connected, use the `notify` attribute in the YAML syntax of your pipelines to [configure specific notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages):
+Once the Slack workspace is connected, use the `notify` attribute in your `pipeline.yml` to [configure specific notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages):
 
 ```yaml
 notify:
@@ -22,10 +22,10 @@ notify:
 
 ### Mentions in build notifications
 
-The build's author is mentioned automatically when the build can be linked to a Buildkite user and that user's verified email matches the email on their Slack account. A build is linked to a Buildkite user when the commit's git author email matches a verified Buildkite email or when the commit's source control user matches a connected account on a Buildkite user (managed under **Personal Settings > Connected Apps**). Both the Buildkite user and their Slack account must be in the connected organization and workspace.
+The build's author is mentioned automatically when the build can be linked to a Buildkite user and that user's verified email matches the email on their Slack account. A build is linked to a Buildkite user when the email of the commit's Git author matches a verified Buildkite email or when the commit's source control user matches a connected account of a Buildkite user (managed under **Personal Settings > Connected Apps**). Both the Buildkite user and their Slack account must be in the connected organization and workspace.
 
 > 📘 GitHub noreply addresses
-> If a contributor commits with a `12345+username@users.noreply.github.com` address, that address cannot be added as a verified Buildkite email (verification emails to it bounce). Connect a GitHub account under **Personal Settings > Connected Apps** in Buildkite to enable automatic mentions for that contributor.
+> If a contributor commits with their actual email address hidden and a placeholder address like `12345+username@users.noreply.github.com` is used, that address cannot be added as a verified Buildkite email (verification emails to it bounce). You need to connect a GitHub account under **Personal Settings > Connected Apps** in Buildkite to enable automatic mentions for that contributor.
 
 To mention a specific Slack user explicitly, provide their Slack user ID, which you can access from **User > More options > Copy member ID**.
 
@@ -37,7 +37,7 @@ notify:
 
 ### Notify in private channels
 
-You can notify individuals in private channels by inviting the Buildkite Builds Slack App into the channel with `/invite @Buildkite Builds`.
+You can notify individuals in private channels by inviting the **Buildkite Builds** Slack app into the channel with `/invite @Buildkite Builds`.
 
 Build-level notifications:
 
@@ -48,7 +48,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also use a channel ID (prefixed with `C`) to target a private channel. Channel IDs are more stable than names as they remain valid if the channel is renamed. See [Notify using a Slack channel or conversation ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) for details.
+You can also use a channel ID (prefixed with an uppercase `C`) to target a private channel. Channel IDs are more stable than names as they remain valid if the channel is renamed. See [Notify using a Slack channel or conversation ID](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-using-a-slack-channel-or-conversation-id) for details.
 
 ## Conditional notifications
 
@@ -58,7 +58,7 @@ See the [Slack channel message](/docs/pipelines/configure/notify#slack-channel-a
 
 ### Conditional notifications with pipeline states
 
-You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. With the previous Slack integration this was done in the user interface.
+You can control conditional notifications using `pipeline.started_passing` and `pipeline.started_failing` in the `if` attribute of the `notify` key of your `pipeline.yml`. Previously, these notification rules were configured in the user interface of the Slack (legacy) notification service.
 
 See [Conditional Slack notifications](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-conditional-slack-notifications) for more examples.
 
@@ -96,8 +96,8 @@ steps:
 
 This sends a notification to the `#builds` channel in the `buildkite-community` workspace whenever a build finishes in the `failed` state. Replace the workspace and channel name with values that match your own Slack workspace.
 
-> 🚧
-> When using only a channel name, you must specify this name in quotes. Otherwise, the `#` will cause the channel name to be treated as a YAML comment.
+> 🚧 Quote channel names in YAML
+> When using only a channel name, you must specify this name in quotes. Otherwise, the `#` causes the channel name to be treated as a YAML comment.
 
 ### Mention the pull request creator
 
@@ -181,9 +181,9 @@ If provisioning a Slack bot token is not viable, replace the `curl` call with a 
 
 For more on generating pipeline configuration at runtime, see [Dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
-#### Send a Slack DM to the user who triggered the build
+#### Send a Slack direct message to the user who triggered the build
 
-You cannot supply environment variables or [build meta-data](/docs/pipelines/configure/build-meta-data) directly to the `notify` attribute. To send a Slack direct message to the user who triggered the build—on events such as build started, discovery finished, a test failure, or build finished—use a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) upload that interpolates the resolved Slack user ID into a generated `notify` block.
+You cannot supply environment variables or [build meta-data](/docs/pipelines/configure/build-meta-data) directly to the `notify` attribute. To send a Slack direct message (DM) to the user who triggered the build—on events such as build started, discovery finished, a test failure, or build finished—use a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines) upload that interpolates the resolved Slack user ID into a generated `notify` block.
 
 The following example uses a shell `<<EOF` here document to upload a step whose `notify` attribute references a `SLACK_USER_ID` environment variable. Set `SLACK_USER_ID` earlier in the build (for example, by mapping `BUILDKITE_BUILD_CREATOR_EMAIL` to a Slack user ID in a hook or a preceding step):
 
