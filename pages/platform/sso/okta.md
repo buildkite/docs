@@ -47,7 +47,7 @@ Go to your Buildkite application in Okta to set up deprovisioning:
 1. Select the **Enable API integration** option and enter the URL and API token copied from your Buildkite SSO Provider settings.
 1. Click **Test API Credentials** and then **Save** once successfully verified.
 1. Select **To App** from the left side menu.
-1. Edit the **Provisioning to App** settings, and enable **Create Users** and **Deactivate Users**. Enabling **Create Users** allows Okta to create a SCIM tracking record when a user is assigned. This is required for **Deactivate Users** to work later, as Okta needs an existing SCIM record to send a deactivation request.
+1. Edit the **Provisioning to App** settings, and enable **Create Users** and **Deactivate Users**. Enabling **Create Users** allows Okta to create a SCIM tracking record when a user is assigned. **Deactivate Users** requires this existing SCIM record, as Okta needs it to send a deactivation request.
 1. Save and test your settings.
 
 ### Syncing existing users for deprovisioning
