@@ -130,25 +130,25 @@ When you create a pull request, two builds are triggered: one for the pull reque
 
 ### Building the test merge commit
 
-By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the Buildkite agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the pull request into its base branch.
+By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the Buildkite agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the change into its base branch.
 
 This is useful when you want builds to reflect the post-merge state of the code, rather than the pull request branch in isolation.
 
 > 📘 Private preview
-> This feature is in private preview. Contact [support](https://buildkite.com/support) to have it enabled for your organization.
+> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
 
-To use this feature end-to-end, three things need to be in place:
+To use this feature, three things need to be in place:
 
 1. Your organization has the feature enabled by Buildkite support.
-2. In the pipeline's GitHub repository settings, **Build the test merge commit** is selected. This checkbox only appears once support has enabled the feature for your organization.
-3. Your agents are started with `--pull-request-using-merge-refspec` (or with the environment variable `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true`).
+1. In the pipeline's GitHub repository settings, **Build the test merge commit** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization.
+1. Your agents are started with the `--pull-request-using-merge-refspec` flag (or the `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true` environment variable).
 
 With all three in place, pull request builds for that pipeline fetch and check out the GitHub-computed merge commit automatically. The build's reported commit in the Buildkite interface stays the pull request head commit, so GitHub commit statuses continue to attach to the right commit. The actual merge commit that was checked out is tracked separately on the build.
 
-A few things to be aware of:
+Note the following limitations:
 
 - Buildkite recommends disabling **Build branches** on pipelines using this feature, to avoid mixed commit statuses on the same commit SHA.
-- `refs/pull/<N>/merge` only exists once GitHub has computed the merge — it is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts will fail at checkout.
+- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout.
 - Builds that fire very quickly after a pull request is opened or synchronized may occasionally fail at checkout if GitHub has not yet computed the merge ref. The agent retries the checkout a few times before failing.
 
 ## Running builds on merge queues
