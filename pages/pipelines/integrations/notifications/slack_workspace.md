@@ -175,7 +175,7 @@ EOF
 ```
 {: codeblock-file=".buildkite/notify-creator.sh"}
 
-The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script run time. The agent interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
+The `\${BUILDKITE_BUILD_NUMBER}` reference uses a backslash to escape the variable so the shell does not interpolate it at script runtime. The agent interpolates it when it processes the uploaded pipeline. The `$slack_user_id` reference is interpolated by the shell so the resolved Slack user ID is baked into the uploaded YAML.
 
 If provisioning a Slack bot token is not viable, replace the `curl` call with a `jq` lookup against a JSON map file (for example, `.buildkite/slack-user-map.json`) checked into the repository.
 
@@ -208,7 +208,7 @@ Repeat this pattern at different points in the pipeline to send a DM on each eve
 
 ### Mention the user who unblocked a build
 
-The `BUILDKITE_UNBLOCKER` environment variable is only set after a [block step](/docs/pipelines/configure/step-types/block-step) is unblocked, so it cannot be resolved at the time the initial `pipeline.yml` is uploaded. To include the unblocker's name in a Slack message, add a step after the block step that uploads a dynamic pipeline fragment containing the `notify` attribute. Escape the variable with `$$` so the agent passes it through to the uploaded pipeline, where it is resolved at run time:
+The `BUILDKITE_UNBLOCKER` environment variable is only set after a [block step](/docs/pipelines/configure/step-types/block-step) is unblocked, so it cannot be resolved at the time the initial `pipeline.yml` is uploaded. To include the unblocker's name in a Slack message, add a step after the block step that uploads a dynamic pipeline fragment containing the `notify` attribute. Escape the variable with `$$` so the agent passes it through to the uploaded pipeline, where it is resolved at runtime:
 
 ```yaml
 steps:
@@ -301,7 +301,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 🚧
+> 🚧 Build-state conditionals are build-level only
 > Build-state conditionals (`build.state`) cannot be used on step-level notifications, since a step cannot know the state of the entire build.
 
 #### Notify on soft-failed steps
@@ -408,7 +408,7 @@ If an earlier step hard-fails, Buildkite Pipelines does not run subsequent steps
 
 #### Use a wait step that continues on failure
 
-Place a `wait` step with `continue_on_failure: true` before the final notification step so the notification step still runs even if earlier steps hard-fail. Use `buildkite-agent step get state --step <key>` from the notification step's command to inspect the outcome of a specific earlier step (identified by its `key`, or by `BUILDKITE_STEP_ID` for the current step), instead of relying on the overall build state:
+Place a `wait` step with `continue_on_failure: true` before the final notification step so the notification step still runs even if earlier steps hard-fail. From the notification step's command, use `buildkite-agent step get state --step <key>` to inspect the outcome of a specific earlier step, identified by its `key` (or by `BUILDKITE_STEP_ID` for the current step). This is more reliable than depending on the overall build state:
 
 ```yaml
 steps:
@@ -431,7 +431,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you would prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
+If you prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
 
 #### Send notifications from a job hook
 
@@ -439,7 +439,7 @@ For notifications that should fire after every job, not just at the end of the b
 
 #### Wrap pipeline upload to inject a final step
 
-To enforce a final Slack notification across every pipeline in your organization without per-pipeline configuration, wrap `buildkite-agent pipeline upload` with a script that reads the YAML being uploaded, appends a `wait` step with `continue_on_failure: true` followed by the notification step, then forwards the modified YAML to the real `buildkite-agent pipeline upload`. Invoke the wrapper from an agent hook so it intercepts every upload automatically.
+To enforce a final Slack notification across every pipeline in your organization without per-pipeline configuration, wrap `buildkite-agent pipeline upload` with a script. The wrapper reads the YAML being uploaded, appends a `wait` step with `continue_on_failure: true` followed by the notification step, then forwards the modified YAML to the real `buildkite-agent pipeline upload`. Invoke the wrapper from an agent hook so it intercepts every upload automatically.
 
 > 🚧 Wrapper script considerations
 > A wrapper around `buildkite-agent pipeline upload` is powerful but adds operational complexity. The wrapper must handle YAML parsing, error cases, and pipelines that already include their own final notification step, and it can be difficult to debug when something goes wrong. Reserve this approach for environments where consistent end-of-build behavior is mandatory and per-pipeline configuration is not viable.
