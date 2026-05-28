@@ -19,7 +19,7 @@ Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can
 
 Buildkite uses a two-layer model for user management with SCIM:
 
-- **SCIM:** When Okta assigns a user to the Buildkite app, it sends a request to Buildkite's SCIM endpoint. This creates a lightweight tracking record storing the user's name, email, and active status. It does _not_ create a Buildkite account, add the user to your organization, or trigger billing.
+- **SCIM:** When Okta assigns a user to the Buildkite app, it sends a request to Buildkite's SCIM endpoint. This creates a lightweight tracking record storing the user's name, email, and active status. It does not create a Buildkite account, add the user to your organization, or trigger billing.
 - **JIT provisioning:** A real Buildkite account and organization membership are created the first time the user logs in via SSO. This is the only step that provisions an actual account.
 
 This means provisioning is handled by JIT on first login, while deprovisioning is handled by SCIM when a user is unassigned in Okta.
