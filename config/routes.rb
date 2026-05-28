@@ -242,7 +242,7 @@ Rails.application.routes.draw do
   get "/docs/package-registries/files",                                                              to: redirect("/docs/package-registries/ecosystems/files")
   get "/docs/package-registries/gradle-groovy",                                                      to: redirect("/docs/package-registries/ecosystems/gradle-groovy")
   get "/docs/package-registries/gradle-kotlin",                                                      to: redirect("/docs/package-registries/ecosystems/gradle-kotlin")
-  get "/docs/package-registries/gradle",                                                             to: redirect("/docs/package-registries/ecosystems/gradle")
+  get "/docs/package-registries/gradle",                                                             to: redirect("/docs/package-registries/ecosystems/gradle-groovy")
   get "/docs/package-registries/helm-oci",                                                           to: redirect("/docs/package-registries/ecosystems/helm-oci")
   get "/docs/package-registries/helm",                                                               to: redirect("/docs/package-registries/ecosystems/helm")
   get "/docs/package-registries/hugging-face",                                                       to: redirect("/docs/package-registries/ecosystems/hugging-face")

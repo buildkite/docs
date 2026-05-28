@@ -15,8 +15,8 @@ class PagesController < ApplicationController
 
     # If the page doesn't exist, walk up the URL looking for the nearest ancestor
     # page that does exist and redirect there (302). If no ancestor page exists
-    # (e.g. a single-segment unknown path, or a .md request), fall through to a
-    # 404 so callers get a clear signal rather than an unexpected redirect.
+    # (for example, a single-segment unknown path or an .md request), fall through to a 404 so
+    # callers get a clear signal rather than an unexpected redirect.
     unless @page.exists?
       segments = params[:path].to_s.split("/")
       parent_path = loop do
