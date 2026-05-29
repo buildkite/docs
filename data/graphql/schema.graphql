@@ -6432,7 +6432,7 @@ type Organization implements Node {
   """
   Whether teams is enabled for this organization
   """
-  isTeamsEnabled: Boolean!
+  isTeamsEnabled: Boolean
   jobs(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -6556,7 +6556,7 @@ type Organization implements Node {
   Whether this organization requires 2FA to access (Please note that this is a
   beta feature and is not yet available to all organizations.)
   """
-  membersRequireTwoFactorAuthentication: Boolean!
+  membersRequireTwoFactorAuthentication: Boolean
 
   """
   The name of the organization
@@ -7966,7 +7966,7 @@ type OrganizationSSO {
   """
   Whether this account is configured for single sign-on
   """
-  isEnabled: Boolean!
+  isEnabled: Boolean
 
   """
   The single sign-on provider for this organization
