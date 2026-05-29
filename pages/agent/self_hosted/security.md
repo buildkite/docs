@@ -151,7 +151,7 @@ then
 fi
 ```
 
-For example, the following `pre-bootstrap` hook blocks a job from executing if the `ENVIRONMENT_VARIABLE_TO_DENY` environment variable is set.
+The following `pre-bootstrap` hook blocks a job from executing if the `ENVIRONMENT_VARIABLE_TO_DENY` environment variable is set.
 
 ```bash
 #!/bin/bash
