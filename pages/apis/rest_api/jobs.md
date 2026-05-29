@@ -10,6 +10,13 @@ Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry afte
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/retry"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"
 ```
 
@@ -65,6 +72,15 @@ Error responses:
 ## Reprioritize a job
 
 Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/job-priority). This affects the order in which jobs are picked up by agents.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/reprioritize" \
+  -H "Content-Type: application/json" \
+  -d '{"priority": 5}'
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -139,7 +155,21 @@ Unblocks a build's "Block pipeline" job. The job's `unblockable` property indica
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/unblock" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fields": {
+      "name": "Liam Neeson",
+      "email": "liam@evilbatmanvillans.com"
+    }
+  }'
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock" \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {
@@ -210,6 +240,13 @@ Error responses:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
@@ -247,6 +284,13 @@ Alternative formats (using `Accept` header or file extension):
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
@@ -255,6 +299,13 @@ Required scope: `write_build_logs`
 Success response: `204 No Content`
 
 ## Get a job's environment variables
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/env"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

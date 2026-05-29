@@ -19,10 +19,10 @@ Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can
 
 Buildkite uses a two-layer model for user management with SCIM:
 
-- **SCIM:** When Okta assigns a user to the Buildkite app, it sends a request to Buildkite's SCIM endpoint. This creates a lightweight tracking record storing the user's name, email, and active status. It does not create a Buildkite account, add the user to your organization, or trigger billing.
-- **JIT provisioning:** A real Buildkite account and organization membership are created the first time the user logs in via SSO. This is the only step that provisions an actual account.
+* **SCIM:** When Okta assigns a user to the Buildkite app, it sends a request to Buildkite's SCIM endpoint. This creates a lightweight tracking record storing the user's name, email, and active status. It does _not_ create a Buildkite account, add the user to your organization, or trigger billing.
+* **JIT provisioning:** A real Buildkite account and organization membership are created the first time the user logs in via SSO. This is the only step that provisions an actual account.
 
-This means provisioning is handled by JIT on first login, while deprovisioning is handled by SCIM when a user is unassigned in Okta.
+Provisioning is handled by JIT on first login. Deprovisioning is handled by SCIM when a user is unassigned in Okta.
 
 
 > 📘
@@ -47,7 +47,7 @@ Go to your Buildkite application in Okta to set up deprovisioning:
 1. Select the **Enable API integration** option and enter the URL and API token copied from your Buildkite SSO Provider settings.
 1. Click **Test API Credentials** and then **Save** once successfully verified.
 1. Select **To App** from the left side menu.
-1. Edit the **Provisioning to App** settings, and enable **Create Users** and **Deactivate Users**. Enabling **Create Users** allows Okta to create a SCIM tracking record when a user is assigned. This is required for **Deactivate Users** to work later, as Okta needs an existing SCIM record to send a deactivation request.
+1. Edit the **Provisioning to App** settings, and enable **Create Users** and **Deactivate Users**. Enabling **Create Users** allows Okta to create a SCIM tracking record when a user is assigned. **Deactivate Users** requires this existing SCIM record, as Okta needs it to send a deactivation request.
 1. Save and test your settings.
 
 ### Syncing existing users for deprovisioning
