@@ -17,6 +17,8 @@ For a project that is already configured to use test collection, first set an **
   scopes:
     - "read_suites"
     - "write_uploads"
+    - "read_test_plan"  # Optional: only required when using bktec
+    - "write_test_plan" # Optional: only required when using bktec
 ```
 
 Add a script to generate and export an OIDC token to `BUILDKITE_ANALYTICS_TOKEN` before each run.
