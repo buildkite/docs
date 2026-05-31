@@ -15,7 +15,7 @@ Adding the Tests Buildkite plugin is the fastest way to get a test suite reporti
 
 ## Migrating from the Test Collector plugin
 
-If your pipelines currently upload test results to Buildkite Test Engine through the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin)—for example, by generating JUnit XML during a test run and then uploading the files in the same step—consider switching to the Tests Buildkite plugin. The Tests Buildkite plugin runs your tests through bktec and collects test data natively, so a single step both runs your tests and reports results to Buildkite Test Engine without a separate upload stage.
+If your pipelines currently upload test results to Buildkite Test Engine through the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) (for example, by generating JUnit XML during a test run and then uploading the files in the same step) — consider switching to the Tests Buildkite plugin. The Tests Buildkite plugin runs your tests through bktec and collects test data natively, so a single step both runs your tests and reports results to Buildkite Test Engine without a separate upload stage.
 
 A typical migration replaces a Test Collector plugin step like this:
 
