@@ -281,7 +281,7 @@
   pipelines/configure/tests/test-suites/labels: "Creating and applying labels to tests manually, using workflows, execution tags, or the REST API."
   pipelines/configure/tests/test-suites/saved-views: "Creating and managing saved filter/display views for test suite data in Test Engine."
   pipelines/configure/tests/test-suites/public: "Making a test suite publicly accessible with read-only access to run results and analytics."
-  pipelines/configure/tests/test-collection: "Overview of test collection paths for Test Engine: the recommended Tests Buildkite plugin paired with the Test Collector Buildkite plugin (configuration-only), or language-specific test collectors for deeper framework integration."
+  pipelines/configure/tests/test-collection: "Overview of test collection paths for Test Engine: the recommended Tests Buildkite plugin (configuration-only), or language-specific test collectors for deeper framework integration."
   pipelines/configure/tests/test-collection/android-collectors: "Setup instructions for the Android test collector package with unit and instrumented tests."
   pipelines/configure/tests/test-collection/elixir-collectors: "Setup instructions for the Elixir ExUnit test collector."
   pipelines/configure/tests/test-collection/golang-collectors: "Running Go tests with the Tests Buildkite plugin (through bktec), or using gotestsum to generate JUnit XML and upload to Test Engine."

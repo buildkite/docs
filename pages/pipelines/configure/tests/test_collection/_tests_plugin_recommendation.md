@@ -1,8 +1,8 @@
 <!--
-TODO(tests-buildkite-plugin): The links to the Tests Buildkite plugin and the
-Test Collector Buildkite plugin below are placeholders pending the release of
-the new Tests Buildkite plugin (formal name pending). Update both URLs once
-the plugins are published to https://buildkite.com/resources/plugins/.
+TODO(tests-buildkite-plugin): The link to the Tests Buildkite plugin below is
+a placeholder pending the release of the new Tests Buildkite plugin (formal
+name pending). Update the URL once the plugin is published to
+https://buildkite.com/resources/plugins/.
 -->
 
 > 📘 Recommended setup
