@@ -205,7 +205,7 @@ The `retry.manual` attribute has the following optional attributes:
   <tr>
     <td><code>reason</code></td>
     <td>
-      A string displayed in a hover card on the disabled **Retry** button in Buildkite. This only appears if the <code>allowed</code> attribute is set to false.<br/>
+      A string displayed in a hover card on the disabled **Retry** button in the Buildkite interface. This only appears if the <code>allowed</code> attribute is set to false.<br/>
       <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
     </td>
   </tr>
