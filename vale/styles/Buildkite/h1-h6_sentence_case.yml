@@ -279,6 +279,7 @@ exceptions:
   - Tahoe
   - Tahoe Slim
   - TCP
+  - Test Collector
   - TTL
   - TTLs
   - Teams
