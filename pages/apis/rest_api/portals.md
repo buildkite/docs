@@ -180,7 +180,7 @@ Required [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-Optional [request body properties](/docs/api#request-body-properties):
+[Request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
