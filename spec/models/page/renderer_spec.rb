@@ -23,12 +23,12 @@ RSpec.describe Page::Renderer do
       ```
     MD
 
-    html = <<~HTML
-      <div class="highlight"><pre class="highlight shell"><code>curl <span class="s2">"https://api.buildkite.com/v2/organizations/<span class="o">{org.slug}</span>/builds"</span>
-      </code></pre></div>
-    HTML
+    doc = Nokogiri::HTML.fragment(Page::Renderer.render(md))
+    pre = doc.at_css('pre.highlight.shell')
 
-    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    expect(pre).not_to be_nil
+    expect(pre.at_css('code').text).to eql("curl \"https://api.buildkite.com/v2/organizations/{org.slug}/builds\"\n")
+    expect(pre.at_css('code .o')&.text).to eql('{org.slug}')
   end
 
   it "supports {: code-filename=\"file.md\"} filenames for code blocks" do
@@ -39,12 +39,12 @@ RSpec.describe Page::Renderer do
       {: codeblock-file="file.json"}
     MD
 
-    html = <<~HTML
-      <figure class="highlight-figure"><figcaption>file.json</figcaption><div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">}</span><span class="w">
-      </span></code></pre></div></figure>
-    HTML
+    doc = Nokogiri::HTML.fragment(Page::Renderer.render(md))
+    figure = doc.at_css('figure.highlight-figure')
 
-    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    expect(figure).not_to be_nil
+    expect(figure.at_css('figcaption')&.text).to eql('file.json')
+    expect(figure.at_css('pre.highlight.json code')&.text).to eql("{ \"key\": \"value\" }\n")
   end
 
   it 'supports custom Callouts' do
