@@ -173,29 +173,23 @@ bk job log <job-id> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-b`, `--build-number=STRING` | The build number |
-| `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug} |
+| `-b`, `--build-number=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
+| `-p`, `--pipeline=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `--debug` | Enable debug output for REST API calls |
 | `--no-timestamps` | Strip timestamp prefixes from log output |
 
 ### Examples
 
-Get a job's logs by UUID (requires --pipeline and --build):
+Get a job's logs by UUID:
 
 ```bash
-bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123
-```
-
-If inside a git repository with a configured pipeline:
-
-```bash
-bk job log 0190046e-e199-453b-a302-a21a4d649d31 -b 123
+bk job log 0190046e-e199-453b-a302-a21a4d649d31
 ```
 
 Strip timestamp prefixes from output:
 
 ```bash
-bk job log 0190046e-e199-453b-a302-a21a4d649d31 -p my-pipeline -b 123 --no-timestamps
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 --no-timestamps
 ```
 
 ## Reprioritize job
@@ -217,22 +211,16 @@ bk job reprioritize <job-id> <priority> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-b`, `--build-number=STRING` | The build number |
-| `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug} |
+| `-b`, `--build-number=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
+| `-p`, `--pipeline=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples
 
-Reprioritize a job (requires --pipeline and --build):
+Reprioritize a job by UUID:
 
 ```bash
-bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1 -p my-pipeline -b 123
-```
-
-If inside a git repository with a configured pipeline:
-
-```bash
-bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1 -b 123
+bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1
 ```
 
 ## Retry a job
