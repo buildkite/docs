@@ -29,6 +29,10 @@ RSpec.describe Page::Renderer do
     expect(pre).not_to be_nil
     expect(pre.at_css('code').text).to eql("curl \"https://api.buildkite.com/v2/organizations/{org.slug}/builds\"\n")
     expect(pre.at_css('code .o')&.text).to eql('{org.slug}')
+
+    # The wrapping <div class="highlight"> is the copy button's positioning context
+    expect(pre.parent.name).to eql('div')
+    expect(pre.parent['class']).to eql('highlight')
   end
 
   it "supports {: code-filename=\"file.md\"} filenames for code blocks" do
@@ -45,6 +49,9 @@ RSpec.describe Page::Renderer do
     expect(figure).not_to be_nil
     expect(figure.at_css('figcaption')&.text).to eql('file.json')
     expect(figure.at_css('pre.highlight.json code')&.text).to eql("{ \"key\": \"value\" }\n")
+
+    # The wrapping <div class="highlight"> must nest inside the figure (copy button positioning context)
+    expect(figure.at_css('div.highlight > pre.highlight.json')).not_to be_nil
   end
 
   it 'supports custom Callouts' do
