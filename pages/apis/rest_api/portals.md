@@ -4,7 +4,7 @@ The portals API endpoint lets you create and manage [portals](/docs/apis/graphql
 
 ## Portals
 
-[_Portals_](/docs/apis/graphql/portals) provide restricted GraphQL API access to the Buildkite platform by defining stored GraphQL operations accessible through authenticated URL endpoints.
+Portals provide restricted GraphQL API access to the Buildkite platform by defining stored GraphQL operations accessible through authenticated URL endpoints.
 
 ### Portal data model
 
