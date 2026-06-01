@@ -249,7 +249,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-[Request body properties](/docs/api#request-body-properties):
+Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>

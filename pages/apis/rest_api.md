@@ -215,6 +215,17 @@ POST | `/v2/organizations/{org.slug}/rules` | [Create a rule](/docs/apis/rest-ap
 DELETE | `/v2/organizations/{org.slug}/rules/{uuid}` | [Delete a rule](/docs/apis/rest-api/rules#rules-delete-a-rule)
 {: class="responsive-table"}
 
+### Portals
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/portals` | [List portals](/docs/apis/rest-api/portals#portals-list-portals)
+GET | `/v2/organizations/{org.slug}/portals/{portal.slug}` | [Get a portal](/docs/apis/rest-api/portals#portals-get-a-portal)
+POST | `/v2/organizations/{org.slug}/portals` | [Create a portal](/docs/apis/rest-api/portals#portals-create-a-portal)
+PUT | `/v2/organizations/{org.slug}/portals/{portal.slug}` | [Update a portal](/docs/apis/rest-api/portals#portals-update-a-portal)
+DELETE | `/v2/organizations/{org.slug}/portals/{portal.slug}` | [Delete a portal](/docs/apis/rest-api/portals#portals-delete-a-portal)
+{: class="responsive-table"}
+
 ### Emojis
 
 Method | Endpoint | Description

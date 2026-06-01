@@ -55,7 +55,7 @@ Learn more about:
 
 In the absence of configurable [scope](/docs/apis/managing-api-tokens#token-scopes) restrictions on API access tokens for the GraphQL API, the _portals_ feature provides a mechanism to restrict access to the Buildkite platform through the GraphQL API. Portals are GraphQL-based operations, which are stored by Buildkite, and are made accessible through authenticated URL endpoints.
 
-Learn more about the portals feature in [Portals](/docs/apis/graphql/portals).
+Learn more about the portals feature in [Portals](/docs/apis/graphql/portals), and how to manage portals programmatically through the [Portals REST API](/docs/apis/rest-api/portals).
 
 ## MCP server
 
