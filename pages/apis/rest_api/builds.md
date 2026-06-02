@@ -1095,6 +1095,8 @@ Error responses:
 
 ## Rebuild a build
 
+Creates a new build that copies the commit, branch, message, environment variables, and pull request data from the original build. A rebuild doesn't fetch the current state from the source control provider. Anything captured on the original build, including pull request labels, draft state, and base branch, is replayed on the new build. To run a build against the current state of a pull request or branch, use [Create a build](#create-a-build) instead.
+
 Returns the newly created build.
 
 ```bash

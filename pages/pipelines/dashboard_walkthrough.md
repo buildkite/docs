@@ -86,6 +86,14 @@ To see the steps for a build, select the Show steps button on the right of any b
 
 Select a build to view its page, which shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or canceling the build while it's in progress.
 
+### Rebuilding a build
+
+Selecting **Rebuild** creates a new build that copies the commit, branch, message, and environment variables from the original build.
+
+A rebuild doesn't fetch anything new from the source control provider. Whatever was captured on the original build is replayed on the new one, including any environment variables set at the time and pull request data such as labels, draft state, and base branch. If any of that has changed in GitHub since the original build ran, the rebuild won't pick up the change.
+
+To run a build against the current state of a pull request or branch, create a new build instead. Push a commit, enable the relevant [GitHub webhook event triggers](/docs/pipelines/source-control/github#running-builds-on-pull-requests) on the pipeline, or use the [REST API](/docs/apis/rest-api/builds#create-a-build) with the values you want.
+
 To retry all failed jobs for a build, select the dropdown menu next to the **Rebuild** button, and then select **Retry failed jobs**. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries. If a pipeline build contains trigger steps, failed jobs in any of its triggered pipelines' builds are also included in the retry. Note that this does not apply to builds triggered by steps where the `async` attribute has been set to `true`.
 
 <%= image "inside-build-page.png", width: 2028/2, height: 880/2, alt: "Inside the build page" %>
