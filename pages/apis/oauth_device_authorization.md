@@ -78,10 +78,10 @@ Direct the user to the `verification_uri` (`https://buildkite.com/oauth/device`)
 
 The user:
 
-1. Enters the code (when using `verification_uri`)
-1. Reviews the application name and requested scopes
-1. Selects a Buildkite organization to authorize
-1. Approves or denies the request
+1. Enters the code (when using `verification_uri`).
+1. Reviews the application name and requested scopes.
+1. Selects a Buildkite organization to authorize.
+1. Approves or denies the request.
 
 ## Token request
 

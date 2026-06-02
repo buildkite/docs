@@ -2,7 +2,9 @@
 
 [OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived [Buildkite API access tokens](/docs/apis/managing-api-tokens) associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite [REST](/docs/apis/rest-api) or [GraphQL](/docs/apis/graphql-api) API on behalf of a user.
 
-OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. Common use cases include:
+OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead.
+
+Common use cases include:
 
 - **Centralized token authority:** A single service issues short-lived tokens from a restricted IP range, reducing the attack surface compared to distributing long-lived API tokens across machines.
 - **Non-interactive automation:** Server-side integrations, CI/CD orchestration, and automated tooling that need to act as a Buildkite user without interactive login flows.
