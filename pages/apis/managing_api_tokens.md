@@ -331,6 +331,8 @@ A token's REST API scopes are granular, and you can select some or all of the fo
   </tbody>
 </table>
 
+These scopes apply to the [Portals REST API](/docs/apis/rest-api/portals) endpoints.
+
 ## Auditing tokens
 
 Viewing the [**API Access Audit** page](https://buildkite.com/organizations/~/api-access-audit) requires Buildkite organization administrator privileges. You can access this page by selecting **Settings** in the global navigation > **API Access Audit** within the **Audit** section.

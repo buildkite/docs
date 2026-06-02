@@ -8,7 +8,7 @@ User-invoked portals allow users within a Buildkite organization (also known as 
 
 ## Short-lived portal token
 
-To use a user-invoked portal, Buildkite organization administrators must explicitly configure portals to be _user-invokable_. This provides these administrators control over which portals allow user-invoked operations while restricting other from being user-invokable.
+To use a user-invoked portal, Buildkite organization administrators must explicitly configure portals to be _user-invokable_, either through the Buildkite interface or by setting the `user_invokable` property when [creating](/docs/apis/rest-api/portals#portals-create-a-portal) or [updating](/docs/apis/rest-api/portals#portals-update-a-portal) a portal through the REST API. This provides these administrators control over which portals allow user-invoked operations while restricting other from being user-invokable.
 
 Once a portal is marked as user-invokable, users can request a _token code_ and authorize it to retrieve a _user-specific portal token_ for executing portal operations.
 

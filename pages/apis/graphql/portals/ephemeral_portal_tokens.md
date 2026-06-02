@@ -1,6 +1,6 @@
 # Ephemeral portal tokens
 
-When a [Buildkite portal is created](/docs/apis/graphql/portals#creating-a-portal), it's assigned a long-lived service token. However, in scenarios where security is a priority, it's advisable to use _ephemeral portal tokens_ instead. These tokens enhance security, since they are only valid for a short duration.
+When a Buildkite portal is created—either [through the Buildkite interface](/docs/apis/graphql/portals#creating-a-portal) or [through the REST API](/docs/apis/rest-api/portals#portals-create-a-portal) — it's assigned a long-lived service token. However, in scenarios where security is a priority, it's advisable to use _ephemeral portal tokens_ instead. These tokens enhance security, since they are only valid for a short duration.
 
 Since ephemeral portal tokens have the same admin-level permissions as long-lived service tokens, ephemeral portal tokens provide a secure alternative to managing portals.
 
