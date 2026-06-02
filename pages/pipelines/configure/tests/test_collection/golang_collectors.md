@@ -1,12 +1,12 @@
 # Configuring Go with Buildkite Test Engine
 
-To use Buildkite Test Engine with your [Go](https://go.dev/) language projects, either use the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) to run `go test` through [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), or use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files and [upload them](/docs/pipelines/configure/tests/test-collection/importing-junit-xml) to Buildkite Test Engine.
+To use Buildkite Test Engine with your [Go](https://go.dev/) language projects, either use the [Tests Buildkite plugin](https://github.com/buildkite-plugins/tests-buildkite-plugin) to run `go test` through [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), or use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files and [upload them](/docs/pipelines/configure/tests/test-collection/importing-junit-xml) to Buildkite Test Engine.
 
 <%= render_markdown partial: 'pipelines/configure/tests/test_collection/tests_plugin_recommendation' %>
 
 ## Tests Buildkite plugin example for Go test
 
-The following step uses the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) to run `gotestsum` through bktec. The plugin downloads bktec, requests an OIDC token, ensures the test suite exists, and exports the environment variables that bktec expects, so the step's command only needs to invoke `bktec run`:
+The following step uses the [Tests Buildkite plugin](https://github.com/buildkite-plugins/tests-buildkite-plugin) to run `gotestsum` through bktec. The plugin downloads bktec, requests an OIDC token, ensures the test suite exists, and exports the environment variables that bktec expects, so the step's command only needs to invoke `bktec run`:
 
 ```yaml
 steps:
@@ -19,7 +19,7 @@ steps:
     parallelism: 4
 ```
 
-See the [Tests Buildkite plugin page](https://buildkite.com/resources/plugins/tests-buildkite-plugin) for the full plugin reference, including all supported options and dynamic parallelism with `bktec plan`.
+See the [Tests Buildkite plugin page](https://github.com/buildkite-plugins/tests-buildkite-plugin) for the full plugin reference, including all supported options and dynamic parallelism with `bktec plan`.
 
 ## Uploading JUnit XML with gotestsum
 

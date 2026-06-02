@@ -1,15 +1,8 @@
-<!--
-TODO(tests-buildkite-plugin): The link to the Tests Buildkite plugin below is
-a placeholder pending the release of the new Tests Buildkite plugin (formal
-name pending). Update the URL once the plugin is published to
-https://buildkite.com/resources/plugins/.
--->
-
 # Test collection overview
 
 To analyze your test data in [Buildkite Test Engine](/docs/test-engine), you need a way to collect data from your project's test runners (for example, RSpec or minitest for Ruby, Jest or Cypress for JavaScript, or pytest for Python) and send that data to a [test suite](/docs/pipelines/configure/tests/test-suites).
 
-The recommended starting point is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/tests-buildkite-plugin) to your pipeline. The plugin sets up your pipeline to run tests with Buildkite Test Engine: it downloads the [Test Engine Client (bktec)](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), requests an [OIDC](/docs/pipelines/configure/tests/test-collection/oidc) token, ensures your test suite exists, and collects the test data—all without requiring any changes to your application code. The Tests Buildkite plugin works with every test runner that bktec supports, including RSpec, Jest, pytest, and `go test`.
+The recommended starting point is to add the [Tests Buildkite plugin](https://github.com/buildkite-plugins/tests-buildkite-plugin) to your pipeline. The plugin sets up your pipeline to run tests with Buildkite Test Engine: it downloads the [Test Engine Client (bktec)](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), requests an [OIDC](/docs/pipelines/configure/tests/test-collection/oidc) token, ensures your test suite exists, and collects the test data—all without requiring any changes to your application code. The Tests Buildkite plugin works with every test runner that bktec supports, including RSpec, Jest, pytest, and `go test`.
 
 Adding the Tests Buildkite plugin is the fastest way to get a test suite reporting data to Buildkite Test Engine, because the entire setup lives in `pipeline.yml`. Use a language-specific test collector instead when you want deeper framework integration—such as RSpec annotation spans, pytest custom markers, and richer per-framework execution tags. This path requires adding a library dependency to your application code, so it takes more effort to set up than the plugin-only path.
 
@@ -40,7 +33,7 @@ steps:
           test-runner: pytest
 ```
 
-Set `test-runner` to the runner used by your project—for example, `rspec`, `pytest`, `jest`, or `gotestsum`. See the [Tests Buildkite plugin page](https://buildkite.com/resources/plugins/tests-buildkite-plugin) for the full list of supported runners and configuration options.
+Set `test-runner` to the runner used by your project—for example, `rspec`, `pytest`, `jest`, or `gotestsum`. See the [Tests Buildkite plugin page](https://github.com/buildkite-plugins/tests-buildkite-plugin) for the full list of supported runners and configuration options.
 
 Reasons to move to the Tests Buildkite plugin:
 
