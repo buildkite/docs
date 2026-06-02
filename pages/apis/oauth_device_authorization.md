@@ -101,11 +101,15 @@ grant_type=urn:ietf:params:oauth:grant-type:device_code
 
 ### Request parameters
 
+<!-- vale Buildkite.existence = NO -->
+
 | Parameter | Required | Description |
 |-----------|----------|-------------|
 | `grant_type` | Yes | Must be `urn:ietf:params:oauth:grant-type:device_code` |
 | `client_id` | Yes | The client ID of your OAuth application |
 | `device_code` | Yes | The `device_code` from the device authorization response |
+
+<!-- vale Buildkite.existence = YES -->
 
 ### Successful response
 
