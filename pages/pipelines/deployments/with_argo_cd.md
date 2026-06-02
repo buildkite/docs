@@ -22,7 +22,7 @@ There are various ways Argo CD could be used with Buildkite Pipelines. The most 
 
 - The Buildkite agent pushes Kubernetes manifests to a GitOps repository and then waits for the GitOps engine to [reconcile](http://argo-cd.readthedocs.io/en/stable/operator-manual/reconcile/) the change to a target Kubernetes cluster.
 - Buildkite Pipelines triggers Argo CD to deploy to Kubernetes.
-- Buildkite Pipelines triggers Argo CD via Argo API to either [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync), or [roll back a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback), and monitors the deployment until completion.
+- Buildkite Pipelines triggers Argo CD using Argo API to either [sync an application](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Sync), or [roll back a synchronization](https://cd.apps.argoproj.io/swagger-ui#tag/ApplicationService/operation/ApplicationService_Rollback), and monitors the deployment until completion.
 
 ## Deploying to Kubernetes with Argo CD triggered by Buildkite Pipelines
 
@@ -80,7 +80,7 @@ In the traditional fire-and-forget approach, you would trigger either Argo CD's 
 The [Argo CD Deployment Buildkite Plugin](https://github.com/buildkite-plugins/argocd-deployment-buildkite-plugin) provides a vastly extended set of features and offers several advantages over manual CLI usage:
 
 - Unlike Argo CD's basic rollback, the plugin can automatically detect deployment failures and roll back to the last known good state, or provide interactive rollback decisions with detailed context through the use of [block steps](/docs/pipelines/configure/step-types/block-step).
-- The plugin performs real-time continuous health monitoring during deployment with configurable intervals and timeouts via the Argo CD API. Basic CLI commands don't provide this capability.
+- The plugin performs real-time continuous health monitoring during deployment with configurable intervals and timeouts using the Argo CD API. Basic CLI commands don't provide this capability.
 - Deployment observability features of the plugin include automatic log collection (including pod logs), artifact upload, and detailed [Buildkite annotations](/docs/agent/cli/reference/annotate) that provide deployment visibility.
 - Production-ready safety features allow performing atomic deployments, setting configurable timeouts, and configuring Slack notifications for deployment events.
 
@@ -94,7 +94,7 @@ The plugin requires the following Argo CD authentication environment variables:
 
 - `ARGOCD_SERVER` - Argo CD server URL (can also be set in plugin configuration).
 - `ARGOCD_USERNAME` - Argo CD username (can also be set in plugin configuration).
-- `ARGOCD_PASSWORD` - Argo CD password (must be set via environment variable).
+- `ARGOCD_PASSWORD` - Argo CD password (must be set using environment variable).
 
 For production deployments, use a secure secret management solution like [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), HashiCorp Vault, or AWS Secrets Manager to fetch the `ARGOCD_PASSWORD` before your deployment steps.
 

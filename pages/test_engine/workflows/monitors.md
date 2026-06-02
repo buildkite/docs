@@ -89,7 +89,7 @@ Like the [transition count](#transition-count) monitor, the duration threshold m
 
 ## Tag filters
 
-Tag filters reduce the set of [execution](/docs/test-engine/glossary#execution) data that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different [actions](/docs/test-engine/workflows/actions) based on different types of test executions. This means that you can set up custom actions and monitors based on tag values, for example sending different notifications based on different team tag values, or using tags to segment the different types of test (e.g. feature, unit) and monitor on different thresholds.
+Tag filters reduce the set of [execution](/docs/test-engine/glossary#execution) data that goes into a monitor, so that you can ignore lower relevancy data and produce better insights, or take different [actions](/docs/test-engine/workflows/actions) based on different types of test executions. This means that you can set up custom actions and monitors based on tag values, for example, sending different notifications based on different team tag values, or using tags to segment the different types of test (for example, feature, unit) and monitor on different thresholds.
 
 <%= image "tag-filters.png", alt: "Screenshot showing tag filters, with the branch filter set to main" %>
 

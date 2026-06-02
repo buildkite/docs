@@ -56,7 +56,7 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
 | `network_name` | `string` | `"elastic-ci-stack"` | Name of the VPC network to create. The stack will create a new VPC with this name. Must be a valid GCP resource name: lowercase letters, numbers, and hyphens only. |
-| `enable_ssh_access` | `bool` | `true` | Enable SSH access to instances via firewall rule. Set to false for additional security. |
+| `enable_ssh_access` | `bool` | `true` | Enable SSH access to instances using firewall rule. Set to false for additional security. |
 | `ssh_source_ranges` | `list(string)` | `["0.0.0.0/0"]` | CIDR blocks allowed to SSH to instances. Restrict to your IP for security (for example, ['203.0.113.0/24']). Only used if `enable_ssh_access` is true. All values must be valid CIDR blocks. |
 | `instance_tag` | `string` | `"elastic-ci-agent"` | Network tag applied to instances for firewall targeting. Generally no need to change. Must be a valid GCP network tag. |
 | `enable_iap_access` | `bool` | `false` | Enable Identity-Aware Proxy (IAP) for secure SSH without external IPs or VPN. |

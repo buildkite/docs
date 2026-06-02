@@ -158,9 +158,9 @@ To enable merge queue builds, edit the GitHub settings for the pipeline and sele
 > 🚧 Ensure GitHub webhook has _Merge groups_ events enabled
 > Buildkite relies on receiving `merge_group` webhook events from GitHub to create builds for merge groups in the merge queue. Ensure your pipeline's [webhook](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository) has the _Merge groups_ event enabled before enabling merge queue builds.
 
-Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
+Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping using a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
 
-To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced using the **Use base commit when making `if_changed` comparisons** setting.
 
 For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
@@ -193,7 +193,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 
 ## Environment variables
 
-GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation via `build.env()`, while others are only available in conditionals and pipeline interpolation:
+GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation using `build.env()`, while others are only available in conditionals and pipeline interpolation:
 
 **Available at runtime, conditionals, and pipeline interpolation:**
 
@@ -226,7 +226,7 @@ Your checks will appear on your pull request as **buildkite/your-pipeline-name**
 
 <%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
 
-You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
+You can customize the commit statuses, for example, to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
 
 ### Build level
 

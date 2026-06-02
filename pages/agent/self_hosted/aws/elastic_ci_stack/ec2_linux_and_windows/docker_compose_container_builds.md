@@ -22,7 +22,7 @@ If your `docker-compose.yml` references files outside the repository directory, 
 
 - Included in your repository
 - Available through [Buildkite artifact uploads](/docs/agent/cli/reference/artifact#uploading-artifacts) from previous steps
-- Accessible via network mounts or external storage
+- Accessible using network mounts or external storage
 
 For build caching or sharing artifacts across builds, use:
 
@@ -354,7 +354,7 @@ Docker builds may fail with errors like "signal: killed," "build container exite
 To resolve these issues:
 
 - Check CloudWatch metrics for agent instance CPU and memory utilization
-- Upgrade to larger instance types (e.g., from `c5.large` to `c5.xlarge` or `c5.2xlarge`)
+- Upgrade to larger instance types (for example, from `c5.large` to `c5.xlarge` or `c5.2xlarge`)
 - Monitor build logs for memory-related errors
 - Optimize Dockerfiles to reduce resource requirements
 - Use multi-stage builds to reduce final image size
