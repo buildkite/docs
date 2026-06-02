@@ -53,6 +53,13 @@ class Page::Renderer
     def codespan(code)
       %{<code>#{EscapeUtils.escape_html(code)}</code>}
     end
+
+    # Rouge 5 stopped wrapping highlighted blocks in <div class="highlight">.
+    # Restore it so the absolutely-positioned copy button keeps the positioning
+    # context provided by .highlight { position: relative }.
+    def block_code(code, language)
+      %{<div class="highlight">#{super}</div>}
+    end
   end
 
   def wrap_sections(doc)

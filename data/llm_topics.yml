@@ -18,6 +18,7 @@ ai-tools-and-mcp:
     - "apis/graphql/portals/limits"
     - "apis/graphql/portals/ephemeral-portal-tokens"
     - "apis/graphql/portals/user-invoked-portals"
+    - "apis/rest-api/portals"
     - "apis/managing-api-tokens"
   related_topics:
     - buildkite-apis
