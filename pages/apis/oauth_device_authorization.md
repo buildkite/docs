@@ -69,7 +69,7 @@ A successful response returns a JSON object:
 | `user_code` | The user-facing code displayed to the user, formatted as `XXXX-XXXX` |
 | `verification_uri` | The URL where the user enters the code |
 | `verification_uri_complete` | The full verification URL with the code pre-filled |
-| `expires_in` | Seconds until the codes expire (600 seconds, that is 10 minutes) |
+| `expires_in` | Seconds until the codes expire (600 seconds, that is, 10 minutes) |
 | `interval` | Minimum seconds between polling requests (starts at 5 seconds) |
 
 ## User authorization
