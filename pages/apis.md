@@ -23,6 +23,13 @@ Learn more about Buildkite's API access tokens and how to manage them in [Managi
 - A token's [lifecycle](/docs/apis/managing-api-tokens#api-token-lifecycle) characteristics.
 - Managing a token's [security](/docs/apis/managing-api-tokens#api-token-security), including [token rotation](/docs/apis/managing-api-tokens#api-token-security-rotation) and [GitHub's secret scanning program](/docs/apis/managing-api-tokens#api-token-security-github-secret-scanning-program).
 
+### Programmatic token issuance
+
+Buildkite also supports OAuth-based flows for issuing access tokens without manually creating one in the Buildkite interface:
+
+- [OAuth Token Exchange](/docs/apis/oauth-token-exchange) lets a service mint short-lived, scoped API access tokens for users by exchanging a signed JWT assertion, suitable for centralized token authorities and non-interactive automation.
+- [OAuth device authorization](/docs/apis/oauth-device-authorization) lets applications running in environments without browser access (such as SSH sessions, remote development environments, or constrained devices) authenticate by directing the user to complete authorization in a browser on any device.
+
 ### Webhook authentication
 
 If you are implementing [Buildkite webhooks](#webhooks), all webhooks for [Pipelines](/docs/apis/webhooks/pipelines#http-headers) and [Package Registries](/docs/apis/webhooks/package-registries#http-headers) contain an `X-Buildkite-Token` header which allows you to verify the authenticity of the request.
