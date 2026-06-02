@@ -1,6 +1,6 @@
 # OAuth device authorization
 
-[OAuth 2.0 Device Authorization Grant](https://datatracker.ietf.org/doc/html/rfc8628) (RFC 8628) lets applications running in environments without browser access—such as SSH sessions, remote development environments, or constrained devices—authenticate with Buildkite. The device requests a code and polls for a token, while the user completes authorization in a browser on any device.
+[OAuth 2.0 Device Authorization Grant](https://datatracker.ietf.org/doc/html/rfc8628) (RFC 8628) lets applications running in environments without browser access (such as SSH sessions, remote development environments, or constrained devices) authenticate with Buildkite. The device requests a code and polls for a token, while the user completes authorization in a browser on any device.
 
 ## How it works
 
