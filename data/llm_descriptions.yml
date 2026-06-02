@@ -386,6 +386,7 @@
   apis: "Overview of Buildkite APIs: REST, GraphQL, webhooks, MCP server, agent API, and authentication."
   apis/managing-api-tokens: "Creating, editing, auditing, and securing API access tokens with scopes and IP restrictions."
   apis/oauth-token-exchange: "OAuth Token Exchange for minting short-lived Buildkite API tokens programmatically using signed JWT assertions, without interactive login flows. Covers setup, key generation, JWKS configuration, token exchange requests, JWT claims, scopes, caching, and troubleshooting."
+  apis/oauth-device-authorization: "OAuth Device Authorization Grant (RFC 8628) for authenticating CLI tools, SSH sessions, and browserless environments with Buildkite. Covers the device authorization request, user verification flow, token polling, polling error codes, and troubleshooting."
   apis/api-differences: "Feature comparison between REST and GraphQL APIs, listing capabilities unique to each."
   apis/rest-api: "REST API overview: schema, authentication, pagination, endpoints, and response conventions."
   apis/rest-api/limits: "REST API rate limits (200 requests/min per org), response headers, and handling limit exceeded errors."
