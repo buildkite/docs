@@ -129,9 +129,8 @@ If you want to run builds only on pull requests, set the **Branch Filter Pattern
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
 
 > 📘 Rebuilding pull request builds
-> Rebuilding a pull request build replays the pull request data captured when the original build was created, including labels, draft state, base branch, and repository. It doesn't fetch the current pull request state from GitHub. If a label has been added or removed, or the pull request has been moved out of draft since the original build, the rebuild won't reflect those changes.
->
-> To run a build against the current pull request state, enable the relevant trigger from the [pull request actions list above](#running-builds-on-pull-requests). For example, **Build when pull request labels are changed** or **Build when pull request becomes ready for review**. Each trigger creates a new build from the webhook payload, so labels, draft state, and base branch reflect the pull request at the time of the event.
+> Rebuilding a pull request build replays the pull request data captured when the original build was created, including labels, draft state, base branch, and repository. A rebuild doesn't fetch the current pull request state from GitHub. If a label has been added or removed, or the pull request has been moved out of draft since the original build, the rebuild won't reflect those changes.
+> To run a build against the current pull request state, enable the relevant trigger from the pull request actions listed above. For example, **Build when pull request labels are changed** or **Build when pull request becomes ready for review**. Each trigger creates a new build from the webhook payload, so labels, draft state, and base branch reflect the pull request at the time of the event.
 
 ### Building the test merge commit
 
