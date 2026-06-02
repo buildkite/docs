@@ -5,17 +5,17 @@
 ## How it works
 
 ```
-┌────────────┐  1. POST /oauth/device_authorization  ┌──────────────┐
+┌────────────┐  1. POST /oauth/device_authorization   ┌──────────────┐
 │            │ ──────────────────────────────────────▶│              │
 │   Device   │ ◀──────────────────────────────────────│  Buildkite   │
-│            │    device_code + user_code              │              │
-│            │                                         └──────────────┘
+│            │    device_code + user_code             │              │
+│            │                                        └──────────────┘
 │            │  2. Display user_code to user
-│            │     User visits verification_uri        ┌──────────────┐
-│            │     and enters user_code               ▶│   Browser    │
-│            │                                         │ (any device) │
-│            │                                         └──────────────┘
-│            │  3. Poll POST /oauth/token              ┌──────────────┐
+│            │     User visits verification_uri       ┌──────────────┐
+│            │     and enters user_code              ▶│   Browser    │
+│            │                                        │ (any device) │
+│            │                                        └──────────────┘
+│            │  3. Poll POST /oauth/token             ┌──────────────┐
 │            │ ──────────────────────────────────────▶│              │
 │            │ ◀──────────────────────────────────────│  Buildkite   │
 └────────────┘   access_token (once approved)         └──────────────┘
