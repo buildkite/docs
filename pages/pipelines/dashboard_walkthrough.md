@@ -90,7 +90,7 @@ Select a build to view its page, which shows the full list of jobs and other ste
 
 Selecting **Rebuild** creates a new build that copies the commit, branch, message, and environment variables from the original build.
 
-A rebuild doesn't fetch anything new from the source control provider. Whatever was captured on the original build is replayed on the new one, including any environment variables set at the time and pull request data such as labels, draft state, and base branch. If any of that has changed in GitHub since the original build ran, the rebuild won't pick up the change.
+A rebuild does not fetch anything new from the source control provider. Whatever was captured on the original build is replayed on the new one, including any environment variables set at the time and pull request data such as labels, draft state, and base branch. If any of that has changed in GitHub since the original build ran, the rebuild will not pick up the change.
 
 To run a build against the current state of a pull request or branch, create a new build instead. Push a commit, enable the relevant [GitHub webhook event triggers](/docs/pipelines/source-control/github#running-builds-on-pull-requests) on the pipeline, or use the [REST API](/docs/apis/rest-api/builds#create-a-build) with the values you want.
 
