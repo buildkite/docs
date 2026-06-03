@@ -382,7 +382,7 @@ debugging:
 
 developer-experience:
   name: "Buildkite Developer Experience Documentation"
-  description: "Buildkite documentation for developer experience features, covering build annotations, structured log output, and embedding links and images in logs to reduce log digging."
+  description: "Buildkite documentation for developer experience features, covering build annotations, structured log output, embedding links and images in logs, and the Buildkite Visual Studio Code extension for managing pipelines from the editor."
   exact_paths:
     - "agent/cli/reference/annotate"
     - "agent/cli/reference/annotation"
@@ -390,6 +390,7 @@ developer-experience:
     - "pipelines/configure/managing-log-output"
     - "pipelines/configure/links-and-images-in-log-output"
     - "apis/rest-api/annotations"
+    - "platform/vscode-extension"
   related_topics:
     - debugging
     - pipeline-configurations
@@ -439,13 +440,14 @@ packages:
 
 cli-tools:
   name: "Buildkite CLI Tools Documentation"
-  description: "Buildkite documentation for CLI tools, covering the Buildkite CLI (bk) for managing pipelines, builds, and agents, and the buildkite-agent CLI reference for agent operations, artifacts, meta-data, and pipeline uploads."
+  description: "Buildkite documentation for CLI tools and editor integrations, covering the Buildkite CLI (bk) for managing pipelines, builds, and agents, the buildkite-agent CLI reference for agent operations, artifacts, meta-data, and pipeline uploads, and the Buildkite Visual Studio Code extension."
   paths:
     - "platform/cli"
     - "agent/cli"
   exact_paths:
     - "agent"
     - "apis"
+    - "platform/vscode-extension"
   related_topics:
     - buildkite-apis
     - agent

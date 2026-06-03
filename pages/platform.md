@@ -34,6 +34,10 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
         description: "Command line/terminal access to work with features across the Buildkite platform."
       },
       {
+        topic: "[Visual Studio Code extension](/docs/platform/vscode-extension)",
+        description: "Manage your pipelines, builds, jobs, and agents from Visual Studio Code, with automatic pipeline YAML validation."
+      },
+      {
         topic: "[Terraform provider](/docs/platform/terraform-provider)",
         description: "Manage your Buildkite organization's resources using Terraform infrastructure-as-code workflows."
       },

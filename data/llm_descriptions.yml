@@ -350,6 +350,7 @@
   platform/tutorials/2fa: "Step-by-step guide to enabling two-factor authentication on your Buildkite account."
   platform/audit-log: "Viewing and exporting organization activity events in the audit log (Enterprise plan)."
   platform/emojis: "Using 300+ custom Buildkite emojis in pipelines, test suites, and registries, plus adding your own."
+  platform/vscode-extension: "Buildkite Visual Studio Code extension for managing pipelines, builds, jobs, agents, and annotations from VS Code: OAuth or API token authentication, Pipelines/Agents/Support panels, job log viewing with ANSI colors, build status in the editor status bar, build completion notifications, and automatic pipeline YAML validation, autocomplete, and hover documentation through the SchemaStore schema."
   platform/cli: "Overview of the Buildkite CLI (bk) for managing agents, builds, jobs, artifacts, and packages."
   platform/cli/installation: "Installing the Buildkite CLI on Debian/Ubuntu, Red Hat, macOS (Homebrew), and Windows."
   platform/cli/configuration: "Creating and configuring API access tokens for the Buildkite CLI."
