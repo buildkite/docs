@@ -150,6 +150,21 @@ While waiting for user approval, the token endpoint returns error responses unti
 
 Device authorization tokens support the same scopes as [Buildkite API access tokens](/docs/apis/managing-api-tokens#token-scopes).
 
+## Managing authorized applications
+
+After a user approves a device authorization request, the application appears in the **Authorized Applications** section of their [**Connected Apps**](https://buildkite.com/user/connected-apps) page under **Personal Settings**. This section shows all OAuth-authorized applications, including those authorized through the device flow.
+
+Each authorized application entry shows:
+
+- **Last used** — when the application most recently made an API request
+- **Expires** — when the OAuth grant expires, or "No expiry" if it does not
+- **Permissions** — a summary of the scopes granted to the application
+- **Approved from** — the browser or client used at the time of authorization (if available)
+
+Selecting **Details** expands additional information, including the Buildkite organization the application is authorized for, the full list of scope names, and the client that last made a request.
+
+To revoke an application's access, select **Revoke** on the application's entry. This removes the OAuth grant and all associated access tokens, preventing the application from making further API requests with those credentials.
+
 ## Troubleshooting
 
 The device authorization and token endpoints return error responses with an `error` code and optional `error_description`:
