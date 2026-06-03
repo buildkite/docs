@@ -1,4 +1,4 @@
-# VS Code extension
+# Visual Studio Code extension
 
 The [Buildkite VS Code extension](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite) lets you manage your pipelines, builds, jobs, and agents directly from Visual Studio Code without switching to the Buildkite web interface. The extension is [open source and available on GitHub](https://github.com/buildkite/vscode-buildkite).
 
