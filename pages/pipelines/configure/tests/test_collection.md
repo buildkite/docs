@@ -32,6 +32,7 @@ steps:
     plugins:
       - tests#v1.0.0:
           test-runner: pytest
+```
 
 Set `test-runner` to the runner used by your project—for example, `rspec`, `pytest`, `jest`, or `gotestsum`. See the [Tests Buildkite plugin page](https://github.com/buildkite-plugins/tests-buildkite-plugin) for the full list of supported runners and configuration options.
 
