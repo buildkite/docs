@@ -15,7 +15,7 @@ You can also upload test results by importing [JSON](/docs/pipelines/configure/t
 
 ## Tests Buildkite plugin example for Jest
 
-The following step uses the [Tests Buildkite plugin](https://github.com/buildkite-plugins/tests-buildkite-plugin) to run a Jest suite through [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client). The plugin downloads bktec, requests an OIDC token, ensures the test suite exists, and exports the environment variables that bktec expects, so the step's command only needs to invoke `bktec run`:
+The following step uses the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to run a Jest suite through [bktec](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client). The plugin downloads bktec, requests an OIDC token, ensures the test suite exists, and exports the environment variables that bktec expects, so the step's command only needs to invoke `bktec run`:
 
 ```yaml
 steps:
@@ -28,7 +28,7 @@ steps:
     parallelism: 4
 ```
 
-See the [Tests Buildkite plugin page](https://github.com/buildkite-plugins/tests-buildkite-plugin) for the full plugin reference, including all supported options, running tests inside Docker, and dynamic parallelism with `bktec plan`.
+See the [Tests Buildkite plugin page](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) for the full plugin reference, including all supported options, running tests inside Docker, and dynamic parallelism with `bktec plan`.
 
 ## Add the test collector package
 

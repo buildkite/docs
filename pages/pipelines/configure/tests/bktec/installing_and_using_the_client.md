@@ -73,7 +73,7 @@ COPY --from=buildkite/test-engine-client /usr/local/bin/bktec /usr/local/bin/bkt
 
 ### Buildkite plugin
 
-The [Tests Buildkite plugin](https://github.com/buildkite-plugins/tests-buildkite-plugin) installs bktec automatically by default. Manual installation of bktec is not required when using the plugin.
+The [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) installs bktec automatically by default. Manual installation of bktec is not required when using the plugin.
 
 Before downloading, the plugin checks whether bktec is already available on the `PATH`. If bktec is already installed and no specific `client-version`, `client-os`, or `client-arch` is configured, the plugin uses the existing binary and skips the download.
 

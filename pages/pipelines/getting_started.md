@@ -169,7 +169,7 @@ Once your pipeline runs its test runners, layer [Test Engine](/docs/pipelines/co
 1. Wire the suite's API token into your pipeline
 
 > 📘 Recommended setup
-> The golden path for new test suites is to add the [Tests Buildkite plugin](https://github.com/buildkite-plugins/tests-buildkite-plugin) to the step that runs your tests.
+> The golden path for new test suites is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to the step that runs your tests.
 > The plugin is configuration-only — you can get a test suite reporting to Buildkite Test Engine through changes to `pipeline.yml` alone, with no modifications to your application code. Use a [language-specific test collector](/docs/pipelines/configure/tests/test-collection) when you want deeper framework integration.
 
 ### Create a test suite
