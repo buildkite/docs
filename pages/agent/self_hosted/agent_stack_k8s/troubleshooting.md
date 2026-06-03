@@ -151,7 +151,7 @@ Allocated resources:
 
 To resolve insufficient capacity, either reduce the workload on existing nodes or add nodes to the cluster, manually or through autoscaling.
 
-For a taints or tolerations issue, the event reads similar to:
+For a taints or tolerations issue, the event reads similar to the following:
 
 ```
 node(s) had taint {key=value:NoSchedule}
