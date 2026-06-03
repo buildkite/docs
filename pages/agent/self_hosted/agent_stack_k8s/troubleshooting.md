@@ -116,7 +116,7 @@ resource.labels.pod_name="POD_NAME"
 
 A `Pending` pod usually indicates either insufficient cluster capacity or a scheduling constraint such as a node taint. The pod events from `kubectl describe pod` will identify which.
 
-For an insufficient capacity issue, the event reads similar to:
+For an insufficient capacity issue, the event reads similar to the following:
 
 ```
 0/5 nodes are available: Insufficient cpu.
