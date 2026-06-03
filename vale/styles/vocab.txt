@@ -171,6 +171,8 @@ fastlane's
 favorited
 fff
 ffxdq
+finalizer
+finalizers
 Firehose
 Firewalled
 firewalled
@@ -459,6 +461,8 @@ timeframe
 tmp
 tmux
 tokenization
+toleration
+tolerations
 toolchain
 toolchains
 toolmantim
