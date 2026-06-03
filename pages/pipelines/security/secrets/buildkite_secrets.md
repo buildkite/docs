@@ -104,7 +104,7 @@ To use a custom environment variable name, you can specify `secrets` as a hash w
       MY_APP_ACCESS_TOKEN: API_ACCESS_TOKEN
 ```
 
-This will inject the value of the secret `API_ACCESS_TOKEN` into the environment variable `MY_APP_ACCESS_TOKEN`. Custom environment variable names for secrets cannot start with `BUILDKITE` or `BK` (with the exception of `BUILDKITE_API_TOKEN`).
+This will inject the value of the secret `API_ACCESS_TOKEN` into the environment variable `MY_APP_ACCESS_TOKEN`. Custom environment variable names for secrets cannot start with `BUILDKITE` or `BK` (with the exception of `BUILDKITE_API_TOKEN` and `BUILDKITE_ANALYTICS_TOKEN`).
 
 ### From a build script or hook
 

@@ -1016,6 +1016,8 @@
           path: "apis/managing-api-tokens"
         - name: "OAuth Token Exchange"
           path: "apis/oauth-token-exchange"
+        - name: "OAuth Device Authorization"
+          path: "apis/oauth-device-authorization"
     - name: "API differences"
       path: "apis/api-differences"
     - name: "REST"
