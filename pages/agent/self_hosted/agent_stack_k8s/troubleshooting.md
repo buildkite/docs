@@ -176,7 +176,7 @@ When the controller pod is stuck in `ContainerCreating`, inspect the pod events:
 kubectl describe pod -l app=agent-stack-k8s -n buildkite
 ```
 
-Common causes are missing volumes, secrets, or ConfigMaps, which appear as events such as:
+Common causes are missing volumes, secrets, or ConfigMaps, which appear as events such as the following:
 
 ```
 FailedMount  MountVolume.SetUp failed  Unable to attach or mount volumes
