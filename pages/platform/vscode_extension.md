@@ -16,7 +16,7 @@ The extension uses OAuth to authenticate with Buildkite. When you first open a B
 
 To sign out, run **Buildkite: Sign Out** from the Command Palette.
 
-> [!NOTE]
+> 📘
 > If you prefer to use a [Buildkite API access token](/docs/apis/managing-api-tokens) instead, select **Use API Token** when prompted, or run **Buildkite: Set API Token** from the Command Palette. An API token and an OAuth session can coexist; the OAuth session takes priority. To remove a stored API token, run **Buildkite: Clear API Token**.
 
 ## Pipelines panel
@@ -27,35 +27,35 @@ Each pipeline shows up to 10 of its most recent builds. Builds in an active stat
 
 The following actions are available from the **Pipelines** panel:
 
-- **View on Buildkite** — opens the build in your browser
-- **Rebuild** — triggers a new build with the same configuration
-- **Create a build** — creates a build on the current git branch
-- **Cancel build** — cancels a running or scheduled build
-- **Unblock next job** — unblocks a build waiting at a block step; if the block step defines input fields, you are prompted to fill them in before the build continues
-- **View build error** — shows the log for the failed job; if multiple jobs failed, a quick picker lets you choose which to view
-- **View annotations** — displays build annotations in a panel
-- **View job log** — opens the job log in VS Code with ANSI color support (see [Job logs](#job-logs))
-- **Retry job** — retries a failed or timed-out job
-- **Download artifact** — downloads a build artifact to your local machine
+- **View on Buildkite**: opens the build in your browser
+- **Rebuild**: triggers a new build with the same configuration
+- **Create a build**: creates a build on the current git branch
+- **Cancel build**: cancels a running or scheduled build
+- **Unblock next job**: unblocks a build waiting at a block step; if the block step defines input fields, you are prompted to fill them in before the build continues
+- **View build error**: shows the log for the failed job; if multiple jobs failed, a quick picker lets you choose which to view
+- **View annotations**: displays build annotations in a panel
+- **View job log**: opens the job log in VS Code with ANSI color support (see [Job logs](#job-logs))
+- **Retry job**: retries a failed or timed-out job
+- **Download artifact**: downloads a build artifact to your local machine
 
 ### Managing pipelines
 
 Right-click any pipeline in the tree to access pipeline management actions:
 
-- **Edit pipeline settings** — update the pipeline name, description, default branch, or repository URL
-- **Create pipeline** — add a new pipeline by entering its name, repository URL, and optionally a description and default branch
-- **Archive pipeline** — hides the pipeline from the active list
-- **Unarchive pipeline** — restores an archived pipeline
-- **Delete pipeline** — permanently deletes the pipeline (requires confirmation)
+- **Edit pipeline settings**: update the pipeline name, description, default branch, or repository URL
+- **Create pipeline**: add a new pipeline by entering its name, repository URL, and optionally a description and default branch
+- **Archive pipeline**: hides the pipeline from the active list
+- **Unarchive pipeline**: restores an archived pipeline
+- **Delete pipeline**: permanently deletes the pipeline (requires confirmation)
 
 ## Agents panel
 
 The **Agents** panel lists your organization's connected agents and their current status (connected, running, paused, or idle). The following actions are available per agent:
 
-- **Pause** — prevents the agent from accepting new jobs
-- **Resume** — allows a paused agent to accept jobs again
-- **Stop** — gracefully stops the agent after its current job completes
-- **Force stop** — immediately terminates the agent
+- **Pause**: prevents the agent from accepting new jobs
+- **Resume**: allows a paused agent to accept jobs again
+- **Stop**: gracefully stops the agent after its current job completes
+- **Force stop**: immediately terminates the agent
 
 To narrow the list, select the filter icon in the panel toolbar and enter a query. You can filter by agent name, hostname, or queue tag (for example, `queue=deploy`). Select the close icon to clear an active filter.
 
