@@ -965,6 +965,8 @@
           path: "platform/terraform-provider/manage-buildkite-organizations"
         - name: "Import existing Buildkite resources to Terraform"
           path: "platform/terraform-provider/import-existing-resources"
+    - name: "VS Code extension"
+      path: "platform/vscode-extension"
     - name: "SSO"
       children:
         - name: "Overview"
