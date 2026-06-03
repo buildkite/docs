@@ -40,7 +40,7 @@ Learn more about configuring the OpenTelemetry integration with Buildkite Pipeli
 
 ### Trace context propagation
 
-Starting from Buildkite agent version [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0), when a Buildkite agent executes a command (build script, hook, plugin, and so on), the current trace context is automatically propagated to the child process via [environment variables](/docs/pipelines/configure/environment-variables). This enables distributed tracing across job boundaries, and your build scripts can continue the trace started by the agent or the Buildkite Pipelines backend.
+Starting from Buildkite agent version [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0), when a Buildkite agent executes a command (build script, hook, plugin, and so on), the current trace context is automatically propagated to the child process using [environment variables](/docs/pipelines/configure/environment-variables). This enables distributed tracing across job boundaries, and your build scripts can continue the trace started by the agent or the Buildkite Pipelines backend.
 
 The agent serializes the trace context into multiple formats for compatibility with various tracing libraries:
 

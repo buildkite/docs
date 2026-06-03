@@ -48,7 +48,7 @@ Buildkite [build artifacts](/docs/pipelines/configure/artifacts) are files uploa
 To use artifacts for caching:
 
 1. Produce dependencies into a directory.
-1. Compress the dependencies to a single archive keyed by an identifier that represents inputs, e.g. a lockfile checksum.
+1. Compress the dependencies to a single archive keyed by an identifier that represents inputs, for example, a lockfile checksum.
 1. Upload the result as an artifact.
 1. In the later steps/builds, resolve the correct key (same checksum), download, and unpack.
 
@@ -77,7 +77,7 @@ There are two main cache layers in Bazel:
 
 You can use the following approaches for creating and keeping a remote cache with Bazel:
 
-- Object stores as backend - Google Cloud Storage or AWS S3 via Bazel’s HTTP cache flags.
+- Object stores as backend - Google Cloud Storage or AWS S3 using Bazel’s HTTP cache flags.
 - Managed services - [BuildBuddy](https://www.buildbuddy.io/) is a common choice for remote cache and optional remote execution.
 - Self‑hosted cache - [Bazel-remote](https://github.com/buchgr/bazel-remote) on AWS (using ECS with S3 backend).
 
@@ -97,7 +97,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 ### Using Bazel caching with Buildkite
 
-- Using Bazel caching works both with hosted agents and self-hosted agents - but you need to ensure network access to the cache and provide credentials via the environment or pre-command [hooks](/docs/agent/hooks).
+- Using Bazel caching works both with hosted agents and self-hosted agents - but you need to ensure network access to the cache and provide credentials using the environment or pre-command [hooks](/docs/agent/hooks).
 - Teams commonly layer:
     * Local repository/repository cache in a persistent volume to skip external dependency fetches
     * Remote cache (for example, BuildBuddy or Bazel-remote) for cross-machine reuse
@@ -110,7 +110,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 - Avoid cache poisoning:
     * Separate development and CI caches or treat CI cache as read-mostly “first tier”
     * Use tags like "no-remote-cache" on sensitive targets if needed
-- Make credentials available at build time via secure secret management and pre-step hooks.
+- Make credentials available at build time using secure secret management and pre-step hooks.
 
 > 📘
 > Ephemeral agents without persistent volumes lose local caches between jobs. You can mitigate this by using [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) and a robust remote cache.
@@ -133,7 +133,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
     * Prefer a remote cache (for example, BuildBuddy or Bazel-remote on AWS) for cross-machine reuse. Treat local volumes as best‑effort accelerators.
 - Recommended caching patterns:
     * Use Buildkite hosted agents with cache volumes mounted to Bazel's repository cache path to avoid fetching the external dependencies twice.
-    * Standardize cache config via a CI `bazelrc` emitted per job, injected alongside secrets in pre‑commands.
+    * Standardize cache config using a CI `bazelrc` emitted per job, injected alongside secrets in pre‑commands.
     * Use the [official Buildkite plugins](/docs/pipelines/integrations/plugins/directory) for caching (for example, the [Cache Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/cache-buildkite-plugin/)) when you need to persist directories by key to object storage (for example, S3).
 
 > 📘
@@ -144,7 +144,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 - Expect some non‑determinism with ephemeral volumes; Bazel will re‑download missing pieces. Keep remote cache as the source of truth.
 - Co‑locate compute and cache to reduce latency.
 - Keep images lean; preinstall `Bazelisk` and critical toolchains.
-- Manage credentials via [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or your KMS - do not hard-code them into `.bazelrc`.
+- Manage credentials using [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or your KMS - do not hard-code them into `.bazelrc`.
 
 ## Git Large File Storage (LFS) caching
 

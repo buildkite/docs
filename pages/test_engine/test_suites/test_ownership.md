@@ -85,7 +85,7 @@ The teams listed in your TESTOWNERS file must have [permission to access the tes
 
 ## Setting test ownership
 
-You can upload a TESTOWNERS file via this API endpoint:
+You can upload a TESTOWNERS file using this API endpoint:
 
 ```bash
 curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \

@@ -13,7 +13,7 @@ Test collectors are available for the following languages and their test runners
 - [Android](/docs/test-engine/test-collection/android-collectors)
 - [Elixir (ExUnit)](/docs/test-engine/test-collection/elixir-collectors)
 - [Go (gotestsum)](/docs/test-engine/test-collection/golang-collectors)
-- [Java (via JUnit XML import)](/docs/test-engine/test-collection/importing-junit-xml)
+- [Java (using JUnit XML import)](/docs/test-engine/test-collection/importing-junit-xml)
 - [JavaScript (Jest, Cypress, Playwright, Mocha, Jasmine, Vitest)](/docs/test-engine/test-collection/javascript-collectors)
 - [.NET (xUnit)](/docs/test-engine/test-collection/dotnet-collectors)
 - [Python (pytest)](/docs/test-engine/test-collection/python-collectors)

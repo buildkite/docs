@@ -457,7 +457,7 @@ Buildkite Pipelines natively supports:
 
 - `push` (branches)
 - `pull_request`
-- `tag` (via "Build tags" setting)
+- `tag` (using "Build tags" setting)
 - `schedule` (cron)
 
 These are configured in the Buildkite UI under Pipeline Settings, not in the YAML file.
@@ -553,7 +553,7 @@ steps:
 
 ## Translating services
 
-GitHub Actions provides a `services` key that allows you to run containerized services (such as databases, caches, or message queues) alongside your job. These service containers are automatically started before your job runs and are accessible via their service name as a hostname.
+GitHub Actions provides a `services` key that allows you to run containerized services (such as databases, caches, or message queues) alongside your job. These service containers are automatically started before your job runs and are accessible using their service name as a hostname.
 
 Buildkite Pipelines handles service containers differently. Instead of a built-in `services` key, Buildkite Pipelines uses the [Docker Compose plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-compose-buildkite-plugin/) to manage multi-container environments. This approach gives you full control over container orchestration using standard Docker Compose configuration files.
 

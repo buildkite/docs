@@ -152,9 +152,7 @@ query GetTotalBuildRunTime($build_slug: ID) {
 }
 ```
 
-Calling this specific portal would then require `build_slug` to be included as part of the HTTP request.
-
-e.g.
+Calling this specific portal would then require `build_slug` to be included as part of the HTTP request. For example:
 
 ```sh
 curl -H "Authorization: Bearer $TOKEN" \
