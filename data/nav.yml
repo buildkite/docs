@@ -967,6 +967,7 @@
           path: "platform/terraform-provider/import-existing-resources"
     - name: "VS Code extension"
       path: "platform/vscode-extension"
+      pill: "new"
     - name: "SSO"
       children:
         - name: "Overview"
