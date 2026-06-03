@@ -164,7 +164,7 @@ You can group test executions using custom tags to compare metrics across differ
 
 ### Upload-level tags
 
-Tags configured on the collector will be included in each upload batch, and will be applied server-side to every execution therein. This is an efficient way to tag every execution with values that don't vary within one configuration, e.g. cloud environment details, language/framework versions. Upload-level tags may be overwritten by execution-level tags.
+Tags configured on the collector will be included in each upload batch, and will be applied server-side to every execution therein. This is an efficient way to tag every execution with values that don't vary within one configuration, for example, cloud environment details, language/framework versions. Upload-level tags may be overwritten by execution-level tags.
 
 ```rb
 require "buildkite/test_collector"

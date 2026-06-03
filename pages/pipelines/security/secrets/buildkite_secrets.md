@@ -118,7 +118,7 @@ Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret g
 
     `buildkite-agent secret get secret_name > secret.txt`
 
-- Passing the output of your Buildkite secret (using the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret via its `-token` option:
+- Passing the output of your Buildkite secret (using the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret using its `-token` option:
 
     `cli-tool —token $(buildkite-agent secret get secret_name)`
 

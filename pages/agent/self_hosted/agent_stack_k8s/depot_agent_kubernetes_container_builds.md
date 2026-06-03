@@ -23,7 +23,7 @@ Depot requires a project ID to route builds to the correct infrastructure. You c
 
 #### Environment variable approach (recommended for Kubernetes)
 
-Set `DEPOT_PROJECT_ID` in your Kubernetes pod specification. This approach is recommended for Kubernetes environments as it's easier to manage via secrets and doesn't require repository changes:
+Set `DEPOT_PROJECT_ID` in your Kubernetes pod specification. This approach is recommended for Kubernetes environments as it's easier to manage using secrets and doesn't require repository changes:
 
 ```yaml
 # values.yaml
@@ -68,13 +68,13 @@ steps:
       depot build --project=your-project-id -t my-image .
 ```
 
-Note that when you are using `depot configure-docker`, the project ID should be specified via `DEPOT_PROJECT_ID` environment variable or `depot.json` file, as this configures standard `docker build` commands to use Depot.
+Note that when you are using `depot configure-docker`, the project ID should be specified using `DEPOT_PROJECT_ID` environment variable or `depot.json` file, as this configures standard `docker build` commands to use Depot.
 
 For Kubernetes environments, using the environment variable approach is recommended as it provides the most flexibility and doesn't require repository changes.
 
 ### Depot CLI installation
 
-Depot integrates with Docker via a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed in your build containers to enable remote builds. You can install it in your base agent image or as part of your build steps.
+Depot integrates with Docker using a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed in your build containers to enable remote builds. You can install it in your base agent image or as part of your build steps.
 
 Install the Depot CLI in your agent image:
 

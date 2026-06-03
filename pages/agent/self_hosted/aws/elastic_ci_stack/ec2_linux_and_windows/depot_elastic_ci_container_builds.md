@@ -22,7 +22,7 @@ Depot requires a project ID to route builds to the correct infrastructure. You c
 
 #### Environment variable approach (recommended for AWS)
 
-Set `DEPOT_PROJECT_ID` in your Buildkite pipeline environment variables or in your Elastic CI Stack agent environment hooks. This approach is recommended for AWS environments as it's easier to manage via AWS Secrets Manager and doesn't require repository changes:
+Set `DEPOT_PROJECT_ID` in your Buildkite pipeline environment variables or in your Elastic CI Stack agent environment hooks. This approach is recommended for AWS environments as it's easier to manage using AWS Secrets Manager and doesn't require repository changes:
 
 ```yaml
 steps:
@@ -69,7 +69,7 @@ For AWS environments, using the environment variable approach is recommended as 
 
 ### Depot CLI installation
 
-Depot integrates with Docker via a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed on your EC2 agents to enable remote builds. You can install it in your [agent bootstrap script](/docs/agent/cli/reference/bootstrap#running-the-bootstrap-usage) or as part of your build steps.
+Depot integrates with Docker using a CLI plugin. The [Depot CLI](https://github.com/depot/cli) must be installed on your EC2 agents to enable remote builds. You can install it in your [agent bootstrap script](/docs/agent/cli/reference/bootstrap#running-the-bootstrap-usage) or as part of your build steps.
 
 Install the Depot CLI in your agent bootstrap script:
 
@@ -451,7 +451,7 @@ steps:
       REGISTRY_PASSWORD: "${REGISTRY_PASSWORD}"
 ```
 
-In this example, the build runs on Depot's infrastructure (via `depot configure-docker`), but the `docker push` command runs on the agent, so authentication is configured on the agent. When using `depot build --push` instead, Depot reads registry credentials from the agent's Docker configuration and performs the push from Depot's infrastructure.
+In this example, the build runs on Depot's infrastructure (using `depot configure-docker`), but the `docker push` command runs on the agent, so authentication is configured on the agent. When using `depot build --push` instead, Depot reads registry credentials from the agent's Docker configuration and performs the push from Depot's infrastructure.
 
 ### AWS Secrets Manager access issues
 

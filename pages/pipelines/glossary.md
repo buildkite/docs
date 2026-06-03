@@ -70,7 +70,7 @@ An execution is an instance of a single test, which is generated as part of a [r
 
 ## Flaky test
 
-A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified via [workflows](/docs/pipelines/configure/tests/workflows).
+A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified using [workflows](/docs/pipelines/configure/tests/workflows).
 
 Learn more about flaky tests in [Reduce flaky tests](/docs/pipelines/reduce-flaky-tests).
 

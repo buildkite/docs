@@ -18,7 +18,7 @@ Before you start, make sure your tests run with access to [CI environment variab
 
 1. [Securely](/docs/pipelines/security/secrets/managing) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from the previous step.
 
-    This will need to be on your CI server, if running the BuildKite collector via CI, or otherwise on your local machine.
+    This will need to be on your CI server, if running the BuildKite collector using CI, or otherwise on your local machine.
 
 1. **Unit Test Collector.** In your top-level build.gradle.kts file, add the following to your classpath:
 
@@ -68,8 +68,7 @@ Before you start, make sure your tests run with access to [CI environment variab
 
     Sync Gradle, and rebuild the project to ensure the `BuildConfig` is generated.
 
-    Create the following class in your `androidTest` directory,
-    i.e. `src/androidTest/java/com/myapp/MyTestCollector.kt`
+    Create the following class in your `androidTest` directory, for example, `src/androidTest/java/com/myapp/MyTestCollector.kt`
 
     ```
     class MyTestCollector : InstrumentedTestCollector(
@@ -85,7 +84,7 @@ Before you start, make sure your tests run with access to [CI environment variab
     )
     ```
 
-    Note: This test collector uploads test data via the device under test. Make sure your Android
+    Note: This test collector uploads test data using the device under test. Make sure your Android
     device/emulator has network access.
 
 1. Commit and push your changes:

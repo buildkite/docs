@@ -19,7 +19,7 @@ This page provides recommendations on managing your Buildkite organizations, pip
 - Trigger `terraform apply` through a Buildkite pipeline with machine user identity on merge.
 - Split Terraform state by blast radius: `org/`, `clusters/`, `pipelines/`.
 - Use remote state with locking (for example, S3 + DynamoDB, GCS, Terraform Cloud).
-- Schedule drift detection jobs via [GraphQL API](/docs/apis/graphql-api).
+- Schedule drift detection jobs using [GraphQL API](/docs/apis/graphql-api).
 
 ## Terraform provider
 
@@ -71,7 +71,7 @@ resource "buildkite_pipeline" "svc_a" {
 
 ## Secrets management
 
-- Fetch secrets at runtime via [agent hooks](/docs/agent/hooks) (`environment`, `pre-command`) from AWS Secrets Manager, GCP Secret Manager, or Vault.
+- Fetch secrets at runtime using [agent hooks](/docs/agent/hooks) (`environment`, `pre-command`) from AWS Secrets Manager, GCP Secret Manager, or Vault.
 - Use OIDC plugins: [AWS Assume Role plugin](https://buildkite.com/resources/plugins/cultureamp/aws-assume-role-buildkite-plugin/) or [GCP Workload Identity Federation Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/gcp-workload-identity-federation-buildkite-plugin/).
 - Scope secrets by environment and queue. Never give CI builds access to production credentials.
 - Use different IAM roles per queue and enable audit logging (using AWS CloudTrail or GCP Audit Logs).
@@ -146,4 +146,4 @@ In the [monorepo approach](/docs/pipelines/best-practices/working-with-monorepos
 
 ### When do I need to use dynamic pipelines?
 
-Use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) when you need conditional logic, change-based execution, or monorepo fan-out. Static YAML managed via Terraform is often enough for small, simple repositories.
+Use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) when you need conditional logic, change-based execution, or monorepo fan-out. Static YAML managed using Terraform is often enough for small, simple repositories.

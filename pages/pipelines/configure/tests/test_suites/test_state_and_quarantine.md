@@ -33,9 +33,9 @@ Using [labelling](/docs/pipelines/configure/tests/test-suites/labels) on a test 
 
 ## Manual quarantine
 
-You can manually quarantine flaky tests via the dropdown menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.
+You can manually quarantine flaky tests using the dropdown menu within the test's page itself or the test digest. This helps unblock builds affected by unreliable tests in real time.
 
-<%= image "manual-quarantine.png", alt: "Manually quarantine individual tests via the dropdown." %>
+<%= image "manual-quarantine.png", alt: "Manually quarantine individual tests using the dropdown." %>
 
 Manually quarantining a test either mutes or skips that test when the pipeline is built on any branch.
 

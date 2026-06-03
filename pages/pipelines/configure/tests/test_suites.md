@@ -2,7 +2,7 @@
 
 In Test Engine, a _test suite_ (or _suite_) is a collection of [tests](/docs/pipelines/glossary#test). A suite has a _run_, which is the execution of tests in a suite. A pipeline's build may create one or more of these runs.
 
-Many organizations set up one suite per test framework, for example one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
+Many organizations set up one suite per test framework, for example, one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
 
 Each suite inside Test Engine has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
 
@@ -71,7 +71,7 @@ In Test Engine, a run is marked as `failed` as soon as a test execution fails, r
 
 Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
 
-The Summary and Test pages are able to be filtered by branch, result (e.g. pass, fail), state (e.g. enabled, disabled), owner (e.g. core-team, platform-team), label (e.g. flaky, slow, feature-test) and [tag](/docs/pipelines/configure/tests/test-suites/tags). This allows greater flexibility and deeper analysis into the performance of your test suite.
+The Summary and Test pages are able to be filtered by branch, result (for example, pass, fail), state (for example, enabled, disabled), owner (for example, core-team, platform-team), label (for example, flaky, slow, feature-test) and [tag](/docs/pipelines/configure/tests/test-suites/tags). This allows greater flexibility and deeper analysis into the performance of your test suite.
 
 <%= image "test-stats.png", width: 2570, height: 902, alt: "Screenshot of test trend page showing test trend information over the last day, including test reliability and test execution durations" %>
 

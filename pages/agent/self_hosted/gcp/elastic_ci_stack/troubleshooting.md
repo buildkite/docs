@@ -4,7 +4,7 @@ Infrastructure as code isn't always easy to troubleshoot, but here are some ways
 
 ## Using Cloud Logging
 
-Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The following log sources are available:
+Elastic CI Stack for GCP sends logs to Cloud Logging using the Ops Agent. The following log sources are available:
 
 ### Application logs
 
