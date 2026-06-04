@@ -163,7 +163,7 @@ Each authorized application entry shows:
 
 Selecting **Details** expands additional information, including the Buildkite organization the application is authorized for, the full list of scope names, and the client that last made a request.
 
-To revoke an application's access, select **Revoke** on the application's entry. This removes the OAuth grant and all associated access tokens, preventing the application from making further API requests with those credentials.
+To revoke application access, select **Revoke** on the application's entry. This removes the OAuth grant and all associated access tokens, preventing the application from making further API requests with those credentials.
 
 ## Troubleshooting
 
