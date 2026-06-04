@@ -152,7 +152,7 @@ Device authorization tokens support the same scopes as [Buildkite API access tok
 
 ## Managing authorized applications
 
-After a user approves a device authorization request, the application appears in the **Authorized Applications** section of their [**Connected Apps**](https://buildkite.com/user/connected-apps) page under **Personal Settings**. This section shows all OAuth-authorized applications, including those authorized through the device flow.
+After a user approves a device authorization request, the application appears in the **Authorized Applications** section of the [**Connected Apps**](https://buildkite.com/user/connected-apps) page under **Personal Settings**. This section shows all OAuth-authorized applications, including those authorized through the device flow.
 
 Each authorized application entry shows:
 
