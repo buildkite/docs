@@ -70,7 +70,11 @@ The logs will be archived in a tarball named `logs.tar.gz` in the current direct
 
 Below are some common issues that users may experience when using the Buildkite Agent Stack for Kubernetes controller to process Buildkite jobs.
 
-When Buildkite jobs are queued but not running, work through these checks in order: confirm the controller pod itself is running, then confirm the controller is creating Kubernetes Jobs for your Buildkite jobs, then investigate routing and concurrency configuration.
+When Buildkite jobs are queued but not running, work through these checks in order:
+
+1. Confirm the controller pod itself is running
+1. Confirm the controller is creating Kubernetes Jobs for your Buildkite jobs
+1. Investigate routing and concurrency configuration
 
 ### Controller pod is not running
 
@@ -199,9 +203,11 @@ kubectl get jobs -A -l buildkite.com/job-id=01234567-****-****-****-456789abcdef
 kubectl get pods -A -l buildkite.com/job-id=01234567-****-****-****-456789abcdef -n buildkite
 ```
 
-If a Kubernetes Job or Pod exists for the Buildkite job ID, the controller is acquiring and converting jobs successfully, and the issue is with the Job or Pod itself. Inspect that Pod's status and events using the same approach described in [Controller pod is not running](#controller-pod-is-not-running).
+Interpret the result of these commands:
 
-If no Kubernetes Job or Pod exists for the Buildkite job ID, the controller is not converting the job. Enable [debug mode](#enable-debug-mode) and review the controller logs to determine why. The two most common causes are a queue or cluster mismatch (see [Jobs are being created, but not processed by controller](#jobs-are-being-created-but-not-processed-by-controller)) and the controller having reached its concurrency limit (see [Controller stops accepting new jobs from a queue](#controller-stops-accepting-new-jobs-from-a-queue)).
+- **If a Kubernetes Job or Pod exists for the Buildkite job ID**, the controller is acquiring and converting jobs successfully, and the issue is with the Job or Pod itself. Inspect that Pod's status and events using the same approach described in [Controller pod is not running](#controller-pod-is-not-running).
+
+- **If no Kubernetes Job or Pod exists for the Buildkite job ID**, the controller is not converting the job. Enable [debug mode](#enable-debug-mode) and review the controller logs to determine why. The two most common causes are a queue or cluster mismatch (see [Jobs are being created, but not processed by controller](#jobs-are-being-created-but-not-processed-by-controller)) and the controller having reached its concurrency limit (see [Controller stops accepting new jobs from a queue](#controller-stops-accepting-new-jobs-from-a-queue)).
 
 ### Jobs are being created, but not processed by controller
 
@@ -245,16 +251,49 @@ This will return the `100` newest created jobs for the `<cluster-id>` Cluster in
 
 ### Controller stops accepting new jobs from a queue
 
-Sometimes the count of jobs in `waiting` state in the Buildkite Pipelines UI may increase, however, no new pods are created. Reviewing the logs may reveal a `max-in-flight reached` error, for example:
+Sometimes the count of jobs in `waiting` state in the Buildkite Pipelines UI may increase, however, no new pods are created. This happens when the controller reaches its `max-in-flight` limit (the maximum number of jobs it runs concurrently, which defaults to `25`) and pauses processing further jobs until in-flight jobs complete. Reviewing the logs may reveal a `max-in-flight reached` error, for example:
 
 ```
 DEBUG	limiter	scheduler/limiter.go:77	max-in-flight reached	{"in-flight": 25}
 ```
 
-#### Initial troubleshooting steps
+#### Confirm the cause
 
-1. Enable the debug log and look for errors related to `max-in-flight` reached.
-1. Confirm that no new Kubernetes jobs are created while the UI displays the jobs as `waiting`.
+First, enable [debug mode](#enable-debug-mode) and look for the `max-in-flight reached` message. You can tail the controller logs with:
+
+```bash
+kubectl logs -n buildkite deployment/agent-stack-k8s -f
+```
+
+If your cluster runs on Google Kubernetes Engine, you can also search historical logs in Google Cloud Logging:
+
+```
+resource.type="k8s_container"
+resource.labels.project_id="GCP_PROJECT_ID"
+resource.labels.location="ZONE"
+resource.labels.cluster_name="CLUSTER_NAME"
+resource.labels.namespace_name="NAMESPACE_NAME"
+labels.k8s-pod/app="agent-stack-k8s"
+```
+
+Then confirm that no new Kubernetes Jobs are created while the Buildkite Pipelines UI displays the jobs as `waiting`.
+
+#### Increase the max-in-flight limit
+
+If the controller consistently reaches its limit and your cluster has spare capacity, increase the `max-in-flight` value in the controller's configuration values YAML file:
+
+```yaml
+# values.yaml
+...
+config:
+  max-in-flight: 50
+...
+```
+
+A value of `0` removes the limit entirely. For more detail, see the `--max-in-flight` flag in the [Flags](/docs/agent/self-hosted/agent-stack-k8s/controller-configuration#flags) section of the [Controller configuration](/docs/agent/self-hosted/agent-stack-k8s/controller-configuration) page.
+
+> 📘 Ensure the cluster has capacity first
+> Increasing `max-in-flight` causes the controller to create more Kubernetes Jobs concurrently. If the underlying cluster does not have enough capacity, the additional Jobs and Pods are still created, but they remain in the `Pending` state until capacity becomes available. Before raising the limit, confirm your cluster can schedule the extra Pods, or pair the change with cluster autoscaling. See [Controller pod is not running](#controller-pod-is-not-running) for diagnosing `Pending` pods.
 
 #### Workaround
 
