@@ -5,6 +5,35 @@ require 'json'
 
 require 'open3'
 
+# This check is split into two modes, each run as a separate Buildkite step:
+#
+#   internal — only checks Buildkite Docs links (those served by our own app,
+#              i.e. the `/docs/...` pages and `#fragment` anchors within them).
+#   external — only checks links pointing to other sites.
+#
+# Both modes share this script and the exemption rules; they differ only in
+# which links they crawl/report and which annotation/exit code they produce.
+MODE = ENV.fetch('LINK_CHECK_MODE', 'internal')
+unless %w[internal external].include?(MODE)
+  abort "LINK_CHECK_MODE must be 'internal' or 'external' (got #{MODE.inspect})"
+end
+
+# Internal docs links resolve to absolute URLs on the local app server, e.g.
+# `/docs/foo` becomes `http://app:3000/docs/foo` and a `#bar` anchor becomes
+# `http://app:3000/docs/<current-page>#bar`.
+SITE_PREFIX = 'http://app:3000/'
+
+def internal_link?(url)
+  url.start_with?(SITE_PREFIX)
+end
+
+# Whether a link belongs to the bucket this run is responsible for.
+def in_scope?(url)
+  MODE == 'internal' ? internal_link?(url) : !internal_link?(url)
+end
+
+RESULTS_FILE = "muffet_results_#{MODE}.json"
+
 def annotate!(annotation:, context:, style: "info")
   annotated = false
   if ENV["BUILDKITE"] == 'true'
@@ -73,11 +102,18 @@ muffet_cmd = [
   '--format=json',
   # Capture successes as well as failures
   '--verbose',
-  ].join(' ')
+]
 
-muffet_output_json=`#{muffet_cmd}`
+# In internal mode, restrict crawling/checking to the local app server so we
+# never make requests to external sites. Muffet still follows every internal
+# page (they all match this pattern), so docs link discovery stays complete.
+# In external mode we crawl everything, then filter the results down to
+# external links below.
+muffet_cmd << "--include='^http://app:3000'" if MODE == 'internal'
 
-File.write('muffet_results.json', muffet_output_json)
+muffet_output_json=`#{muffet_cmd.join(' ')}`
+
+File.write(RESULTS_FILE, muffet_output_json)
 
 puts "--- Checking results"
 
@@ -89,6 +125,9 @@ pages.each do |page|
     unless link.has_key?('error')
       next
     end
+
+    # Only consider links that belong to this run's bucket (internal vs external).
+    next unless in_scope?(link['url'])
 
     # There is an error. Do we have an exempting rule for it?
     exemptors = rules.select do |rule|
@@ -105,10 +144,12 @@ pages.each do |page|
   end
 end
 
+link_kind = MODE == 'internal' ? 'Buildkite Docs' : 'external'
+
 report = ""
 if @failed.any?
   report = <<~MARKDOWN
-    ## Muffet found potentially broken links
+    ## Muffet found potentially broken #{link_kind} links
 
     Resolve _genuine broken links_ with either a **404** or **id #fragment not found** status first.
 
@@ -137,7 +178,7 @@ if @failed.any?
   end
 
 else
-  report = "## Muffet found no problems :sunglasses:\n\n"
+  report = "## Muffet found no #{link_kind} link problems :sunglasses:\n\n"
 end
 
 if @passed.any?
@@ -171,9 +212,9 @@ if @passed.any?
   report += "</details>\n\n"
 end
 
-report += "The complete results (including **all** successful requests) will be uploaded in JSON format as a build artifact. If you need to figure out why links are passing checks when they shouldn't be, that is a good place to start.\n\n"
+report += "The complete results (including **all** successful requests) will be uploaded in JSON format as the `#{RESULTS_FILE}` build artifact. If you need to figure out why links are passing checks when they shouldn't be, that is a good place to start.\n\n"
 
-annotate!(annotation: report, context: 'muffet')
+annotate!(annotation: report, context: "muffet-#{MODE}")
 
 puts report.size
 puts "Report #{report.size < 1024**2 ? 'will' : 'will not'} fit in an annotation."
