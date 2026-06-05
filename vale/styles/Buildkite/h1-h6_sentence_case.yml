@@ -312,6 +312,6 @@ exceptions:
   - Xcode
   - XCTest
   - XML
-  = xUnit collector
+  - xUnit collector
   - YAML
   - VCR
