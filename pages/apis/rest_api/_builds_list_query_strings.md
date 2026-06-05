@@ -32,7 +32,7 @@
   </tr>
   <tr>
     <th><code>include_paused</code></th>
-    <td><span>When set to <code>false</code>, excludes builds whose jobs are all on paused queues. For builds with a mix of paused and active queue jobs, the build is included but jobs targeting paused queues are omitted from the <code>jobs</code> list. Unclustered jobs are always included. Defaults to <code>true</code>.</span>
+    <td><span>When set to <code>false</code>, excludes builds with jobs that are all on paused queues. For builds with a mix of paused and active queue jobs, the build is included but jobs targeting paused queues are omitted from the <code>jobs</code> list. Unclustered jobs are always included. Defaults to <code>true</code>.</span>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?include_paused=false</code></p></td>
   </tr>
   <tr>
