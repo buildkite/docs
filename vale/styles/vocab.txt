@@ -345,6 +345,7 @@ predeclared
 Prepends
 Prometheus
 protobuf
+promised_exit_status
 preemptible
 prefill
 prefetch
