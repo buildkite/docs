@@ -177,7 +177,7 @@
   agent/self-hosted/agent-stack-k8s/kaniko-container-builds: "Building container images with Kaniko in agent-stack-k8s without a Docker daemon, pushing to various registries."
   agent/self-hosted/agent-stack-k8s/namespace-container-builds: "Using Namespace remote Docker builders to offload container builds from agent-stack-k8s pods."
   agent/self-hosted/agent-stack-k8s/depot-agent-kubernetes-container-builds: "Using Depot remote builders for container builds on agent-stack-k8s, with authentication and caching setup."
-  agent/self-hosted/agent-stack-k8s/troubleshooting: "Debugging agent-stack-k8s issues using debug mode, Kubernetes log collection, and common error solutions."
+  agent/self-hosted/agent-stack-k8s/troubleshooting: "Debugging agent-stack-k8s issues using debug mode and Kubernetes log collection, plus fixes for an unhealthy controller pod (Pending, ContainerCreating, taints, insufficient capacity), missing Kubernetes Jobs for Buildkite jobs, queue or cluster mismatch, max-in-flight limits, duplicate stack IDs across controllers, container start timeouts, and exit code propagation for retries."
   agent/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/ecr: "Migrating Amazon ECR authentication from Elastic CI Stack for AWS to agent-stack-k8s using the ecr plugin."
   agent/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/docker-login: "Migrating Docker registry authentication from Elastic CI Stack for AWS to agent-stack-k8s using docker-login plugin."
   agent/self-hosted/agent-stack-k8s/migrate-from-elastic-ci-stack-for-aws/packages: "Handling missing pre-installed packages when migrating from Elastic CI Stack for AWS AMIs to agent-stack-k8s containers."
