@@ -1,6 +1,6 @@
 # Test collection overview
 
-To analyze your test data in [Buildkite Test Engine](/docs/test-engine), you need a way to collect data from your project's test runners (for example, RSpec or minitest for Ruby, Jest or Cypress for JavaScript, or pytest for Python) and send that data to a [test suite](/docs/pipelines/configure/tests/test-suites).
+To analyze your test data in [Buildkite Test Engine](/docs/pipelines/configure/tests), you need a way to collect data from your project's test runners (for example, RSpec or minitest for Ruby, Jest or Cypress for JavaScript, or pytest for Python) and send that data to a [test suite](/docs/pipelines/configure/tests/test-suites).
 
 The recommended starting point is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to your pipeline. The plugin sets up your pipeline to run tests with Buildkite Test Engine: it downloads the [Test Engine Client (bktec)](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), requests an [OIDC](/docs/pipelines/configure/tests/test-collection/oidc) token, ensures your test suite exists, and collects the test data — all without requiring any changes to your application code. The Tests Buildkite plugin works out of the box with every test runner that bktec supports, including RSpec, Jest, pytest, and `go test`. All other test runners are also supported, as long as they are set up as a customer runner and can output JUnit XML. See bktec docs for more information.
 

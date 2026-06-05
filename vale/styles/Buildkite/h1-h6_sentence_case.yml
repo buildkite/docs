@@ -215,6 +215,7 @@ exceptions:
   - nodeSelector
   - Nomad
   - NuGet
+  - NUnit
   - OAuth
   - OIDC
   - Okta

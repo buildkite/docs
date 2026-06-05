@@ -62,7 +62,7 @@ For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 
 ### Test Engine
 
-Tracks and analyzes test suite performance. Start here: `pages/test_engine.md`
+Tracks and analyzes test suite performance. Test Engine is the testing layer of Buildkite Pipelines. Start here: `pages/pipelines/configure/tests.md`
 Bundled content: https://buildkite.com/docs/llms-test-engine.txt
 
 ### Package Registries

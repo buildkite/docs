@@ -518,19 +518,19 @@ Rails.application.routes.draw do
   get "/docs/test-engine/test-collection/importing-json",                                          to: redirect("/docs/pipelines/configure/tests/test-collection/importing-json")
   get "/docs/test-engine/test-collection/your-own-collectors",                                     to: redirect("/docs/pipelines/configure/tests/test-collection/your-own-collectors")
   get "/docs/test-engine/test-collection/ci-environments",                                         to: redirect("/docs/pipelines/configure/tests/test-collection/ci-environments")
-  get "/docs/test-engine/tutorials/setting-up-a-ruby-project",                                    to: redirect("/docs/pipelines/configure/tests/tutorials/setting-up-a-ruby-project")
+  get "/docs/test-engine/tutorials/setting-up-a-ruby-project",                                    to: redirect("/docs/pipelines/getting-started#add-a-test-suite")
   get "/docs/test-engine/workflows",                                                               to: redirect("/docs/pipelines/configure/tests/workflows")
   get "/docs/test-engine/workflows/monitors",                                                      to: redirect("/docs/pipelines/configure/tests/workflows/monitors")
   get "/docs/test-engine/workflows/actions",                                                       to: redirect("/docs/pipelines/configure/tests/workflows/actions")
   get "/docs/test-engine/bktec/installing-and-using-the-client",                                  to: redirect("/docs/pipelines/configure/tests/bktec/installing-and-using-the-client")
   get "/docs/test-engine/notifications/email",                                                     to: redirect("/docs/pipelines/configure/tests/notifications/email")
-  get "/docs/test-engine/usage-and-billing",                                                       to: redirect("/docs/test-engine")
+  get "/docs/test-engine/usage-and-billing",                                                       to: redirect("/docs/pipelines/configure/tests")
   get "/docs/test-engine/permissions",                                                             to: redirect("/docs/platform/team-management/permissions")
   get "/docs/test-engine/glossary",                                                               to: redirect("/docs/pipelines/glossary")
   get "/docs/test-engine/integrations/linear",                                                    to: redirect("/docs/pipelines/integrations/notifications/linear")
   get "/docs/platform/integrations/slack-workspace",                                               to: redirect("/docs/pipelines/integrations/notifications/slack-workspace")
   get "/docs/test-engine",                                                                         to: redirect("/docs/pipelines/configure/tests")
-  get "/docs/pipelines/configure/tests/tutorials/setting-up-a-ruby-project",                      to: redirect("/docs/pipelines/configure/tests/tutorials")
+  get "/docs/pipelines/configure/tests/tutorials/setting-up-a-ruby-project",                      to: redirect("/docs/pipelines/getting-started#add-a-test-suite")
 
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference

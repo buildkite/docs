@@ -271,8 +271,6 @@ integrations:
     - "pipelines/integrations"
     - "pipelines/source-control"
     - "pipelines/deployments"
-    - "platform/integrations"
-    - "test-engine/integrations"
   related_topics:
     - pipelines
     - deployments
