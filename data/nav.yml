@@ -593,7 +593,6 @@
               path: "pipelines/configure/tests/workflows/monitors"
             - name: "Actions"
               path: "pipelines/configure/tests/workflows/actions"
-          pill: "preview"
         - name: "Test Engine Client (bktec)"
           children:
             - name: "Installing and using the client"

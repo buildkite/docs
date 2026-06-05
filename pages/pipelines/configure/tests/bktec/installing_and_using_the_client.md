@@ -92,10 +92,6 @@ steps:
 
 Skipping automatic installation is useful when bktec is pre-installed in your build environment, such as through a shared Docker image or a package manager on your agent.
 
-## Dependencies
-
-bktec relies on execution timing data captured by the test collectors from previous builds to partition your tests evenly across your agents. Therefore, you will need to configure the [test collector](/docs/pipelines/configure/tests/test-collection) for your test framework.
-
 ## Using bktec
 
 Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. Currently, the bktec tool supports [RSpec](/docs/pipelines/configure/tests/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/pipelines/configure/tests/test-collection/golang-collectors), and cucumber testing frameworks.
