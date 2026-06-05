@@ -73,7 +73,7 @@ Both CircleCI orbs and Buildkite [plugins](/docs/pipelines/integrations/plugins)
 
 CircleCI has strong built-in test integration. The `store_test_results` step accepts JUnit output and provides a **Tests** tab in the UI with failed and flaky test visibility, along with tooling for test splitting when results are stored. These features are available even on basic plans.
 
-[Buildkite Test Engine](/docs/test-engine) goes further with intelligent test splitting that balances suites dynamically using historical runtime data, automatic flaky test retries, flaky test quarantine, and rich analytics across your entire organization.
+[Test Engine](/docs/pipelines/configure/tests) goes further with intelligent test splitting that balances suites dynamically using historical runtime data, automatic flaky test retries, flaky test quarantine, and rich analytics across your entire organization.
 
 ## Predictable pricing
 

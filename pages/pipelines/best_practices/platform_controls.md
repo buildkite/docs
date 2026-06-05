@@ -9,7 +9,7 @@ This guide covers how platform (infrastructure) teams can maintain centralized c
 
 The key to successful administration of the Buildkite Pipelines platform lies in finding the right balance between centralized control and developer autonomy. Platform teams need to manage shared resources and enforce company-wide standards while avoiding becoming a bottleneck for feature teams.
 
-The distinction between platform and developer teams is that platform team specifies the settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the [YAML pipeline configurations included in the codebase](/docs/pipelines/create-your-own#create-a-pipeline), that stays unchanged (by the developer teams).
+The distinction between platform and developer teams is that platform team specifies the settings like the size of the infrastructure, machine capacity, maximum rerun attempts, time-outs, etc. in the [YAML pipeline configurations included in the codebase](/docs/pipelines/getting-started#create-your-own-pipeline-create-a-pipeline), that stays unchanged (by the developer teams).
 
 The platform team also manages the scripts that read these YAML configuration files and generate the correct pipeline(s), and allocates agents (with correct underlying capacity) to run the jobs in those pipelines.
 

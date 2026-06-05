@@ -684,7 +684,7 @@ Explore these resources to enhance your migrated pipelines:
 - [Annotations](/docs/agent/cli/reference/annotate)
 - [Security](/docs/pipelines/security), [Secrets](/docs/pipelines/security/secrets), and [permissions](/docs/pipelines/security/permissions)
 - [Integrations](/docs/pipelines/integrations)
-- [Test Engine](/docs/test-engine) for test insights
+- [Test Engine](/docs/pipelines/configure/tests) for test insights
 
 For hands-on practice, try the [Buildkite pipeline converter](/docs/pipelines/migration/converter/github-actions).
 

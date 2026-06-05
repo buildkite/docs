@@ -17,7 +17,7 @@ The Preflight (`bk preflight`) command:
 You'll need:
 
 - The [Buildkite CLI](/docs/platform/cli/installation) version 3.40.0 or later.
-- A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Buildkite Test Engine.
+- A [configured API access token](/docs/platform/cli/configuration) with the `read_builds`, `write_builds`, and `read_pipelines` scopes. The `read_suites` scope is also required to use Preflight with Test Engine.
 - Git commit and push access to the repository.
 
 ## Install or upgrade the Buildkite CLI
@@ -89,7 +89,7 @@ bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 
 ## Build summary
 
-On exit, Preflight prints a summary of the jobs that failed. When integrated with Buildkite [Test Engine](/docs/test-engine), the summary also includes test results. This integration requires the `read_suites` scope on your [API access token](/docs/platform/cli/configuration).
+On exit, Preflight prints a summary of the jobs that failed. When integrated with Buildkite [Test Engine](/docs/pipelines/configure/tests), the summary also includes test results. This integration requires the `read_suites` scope on your [API access token](/docs/platform/cli/configuration).
 
 A test with at least one passed execution is treated as passed, and a test with only failed executions is treated as failed. Tests that pass on retry are not counted as failures. Tests with only pending, skipped, or unknown executions are excluded from the summary.
 
