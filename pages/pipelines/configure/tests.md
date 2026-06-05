@@ -19,7 +19,7 @@ Use Test Engine to:
 
 The recommended way to set up a new test suite is to add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to the step that runs your tests. Learn more in the [Test collection overview](/docs/pipelines/configure/tests/test-collection).
 
-If you're already familiar with the basics, jump directly to a collector for your testing framework (also known as a _test runner_):
+If you're looking for deeper framework insights, you can also add the test collector for your testing framework (also known as a _test runner_):
 
 <!-- vale off -->
 
