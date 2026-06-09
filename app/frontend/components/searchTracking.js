@@ -2,19 +2,24 @@
  * PostHog tracking for DocSearch interactions.
  *
  * Events:
- * - docs_search_query: User searched (fires after 1s dwell)
+ * - docs_search_query: User searched (fires 1s after the debounced search settles)
  * - docs_search_result_clicked: User clicked a search result
  *
  * Both events share a search_session_id to link queries and clicks.
  */
 
 const DWELL_MS = 1000;
+// Starting value, tune by feel. DocSearch hardcodes a 300ms stall threshold
+// (not configurable), so values near or above 300 guarantee a loading spinner
+// after typing stops.
+const SEARCH_DEBOUNCE_MS = 250;
 
 let lastQuery = "";
 let lastResultCount = 0;
 let dwellTimer = null;
 let globalPosition = 0;
 let searchSessionId = null;
+let cancelPendingSearch = null;
 
 function generateSessionId() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -68,6 +73,7 @@ export function initSearchTracking() {
       lastQuery = "";
       lastResultCount = 0;
     } else if (!isOpen && searchSessionId) {
+      if (cancelPendingSearch) cancelPendingSearch();
       if (dwellTimer) {
         clearTimeout(dwellTimer);
         dwellTimer = null;
@@ -90,6 +96,7 @@ export function initSearchTracking() {
   document.addEventListener("click", onResultClick, true);
 
   return () => {
+    if (cancelPendingSearch) cancelPendingSearch();
     if (dwellTimer) {
       clearTimeout(dwellTimer);
       dwellTimer = null;
@@ -100,16 +107,43 @@ export function initSearchTracking() {
 }
 
 /**
+ * Wraps a promise-returning function so rapid successive calls are coalesced:
+ * only the last call within `delay` ms runs, once typing pauses. Superseded
+ * (and cancelled) calls' promises never resolve, which autocomplete-core
+ * handles by ignoring stale searches. `cancel()` drops a pending call so a
+ * stray search can't fire after the modal closes or on Turbo navigation.
+ */
+function debouncePromise(fn, delay) {
+  let timer = null;
+  const debounced = (...args) =>
+    new Promise((resolve) => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => resolve(fn(...args)), delay);
+    });
+  debounced.cancel = () => {
+    if (timer) clearTimeout(timer);
+    timer = null;
+  };
+  return debounced;
+}
+
+/**
  * DocSearch transformSearchClient option.
- * Wraps the Algolia search client to sort hits by content type priority
+ * Wraps the Algolia search client to debounce queries (so results don't
+ * update on every keystroke), sort hits by content type priority
  * (docs > plugins > blog > changelog) before DocSearch groups them into
- * sections, and to capture queries with dwell-based debounce.
+ * sections, and to capture queries after a dwell delay.
  */
 export function searchTrackingClient(searchClient) {
+  const debouncedSearch = debouncePromise(
+    (queries) => searchClient.search(queries),
+    SEARCH_DEBOUNCE_MS,
+  );
+  cancelPendingSearch = debouncedSearch.cancel;
   return {
     ...searchClient,
     search(queries) {
-      return searchClient.search(queries).then((response) => {
+      return debouncedSearch(queries).then((response) => {
         response.results?.forEach((result) => {
           result.hits?.sort((a, b) => sectionPriority(a) - sectionPriority(b));
         });
