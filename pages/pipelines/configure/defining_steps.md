@@ -176,6 +176,7 @@ Job state             | Description
 `limiting`            | The job is waiting on a concurrency group check before becoming either `limited` or `scheduled`.
 `limited`             | The job is waiting for jobs with the same concurrency group to finish.
 `scheduled`           | The job is scheduled and waiting for an agent.
+`reserved`*           | The job has been reserved by an agent stack, which is provisioning an agent to run it.
 `assigned`            | The job has been assigned to an agent, and it's waiting for it to accept.
 `accepted`            | The job was accepted by the agent, and now it's waiting to start running.
 `running`             | The job is running.
@@ -192,6 +193,8 @@ Job state             | Description
 `platform_limiting`   | The job is waiting for limits imposed by Buildkite to be checked before moving to `platform_limited` or `scheduled`.
 `platform_limited`    | The job is waiting for capacity within limits imposed by Buildkite to become available before moving to `scheduled`.
 {: class="two-column"}
+
+\* The `reserved` state applies only to jobs picked up through the [stacks API](/docs/apis/agent-api/stacks). Traditional agents skip this state.
 
 As well as the states shown in the diagram, the following progressions can occur:
 
