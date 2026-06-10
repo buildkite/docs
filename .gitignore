@@ -45,6 +45,8 @@ node_modules
 
 # Muffet link check results
 .buildkite/steps/muffet_results.json
+.buildkite/steps/muffet_results_internal.json
+.buildkite/steps/muffet_results_external.json
 
 # Bot accuracy tracking (local state)
 scripts/.bot-reviewed-prs
