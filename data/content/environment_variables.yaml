@@ -232,7 +232,7 @@ variables:
     example: "-v --prune"
   - name: BUILDKITE_GIT_MIRRORS_PATH
     desc: |
-      The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or via the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.
+      The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or using the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.
     modifiable: false
     example: "/var/lib/git-mirrors"
   - name: BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
@@ -534,7 +534,7 @@ variables:
     example: '"/bin/bash -e -c"'
   - name: BUILDKITE_SKIP_CHECKOUT
     desc: |
-      Whether the agent should skip the git checkout phase entirely. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks. It can also be set via the `skip-checkout` [agent configuration option](/docs/agent/self-hosted/configure).
+      Whether the agent should skip the git checkout phase entirely. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks. It can also be set using the `skip-checkout` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: true
     values:
       - true
