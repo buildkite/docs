@@ -33,7 +33,7 @@ To create a new cluster using the Buildkite interface:
 1. Enter an optional **Emoji** and **Color** using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select **Create Cluster**.
 
-    The new cluster's **Queues** page appears, showing the cluster's name and its default queue, named **queue**. The cluster also automatically creates a default cache registry named **Default**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
+    The new cluster's **Queues** page will appear, displaying the cluster's name and its default queue, named **queue**. The cluster will also automatically create a default cache registry named **Default**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
 
 ### Using the REST API
 
