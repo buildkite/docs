@@ -34,7 +34,6 @@ getting-started:
     - "pipelines"
     - "pipelines/getting-started"
     - "pipelines/getting-started-with-coding-agents"
-    - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/dashboard-walkthrough"
     - "pipelines/build-page"
@@ -59,7 +58,6 @@ why-buildkite-pipelines:
   exact_paths:
     - "pipelines"
     - "pipelines/getting-started"
-    - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/dashboard-walkthrough"
     - "pipelines/build-page"
@@ -79,7 +77,6 @@ migrating-to-buildkite:
     - "pipelines/converter"
   exact_paths:
     - "pipelines/getting-started"
-    - "pipelines/create-your-own"
     - "pipelines/architecture"
     - "pipelines/source-control"
   related_topics:
@@ -274,8 +271,6 @@ integrations:
     - "pipelines/integrations"
     - "pipelines/source-control"
     - "pipelines/deployments"
-    - "platform/integrations"
-    - "test-engine/integrations"
   related_topics:
     - pipelines
     - deployments
@@ -333,7 +328,7 @@ user-management:
     - "platform/audit-log"
     - "platform/security/tokens"
     - "pipelines/security/permissions"
-    - "test-engine/permissions"
+    - "platform/team-management/permissions"
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
@@ -397,11 +392,15 @@ developer-experience:
 
 test-engine:
   name: "Buildkite Test Engine Documentation"
-  description: "Buildkite documentation for Buildkite Test Engine, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."
+  description: "Buildkite documentation for Test Engine, the testing layer of Buildkite Pipelines, covering test suites, test collection, flaky test management, workflows, bktec client, and API integration."
   paths:
-    - "test-engine"
+    - "pipelines/configure/tests"
     - "apis/rest-api/test-engine"
   exact_paths:
+    - "pipelines/getting-started"
+    - "pipelines/reduce-flaky-tests"
+    - "pipelines/speed-up-builds-with-bktec"
+    - "pipelines/integrations/notifications/linear"
     - "platform/team-management"
     - "platform/team-management/permissions"
     - "apis"
@@ -411,7 +410,7 @@ test-engine:
     - "apis/rest-api/teams/suites"
     - "apis/graphql-api"
     - "apis/webhooks/test-engine"
-    - "platform/integrations/slack-workspace"
+    - "pipelines/integrations/notifications/slack-workspace"
   related_topics:
     - buildkite-apis
     - integrations
@@ -432,7 +431,7 @@ packages:
     - "apis/graphql-api"
     - "apis/graphql/cookbooks/registries"
     - "apis/webhooks/package-registries"
-    - "platform/integrations/slack-workspace"
+    - "pipelines/integrations/notifications/slack-workspace"
   related_topics:
     - buildkite-apis
     - integrations

@@ -62,7 +62,7 @@ For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 
 ### Test Engine
 
-Tracks and analyzes test suite performance. Start here: `pages/test_engine.md`
+Tracks and analyzes test suite performance. Test Engine is the testing layer of Buildkite Pipelines. Start here: `pages/pipelines/configure/tests.md`
 Bundled content: https://buildkite.com/docs/llms-test-engine.txt
 
 ### Package Registries
@@ -241,7 +241,7 @@ When writing technical documentation for Buildkite:
 - Use "Single sign-on" (short form: SSO)
 
 **Product-qualified naming:**
-- When referring to a specific Buildkite product's features or behavior, use the full product name: "Buildkite Pipelines," "Buildkite Test Engine," and "Buildkite Package Registries." The exception to this is when a full product name has been used for the first time within a page section (which commences with a heading), and then upon subsequent mentions within that page section, the product name can be shortened, without the initial "Buildkite "
+- When referring to a specific Buildkite product's features or behavior, use the full product name: "Buildkite Pipelines" and "Buildkite Package Registries." The exception to this is when a full product name has been used for the first time within a page section (which commences with a heading), and then upon subsequent mentions within that page section, the product name can be shortened, without the initial "Buildkite "
 - Use bare "Buildkite" only when referring to the company or the overall platform
 - This applies to prose, table headers, YAML comments, and comparison content
 - Correct: "Buildkite Pipelines runs all steps in parallel by default."

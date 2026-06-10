@@ -360,7 +360,7 @@ These MCP tools are used to retrieve details about the annotations resulting fro
 
 ### Test Engine
 
-These MCP tools are used to retrieve details about Test Engine [tests](/docs/test-engine/glossary#test) and their [runs](/docs/test-engine/glossary#run) from a [test suite](/docs/test-engine/test-suites), along with other Test Engine-related data.
+These MCP tools are used to retrieve details about Test Engine [tests](/docs/pipelines/glossary#test) and their [runs](/docs/pipelines/glossary#run) from a [test suite](/docs/pipelines/configure/tests/test-suites), along with other Test Engine-related data.
 
 <table>
   <thead>

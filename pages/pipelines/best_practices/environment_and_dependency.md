@@ -124,5 +124,5 @@ Monitor and measure your build environments to identify optimization opportuniti
     * Image digest and source
     * Toolchain versions
     * Cache hit ratios
-- Track [queue metrics](/docs/pipelines/insights/queue-metrics), build time by step, and [flake rates](/docs/test-engine).
+- Track [queue metrics](/docs/pipelines/insights/queue-metrics), build time by step, and [flake rates](/docs/pipelines/configure/tests).
 - Use this data to adjust caching and [parallelism](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-and-parallelism).

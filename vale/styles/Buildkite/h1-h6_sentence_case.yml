@@ -215,6 +215,7 @@ exceptions:
   - nodeSelector
   - Nomad
   - NuGet
+  - NUnit
   - OAuth
   - OIDC
   - Okta
@@ -280,6 +281,7 @@ exceptions:
   - Tahoe
   - Tahoe Slim
   - TCP
+  - Test Collector
   - TTL
   - TTLs
   - Teams
@@ -311,5 +313,6 @@ exceptions:
   - Xcode
   - XCTest
   - XML
+  - xUnit collector
   - YAML
   - VCR

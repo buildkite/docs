@@ -1,12 +1,12 @@
 # Build page
 
-Buildkite's new build page has been completely reimagined to support modern software delivery at any scale. The redesigned interface brings powerful navigation through a new sidebar and a detailed table view, making it easier than ever to understand and navigate to any specific aspect of a large build.
+The Buildkite build page supports modern software delivery at any scale. The interface provides powerful navigation through a sidebar and a detailed table view, making it easy to understand and navigate to any specific aspect of a large build.
 
-## Overview of the new build page with sidebar
+## Overview of the build page with sidebar
 
 <%= image "build_page_screenshot.png", alt: "Screenshot showing the parts of the build page" %>
 
-The new build page consists of three main components:
+The build page consists of three main components:
 
 - A collapsible _sidebar_ to allow for quick navigation between steps in your build.
 - The main _content area_ showing your selected view (**Summary**, **Steps**, or **Annotations**).
@@ -46,7 +46,7 @@ When you select a step, its details appear in a resizable step panel. You can:
 
 ### Managing retries
 
-The sidebar now shows an indicator for steps with retries.
+The sidebar shows an indicator for steps with retries.
 
 1. Look for the retry indicator in the sidebar.
 1. Select the step to view the latest attempt.
@@ -67,7 +67,7 @@ Here's how to use it:
 
 ### Browsing your build on mobile
 
-The new build page works fully on all devices. You can use the sidebar to navigate to any step and view its details. On mobile devices, only the **Canvas**, **Table**, and **Waterfall** views are hidden.
+The build page works fully on all devices. You can use the sidebar to navigate to any step and view its details. On mobile devices, only the **Canvas**, **Table**, and **Waterfall** views are hidden.
 
 ### Viewing builds in real time
 
