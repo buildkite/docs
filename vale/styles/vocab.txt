@@ -405,6 +405,7 @@ SDK's
 SDKs
 semver
 sha
+shm
 SHAs
 sharded
 sharding
