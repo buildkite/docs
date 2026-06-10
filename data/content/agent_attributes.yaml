@@ -818,6 +818,14 @@ attributes:
     required: false
     desc: |
       For Buildkite-hosted artifacts, disables the use of multipart uploads. Has no effect on uploads to other destinations such as custom cloud buckets
+  - name: "artifact-upload-concurrency"
+    env_var: |
+      $BUILDKITE_ARTIFACT_UPLOAD_CONCURRENCY
+    default_value: |
+      0
+    required: false
+    desc: |
+      Maximum number of concurrent artifact upload operations used by jobs started by this agent. When unset, artifact uploads use their default
   - name: "kubernetes-log-collection-grace-period"
     env_var: |
       $BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD
