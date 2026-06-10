@@ -116,7 +116,7 @@ A [_Buildkite organization administrator_](/docs/pipelines/security/permissions#
 
 To set or change the default cluster for new pipelines:
 
-1. Select **Settings** in the global navigation, then select **Pipelines** in the left sidebar to open your organization's **Pipeline settings** page.
+1. Select **Settings** in the global navigation, then select **Pipelines** in the left sidebar to open the **Pipeline settings** page for your organization.
 1. In the **Default Cluster** panel, select the cluster to use as the default from the dropdown.
 1. Select **Save Default Cluster**.
 
