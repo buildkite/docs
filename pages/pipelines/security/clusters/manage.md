@@ -108,7 +108,7 @@ where:
 
 A [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can nominate one cluster as the _default cluster_ for new pipelines in the organization. When a default is set:
 
-- New pipelines created without an explicit cluster assignment—via the Buildkite interface, REST API, or GraphQL API—are automatically assigned to the default cluster.
+- New pipelines created without an explicit cluster assignment (via the Buildkite interface, REST API, or GraphQL API) are automatically assigned to the default cluster.
 - Organization members can create pipelines in the default cluster without needing an explicit per-cluster pipeline creation permission. The organization administrator's choice of default acts as the permission grant for that cluster.
 
 > 📘
