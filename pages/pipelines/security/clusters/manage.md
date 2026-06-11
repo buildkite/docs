@@ -104,6 +104,27 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
+## Set a default cluster for new pipelines
+
+A [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can nominate one cluster as the _default cluster_ for new pipelines in the organization. When a default is set:
+
+- New pipelines created without an explicit cluster assignment (using the Buildkite interface, REST API, or GraphQL API) are automatically assigned to the default cluster.
+- Organization members can create pipelines in the default cluster without needing an explicit per-cluster pipeline creation permission. The organization administrator's choice of default acts as the permission grant for that cluster.
+
+> 📘
+> The default cluster applies only to _new_ pipelines. Existing pipelines are not moved. To move an existing pipeline to a different cluster, see [Move a pipeline to a specific cluster](#move-a-pipeline-to-a-specific-cluster).
+
+To set or change the default cluster for new pipelines:
+
+1. Select **Settings** in the global navigation, then select **Pipelines** in the left sidebar to open the **Pipeline settings** page for your organization.
+1. In the **Default Cluster** panel, select the cluster to use as the default from the dropdown.
+1. Select **Save Default Cluster**.
+
+To clear the default cluster, select **No default** from the dropdown and select **Save Default Cluster**.
+
+> 🚧 Deleting the default cluster
+> A cluster set as the organization's default for new pipelines cannot be deleted. To delete it, first assign a different default or clear the default on the **Pipeline settings** page.
+
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/self-hosted/tokens).
