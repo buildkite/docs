@@ -66,6 +66,14 @@ Error responses:
     <th><code>400 Bad Request</code></th>
     <td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td>
   </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Jobs from canceled builds cannot be retried" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job can't be retried because this build was triggered by a synchronous trigger step in a canceled build" }</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -232,6 +240,10 @@ Error responses:
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Unblocker is not a valid user id for this organization"}</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Jobs from canceled builds cannot be unblocked" }</code></td>
   </tr>
 </tbody>
 </table>
