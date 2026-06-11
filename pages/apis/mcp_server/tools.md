@@ -15,7 +15,7 @@ As part of configuring your AI tool or agent with the [remote or local Buildkite
 Buildkite recommends [configuring your project's `AGENTS.md` file with a hint](#the-agents-dot-md-file) to help guide your AI tool or agent to use the Buildkite MCP server and its tools with your project.
 
 > 📘
-> While the Buildkite MCP server makes calls to the Buildkite REST API, in some cases only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool or agent, and reduce costs associated with text tokenization of the response (also known as token usage).
+> While the Buildkite MCP server makes calls to the Buildkite REST API, in some cases only a subset of the resulting fields are returned in the response to your AI tool or agent. This reduces noise for your AI tool or agent and reduces costs associated with text tokenization of the response (also known as token usage).
 
 ### User, authentication and Buildkite organization
 
