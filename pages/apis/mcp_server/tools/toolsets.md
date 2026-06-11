@@ -26,32 +26,37 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
       {
         "toolset": "clusters",
         "description": "[Buildkite clusters](/docs/apis/mcp-server/tools#available-mcp-tools-buildkite-clusters) management",
-        "tools": "get_cluster, list_clusters, get_cluster_queue, list_cluster_queues"
+        "tools": "get_cluster, list_clusters, create_cluster, update_cluster, get_cluster_queue, list_cluster_queues, create_cluster_queue, update_cluster_queue, pause_cluster_queue_dispatch, resume_cluster_queue_dispatch"
+      },
+      {
+        "toolset": "agents",
+        "description": "[Agents](/docs/apis/mcp-server/tools#available-mcp-tools-agents) inspection",
+        "tools": "list_agents, get_agent"
       },
       {
         "toolset": "pipelines",
         "description": "[Pipelines](/docs/apis/mcp-server/tools#available-mcp-tools-pipelines) management",
-        "tools": "get_pipeline, list_pipelines, create_pipeline, update_pipeline"
+        "tools": "get_pipeline, list_pipelines, create_pipeline, update_pipeline, list_pipeline_schedules, get_pipeline_schedule, create_pipeline_schedule, update_pipeline_schedule"
       },
       {
         "toolset": "builds",
         "description": "[Builds](/docs/apis/mcp-server/tools#available-mcp-tools-builds) operations",
-        "tools": "list_builds, get_build, create_build, get_jobs, unblock_job"
+        "tools": "list_builds, get_build, get_build_test_engine_runs, create_build, cancel_build, rebuild_build, unblock_job, retry_job, get_job_env"
       },
       {
         "toolset": "logs",
         "description": "[Logs](/docs/apis/mcp-server/tools#available-mcp-tools-logs) processing",
-        "tools": "search_logs, tail_logs, read_logs, get_logs_info"
+        "tools": "search_logs, tail_logs, read_logs"
       },
       {
         "toolset": "artifacts",
         "description": "[Artifacts](/docs/apis/mcp-server/tools#available-mcp-tools-artifacts) management",
-        "tools": "list_artifacts, get_artifact"
+        "tools": "list_artifacts_for_build, list_artifacts_for_job, get_artifact"
       },
       {
         "toolset": "annotations",
         "description": "[Annotations](/docs/apis/mcp-server/tools#available-mcp-tools-annotations) management",
-        "tools": "list_annotations"
+        "tools": "list_annotations, create_annotation"
       },
       {
         "toolset": "tests",
