@@ -12,10 +12,10 @@ The names of these tools (for example, `list_pipelines`) typically do not need t
 
 As part of configuring your AI tool or agent with the [remote or local Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers), you can restrict its access to specific categories of tools using [toolsets](/docs/apis/mcp-server/tools/toolsets).
 
-Additionally, Buildkite recommends [configuring your project's `AGENTS.md` file with a hint](#the-agents-dot-md-file) to help guide your AI tool or agent to use the Buildkite MCP server and its tools with your project.
+Buildkite recommends [configuring your project's `AGENTS.md` file with a hint](#the-agents-dot-md-file) to help guide your AI tool or agent to use the Buildkite MCP server and its tools with your project.
 
 > 📘
-> While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response (also known as token usage).
+> While the Buildkite MCP server makes calls to the Buildkite REST API, in some cases only a subset of the resulting fields are returned in the response to your AI tool or agent. This reduces noise for your AI tool or agent and reduces costs associated with text tokenization of the response (also known as token usage).
 
 ### User, authentication and Buildkite organization
 
@@ -62,7 +62,7 @@ These MCP tools are associated with [authentication](/docs/apis#authentication) 
 
 ### Buildkite clusters
 
-These MCP tools are used to retrieve details about the [clusters](/docs/pipelines/security/clusters/manage) and their [queues](/docs/agent/queues/managing) configured in your Buildkite organization. Learn more about clusters in [Clusters overview](/docs/pipelines/security/clusters).
+These MCP tools are used to retrieve details about the [clusters](/docs/pipelines/security/clusters/manage) and their [queues](/docs/agent/queues/managing) configured in your Buildkite organization, as well as create, update, and pause or resume them. Learn more about clusters in [Clusters overview](/docs/pipelines/security/clusters).
 
 <table>
   <thead>
@@ -84,6 +84,16 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
         "scope": "read_clusters"
       },
       {
+        "tool": "create_cluster",
+        "description": "Uses the [Create a cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster) REST API endpoint to create a new cluster in an organization.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "update_cluster",
+        "description": "Uses the [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster) REST API endpoint to update an existing cluster's name, description, emoji, color, or default queue.",
+        "scope": "write_clusters"
+      },
+      {
         "tool": "list_cluster_queues",
         "description": "Uses the [List queues](/docs/apis/rest-api/clusters/queues#list-queues) REST API endpoint to list all queues in a cluster with their keys, descriptions, dispatch status, and agent configuration.",
         "scope": "read_clusters"
@@ -92,6 +102,65 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
         "tool": "get_cluster_queue",
         "description": "Uses the [Get a queue](/docs/apis/rest-api/clusters/queues#get-a-queue) REST API endpoint to retrieve detailed information about a specific queue including its key, description, dispatch status, and hosted agent configuration.",
         "scope": "read_clusters"
+      },
+      {
+        "tool": "create_cluster_queue",
+        "description": "Uses the [Create a self-hosted queue](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) REST API endpoint to create a new queue in a cluster.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "update_cluster_queue",
+        "description": "Uses the [Update a queue](/docs/apis/rest-api/clusters/queues#update-a-queue) REST API endpoint to update an existing queue's description or retry agent affinity.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "pause_cluster_queue_dispatch",
+        "description": "Uses the [Pause a queue](/docs/apis/rest-api/clusters/queues#pause-a-queue) REST API endpoint to pause dispatch on a queue, preventing new jobs from being dispatched to agents.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "resume_cluster_queue_dispatch",
+        "description": "Uses the [Resume a paused queue](/docs/apis/rest-api/clusters/queues#resume-a-paused-queue) REST API endpoint to resume dispatch on a paused queue, allowing jobs to be dispatched to agents again.",
+        "scope": "write_clusters"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= render_markdown(text: field[:description]) %></p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Agents
+
+These MCP tools are used to inspect [Buildkite agents](/docs/apis/rest-api/agents) in your Buildkite organization.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "tool": "list_agents",
+        "description": "Uses the [List agents](/docs/apis/rest-api/agents#list-agents) REST API endpoint to list agents in an organization with their connection state, host details, version, current job, and pause status.",
+        "scope": "read_agents"
+      },
+      {
+        "tool": "get_agent",
+        "description": "Uses the [Get an agent](/docs/apis/rest-api/agents#get-an-agent) REST API endpoint to retrieve details about a specific agent including its connection state, host details, current job, metadata, and pause status.",
+        "scope": "read_agents"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -111,7 +180,7 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
 
 ### Pipelines
 
-These MCP tools are used to retrieve details about existing [pipelines](/docs/apis/rest-api/pipelines) in [your Buildkite organization](/docs/apis/rest-api/organizations), as well as create new pipelines, and update existing ones.
+These MCP tools are used to retrieve details about existing [pipelines](/docs/apis/rest-api/pipelines) in [your Buildkite organization](/docs/apis/rest-api/organizations), create new pipelines, update existing pipelines, and manage [pipeline schedules](/docs/apis/rest-api/pipeline-schedules).
 
 <table>
   <thead>
@@ -141,6 +210,26 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
         "tool": "update_pipeline",
         "description": "Uses the [Update a pipeline](/docs/apis/rest-api/pipelines#update-a-pipeline) REST API endpoint to modify an existing Buildkite pipeline's configuration, repository, settings, or metadata.",
         "scope": "write_pipelines"
+      },
+      {
+        "tool": "list_pipeline_schedules",
+        "description": "Uses the [List pipeline schedules](/docs/apis/rest-api/pipeline-schedules#list-pipeline-schedules) REST API endpoint to list the pipeline schedules for a pipeline, including cron expression, target branch, environment variables, enabled state, and next scheduled build time.",
+        "scope": "read_pipelines"
+      },
+      {
+        "tool": "get_pipeline_schedule",
+        "description": "Uses the [Get a pipeline schedule](/docs/apis/rest-api/pipeline-schedules#get-a-pipeline-schedule) REST API endpoint to retrieve details about a single pipeline schedule including its cron expression, target branch, environment variables, enabled state, last failure, and next build time.",
+        "scope": "read_pipelines"
+      },
+      {
+        "tool": "create_pipeline_schedule",
+        "description": "Uses the [Create a pipeline schedule](/docs/apis/rest-api/pipeline-schedules#create-a-pipeline-schedule) REST API endpoint to create a new pipeline schedule that triggers builds on a cron-driven interval.",
+        "scope": "write_pipelines"
+      },
+      {
+        "tool": "update_pipeline_schedule",
+        "description": "Uses the [Update a pipeline schedule](/docs/apis/rest-api/pipeline-schedules#update-a-pipeline-schedule) REST API endpoint to modify an existing pipeline schedule's cron expression, branch, environment variables, or enabled state.",
+        "scope": "write_pipelines"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -160,7 +249,7 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
 
 ### Builds
 
-These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) of a [pipeline](#available-mcp-tools-pipelines), as well as create new builds, and wait for a specific build to finish.
+These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) of a [pipeline](#available-mcp-tools-pipelines), create new builds, cancel builds, and retry builds.
 
 <table>
   <thead>
@@ -182,8 +271,23 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
         "scope": "read_builds"
       },
       {
+        "tool": "get_build_test_engine_runs",
+        "description": "Gets Test Engine runs data for a specific Buildkite Pipelines build, which can be used to look up test runs.",
+        "scope": "read_builds"
+      },
+      {
         "tool": "create_build",
         "description": "Uses the [Create a build](/docs/apis/rest-api/builds#create-a-build) REST API endpoint to trigger a new build on a Buildkite pipeline for a specific commit and branch, with optional environment variables, metadata, and author information.",
+        "scope": "write_builds"
+      },
+      {
+        "tool": "cancel_build",
+        "description": "Uses the [Cancel a build](/docs/apis/rest-api/builds#cancel-a-build) REST API endpoint to cancel a running build on a Buildkite pipeline.",
+        "scope": "write_builds"
+      },
+      {
+        "tool": "rebuild_build",
+        "description": "Uses the [Rebuild a build](/docs/apis/rest-api/builds#rebuild-a-build) REST API endpoint to rebuild or retry an entire build on a Buildkite pipeline.",
         "scope": "write_builds"
       }
     ].select { |field| field[:tool] }.each do |field| %>
@@ -204,7 +308,7 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
 
 ### Jobs
 
-These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs) from a pipeline [build](#available-mcp-tools-builds), as well as unblock jobs in a pipeline build. A job's logs can then be processed by the [logs](#available-mcp-tools-logs) tools of the MCP server, for the benefit of your AI tool or agent.
+These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jobs) from a pipeline [build](#available-mcp-tools-builds), retry jobs, and unblock jobs in a pipeline build.
 
 <table>
   <thead>
@@ -216,14 +320,19 @@ These MCP tools are used to retrieve the logs of [jobs](/docs/apis/rest-api/jobs
   <tbody>
     <% [
       {
-        "tool": "get_job_logs",
-        "description": "Uses the [Get a job's log output](/docs/apis/rest-api/jobs#get-a-jobs-log-output) REST API endpoint to get the log output and metadata for a specific job, including content, size, and header timestamps. Automatically saves to file for large logs to avoid token limits.",
-        "scope": "read_build_logs"
-      },
-      {
         "tool": "unblock_job",
         "description": "Uses the [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job) REST API endpoint to unblock a blocked job in a Buildkite build to allow it to continue execution.",
         "scope": "write_builds"
+      },
+      {
+        "tool": "retry_job",
+        "description": "Uses the [Retry a job](/docs/apis/rest-api/jobs#retry-a-job) REST API endpoint to retry a specific job that failed or timed out in a Buildkite build.",
+        "scope": "write_builds"
+      },
+      {
+        "tool": "get_job_env",
+        "description": "Uses the [Get a job's environment variables](/docs/apis/rest-api/jobs#get-a-jobs-environment-variables) REST API endpoint to retrieve the environment variables for a specific job in a Buildkite build.",
+        "scope": "read_job_env"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -265,10 +374,6 @@ For improved performance, these Parquet log files are also cached and stored. Le
         "description": "Show the last N entries from the log file (that is, N lines for recent errors and status checks)."
       },
       {
-        "tool": "get_logs_info",
-        "description": "Get metadata and statistics about the Parquet log file."
-      },
-      {
         "tool": "read_logs",
         "description": "Read log entries from the file, optionally starting from a specific row number."
       }
@@ -299,13 +404,18 @@ These MCP tools are used to retrieve details about artifacts from a pipeline [bu
   <tbody>
     <% [
       {
-        "tool": "list_artifacts",
+        "tool": "list_artifacts_for_build",
         "description": "Uses the [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build) REST API endpoint to list a build's artifacts across all of its jobs, including file details, paths, sizes, MIME types, and download URLs.",
         "scope": "read_artifacts"
       },
       {
+        "tool": "list_artifacts_for_job",
+        "description": "Uses the [List artifacts for a job](/docs/apis/rest-api/artifacts#list-artifacts-for-a-job) REST API endpoint to list an individual job's artifacts, including file details, paths, sizes, MIME types, and download URLs.",
+        "scope": "read_artifacts"
+      },
+      {
         "tool": "get_artifact",
-        "description": "Uses the [Get an artifact](/docs/apis/rest-api/artifacts#get-an-artifact) REST API endpoint to get detailed information about a specific artifact including its metadata, file size, SHA-1 hash, and download URL.",
+        "description": "Uses the [Download an artifact](/docs/apis/rest-api/artifacts#download-an-artifact) REST API endpoint to download a specific artifact's content. The content is returned base64-encoded.",
         "scope": "read_artifacts"
       }
     ].select { |field| field[:tool] }.each do |field| %>
@@ -326,7 +436,7 @@ These MCP tools are used to retrieve details about artifacts from a pipeline [bu
 
 ### Annotations
 
-These MCP tools are used to retrieve details about the annotations resulting from a pipeline [build](#available-mcp-tools-builds).
+These MCP tools are used to retrieve details about the annotations resulting from a pipeline [build](#available-mcp-tools-builds), or create annotations for a build or job.
 
 <table>
   <thead>
@@ -339,8 +449,13 @@ These MCP tools are used to retrieve details about the annotations resulting fro
     <% [
       {
         "tool": "list_annotations",
-        "description": "Uses the [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) REST API endpoint to list all annotations for a build, including their context, style (success/info/warning/error), rendered HTML content, and creation timestamps.",
+        "description": "Uses the [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) or [List annotations for a job](/docs/apis/rest-api/annotations#list-annotations-for-a-job) REST API endpoint to list annotations for a build or specific job.",
         "scope": "read_builds"
+      },
+      {
+        "tool": "create_annotation",
+        "description": "Uses the [Create an annotation on a build](/docs/apis/rest-api/annotations#create-an-annotation-on-a-build) or [Create an annotation on a job](/docs/apis/rest-api/annotations#create-an-annotation-on-a-job) REST API endpoint to create an annotation on a build or specific job.",
+        "scope": "write_builds"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -390,10 +505,6 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/pip
         "tool": "get_failed_executions",
         "description": "Uses the [Get failed execution data](/docs/apis/rest-api/test-engine/runs#get-failed-execution-data) REST API endpoint to retrieve failed test executions for a specific test run in Buildkite Test Engine. Optionally retrieves the expanded failure details such as full error messages and stack traces.",
         "scope": "read_suites"
-      },
-      {
-        "tool": "get_build_test_engine_runs",
-        "description": "Get Test Engine runs data for a specific build in Buildkite Pipelines. This can be used to look up test runs."
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>
@@ -481,4 +592,4 @@ Buildkite recommends configuring your project's `AGENTS.md` file by adding a hin
 
 You should replace your Buildkite organization, pipeline slugs, and pipeline file names with those applicable to your project.
 
-Add this hint to an appropriate section within your `AGENTS.md` file. For example, for a typical development project, you might add this hint to a series of existing ones in a section about about architecture.
+Add this hint to an appropriate section within your `AGENTS.md` file. For example, for a typical development project, you might add this hint to a series of existing ones in a section about architecture.
