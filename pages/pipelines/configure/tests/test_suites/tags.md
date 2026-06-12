@@ -133,7 +133,7 @@ Test Engine has the following tagging requirements:
 - Must begin with a letter, and may contain letters, numbers, underscores, hyphens and periods.
 - Must be less than 64 bytes of UTF-8 text.
 - Must not be a dot-separated prefix of another key. If a key like `service.instance.id` exists, you cannot create keys for its prefixes such as `service.instance` or `service`.
-- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for mutable execution tags, which are applied after ingestion. Keys that merely share the letters (such as `mutation` or `mutable.tag`) are unaffected.
+- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for mutable execution tags that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
 
 #### Tag values
 
