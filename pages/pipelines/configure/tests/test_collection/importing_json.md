@@ -40,7 +40,7 @@ The following `format` values are supported:
   </tbody>
 </table>
 
-To upload a test runner's native JSON output, set the `format` field to the matching value (for example, `rspec-json`) in your Upload API request, and pass the raw output file as the `data` field. The rest of the request is the same as the examples below.
+To upload native JSON output from a test runner, set the `format` field to the matching value (for example, `rspec-json`) in your Upload API request, and pass the raw output file as the `data` field. The rest of the request is the same as the examples below.
 
 You can also upload native output through the [Test Engine Client (`bktec`)](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client). To import [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml) instead, set `format` to `junit`.
 
