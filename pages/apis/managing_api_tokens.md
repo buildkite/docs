@@ -347,7 +347,7 @@ The list of tokens can be filtered by username, scopes, IP address, or whether t
 
  <%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
-To export the token list, select **Export .csv**. The CSV includes the following columns: Owner, Owner Email, Owner ID, Token UUID, Token Description, Last Used At, Last Request IP, Created At, and Scopes.
+To export the token list, select **Export .csv**. The CSV file includes the following columns: Owner, Owner Email, Owner ID, Token UUID, Token Description, Last Used At, Last Request IP, Created At, and Scopes.
 
 ### Removing an organization from a token
 
