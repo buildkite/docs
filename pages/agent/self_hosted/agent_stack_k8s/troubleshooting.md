@@ -400,4 +400,4 @@ retry:
 
 #### Fix
 
-Upgrading to version [v.0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) is the recommended action in this case as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors.
+Upgrading to version [v0.29.0](https://github.com/buildkite/agent-stack-k8s/releases/tag/v0.29.0) is the recommended action in this case as a "stack_error" exit reason was added to the agent, to provide better visibility to stack-level errors.
