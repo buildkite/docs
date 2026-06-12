@@ -118,7 +118,7 @@ These user-level permissions and security features are managed by _Buildkite org
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
-1. Select [**Security** > **Test Suites** tab](https://buildkite.com/organizations/~/security/test-analytics) to access your organization's security for Test Suites page.
+1. Select [**Security** > **Test Suites** tab](https://buildkite.com/organizations/~/security/test-analytics) to access the security settings for Test Suites in your Buildkite organization.
 
 From this page, you can configure the following permissions for all users across your Buildkite organization:
 
