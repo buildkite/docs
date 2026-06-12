@@ -5,7 +5,7 @@ You can upload JSON-formatted test results (described in this page) or [JUnit XM
 
 ## Supported upload formats
 
-When you upload test results to the Upload API, set the `format` field to match the data you're uploading. The Upload API supports Buildkite's own JSON format, as well as the native JSON output from several popular test runners, which you can upload directly without any format conversion.
+When you upload test results to the Upload API, set the `format` field to match the data you're uploading. The Upload API supports the Buildkite JSON format, as well as the native JSON output from several popular test runners, which you can upload directly without any format conversion.
 
 The following `format` values are supported:
 
