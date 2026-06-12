@@ -474,7 +474,6 @@
               path: "pipelines/configure/dynamic-pipelines/if-changed"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
-              pill: "preview"
         - name: "Annotations"
           path: "pipelines/configure/annotations"
         - name: "Writing build scripts"
