@@ -3,6 +3,47 @@
 If a test collector is not available for your test framework, you can upload tests results directly to the Test Engine API or [write your own test collector](/docs/pipelines/configure/tests/test-collection/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 
+## Supported upload formats
+
+When you upload test results to the Upload API, set the `format` field to match the data you're uploading. The Upload API supports the Buildkite JSON format, as well as the native JSON output from several popular test runners, which you can upload directly without any format conversion.
+
+The following `format` values are supported:
+
+<table>
+  <thead>
+    <tr>
+      <th>Format value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>json</code></td>
+      <td>Buildkite's <a href="#json-test-results-data-reference">JSON test results format</a>, described on this page.</td>
+    </tr>
+    <tr>
+      <td><code>rspec-json</code></td>
+      <td>Native JSON output from RSpec.</td>
+    </tr>
+    <tr>
+      <td><code>jest-json</code></td>
+      <td>Native JSON output from Jest.</td>
+    </tr>
+    <tr>
+      <td><code>playwright-json</code></td>
+      <td>Native JSON output from Playwright.</td>
+    </tr>
+    <tr>
+      <td><code>cucumber-json</code></td>
+      <td>Native JSON output from Cucumber (Ruby).</td>
+    </tr>
+  </tbody>
+</table>
+
+To upload native JSON output from a test runner, set the `format` field to the matching value (for example, `rspec-json`) in your Upload API request, and pass the raw output file as the `data` field. The rest of the request is the same as the examples below.
+
+You can also upload native output through the [Test Engine Client (`bktec`)](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client). To import [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml) instead, set `format` to `junit`.
+
 ## How to import JSON in Buildkite
 
 It's possible to import JSON (or [JUnit](/docs/pipelines/configure/tests/test-collection/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Engine with or without the help of a plugin.
