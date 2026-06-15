@@ -923,6 +923,8 @@
               path: "platform/cli/reference/secret"
             - name: "skill"
               path: "platform/cli/reference/skill"
+            - name: "update"
+              path: "platform/cli/reference/update"
             - name: "user"
               path: "platform/cli/reference/user"
             - name: "version"

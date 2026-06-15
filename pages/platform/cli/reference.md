@@ -27,6 +27,7 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`queue`](/docs/platform/cli/reference/queue)
 - [`secret`](/docs/platform/cli/reference/secret)
 - [`skill`](/docs/platform/cli/reference/skill)
+- [`update`](/docs/platform/cli/reference/update)
 - [`user`](/docs/platform/cli/reference/user)
 - [`version`](/docs/platform/cli/reference/version)
 <!-- END auto-generated command list -->
