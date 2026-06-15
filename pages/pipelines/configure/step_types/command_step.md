@@ -106,6 +106,13 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>checkout</code></td>
+    <td>
+      A map of git checkout configuration options for this step. See <a href="#checkout-attributes">Checkout attributes</a> for available keys.<br/>
+      <em>Example:</em> <code>submodules: false</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>cancel_on_build_failing</code></td>
     <td>
       Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/configure/defining-steps#build-states">failing</a>.<br/>
@@ -316,6 +323,72 @@ steps:
     # No image specified in this step.
     # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
+
+## Checkout attributes
+
+The `checkout` block controls the git checkout behavior for a command step. You can set it at the pipeline level as a default for all steps, or override it per step.
+
+```yaml
+checkout:
+  submodules: false  # pipeline-level default
+steps:
+  - command: "test.sh"
+    checkout:
+      depth: 50  # overrides pipeline default for this step
+```
+{: codeblock-file="pipeline.yml"}
+
+When both a pipeline-level and step-level `checkout` block are present, each key is resolved independently: the step value takes precedence for any key it sets, and the pipeline value is inherited for any key the step leaves unset.
+
+The `checkout` block is applied after the step's `env` map, so its values take precedence over any equivalent environment variables set in `env`.
+
+> 📘
+> The agent's `--no-git-submodules` flag retains a hard-veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value emitted by the pipeline, and the build log emits a protected-environment-variable notice.
+
+<table>
+  <tr>
+    <td><code>skip</code></td>
+    <td>
+      Whether the agent should skip the git checkout phase entirely for this step. Must be a literal boolean (<code>true</code> or <code>false</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_SKIP_CHECKOUT"><code>BUILDKITE_SKIP_CHECKOUT</code></a>.<br/>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>submodules</code></td>
+    <td>
+      Whether the agent should fetch git submodules for this step. Must be a literal boolean (<code>true</code> or <code>false</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES"><code>BUILDKITE_GIT_SUBMODULES</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>true</code>).<br/>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>depth</code></td>
+    <td>
+      A shallow-clone depth as a positive integer. Appends <code>--depth=N</code> to both <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_CLONE_FLAGS"><code>BUILDKITE_GIT_CLONE_FLAGS</code></a> and <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_FLAGS"><code>BUILDKITE_GIT_FETCH_FLAGS</code></a>.<br/>
+      <em>Example:</em> <code>50</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>flags</code></td>
+    <td>
+      A map of git operation names to flag strings. Each key sets the corresponding <code>BUILDKITE_GIT_*_FLAGS</code> environment variable. When pipeline-level and step-level <code>flags</code> are both present, step-level values win per key and pipeline-level values are inherited for any key the step omits. Valid keys: <code>clone</code>, <code>fetch</code>, <code>checkout</code>, <code>clean</code>.<br/>
+      <em>Example:</em><br/>
+      <code>clone: "--filter=blob:none"</code><br/>
+      <code>fetch: "--prune"</code>
+    </td>
+  </tr>
+</table>
+
+```yaml
+steps:
+  - command: "test.sh"
+    checkout:
+      submodules: false
+      depth: 50
+      flags:
+        clone: "--filter=blob:none"
+        fetch: "--prune"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Matrix attributes
 
