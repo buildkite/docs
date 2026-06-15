@@ -71,7 +71,7 @@ Bitbucket Pipelines extends its built-in functionality through [Pipes](https://b
 
 ### Try out Buildkite
 
-With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+With a basic understanding of the differences between Buildkite and Bitbucket Pipelines, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/getting-started#create-your-own-pipeline).
 
 ## Provision agent infrastructure
 
@@ -1106,6 +1106,6 @@ Explore these Buildkite resources to help you enhance your migrated pipelines:
 - [Buildkite agent hooks](/docs/agent/hooks) to extend or override the default behavior of Buildkite agents.
 - [Using conditionals](/docs/pipelines/configure/conditionals) to run pipeline builds or steps only when specific conditions are met.
 - [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) overview pages for managing security and secrets within your Buildkite infrastructure.
-- After configuring Buildkite Pipelines for your team, learn how to obtain actionable insights from the tests running in pipelines using [Test Engine](/docs/test-engine).
+- After configuring Buildkite Pipelines for your team, learn how to obtain actionable insights from the tests running in pipelines using [Test Engine](/docs/pipelines/configure/tests).
 
 If you need further assistance with your Bitbucket Pipelines migration, reach out to the Buildkite support team at support@buildkite.com.

@@ -146,7 +146,7 @@ Each build has several timestamps that track its lifecycle from creation to comp
 
 Timestamp        | Description
 ---------------- | -----------
-`created_at`     | When the build record was initially created in the database. This happens when a build is first triggered (via API, webhook, UI, etc.) and the build enters the `creating` state.
+`created_at`     | When the build record was initially created in the database. This happens when a build is first triggered (using API, webhook, UI, etc.) and the build enters the `creating` state.
 `scheduled_at`   | When the build is scheduled to run. For scheduled builds (triggered from pipeline schedules), this represents the intended execution time.
 `started_at`     | When the build begins executing (transitions from `scheduled` to `started` state). This occurs when the first job starts running, marking the build as active.
 `finished_at`    | When the build reaches a terminal state (`passed`, `failed`, `canceled`, `skipped`, or `not_run`). This is set when all jobs are complete and the build's final state is determined.
@@ -176,6 +176,7 @@ Job state             | Description
 `limiting`            | The job is waiting on a concurrency group check before becoming either `limited` or `scheduled`.
 `limited`             | The job is waiting for jobs with the same concurrency group to finish.
 `scheduled`           | The job is scheduled and waiting for an agent.
+`reserved`*           | The job has been reserved by an agent stack, which is provisioning an agent to run it.
 `assigned`            | The job has been assigned to an agent, and it's waiting for it to accept.
 `accepted`            | The job was accepted by the agent, and now it's waiting to start running.
 `running`             | The job is running.
@@ -192,6 +193,8 @@ Job state             | Description
 `platform_limiting`   | The job is waiting for limits imposed by Buildkite to be checked before moving to `platform_limited` or `scheduled`.
 `platform_limited`    | The job is waiting for capacity within limits imposed by Buildkite to become available before moving to `scheduled`.
 {: class="two-column"}
+
+\* The `reserved` state applies only to jobs picked up through the [stacks API](/docs/apis/agent-api/stacks). Traditional agents skip this state.
 
 As well as the states shown in the diagram, the following progressions can occur:
 
@@ -222,7 +225,7 @@ Differentiating between `timing_out`, `timed_out`, and `expired` states:
 See [Build timeouts](/docs/pipelines/configure/build-timeouts) for information about setting timeout values.
 
 > 📘 REST API state mapping
-> The [REST API](/docs/apis/rest-api) maps the internal `finished` state to `passed` or `failed` based on the job's exit status. When querying job states via the REST API, you'll see `passed` or `failed` instead of `finished`. The REST API also lists `limiting` and `limited` as `scheduled` for legacy compatibility.
+> The [REST API](/docs/apis/rest-api) maps the internal `finished` state to `passed` or `failed` based on the job's exit status. When querying job states using the REST API, you'll see `passed` or `failed` instead of `finished`. The REST API also lists `limiting` and `limited` as `scheduled` for legacy compatibility.
 
 <%= render_markdown partial: 'pipelines/configure/job_states' %>
 

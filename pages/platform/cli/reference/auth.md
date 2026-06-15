@@ -42,7 +42,9 @@ bk auth login [flags]
 
 | Flag | Description |
 | --- | --- |
+| `--credential-store="auto"` | Credential store for tokens: auto, keyring, or shm |
 | `--debug` | Enable debug output for REST API calls |
+| `--device` | Authenticate using OAuth device authorization instead of opening a browser callback |
 | `--org=STRING` | Organization slug or UUID to request access for |
 | `--scopes=""` | OAuth scopes to request |
 | `--token=STRING` | API token to store (non-OAuth login, requires --org) |
@@ -65,6 +67,18 @@ Login non-interactively with an API token:
 
 ```bash
 bk auth login --org my-org --token my-token
+```
+
+Login on a headless machine or remote shell:
+
+```bash
+bk auth login --device
+```
+
+Login on a headless Linux host using an in-memory /dev/shm credential store:
+
+```bash
+bk auth login --device --credential-store shm
 ```
 
 Login with read-only access:

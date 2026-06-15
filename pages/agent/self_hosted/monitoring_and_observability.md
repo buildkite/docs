@@ -74,8 +74,8 @@ Metric | Type | Description
 `buildkite_agent_pings_errors_total` | Counter | Count of pings that failed due to an error
 `buildkite_agent_pings_sent_total` | Counter | Count of pings sent
 `buildkite_agent_pings_wait_duration_seconds_total` | Histogram | Time spent waiting prior to each ping (ping interval plus jitter)
-`buildkite_agent_workers_ended_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have stopped running
-`buildkite_agent_workers_started_total` | Counter | Count of agent workers (i.e. `--spawn` flag) that have started running
+`buildkite_agent_workers_ended_total` | Counter | Count of agent workers (that is, the `--spawn` flag) that have stopped running
+`buildkite_agent_workers_started_total` | Counter | Count of agent workers (that is, the `--spawn` flag) that have started running
 
 To send the Prometheus metrics to Datadog, configure the [Datadog Agent's OpenMetrics integration](https://docs.datadoghq.com/integrations/openmetrics/) to scrape the `/metrics` endpoint. For example, with the health check service listening on port 3901, you will need to add the following to your Datadog Agent's `openmetrics.d/conf.yaml`:
 

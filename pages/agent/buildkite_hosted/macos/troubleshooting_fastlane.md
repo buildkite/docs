@@ -98,7 +98,7 @@ You can add abbrev to your Gemfile or gemspec to silence this warning.
 
 **Resolution:**
 
-Buildkite agents hosted on macOS have Ruby 3.4+ installed via Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing fastlane to fail.
+Buildkite agents hosted on macOS have Ruby 3.4+ installed using Homebrew. In Ruby 3.4+, the gems `mutex_m` and `abbrev` are no longer the default gems. In Ruby 3.5+, `ostruct` will no longer be a default gem, causing fastlane to fail.
 
 To fix this discrepancy, you need to add the following gems to the `Gemfile`:
 

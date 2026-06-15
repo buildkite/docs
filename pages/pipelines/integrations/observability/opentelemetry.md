@@ -133,7 +133,7 @@ Here are some common examples.
 Key: `Authorization`
 Value: `Bearer <your-token>`
 
-See [Bearer Token example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/bearer-token-auth-debug.yml) for example OpenTelemetry Collector configuration.
+See [Bearer Token example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/bearer-token-auth-debug.yml) for an example OpenTelemetry Collector configuration.
 
 #### Basic auth
 
@@ -146,7 +146,7 @@ echo -n "${USER}:${PASSWORD}" | base64
 Key: `Authorization`
 Value: `Basic <base64 encoded ${USER}:${PASSWORD})>`
 
-See [Basic Authentication example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/basic-auth-debug.yml) for example OpenTelemetry Collector configuration.
+See [Basic Authentication example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/basic-auth-debug.yml) for an example OpenTelemetry Collector configuration.
 
 ### Honeycomb
 
@@ -184,7 +184,7 @@ The `dd-otlp-source` value is a specific identifier provided by Datadog after yo
 
 For more information, see [Datadog's OTLP traces intake documentation](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/traces/).
 
-### Datadog APM via OpenTelemetry collector
+### Datadog APM using OpenTelemetry collector
 
 See [Bearer token Datadog example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/bearer-token-auth-datadog.yml) for more information on forwarding traces to Datadog APM using the Datadog exporter.
 
@@ -204,7 +204,7 @@ If using the `otel/opentelemetry-collector-contrib` Docker image, you can config
 
 Consult the [Deployment](https://opentelemetry.io/docs/collector/deployment/) guide in the OpenTelemetry documentation for more information about hosting the collector.
 
-The OpenTelemetry collector also supports many downstream data stores via [exporters](https://opentelemetry.io/docs/collector/configuration/#exporters) including StatsD, Prometheus, Kafka, Tempo, OTLP as well as many other observability tools and vendors. See the [OpenTelemetry registry](https://opentelemetry.io/ecosystem/registry/?s=&component=exporter&language=collector) for a more complete list of supported exporters.
+The OpenTelemetry collector also supports many downstream data stores using [exporters](https://opentelemetry.io/docs/collector/configuration/#exporters) including StatsD, Prometheus, Kafka, Tempo, OTLP as well as many other observability tools and vendors. See the [OpenTelemetry registry](https://opentelemetry.io/ecosystem/registry/?s=&component=exporter&language=collector) for a more complete list of supported exporters.
 
 #### References
 

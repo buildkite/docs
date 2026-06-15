@@ -163,7 +163,7 @@ The following additional policies may also apply if using additional features:
 
 ### IAM policy examples
 
-To get started, we've included the policies that are created via the AWS CloudFormation and Terraform stacks.
+To get started, we've included the policies that are created using the AWS CloudFormation and Terraform stacks.
 
 Some of the resources are generated dynamically when running either of the infrastructure-as-code solutions, so you will need to update them accordingly.
 

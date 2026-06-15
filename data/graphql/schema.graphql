@@ -4902,6 +4902,16 @@ type JobTypeCommand implements JobInterface & Node {
   priority: JobPriority!
 
   """
+  The exit status the job said it will finish with in the future
+  """
+  promisedExitStatus: JSInt
+
+  """
+  The time the job set promised_exit_status
+  """
+  promisedExitStatusAt: DateTime
+
+  """
   If this job has been retried
   """
   retried: Boolean!

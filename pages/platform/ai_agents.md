@@ -58,7 +58,7 @@ steps:
 ```
 
 > 📘 Supported models
-> Only Anthropic models are currently supported via model providers. See [Model providers](/docs/apis/model-providers) for the full configuration reference, including usage tracking in **Organization Settings > Usage > Model Providers**.
+> Only Anthropic models are currently supported using model providers. See [Model providers](/docs/apis/model-providers) for the full configuration reference, including usage tracking in **Organization Settings > Usage > Model Providers**.
 
 ### Plugins
 
@@ -67,7 +67,7 @@ For quick AI integration without custom scripting, Buildkite plugins can add fai
 | Plugin | LLM provider | Description |
 |---|---|---|
 | [claude-summarize](https://buildkite.com/resources/plugins/buildkite-plugins/claude-summarize-buildkite-plugin/) | Anthropic Claude | Analyzes build failures, identifies root causes, and posts suggested fixes as build annotations |
-| [bedrock-summarize](https://buildkite.com/resources/plugins/buildkite-plugins/bedrock-summarize-buildkite-plugin/) | AWS Bedrock | Same failure analysis pattern using AWS Bedrock LLMs; supports injecting project context via `agent_file` |
+| [bedrock-summarize](https://buildkite.com/resources/plugins/buildkite-plugins/bedrock-summarize-buildkite-plugin/) | AWS Bedrock | Same failure analysis pattern using AWS Bedrock LLMs; supports injecting project context using `agent_file` |
 | [chatgpt-analyzer](https://buildkite.com/resources/plugins/buildkite-plugins/chatgpt-analyzer-buildkite-plugin/) | OpenAI | Build log analysis and summarization using OpenAI models |
 {: class="responsive-table"}
 

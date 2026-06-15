@@ -25,7 +25,7 @@ To run the Buildkite agent on your own [Google Compute Engine](https://cloud.goo
 For example, to install on an Ubuntu-based instance:
 
 1. Launch an instance using the latest Ubuntu LTS image [through the console](https://console.cloud.google.com/compute/instancesAdd)
-1. Connect using SSH (via the console SSH button or `gcloud compute ssh`)
+1. Connect using SSH (using the console SSH button or `gcloud compute ssh`)
 1. Follow the [setup instructions for Ubuntu](/docs/agent/self-hosted/install/ubuntu)
 
 For other Linux distributions, see:
@@ -45,7 +45,7 @@ When running agents on individual Compute Engine instances, consider:
 
 ## Uploading artifacts to Google Cloud Storage
 
-You can upload the [artifacts](/docs/pipelines/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/hooks) (note that this cannot be set via the Buildkite web interface, API, or during pipeline upload):
+You can upload the [artifacts](/docs/pipelines/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/hooks) (note that this cannot be set using the Buildkite web interface, API, or during pipeline upload):
 
 ```shell
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"

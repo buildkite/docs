@@ -27,7 +27,7 @@ To create a Kubernetes Secret named `my-git-ssh-credentials` containing the cont
 kubectl create secret generic my-git-ssh-credentials --from-file=SSH_PRIVATE_RSA_KEY="$HOME/.ssh/id_rsa" -n buildkite
 ```
 
-This Kubernetes Secret can be referenced by the Buildkite Agent Stack for Kubernetes controller using [EnvFrom](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables) from within the controller configuration or via the `gitEnvFrom` config of the `kubernetes` plugin.
+This Kubernetes Secret can be referenced by the Buildkite Agent Stack for Kubernetes controller using [EnvFrom](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables) from within the controller configuration or using the `gitEnvFrom` config of the `kubernetes` plugin.
 
 ### Provide a Kubernetes Secret through a configuration file
 
@@ -48,7 +48,7 @@ config:
 
 ### Provide a Kubernetes Secret using the Kubernetes plugin
 
-Under the `kubernetes` plugin, specify the name of the Kubernetes Secret via the `gitEnvFrom` config:
+Under the `kubernetes` plugin, specify the name of the Kubernetes Secret using the `gitEnvFrom` config:
 
 ```yaml
 # pipeline.yaml

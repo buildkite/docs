@@ -193,4 +193,4 @@ Learn more about creating rules in [Manage rules](/docs/pipelines/security/clust
 
 Artifacts are not accessible between pipelines across different clusters. For example, a deployment pipeline in cluster B cannot ordinarily access artifacts uploaded by a CI pipeline in cluster A.
 
-However, a `pipeline.artifacts_read.pipeline` rule can be used to override this restriction. For example, assets uploaded as artifacts by the CI pipeline would now be accessible to the deployment pipeline via the `buildkite-agent artifact download --build xxx` command.
+However, a `pipeline.artifacts_read.pipeline` rule can be used to override this restriction. For example, assets uploaded as artifacts by the CI pipeline would now be accessible to the deployment pipeline using the `buildkite-agent artifact download --build xxx` command.

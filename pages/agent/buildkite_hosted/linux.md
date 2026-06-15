@@ -20,6 +20,9 @@ Buildkite offers a selection of Linux instance types (each based on a different 
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
+> 📘 ARM64 availability
+> ARM64 instance shapes are only available to customers on the [Enterprise plan](https://buildkite.com/pricing/). To gain access, contact [Buildkite Support](mailto:support@buildkite.com).
+
 Note the following about Linux hosted agent instances.
 
 - The [Personal plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.

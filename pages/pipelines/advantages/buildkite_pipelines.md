@@ -86,13 +86,13 @@ Start with [YAML pipelines](/docs/pipelines/configure/defining-steps), and when 
 
 With fast feedback, clear failure messages, and transparent logs, Buildkite Pipelines keeps developers focused on code instead of spending time on debugging CI.
 
-The Buildkite Pipelines interface provides immediate visibility into pipeline behavior and system health through rich build [annotations](/docs/pipelines/configure/annotations), integrated [test results](/docs/test-engine), and transparent failure information.
+The Buildkite Pipelines interface provides immediate visibility into pipeline behavior and system health through rich build [annotations](/docs/pipelines/configure/annotations), integrated [test results](/docs/pipelines/configure/tests), and transparent failure information.
 
 - [Log output](/docs/pipelines/configure/managing-log-output) renders as real terminal output with full ANSI color support, preserving your test framework's formatting, color-coded diffs, and structured output.
 - Configurable [log grouping](/docs/pipelines/configure/managing-log-output#grouping-log-output) (`---`, `+++`, `~~~`) organizes output into [collapsible sections](/docs/pipelines/configure/managing-log-output#grouping-log-output-collapsed-groups).
 - Build steps can write rich Markdown content directly into the [build page](/docs/pipelines/build-page) using [annotations](/docs/agent/cli/reference/annotate), surfacing test failure summaries, coverage reports, or deploy links.
 - Builds running on your own infrastructure let you SSH into the machine, inspect the environment, and reproduce failures locally.
-- [Buildkite Test Engine](/docs/test-engine) detects [flaky tests](/docs/test-engine/glossary#flaky-test), automatically [mutes](/docs/test-engine/test-suites/test-state-and-quarantine#automatic-quarantine) unreliable ones, and assigns follow-up, so teams get a clean signal from their test suites.
+- [Test Engine](/docs/pipelines/configure/tests) detects [flaky tests](/docs/pipelines/glossary#flaky-test), automatically [mutes](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine#automatic-quarantine) unreliable ones, and assigns follow-up, so teams get a clean signal from their test suites.
 
 ## Extensibility and integrations
 

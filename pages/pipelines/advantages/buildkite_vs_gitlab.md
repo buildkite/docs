@@ -34,7 +34,7 @@ Buildkite Pipelines pricing is based on agent concurrency, typically using the 9
 
 ## Integration with GitLab SCM
 
-Some organizations use GitLab for source code management while using Buildkite Pipelines for CI/CD. Buildkite Pipelines integrates with GitLab via webhooks, triggering pipelines from Git events. This way, you get GitLab's SCM features with Buildkite's superior CI/CD performance.
+Some organizations use GitLab for source code management while using Buildkite Pipelines for CI/CD. Buildkite Pipelines integrates with GitLab using webhooks, triggering pipelines from Git events. This way, you get GitLab's SCM features with Buildkite's superior CI/CD performance.
 
 ## Migration path
 

@@ -2,9 +2,10 @@ env:
   BUILDKIT_PROGRESS: plain
 
 steps:
-  - label: ":spider: Check for link issues"
+  - label: ":spider: Check for Buildkite Docs link issues"
     env:
       RAILS_ENV: production
+      LINK_CHECK_MODE: internal
     agents:
       queue: hosted
     soft_fail:
@@ -26,7 +27,34 @@ steps:
           mount-buildkite-agent: true
           propagate-environment: true
     artifact_paths:
-      - ".buildkite/steps/muffet_results.json"
+      - ".buildkite/steps/muffet_results_internal.json"
+
+  - label: ":earth_asia: Check for external link issues"
+    env:
+      RAILS_ENV: production
+      LINK_CHECK_MODE: external
+    agents:
+      queue: hosted
+    soft_fail:
+      - exit_status: 1
+    plugins:
+      - aws-assume-role-with-web-identity#v1.6.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+      - ecr#v2.12.0:
+          login: true
+          account-ids: public.ecr.aws
+      - docker-compose#v5.12.1:
+          run: muffet
+          shell: false
+          upload-container-logs: always
+          mount-buildkite-agent: true
+          propagate-environment: true
+    artifact_paths:
+      - ".buildkite/steps/muffet_results_external.json"
 
   - label: ":bell: Assign PR reviewer"
     if: build.branch != "main" && !build.pull_request.labels includes "Reviewer-assigned"

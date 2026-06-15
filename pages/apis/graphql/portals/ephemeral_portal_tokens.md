@@ -6,7 +6,7 @@ Since ephemeral portal tokens have the same admin-level permissions as long-live
 
 ## Generating a secret
 
-Before obtaining an ephemeral portal token, a Buildkite organization administrator must generate a _portal secret_ via the Buildkite interface. This secret is essential for requesting ephemeral portal tokens. Each portal can have up to two secrets, enabling safe rotation practices.
+Before obtaining an ephemeral portal token, a Buildkite organization administrator must generate a _portal secret_ using the Buildkite interface. This secret is essential for requesting ephemeral portal tokens. Each portal can have up to two secrets, enabling safe rotation practices.
 
 To generate a portal secret for an [existing portal](/docs/apis/graphql/portals#creating-a-portal):
 

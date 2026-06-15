@@ -34,7 +34,7 @@ command phase that executes the specified command in the created environment.
 You can run only specific phases with the --phases flag.
 
 The bootstrap is also responsible for executing hooks around the phases.
-See https://buildkite.com/docs/agent/v3/hooks for more details.
+See https://buildkite.com/docs/agent/hooks for more details.
 
 ### Example
 
@@ -104,6 +104,7 @@ $ buildkite-agent bootstrap --build-path builds
 <tr id="tracing-backend"><th><code>--tracing-backend value</code> <a class="Docs__attribute__link" href="#tracing-backend">#</a></th><td><p>The name of the tracing backend to use.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_BACKEND</code></p></td></tr>
 <tr id="tracing-service-name"><th><code>--tracing-service-name value</code> <a class="Docs__attribute__link" href="#tracing-service-name">#</a></th><td><p>Service name to use when reporting traces. (default: "buildkite-agent")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_SERVICE_NAME</code></p></td></tr>
 <tr id="tracing-traceparent"><th><code>--tracing-traceparent value</code> <a class="Docs__attribute__link" href="#tracing-traceparent">#</a></th><td><p>W3C Trace Parent for tracing<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_TRACEPARENT</code></p></td></tr>
+<tr id="tracing-tracestate"><th><code>--tracing-tracestate value</code> <a class="Docs__attribute__link" href="#tracing-tracestate">#</a></th><td><p>W3C Trace State for tracing<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_TRACESTATE</code></p></td></tr>
 <tr id="tracing-propagate-traceparent"><th><code>--tracing-propagate-traceparent </code> <a class="Docs__attribute__link" href="#tracing-propagate-traceparent">#</a></th><td><p>Accept traceparent from Buildkite control plane (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_PROPAGATE_TRACEPARENT</code></p></td></tr>
 <tr id="no-job-api"><th><code>--no-job-api </code> <a class="Docs__attribute__link" href="#no-job-api">#</a></th><td><p>Disables the Job API, which gives commands in jobs some abilities to introspect and mutate the state of the job (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_JOB_API</code></p></td></tr>
 <tr id="disable-warnings-for"><th><code>--disable-warnings-for value</code> <a class="Docs__attribute__link" href="#disable-warnings-for">#</a></th><td><p>A list of warning IDs to disable<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DISABLE_WARNINGS_FOR</code></p></td></tr>

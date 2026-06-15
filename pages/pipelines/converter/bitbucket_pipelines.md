@@ -8,7 +8,7 @@ The goal of the Buildkite pipeline converter is to give you a starting point, so
 
 ## Using the Buildkite pipeline converter with Bitbucket Pipelines
 
-You can immediately start experimenting with the Buildkite pipeline converter through the [CLI version](/docs/pipelines/converter#cli-buildkite-pipeline-converter-how-to-use-the-cli-buildkite-pipeline-converter) or via an [interactive web-based interface](/docs/pipelines/converter#interactive-web-version-how-to-use-the-web-buildkite-pipeline-converter).
+You can immediately start experimenting with the Buildkite pipeline converter through the [CLI version](/docs/pipelines/converter#cli-buildkite-pipeline-converter-how-to-use-the-cli-buildkite-pipeline-converter) or using an [interactive web-based interface](/docs/pipelines/converter#interactive-web-version-how-to-use-the-web-buildkite-pipeline-converter).
 
 ## How the translation works
 

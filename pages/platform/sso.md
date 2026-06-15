@@ -64,7 +64,7 @@ If you'd like to have some help with the migration, contact support@buildkite.co
 You can configure the SSO Session Duration to timeout after a predetermined time. When the specified duration elapses, the user will be signed out of the session.
 
 To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration) or complete
-the following steps via the settings interface.
+the following steps using the settings interface.
 
 First select the SSO Provider you would like to configure.
 

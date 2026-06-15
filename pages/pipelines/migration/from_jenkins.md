@@ -99,7 +99,7 @@ Buildkite plugins are shell-based, run on individual Buildkite agents, and are p
 
 ### Try out Buildkite
 
-With a basic understanding of the differences between Buildkite and Jenkins, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/create-your-own).
+With a basic understanding of the differences between Buildkite and Jenkins, if you haven't already done so, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) guide to get yourself set up to run pipelines in Buildkite, and [create your own pipeline](/docs/pipelines/getting-started#create-your-own-pipeline).
 
 ## Provision agent infrastructure
 
@@ -252,7 +252,7 @@ The declarative Jenkins pipeline example can be found in the [jenkins-to-buildki
 
 Make a copy or fork this repository (within your own GitHub account) to examine it further. This repository has its own containerized version of Jenkins, which you can run locally to see how it builds the Jenkins pipeline and app included within this repository.
 
-In your Buildkite organization, which you would have created or began working with when [trying out Buildkite](#understand-the-differences-try-out-buildkite), [create a new pipeline](/docs/pipelines/create-your-own#create-a-pipeline) for this jenkins-to-buildkite repository, so that you can see and compare the same Node.js project being built in both Jenkins and Buildkite.
+In your Buildkite organization, which you would have created or began working with when [trying out Buildkite](#understand-the-differences-try-out-buildkite), [create a new pipeline](/docs/pipelines/getting-started#create-your-own-pipeline-create-a-pipeline) for this jenkins-to-buildkite repository, so that you can see and compare the same Node.js project being built in both Jenkins and Buildkite.
 
 ### Step 2: Examine the Jenkins pipeline
 
@@ -546,6 +546,6 @@ Explore these Buildkite resources to learn more about Buildkite's features and f
 - [Annotations](/docs/agent/cli/reference/annotate) that allow you to add additional information to your build result pages using Markdown.
 - [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) overview pages, which lead to details on how to manage secrets within your Buildkite infrastructure, as managing [permissions](/docs/pipelines/security/permissions) for your teams and Buildkite pipelines themselves.
 - [Integrations](/docs/pipelines/integrations) to integrate Buildkite's functionality with other third-party tools, for example, notifications that automatically let your team know about the success of your pipeline builds.
-- After configuring Buildkite Pipelines for your team, learn how to obtain actionable insights from the tests running in pipelines using [Test Engine](/docs/test-engine).
+- After configuring Buildkite Pipelines for your team, learn how to obtain actionable insights from the tests running in pipelines using [Test Engine](/docs/pipelines/configure/tests).
 
 If you need further assistance with your Jenkins migration processes and plans, please don't hesitate to reach out to our Buildkite support team at support@buildkite.com. We're here to help you use Buildkite to build your dream CI/CD workflows.

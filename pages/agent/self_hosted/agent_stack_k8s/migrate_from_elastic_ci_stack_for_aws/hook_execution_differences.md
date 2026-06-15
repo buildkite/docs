@@ -12,7 +12,7 @@ Checkout phase hooks (`pre-checkout`, `checkout`, `post-checkout`) run only in t
 
 ### Command phase hooks
 
-Command phase hooks (`pre-command`, `command`, `post-command`) run only in the user-defined `command` container(s). They do not have access to environment variables set during the checkout hooks, but can access files created by checkout hooks via the shared workspace.
+Command phase hooks (`pre-command`, `command`, `post-command`) run only in the user-defined `command` container(s). They do not have access to environment variables set during the checkout hooks, but can access files created by checkout hooks using the shared workspace.
 
 ### Environment hook
 

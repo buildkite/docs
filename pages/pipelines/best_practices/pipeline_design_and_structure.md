@@ -6,7 +6,7 @@ This guide distills practical patterns for designing Buildkite pipelines that ar
 
 - Start simple, then evolve:
 
-    * Begin with [static pipelines](/docs/pipelines/create-your-own) for clarity and quick onboarding.
+    * Begin with [static pipelines](/docs/pipelines/getting-started#create-your-own-pipeline) for clarity and quick onboarding.
     * Move to [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) as your repositories and requirements grow to avoid YAML sprawl and enable conditional generation of steps at runtime.
 
 - Separate concerns:
@@ -29,7 +29,7 @@ This guide distills practical patterns for designing Buildkite pipelines that ar
 - Use [branch filters](/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering) and `if` conditions for conditional execution - to skip unnecessary work in forks, release branches, draft PRs, and so on. Minimize [wait steps](/docs/pipelines/configure/step-types/wait-step) as they serialize execution - only use them when dependencies truly require it. Consider whether `depends_on` can replace `wait` for more granular parallelism in your pipelines.
 - Use [annotations](/docs/agent/cli/reference/annotate) for build summaries that help with debugging - for example, link to logs, JUnit pass/fail overviews, and flake reports.
 - Customize error codes for auto-retries to disable auto-retries on legitimately failed builds.
-- Use [auto-retry](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) strategically to identify _all_ kinds of flakiness - beyond just flaky tests (that can be identified using [Test Engine](/docs/test-engine)).
+- Use [auto-retry](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) strategically to identify _all_ kinds of flakiness - beyond just flaky tests (that can be identified using [Test Engine](/docs/pipelines/configure/tests)).
 
 Example retry configuration:
 

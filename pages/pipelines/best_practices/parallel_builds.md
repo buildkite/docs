@@ -119,7 +119,7 @@ You can use these two environment variables to divide your application's tests b
 
 ## Libraries
 
-For best results, Buildkite recommends using the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool, which supports parallel jobs. bktec uses your Test Engine test suite data to provide intelligent test splitting and automatic management of flaky tests. For more information, see [Speed up builds with the Test Engine Client](/docs/test-engine/speed-up-builds-with-bktec) and its [configuration options](/docs/test-engine/bktec/configuring).
+For best results, Buildkite recommends using the Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool, which supports parallel jobs. bktec uses your Test Engine test suite data to provide intelligent test splitting and automatic management of flaky tests. For more information, see [Speed up builds with the Test Engine Client](/docs/pipelines/speed-up-builds-with-bktec) and its [configuration options](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-configure-environment-variables).
 
 Other libraries that have built-in support for the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables are:
 

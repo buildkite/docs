@@ -69,7 +69,7 @@ config:
           type: DirectoryOrCreate
 ```
 
-Alternatively, you can also do this via `checkout.extraVolumeMounts` in the `kubernetes` plugin. For example:
+Alternatively, you can also do this using `checkout.extraVolumeMounts` in the `kubernetes` plugin. For example:
 
 ```yaml
 # pipeline.yml
@@ -112,7 +112,7 @@ config:
           type: DirectoryOrCreate
 ```
 
-Alternatively, you can also do this via `commandParams.extraVolumeMounts` in the `kubernetes` plugin. For example:
+Alternatively, you can also do this using `commandParams.extraVolumeMounts` in the `kubernetes` plugin. For example:
 
 ```yaml
 # pipeline.yml
@@ -155,7 +155,7 @@ config:
           type: DirectoryOrCreate
 ```
 
-Alternatively, you can also do this via `sidecarParams.extraVolumeMounts` in the `kubernetes` plugin. For example:
+Alternatively, you can also do this using `sidecarParams.extraVolumeMounts` in the `kubernetes` plugin. For example:
 
 ```yaml
 # pipeline.yml

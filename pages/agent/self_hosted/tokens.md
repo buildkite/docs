@@ -1,6 +1,6 @@
 # Agent tokens
 
-A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) requires an _agent token_ to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/pipelines/security/clusters), and can be accessed from the cluster's **Agent Tokens** page.
+A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) requires an _agent token_ to connect to Buildkite and register for work. Agent tokens connect to Buildkite using a [cluster](/docs/pipelines/security/clusters), and can be accessed from the cluster's **Agent Tokens** page.
 
 A user who is a Buildkite organization administrator or a [maintainer of a cluster](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) within the organization can manage agent tokens for that cluster.
 
@@ -150,7 +150,7 @@ To update a cluster's agent token using the Buildkite interface:
 1. Select **Agent Tokens** and on this page, expand the agent token to update.
 1. Select **Edit** and update the following fields as required:
     * **Description** should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the **Agent tokens** page of your specific cluster the agent connects to. This page can be accessed by selecting **Agents** (in the global navigation) > the specific cluster > **Agent Tokens**.
-    * **Allowed IP Addresses** is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+    * **Allowed IP Addresses** is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite using your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
         Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 

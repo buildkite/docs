@@ -8,9 +8,9 @@ This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
 The primary layout of the stack is built around AWS autoscaling components, with an Auto Scaling group (ASG) being the center piece. The ASG manages the lifecycle of EC2 instances, ensuring that the cluster scales out to meet demand, and scales in to save costs.
 
-The instances with the ASG are managed via a launch template; the launch template defines the configuration for EC2 instances launched via the ASG, the launch template will define configuration such as the AMI used, the instance type(s) available, security groups and user data scripts.
+The instances with the ASG are managed using a launch template; the launch template defines the configuration for EC2 instances launched using the ASG, the launch template will define configuration such as the AMI used, the instance type(s) available, security groups and user data scripts.
 
-User data scripts are scripts that run at boot time on the instance to ensure the instance has environment variables propagated, and any additional tools via bootstrap scripts (which are user provided via input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
+User data scripts are scripts that run at boot time on the instance to ensure the instance has environment variables propagated, and any additional tools using bootstrap scripts (which are user provided using input configuration) are correctly installed. Once the user data scripts are completed, the instance will be moved into a healthy state. If they fail, the instance will be marked as unhealthy in the ASG and subsequently terminated.
 
 Now that the core architecture has been laid out, let's look into the specifics of the stack.
 
@@ -28,7 +28,7 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 - Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite agent processes.
 - CloudWatch Agent - for streaming to log groups.
 - AWS CLI - for interacting with AWS Resources during build time; can be used within a pipeline.
-- EC2 Instance Connect - can be used to connect to an instance via the AWS Console.
+- EC2 Instance Connect - can be used to connect to an instance using the AWS Console.
 - cfn-bootstrap - helper scripts (`cfn-init`, `cfn-signal`) are used within CloudFormation to provision the instance.
 
 ### Helper utilities
