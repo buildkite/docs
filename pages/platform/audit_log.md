@@ -42,7 +42,7 @@ The search has the following constraints:
 - Maximum of 250 characters for the query string
 - Only events from the last 90 days are returned
 
-To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category, and clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
+To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
 ## Logged events
 
