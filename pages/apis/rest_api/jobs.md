@@ -506,7 +506,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
 ```
 
-Range requests are only supported with `Accept: text/plain`. Only suffix ranges (`bytes=-N`) are supported—explicit start-end ranges and multipart ranges are not. The response body contains the raw stored bytes without UTF-8 normalization, so `Content-Length` reflects the exact number of bytes returned.
+Range requests are only supported with `Accept: text/plain`. Only suffix ranges (`bytes=-N`) are supported. Explicit start-end ranges and multipart ranges are not supported. The response body contains the raw stored bytes without UTF-8 normalization, so `Content-Length` reflects the exact number of bytes returned.
 
 A successful partial response includes:
 
