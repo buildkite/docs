@@ -457,7 +457,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
+If you prefer subsequent steps to keep running without `wait` and `continue_on_failure`, mark the earlier steps with [`soft_fail`](/docs/pipelines/configure/soft-fail). Soft-failed steps do not stop the build, so a downstream notification step runs normally.
 
 #### Send notifications from a job hook
 

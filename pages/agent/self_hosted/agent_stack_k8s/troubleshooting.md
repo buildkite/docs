@@ -205,7 +205,7 @@ kubectl get pods -A -l buildkite.com/job-id=01234567-****-****-****-456789abcdef
 
 Interpret the result of these commands:
 
-- **If a Kubernetes Job or Pod exists for the Buildkite job ID**, the controller is acquiring and converting jobs successfully, and the issue is with the Job or Pod itself. Inspect that Pod's status and events using the same approach described in [Controller pod is not running](#controller-pod-is-not-running).
+- **If a Kubernetes Job or Pod exists for the Buildkite job ID**, the controller is acquiring and converting jobs successfully, and the issue is with the Job or Pod itself. Inspect that Pod's status and events using the same approach described in [Controller pod is not running](/docs/agent/self-hosted/agent-stack-k8s/troubleshooting#common-issues-and-fixes-controller-pod-is-not-running).
 
 - **If no Kubernetes Job or Pod exists for the Buildkite job ID**, the controller is not converting the job. Enable [debug mode](#enable-debug-mode) and review the controller logs to determine why. The two most common causes are a queue or cluster mismatch (see [Jobs are being created, but not processed by controller](#jobs-are-being-created-but-not-processed-by-controller)) and the controller having reached its concurrency limit (see [Controller stops accepting new jobs from a queue](#controller-stops-accepting-new-jobs-from-a-queue)).
 
@@ -293,7 +293,7 @@ config:
 A value of `0` removes the limit entirely. For more detail, see the `--max-in-flight` flag in the [Flags](/docs/agent/self-hosted/agent-stack-k8s/controller-configuration#flags) section of the [Controller configuration](/docs/agent/self-hosted/agent-stack-k8s/controller-configuration) page.
 
 > 📘 Ensure the cluster has capacity first
-> Increasing `max-in-flight` causes the controller to create more Kubernetes Jobs concurrently. If the underlying cluster does not have enough capacity, the additional Jobs and Pods are still created, but they remain in the `Pending` state until capacity becomes available. Before raising the limit, confirm your cluster can schedule the extra Pods, or pair the change with cluster autoscaling. See [Controller pod is not running](#controller-pod-is-not-running) for diagnosing `Pending` pods.
+> Increasing `max-in-flight` causes the controller to create more Kubernetes Jobs concurrently. If the underlying cluster does not have enough capacity, the additional Jobs and Pods are still created, but they remain in the `Pending` state until capacity becomes available. Before raising the limit, confirm your cluster can schedule the extra Pods, or pair the change with cluster autoscaling. See [Controller pod is not running](/docs/agent/self-hosted/agent-stack-k8s/troubleshooting#common-issues-and-fixes-controller-pod-is-not-running) for diagnosing `Pending` pods.
 
 #### Workaround
 
@@ -359,7 +359,7 @@ This indicates that one or more containers in the Job's Pod did not start within
 
 - A container image is very large and takes longer than 5 minutes to pull.
 - The cluster is under heavy load and image pulls or scheduling are delayed.
-- A container failed to start because of a missing secret, ConfigMap, or invalid image reference. In these cases, inspect the Pod events as described in [Controller pod is not running](#controller-pod-is-not-running).
+- A container failed to start because of a missing secret, ConfigMap, or invalid image reference. In these cases, inspect the Pod events as described in [Controller pod is not running](/docs/agent/self-hosted/agent-stack-k8s/troubleshooting#common-issues-and-fixes-controller-pod-is-not-running).
 
 #### Fix
 
