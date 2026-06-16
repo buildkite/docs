@@ -335,6 +335,17 @@ Required scope: `read_builds`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Listing builds this deep is not supported. Please narrow your query using filters such as branch or created_from." }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## List builds for an organization
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's builds across all of an organization's pipelines.
@@ -352,6 +363,17 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 Required scope: `read_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Listing builds this deep is not supported. Please narrow your query using filters such as branch or created_from." }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## List builds for a pipeline
 
@@ -501,6 +523,17 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 Required scope: `read_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Listing builds this deep is not supported. Please narrow your query using filters such as branch or created_from." }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## Get a build
 
