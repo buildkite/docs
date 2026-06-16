@@ -136,6 +136,7 @@ deprioritize
 deprovisioning
 deregistration
 deprovision
+dev
 dialog's
 dialogs
 discoverability
