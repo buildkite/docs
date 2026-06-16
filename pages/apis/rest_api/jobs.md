@@ -470,6 +470,69 @@ Alternative formats (using `Accept` header or file extension):
 </tbody>
 </table>
 
+### Get log size without downloading
+
+Use `HEAD` instead of `GET` to retrieve the byte size of a job log without downloading its content. This is useful for monitoring log growth or checking whether new output is available.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -I "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -I "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+```
+
+A successful response has no body and includes:
+
+- `Content-Length`: the total size of the raw stored log bytes
+- `Accept-Ranges: bytes`: indicates that suffix byte range requests are supported
+
+Required scope: `read_build_logs`
+
+Success response: `200 OK`
+
+### Get a log tail using a range request
+
+To retrieve only the last _N_ bytes of a job log, send a `GET` request with `Accept: text/plain` and a `Range: bytes=-N` header. This avoids downloading the entire log when you only need the most recent output.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: text/plain" \
+  -H "Range: bytes=-100" \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+Range requests are only supported with `Accept: text/plain`. Only suffix ranges (`bytes=-N`) are supported—explicit start-end ranges and multipart ranges are not. The response body contains the raw stored bytes without UTF-8 normalization, so `Content-Length` reflects the exact number of bytes returned.
+
+A successful partial response includes:
+
+- `Accept-Ranges: bytes`
+- `Content-Range`: the byte range returned and total log size (for example, `bytes 900-999/1000`)
+- `Content-Length`: the number of bytes in the response body
+
+Required scope: `read_build_logs`
+
+Success response: `206 Partial Content`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td>Range request sent without <code>Accept: text/plain</code>, or an unsupported range form such as an explicit start-end range (<code>bytes=500-1000</code>), a multipart range, or a zero-byte suffix (<code>bytes=-0</code>)</td>
+  </tr>
+  <tr>
+    <th><code>416 Range Not Satisfiable</code></th>
+    <td>The suffix range cannot be satisfied because the job log is empty</td>
+  </tr>
+</tbody>
+</table>
+
 ## Delete a job's log output
 
 ```bash
