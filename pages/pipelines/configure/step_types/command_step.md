@@ -338,7 +338,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-When both a pipeline-level and step-level `checkout` block are present, each key is resolved independently: the step value takes precedence for any key it sets, and the pipeline value is inherited for any key the step leaves unset.
+When both a pipeline-level and step-level `checkout` block are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for any key the step leaves unset.
 
 The `checkout` block is applied after the step's `env` map, so its values take precedence over any equivalent environment variables set in `env`.
 
