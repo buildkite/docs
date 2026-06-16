@@ -27,7 +27,7 @@
   </tr>
   <tr>
     <th><code>exclude_jobs</code></th>
-    <td><span>Exclude the list of jobs from each build's details.</span>
+    <td><span>Excludes the list of jobs from each build's details</span>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?exclude_jobs=true</code></p></td>
   </tr>
   <tr>
