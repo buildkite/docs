@@ -89,6 +89,10 @@ bk config get output_format
 bk config get pager
 ```
 
+```bash
+bk config get credential_store
+```
+
 ## Set config
 
 Set a configuration value.
@@ -135,6 +139,12 @@ Set a custom pager:
 
 ```bash
 bk config set pager "less -RS"
+```
+
+Pin token storage to /dev/shm (recommended for headless Linux dev hosts):
+
+```bash
+bk config set credential_store shm
 ```
 
 ## Unset config

@@ -208,7 +208,7 @@ You can configure [Visual Studio Code](https://code.visualstudio.com/) with the 
 
 Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
 
-1. In the [Command Palette](https://code.visualstudio.com/docs/getstarted/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
+1. In the [Command Palette](https://code.visualstudio.com/docs/editing/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
 1. Select **HTTP (HTTP or Server-Sent Events)** to start configuring a remote MCP server.
 1. For **Enter Server URL**, specify `https://mcp.buildkite.com/mcp`.
 1. For **Enter Server ID**, specify `buildkite`.
