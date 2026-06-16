@@ -106,17 +106,17 @@ Optional attributes:
     </td>
   </tr>
   <tr>
-    <td><code>checkout</code></td>
-    <td>
-      A map of git checkout configuration options for this step. See <a href="#checkout-attributes">Checkout attributes</a> for available keys.<br/>
-      <em>Example:</em> <code>submodules: false</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>cancel_on_build_failing</code></td>
     <td>
       Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/configure/defining-steps#build-states">failing</a>.<br/>
       <em>Default:</em> <code>"false"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>checkout</code></td>
+    <td>
+      A map of git checkout configuration options for this step. See <a href="#checkout-attributes">Checkout attributes</a> for available keys.<br/>
+      <em>Example:</em> <code>submodules: false</code>
     </td>
   </tr>
   <tr>
@@ -343,7 +343,7 @@ When both a pipeline-level and step-level `checkout` block are present, each key
 The `checkout` block is applied after the step's `env` map, so its values take precedence over any equivalent environment variables set in `env`.
 
 > 📘
-> The agent's `--no-git-submodules` flag retains a hard-veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value emitted by the pipeline, and the build log emits a protected-environment-variable notice.
+> The agent's `--no-git-submodules` flag retains a hard veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value emitted by the pipeline, and the build log emits a protected-environment-variable notice.
 
 <table>
   <tr>
