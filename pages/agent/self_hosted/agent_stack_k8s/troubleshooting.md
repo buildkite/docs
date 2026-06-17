@@ -347,7 +347,7 @@ helm upgrade --install agent-stack-k8s oci://ghcr.io/buildkite/helm/agent-stack-
     --values values.yml
 ```
 
-### Jobs get cancelled by controller
+### Jobs get cancelled by the controller
 
 Buildkite jobs sometimes fail with the following error:
 
@@ -355,17 +355,17 @@ Buildkite jobs sometimes fail with the following error:
 The pod has been in Pending state for 15m1s without starting.
 ```
 
-This indicates that the Job's pod controller created did not start within the default 15-minute window. Common causes include:
+This indicates that the pod the controller created did not start within the default 15-minute window. Common causes include:
 
-- Scheduling issues in the Kubernetes cluster where pod affinity rules are not matching with nodes in the cluster
-- No available node that can fit the pod as they are all fully utilized
+- Scheduling issues in the Kubernetes cluster, where pod affinity rules do not match any nodes in the cluster.
+- No available node that can fit the pod, because they are all fully utilized.
 
 #### Fix
 
-Review the Kubernetes cluster/node configuration to ensure nodes are available to schedule the pods. In scenarios where it is acceptable to wait longer than 15 minutes for the pod to start to optimize for infrastructure usage, increase the pod pending timeout by setting `pod-pending-timeout` in the controller's configuration values YAML file to a value greater than the default of `15m`:
+Review the Kubernetes cluster and node configuration to ensure nodes are available to schedule the pods. In scenarios where it is acceptable to wait longer than 15 minutes for the pod to start, to optimize for infrastructure usage, increase the pod pending timeout by setting `pod-pending-timeout` in the controller's configuration values YAML file to a value greater than the default of `15m`:
 
 ```yaml
-#values.yaml
+# values.yaml
 ...
 config:
   pod-pending-timeout: "20m"
