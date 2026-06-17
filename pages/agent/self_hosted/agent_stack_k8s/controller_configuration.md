@@ -208,7 +208,7 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
       {
         flag: "--pod-pending-timeout",
         type: "duration",
-        description: "Duration after a pod enters Pending state that the controller will wait before failing the job",
+        description: "Duration after a pod enters the Pending state that the controller will wait before failing the job",
         default_value: "15m"
       },
       {
