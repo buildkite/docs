@@ -51,7 +51,7 @@ To do this:
 
 1. When prompted for `API Token`, specify the value for your configured API access token.
 
-    **Note:** Upon successfully running this command for the first time, a new file is created at `$HOME/.config/bk.yaml`, which stores the configured Buildkite organization for your local Buildkite CLI. The API access token itself is stored securely in your operating system's credential store (for example, the macOS Keychain), rather than in `bk.yaml`.
+    **Note:** Upon successfully running this command for the first time, a new file is created at `$HOME/.config/bk.yaml`, which stores the configured Buildkite organization for your local Buildkite CLI. The API access token is stored securely in your operating system's credential store (for example, the macOS Keychain), rather than in `bk.yaml`.
 
 ### Using command flags
 
