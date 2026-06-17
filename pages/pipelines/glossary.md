@@ -4,7 +4,7 @@ description: "Definitions of key Buildkite Pipelines terms, including agents, bu
 
 # Pipelines glossary
 
-This glossary defines the key terms and concepts used across Buildkite Pipelines, including its [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically. Each entry gives a short, self-contained definition, followed by links to more detailed documentation.
+This glossary defines the key terms and concepts used across Buildkite Pipelines, including the [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically. Each entry gives a short, self-contained definition, followed by links to more detailed documentation.
 
 ## Action
 
@@ -339,7 +339,7 @@ Buildkite offers [a number of test collectors](/docs/pipelines/configure/tests/t
 
 ## Test Engine Client (bktec)
 
-The Test Engine Client (`bktec`) is a command-line tool that splits a [test suite](#test-suite) across parallel [jobs](#job) using historical timing data, so that each job runs a similar share of the total test time. It is part of the Buildkite Pipelines [test suites](/docs/pipelines/configure/tests) feature.
+The Test Engine Client (`bktec`) is a command-line tool that splits a [test suite](#test-suite) across parallel [jobs](#job) using historical timing data so that each job runs a similar share of the total test time. It is part of the Buildkite Pipelines [test suites](/docs/pipelines/configure/tests) feature.
 
 To learn more, see [Speed up builds with bktec](/docs/pipelines/speed-up-builds-with-bktec).
 
