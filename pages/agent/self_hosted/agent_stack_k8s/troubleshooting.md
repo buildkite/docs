@@ -362,7 +362,7 @@ This indicates that the Job's pod controller created did not start within the de
 
 #### Fix
 
-Review the k8s cluster/node config to ensure nodes are available to schedule the pods. In scenarios where it is fine to wait longer than 15 minutes for pod to start to optimize for infrastructure usage, increase the pod pending timeout by setting `pod-pending-timeout` in the controller's configuration values YAML file to a value greater than the default of `15m`:
+Review the Kubernetes cluster/node configuration to ensure nodes are available to schedule the pods. In scenarios where it is acceptable to wait longer than 15 minutes for the pod to start to optimize for infrastructure usage, increase the pod pending timeout by setting `pod-pending-timeout` in the controller's configuration values YAML file to a value greater than the default of `15m`:
 
 ```yaml
 #values.yaml
