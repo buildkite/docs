@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	model          = "claude-sonnet-4-5"
+	model          = "claude-sonnet-4-6"
 	maxTokens      = 4096
 	anthropicVer   = "2023-06-01"
 	defaultRepo    = "buildkite/docs-private"
