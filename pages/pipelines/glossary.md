@@ -339,7 +339,7 @@ Buildkite offers [a number of test collectors](/docs/pipelines/configure/tests/t
 
 ## Test Engine Client (bktec)
 
-The Test Engine Client (`bktec`) is a command-line tool that splits a [test suite](#test-suite) across parallel [jobs](#job) using historical timing data, so that each job runs a similar share of the total test time. It is part of the Buildkite Pipelines [test suites](/docs/pipelines/configure/tests) feature.
+The Test Engine Client (`bktec`) is a command-line tool that splits a [test suite](#test-suite) across parallel [jobs](#job) using historical timing data so that each job runs a similar share of the total test time. It is part of the Buildkite Pipelines [test suites](/docs/pipelines/configure/tests) feature.
 
 To learn more, see [Speed up builds with bktec](/docs/pipelines/speed-up-builds-with-bktec).
 
