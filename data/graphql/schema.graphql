@@ -858,7 +858,7 @@ type Artifact implements Node {
   """
   The size of the file in bytes that was uploaded
   """
-  size: Int!
+  size: JSInt!
 
   """
   The upload state of the artifact
