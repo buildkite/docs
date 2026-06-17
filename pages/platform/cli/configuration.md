@@ -51,7 +51,7 @@ To do this:
 
 1. When prompted for `API Token`, specify the value for your configured API access token.
 
-    **Note:** Upon successfully running this command for the first time, a new file is created at `$HOME/.config/bk.yaml`, which stores the Buildkite organization and its API access token configuration for your local Buildkite CLI.
+    **Note:** Upon successfully running this command for the first time, a new file is created at `$HOME/.config/bk.yaml`, which stores the configured Buildkite organization for your local Buildkite CLI. The API access token itself is stored securely in your operating system's credential store (for example, the macOS Keychain), rather than in `bk.yaml`.
 
 ### Using command flags
 
@@ -103,11 +103,12 @@ If your Buildkite CLI tool has been [configured with multiple Buildkite organiza
 1. Run the following command:
 
     ```bash
-    bk use
+    bk auth switch
     ```
 
-1. Use the cursor select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
+1. Use the cursor to select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
 
     **Notes:**
-    * If you already know the slug of the other Buildkite organization you're switching to, you can specify this value immediately after the `bk use` command, for example, `bk use my-other-organization`.
+    * If you already know the slug of the other Buildkite organization you're switching to, you can specify this value immediately after the `bk auth switch` command, for example, `bk auth switch my-other-organization`.
     * Upon success, the `.bk.yaml` file in your current directory is updated with your current/active Buildkite organization.
+    * The [`bk auth switch`](/docs/platform/cli/reference/auth#switch-auth) command replaces the previous `bk use` command, which is now deprecated.
