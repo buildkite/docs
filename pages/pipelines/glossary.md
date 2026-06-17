@@ -4,7 +4,7 @@ description: "Definitions of key Buildkite Pipelines terms, including agents, bu
 
 # Pipelines glossary
 
-This glossary defines the key terms and concepts used across Buildkite Pipelines, including its [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically. Each entry gives a short, self-contained definition, followed by links to more detailed documentation.
+This glossary defines the key terms and concepts used across Buildkite Pipelines, including the [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically. Each entry gives a short, self-contained definition, followed by links to more detailed documentation.
 
 ## Action
 
