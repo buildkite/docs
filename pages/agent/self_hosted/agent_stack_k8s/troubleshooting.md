@@ -357,7 +357,7 @@ The pod has been in Pending state for 15m1s without starting.
 
 This indicates that the Job's pod controller created did not start within the default 15-minute window. Common causes include:
 
-- Scheduling issues in k8s cluster where pod affinity rules are not matching with nodes in the cluster
+- Scheduling issues in the Kubernetes cluster where pod affinity rules are not matching with nodes in the cluster
 - No available node that can fit the pod as they are all fully utilized
 
 #### Fix
