@@ -4,7 +4,7 @@ description: "Definitions of key Buildkite Pipelines terms, including agents, bu
 
 # Pipelines glossary
 
-This glossary defines the key terms and concepts used across Buildkite Pipelines, including the [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically. Each entry gives a short, self-contained definition, followed by links to more detailed documentation.
+This glossary defines the key terms and concepts used across Buildkite Pipelines, including the [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically.
 
 ## Action
 
@@ -293,8 +293,8 @@ A step can be in one of the following internal _states_, which the [Buildkite ag
 - `ready`: The step is ready to run but hasn't started yet.
 - `running`: The step is currently running.
 - `failing`: The step is in the process of failing.
-- `finished`: The step has completed execution—usually follows either the `running` or `failing` state.
-- `canceled`: The step has been canceled—follows the `waiting_for_dependencies`, `ready`, `running`, or `failing` state.
+- `finished`: The step has completed execution — usually follows either the `running` or `failing` state.
+- `canceled`: The step has been canceled - follows the `waiting_for_dependencies`, `ready`, `running`, or `failing` state.
 
 Once a step's run has completed with a state of `finished`, the [step's outcome](/docs/agent/cli/reference/step#getting-the-outcome-of-a-step) can be one of the following states:
 
