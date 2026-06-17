@@ -1,10 +1,14 @@
+---
+description: "Definitions of key Buildkite Pipelines terms, including agents, builds, jobs, pipelines, queues, steps, and Test Engine concepts such as test suites, runs, and flaky tests."
+---
+
 # Pipelines glossary
 
-The following terms describe key concepts to help you use Buildkite Pipelines, including its [test suites](/docs/pipelines/configure/tests) features (Test Engine).
+This glossary defines the key terms and concepts used across Buildkite Pipelines, including its [test suites](/docs/pipelines/configure/tests) features (Test Engine). Terms are listed alphabetically. Each entry gives a short, self-contained definition, followed by links to more detailed documentation.
 
 ## Action
 
-An action is part of a [workflow](#workflow) and provides a user defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can apply to the test itself (for example, changing its [state](#test-state) or [label](/docs/pipelines/configure/tests/test-suites/labels)), or to an external system (for example, sending a Slack notification about the test).
+An action is part of a [workflow](#workflow) and provides a user-defined operation that is triggered automatically when a workflow [monitor](#monitor) enters the [alarm](#alarm) or [recover](#recover) event state for a [test](#test). Actions can apply to the test itself (for example, changing its [state](#test-state) or [label](/docs/pipelines/configure/tests/test-suites/labels)), or to an external system (for example, sending a Slack notification about the test).
 
 Learn more about actions in [Alarm and recover actions](/docs/pipelines/configure/tests/workflows/actions).
 
@@ -22,7 +26,7 @@ To learn more, see [Defining steps](/docs/pipelines/configure/defining-steps) an
 
 ## Alarm
 
-Alarm, along with [recover](#recover), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Alarm events are reported by the monitor when the alarm conditions are met. Depending on the monitor type, these alarm conditions are configurable.
+An alarm is one of the two types of events that a workflow [monitor](#monitor) can alert on, the other being [recover](#recover). Alarm events are reported by the monitor when the alarm conditions are met. Depending on the monitor type, these alarm conditions are configurable.
 
 Alarm [actions](#action) are performed when the alarm event is reported by the monitor. Repeated occurrences of the test meeting the alarm conditions do not retrigger alarm actions.
 
@@ -106,7 +110,7 @@ An execution is an instance of a single test, which is generated as part of a [r
 
 ## Flaky test
 
-A flaky test is a [test](#test) that produce inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified using [workflows](/docs/pipelines/configure/tests/workflows).
+A flaky test is a [test](#test) that produces inconsistent or unreliable results, despite being run in the same code and environment. Flaky tests are identified using [workflows](/docs/pipelines/configure/tests/workflows).
 
 Learn more about flaky tests in [Reduce flaky tests](/docs/pipelines/reduce-flaky-tests).
 
@@ -228,7 +232,7 @@ To learn more, see the [Queues overview](/docs/agent/queues) and [Manage queues]
 
 ## Recover
 
-Recover, along with [alarm](#alarm), is one of the two types of events that a workflow [monitor](#monitor) can alert on. Recover events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In such a situation, when the monitor detects that the test has met the recover conditions, a recover event is reported. Depending on the monitor type, these recover conditions can be configurable.
+A recover is one of the two types of events that a workflow [monitor](#monitor) can alert on, the other being [alarm](#alarm). Recover events are [hysteric](https://en.wikipedia.org/wiki/Hysteresis), meaning that the recover event can only be reported on a test that has a previous alarm event. In such a situation, when the monitor detects that the test has met the recover conditions, a recover event is reported. Depending on the monitor type, these recover conditions can be configurable.
 
 Recover [actions](#action) are performed when the recover event is reported by the monitor. Repeated occurrences of the test meeting the recover conditions do not retrigger recover actions.
 
@@ -323,13 +327,13 @@ A test is an individual piece of code that runs as part of an application's or c
 
 ## Test collection
 
-Test collection is the process of collecting test data from a development project. Test collection may consist of one or more [test collectors](#test-collector) configured within a development project, or make use other methods based on common standards such as JUnit XML or JSON to collect tests.
+Test collection is the process of collecting test data from a development project. Test collection may consist of one or more [test collectors](#test-collector) configured within a development project, or make use of other methods based on common standards such as JUnit XML or JSON to collect tests.
 
-While a development project's [test runners](#test-runner) (such RSpec or Jest) are typically configured with their respective test collectors, the JUnit XML or JSON test collection mechanisms can be used to collect test data from multiple test runners.
+While a development project's [test runners](#test-runner) (such as RSpec or Jest) are typically configured with their respective test collectors, the JUnit XML or JSON test collection mechanisms can be used to collect test data from multiple test runners.
 
 ## Test collector
 
-A test collector is a dedicated open source source library (developed by Buildkite) that can be implemented into your development project, to collect test data from a [test runner](#test-runner) within your project.
+A test collector is a dedicated open source library (developed by Buildkite) that can be implemented into your development project, to collect test data from a [test runner](#test-runner) within your project.
 
 Buildkite offers [a number of test collectors](/docs/pipelines/configure/tests/test-collection) for a range of languages and their test runners.
 
@@ -359,7 +363,7 @@ Learn more about test states in [Test state and quarantine](/docs/pipelines/conf
 
 A test suite is a collection of [tests](#test), managed within Buildkite Pipelines through its [test suites](/docs/pipelines/configure/tests) features (Test Engine). A _test suite_ is sometimes abbreviated to _suite_.
 
-In a development project configured with of one or more [test runners](#test-runner), it is usually typical to configure a separate test suite each of the project's test runners.
+In a development project configured with one or more [test runners](#test-runner), it is typical to configure a separate test suite for each of the project's test runners.
 
 ## Trigger step
 

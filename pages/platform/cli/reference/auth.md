@@ -81,7 +81,7 @@ Login on a headless Linux host using an in-memory /dev/shm credential store:
 bk auth login --device --credential-store shm
 ```
 
-Or set the default once so 'bk auth login' uses /dev/shm without flags::
+Or set the default once so 'bk auth login' uses /dev/shm without flags:
 
 ```bash
 bk config set credential_store shm
