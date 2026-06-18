@@ -1702,7 +1702,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>skip_builds_for_existing_commits</code></th>
-      <td>Whether to skip creating a new build if a build for the commit and branch already exists.
+      <td>Whether to skip creating a new build if a build for the same commit already exists, regardless of branch.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
