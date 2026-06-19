@@ -1,6 +1,6 @@
 # buildkite-agent job
 
-The Buildkite agent's `job` command provides subcommands for updating or declaring information about the current job.
+The `buildkite-agent job` command provides subcommands for updating or declaring information about the current job.
 
 ## Updating a job
 
