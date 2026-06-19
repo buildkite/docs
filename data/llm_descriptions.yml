@@ -71,7 +71,7 @@
   pipelines/configure/depends-on: "Managing step execution order with implicit dependencies (wait/block) and explicit dependencies (depends_on)."
   pipelines/configure/environment-variables: "Complete reference of Buildkite environment variables available in build steps, hooks, and plugins."
   pipelines/configure/skipping: "Skipping or canceling intermediate builds, and skipping builds using commit messages or the API."
-  pipelines/configure/early-failure-detection: "Declaring early job failures with buildkite-agent job promise-failure, including Test Engine Client setup, retries, soft failures, Preflight, notifications, and APIs."
+  pipelines/configure/promise-job-failure: "Promising job failures with buildkite-agent job promise-failure, including Test Engine Client setup, retries, soft failures, Preflight, notifications, and APIs."
   pipelines/configure/artifacts: "Uploading, downloading, and managing build artifacts using step attributes, CLI commands, and the API."
   pipelines/configure/build-timeouts: "Configuring command step timeouts and scheduled job expiration at step, pipeline, and organization levels."
   pipelines/configure/tags: "Tagging pipelines with emoji and text labels for filtering and searching on the dashboard."

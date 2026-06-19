@@ -4,7 +4,7 @@ A job is the execution of a command step during a build. Jobs run the commands, 
 
 A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
 
-A running command job can also declare an expected failure before it finishes by using [early failure detection](/docs/pipelines/configure/early-failure-detection). In that case, the job state remains `running`, and the job payload includes the promised exit status and the time when the promise was recorded.
+A running command job can also declare an expected failure before it finishes by using [promise job failure](/docs/pipelines/configure/promise-job-failure). In that case, the job state remains `running`, and the job payload includes the promised exit status and the time when the promise was recorded.
 
 When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
 

@@ -370,7 +370,7 @@ To automatically cancel any remaining jobs as soon as any job in the build fails
 
 When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been canceled, the build is marked as _failed_ due to the initial job failure.
 
-Jobs can also make the build enter `failing` before they finish by using [early failure detection](/docs/pipelines/configure/early-failure-detection). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
+Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 
 ## Example
 

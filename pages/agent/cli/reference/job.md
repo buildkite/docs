@@ -14,7 +14,7 @@ Currently, only the `timeout_in_minutes` attribute can be updated.
 
 ## Promising job failure
 
-Use `buildkite-agent job promise-failure` in a running command job to declare that the job is expected to fail before the command exits. This lets Buildkite Pipelines signal build failure early while the job continues running and uploading logs, artifacts, and test results. For usage guidance, see [Detect job failures early](/docs/pipelines/configure/early-failure-detection).
+Use `buildkite-agent job promise-failure` in a running command job to declare that the job is expected to fail before the command exits. This lets Buildkite Pipelines signal build failure early while the job continues running and uploading logs, artifacts, and test results. For usage guidance, see [Detect job failures early](/docs/pipelines/configure/promise-job-failure).
 
 ```bash
 buildkite-agent job promise-failure 1 --reason "test_failure (2 failed after retries)"

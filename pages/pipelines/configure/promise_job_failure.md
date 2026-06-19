@@ -1,12 +1,12 @@
-# Detect job failures early
+# Promise job failure
 
-Job early failure detection lets a running command job declare that it is expected to fail before the command exits. Buildkite Pipelines records a promised non-zero exit status for the job, moves the build to `failing` when that promise counts as a hard failure, and lets the job keep running so it can finish uploading logs, artifacts, and test results.
+Promise job failure lets a running command job declare that it is expected to fail before the command exits. Buildkite Pipelines records a promised non-zero exit status for the job, moves the build to `failing` when that promise counts as a hard failure, and lets the job keep running so it can finish uploading logs, artifacts, and test results.
 
-Use early failure detection when a job can know its final result before all job work is complete. For example, a test job might know the build must fail after test 2 of 100 fails, but you still want the remaining tests to run so engineers and AI agents can see the full failure set.
+Use promise job failure when a job can know its final result before all job work is complete. For example, a test job might know the build must fail after test 2 of 100 fails, but you still want the remaining tests to run so engineers and AI agents can see the full failure set.
 
-## How early failure detection works
+## How promise job failure works
 
-When a job declares early failure, Buildkite Pipelines records:
+When a job promises failure, Buildkite Pipelines records:
 
 - The promised exit status.
 - The time when the promise was recorded.
@@ -16,7 +16,7 @@ The job state remains `running` after the declaration. The build and step can st
 
 Buildkite Pipelines evaluates the promised exit status against the job's [retry](/docs/pipelines/configure/retry) and [soft fail](/docs/pipelines/configure/soft-fail) rules. If the promised status would be retried or soft-failed, Buildkite Pipelines does not treat it as a hard failure when determining whether the build is marked as failing.
 
-## Declare early failure from a job
+## Promise failure from a job
 
 Use the [`buildkite-agent job promise-failure`](/docs/agent/cli/reference/job#promising-job-failure) command from inside a running command job:
 
@@ -28,11 +28,11 @@ The command declares that the current job is expected to finish with exit status
 
 Call `buildkite-agent job promise-failure` only once per job, after your script or test runner has confirmed that the failure is build-critical. For test suites, wait until retries are exhausted and muted or quarantined tests are accounted for.
 
-You cannot promise success. Exit status `0` is not valid for an early failure declaration.
+You cannot promise success. Exit status `0` is not valid for a promised failure declaration.
 
 ## Use Buildkite Test Engine Client
 
-If you use Buildkite Test Engine Client, enable early failure declarations by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
+If you use [Buildkite Test Engine Client](/docs/test-engine/bktec/installing-and-using-the-client), enable promised failure declarations by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
 
 ```yaml
 steps:
@@ -48,24 +48,24 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Buildkite Test Engine Client declares early failure only after retries are exhausted and hard test failures remain. Muted test failures do not cause a promise failure declaration.
+Buildkite Test Engine Client promises failure only after retries are exhausted and hard test failures remain. Muted test failures do not cause a promise failure declaration.
 
-Early failure detection is especially useful for long-running feature, mobile, browser, and UI test suites because these jobs often know the build will fail before teardown, artifact upload, or full result upload finishes.
+Promise job failure is especially useful for long-running feature, mobile, browser, and UI test suites because these jobs often know the build will fail before teardown, artifact upload, or full result upload finishes.
 
-## Continue uploading results after declaring failure
+## Continue uploading results after promising failure
 
-After a job declares early failure, the command continues running. Use this to keep collecting useful debugging context:
+After a job promises failure, the command continues running. Use this to keep collecting useful debugging context:
 
 - Continue running the remaining tests in the suite.
 - Upload JUnit XML and other test result files.
 - Upload screenshots, traces, coverage, logs, and other [artifacts](/docs/pipelines/configure/artifacts).
 - Emit annotations or log output that helps engineers and AI agents understand the failure.
 
-This gives downstream tools an early failure signal without losing the final context from the job.
+This gives downstream tools a promised failure signal without losing the final context from the job.
 
-## Use early failure with automatic cancellation
+## Use promise job failure with automatic cancellation
 
-Early failure declarations work with [`cancel_on_build_failing`](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs). If a running job promises a hard failure and the build moves to `failing`, sibling jobs with `cancel_on_build_failing: true` can be canceled before the promising job exits.
+Promised failures work with [`cancel_on_build_failing`](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs). If a running job promises a hard failure and the build moves to `failing`, sibling jobs with `cancel_on_build_failing: true` can be canceled before the promising job exits.
 
 ```yaml
 steps:
@@ -83,23 +83,23 @@ steps:
 
 Use this pattern for long-running parallel jobs where later work is not useful after a build-critical failure is known.
 
-## Use early failure with retries and soft failures
+## Use promise job failure with retries and soft failures
 
-Declare early failure only when the promised exit status represents the final expected outcome for the job.
+Promise failure only when the promised exit status represents the final expected outcome for the job.
 
 For automatic retries, wait until retry rules are exhausted. A failure that might be retried is not yet a final hard failure.
 
 For soft failures, ensure the promised exit status does not match a `soft_fail` rule unless you intend to declare an expected soft failure. A promised status that matches `soft_fail` does not move the build to `failing` as a hard failure.
 
-## Use early failure with Preflight
+## Use promise job failure with Preflight
 
-Early failure detection pairs well with Preflight because Preflight can begin investigating as soon as the build enters `failing`, while the original job continues to collect more logs and results.
+Promise job failure pairs well with Preflight because Preflight can begin investigating as soon as the build enters `failing`, while the original job continues to collect more logs and results.
 
-If you use Preflight with large test suites, enable early failure detection in the jobs that can identify build-critical failures before they finish. Preflight can start remediation earlier, then review the final job result later for additional context.
+If you use Preflight with large test suites, promise job failure in the jobs that can identify build-critical failures before they finish. Preflight can start remediation earlier, then review the final job result later for additional context.
 
 Use the latest Buildkite CLI version when relying on Preflight behavior that reads failed jobs from the Jobs REST API.
 
-## React to early failure with notifications and integrations
+## React to promised failure with notifications and integrations
 
 When a promised exit status moves the build to `failing`, existing build-failure integrations can react earlier:
 
@@ -127,7 +127,7 @@ You can measure the feature's impact by comparing the promised failure timestamp
 
 ### The job promised failure but still shows as running
 
-This is expected. Early failure detection is a signal, not a terminal job state. The job continues running until the command exits or the job reaches another terminal state.
+This is expected. Promise job failure is a signal, not a terminal job state. The job continues running until the command exits or the job reaches another terminal state.
 
 ### The build did not move to failing
 

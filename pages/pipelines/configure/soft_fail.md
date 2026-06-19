@@ -88,11 +88,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Soft fail and early failure detection
+## Soft fail and promise job failure
 
-[Early failure detection](/docs/pipelines/configure/early-failure-detection) respects `soft_fail` rules. If a running job declares a promised exit status that matches a `soft_fail` rule, Buildkite Pipelines treats the promise as a soft failure and does not move the build to `failing` for a hard failure.
+[Promise job failure](/docs/pipelines/configure/promise-job-failure) respects `soft_fail` rules. If a running job declares a promised exit status that matches a `soft_fail` rule, Buildkite Pipelines treats the promise as a soft failure and does not move the build to `failing` for a hard failure.
 
-Declare early failure only after your script or test runner knows the promised exit status should count as the final job outcome.
+Promise failure only after your script or test runner knows the promised exit status should count as the final job outcome.
 
 ## Soft fail in a build matrix
 
