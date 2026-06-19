@@ -1715,7 +1715,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>use_step_key_as_commit_status</code></th>
-      <td>Whether to use a job's <code>key</code> attribute in the GitHub commit status context instead of its label. Requires <code>publish_commit_status_per_step</code> to be <code>true</code>.
+      <td>Whether to use a job's <code>key</code> attribute in the GitHub commit status context instead of its label. Requires <code>publish_commit_status</code> and <code>publish_commit_status_per_step</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
