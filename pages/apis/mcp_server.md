@@ -6,6 +6,8 @@ Buildkite provides its own [open-source MCP server](https://github.com/buildkite
 
 Buildkite's MCP server is built on and interacts with the [Buildkite REST API](/docs/apis/rest-api). Learn more about what the MCP server is capable of in the [MCP tools overview](/docs/apis/mcp-server/tools).
 
+When Buildkite Pipelines jobs use [early failure detection](/docs/pipelines/configure/early-failure-detection), the MCP server can help AI agents react before the job finishes. A job can still be `running` while it has declared a promised failure and caused the build to enter `failing`. Agents should treat this as an early failure signal, start investigation, and then check the final job result later for any additional logs, artifacts, or test results.
+
 To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they need to be configured.
 
 Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token), you can then proceed to configure your AI tools to work with the [remote](/docs/apis/mcp-server/remote/configuring-ai-tools) (recommended) or [local](/docs/apis/mcp-server/local/configuring-ai-tools) MCP server.

@@ -4,6 +4,10 @@ A job is the execution of a command step during a build. Jobs run the commands, 
 
 A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
 
+A running command job can also declare an expected failure before it finishes by using [early failure detection](/docs/pipelines/configure/early-failure-detection). In that case, the job state remains `running`, and the job payload includes the promised exit status and the time when the promise was recorded.
+
+When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
+
 ## Retry a job
 
 Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/configure/retry#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
@@ -30,6 +34,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
+      "promised_exit_status": null,
+      "promised_exit_status_at": null,
       "artifact_paths": "",
       "agent": null,
       "created_at": "2015-05-09T21:05:59.874Z",
@@ -90,6 +96,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
+      "promised_exit_status": null,
+      "promised_exit_status_at": null,
       "artifact_paths": "",
       "agent": null,
       "created_at": "2015-05-09T21:05:59.874Z",

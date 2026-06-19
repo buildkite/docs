@@ -488,6 +488,8 @@
           path: "pipelines/configure/canceling-builds"
         - name: "Retry"
           path: "pipelines/configure/retry"
+        - name: "Early failure detection"
+          path: "pipelines/configure/early-failure-detection"
         - name: "Soft fail"
           path: "pipelines/configure/soft-fail"
         - name: "Build artifacts"

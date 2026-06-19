@@ -17,6 +17,9 @@ Additionally, Buildkite recommends [configuring your project's `AGENTS.md` file 
 > 📘
 > While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response (also known as token usage).
 
+> 📘 Early failure detection
+> Jobs that use [early failure detection](/docs/pipelines/configure/early-failure-detection) can be `running` while also carrying a promised failure signal. When an AI agent investigates a failing build, it should inspect failed jobs from the Jobs REST API so it can include both terminally failed jobs and running jobs that have declared a promised failure.
+
 ### User, authentication and Buildkite organization
 
 These MCP tools are associated with [authentication](/docs/apis#authentication) and relate to querying details about the access token's user and Buildkite organization they belong to.

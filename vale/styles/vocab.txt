@@ -337,6 +337,7 @@ predeclare
 predeclared
 Prepends
 Prometheus
+promised_exit_status
 protobuf
 preemptible
 prefill
