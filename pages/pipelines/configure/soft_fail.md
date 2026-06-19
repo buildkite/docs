@@ -90,9 +90,7 @@ steps:
 
 ## Soft fail and promise job failure
 
-[Promise job failure](/docs/pipelines/configure/promise-job-failure) respects `soft_fail` rules. If a running job declares a promised exit status that matches a `soft_fail` rule, Buildkite Pipelines treats the promise as a soft failure and does not move the build to `failing` for a hard failure.
-
-Promise failure only after your script or test runner knows the promised exit status should count as the final job outcome.
+A [promised failure](/docs/pipelines/configure/promise-job-failure) respects `soft_fail` rules. If a running job declares a promised exit status that matches a `soft_fail` rule, Buildkite Pipelines treats the promise as a soft failure and does not move the build to `failing` for a hard failure.
 
 ## Soft fail in a build matrix
 

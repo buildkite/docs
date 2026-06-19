@@ -17,6 +17,8 @@ Additionally, Buildkite recommends [configuring your project's `AGENTS.md` file 
 > 📘
 > While Buildkite's MCP server makes calls to the Buildkite REST API, note that in some cases, only a subset of the resulting fields are returned in the response to your AI tool or agent. This is done to reduce noise for your AI tool / agent, as well as reduce costs associated with text tokenization of the response (also known as token usage).
 
+<!-- -->
+
 > 📘 Promise job failure
 > Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can be `running` while also carrying a promised failure signal. When an AI agent investigates a failing build, it should inspect failed jobs from the Jobs REST API so it can include both terminally failed jobs and running jobs that have declared a promised failure.
 
