@@ -81,13 +81,13 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
 
 ## Configuring the remote MCP server
 
-You can configure toolset availability for the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) by adding the required [toolset names](#available-toolsets) as part of an [extension to the remote MCP server's URL](#configuring-the-remote-mcp-server-using-a-url-extension) (for a single toolset only), or alternatively, and for multiple toolsets, as part of the [header of requests](#configuring-the-remote-mcp-server-using-headers) sent to the Buildkite platform from the remote MCP server.
+You can configure toolset availability for the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) by adding the required [toolset names](#available-toolsets) as part of an [extension to the remote MCP server's URL](#configuring-the-remote-mcp-server-using-a-url-extension) (for a single toolset only), or alternatively, and for multiple toolsets, as part of the [header of requests](#configuring-the-remote-mcp-server-using-headers) sent to the Buildkite platform from the remote MCP server. These options work with the OAuth endpoint (`https://mcp.buildkite.com/mcp`) and the [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server) (`https://mcp.buildkite.com/direct`).
 
-You can also configure [read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server) to the remote MCP server as part of this process, and when configuring multiple toolsets, be [selective over which ones have read-only access](#configuring-the-remote-mcp-server-selective-read-only-access-to-toolsets).
+You can also configure read-only access to the remote MCP server as part of this process, and when configuring multiple toolsets, be [selective over which ones have read-only access](#configuring-the-remote-mcp-server-selective-read-only-access-to-toolsets).
 
 ### Using a URL extension
 
-When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable a single toolset by appending `/x/{toolset.name}` to the end of the remote MCP server URL (`https://mcp.buildkite.com/mcp`), where `{toolset.name}` is the name of the [toolset](#available-toolsets) you want to enable. To enforce read-only access, append `/readonly` to the end of `/x/{toolset.name}`.
+When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable a single toolset by appending `/x/{toolset.name}` to the end of the remote MCP server endpoint, where `{toolset.name}` is the name of the [toolset](#available-toolsets) you want to enable. To enforce read-only access, append `/readonly` to the end of `/x/{toolset.name}`.
 
 #### Examples
 
@@ -103,12 +103,24 @@ To enforce read-only access to this remote MCP server toolset, configure your AI
 https://mcp.buildkite.com/mcp/x/builds/readonly
 ```
 
+To use the same toolset with API token pass-through, configure your AI tool or agent with the `/direct` endpoint:
+
+```url
+https://mcp.buildkite.com/direct/x/builds
+```
+
+To enforce read-only access with API token pass-through, use:
+
+```url
+https://mcp.buildkite.com/direct/x/builds/readonly
+```
+
 > 📘
-> The remote MCP server URL `https://mcp.buildkite.com/mcp` without any further extension provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) available to your Buildkite user account's access token, and what you can access on the Buildkite platform.
+> The OAuth endpoint `https://mcp.buildkite.com/mcp` and API token pass-through endpoint `https://mcp.buildkite.com/direct` without any further extension provide unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) and what you can access on the Buildkite platform.
 
 ### Using headers
 
-When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable one or more toolsets by specifying their [toolset names](#available-toolsets) as a single-line comma-separated list value for the `X-Buildkite-Toolsets` header of requests sent to the Buildkite platform from the remote MCP server. To enforce read-only access, use the [read-only remote MCP server URL](/docs/apis/mcp-server#read-only-remote-mcp-server).
+When [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools), you can enable one or more toolsets by specifying their [toolset names](#available-toolsets) as a single-line comma-separated list value for the `X-Buildkite-Toolsets` header of requests sent to the Buildkite platform from the remote MCP server. To enforce read-only access, use the read-only version of the remote MCP server endpoint.
 
 #### Examples
 
@@ -142,12 +154,20 @@ along with the following request header:
 X-Buildkite-Toolsets: user,pipelines,builds
 ```
 
+For API token pass-through, use the `/direct` endpoint with the same toolset header and an `Authorization` header:
+
+```url
+https://mcp.buildkite.com/direct
+Authorization: Bearer bkua_xxxxx
+X-Buildkite-Toolsets: user,pipelines,builds
+```
+
 You can also be [selective with read-only access to toolsets](#configuring-the-remote-mcp-server-selective-read-only-access-to-toolsets).
 
 > 📘
 > Learn more about how to configure different AI tools with these header configurations in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools).
-> Instead of using the [read-only remote MCP server URL](/docs/apis/mcp-server#read-only-remote-mcp-server), you could use the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) (`https://mcp.buildkite.com/mcp`), along with the additional header of `X-Buildkite-Readonly: true`. However, for simplicity, using the read-only remote MCP server URL is preferred.
-> Using the [standard remote MCP server URL](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) and omitting the `X-Buildkite-Toolsets` and `X-Buildkite-Readonly` headers from these configurations provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) available to your Buildkite user account's access token, and what you can access on the Buildkite platform.
+> Instead of using a read-only endpoint, you could use the standard endpoint, along with the additional header of `X-Buildkite-Readonly: true`. However, for simplicity, using a read-only endpoint is preferred.
+> Using the standard endpoint and omitting the `X-Buildkite-Toolsets` and `X-Buildkite-Readonly` headers from these configurations provides unrestricted access to the Buildkite API, restricted only by all applicable [token scopes](/docs/apis/managing-api-tokens#token-scopes) and what you can access on the Buildkite platform.
 
 ### Selective read-only access to toolsets
 
