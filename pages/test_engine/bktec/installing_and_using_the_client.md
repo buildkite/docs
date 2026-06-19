@@ -204,7 +204,7 @@ The following optional Jest environment variables can also be used to configure 
 
 ### Declare early failure
 
-To let bktec declare that a Buildkite Pipelines job is expected to fail before the job exits, set `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`.
+To let `bktec` declare that a Buildkite Pipelines job is expected to fail before the job exits, set `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`.
 
 When this option is enabled, bktec calls [`buildkite-agent job promise-failure`](/docs/agent/cli/reference/job#promising-job-failure) after retries are exhausted and hard test failures remain. Muted test failures do not cause bktec to declare early failure.
 
