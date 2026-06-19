@@ -32,7 +32,7 @@ You cannot promise success. Exit status `0` is not valid for an early failure de
 
 ## Use Buildkite Test Engine Client
 
-If you use [Buildkite Test Engine Client](/docs/test-engine/bktec/installing-and-using-the-client), enable early failure declarations by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
+If you use Buildkite Test Engine Client, enable early failure declarations by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
 
 ```yaml
 steps:
