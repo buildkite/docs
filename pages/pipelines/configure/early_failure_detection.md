@@ -12,9 +12,9 @@ When a job declares early failure, Buildkite Pipelines records:
 - The time when the promise was recorded.
 - An optional reason that explains why the job is expected to fail.
 
-The job state remains `running` after the declaration. The build and step can still show as failing because the promised exit status counts toward failure rollup, but the job does not finish until the command exits, is canceled, or reaches another terminal state.
+The job state remains `running` after the declaration. The build and step can still show as failing because the promised exit status causes the build to be marked as failing, but the job does not finish until the command exits, is canceled, or reaches another terminal state.
 
-Buildkite Pipelines evaluates the promised exit status against the job's [retry](/docs/pipelines/configure/retry) and [soft fail](/docs/pipelines/configure/soft-fail) rules. If the promised status would be retried or soft-failed, Buildkite Pipelines does not treat it as a hard failure for build-failing rollup.
+Buildkite Pipelines evaluates the promised exit status against the job's [retry](/docs/pipelines/configure/retry) and [soft fail](/docs/pipelines/configure/soft-fail) rules. If the promised status would be retried or soft-failed, Buildkite Pipelines does not treat it as a hard failure when determining whether the build is marked as failing.
 
 ## Declare early failure from a job
 

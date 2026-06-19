@@ -35,4 +35,4 @@ Options:
 
 Call this command only once per job, after your script or test runner has confirmed that the job should fail. If the same promised status is submitted more than once, Buildkite Pipelines handles it as a duplicate declaration. Declaring a different promised status for the same job is a conflict.
 
-Buildkite Pipelines evaluates the promised exit status against retry and soft-fail rules. A promised status that would be retried or soft-failed does not count as a hard failure for build-failing rollup.
+Buildkite Pipelines evaluates the promised exit status against retry and soft-fail rules. A promised status that would be retried or soft-failed does not count as a hard failure when the build is marked as failing.
