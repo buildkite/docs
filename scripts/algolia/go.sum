@@ -10,3 +10,5 @@ github.com/algolia/algoliasearch-client-go/v4 v4.40.0 h1:hfMaKKIWvpqPVCMNCbSd7Yi
 github.com/algolia/algoliasearch-client-go/v4 v4.40.0/go.mod h1:2bHeze2/5+jvT8IYVq8j2NDLr/4R6erGxgud7ESuXww=
 github.com/algolia/algoliasearch-client-go/v4 v4.41.0 h1:SaGrZmuX0MBB9etYlyoMBUTQVCdxIiOp73jKzZ4AuoU=
 github.com/algolia/algoliasearch-client-go/v4 v4.41.0/go.mod h1:2bHeze2/5+jvT8IYVq8j2NDLr/4R6erGxgud7ESuXww=
+github.com/algolia/algoliasearch-client-go/v4 v4.43.0 h1:zMJZWESoxvYRhh9iLZtQeSMpVH2T5KsztsoJkBoUUvQ=
+github.com/algolia/algoliasearch-client-go/v4 v4.43.0/go.mod h1:2bHeze2/5+jvT8IYVq8j2NDLr/4R6erGxgud7ESuXww=
