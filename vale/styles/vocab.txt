@@ -528,6 +528,7 @@ webtask
 wget
 whoami
 Windsurf's
+workdir
 workgroup
 worktree
 worktrees
