@@ -56,7 +56,7 @@ This remote MCP server version accepts the API access token in an `Authorization
 
 Use this endpoint only for agents or services that cannot complete the interactive OAuth flow. For prompt-based AI tools, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
 
-> 📘 Note
+> 📘
 > The API token pass-through endpoint supports the same [toolsets](/docs/apis/mcp-server/tools/toolsets) and read-only routing options as the OAuth-based remote MCP server. Learn more in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents).
 
 <h4 id="read-only-remote-mcp-server">Read-only remote MCP server</h4>
