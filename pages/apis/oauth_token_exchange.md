@@ -231,6 +231,20 @@ The `client_assertion` is a JWT ([RFC 7523](https://datatracker.ietf.org/doc/htm
 
 Token exchange tokens support the same scopes as [Buildkite API access tokens](/docs/apis/managing-api-tokens#token-scopes). The scopes granted to a token are limited to the application's configured **grantable scopes**.
 
+### GraphQL scope restrictions
+
+Because token exchange tokens act on behalf of a user through impersonation, the GraphQL scope has additional restrictions that do not apply to regular API tokens. The following GraphQL mutations are blocked for token exchange tokens to prevent account takeover:
+
+- `EmailCreate`
+- `EmailResendVerification`
+- `TOTPActivate`
+- `TOTPCreate`
+- `TOTPDelete`
+- `TOTPRecoveryCodesRegenerate`
+- `APIAccessTokenCodeAuthorizeMutation`
+
+Calls to any of these mutations with a token exchange token return an error. Any GraphQL mutations not explicitly permitted for token exchange tokens are also blocked by default, including any new mutations added in the future.
+
 ## Best practices
 
 Follow these recommendations to keep your OAuth Token Exchange integration secure and reliable.
