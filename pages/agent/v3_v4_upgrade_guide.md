@@ -9,7 +9,7 @@ You can test Buildkite Agent v4 a number of ways, depending on how you installed
 
 ### Hosted agents
 
-We do not presently offer a way to use Buildkite Agent v4 in Hosted Agents in advance of the stable release.
+Buildkite does not presently offer a way to use Buildkite Agent v4 in Hosted Agents in advance of the stable release.
 
 ### Self-hosted installations
 
