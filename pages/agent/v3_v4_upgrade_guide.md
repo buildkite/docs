@@ -128,7 +128,7 @@ Read the following breaking changes carefully to determine if your agent setup, 
 
 ### Changes to observability
 
-- OpenTracing is no longer supported. Various Datadog-related tracing workarounds were also cleaned up. OpenTelemetry won - you should use that instead.
+- OpenTracing is no longer supported. Various Datadog-related tracing workarounds were also cleaned up. Use OpenTelemetry instead.
 - Some Prometheus metrics have changed. `buildkite_agent_jobs_started_total` and `buildkite_agent_jobs_ended_total` now have `priority` and `queue` labels, replacing `buildkite_agent_jobs_started_with_labels_total` and `buildkite_agent_jobs_ended_with_labels_total`.
 
 ### Changes to pipeline uploads
