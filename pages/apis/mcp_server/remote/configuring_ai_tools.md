@@ -9,6 +9,52 @@ This page explains how to configure your AI tool to work with the [_remote_ Buil
 
 If your Buildkite organization has an [API IP allowlist](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address) configured, you must add Buildkite's egress IP addresses to this allowlist for the remote MCP server to function. The remote MCP server makes API calls from Buildkite's infrastructure, and these requests are subject to your organization's API IP allowlist. Buildkite's current egress IP addresses are provided from the [meta API endpoint](/docs/apis/rest-api/meta).
 
+## API token pass-through for headless agents
+
+For headless agents and background services that already have a [Buildkite API access token](/docs/apis/managing-api-tokens), configure the remote MCP server with the API token pass-through endpoint:
+
+```url
+https://mcp.buildkite.com/direct
+```
+
+Configure your AI tool or agent to send the token in an `Authorization` header:
+
+```url
+Authorization: Bearer bkua_xxxxx
+```
+
+The remote MCP server forwards this token to the Buildkite REST API. The token scopes determine which MCP tool calls can complete successfully. Use the minimum token scopes required by the agent.
+
+To enforce read-only access across all toolsets, configure your AI tool or agent with the read-only endpoint:
+
+```url
+https://mcp.buildkite.com/direct/readonly
+```
+
+To enable a single toolset, append `/x/{toolset.name}` to the endpoint. For example, to enable the `pipelines` toolset:
+
+```url
+https://mcp.buildkite.com/direct/x/pipelines
+```
+
+To enable the same toolset with read-only access, append `/readonly` to the endpoint:
+
+```url
+https://mcp.buildkite.com/direct/x/pipelines/readonly
+```
+
+To enable multiple toolsets, configure your AI tool or agent with the `/direct` endpoint and include the `X-Buildkite-Toolsets` header:
+
+```url
+https://mcp.buildkite.com/direct
+Authorization: Bearer bkua_xxxxx
+X-Buildkite-Toolsets: user,pipelines,builds
+```
+
+You can also use the `X-Buildkite-Readonly: true` header with `/direct` to enforce read-only access. If both the path and header configure the same option, the request fails.
+
+For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
+
 ## Amp
 
 You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration). This configuration uses the `mcp-remote` command argument to allow OAuth authorization. For more about this configuration type, see [Custom Tools (MCP)](https://ampcode.com/manual#mcp) in the Amp documentation.
