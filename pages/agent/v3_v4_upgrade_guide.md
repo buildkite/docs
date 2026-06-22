@@ -113,7 +113,7 @@ Read the following breaking changes carefully to determine if your agent setup, 
 
 ### Changes to job logs
 
-- Timestamp options for logs have been simplified. ANSI timestamp codes are now always emitted into the job log stream. Flags to disable ANSI timestamps (`--no-ansi-timestamps` , `BUILDKITE_NO_ANSI_TIMESTAMPS`) and enable plaintext timestamps (`--timestamp-lines` , `BUILDKITE_TIMESTAMP_LINES` ) have been removed, as has the separate uploading of “header times” .
+- Timestamp options for logs have been simplified. ANSI timestamp codes are now always emitted into the job log stream. Flags to disable ANSI timestamps (`--no-ansi-timestamps`, `BUILDKITE_NO_ANSI_TIMESTAMPS`) and enable plaintext timestamps (`--timestamp-lines`, `BUILDKITE_TIMESTAMP_LINES`) have been removed, as has the separate uploading of "header times".
 
 ### Changes to checkout
 
