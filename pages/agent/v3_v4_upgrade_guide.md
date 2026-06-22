@@ -122,7 +122,7 @@ Read the following breaking changes carefully to determine if your agent setup, 
 ### Changes to agent parallelism
 
 - The `--spawn-with-priority` flag (environment variable `BUILDKITE_AGENT_SPAWN_WITH_PRIORITY`) is no longer a boolean (true/false). It now takes a string value (one of `static`, `ascending`, or `descending`):
-    + `--spawn-with-priority=static` is equivalent to the v3 `--spawn-with-priority=false` , and will spawn all agent workers with the same priority.
+    * `--spawn-with-priority=static` is equivalent to the v3 `--spawn-with-priority=false`, and will spawn all agent workers with the same priority.
     + `--spawn-with-priority=ascending` is equivalent to the v3 `--spawn-with-priority=true` , and will spawn agent workers with an increasing sequence of priority values (1, 2, 3, …)
     + `--spawn-with-priority=descending` is equivalent to the v3 `--spawn-with-priority=true --experiment=descending-spawn-priority` , and will spawn agent workers with a decreasing sequence of priority values (-1, -2, -3, …). Combined with varying `--spawn`, this option can be useful for spreading jobs across machines with different hardware capabilities. When the number of jobs is low, jobs will tend to be evenly distributed across all machines, and when the number of jobs is high, more jobs will be assigned to agents running on the more powerful machines (those with higher `--spawn`).
 
