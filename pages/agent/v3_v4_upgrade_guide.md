@@ -103,7 +103,7 @@ buildkite-agent version 4.0.0-beta.3+12492.5228a73b6906effe729cfe48cfd900f3291b3
 
 ## Breaking changes in v4
 
-Please read the following breaking changes carefully to determine if your agent setup, pipelines, or plugins need updating for version 4.
+Read the following breaking changes carefully to determine if your agent setup, pipelines, or plugins need updating for version 4.
 
 ### Changes to job handling
 
