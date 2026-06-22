@@ -50,6 +50,26 @@
     </tr>
     <tr>
       <td>
+        <code>LINUX_AMD64_32X128</code>
+      </td>
+      <td>Extra Extra Large</td>
+      <td>AMD64</td>
+      <td>32</td>
+      <td>128 GB</td>
+      <td><!-- TODO: verify disk space --></td>
+    </tr>
+    <tr>
+      <td>
+        <code>LINUX_AMD64_64X256</code>
+      </td>
+      <td>3XL</td>
+      <td>AMD64</td>
+      <td>64</td>
+      <td>256 GB</td>
+      <td><!-- TODO: verify disk space --></td>
+    </tr>
+    <tr>
+      <td>
         <code>LINUX_ARM64_2X4</code>
       </td>
       <td>Small</td>
@@ -87,6 +107,26 @@
       <td>16</td>
       <td>64 GB</td>
       <td>284 GB</td>
+    </tr>
+    <tr>
+      <td>
+        <code>LINUX_ARM64_32X128</code>
+      </td>
+      <td>Extra Extra Large</td>
+      <td>ARM64</td>
+      <td>32</td>
+      <td>128 GB</td>
+      <td><!-- TODO: verify disk space --></td>
+    </tr>
+    <tr>
+      <td>
+        <code>LINUX_ARM64_64X256</code>
+      </td>
+      <td>3XL</td>
+      <td>ARM64</td>
+      <td>64</td>
+      <td>256 GB</td>
+      <td><!-- TODO: verify disk space --></td>
     </tr>
   </tbody>
 </table>
