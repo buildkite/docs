@@ -305,6 +305,14 @@ attributes:
     required: false
     desc: |
       Flags to pass to "git clean" command
+  - name: "git-commit-verification"
+    env_var: |
+      $BUILDKITE_GIT_COMMIT_VERIFICATION
+    default_value: |
+
+    required: false
+    desc: |
+      Enable git commit verification
   - name: "git-fetch-flags"
     env_var: |
       $BUILDKITE_GIT_FETCH_FLAGS
@@ -313,6 +321,14 @@ attributes:
     required: false
     desc: |
       Flags to pass to "git fetch" command
+  - name: "git-sparse-checkout-paths"
+    env_var: |
+      $BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS
+    default_value: |
+
+    required: false
+    desc: |
+      Comma-separated list of paths for git sparse checkout (cone mode). When set, only the listed paths are materialized in the working tree.
   - name: "git-clone-mirror-flags"
     env_var: |
       $BUILDKITE_GIT_CLONE_MIRROR_FLAGS
@@ -790,7 +806,7 @@ attributes:
     env_var: |
       $BUILDKITE_REDACTED_VARS
     default_value: |
-      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY"
+      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_SSH_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY"
     required: false
     desc: |
       Pattern of environment variable names containing sensitive values
