@@ -218,7 +218,7 @@ In version 4, the default execution order is reversed for post-checkout, post-co
 
 ### Changes to flags, environment variables, and agent configuration
 
-The underlying CLI flag processing package has been upgraded to a new version. We don’t expect any problems to arise as a result.
+The underlying CLI flag processing package has been upgraded to a new version. No problems are expected as a result.
 
 These CLI flags, environment variables, and agent configuration options have been removed:
 
