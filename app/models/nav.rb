@@ -39,6 +39,20 @@ class Nav
     item
   end
 
+  # Returns the breadcrumb trail (ancestor sections and the page itself) for a
+  # given docs path, as an array of nav nodes from the top-level section down to
+  # the page. Nodes without a path (section toggles) are included so callers can
+  # decide whether to link them. Returns an empty array when the path is unknown.
+  #
+  # @example
+  #   nav.breadcrumb_trail("pipelines/configure/environment-variables")
+  #   #=> [{ "name" => "Pipelines", "path" => "pipelines" },
+  #   #    { "name" => "Configure", "path" => nil },
+  #   #    { "name" => "Environment variables", "path" => "pipelines/configure/environment-variables" }]
+  def breadcrumb_trail(path)
+    find_trail(data, path) || []
+  end
+
   # Returns a hash of routes, indexed by path
   #
   # @example
@@ -71,5 +85,25 @@ class Nav
         index_by_path.call(route_map, node["children"], [node["name"]], 0)
       end
     end
+  end
+
+  private
+
+  # Depth-first search for the chain of nav nodes leading to the node whose
+  # path matches the target. Returns nil when no node matches.
+  def find_trail(items, target, ancestors = [])
+    items.each do |item|
+      next if item["type"] == "divider"
+
+      trail = ancestors + [item]
+      return trail if item["path"] == target
+
+      if item["children"].present?
+        found = find_trail(item["children"], target, trail)
+        return found if found
+      end
+    end
+
+    nil
   end
 end
