@@ -1697,7 +1697,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     <tr>
       <th><code>build_pull_request_merge_commits</code></th>
       <td>Whether builds for pull requests target the latest test merge commit ref (<code>refs/pull/:pr_number/merge</code>) instead of the latest commit on the pull request branch. Requires <code>build_pull_requests</code> to be <code>true</code>. When enabling this, we recommend disabling <code>build_branches</code> so that commit statuses accurately reflect the state of the pull request.
-        <p><em>Note:</em> <a href="/docs/pipelines/source-control/github#building-the-test-merge-commit">Building the test merge commit</a> is currently in private preview and must be enabled for your organization by <a href="https://buildkite.com/support">Buildkite support</a>.</p>
+        <p><a href="/docs/pipelines/source-control/github#running-builds-on-pull-requests-building-the-test-merge-commit">Building the test merge commit</a> is currently in Private preview.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
