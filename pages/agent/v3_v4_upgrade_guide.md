@@ -210,7 +210,7 @@ In version 4, the default execution order is reversed for post-checkout, post-co
 
 - A new experiment, `legacy-post-hook-order`, can be used to revert to the v3 hook ordering (see “Changes to plugins and hooks” above).
 - `allow-artifact-path-traversal` has been removed. The insecure behaviour it enabled is no longer supported.
-- `normalised-upload-paths` is now default behaviour and has been removed (see “Changes to artifacts” above) .
+- `normalised-upload-paths` is now default behaviour and has been removed (see "Changes to artifacts" above).
 - `override-zero-exit-on-cancel` is now default behaviour and has been removed (see "Changes to job handling" above).
 - `resolve-commit-after-checkout` is now default behaviour and has been removed(see “Changes to checkout” above).
 - `propagate-agent-config-vars` is now default behaviour and has been removed (see “Changes to plugins and hooks” above).
