@@ -90,7 +90,7 @@ Using the Go compiler, you can build and install Buildkite Agent v4 from source.
 $ go install github.com/buildkite/agent/v4@latest
 ```
 
-typically installs the v4 agent at `~/go/bin/buildkite-agent`.
+This typically installs the v4 agent at `~/go/bin/buildkite-agent`.
 
 #### Validating the install
 
