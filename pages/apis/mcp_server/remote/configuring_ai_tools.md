@@ -31,7 +31,13 @@ To enforce read-only access across all toolsets, configure your AI tool or agent
 https://mcp.buildkite.com/direct/readonly
 ```
 
-To enable a single read-only toolset, append `/x/{toolset.name}/readonly` to the endpoint. For example, to enable the `pipelines` toolset with read-only access:
+To enable a single toolset, append `/x/{toolset.name}` to the endpoint. For example, to enable the `pipelines` toolset:
+
+```url
+https://mcp.buildkite.com/direct/x/pipelines
+```
+
+To enable the same toolset with read-only access, append `/readonly` to the endpoint:
 
 ```url
 https://mcp.buildkite.com/direct/x/pipelines/readonly
