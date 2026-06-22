@@ -442,6 +442,8 @@
               path: "agent/cli/reference/step"
             - name: "stop"
               path: "agent/cli/reference/stop"
+            - name: "workdir"
+              path: "agent/cli/reference/workdir"
             - name: "tool"
               path: "agent/cli/reference/tool"
     - name: "Configure pipelines"
