@@ -5,7 +5,7 @@
 
 ## How to test v4 in beta
 
-You can test Buildkite Agent v4 a number of ways, depending how you installed or use Buildkite Agent.
+You can test Buildkite Agent v4 a number of ways, depending on how you installed or use Buildkite Agent.
 
 ### Hosted agents
 
