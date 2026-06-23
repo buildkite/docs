@@ -47,14 +47,38 @@ When concurrency limits are exceeded, additional jobs will be queued until suffi
 
 ## macOS instance software support
 
-All standard macOS [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5), [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe), [Sequoia](#macos-sequoia), and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Buildkite Support at support@buildkite.com.
+All standard macOS [Golden Gate (27.0)](#macos-golden-gate), [Tahoe (26.6)](#macos-tahoe-26-dot-6), [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5), [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe), [Sequoia](#macos-sequoia), and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Buildkite Support at support@buildkite.com.
 
 While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/agent/buildkite-hosted/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
 > 📘
-> Two macOS Tahoe versions are available. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image, while [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) includes the newer Xcode 26.x versions.
+> Three macOS Tahoe versions are available, each with a unique set of Xcode versions. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with newer Tahoe base images. [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) and [Tahoe (26.6)](#macos-tahoe-26-dot-6) include newer Xcode 26.x versions.
+
+## macOS Golden Gate
+
+- 27.0
+
+### Xcode
+
+<!-- TODO: Add Xcode versions available with Golden Gate (27.0) base image -->
+
+### Runtimes
+
+<!-- TODO: Add iOS, tvOS, visionOS, and watchOS runtime versions for Golden Gate (27.0) -->
+
+## macOS Tahoe 26.6
+
+- 26.6
+
+### Xcode
+
+<!-- TODO: Add Xcode versions available with Tahoe (26.6) base image -->
+
+### Runtimes
+
+<!-- TODO: Add iOS, tvOS, visionOS, and watchOS runtime versions for Tahoe (26.6) -->
 
 ## macOS Tahoe 26.5
 
