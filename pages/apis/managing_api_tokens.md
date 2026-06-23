@@ -399,7 +399,7 @@ This section explains risk mitigation strategies which you can implement, and ot
 
 ### Rotation
 
-When you [create an API access token](#creating-and-editing-api-access-tokens-create-an-api-access-token), you select a **Token Expiry** duration that determines when the token expires, which defaults to seven days if left unset. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
+When you [create an API access token](#creating-and-editing-api-access-tokens-create-an-api-access-token), you select a **Token Expiry** duration that determines when the token expires, which defaults to seven days if left unset. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, [invalidate](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) old tokens or [revoke](#inactive-api-tokens-revocation) inactive ones, and issue new tokens.
 
 The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
 
