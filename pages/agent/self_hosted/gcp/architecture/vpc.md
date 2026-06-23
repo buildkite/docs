@@ -23,7 +23,7 @@ The stack creates several firewall rules:
 - **Internal communication** - allows all traffic between instances (`10.0.0.0/16`).
 - **SSH access** (optional) - controlled by `enable_ssh_access` and `ssh_source_ranges`.
 - **Health checks** - allows Google health check probes (`35.191.0.0/16`, `130.211.0.0/22`).
-- **Identity-Aware Proxy** (optional) - when `enable_iap_access = true`, it enables secure SSH via IAP (`35.235.240.0/20`).
+- **Identity-Aware Proxy** (optional) - when `enable_iap_access = true`, it enables secure SSH using IAP (`35.235.240.0/20`).
 
 ## Network security options
 

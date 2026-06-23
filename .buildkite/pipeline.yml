@@ -2,9 +2,10 @@ env:
   BUILDKIT_PROGRESS: plain
 
 steps:
-  - label: ":spider: Check for link issues"
+  - label: ":spider: Check for Buildkite Docs link issues"
     env:
       RAILS_ENV: production
+      LINK_CHECK_MODE: internal
     agents:
       queue: hosted
     soft_fail:
@@ -26,7 +27,34 @@ steps:
           mount-buildkite-agent: true
           propagate-environment: true
     artifact_paths:
-      - ".buildkite/steps/muffet_results.json"
+      - ".buildkite/steps/muffet_results_internal.json"
+
+  - label: ":earth_asia: Check for external link issues"
+    env:
+      RAILS_ENV: production
+      LINK_CHECK_MODE: external
+    agents:
+      queue: hosted
+    soft_fail:
+      - exit_status: 1
+    plugins:
+      - aws-assume-role-with-web-identity#v1.6.0:
+          role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+      - ecr#v2.12.0:
+          login: true
+          account-ids: public.ecr.aws
+      - docker-compose#v5.12.1:
+          run: muffet
+          shell: false
+          upload-container-logs: always
+          mount-buildkite-agent: true
+          propagate-environment: true
+    artifact_paths:
+      - ".buildkite/steps/muffet_results_external.json"
 
   - label: ":bell: Assign PR reviewer"
     if: build.branch != "main" && !build.pull_request.labels includes "Reviewer-assigned"
@@ -55,7 +83,7 @@ steps:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
       - docker#v5.13.0:
-          image: "public.ecr.aws/docker/library/ruby:3.4-slim"
+          image: "public.ecr.aws/docker/library/ruby:4.0.5-slim-bookworm"
           propagate-environment: true
           environment:
             - GH_REPO
@@ -92,7 +120,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.25"
+          image: "golang:1.26"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
@@ -103,7 +131,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.25"
+          image: "golang:1.26"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
@@ -114,7 +142,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.25"
+          image: "golang:1.26"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
 
@@ -125,7 +153,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "ruby:3.3"
+          image: "ruby:4.0.5-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
@@ -136,7 +164,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
-          image: "ruby:3.3"
+          image: "ruby:4.0.5-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent versions directory page is out of date, or you edited its content in this repository. Run `scripts/update-agent-versions-directory.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
@@ -160,7 +188,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
-              image: "public.ecr.aws/docker/library/node:22-alpine"
+              image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":lint-roller: Linting text and markdown"
         agents:
@@ -188,7 +216,7 @@ steps:
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
           - docker#v5.13.0:
-              image: "public.ecr.aws/docker/library/node:22-alpine"
+              image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: "Validate YAML"
         command:
@@ -207,7 +235,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
-              image: "public.ecr.aws/docker/library/node:22-alpine"
+              image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
         command: npm run -y mdlint
@@ -224,7 +252,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
-              image: "public.ecr.aws/docker/library/node:22-alpine"
+              image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":snake: Linting markdown files for snake case"
         command: npx -y @ls-lint/ls-lint@2.1.0
@@ -241,7 +269,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.13.0:
-              image: "public.ecr.aws/docker/library/node:22-alpine"
+              image: "public.ecr.aws/docker/library/node:24-alpine"
 
   - label: ":rspec: RSpec"
     depends_on: linting
@@ -334,7 +362,7 @@ steps:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
       - docker#v5.13.0:
-          image: "golang:1.24-bookworm"
+          image: "golang:1.26-bookworm"
           propagate-environment: true
           environment:
             - "BUILDKITE_AGENT_ACCESS_TOKEN"

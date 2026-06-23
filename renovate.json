@@ -7,21 +7,40 @@
     ],
     "schedule": ["before 9am on Monday"],
     "timezone": "Australia/Sydney",
-    "prHourlyLimit": 10,
-    "prConcurrentLimit": 15,
+    "prHourlyLimit": 5,
+    "prConcurrentLimit": 8,
     "automerge": true,
     "automergeType": "pr",
     "customManagers": [
         {
             "customType": "regex",
             "description": "bk CLI version in update-bkcli-help.sh",
-            "fileMatch": ["scripts/update-bkcli-help\\.sh$"],
+            "managerFilePatterns": ["/^scripts/update-bkcli-help\\.sh$/"],
             "matchStrings": ["CLI_VERSION=\"(?<currentValue>v[\\d.]+)\""],
             "depNameTemplate": "buildkite/cli",
             "datasourceTemplate": "github-releases"
+        },
+        {
+            "customType": "regex",
+            "description": "Runtime Docker images in Buildkite pipelines",
+            "managerFilePatterns": ["/^\\.buildkite\/.*\\.ya?ml$/"],
+            "matchStrings": ["image:\\s*\"(?<depName>(?:public\\.ecr\\.aws\\/docker\\/library\\/)?(?:ruby|node|golang)):(?<currentValue>[^\"@]+)\""],
+            "datasourceTemplate": "docker"
         }
     ],
     "packageRules": [
+        {
+            "description": "Keep Ruby runtime updates together",
+            "matchDepNames": ["ruby", "public.ecr.aws/docker/library/ruby"],
+            "groupName": "ruby runtime",
+            "automerge": false
+        },
+        {
+            "description": "Keep Node.js runtime updates together",
+            "matchDepNames": ["node", "public.ecr.aws/docker/library/node"],
+            "groupName": "node runtime",
+            "automerge": false
+        },
         {
             "description": "Vite packages (Ruby gems + npm) must be upgraded together",
             "matchPackageNames": ["vite_rails", "vite_ruby", "vite-plugin-ruby"],
@@ -35,13 +54,6 @@
             "automerge": true
         },
         {
-            "description": "Docker images in CI pipelines",
-            "matchManagers": ["docker-compose", "dockerfile"],
-            "matchFileNames": [".buildkite/**"],
-            "groupName": "buildkite docker images",
-            "automerge": true
-        },
-        {
             "description": "npm non-major updates",
             "matchManagers": ["npm"],
             "matchUpdateTypes": ["minor", "patch"],
@@ -51,6 +63,7 @@
         {
             "description": "Ruby gem non-major updates",
             "matchManagers": ["bundler"],
+            "matchDepNames": ["!ruby"],
             "matchUpdateTypes": ["minor", "patch"],
             "groupName": "ruby gem minor/patch updates",
             "automerge": true
@@ -59,6 +72,7 @@
             "description": "Dockerfile base images (non-major)",
             "matchManagers": ["dockerfile"],
             "matchFileNames": ["Dockerfile"],
+            "matchDepNames": ["!public.ecr.aws/docker/library/ruby", "!public.ecr.aws/docker/library/node"],
             "matchUpdateTypes": ["minor", "patch", "digest"],
             "groupName": "dockerfile base image updates",
             "automerge": true

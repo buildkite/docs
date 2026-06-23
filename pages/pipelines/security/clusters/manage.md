@@ -104,6 +104,27 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_cluster_fields' %>
 
+## Set a default cluster for new pipelines
+
+A [_Buildkite organization administrator_](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions) can nominate one cluster as the _default cluster_ for new pipelines in the organization. When a default is set:
+
+- New pipelines created without an explicit cluster assignment (using the Buildkite interface, REST API, or GraphQL API) are automatically assigned to the default cluster.
+- Organization members can create pipelines in the default cluster without needing an explicit per-cluster pipeline creation permission. The organization administrator's choice of default acts as the permission grant for that cluster.
+
+> 📘
+> The default cluster applies only to _new_ pipelines. Existing pipelines are not moved. To move an existing pipeline to a different cluster, see [Move a pipeline to a specific cluster](#move-a-pipeline-to-a-specific-cluster).
+
+To set or change the default cluster for new pipelines:
+
+1. Select **Settings** in the global navigation, then select **Pipelines** in the left sidebar to open the **Pipeline settings** page for your organization.
+1. In the **Default Cluster** panel, select the cluster to use as the default from the dropdown.
+1. Select **Save Default Cluster**.
+
+To clear the default cluster, select **No default** from the dropdown and select **Save Default Cluster**.
+
+> 🚧 Deleting the default cluster
+> A cluster set as the organization's default for new pipelines cannot be deleted. To delete it, first assign a different default or clear the default on the **Pipeline settings** page.
+
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/self-hosted/tokens).
@@ -116,7 +137,7 @@ You can also create, edit, and revoke other agent tokens from the cluster’s **
 
 Unclustered agents are agents associated with the **Unclustered** area of the **Clusters** page in a Buildkite organization. Learn more about unclustered agents in [Working with unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens).
 
-Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/self-hosted/tokens) that connect to Buildkite via a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
+Migrating unclustered agents to a cluster allows those agents to use [agent tokens](/docs/agent/self-hosted/tokens) that connect to Buildkite using a cluster, which can be managed by users with [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) privileges.
 
 > 📘 Buildkite organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an **Unclustered** area. Therefore, this process is not required for these newer Buildkite organizations.
@@ -149,7 +170,7 @@ Be aware that an agent token's **Allowed IP Addresses** setting also has the fol
 
 ### Using the Buildkite interface
 
-To restrict an existing agent token's access by IP address (via the token's **Allowed IP Addresses** setting) using the Buildkite interface:
+To restrict an existing agent token's access by IP address (through the token's **Allowed IP Addresses** setting) using the Buildkite interface:
 
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster associated with the agent token.
@@ -179,7 +200,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_agent_token_id' %>
 
-- `allowed_ip_addresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+- `allowed_ip_addresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite using your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
 ### Using the GraphQL API
 
@@ -228,7 +249,7 @@ where:
 
     If you do not need to change the existing `description` value, specify the existing field value in the request.
 
-- `allowedIpAddresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
+- `allowedIpAddresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite using your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
 ## Manage maintainers on a cluster
 
@@ -267,7 +288,7 @@ Move a pipeline to a specific cluster to ensure the pipeline's builds run only o
 > 📘 Associating pipelines with cluster
 > A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
-A pipeline can be moved to a cluster by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator via the pipeline's [**General** settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api).
+A pipeline can be moved to a cluster by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the pipeline's [**General** settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), as well as Buildkite's [REST API](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) or [GraphQL API](#move-a-pipeline-to-a-specific-cluster-using-the-graphql-api).
 
 For these API requests, the _cluster ID_ value submitted in the request is the target cluster the pipeline is being moved to.
 

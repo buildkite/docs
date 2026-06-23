@@ -50,14 +50,18 @@ Exit code | Signal | Name    | Description
 
 The final exit code reported for a job depends on which phase of the [job lifecycle](/docs/agent/hooks#job-lifecycle-hooks) failed. The agent tracks exit codes through two environment variables as the job progresses:
 
-- `BUILDKITE_COMMAND_EXIT_STATUS`: Set after the command phase is completed. Contains the exit code from the command or `command`-related hook. This value is available to `post-command` and `pre-exit` hooks.
+- `BUILDKITE_COMMAND_EXIT_STATUS`: Set after the command phase is completed. Contains the exit code from the command or `command`-related hook. This value is available to `post-command`, `pre-artifact`, `post-artifact`, and `pre-exit` hooks.
 - `BUILDKITE_LAST_HOOK_EXIT_STATUS`: Set after each hook is completed. Contains the exit code of the most recently executed hook.
 
-The final exit code reported to Buildkite Pipelines is determined as follows:
+The final exit code reported to Buildkite Pipelines is determined by checking the following rules in order:
 
 - If a `pre-command` hook or earlier hook fails, its exit code becomes the job exit code. The command does not run.
-- If the command fails but all `post-command` and `pre-exit` hooks pass, the command's exit code (from `BUILDKITE_COMMAND_EXIT_STATUS`) becomes the job exit code.
-- If a `post-command` or `pre-exit` hook fails with a non-zero exit code, the hook's exit code **overrides** the job exit code. This is true even if the command also failed with a different exit code.
+- If a `pre-exit` hook fails, its exit code becomes the job exit code, overriding any exit code set by earlier phases. `pre-exit` runs last, and exit codes from this hook are the final exit code returned.
+- Otherwise, if the command succeeded but a `pre-artifact` or `post-artifact` hook fails, the artifact hook's exit code becomes the job exit code. This overrides the command's `0` exit code, and also overrides any `post-command` hook failure that occurred in the same job.
+- Otherwise, if a `post-command` hook fails, its exit code becomes the job exit code, even if the command phase itself also failed with a different exit code.
+- Otherwise, the command phase exit code, which is passed using `BUILDKITE_COMMAND_EXIT_STATUS`, becomes the job exit code.
+
+If the command phase itself failed, any `pre-artifact` or `post-artifact` hook failure is discarded and does not affect the final job exit code.
 
 For example, if a command exits with code `4` and then a `pre-exit` hook exits with code `6`, the final job exit code reported to Buildkite Pipelines is `6`, not `4`. The original command exit code is still available in the `BUILDKITE_COMMAND_EXIT_STATUS` environment variable.
 

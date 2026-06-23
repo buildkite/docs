@@ -48,6 +48,7 @@ services:
       - .buildkite/steps:/work
     environment:
       BUILDKITE: ${BUILDKITE:-false}
+      LINK_CHECK_MODE: ${LINK_CHECK_MODE:-internal}
 
   deploy-preview:
     build:

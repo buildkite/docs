@@ -22,9 +22,9 @@ You can use Markdown to format your message and link to other URLs or pages for 
 
 ## Programmatically creating a system banner
 
-You can create a system banner programmatically via the GraphQL API.
+You can create a system banner programmatically using the GraphQL API.
 
 Please review the GraphQL [cookbook] on instructions on how to create
-a banner via the API.
+a banner using the API.
 
 [cookbook]: </docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners>

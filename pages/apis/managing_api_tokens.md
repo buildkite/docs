@@ -163,9 +163,9 @@ A token's REST API scopes are granular, and you can select some or all of the fo
     <% [
       {
         name: "Organizations",
-        key: "read_organizations",
-        description: "List and retrieve details of organizations.",
-        read: true, write: false, delete: false
+        key: "read_organizations, write_organizations",
+        description: "List and retrieve details of organizations. Remove organization members.",
+        read: true, write: true, delete: false
       },
       {
         name: "Teams",
@@ -331,6 +331,8 @@ A token's REST API scopes are granular, and you can select some or all of the fo
   </tbody>
 </table>
 
+These scopes apply to the [Portals REST API](/docs/apis/rest-api/portals) endpoints.
+
 ## Auditing tokens
 
 Viewing the [**API Access Audit** page](https://buildkite.com/organizations/~/api-access-audit) requires Buildkite organization administrator privileges. You can access this page by selecting **Settings** in the global navigation > **API Access Audit** within the **Audit** section.
@@ -344,6 +346,8 @@ From the **API Access Audit** page, navigate through to any token to see more de
 The list of tokens can be filtered by username, scopes, IP address, or whether the user has admin privileges.
 
  <%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
+
+To export the token list, select **Export .csv**. The CSV file includes the following columns: Owner, Owner Email, Owner ID, Token UUID, Token Description, Last Used At, Last Request IP, Created At, and Scopes.
 
 ### Removing an organization from a token
 

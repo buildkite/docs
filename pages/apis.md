@@ -1,6 +1,6 @@
 # Buildkite APIs
 
-The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines), [Test Engine](/docs/test-engine), and [Package Registries](/docs/package-registries).
+The Buildkite APIs documentation contains docs for all API-related features of Buildkite available across Buildkite [Pipelines](/docs/pipelines) (including its [test suites](/docs/pipelines/configure/tests) features) and [Package Registries](/docs/package-registries).
 
 ## Authentication
 
@@ -22,6 +22,13 @@ Learn more about Buildkite's API access tokens and how to manage them in [Managi
 - [Limiting](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address) a token's access by IP address.
 - A token's [lifecycle](/docs/apis/managing-api-tokens#api-token-lifecycle) characteristics.
 - Managing a token's [security](/docs/apis/managing-api-tokens#api-token-security), including [token rotation](/docs/apis/managing-api-tokens#api-token-security-rotation) and [GitHub's secret scanning program](/docs/apis/managing-api-tokens#api-token-security-github-secret-scanning-program).
+
+### Programmatic token issuance
+
+Buildkite also supports OAuth-based flows for issuing access tokens without manually creating one in the Buildkite interface:
+
+- [OAuth Token Exchange](/docs/apis/oauth-token-exchange) lets a service mint short-lived, scoped API access tokens for users by exchanging a signed JWT assertion, suitable for centralized token authorities and non-interactive automation.
+- [OAuth device authorization](/docs/apis/oauth-device-authorization) lets applications running in environments without browser access (such as SSH sessions, remote development environments, or constrained devices) authenticate by directing the user to complete authorization in a browser on any device.
 
 ### Webhook authentication
 
@@ -55,7 +62,7 @@ Learn more about:
 
 In the absence of configurable [scope](/docs/apis/managing-api-tokens#token-scopes) restrictions on API access tokens for the GraphQL API, the _portals_ feature provides a mechanism to restrict access to the Buildkite platform through the GraphQL API. Portals are GraphQL-based operations, which are stored by Buildkite, and are made accessible through authenticated URL endpoints.
 
-Learn more about the portals feature in [Portals](/docs/apis/graphql/portals).
+Learn more about the portals feature in [Portals](/docs/apis/graphql/portals), and how to manage portals programmatically through the [Portals REST API](/docs/apis/rest-api/portals).
 
 ## MCP server
 
@@ -69,7 +76,7 @@ Buildkite's webhooks allow your third-party applications and systems to monitor 
 
 For Pipelines, webhooks can be [added and configured](/docs/apis/webhooks/pipelines#add-a-webhook) on your Buildkite organization's [**Notification Services** settings](https://buildkite.com/organizations/-/services) page.
 
-For Test Engine and Package Registries, webhooks can be configured through their specific [test suites](/docs/apis/webhooks/test-engine) and [registries](/docs/apis/webhooks/package-registries#add-a-webhook), respectively.
+For Pipelines [test suites](/docs/apis/webhooks/test-engine) and Package Registries [registries](/docs/apis/webhooks/package-registries#add-a-webhook), webhooks can be configured directly on each suite or registry.
 
 This section also covers documentation on how to configure incoming webhooks for the Buildkite platform, available through [pipeline triggers](/docs/apis/webhooks/incoming/pipeline-triggers).
 

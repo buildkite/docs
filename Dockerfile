@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.3-slim-bookworm@sha256:b2d852038ed65071aa45136ff82538fdb7361acf3b036a8f5a35219488216ddf
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:03eae3ef7e88a9de535496fb488d67e02b9d96a063a8967bae657744ecd513f2
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.5-slim-bookworm@sha256:5621ccfd3a0bcc39bbb7d94e5fe0fb25799d6676ecf02f15de524c86a0b354d7
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203
 
 FROM $BASE_IMAGE AS builder
 
@@ -130,7 +130,7 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 # make sense to us.
 #
 
-FROM raviqqe/muffet:2.11.3 AS muffet-scratch
+FROM raviqqe/muffet:2.11.5 AS muffet-scratch
 FROM ${BASE_IMAGE} AS muffet
 
 RUN apt-get update && \

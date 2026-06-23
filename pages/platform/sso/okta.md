@@ -15,8 +15,18 @@ Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can
 * Create users
 * Deactivate users (deprovisioning)
 
+### How provisioning and deprovisioning work
+
+Buildkite uses a two-layer model for user management with SCIM:
+
+* **SCIM:** When Okta assigns a user to the Buildkite app, it sends a request to Buildkite's SCIM endpoint. This creates a lightweight tracking record storing the user's name, email, and active status. It does not create a Buildkite account, add the user to your organization, or trigger billing.
+* **JIT provisioning:** A real Buildkite account and organization membership are created the first time the user logs in using SSO. This is the only step that provisions an actual account.
+
+Provisioning is handled by JIT on first login. Deprovisioning is handled by SCIM when a user is unassigned in Okta.
+
+
 > 📘
-> Buildkite does not bill you for users that you add to your Okta Buildkite app until they sign in to your Buildkite organization.
+> Buildkite does not bill you for users added to your Okta Buildkite app until they sign in for the first time. Billing is triggered by JIT provisioning at first login, not by the SCIM tracking record.
 
 ### Configuration instructions
 
@@ -37,12 +47,12 @@ Go to your Buildkite application in Okta to set up deprovisioning:
 1. Select the **Enable API integration** option and enter the URL and API token copied from your Buildkite SSO Provider settings.
 1. Click **Test API Credentials** and then **Save** once successfully verified.
 1. Select **To App** from the left side menu.
-1. Edit the **Provisioning to App** settings, and enable **Create Users** and **Deactivate Users**.
+1. Edit the **Provisioning to App** settings, and enable **Create Users** and **Deactivate Users**. Enabling **Create Users** allows Okta to create a SCIM tracking record when a user is assigned. **Deactivate Users** requires this existing SCIM record, as Okta needs it to send a deactivation request.
 1. Save and test your settings.
 
-### Provisioning existing users
+### Syncing existing users for deprovisioning
 
-Buildkite creates accounts for existing Okta users with just-in-time user provisioning (JIT provisioning). To deprovision users, you need to sync them.
+If users were already provisioned in Buildkite using JIT before SCIM was configured, Okta has no SCIM tracking record for them and cannot deactivate them. To enable deprovisioning for these users, you need to retroactively create SCIM tracking records by syncing them with Okta.
 
 This can be done one of two ways:
 

@@ -44,6 +44,7 @@ autoscaling
 aws
 awscli
 azcopy
+backoff
 Backstage
 Backstage Software Catalog
 Basecamp
@@ -58,6 +59,7 @@ Bitbucket
 Bitrise
 bktec
 bktec's
+bktx
 boolean
 Boomper
 bottlenecked
@@ -105,6 +107,7 @@ codesign
 codesigning
 Cognito
 commit_sha
+commit's
 completion_watcher
 composable
 config
@@ -133,6 +136,7 @@ deprioritize
 deprovisioning
 deregistration
 deprovision
+dev
 dialog's
 dialogs
 discoverability
@@ -168,6 +172,8 @@ fastlane's
 favorited
 fff
 ffxdq
+finalizer
+finalizers
 Firehose
 Firewalled
 firewalled
@@ -183,6 +189,7 @@ globbing
 gmp
 gnupg
 goroutines
+grantable
 gotestsum
 gpg
 GPU
@@ -202,6 +209,7 @@ hard-coded
 hard-coding
 Hashicorp
 Homebrew
+heredoc
 heroku
 Honeycomb
 hostname
@@ -227,6 +235,7 @@ job_watcher
 jobWatcher
 jpegs
 jq
+jti
 json
 junit
 JWT
@@ -284,9 +293,11 @@ negator
 NGINX
 nginx
 Nodejs
+NUnit
 nodeName
 nodeSelector
 Noreply
+noreply
 not_run
 npm
 ns
@@ -339,6 +350,7 @@ Prepends
 Prometheus
 promised_exit_status
 protobuf
+promised_exit_status
 preemptible
 prefill
 prefetch
@@ -365,6 +377,7 @@ reimagined
 remediation
 remediations
 repo
+repos
 reprioritize
 reprioritizes
 resizable
@@ -394,7 +407,9 @@ SDK's
 SDKs
 semver
 sha
+shm
 SHAs
+sharded
 sharding
 Shardy
 shasum
@@ -435,6 +450,7 @@ subnet
 subnets
 subnet's
 subpatterns
+substring
 substrings
 sudo
 svg
@@ -450,6 +466,8 @@ timeframe
 tmp
 tmux
 tokenization
+toleration
+tolerations
 toolchain
 toolchains
 toolmantim
@@ -458,6 +476,7 @@ toolsets
 tooltip
 TOTP's
 TPUs
+TTLs
 traceparent
 Trivy
 trixie
@@ -471,6 +490,7 @@ unarchived
 unarchiving
 Uncomment
 unblocker
+unblocker's
 unbuildable
 unclustered
 unencrypted
@@ -509,6 +529,7 @@ webtask
 wget
 whoami
 Windsurf's
+workdir
 workgroup
 worktree
 worktrees

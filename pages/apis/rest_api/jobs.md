@@ -8,9 +8,194 @@ A running command job can also declare an expected failure before it finishes by
 
 When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
 
+## List jobs
+
+Returns a paginated list of jobs in a build.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs"
+```
+
+```json
+{
+  "items": [
+    {
+      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+      "type": "script",
+      "name": ":package: Build",
+      "step_key": "build",
+      "step": { "id": "...", "signature": null },
+      "priority": { "number": 0 },
+      "agent_query_rules": [],
+      "state": "passed",
+      "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/artifacts",
+      "command": "scripts/build.sh",
+      "soft_failed": false,
+      "exit_status": 0,
+      "artifact_paths": null,
+      "created_at": "2015-05-09T21:05:59.874Z",
+      "scheduled_at": "2015-05-09T21:05:59.874Z",
+      "runnable_at": "2015-05-09T21:06:00.000Z",
+      "started_at": "2015-05-09T21:06:05.000Z",
+      "finished_at": "2015-05-09T21:06:20.000Z",
+      "expired_at": null,
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": null,
+      "retry_source": null,
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "agent": null,
+      "retried_by": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
+    }
+  ],
+  "links": {
+    "self": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs?per_page=30",
+    "next": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs?after=...&per_page=30"
+  }
+}
+```
+
+This endpoint uses cursor-based pagination. The response body is a JSON object with an `items` array and a `links` object. Use the `next` URL from `links` to fetch the next page.
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>state[]</code></th>
+    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted.</td>
+  </tr>
+  <tr>
+    <th><code>include_retried_jobs</code></th>
+    <td>Include jobs that have been retried. Default: <code>true</code>. Set to <code>false</code> to return only the most recent attempt for each step.<p class="Docs__api-param-eg"><em>Example:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>per_page</code></th>
+    <td>How many results to return per page.<p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p><p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td>
+  </tr>
+  <tr>
+    <th><code>after</code></th>
+    <td>Return results after this cursor value. Mutually exclusive with <code>before</code>.</td>
+  </tr>
+  <tr>
+    <th><code>before</code></th>
+    <td>Return results before this cursor value. Mutually exclusive with <code>after</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+Required scope: `read_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td>Invalid <code>state</code>, <code>per_page</code>, or cursor value</td>
+  </tr>
+</tbody>
+</table>
+
+## Get a job
+
+Returns a single job.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}"
+```
+
+You can also use the organization-scoped route if you only have the organization slug and job UUID (without the pipeline or build):
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}"
+```
+
+```json
+{
+  "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+  "type": "script",
+  "name": ":package: Build",
+  "step_key": "build",
+  "step": { "id": "...", "signature": null },
+  "priority": { "number": 0 },
+  "agent_query_rules": [],
+  "state": "passed",
+  "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+  "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/artifacts",
+  "command": "scripts/build.sh",
+  "soft_failed": false,
+  "exit_status": 0,
+  "artifact_paths": null,
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "runnable_at": "2015-05-09T21:06:00.000Z",
+  "started_at": "2015-05-09T21:06:05.000Z",
+  "finished_at": "2015-05-09T21:06:20.000Z",
+  "expired_at": null,
+  "retried": false,
+  "retried_in_job_id": null,
+  "retries_count": null,
+  "retry_source": null,
+  "retry_type": null,
+  "parallel_group_index": null,
+  "parallel_group_total": null,
+  "matrix": null,
+  "agent": null,
+  "retried_by": null,
+  "cluster_id": null,
+  "cluster_url": null,
+  "cluster_queue_id": null,
+  "cluster_queue_url": null
+}
+```
+
+Required scope: `read_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td><code>{ "message": "No job found" }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## Retry a job
 
 Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/configure/retry#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/retry"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -65,12 +250,29 @@ Error responses:
     <th><code>400 Bad Request</code></th>
     <td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td>
   </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Jobs from canceled builds cannot be retried" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job can't be retried because this build was triggered by a synchronous trigger step in a canceled build" }</code></td>
+  </tr>
 </tbody>
 </table>
 
 ## Reprioritize a job
 
 Reprioritizes a job by changing its [priority value](/docs/pipelines/configure/workflows/job-priority). This affects the order in which jobs are picked up by agents.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/reprioritize" \
+  -H "Content-Type: application/json" \
+  -d '{"priority": 5}'
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -147,7 +349,21 @@ Unblocks a build's "Block pipeline" job. The job's `unblockable` property indica
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/unblock" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fields": {
+      "name": "Liam Neeson",
+      "email": "liam@evilbatmanvillans.com"
+    }
+  }'
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock" \
   -H "Content-Type: application/json" \
   -d '{
     "fields": {
@@ -211,10 +427,21 @@ Error responses:
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Unblocker is not a valid user id for this organization"}</code></td>
   </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Jobs from canceled builds cannot be unblocked" }</code></td>
+  </tr>
 </tbody>
 </table>
 
 ## Get a job's log output
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -255,6 +482,13 @@ Alternative formats (using `Accept` header or file extension):
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
   -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
@@ -263,6 +497,13 @@ Required scope: `write_build_logs`
 Success response: `204 No Content`
 
 ## Get a job's environment variables
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/env"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

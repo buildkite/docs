@@ -76,7 +76,7 @@ Required scope: `write_suites`
 Success response: `200 OK`
 
 ## List quarantined tests
-A list of skipped tests or muted tests can be retrieved via the following APIs. You can use this list to configure your test runner to skip or ignore failures for these tests.
+A list of skipped tests or muted tests can be retrieved using the following APIs. You can use this list to configure your test runner to skip or ignore failures for these tests.
 
 ### Muted tests
 

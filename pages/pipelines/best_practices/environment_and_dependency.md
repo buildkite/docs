@@ -55,9 +55,9 @@ env:
 ## Optimizing agent hosts and queues for environment needs
 
 - Match your agent infrastructure to your environment requirements by creating specialized [queues](/docs/agent/queues) and minimizing host-level dependencies.
-- Create queues that map to specific environments, for example the OS, CPU/RAM, GPU, network access, trust boundary, and so on.
+- Create queues that map to specific environments, for example, the OS, CPU/RAM, GPU, network access, trust boundary, and so on.
 - Keep system dependencies in containers when possible.
-- If host-level tooling is required, pin versions and manage via [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach.
+- If host-level tooling is required, pin versions and manage using [infrastructure-as-code (IaC)](https://aws.amazon.com/what-is/iac/) approach.
 - Use [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent) for untrusted workloads.
 - Persist only necessary caches within the correct trust boundary.
 
@@ -70,7 +70,7 @@ Proper script hygiene prevents silent failures and makes debugging easier. Write
     * Consider only using `set -x` for debugging
 - Don't assume shell init files; explicitly configure shell behavior in your [build scripts](/docs/pipelines/configure/writing-build-scripts).
 - [Fail fast](/docs/pipelines/configure/step-types/command-step#fast-fail-running-jobs) with clear exit codes.
-- Surface summaries via [Buildkite annotations](/docs/agent/cli/reference/annotate) for quick feedback.
+- Surface summaries using [Buildkite annotations](/docs/agent/cli/reference/annotate) for quick feedback.
 
 ## Reproducible Docker builds in pipelines
 
@@ -124,5 +124,5 @@ Monitor and measure your build environments to identify optimization opportuniti
     * Image digest and source
     * Toolchain versions
     * Cache hit ratios
-- Track [queue metrics](/docs/pipelines/insights/queue-metrics), build time by step, and [flake rates](/docs/test-engine).
+- Track [queue metrics](/docs/pipelines/insights/queue-metrics), build time by step, and [flake rates](/docs/pipelines/configure/tests).
 - Use this data to adjust caching and [parallelism](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-and-parallelism).

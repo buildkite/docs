@@ -26,9 +26,19 @@
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?creator=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td>
   </tr>
   <tr>
+    <th><code>exclude_jobs</code></th>
+    <td><span>Excludes the list of jobs from each build's details</span>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
     <th><code>finished_from</code></th>
     <td><span>Filters the results by builds finished on or after the given time (in ISO 8601 format)</span>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?finished_from=2025-01-11T23:22:05Z</code></p></td>
+  </tr>
+  <tr>
+    <th><code>include_paused</code></th>
+    <td><span>Controls whether builds with jobs on paused queues are returned. When set to <code>false</code>, builds whose jobs are all on paused queues are excluded. A build that has jobs on both paused and active queues is still returned, but its jobs on paused queues are omitted from the <code>jobs</code> list. Unclustered jobs are always included. Defaults to <code>true</code>.</span>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>?include_paused=false</code></p></td>
   </tr>
   <tr>
     <th><code>include_retried_jobs</code></th>

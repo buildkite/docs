@@ -46,7 +46,7 @@ terraform apply
 
 The only required variable is `buildkite_agent_token`. For information on creating and managing agent tokens, see [Agent tokens](/docs/agent/self-hosted/tokens).
 
-For the complete list of variables and their descriptions, see the [module documentation](https://registry.terraform.io/modules/buildkite/elastic-ci-stack/aws) on the Terraform Registry or the [configuration parameters](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) reference.
+For the complete list of variables and their descriptions, see the [module documentation](https://registry.terraform.io/modules/buildkite/elastic-ci-stack-for-aws/buildkite/latest) on the Terraform Registry or the [configuration parameters](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) reference.
 
 ## Example configurations
 

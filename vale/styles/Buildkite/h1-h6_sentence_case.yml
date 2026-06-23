@@ -17,6 +17,7 @@ exceptions:
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
   - OAuth
+  - OAuth Device Authorization
   - 1Password
   - 2FA
   - ADFS
@@ -185,6 +186,7 @@ exceptions:
   - JSON
   - JUnit
   - JWKS
+  - JWT
   - Kaniko
   - KMS
   - Kotlin
@@ -214,6 +216,8 @@ exceptions:
   - nodeSelector
   - Nomad
   - NuGet
+  - NUnit
+  - OAuth
   - OIDC
   - Okta
   - OneLogin
@@ -269,13 +273,19 @@ exceptions:
   - SonarQube
   - SonarScanner
   - Sonoma
+  - Slim
   - SLO
   - SLOs
   - SSH
   - SSO
   - Summary
   - Tahoe
+  - Tahoe Slim
   - TCP
+  - Test Collector
+  - TTL
+  - TTLs
+  - Teams
   - Tekton
   - Tempo
   - Terraform
@@ -304,5 +314,6 @@ exceptions:
   - Xcode
   - XCTest
   - XML
+  - xUnit collector
   - YAML
   - VCR

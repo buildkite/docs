@@ -1,6 +1,6 @@
 # Getting started with managing pipelines
 
-The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [pipelines](/docs/pipelines/create-your-own), including their [steps](/docs/pipelines/configure/defining-steps), [pipeline templates](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks, [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds) as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
+The [Buildkite Terraform provider](/docs/platform/terraform-provider) supports managing [pipelines](/docs/pipelines/getting-started#create-your-own-pipeline), including their [steps](/docs/pipelines/configure/defining-steps), [pipeline templates](/docs/pipelines/governance/templates), [repository settings](/docs/pipelines/source-control), repository webhooks, [team access](/docs/pipelines/security/permissions#manage-teams-and-permissions), and [schedules](/docs/pipelines/configure/workflows/scheduled-builds) as Terraform resources. This page covers how to define and configure these resources in your Terraform configuration files.
 
 This process assumes that you already have the required Buildkite clusters and teams configured in your Buildkite organization, so that you can start configuring and managing your pipelines in Terraform. Before proceeding, ensure you have the following:
 

@@ -305,6 +305,14 @@ attributes:
     required: false
     desc: |
       Flags to pass to "git clean" command
+  - name: "git-commit-verification"
+    env_var: |
+      $BUILDKITE_GIT_COMMIT_VERIFICATION
+    default_value: |
+
+    required: false
+    desc: |
+      Enable git commit verification
   - name: "git-fetch-flags"
     env_var: |
       $BUILDKITE_GIT_FETCH_FLAGS
@@ -313,6 +321,14 @@ attributes:
     required: false
     desc: |
       Flags to pass to "git fetch" command
+  - name: "git-sparse-checkout-paths"
+    env_var: |
+      $BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS
+    default_value: |
+
+    required: false
+    desc: |
+      Comma-separated list of paths for git sparse checkout (cone mode). When set, only the listed paths are materialized in the working tree.
   - name: "git-clone-mirror-flags"
     env_var: |
       $BUILDKITE_GIT_CLONE_MIRROR_FLAGS
@@ -353,6 +369,14 @@ attributes:
     required: false
     desc: |
       Skip updating the Git mirror
+  - name: "git-checkout-timeout"
+    env_var: |
+      $BUILDKITE_GIT_CHECKOUT_TIMEOUT
+    default_value: |
+      0
+    required: false
+    desc: |
+      Seconds to allow for each git checkout attempt before it is killed and retried (0 means no timeout)
   - name: "git-submodule-clone-config"
     env_var: |
       $BUILDKITE_GIT_SUBMODULE_CLONE_CONFIG
@@ -782,7 +806,7 @@ attributes:
     env_var: |
       $BUILDKITE_REDACTED_VARS
     default_value: |
-      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY"
+      "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_SSH_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY"
     required: false
     desc: |
       Pattern of environment variable names containing sensitive values
@@ -810,6 +834,14 @@ attributes:
     required: false
     desc: |
       For Buildkite-hosted artifacts, disables the use of multipart uploads. Has no effect on uploads to other destinations such as custom cloud buckets
+  - name: "artifact-upload-concurrency"
+    env_var: |
+      $BUILDKITE_ARTIFACT_UPLOAD_CONCURRENCY
+    default_value: |
+      0
+    required: false
+    desc: |
+      Maximum number of concurrent artifact upload operations used by jobs started by this agent. When unset, artifact uploads use their default
   - name: "kubernetes-log-collection-grace-period"
     env_var: |
       $BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD

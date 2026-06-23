@@ -75,7 +75,7 @@ Platform and organization-level limits apply to all Buildkite products. These li
       },
       {
         title: "GraphQL API rate limit per organization",
-        description: "The total <a href=\"/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-time-based-rate-limit\">actual complexity points</a> an organization can consume on the GraphQL API within a 5-minute window.",
+        description: "The total <a href=\"/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit\">actual complexity points</a> an organization can consume on the GraphQL API within a 5-minute window.",
         default_value: "20,000 complexity points per 5 minutes"
       },
       {
@@ -122,11 +122,6 @@ Platform and organization-level limits apply to all Buildkite products. These li
         title: "Maximum OIDC lifetime",
         description: "The default maximum lifetime for OIDC.",
         default_value: "2 hours"
-      },
-      {
-        title: "Linear services per organization",
-        description: "The maximum number of Linear integrations that can be added to an organization.",
-        default_value: "1 service"
       }
     ].each do |limit| %>
       <tr>
@@ -344,7 +339,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkit
 
 ## Test Engine limits
 
-The following table lists the default service limits for [Test Engine](/docs/test-engine).
+The following table lists the default service limits for [Test Engine](/docs/pipelines/configure/tests).
 
 <table>
   <thead>
@@ -374,6 +369,11 @@ The following table lists the default service limits for [Test Engine](/docs/tes
         title: "Test ownership file size",
         description: "The maximum size for CODEOWNERS files.",
         default_value: "1 MB"
+      },
+      {
+        title: "Linear services per organization",
+        description: "The maximum number of Linear integrations that can be added to an organization.",
+        default_value: "1 service"
       }
     ].each do |limit| %>
       <tr>

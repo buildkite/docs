@@ -128,6 +128,33 @@ If you want to run builds only on pull requests, set the **Branch Filter Pattern
 
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
 
+> 📘 Rebuilding pull request builds
+> Rebuilding a pull request build replays the pull request data captured when the original build was created, including labels, draft state, base branch, and repository. A rebuild doesn't fetch the current pull request state from GitHub. If a label has been added or removed, or the pull request has been moved out of draft since the original build, the rebuild won't reflect those changes.
+> To run a build against the current pull request state, enable the relevant trigger from the pull request actions listed above. For example, **Build when pull request labels are changed** or **Build when pull request becomes ready for review**. Each trigger creates a new build from the webhook payload, so labels, draft state, and base branch reflect the pull request at the time of the event.
+
+### Building the test merge commit
+
+By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the Buildkite agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the change into its base branch.
+
+This is useful when you want builds to reflect the post-merge state of the code, rather than the pull request branch in isolation.
+
+> 📘 Private preview
+> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+
+To use this feature, three things need to be in place:
+
+1. Your organization has the feature enabled by Buildkite support.
+1. In the pipeline's GitHub repository settings, **Build the test merge commit** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization.
+1. Your agents are started with the `--pull-request-using-merge-refspec` flag (or the `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true` environment variable).
+
+With all three in place, pull request builds for that pipeline fetch and check out the GitHub-computed merge commit automatically. The build's reported commit in the Buildkite interface stays the pull request head commit, so GitHub commit statuses continue to attach to the right commit. The actual merge commit that was checked out is tracked separately on the build.
+
+Note the following limitations:
+
+- Buildkite recommends disabling **Build branches** on pipelines using this feature, to avoid mixed commit statuses on the same commit SHA.
+- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout.
+- Builds that fire very quickly after a pull request is opened or synchronized may occasionally fail at checkout if GitHub has not yet computed the merge ref. The agent retries the checkout a few times before failing.
+
 ## Running builds on merge queues
 
 To enable merge queue builds, edit the GitHub settings for the pipeline and select **Build merge queues**.
@@ -135,9 +162,9 @@ To enable merge queue builds, edit the GitHub settings for the pipeline and sele
 > 🚧 Ensure GitHub webhook has _Merge groups_ events enabled
 > Buildkite relies on receiving `merge_group` webhook events from GitHub to create builds for merge groups in the merge queue. Ensure your pipeline's [webhook](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository) has the _Merge groups_ event enabled before enabling merge queue builds.
 
-Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping via a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
+Enabling this will prevent ordinary code pushes to `gh-readonly-queue/*` branches from creating builds, instead builds will be created in response to `merge_group` webhook events from GitHub. Merge queue builds ignore any pipeline-level branch filter settings and do not support [skipping using a commit message](/docs/pipelines/configure/skipping#ignore-a-commit).
 
-To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced via the **Use base commit when making `if_changed` comparisons** setting.
+To cancel running builds when the corresponding GitHub merge queue entry is destroyed, select the **Cancel builds for destroyed merge groups** option. The way the agent handles the [`if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) during pipeline uploads can also be influenced using the **Use base commit when making `if_changed` comparisons** setting.
 
 For more information about the interaction between GitHub merge queues and Buildkite, see our [merge queue tutorial](/docs/pipelines/tutorials/github-merge-queue).
 
@@ -170,7 +197,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 
 ## Environment variables
 
-GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation via `build.env()`, while others are only available in conditionals and pipeline interpolation:
+GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation using `build.env()`, while others are only available in conditionals and pipeline interpolation:
 
 **Available at runtime, conditionals, and pipeline interpolation:**
 
@@ -203,7 +230,7 @@ Your checks will appear on your pull request as **buildkite/your-pipeline-name**
 
 <%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
 
-You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
+You can customize the commit statuses, for example, to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/configure/notify) attribute in your `pipeline.yml`.
 
 ### Build level
 
@@ -265,6 +292,52 @@ steps:
 ```
 
 When you set a custom commit status on a group step, GitHub only displays one status for the group. A passing result only shows when all jobs in the group pass. If you want to show custom commit statuses for each job, set them on the individual step.
+
+> 📘 Commit statuses and GitHub API rate limits
+> Enabling **Create a status for each job** generates at least two GitHub API requests per job. Pipelines with high job counts can consume a significant portion of your hourly rate limit budget. See [GitHub API rate limits](/docs/pipelines/source-control/github#github-api-rate-limits) for details on monitoring and managing your usage.
+
+## GitHub API rate limits
+
+GitHub imposes hourly [rate limits](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api) on REST API requests made through each GitHub App installation. Buildkite uses these API calls primarily for posting [commit statuses](/docs/pipelines/source-control/github#customizing-commit-statuses) to your repositories. When Buildkite encounters a rate limit from GitHub, it automatically retries the request.
+
+### Checking your rate limit usage
+
+To view your current GitHub API rate limit usage, go to your organization's **Settings** > **Repository Providers**, and select your connected GitHub provider. The **GitHub API Rate Limit** panel displays the following values:
+
+- **`x-ratelimit-limit`**: The maximum number of requests that Buildkite can make per hour, as set by GitHub.
+- **`x-ratelimit-remaining`**: The number of requests remaining in the current rate limit window.
+- **`x-ratelimit-reset`**: The time at which the current rate limit window resets, in UTC epoch seconds.
+- **`x-ratelimit-used`**: The number of API requests that Buildkite has made in the current rate limit window.
+
+This panel is available for both the full-access **GitHub** and **GitHub (Limited Access)** App integrations.
+
+You can also query rate limit data programmatically using the [Buildkite GraphQL API](/docs/apis/graphql/cookbooks/github-rate-limits).
+
+### What causes high API usage
+
+The biggest contributor to GitHub API usage is commit statuses. Each status update requires at least one API request. When you enable **Create a status for each job** in the GitHub settings for a pipeline, every job in the build generates at least two status update requests (one when the job starts, one when it finishes). A build with 500 jobs could consume over 1,000 API requests.
+
+Other factors that increase API usage:
+
+- Running many pipelines that report commit statuses against the same GitHub App installation
+- High build frequency across branches and pull requests
+
+### What happens when rate limits are exceeded
+
+When Buildkite receives a rate-limited response from GitHub, it automatically retries the request after the rate limit window resets. During this period, commit status updates to GitHub may be delayed.
+
+If rate-limited requests continue to fail, Buildkite may temporarily disable commit status updates for affected pipelines. When this happens, a notice appears on the pipeline's GitHub settings page with instructions for re-enabling status updates.
+
+### Reducing API usage
+
+To reduce your GitHub API usage:
+
+- Disable **Create a status for each job** on pipelines with high job counts, and rely on the single pipeline-level commit status instead.
+- Review which pipelines have **Update commit statuses** enabled, and disable it for pipelines where GitHub status reporting is not needed.
+
+### Raising your rate limit
+
+The rate limit is set by GitHub on the GitHub App installation, not by Buildkite. To request a higher rate limit, [contact GitHub support](https://support.github.com/contact?source=subtitle&tags=rr-general-technical).
 
 ## Using one repository in multiple pipelines and organizations
 

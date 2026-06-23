@@ -37,6 +37,7 @@ Rails.application.config.content_security_policy do |policy|
     "https://rum.browser-intake-datadoghq.com",
     "https://www.datadoghq-browser-agent.com",
     "https://us-assets.i.posthog.com/",
+    "https://static.reo.dev",
   )
 
   # Allow @vite/client to hot reload javascript changes in development
@@ -60,6 +61,9 @@ Rails.application.config.content_security_policy do |policy|
 
     #posthog
     "https://us.i.posthog.com",
+
+    # Reo.dev product analytics
+    "https://api.reo.dev",
   )
 
   # Allow @vite/client to hot reload changes in development

@@ -24,7 +24,7 @@ To enforce 2FA:
 ## Programmatically enforcing two-factor authentication
 
 Please review the GraphQL [cookbook] for instructions on how to enable
-enforced 2FA via the GraphQL API.
+enforced 2FA using the GraphQL API.
 
 [cookbook]: </docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization>
 [2FA tutorial]: </docs/platform/tutorials/2fa>

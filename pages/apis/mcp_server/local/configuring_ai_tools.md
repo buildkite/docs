@@ -281,7 +281,7 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
 
-1. In the [Command Palette](https://code.visualstudio.com/docs/getstarted/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
+1. In the [Command Palette](https://code.visualstudio.com/docs/editing/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
 1. Select **Docker image** to start configuring your local MCP server running in Docker.
 1. For **Enter Docker Image Name**, specify `buildkite/mcp-server`, and **Allow** it to be installed.
 1. For **Enter your Buildkite API Access Token**, enter your configured Buildkite API access token.

@@ -235,7 +235,7 @@ steps:
 
 ## Allowed failure and soft fail
 
-Setting [`soft_fail`](/docs/pipelines/configure/step-types/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/depends-on#allowing-dependency-failures) is set on the subsequent step.
+Setting [`soft_fail`](/docs/pipelines/configure/soft-fail) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/depends-on#allowing-dependency-failures) is set on the subsequent step.
 
 In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
 

@@ -104,7 +104,7 @@ To use a custom environment variable name, you can specify `secrets` as a hash w
       MY_APP_ACCESS_TOKEN: API_ACCESS_TOKEN
 ```
 
-This will inject the value of the secret `API_ACCESS_TOKEN` into the environment variable `MY_APP_ACCESS_TOKEN`. Custom environment variable names for secrets cannot start with `BUILDKITE` or `BK` (with the exception of `BUILDKITE_API_TOKEN`).
+This will inject the value of the secret `API_ACCESS_TOKEN` into the environment variable `MY_APP_ACCESS_TOKEN`. Custom environment variable names for secrets cannot start with `BUILDKITE` or `BK` (with the exception of `BUILDKITE_API_TOKEN` and `BUILDKITE_ANALYTICS_TOKEN`).
 
 ### From a build script or hook
 
@@ -118,7 +118,7 @@ Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret g
 
     `buildkite-agent secret get secret_name > secret.txt`
 
-- Passing the output of your Buildkite secret (using the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret via its `-token` option:
+- Passing the output of your Buildkite secret (using the `buildkite-agent secret get` command) to your own tool named `cli-tool` that accepts a secret using its `-token` option:
 
     `cli-tool —token $(buildkite-agent secret get secret_name)`
 
