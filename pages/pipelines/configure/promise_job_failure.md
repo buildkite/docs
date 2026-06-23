@@ -4,7 +4,7 @@ A long-running job often knows it is going to fail well before it actually finis
 
 Promising job failure removes that wait. A running command job can declare the non-zero exit status it expects to finish with, and Buildkite Pipelines marks the build as `failing` straight away while the job keeps running. You, your teammates, and your AI agents can start investigating or fixing the failure immediately, and the job still runs to completion so it can finish uploading logs, artifacts, and test results.
 
-This is useful whenever a job can determine its final result before the rest of its work is done. For example, a test job might know the build must fail after 2 of 100 tests fail, but you still want the remaining tests to run so engineers and AI agents can see the full set of failures.
+This is useful whenever a job can determine its final result before the rest of its work is done. For example, a test job might know the build must fail after two of 100 tests fail, but you still want the remaining tests to run so engineers and AI agents can see the full set of failures.
 
 ## How it works
 
