@@ -399,7 +399,7 @@ This section explains risk mitigation strategies which you can implement, and ot
 
 ### Rotation
 
-Buildkite's API access tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
+When you [create an API access token](#creating-and-editing-api-access-tokens-create-an-api-access-token), you select a Token Expiry duration that determines when the token expires. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) or inactive ones [revoked](#inactive-api-tokens-revocation), and new tokens are issued.
 
 The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
 
