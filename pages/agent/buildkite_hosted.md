@@ -14,7 +14,7 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Ephemeral, isolated environments that scale**: Hosted agents are provisioned on demand and destroyed after each job, providing clean, reproducible builds that dynamically scale and operate concurrently to meet high demand.
 
-- **Pricing is calculated per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
+- **Usage is billed in vCPU minutes**: Each instance shape has a vCPU count, and usage is calculated as that count multiplied by job runtime in minutes, measured to the second. Startup and shutdown periods are excluded, with no minimum charges. You can view your vCPU minute consumption on the [**Usage** page](https://buildkite.com/organizations/~/usage) in your Buildkite organization, which shows vCPU minutes by default with a toggle to switch to job minutes by instance shape.
 
 - **Caching is included at no additional cost**: There are no supplementary charges for storage or cache usage. [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) operate on high-speed, local NVMe-attached disks, substantially accelerating caching and disk operations. This results in faster job completion, reduced minute consumption, and lower overall costs.
 
