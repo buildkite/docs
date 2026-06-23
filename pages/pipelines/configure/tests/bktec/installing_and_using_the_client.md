@@ -269,7 +269,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-This helps Buildkite Pipelines move the build to `failing` earlier while the test job continues uploading logs and results. Learn more in [Detect job failures early](/docs/pipelines/configure/promise-job-failure).
+This helps Buildkite Pipelines move the build to `failing` earlier while the test job continues uploading logs and results. Learn more in [Promise job failure](/docs/pipelines/configure/promise-job-failure).
 
 ### Update the pipeline step
 

@@ -16,7 +16,7 @@ When a job declares a promised failure, Buildkite Pipelines records:
 
 The job stays in the `running` state. The build and step can be marked as failing right away because the promised exit status is treated as a failure, but the job itself does not finish until the command exits, is canceled, or reaches another terminal state.
 
-Buildkite Pipelines respects the job's [retry](/docs/pipelines/configure/retry) and [soft fail](/docs/pipelines/configure/soft-fail) rules. A promised status that would be retried, or that matches a `soft_fail` rule, is not treated as a hard failure and does not mark the build as failing. Declare a promised failure only once the result is final: after automatic retries are exhausted, and once you know the status is not a soft failure.
+Buildkite Pipelines automatically respects the job's [retry](/docs/pipelines/configure/retry) and [soft fail](/docs/pipelines/configure/soft-fail) rules. A promised status that would be retried, or that matches a `soft_fail` rule, is not treated as a hard failure and does not mark the build as failing, so you do not need to account for these cases yourself. What Buildkite Pipelines cannot see are the retries that happen inside your test suite. Declare a promised failure only once your test suite has finished its own retries and the failure is final.
 
 ## Declare a promised failure
 
@@ -34,7 +34,7 @@ You cannot promise success. Exit status `0` is not valid for a promised failure.
 
 ## Use Buildkite Test Engine Client
 
-If you use [Buildkite Test Engine Client](/docs/test-engine/bktec/installing-and-using-the-client), turn on promised failures by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
+If you use [Buildkite Test Engine Client](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), turn on promised failures by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
 
 ```yaml
 steps:
