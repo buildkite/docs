@@ -33,6 +33,6 @@ Options:
   </tbody>
 </table>
 
-Call this command only once per job, after your script or test runner has confirmed that the job should fail. If the same promised status is submitted more than once, Buildkite Pipelines handles it as a duplicate declaration. Declaring a different promised status for the same job is a conflict.
+Call this command only once per job, after your script or test runner has confirmed the job should fail. Submitting the same exit status again is treated as a duplicate and safely ignored (the original declaration stands). Submitting a different exit status for a job that has already declared one is rejected as a conflict (HTTP `409`).
 
 Buildkite Pipelines evaluates the promised exit status against retry and soft-fail rules. A promised status that would be retried or soft-failed does not count as a hard failure when the build is marked as failing.
