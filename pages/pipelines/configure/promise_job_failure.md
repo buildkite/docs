@@ -91,8 +91,7 @@ A promised failure pairs well with Preflight, because Preflight can begin invest
 
 If you use Preflight with large test suites, declare promised failures in the jobs that can identify build-critical failures before they finish. Preflight can start remediation earlier, then review the final job result later for more context.
 
-Preflight reads failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs). This requires Buildkite CLI version `BUILDKITE_CLI_VERSION` or later.
-<!-- TODO: Replace BUILDKITE_CLI_VERSION with the released Buildkite CLI version before publishing. -->
+Preflight reads failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs). This requires Buildkite CLI version `3.49.3` or later.
 
 ## React to promised failures with notifications and integrations
 
