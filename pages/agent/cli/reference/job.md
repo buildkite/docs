@@ -27,6 +27,10 @@ Options:
 <table>
   <tbody>
     <tr>
+      <th><code>--job</code></th>
+      <td>The job to declare the promised failure for. Defaults to the current job (<code>$BUILDKITE_JOB_ID</code>).</td>
+    </tr>
+    <tr>
       <th><code>--reason</code></th>
       <td>Optional human-readable reason for the promised failure.</td>
     </tr>
