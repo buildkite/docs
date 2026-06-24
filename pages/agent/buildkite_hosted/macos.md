@@ -62,11 +62,25 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-<!-- TODO: Add Xcode versions available with Golden Gate (27.0) base image -->
+- 27-Beta
 
 ### Runtimes
 
-<!-- TODO: Add iOS, tvOS, visionOS, and watchOS runtime versions for Golden Gate (27.0) -->
+#### iOS
+
+- 27.0
+
+#### tvOS
+
+- 27.0
+
+#### visionOS
+
+- 27.0
+
+#### watchOS
+
+- 27.0
 
 ## macOS Tahoe 26.6
 
