@@ -48,7 +48,7 @@ You can filter pipelines using the search bar at the top of the page. This will 
 
 You can add tags to your pipelines and use them to quickly filter pipelines using the search bar. You can manage a pipeline’s tags in the pipeline's **Settings** section.
 
-A dropdown at the top of the dashboard lets you switch between active and archived pipelines. If your organization has Teams enabled, the dropdown also lets you filter by team. It defaults to **All Teams** when teams are available. Selecting a specific team filters the list to pipelines accessible by that team.
+A dropdown at the top of the dashboard lets you switch between active and archived pipelines. If your organization has Teams enabled, the dropdown also lets you filter by team. The dropdown defaults to **All Teams** when teams are available. Selecting a specific team filters the list to pipelines accessible by that team.
 
 ## Customizing the page
 
