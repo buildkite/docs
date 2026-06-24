@@ -3219,6 +3219,11 @@ enum HostedAgentInstanceShapeName {
   LINUX_AMD64_4X16
 
   """
+  Linux 64 vCPU x 256 GB Memory
+  """
+  LINUX_AMD64_64X256
+
+  """
   Linux 8 vCPU x 32 GB Memory
   """
   LINUX_AMD64_8X32
@@ -3242,6 +3247,11 @@ enum HostedAgentInstanceShapeName {
   Linux 4 vCPU x 16 GB Memory
   """
   LINUX_ARM64_4X16
+
+  """
+  Linux 64 vCPU x 256 GB Memory
+  """
+  LINUX_ARM64_64X256
 
   """
   Linux 8 vCPU x 32 GB Memory
@@ -3404,6 +3414,11 @@ enum HostedAgentSize {
   Small capacity size: 2 vCPU, 4GB RAM (Linux); 4 vCPU, 7GB RAM (macOS).
   """
   SMALL
+
+  """
+  3XL capacity size: 64 vCPU, 256GB RAM (Linux); Not applicable for macOS.
+  """
+  THREE_XL
 }
 
 """
@@ -10398,6 +10413,12 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to use the merge group base commit for git diff base.
   """
   useMergeGroupBaseCommitForGitDiffBase: Boolean!
+
+  """
+  Whether to use step keys as commit status names for per-step commit statuses.
+  Requires publish_commit_status and publish_commit_status_per_step to also be enabled.
+  """
+  useStepKeyAsCommitStatus: Boolean!
 }
 
 """
@@ -10635,6 +10656,12 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to use the merge group base commit for git diff base.
   """
   useMergeGroupBaseCommitForGitDiffBase: Boolean!
+
+  """
+  Whether to use step keys as commit status names for per-step commit statuses.
+  Requires publish_commit_status and publish_commit_status_per_step to also be enabled.
+  """
+  useStepKeyAsCommitStatus: Boolean!
 }
 
 """
