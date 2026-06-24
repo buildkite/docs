@@ -3321,6 +3321,11 @@ Possible macOS versions for the Hosted Agent instance
 """
 enum HostedAgentMacOSVersion {
   """
+  macOS Golden Gate (27.0)
+  """
+  GOLDEN_GATE
+
+  """
   macOS Sequoia (15.7.5)
   """
   SEQUOIA
@@ -3334,6 +3339,11 @@ enum HostedAgentMacOSVersion {
   macOS Tahoe (26.3.1)
   """
   TAHOE
+
+  """
+  macOS Tahoe (26.6)
+  """
+  TAHOE_26_6
 
   """
   macOS Tahoe (26.5)
