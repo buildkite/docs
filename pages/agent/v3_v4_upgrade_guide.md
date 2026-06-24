@@ -118,6 +118,7 @@ Read the following breaking changes carefully to determine if your agent setup, 
 ### Changes to checkout
 
 - After repository checkout, `BUILDKITE_COMMIT` is resolved to a commit hash, which is beneficial when the initial value is a refspec such as `HEAD`.
+- The inbuilt SSH key-scan and `known-hosts` file updater in the default checkout process has been replaced with the OpenSSH option `StrictHostKeyChecking=accept-new`. As such, the default checkout process now requires OpenSSH version 7.6 or later, unless `--no-ssh-keyscan` / `BUILDKITE_NO_SSH_KEYSCAN` is enabled. (Note that OpenSSH 7.6 was released in 2017.)
 
 ### Changes to agent parallelism
 
@@ -128,7 +129,13 @@ Read the following breaking changes carefully to determine if your agent setup, 
 
 ### Changes to observability
 
-- OpenTracing is no longer supported. Various Datadog-related tracing workarounds were also cleaned up. Use OpenTelemetry instead.
+- Both OpenTracing and direct connection to Dogstatsd are no longer supported. Various Datadog-related tracing workarounds were also cleaned up. Use OpenTelemetry instead.
+  * Enable OpenTelemetry tracing with the `--opentelemetry-tracing` flag or `BUILDKITE_OPENTELEMETRY_TRACING` environment variable.
+  * `--tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `--telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`).
+  * `--tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed. (Only OpenTelemetry is supported.)
+  * `--tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed, and its function (accept a trace parent from the Buildkite backend) is now always enabled.
+  * OpenTelemetry OTLP endpoint and protocol can be configured with the [standard `OTEL_EXPORTER_OTLP_*` environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
+- Some OpenTelemetry metrics have changed. `jobs.success` and `jobs.failed` counters have been replaced with a single `jobs.finished` metric. Job failure or success can be inferred from the `exit_status` tag applied to the metric.
 - Some Prometheus metrics have changed. `buildkite_agent_jobs_started_total` and `buildkite_agent_jobs_ended_total` now have `priority` and `queue` labels, replacing `buildkite_agent_jobs_started_with_labels_total` and `buildkite_agent_jobs_ended_with_labels_total`.
 
 ### Changes to pipeline uploads
@@ -227,6 +234,9 @@ These CLI flags, environment variables, and agent configuration options have bee
 - `no-ansi-timestamps` (`BUILDKITE_NO_ANSI_TIMESTAMPS` ) has been removed (see “Changes to job logs” above).
 - `timestamp-lines` (`BUILDKITE_TIMESTAMP_LINES`) has been removed (see “Changes to job logs” above).
 - `trace-context-encoding` (`BUILDKITE_TRACE_CONTEXT_ENCODING`) - it applied to OpenTracing support, which was also removed in this version. There is no replacement flag, because there is no longer a trace context encoding to configure.
+- `tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`) (see "Changes to observability" above).
+- `tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed (see "Changes to observability" above).
+- `tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed as it is now always enabled (see "Changes to observability" above).
 - `kubernetes-log-collection-grace-period` (`BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD`) has been removed. It was only briefly used with agent-stack-k8s before the functionality was removed. There is no replacement flag, it should not be used.
 - `no-automatic-ssh-fingerprint-verification` (`BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION`) - use `no-ssh-keyscan` (`BUILDKITE_NO_SSH_KEYSCAN`) instead, which is equivalent.
 - `meta-data` (`BUILDKITE_AGENT_META_DATA`) - use `tags` (`BUILDKITE_AGENT_TAGS`) instead, which is equivalent.
