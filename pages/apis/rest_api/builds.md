@@ -183,11 +183,11 @@ Jobs are the individual units of work within a build.
   </tr>
   <tr>
     <th><code>promised_exit_status</code></th>
-    <td>The non-zero exit status a running job declared before finishing. Returns <code>null</code> if the job has not promised failure.</td>
+    <td>The non-zero exit status a running job declared before finishing. Omitted if the job has not promised failure.</td>
   </tr>
   <tr>
     <th><code>promised_exit_status_at</code></th>
-    <td>The time when the job declared its promised exit status. Returns <code>null</code> if the job has not promised failure.</td>
+    <td>The time when the job declared its promised exit status. Omitted if the job has not promised failure.</td>
   </tr>
   <tr>
     <th><code>artifact_paths</code></th>

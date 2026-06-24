@@ -20,7 +20,7 @@ Use `buildkite-agent job promise-failure` in a running command job to declare th
 buildkite-agent job promise-failure 1 --reason "test_failure (2 failed after retries)"
 ```
 
-The positional argument is the promised exit status. It must be a non-zero integer. Exit status `0` is not valid because it promises success rather than failure.
+The positional argument is the promised exit status. It must be a positive integer. Exit status `0` is not valid because it promises success rather than failure.
 
 Options:
 
