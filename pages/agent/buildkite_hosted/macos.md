@@ -88,11 +88,50 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 ### Xcode
 
-<!-- TODO: Add Xcode versions available with Tahoe (26.6) base image -->
+- 27-Beta
+- 26.6-RC2
+- 26.5
+- 26.5-RC
+- 26.4.1
+- 26.3
+- 26.2
 
 ### Runtimes
 
-<!-- TODO: Add iOS, tvOS, visionOS, and watchOS runtime versions for Tahoe (26.6) -->
+#### iOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+- 18.6
+
+#### tvOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+- 18.5
+
+#### visionOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+
+#### watchOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+- 11.5
 
 ## macOS Tahoe 26.5
 
