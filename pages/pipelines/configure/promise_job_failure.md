@@ -28,6 +28,8 @@ buildkite-agent job promise-failure 1 --reason "test_failure (2 failed after ret
 
 This declares that the current job expects to finish with exit status `1`. It does not stop the job.
 
+The `promise-failure` command requires Buildkite agent version `3.128.0` or later.
+
 Call the command only once per job, after your script or test runner has confirmed that the failure is final and build-critical. For test suites, wait until retries are exhausted and any muted or quarantined tests are accounted for.
 
 You cannot promise success. Exit status `0` is not valid for a promised failure.
