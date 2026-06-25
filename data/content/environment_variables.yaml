@@ -7,6 +7,11 @@ variables:
       The agent session token for the job. The variable is read by the agent `artifact` and `meta-data` commands.
     modifiable: false
     example: "83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"
+  - name: BUILDKITE_AGENT_CACHE_STORE_URL
+    desc: |
+      The URL of the default cache store backend used by the agent for the `cache` step attribute. On jobs running on [hosted queues](/docs/agent/buildkite-hosted), this is automatically set to a URL scoped to the cluster.
+    modifiable: false
+    example: "nsc://buildkite-cache-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   - name: BUILDKITE_AGENT_DEBUG
     desc: |
       The value of the `debug` [agent configuration option](/docs/agent/self-hosted/configure).
