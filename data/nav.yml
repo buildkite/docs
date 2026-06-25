@@ -1016,6 +1016,8 @@
           children:
             - name: "Overview"
               path: "apis/rest-api/organizations"
+            - name: "Audit log"
+              path: "apis/rest-api/organizations/audit-events"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
             - name: "Rate limits"

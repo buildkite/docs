@@ -6,6 +6,8 @@ The **Audit Log** is an interactive track record of all organization activity.
 > The audit/activity log feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan, and is only accessible to Buildkite organization administrators.
 > **Audit Log** events are stored indefinitely and can be accessed in the [Buildkite Pipelines](/docs/pipelines) web interface for up to 12 months. After 12 months, **Audit Log** events can be accessed using [GraphQL](/docs/apis/graphql-api).
 
+Audit log events can also be retrieved programmatically using the [REST API](/docs/apis/rest-api/organizations/audit-events), or queried using the [GraphQL API](/docs/apis/graphql-api).
+
 To access the **Audit Log** feature:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
