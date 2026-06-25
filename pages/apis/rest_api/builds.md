@@ -272,7 +272,7 @@ Jobs are the individual units of work within a build.
 
 There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
 
-Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can also include `promised_exit_status_at`. Compare this value with `finished_at` to measure how much earlier the job declared failure before it finished.
+Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can also include `promised_exit_status` and `promised_exit_status_at`. Compare `promised_exit_status_at` with `finished_at` to measure how much earlier the job declared failure before it finished.
 
 The timestamps are available using both the GraphQL and REST APIs. They differ slightly between the build and job objects.
 
