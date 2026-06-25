@@ -126,4 +126,6 @@ Check whether the promised exit status matches a `soft_fail` rule or an automati
 
 ### The final exit status differs from the promised exit status
 
-If a job promises a hard failure, it should ultimately exit as a hard failure. If the agent reports a different status after promising failure, Buildkite Pipelines shows both the promised and actual exit statuses in the job timeline. Buildkite Pipelines can use the promised non-zero status as the effective status when the final command result would otherwise break the promise.
+If a job promises a hard failure, it should ultimately exit as a hard failure. If the agent reports a different status after promising failure, Buildkite Pipelines shows both the promised and actual exit statuses in the job timeline. Buildkite Pipelines keeps the promise and uses the promised non-zero status as the effective status whenever the final command result would otherwise break it.
+
+For example, if a job promises exit status `1` but finishes with exit status `2`, both are hard failures, so there is no conflict. However, if a job promises exit status `1` but finishes with an exit status that matches a [`soft_fail`](/docs/pipelines/configure/soft-fail) rule (or exits `0` for success), that final result would break the promise. In this case, Buildkite Pipelines keeps the promise and treats the job as a hard failure.
