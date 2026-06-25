@@ -348,10 +348,10 @@ You can set the page using the following query string parameters:
 
 The REST API enforces rate limits to ensure stability and fair use across all customers. Two limits apply to each request:
 
-* An **organization-level limit** shared across all users in your organization.
-* A **per-user limit** for the authenticated user associated with the API access token.
+* An **organization-level limit** shared across all users in your organization
+* A **per-user limit** for the authenticated user associated with the API access token
 
-Every API response includes two independent sets of rate limit headers—`RateLimit-*` for the organization-level limit and `RateLimit-User-*` for the per-user limit—so you can monitor both and determine which one you're closer to reaching:
+Every API response includes two independent sets of rate limit headers — `RateLimit-*` for the organization-level limit and `RateLimit-User-*` for the per-user limit—so you can monitor both and determine which one you're closer to reaching:
 
 ```js
 RateLimit-Scope: rest
