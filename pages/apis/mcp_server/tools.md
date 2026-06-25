@@ -20,7 +20,7 @@ Buildkite recommends [configuring your project's `AGENTS.md` file with a hint](#
 <!-- -->
 
 > 📘 Promise job failure
-> Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can be `running` while also carrying a promised failure signal. When an AI agent investigates a failing build, it should inspect failed jobs from the Jobs REST API so it can include both terminally failed jobs and running jobs that have declared a promised failure.
+> Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can be `running` while also carrying a promised failure signal. When an AI agent investigates a failing build, it should inspect failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs) so it can include both terminally failed jobs and running jobs that have declared a promised failure.
 
 ### User, authentication and Buildkite organization
 

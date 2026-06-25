@@ -62,7 +62,7 @@ The `--pipeline` flag accepts either `{org-slug}/{pipeline-slug}` or just `{pipe
 
 In `--watch` mode, Preflight exits with code `0` if all jobs pass, `10` when the build first enters the failing state (the default), or `9` if the build completes with failures. See [exit codes](/docs/platform/cli/preflight#exit-codes) for the full list.
 
-Preflight works well with [promise job failure](/docs/pipelines/configure/promise-job-failure). If a running job declares a promised hard failure, Buildkite Pipelines can move the build to `failing` before the job exits, and Preflight can start reporting the failure earlier while the job continues uploading logs and test results. Reading promised failures from running jobs requires Buildkite CLI version `3.49.3` or later.
+Preflight works well with [promise job failure](/docs/pipelines/configure/promise-job-failure). If a running job declares a promised hard failure, Buildkite Pipelines can move the build to `failing` before the job exits, and Preflight can start reporting the failure earlier while the job continues uploading logs and test results. Reading promised failures from running jobs requires Buildkite CLI version `3.50.0` or later.
 
 The following examples show common variations:
 

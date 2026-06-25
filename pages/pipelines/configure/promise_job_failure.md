@@ -28,6 +28,8 @@ buildkite-agent job promise-failure 1 --reason "test_failure (2 failed after ret
 
 This declares that the current job expects to finish with exit status `1`. It does not stop the job.
 
+The `promise-failure` command requires Buildkite agent version `3.128.0` or later.
+
 Call the command only once per job, after your script or test runner has confirmed that the failure is final and build-critical. For test suites, wait until retries are exhausted and any muted or quarantined tests are accounted for.
 
 You cannot promise success. Exit status `0` is not valid for a promised failure.
@@ -91,7 +93,7 @@ A promised failure pairs well with Preflight, because Preflight can begin invest
 
 If you use Preflight with large test suites, declare promised failures in the jobs that can identify build-critical failures before they finish. Preflight can start remediation earlier, then review the final job result later for more context.
 
-Preflight reads failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs). This requires Buildkite CLI version `3.49.3` or later.
+Preflight reads failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs). This requires Buildkite CLI version `3.50.0` or later.
 
 ## React to promised failures with notifications and integrations
 
