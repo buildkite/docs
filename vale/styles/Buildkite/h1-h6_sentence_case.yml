@@ -181,6 +181,7 @@ exceptions:
   - Jenkins
   - JFrog
   - Jest
+  - Job Promised Exit Status
   - job_watcher
   - JSON
   - JUnit

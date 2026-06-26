@@ -162,6 +162,8 @@ notify:
 
 You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
 
+If a running job uses [promise job failure](/docs/pipelines/configure/promise-job-failure) and the promised exit status counts as a hard failure, `build.failing` notifications can be sent before that job exits.
+
 Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
 
 ```yaml

@@ -4,6 +4,10 @@ A job is the execution of a command step during a build. Jobs run the commands, 
 
 A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
 
+A running command job can also declare an expected failure before it finishes by using [promise job failure](/docs/pipelines/configure/promise-job-failure). In that case, the job state remains `running`, and the job payload includes the promised exit status and the time when the promise was recorded.
+
+When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
+
 ## List jobs
 
 Returns a paginated list of jobs in a build.
@@ -34,6 +38,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
+      "signal": null,
+      "signal_reason": null,
       "artifact_paths": null,
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
@@ -143,6 +149,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "command": "scripts/build.sh",
   "soft_failed": false,
   "exit_status": 0,
+  "signal": null,
+  "signal_reason": null,
   "artifact_paths": null,
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",

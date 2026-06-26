@@ -376,6 +376,15 @@ The `checkout` block is applied after the step's `env` map, so its values take p
       <code>fetch: "--prune"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>ssh_secret</code></td>
+    <td>
+      The key of a <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secret</a> containing an SSH private key to use when cloning the repository. The secret value is fetched at job startup and set as <code>BUILDKITE_GIT_SSH_KEY</code> in the job environment. The agent uses this to configure <code>GIT_SSH_COMMAND</code> for the git checkout.<br/>
+      Unlike the other <code>checkout</code> keys, <code>ssh_secret</code> is <strong>step-level only</strong>. It is not inherited from a pipeline-level <code>checkout</code> block, so it must be set on each step that needs it.<br/>
+      The value must be a string that starts with a letter and contains only letters, numbers, and underscores. It cannot start with <code>buildkite</code> or <code>bk</code>.<br/>
+      <em>Example:</em> <code>DEPLOY_KEY</code>
+    </td>
+  </tr>
 </table>
 
 ```yaml
@@ -387,6 +396,16 @@ steps:
       flags:
         clone: "--filter=blob:none"
         fetch: "--prune"
+```
+{: codeblock-file="pipeline.yml"}
+
+To clone a private repository using an SSH key stored as a Buildkite secret:
+
+```yaml
+steps:
+  - command: "make build"
+    checkout:
+      ssh_secret: "DEPLOY_KEY"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -441,7 +460,9 @@ steps:
 
 To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been cancelled, the build is marked as _failed_ due to the initial job failure.
+When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been canceled, the build is marked as _failed_ due to the initial job failure.
+
+Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 
 ## Example
 
