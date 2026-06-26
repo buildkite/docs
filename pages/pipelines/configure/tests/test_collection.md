@@ -38,7 +38,7 @@ To authenticate without a long-lived API token, set an [OIDC policy](/docs/pipel
     - write_uploads
 ```
 
-If OIDC is unavailable in your environment, set `BUILDKITE_ANALYTICS_TOKEN` to your suite's API token instead. See the [Tests Buildkite plugin README](https://github.com/buildkite-plugins/tests-buildkite-plugin) for the full list of options, including test splitting, Docker support, and dynamic parallelism.
+If OIDC is unavailable in your environment, set `BUILDKITE_ANALYTICS_TOKEN` to your suite's API token instead. See the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) for the full list of options, including test splitting, Docker support, and dynamic parallelism.
 
 ## Migrating from the Test Collector plugin
 
