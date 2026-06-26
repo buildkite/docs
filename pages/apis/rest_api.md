@@ -344,6 +344,30 @@ You can set the page using the following query string parameters:
 </tbody>
 </table>
 
+## Rate limiting
+
+The REST API enforces rate limits to ensure stability and fair use across all customers. Two limits apply to each request:
+
+* An **organization-level limit** shared across all users in your organization
+* A **per-user limit** for the authenticated user associated with the API access token
+
+Every API response includes two independent sets of rate limit headers — `RateLimit-*` for the organization-level limit and `RateLimit-User-*` for the per-user limit—so you can monitor both and determine which one you're closer to reaching:
+
+```js
+RateLimit-Scope: rest
+RateLimit-Remaining: 80
+RateLimit-Limit: 200
+RateLimit-Reset: 42
+RateLimit-User-Scope: rest_user
+RateLimit-User-Remaining: 35
+RateLimit-User-Limit: 50
+RateLimit-User-Reset: 42
+```
+
+If either limit is exceeded, the request is rejected with a `429 Too Many Requests` status code. Wait until the number of seconds reported by the `RateLimit-Reset` or `RateLimit-User-Reset` header has elapsed before retrying.
+
+For the full list of headers, the `429` response body, and best practices for backing off, see [REST API rate limits](/docs/apis/rest-api/rate-limits). For the default limit values that apply to your organization's plan, see [Limits](/docs/platform/limits).
+
 ## CORS headers
 
 API responses include the following [CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) allowing you to use the API directly from the browser:
