@@ -1541,6 +1541,11 @@ type Build implements Node {
   env: [String!]
 
   """
+  The time when the build first entered the failing state
+  """
+  failingAt: DateTime
+
+  """
   The time when the build finished
   """
   finishedAt: DateTime

@@ -293,6 +293,10 @@ Each <em>build</em> is provided with the following timestamps:
     <td>The time the build's first job was started by an agent</td>
   </tr>
   <tr>
+    <th><code>failing_at</code></th>
+    <td>The time the build first entered the failing state, when a hard, non-retryable job failure occurred before the build finished. Returns <code>null</code> if the build never started failing. Once set, this timestamp is not cleared, even if a later retry passes.</td>
+  </tr>
+  <tr>
     <th><code>finished_at</code></th>
     <td>The time the build is marked as finished (passed, failed, paused, canceled)</td>
   </tr>

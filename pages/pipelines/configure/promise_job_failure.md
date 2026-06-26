@@ -114,7 +114,10 @@ Failed-job filtering should include terminally failed jobs and running jobs that
 
 ## Measure time saved
 
-You can measure the feature's impact by comparing the promised failure timestamp with the job's final timestamp. Compare `promised_exit_status_at` with `finished_at` on the job to see how much earlier the job declared failure before it actually finished. Both fields are available from the [Jobs REST API](/docs/apis/rest-api/jobs).
+You can measure the feature's impact by comparing the promised failure timestamp with later timestamps:
+
+- Compare `promised_exit_status_at` with `finished_at` on the job to see how much earlier the job declared failure before it actually finished. Both fields are available from the [Jobs REST API](/docs/apis/rest-api/jobs).
+- Compare `failing_at` with `finished_at` on the build to see how much earlier Buildkite Pipelines signaled that the build was failing. The build's `failing_at` records when the build first entered the failing state, and is available from the [Builds REST API](/docs/apis/rest-api/builds).
 
 ## Troubleshooting
 
