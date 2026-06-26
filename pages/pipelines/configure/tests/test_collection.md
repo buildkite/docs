@@ -22,7 +22,7 @@ steps:
     parallelism: 2
 ```
 
-The `test-runner` option specifies which test framework to use. Supported values include `rspec`, `jest`, `pytest`, `gotest`, and `cypress`. The `result-path` option tells the plugin where to write test results; the exact path depends on your runner.
+The `test-runner` option specifies which test framework to use. Supported values include `rspec`, `jest`, `pytest`, `gotest`, and `cypress`. The `result-path` option tells the plugin where to write test results. The exact path depends on your runner.
 
 To authenticate without a long-lived API token, set an [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) on your suite to allow your pipeline to authenticate. Open your suite's settings page and add a policy like:
 
