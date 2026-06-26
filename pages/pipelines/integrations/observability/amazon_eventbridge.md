@@ -164,10 +164,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "branch": "main",
       "state": "scheduled",
       "started_at": null,
+      "failing_at": null,
       "finished_at": null,
       "source": "webhook",
-      "started_at": null,
-      "finished_at": null,
       "meta_data": {}
     },
     "pipeline": {
@@ -211,6 +210,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "state": "started",
       "blocked_state": null,
       "started_at": "2019-08-11 06:01:16 UTC",
+      "failing_at": null,
       "finished_at": null,
       "source": "webhook"
     },
@@ -256,6 +256,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "webhook",
       "started_at": "2019-08-11 06:01:16 UTC",
+      "failing_at": null,
       "finished_at": "2019-08-11 06:01:35 UTC",
       "meta_data": {}
     },
@@ -300,6 +301,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "ui",
       "started_at": "2024-09-12 10:19:49 UTC",
+      "failing_at": "2024-09-12 10:20:54 UTC",
       "finished_at": null
     },
     "pipeline": {
@@ -344,6 +346,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "ui",
       "started_at": "2022-01-30 04:31:59 UTC",
+      "failing_at": null,
       "finished_at": "2022-01-30 04:32:06 UTC"
     },
     "pipeline": {
@@ -409,6 +412,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "webhook",
       "started_at": "2024-08-19 07:03:37 UTC",
+      "failing_at": null,
       "finished_at": null,
       "meta_data": {}
     },
@@ -475,6 +479,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "webhook",
       "started_at": "2024-08-19 07:07:44 UTC",
+      "failing_at": null,
       "finished_at": null,
       "meta_data": {}
     },
@@ -542,6 +547,7 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "state": "started",
       "source": "webhook",
       "started_at": "2024-08-19 07:00:14 UTC",
+      "failing_at": null,
       "finished_at": null,
       "meta_data": {}
     },
@@ -623,6 +629,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
       "branch": "main",
       "state": "started",
       "started_at": "2024-08-19 07:00:14 UTC",
+      "failing_at": null,
       "source": "webhook",
       "meta_data": {}
     },

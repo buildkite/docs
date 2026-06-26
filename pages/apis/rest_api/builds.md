@@ -85,6 +85,10 @@ Note that some API request types on this page, especially those involving only a
     <td>When the build's first job was started by an agent</td>
   </tr>
   <tr>
+    <th><code>failing_at</code></th>
+    <td>When the build first entered the <code>failing</code> state (that is, when a hard, non-retryable job failure occurred before the build finished). <code>null</code> if the build has not entered the <code>failing</code> state</td>
+  </tr>
+  <tr>
     <th><code>finished_at</code></th>
     <td>When the build finished (passed, failed, canceled)</td>
   </tr>
@@ -479,6 +483,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2015-05-09T21:05:59.874Z",
     "scheduled_at": "2015-05-09T21:05:59.874Z",
     "started_at": "2015-05-09T21:05:59.874Z",
+    "failing_at": null,
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
     "pull_request": { },
@@ -655,6 +660,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:08:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -871,6 +877,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -1092,6 +1099,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -1248,6 +1256,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -1393,6 +1402,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
