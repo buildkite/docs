@@ -242,6 +242,11 @@ variables:
     values:
       - true
       - false
+  - name: BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS
+    desc: |
+      A comma-separated list of paths for [git sparse checkout](https://git-scm.com/docs/git-sparse-checkout). Set automatically from the `checkout.sparse.paths` key in your pipeline YAML. When set, the agent performs a sparse checkout, populating only the listed paths in the working directory. Requires git 2.25 or later; agents with an older git version fall back to a full checkout. Agents that do not support sparse checkout ignore this variable, also producing a full checkout.
+    modifiable: false
+    example: ".buildkite/,src/"
   - name: BUILDKITE_GIT_SUBMODULES
     desc: |
       Controls whether the agent fetches git submodules. Set automatically from the `checkout.submodules` key in your pipeline YAML (which takes precedence over any value in `env`). When `checkout.submodules` is not set, the value reflects the opposite of the `no-git-submodules` [agent configuration option](/docs/agent/self-hosted/configure). The agent's `--no-git-submodules` flag retains a hard veto: if the agent starts with that flag, it forces this variable to `false` regardless of the pipeline value.
