@@ -6,6 +6,40 @@ The recommended starting point is to add the [Tests Buildkite plugin](https://bu
 
 Adding the Tests Buildkite plugin is the fastest way to get a test suite reporting data to Buildkite Test Engine, because the entire setup lives in `pipeline.yml`. Use a language-specific test collector instead when you want deeper framework integration—such as RSpec annotation spans, pytest custom markers, and richer per-framework execution tags. This path requires adding a library dependency to your application code, so it takes more effort to set up than the plugin-only path.
 
+## Setting up with the Tests plugin
+
+To get started with a new test suite, add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to the step that runs your tests. Set `test-runner` to the runner used by your project and `suite-slug` to your Test Engine suite slug:
+
+```yaml
+steps:
+  - label: "Test"
+    command: bktec run
+    plugins:
+      - tests#v1.0.0:
+          test-runner: rspec
+          result-path: tmp/rspec-result.json
+          suite-slug: your-suite-slug
+    parallelism: 2
+```
+
+The `test-runner` option specifies which test framework to use. Supported values include `rspec`, `jest`, `pytest`, `gotest`, and `cypress`. The `result-path` option tells the plugin where to write test results; the exact path depends on your runner.
+
+To authenticate without a long-lived API token, set an [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) on your suite to allow your pipeline to authenticate. Open your suite's settings page and add a policy like:
+
+```yaml
+- iss: https://agent.buildkite.com
+  claims:
+    organization_slug: your-org
+    pipeline_slug: your-pipeline
+  scopes:
+    - read_suites
+    - read_test_plan
+    - write_test_plan
+    - write_uploads
+```
+
+If OIDC is unavailable in your environment, set `BUILDKITE_ANALYTICS_TOKEN` to your suite's API token instead. See the [Tests Buildkite plugin README](https://github.com/buildkite-plugins/tests-buildkite-plugin) for the full list of options, including test splitting, Docker support, and dynamic parallelism.
+
 ## Migrating from the Test Collector plugin
 
 If your pipelines currently upload test results to Buildkite Test Engine through the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) (for example, by generating JUnit XML during a test run and then uploading the files in the same step) — switch to the Tests Buildkite plugin. The Tests Buildkite plugin runs your tests through bktec and collects test data natively, so a single step both runs your tests and reports results to Buildkite Test Engine without a separate upload stage.
