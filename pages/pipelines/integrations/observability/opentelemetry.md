@@ -238,7 +238,7 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 > 📘 Preview feature
 > Trace propagation across triggered builds is currently in preview.
 
-When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace, so a multi-pipeline workflow appears as a single distributed trace in your observability platform.
+When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace. A multi-pipeline workflow then appears as a single distributed trace in your observability platform.
 
 Buildkite resolves the `TRACEPARENT` to inject using the following precedence:
 
