@@ -235,13 +235,13 @@ Token exchange tokens support the same scopes as [Buildkite API access tokens](/
 
 Because token exchange tokens act on behalf of a user through impersonation, the GraphQL scope has additional restrictions that do not apply to regular API tokens. The following GraphQL mutations are blocked for token exchange tokens to prevent account takeover:
 
-- `EmailCreate`
-- `EmailResendVerification`
-- `TOTPActivate`
-- `TOTPCreate`
-- `TOTPDelete`
-- `TOTPRecoveryCodesRegenerate`
-- `APIAccessTokenCodeAuthorizeMutation`
+- `emailCreate`
+- `emailResendVerification`
+- `totpActivate`
+- `totpCreate`
+- `totpDelete`
+- `totpRecoveryCodesRegenerate`
+- `apiAccessTokenCodeAuthorize`
 
 Calls to any of these mutations with a token exchange token return an error. Any GraphQL mutations not explicitly permitted for token exchange tokens are also blocked by default, including any new mutations added in the future.
 
