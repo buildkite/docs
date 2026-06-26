@@ -89,6 +89,8 @@ All team members in a team have the same level of access to the [pipelines](/doc
 > 📘 Pipeline-level permissions override team member permissions
 > When a user belongs to multiple teams that have access to the same pipeline, the highest pipeline-level permission across all of those teams applies. For example, if a user belongs to Team A, which has **Read Only** access to a pipeline, and also belongs to Team B, which has **Full Access** to the same pipeline, the user has **Full Access** to that pipeline. This means the user can edit pipeline settings, create builds, and manage access, regardless of the lower permission set through Team A.
 
+Permission levels also affect who can change a resource's access settings later.
+
 > 🚧 Changing **Full Access** permissions on pipelines, test suites and registries
 > As a team maintainer, once you change the permission on any of these items away from **Full Access**, you could lose the ability to change the permissions on that item again. This can happen if you are no longer a member of a team that provides **Full Access** to this item.
 > A [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change any item's permissions back to **Full Access** again.

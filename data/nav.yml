@@ -494,6 +494,8 @@
           path: "pipelines/configure/canceling-builds"
         - name: "Retry"
           path: "pipelines/configure/retry"
+        - name: "Promise job failure"
+          path: "pipelines/configure/promise-job-failure"
         - name: "Soft fail"
           path: "pipelines/configure/soft-fail"
         - name: "Build artifacts"
