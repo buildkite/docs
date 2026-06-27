@@ -139,7 +139,7 @@ Also check the [CHANGELOG](https://github.com/buildkite/elastic-ci-stack-for-aws
 ### Upgrade using the AWS Console
 
 1. Open the [CloudFormation console](https://console.aws.amazon.com/cloudformation) and select your stack.
-2. Click **Update stack** and choose **Create a change set** from the dropdown. Avoid **Make a direct update** — it applies changes immediately without a preview.
+2. Click **Update stack** and choose **Create a change set** from the dropdown. Avoid **Make a direct update**. It applies changes immediately without a preview.
 3. Select **Replace existing template**, choose **Amazon S3 URL**, and paste the template URL for your target version. Click **Next**.
 4. The parameters screen shows current values pre-filled as **Use existing value**. If you are upgrading from v5, review for renamed parameters before proceeding. Click **Next**.
 5. On **Configure change set options**, scroll to **Capabilities and transforms** and check all three acknowledgement boxes. These are unchecked by default and the change set will fail if they are left unchecked. Click **Next**.
