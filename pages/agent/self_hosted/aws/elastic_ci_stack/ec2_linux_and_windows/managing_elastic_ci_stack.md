@@ -132,7 +132,7 @@ aws cloudformation describe-stacks \
   --output json > stack-parameters-backup.json
 ```
 
-Sensitive parameters such as `BuildkiteAgentToken` appear as `****` in this output — the values are preserved in the stack.
+Sensitive parameters such as `BuildkiteAgentToken` appear as `****` in this output. The values are preserved in the stack.
 
 Also check the [CHANGELOG](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/CHANGELOG.md) for all versions between your current version and the target, paying attention to any parameter renames and removals.
 
