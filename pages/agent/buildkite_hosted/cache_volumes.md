@@ -190,9 +190,9 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 ## Default cache store URL
 
-Jobs running on hosted queues automatically receive the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable, which configures the agent's default cache store backend for the `cache` step attribute. The value is scoped to the cluster. Cache data is shared only between jobs running in the same cluster.
+Jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) automatically receive the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. This variable configures the Buildkite agent's default cache store backend for the `cache` step attribute. The value is scoped to the cluster. Cache data is shared only between jobs running in the same cluster.
 
-You do not need to set this variable manually for hosted agents.
+You do not need to set this variable manually for Buildkite hosted agents.
 
 ## Configuring cache operation concurrency
 
