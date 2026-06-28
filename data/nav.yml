@@ -138,6 +138,8 @@
           path: "agent"
         - name: "v3 to v4 upgrade guide"
           path: "agent/v3-v4-upgrade-guide"
+        - name: "Reference architectures"
+          path: "agent/reference-architectures"
         - name: "Self-hosted agents"
           children:
             - name: "Overview"

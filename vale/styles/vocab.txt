@@ -241,6 +241,7 @@ junit
 JWT
 JWTs
 Kaniko
+Karpenter
 keyserver
 keyservers
 keyless
