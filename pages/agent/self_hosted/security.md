@@ -43,9 +43,9 @@ With these settings applied, your Buildkite agent refuses to run anything that i
 
 You can restrict an agent to only run plugins from sources you trust, for example, the official [`buildkite-plugins`](https://github.com/buildkite-plugins) organization and your own internal plugins—using the [`allowed-plugins`](/docs/agent/self-hosted/configure#allowed-plugins) setting:
 
-- Environment variable: `BUILDKITE_ALLOWED_PLUGINS="^github.com/buildkite-plugins/.*$,^github.com/my-org/.*$"`
-- Command line flag: `--allowed-plugins "^github.com/buildkite-plugins/.*$,^github.com/my-org/.*$"`
-- Configuration setting: `allowed-plugins="^github.com/buildkite-plugins/.*$,^github.com/my-org/.*$"`
+- Environment variable: `BUILDKITE_ALLOWED_PLUGINS="^github\.com/buildkite-plugins/.*$,^github\.com/my-org/.*$"`
+- Command line flag: `--allowed-plugins "^github\.com/buildkite-plugins/.*$,^github\.com/my-org/.*$"`
+- Configuration setting: `allowed-plugins="^github\.com/buildkite-plugins/.*$,^github\.com/my-org/.*$"`
 
 This is a comma-separated list of regular expressions. Before a job runs, the agent checks each of the job's plugins against these patterns. If any plugin does not match at least one pattern, the agent refuses to run the job.
 
