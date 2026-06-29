@@ -41,12 +41,33 @@ With these settings applied, your Buildkite agent refuses to run anything that i
 
 ### Allow a list of plugins
 
-By defining an [environment hook](/docs/agent/hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks), you can create a
-list of plugins that an agent is allowed to run by inspecting the
-`BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables).
-For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
-repository on GitHub.
+You can restrict an agent to only run plugins from sources you trust, for example, the official [`buildkite-plugins`](https://github.com/buildkite-plugins) organization and your own internal plugins—using the [`allowed-plugins`](/docs/agent/self-hosted/configure#allowed-plugins) setting:
+
+- Environment variable: `BUILDKITE_ALLOWED_PLUGINS="^github.com/buildkite-plugins/.*$,^github.com/my-org/.*$"`
+- Command line flag: `--allowed-plugins "^github.com/buildkite-plugins/.*$,^github.com/my-org/.*$"`
+- Configuration setting: `allowed-plugins="^github.com/buildkite-plugins/.*$,^github.com/my-org/.*$"`
+
+This is a comma-separated list of regular expressions. Before a job runs, the agent checks each of the job's plugins against these patterns. If any plugin does not match at least one pattern, the agent refuses to run the job.
+
+The agent matches against each plugin's canonical "full source", so shorthand plugin references are expanded before the check is applied. For example:
+
+- `docker-compose#v5.0.0` becomes `github.com/buildkite-plugins/docker-compose-buildkite-plugin#v5.0.0`
+- `my-org/my-plugin#v1.0.0` becomes `github.com/my-org/my-plugin-buildkite-plugin#v1.0.0`
+- Full URLs and filesystem paths are used as-is (for example, `/var/lib/buildkite-plugins/my-plugin`)
+
+This means a pipeline cannot bypass the allowlist by using the shorthand form of a plugin name.
+
+> 🚧 Anchor your patterns
+> Use `^` and `$` anchors and escape dots (`\.`) so that a pattern like `^github\.com/buildkite-plugins/.*$` cannot be matched by a lookalike source such as `github.com/evil-buildkite-plugins-clone/...`.
+
+> 📘 Each agent enforces its own allowlist
+> Unlike a centrally-managed organization setting, `allowed-plugins` is enforced by each agent based on its own configuration. Apply it consistently through your agent provisioning (config file or environment variables) across every agent you want to restrict.
+
+To lock down exact plugin versions in addition to their sources, combine `allowed-plugins` with [signed pipelines](/docs/agent/self-hosted/security#sign-your-pipelines).
+
+#### Custom plugin allowlist logic
+
+If you need more complex logic than regular expressions can express, you can instead define an [environment hook](/docs/agent/hooks#job-lifecycle-hooks) in the [agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks) that inspects the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables) and rejects disallowed plugins. For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository on GitHub.
 
 ### Disable plugins
 
@@ -205,10 +226,10 @@ By default, Buildkite Pipelines reuses (after cleaning) a previous checkout. Thi
 
 ```yaml
 steps:
-- label: "Clean checkout"
-  command: echo "clean checkout"
-  env:
-    BUILDKITE_CLEAN_CHECKOUT: true
+  - label: "Clean checkout"
+    command: echo "clean checkout"
+    env:
+      BUILDKITE_CLEAN_CHECKOUT: true
 ```
 
 In the logs for this step, you will find a log group called "Cleaning pipeline checkout."
@@ -232,6 +253,7 @@ An example systemd `proxy.conf` file:
 Environment=http_proxy=http://username:password@proxyserver:8080/
 Environment=https_proxy=http://username:password@proxyserver:8080/
 ```
+
 {: codeblock-file="proxy.conf"}
 
 After creating this file, reload systemd and restart the `buildkite-agent` service.
