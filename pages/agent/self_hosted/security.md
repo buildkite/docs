@@ -49,7 +49,7 @@ You can restrict an agent to only run plugins from sources you trust, for exampl
 
 This is a comma-separated list of regular expressions. Before a job runs, the agent checks each of the job's plugins against these patterns. If any plugin does not match at least one pattern, the agent refuses to run the job.
 
-The agent matches against each plugin's canonical "full source", so shorthand plugin references are expanded before the check is applied. For example:
+The agent matches against each plugin's canonical "full source". Shorthand plugin references are expanded before the check is applied. For example:
 
 - `docker-compose#v5.0.0` becomes `github.com/buildkite-plugins/docker-compose-buildkite-plugin#v5.0.0`
 - `my-org/my-plugin#v1.0.0` becomes `github.com/my-org/my-plugin-buildkite-plugin#v1.0.0`
