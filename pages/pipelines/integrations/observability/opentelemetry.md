@@ -322,6 +322,31 @@ Multiple headers can be specified by separating values with commas:
 OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
 ```
 
+### Propagating traces from external systems
+
+> 📘 Preview feature
+> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+
+When you create a build using the REST API, you can pass a W3C [`traceparent`](https://www.w3.org/TR/trace-context/#traceparent-header) header to connect Buildkite Pipelines control-plane spans to your upstream distributed trace. When enabled, the `buildkite.build` span is nested under the caller's span. All control-plane spans (`buildkite.build`, `buildkite.job`, and `buildkite.step`) share the same trace ID as the upstream system.
+
+To propagate your trace into Buildkite, include the `traceparent` header in your [create a build](/docs/apis/rest-api/builds#create-a-build) API request:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
+  -H "Content-Type: application/json" \
+  -H "traceparent: 00-<trace-id>-<span-id>-01" \
+  -d '{
+    "commit": "HEAD",
+    "branch": "main",
+    "message": "My build"
+  }'
+```
+
+If the request body includes a `TRACEPARENT` value in the `env` object, that value takes priority over the HTTP header.
+
+To propagate the trace all the way through to agent-emitted spans, also enable `--tracing-propagate-traceparent` on your Buildkite agents. See [Propagating traces to Buildkite agents](#open-telemetry-tracing-from-buildkite-agent-propagating-traces-to-buildkite-agents).
+
 ### Propagating traces to Buildkite agents
 
 Propagating trace spans from the OpenTelemetry Notification service requires Buildkite agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
