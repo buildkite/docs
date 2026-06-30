@@ -240,7 +240,7 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 
 When you create a build using the REST API, you can pass a W3C [`traceparent`](https://www.w3.org/TR/trace-context/#traceparent-header) header to connect Buildkite Pipelines control-plane spans to your upstream distributed trace. When enabled, the `buildkite.build` span is nested under the caller's span. All control-plane spans (`buildkite.build`, `buildkite.job`, and `buildkite.step`) share the same trace ID as the upstream system.
 
-To propagate your trace into Buildkite, include the `traceparent` header in your [create a build](/docs/apis/rest-api/builds#create-a-build) API request:
+To propagate your trace, include the `traceparent` header in your [create a build](/docs/apis/rest-api/builds#create-a-build) API request:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
