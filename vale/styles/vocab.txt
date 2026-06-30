@@ -348,8 +348,8 @@ predeclare
 predeclared
 Prepends
 Prometheus
-protobuf
 promised_exit_status
+protobuf
 preemptible
 prefill
 prefetch
@@ -359,6 +359,8 @@ preprovisioned
 proxied
 ptrace
 pty
+publish_commit_status
+publish_commit_status_per_step
 pullrequest
 pybuildkite
 pytest

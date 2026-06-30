@@ -55,6 +55,7 @@ You can subscribe to one or more of the following events:
   <tr><th><code>job.started</code></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><code>job.finished</code></th><td>A job has finished</td></tr>
   <tr><th><code>job.activated</code></th><td>A block step job has been unblocked using the web or API</td></tr>
+  <tr><th><code>job.promised_exit_status</code></th><td>A running job has declared an anticipated exit status before it has finished</td></tr>
   <%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>
   <tr><th><code>cluster_token.registration_blocked</code></th><td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td></tr>
 </tbody>

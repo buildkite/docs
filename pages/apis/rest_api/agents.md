@@ -47,12 +47,40 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
     <td>Version of the Buildkite agent</td>
   </tr>
   <tr>
+    <th><code>os_id</code></th>
+    <td>Operating system identifier of the runner (for example, <code>linux</code>, <code>darwin</code>)</td>
+  </tr>
+  <tr>
+    <th><code>arch</code></th>
+    <td>CPU architecture of the runner (for example, <code>amd64</code>, <code>arm64</code>)</td>
+  </tr>
+  <tr>
+    <th><code>queue</code></th>
+    <td>Queue the agent is registered to</td>
+  </tr>
+  <tr>
     <th><code>creator</code></th>
     <td>User or token that registered the agent</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
     <td>When the agent was registered</td>
+  </tr>
+  <tr>
+    <th><code>connected_at</code></th>
+    <td>When the agent connected</td>
+  </tr>
+  <tr>
+    <th><code>disconnected_at</code></th>
+    <td>When the agent disconnected gracefully (<code>null</code> if still connected or lost)</td>
+  </tr>
+  <tr>
+    <th><code>lost_at</code></th>
+    <td>When the agent was marked as lost due to an unexpected disconnection (<code>null</code> if not lost)</td>
+  </tr>
+  <tr>
+    <th><code>stopped_at</code></th>
+    <td>When the agent was stopped (<code>null</code> if not stopped)</td>
   </tr>
   <tr>
     <th><code>job</code></th>
@@ -95,6 +123,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "ip_address": "144.132.19.12",
     "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
     "version": "2.1.0",
+    "os_id": "linux",
+    "arch": "amd64",
+    "queue": "default",
     "creator": {
       "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
       "name": "Keith Pitt",
@@ -103,6 +134,10 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z"
     },
     "created_at": "2014-02-24T22:33:45.263Z",
+    "connected_at": "2014-02-24T22:33:45.263Z",
+    "disconnected_at": null,
+    "lost_at": null,
+    "stopped_at": null,
     "job": {
       "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
       "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
@@ -177,6 +212,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "ip_address": "144.132.19.12",
   "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
   "version": "2.1.0",
+  "os_id": "linux",
+  "arch": "amd64",
+  "queue": "default",
   "creator": {
     "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
     "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
@@ -186,6 +224,10 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2015-05-09T21:05:59.874Z"
   },
   "created_at": "2015-05-09T21:05:59.874Z",
+  "connected_at": "2015-05-09T21:05:59.874Z",
+  "disconnected_at": null,
+  "lost_at": null,
+  "stopped_at": null,
   "job": {
     "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
     "graphql_id": "Sm9iLS0tZGM5YTg5MmQtM2I5Ny00MzgyLWEzYzItNWJhZmU5M2RlZWI1",

@@ -136,6 +136,8 @@
       children:
         - name: "Overview"
           path: "agent"
+        - name: "v3 to v4 upgrade guide"
+          path: "agent/v3-v4-upgrade-guide"
         - name: "Self-hosted agents"
           children:
             - name: "Overview"
@@ -492,6 +494,8 @@
           path: "pipelines/configure/canceling-builds"
         - name: "Retry"
           path: "pipelines/configure/retry"
+        - name: "Promise job failure"
+          path: "pipelines/configure/promise-job-failure"
         - name: "Soft fail"
           path: "pipelines/configure/soft-fail"
         - name: "Build artifacts"

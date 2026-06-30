@@ -4,6 +4,10 @@ A job is the execution of a command step during a build. Jobs run the commands, 
 
 A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
 
+A running command job can also declare an expected failure before it finishes by using [promise job failure](/docs/pipelines/configure/promise-job-failure). In that case, the job state remains `running`, and the job payload includes the promised exit status and the time when the promise was recorded.
+
+When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
+
 ## List jobs
 
 Returns a paginated list of jobs in a build.
@@ -34,6 +38,8 @@ curl -H "Authorization: Bearer $TOKEN" \
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
+      "signal": null,
+      "signal_reason": null,
       "artifact_paths": null,
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
@@ -72,7 +78,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <tbody>
   <tr>
     <th><code>state[]</code></th>
-    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted.</td>
+    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted. When your organization has early failure declarations enabled and configured to count promised exit statuses toward a build failing, <code>state=failed</code> also matches running script jobs that have declared a hard-failing promised exit status (a non-zero promised exit status that is not covered by the step's soft-fail rules). The job's <code>state</code> field in the response still reads <code>running</code> for these jobs. Correspondingly, <code>state=running</code> excludes those same jobs, keeping the two filters mutually exclusive.</td>
   </tr>
   <tr>
     <th><code>include_retried_jobs</code></th>
@@ -143,6 +149,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "command": "scripts/build.sh",
   "soft_failed": false,
   "exit_status": 0,
+  "signal": null,
+  "signal_reason": null,
   "artifact_paths": null,
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
@@ -466,6 +474,69 @@ Alternative formats (using `Accept` header or file extension):
     <th><code>text/html</code></th>
     <th><code>.html</code></th>
     <td>The job's log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td>
+  </tr>
+</tbody>
+</table>
+
+### Get log size without downloading
+
+Use `HEAD` instead of `GET` to retrieve the byte size of a job log without downloading its content. This is useful for monitoring log growth or checking whether new output is available.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -I "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -I "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+```
+
+A successful response has no body and includes:
+
+- `Content-Length`: the total size of the raw stored log bytes
+- `Accept-Ranges: bytes`: indicates that suffix byte range requests are supported
+
+Required scope: `read_build_logs`
+
+Success response: `200 OK`
+
+### Get a log tail using a range request
+
+To retrieve only the last _N_ bytes of a job log, send a `GET` request with `Accept: text/plain` and a `Range: bytes=-N` header. This avoids downloading the entire log when you only need the most recent output.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: text/plain" \
+  -H "Range: bytes=-100" \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+Range requests are only supported with `Accept: text/plain`. Only suffix ranges (`bytes=-N`) are supported. Explicit start-end ranges and multipart ranges are not supported. The response body contains the raw stored bytes without UTF-8 normalization, so `Content-Length` reflects the exact number of bytes returned.
+
+A successful partial response includes:
+
+- `Accept-Ranges: bytes`
+- `Content-Range`: the byte range returned and total log size (for example, `bytes 900-999/1000`)
+- `Content-Length`: the number of bytes in the response body
+
+Required scope: `read_build_logs`
+
+Success response: `206 Partial Content`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td>Range request sent without <code>Accept: text/plain</code>, or an unsupported range form such as an explicit start-end range (<code>bytes=500-1000</code>), a multipart range, or a zero-byte suffix (<code>bytes=-0</code>)</td>
+  </tr>
+  <tr>
+    <th><code>416 Range Not Satisfiable</code></th>
+    <td>The suffix range cannot be satisfied because the job log is empty</td>
   </tr>
 </tbody>
 </table>

@@ -249,6 +249,27 @@ The following optional Jest environment variables can also be used to configure 
   </tbody>
 </table>
 
+### Promise failure
+
+To let `bktec` declare that a Buildkite Pipelines job is expected to fail before the job exits, set `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`.
+
+When this option is enabled, `bktec` calls [`buildkite-agent job promise-failure`](/docs/agent/cli/reference/job#promising-job-failure) after retries are exhausted and hard test failures remain. Muted test failures do not cause `bktec` to promise failure.
+
+```yaml
+steps:
+  - label: "RSpec"
+    command: bktec run
+    parallelism: 10
+    env:
+      BUILDKITE_TEST_ENGINE_API_ACCESS_TOKEN: YOUR_API_TOKEN
+      BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
+      BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
+      BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
+      BUILDKITE_TEST_ENGINE_PROMISE_FAILURE: "true"
+```
+{: codeblock-file="pipeline.yml"}
+
+This helps Buildkite Pipelines move the build to `failing` earlier while the test job continues uploading logs and results. Learn more in [Promise job failure](/docs/pipelines/configure/promise-job-failure).
 
 ### Update the pipeline step
 

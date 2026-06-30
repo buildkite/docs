@@ -48,7 +48,7 @@ You can filter pipelines using the search bar at the top of the page. This will 
 
 You can add tags to your pipelines and use them to quickly filter pipelines using the search bar. You can manage a pipeline’s tags in the pipeline's **Settings** section.
 
-If your organization has Teams enabled, you can also filter this page by the teams that you're in. When you have more than one team attached to your Buildkite account, you'll see a dropdown list of teams at the top of the dashboard. This defaults to 'All Teams'. Selecting a specific team will filter the list of pipelines to display only those accessible by the selected team.
+A dropdown at the top of the dashboard lets you switch between active and archived pipelines. If your organization has Teams enabled, the dropdown also lets you filter by team. The dropdown defaults to **All teams** when teams are available. Selecting a specific team filters the list to pipelines accessible by that team.
 
 ## Customizing the page
 
