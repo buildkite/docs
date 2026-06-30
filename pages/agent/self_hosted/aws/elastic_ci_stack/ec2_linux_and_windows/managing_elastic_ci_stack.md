@@ -283,6 +283,8 @@ CloudFormation uses the same update process as an upgrade.
 
 ### Troubleshooting stack updates
 
+Most failed stack updates fall into one of a few categories: a previous update that rolled back, a parameter that no longer exists in the target template, or a template that is too large to deploy from a local file. The following sections describe each error, why it happens, and how to resolve it.
+
 #### Stack stuck in UPDATE_ROLLBACK_COMPLETE
 
 This status means a previous update failed and the stack rolled back successfully. The stack is fully functional — fix the root cause and submit a new update.
