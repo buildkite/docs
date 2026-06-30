@@ -119,7 +119,7 @@ Branch releases can only be deployed to `us-east-1`.
 
 Template URLs follow this pattern for a specific version:
 
-```
+```text
 https://s3.amazonaws.com/buildkite-aws-stack/VERSION/aws-stack.yml
 ```
 
@@ -138,13 +138,13 @@ Also check the [CHANGELOG](https://github.com/buildkite/elastic-ci-stack-for-aws
 
 ### Upgrade using the AWS Console
 
-1. Open the [CloudFormation console](https://console.aws.amazon.com/cloudformation) and select your stack.
-2. Click **Update stack** and choose **Create a change set** from the dropdown. Avoid **Make a direct update**. It applies changes immediately without a preview.
-3. Select **Replace existing template**, choose **Amazon S3 URL**, and paste the template URL for your target version. Click **Next**.
-4. The parameters screen shows current values pre-filled as **Use existing value**. If you are upgrading from v5, review for renamed parameters before proceeding. Click **Next**.
-5. On **Configure change set options**, scroll to **Capabilities and transforms** and check all three acknowledgement boxes. These are unchecked by default and the change set will fail if they are left unchecked. Click **Next**.
-6. Click **Create change set**. Once ready, the **Resource changes** tab shows which resources will be modified.
-7. Click **Execute change set** to apply the upgrade.
+1. Open the [CloudFormation Console](https://console.aws.amazon.com/cloudformation) and select your stack.
+1. Select **Update stack**, then choose **Create a change set** from the dropdown. Avoid **Make a direct update**. It applies changes immediately without a preview.
+1. Select **Replace existing template**, choose **Amazon S3 URL**, and paste the template URL for your target version. Select **Next**.
+1. The parameters screen shows current values pre-filled as **Use existing value**. If you are upgrading from v5, review for renamed parameters before proceeding. Select **Next**.
+1. On **Configure change set options**, scroll to **Capabilities and transforms** and check all three acknowledgment boxes. These are unchecked by default and the change set will fail if they are left unchecked. Select **Next**.
+1. Select **Create change set**. Once ready, the **Resource changes** tab shows which resources will be modified.
+1. Select **Execute change set** to apply the upgrade.
 
 ### Upgrade using the AWS CLI
 
@@ -165,6 +165,8 @@ aws cloudformation update-stack \
   --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
 ```
 
+> 🚧 This shortcut carries forward every current parameter, so it only works when all of those parameters still exist in the target template. Upgrading across the v5 to v6 boundary carries forward renamed and removed parameters, which causes an immediate `ValidationError`. When upgrading from v5, build the parameter list manually using the [Upgrading from v5 to v6](#upgrading-from-v5-to-v6) table instead.
+
 To wait for the update to complete:
 
 ```bash
@@ -182,7 +184,7 @@ aws cloudformation create-change-set \
   --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
 ```
 
-Once the change set reaches `CREATE_COMPLETE`, view the planned changes in the CloudFormation console under the stack's **Change sets** tab before deciding whether to execute it.
+Once the change set reaches `CREATE_COMPLETE`, view the planned changes in the CloudFormation Console under the stack's **Change sets** tab before deciding whether to execute it.
 
 You can also use `aws cloudformation deploy`, but the Elastic CI Stack template (~127 KB) exceeds CloudFormation's 51,200-byte local file size limit, so you must download the template locally and provide an S3 bucket:
 
@@ -199,11 +201,12 @@ aws cloudformation deploy \
 
 Common errors with `deploy`:
 
-| Error | Cause | Fix |
-|---|---|---|
-| `Templates with a size greater than 51,200 bytes must be deployed via an S3 Bucket` | `--s3-bucket` not provided | Add `--s3-bucket YOUR_BUCKET` |
-| `the following arguments are required: --template-file` | `--template-url` used instead of `--template-file` | Download the template locally and use `--template-file` |
-| `Unknown options: --change-set-name` | `--change-set-name` is not a valid `deploy` flag | Use `aws cloudformation create-change-set` for named change sets |
+Error | Cause | Fix
+----- | ----- | ---
+`Templates with a size greater than 51,200 bytes must be deployed via an S3 Bucket` | `--s3-bucket` not provided | Add `--s3-bucket YOUR_BUCKET`
+`the following arguments are required: --template-file` | `--template-url` used instead of `--template-file` | Download the template locally and use `--template-file`
+`Unknown options: --change-set-name` | `--change-set-name` is not a valid `deploy` flag | Use `aws cloudformation create-change-set` for named change sets
+{: class="responsive-table"}
 
 ### Upgrade strategy
 
@@ -213,21 +216,22 @@ When a stack update requires changes to the Auto Scaling group, CloudFormation r
 
 v6.0.0 renamed or removed several parameters. Passing an old v5 parameter name to a v6 template causes an immediate `ValidationError` and the update is rejected without making any changes.
 
-| v5 parameter | v6 parameter | Notes |
-|---|---|---|
-| `InstanceType` | `InstanceTypes` | Now accepts a comma-separated list |
-| `ManagedPolicyARN` | `ManagedPolicyARNs` | Now accepts a comma-separated list |
-| `SecurityGroupId` | `SecurityGroupIds` | Now accepts a comma-separated list |
-| `EnableAgentGitMirrorsExperiment` | `BuildkiteAgentEnableGitMirrors` | |
-| `SpotPrice` | Removed | Spot pricing is now handled automatically |
+v5 parameter | v6 parameter | Notes
+------------ | ------------ | -----
+`InstanceType` | `InstanceTypes` | Now accepts a comma-separated list
+`ManagedPolicyARN` | `ManagedPolicyARNs` | Now accepts a comma-separated list
+`SecurityGroupId` | `SecurityGroupIds` | Now accepts a comma-separated list
+`EnableAgentGitMirrorsExperiment` | `BuildkiteAgentEnableGitMirrors` |
+`SpotPrice` | Removed | Spot pricing is now handled automatically
+{: class="responsive-table"}
 
 Update your stack configuration and any upgrade scripts to use the new names before targeting a v6 template.
 
-**`BuildkiteAgentScalerVersion`**
+#### BuildkiteAgentScalerVersion
 
 In v5, `BuildkiteAgentScalerVersion` may hold an early version such as `1.3.2`. If this value is carried forward into a v6 update, the change set appears to succeed but fails during execution with:
 
-```
+```text
 Parameters: [EventSchedulePeriod, MinPollInterval] do not exist in the template
 ```
 
@@ -266,17 +270,17 @@ CloudFormation uses the same update process as an upgrade.
 
 ### Troubleshooting stack updates
 
-**Stack is in `UPDATE_ROLLBACK_COMPLETE`**
+#### Stack stuck in UPDATE_ROLLBACK_COMPLETE
 
 This status means a previous update failed and the stack rolled back successfully. The stack is fully functional — fix the root cause and submit a new update.
 
-**`Parameters: [X] do not exist in the template`**
+#### Parameters do not exist in the template
 
-You are passing a parameter name that does not exist in the target template. Check whether it is a renamed v5 parameter (see the [Upgrading from v5 to v6](#upgrading-from-v5-to-v6) table above) or `BuildkiteAgentScalerVersion` being passed to a v6.52.0+ template. The update is rejected before any changes are made.
+The error `Parameters: [X] do not exist in the template` means you are passing a parameter name that does not exist in the target template. Check whether it is a renamed v5 parameter (see the [Upgrading from v5 to v6](#upgrading-from-v5-to-v6) table above) or `BuildkiteAgentScalerVersion` being passed to a v6.52.0+ template. The update is rejected before any changes are made.
 
-**`Templates with a size greater than 51,200 bytes must be deployed via an S3 Bucket`**
+#### Template exceeds the size limit
 
-You are using `aws cloudformation deploy` without `--s3-bucket`. Add `--s3-bucket YOUR_BUCKET` to the command.
+The error `Templates with a size greater than 51,200 bytes must be deployed via an S3 Bucket` means you are using `aws cloudformation deploy` without `--s3-bucket`. Add `--s3-bucket YOUR_BUCKET` to the command.
 
 ## Using custom IAM roles
 
