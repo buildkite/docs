@@ -23,18 +23,16 @@ module StructuredDataHelper
   end
 
   # Structured data graph for an individual documentation page. Always includes
-  # the WebSite and Organization the page belongs to and a BreadcrumbList
-  # reflecting its place in the navigation. The main entity is a FAQPage when
-  # the page opts in to FAQ structured data, otherwise a TechArticle.
+  # the WebSite and Organization the page belongs to, a TechArticle describing
+  # the page itself, and a BreadcrumbList reflecting its place in the
+  # navigation. Pages that opt in to FAQ structured data additionally emit a
+  # FAQPage node alongside the TechArticle.
   def docs_page_structured_data(page, nav)
-    main_entity =
-      if page.faq? && (faq_items = page.faq_items).present?
-        faq_page_node(page, faq_items)
-      else
-        tech_article_node(page)
-      end
+    graph = [organization_node, website_node, tech_article_node(page)]
 
-    graph = [organization_node, website_node, main_entity]
+    if page.faq? && (faq_items = page.faq_items).present?
+      graph << faq_page_node(page, faq_items)
+    end
 
     if (breadcrumb = breadcrumb_list(nav))
       graph << breadcrumb
