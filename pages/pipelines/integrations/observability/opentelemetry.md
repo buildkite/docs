@@ -320,7 +320,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 If the request body includes a `TRACEPARENT` value in the `env` object, that value takes priority over the HTTP header.
 
-To propagate the trace all the way through to agent-emitted spans, also enable `--tracing-propagate-traceparent` on your agents. See [Propagating traces to Buildkite agents](#propagating-traces-to-buildkite-agents).
+To propagate the trace all the way through to agent-emitted spans, also enable `--tracing-propagate-traceparent` on your Buildkite agents. See [Propagating traces to Buildkite agents](#open-telemetry-tracing-from-buildkite-agent-propagating-traces-to-buildkite-agents).
 
 ### Propagating traces to Buildkite agents
 
