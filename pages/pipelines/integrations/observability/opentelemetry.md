@@ -233,6 +233,24 @@ config valid
 
 You can also use an online validation tool available at https://www.otelbin.io/.
 
+### Propagating traces across triggered builds
+
+> 📘 Preview feature
+> Trace propagation across triggered builds is currently in preview. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+
+When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace. A multi-pipeline workflow then appears as a single distributed trace in your observability platform.
+
+Trace propagation across triggered builds must be enabled for your organization before any of the following applies. Once enabled, Buildkite Pipelines resolves the `TRACEPARENT` to inject using the following precedence:
+
+1. **Trigger step override**: If the trigger step sets `TRACEPARENT` in its `env:` block, that value is always used.
+1. **Inherited TRACEPARENT**: If the parent build carries a valid `TRACEPARENT` in its environment—seeded via the [Create Build API](/docs/apis/rest-api/builds#create-a-build) or propagated from a build higher in the trigger chain—the triggered build inherits it and joins that existing trace.
+1. **Derived TRACEPARENT**: If the parent build carries no seeded `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This ensures that purely internal trigger chains appear as a single distributed trace even when no external trace context is provided.
+
+To receive the injected `TRACEPARENT` in the triggered build's agent spans, configure the triggered build's agents with the `--tracing-propagate-traceparent` flag, as described in the [required agent flags](#opentelemetry-tracing-from-buildkite-agent) section below.
+
+> 📘
+> Setting `TRACEPARENT` in a triggered pipeline's top-level `env:` block has no effect on propagation. Set it in the trigger step's `env:` block instead.
+
 ### Propagating traces from external systems
 
 > 📘 Preview feature
