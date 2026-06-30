@@ -300,7 +300,7 @@ OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
 ### Propagating traces from external systems
 
 > 📘 Preview feature
-> Propagating an external trace into Buildkite control-plane spans is available on request. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
 
 When you create a build using the REST API, you can pass a W3C [`traceparent`](https://www.w3.org/TR/trace-context/#traceparent-header) header to connect the Buildkite control-plane spans to your upstream distributed trace. When enabled, the `buildkite.build` span is nested under the caller's span, and all control-plane spans (`buildkite.build`, `buildkite.job`, `buildkite.step`) share the same trace ID as the upstream system.
 
