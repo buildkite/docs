@@ -165,7 +165,8 @@ aws cloudformation update-stack \
   --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
 ```
 
-> 🚧 This shortcut carries forward every current parameter, so it only works when all of those parameters still exist in the target template. Upgrading across the v5 to v6 boundary carries forward renamed and removed parameters, which causes an immediate `ValidationError`. When upgrading from v5, build the parameter list manually using the [Upgrading from v5 to v6](#upgrading-from-v5-to-v6) table instead.
+> 🚧
+> This shortcut carries forward every current parameter, so it only works when all of those parameters still exist in the target template. The same caveat applies to the AWS Console (**Use existing value**) and `aws cloudformation deploy`, which both reuse current parameter values. Crossing a version boundary that renamed or removed a parameter causes the upgrade to fail. When upgrading from v5, build the parameter list manually using the [Upgrading from v5 to v6](#updating-your-stack-upgrading-from-v5-to-v6) table instead. When upgrading from any version between v6.0.0 and v6.6.x to v6.7.0 or later, see [Renamed scaler schedule parameter](#updating-your-stack-renamed-scaler-schedule-parameter).
 
 To wait for the update to complete:
 
@@ -237,9 +238,21 @@ Parameters: [EventSchedulePeriod, MinPollInterval] do not exist in the template
 
 This error comes from the nested scaler sub-stack and only surfaces when the change set executes. The stack automatically rolls back to `UPDATE_ROLLBACK_COMPLETE`.
 
-To avoid this, omit `BuildkiteAgentScalerVersion` from the `update-stack` parameter list. When the parameter is not passed, CloudFormation uses the template default.
+All three upgrade methods carry this value forward by default, so the upgrade fails the same way with each: the AWS Console keeps it through **Use existing value**, and `aws cloudformation deploy` reuses the current value. For a v5 to v6 upgrade, the most reliable approach is the `update-stack` flow, where you can omit `BuildkiteAgentScalerVersion` from the parameter list so CloudFormation falls back to the template default. If you upgrade through the Console instead, set `BuildkiteAgentScalerVersion` to the template default value rather than leaving the old one in place.
 
 `BuildkiteAgentScalerVersion` was removed in v6.52.0. Remove it from your configuration before targeting v6.52.0 or later — passing it causes an immediate `ValidationError`.
+
+### Renamed scaler schedule parameter
+
+The parameter that controls how often the agent scaler runs was renamed from `ScalerEventScheduleRate` to `ScalerEventSchedulePeriod` in v6.7.0. Stacks created with a v6.0.0 to v6.6.x template have `ScalerEventScheduleRate`, while v6.7.0 and later templates only accept `ScalerEventSchedulePeriod`.
+
+Carrying `ScalerEventScheduleRate` forward into a v6.7.0 or later update is rejected with:
+
+```text
+Parameters: [ScalerEventScheduleRate] do not exist in the template
+```
+
+This affects all three upgrade methods, since each reuses current parameter values by default. To upgrade, drop `ScalerEventScheduleRate` from the parameter list and, if you need a non-default schedule, set `ScalerEventSchedulePeriod` instead.
 
 ### Pause Auto Scaling
 
@@ -256,7 +269,7 @@ changes to resume instance auto scaling.
 
 ### Rolling back to a previous version
 
-To roll back, use `update-stack` with the earlier version's template URL. Build the `$PARAMS` variable the same way as for an upgrade (see [Upgrade using the AWS CLI](#upgrade-using-the-aws-cli)), then run:
+To roll back, use `update-stack` with the earlier version's template URL. Build the `$PARAMS` variable the same way as for an upgrade (see [Upgrade using the AWS CLI](#updating-your-stack-upgrade-using-the-aws-cli)), then run:
 
 ```bash
 aws cloudformation update-stack \
@@ -276,7 +289,7 @@ This status means a previous update failed and the stack rolled back successfull
 
 #### Parameters do not exist in the template
 
-The error `Parameters: [X] do not exist in the template` means you are passing a parameter name that does not exist in the target template. Check whether it is a renamed v5 parameter (see the [Upgrading from v5 to v6](#upgrading-from-v5-to-v6) table above) or `BuildkiteAgentScalerVersion` being passed to a v6.52.0+ template. The update is rejected before any changes are made.
+The error `Parameters: [X] do not exist in the template` means you are passing a parameter name that does not exist in the target template. Common causes are a renamed v5 parameter (see the [Upgrading from v5 to v6](#updating-your-stack-upgrading-from-v5-to-v6) table above), `ScalerEventScheduleRate` being passed to a v6.7.0+ template (see [Renamed scaler schedule parameter](#updating-your-stack-renamed-scaler-schedule-parameter)), or `BuildkiteAgentScalerVersion` being passed to a v6.52.0+ template. The update is rejected before any changes are made.
 
 #### Template exceeds the size limit
 
