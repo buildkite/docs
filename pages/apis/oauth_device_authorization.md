@@ -129,7 +129,7 @@ Once the user approves the request, the token endpoint returns:
 |-------|-------------|
 | `access_token` | The access token to use in API requests |
 | `token_type` | Always `Bearer` |
-| `expires_in` | Seconds until the access token expires. Present when the OAuth application has a token expiry configured (either using `expiry_hours` or refresh token TTL). Omitted when the application has no expiry configured |
+| `expires_in` | Seconds until the access token expires. Present when the OAuth application has a token expiry configured (using `expiry_hours` or the access token lifetime for applications with refresh tokens enabled). Omitted when the application has no expiry configured. |
 | `refresh_token` | A refresh token for obtaining new access tokens. Present only when the application has refresh tokens enabled. Omitted when refresh tokens are not enabled |
 | `scope` | Space-delimited list of granted scopes |
 
