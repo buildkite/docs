@@ -310,6 +310,9 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
 
 These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jobs) from a pipeline [build](#available-mcp-tools-builds), retry jobs, and unblock jobs in a pipeline build.
 
+> 📘 Promise job failure
+> Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can be `running` while also carrying a promised failure signal. When an AI agent investigates a failing build, it should inspect failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs) so it can include both terminally failed jobs and running jobs that have declared a promised failure.
+
 <table>
   <thead>
     <tr>
