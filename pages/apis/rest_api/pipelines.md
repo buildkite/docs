@@ -232,7 +232,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 </table>
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `read_pipelines`
 
@@ -310,7 +310,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `read_pipelines`
 
@@ -1471,8 +1471,8 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
-    <th><code>cancel_deleted_branch_builds</code></th>
-    <td>A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
+    <th><code>ignore_default_branch_pull_requests</code></th>
+    <td>Whether to skip creating a new build for a pull request if its source branch is the default branch.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
   </tr>
@@ -1499,12 +1499,6 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
     <th><code>pull_request_branch_filter_configuration</code></th>
     <td>The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"features/*"</code></p>
-    </td>
-  </tr>
-  <tr>
-    <th><code>skip_builds_for_existing_commits</code></th>
-    <td>Whether to skip creating a new build if a build for the commit and branch already exists.
-      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
   </tr>
   <tr>
@@ -1697,6 +1691,31 @@ Additional properties available for GitHub and GitHub Enterprise:
     <tr>
       <th><code>separate_pull_request_statuses</code></th>
       <td>Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_merge_commits</code></th>
+      <td>Whether builds for pull requests target the latest test merge commit ref (<code>refs/pull/:pr_number/merge</code>) instead of the latest commit on the pull request branch. Requires <code>build_pull_requests</code> to be <code>true</code>. When enabling this, we recommend disabling <code>build_branches</code> so that commit statuses accurately reflect the state of the pull request.
+        <p><a href="/docs/pipelines/source-control/github#building-the-test-merge-commit">Building the test merge commit</a> is currently in private preview.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>skip_builds_for_existing_commits</code></th>
+      <td>Whether to skip creating a new build if a build for the same commit already exists, regardless of branch.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>skip_builds_for_closed_pull_requests</code></th>
+      <td>Whether to skip creating a new build for a pull request when the pull request is closed or merged. Useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>use_step_key_as_commit_status</code></th>
+      <td>Whether to use a job's <code>key</code> attribute in the GitHub commit status context instead of its label. Requires <code>publish_commit_status</code> and <code>publish_commit_status_per_step</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>

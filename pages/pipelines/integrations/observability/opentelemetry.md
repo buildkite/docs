@@ -233,6 +233,49 @@ config valid
 
 You can also use an online validation tool available at https://www.otelbin.io/.
 
+### Propagating traces across triggered builds
+
+> 📘 Preview feature
+> Trace propagation across triggered builds is currently in preview. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+
+When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace. A multi-pipeline workflow then appears as a single distributed trace in your observability platform.
+
+Trace propagation across triggered builds must be enabled for your organization before any of the following applies. Once enabled, Buildkite Pipelines resolves the `TRACEPARENT` to inject using the following precedence:
+
+1. **Trigger step override**: If the trigger step sets `TRACEPARENT` in its `env:` block, that value is always used.
+1. **Inherited TRACEPARENT**: If the parent build carries a valid `TRACEPARENT` in its environment—seeded via the [Create Build API](/docs/apis/rest-api/builds#create-a-build) or propagated from a build higher in the trigger chain—the triggered build inherits it and joins that existing trace.
+1. **Derived TRACEPARENT**: If the parent build carries no seeded `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This ensures that purely internal trigger chains appear as a single distributed trace even when no external trace context is provided.
+
+To receive the injected `TRACEPARENT` in the triggered build's agent spans, configure the triggered build's agents with the `--tracing-propagate-traceparent` flag, as described in the [required agent flags](#opentelemetry-tracing-from-buildkite-agent) section below.
+
+> 📘
+> Setting `TRACEPARENT` in a triggered pipeline's top-level `env:` block has no effect on propagation. Set it in the trigger step's `env:` block instead.
+
+### Propagating traces from external systems
+
+> 📘 Preview feature
+> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+
+When you create a build using the REST API, you can pass a W3C [`traceparent`](https://www.w3.org/TR/trace-context/#traceparent-header) header to connect Buildkite Pipelines control-plane spans to your upstream distributed trace. When enabled, the `buildkite.build` span is nested under the caller's span. All control-plane spans (`buildkite.build`, `buildkite.job`, and `buildkite.step`) share the same trace ID as the upstream system.
+
+To propagate your trace, include the `traceparent` header in your [create a build](/docs/apis/rest-api/builds#create-a-build) API request:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
+  -H "Content-Type: application/json" \
+  -H "traceparent: 00-<trace-id>-<span-id>-01" \
+  -d '{
+    "commit": "HEAD",
+    "branch": "main",
+    "message": "My build"
+  }'
+```
+
+If the request body includes a `TRACEPARENT` value in the `env` object, that value takes priority over the HTTP header.
+
+To propagate the trace all the way through to agent-emitted spans, also enable `--tracing-propagate-traceparent` on your Buildkite agents. See [Propagating traces to Buildkite agents](#open-telemetry-tracing-from-buildkite-agent-propagating-traces-to-buildkite-agents).
+
 ## OpenTelemetry tracing from Buildkite agent
 
 See [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing).

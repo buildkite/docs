@@ -19,6 +19,33 @@ The following lists of Buildkite agent versions are of stable version 3.x releas
 
 Agent versions with known issues are indicated in these tables.
 
+## Agent versions 3.130 to 3.139
+
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <th style="width: 25%">Release changelog</th>
+      <th style="text-align: center; width: 20%">Date of release</th>
+      <th style="text-align: center; width: 55%">Known issues</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        version: "v3.130.0",
+        date: "2026-07-01",
+        known_issues: false
+      }
+    ].each do |release| %>
+      <tr>
+        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 ## Agent versions 3.120 to 3.129
 
 <table style="width: 100%">
@@ -31,6 +58,16 @@ Agent versions with known issues are indicated in these tables.
   </thead>
   <tbody>
     <% [
+      {
+        version: "v3.129.0",
+        date: "2026-06-24",
+        known_issues: false
+      },
+      {
+        version: "v3.128.0",
+        date: "2026-06-18",
+        known_issues: false
+      },
       {
         version: "v3.127.2",
         date: "2026-06-05",

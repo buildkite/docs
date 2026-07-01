@@ -39,6 +39,6 @@ Possible macOS versions for the Hosted Agent instance
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>SEQUOIA</code></strong></p><p>macOS Sequoia (15.7.5)</p></td></tr><tr><td><p><strong><code>SONOMA</code></strong></p><p>macOS Sonoma (14.8.3)</p></td></tr><tr><td><p><strong><code>TAHOE</code></strong></p><p>macOS Tahoe (26.3.1)</p></td></tr><tr><td><p><strong><code>TAHOE_SLIM</code></strong></p><p>macOS Tahoe (26.5)</p></td></tr>
+    <tr><td><p><strong><code>GOLDEN_GATE</code></strong></p><p>macOS Golden Gate (27.0)</p></td></tr><tr><td><p><strong><code>SEQUOIA</code></strong></p><p>macOS Sequoia (15.7.5)</p></td></tr><tr><td><p><strong><code>SONOMA</code></strong></p><p>macOS Sonoma (14.8.3)</p></td></tr><tr><td><p><strong><code>TAHOE</code></strong></p><p>macOS Tahoe (26.3.1)</p></td></tr><tr><td><p><strong><code>TAHOE_26_6</code></strong></p><p>macOS Tahoe (26.6)</p></td></tr><tr><td><p><strong><code>TAHOE_SLIM</code></strong></p><p>macOS Tahoe (26.5)</p></td></tr>
   </tbody>
 </table>

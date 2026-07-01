@@ -18,34 +18,23 @@ Instead of directly changing this file, you must:
 
 ### Usage
 
-`buildkite-agent step update <attribute> <value> [options...]`
+`buildkite-agent meta-data set-batch <key=value>... [options...]`
 
 ### Description
 
-Update an attribute of a step in the build
+Set multiple meta-data key/value pairs on a build in a single request.
 
-Note that step labels are used in commit status updates, so if you change the
-label of a running step, you may end up with an &#39;orphaned&#39; status update
-under the old label, as well as new ones using the updated label.
+Each argument must be in key=value format.
 
-To avoid orphaned status updates, in your Pipeline Settings &gt; GitHub:
-
-* Make sure Update commit statuses is not selected. Note that this prevents
-Buildkite from automatically creating and sending statuses for this pipeline,
-meaning you will have to handle all commit statuses through the pipeline.yml
+Keys and values must be non-empty strings, and strings containing only
+whitespace characters are not allowed.
 
 ### Example
 
 ```shell
-$ buildkite-agent step update "label" "New Label"
-$ buildkite-agent step update "label" " (add to end of label)" --append
-$ buildkite-agent step update "label" < ./tmp/some-new-label
-$ ./script/label-generator | buildkite-agent step update "label"
-$ buildkite-agent step update "priority" 10 --step "my-step-key"
-$ buildkite-agent step update "notify" '[{"github_commit_status": {"context": "my-context"}}]' --append
-$ buildkite-agent step update "notify" '[{"slack": "my-slack-workspace#my-channel"}]' --append
+$ buildkite-agent meta-data set-batch foo=bar "greeting=hello world"
+$ buildkite-agent meta-data set-batch duration:spec/a.rb=2.341 duration:spec/b.rb=5.672
 ```
-
 
 ### Options
 
@@ -62,9 +51,7 @@ $ buildkite-agent step update "notify" '[{"slack": "my-slack-workspace#my-channe
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
 <tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
 <tr id="trace-http"><th><code>--trace-http </code> <a class="Docs__attribute__link" href="#trace-http">#</a></th><td><p>Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_TRACE_HTTP</code></p></td></tr>
-<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>The step to update. Can be either its ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STEP_ID</code></p></td></tr>
-<tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
-<tr id="append"><th><code>--append </code> <a class="Docs__attribute__link" href="#append">#</a></th><td><p>Append to current attribute instead of replacing it (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STEP_UPDATE_APPEND</code></p></td></tr>
+<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job's build should the meta-data be set on<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_SSH_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 </table>
 

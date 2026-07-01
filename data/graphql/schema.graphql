@@ -79,6 +79,7 @@ enum APIAccessTokenScopes {
   GRAPHQL
   READ_AGENTS
   READ_ARTIFACTS
+  READ_AUDIT_EVENTS
   READ_BUILDS
   READ_BUILD_LOGS
   READ_CLUSTERS
@@ -1212,6 +1213,8 @@ enum AuditEventType {
   TEST_ENGINE_SAVED_VIEW_UPDATED
   USER_API_ACCESS_TOKEN_ORGANIZATION_ACCESS_ADDED
   USER_API_ACCESS_TOKEN_ORGANIZATION_ACCESS_REMOVED
+  USER_EMAIL_BUILD_NOTIFICATIONS_SUPPRESSED
+  USER_EMAIL_BUILD_NOTIFICATIONS_UNSUPPRESSED
   USER_EMAIL_CREATED
   USER_EMAIL_DELETED
   USER_EMAIL_MARKED_PRIMARY
@@ -1539,6 +1542,11 @@ type Build implements Node {
   Custom environment variables passed to this build
   """
   env: [String!]
+
+  """
+  The time when the build started failing
+  """
+  failingAt: DateTime
 
   """
   The time when the build finished
@@ -3219,6 +3227,11 @@ enum HostedAgentInstanceShapeName {
   LINUX_AMD64_4X16
 
   """
+  Linux 64 vCPU x 256 GB Memory
+  """
+  LINUX_AMD64_64X256
+
+  """
   Linux 8 vCPU x 32 GB Memory
   """
   LINUX_AMD64_8X32
@@ -3244,6 +3257,11 @@ enum HostedAgentInstanceShapeName {
   LINUX_ARM64_4X16
 
   """
+  Linux 64 vCPU x 256 GB Memory
+  """
+  LINUX_ARM64_64X256
+
+  """
   Linux 8 vCPU x 32 GB Memory
   """
   LINUX_ARM64_8X32
@@ -3257,26 +3275,6 @@ enum HostedAgentInstanceShapeName {
   macOS 6 vCPU x 28 GB Memory
   """
   MACOS_ARM64_M4_6X28
-
-  """
-  macOS 12 vCPU x 28 GB Memory
-  """
-  MACOS_M2_12X28
-
-  """
-  macOS 4 vCPU x 7 GB Memory
-  """
-  MACOS_M2_4X7
-
-  """
-  macOS 6 vCPU x 14 GB Memory
-  """
-  MACOS_M2_6X14
-
-  """
-  macOS 12 vCPU x 56 GB Memory
-  """
-  MACOS_M4_12X56
 }
 
 """
@@ -3311,6 +3309,11 @@ Possible macOS versions for the Hosted Agent instance
 """
 enum HostedAgentMacOSVersion {
   """
+  macOS Golden Gate (27.0)
+  """
+  GOLDEN_GATE
+
+  """
   macOS Sequoia (15.7.5)
   """
   SEQUOIA
@@ -3324,6 +3327,11 @@ enum HostedAgentMacOSVersion {
   macOS Tahoe (26.3.1)
   """
   TAHOE
+
+  """
+  macOS Tahoe (26.6)
+  """
+  TAHOE_26_6
 
   """
   macOS Tahoe (26.5)
@@ -3404,6 +3412,11 @@ enum HostedAgentSize {
   Small capacity size: 2 vCPU, 4GB RAM (Linux); 4 vCPU, 7GB RAM (macOS).
   """
   SMALL
+
+  """
+  3XL capacity size: 64 vCPU, 256GB RAM (Linux); Not applicable for macOS.
+  """
+  THREE_XL
 }
 
 """
@@ -10398,6 +10411,12 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to use the merge group base commit for git diff base.
   """
   useMergeGroupBaseCommitForGitDiffBase: Boolean!
+
+  """
+  Whether to use step keys as commit status names for per-step commit statuses.
+  Requires publish_commit_status and publish_commit_status_per_step to also be enabled.
+  """
+  useStepKeyAsCommitStatus: Boolean!
 }
 
 """
@@ -10635,6 +10654,12 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to use the merge group base commit for git diff base.
   """
   useMergeGroupBaseCommitForGitDiffBase: Boolean!
+
+  """
+  Whether to use step keys as commit status names for per-step commit statuses.
+  Requires publish_commit_status and publish_commit_status_per_step to also be enabled.
+  """
+  useStepKeyAsCommitStatus: Boolean!
 }
 
 """

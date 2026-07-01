@@ -162,6 +162,8 @@ notify:
 
 You can only send email notifications on entire pipeline [events](/docs/apis/webhooks/pipelines#events), specifically upon `build.failing` and `build.finished`.
 
+If a running job uses [promise job failure](/docs/pipelines/configure/promise-job-failure) and the promised exit status counts as a hard failure, `build.failing` notifications can be sent before that job exits.
+
 Restrict notifications to finished builds by adding a [conditional](#conditional-notifications):
 
 ```yaml
@@ -184,6 +186,9 @@ notify:
   - email: "qa@acmeinc.com"
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘 Email notification behavior
+> Email notifications configured with the `email` attribute in `notify` always go to the specified address and are not affected by per-user build notification preferences or suppression. User build notification emails—the automatic emails sent to users based on their pipeline subscription preferences—are a separate mechanism. Buildkite may pause user build notification emails for a given address to prevent repeated delivery failures. Users can check their [**Email Settings**](https://buildkite.com/user/emails) page to see if their build notification emails have been paused and resume them from there.
 
 ## GitHub commit status
 
