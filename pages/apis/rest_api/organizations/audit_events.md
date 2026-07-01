@@ -5,7 +5,7 @@ The audit events API endpoint lets you retrieve audit log events for your organi
 > 📘 Enterprise plan feature
 > The audit log is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan, and is only accessible to Buildkite organization administrators.
 
-Audit events are system-generated records of activity within a Buildkite organization. The API provides read-only access — audit events cannot be created or modified using the API.
+Audit events are system-generated records of activity within a Buildkite organization. The API provides read-only access. Audit events cannot be created or modified using the API.
 
 The audit events API requires the `read_audit_events` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes).
 
@@ -37,7 +37,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     },
     "context": {
       "type": "WebContext",
-      "request_ip": "1.2.3.4",
+      "request_ip": "192.0.2.1",
       "request_user_agent": "Mozilla/5.0"
     },
     "data": {},
@@ -88,7 +88,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   },
   "context": {
     "type": "WebContext",
-    "request_ip": "1.2.3.4",
+    "request_ip": "192.0.2.1",
     "request_user_agent": "Mozilla/5.0"
   },
   "data": {},
