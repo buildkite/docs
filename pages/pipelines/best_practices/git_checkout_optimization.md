@@ -6,7 +6,25 @@ This page covers best practices for optimizing Git workflows in Buildkite Pipeli
 
 Sparse checkout is a [Git feature](https://git-scm.com/docs/git-sparse-checkout) that allows you to check out only a subset of paths from a repository into your working directory, while the local repository still retains the full commit history. When using sparse checkout, after you have specified the required paths, Git will populate only those files locally, which speeds up operations and reduces disk usage on very large, monorepo-style projects, without changing the repository itself or requiring server-side setup.
 
-To natively implement sparse checkout in Buildkite Pipelines, you can use the [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/). It allows you to speed up pipeline upload by checking out only `.buildkite` or other specific paths and supports cone and non-cone patterns, optional aggressive cleanup, skipping `ssh-keyscan`, and verbose mode for debugging.
+Buildkite Pipelines supports sparse checkout natively through the `checkout.sparse.paths` key in your pipeline YAML. Set it at the pipeline level as a default for all steps, or override it per step:
+
+```yaml
+steps:
+  - label: "Build frontend"
+    command: "make build"
+    checkout:
+      sparse:
+        paths:
+          - .buildkite/
+          - frontend/
+```
+{: codeblock-file="pipeline.yml"}
+
+The agent performs the sparse checkout using cone mode and sets only the listed paths in the working directory. Requires Git 2.26 or later; agents with an older Git version fall back to a full checkout. Submodules are not initialized when sparse checkout is enabled.
+
+For more details on the `checkout.sparse` key and its attributes, see [Checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes) in the command step reference.
+
+You can also use the [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/), which supports cone and non-cone patterns, optional aggressive cleanup, skipping `ssh-keyscan`, and verbose mode for debugging.
 
 ## Git mirrors
 

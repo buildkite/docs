@@ -377,6 +377,16 @@ The `checkout` block is applied after the step's `env` map, so its values take p
     </td>
   </tr>
   <tr>
+    <td><code>sparse</code></td>
+    <td>
+      A map that enables <a href="https://git-scm.com/docs/git-sparse-checkout">git sparse checkout</a>, populating only the listed paths in the working directory. Contains a single key, <code>paths</code>, which accepts a string or a list of strings. Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS"><code>BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS</code></a>. Requires git 2.26 or later; the agent falls back to a full checkout on older git versions. Submodules are not initialized when sparse checkout is enabled.<br/>
+      <em>Example:</em><br/>
+      <code>paths:<br/>
+&nbsp;&nbsp;- ".buildkite/"<br/>
+&nbsp;&nbsp;- "src/"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>ssh_secret</code></td>
     <td>
       The key of a <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secret</a> containing an SSH private key to use when cloning the repository. The secret value is fetched at job startup and set as <code>BUILDKITE_GIT_SSH_KEY</code> in the job environment. The agent uses this to configure <code>GIT_SSH_COMMAND</code> for the git checkout.<br/>
@@ -396,6 +406,10 @@ steps:
       flags:
         clone: "--filter=blob:none"
         fetch: "--prune"
+      sparse:
+        paths:
+          - .buildkite/
+          - src/
 ```
 {: codeblock-file="pipeline.yml"}
 
