@@ -187,7 +187,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 📘
+> 📘 Email notification behavior
 > Emails sent via `notify: email` always go to the specified address and are not affected by per-user build notification preferences or suppression. User build notification emails—the automatic emails sent to users based on their pipeline subscription preferences—are a separate mechanism. Buildkite may pause user build notification emails for a given address to prevent repeated delivery failures. Users can check their [Email Settings](https://buildkite.com/user/emails) page to see if their build notification emails have been paused and resume them from there.
 
 ## GitHub commit status
