@@ -43,4 +43,4 @@ Overage above the included amount is invoiceable.
 
 For hosted agent minutes, you can toggle the view between **vCPU** and **instance shape** using the links above the table.
 
-Resources tracked across both sections include active users, concurrent agents, hosted agent minutes, test executions, artifact storage, artifact downloads, and package storage and transfer. Overage costs shown are estimates prorated to the current date.
+Resources tracked across both sections include active users, concurrent agents, hosted agent minutes, test executions, artifact storage, artifact downloads, and package storage and transfer. Overage costs shown are estimates.
