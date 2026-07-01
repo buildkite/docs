@@ -121,9 +121,20 @@ Agent lifecycle hooks are only available to [self-hosted agents](/docs/agent/sel
 
 | Hook             | Location Order | Description |
 | ---------------- | -------------- | ----------- |
-| `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed at agent startup, immediately prior to the agent being registered with Buildkite. Useful for initialising resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
+| `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed after the agent process starts and after any spawned agents have registered with Buildkite. Useful for initializing resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
 | `agent-shutdown` | <span class="add-icon-agent">Agent</span> | Executed when the agent shuts down. Useful for performing cleanup tasks for the entire agent, outside of the job lifecycle. |
 {: class="table table--no-wrap"}
+
+### Agent identity in lifecycle hooks
+
+Buildkite agent v3.130.0 and later sets the following environment variables for `agent-startup` and `agent-shutdown` hooks after agents have registered:
+
+- `BUILDKITE_AGENT_IDS`: A comma-separated list of agent UUIDs, in spawn order.
+- `BUILDKITE_AGENT_NAMES`: A comma-separated list of agent names, in the same order as `BUILDKITE_AGENT_IDS`.
+
+The `agent-startup` and `agent-shutdown` hooks run once per process, not once for each spawned agent. With `--spawn 1`, or when `--spawn` is not set, each variable contains a single value. With multiple spawned agents, each variable contains a comma-separated list.
+
+Use these variables to set up or tear down per-agent resources, such as autoscaler registrations, without querying the API.
 
 ### Creating agent lifecycle hooks
 

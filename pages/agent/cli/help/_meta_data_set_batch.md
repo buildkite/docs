@@ -18,36 +18,23 @@ Instead of directly changing this file, you must:
 
 ### Usage
 
-`buildkite-agent job promise-failure <exit-status> [options...]`
+`buildkite-agent meta-data set-batch <key=value>... [options...]`
 
 ### Description
 
-Promise the current job will finish with a failing exit status. This records
-a non-zero exit status that the job is expected to finish with, allowing the
-build to begin failing before the job actually completes.
+Set multiple meta-data key/value pairs on a build in a single request.
 
-The promise is binding: it sets a floor on the job&#39;s outcome. If the job is
-later reported as a success, the promised exit status is recorded instead, so
-the job still fails. Likewise, if a hard failure was promised but the job
-reports a soft-failure status, the promised status is kept. Any other
-reported failure is recorded as reported.
+Each argument must be in key=value format.
 
-Repeated calls with the same exit status are idempotent. Declaring a
-different exit status once one is already recorded is rejected. The agent
-debounces repeated calls locally, so each exit status is only declared to
-the Buildkite API once per job, even if you call this on every test failure.
-
-The command exits non-zero if the promise is not accepted (for example, if
-the job is no longer running, or a different exit status was already
-promised). Append &#39;|| true&#39; if you would prefer to ignore that in a script.
+Keys and values must be non-empty strings, and strings containing only
+whitespace characters are not allowed.
 
 ### Example
 
 ```shell
-$ buildkite-agent job promise-failure 1
-$ buildkite-agent job promise-failure 42 --reason "detected failing tests"
+$ buildkite-agent meta-data set-batch foo=bar "greeting=hello world"
+$ buildkite-agent meta-data set-batch duration:spec/a.rb=2.341 duration:spec/b.rb=5.672
 ```
-
 
 ### Options
 
@@ -64,7 +51,7 @@ $ buildkite-agent job promise-failure 42 --reason "detected failing tests"
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
 <tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
 <tr id="trace-http"><th><code>--trace-http </code> <a class="Docs__attribute__link" href="#trace-http">#</a></th><td><p>Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_TRACE_HTTP</code></p></td></tr>
-<tr id="reason"><th><code>--reason value</code> <a class="Docs__attribute__link" href="#reason">#</a></th><td><p>An optional human-readable reason for the promised failure</p></td></tr>
+<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job's build should the meta-data be set on<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_SSH_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 </table>
 

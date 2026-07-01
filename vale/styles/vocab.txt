@@ -129,6 +129,7 @@ Datadog's
 daemonless
 datasource
 debuild
+debounces
 declaratively
 deduper
 deno

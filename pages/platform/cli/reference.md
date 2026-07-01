@@ -13,6 +13,7 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`api`](/docs/platform/cli/reference/api)
 - [`artifacts`](/docs/platform/cli/reference/artifacts)
 - [`auth`](/docs/platform/cli/reference/auth)
+- [`browse`](/docs/platform/cli/reference/browse)
 - [`build`](/docs/platform/cli/reference/build)
 - [`cluster`](/docs/platform/cli/reference/cluster)
 - [`config`](/docs/platform/cli/reference/config)
