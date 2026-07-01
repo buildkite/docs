@@ -414,6 +414,7 @@
   apis/rest-api/meta: "REST endpoint returning Buildkite metadata including webhook IP addresses (no auth required)."
   apis/rest-api/user: "REST endpoint to get details about the authenticated user account."
   apis/rest-api/organizations: "REST endpoints to list and retrieve Buildkite organization details."
+  apis/rest-api/organizations/audit-events: "REST endpoints to list and retrieve an organization's audit log events (Enterprise plan)."
   apis/rest-api/organizations/members: "REST endpoints to list, retrieve, and remove members of a Buildkite organization."
   apis/rest-api/organizations/rate-limits: "REST endpoint to query an organization's current REST and GraphQL API rate limit status."
   apis/rest-api/package-registries/registries: "REST endpoints to create, list, get, update, and delete package registries."
