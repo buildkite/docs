@@ -31,7 +31,7 @@ The **Inclusions** page shows your included entitlements versus actual usage for
 
 ### Monthly resources
 
-The **Monthly resources** section shows metered resources calculated as a 3-month rolling average. Columns include usage for each of the last three calendar months, the 3-month average, the included amount per month, the amount over the included threshold, the unit price, and an estimated overage charge.
+The **Monthly resources** section shows metered resources calculated as a three-month rolling average. Columns include usage for each of the last three calendar months, the three-month average, the included amount per month, the amount over the included threshold, the unit price, and an estimated overage charge.
 
 Overage above the included amount is invoiceable.
 
