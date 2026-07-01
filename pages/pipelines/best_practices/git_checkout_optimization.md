@@ -20,7 +20,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The agent performs the sparse checkout using cone mode and sets only the listed paths in the working directory. Requires Git 2.25 or later; agents with an older Git version fall back to a full checkout. Submodules are not initialized when sparse checkout is enabled.
+The agent performs the sparse checkout using cone mode and sets only the listed paths in the working directory. Requires Git 2.26 or later; agents with an older Git version fall back to a full checkout. Submodules are not initialized when sparse checkout is enabled.
 
 For more details on the `checkout.sparse` key and its attributes, see [Checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes) in the command step reference.
 
