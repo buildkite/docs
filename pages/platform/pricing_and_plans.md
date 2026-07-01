@@ -20,7 +20,7 @@ Each plan has default [service quotas](/docs/platform/limits) that define usage 
 
 ## Viewing prepaid inclusions
 
-Managed enterprise customers can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.
+Managed enterprise customers with the inclusions report enabled can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.
 
 To access the inclusions report, you need billing administration permissions for your organization. To view it:
 
