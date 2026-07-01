@@ -244,7 +244,7 @@ variables:
       - false
   - name: BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS
     desc: |
-      A comma-separated list of paths for [git sparse checkout](https://git-scm.com/docs/git-sparse-checkout). Set automatically from the `checkout.sparse.paths` key in your pipeline YAML. When set, the agent performs a sparse checkout, populating only the listed paths in the working directory. Requires git 2.25 or later; agents with an older git version fall back to a full checkout. Agents that do not support sparse checkout ignore this variable, also producing a full checkout.
+      A comma-separated list of paths for [Git sparse checkout](https://git-scm.com/docs/git-sparse-checkout). Set automatically from the `checkout.sparse.paths` key in your pipeline YAML. When set, the agent performs a sparse checkout, populating only the listed paths in the working directory. Requires Git 2.25 or later; agents with an older Git version fall back to a full checkout. Agents that do not support sparse checkout ignore this variable, also producing a full checkout.
     modifiable: false
     example: ".buildkite/,src/"
   - name: BUILDKITE_GIT_SUBMODULES
