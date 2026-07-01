@@ -41,3 +41,24 @@ func TestExtractEnvVarFallsBackToProseEnvVar(t *testing.T) {
 		t.Fatalf("cleaned = %q, want %q", cleaned, desc)
 	}
 }
+
+func TestNormalizeFlagDescriptionReplacesDynamicArtifactUploadConcurrencyDefault(t *testing.T) {
+	desc := "Number of concurrent artifact upload operations (default: 15)"
+
+	got := normalizeFlagDescription("concurrency", desc)
+	want := "Number of concurrent artifact upload operations (default: current <code>GOMAXPROCS</code> value)"
+
+	if got != want {
+		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
+	}
+}
+
+func TestNormalizeFlagDescriptionKeepsOtherConcurrencyDescriptions(t *testing.T) {
+	desc := "Maximum number of concurrent cache operations (default: 15)"
+
+	got := normalizeFlagDescription("concurrency", desc)
+
+	if got != desc {
+		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, desc)
+	}
+}
