@@ -298,6 +298,7 @@ exceptions:
   - tvOS
   - TypeScript
   - Ubuntu
+  - UPDATE_ROLLBACK_COMPLETE # Allow CloudFormation stack status in headings
   - URL
   - URL(s)
   - UserData

@@ -85,6 +85,10 @@ Note that some API request types on this page, especially those involving only a
     <td>When the build's first job was started by an agent</td>
   </tr>
   <tr>
+    <th><code>failing_at</code></th>
+    <td>When the build first entered the <code>failing</code> state (that is, when a hard, non-retryable job failure occurred before the build finished). <code>null</code> if the build has not entered the <code>failing</code> state</td>
+  </tr>
+  <tr>
     <th><code>finished_at</code></th>
     <td>When the build finished (passed, failed, canceled)</td>
   </tr>
@@ -180,6 +184,14 @@ Jobs are the individual units of work within a build.
   <tr>
     <th><code>exit_status</code></th>
     <td>Exit code of the command (integer)</td>
+  </tr>
+  <tr>
+    <th><code>signal</code></th>
+    <td>The OS signal that terminated the job process (for example, <code>SIGTERM</code>). Null if the job was not terminated by a signal, or if the job predates this field.</td>
+  </tr>
+  <tr>
+    <th><code>signal_reason</code></th>
+    <td>Why the agent sent the termination signal. A non-null value means the agent (not the command itself) ended the job. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process — infrastructure failure), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), <code>agent_incompatible</code> (agent cannot run this job type). Null if the job ended normally or predates this field.</td>
   </tr>
   <tr>
     <th><code>promised_exit_status</code></th>
@@ -479,6 +491,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2015-05-09T21:05:59.874Z",
     "scheduled_at": "2015-05-09T21:05:59.874Z",
     "started_at": "2015-05-09T21:05:59.874Z",
+    "failing_at": null,
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
     "pull_request": { },
@@ -528,7 +541,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
@@ -655,6 +668,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:08:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -691,7 +705,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Unlike [build states](/docs/pipelines/configure/notify#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
 
@@ -871,6 +885,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -903,7 +918,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -1092,6 +1107,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -1123,7 +1139,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 
@@ -1248,6 +1264,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -1279,7 +1296,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 
@@ -1393,6 +1410,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
@@ -1425,7 +1443,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, this field returns an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, this field returns an empty string.
 
 This request is asynchronous, meaning that jobs are queued to be retried, but the request does not wait for the jobs to be completed before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued to be retried.
 

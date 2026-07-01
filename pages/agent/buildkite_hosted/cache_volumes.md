@@ -188,6 +188,12 @@ A Git mirror volume's name is based on your cloud-based Git service's account an
 
 You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
 
+## Default cache store URL
+
+Jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) automatically receive the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. This variable configures the Buildkite agent's default cache store backend for the `cache` step attribute. The value is scoped to the cluster. Cache data is shared only between jobs running in the same cluster.
+
+You do not need to set this variable manually for Buildkite hosted agents.
+
 ## Configuring cache operation concurrency
 
 When saving or restoring multiple cache volumes, the agent processes them concurrently. Control the number of concurrent operations using the `BUILDKITE_CACHE_CONCURRENCY` environment variable. The default is `2`.

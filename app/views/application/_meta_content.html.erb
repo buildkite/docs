@@ -2,3 +2,4 @@
 <% content_for :page_description, @page.description %>
 <% content_for :keywords, @page.keywords %>
 <% content_for :page_importance, @page.importance %>
+<% content_for :json_ld do %><%= render_json_ld(docs_page_structured_data(@page, @nav)) %><% end %>

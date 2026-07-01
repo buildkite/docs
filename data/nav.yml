@@ -901,6 +901,8 @@
               path: "platform/cli/reference/artifacts"
             - name: "auth"
               path: "platform/cli/reference/auth"
+            - name: "browse"
+              path: "platform/cli/reference/browse"
             - name: "build"
               path: "platform/cli/reference/build"
             - name: "cluster"
