@@ -34,40 +34,6 @@ RSpec.describe Page do
     end
   end
 
-  describe "#faq?" do
-    let(:view_double) { double("View") }
-
-    it "returns true when the page opts in via front matter" do
-      page = Page.new(view_double, "pipelines/advantages/faq")
-
-      expect(page).to be_faq
-    end
-
-    it "returns false for a page without the faq front matter" do
-      page = Page.new(view_double, "apis/agent-api")
-
-      expect(page).not_to be_faq
-    end
-  end
-
-  describe "#faq_items" do
-    let(:view_double) { double("View") }
-
-    it "extracts question and answer pairs from H2 sections" do
-      page = Page.new(view_double, "pipelines/advantages/faq")
-      items = page.faq_items
-
-      expect(items).to be_present
-      expect(items.first.keys).to contain_exactly("question", "answer")
-
-      questions = items.map { |item| item["question"] }
-      expect(questions).to include("Why is Buildkite Pipelines faster than other CI/CD tools?")
-
-      faster = items.find { |item| item["question"].start_with?("Why is Buildkite Pipelines faster") }
-      expect(faster["answer"]).to include("unlimited concurrency")
-    end
-  end
-
   describe "#keywords" do
     let(:view_double) { double("View") }
     let(:request_double) { double("Request", path: "/apis/agent-api") }

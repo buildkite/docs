@@ -25,14 +25,9 @@ module StructuredDataHelper
   # Structured data graph for an individual documentation page. Always includes
   # the WebSite and Organization the page belongs to, a TechArticle describing
   # the page itself, and a BreadcrumbList reflecting its place in the
-  # navigation. Pages that opt in to FAQ structured data additionally emit a
-  # FAQPage node alongside the TechArticle.
+  # navigation.
   def docs_page_structured_data(page, nav)
     graph = [organization_node, website_node, tech_article_node(page)]
-
-    if page.faq? && (faq_items = page.faq_items).present?
-      graph << faq_page_node(page, faq_items)
-    end
 
     if (breadcrumb = breadcrumb_list(nav))
       graph << breadcrumb
@@ -69,30 +64,6 @@ module StructuredDataHelper
       "inLanguage" => "en",
       "isPartOf" => { "@id" => WEBSITE_ID },
       "publisher" => { "@id" => ORGANIZATION_ID }
-    }
-    node["description"] = page.description if page.description.present?
-    node
-  end
-
-  def faq_page_node(page, faq_items)
-    node = {
-      "@type" => "FAQPage",
-      "@id" => "#{seo_canonical_url}#faq",
-      "name" => page.title,
-      "url" => seo_canonical_url,
-      "inLanguage" => "en",
-      "isPartOf" => { "@id" => WEBSITE_ID },
-      "publisher" => { "@id" => ORGANIZATION_ID },
-      "mainEntity" => faq_items.map do |item|
-        {
-          "@type" => "Question",
-          "name" => item["question"],
-          "acceptedAnswer" => {
-            "@type" => "Answer",
-            "text" => item["answer"]
-          }
-        }
-      end
     }
     node["description"] = page.description if page.description.present?
     node

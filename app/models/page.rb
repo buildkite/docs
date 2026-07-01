@@ -206,38 +206,6 @@ class Page
     Importance.for(canonical_url)
   end
 
-  # Whether this page opts in to FAQPage structured data (set `faq: true` in
-  # the page's front matter). FAQ pages use H2 headings as questions and the
-  # content beneath each heading as the answer.
-  def faq?
-    front_matter.fetch(:faq, false)
-  end
-
-  # Extracts question and answer pairs from an FAQ page for use in FAQPage
-  # structured data. Each H2 heading is treated as a question, and the rendered
-  # content beneath it (up to the next heading) as the answer. Returns an array
-  # of { "question" => ..., "answer" => ... } hashes.
-  def faq_items
-    doc = Nokogiri::HTML.fragment(body)
-
-    doc.css("section").filter_map do |section|
-      heading = section.at_xpath("./h2")
-      next unless heading
-
-      question = heading.text.strip
-      answer = section.children
-                      .reject { |node| node == heading }
-                      .map(&:text)
-                      .join(" ")
-                      .gsub(/\s+/, " ")
-                      .strip
-
-      next if question.empty? || answer.empty?
-
-      { "question" => question, "answer" => answer }
-    end
-  end
-
   # Returns focus keywords to guide content writers with an overview of the page content
   # Note: it's not for meta keywords, which is a deprecated SEO practice
   def keywords

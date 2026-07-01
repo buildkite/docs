@@ -29,19 +29,13 @@ RSpec.describe StructuredDataHelper do
 
     context "for a regular page" do
       let(:page) do
-        double("Page", title: "Some page", description: "A description", faq?: false)
+        double("Page", title: "Some page", description: "A description")
       end
 
       it "always includes Organization, WebSite, and TechArticle nodes" do
         data = helper.docs_page_structured_data(page, nav)
 
         expect(graph_types(data)).to include("Organization", "WebSite", "TechArticle")
-      end
-
-      it "does not include a FAQPage node" do
-        data = helper.docs_page_structured_data(page, nav)
-
-        expect(graph_types(data)).not_to include("FAQPage")
       end
 
       it "includes a BreadcrumbList built from the nav trail" do
@@ -56,47 +50,6 @@ RSpec.describe StructuredDataHelper do
         # Nodes without a path are listed but not linked.
         expect(items[1]).not_to have_key("item")
         expect(items[2]["item"]).to eq("https://buildkite.com/docs/pipelines/advantages/faq")
-      end
-    end
-
-    context "for an FAQ page" do
-      let(:faq_items) do
-        [{ "question" => "Why is it fast?", "answer" => "Unlimited concurrency." }]
-      end
-      let(:page) do
-        double("Page", title: "FAQ", description: "Common questions", faq?: true, faq_items: faq_items)
-      end
-
-      it "includes both a TechArticle and a FAQPage node" do
-        data = helper.docs_page_structured_data(page, nav)
-
-        expect(graph_types(data)).to include("TechArticle", "FAQPage")
-      end
-
-      it "maps each FAQ item to a Question with an accepted Answer" do
-        data = helper.docs_page_structured_data(page, nav)
-
-        faq_node = data.fetch("@graph").find { |node| node["@type"] == "FAQPage" }
-        question = faq_node["mainEntity"].first
-
-        expect(question["@type"]).to eq("Question")
-        expect(question["name"]).to eq("Why is it fast?")
-        expect(question["acceptedAnswer"]).to eq(
-          "@type" => "Answer", "text" => "Unlimited concurrency."
-        )
-      end
-    end
-
-    context "when the page opts in to FAQ but has no extractable items" do
-      let(:page) do
-        double("Page", title: "FAQ", description: nil, faq?: true, faq_items: [])
-      end
-
-      it "falls back to TechArticle only" do
-        data = helper.docs_page_structured_data(page, nav)
-
-        expect(graph_types(data)).to include("TechArticle")
-        expect(graph_types(data)).not_to include("FAQPage")
       end
     end
   end

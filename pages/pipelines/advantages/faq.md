@@ -1,7 +1,3 @@
----
-faq: true
----
-
 # Frequently asked questions about Buildkite Pipelines
 
 Common questions about how Buildkite Pipelines works, how it compares to other CI/CD tools, and what types of workloads it supports.
