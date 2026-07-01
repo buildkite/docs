@@ -26,7 +26,7 @@ GitHub Actions' `actions/checkout@v4` uses a shallow clone (`--depth=1`) and ski
 In Buildkite Pipelines:
 
 - Git LFS is enabled by default. You can disable it with `GIT_LFS_SKIP_SMUDGE=1`.
-- Agents check out the full repository. However, you can configure shallow clones using the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
+- Agents check out the full repository. However, you can configure shallow clones using the [Custom Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
 
 For further checkout optimization in Buildkite Pipelines, you can use additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
 

@@ -37,7 +37,7 @@ While both approaches help optimize your Git workflow, they solve different prob
 - Use a Git mirror when you’re optimizing distribution, reliability, or centralization for automation and scaling - for example, when you need a replicated source of truth for CI, faster clones for many agents, network isolation, or migration between hosts.
 
 > 📘
-> In addition to sparse checkout and Git mirrors, for checkout optimization you can also use the [Git Shallow Clone Buildkite Plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) that sets `--depth` flag for `git-clone` and `git-fetch` commands.
+> In addition to sparse checkout and Git mirrors, for checkout optimization you can also use the [Custom Checkout Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) that allows configuring the `--depth` flag for `git-clone` and `git-fetch` commands.
 
 ## Understanding checkout defaults across platforms
 
