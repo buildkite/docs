@@ -125,7 +125,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>type</code></th>
-    <td>The event type. See <a href="/docs/platform/audit-log#logged-events">logged events</a> for a full list.</td>
+    <td>The event type, in class-style form (for example, <code>OrganizationUpdatedEvent</code>). See <a href="/docs/platform/audit-log#logged-events">logged events</a> for the full set of activities that are recorded. That list uses the audit log search names (for example, <code>ORGANIZATION_UPDATED</code>), which are the uppercase, underscore-separated form of each type value with the <code>Event</code> suffix removed.</td>
   </tr>
   <tr>
     <th><code>occurred_at</code></th>
