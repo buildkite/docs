@@ -36,6 +36,7 @@ RSpec.describe StructuredDataHelper do
         data = helper.docs_page_structured_data(page, nav)
 
         expect(graph_types(data)).to include("Organization", "WebSite", "TechArticle")
+        expect(graph_types(data)).not_to include("FAQPage")
       end
 
       it "includes a BreadcrumbList built from the nav trail" do
