@@ -99,7 +99,15 @@ You can choose from the following parallel job index label helpers:
 
 - `%n` to display job count starting at `0`.
 - `%N` to display job count starting at `1`.
-- `%t` to display the total number of parallel jobs in the step.
+- `%t` to display the total number of parallel jobs as of when the job was created.
+- `%T` to display the step's current parallelism, which reflects any updates made using `buildkite-agent step update parallelism`.
+
+Use `%T` instead of `%t` when you use `buildkite-agent step update parallelism` to expand a parallel group at runtime. In that case, `%t` reflects the original job count at creation time, while `%T` reflects the updated total for all jobs in the step.
+
+For example, if a parallel group starts with 2 jobs and is then expanded to 5:
+
+- `%t` renders `1/2` and `2/2` for the original jobs, then `3/5`, `4/5`, `5/5` for the new jobs.
+- `%T` renders `1/5`, `2/5`, `3/5`, `4/5`, `5/5` for all jobs.
 
 Now that the pipeline is configured, create a new build:
 
