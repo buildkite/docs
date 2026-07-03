@@ -6,7 +6,11 @@ Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Statu
 > GitHub Enterprise is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 > This guide is based on GitHub Enterprise version 2.16.3. Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
 
-## Step 1: Register Buildkite as an OAuth app
+You can connect a GitHub Enterprise Server installation using either an OAuth App or a GitHub App. This guide covers the OAuth App integration first, which Buildkite shows as **GitHub Enterprise Server (legacy)**. The GitHub App integration is newer and currently in private preview. With it, Buildkite creates and manages the app for you and supports optional code access for hosted agents. For proxy and firewall setups, see [Firewalled installs](#firewalled-installs).
+
+## OAuth App
+
+### Step 1: Register Buildkite as an OAuth app
 
 In your GitHub Enterprise organization settings, select **OAuth Apps** under **Developer Settings**:
 
@@ -30,10 +34,10 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
 
 <%= image "client-id-and-secret.png", width:767/2, height:707/2, alt:"Screenshot of the Client ID and Client Secret section of the Buildkite OAuth App settings page" %>
 
-## Step 2: Update your Buildkite organization settings
+### Step 2: Update your Buildkite organization settings
 
 1. Open your Buildkite organization's Settings and choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
-1. Select **GitHub Enterprise Server**.
+1. Select **GitHub Enterprise Server (legacy)**.
 1. Enter your settings:
     - The URL and public proxy URL of your GitHub Enterprise Server
     - The  Client ID and Client Secret from the GitHub OAuth App you created in Step 1
@@ -46,7 +50,7 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
 
     <%= image "tls-client-certificate.png", width:1900/2, height:1184/2, alt:"Screenshot of the TLS client settings section of the GitHub Enterprise settings in Buildkite" %>
 
-## Step 3: Connect your GitHub Enterprise account to Buildkite
+### Step 3: Connect your GitHub Enterprise account to Buildkite
 
 For Buildkite to mark commits and pull requests as pass or fail, you need to authorize your GitHub Enterprise user account with Buildkite.
 
@@ -62,19 +66,40 @@ For Buildkite to mark commits and pull requests as pass or fail, you need to aut
     That's it! Next time you create a pipeline with a repository that's either `https://git.mycompany.com/acme-inc/app.git` or `git@git.mycompany.com:acme-inc/app.git`.
     Buildkite will recognize that it's hosted on your GitHub Enterprise Server, and use your newly created OAuth authorization to update the commit statuses.
 
-## Known limitations for additional webhook events
-
-The Buildkite GHES App manifest subscribes to `create`, `delete`, and `release` webhook events. However, GitHub only delivers these events if the App has `contents: read` permission. In the GHES App manifest, `contents: read` is only included when the customer opts in to code access by choosing "Buildkite (with code access)" during setup.
-
-This means GHES installations **without** code access will not receive `create`, `delete`, or `release` events. The corresponding pipeline settings (branch and tag creation and release triggers) will have no effect. The `cancel_deleted_branch_builds` setting is not affected, because branch deletion is also detected through `push` events.
-
-> 📘 To enable these events, reinstall the GitHub App with code access enabled. See the [GitHub integration docs](/docs/pipelines/source-control/github#running-builds-on-additional-github-events) for details on additional webhook events.
-
-## Transferring ownership
+### Transferring ownership
 
 If you need to leave your current GitHub Enterprise Organization, you need to transfer the OAuth ownership first. Without this, the remaining members of your Buildkite team who are using that GitHub Enterprise Organization for OAuth won't be able to log in.
 
 To correctly transfer the OAuth ownership over your GitHub Enterprise Organization, see GitHub's official documentation for [Transferring ownership of an OAuth App](https://docs.github.com/en/developers/apps/managing-oauth-apps/transferring-ownership-of-an-oauth-app) and [Maintaining ownership continuity for your organization](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization).
+
+## GitHub App
+
+> 📘 Private preview feature
+> The GitHub App integration for GitHub Enterprise Server is currently in private preview. To enable it for your Buildkite organization, contact support@buildkite.com.
+
+With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents can clone private repositories.
+
+### Set up the GitHub App
+
+1. Open your Buildkite organization's Settings and choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
+1. Select **GitHub Enterprise Server**, the entry marked **New**, rather than **GitHub Enterprise Server (legacy)**.
+1. Enter your settings:
+    - **URL**: the URL of the GitHub Enterprise Server to connect, for example `https://github.example.com`.
+    - **GitHub Enterprise Organization**: the organization on GitHub Enterprise Server to create the app in. For example, to create the app in `https://github.example.com/acme`, enter `acme`.
+    - **Code read access**: select this to grant the app read-only repository contents permission. This is required if using hosted agents to clone private repositories, and for the branch, tag, and release webhook events.
+    - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration.
+1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
+1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.
+1. The provider isn't functional until the app is installed on your GitHub Enterprise Server. On the Buildkite provider settings page, select **Install GitHub App** to return to your GitHub Enterprise Server, then choose the organizations and repositories the app can access and install it. Your GitHub Enterprise Server returns you to Buildkite, which confirms the installation. Install the app in each GitHub organization you want to use with Buildkite.
+
+### Known limitations for additional webhook events
+
+The GitHub App manifest subscribes to the `create`, `delete`, and `release` webhook events. GitHub only delivers these events when the app has `contents: read` permission, which the manifest includes only when you select **Code read access** during setup.
+
+This means installations without code access don't receive `create`, `delete`, or `release` events, so the corresponding pipeline settings (branch and tag creation and release triggers) have no effect. The `cancel_deleted_branch_builds` setting is not affected, because branch deletion is also detected through `push` events.
+
+> 📘 Enabling additional webhook events
+> To enable these events, reinstall the GitHub App with code access enabled. See the [GitHub integration docs](/docs/pipelines/source-control/github#running-builds-on-additional-github-events) for details on additional webhook events.
 
 ## Branch configuration and settings
 
@@ -82,18 +107,22 @@ To correctly transfer the OAuth ownership over your GitHub Enterprise Organizati
 
 ## Firewalled installs
 
-If your GitHub Enterprise is behind a firewall you'll need to allow Buildkite's IP address so we can perform OAuth authentications using GitHub Enterprise API to update your pull request statuses.
+If your GitHub Enterprise Server is behind a firewall, you need to allow Buildkite's IP addresses so Buildkite can reach the GitHub Enterprise Server API to authenticate and update your pull request statuses.
 
-All Buildkite network traffic to your GitHub Enterprise Server will come from a set list of IP addresses. As the IP addresses are subject to change, it is best to retrieve them directly from the [Meta API endpoint](/docs/apis/rest-api/meta#get-meta-information). Please configure your network to allow traffic from all IP addresses returned by the endpoint.
+All Buildkite network traffic to your GitHub Enterprise Server comes from a set list of IP addresses. Because these addresses can change, retrieve them from the [Meta API endpoint](/docs/apis/rest-api/meta#get-meta-information) rather than hard-coding them, then configure your network to allow traffic from every address the endpoint returns.
 
-For additional security you can create a proxy that allows only the API endpoints we require:
+The proxy guidance below depends on which integration you are setting up. The OAuth App and the GitHub App reach GitHub Enterprise Server over different paths.
+
+### OAuth App
+
+For additional security, you can put a proxy in front of GitHub Enterprise Server that allows only the API endpoints the OAuth integration requires, then enter the proxy address in the **Public API URL** field of your Buildkite GitHub Enterprise Server settings. The OAuth integration only calls these paths:
 
 * `/api/v3/repos/.*/.*/statuses/.*`
 * `/api/v3/user`
 * `/api/v3/user/emails`
 * `/login/oauth`
 
-The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the _Public API URL_ GitHub Enterprise setting in Buildkite:
+The following is an example [NGINX](https://www.nginx.com) server configuration that proxies these paths:
 
 ```nginx
 daemon off;
@@ -169,7 +198,72 @@ http {
 }
 ```
 
-Learn more about restricting access to your GitHub Enterprise Server on firewalled or proxy services in [Restricting Access to Proxied TCP Resources of the NGINX Docs](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-tcp/).
+Learn more about restricting access to your GitHub Enterprise Server on firewalled or proxy services in [Restricting access to proxied TCP resources of the NGINX docs](https://docs.nginx.com/nginx/admin-guide/security-controls/controlling-access-proxied-tcp/).
+
+### GitHub App
+
+The GitHub App integration registers its app on GitHub Enterprise Server using a [GitHub App manifest flow](https://docs.github.com/en/apps/sharing-github-apps/registering-a-github-app-from-a-manifest). The flow crosses two different network paths, and the routing matters when a proxy sits in front of GitHub Enterprise Server:
+
+* App registration runs in your browser against your GitHub Enterprise Server URL directly, not through the **Public API URL** proxy. GitHub Enterprise Server binds the login session to its own canonical hostname. Routing this step through a proxy on a different hostname drops the session and the app is never created. Whoever sets up the integration needs browser access to the GitHub Enterprise Server URL.
+* Buildkite's server-side calls go through the **Public API URL** proxy when you set one, and otherwise reach GitHub Enterprise Server directly. These calls convert the manifest into an app, install it, manage webhooks, and update commit statuses.
+
+To restrict the server-side proxy, allow the Buildkite IP addresses from the [Meta API endpoint](/docs/apis/rest-api/meta#get-meta-information) and pass the requests through. If you also restrict by path, the GitHub App integration reaches these paths on GitHub Enterprise Server:
+
+* `/api/v3/app-manifests/.*/conversions`
+* `/api/v3/app/installations.*`
+* `/api/v3/installation/repositories`
+* `/api/v3/user/installations`
+* `/api/v3/repos/.*`
+* `/api/v3/search/repositories`
+* `/api/v3/rate_limit`
+* `/login/oauth/access_token`
+
+Allowing the broader `/api/v3/` and `/login/oauth/` prefixes is simpler and won't need revisiting if the set of endpoints changes. The following is an example [NGINX](https://www.nginx.com) server configuration for the server-side proxy. This configuration carries Buildkite's server-side calls only. Browser-driven app registration reaches GitHub Enterprise Server directly and is not proxied here:
+
+```nginx
+daemon off;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+
+  server {
+    listen 443 ssl;
+
+    # App registration is browser-driven and reaches GitHub Enterprise Server
+    # directly, so it is not proxied here. This proxy carries Buildkite's
+    # server-side calls only.
+    location / {
+      deny all;
+    }
+
+    location /api/v3/ {
+      proxy_pass https://ghe.internal:443;
+
+      # IPs subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
+      allow 100.24.182.113;
+      allow 35.172.45.249;
+      allow 54.85.125.32;
+
+      deny all;
+    }
+
+    location = /login/oauth/access_token {
+      proxy_pass https://ghe.internal:443;
+
+      # IPs subject to change - https://buildkite.com/docs/apis/rest-api/meta#get-meta-information
+      allow 100.24.182.113;
+      allow 35.172.45.249;
+      allow 54.85.125.32;
+
+      deny all;
+    }
+
+  }
+}
+```
 
 ## Multiple GitHub Enterprise integrations
 
