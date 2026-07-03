@@ -181,4 +181,16 @@ For an example, read [download many artifacts](#download-artifacts-with-the-buil
 
 ### Artifacts are missing from retried jobs
 
-Artifacts from retried jobs are excluded by default, so the `buildkite-agent artifact download` command won't find them. To include artifacts from retried jobs in your search results, use `--include-retried-jobs` in the command.
+By default, artifact commands only return artifacts from a job's latest attempt. So if a job was retried, you'll only get artifacts from the retry not the original attempt.
+
+To search every attempt instead of just the latest, add `--include-retried-jobs`:
+
+```
+buildkite-agent artifact download pkg/build.tar.gz archives --include-retried-jobs
+```
+
+To search for a specific step use `--step`
+
+```
+buildkite-agent artifact download pkg/build.tar.gz archives --step step1 --include-retried-jobs
+```
