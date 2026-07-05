@@ -20,7 +20,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.12.1:
+      - docker-compose#v5.13.0:
           run: muffet
           shell: false
           upload-container-logs: always
@@ -47,7 +47,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.12.1:
+      - docker-compose#v5.13.0:
           run: muffet
           shell: false
           upload-container-logs: always
@@ -107,7 +107,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.12.1:
+      - docker-compose#v5.13.0:
           run: app
           dependencies: false
       - .buildkite/plugins/check-for-changes:
@@ -194,7 +194,7 @@ steps:
         agents:
           queue: hosted
         plugins:
-          - docker-compose#v5.12.1:
+          - docker-compose#v5.13.0:
               run: vale
               config: ./vale/docker-compose.yml
 
@@ -290,7 +290,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.12.1:
+      - docker-compose#v5.13.0:
           run: app
           dependencies: false
           env:
@@ -321,7 +321,7 @@ steps:
       - ecr#v2.12.0:
           login: true
           account-ids: public.ecr.aws
-      - docker-compose#v5.12.1:
+      - docker-compose#v5.13.0:
           build: app
 
   - label: ":junit: Test Summary"
