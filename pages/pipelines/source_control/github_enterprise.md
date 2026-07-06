@@ -92,6 +92,12 @@ With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.g
 1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.
 1. The provider isn't functional until the app is installed on your GitHub Enterprise Server. On the Buildkite provider settings page, select **Install GitHub App** to return to your GitHub Enterprise Server, then choose the organizations and repositories the app can access and install it. Your GitHub Enterprise Server returns you to Buildkite, which confirms the installation. Install the app in each GitHub organization you want to use with Buildkite.
 
+### Refreshing the repository list
+
+When repository access for an existing GitHub App installation changes in GitHub Enterprise Server (for example, when repositories are added to or removed from the installation's access), Buildkite may not show the updated list immediately.
+
+To refresh the repository list, open your Buildkite organization's Settings, choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers), select the GitHub Enterprise Server provider, and select **Synchronize installations**. Buildkite clears the cached repository list and re-fetches it. The updated repositories appear in the new pipeline repository picker shortly after.
+
 ### Known limitations for additional webhook events
 
 The GitHub App manifest subscribes to the `create`, `delete`, and `release` webhook events. GitHub only delivers these events when the app has `contents: read` permission, which the manifest includes only when you select **Code read access** during setup.
