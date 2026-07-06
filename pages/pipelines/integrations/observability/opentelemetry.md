@@ -98,8 +98,10 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.step.matrix`              | `buildkite.step`, `buildkite.step.group` (matrix steps)                            | Whether step uses matrix (true)                             |
 | `buildkite.step.group.label`         | `buildkite.step`, `buildkite.step.group` (group steps)                             | Group step label                                            |
 | `buildkite.step.group.key`           | `buildkite.step`, `buildkite.step.group` (group steps)                             | Group step key                                              |
+| `buildkite.step.web_url`             | `buildkite.step`, `buildkite.step.group`                                           | Step web URL                                                |
 | `buildkite.job.id`                   | `buildkite.job`                                                                    | Job ID                                                      |
 | `buildkite.job.graphql_id`           | `buildkite.job`                                                                    | Job GraphQL ID                                              |
+| `buildkite.job.web_url`              | `buildkite.job`                                                                    | Job web URL                                                 |
 | `buildkite.job.type`                 | `buildkite.job`                                                                    | Job type (script, manual, waiter, etc.)                     |
 | `buildkite.job.label`                | `buildkite.job`                                                                    | Job label/name                                              |
 | `buildkite.job.command`              | `buildkite.job`                                                                    | Job command                                                 |
