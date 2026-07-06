@@ -18,7 +18,10 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name":"My suite name",
     "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
     "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
-    "default_branch":"main"
+    "default_branch":"main",
+    "application_name": "Buildkite",
+    "color": "#FFF700",
+    "emoji": "🍋"
   }
 ]
 ```
@@ -46,7 +49,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "name":"My suite name",
   "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
   "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
-  "default_branch":"main"
+  "default_branch":"main",
+  "application_name": "Buildkite",
+  "color": "#FFF700",
+  "emoji": "🍋"
 }
 ```
 
@@ -158,7 +164,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
   "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/jasmine",
-  "default_branch": "main"
+  "default_branch": "main",
+  "application_name": "Buildkite",
+  "color": "#FFF700",
+  "emoji": "🍋"
 }
 ```
 
