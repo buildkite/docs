@@ -177,11 +177,11 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 > 📘 Build tags and `BUILDKITE_BRANCH`
 > When a build is triggered from a GitHub tag `push` event webhook, both the `BUILDKITE_TAG` and `BUILDKITE_BRANCH` environment variables are set to the name of the git tag being built.
 
-## Disabling GitHub webhooks
+## Disabling incoming GitHub webhook processing
 
-To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable GitHub Webhooks** button in the **Disable Webhooks** section of your pipeline's GitHub settings. This blocks all webhook processing — no new builds will be created from any GitHub event.
+To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable Incoming GitHub Webhook Processing** button in the **Disable Incoming Webhook Processing** section of your pipeline's GitHub settings. This blocks all incoming webhook processing — no new builds will be created from any GitHub event.
 
-Your existing trigger settings are preserved. To resume webhook-triggered builds, select **Enable GitHub Webhooks** and your previous configuration will be restored.
+Your existing trigger settings are preserved, and commit status settings remain configurable in the **GitHub Commit Statuses** section. To resume webhook-triggered builds, select **Enable Incoming GitHub Webhook Processing** and your previous configuration will be restored.
 
 ## Running builds on additional GitHub events
 
@@ -222,7 +222,7 @@ When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-gi
 
 The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses.
 
-For example, if you select **Update commit statuses** in your **Pipeline Settings**:
+For example, if you select **Update commit statuses** in the **GitHub Commit Statuses** section of your pipeline's GitHub settings:
 
 <%= image "update-commit-statuses-on.png", alt: "Screenshot of GitHub build settings with Update commit statuses enabled" %>
 
