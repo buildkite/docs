@@ -4,7 +4,7 @@ Buildkite Test Engine [test collectors](/docs/pipelines/glossary#test-collector)
 
 ## Configure a project to use OIDC
 
-For a project that is already configured to use test collection, first set an **OIDC policy** in the settings for the suite you want to upload to, listing the pipelines you want to upload test results from.
+For a project that is already configured to use test collection, first set an OIDC policy for the suite you want to upload to, listing the pipelines you want to upload test results from. You can set the policy through the suite's **Settings** page in the Buildkite interface, or via the [suites REST API](/docs/apis/rest-api/test-engine/suites) using the `oidc_policy` field on create or update.
 
 ```yaml
 - iss: "https://agent.buildkite.com"
