@@ -419,6 +419,7 @@
   apis/rest-api/organizations/audit-events: "REST endpoints to list and retrieve an organization's audit log events (Enterprise plan)."
   apis/rest-api/organizations/members: "REST endpoints to list, retrieve, and remove members of a Buildkite organization."
   apis/rest-api/organizations/rate-limits: "REST endpoint to query an organization's current REST and GraphQL API rate limit status."
+  apis/rest-api/organizations/pipeline-settings: "REST endpoints to read and update organization-level pipeline settings, including default branch, timeouts, hosted agents SSH access, public pipeline creation, advanced queue metrics, and build exports (admin only)."
   apis/rest-api/package-registries/registries: "REST endpoints to create, list, get, update, and delete package registries."
   apis/rest-api/package-registries/registry-tokens: "REST endpoints to create and manage registry tokens for package installation."
   apis/rest-api/package-registries/packages: "REST endpoints to publish, list, get, and delete packages in a registry."
