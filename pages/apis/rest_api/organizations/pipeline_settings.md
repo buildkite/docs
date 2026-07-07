@@ -204,7 +204,7 @@ Success response: `200 OK`
 
 ## Enable advanced queue metrics
 
-Enables advanced queue metrics for clusters in the organization. This is a one-way operation — once enabled, it cannot be disabled via the API (the `disable_supported` field in the response will be `false`). To disable advanced queue metrics, contact Buildkite support.
+Enables advanced queue metrics for clusters in the organization. This is a one-way operation. Once enabled, it cannot be disabled via the API (the `disable_supported` field in the response will be `false`). To disable advanced queue metrics, contact Buildkite support.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -219,7 +219,7 @@ Success response: `200 OK`
 
 ## Configure build export
 
-Sets the location and strategy for exporting build data. Build export is a plan-gated feature — the `build_exports.available` field in the response indicates whether it is available on your plan.
+Sets the location and strategy for exporting build data. Build export is a plan-gated feature. The `build_exports.available` field in the response indicates whether it is available on your plan.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -247,7 +247,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td><code>location</code> is missing or blank, <code>strategy_id</code> is missing or not a recognized value, or a parameter is the wrong type. To clear the export location, use <a href="#disable-build-export">disable build export</a> instead.</td>
+    <td><code>location</code> is missing or blank, <code>strategy_id</code> is missing or not a recognized value, a parameter is the wrong type, or Buildkite cannot validate access to the destination bucket. To clear the export location, use <a href="#disable-build-export">disable build export</a> instead.</td>
   </tr>
 </tbody>
 </table>
