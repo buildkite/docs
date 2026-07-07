@@ -104,7 +104,7 @@ You can choose from the following parallel job index label helpers:
 
 Use `%T` instead of `%t` when you use `buildkite-agent step update parallelism` to expand a parallel group at runtime. In that case, `%t` reflects the original job count at creation time, while `%T` reflects the updated total for all jobs in the step.
 
-For example, if a parallel group starts with 2 jobs and is then expanded to 5:
+For example, if a parallel group starts with two jobs and is then expanded to five:
 
 - `%t` renders `1/2` and `2/2` for the original jobs, then `3/5`, `4/5`, `5/5` for the new jobs.
 - `%T` renders `1/5`, `2/5`, `3/5`, `4/5`, `5/5` for all jobs.
