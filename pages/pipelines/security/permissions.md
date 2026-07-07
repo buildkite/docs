@@ -52,7 +52,7 @@ Any user with the **Full Access** permission on a pipeline can change its permis
     * Edit the pipeline settings.
     * Archive or delete the pipeline.
     * Provide access to other users.
-- **Read Only** (`READ_ONLY`), which allows you to view builds only, but _not_:
+- **Read Only** (`READ_ONLY`), which allows you to view builds and manage your personal email notification preferences for the pipeline, but _not_:
     * Create builds or issue rebuilds.
     * Edit the pipeline settings.
     * Archive or delete the pipeline.
