@@ -14,6 +14,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   {
     "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
     "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+    "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "slug":"my_suite_slug",
     "name":"My suite name",
     "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
@@ -42,6 +43,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+  "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slug":"my_suite_slug",
   "name":"My suite name",
   "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
@@ -79,6 +81,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+  "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slug": "jasmine",
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
@@ -154,6 +157,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+  "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slug": "jasmine",
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
