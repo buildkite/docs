@@ -120,6 +120,10 @@ Error responses:
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_organization_settings</code> scope, or the authenticated user is not an organization administrator.</td>
+  </tr>
+  <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td>A field value failed validation—for example, a <code>default_cluster_id</code> that is not a syntactically valid UUID, a cluster that belongs to another organization, or a value that fails the organization's own validations.</td>
   </tr>
@@ -168,6 +172,17 @@ Required scope: `write_organization_settings`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_organization_settings</code> scope, or the authenticated user is not an organization administrator.</td>
+  </tr>
+</tbody>
+</table>
+
 ## Disable hosted agents terminal access
 
 Disables SSH terminal access for hosted agents in the organization.
@@ -182,6 +197,17 @@ Returns the full pipeline settings resource.
 Required scope: `write_organization_settings`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_organization_settings</code> scope, or the authenticated user is not an organization administrator.</td>
+  </tr>
+</tbody>
+</table>
 
 ## Enable public pipeline creation
 
@@ -198,6 +224,17 @@ Required scope: `write_organization_settings`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_organization_settings</code> scope, or the authenticated user is not an organization administrator.</td>
+  </tr>
+</tbody>
+</table>
+
 ## Disable public pipeline creation
 
 Prevents organization members from creating public pipelines.
@@ -213,6 +250,17 @@ Required scope: `write_organization_settings`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_organization_settings</code> scope, or the authenticated user is not an organization administrator.</td>
+  </tr>
+</tbody>
+</table>
+
 ## Enable advanced queue metrics
 
 Enables advanced queue metrics for clusters in the organization. This is a one-way operation. Once enabled, it cannot be disabled via the API (the `disable_supported` field in the response will be `false`). To disable advanced queue metrics, contact Buildkite support.
@@ -227,6 +275,17 @@ Returns the full pipeline settings resource.
 Required scope: `write_organization_settings`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_organization_settings</code> scope, or the authenticated user is not an organization administrator.</td>
+  </tr>
+</tbody>
+</table>
 
 ## Configure build export
 
@@ -254,7 +313,7 @@ Error responses:
 <tbody>
   <tr>
     <th><code>403 Forbidden</code></th>
-    <td>Your billing plan does not include build data export.</td>
+    <td>The token does not have the <code>write_organization_settings</code> scope, the authenticated user is not an organization administrator, or your billing plan does not include build data export.</td>
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
@@ -299,7 +358,7 @@ Error responses:
 <tbody>
   <tr>
     <th><code>403 Forbidden</code></th>
-    <td>Your billing plan does not include build data export.</td>
+    <td>The token does not have the <code>write_organization_settings</code> scope, the authenticated user is not an organization administrator, or your billing plan does not include build data export.</td>
   </tr>
 </tbody>
 </table>
