@@ -242,6 +242,7 @@ exceptions:
   - Preflight
   - Prometheus
   - PTY
+  - Public API URL
   - pytest
   - QA
   - RBAC
