@@ -115,6 +115,17 @@ Required scope: `write_organization_settings`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td>A field value failed validation—for example, a <code>default_cluster_id</code> that is not a syntactically valid UUID, a cluster that belongs to another organization, or a value that fails the organization's own validations.</td>
+  </tr>
+</tbody>
+</table>
+
 ### Request body fields
 
 <table class="responsive-table">
