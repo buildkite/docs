@@ -1020,6 +1020,8 @@
           children:
             - name: "Overview"
               path: "apis/rest-api/organizations"
+            - name: "API settings"
+              path: "apis/rest-api/organizations/api-settings"
             - name: "Audit log"
               path: "apis/rest-api/organizations/audit-events"
             - name: "Members"
