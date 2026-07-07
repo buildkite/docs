@@ -133,4 +133,4 @@ Error responses:
 </table>
 
 > 🚧 IP allowlist self-lockout
-> The IP allowlist takes effect immediately. If you write a CIDR range that does not include your own IP address, your next API request will be rejected. There is no dry-run mode—this matches the behavior of the UI.
+> The IP allowlist takes effect immediately. If you write a CIDR range that does not include your own IP address, your next API request will be rejected. There is no dry-run mode. This matches the behavior of the UI.
