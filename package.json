@@ -4,7 +4,7 @@
   "devDependencies": {
     "husky": "^9.0.0",
     "netlify-cli": "^26.0.0",
-    "prettier": "3.9.1",
+    "prettier": "3.9.4",
     "sass": "^1.66.1",
     "vite": "^8.0.0",
     "vite-plugin-ruby": "^5.2.0"

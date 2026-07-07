@@ -265,6 +265,15 @@ http {
 }
 ```
 
+### GitHub App provider with a Public API URL
+
+When using the GitHub App provider for GitHub Enterprise Server with a **Public API URL** (reverse proxy) configured, the browser-driven App creation step uses your GHES **URL** (canonical hostname) directly, not the proxy:
+
+* **Browser setup step**: Your browser connects to the canonical GHES **URL** to create the GitHub App. The person running setup must be able to reach and log in to GHES at this address.
+* **Server-side API traffic**: Buildkite continues to use the **Public API URL** for server-side API calls, including exchanging the manifest code during setup and updating commit statuses after setup.
+
+If the canonical GHES URL is not reachable from the browser during setup, App creation will fail with "We didn't find an App Manifest for your request." Ensure the person running setup has browser access to the canonical GHES URL to complete the initial connection step.
+
 ## Multiple GitHub Enterprise integrations
 
 You can set up multiple GitHub Enterprise integrations with your Buildkite organization. However, due to the OAuth installation requirements, each integration must be configured by a unique user. Each user must possess admin permissions in both Buildkite and GitHub.

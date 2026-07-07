@@ -349,14 +349,14 @@ The `checkout` block is applied after the step's `env` map, so its values take p
   <tr>
     <td><code>skip</code></td>
     <td>
-      Whether the agent should skip the git checkout phase entirely for this step. Must be a literal boolean (<code>true</code> or <code>false</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_SKIP_CHECKOUT"><code>BUILDKITE_SKIP_CHECKOUT</code></a>.<br/>
+      Whether the agent should skip the git checkout phase entirely for this step. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_SKIP_CHECKOUT"><code>BUILDKITE_SKIP_CHECKOUT</code></a>.<br/>
       <em>Example:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>submodules</code></td>
     <td>
-      Whether the agent should fetch git submodules for this step. Must be a literal boolean (<code>true</code> or <code>false</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES"><code>BUILDKITE_GIT_SUBMODULES</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>true</code>).<br/>
+      Whether the agent should fetch git submodules for this step. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES"><code>BUILDKITE_GIT_SUBMODULES</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>true</code>).<br/>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
