@@ -168,9 +168,9 @@ A token's REST API scopes are granular, and you can select some or all of the fo
         read: true, write: true, delete: false
       },
       {
-        name: "Organization Settings",
+        name: "Organization settings",
         key: "read_organization_settings, write_organization_settings",
-        description: "Retrieve organization pipeline and API settings (admin only). Update organization pipeline and API settings.",
+        description: "Read and update an organization's API security settings.",
         read: true, write: true, delete: false
       },
       {
