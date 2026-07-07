@@ -109,18 +109,16 @@ Using meta-data to pre-populate fields in this way carries some considerations r
 A `meta_data` parameter only pre-populates a field when its key matches an input field key defined in the pipeline's steps under **Pipeline Settings** > **Steps**. Keys that are not defined there are ignored by the **New Build** dialog.
 
 The message field of the **New Build** dialog can be pre-populated in the same way, using a `message` query parameter:
-
 ```
 https://buildkite.com/organizations/demo/pipelines/activities/builds/new?message=Deploy%20v1.2.3
 ```
 
-To pre-populate the message and meta-data fields together, add both to the query string of the short builds URL after the `#new` fragment:
-
+To pre-populate the message and meta-data fields together, add both after `#new?` in the short builds URL:
 ```
 https://buildkite.com/{organization-slug}/{pipeline-slug}/builds#new?message=Deploy%20v1.2.3&meta_data[city]=Melbourne
 ```
 
-On the `builds/new` URL, a `message` parameter combined with one or more `meta_data` parameters is not carried through to the dialog, so use the `#new` fragment form above when you need both.
+On the `builds/new` URL, a `message` parameter combined with one or more `meta_data` parameters is not carried through to the dialog. Use the `#new` fragment form above when you need both.
 
 ## Special meta-data
 
