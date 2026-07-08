@@ -181,7 +181,7 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 
 To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable Incoming GitHub Webhook Processing** button in the **Disable Incoming Webhook Processing** section of your pipeline's GitHub settings. This blocks all incoming webhook processing. No new builds will be created from any GitHub event.
 
-Your existing trigger settings are preserved, and commit status settings remain configurable in the **GitHub Commit Statuses** section. To resume webhook-triggered builds, select **Enable Incoming GitHub Webhook Processing** and your previous configuration will be restored.
+Your existing trigger settings are preserved, and commit status settings remain configurable in the **GitHub Commit Statuses** section. To resume webhook-triggered builds, select **Enable Incoming GitHub Webhook Processing**. Your previous configuration will be restored.
 
 ## Running builds on additional GitHub events
 
