@@ -220,6 +220,11 @@ variables:
       The path to the file containing the job's environment variables.
     modifiable: false
     example: "/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"
+  - name: BUILDKITE_GIT_CHECKOUT_FLAGS
+    desc: |
+      The value of the `git-checkout-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or by setting the `checkout.flags.checkout` key in your pipeline YAML.
+    modifiable: true
+    example: "-f"
   - name: BUILDKITE_GIT_CLEAN_FLAGS
     desc: |
       The value of the `git-clean-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
