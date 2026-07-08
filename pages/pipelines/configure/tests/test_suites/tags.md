@@ -162,6 +162,13 @@ This presents all the tags which have been applied to the test execution.
 
 <%= image "execution-tags.png", width: 3274, height: 1838, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
 
+Expand a tag dropdown to access the following actions:
+
+- **Filter by** or **Remove filter**: filter executions by this tag.
+- **Group by** or **Remove group**: group executions by this tag.
+- **Copy value**: copy only the tag value to your clipboard.
+- **Copy tag**: copy the full `key:value` tag to your clipboard.
+
 ### Group by tag
 
 Grouping by tag on the test page breaks down the test reliability and duration (p50, p95), so that you can compare performance across the tag values.
