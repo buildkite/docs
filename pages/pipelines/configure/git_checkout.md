@@ -234,6 +234,18 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Migrating from checkout plugins
+
+Buildkite Pipelines now supports several checkout features natively that previously required [plugins](/docs/pipelines/integrations/plugins). You can migrate to the native `checkout` options for simpler configuration and tighter integration with the agent.
+
+Plugin | Native equivalent | When to keep the plugin
+------ | ----------------- | -----------------------
+[Skip Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/skip-checkout-buildkite-plugin/) | `checkout.skip` — see [Skipping checkout](#skipping-checkout) | The native feature fully replaces this plugin.
+[Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) | `checkout.depth` and `checkout.flags` — see [Shallow clones](#shallow-clones) and [Custom Git flags](#custom-git-flags) | The native features cover the plugin's `--depth` and flag customization. The plugin may still be useful if you need its other options not covered by native checkout.
+[Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) | `checkout.sparse` — see [Sparse checkout](#sparse-checkout) | The plugin supports non-cone patterns, aggressive cleanup, skipping `ssh-keyscan`, and verbose debug mode. The native feature uses cone mode only.
+[Branch Commit](https://buildkite.com/resources/plugins/buildkite-plugins/branch-commit-buildkite-plugin/) | `checkout.commit_verification` — see [Commit verification](#commit-verification) | The native feature fully replaces this plugin.
+{: class="responsive-table"}
+
 ## Troubleshooting
 
 ### Verifying checkout options take effect
