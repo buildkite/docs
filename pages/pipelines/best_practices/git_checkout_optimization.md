@@ -2,7 +2,7 @@
 
 This page covers best practices for optimizing Git workflows in Buildkite Pipelines through the use of sparse checkout and Git mirrors.
 
-> 📘
+> 📘 Checkout configuration reference
 > For configuration details on individual checkout options such as `skip`, `depth`, `submodules`, `sparse`, `flags`, and `commit_verification`, see [Git checkout](/docs/pipelines/configure/git-checkout). This page focuses on optimization strategies.
 
 ## Sparse checkout
