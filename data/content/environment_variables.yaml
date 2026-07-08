@@ -230,6 +230,13 @@ variables:
       The value of the `git-clone-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
     modifiable: true
     example: "-v"
+  - name: BUILDKITE_GIT_COMMIT_VERIFICATION
+    desc: |
+      Controls whether the agent verifies that the commit being built exists on the specified branch. Set automatically from the `checkout.commit_verification` key in your pipeline YAML, or from the agent's `--git-commit-verification` configuration setting. When set to `strict`, the agent fails the job when it determines the commit is not on the branch. When set to `warn`, the agent emits a warning without failing the job. If the agent cannot complete the check, it warns and continues in both modes. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
+    modifiable: false
+    values:
+      - strict
+      - warn
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.

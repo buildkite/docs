@@ -340,7 +340,7 @@ steps:
 
 When both a pipeline-level and step-level `checkout` block are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for any key the step leaves unset.
 
-The `checkout` block is applied after the step's `env` map, so its values take precedence over any equivalent environment variables set in `env`.
+For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same environment variable. For `skip`, `submodules`, and `depth`, the `checkout` value always takes effect.
 
 > 📘
 > The agent's `--no-git-submodules` flag retains a hard veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value emitted by the pipeline, and the build log emits a protected-environment-variable notice.
@@ -393,6 +393,14 @@ The `checkout` block is applied after the step's `env` map, so its values take p
       Unlike the other <code>checkout</code> keys, <code>ssh_secret</code> is <strong>step-level only</strong>. It is not inherited from a pipeline-level <code>checkout</code> block, so it must be set on each step that needs it.<br/>
       The value must be a string that starts with a letter and contains only letters, numbers, and underscores. It cannot start with <code>buildkite</code> or <code>bk</code>.<br/>
       <em>Example:</em> <code>DEPLOY_KEY</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>commit_verification</code></td>
+    <td>
+      <p>Whether the agent should verify that the commit being built exists on the specified branch. Set to <code>strict</code> to fail the job when the agent determines the commit is not on the branch, or <code>warn</code> to emit a warning without failing. If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues in both modes. Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>.</p>
+      <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. In each of these cases, verification is either not possible or not meaningful.</p>
+      <em>Example:</em> <code>strict</code>
     </td>
   </tr>
 </table>
