@@ -202,7 +202,7 @@ steps:
   - label: "Build with private deps"
     command: "make build"
     checkout:
-      ssh_secret: "BUILDKITE_SECRET_NAME"
+      ssh_secret: "NAME_OF_BK_SECRET"
 ```
 {: codeblock-file="pipeline.yml"}
 
