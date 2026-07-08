@@ -470,6 +470,8 @@
               path: "pipelines/configure/step-types/trigger-step"
             - name: "Group step"
               path: "pipelines/configure/step-types/group-step"
+        - name: "Git checkout"
+          path: "pipelines/configure/git-checkout"
         - name: "Dynamic pipelines"
           children:
             - name: "Overview"
