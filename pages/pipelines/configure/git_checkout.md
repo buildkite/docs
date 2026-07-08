@@ -8,13 +8,15 @@ This page explains each checkout option and when to use it. For the full attribu
 
 When a Buildkite Pipelines job starts, the agent performs the following steps in order:
 
-1. **Clone or fetch the repository.** If a local copy exists, the agent fetches the latest changes. Otherwise, it clones the repository from scratch.
-1. **Clean the working directory.** The agent runs `git clean` to remove untracked files left by previous builds.
-1. **Check out the target commit.** The agent checks out the specific commit that triggered the build.
-1. **Initialize submodules.** If submodules are enabled, the agent fetches them recursively.
-1. **Run checkout hooks.** Any `pre-checkout` and `post-checkout` [hooks](/docs/agent/hooks) execute around this process.
+1. **Run pre-checkout hooks:** Agent and plugin `pre-checkout` [hooks](/docs/agent/hooks) run before checkout starts.
+1. **Run the checkout:** Unless a custom `checkout` hook overrides the default Git checkout, the agent:
+    * **Clones or fetches the repository:** If a local copy exists, the agent fetches the latest changes. Otherwise, it clones the repository from scratch.
+    * **Cleans the working directory:** The agent runs `git clean` to remove untracked files left by previous builds.
+    * **Checks out the target commit:** The agent checks out the specific commit that triggered the build.
+    * **Initializes submodules:** If submodules are enabled, the agent fetches them recursively.
+1. **Run post-checkout hooks:** Agent, repository, and plugin `post-checkout` [hooks](/docs/agent/hooks) run after checkout completes.
 
-Each `checkout` option described on this page affects one or more of these steps. For example, `checkout.skip` skips the Git work in steps 1–4 (as well as any custom `checkout` hook), while `checkout.depth` modifies the clone and fetch behavior in step 1. Note that `checkout.skip` only skips the Git checkout itself: checkout-related `pre-checkout` and `post-checkout` hooks (global or plugin) can still run around the skipped work.
+Each `checkout` option described on this page affects one or more of these steps. For example, `checkout.skip` skips the default Git checkout (as well as any custom `checkout` hook), while `checkout.depth` modifies the clone and fetch behavior within the checkout step. `checkout.skip` only skips the Git checkout itself: checkout-related `pre-checkout` and `post-checkout` hooks from the agent or plugins can still run around the skipped work.
 
 ## Pipeline-level and step-level configuration
 
