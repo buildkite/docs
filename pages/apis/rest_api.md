@@ -50,6 +50,7 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/members` | [List organization members](/docs/apis/rest-api/organizations/members#list-organization-members)
 GET | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Get an organization member](/docs/apis/rest-api/organizations/members#get-an-organization-member)
+PATCH | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Update an organization member](/docs/apis/rest-api/organizations/members#update-an-organization-member)
 {: class="responsive-table"}
 
 ### Pipelines
