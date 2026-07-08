@@ -326,7 +326,7 @@ steps:
 
 ## Checkout attributes
 
-> 📘
+> 📘 Checkout configuration reference
 > For detailed guidance on configuring checkout, including use cases, security considerations, and troubleshooting, see [Git checkout](/docs/pipelines/configure/git-checkout).
 
 The `checkout` block controls the git checkout behavior for a command step. You can set it at the pipeline level as a default for all steps, or override it per step.

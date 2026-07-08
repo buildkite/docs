@@ -27,7 +27,7 @@ When both are present, each key is resolved independently. The step value takes 
 
 For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, and `depth`, the `checkout` value always takes effect.
 
-> 📘
+> 📘 Step-level ssh_secret
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
 
 The following example sets pipeline-level defaults for shallow clones and disabled submodules, then overrides the depth for a single step:
