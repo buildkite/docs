@@ -14,7 +14,7 @@ When a Buildkite Pipelines job starts, the agent performs the following steps in
 1. **Initialize submodules.** If submodules are enabled, the agent fetches them recursively.
 1. **Run checkout hooks.** Any `pre-checkout` and `post-checkout` [hooks](/docs/agent/hooks) execute around this process.
 
-Each `checkout` option described on this page affects one or more of these steps. For example, `checkout.skip` bypasses all of them, while `checkout.depth` modifies the clone and fetch behavior in step 1.
+Each `checkout` option described on this page affects one or more of these steps. For example, `checkout.skip` skips the Git work in steps 1–4 (as well as any custom `checkout` hook), while `checkout.depth` modifies the clone and fetch behavior in step 1. Note that `checkout.skip` only skips the Git checkout itself: checkout-related `pre-checkout` and `post-checkout` hooks (global or plugin) can still run around the skipped work.
 
 ## Pipeline-level and step-level configuration
 
@@ -30,26 +30,26 @@ For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step'
 > 📘 Step-level ssh_secret
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
 
-The following example sets pipeline-level defaults for shallow clones and disabled submodules, then overrides the depth for a single step:
+The following example disables submodules at the pipeline level, sets a shallow depth on a step that can use one, and re-enables submodules for a full-history step:
 
 ```yaml
 checkout:
-  depth: 10
   submodules: false
 
 steps:
   - label: "Unit tests"
     command: "make test"
+    checkout:
+      depth: 10
 
   - label: "Full history analysis"
     command: "make audit"
     checkout:
-      depth: 0
       submodules: true
 ```
 {: codeblock-file="pipeline.yml"}
 
-In this pipeline, the "Unit tests" step inherits `depth: 10` and `submodules: false` from the pipeline level. The "Full history analysis" step overrides both values.
+In this pipeline, both steps inherit `submodules: false` from the pipeline level. The "Unit tests" step adds a shallow `depth: 10`, while the "Full history analysis" step re-enables submodules and, by not setting `depth`, checks out the full history. Set `checkout.depth` only on steps that can use a shallow clone: `depth` must be a positive integer, so it cannot be set at the pipeline level and then unset to `0` for a full-history step.
 
 ## Skipping checkout
 
@@ -62,10 +62,16 @@ This is useful for steps that do not need source code:
 
 The key accepts a boolean (`true` or `false`) or the equivalent string. It is emitted as [`BUILDKITE_SKIP_CHECKOUT`](/docs/pipelines/configure/environment-variables#BUILDKITE_SKIP_CHECKOUT).
 
+Because the repository is not checked out, the step's command must be self-contained. For example, a `buildkite-agent pipeline upload` without an argument looks for files such as `.buildkite/pipeline.yml`, which are not present in a skipped-checkout workspace. Generate the YAML inline and pipe it into the upload instead:
+
 ```yaml
 steps:
   - label: "Upload pipeline"
-    command: "buildkite-agent pipeline upload"
+    command: |
+      cat <<'YAML' | buildkite-agent pipeline upload
+      steps:
+        - command: "make test"
+      YAML
     checkout:
       skip: true
 ```
@@ -78,7 +84,7 @@ The `checkout.depth` key performs a shallow clone with the specified number of c
 Shallow clones are useful for large repositories where full history is not needed. They reduce checkout time and disk usage by downloading fewer objects from the remote.
 
 > 🚧 Limitations of shallow clones
-> Some Git operations require full history. Commands like `git log` across the entire history, `git blame`, and `git merge-base` may return incomplete or incorrect results with a shallow clone. If a step needs full history, either omit `checkout.depth` for that step or set it to `0`.
+> Some Git operations require full history. Commands like `git log` across the entire history, `git blame`, and `git merge-base` may return incomplete or incorrect results with a shallow clone. If a step needs full history, omit `checkout.depth` for that step. `checkout.depth` must be a positive integer, so `0` is not a valid way to request full history.
 
 ```yaml
 steps:
@@ -100,7 +106,7 @@ The `sparse` key is a map containing a single key, `paths`, which accepts a stri
 > 📘 Requirements and constraints
 > Sparse checkout requires Git 2.26 or later. On agents with an older Git version, the agent falls back to a full checkout. Submodules are not initialized when sparse checkout is enabled.
 
-The following example sets sparse checkout at the pipeline level so every step gets the `.buildkite/` directory, then adds step-specific paths:
+A step-level `sparse.paths` replaces the pipeline-level paths rather than merging with them, so each step must repeat any pipeline-level paths it still needs. The following example sets a pipeline-level default of `.buildkite/`, then has each step override it with its own paths (repeating `.buildkite/` so it is not lost):
 
 ```yaml
 checkout:
@@ -212,8 +218,10 @@ The `checkout.commit_verification` key tells the Buildkite agent to verify that 
 
 Two modes are available:
 
-- `strict`: Fails the job if the commit cannot be verified on the branch.
+- `strict`: Fails the job when the agent determines the commit is not on the branch.
 - `warn`: Emits a warning in the build log without failing the job.
+
+If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
 
 When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings).
 
@@ -240,7 +248,7 @@ Buildkite Pipelines now supports several checkout features natively that previou
 
 Plugin | Native equivalent | When to keep the plugin
 ------ | ----------------- | -----------------------
-[Skip Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/skip-checkout-buildkite-plugin/) | `checkout.skip` — see [Skipping checkout](#skipping-checkout) | The native feature fully replaces this plugin.
+[Skip Checkout](https://buildkite.com/resources/plugins/cultureamp/skip-checkout-buildkite-plugin/) | `checkout.skip` — see [Skipping checkout](#skipping-checkout) | The native feature fully replaces this plugin.
 [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) | `checkout.depth` and `checkout.flags` — see [Shallow clones](#shallow-clones) and [Custom Git flags](#custom-git-flags) | The native features cover the plugin's `--depth` and flag customization. The plugin may still be useful if you need its other options not covered by native checkout.
 [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) | `checkout.sparse` — see [Sparse checkout](#sparse-checkout) | The plugin supports non-cone patterns, aggressive cleanup, skipping `ssh-keyscan`, and verbose debug mode. The native feature uses cone mode only.
 [Branch Commit](https://buildkite.com/resources/plugins/buildkite-plugins/branch-commit-buildkite-plugin/) | `checkout.commit_verification` — see [Commit verification](#commit-verification) | The native feature fully replaces this plugin.
