@@ -2,6 +2,9 @@
 
 Before any build step runs, by default the Buildkite agent checks out your source code from the repository. This happens automatically without the need for extra configuration, but you can use a `checkout` block in your pipeline YAML to customize the behavior. You can skip the checkout entirely, perform shallow clones, restrict which paths are checked out, and more.
 
+> 📘 Agent version requirement
+> The `checkout` pipeline YAML features described on this page require Buildkite agent v3.130.0 or newer. Agents running older versions ignore the `checkout` block and use their default checkout behavior.
+
 This page explains each checkout option and when to use it. For the full attribute reference, see the [command step checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes).
 
 ## How checkout works
@@ -74,6 +77,47 @@ steps:
       steps:
         - command: "make test"
       YAML
+    checkout:
+      skip: true
+```
+{: codeblock-file="pipeline.yml"}
+
+### Precedence
+
+Multiple mechanisms can control whether the checkout is skipped. When more than one is set, the highest-priority setting wins:
+
+1. `BUILDKITE_SKIP_CHECKOUT` exported by an `environment` or `pre-checkout` hook (runs last, so it can override any earlier value)
+1. Step-level `checkout.skip` in pipeline YAML
+1. Pipeline-level `checkout.skip` in pipeline YAML
+1. `BUILDKITE_SKIP_CHECKOUT` set in a pipeline or step `env` block
+1. Agent `--skip-checkout` CLI flag
+1. Default (`false` — checkout runs)
+
+Hook exports are listed first because `environment` and `pre-checkout` hooks run after the agent has already resolved `checkout.skip` from the pipeline YAML. A hook that sets or unsets `BUILDKITE_SKIP_CHECKOUT` therefore has the final say.
+
+For the remaining levels, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
+
+### Migrating from the BUILDKITE_SKIP_CHECKOUT environment variable
+
+If you currently skip checkout by setting the `BUILDKITE_SKIP_CHECKOUT` environment variable, you can migrate to the native `checkout.skip` key and also use the other `checkout` features.
+
+**Before** — environment variable pattern:
+
+```yaml
+steps:
+  - label: "Notify deploy"
+    command: "curl -X POST https://example.com/webhook"
+    env:
+      BUILDKITE_SKIP_CHECKOUT: "true"
+```
+{: codeblock-file="pipeline.yml"}
+
+**After** — native `checkout.skip` key:
+
+```yaml
+steps:
+  - label: "Notify deploy"
+    command: "curl -X POST https://example.com/webhook"
     checkout:
       skip: true
 ```
@@ -267,6 +311,7 @@ steps:
   - label: "Debug checkout"
     command: |
       echo "Clone flags: $BUILDKITE_GIT_CLONE_FLAGS"
+      echo "Skip checkout: $BUILDKITE_SKIP_CHECKOUT"
       echo "Sparse paths: $BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS"
       echo "Submodules: $BUILDKITE_GIT_SUBMODULES"
 ```
@@ -290,6 +335,15 @@ If the checkout fails with an SSH authentication error, verify that:
 - The secret name meets the [naming constraints](#ssh-key-from-buildkite-secrets) (starts with a letter, contains only letters, numbers, and underscores, and does not start with `buildkite` or `bk`).
 - The secret exists in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and contains a valid SSH private key.
 - The `ssh_secret` key is set at the step level, not the pipeline level.
+
+### Checkout still runs despite checkout.skip
+
+If checkout continues to run after setting `checkout.skip: true`, check the following common causes:
+
+- **YAML indentation error:** The `skip` key must be nested under `checkout` at the correct level. If `skip` is not indented as a child of `checkout`, the agent ignores it.
+- **Conflicting environment variable:** A hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
+- **Agent version:** The native `checkout.skip` key requires Buildkite agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
+- **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#skipping-checkout-precedence) for the full priority order.
 
 ### Shallow clone limitations
 
