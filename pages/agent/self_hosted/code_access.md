@@ -4,10 +4,10 @@ When the Buildkite agent runs a build, it clones the pipeline's repository using
 
 There are two ways to provide SSH access:
 
-- **Buildkite Secrets (recommended):** Store the SSH key centrally and reference it in your pipeline YAML. No key files need to be distributed to agent machines.
+- **Buildkite secrets (recommended):** Store the SSH key centrally and reference it in your pipeline YAML. No key files need to be distributed to agent machines.
 - **Managing keys on agent machines:** Place SSH key files directly in the agent user's `~/.ssh` directory on each machine.
 
-## Using Buildkite Secrets (recommended)
+## Using Buildkite secrets (recommended)
 
 The simplest way to give self-hosted agents SSH access to your repositories is to store the private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it using `checkout.ssh_secret` in your pipeline YAML. This approach works with all source control providers (GitHub, GitLab, Bitbucket, and others) and eliminates the need to distribute SSH key files to every agent machine.
 
@@ -39,11 +39,11 @@ The secret name must start with a letter, contain only letters, numbers, and und
 > 📘 Step-level only
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so you must set it on each step that needs it.
 
-For more details on how `checkout.ssh_secret` works, see [SSH key from Buildkite Secrets](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets).
+For more details on how `checkout.ssh_secret` works, see [SSH key from Buildkite secrets](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets).
 
 ## Managing SSH keys on agent machines
 
-If you aren't using Buildkite Secrets, you can configure SSH keys directly on each machine where the agent runs. The rest of this page covers this approach, including how to create and manage SSH key files, configure multiple keys for different pipelines, and set up access for specific providers like GitHub.
+If you aren't using Buildkite secrets, you can configure SSH keys directly on each machine where the agent runs. The rest of this page covers this approach, including how to create and manage SSH key files, configure multiple keys for different pipelines, and set up access for specific providers like GitHub.
 
 ### Finding your SSH key directory
 
@@ -220,14 +220,14 @@ To help debug SSH issues, you can enable verbose logging by running your build w
 GIT_SSH_COMMAND="ssh -vvv"
 ```
 
-This works for both [Buildkite Secrets](#using-buildkite-secrets-recommended) and [agent-managed SSH keys](#managing-ssh-keys-on-agent-machines).
+This works for both [Buildkite secrets](#using-buildkite-secrets-recommended) and [agent-managed SSH keys](#managing-ssh-keys-on-agent-machines).
 
-### Troubleshooting Buildkite Secrets SSH keys
+### Troubleshooting Buildkite secrets SSH keys
 
 If the checkout fails with an SSH authentication error when using `checkout.ssh_secret`, verify that:
 
 - The secret name meets the naming constraints: starts with a letter, contains only letters, numbers, and underscores, and does not start with `buildkite` or `bk`.
-- The secret exists in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) within the correct cluster and contains a valid SSH private key.
+- The secret exists in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) within the correct cluster and contains a valid SSH private key.
 - The `ssh_secret` key is set at the step level, not the pipeline level.
 - The corresponding public key has been added to your source control provider.
 
