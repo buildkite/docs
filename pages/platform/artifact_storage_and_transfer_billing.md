@@ -1,11 +1,11 @@
 # Artifact storage and transfer billing
 
-Buildkite Pipelines bills [artifacts](/docs/pipelines/configure/artifacts) usage based on storage and transfer.
+Buildkite Pipelines bills [artifact](/docs/pipelines/configure/artifacts) usage based on two measures:
 
-* _Storage_ measures how much artifact data your Buildkite organization keeps over time.
-* _Transfer_ measures how much artifact data is downloaded from Buildkite.
+- _Storage_ measures how much artifact data your Buildkite organization keeps over time.
+- _Transfer_ measures how much artifact data is downloaded from Buildkite.
 
-This page explains how each usage is calculated, the included allowances and rates, and how to track usage against those allowances.
+This page explains how each is calculated, the included allowances and rates, and how to track usage against those allowances.
 
 Artifact storage and transfer billing applies to organizations on the Enterprise plan. To find out which plan your organization is on, see [Pricing and plans](/docs/platform/pricing-and-plans).
 
