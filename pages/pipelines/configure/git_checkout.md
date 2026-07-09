@@ -3,7 +3,7 @@
 Before any build step runs, by default the Buildkite agent checks out your source code from the repository. This happens automatically without the need for extra configuration, but you can use a `checkout` block in your pipeline YAML to customize the behavior. You can skip the checkout entirely, perform shallow clones, restrict which paths are checked out, and more.
 
 > 📘 Agent version requirement
-> The `checkout` pipeline YAML features described on this page require Buildkite Agent v3.130.0 or newer. Agents running older versions ignore the `checkout` block and use their default checkout behavior.
+> The `checkout` pipeline YAML features described on this page require Buildkite agent v3.130.0 or newer. Agents running older versions ignore the `checkout` block and use their default checkout behavior.
 
 This page explains each checkout option and when to use it. For the full attribute reference, see the [command step checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes).
 
@@ -339,7 +339,7 @@ If checkout continues to run after setting `checkout.skip: true`, check the foll
 
 - **YAML indentation error:** The `skip` key must be nested under `checkout` at the correct level. If `skip` is not indented as a child of `checkout`, the agent ignores it.
 - **Conflicting environment variable:** A hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
-- **Agent version:** The native `checkout.skip` key requires agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
+- **Agent version:** The native `checkout.skip` key requires Buildkite agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
 - **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#precedence) for the full priority order.
 
 ### Shallow clone limitations
