@@ -86,13 +86,16 @@ steps:
 
 Multiple mechanisms can control whether the checkout is skipped. When more than one is set, the highest-priority setting wins:
 
+1. `BUILDKITE_SKIP_CHECKOUT` exported by an `environment` or `pre-checkout` hook (runs last, so it can override any earlier value)
 1. Step-level `checkout.skip` in pipeline YAML
 1. Pipeline-level `checkout.skip` in pipeline YAML
-1. `BUILDKITE_SKIP_CHECKOUT` environment variable (set in an `env` block or hooks)
+1. `BUILDKITE_SKIP_CHECKOUT` set in a pipeline or step `env` block
 1. Agent `--skip-checkout` CLI flag
 1. Default (`false` — checkout runs)
 
-A higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
+Hook exports are listed first because `environment` and `pre-checkout` hooks run after the agent has already resolved `checkout.skip` from the pipeline YAML. A hook that sets or unsets `BUILDKITE_SKIP_CHECKOUT` therefore has the final say.
+
+For the remaining levels, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
 
 ### Migrating from the BUILDKITE_SKIP_CHECKOUT environment variable
 
@@ -102,8 +105,8 @@ If you currently skip checkout by setting the `BUILDKITE_SKIP_CHECKOUT` environm
 
 ```yaml
 steps:
-  - label: "Upload pipeline"
-    command: "buildkite-agent pipeline upload"
+  - label: "Notify deploy"
+    command: "curl -X POST https://example.com/webhook"
     env:
       BUILDKITE_SKIP_CHECKOUT: "true"
 ```
@@ -113,8 +116,8 @@ steps:
 
 ```yaml
 steps:
-  - label: "Upload pipeline"
-    command: "buildkite-agent pipeline upload"
+  - label: "Notify deploy"
+    command: "curl -X POST https://example.com/webhook"
     checkout:
       skip: true
 ```
