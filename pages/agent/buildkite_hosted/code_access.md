@@ -74,6 +74,6 @@ Create a new pipeline by following the **Create a new pipeline without provider 
 
 <%= image "pipeline-creation.png", width: 1752, height: 1060, alt: "Adding the details for creating a new pipeline" %>
 
-Once created, a screen is presented about setting up webhooks. If the Git provider being used supports the GitHub format of webhook communication, the details shown can be used to complete the integration. If not, you can use the **Skip Webhook Setup** button to skip this step. This means that builds require manual triggering.
+Once created, Buildkite shows a screen about setting up webhooks. If the Git provider being used supports the GitHub format of webhook communication, the details shown can be used to complete the integration. If not, you can use the **Skip Webhook Setup** button to skip this step. This means that builds require manual triggering.
 
 At the completion of the pipeline creation process, a build can be triggered that uses the SSH key from the secret to clone the Git repository.
