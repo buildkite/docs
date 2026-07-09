@@ -1068,6 +1068,8 @@
                   path: "apis/rest-api/clusters/maintainers"
                 - name: "Buildkite secrets"
                   path: "apis/rest-api/clusters/secrets"
+                - name: "Agent images"
+                  path: "apis/rest-api/clusters/agent-images"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"
