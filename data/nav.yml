@@ -985,6 +985,8 @@
       path: "platform/pricing-and-plans"
     - name: "Limits"
       path: "platform/limits"
+    - name: "Artifact storage and transfer billing"
+      path: "platform/artifact-storage-and-transfer-billing"
     - name: "Service level agreement"
       path: "platform/service-level-agreement"
     - name: "Legal and policies"

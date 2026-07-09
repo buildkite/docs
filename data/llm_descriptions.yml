@@ -401,6 +401,7 @@
   platform/terraform-provider/manage-clusters-and-queues: "Managing clusters, queues, default queues, agent tokens, cluster maintainers, and Buildkite secrets as Terraform resources, with examples for each resource type and guidance on applying the configuration."
   platform/terraform-provider/manage-teams: "Managing teams and their members as Terraform resources using the buildkite_team and team member resources, with examples and guidance on applying the configuration."
   platform/limits: "Default usage limits by plan tier for builds, pipelines, agents, webhooks, and API requests. Includes how to view your Buildkite organization's actual service quotas in settings."
+  platform/artifact-storage-and-transfer-billing: "How artifact storage (GB-months) and transfer (downloads) are calculated and billed on the Enterprise plan, including included allowances, rates, the UTC day boundary, worked examples, retention, and where to view usage."
   platform/pricing-and-plans: "Overview of Buildkite plans (Personal, Pro, Enterprise) with links to detailed pricing and usage limits."
   platform/service-level-agreement: "Buildkite SLA availability commitments, links to the status page for uptime data, and the full SLA document."
   platform/legal-and-policies: "Buildkite legal documents including terms of service, privacy policies, and data processing agreements."

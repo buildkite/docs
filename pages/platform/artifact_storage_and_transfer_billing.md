@@ -1,0 +1,77 @@
+# Artifact storage and transfer billing
+
+Buildkite Pipelines bills artifacts on two axes. _Storage_ measures how much artifact data your Buildkite organization keeps over time. _Transfer_ measures how much artifact data is downloaded from Buildkite. This page explains how each axis is calculated, the included allowances and rates, and how to track usage against those allowances.
+
+Artifact storage and transfer billing applies to organizations on the Enterprise plan. To find out which plan your organization is on, see [Pricing and plans](/docs/platform/pricing-and-plans).
+
+## Included allowances and rates
+
+Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at the rates below.
+
+Axis            | Included allowance                | Rate above the allowance
+--------------- | --------------------------------- | ------------------------
+Storage         | 1 TB-month (1,024 GB-months)      | $0.05 per GB-month
+Transfer        | 10 TB (10,240 GB) of downloads    | $0.10 per GB
+{: class="responsive-table"}
+
+Uploading artifacts to Buildkite is not charged as transfer. Only downloads count towards the transfer allowance.
+
+> 📘 Binary units
+> Storage and transfer amounts use binary (1,024-based) units. One GB is 1,024 MB (1,073,741,824 bytes), and one TB is 1,024 GB.
+
+## How artifact storage is calculated
+
+Storage is billed in _GB-days_, where one GB-day is one gigabyte kept for one day. Each day, Buildkite records how many bytes your organization is holding. The monthly total is the sum of those daily amounts. For example, holding 100 GB for 10 days is 1,000 GB-days, which is the same as holding 10 GB for 100 days.
+
+A _day_ is a full UTC calendar day, from 00:00:00 to 23:59:59 UTC. Every upload and delete is bucketed by its UTC date, so the day boundary is midnight UTC regardless of a user's timezone. An upload at 23:30 UTC lands on that day, and an upload at 00:30 UTC lands on the next day.
+
+### From events to daily storage
+
+Each day's storage is the artifacts uploaded minus those deleted, with one timing rule that affects the total:
+
+- An upload counts on the day it happens.
+- A delete counts on the next UTC day. Every artifact is therefore billed for at least one full day, even one that is uploaded and deleted on the same day.
+
+The following worked example runs over one week, starting from empty storage.
+
+Day | What happened                                        | Counted        | Storage held (GB)
+--- | ---------------------------------------------------- | -------------- | -----------------
+1   | Uploaded 400 GB                                      | +400           | 400
+2   | Uploaded 600 GB                                      | +600           | 1,000
+3   | Uploaded 300 GB                                      | +300           | 1,300
+4   | Deleted 200 GB (takes effect on day 5)               | —              | 1,300
+5   | Uploaded 100 GB, and the day-4 delete is reflected   | +100 −200      | 1,200
+6   | Nothing                                              | —              | 1,200
+7   | Nothing                                              | —              | 1,200
+{: class="responsive-table"}
+
+Adding up the storage held each day gives 7,600 GB-days for the week. The day-4 delete only lowers storage on day 5, because deletes are reflected the next day. If storage then holds steady at 1,200 GB for the remaining 23 days of a 30-day month, that adds another 27,600 GB-days, so the month totals 35,200 GB-days.
+
+### From GB-days to the monthly charge
+
+Dividing the month's GB-days by the number of days in the month gives _GB-months_, which is the average number of gigabytes held. Storage is charged on GB-months. Using the 35,200 GB-days from the example above, across a 30-day month:
+
+1. Sum every day of the month to get 35,200 GB-days.
+1. Divide by the 30 days in the month to get 1,173 GB-months.
+1. Subtract the 1,024 GB-month allowance, then apply the rate: `(1,173 − 1,024) × $0.05 = $7.45`.
+
+> 📘 Deleting artifacts
+> Because storage is summed over days, deleting an artifact lowers what you are billed going forward, but it does not refund the days the artifact was already stored.
+
+## How artifact transfer is calculated
+
+Transfer is the artifact data that moves out of storage when it is downloaded. Uploads are not counted.
+
+Downloads are counted from the storage access logs. For each UTC day, using the same day boundary as storage, every download is totalled per organization and pipeline. Both full and partial downloads are counted, so the total captures every download, whether it is a complete object fetch, a byte-range request, or a download that is cancelled part-way through.
+
+Downloads are charged on total gigabytes downloaded across the billing period. For example, an organization that downloads 12 TB (12,288 GB) in a month bills on the 2 TB over the allowance: `(12,288 − 10,240) × $0.10 = $204.80`.
+
+## Artifact retention
+
+Artifacts are retained for 90 days. After 90 days, artifacts are deleted and no longer count towards storage. For other retention limits across the Buildkite platform, see [Limits](/docs/platform/limits).
+
+## Viewing your usage
+
+The [**Usage** page](https://buildkite.com/organizations/~/usage) shows your artifact storage and transfer usage, the allowances included in your plan, and the projected charges for any usage above those allowances. Reviewing usage during the billing period helps you estimate overage charges before they are invoiced.
+
+For more detail on tracking prepaid entitlements against actual usage, see [Viewing prepaid inclusions](/docs/platform/pricing-and-plans#viewing-prepaid-inclusions).
