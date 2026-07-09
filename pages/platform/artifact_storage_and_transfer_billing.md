@@ -1,6 +1,11 @@
 # Artifact storage and transfer billing
 
-Buildkite Pipelines bills artifacts on two axes. _Storage_ measures how much artifact data your Buildkite organization keeps over time. _Transfer_ measures how much artifact data is downloaded from Buildkite. This page explains how each axis is calculated, the included allowances and rates, and how to track usage against those allowances.
+Buildkite Pipelines bills [artifacts](/docs/pipelines/configure/artifacts) usage based on storage and transfer.
+
+* _Storage_ measures how much artifact data your Buildkite organization keeps over time.
+* _Transfer_ measures how much artifact data is downloaded from Buildkite.
+
+This page explains how each usage is calculated, the included allowances and rates, and how to track usage against those allowances.
 
 Artifact storage and transfer billing applies to organizations on the Enterprise plan. To find out which plan your organization is on, see [Pricing and plans](/docs/platform/pricing-and-plans).
 
@@ -8,7 +13,7 @@ Artifact storage and transfer billing applies to organizations on the Enterprise
 
 Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at the rates below.
 
-Axis            | Included allowance                | Rate above the allowance
+Usage axis      | Included allowance                | Rate above the allowance
 --------------- | --------------------------------- | ------------------------
 Storage         | 1 TB-month (1,024 GB-months)      | $0.05 per GB-month
 Transfer        | 10 TB (10,240 GB) of downloads    | $0.10 per GB
