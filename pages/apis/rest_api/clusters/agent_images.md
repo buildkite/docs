@@ -74,7 +74,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "id": "abc123def4567",
     "name": "my-custom-image",
     "status": "READY",
-    "image_ref": "nscr.io/nde1af6lccoqo/buildkite/abc123def4567:v1",
+    "image_ref": "registry.example.com/your-org/buildkite/abc123def4567:v1",
     "version": 1,
     "last_build_error": null,
     "dockerfile": "RUN apt-get update && apt-get install -y curl",
