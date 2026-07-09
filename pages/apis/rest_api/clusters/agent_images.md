@@ -2,7 +2,7 @@
 
 Agent images let you define custom Dockerfile bodies for [Buildkite hosted agents](/docs/agent/buildkite-hosted). Each agent image is associated with a cluster and is built on top of a Buildkite-managed base image.
 
-This API is available to organizations with Buildkite hosted agents enabled. Non-hosted clusters return an empty list for [list](#list-agent-images) requests, and `404 Not Found` for [get](#get-an-agent-image) and [delete](#delete-an-agent-image) requests.
+This API is available to organizations with Buildkite hosted agents enabled. If Buildkite hosted agents are not enabled for your organization, every endpoint returns `404 Not Found`. When they are enabled but the target cluster is not a hosted cluster, [list](#list-agent-images) requests return an empty list, [get](#get-an-agent-image) and [delete](#delete-an-agent-image) requests return `404 Not Found`, and [create](#create-an-agent-image) requests return `422 Unprocessable Entity`.
 
 ## Agent image data model
 
@@ -157,16 +157,9 @@ Required [request body properties](/docs/api#request-body-properties):
       <th><code>name</code></th>
       <td>Name for the agent image. Must be unique within the cluster.<br><em>Example:</em> <code>"my-custom-image"</code></td>
     </tr>
-  </tbody>
-</table>
-
-Optional [request body properties](/docs/api#request-body-properties):
-
-<table class="responsive-table">
-  <tbody>
     <tr>
       <th><code>dockerfile</code></th>
-      <td>Dockerfile body to layer on top of the Buildkite-managed base image. Must not contain a <code>FROM</code> instruction.<br><em>Example:</em> <code>"RUN apt-get update &amp;&amp; apt-get install -y curl"</code></td>
+      <td>Dockerfile body to layer on top of the Buildkite-managed base image. Must be a string and must not contain a <code>FROM</code> instruction. Pass an empty string (<code>""</code>) to build an image with no additional layers.<br><em>Example:</em> <code>"RUN apt-get update &amp;&amp; apt-get install -y curl"</code></td>
     </tr>
   </tbody>
 </table>
