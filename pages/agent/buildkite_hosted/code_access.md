@@ -29,7 +29,7 @@ Buildkite does not require any special permissions to access public repositories
 
 To use Buildkite hosted agents with a private repository on a provider other than GitHub, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
 
-### Using checkout.ssh_secret
+### Specifying an SSH secret in YAML
 
 The `checkout.ssh_secret` attribute references the name of a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) containing an SSH private key. At job startup, the agent fetches the key and configures `GIT_SSH_COMMAND` to use it during the Git checkout.
 
