@@ -170,7 +170,7 @@ Failed to download artifacts: GET https://agent.buildkite.com/v3/builds/776402f5
 
 The error occurs when the agent tries to download a specific file by name, but cannot find a unique match.
 In other words, the file path was ambiguous and did not identify a single artifact with that name in the current the build.
-For example, two previous steps uploaded a file with the same name.
+For example, two different steps (not shards of the same parallel step) uploaded a file with the same name.
 
 To fix this error, specify the step or build that uploaded the artifact.
 Use the `--step` or `--build` options to narrow the search for artifacts.
@@ -178,6 +178,9 @@ For an example, read [download an artifact from a specific step](#download-artif
 
 Alternatively, download the most recent matching file by using a glob pattern.
 For an example, read [download many artifacts](#download-artifacts-with-the-buildkite-agent-example-download-many-artifacts).
+
+> 📘 Parallel steps
+> If the ambiguous artifacts come from shards of the same [parallelized step](/docs/pipelines/configure/step-types/command-step#parallelism), this error is not raised. Using `--step` with a parallel step key returns one artifact per shard, which is expected behavior.
 
 ### Artifacts are missing from retried jobs
 

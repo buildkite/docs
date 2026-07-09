@@ -147,12 +147,22 @@ Return a list of artifacts that match a query.
 
 ## Parallelized steps
 
-Currently, Buildkite does not support collating artifacts from parallelized steps under a single key. Thus using the `--step` option with a parallelized step key will return only artifacts from the last completed step.
+When you use the `--step` option with a [parallelized step's](/docs/pipelines/configure/step-types/command-step#parallelism) key, the artifact command returns artifacts from all parallel shards of that step.
 
-If you are trying to collate artifacts from parallelized steps, it is best to upload these files with a unique path or name and omit the `--step` flag.
+For example, if every shard of a parallel step named `tests` uploads a file called `junit.xml`, the following command downloads one `junit.xml` per shard:
 
 ```bash
-buildkite-agent artifact <download or search> "artifacts/path/*" . --build $BUILDKITE_BUILD_ID
+buildkite-agent artifact download junit.xml . --step tests
+```
+
+Because all shards upload to the same filename, each downloaded file overwrites the previous one. To preserve artifacts from every shard, upload each file to a unique path (for example, using `$BUILDKITE_PARALLEL_JOB` in the filename) and use a glob pattern to download them all:
+
+```bash
+# Upload (in each shard's script)
+buildkite-agent artifact upload "junit-${BUILDKITE_PARALLEL_JOB}.xml"
+
+# Download all shards' results
+buildkite-agent artifact download "junit-*.xml" .
 ```
 
 ## Fetching the SHA of an artifact
