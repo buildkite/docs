@@ -147,13 +147,19 @@ Return a list of artifacts that match a query.
 
 ## Parallelized steps
 
-Currently, Buildkite does not support collating artifacts from parallelized steps under a single key. Thus using the `--step` option with a parallelized step key will return only artifacts from the last completed step.
-
-If you are trying to collate artifacts from parallelized steps, it is best to upload these files with a unique path or name and omit the `--step` flag.
+Using `--step` with a parallelized step key or label returns artifacts from every parallel job in that step group. For example, if a step runs with `parallelism: 3`, a step-scoped download retrieves artifacts uploaded by all three jobs:
 
 ```bash
-buildkite-agent artifact <download or search> "artifacts/path/*" . --build $BUILDKITE_BUILD_ID
+buildkite-agent artifact download "coverage/*.xml" . --step my-parallel-step
 ```
+
+By default, artifacts from retried jobs are excluded. To include artifacts from every retry attempt across all parallel jobs, add `--include-retried-jobs`:
+
+```bash
+buildkite-agent artifact download "coverage/*.xml" . --step my-parallel-step --include-retried-jobs
+```
+
+Scoping by a specific job UUID instead of a step key always returns artifacts from that single job only, regardless of parallelism.
 
 ## Fetching the SHA of an artifact
 
