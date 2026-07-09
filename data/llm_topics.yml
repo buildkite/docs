@@ -105,6 +105,7 @@ pipelines:
     - "apis/rest-api/clusters/agent-tokens"
     - "apis/rest-api/clusters/maintainers"
     - "apis/rest-api/clusters/secrets"
+    - "apis/rest-api/clusters/agent-images"
     - "apis/rest-api/rules"
     - "apis/rest-api/pipeline-templates"
     - "apis/graphql-api"
