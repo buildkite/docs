@@ -1,6 +1,6 @@
 # Artifact storage and transfer billing
 
-Buildkite Pipelines bills artifacts on two axes. _Storage_ measures how much artifact data your Buildkite organization keeps over time. _Transfer_ measures how much artifact data is downloaded from Buildkite. This page explains how each axis is calculated, the included allowances and rates, and how to track usage against those allowances.
+Buildkite Pipelines bills [artifacts](/docs/pipelines/configure/artifacts) on two axes. _Storage_ measures how much artifact data your Buildkite organization keeps over time. _Transfer_ measures how much artifact data is downloaded from Buildkite. This page explains how each axis is calculated, the included allowances and rates, and how to track usage against those allowances.
 
 Artifact storage and transfer billing applies to organizations on the Enterprise plan. To find out which plan your organization is on, see [Pricing and plans](/docs/platform/pricing-and-plans).
 
