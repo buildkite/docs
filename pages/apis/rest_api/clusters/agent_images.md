@@ -80,9 +80,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "dockerfile": "RUN apt-get update && apt-get install -y curl",
     "base_image": "FROM docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1@sha256:f1378abd34fccb2b7b661aaf3b06394509a4f7b5bb8c2f8ad431e7eaa1cabc9c",
     "composed_dockerfile": "FROM docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1@sha256:f1378abd34fccb2b7b661aaf3b06394509a4f7b5bb8c2f8ad431e7eaa1cabc9c\nRUN apt-get update && apt-get install -y curl",
-    "url": "https://api.buildkite.com/v2/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent-images/abc123def4567",
-    "web_url": "https://buildkite.com/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent_images/abc123def4567",
-    "cluster_url": "https://api.buildkite.com/v2/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
+    "url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent-images/abc123def4567",
+    "web_url": "https://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent_images/abc123def4567",
+    "cluster_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
   }
 ]
 ```
@@ -109,9 +109,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "dockerfile": "RUN apt-get update && apt-get install -y curl",
   "base_image": "FROM docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1@sha256:f1378abd34fccb2b7b661aaf3b06394509a4f7b5bb8c2f8ad431e7eaa1cabc9c",
   "composed_dockerfile": "FROM docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1@sha256:f1378abd34fccb2b7b661aaf3b06394509a4f7b5bb8c2f8ad431e7eaa1cabc9c\nRUN apt-get update && apt-get install -y curl",
-  "url": "https://api.buildkite.com/v2/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent-images/abc123def4567",
-  "web_url": "https://buildkite.com/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent_images/abc123def4567",
-  "cluster_url": "https://api.buildkite.com/v2/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent-images/abc123def4567",
+  "web_url": "https://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent_images/abc123def4567",
+  "cluster_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
 }
 ```
 
@@ -143,9 +143,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "dockerfile": "RUN apt-get update && apt-get install -y curl",
   "base_image": "FROM docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1@sha256:f1378abd34fccb2b7b661aaf3b06394509a4f7b5bb8c2f8ad431e7eaa1cabc9c",
   "composed_dockerfile": "FROM docker.io/buildkite/hosted-agent-base:ubuntu-v1.0.1@sha256:f1378abd34fccb2b7b661aaf3b06394509a4f7b5bb8c2f8ad431e7eaa1cabc9c\nRUN apt-get update && apt-get install -y curl",
-  "url": "https://api.buildkite.com/v2/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent-images/abc123def4567",
-  "web_url": "https://buildkite.com/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent_images/abc123def4567",
-  "cluster_url": "https://api.buildkite.com/v2/organizations/my-org/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent-images/abc123def4567",
+  "web_url": "https://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/agent_images/abc123def4567",
+  "cluster_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
 }
 ```
 
