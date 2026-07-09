@@ -230,7 +230,7 @@ If the checkout fails with an SSH authentication error when using `checkout.ssh_
 - The `ssh_secret` key is set at the step level, not the pipeline level.
 - The corresponding public key has been added to your source control provider.
 
-For additional troubleshooting steps, see the [SSH key issues during checkout](/docs/pipelines/configure/git-checkout#ssh-key-issues-during-checkout) section on the Git checkout page.
+For additional troubleshooting steps, see the [SSH key issues during checkout](/docs/pipelines/configure/git-checkout#troubleshooting-ssh-key-issues-during-checkout) section on the Git checkout page.
 
 ### Troubleshooting agent-managed SSH keys
 
