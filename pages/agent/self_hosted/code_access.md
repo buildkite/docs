@@ -32,7 +32,6 @@ To set this up:
         checkout:
           ssh_secret: "MY_SSH_KEY"
     ```
-    {: codeblock-file="pipeline.yml"}
 
 The secret name must start with a letter, contain only letters, numbers, and underscores, and must not start with `buildkite` or `bk`.
 
@@ -83,7 +82,7 @@ $ cat id_ed25519.pub
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGjVMoSnPzBnGMKRHdwNfzCnpE7iY8MYbz3aLfK2E0OP dev+build@myorg.com
 ```
 
-You then add this public key to the user's settings on [GitHub](#ssh-keys-for-github), Bitbucket, GitLab, or your source control provider.
+You then add this public key to the user's settings on [GitHub](#managing-ssh-keys-on-agent-machines-ssh-keys-for-github), Bitbucket, GitLab, or your source control provider.
 
 > 📘 RSA keys
 > If your source control provider requires RSA keys, you can generate an RSA 4096 key instead:
@@ -199,7 +198,7 @@ Creating a [machine user](https://docs.github.com/en/authentication/connecting-t
 
 To set up a GitHub machine user:
 
-1. On your agent machine, generate a key as per the [Creating a single SSH key](#creating-a-single-ssh-key) instructions.
+1. On your agent machine, generate a key as per the [Creating a single SSH key](#managing-ssh-keys-on-agent-machines-creating-a-single-ssh-key) instructions.
 1. Sign up to GitHub as a new user (using a valid email address), and add the SSH key to the user's settings.
 1. Sign back into GitHub as an organization admin, create a new team, then add the new user and any required repositories to the team.
 
@@ -209,7 +208,7 @@ An alternative method of providing access to your repositories is to use deploy 
 
 To set up GitHub deploy keys with the Buildkite agent, do the following for each repository:
 
-1. On your agent machine, generate a key as per the [Creating multiple SSH keys](#creating-multiple-ssh-keys) instructions.
+1. On your agent machine, generate a key as per the [Creating multiple SSH keys](#managing-ssh-keys-on-agent-machines-creating-multiple-ssh-keys) instructions.
 1. In GitHub, copy the key into the repository's **Deploy keys** settings.
 
 ## Debugging SSH key issues
@@ -237,7 +236,7 @@ For additional troubleshooting steps, see the [SSH key issues during checkout](/
 
 If the agent cannot authenticate using keys in `~/.ssh`, check the following:
 
-- The SSH key files are in the correct directory for the user the agent runs as. See [Finding your SSH key directory](#finding-your-ssh-key-directory).
+- The SSH key files are in the correct directory for the user the agent runs as. See [Finding your SSH key directory](#managing-ssh-keys-on-agent-machines-finding-your-ssh-key-directory).
 - The key files have the correct permissions (`600` for the private key, `644` for the public key).
 - The public key has been added to your source control provider.
 - If using multiple keys with custom hostnames, verify that the `~/.ssh/config` entries match the modified repository URL in your pipeline settings.
