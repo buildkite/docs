@@ -49,10 +49,10 @@ Adding up the storage held each day gives 7,600 GB-days for the week. The day-4 
 
 ### From GB-days to the monthly charge
 
-Dividing the month's GB-days by the number of days in the month gives _GB-months_, which is the average number of gigabytes held. Storage is charged on GB-months. Using the 35,200 GB-days from the example above, across a 30-day month:
+Dividing the month's GB-days by the number of days in the month gives _GB-months_, which is the average number of gigabytes held. GB-months are rounded down to a whole number, and storage is charged on that value. Using the 35,200 GB-days from the example above, across a 30-day month:
 
 1. Sum every day of the month to get 35,200 GB-days.
-1. Divide by the 30 days in the month to get 1,173 GB-months.
+1. Divide by the 30 days in the month to get 1,173.33 GB-months, then round down to 1,173 GB-months.
 1. Subtract the 1,024 GB-month allowance, then apply the rate: `(1,173 − 1,024) × $0.05 = $7.45`.
 
 > 📘 Deleting artifacts
