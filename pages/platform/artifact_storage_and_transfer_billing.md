@@ -5,21 +5,19 @@ Buildkite Pipelines bills [artifact](/docs/pipelines/configure/artifacts) usage 
 - _Storage_ measures how much artifact data your Buildkite organization keeps over time.
 - _Transfer_ measures how much artifact data is downloaded from Buildkite.
 
-This page explains how each is calculated, the included allowances and rates, and how to track usage against those allowances.
+This page explains how each is calculated and how to track usage against your allowances.
 
-Artifact storage and transfer billing applies to organizations on the Enterprise plan. To find out which plan your organization is on, see [Pricing and plans](/docs/platform/pricing-and-plans).
+## How usage is charged
 
-## Included allowances and rates
+Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at a per-unit overage rate. Uploading artifacts to Buildkite is not charged as transfer, so only downloads count towards the transfer allowance.
 
-Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at the rates below.
+The worked examples on this page use the following figures to show how the calculation works:
 
-Usage axis      | Included allowance                | Rate above the allowance
---------------- | --------------------------------- | ------------------------
-Storage         | 1 TB-month (1,024 GB-months)      | $0.05 per GB-month
-Transfer        | 10 TB (10,240 GB) of downloads    | $0.10 per GB
-{: class="responsive-table"}
+- **Storage**: 1 TB-month (1,024 GB-months) included, then $0.05 per GB-month.
+- **Transfer**: 10 TB (10,240 GB) of downloads included, then $0.10 per GB.
 
-Uploading artifacts to Buildkite is not charged as transfer. Only downloads count towards the transfer allowance.
+> 📘 Example figures only
+> The inclusions and overage rates above are examples used to show how the calculation works. Actual inclusions, overage rates, and retention periods vary by plan. You can find the values that apply to your organization on the [Buildkite pricing page](https://buildkite.com/pricing/), on your [**Usage** page](https://buildkite.com/organizations/~/usage), or by contacting the Buildkite sales team at sales@buildkite.com.
 
 > 📘 Binary units
 > Storage and transfer amounts use binary (1,024-based) units. One GB is 1,024 MB (1,073,741,824 bytes), and one TB is 1,024 GB.
@@ -58,7 +56,7 @@ Dividing the month's GB-days by the number of days in the month gives _GB-months
 
 1. Sum every day of the month to get 35,200 GB-days.
 1. Divide by the 30 days in the month to get 1,173.33 GB-months, then round down to 1,173 GB-months.
-1. Subtract the 1,024 GB-month allowance, then apply the rate: `(1,173 − 1,024) × $0.05 = $7.45`.
+1. Subtract the example 1,024 GB-month allowance to get 149 GB-months, then apply the example $0.05 per GB-month overage rate: `149 × $0.05 = $7.45`.
 
 > 📘 Deleting artifacts
 > Because storage is summed over days, deleting an artifact lowers what you are billed going forward, but it does not refund the days the artifact was already stored.
@@ -69,11 +67,11 @@ Transfer is the artifact data that moves out of storage when it is downloaded. U
 
 Downloads are counted from the storage access logs. For each UTC day, using the same day boundary as storage, every download is totaled per organization and pipeline. Both full and partial downloads are counted, so the total captures every download, whether it is a complete object fetch, a byte-range request, or a download that is canceled partway through.
 
-Downloads are charged on total gigabytes downloaded across the billing period. For example, an organization that downloads 12 TB (12,288 GB) in a month bills on the 2 TB over the allowance: `(12,288 − 10,240) × $0.10 = $204.80`.
+Downloads are charged on total gigabytes downloaded across the billing period. For example, an organization that downloads 12 TB (12,288 GB) in a month, against the example 10 TB (10,240 GB) allowance, has 2 TB (2,048 GB) over the allowance. At the example $0.10 per GB overage rate, that is `2,048 × $0.10 = $204.80`.
 
 ## Artifact retention
 
-Artifacts are retained for 90 days. After 90 days, artifacts are deleted and no longer count towards storage. For other retention limits across the Buildkite platform, see [Limits](/docs/platform/limits).
+Artifacts are retained for a limited period that depends on your plan. After the retention period, artifacts are deleted and no longer count towards storage. For the retention period that applies to your organization, and other limits across the Buildkite platform, see [Limits](/docs/platform/limits).
 
 ## Viewing your usage
 
