@@ -343,7 +343,7 @@ If checkout continues to run after setting `checkout.skip: true`, check the foll
 - **YAML indentation error:** The `skip` key must be nested under `checkout` at the correct level. If `skip` is not indented as a child of `checkout`, the agent ignores it.
 - **Conflicting environment variable:** A hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
 - **Agent version:** The native `checkout.skip` key requires Buildkite agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
-- **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#precedence) for the full priority order.
+- **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#skipping-checkout-precedence) for the full priority order.
 
 ### Shallow clone limitations
 
