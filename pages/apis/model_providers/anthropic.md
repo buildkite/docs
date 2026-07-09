@@ -130,7 +130,7 @@ The proxy forwards the following headers from your client to the Anthropic API:
 
 - **`anthropic-beta`**: Enables Anthropic beta features. Only the following vetted betas are forwarded; any other values are dropped:
 
-  - `context-management-2025-06-27`
+    * `context-management-2025-06-27`
 
 The following headers are controlled by the Buildkite proxy and cannot be overridden by the client:
 
