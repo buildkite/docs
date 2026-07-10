@@ -33,7 +33,9 @@ reports a soft-failure status, the promised status is kept. Any other
 reported failure is recorded as reported.
 
 Repeated calls with the same exit status are idempotent. Declaring a
-different exit status once one is already recorded is rejected.
+different exit status once one is already recorded is rejected. The agent
+debounces repeated calls locally, so each exit status is only declared to
+the Buildkite API once per job, even if you call this on every test failure.
 
 The command exits non-zero if the promise is not accepted (for example, if
 the job is no longer running, or a different exit status was already
@@ -62,7 +64,6 @@ $ buildkite-agent job promise-failure 42 --reason "detected failing tests"
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
 <tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
 <tr id="trace-http"><th><code>--trace-http </code> <a class="Docs__attribute__link" href="#trace-http">#</a></th><td><p>Enable HTTP trace mode, which logs timings for each HTTP request. Timings are logged at the debug level unless a request fails at the network level in which case they are logged at the error level (default: false)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_TRACE_HTTP</code></p></td></tr>
-<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>The job to declare an early failure for. Defaults to the current job<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="reason"><th><code>--reason value</code> <a class="Docs__attribute__link" href="#reason">#</a></th><td><p>An optional human-readable reason for the promised failure</p></td></tr>
 <tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_PRIVATE_KEY", "*_SSH_KEY", "*_ACCESS_KEY", "*_SECRET_KEY", "*_CONNECTION_STRING", "*_API_KEY")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 </table>

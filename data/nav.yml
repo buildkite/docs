@@ -472,6 +472,8 @@
               path: "pipelines/configure/step-types/trigger-step"
             - name: "Group step"
               path: "pipelines/configure/step-types/group-step"
+        - name: "Git checkout"
+          path: "pipelines/configure/git-checkout"
         - name: "Dynamic pipelines"
           children:
             - name: "Overview"
@@ -903,6 +905,8 @@
               path: "platform/cli/reference/artifacts"
             - name: "auth"
               path: "platform/cli/reference/auth"
+            - name: "browse"
+              path: "platform/cli/reference/browse"
             - name: "build"
               path: "platform/cli/reference/build"
             - name: "cluster"
@@ -1020,10 +1024,16 @@
           children:
             - name: "Overview"
               path: "apis/rest-api/organizations"
+            - name: "API settings"
+              path: "apis/rest-api/organizations/api-settings"
+            - name: "Audit log"
+              path: "apis/rest-api/organizations/audit-events"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
             - name: "Rate limits"
               path: "apis/rest-api/organizations/rate-limits"
+            - name: "Pipeline settings"
+              path: "apis/rest-api/organizations/pipeline-settings"
         - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.
@@ -1060,6 +1070,8 @@
                   path: "apis/rest-api/clusters/maintainers"
                 - name: "Buildkite secrets"
                   path: "apis/rest-api/clusters/secrets"
+                - name: "Agent images"
+                  path: "apis/rest-api/clusters/agent-images"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"

@@ -541,7 +541,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
@@ -705,7 +705,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Unlike [build states](/docs/pipelines/configure/notify#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
 
@@ -918,7 +918,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -1139,7 +1139,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 
@@ -1296,7 +1296,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 
@@ -1443,7 +1443,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, this field returns an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, this field returns an empty string.
 
 This request is asynchronous, meaning that jobs are queued to be retried, but the request does not wait for the jobs to be completed before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued to be retried.
 

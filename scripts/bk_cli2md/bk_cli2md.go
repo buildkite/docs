@@ -388,11 +388,7 @@ func generateMarkdown(cmd *Command) string {
 			cmd.Name, getGroupDescription(cmd.Name))
 
 		// Description
-		if cmd.Description != "" {
-			desc := cmd.Description
-			if cmd.LongDesc != "" {
-				desc += " " + cmd.LongDesc
-			}
+		if desc := combinedDescription(cmd); desc != "" {
 			fmt.Fprintf(&b, "%s\n\n", desc)
 		}
 
@@ -532,6 +528,44 @@ func getGroupDescription(name string) string {
 	return "work with " + name
 }
 
+func combinedDescription(cmd *Command) string {
+	if cmd.Description == "" {
+		return ""
+	}
+	if cmd.LongDesc == "" {
+		return cmd.Description
+	}
+
+	if isRedundantDescription(cmd.Description, firstSentence(cmd.LongDesc)) {
+		return cmd.LongDesc
+	}
+
+	return cmd.Description + " " + cmd.LongDesc
+}
+
+func isRedundantDescription(short, longFirstSentence string) bool {
+	return normalizedDescription(short) == normalizedDescription(longFirstSentence)
+}
+
+func firstSentence(s string) string {
+	if i := strings.Index(s, "."); i >= 0 {
+		return s[:i]
+	}
+	return s
+}
+
+func normalizedDescription(s string) string {
+	s = strings.ToLower(strings.TrimSpace(strings.Trim(s, ".")))
+	s = " " + s + " "
+	s = strings.NewReplacer(
+		" a ", " ",
+		" an ", " ",
+		" the ", " ",
+		" your ", " ",
+	).Replace(s)
+	return strings.Join(strings.Fields(s), " ")
+}
+
 func getSubcommandTitle(name string) string {
 	parts := strings.Fields(name)
 	if len(parts) < 2 {
@@ -543,9 +577,9 @@ func getSubcommandTitle(name string) string {
 
 	// Handle special cases for specific command combinations
 	specialTitles := map[string]string{
-		"configure add":    "Add a new organization",
+		"configure add":      "Add a new organization",
 		"artifacts download": "Download an artifact",
-		"artifacts list":    "List artifacts",
+		"artifacts list":     "List artifacts",
 	}
 	if title, ok := specialTitles[name]; ok {
 		return title

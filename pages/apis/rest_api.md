@@ -36,12 +36,21 @@ GET | `/v2/organizations` | [List organizations](/docs/apis/rest-api/organizatio
 GET | `/v2/organizations/{org.slug}` | [Get an organization](/docs/apis/rest-api/organizations#get-an-organization)
 {: class="responsive-table"}
 
+### Audit events
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/audit_events` | [List audit events](/docs/apis/rest-api/organizations/audit-events#list-audit-events)
+GET | `/v2/organizations/{org.slug}/audit_events/{uuid}` | [Get an audit event](/docs/apis/rest-api/organizations/audit-events#get-an-audit-event)
+{: class="responsive-table"}
+
 ### Organization members
 
 Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/members` | [List organization members](/docs/apis/rest-api/organizations/members#list-organization-members)
 GET | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Get an organization member](/docs/apis/rest-api/organizations/members#get-an-organization-member)
+PATCH | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Update an organization member](/docs/apis/rest-api/organizations/members#update-an-organization-member)
 {: class="responsive-table"}
 
 ### Pipelines

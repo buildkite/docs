@@ -20,11 +20,12 @@ const (
 )
 
 var (
-	headingRE      = regexp.MustCompile(`^(\w*):$`) // Headings end in `:`
-	codeBlockRE    = regexp.MustCompile(`^\s{4}`)
-	flagRE         = regexp.MustCompile(`\s{2}(-{2}[a-z0-9\- ]*)([A-Z].*)$`)
-	bkEnvVarRE     = regexp.MustCompile(`\$BUILDKITE[A-Z0-9_]*`)
-	bracketedVarRE = regexp.MustCompile(`\s\[\$BUILDKITE[A-Z0-9_]*\]`)
+	headingRE                          = regexp.MustCompile(`^(\w*):$`) // Headings end in `:`
+	codeBlockRE                        = regexp.MustCompile(`^\s{4}`)
+	flagRE                             = regexp.MustCompile(`\s{2}(-{2}[a-z0-9\- ]*)([A-Z].*)$`)
+	bkEnvVarRE                         = regexp.MustCompile(`\$BUILDKITE[A-Z0-9_]*`)
+	envAnnotationRE                    = regexp.MustCompile(`\s+\[((?:\$BUILDKITE[A-Z0-9_]+)(?:,\s*\$BUILDKITE[A-Z0-9_]+)*)\]\s*$`)
+	artifactUploadConcurrencyDefaultRE = regexp.MustCompile(`^Number of concurrent artifact upload operations \(default: \d+\)$`)
 )
 
 func main() {
@@ -94,8 +95,8 @@ func main() {
 			desc := m[2]
 
 			// Extract $BUILDKITE_* env and remove from desc
-			envVar := bkEnvVarRE.FindString(desc)
-			desc = bracketedVarRE.ReplaceAllString(desc, "")
+			envVar, desc := extractEnvVar(desc)
+			desc = normalizeFlagDescription(command, desc)
 
 			// Wrap https://agent.buildkite.com/v3 in code
 			desc = strings.ReplaceAll(desc, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
@@ -145,4 +146,21 @@ func main() {
 	case stateCode:
 		fmt.Println("```")
 	}
+}
+
+func extractEnvVar(desc string) (string, string) {
+	if m := envAnnotationRE.FindStringSubmatch(desc); m != nil {
+		envVars := bkEnvVarRE.FindAllString(m[1], -1)
+		return strings.Join(envVars, ", "), envAnnotationRE.ReplaceAllString(desc, "")
+	}
+
+	return bkEnvVarRE.FindString(desc), desc
+}
+
+func normalizeFlagDescription(command, desc string) string {
+	if command == "concurrency" && artifactUploadConcurrencyDefaultRE.MatchString(desc) {
+		return artifactUploadConcurrencyDefaultRE.ReplaceAllString(desc, "Number of concurrent artifact upload operations (default: current <code>GOMAXPROCS</code> value)")
+	}
+
+	return desc
 }

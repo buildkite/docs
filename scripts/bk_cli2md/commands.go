@@ -9,6 +9,7 @@ var commandDescriptions = map[string]string{
 	"api":          "interact with the Buildkite API",
 	"artifacts":    "manage build artifacts",
 	"auth":         "manage authorization",
+	"browse":       "open Buildkite resources in a web browser",
 	"build":        "manage pipeline builds",
 	"cluster":      "manage Buildkite organization clusters",
 	"config":       "manage Buildkite CLI configurations",

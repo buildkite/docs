@@ -140,7 +140,7 @@ You can configure [Claude Desktop](https://claude.ai/download) with the remote B
 
     **Note:** If you are on the Enterprise or Team plan, to access this **Connect** button, you may need to select the **Your connectors** tab first.
 
-If you need a new OAuth token, the **Authorize Application** for the **Buildkite MCP server** page appears. If so, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Claude Desktop for this Buildkite organization.
 

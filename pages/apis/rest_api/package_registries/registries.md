@@ -42,7 +42,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "emoji": null,
   "color": null,
   "public": false,
-  "oidc_policy": null
+  "oidc_policy": null,
+  "team_ids": [
+    "team-one-uuid",
+    "team-two-uuid"
+  ]
 }
 ```
 
@@ -115,7 +119,11 @@ curl -H "Authorization: Bearer $TOKEN" \
     "emoji": null,
     "color": null,
     "public": false,
-    "oidc_policy": null
+    "oidc_policy": null,
+    "team_ids": [
+      "team-one-uuid",
+      "team-two-uuid"
+    ]
   }
 ]
 ```
@@ -146,7 +154,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "emoji": null,
   "color": null,
   "public": false,
-  "oidc_policy": null
+  "oidc_policy": null,
+  "team_ids": [
+    "team-one-uuid",
+    "team-two-uuid"
+  ]
 }
 ```
 
@@ -190,7 +202,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "emoji": null,
   "color": null,
   "public": false,
-  "oidc_policy": null
+  "oidc_policy": null,
+  "team_ids": [
+    "team-one-uuid",
+    "team-two-uuid"
+  ]
 }
 ```
 

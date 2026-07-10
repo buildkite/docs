@@ -60,6 +60,7 @@ Bitrise
 bktec
 bktec's
 bktx
+blobless
 boolean
 Boomper
 bottlenecked
@@ -129,6 +130,7 @@ Datadog's
 daemonless
 datasource
 debuild
+debounces
 declaratively
 deduper
 deno
@@ -223,6 +225,7 @@ IdP's
 if_changed
 initContainer
 inlining
+invoiceable
 IPs
 iTerm
 iTerm's
@@ -355,6 +358,7 @@ preemptible
 prefill
 prefetch
 preinstall
+prepended
 prepends
 preprovisioned
 proxied
@@ -436,6 +440,7 @@ Sonatype
 Sonoma
 Splitter's
 sre
+ssh_secret
 sso
 stack_error
 start_time
@@ -504,6 +509,7 @@ unset
 unsets
 unsetting
 unstaged
+unstarted
 untrusted
 unxip
 uploaders
