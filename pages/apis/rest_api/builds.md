@@ -194,6 +194,10 @@ Jobs are the individual units of work within a build.
     <td>Why the agent sent the termination signal. A non-null value means the agent (not the command itself) ended the job. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process — infrastructure failure), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), <code>agent_incompatible</code> (agent cannot run this job type). Null if the job ended normally or predates this field.</td>
   </tr>
   <tr>
+    <th><code>broken_reason</code></th>
+    <td>Why the job is broken. Present only when <code>state</code> is <code>broken</code>; null otherwise. May be a reason code (for example, <code>conditional_failed</code> when an <code>if</code> condition evaluated to false, or <code>branch_mismatch</code> when the branch did not match the step's branch filter) or a free-text skip reason supplied at upload time.</td>
+  </tr>
+  <tr>
     <th><code>promised_exit_status</code></th>
     <td>The non-zero exit status a running job declared before finishing. Omitted if the job has not promised failure.</td>
   </tr>
