@@ -183,6 +183,47 @@ steps:
 
 For a comparison of sparse checkout with Git mirrors and other optimization strategies, see [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
+### Migrating from the sparse checkout plugin
+
+If you currently use the [Sparse Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) to check out specific paths, you can migrate to the native `checkout.sparse` key. The native feature covers the core use case of cone-mode sparse checkout with no extra plugin configuration.
+
+**Before** — sparse checkout plugin:
+
+```yaml
+steps:
+  - label: "Pipeline upload"
+    command: "buildkite-agent pipeline upload"
+    plugins:
+      - sparse-checkout#v1.7.0:
+          paths:
+            - .buildkite
+```
+{: codeblock-file="pipeline.yml"}
+
+**After** — native `checkout.sparse` key:
+
+```yaml
+steps:
+  - label: "Pipeline upload"
+    command: "buildkite-agent pipeline upload"
+    checkout:
+      sparse:
+        paths:
+          - .buildkite/
+```
+{: codeblock-file="pipeline.yml"}
+
+The plugin offers several options that the native feature does not cover:
+
+- `no_cone`: The plugin supports non-cone patterns through the `--no-cone` flag. The native feature uses cone mode only.
+- `clean_checkout`: The plugin can remove lock files, reset the repository, and clean untracked files before checkout. Use `checkout.flags.clean` to customize clean flags natively, or handle cleanup in a `pre-checkout` hook.
+- `cleanup_sparse_state`: The plugin can tear down sparse-checkout Git config after the job finishes so that subsequent non-sparse jobs on the same agent are not affected. The native feature manages sparse-checkout state automatically.
+- `verbose`: The plugin can enable bash execution tracing for debugging. Use the [Verifying checkout options take effect](#troubleshooting-verifying-checkout-options-take-effect) approach instead.
+- `skip_ssh_keyscan`: The plugin can skip the `ssh-keyscan` step. This is not applicable to the native feature.
+- `post_checkout.unshallow`: The plugin can convert a shallow clone to a full-depth clone after checkout. Omit `checkout.depth` to get a full clone natively.
+
+If you rely on non-cone patterns or other plugin-specific options that have no native equivalent, you can continue using the plugin.
+
 ## Submodules
 
 The `checkout.submodules` key controls whether the Buildkite agent fetches Git submodules during checkout. It accepts a boolean (`true` or `false`) or the equivalent string, and is emitted as [`BUILDKITE_GIT_SUBMODULES`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES).
@@ -441,7 +482,16 @@ steps:
 
 ### Sparse checkout paths not found
 
-If sparse checkout does not populate expected files, verify that the paths match the repository directory structure exactly. Paths are case-sensitive and must reference directories or files that exist in the repository. Also confirm that the agent is running Git 2.26 or later, as older versions fall back to a full checkout without an error.
+If sparse checkout does not populate expected files in the working directory, check the following:
+
+- **Path accuracy:** Paths are case-sensitive and must match the repository directory structure exactly. A trailing slash is optional. The path must reference a directory that exists in the repository.
+- **Git version:** Sparse checkout requires Git 2.26 or later. Older versions silently fall back to a full checkout without reporting an error. Run `git --version` on the agent to confirm.
+- **Cone mode restrictions:** The native `checkout.sparse` feature uses cone mode, which only accepts directory paths and their ancestors. Glob patterns and individual file paths within directories are not supported. If you need non-cone patterns, use the [Sparse Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) with the `no_cone` option instead.
+- **Step-level override:** A step-level `sparse.paths` replaces the pipeline-level paths entirely rather than merging with them. Verify that each step lists all the paths it needs, including any shared paths like `.buildkite/`.
+
+### Sparse checkout and submodule interaction
+
+Submodules are automatically disabled when sparse checkout is enabled. If a step needs both sparse checkout and submodule content, split the work into two steps: one with sparse checkout for the main repository paths, and another without sparse checkout that initializes the required submodules.
 
 ### Submodules not initializing
 
