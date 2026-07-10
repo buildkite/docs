@@ -247,6 +247,13 @@ variables:
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or by setting the `checkout.flags.fetch` key in your pipeline YAML.
     modifiable: true
     example: "-v --prune"
+  - name: BUILDKITE_GIT_LFS_ENABLED
+    desc: |
+      Controls whether the agent downloads Git LFS objects during checkout. Set automatically from the `checkout.lfs` key in your pipeline YAML (which takes precedence over any value in `env`). When omitted, the agent uses its own `--git-lfs-enabled` configuration setting, which defaults to `false`.
+    modifiable: false
+    values:
+      - true
+      - false
   - name: BUILDKITE_GIT_MIRRORS_PATH
     desc: |
       The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or using the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.

@@ -30,7 +30,7 @@ In Buildkite Pipelines, the `checkout` block can appear in two places:
 
 When both are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for keys the step leaves unset.
 
-For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, and `depth`, the `checkout` value always takes effect.
+For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value always takes effect.
 
 > 📘 Step-level ssh_secret
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
@@ -206,6 +206,40 @@ steps:
     command: "make integration"
     checkout:
       submodules: true
+```
+{: codeblock-file="pipeline.yml"}
+
+## Git LFS
+
+The `checkout.lfs` key controls whether the Buildkite agent downloads [Git LFS](https://git-lfs.com/) objects during checkout. It accepts a boolean (`true` or `false`) or the equivalent string, and is emitted as [`BUILDKITE_GIT_LFS_ENABLED`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_LFS_ENABLED).
+
+When omitted at both the pipeline and step level, the agent uses its own `--git-lfs-enabled` configuration setting, which defaults to `false`.
+
+Use `checkout.lfs: true` when your repository stores binary assets such as images, videos, or compiled artifacts using Git LFS, and your build steps need access to those files:
+
+```yaml
+steps:
+  - label: "Build with assets"
+    command: "make build"
+    checkout:
+      lfs: true
+```
+{: codeblock-file="pipeline.yml"}
+
+You can enable LFS at the pipeline level as a default, then disable it for steps that do not need it:
+
+```yaml
+checkout:
+  lfs: true
+
+steps:
+  - label: "Build with assets"
+    command: "make build"
+
+  - label: "Run unit tests"
+    command: "make test"
+    checkout:
+      lfs: false
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -401,6 +435,7 @@ steps:
       echo "Skip checkout: $BUILDKITE_SKIP_CHECKOUT"
       echo "Sparse paths: $BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS"
       echo "Submodules: $BUILDKITE_GIT_SUBMODULES"
+      echo "LFS enabled: $BUILDKITE_GIT_LFS_ENABLED"
 ```
 {: codeblock-file="pipeline.yml"}
 
