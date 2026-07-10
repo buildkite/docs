@@ -215,6 +215,7 @@ heredoc
 heroku
 Honeycomb
 hostname
+hostnames
 hostPath
 hotfixes
 http
