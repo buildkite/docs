@@ -132,7 +132,7 @@ your_build_command | tee build.log | grep 'some pattern'
 
 ## Truncating with tail
 
-Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding the per-job log size limit. For example, the following script only sends Buildkite the last 1000MB as your log output, whilst storing the original log for artifact uploading.
+Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding the per-job log size limit. For example, the following script only sends Buildkite the last 1000MB as your log output, while storing the original log for artifact uploading.
 
 ```bash
 #!/bin/bash
