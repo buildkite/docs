@@ -12,7 +12,7 @@ example.
 You can use this command in your build scripts to store artifacts. Artifacts are accessible using the web interface and can be downloaded by future build steps.
 Artifacts can be stored in the Buildkite-managed artifact store, or your own storage location, depending on how you have configured your Buildkite agent.
 
-Be aware that the Buildkite-managed artifact store has an upload size limit of 5Gb per file/artifact.
+The Buildkite-managed artifact store has a default upload size limit of 10 GiB per file/artifact. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
 For documentation on configuring a custom storage location, see:
 
