@@ -227,12 +227,12 @@ variables:
     example: "-f"
   - name: BUILDKITE_GIT_CLEAN_FLAGS
     desc: |
-      The value of the `git-clean-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `git-clean-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or by setting the `checkout.flags.clean` key in your pipeline YAML.
     modifiable: true
     example: "-ffxdq"
   - name: BUILDKITE_GIT_CLONE_FLAGS
     desc: |
-      The value of the `git-clone-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `git-clone-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or by setting the `checkout.flags.clone` key in your pipeline YAML.
     modifiable: true
     example: "-v"
   - name: BUILDKITE_GIT_COMMIT_VERIFICATION
@@ -244,7 +244,7 @@ variables:
       - warn
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
-      The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or by setting the `checkout.flags.fetch` key in your pipeline YAML.
     modifiable: true
     example: "-v --prune"
   - name: BUILDKITE_GIT_MIRRORS_PATH

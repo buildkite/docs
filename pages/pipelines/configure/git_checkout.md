@@ -220,7 +220,7 @@ The `checkout.flags` key lets you set custom flags for specific Git operations d
 
 When pipeline-level and step-level `flags` are both present, step values win per key. Pipeline values are inherited for any key the step omits.
 
-Common use cases include partial clones with `--filter=blob:none` (which downloads commit and tree objects but defers blob downloads until needed), adding `--prune` to fetch for cleaning up stale remote-tracking references, and customizing clean behavior.
+Common use cases include partial clones with `--filter=blob:none` (which downloads commit and tree objects but defers blob downloads until needed), adding `--tags` to fetch for downloading all tags alongside branch history, and customizing clean behavior.
 
 > 🚧 Security consideration
 > These flags are passed directly to Git commands. In [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) where step definitions may come from untrusted input, validate the flag values to prevent command injection.
@@ -232,10 +232,92 @@ steps:
     checkout:
       flags:
         clone: "--filter=blob:none"
-        fetch: "--prune"
-        clean: "-ffdx"
+        fetch: "-v --prune --tags"
+        clean: "-ffxdq -e .cache/"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Common use cases
+
+The following examples show typical scenarios where custom Git flags can speed up builds or work around repository constraints.
+
+**Blobless clone for large repositories**: Download commit and tree objects during clone but defer blob downloads until Git needs them. This significantly reduces initial clone time for repositories with large files:
+
+```yaml
+checkout:
+  flags:
+    clone: "--filter=blob:none"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Treeless clone for very large monorepos**: Download only commit objects during clone, deferring both tree and blob objects. This is faster than a blobless clone but causes more on-demand fetches during checkout:
+
+```yaml
+checkout:
+  flags:
+    clone: "--filter=tree:0"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Fetch tags for release builds:** Add `--tags` to the default fetch flags so that all tags are downloaded alongside branch history. This is useful for steps that derive version numbers from Git tags:
+
+```yaml
+checkout:
+  flags:
+    fetch: "-v --prune --tags"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Aggressive clean but preserve log files**: Use `-ffdx -e '*.log'` to remove all untracked files and force-remove nested Git repositories, but preserve `.log` files between builds. This is useful for keeping build logs around for debugging while still starting from an otherwise clean state:
+
+```yaml
+checkout:
+  flags:
+    clean: "-ffdx -e '*.log'"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Clear default checkout flags:** Set the checkout flags to an empty string to remove the default `-f` flag. This preserves local modifications, which can be useful for debugging or incremental build workflows:
+
+```yaml
+checkout:
+  flags:
+    checkout: ""
+```
+{: codeblock-file="pipeline.yml"}
+
+### Migrating from environment variables to pipeline checkout flags
+
+If you currently set `BUILDKITE_GIT_*_FLAGS` environment variables in your pipeline YAML, you can migrate to the native `checkout.flags` keys for clearer configuration and consistent precedence handling.
+
+**Before** — environment variable pattern:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "make build"
+    env:
+      BUILDKITE_GIT_CLONE_FLAGS: "--filter=blob:none"
+      BUILDKITE_GIT_FETCH_FLAGS: "--prune"
+      BUILDKITE_GIT_CLEAN_FLAGS: "-ffdx -e '*.log'"
+```
+{: codeblock-file="pipeline.yml"}
+
+**After** — native `checkout.flags` keys:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "make build"
+    checkout:
+      flags:
+        clone: "--filter=blob:none"
+        fetch: "--prune"
+        clean: "-ffdx -e '*.log'"
+```
+{: codeblock-file="pipeline.yml"}
+
+The environment variables continue to work, so you can migrate incrementally. When both a `checkout.flags` key and the corresponding environment variable are set in a step's `env` block, the `env` block value takes precedence.
 
 ## SSH key from Buildkite Secrets
 
@@ -313,6 +395,9 @@ steps:
   - label: "Debug checkout"
     command: |
       echo "Clone flags: $BUILDKITE_GIT_CLONE_FLAGS"
+      echo "Fetch flags: $BUILDKITE_GIT_FETCH_FLAGS"
+      echo "Checkout flags: $BUILDKITE_GIT_CHECKOUT_FLAGS"
+      echo "Clean flags: $BUILDKITE_GIT_CLEAN_FLAGS"
       echo "Skip checkout: $BUILDKITE_SKIP_CHECKOUT"
       echo "Sparse paths: $BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS"
       echo "Submodules: $BUILDKITE_GIT_SUBMODULES"
