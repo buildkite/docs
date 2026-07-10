@@ -129,6 +129,8 @@ The `checkout.depth` key performs a shallow clone with the specified number of c
 
 Shallow clones are useful for large repositories where full history is not needed. They reduce checkout time and disk usage by downloading fewer objects from the remote.
 
+When `checkout.depth` is set, submodules are still fetched at full depth. The shallow depth applies only to the main repository clone and fetch operations.
+
 > 🚧 Limitations of shallow clones
 > Some Git operations require full history. Commands like `git log` across the entire history, `git blame`, and `git merge-base` may return incomplete or incorrect results with a shallow clone. If a step needs full history, omit `checkout.depth` for that step. `checkout.depth` must be a positive integer, so `0` is not a valid way to request full history.
 
