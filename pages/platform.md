@@ -58,7 +58,7 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
         description: "Default service quota values and how you can alter these if required."
       },
       {
-        topic: "[Artifact storage and transfer billing](/docs/platform/artifact-storage-and-transfer-billing)",
+        topic: "[Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing)",
         description: "How artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, with worked examples."
       },
       {

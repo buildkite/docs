@@ -1,4 +1,4 @@
-# Artifact storage and transfer billing
+# Artifacts billing
 
 Buildkite Pipelines bills [artifact](/docs/pipelines/configure/artifacts) usage in Buildkite-managed artifact storage based on two measures:
 
@@ -25,16 +25,9 @@ Storage and transfer are measured in whole gigabytes, with any fraction of a gig
 
 ## How artifact storage is calculated
 
-Storage is billed in _GB-days_, where one GB-day is one gigabyte kept for one day. Each day, Buildkite records how many bytes your organization is holding. The monthly total is the sum of those daily amounts. For example, holding 100 GB for 10 days is 1,000 GB-days, which is the same as holding 10 GB for 100 days.
+Artifact storage is measured in _GB-days_, where one GB-day is one gigabyte kept for one day. Each day, Buildkite records how many bytes your organization is holding. For example, holding 100 GB for 10 days is 1,000 GB-days.
 
-A _day_ is a full UTC calendar day. Every upload and delete is bucketed by its UTC date, so the boundary is midnight UTC regardless of the user's timezone. Uploads are billed for a minimum of one day: an upload at 23:30 UTC counts toward that day's storage, and even if it's deleted immediately, the reduction only shows up the next day.
-
-### From events to daily storage
-
-Each day's storage is the artifacts uploaded minus those deleted, with one timing rule that affects the total:
-
-- An upload counts on the day it happens.
-- A delete counts on the next UTC day. Every artifact is therefore billed for at least one full day, even one that is uploaded and deleted on the same day.
+A _day_ is a full UTC calendar day, with a boundary of midnight UTC regardless of the user's timezone. An upload counts toward storage on the day it occurs, while a deletion reduces storage on the following UTC day. An artifact therefore counts toward at least one day of storage, even if it is uploaded and deleted on the same day.
 
 The following worked example runs over one week, starting from empty storage.
 
