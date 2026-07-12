@@ -20,7 +20,7 @@ steps:
       - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "ruby:4.0.5-bookworm"
           propagate-environment: true
           mount-buildkite-agent: true
