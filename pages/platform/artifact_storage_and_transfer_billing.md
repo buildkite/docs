@@ -27,7 +27,7 @@ Storage and transfer are measured in whole gigabytes, with any fraction of a gig
 
 Storage is billed in _GB-days_, where one GB-day is one gigabyte kept for one day. Each day, Buildkite records how many bytes your organization is holding. The monthly total is the sum of those daily amounts. For example, holding 100 GB for 10 days is 1,000 GB-days, which is the same as holding 10 GB for 100 days.
 
-A _day_ is a full UTC calendar day, from 00:00:00 to 23:59:59 UTC. Every upload and delete is bucketed by its UTC date, so the day boundary is midnight UTC regardless of a user's timezone. An upload at 23:30 UTC lands on that day, and an upload at 00:30 UTC lands on the next day.
+A _day_ is a full UTC calendar day. Every upload and delete is bucketed by its UTC date, so the boundary is midnight UTC regardless of the user's timezone. Uploads are billed for a minimum of one day: an upload at 23:30 UTC counts toward that day's storage, and even if it's deleted immediately, the reduction only shows up the next day.
 
 ### From events to daily storage
 
