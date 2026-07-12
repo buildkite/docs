@@ -7,13 +7,14 @@ Buildkite Pipelines bills [artifact](/docs/pipelines/configure/artifacts) usage 
 
 This page explains how each is calculated and how to track usage against your allowances.
 
-Artifacts kept in a [self-managed storage provider](/docs/pipelines/configure/artifacts#storage-providers-encryption-and-retention), such as your own Amazon S3, Google Cloud Storage, or Azure Blob Storage bucket, are not billed by Buildkite. Your storage provider bills you directly for those artifacts, and you are responsible for their retention.
+> 📘 Self-stored artifacts
+> Artifacts kept in a [self-managed storage provider](/docs/pipelines/configure/artifacts#storage-providers-encryption-and-retention), such as your own Amazon S3, Google Cloud Storage, or Azure Blob Storage bucket, are not billed by Buildkite. Your storage provider bills you directly for those artifacts, and you are responsible for their retention.
 
 ## How usage is charged
 
 Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at a per-unit overage rate. Uploading artifacts to Buildkite is not charged as transfer, so only downloads count towards the transfer allowance.
 
-The worked examples on this page use the following figures to show how the calculation works:
+The examples on this page use the following figures to show how the calculation works:
 
 - **Storage**: 1 TB-month (1,024 GB-months) included, then $0.05 per GB-month.
 - **Transfer**: 10 TB (10,240 GB) of downloads included, then $0.10 per GB.
