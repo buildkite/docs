@@ -12,14 +12,14 @@ This page explains how each is calculated and how to track usage against your al
 
 ## How usage is charged
 
-Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at a per-unit overage rate. 
+Each billing period includes an inclusion for storage and for downloads. Usage above the inclusion allowance is charged at a per-unit overage rate.
 
 The examples on this page use the following figures to show how the calculation works:
 
 - **Storage**: 1 TB-month (1,024 GB-months) included, then $0.05 per GB-month.
 - **Transfer**: 10 TB (10,240 GB) of downloads included, then $0.10 per GB.
 
-Storage and transfer are measured in whole gigabytes, with any fraction of a gigabyte rounded down and not counted. One GB is 1,024 MB (1,073,741,824 bytes), and one TB is 1,024 GB. Overage is charged only once usage passes the whole-gigabyte allowance. With the example figures, storage is first charged at 1,025 GB-months, and transfer is first charged at 10,241 GB.
+Storage and transfer are measured in whole gigabytes, with any fraction of a gigabyte rounded down and not counted. One GB is 1,024 MB (1,073,741,824 bytes), and one TB is 1,024 GB. Overage is charged only once usage passes the whole-gigabyte inclusion. With the example figures, storage is first charged at 1,025 GB-months, and transfer is first charged at 10,241 GB.
 
 > 📘 Example figures only
 > The inclusions and overage rates above are examples used to show how the calculation works. Actual inclusions, overage rates, and retention periods vary by plan. You can find the values that apply to your organization on the [Buildkite pricing page](https://buildkite.com/pricing/), on your [**Usage** page](https://buildkite.com/organizations/~/usage), or by contacting the Buildkite sales team at sales@buildkite.com.
@@ -51,7 +51,7 @@ Dividing the month's GB-days by the number of days in the month gives _GB-months
 
 1. Sum every day of the month to get 35,200 GB-days.
 1. Divide by the 30 days in the month to get 1,173.33 GB-months, then round down to 1,173 GB-months.
-1. Subtract the example 1,024 GB-month allowance to get 149 GB-months, then apply the example $0.05 per GB-month overage rate: `149 × $0.05 = $7.45`.
+1. Subtract the example 1,024 GB-month inclusion to get 149 GB-months, then apply the example $0.05 per GB-month overage rate: `149 × $0.05 = $7.45`.
 
 > 📘 Deleting artifacts
 > Because storage is summed over days, deleting an artifact lowers what you are billed going forward, but it does not refund the days the artifact was already stored.
@@ -62,7 +62,7 @@ Transfer is the artifact data that moves out of storage when it is downloaded. U
 
 For each UTC day, using the same day boundary as storage, total downloads are summed. This includes every download, whether it is a complete object fetch, a byte-range request, or a download that is canceled partway through.
 
-Downloads are charged on total gigabytes downloaded across the billing period. For example, an organization that downloads 12 TB (12,288 GB) in a month, against the example 10 TB (10,240 GB) allowance, has 2 TB (2,048 GB) over the allowance. At the example $0.10 per GB overage rate, that is `2,048 × $0.10 = $204.80`.
+Downloads are charged on total gigabytes downloaded across the billing period. For example, an organization that downloads 12 TB (12,288 GB) in a month, against the example 10 TB (10,240 GB) inclusion, has 2 TB (2,048 GB) over the inclusion. At the example $0.10 per GB overage rate, that is `2,048 × $0.10 = $204.80`.
 
 ## Artifact retention
 
@@ -70,6 +70,6 @@ Artifacts are retained for a limited period that depends on your plan. After the
 
 ## Viewing your usage
 
-The [**Usage** page](https://buildkite.com/organizations/~/usage) shows your artifact storage and transfer usage, the allowances included in your plan, and the projected charges for any usage above those allowances. Reviewing usage during the billing period helps you estimate overage charges before they are invoiced.
+The [**Usage** page](https://buildkite.com/organizations/~/usage) shows your artifact storage and transfer usage, the inclusions in your plan, and the projected charges for any usage above those inclusions. Reviewing usage during the billing period helps you estimate overage charges before they are invoiced.
 
 For more detail on tracking prepaid entitlements against actual usage, see [Viewing prepaid inclusions](/docs/platform/pricing-and-plans#viewing-prepaid-inclusions).
