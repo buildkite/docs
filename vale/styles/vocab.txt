@@ -133,6 +133,7 @@ debuild
 debounces
 declaratively
 deduper
+deduplicates
 deno
 deprioritize
 deprovisioning
