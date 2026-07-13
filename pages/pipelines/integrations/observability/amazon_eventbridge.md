@@ -502,7 +502,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ### Job Finished
 
-These types of events [may contain a `signal_reason` field value](#signal-reason).
+These types of events [may contain a `signal_reason` field value](#signal-reason) and [may contain a `broken_reason` field value](#broken-reason).
 
 ```json
 {
@@ -531,6 +531,7 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "passed": true,
       "soft_failed": false,
       "state": "finished",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": "2019-08-11 06:01:35 UTC",
@@ -582,6 +583,17 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 | `cancel` | The job was cancelled by a user |
 | `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/self-hosted/security/signed-pipelines) |
 | `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
+
+<a id="broken-reason"></a>
+
+#### Broken reason in job finished events
+
+The `broken_reason` field of a [job finished](#events-job-finished) event is `null` when the job is not broken. When present, the value is either a reason code or a free-text skip reason explaining why the job did not run.
+
+| Broken reason | Description |
+| --- | --- |
+| `conditional_failed` | The job's `if` condition evaluated to false and the job was skipped |
+| Free-text string | A human-readable explanation of why the job was skipped, for example when using `skip` with a message |
 
 <a id="events-job-activated"></a>
 
