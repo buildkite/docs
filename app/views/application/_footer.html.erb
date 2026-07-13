@@ -34,8 +34,7 @@
 
   <div class="Footer__heading">Need more help?</div>
   <div class="Footer__links">
-    <% support_email = ("test-analytics".in? request.path) ? "support@buildkite.com" : "support@buildkite.com" %>
-    <a class="Button Button--link" href="mailto:<%= support_email %>">
+    <a class="Button Button--link" href="mailto:support@buildkite.com">
       <img alt="Icon: paper dart" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/email.svg') %>" />
       Email support
     </a>
