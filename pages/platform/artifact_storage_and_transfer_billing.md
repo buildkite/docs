@@ -12,7 +12,7 @@ This page explains how each is calculated and how to track usage against your al
 
 ## How usage is charged
 
-Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at a per-unit overage rate. Uploading artifacts to Buildkite is not charged as transfer, so only downloads count towards the transfer allowance.
+Each billing period includes an allowance for storage and for downloads. Usage above the allowance is charged at a per-unit overage rate. 
 
 The examples on this page use the following figures to show how the calculation works:
 
