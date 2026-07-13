@@ -1398,6 +1398,106 @@ Error responses:
 </tbody>
 </table>
 
+## GitHub webhook processing
+
+These endpoints let you get, enable, or disable incoming GitHub webhook processing for a pipeline. They are only available for GitHub and GitHub Enterprise pipelines, and your organization must be enrolled in the expanded webhook triggers feature.
+
+> 📘 Feature availability
+> These endpoints return `404 Not Found` if your organization is not enrolled in the expanded webhook triggers feature, or if the pipeline is not connected to a GitHub or GitHub Enterprise repository.
+
+### GitHub webhook processing data model
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the github-webhooks sub-resource</td>
+  </tr>
+  <tr>
+    <th><code>enabled</code></th>
+    <td>Whether incoming GitHub webhook processing is enabled for this pipeline</td>
+  </tr>
+  <tr>
+    <th><code>disabled_at</code></th>
+    <td>The time webhook processing was disabled, or <code>null</code> when enabled</td>
+  </tr>
+  <tr>
+    <th><code>disabled_by</code></th>
+    <td>The name of the user who disabled webhook processing, or <code>null</code> when enabled</td>
+  </tr>
+</tbody>
+</table>
+
+### Get GitHub webhook processing state
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/github-webhooks"
+```
+
+Required scope: `read_pipelines`
+
+Required permission: `edit_project`
+
+Success response: `200 OK`
+
+```json
+{
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/github-webhooks",
+  "enabled": true,
+  "disabled_at": null,
+  "disabled_by": null
+}
+```
+
+### Enable GitHub webhook processing
+
+Enables incoming webhook processing for the pipeline. This operation is idempotent—if webhook processing is already enabled, the current state is returned with no side effects.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/github-webhooks"
+```
+
+Required scope: `write_pipelines`
+
+Required permission: `edit_project`
+
+Success response: `200 OK`
+
+```json
+{
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/github-webhooks",
+  "enabled": true,
+  "disabled_at": null,
+  "disabled_by": null
+}
+```
+
+### Disable GitHub webhook processing
+
+Disables incoming webhook processing for the pipeline and records who disabled it and when. This operation is idempotent—if webhook processing is already disabled, the current state is returned with no side effects.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/github-webhooks"
+```
+
+Required scope: `write_pipelines`
+
+Required permission: `edit_project`
+
+Success response: `200 OK`
+
+```json
+{
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/github-webhooks",
+  "enabled": false,
+  "disabled_at": "2024-01-15T09:30:00.000Z",
+  "disabled_by": "Jane Doe"
+}
+```
+
 ## Provider settings properties
 
 The [Create a YAML pipeline](#create-a-yaml-pipeline) and [Update pipeline](#update-a-pipeline) endpoints accept a `provider_settings` property, which allows you to configure how the pipeline is triggered based on source code provider events. Each pipeline provider's supported settings are below.
