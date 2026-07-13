@@ -232,7 +232,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       },
       {
         title: "Artifact retention",
-        description: "The maximum number of days artifacts are stored.",
+        description: "The maximum number of days artifacts are stored. See <a href=\"/docs/platform/artifact-storage-and-transfer-billing#artifact-retention\">Artifacts billing</a> for how retention relates to storage usage.",
         default_value: "180 days"
       },
       {
