@@ -395,6 +395,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "passed": false,
       "soft_failed": false,
       "state": "assigned",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": null,
       "finished_at": null,
@@ -462,6 +463,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "passed": false,
       "soft_failed": false,
       "state": "started",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": null,
@@ -593,6 +595,11 @@ The `broken_reason` field of a [job finished](#events-job-finished) event is `nu
 | Broken reason | Description |
 | --- | --- |
 | `conditional_failed` | The job's `if` condition evaluated to false and the job was skipped |
+| `no_agents` | No agents were available to run the job |
+| `legacy_step` | The job used a legacy step type that could not run |
+| `branch_mismatch` | The build's branch did not match the step's branch conditions |
+| `optimizer_removed` | The pipeline optimizer removed the job |
+| `parallelism_zero` | The step's parallelism was set to `0` |
 | Free-text string | A human-readable explanation of why the job was skipped, for example when using `skip` with a message |
 
 <a id="events-job-activated"></a>
@@ -623,6 +630,7 @@ The `broken_reason` field of a [job finished](#events-job-finished) event is `nu
       "passed": false,
       "soft_failed": false,
       "state": "finished",
+      "broken_reason": null,
       "runnable_at": null,
       "started_at": null,
       "finished_at": null,
@@ -696,6 +704,7 @@ The `promised_exit_status_reason` field is included at the top level of the even
       "passed": false,
       "soft_failed": false,
       "state": "running",
+      "broken_reason": null,
       "runnable_at": "2026-06-03 04:14:00 UTC",
       "started_at": "2026-06-03 04:14:10 UTC",
       "finished_at": null,

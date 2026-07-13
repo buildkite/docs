@@ -175,8 +175,12 @@ bk job log <job-id> [flags]
 | --- | --- |
 | `-b`, `--build-number=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `-p`, `--pipeline=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
+| `--agent` | Format output to be optimal for LLM consumption (strips ANSI, deduplicates loops) |
 | `--debug` | Enable debug output for REST API calls |
+| `--format="plain"` | Output rendering for --agent: plain or markdown |
+| `--max-tokens=INT` | Hard ceiling on the estimated token count of --agent output (0 = unlimited) |
 | `--no-timestamps` | Strip timestamp prefixes from log output |
+| `--no-window` | Disable failure-focused windowing in --agent output (keep all lines) |
 
 ### Examples
 
@@ -190,6 +194,18 @@ Strip timestamp prefixes from output:
 
 ```bash
 bk job log 0190046e-e199-453b-a302-a21a4d649d31 --no-timestamps
+```
+
+Format for LLM consumption:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 --agent
+```
+
+Format for LLM as markdown, capped at 2000 tokens, keeping all lines:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 --agent --format markdown --max-tokens 2000 --no-window
 ```
 
 ## Reprioritize job
