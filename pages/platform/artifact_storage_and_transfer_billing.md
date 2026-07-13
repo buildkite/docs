@@ -60,7 +60,7 @@ Dividing the month's GB-days by the number of days in the month gives _GB-months
 
 Transfer is the artifact data that moves out of storage when it is downloaded. Uploads are not counted.
 
-Downloads are counted from the storage access logs. For each UTC day, using the same day boundary as storage, every download is totaled per organization and pipeline. Both full and partial downloads are counted, so the total captures every download, whether it is a complete object fetch, a byte-range request, or a download that is canceled partway through.
+For each UTC day, using the same day boundary as storage, total downloads are summed. This includes every download, whether it is a complete object fetch, a byte-range request, or a download that is canceled partway through.
 
 Downloads are charged on total gigabytes downloaded across the billing period. For example, an organization that downloads 12 TB (12,288 GB) in a month, against the example 10 TB (10,240 GB) allowance, has 2 TB (2,048 GB) over the allowance. At the example $0.10 per GB overage rate, that is `2,048 × $0.10 = $204.80`.
 
