@@ -127,9 +127,9 @@ steps:
 
 ### Omitting the closing step
 
-If you leave out the closing gate step, the gate stops enforcing anything. The opening step finishes almost immediately and frees the group's slot right away. A second build's opening step can then enter immediately after, and its gated work runs concurrently with the first build's. Without a closing step, nothing is left in the concurrency group to hold the slot while the gated work is in progress.
+If you leave out the closing gate step, the gate stops enforcing concurrency over the intervening work. The opening step finishes almost immediately and frees the group's slot right away. A second build's opening step can then enter immediately after, and its gated work runs concurrently with the first build's. Without a closing step, nothing is left in the concurrency group to hold the slot while the gated work is in progress.
 
-### Using a concurrency limit greater than 1
+### Using a concurrency limit greater than one
 
 Setting `concurrency` above `1` on both the opening and closing steps changes the gate from strict serialization to a bounded number of builds running through the gate at once. For example, with `concurrency: 2`, up to two builds can be inside the gate at the same time, each running its own gated work in parallel with the other. A third build's opening step isn't let through until one of the two builds currently inside the gate finishes its closing step and frees a slot. This is useful when you want to bound how many gated operations, such as deployments, can be in flight at once, without limiting it to exactly one.
 
