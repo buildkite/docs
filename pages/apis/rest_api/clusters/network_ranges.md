@@ -31,7 +31,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 [
   {
-    "cidr_range": "64.6.39.248/29",
+    "cidr_range": "203.0.113.0/29",
     "kind": "NAMESPACE_MANAGED"
   }
 ]
