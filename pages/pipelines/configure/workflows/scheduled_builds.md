@@ -81,6 +81,10 @@ You can also use the offset + operator alongside a modulo value. For instance, a
 
 For more information on how modulo works, see the official documentation of [Fugit](https://github.com/floraison/fugit?tab=readme-ov-file#the-modulo-extension), which is used for extending the POSIX cron syntax in Buildkite.
 
+#### Unsupported syntax
+
+The `~` random-value operator (for example, `0 ~ * * *`) is not supported in Buildkite pipeline schedules and will be rejected at validation time.
+
 #### Examples
 
 <table>
