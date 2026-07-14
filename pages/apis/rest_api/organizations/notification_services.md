@@ -40,7 +40,7 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Resources covered by the service. One of <code>all</code>, <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>.</td>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters.</td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
@@ -255,7 +255,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>One of <code>all</code> (the default), <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>.</td>
+    <td>Determines which pipelines the service applies to. Accepts <code>all</code> (the default), <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>.</td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
