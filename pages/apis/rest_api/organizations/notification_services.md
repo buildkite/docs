@@ -243,7 +243,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 <tbody>
   <tr>
     <th><code>provider</code></th>
-    <td>Required. Provider identifier. See <a href="#providers">Providers</a>.</td>
+    <td>Required. Provider identifier. See <a href="#create-a-notification-service-providers">Providers</a>.</td>
   </tr>
   <tr>
     <th><code>description</code></th>
@@ -267,7 +267,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   </tr>
   <tr>
     <th><code>settings</code></th>
-    <td>Provider-specific configuration. See <a href="#providers">Providers</a>.</td>
+    <td>Provider-specific configuration. See <a href="#create-a-notification-service-providers">Providers</a>.</td>
   </tr>
 </tbody>
 </table>
