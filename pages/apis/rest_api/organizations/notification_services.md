@@ -28,7 +28,7 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>provider</code></th>
-    <td>Object containing the provider <code>id</code> and display <code>name</code>.</td>
+    <td>Object identifying the provider. For example, <code>{ "id": "webhook", "name": "Webhook" }</code>.</td>
   </tr>
   <tr>
     <th><code>description</code></th>
