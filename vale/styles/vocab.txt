@@ -4,6 +4,7 @@ agentic
 allow_any_instance_of
 allowlist
 allowlisted
+allowlisting
 allowlists
 Amazon ECR
 Amazon Elastic Container Registry
