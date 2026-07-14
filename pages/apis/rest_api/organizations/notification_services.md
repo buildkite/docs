@@ -40,11 +40,11 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters.</td>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters.</td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
-    <td>UUIDs of the pipelines, teams, or clusters covered when <code>scope</code> is a <code>some_*</code> value.</td>
+    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Empty when <code>scope</code> is <code>all</code>.</td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -255,11 +255,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Determines which pipelines the service applies to. Accepts <code>all</code> (the default), <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>.</td>
+    <td>Determines which pipelines the service applies to. Accepts <code>all</code> (the default), <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>. For a <code>some_*</code> scope, use <code>scope_uuids</code> to identify the selected pipelines, teams, or clusters.</td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
-    <td>UUIDs from the organization that correspond to a <code>some_*</code> scope.</td>
+    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>.</td>
   </tr>
   <tr>
     <th><code>build_states</code></th>
