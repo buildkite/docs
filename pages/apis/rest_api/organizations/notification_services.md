@@ -20,7 +20,7 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>graphql_id</code></th>
-    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the notification service. This is <code>null</code> for providers without a corresponding GraphQL node type.</td>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the notification service, or <code>null</code> if unavailable.</td>
   </tr>
   <tr>
     <th><code>url</code></th>
