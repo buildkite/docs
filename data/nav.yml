@@ -1109,6 +1109,10 @@
               path: "apis/rest-api/test-engine/suites"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
+        - name: "Test Scheduler"
+          children:
+            - name: "Pools"
+              path: "apis/rest-api/test-scheduler-pools"
     - name: "GraphQL"
       children:
         - name: Overview
