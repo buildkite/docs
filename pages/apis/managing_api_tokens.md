@@ -90,7 +90,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
       {
         name: "Notification Services",
         key: "read_notification_services, write_notification_services",
-        description: "List and retrieve notification services—create, update, delete, enable, and disable notification services.",
+        description: "List and retrieve notification services. Create, update, delete, enable, and disable notification services.",
         read: true, write: true, delete: false
       },
       {

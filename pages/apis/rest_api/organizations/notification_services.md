@@ -5,7 +5,7 @@ The notification services API lets you manage the organization-level integration
 List and get operations require the `read_notification_services` [access token scope](/docs/apis/managing-api-tokens#token-scopes). Create, update, delete, enable, and disable operations require the `write_notification_services` scope. All operations also require the authenticated user to have the **Change Notification Services** [organization permission](/docs/pipelines/security/permissions).
 
 > 📘 Notification service visibility
-> These endpoints exclude hosted agent dispatch webhooks and Package Registries notification services. The Event Log API provider is returned only when it is enabled for the organization.
+> These endpoints exclude hosted agent dispatch webhooks and Buildkite Package Registries notification services. The Event Log API provider is returned only when it is enabled for the organization.
 
 ## Notification service data model
 
