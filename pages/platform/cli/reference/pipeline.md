@@ -233,7 +233,7 @@ Output as JSON:
 bk pipeline list --name pipeline -o json
 ```
 
-Use with other commands (e.g., get longest builds from matching pipelines):
+Use with other commands (for example, get longest builds from matching pipelines):
 
 ```bash
 bk pipeline list --name pipeline | xargs -I {} bk build list --pipeline {} --since 48h --duration 1h
