@@ -1,6 +1,6 @@
 # Test Scheduler pools API
 
-The Test Scheduler pools API provides endpoints for managing test pools. Test pools are scoped to an organization, test suite, pipeline, and build, and are accessed using a suite-scoped [OIDC token](/docs/pipelines/security/oidc).
+The Test Scheduler pools API provides endpoints for managing test pools. Test pools are scoped to an organization, test suite, pipeline, and build. They are accessed using a suite-scoped [OIDC token](/docs/pipelines/security/oidc).
 
 ## List pools
 
