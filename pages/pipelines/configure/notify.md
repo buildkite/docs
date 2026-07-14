@@ -267,6 +267,9 @@ GitHub checks provide richer status information than commit statuses, including 
 > GitHub checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub commit status](#github-commit-status) notifications instead.
 > GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
+> 📘 Skipped builds
+> The commit status API only supports `pending`, `success`, `failure`, and `error`. Automatic commit statuses and [`github_commit_status`](#github-commit-status) report [skipped builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds) as failed. `github_check` reports them as `neutral`. If you use `github_check` for status reporting, disable **Update commit statuses** in your pipeline's GitHub settings. Automatic updates still use the commit status API.
+
 Add a GitHub check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
 
 ```yaml
