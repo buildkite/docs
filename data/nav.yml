@@ -1032,6 +1032,8 @@
               path: "apis/rest-api/organizations/audit-events"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
+            - name: "Notification services"
+              path: "apis/rest-api/organizations/notification-services"
             - name: "Rate limits"
               path: "apis/rest-api/organizations/rate-limits"
             - name: "Pipeline settings"

@@ -420,6 +420,7 @@
   apis/rest-api/organizations/api-settings: "REST endpoints to read and update an organization's API security settings: IP allowlist, inactive token revocation policy, and restriction of user token creation."
   apis/rest-api/organizations/audit-events: "REST endpoints to list and retrieve an organization's audit log events (Enterprise plan)."
   apis/rest-api/organizations/members: "REST endpoints to list, retrieve, update, and remove members of a Buildkite organization."
+  apis/rest-api/organizations/notification-services: "REST endpoints to list, get, create, update, delete, enable, and disable organization notification services."
   apis/rest-api/organizations/rate-limits: "REST endpoint to query an organization's current REST and GraphQL API rate limit status."
   apis/rest-api/organizations/pipeline-settings: "REST endpoints to read and update organization-level pipeline settings, including default branch, timeouts, hosted agents SSH access, public pipeline creation, advanced queue metrics, and build exports (admin only)."
   apis/rest-api/package-registries/registries: "REST endpoints to create, list, get, update, and delete package registries."
