@@ -28,7 +28,7 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>provider</code></th>
-    <td>Object identifying the provider. For example, <code>{ "id": "datadog_pipeline_visibility", "name": "Datadog Pipeline Visibility" }</code>.</td>
+    <td>The notification service type, including a machine-readable <code>id</code>, such as <code>webhook</code>, <code>aws_event_bridge</code>, or <code>open_telemetry_tracing</code>, and a display <code>name</code>.</td>
   </tr>
   <tr>
     <th><code>description</code></th>
