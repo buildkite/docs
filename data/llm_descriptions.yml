@@ -431,7 +431,7 @@
   apis/rest-api/agents: "REST endpoints to list, get, stop, pause, and resume agents."
   apis/rest-api/annotations: "REST endpoints to list and create Markdown annotations on builds."
   apis/rest-api/artifacts: "REST endpoints to list and download build artifacts by build or job."
-  apis/rest-api/builds: "Full Builds REST API reference: use exclude_jobs=true for build state and metadata requests, including polling, branch, commit, creator, and timestamps; use exclude_pipeline=true when expanded pipeline information is unnecessary; fetch embedded jobs only when job information is needed. Covers build and job data models, timestamps, list and get endpoints, build creation and cancellation, rebuilds, and retries."
+  apis/rest-api/builds: "Full Builds REST API reference: use exclude_jobs=true when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps; use exclude_pipeline=true when expanded pipeline information is unnecessary; fetch embedded jobs only when job information is needed. Covers build and job data models, timestamps, list and get endpoints, build creation and cancellation, rebuilds, and retries."
   apis/rest-api/clusters: "REST endpoints to create, list, get, update, and delete clusters."
   apis/rest-api/clusters/queues: "REST endpoints to create, list, get, update, pause, resume, and delete cluster queues."
   apis/rest-api/clusters/agent-tokens: "REST endpoints to create, list, get, update, and revoke cluster agent tokens."

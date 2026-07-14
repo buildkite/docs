@@ -348,7 +348,7 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds acr
 If using token-based authentication the list of builds will be for the authorized organizations only.
 Builds are listed in the order they were created (newest first).
 
-Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -379,7 +379,7 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's builds across all of an organization's pipelines.
 Builds are listed in the order they were created (newest first).
 
-Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -410,7 +410,7 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's builds.
 Builds are listed in the order they were created (newest first).
 
-Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -572,7 +572,7 @@ Error responses:
 
 ## Get a build
 
-Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -760,7 +760,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   </tr>
   <tr>
     <th><code>exclude_pipeline</code></th>
-    <td>Exclude the expanded pipeline information from the build's details.<p class="Docs__api-param-eg">
+    <td>Excludes expanded pipeline information from the build's details.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?exclude_pipeline=true</code></p></td>
   </tr>
   <tr>

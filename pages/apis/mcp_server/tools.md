@@ -249,7 +249,7 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
 
 ### Builds
 
-These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) of a [pipeline](#available-mcp-tools-pipelines), create new builds, cancel builds, and retry builds.
+These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) across a Buildkite organization or for a [pipeline](#available-mcp-tools-pipelines), create new builds, cancel builds, and retry builds.
 
 <table>
   <thead>
@@ -262,7 +262,7 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
     <% [
       {
         "tool": "list_builds",
-        "description": "Uses the [List builds for a pipeline](/docs/apis/rest-api/builds#list-builds-for-a-pipeline) REST API endpoint to list build summaries with state, commit information, and metadata. The summaries exclude jobs and expanded pipeline information. Use `list_jobs` when you need job information.",
+        "description": "Uses the [List builds for an organization](/docs/apis/rest-api/builds#list-builds-for-an-organization) REST API endpoint when `pipeline_slug` is omitted, or the [List builds for a pipeline](/docs/apis/rest-api/builds#list-builds-for-a-pipeline) endpoint when it is provided. Both modes return lightweight summaries with each build's state, branch, commit, message, URL, and creation time. The summaries exclude jobs and expanded pipeline information. Use `list_jobs` when you need job information.",
         "scope": "read_builds"
       },
       {
@@ -324,12 +324,12 @@ These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jo
     <% [
       {
         "tool": "list_jobs",
-        "description": "Uses the [List jobs](/docs/apis/rest-api/jobs#list-jobs) REST API endpoint to list jobs for a build.",
+        "description": "Uses the [List jobs](/docs/apis/rest-api/jobs#list-jobs) REST API endpoint to list jobs for a build, with optional state filtering and cursor-based pagination.",
         "scope": "read_builds"
       },
       {
         "tool": "get_job",
-        "description": "Uses the [Get a job](/docs/apis/rest-api/jobs#get-a-job) REST API endpoint to retrieve information about a specific job in a build.",
+        "description": "Uses the [Get a job](/docs/apis/rest-api/jobs#get-a-job) REST API endpoint to retrieve a job by UUID. Provide `pipeline_slug` and `build_number` for a build-scoped lookup, or omit both for an organization-scoped lookup.",
         "scope": "read_builds"
       },
       {
