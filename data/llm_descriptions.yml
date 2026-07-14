@@ -438,6 +438,7 @@
   apis/rest-api/clusters/maintainers: "REST endpoints to list, create, get, and delete cluster maintainer assignments."
   apis/rest-api/clusters/secrets: "REST endpoints to create, list, get, update, and delete secrets in a cluster."
   apis/rest-api/clusters/agent-images: "REST endpoints to list, get, create, and delete custom Dockerfile-based agent images for Buildkite hosted agents in a cluster."
+  apis/rest-api/clusters/network-ranges: "REST endpoint to list egress network ranges (IP CIDR blocks) for a Buildkite hosted agent cluster."
   apis/rest-api/jobs: "REST endpoints to list, get, retry, unblock, get log output, get environment variables, and delete jobs."
   apis/rest-api/pipeline-templates: "REST endpoints to create and manage pipeline templates (Enterprise plan)."
   apis/rest-api/rules: "REST endpoints to create, list, get, and delete organization rules."
