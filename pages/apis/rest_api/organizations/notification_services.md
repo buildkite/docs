@@ -56,7 +56,7 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>settings</code></th>
-    <td>Provider-specific configuration. See <a href="#settings-and-secret-handling">Settings and secret handling</a>.</td>
+    <td>Provider-specific configuration. See <a href="#notification-service-data-model-settings-and-secret-handling">Settings and secret handling</a>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
