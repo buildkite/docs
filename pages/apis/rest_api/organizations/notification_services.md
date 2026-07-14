@@ -243,27 +243,27 @@ curl -H "Authorization: Bearer $TOKEN" \
 <tbody>
   <tr>
     <th><code>provider</code></th>
-    <td>Required. Provider identifier. See <a href="#create-a-notification-service-providers">Providers</a>.</td>
+    <td>Required. Machine-readable notification service type, such as <code>webhook</code>, <code>aws_event_bridge</code>, or <code>open_telemetry_tracing</code>. See <a href="#create-a-notification-service-providers">Providers</a>.</td>
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>Human-readable description.</td>
+    <td>User-provided description of the notification service.</td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>Branch filter pattern. For example, <code>main feature/*</code>.</td>
+    <td>Branch filter pattern. For example, <code>main feature/*</code>. An empty string means all branches.</td>
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Determines which pipelines the service applies to. Accepts <code>all</code> (the default), <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>. For a <code>some_*</code> scope, use <code>scope_uuids</code> to identify the selected pipelines, teams, or clusters.</td>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters. Defaults to <code>all</code>.</td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
-    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>.</td>
+    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Omit when <code>scope</code> is <code>all</code>.</td>
   </tr>
   <tr>
     <th><code>build_states</code></th>
-    <td>Object with boolean values for <code>build_passed</code>, <code>build_fixed</code>, <code>build_failed</code>, <code>build_blocked</code>, <code>build_canceled</code>, <code>build_failing</code>, and <code>job_activated</code>.</td>
+    <td>Object whose keys are build or job states and whose boolean values indicate whether that state triggers a notification. Supported keys are <code>build_passed</code>, <code>build_fixed</code>, <code>build_failed</code>, <code>build_blocked</code>, <code>build_canceled</code>, <code>build_failing</code>, and <code>job_activated</code>.</td>
   </tr>
   <tr>
     <th><code>settings</code></th>
