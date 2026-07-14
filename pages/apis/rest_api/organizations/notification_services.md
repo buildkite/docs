@@ -2,10 +2,11 @@
 
 The notification services API lets you manage the organization-level integrations that send build and job notifications to services such as Slack, webhooks, Amazon EventBridge, Datadog, and OpenTelemetry.
 
-List and get operations require the `read_notification_services` [access token scope](/docs/apis/managing-api-tokens#token-scopes). Create, update, delete, enable, and disable operations require the `write_notification_services` scope. All operations also require the authenticated user to have the **Change Notification Services** [organization permission](/docs/pipelines/security/permissions).
-
-> 📘 Notification service visibility
-> These endpoints exclude hosted agent dispatch webhooks and Buildkite Package Registries notification services. The Event Log API provider is returned only when it is enabled for the organization.
+> 📘 Required permissions
+> These endpoints require both an API access token scope and sufficient organization access for the user who owns the token:
+> - List and get operations require the `read_notification_services` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Create, update, delete, enable, and disable operations require the `write_notification_services` scope.
+> The user who owns the token must be an organization administrator. Other organization members can use these endpoints when [**Manage Notification Services**](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) is enabled across the organization.
 
 ## Notification service data model
 
