@@ -88,6 +88,7 @@ enum APIAccessTokenScopes {
   READ_JOB_ENV
   READ_NOTIFICATION_SERVICES
   READ_ORGANIZATIONS
+  READ_ORGANIZATION_REPOSITORY_CONNECTIONS
   READ_ORGANIZATION_SETTINGS
   READ_PACKAGES
   READ_PIPELINES
@@ -4802,6 +4803,12 @@ type JobTypeCommand implements JobInterface & Node {
   A glob of files to automatically upload after the job finishes
   """
   automaticArtifactUploadPaths: String
+
+  """
+  Why the job is broken: a reason code (e.g. `conditional_failed`,
+  `branch_mismatch`) or a free-text skip reason. Null unless the job is broken.
+  """
+  brokenReason: String
 
   """
   The build that this job is a part of
