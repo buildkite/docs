@@ -262,12 +262,12 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
     <% [
       {
         "tool": "list_builds",
-        "description": "Uses the [List all builds](/docs/apis/rest-api/builds#list-all-builds) REST API endpoint to list all builds for a pipeline with their status, commit information, and metadata.",
+        "description": "Uses the [List builds for a pipeline](/docs/apis/rest-api/builds#list-builds-for-a-pipeline) REST API endpoint to list build summaries with state, commit information, and metadata. The summaries exclude jobs and expanded pipeline information. Use `list_jobs` when you need job information.",
         "scope": "read_builds"
       },
       {
         "tool": "get_build",
-        "description": "Uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve detailed information about a specific build including its jobs, timing, and execution details.",
+        "description": "Uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve metadata for a specific build without jobs or expanded pipeline information. Use `list_jobs` or `get_job` when you need job information.",
         "scope": "read_builds"
       },
       {
@@ -322,6 +322,16 @@ These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jo
   </thead>
   <tbody>
     <% [
+      {
+        "tool": "list_jobs",
+        "description": "Uses the [List jobs](/docs/apis/rest-api/jobs#list-jobs) REST API endpoint to list jobs for a build.",
+        "scope": "read_builds"
+      },
+      {
+        "tool": "get_job",
+        "description": "Uses the [Get a job](/docs/apis/rest-api/jobs#get-a-job) REST API endpoint to retrieve information about a specific job in a build.",
+        "scope": "read_builds"
+      },
       {
         "tool": "unblock_job",
         "description": "Uses the [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job) REST API endpoint to unblock a blocked job in a Buildkite build to allow it to continue execution.",
