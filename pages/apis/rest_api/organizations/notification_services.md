@@ -24,7 +24,7 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>url</code></th>
-    <td>Canonical REST API URL of the notification service.</td>
+    <td>Canonical API URL of the notification service.</td>
   </tr>
   <tr>
     <th><code>provider</code></th>
