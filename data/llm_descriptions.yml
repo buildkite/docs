@@ -451,6 +451,7 @@
   apis/rest-api/test-engine/runs: "REST endpoints to list and get test suite runs."
   apis/rest-api/test-engine/suites: "REST endpoints to list, get, create, update, and delete test suites."
   apis/rest-api/test-engine/tests: "REST endpoints to list and get individual tests with filtering by label, state, and scope."
+  apis/rest-api/test-scheduler-pools: "REST endpoints to list, get, and create Test Scheduler pools scoped to an organization, test suite, pipeline, and build using suite-scoped OIDC authentication."
   apis/graphql-api: "GraphQL API overview: endpoint, authentication, explorer console, introspection, and IDs."
   apis/graphql/graphql-tutorial: "Tutorial for running GraphQL queries using the Buildkite console and command line."
   apis/graphql/graphql-cookbook: "Index of GraphQL recipe collections for agents, builds, clusters, pipelines, teams, and more."
