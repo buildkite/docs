@@ -78,9 +78,9 @@ Both steps share the same `concurrency_group` and set `concurrency: 1`, so they 
 
 This works because of how concurrency groups order jobs. Jobs in a group run in the order they were created, and every job in a build inherits that build's creation time, as described under [Concurrency groups](#concurrency-groups) above.
 
-Consider two builds of this pipeline, where build A starts before build B. Both of build A's gate steps are older, by creation time, than both of build B's gate steps. Build A's opening step takes the group's one slot, runs, and finishes almost immediately, freeing the slot. That slot goes to the next oldest job in the group, which is build A's own closing step, not build B's opening step, even though build A's closing step can't run yet because it's still waiting on the steps in between to finish. Build B's opening step stays behind it in the group's creation-time order, so it has to wait until build A's closing step actually completes before it can take the slot for itself.
+Consider two builds of this pipeline, where build A starts before build B. Both of build A's gate steps are older, by creation time, than both of build B's gate steps. Build A's opening step takes the group's one slot, runs, and finishes almost immediately, freeing the slot. That slot goes to the next oldest job in the group, which is build A's own closing step, not build B's opening step. Build A's closing step can't run yet, though, because it's still waiting on the steps in between to finish. Build B's opening step stays behind it in the group's creation-time order. It has to wait until build A's closing step actually completes before it can take the slot for itself.
 
-A step that depends on a gate step inherits this same ordering. Depending on a step that's in a concurrency group creates an implicit dependency on the rest of the steps in that group, as described under [Order of operations](/docs/pipelines/configure/depends_on#order-of-operations) in the `depends_on` documentation.
+A step that depends on a gate step inherits this same ordering. Depending on a step that's in a concurrency group creates an implicit dependency on the rest of the steps in that group, as described under [Order of operations](/docs/pipelines/configure/depends-on#order-of-operations) in the `depends_on` documentation.
 
 The net effect is that only one build's worth of gated work runs at a time, even though the work between the gates isn't itself in any concurrency group.
 
@@ -127,7 +127,7 @@ steps:
 
 ### Omitting the closing step
 
-If you leave out the closing gate step, the gate stops enforcing anything. The opening step finishes almost immediately and frees the group's slot right away, so a second build's opening step can enter immediately afterwards, and its gated work runs concurrently with the first build's. Without a closing step, nothing is left in the concurrency group to hold the slot while the gated work is in progress.
+If you leave out the closing gate step, the gate stops enforcing anything. The opening step finishes almost immediately and frees the group's slot right away. A second build's opening step can then enter immediately after, and its gated work runs concurrently with the first build's. Without a closing step, nothing is left in the concurrency group to hold the slot while the gated work is in progress.
 
 ### Using a concurrency limit greater than 1
 
