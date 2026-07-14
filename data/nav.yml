@@ -1074,6 +1074,8 @@
                   path: "apis/rest-api/clusters/secrets"
                 - name: "Agent images"
                   path: "apis/rest-api/clusters/agent-images"
+                - name: "Network ranges"
+                  path: "apis/rest-api/clusters/network-ranges"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"
