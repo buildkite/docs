@@ -213,7 +213,7 @@ Required scope: `read_notification_services`
 
 Success response: `200 OK`
 
-Error response: `404 Not Found` when the UUID does not identify a visible notification service in the organization.
+Error response: `404 Not Found` when no notification service is found for the UUID in the organization.
 
 ## Create a notification service
 
@@ -345,7 +345,7 @@ Required scope: `write_notification_services`
 
 Success response: `200 OK`
 
-Error responses: `404 Not Found` when the service is not visible, or `422 Unprocessable Entity` when the update is invalid.
+Error responses: `404 Not Found` when the notification service cannot be found, or `422 Unprocessable Entity` when the update is invalid.
 
 ## Delete a notification service
 
@@ -360,7 +360,7 @@ Required scope: `write_notification_services`
 
 Success response: `204 No Content`
 
-Error responses: `404 Not Found` when the service is not visible, or `422 Unprocessable Entity` when Buildkite cannot remove the provider configuration.
+Error responses: `404 Not Found` when the notification service cannot be found, or `422 Unprocessable Entity` when Buildkite cannot remove the provider configuration.
 
 ## Enable a notification service
 
@@ -375,7 +375,7 @@ Required scope: `write_notification_services`
 
 Success response: `200 OK`
 
-Error response: `404 Not Found` when the service is not visible.
+Error response: `404 Not Found` when the notification service cannot be found.
 
 ## Disable a notification service
 
@@ -390,4 +390,4 @@ Required scope: `write_notification_services`
 
 Success response: `200 OK`
 
-Error response: `404 Not Found` when the service is not visible.
+Error response: `404 Not Found` when the notification service cannot be found.
