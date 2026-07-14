@@ -27,8 +27,13 @@
   </tr>
   <tr>
     <th><code>exclude_jobs</code></th>
-    <td><span>Excludes the list of jobs from each build's details</span>
+    <td><span>Excludes the list of jobs from each build's details. Use this for state, polling, branch, commit, creator, and timestamp requests. Fetch embedded jobs only when you need job information.</span>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
+    <th><code>exclude_pipeline</code></th>
+    <td><span>Excludes expanded pipeline information from each build's details. Use this when you do not need pipeline information.</span>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>?exclude_pipeline=true</code></p></td>
   </tr>
   <tr>
     <th><code>finished_from</code></th>

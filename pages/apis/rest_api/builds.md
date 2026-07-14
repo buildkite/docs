@@ -348,9 +348,11 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds acr
 If using token-based authentication the list of builds will be for the authorized organizations only.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/builds"
+  -X GET "https://api.buildkite.com/v2/builds?exclude_jobs=true"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -377,9 +379,11 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's builds across all of an organization's pipelines.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds?exclude_jobs=true"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -406,10 +410,14 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's builds.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds?exclude_jobs=true"
 ```
+
+The following response shows the embedded jobs returned when you omit `exclude_jobs=true`.
 
 ```json
 [
@@ -564,12 +572,16 @@ Error responses:
 
 ## Get a build
 
+Use `exclude_jobs=true` when retrieving build state or metadata, including branch, commit, creator, and timestamp information. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}?exclude_jobs=true"
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
+The following response shows the embedded jobs returned when you omit `exclude_jobs=true`.
 
 ```json
 {
@@ -745,6 +757,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <th><code>exclude_jobs</code></th>
     <td>Exclude the list of jobs from the build's details.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
+    <th><code>exclude_pipeline</code></th>
+    <td>Exclude the expanded pipeline information from the build's details.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?exclude_pipeline=true</code></p></td>
   </tr>
   <tr>
     <th><code>include_retried_jobs</code></th>
