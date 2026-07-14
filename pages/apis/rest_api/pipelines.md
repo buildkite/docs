@@ -450,7 +450,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps. Must be non-empty — a missing or blank value returns a <code>422</code> error. Pipelines using a <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> for their steps do not need to supply this field.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code></td>
+    <td>The YAML pipeline that consists of the build pipeline steps. Must be non-empty. A missing or blank value returns a <code>422</code> error. Pipelines using a <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> for their steps do not need to supply this field.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code></td>
   </tr>
   </tbody>
 </table>
