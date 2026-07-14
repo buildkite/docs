@@ -67,6 +67,21 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
 
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>state</code></th>
+    <td>Filters artifacts by state. Valid values: <code>new</code>, <code>error</code>, <code>finished</code>, <code>deleted</code>, <code>expired</code>. Returns a <code>422 Unprocessable Entity</code> error for unknown values. <p class="Docs__api-param-eg"><em>Example:</em> <code>?state=finished</code></p></td>
+  </tr>
+  <tr>
+    <th><code>path</code></th>
+    <td>Filters artifacts by path. Supports exact matches and glob patterns using <code>*</code> as a wildcard. <p class="Docs__api-param-eg"><em>Example:</em> <code>?path=logs/app.log</code> or <code>?path=logs/*</code></p></td>
+  </tr>
+</tbody>
+</table>
+
 ```json
 [
   {
@@ -123,6 +138,21 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id_with_link' %>
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>state</code></th>
+    <td>Filters artifacts by state. Valid values: <code>new</code>, <code>error</code>, <code>finished</code>, <code>deleted</code>, <code>expired</code>. Returns a <code>422 Unprocessable Entity</code> error for unknown values. <p class="Docs__api-param-eg"><em>Example:</em> <code>?state=finished</code></p></td>
+  </tr>
+  <tr>
+    <th><code>path</code></th>
+    <td>Filters artifacts by path. Supports exact matches and glob patterns using <code>*</code> as a wildcard. <p class="Docs__api-param-eg"><em>Example:</em> <code>?path=logs/app.log</code> or <code>?path=logs/*</code></p></td>
+  </tr>
+</tbody>
+</table>
 
 ```json
 [
