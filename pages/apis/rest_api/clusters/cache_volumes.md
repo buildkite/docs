@@ -79,7 +79,7 @@ Error responses:
 
 ## Delete a cache volume
 
-Deletes a cache volume by its tag. Cache tags can contain `/` and `;`, so the tag is passed in the request body rather than as a URL path segment.
+Deletes a cache volume by its tag. Cache tags can contain `/` and `;`. The tag is passed in the request body rather than as a URL path segment.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
