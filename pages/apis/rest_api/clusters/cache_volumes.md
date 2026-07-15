@@ -1,8 +1,8 @@
 # Cache volumes
 
-[Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are NVMe storage volumes attached to [Buildkite hosted agents](/docs/agent/buildkite-hosted) in a cluster. Use these endpoints to list and delete a cluster's cache volumes.
+[Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are external volumes attached to [Buildkite hosted agent](/docs/agent/buildkite-hosted) instances in a cluster. Use these endpoints to list and delete a cluster's cache volumes.
 
-This API is available to organizations with Buildkite hosted agents enabled. Non-hosted clusters return an empty list for the list endpoint.
+This API is available to organizations with Buildkite hosted agents enabled. For non-hosted clusters, the list endpoint returns an empty list, and the delete endpoint returns `404 Not Found`.
 
 ## Cache volume data model
 
@@ -114,6 +114,10 @@ Error responses:
     <tr>
       <th><code>404 Not Found</code></th>
       <td><code>{ "message": "No cache volume found for tag: tag-value" }</code></td>
+    </tr>
+    <tr>
+      <th><code>404 Not Found</code></th>
+      <td><code>{ "message": "This cluster has no hosted cache volumes" }</code></td>
     </tr>
     <tr>
       <th><code>503 Service Unavailable</code></th>
