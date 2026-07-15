@@ -8,6 +8,7 @@ The clusters API endpoint lets you create and manage [clusters](#clusters) in yo
 - [Buildkite secrets](/docs/apis/rest-api/clusters/secrets)
 - [Agent images](/docs/apis/rest-api/clusters/agent-images)
 - [Network ranges](/docs/apis/rest-api/clusters/network-ranges)
+- [Cache volumes](/docs/apis/rest-api/clusters/cache-volumes)
 
 ## Clusters
 
