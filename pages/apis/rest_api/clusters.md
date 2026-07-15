@@ -74,6 +74,14 @@ A [Buildkite cluster](/docs/pipelines/security/clusters) is an isolated set of a
     <th><code>created_by</code></th>
     <td>User who created the cluster</td>
   </tr>
+  <tr>
+    <th><code>hosted_git_mirror_enabled</code></th>
+    <td>Whether the hosted-agent git mirror cache is enabled for the cluster. Only included in responses for callers with <strong>manage cluster</strong> permission. Only applicable to clusters running <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>.</td>
+  </tr>
+  <tr>
+    <th><code>hosted_container_cache_enabled</code></th>
+    <td>Whether the hosted-agent container cache is enabled for the cluster. Only included in responses for callers with <strong>manage cluster</strong> permission. Only applicable to clusters running <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>.</td>
+  </tr>
 </tbody>
 </table>
 
@@ -174,7 +182,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "email": "sam@example.com",
     "avatar_url": "https://www.gravatar.com/avatar/example",
     "created_at": "2013-08-29T10:10:03.000Z"
-  }
+  },
+  "hosted_git_mirror_enabled": false,
+  "hosted_container_cache_enabled": false
 }
 ```
 
@@ -315,7 +325,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "email": "sam@example.com",
     "avatar_url": "https://www.gravatar.com/avatar/example",
     "created_at": "2013-08-29T10:10:03.000Z"
-  }
+  },
+  "hosted_git_mirror_enabled": false,
+  "hosted_container_cache_enabled": false
 }
 ```
 
@@ -343,6 +355,14 @@ curl -H "Authorization: Bearer $TOKEN" \
     <th><code>default_queue_id</code></th>
     <td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code></td>
   </tr>
+  <tr>
+    <th><code>hosted_git_mirror_enabled</code></th>
+    <td>Enable or disable the hosted-agent git mirror cache for the cluster. Must be <code>true</code> or <code>false</code>. Only applicable to clusters running <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>.<br><em>Example:</em> <code>true</code></td>
+  </tr>
+  <tr>
+    <th><code>hosted_container_cache_enabled</code></th>
+    <td>Enable or disable the hosted-agent container cache for the cluster. Must be <code>true</code> or <code>false</code>. Only applicable to clusters running <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>.<br><em>Example:</em> <code>true</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -357,6 +377,10 @@ Error responses:
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+  </tr>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td>Returned when a change to <code>hosted_git_mirror_enabled</code> could not be synced to the external Namespace installation. The update is rolled back and is safe to retry.</td>
   </tr>
 </tbody>
 </table>
