@@ -3,104 +3,6 @@
 > 🛠 Pre-release software
 > Version 4 of the Buildkite Agent is in beta, and this upgrade guide should not be considered final.
 
-## How to test v4 in beta
-
-You can test Buildkite Agent v4 a number of ways, depending on how you installed or use Buildkite Agent.
-
-### Hosted agents
-
-Buildkite does not presently offer a way to use Buildkite Agent v4 in Hosted Agents in advance of the stable release.
-
-### Self-hosted installations
-
-#### With agent-stack-k8s
-
-In the `values.yaml` used to deploy the agent-stack-k8s Helm chart, set the `config.image` option to a beta-tagged agent image, for example:
-
-```yaml
-config:
-  image: ghcr.io/buildkite/agent:beta
-```
-
-If you are using a custom image derived from the agent image, you will need to build a new custom image based on the beta.
-
-#### With Elastic CI Stack for AWS
-
-When configuring Elastic CI Stack for AWS, set the `BuildkiteAgentRelease` parameter to `beta`.
-
-Note that because the exact beta release of the agent is baked into each release of the stack, you must update to the latest release of Elastic CI Stack to access a more recent beta.
-
-#### Using [install.sh](https://github.com/buildkite/agent/blob/main/install.sh)
-
-Set the environment variable `BETA=true` when executing the install script, for example:
-
-```console
-$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BETA=true bash
-```
-
-#### Ubuntu and Debian
-
-In the APT source list file for Buildkite Agent (usually `/etc/apt/sources.list.d/buildkite-agent.list`), change `stable` to `unstable`, for example:
-
-```diff
--deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main"
-+deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent unstable main"
-```
-
-Then proceed to `sudo apt update` and `sudo apt install buildkite-agent`.
-
-#### Red Hat / CentOS / Amazon Linux
-
-When following the [self-hosted install guide](/docs/agent/self-hosted/install/redhat), replace `/stable/` with `/unstable/` in the command for adding the Yum repository. For example, to install the x86_64 variant:
-
-```console
-$ sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/unstable/x86_64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
-```
-
-#### FreeBSD
-
-v4 is not yet available in the `pkg` system. Manually download and install a FreeBSD binary from the latest v4 release.
-
-#### macOS
-
-Homebrew can be used to install or upgrade to a version 4 release with the `@4` suffix, for example:
-
-```console
-$ brew install buildkite/buildkite/buildkite-agent@4
-```
-
-(The latest release of version 3 is available using `@3`.)
-
-#### Windows
-
-Within an Administrator PowerShell session, add the environment variable `buildkiteAgentBeta=true` before running the installation script. For example:
-
-```console
-PS> $env:buildkiteAgentToken = "<your_token>"
-PS> $env:buildkiteAgentBeta = true
-PS> Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
-```
-
-#### From source
-
-Using the Go compiler, you can build and install Buildkite Agent v4 from source. For example:
-
-```console
-$ go install github.com/buildkite/agent/v4@latest
-```
-
-This typically installs the v4 agent at `~/go/bin/agent`.
-
-#### Validating the install
-
-You can check which version of Buildkite Agent is installed with the `--version` flag:
-
-```console
-$ buildkite-agent --version
-buildkite-agent version 4.0.0-beta.3+12492.5228a73b6906effe729cfe48cfd900f3291b3c3a
-```
-
 ## Breaking changes in v4
 
 Read the following breaking changes carefully to determine if your agent setup, pipelines, or plugins need updating for version 4.
@@ -246,3 +148,198 @@ These CLI flags, environment variables, and agent configuration options have bee
 - `tags-from-ec2` (`BUILDKITE_AGENT_TAGS_FROM_EC2`) - use `tags-from-ec2-meta-data` (`BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA`) instead, which is equivalent.
 - `tags-from-gcp` (`BUILDKITE_AGENT_TAGS_FROM_GCP`) - use `tags-from-gcp-meta-data` (`BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA`) instead, which is equivalent.
 - `disconnect-after-job-timeout` (`BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT`) - use `disconnect-after-idle-timeout` instead, which is equivalent.
+
+
+## How to test v4 in beta
+
+You can test Buildkite Agent v4 a number of ways, depending on how you installed or use Buildkite Agent.
+
+### Hosted agents
+
+Buildkite does not presently offer a way to use Buildkite Agent v4 in Hosted Agents in advance of the stable release.
+
+### Self-hosted installations
+
+#### With agent-stack-k8s
+
+In the `values.yaml` used to deploy the agent-stack-k8s Helm chart, set the `config.image` option to a beta-tagged agent image, for example:
+
+```yaml
+config:
+  image: ghcr.io/buildkite/agent:beta
+```
+
+If you are using a custom image derived from the agent image, you will need to build a new custom image based on the beta.
+
+#### With Elastic CI Stack for AWS
+
+When configuring Elastic CI Stack for AWS, set the `BuildkiteAgentRelease` parameter to `beta`.
+
+Note that because the exact beta release of the agent is baked into each release of the stack, you must update to the latest release of Elastic CI Stack to access a more recent beta.
+
+#### Using [install.sh](https://github.com/buildkite/agent/blob/main/install.sh)
+
+Set the environment variable `BETA=true` when executing the install script, for example:
+
+```console
+$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BETA=true bash
+```
+
+#### Ubuntu and Debian
+
+In the APT source list file for Buildkite Agent (usually `/etc/apt/sources.list.d/buildkite-agent.list`), change `stable` to `unstable`, for example:
+
+```diff
+-deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main
++deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent unstable main
+```
+
+Then proceed to `sudo apt update` and `sudo apt install buildkite-agent`.
+
+#### Red Hat / CentOS / Amazon Linux
+
+When following the [self-hosted install guide](/docs/agent/self-hosted/install/redhat), replace `/stable/` with `/unstable/` in the command for adding the Yum repository. For example, to install the x86_64 variant:
+
+```console
+$ sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/unstable/x86_64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
+```
+
+#### FreeBSD
+
+v4 is not yet available in the `pkg` system. Manually download and install a FreeBSD binary from the latest v4 [release on GitHub](https://github.com/buildkite/agent/releases).
+
+#### macOS
+
+Homebrew can be used to install or upgrade to a version 4 release with the `@4` suffix, for example:
+
+```console
+$ brew install buildkite/buildkite/buildkite-agent@4
+```
+
+(The latest release of version 3 is available using `@3`.)
+
+#### Windows
+
+Within an Administrator PowerShell session, add the environment variable `buildkiteAgentBeta=true` before running the installation script. For example:
+
+```console
+PS> $env:buildkiteAgentToken = "<your_token>"
+PS> $env:buildkiteAgentBeta = true
+PS> Set-ExecutionPolicy Bypass -Scope Process -Force
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+```
+
+#### From source
+
+Using the Go compiler, you can build and install Buildkite Agent v4 from source. For example:
+
+```console
+$ go install github.com/buildkite/agent/v4@latest
+```
+
+This typically installs the v4 agent at `~/go/bin/agent`.
+
+#### Validating the install
+
+You can check which version of Buildkite Agent is installed with the `--version` flag:
+
+```console
+$ buildkite-agent --version
+buildkite-agent version 4.0.0-beta.3+12492.5228a73b6906effe729cfe48cfd900f3291b3c3a
+```
+
+## How to stay on v3 after v4 is released to stable
+
+Once v4 has become stable, you can remain on Buildkite Agent v3 a number of ways, depending on how you installed or use Buildkite Agent.
+
+### Hosted agents
+
+Buildkite does not presently offer a way to choose what agent version is in use on the Hosted Agents platform.
+
+### Self-hosted installations
+
+#### With agent-stack-k8s
+
+In the `values.yaml` used to deploy the agent-stack-k8s Helm chart, set the `config.image` option to an agent image tagged with `oldstable` or `3` (or related tags). For example:
+
+```yaml
+config:
+  image: ghcr.io/buildkite/agent:oldstable
+  # Alternatively:
+  #image: ghcr.io/buildkite/agent:3
+```
+
+If you are using a custom image derived from the agent image, you will need to build your custom image based on one of these images.
+
+#### With Elastic CI Stack for AWS
+
+Elastic CI Stack for AWS from v6.69.0 supports `oldstable` as a value for the `BuildkiteAgentRelease` parameter, which will cause instances to download and install the most recent `oldstable` binary.
+
+#### Using [install.sh](https://github.com/buildkite/agent/blob/main/install.sh)
+
+The script does not choose the most recent release in the oldstable release channel. However, you can choose a specific version to install using the `BUILDKITE_AGENT_VERSION` environment variable:
+
+```console
+$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BUILDKITE_AGENT_VERSION=3.132.0 bash
+```
+
+#### Ubuntu and Debian
+
+In the APT source list file for Buildkite Agent (usually `/etc/apt/sources.list.d/buildkite-agent.list`), change `stable` to `oldstable`, for example:
+
+```diff
+-deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main
++deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent oldstable main
+```
+
+Then proceed to `sudo apt update` and `sudo apt install buildkite-agent`.
+
+#### Red Hat / CentOS / Amazon Linux
+
+When following the [self-hosted install guide](/docs/agent/self-hosted/install/redhat), replace `/stable/` with `/oldstable/` in the command for adding the Yum repository. For example, to install the x86_64 variant:
+
+```console
+$ sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/oldstable/x86_64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
+```
+
+#### FreeBSD
+
+Manually download and install a FreeBSD binary from the latest v3 [release on GitHub](https://github.com/buildkite/agent/releases).
+
+#### macOS
+
+Homebrew can be used to install a version 3 release with the `@3` suffix, for example:
+
+```console
+$ brew install buildkite/buildkite/buildkite-agent@3
+```
+
+#### Windows
+
+The script does not choose the most recent release in the oldstable release channel. However, you can choose a specific version to install using the `buildkiteAgentVersion` environment variable. Within an Administrator PowerShell session, add the environment variable before running the installation script. For example:
+
+```console
+PS> $env:buildkiteAgentToken = "<your_token>"
+PS> $env:buildkiteAgentVersion = "3.132.0"
+PS> Set-ExecutionPolicy Bypass -Scope Process -Force
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+```
+
+#### From source
+
+Using the Go compiler, you can build and install Buildkite Agent v3 from source. For example:
+
+```console
+$ go install github.com/buildkite/agent/v3@latest
+```
+
+This typically installs the agent at `~/go/bin/agent`.
+
+#### Validating the install
+
+You can check which version of Buildkite Agent is installed with the `--version` flag:
+
+```console
+$ buildkite-agent --version
+buildkite-agent version 3.132.0+13129.e1b2453685eda0e266338a4a5dda2f51afc7081a
+```
