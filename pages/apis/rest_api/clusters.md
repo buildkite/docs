@@ -324,7 +324,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "email": "sam@example.com",
     "avatar_url": "https://www.gravatar.com/avatar/example",
     "created_at": "2013-08-29T10:10:03.000Z"
-  }
+  },
+  "hosted_git_mirror_enabled": false,
+  "hosted_container_cache_enabled": false
 }
 ```
 
@@ -377,7 +379,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>503 Service Unavailable</code></th>
-    <td>Returned when the hosted-agent cache setting change could not be synced to the external Namespace installation. The update is rolled back and is safe to retry.</td>
+    <td>Returned when a change to <code>hosted_git_mirror_enabled</code> could not be synced to the external Namespace installation. The update is rolled back and is safe to retry.</td>
   </tr>
 </tbody>
 </table>
