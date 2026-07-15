@@ -156,7 +156,7 @@ Use these questions to check the fit:
 
 - Does one team run fewer than 200 similar builds each day? Start by evaluating the Starter pattern.
 - Do queue contention or security boundaries affect a workload that is growing beyond 200 daily builds? Evaluate the Growth pattern.
-- Do mobile, web, machine learning, or security workloads need different compute and a platform team manages the fleet? Evaluate the Scale pattern.
+- Do mobile, web, machine learning, or security workloads need different compute, and does a platform team manage the fleet? Evaluate the Scale pattern.
 - Do Kubernetes, multi-region availability, per-job isolation, or compliance requirements shape the infrastructure? Evaluate the Enterprise pattern.
 - Do several answers apply? Combine the relevant components, and keep queue ownership and security boundaries explicit.
 
