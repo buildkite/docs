@@ -53,6 +53,19 @@ GET | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Get an organization 
 PATCH | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Update an organization member](/docs/apis/rest-api/organizations/members#update-an-organization-member)
 {: class="responsive-table"}
 
+### Notification services
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/services` | [List notification services](/docs/apis/rest-api/organizations/notification-services#list-notification-services)
+GET | `/v2/organizations/{org.slug}/services/{uuid}` | [Get a notification service](/docs/apis/rest-api/organizations/notification-services#get-a-notification-service)
+POST | `/v2/organizations/{org.slug}/services` | [Create a notification service](/docs/apis/rest-api/organizations/notification-services#create-a-notification-service)
+PATCH | `/v2/organizations/{org.slug}/services/{uuid}` | [Update a notification service](/docs/apis/rest-api/organizations/notification-services#update-a-notification-service)
+DELETE | `/v2/organizations/{org.slug}/services/{uuid}` | [Delete a notification service](/docs/apis/rest-api/organizations/notification-services#delete-a-notification-service)
+PUT | `/v2/organizations/{org.slug}/services/{uuid}/enable` | [Enable a notification service](/docs/apis/rest-api/organizations/notification-services#enable-a-notification-service)
+PUT | `/v2/organizations/{org.slug}/services/{uuid}/disable` | [Disable a notification service](/docs/apis/rest-api/organizations/notification-services#disable-a-notification-service)
+{: class="responsive-table"}
+
 ### Pipelines
 
 Method | Endpoint | Description

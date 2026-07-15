@@ -47,7 +47,7 @@ You can define hooks in the following locations:
 
 - **Agent hooks:** These exist in a pre-configured directory on the agent file system. For [self-hosted agents](/docs/agent/self-hosted), this directory created by your agent installer, and can be configured by the [`hooks-path`](/docs/agent/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle hooks (self-hosted agents only) and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
 
-    **Note:** For [Buildkite hosted agents](/docs/agent/buildkite-hosted), agent hooks are supported on [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only. Agent hooks are not available on [macOS hosted agents](/docs/agent/buildkite-hosted/macos).
+    **Note:** For [Buildkite hosted agents](/docs/agent/buildkite-hosted), the agent hooks location is available on [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only, and supports job lifecycle hooks only. Agent lifecycle hooks are not available on any Buildkite hosted agents. The agent hooks location is not available on [macOS hosted agents](/docs/agent/buildkite-hosted/macos).
 
 - **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
 
@@ -61,7 +61,7 @@ When an agent is set up, it creates a hooks directory:
 
     Self-hosted agents are provided with a number of sample hooks within this directory. To get started with one of these agent hooks, copy the relevant example script and remove the `.sample` file extension.
 
-- For [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks), the agents hooks directory is `/buildkite/agent/hooks`.
+- For [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks), the agent hooks directory is `/buildkite/agent/hooks`. This directory supports job lifecycle hooks only. Agent lifecycle hooks are not available on Buildkite hosted agents.
 
     Currently, [Buildkite hosted agents for macOS](/docs/agent/buildkite-hosted/macos) do not support agent hooks. Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
 

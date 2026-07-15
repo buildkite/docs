@@ -4,6 +4,7 @@ agentic
 allow_any_instance_of
 allowlist
 allowlisted
+allowlisting
 allowlists
 Amazon ECR
 Amazon Elastic Container Registry
@@ -133,6 +134,7 @@ debuild
 debounces
 declaratively
 deduper
+deduplicates
 deno
 deprioritize
 deprovisioning
@@ -215,6 +217,7 @@ heredoc
 heroku
 Honeycomb
 hostname
+hostnames
 hostPath
 hotfixes
 http

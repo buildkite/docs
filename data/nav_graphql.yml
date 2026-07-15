@@ -390,8 +390,6 @@
     path: apis/graphql/schemas/object/dependencyconnection
   - name: DependencyEdge
     path: apis/graphql/schemas/object/dependencyedge
-  - name: Dispatch
-    path: apis/graphql/schemas/object/dispatch
   - name: Email
     path: apis/graphql/schemas/object/email
   - name: EmailConnection

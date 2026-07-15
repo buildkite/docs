@@ -4,6 +4,9 @@ Buildkite integrates with [Bitbucket](https://bitbucket.org/) to provide automat
 
 This guide shows you how to set up your Bitbucket builds with Buildkite.
 
+> 📘 Accessing private repositories
+> Connecting Bitbucket to Buildkite configures webhooks and commit statuses. To give your agents access to clone private repositories, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+
 ## Set up the Bitbucket webhook
 
 Once you've created a pipeline in Buildkite and copied in your Bitbucket repository URL, Buildkite shows you setup instructions for configuring your Bitbucket webhooks.

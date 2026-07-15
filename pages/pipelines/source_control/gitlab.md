@@ -2,6 +2,9 @@
 
 You can use Buildkite to run builds on [GitLab](https://about.gitlab.com/) commits.
 
+> 📘 Accessing private repositories
+> Connecting GitLab to Buildkite configures webhooks and commit statuses. To give your agents access to clone private repositories, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+
 ## GitLab repositories
 
 If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gitlab.com repository URL when you create your pipeline in Buildkite (for example, `git@gitlab.com:your/repo.git`) and follow the instructions provided on that page to set up webhooks.

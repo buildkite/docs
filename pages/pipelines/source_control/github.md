@@ -4,6 +4,9 @@ Buildkite can connect to a GitHub repository in your GitHub account or GitHub or
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
+> 📘 Accessing private repositories
+> Connecting GitHub to Buildkite configures webhooks and commit statuses. If you use the full-access GitHub App with [Buildkite-hosted agents](/docs/agent/buildkite-hosted), code access is included automatically. However, if you use [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) or the Limited Access GitHub App, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+
 ## Connecting Buildkite and GitHub
 
 You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.

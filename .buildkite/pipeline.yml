@@ -82,7 +82,7 @@ steps:
       - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "public.ecr.aws/docker/library/ruby:4.0.5-slim-bookworm"
           propagate-environment: true
           environment:
@@ -119,7 +119,7 @@ steps:
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "golang:1.26"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
@@ -130,7 +130,7 @@ steps:
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "golang:1.26"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
@@ -141,7 +141,7 @@ steps:
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "golang:1.26"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
@@ -152,7 +152,7 @@ steps:
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "ruby:4.0.5-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
@@ -163,7 +163,7 @@ steps:
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "ruby:4.0.5-bookworm"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent versions directory page is out of date, or you edited its content in this repository. Run `scripts/update-agent-versions-directory.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
@@ -187,7 +187,7 @@ steps:
           - ecr#v2.12.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v5.13.0:
+          - docker#v5.14.0:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":lint-roller: Linting text and markdown"
@@ -215,7 +215,7 @@ steps:
           # Using the plain Node image, instead of the custom doc Dockerfile
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
-          - docker#v5.13.0:
+          - docker#v5.14.0:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: "Validate YAML"
@@ -234,7 +234,7 @@ steps:
           - ecr#v2.12.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v5.13.0:
+          - docker#v5.14.0:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
@@ -251,7 +251,7 @@ steps:
           - ecr#v2.12.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v5.13.0:
+          - docker#v5.14.0:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":snake: Linting markdown files for snake case"
@@ -268,7 +268,7 @@ steps:
           - ecr#v2.12.0:
               login: true
               account-ids: public.ecr.aws
-          - docker#v5.13.0:
+          - docker#v5.14.0:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
   - label: ":rspec: RSpec"
@@ -361,7 +361,7 @@ steps:
       - aws-ssm#v1.1.0:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
-      - docker#v5.13.0:
+      - docker#v5.14.0:
           image: "golang:1.26-bookworm"
           propagate-environment: true
           environment:
