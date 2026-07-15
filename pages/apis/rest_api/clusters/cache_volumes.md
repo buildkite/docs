@@ -52,7 +52,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 [
   {
     "id": "vol-01j9z1p0qr3s4t5u6v7w8x9y0z",
-    "tag": "5eb26b74-1b87-4b8c-b437-729197cd891c/node-modules",
+    "tag": "pipeline-uuid/node-modules",
     "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "size_mb": 20480,
     "created_at": "2024-10-01T00:00:00.000Z",
@@ -85,7 +85,7 @@ Deletes a cache volume by its tag. Cache tags can contain `/` and `;`. The tag i
 curl -H "Authorization: Bearer $TOKEN" \
   -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/cache_volumes" \
   -H "Content-Type: application/json" \
-  -d '{ "tag": "5eb26b74-1b87-4b8c-b437-729197cd891c/node-modules" }'
+  -d '{ "tag": "pipeline-uuid/node-modules" }'
 ```
 
 Required [request body properties](/docs/api#request-body-properties):
@@ -94,7 +94,7 @@ Required [request body properties](/docs/api#request-body-properties):
   <tbody>
     <tr>
       <th><code>tag</code></th>
-      <td>The cache tag identifying the volume to delete.<br><em>Example:</em> <code>"5eb26b74-1b87-4b8c-b437-729197cd891c/node-modules"</code></td>
+      <td>The cache tag identifying the volume to delete.<br><em>Example:</em> <code>"pipeline-uuid/node-modules"</code></td>
     </tr>
   </tbody>
 </table>
