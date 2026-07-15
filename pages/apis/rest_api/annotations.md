@@ -32,7 +32,7 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
   </tr>
   <tr>
     <th><code>body_html</code></th>
-    <td>Rendered HTML of the annotation's body. For responses from the list annotations for a build endpoint, this field is omitted when <code>omit_body=true</code> is passed.</td>
+    <td>Rendered HTML of the annotation's body. The <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-build">List annotations for a build</a> endpoint omits this field when the request includes <code>omit_body=true</code>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
@@ -89,12 +89,12 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <tbody>
   <tr>
     <th><code>scope</code></th>
-    <td>Filter annotations by scope. Can be <code>build</code> (default), <code>job</code>, or <code>all</code>. When <code>job</code> is specified, only job-scoped annotations are returned. When <code>all</code> is specified, both build- and job-scoped annotations are returned.
+    <td>Filters annotations by scope. The <code>build</code> value returns build-scoped annotations and is the default. The <code>job</code> value returns job-scoped annotations. The <code>all</code> value returns both.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>scope=all</code></p></td>
   </tr>
   <tr>
     <th><code>omit_body</code></th>
-    <td>When <code>true</code>, the <code>body_html</code> field is omitted from each annotation in the response. Useful for fetching lightweight annotation metadata without rendering bodies. Defaults to <code>false</code>.
+    <td>Omits the <code>body_html</code> field from each annotation in the response when set to <code>true</code>. Use this parameter to fetch annotation metadata without response bodies. The default is <code>false</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>omit_body=true</code></p></td>
   </tr>
 </tbody>
@@ -215,7 +215,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "context": "test-results",
     "style": "success",
     "scope": "job",
-    "job_id": "b2c3d4e5-1a2b-3c4d-5e6f-7a8b9c0d1e2f",
+    "job_id": "01234567-89ab-4cde-8f01-23456789abcd",
     "priority": 3,
     "body_html": "<p>All 42 tests passed</p>\n",
     "created_at": "2024-01-15T10:30:00.000Z",
@@ -262,7 +262,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "context": "test-results",
   "style": "success",
   "scope": "job",
-  "job_id": "b2c3d4e5-1a2b-3c4d-5e6f-7a8b9c0d1e2f",
+  "job_id": "01234567-89ab-4cde-8f01-23456789abcd",
   "priority": 3,
   "body_html": "<p>Test results: 42 passed</p>\n",
   "created_at": "2024-01-15T10:30:00.000Z",
