@@ -1,12 +1,29 @@
-# Agent reference architectures
+---
+description: "Compare four practical reference architecture patterns for Buildkite agent infrastructure, from a small initial setup to a multi-cluster enterprise fleet."
+---
 
-This page describes four reference architectures for running [Buildkite agents](/docs/agent) as your usage grows, from a single team getting started through to a large enterprise fleet. Use it to identify the architecture that fits your team today, and to recognize the signals that tell you when to move up to the next one.
+# Buildkite agent reference architectures
 
-The goal is to run the simplest architecture that meets your needs now, and to upgrade only when you see recurring pressure, not one-off incidents. Just as you would match a vehicle to its load, match your agent infrastructure to your build volume, team size, and operational maturity. Reaching for the most complex architecture too early adds operational cost for no return, while staying too long on a small setup slows your team down.
+This page compares four reference architecture patterns for running [Buildkite agents](/docs/agent), from a small initial setup to a multi-cluster enterprise fleet. Each pattern describes a typical combination of agent compute, queues, caching, workload isolation, and operational ownership.
+
+The _Starter_, _Growth_, _Scale_, and _Enterprise_ names are convenience labels used only on this page. They are not official Buildkite architecture names, product tiers, or required stages. Your architecture can combine elements from more than one pattern.
+
+Choose the simplest pattern that meets your current requirements. Add complexity when recurring queue delays, workload conflicts, security boundaries, or fleet management work show that the current design no longer fits.
+
+## Which reference architecture should you choose
+
+Use build volume and team size as initial indicators, then make the decision based on workload diversity, isolation requirements, and operational capacity:
+
+- **Starter:** Use Buildkite hosted agents, one VM, or a small auto-scaling group when one team has similar workloads and needs little infrastructure specialization.
+- **Growth:** Add auto-scaling, separate queues, and shared caching when queue contention or different credential boundaries become recurring concerns.
+- **Scale:** Use workload-specific container pools and centralized fleet management when teams need different operating systems, architectures, accelerators, or compliance controls.
+- **Enterprise:** Use multi-cluster Kubernetes infrastructure when you need per-job isolation, regional resilience, detailed cost attribution, or platform-level service objectives.
+
+Treat these recommendations as starting points rather than thresholds. A smaller organization with regulated workloads might need stronger isolation, while a larger organization with uniform workloads might not need Kubernetes.
 
 ## Architecture comparison
 
-The four architectures map to maturity stages, each with a typical team size, build volume, and set of operational trade-offs.
+The following ranges show the environments that each pattern commonly fits. They are guides, not limits or Buildkite service requirements.
 
 | Dimension | Starter | Growth | Scale | Enterprise |
 | --------- | ------- | ------ | ----- | ---------- |
@@ -18,30 +35,32 @@ The four architectures map to maturity stages, each with a typical team size, bu
 | **Operational complexity** | Low | Moderate | High | Very high |
 {: class="responsive-table"}
 
-## Starter
+## Starter pattern
 
-The Starter architecture suits startups, small product teams, side projects, and pilot programs adopting CI/CD. It is optimized for speed of setup and simplicity, not for throughput or isolation.
+The Starter pattern suits a single team with similar workloads and limited isolation requirements. It prioritizes a small operational footprint over specialized routing or high throughput.
 
-At this scale, the main risk is over-engineering. Adding Kubernetes, multi-queue routing, and agent hooks when you have 10 engineers and 100 daily builds adds operational cost for no return. Keep the setup flat.
+Avoid adding Kubernetes, multiple queues, or custom hooks before the workload requires them. A flat setup is easier to operate and diagnose.
 
-Recommended setup:
+### Recommended setup
 
-- Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) for zero infrastructure management. This suits teams that want to move fast without a dedicated platform engineer. If you self-host, a single VM or a small auto-scaling group of one to four general-purpose agents is enough, and the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) is a practical starting point.
+- Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) when you want Buildkite to manage the agent infrastructure. If you self-host, begin with a single VM or a small auto-scaling group of one to four general-purpose agents. The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) provides a starting point on AWS.
 - Use a single default [queue](/docs/agent/queues). Do not segment queues at this stage, since the added complexity outweighs the benefit.
 - Store secrets as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or in a lightweight cloud secret store.
 
-Move up to Growth when you see any of the following:
+### When to move beyond the Starter pattern
+
+Consider the Growth pattern when you see any of the following recurring conditions:
 
 - Build queue wait times regularly exceed two to three minutes.
 - A single flaky or runaway job can block the whole team.
 - You need to separate deployment jobs from test jobs for security or compliance.
 - You run more than one language or platform stack, and agents need different toolchains.
 
-## Growth
+## Growth pattern
 
-The Growth architecture suits growing product companies and multi-team engineering organizations scaling their CI practice. It introduces the foundational patterns that every larger architecture builds on: auto-scaling, queue segmentation, and artifact caching. Getting these right now makes a later move to Scale or Enterprise less painful.
+The Growth pattern suits multiple teams that need more capacity or clearer workload boundaries. It adds auto-scaling, queue segmentation, and caching without requiring a container scheduler.
 
-Recommended setup:
+### Recommended setup
 
 - Deploy auto-scaling as a first-class concern, so agents start in response to queue depth and terminate after an idle period rather than running always-on. The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) provides this out of the box, or you can use an equivalent module for another cloud.
 - Introduce two to three named [queues](/docs/agent/queues). Separate test jobs from deploy jobs at minimum. This isolates production credential access to a specific agent pool and prevents a broken test run from blocking deploys.
@@ -50,7 +69,7 @@ Recommended setup:
 - Standardize on a base agent image with shared tooling, so agents do not install dependencies on every boot.
 - Use [agent hooks](/docs/agent/hooks) to inject secrets, configure the environment, and enforce policy.
 
-A minimal queue layout at this stage separates workloads by their compute profile and credential needs.
+The following example queue layout separates workloads by compute profile and credential access:
 
 | Queue | Job types | Agent notes |
 | ----- | --------- | ----------- |
@@ -59,7 +78,9 @@ A minimal queue layout at this stage separates workloads by their compute profil
 | `deploy` | Staging and production deployments | Small pool, production role attached |
 {: class="responsive-table"}
 
-Move up to Scale when you see any of the following:
+### When to move beyond the Growth pattern
+
+Consider the Scale pattern when you see any of the following recurring conditions:
 
 - Test parallelism demands exceed what one uniform agent pool can absorb cost-effectively.
 - Different teams need different agent environments, such as mobile builds, ML training jobs, or ARM64.
@@ -67,11 +88,11 @@ Move up to Scale when you see any of the following:
 - Compliance requirements demand stricter isolation between workload types.
 - Your platform team spends significant time managing the agent fleet.
 
-## Scale
+## Scale pattern
 
-The Scale architecture suits engineering organizations with diverse workloads, compliance requirements, and a dedicated platform team. The agent fleet is no longer uniform, since different job types have different compute profiles. It introduces container-native workloads, mixed agent pools, and a more deliberate approach to isolation and observability.
+The Scale pattern suits organizations with diverse workloads, stronger compliance requirements, and a dedicated platform team. Different job types run in agent pools designed for their compute, toolchain, and isolation requirements.
 
-Recommended setup:
+### Recommended setup
 
 - Move agents into containers. Use the Buildkite agent Docker image as a base, and build per-workload images that include the toolchain for each job class.
 - Run agents on demand through a container scheduler, such as Amazon ECS, Nomad, or a managed Kubernetes cluster. Map each job type to a specific task definition or container spec.
@@ -81,7 +102,7 @@ Recommended setup:
 - Introduce pipeline templates or step libraries to prevent a proliferation of per-team agent configurations.
 - Export structured build metrics. At this scale, identifying systemic slowdowns requires data you cannot eyeball. See [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
 
-A layered agent image hierarchy reduces maintenance overhead. Define a base image with shared security and monitoring tooling, then stack job-class images on top.
+A layered agent image hierarchy can reduce maintenance work. Define a base image with shared security and monitoring tooling, then build job-class images from it.
 
 | Image layer | Contents | Rebuild cadence |
 | ----------- | -------- | --------------- |
@@ -91,7 +112,9 @@ A layered agent image hierarchy reduces maintenance overhead. Define a base imag
 | `agent-security` | Security scanners, network-isolated by the scheduler | Weekly |
 {: class="responsive-table"}
 
-Move up to Enterprise when you see any of the following:
+### When to move beyond the Scale pattern
+
+Consider the Enterprise pattern when you see any of the following recurring conditions:
 
 - You run agents across multiple cloud regions or on-premises data centers.
 - Kubernetes is your standard compute substrate, and you want agents to live natively in it.
@@ -99,11 +122,11 @@ Move up to Enterprise when you see any of the following:
 - Build infrastructure cost is a meaningful line item, and you need per-team or per-project cost attribution.
 - Your platform team runs agent infrastructure as a product, with SLAs and an internal customer base.
 
-## Enterprise
+## Enterprise pattern
 
-The Enterprise architecture suits large engineering organizations, regulated industries, and multi-cloud or hybrid infrastructure. It is Kubernetes-native and multi-cluster. The operational complexity is real and demands a dedicated platform engineering function. In exchange, it offers the highest throughput, the finest-grained isolation, and the most sophisticated cost optimization.
+The Enterprise pattern suits large or regulated organizations that operate multi-cloud, hybrid, or multi-region infrastructure. It uses multiple Kubernetes clusters and requires a dedicated platform engineering function. This design supports high throughput, per-job isolation, regional resilience, and detailed cost controls at the cost of greater operational complexity.
 
-Recommended setup:
+### Recommended setup
 
 - Deploy the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) into each cluster. Rather than running long-lived agents that poll for jobs, the stack runs a dedicated pod per job and tears it down on completion. This delivers per-job isolation and integrates with Kubernetes RBAC, network policies, and service accounts.
 - Right-size nodes for actual job resource requests using a node provisioner such as Karpenter or the Cluster Autoscaler. Avoid over-provisioning for theoretical worst-case job sizes.
@@ -114,25 +137,27 @@ Recommended setup:
 - Run a build observability stack that exports agent metrics, such as queue depth, job duration, and agent utilization, and define SLOs on build latency.
 - Provide a self-service catalog of approved agent configurations, base images, and resource presets that teams select from. This prevents configuration sprawl while giving teams flexibility.
 
-The highest-impact cost levers at this scale are:
+### Cost controls
+
+The main cost controls at this scale are:
 
 - Run spot or preemptible instances for stateless jobs, which typically reduce cost by 60–80% versus on-demand for test workloads.
 - Right-size pod resource requests against historical job metrics, since bin-packing efficiency degrades when requests are over-specified.
 - Cache aggressively. At 20,000+ daily builds, even a 10-minute average reduction in job duration compounds to hundreds of compute-hours per day.
 - Attribute cost per team using Kubernetes labels and cloud cost allocation tags. Teams that see their build cost tend to optimize it.
 
-## Choosing your architecture
+## How should you apply these patterns
 
-The most common mistake is skipping a stage. Going straight from Starter to Enterprise rarely works, not because the technology cannot be made to work, but because the team has not built the operational habits to run it safely.
+Do not treat these patterns as a required progression. Start with the least complex design that satisfies your workload, security, and reliability requirements. Adopt individual elements from another pattern when you can define the problem that the added component will solve.
 
-Each architecture is a stable resting point, not a temporary stop. Operate at your current stage until the upgrade signals in the preceding sections become recurring patterns, then migrate with a clear success criterion.
+Use recurring operational signals rather than one-off incidents to justify a change. Define a success criterion, such as reducing p95 queue wait time below 60 seconds or isolating production credentials from test jobs, before changing the architecture.
 
-Use this checklist as a starting point:
+Use these questions to check the fit:
 
-- Below 200 daily builds with a single team? Start with the Starter architecture. Buildkite hosted agents are a production-ready choice.
-- Growing past 200 builds a day and seeing queue contention or security boundary needs? Move to the Growth architecture, and add auto-scaling and queue segmentation.
-- Diverse workload types, such as mobile, web, ML, and security, and a platform team of two or more? The Scale architecture gives you the flexibility you need.
-- A large enterprise with Kubernetes as your compute substrate, multi-region requirements, or compliance mandates? The Enterprise architecture is the right fit.
-- Not sure? Default to one stage below where you think you are. Operational complexity is easier to add than to remove.
+- Does one team run fewer than 200 similar builds each day? Start by evaluating the Starter pattern.
+- Do queue contention or security boundaries affect a workload that is growing beyond 200 daily builds? Evaluate the Growth pattern.
+- Do mobile, web, machine learning, or security workloads need different compute and a platform team manages the fleet? Evaluate the Scale pattern.
+- Do Kubernetes, multi-region availability, per-job isolation, or compliance requirements shape the infrastructure? Evaluate the Enterprise pattern.
+- Do several answers apply? Combine the relevant components, and keep queue ownership and security boundaries explicit.
 
-For day-to-day guidance that applies across all four architectures, see [Agent management best practices](/docs/pipelines/best-practices/agent-management).
+For guidance that applies across all four patterns, see [Agent management best practices](/docs/pipelines/best-practices/agent-management).
