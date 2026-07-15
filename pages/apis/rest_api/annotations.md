@@ -32,7 +32,7 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
   </tr>
   <tr>
     <th><code>body_html</code></th>
-    <td>Rendered HTML of the annotation's body. Omitted when <code>omit_body=true</code> is passed to the list endpoint.</td>
+    <td>Rendered HTML of the annotation's body. For responses from the list annotations for a build endpoint, this field is omitted when <code>omit_body=true</code> is passed.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
