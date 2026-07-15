@@ -1076,6 +1076,10 @@
                   path: "apis/rest-api/clusters/secrets"
                 - name: "Agent images"
                   path: "apis/rest-api/clusters/agent-images"
+                - name: "Network ranges"
+                  path: "apis/rest-api/clusters/network-ranges"
+                - name: "Cache volumes"
+                  path: "apis/rest-api/clusters/cache-volumes"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"
@@ -1111,6 +1115,10 @@
               path: "apis/rest-api/test-engine/suites"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
+        - name: "Test Scheduler"
+          children:
+            - name: "Pools"
+              path: "apis/rest-api/test-scheduler-pools"
     - name: "GraphQL"
       children:
         - name: Overview

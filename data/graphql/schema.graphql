@@ -88,6 +88,7 @@ enum APIAccessTokenScopes {
   READ_JOB_ENV
   READ_NOTIFICATION_SERVICES
   READ_ORGANIZATIONS
+  READ_ORGANIZATION_REPOSITORY_CONNECTIONS
   READ_ORGANIZATION_SETTINGS
   READ_PACKAGES
   READ_PIPELINES
@@ -1100,6 +1101,7 @@ enum AuditEventType {
   NOTIFICATION_SERVICE_DISABLED
   NOTIFICATION_SERVICE_ENABLED
   NOTIFICATION_SERVICE_UPDATED
+  OAUTH_APPLICATION_AUTHORIZED
   ORGANIZATION_BANNER_CREATED
   ORGANIZATION_BANNER_DELETED
   ORGANIZATION_BANNER_UPDATED
@@ -2967,18 +2969,6 @@ type DependencyEdge {
 }
 
 """
-A job dispatch for a particular Organization
-"""
-type Dispatch {
-  id: ID!
-
-  """
-  The public UUID for this organization dispatch
-  """
-  uuid: String!
-}
-
-"""
 An email address
 """
 type Email implements Node {
@@ -3653,7 +3643,7 @@ type JobEventActor {
 """
 Actor types that can create events on a job
 """
-union JobEventActorNodeUnion = Agent | Dispatch | User
+union JobEventActorNodeUnion = Agent | User
 
 """
 All the actors that can have created a job event
@@ -4705,7 +4695,7 @@ type JobTypeBlock implements JobInterface & Node {
   state: JobStates!
 
   """
-  The step that defined this job. Some older jobs in the system may not have an associated step
+  The step that defined this job
   """
   step: StepInput
 
@@ -4802,6 +4792,12 @@ type JobTypeCommand implements JobInterface & Node {
   A glob of files to automatically upload after the job finishes
   """
   automaticArtifactUploadPaths: String
+
+  """
+  Why the job is broken: a reason code (e.g. `conditional_failed`,
+  `branch_mismatch`) or a free-text skip reason. Null unless the job is broken.
+  """
+  brokenReason: String
 
   """
   The build that this job is a part of
@@ -4998,7 +4994,7 @@ type JobTypeCommand implements JobInterface & Node {
   state: JobStates!
 
   """
-  The step that defined this job. Some older jobs in the system may not have an associated step
+  The step that defined this job
   """
   step: StepCommand
 
@@ -5109,7 +5105,7 @@ type JobTypeTrigger implements JobInterface & Node {
   state: JobStates!
 
   """
-  The step that defined this job. Some older jobs in the system may not have an associated step
+  The step that defined this job
   """
   step: StepTrigger
 
@@ -5170,7 +5166,7 @@ type JobTypeWait implements JobInterface & Node {
   state: JobStates!
 
   """
-  The step that defined this job. Some older jobs in the system may not have an associated step
+  The step that defined this job
   """
   step: StepWait
 
