@@ -17,7 +17,7 @@ To access the setting:
 1. Scroll to the **Auto-create Build Triggers** section.
 1. Select **Enable Auto-create Build Triggers** or **Disable Auto-create Build Triggers**.
 
-A confirmation dialog appears before the change is applied. The settings page records who made the change and when.
+A confirmation dialog appears before the change is applied.
 
 ## Behavior
 
