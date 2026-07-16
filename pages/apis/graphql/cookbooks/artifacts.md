@@ -35,7 +35,8 @@ query GetDownloadURLsForArtifactsFromBuild {
 
 ## Delete an artifact
 
-First, [get the artifact's GraphQL ID](#list-download-urls-for-artifacts-from-a-build) from a build query. Then use that ID to delete the artifact:
+1. [Get the artifact's GraphQL ID](#list-download-urls-for-artifacts-from-a-build) from a build query.
+1. Use that ID to delete the artifact:
 
 ```graphql
 mutation ArtifactDelete {
