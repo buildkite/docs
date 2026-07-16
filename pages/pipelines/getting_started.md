@@ -50,7 +50,7 @@ The **New Pipeline** page has the following fields:
 - **Repository**: Select the Git repository available to your selected **Git scope**. Upon selection:
 
     * The **Checkout using** option appears, where you can select **SSH** or **HTTPS**.
-    * For non-**Buildkite Examples** repositories, the **Build Triggers** section may appear, showing the actions that trigger a build. Clear the **Trigger builds when** checkbox to disable triggering.
+    * For non-**Buildkite Examples** repositories, the [**Build Triggers** section](/docs/pipelines/configure/auto-create-build-triggers) may appear, showing the actions that trigger a build. Clear the **Trigger builds when** checkbox to disable triggering.
 
 - **Pipeline name**: Auto-generated from your repository's name; change it here if needed.
 - **Description** ( _optional_ ): A description shown under the pipeline name on the main **Pipelines** page.

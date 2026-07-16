@@ -1,10 +1,10 @@
 # Auto-create build triggers
 
-By default, when a user creates a new pipeline in Buildkite Pipelines using the new pipeline form and connects a GitHub repository, the form automatically enables two build triggers. One trigger is for code pushes, and the other is for pull requests. Buildkite Pipelines also creates a webhook on the GitHub repository.
+By default, when a user creates a pipeline from a [GitHub repository](/docs/pipelines/source-control/github) on the **New Pipeline** page, Buildkite Pipelines enables two options in the **Build Triggers** section. One option triggers builds for code pushes, and the other triggers builds for pull requests. Buildkite Pipelines also creates a webhook on the GitHub repository.
 
-Organization administrators can disable this default using the **Auto-create Build Triggers** setting. When disabled, new pipelines do not have build triggers enabled by default. No webhook is automatically created. Users can still manually enable build triggers for individual new pipelines when creating them.
+Organization administrators can disable this default using the **Auto-create Build Triggers** setting. When disabled, new pipelines do not have build triggers enabled by default, and Buildkite Pipelines does not create a webhook. Users can still enable build triggers when they create a pipeline.
 
-This setting only affects new pipelines created through the Buildkite web UI. Pipeline creation using the REST or GraphQL APIs never auto-creates webhooks, regardless of this setting.
+This setting only affects new pipelines created in the Buildkite interface. Creating a pipeline using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) or [GraphQL API](/docs/apis/graphql-api) does not automatically create a webhook, regardless of this setting.
 
 ## Enable or disable auto-create build triggers
 
@@ -29,11 +29,11 @@ A confirmation dialog appears before the change is applied. The settings page re
   </tr>
   <tr>
     <td>Enabled (default)</td>
-    <td>The <strong>Build Triggers</strong> section on the new pipeline form defaults to 2 triggers (code pushed to a branch, pull request opened). A webhook is created on the connected repository automatically.</td>
+    <td>The <strong>Build Triggers</strong> section on the <strong>New Pipeline</strong> page defaults to two triggers: code pushed to a branch, and pull request opened. Buildkite Pipelines automatically creates a webhook on the connected repository.</td>
   </tr>
   <tr>
     <td>Disabled</td>
-    <td>The <strong>Build Triggers</strong> section defaults to 0 triggers. No webhook is created automatically. Users can still enable build triggers manually during pipeline creation.</td>
+    <td>The <strong>Build Triggers</strong> section defaults to no triggers. Buildkite Pipelines does not create a webhook. Users can still enable build triggers when they create a pipeline.</td>
   </tr>
 </tbody>
 </table>
@@ -41,4 +41,4 @@ A confirmation dialog appears before the change is applied. The settings page re
 Existing pipelines and their webhooks are not affected by changes to this setting.
 
 > 📘 Webhook limits
-> If your organization creates many pipelines against the same GitHub repository, disabling this setting helps avoid hitting GitHub's per-repository webhook limit. You can still create webhooks explicitly for individual pipelines by enabling build triggers during pipeline creation.
+> If your organization creates many pipelines for the same GitHub repository, disabling this setting helps avoid reaching [GitHub's limit for repository webhooks](https://docs.github.com/en/webhooks/types-of-webhooks#repository-webhooks). You can still create a webhook for an individual pipeline by enabling build triggers when you create the pipeline.
