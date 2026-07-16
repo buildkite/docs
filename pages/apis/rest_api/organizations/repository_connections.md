@@ -2,7 +2,7 @@
 
 The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a stable resource across GitHub, GitHub Enterprise Server, Bitbucket Server, and GitLab Self-Managed connection types.
 
-These endpoints are read-only and do not return credentials or other secret values. They require the `read_organization_repository_connections` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes) and organization administrator access.
+These endpoints are read-only and do not return credentials or other secret values. The endpoints require the `read_organization_repository_connections` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes) and organization administrator access.
 
 ## Repository connection data model
 
@@ -39,7 +39,7 @@ Get responses also contain the following fields:
   </tr>
   <tr>
     <th><code>host</code></th>
-    <td>Source control host details, or <code>null</code> when they are unavailable. Contains <code>type</code> and <code>url</code>. Depending on the provider, it can also contain <code>webhook_allowed_addresses</code>, <code>verify_server_cert</code>, <code>authentication_strategy</code>, or <code>proxy_auth_strategy</code></td>
+    <td>Source control host details, or <code>null</code> when they are unavailable. Contains <code>type</code> and <code>url</code>. Depending on the provider, the host can also contain <code>webhook_allowed_addresses</code>, <code>verify_server_cert</code>, <code>authentication_strategy</code>, or <code>proxy_auth_strategy</code></td>
   </tr>
   <tr>
     <th><code>rate_limit</code></th>
