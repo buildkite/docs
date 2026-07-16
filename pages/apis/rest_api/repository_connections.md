@@ -1,4 +1,4 @@
-# Repository connections API
+# List repositories for a repository connection
 
 The repository connections API endpoint lets you list repositories available to a repository connection in your organization.
 
