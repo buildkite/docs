@@ -15,6 +15,22 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 > 📘 Remote MCP server rate limits
 > Requests made through the remote Buildkite MCP server count against a separate rate limit from your Buildkite organization's REST API rate limit. See [Platform and organization-level limits](/docs/platform/limits#platform-and-organization-level-limits) for specific values.
 
+## Choose a client and access method
+
+The MCP tools available to an AI client are the same when it connects to the same endpoint with the same toolsets and permissions. Choose a client based on where you work and how you want to manage the connection.
+
+Client or access method | Best suited for | Trade-offs
+--- | --- | ---
+[Claude Code](/docs/apis/mcp-server/remote/configuring-ai-tools#claude-code) | Interactive terminal-based coding workflows | Uses remote OAuth and requires a browser when first authorizing or re-authenticating
+[Codex](/docs/apis/mcp-server/remote/configuring-ai-tools#codex) | Interactive terminal or editor-based coding workflows | Uses remote OAuth and requires a browser when first authorizing or re-authenticating
+[Visual Studio Code](/docs/apis/mcp-server/remote/configuring-ai-tools#visual-studio-code) | Developers who want Buildkite context in their editor | MCP availability and prompts are tied to the editor and its AI extension
+[Cursor](/docs/apis/mcp-server/remote/configuring-ai-tools#cursor) | Developers who want Buildkite MCP tools and Buildkite skills installed together | The marketplace plugin manages more than the MCP connection. Install only the MCP server if you do not want the accompanying skills
+[Local MCP server](/docs/apis/mcp-server/local/installing) | Automated workflows, pinned MCP server versions, or environments that cannot use interactive OAuth | Requires an API access token, consumes the organization's REST API quota, and leaves upgrades and credential storage to you
+Remote [API token pass-through](#api-token-pass-through-remote-mcp-server) | Headless agents, background services, and customer-managed MCP gateways | Avoids browser re-authentication, but requires secure API token storage, rotation, and revocation
+{: class="responsive-table"}
+
+For interactive personal use, start with the remote OAuth endpoint. Use the [read-only endpoint](#read-only-remote-mcp-server) unless the client needs to create, update, retry, or cancel resources. For a headless workflow, use API token pass-through or run the local MCP server with a narrowly scoped API access token.
+
 ## Types of MCP servers
 
 Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server, both of which provide access to its [MCP server tools](/docs/apis/mcp-server/tools#available-mcp-tools). The remote MCP server supports OAuth authentication for interactive AI tools and [API token pass-through](#api-token-pass-through-remote-mcp-server) for headless agents.
@@ -100,3 +116,44 @@ The local MCP server is not suitable for personal usage with an AI tool, as it h
 - Unlike the [remote MCP server](#types-of-mcp-servers-remote-mcp-server), requests made through the local MCP server count towards your Buildkite organization's standard [REST API rate limit](/docs/apis/rest-api/limits).
 
 If you intend to use the local Buildkite MCP server, learn more about how to set up and install it in [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing).
+
+## How remote OAuth works
+
+When an interactive client connects to `https://mcp.buildkite.com/mcp`, the client opens the Buildkite authorization flow. You log in, select one Buildkite organization, review the requested scopes, and authorize the connection. If the organization requires SSO, complete SSO before authorizing.
+
+The resulting access is limited to the selected organization, your Buildkite user permissions, and the approved API scopes. MCP tools make Buildkite REST API requests with those credentials. The MCP server does not bypass the normal Buildkite authorization model.
+
+The OAuth access token is valid for 12 hours. The client should use the refresh token to renew access without opening a browser. The refresh token is valid for seven days and rotates when used. You need to complete the browser authorization again when the refresh token expires or can no longer be used. Re-authentication is also required after you revoke the application, lose access to the selected organization, or when the client loses its stored OAuth credentials.
+
+If a client disconnects after 12 hours, do not repeatedly retry its failed tool calls. Reconnect the MCP server or run the client's OAuth login action. A disconnect at the access-token boundary usually means the client did not refresh its credentials successfully.
+
+### Revoke OAuth access
+
+If you no longer use a client or suspect its OAuth credentials were exposed:
+
+1. Open [**Connected Apps**](https://buildkite.com/user/connected-apps) in your personal settings.
+1. Find **Buildkite MCP Server** under **Authorized Applications** and select **Details** to verify its organization, permissions, and recent use.
+1. Select **Revoke**.
+
+Revoking the application removes the OAuth grant and its associated access and refresh tokens. The client cannot make more API requests until you authorize it again.
+
+## Use an API access token for durable authentication
+
+API access tokens are suitable for headless agents, background services, and MCP gateways that cannot complete browser-based OAuth. Set the expiry when you [create the API access token](/docs/apis/managing-api-tokens#creating-and-editing-api-access-tokens-create-an-api-access-token), and rotate it before that expiry. The token remains valid until it expires or is revoked, and does not depend on an OAuth refresh session.
+
+Send the token to `https://mcp.buildkite.com/direct` as described in [API token pass-through for headless agents](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents), or use it with a [local MCP server](/docs/apis/mcp-server/local/installing). Use a separate token for each agent or gateway, select only the scopes its tools require, and prefer read-only access when the workflow does not need to change Buildkite resources.
+
+An API access token is a long-lived bearer credential. Anyone who obtains it can act with its user, organization, and scopes until it expires or is revoked. Store it in a secret manager rather than a repository, client configuration file, prompt, or log. Customer-managed gateways should keep the token on the gateway and apply their own user authorization, audit, and rate-limit controls instead of distributing it to downstream clients.
+
+To revoke a leaked API access token, open [**API Access Tokens**](https://buildkite.com/user/api-access-tokens) in your personal settings and revoke the token. Buildkite organization administrators can instead [remove the organization's access from the token](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token). Stop affected agents before replacing the credential to prevent repeated unauthorized requests.
+
+## Example workflows
+
+Start with a read-only connection and a narrowly scoped task. The following examples show prompts and the access they require.
+
+- **Investigate recent failures:** Ask, "Find failed builds for `example-pipeline` from the last 24 hours, summarize the failing jobs, and inspect their logs for a common cause." This requires the `pipelines`, `builds`, and `logs` toolsets with `read_pipelines`, `read_builds`, and `read_build_logs` scopes.
+- **Check agent and queue health:** Ask, "Show disconnected agents and queues with waiting jobs, then identify where capacity may be blocked." This requires the `agents`, `clusters`, and `builds` toolsets with `read_agents`, `read_clusters`, and `read_builds` scopes.
+- **Review test failures:** Ask, "For the latest failed build of `example-pipeline`, summarize failed tests and group repeated failures." This requires the `builds` and `tests` toolsets with `read_builds` and `read_suites` scopes. Add the `logs` toolset and `read_build_logs` scope if the client also needs job logs.
+- **Retry a failed build:** First ask the client to explain which build it proposes to retry. After reviewing the answer, ask it to retry that build. This requires the `builds` toolset with `read_builds` and `write_builds` scopes. Write access lets the client change Buildkite resources, so require confirmation in the client or gateway where supported.
+
+See the [MCP tools overview](/docs/apis/mcp-server/tools) for each tool's required scope and [toolsets](/docs/apis/mcp-server/tools/toolsets) for restricting which tools a client can use.

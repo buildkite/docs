@@ -121,6 +121,39 @@ claude mcp add --transport http buildkite-read-only-toolsets https://mcp.buildki
 
 <%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
 
+## Codex
+
+You can configure [Codex](https://developers.openai.com/codex/mcp) with the remote Buildkite MCP server by adding the following configuration to your Codex `config.toml` file.
+
+```toml
+[mcp_servers.buildkite]
+url = "https://mcp.buildkite.com/mcp"
+```
+
+Run the following command to start the OAuth login:
+
+```bash
+codex mcp login buildkite
+```
+
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
+
+You're now ready to use Buildkite's remote MCP server through Codex for this Buildkite organization. Use `/mcp` in Codex to check the connection and available tools.
+
+### Toolsets and read-only access
+
+To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, update the URL and add headers to the configuration. For example:
+
+```toml
+[mcp_servers.buildkite-read-only-toolsets]
+url = "https://mcp.buildkite.com/mcp/readonly"
+http_headers = { X-Buildkite-Toolsets = "user,pipelines,builds" }
+```
+
+Run `codex mcp login buildkite-read-only-toolsets` to authorize this connection.
+
+<%= render_markdown partial: 'apis/mcp_server/remote/mcp_server_toolset_config_additions' %>
+
 ## Claude Desktop
 
 You can configure [Claude Desktop](https://claude.ai/download) with the remote Buildkite MCP server, by creating a custom connector for this MCP server in Claude Desktop.
