@@ -41,6 +41,7 @@ getting-started:
     - "pipelines/configure/defining-steps"
     - "pipelines/configure/environment-variables"
     - "agent"
+    - "agent/reference-architectures"
     - "agent/buildkite-hosted"
   related_topics:
     - why-buildkite-pipelines
@@ -180,6 +181,7 @@ best-practices:
     - "pipelines/best-practices"
   exact_paths:
     - "agent"
+    - "agent/reference-architectures"
     - "agent/queues"
     - "agent/queues/managing"
     - "agent/lifecycle"
@@ -226,6 +228,7 @@ self-hosted-agents:
     - "agent/cli"
   exact_paths:
     - "agent"
+    - "agent/reference-architectures"
     - "agent/queues"
     - "agent/queues/managing"
     - "agent/lifecycle"

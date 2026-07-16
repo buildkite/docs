@@ -14,10 +14,10 @@ Choose the simplest pattern that meets your current requirements. Add complexity
 
 Use build volume and team size as initial indicators, then make the decision based on workload diversity, isolation requirements, and operational capacity:
 
-- **Starter:** Use Buildkite hosted agents, one VM, or a small auto-scaling group when one team has similar workloads and needs little infrastructure specialization.
-- **Growth:** Add auto-scaling, separate queues, and shared caching when queue contention or different credential boundaries become recurring concerns.
-- **Scale:** Use workload-specific container pools and centralized fleet management when teams need different operating systems, architectures, accelerators, or compliance controls.
-- **Enterprise:** Use multi-cluster Kubernetes infrastructure when you need per-job isolation, regional resilience, detailed cost attribution, or platform-level service objectives.
+- **[Starter](#starter-pattern):** Use Buildkite hosted agents, one VM, or a small auto-scaling group when one team has similar workloads and needs little infrastructure specialization.
+- **[Growth](#growth-pattern):** Add auto-scaling, separate queues, and shared caching when queue contention or different credential boundaries become recurring concerns.
+- **[Scale](#scale-pattern):** Use workload-specific container pools and centralized fleet management when teams need different operating systems, architectures, accelerators, or compliance controls.
+- **[Enterprise](#enterprise-pattern):** Use multi-cluster Kubernetes infrastructure when you need per-job isolation, regional resilience, detailed cost attribution, or platform-level service objectives.
 
 Treat these recommendations as starting points rather than thresholds. A smaller organization with regulated workloads might need stronger isolation, while a larger organization with uniform workloads might not need Kubernetes.
 
@@ -94,12 +94,13 @@ The Scale pattern suits organizations with diverse workloads, stronger complianc
 
 ### Recommended setup
 
-- Move agents into containers. Use the Buildkite agent Docker image as a base, and build per-workload images that include the toolchain for each job class.
+- Move agents into containers. Use the [Buildkite agent Docker image](/docs/agent/self-hosted/install/docker) as a base, and build per-workload images that include the toolchain for each job class.
 - Run agents on demand through a container scheduler, such as Amazon ECS, Nomad, or a managed Kubernetes cluster. Map each job type to a specific task definition or container spec.
 - Design queues around job characteristics, not team ownership. Team-specific queues fragment the pool and reduce utilization, so own the queue taxonomy at the platform level.
 - Run a dedicated cache layer. At this volume, object storage round-trips add up, so combine a shared network file system mount for workspace-local caches with object storage for broader artifacts.
+- Use a [secrets manager](/docs/pipelines/security/secrets/managing) with separate IAM roles or service accounts for each workload-specific agent pool. This limits credentials to the jobs that need them.
 - Use [agent tags](/docs/agent/queues) to route jobs to specific capabilities, such as a queue, architecture, or GPU requirement. This gives pipeline authors a declarative interface without knowing the underlying infrastructure.
-- Introduce pipeline templates or step libraries to prevent a proliferation of per-team agent configurations.
+- Introduce [pipeline templates](/docs/pipelines/governance/templates) or step libraries to prevent a proliferation of per-team agent configurations.
 - Export structured build metrics. At this scale, identifying systemic slowdowns requires data you cannot eyeball. See [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
 
 A layered agent image hierarchy can reduce maintenance work. Define a base image with shared security and monitoring tooling, then build job-class images from it.
@@ -129,12 +130,13 @@ The Enterprise pattern suits large or regulated organizations that operate multi
 ### Recommended setup
 
 - Deploy the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) into each cluster. Rather than running long-lived agents that poll for jobs, the stack runs a dedicated pod per job and tears it down on completion. This delivers per-job isolation and integrates with Kubernetes RBAC, network policies, and service accounts.
-- Right-size nodes for actual job resource requests using a node provisioner such as Karpenter or the Cluster Autoscaler. Avoid over-provisioning for theoretical worst-case job sizes.
-- Run spot or preemptible instances for stateless test workloads, which are typically 70–85% of build volume. Reserve on-demand capacity for deploy agents and jobs with strict SLAs. Configure automatic retries so jobs survive instance interruptions. See the [agent lifecycle](/docs/agent/lifecycle) for graceful termination.
+- Right-size nodes for actual [job resource requests](/docs/agent/self-hosted/agent-stack-k8s/container-resource-limits) using a node provisioner such as Karpenter or the Cluster Autoscaler. Avoid over-provisioning for theoretical worst-case job sizes.
+- Run spot or preemptible instances for stateless test workloads, which are typically 70–85% of build volume. Reserve on-demand capacity for deploy agents and jobs with strict SLAs. Configure [automatic retries](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) so jobs survive instance interruptions. See the [agent lifecycle](/docs/agent/lifecycle) for graceful termination.
 - Apply Kubernetes network policies to isolate job namespaces. Run security-sensitive jobs, such as credential rotation and production deployments, in dedicated namespaces with restricted egress.
 - Bind cloud credentials to specific job service accounts using workload identity, such as IRSA on Amazon EKS or Workload Identity on Google GKE. Static credential injection is not acceptable at this tier.
+- Use [persistent volume mounts](/docs/agent/self-hosted/agent-stack-k8s/volume-mounts) for workspace-local caches and object storage for build artifacts. Add a shared cache service when cache volume or latency requires it.
 - Deploy across multiple clusters in at least two regions, and define a primary queue and a fallback queue for regional redundancy.
-- Run a build observability stack that exports agent metrics, such as queue depth, job duration, and agent utilization, and define SLOs on build latency.
+- Run a build observability stack that exports agent metrics, such as queue depth, job duration, agent utilization, and cache misses, and define SLOs on build latency. Use the [waterfall view](/docs/pipelines/insights/waterfall) to investigate slow jobs and [Test Engine](/docs/pipelines/configure/tests) to identify slow or flaky tests that consume fleet capacity.
 - Provide a self-service catalog of approved agent configurations, base images, and resource presets that teams select from. This prevents configuration sprawl while giving teams flexibility.
 
 ### Cost controls
@@ -144,7 +146,7 @@ The main cost controls at this scale are:
 - Run spot or preemptible instances for stateless jobs, which typically reduce cost by 60–80% versus on-demand for test workloads.
 - Right-size pod resource requests against historical job metrics, since bin-packing efficiency degrades when requests are over-specified.
 - Cache aggressively. At 20,000+ daily builds, even a 10-minute average reduction in job duration compounds to hundreds of compute-hours per day.
-- Attribute cost per team using Kubernetes labels and cloud cost allocation tags. Teams that see their build cost tend to optimize it.
+- Attribute cost per team using Kubernetes labels and cloud cost allocation tags. See [Attributing AWS agent costs](/docs/pipelines/tutorials/attributing-aws-agent-costs) for an example implementation. Teams that see their build cost tend to optimize it.
 
 ## How should you apply these patterns
 
