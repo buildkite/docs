@@ -131,7 +131,7 @@ Error response: `503 Service Unavailable` when the hosted-agent service cannot r
 
 Buildkite manages the base image for all hosted agent images. Submit only the Dockerfile body — the instructions to layer on top of the base image. Do not include a `FROM` instruction; Buildkite prepends the managed base image automatically.
 
-Image builds are asynchronous. The response returns the current status. Poll [get an agent image](#get-an-agent-image) while `status` is `BUILDING`, until it changes to `READY` or `FAILED`.
+Image builds are asynchronous. The response returns the current status. Poll [get an agent image](#get-an-agent-image) until `status` changes from `BUILDING` to `READY` or `FAILED`.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

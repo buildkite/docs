@@ -1,6 +1,6 @@
 # Repository connections API
 
-The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a stable resource across GitHub, GitHub Enterprise Server, Bitbucket Server, and GitLab Self-Managed connection types.
+The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a consistent representation across GitHub, GitHub Enterprise Server, Bitbucket Server, and GitLab Self-Managed connection types.
 
 These endpoints are read-only and do not return credentials or other secret values. The endpoints require the `read_organization_repository_connections` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes) and organization administrator access.
 

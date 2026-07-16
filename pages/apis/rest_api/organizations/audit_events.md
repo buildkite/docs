@@ -55,7 +55,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 The response body contains the following pagination fields:
 
 - `items`: The audit events on the current page.
-- `links`: URLs for the current page and available adjacent pages. Follow these URLs instead of constructing cursors. The response also includes these links in the HTTP `Link` header.
+- `links`: URLs for the current page and available `first`, `prev`, and `next` pages. Follow these URLs instead of constructing cursors. The response also includes these links in the HTTP `Link` header.
 
 Optional query string parameters:
 
@@ -90,7 +90,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>403 Forbidden</code></th>
-    <td>The organization's plan does not include audit logging, or the token does not have the <code>read_audit_events</code> scope.</td>
+    <td>The organization's plan does not include audit logging, the user cannot view the audit log, or the token does not have the <code>read_audit_events</code> scope.</td>
   </tr>
 </tbody>
 </table>
