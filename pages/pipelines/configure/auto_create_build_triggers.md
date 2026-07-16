@@ -1,10 +1,10 @@
 # Auto-create build triggers
 
-By default, when a user creates a new pipeline through the Buildkite web interface and connects a GitHub repository, Buildkite automatically enables two build triggers — one for code pushes and one for pull requests. This causes a webhook to be created on the GitHub repository.
+By default, when a user creates a new pipeline in Buildkite Pipelines using the new pipeline form and connects a GitHub repository, the form automatically enables two build triggers. One trigger is for code pushes, and the other is for pull requests. Buildkite Pipelines also creates a webhook on the GitHub repository.
 
-Organization administrators can disable this default using the **Auto-create Build Triggers** setting. When disabled, new pipelines do not have build triggers enabled by default, so no webhook is automatically created. Users can still manually enable build triggers for individual new pipelines when creating them.
+Organization administrators can disable this default using the **Auto-create Build Triggers** setting. When disabled, new pipelines do not have build triggers enabled by default. No webhook is automatically created. Users can still manually enable build triggers for individual new pipelines when creating them.
 
-This setting only affects new pipelines created through the Buildkite web UI. Pipeline creation via the REST or GraphQL APIs never auto-creates webhooks, regardless of this setting.
+This setting only affects new pipelines created through the Buildkite web UI. Pipeline creation using the REST or GraphQL APIs never auto-creates webhooks, regardless of this setting.
 
 ## Enable or disable auto-create build triggers
 
@@ -40,5 +40,5 @@ A confirmation dialog appears before the change is applied. The settings page re
 
 Existing pipelines and their webhooks are not affected by changes to this setting.
 
-> 📘
+> 📘 Webhook limits
 > If your organization creates many pipelines against the same GitHub repository, disabling this setting helps avoid hitting GitHub's per-repository webhook limit. You can still create webhooks explicitly for individual pipelines by enabling build triggers during pipeline creation.
