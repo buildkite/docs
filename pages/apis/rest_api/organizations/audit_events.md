@@ -22,18 +22,18 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "items": [
     {
-      "uuid": "0191e71a-552b-7be5-8a3d-8e0fc2c84e52",
-      "graphql_id": "QXVkaXRFdmVudC0tLTAxOTFlNzFhLTU1MmItN2JlNS04YTNkLThlMGZjMmM4NGU1Mg==",
+      "uuid": "01931fa7-b1c0-7abc-8abc-0123456789ab",
+      "graphql_id": "QXVkaXRFdmVudC0tLTAxOTMxZmE3LWIxYzAtN2FiYy04YWJjLTAxMjM0NTY3ODlhYg==",
       "type": "OrganizationUpdatedEvent",
       "occurred_at": "2024-11-12T09:15:04.000Z",
       "actor": {
         "type": "User",
-        "uuid": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-        "name": "Sam Kim"
+        "uuid": "01234567-89ab-4cde-8f01-23456789abcd",
+        "name": "Example User"
       },
       "subject": {
         "type": "Organization",
-        "uuid": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+        "uuid": "12345678-9abc-4def-8012-3456789abcde",
         "name": "acme-inc"
       },
       "context": {
@@ -42,7 +42,7 @@ curl -H "Authorization: Bearer $TOKEN" \
         "request_user_agent": "Mozilla/5.0"
       },
       "data": {},
-      "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/0191e71a-552b-7be5-8a3d-8e0fc2c84e52"
+      "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/01931fa7-b1c0-7abc-8abc-0123456789ab"
     }
   ],
   "links": {
@@ -106,18 +106,18 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ```json
 {
-  "uuid": "0191e71a-552b-7be5-8a3d-8e0fc2c84e52",
-  "graphql_id": "QXVkaXRFdmVudC0tLTAxOTFlNzFhLTU1MmItN2JlNS04YTNkLThlMGZjMmM4NGU1Mg==",
+  "uuid": "01931fa7-b1c0-7abc-8abc-0123456789ab",
+  "graphql_id": "QXVkaXRFdmVudC0tLTAxOTMxZmE3LWIxYzAtN2FiYy04YWJjLTAxMjM0NTY3ODlhYg==",
   "type": "OrganizationUpdatedEvent",
   "occurred_at": "2024-11-12T09:15:04.000Z",
   "actor": {
     "type": "User",
-    "uuid": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "name": "Sam Kim"
+    "uuid": "01234567-89ab-4cde-8f01-23456789abcd",
+    "name": "Example User"
   },
   "subject": {
     "type": "Organization",
-    "uuid": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+    "uuid": "12345678-9abc-4def-8012-3456789abcde",
     "name": "acme-inc"
   },
   "context": {
@@ -126,7 +126,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "request_user_agent": "Mozilla/5.0"
   },
   "data": {},
-  "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/0191e71a-552b-7be5-8a3d-8e0fc2c84e52"
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/01931fa7-b1c0-7abc-8abc-0123456789ab"
 }
 ```
 
