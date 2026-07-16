@@ -37,7 +37,7 @@ query GetDownloadURLsForArtifactsFromBuild {
 
 The `artifacts` field on a command job accepts an optional `state` argument to return only artifacts in a given state. Valid values are `NEW`, `ERROR`, `FINISHED`, `DELETED`, and `EXPIRED`.
 
-Buildkite-hosted artifacts past their retention window are returned as `EXPIRED` regardless of their stored state, matching the behavior of the [REST API](/docs/apis/rest-api/artifacts).
+Buildkite-hosted artifacts past their retention window are returned as `EXPIRED` regardless of their stored state, except for artifacts in the `NEW` state. These artifacts remain `NEW`, matching the behavior of the [REST API](/docs/apis/rest-api/artifacts).
 
 To list only artifacts that failed to upload:
 

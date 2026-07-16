@@ -908,6 +908,36 @@ type ArtifactEdge {
 }
 
 """
+All the possible states an artifact can be in
+"""
+enum ArtifactStates {
+  """
+  The artifact has been deleted
+  """
+  DELETED
+
+  """
+  The artifact failed to upload
+  """
+  ERROR
+
+  """
+  The artifact has aged out of its retention window
+  """
+  EXPIRED
+
+  """
+  The artifact was uploaded successfully
+  """
+  FINISHED
+
+  """
+  The artifact has been registered but not yet uploaded
+  """
+  NEW
+}
+
+"""
 Context for an audit event created during an REST/GraphQL API request
 """
 type AuditAPIContext {
@@ -4786,7 +4816,21 @@ type JobTypeCommand implements JobInterface & Node {
   """
   Artifacts uploaded to this job
   """
-  artifacts(first: Int, last: Int): ArtifactConnection
+  artifacts(
+    first: Int
+    last: Int
+
+    """
+    Filter artifacts by path. A `*` in the value is treated as a glob wildcard
+    (for example `logs/*`), otherwise the path must match exactly.
+    """
+    path: String
+
+    """
+    Filter artifacts by their state
+    """
+    state: ArtifactStates
+  ): ArtifactConnection
 
   """
   A glob of files to automatically upload after the job finishes
