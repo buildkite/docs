@@ -1319,6 +1319,17 @@ Required scope: `write_builds`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason why the build could not be rebuilt" }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## Retry failed jobs for a build
 
 Queues failed jobs to be retried in a build.
