@@ -1400,7 +1400,7 @@ Error responses:
 
 ## GitHub webhook processing
 
-These endpoints let you get, enable, or disable incoming GitHub webhook processing for a pipeline. They are only available for GitHub and GitHub Enterprise pipelines, and your organization must be enrolled in the expanded webhook triggers feature.
+These endpoints let you get, enable, or disable incoming GitHub webhook processing for a pipeline. They are only available for GitHub and GitHub Enterprise pipelines. Your organization must be enrolled in the expanded webhook triggers feature.
 
 > 📘 Feature availability
 > These endpoints return `404 Not Found` if your organization is not enrolled in the expanded webhook triggers feature, or if the pipeline is not connected to a GitHub or GitHub Enterprise repository.
@@ -1411,7 +1411,7 @@ These endpoints let you get, enable, or disable incoming GitHub webhook processi
 <tbody>
   <tr>
     <th><code>url</code></th>
-    <td>Canonical API URL of the github-webhooks sub-resource</td>
+    <td>Canonical API URL of the GitHub webhook processing state</td>
   </tr>
   <tr>
     <th><code>enabled</code></th>
@@ -1437,7 +1437,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `read_pipelines`
 
-Required permission: `edit_project`
+Required permission: [**Full Access**](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) to the pipeline
 
 Success response: `200 OK`
 
@@ -1452,7 +1452,7 @@ Success response: `200 OK`
 
 ### Enable GitHub webhook processing
 
-Enables incoming webhook processing for the pipeline. This operation is idempotent—if webhook processing is already enabled, the current state is returned with no side effects.
+Enables incoming webhook processing for the pipeline. This operation is idempotent. If webhook processing is already enabled, the endpoint returns the current state without changing it.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1461,7 +1461,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `write_pipelines`
 
-Required permission: `edit_project`
+Required permission: **Full Access** to the pipeline
 
 Success response: `200 OK`
 
@@ -1476,7 +1476,7 @@ Success response: `200 OK`
 
 ### Disable GitHub webhook processing
 
-Disables incoming webhook processing for the pipeline and records who disabled it and when. This operation is idempotent—if webhook processing is already disabled, the current state is returned with no side effects.
+Disables incoming webhook processing for the pipeline and records who disabled it and when. This operation is idempotent. If webhook processing is already disabled, the endpoint returns the current state without changing it.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -1485,7 +1485,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `write_pipelines`
 
-Required permission: `edit_project`
+Required permission: **Full Access** to the pipeline
 
 Success response: `200 OK`
 
