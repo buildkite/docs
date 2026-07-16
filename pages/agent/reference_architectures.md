@@ -98,6 +98,7 @@ The Scale pattern suits organizations with diverse workloads, stronger complianc
 - Run agents on demand through a container scheduler, such as Amazon ECS, Nomad, or a managed Kubernetes cluster. Map each job type to a specific task definition or container spec.
 - Design queues around job characteristics, not team ownership. Team-specific queues fragment the pool and reduce utilization, so own the queue taxonomy at the platform level.
 - Run a dedicated cache layer. At this volume, object storage round-trips add up, so combine a shared network file system mount for workspace-local caches with object storage for broader artifacts.
+- Use a secrets manager with separate IAM roles or service accounts for each workload-specific agent pool. This limits credentials to the jobs that need them.
 - Use [agent tags](/docs/agent/queues) to route jobs to specific capabilities, such as a queue, architecture, or GPU requirement. This gives pipeline authors a declarative interface without knowing the underlying infrastructure.
 - Introduce pipeline templates or step libraries to prevent a proliferation of per-team agent configurations.
 - Export structured build metrics. At this scale, identifying systemic slowdowns requires data you cannot eyeball. See [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
@@ -133,8 +134,9 @@ The Enterprise pattern suits large or regulated organizations that operate multi
 - Run spot or preemptible instances for stateless test workloads, which are typically 70–85% of build volume. Reserve on-demand capacity for deploy agents and jobs with strict SLAs. Configure automatic retries so jobs survive instance interruptions. See the [agent lifecycle](/docs/agent/lifecycle) for graceful termination.
 - Apply Kubernetes network policies to isolate job namespaces. Run security-sensitive jobs, such as credential rotation and production deployments, in dedicated namespaces with restricted egress.
 - Bind cloud credentials to specific job service accounts using workload identity, such as IRSA on Amazon EKS or Workload Identity on Google GKE. Static credential injection is not acceptable at this tier.
+- Use persistent volumes for workspace-local caches and object storage for build artifacts. Add a shared cache service when cache volume or latency requires it.
 - Deploy across multiple clusters in at least two regions, and define a primary queue and a fallback queue for regional redundancy.
-- Run a build observability stack that exports agent metrics, such as queue depth, job duration, and agent utilization, and define SLOs on build latency.
+- Run a build observability stack that exports agent metrics, such as queue depth, job duration, and agent utilization, and define SLOs on build latency. Use build analytics to find consistently slow test shards, cache misses, and flaky tests that consume fleet capacity.
 - Provide a self-service catalog of approved agent configurations, base images, and resource presets that teams select from. This prevents configuration sprawl while giving teams flexibility.
 
 ### Cost controls

@@ -151,6 +151,7 @@
   pipelines/integrations/other/backstage: "Installing and configuring the Buildkite plugin for Backstage developer portals with build monitoring and management."
   pipelines/announcements/database-migration: "Archived announcement about the 2024-2025 Buildkite Pipelines database migration to sharded PostgreSQL."
   agent: "Overview of the Buildkite agent, comparing self-hosted and Buildkite hosted agents, architecture, lifecycle, and CLI usage."
+  agent/reference-architectures: "Compares Starter, Growth, Scale, and Enterprise reference architecture patterns for Buildkite agent infrastructure, including compute, queues, caching, isolation, scaling signals, and operational trade-offs."
   agent/self-hosted: "Running agents on your own infrastructure, covering installation, configuration, starting agents, and experimental features."
   agent/self-hosted/tokens: "Creating, managing, and revoking agent tokens used to connect self-hosted agents to Buildkite clusters."
   agent/self-hosted/code-access: "Configuring SSH keys on self-hosted agents to clone private Git repositories, including GitHub-specific setup."
