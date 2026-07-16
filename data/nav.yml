@@ -510,6 +510,8 @@
           path: "pipelines/configure/build-retention"
         - name: "Public pipelines"
           path: "pipelines/configure/public-pipelines"
+        - name: "Auto-create build triggers"
+          path: "pipelines/configure/auto-create-build-triggers"
         - name: "Using build meta-data"
           path: "pipelines/configure/build-meta-data"
         - name: "Managing log output"
@@ -1038,6 +1040,8 @@
               path: "apis/rest-api/organizations/notification-services"
             - name: "Pipeline settings"
               path: "apis/rest-api/organizations/pipeline-settings"
+            - name: "Repository connections"
+              path: "apis/rest-api/organizations/repository-connections"
         - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.

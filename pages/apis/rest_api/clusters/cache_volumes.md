@@ -41,7 +41,7 @@ This API is available to organizations with Buildkite hosted agents enabled. For
 
 ## List cache volumes
 
-Returns the list of cache volumes for a cluster. Non-hosted clusters and hosted clusters with no cache volumes return an empty list.
+Returns an unpaginated list containing the latest detached cache volume for each tag. Volumes that have not been detached are not returned. Non-hosted clusters and hosted clusters with no detached cache volumes return an empty list.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -64,6 +64,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `read_clusters`
 
+Required permission: permission to manage the cluster
+
 Success response: `200 OK`
 
 Error responses:
@@ -79,7 +81,7 @@ Error responses:
 
 ## Delete a cache volume
 
-Deletes a cache volume by its tag. Cache tags can contain `/` and `;`. The tag is passed in the request body rather than as a URL path segment.
+Deletes cache data by its tag. Cache tags can contain `/` and `;`. The tag is passed in the request body rather than as a URL path segment. Use the `tag` from a list response, not the cache volume `id`. Deletion applies to the tag represented by the list result.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -88,7 +90,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{ "tag": "pipeline-uuid/node-modules" }'
 ```
 
-Required [request body properties](/docs/api#request-body-properties):
+Required [request body properties](/docs/apis/rest-api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
@@ -100,6 +102,8 @@ Required [request body properties](/docs/api#request-body-properties):
 </table>
 
 Required scope: `write_clusters`
+
+Required permission: permission to manage the cluster
 
 Success response: `204 No Content`
 

@@ -34,6 +34,7 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations` | [List organizations](/docs/apis/rest-api/organizations#list-organizations)
 GET | `/v2/organizations/{org.slug}` | [Get an organization](/docs/apis/rest-api/organizations#get-an-organization)
+GET | `/v2/organizations/{org.slug}/rate_limit` | [Get organization rate limits](/docs/apis/rest-api/organizations/rate-limits#get-rate-limits)
 {: class="responsive-table"}
 
 ### Audit events
@@ -51,6 +52,38 @@ Method | Endpoint | Description
 GET | `/v2/organizations/{org.slug}/members` | [List organization members](/docs/apis/rest-api/organizations/members#list-organization-members)
 GET | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Get an organization member](/docs/apis/rest-api/organizations/members#get-an-organization-member)
 PATCH | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Update an organization member](/docs/apis/rest-api/organizations/members#update-an-organization-member)
+DELETE | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Remove an organization member](/docs/apis/rest-api/organizations/members#remove-an-organization-member)
+{: class="responsive-table"}
+
+### Organization API settings
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/api-settings` | [Get API settings](/docs/apis/rest-api/organizations/api-settings#get-api-settings)
+PATCH | `/v2/organizations/{org.slug}/api-settings` | [Update API settings](/docs/apis/rest-api/organizations/api-settings#update-api-settings)
+{: class="responsive-table"}
+
+### Organization pipeline settings
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipeline-settings` | [Get pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#get-pipeline-settings)
+PATCH | `/v2/organizations/{org.slug}/pipeline-settings` | [Update pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#update-pipeline-settings)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Enable hosted agents terminal access](/docs/apis/rest-api/organizations/pipeline-settings#enable-hosted-agents-terminal-access)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Disable hosted agents terminal access](/docs/apis/rest-api/organizations/pipeline-settings#disable-hosted-agents-terminal-access)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Enable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#enable-public-pipeline-creation)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Disable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#disable-public-pipeline-creation)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/advanced-queue-metrics` | [Enable advanced queue metrics](/docs/apis/rest-api/organizations/pipeline-settings#enable-advanced-queue-metrics)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/build-export` | [Configure build export](/docs/apis/rest-api/organizations/pipeline-settings#configure-build-export)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/build-export` | [Disable build export](/docs/apis/rest-api/organizations/pipeline-settings#disable-build-export)
+{: class="responsive-table"}
+
+### Repository connections
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/repository_connections` | [List repository connections](/docs/apis/rest-api/organizations/repository-connections#list-repository-connections)
+GET | `/v2/organizations/{org.slug}/repository_connections/{id}` | [Get a repository connection](/docs/apis/rest-api/organizations/repository-connections#get-a-repository-connection)
 {: class="responsive-table"}
 
 ### Notification services
@@ -189,6 +222,31 @@ GET | `/v2/organizations/{org.slug}/clusters/{id}` | [Get a cluster](/docs/apis/
 POST | `/v2/organizations/{org.slug}/clusters` | [Create a cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster)
 PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster)
 DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#clusters-delete-a-cluster)
+{: class="responsive-table"}
+
+### Hosted agent images
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images` | [List agent images](/docs/apis/rest-api/clusters/agent-images#list-agent-images)
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images/{id}` | [Get an agent image](/docs/apis/rest-api/clusters/agent-images#get-an-agent-image)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images` | [Create an agent image](/docs/apis/rest-api/clusters/agent-images#create-an-agent-image)
+DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images/{id}` | [Delete an agent image](/docs/apis/rest-api/clusters/agent-images#delete-an-agent-image)
+{: class="responsive-table"}
+
+### Hosted agent network ranges
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/network_ranges` | [List network ranges](/docs/apis/rest-api/clusters/network-ranges#list-network-ranges)
+{: class="responsive-table"}
+
+### Hosted agent cache volumes
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/cache_volumes` | [List cache volumes](/docs/apis/rest-api/clusters/cache-volumes#list-cache-volumes)
+DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/cache_volumes` | [Delete a cache volume](/docs/apis/rest-api/clusters/cache-volumes#delete-a-cache-volume)
 {: class="responsive-table"}
 
 ### Queues

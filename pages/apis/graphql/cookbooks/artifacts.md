@@ -19,6 +19,7 @@ query GetDownloadURLsForArtifactsFromBuild {
             artifacts {
               edges {
                 node {
+                  id
                   path
                   downloadURL
                 }
@@ -121,3 +122,23 @@ query GetFinishedLogArtifactsForJob {
   }
 }
 ```
+
+## Delete an artifact
+
+1. [Get the artifact's GraphQL ID](#list-download-urls-for-artifacts-from-a-build) from a build query.
+1. Use that ID to delete the artifact:
+
+```graphql
+mutation ArtifactDelete {
+  artifactDelete(input: {
+    id: "artifact-id"
+  }) {
+    deletedArtifactId
+    artifact {
+      state
+    }
+  }
+}
+```
+
+The artifact record is retained and marked as deleted. Files stored by Buildkite are removed from storage asynchronously. Artifacts hosted outside Buildkite, such as those in custom AWS S3, Google Cloud, or Artifactory storage, are left in place and must be deleted manually from that storage.

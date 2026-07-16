@@ -1,6 +1,6 @@
 # Organization members API
 
-The organization members API endpoint allows users to view and manage members of a Buildkite organization.
+The organization members API endpoint allows users to view and manage members of a Buildkite organization. Member paths use the user's UUID, which is returned as the member's `id`.
 
 ## Organization member data model
 
@@ -59,6 +59,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `read_organizations`
 
+Required permission: permission to view teams in the organization
+
 Success response: `200 OK`
 
 ## Get an organization member
@@ -79,6 +81,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 Required scope: `read_organizations`
+
+Required permission: permission to view teams in the organization
 
 Success response: `200 OK`
 
@@ -106,7 +110,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Optional [request body properties](/docs/api#request-body-properties):
+Optional [request body properties](/docs/apis/rest-api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
@@ -123,6 +127,8 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_organizations`
 
+Required permission: permission to update the organization member
+
 Success response: `200 OK`
 
 Error responses:
@@ -130,8 +136,16 @@ Error responses:
 <table class="responsive-table">
 <tbody>
   <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the required scope, the user cannot update the member, or the user attempts to update their own membership.</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The organization or member could not be found or accessed.</td>
+  </tr>
+  <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td><code>{ "message": "Reason the member couldn't be updated" }</code></td>
+    <td>The request does not provide <code>role</code> or <code>sso_mode</code>, supplies an unsupported value, or the member cannot be updated.</td>
   </tr>
 </tbody>
 </table>
@@ -145,4 +159,25 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `write_organizations`
 
+Required permission: permission to remove the organization member
+
 Success response: `204 No Content`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the required scope or the user cannot remove the member.</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The organization or member could not be found or accessed.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td>The member cannot be removed, such as when removing them would leave the organization without an administrator.</td>
+  </tr>
+</tbody>
+</table>

@@ -14,14 +14,14 @@ This API is available to organizations with Buildkite hosted agents enabled. Non
     </tr>
     <tr>
       <th><code>kind</code></th>
-      <td>The type of network range</td>
+      <td>The provider-defined type of network range</td>
     </tr>
   </tbody>
 </table>
 
 ## List network ranges
 
-Returns the list of egress network ranges for a cluster. Non-hosted clusters and hosted clusters with no configured ranges return an empty list.
+Returns an unpaginated list of egress network ranges for a cluster. Non-hosted clusters and hosted clusters with no configured ranges return an empty list.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -38,6 +38,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 Required scope: `read_clusters`
+
+Required permission: permission to manage the cluster
 
 Success response: `200 OK`
 
