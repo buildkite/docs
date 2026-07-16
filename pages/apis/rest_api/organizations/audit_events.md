@@ -19,32 +19,62 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 ```json
-[
-  {
-    "uuid": "0191e71a-552b-7be5-8a3d-8e0fc2c84e52",
-    "graphql_id": "QXVkaXRFdmVudC0tLTAxOTFlNzFhLTU1MmItN2JlNS04YTNkLThlMGZjMmM4NGU1Mg==",
-    "type": "OrganizationUpdatedEvent",
-    "occurred_at": "2024-11-12T09:15:04.000Z",
-    "actor": {
-      "type": "User",
-      "uuid": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "name": "Sam Kim"
-    },
-    "subject": {
-      "type": "Organization",
-      "uuid": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
-      "name": "acme-inc"
-    },
-    "context": {
-      "type": "WebContext",
-      "request_ip": "192.0.2.1",
-      "request_user_agent": "Mozilla/5.0"
-    },
-    "data": {},
-    "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/0191e71a-552b-7be5-8a3d-8e0fc2c84e52"
+{
+  "items": [
+    {
+      "uuid": "0191e71a-552b-7be5-8a3d-8e0fc2c84e52",
+      "graphql_id": "QXVkaXRFdmVudC0tLTAxOTFlNzFhLTU1MmItN2JlNS04YTNkLThlMGZjMmM4NGU1Mg==",
+      "type": "OrganizationUpdatedEvent",
+      "occurred_at": "2024-11-12T09:15:04.000Z",
+      "actor": {
+        "type": "User",
+        "uuid": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "name": "Sam Kim"
+      },
+      "subject": {
+        "type": "Organization",
+        "uuid": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+        "name": "acme-inc"
+      },
+      "context": {
+        "type": "WebContext",
+        "request_ip": "192.0.2.1",
+        "request_user_agent": "Mozilla/5.0"
+      },
+      "data": {},
+      "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/0191e71a-552b-7be5-8a3d-8e0fc2c84e52"
+    }
+  ],
+  "links": {
+    "self": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events?per_page=30",
+    "next": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events?per_page=30&after=eyJvY2N1cnJlZF9hdCI6Ii4uLiJ9"
   }
-]
+}
 ```
+
+The response body contains the following pagination fields:
+
+- `items`: The audit events on the current page.
+- `links`: URLs for the current page and available adjacent pages. Follow these URLs instead of constructing cursors. The response also includes these links in the HTTP `Link` header.
+
+Optional query string parameters:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>after</code></th>
+    <td>Returns the next page after the supplied cursor. Cannot be combined with <code>before</code>.</td>
+  </tr>
+  <tr>
+    <th><code>before</code></th>
+    <td>Returns the previous page before the supplied cursor. Cannot be combined with <code>after</code>.</td>
+  </tr>
+  <tr>
+    <th><code>per_page</code></th>
+    <td>Number of results per page. Defaults to <code>30</code> and has a maximum of <code>100</code>.</td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `read_audit_events`
 
@@ -54,6 +84,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td>The request supplies both cursor parameters, an invalid cursor, or a <code>per_page</code> value outside the supported range.</td>
+  </tr>
   <tr>
     <th><code>403 Forbidden</code></th>
     <td>The organization's plan does not include audit logging, or the token does not have the <code>read_audit_events</code> scope.</td>
@@ -104,6 +138,10 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The organization's plan does not include audit logging, the user cannot view the audit log, or the token does not have the <code>read_audit_events</code> scope.</td>
+  </tr>
   <tr>
     <th><code>404 Not Found</code></th>
     <td>The audit event UUID does not exist or belongs to a different organization.</td>
