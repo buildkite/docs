@@ -116,10 +116,10 @@ You can enable additional pull request actions to trigger builds:
 - **Build when pull request is converted to draft**: build when a pull request is converted to a draft
 - **Build when a review is requested**: build when a review is requested on a pull request
 - **Build when pull request is removed from merge queue**: build when a pull request is dequeued from a GitHub merge queue
-- **Build when pull request is from third-party forked repository**: build pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 
-You can also configure these options:
+You can also configure these **Pull request webhook options** (these options may also affect builds triggered by pull request reviews and comments):
 
+- **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 - **Limit pull request branches**: filter which branches trigger pull request builds
 - **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
 - **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
