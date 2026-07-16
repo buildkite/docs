@@ -2,7 +2,7 @@
 
 Agent images let you define custom Dockerfile bodies for [Buildkite hosted agents](/docs/agent/buildkite-hosted). Each agent image is associated with a cluster and is built on top of a Buildkite-managed base image.
 
-This API is available to organizations with Buildkite hosted agents enabled. If Buildkite hosted agents are not enabled for your organization, every endpoint returns `404 Not Found`. When they are enabled but the target cluster is not a hosted cluster, [list](#list-agent-images) requests return an empty list, [get](#get-an-agent-image) and [delete](#delete-an-agent-image) requests return `404 Not Found`, and [create](#create-an-agent-image) requests return `422 Unprocessable Entity`.
+These endpoints require Buildkite hosted agents and access to the custom agent images feature. The API returns `404 Not Found` when the feature is unavailable for the organization. When the target cluster is not a hosted cluster, [list](#list-agent-images) requests return an empty list, [get](#get-an-agent-image) and [delete](#delete-an-agent-image) requests return `404 Not Found`, and [create](#create-an-agent-image) requests return `422 Unprocessable Entity`.
 
 ## Agent image data model
 
@@ -10,7 +10,7 @@ This API is available to organizations with Buildkite hosted agents enabled. If 
   <tbody>
     <tr>
       <th><code>id</code></th>
-      <td>ID of the agent image (the Namespace profile ID)</td>
+      <td>ID of the agent image. Use this value in get and delete requests</td>
     </tr>
     <tr>
       <th><code>name</code></th>
@@ -61,7 +61,7 @@ This API is available to organizations with Buildkite hosted agents enabled. If 
 
 ## List agent images
 
-Returns the list of a cluster's agent images, sorted alphabetically by name. Non-hosted clusters return an empty list.
+Returns an unpaginated list of a cluster's agent images, sorted alphabetically by name. Non-hosted clusters return an empty list.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -89,7 +89,11 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `read_clusters`
 
+Required permission: permission to manage the cluster
+
 Success response: `200 OK`
+
+Error response: `503 Service Unavailable` when the hosted-agent service cannot return the images.
 
 ## Get an agent image
 
@@ -117,13 +121,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `read_clusters`
 
+Required permission: permission to manage the cluster
+
 Success response: `200 OK`
+
+Error response: `503 Service Unavailable` when the hosted-agent service cannot return the image.
 
 ## Create an agent image
 
 Buildkite manages the base image for all hosted agent images. Submit only the Dockerfile body — the instructions to layer on top of the base image. Do not include a `FROM` instruction; Buildkite prepends the managed base image automatically.
 
-Image builds are asynchronous. The response returns immediately with `status: "BUILDING"`. Poll [get an agent image](#get-an-agent-image) until `status` is `READY` or `FAILED`.
+Image builds are asynchronous. The response returns the current status. Poll [get an agent image](#get-an-agent-image) until `status` changes from `BUILDING` to `READY` or `FAILED`.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -149,7 +157,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Required [request body properties](/docs/api#request-body-properties):
+Required [request body properties](/docs/apis/rest-api#request-body-properties):
 
 <table class="responsive-table">
   <tbody>
@@ -166,6 +174,8 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_clusters`
 
+Required permission: permission to manage the cluster
+
 Success response: `201 Created`
 
 Error responses:
@@ -179,6 +189,10 @@ Error responses:
     <tr>
       <th><code>422 Unprocessable Entity</code></th>
       <td><code>{ "message": "Reason for failure" }</code></td>
+    </tr>
+    <tr>
+      <th><code>503 Service Unavailable</code></th>
+      <td>The hosted-agent service could not create the image. The request is safe to retry.</td>
     </tr>
   </tbody>
 </table>
@@ -194,6 +208,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `write_clusters`
 
+Required permission: permission to manage the cluster
+
 Success response: `204 No Content`
 
 Error responses:
@@ -207,6 +223,10 @@ Error responses:
     <tr>
       <th><code>409 Conflict</code></th>
       <td><code>{ "message": "this agent image is in use by one or more queues; reassign those queues before deleting it" }</code></td>
+    </tr>
+    <tr>
+      <th><code>503 Service Unavailable</code></th>
+      <td>The hosted-agent service could not delete the image. The request is safe to retry.</td>
     </tr>
   </tbody>
 </table>

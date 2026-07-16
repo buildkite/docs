@@ -944,6 +944,8 @@
     path: apis/graphql/schemas/enum/annotationscope
   - name: AnnotationStyle
     path: apis/graphql/schemas/enum/annotationstyle
+  - name: ArtifactStates
+    path: apis/graphql/schemas/enum/artifactstates
   - name: AuditActorType
     path: apis/graphql/schemas/enum/auditactortype
   - name: AuditEventType

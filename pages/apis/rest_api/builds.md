@@ -191,7 +191,7 @@ Jobs are the individual units of work within a build.
   </tr>
   <tr>
     <th><code>signal_reason</code></th>
-    <td>Why the agent sent the termination signal. A non-null value means the agent (not the command itself) ended the job. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process — infrastructure failure), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), <code>agent_incompatible</code> (agent cannot run this job type). Null if the job ended normally or predates this field.</td>
+    <td>The reason the job received a signal or why its process could not start. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), and <code>agent_incompatible</code> (agent cannot run this job type). A value can help diagnose a failure, but does not determine whether retrying is safe by itself. The value is null if the job ended normally or predates this field.</td>
   </tr>
   <tr>
     <th><code>promised_exit_status</code></th>
@@ -1318,6 +1318,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `write_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason why the build could not be rebuilt" }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## Retry failed jobs for a build
 
