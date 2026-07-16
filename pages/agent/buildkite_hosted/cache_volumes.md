@@ -154,7 +154,7 @@ To enable container cache volumes feature for Buildkite hosted agents on your cl
 
 1. Select **Cache Storage**, then select the **Settings** tab.
 
-1. Select **Enable container caching**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
+1. Select **Enable container caching**, then select **Save cache settings** to enable container caching for the selected hosted cluster.
 
 Once enabled, container cache volumes will be used for all Buildkite hosted agent jobs in that cluster. A separate volume is created for each pipeline, and is done so upon the pipeline being built for the first time.
 
