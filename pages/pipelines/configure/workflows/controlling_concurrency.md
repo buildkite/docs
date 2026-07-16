@@ -52,8 +52,42 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
 In these situations, you can use _concurrency gates_ to control which jobs run in parallel and which jobs run one at a time. Concurrency gates come in pairs, so when you open a gate, you have to close it.
 
+### How concurrency gates work
+
+A concurrency gate is not a separate feature. It uses the same `concurrency_group` and `concurrency` attributes covered under [Concurrency groups](#concurrency-groups) above, applied to a pair of steps. The minimal shape of a gate is:
+
+```yaml
+steps:
+  - command: echo "Open the gate"
+    concurrency_group: gate
+    concurrency: 1
+
+  - wait
+
+  - command: echo "This runs once per build, one build at a time"
+
+  - wait
+
+  - command: echo "Close the gate"
+    concurrency_group: gate
+    concurrency: 1
+```
+{: codeblock-file="pipeline.yml"}
+
+Both steps share the same `concurrency_group` and set `concurrency: 1`, so they compete for the same single slot in that group. No `key` or `depends_on` attribute is needed to make a gate work.
+
+This works because of how concurrency groups order jobs. Jobs in a group run in the order they were created, and every job in a build inherits that build's creation time, as described under [Concurrency groups](#concurrency-groups) above.
+
+Consider two builds of this pipeline, where build A starts before build B. Both of build A's gate steps are older, by creation time, than both of build B's gate steps. Build A's opening step takes the group's one slot, runs, and finishes almost immediately, freeing the slot. That slot goes to the next oldest job in the group, which is build A's own closing step, not build B's opening step. Build A's closing step can't run yet, though, because it's still waiting on the steps in between to finish. Build B's opening step stays behind it in the group's creation-time order. It has to wait until build A's closing step actually completes before it can take the slot for itself.
+
+A step that depends on a gate step inherits this same ordering. Depending on a step that's in a concurrency group creates an implicit dependency on the rest of the steps in that group, as described under [Order of operations](/docs/pipelines/configure/depends-on#order-of-operations) in the `depends_on` documentation.
+
+The net effect is that only one build's worth of gated work runs at a time, even though the work between the gates isn't itself in any concurrency group.
+
 > 🚧
 > Since [`block`](/docs/pipelines/block-step) and [`input`](/docs/pipelines/input-step) steps [prevent jobs being added to concurrency groups](#troubleshooting-and-using-concurrency-group-with-block-slash-input-steps), you cannot use these two steps inside concurrency gates.
+
+### Example: gating parallel work
 
 In the following setup, only one build at a time can _enter the concurrency gate_, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
 
@@ -90,6 +124,14 @@ steps:
     depends_on: end-gate
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Omitting the closing step
+
+If you leave out the closing gate step, the gate stops enforcing concurrency over the intervening work. The opening step finishes almost immediately and frees the group's slot right away. A second build's opening step can then enter immediately after, and its gated work runs concurrently with the first build's. Without a closing step, nothing is left in the concurrency group to hold the slot while the gated work is in progress.
+
+### Using a concurrency limit greater than one
+
+Setting `concurrency` above `1` on both the opening and closing steps changes the gate from strict serialization to a bounded number of builds running through the gate at once. For example, with `concurrency: 2`, up to two builds can be inside the gate at the same time, each running its own gated work in parallel with the other. A third build's opening step isn't let through until one of the two builds currently inside the gate finishes its closing step and frees a slot. This is useful when you want to bound how many gated operations, such as deployments, can be in flight at once, without limiting it to exactly one.
 
 ### Controlling command order
 

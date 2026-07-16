@@ -11,26 +11,34 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: Dispatch – Objects – GraphQL API
+title: ArtifactStates – Enums – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  Dispatch
-  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
+  ArtifactStates
+  <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-A job dispatch for a particular Organization
+All the possible states an artifact can be in
+
+
+
+
+
+
+
+
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
     <th>
-      <h2 data-algolia-exclude>Fields</h2>
+      <h2 data-algolia-exclude>ENUM Values</h2>
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The public UUID for this organization dispatch</p></td></tr>
+    <tr><td><p><strong><code>DELETED</code></strong></p><p>The artifact has been deleted</p></td></tr><tr><td><p><strong><code>ERROR</code></strong></p><p>The artifact failed to upload</p></td></tr><tr><td><p><strong><code>EXPIRED</code></strong></p><p>The artifact has aged out of its retention window</p></td></tr><tr><td><p><strong><code>FINISHED</code></strong></p><p>The artifact was uploaded successfully</p></td></tr><tr><td><p><strong><code>NEW</code></strong></p><p>The artifact has been registered but not yet uploaded</p></td></tr>
   </tbody>
 </table>
