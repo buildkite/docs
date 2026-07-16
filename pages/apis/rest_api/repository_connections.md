@@ -68,11 +68,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Required scope: `read_organization_repository_connections`
 
+Required permission: organization administrator privileges (the `change_organization` permission)
+
 Success response: `200 OK`
 
 Error responses:
 
 - `400 Bad Request`: malformed connection ID, or the `repository` parameter is not a string
+- `403 Forbidden`: the token does not have the `read_organization_repository_connections` scope, or the authenticated user does not have the `change_organization` permission
 - `404 Not Found`: connection not found or belongs to another organization
 - `422 Unprocessable Entity`: the connection type does not support repository listing
 - `503 Service Unavailable`: the upstream source control provider is temporarily unavailable; may include a `Retry-After` response header indicating when to retry
