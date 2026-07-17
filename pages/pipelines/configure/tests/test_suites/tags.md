@@ -153,7 +153,7 @@ Tags may be assigned using the following collection methods:
 ## Mutable tags
 
 Execution data, including tags, are immutable by default.
-To attach additional metadata to executions after upload, you can use the [execution tags API](/docs/apis/rest-api/test-engine/execution-tags) endpoint to attach mutable tags with the reserved `mut.` prefix to executions.
+To attach additional metadata to executions after upload, use the [execution tags API](/docs/apis/rest-api/test-engine/execution-tags) endpoint to add mutable tags with the reserved `mut.` prefix.
 
 Mutable tags are identical to other tags with the following caveats:
 
