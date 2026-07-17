@@ -96,7 +96,7 @@ With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.g
 
 When repository access for an existing GitHub App installation changes in GitHub Enterprise Server (for example, when repositories are added to or removed from the installation's access), Buildkite may not show the updated list immediately.
 
-To refresh the repository list, open your Buildkite organization's Settings, choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers), select the GitHub Enterprise Server provider, and select **Synchronize installations**. Buildkite clears the cached repository list and re-fetches it. The updated repositories appear in the new pipeline repository picker shortly after.
+To refresh the repository list, open your Buildkite organization's **Settings**, choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers), select the GitHub Enterprise Server provider, and select **Synchronize installations**. Buildkite clears the cached repository list and re-fetches it. The updated repositories appear in the new pipeline repository picker shortly after.
 
 ### Known limitations for additional webhook events
 
