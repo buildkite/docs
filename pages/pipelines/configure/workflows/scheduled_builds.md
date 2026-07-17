@@ -83,7 +83,7 @@ For more information on how modulo works, see the official documentation of [Fug
 
 #### Unsupported syntax
 
-The `~` random-value operator (for example, `0 ~ * * *`) is not supported in Buildkite pipeline schedules and will be rejected at validation time.
+The `~` random-value operator (for example, `0 ~ * * *`) is not supported in Buildkite Pipelines schedules and will be rejected at validation time.
 
 #### Examples
 
