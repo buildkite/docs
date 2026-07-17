@@ -1,6 +1,6 @@
 # Organization invitations API
 
-The organization invitations API endpoint lets platform administrators list, retrieve, create, and revoke pending invitations for a Buildkite organization.
+The organization invitations REST API lets authorized users list, retrieve, create, and revoke invitations for a Buildkite organization.
 
 ## Organization invitation data model
 
@@ -71,7 +71,7 @@ The organization invitations API endpoint lets platform administrators list, ret
 
 ## List organization invitations
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of pending invitations for an organization, ordered from newest to oldest. Accepted, revoked, and expired invitations are not included but can be retrieved individually by UUID.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of pending invitations for an organization, ordered from newest to oldest. The list does not include accepted, revoked, or expired invitations. You can retrieve those invitations individually by UUID.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -82,9 +82,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "items": [
     {
-      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-      "graphql_id": "T3JnYW5pemF0aW9uSW52aXRhdGlvbi0tLWExYjJjM2Q0LWU1ZjYtNzg5MC1hYmNkLWVmMTIzNDU2Nzg5MA==",
-      "url": "https://api.buildkite.com/v2/organizations/acme-inc/invitations/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "id": "00000000-0000-4000-8000-000000000001",
+      "graphql_id": "T3JnYW5pemF0aW9uSW52aXRhdGlvbi0tLTAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMQ==",
+      "url": "https://api.buildkite.com/v2/organizations/acme-inc/invitations/00000000-0000-4000-8000-000000000001",
       "email": "new-member@example.com",
       "state": "pending",
       "role": "member",
@@ -92,7 +92,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "teams": [],
       "created_at": "2024-11-12T09:15:04.000Z",
       "created_by": {
-        "id": "01234567-89ab-4cde-8f01-23456789abcd",
+        "id": "00000000-0000-4000-8000-000000000002",
         "name": "Example User",
         "email": "example@example.com"
       },
@@ -166,9 +166,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ```json
 {
-  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-  "graphql_id": "T3JnYW5pemF0aW9uSW52aXRhdGlvbi0tLWExYjJjM2Q0LWU1ZjYtNzg5MC1hYmNkLWVmMTIzNDU2Nzg5MA==",
-  "url": "https://api.buildkite.com/v2/organizations/acme-inc/invitations/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "id": "00000000-0000-4000-8000-000000000001",
+  "graphql_id": "T3JnYW5pemF0aW9uSW52aXRhdGlvbi0tLTAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMQ==",
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/invitations/00000000-0000-4000-8000-000000000001",
   "email": "new-member@example.com",
   "state": "pending",
   "role": "member",
@@ -176,7 +176,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "teams": [],
   "created_at": "2024-11-12T09:15:04.000Z",
   "created_by": {
-    "id": "01234567-89ab-4cde-8f01-23456789abcd",
+    "id": "00000000-0000-4000-8000-000000000002",
     "name": "Example User",
     "email": "example@example.com"
   },
@@ -211,7 +211,7 @@ Error responses:
 
 ## Create organization invitations
 
-Creates invitations for one or more email addresses. The response contains the created invitations. Duplicate email addresses in the request are deduplicated case-insensitively. The entire batch is validated before any invitations are created. If any address is invalid, no invitations are created.
+Creates invitations for one or more email addresses. The response contains the created invitations. The API treats duplicate email addresses as one address, regardless of capitalization. The entire batch is validated before any invitations are created. If any address is invalid, no invitations are created.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -222,7 +222,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "role": "member",
     "sso_mode": "required",
     "teams": [
-      { "id": "team-uuid", "role": "member" }
+      { "id": "00000000-0000-4000-8000-000000000003", "role": "member" }
     ]
   }'
 ```
@@ -230,19 +230,19 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 [
   {
-    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "graphql_id": "T3JnYW5pemF0aW9uSW52aXRhdGlvbi0tLWExYjJjM2Q0LWU1ZjYtNzg5MC1hYmNkLWVmMTIzNDU2Nzg5MA==",
-    "url": "https://api.buildkite.com/v2/organizations/acme-inc/invitations/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "id": "00000000-0000-4000-8000-000000000001",
+    "graphql_id": "T3JnYW5pemF0aW9uSW52aXRhdGlvbi0tLTAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMQ==",
+    "url": "https://api.buildkite.com/v2/organizations/acme-inc/invitations/00000000-0000-4000-8000-000000000001",
     "email": "member@example.com",
     "state": "pending",
     "role": "member",
     "sso_mode": "required",
     "teams": [
-      { "id": "team-uuid", "role": "member" }
+      { "id": "00000000-0000-4000-8000-000000000003", "role": "member" }
     ],
     "created_at": "2024-11-12T09:15:04.000Z",
     "created_by": {
-      "id": "01234567-89ab-4cde-8f01-23456789abcd",
+      "id": "00000000-0000-4000-8000-000000000002",
       "name": "Example User",
       "email": "example@example.com"
     },
@@ -276,7 +276,7 @@ Optional [request body properties](/docs/apis/rest-api#request-body-properties):
   </tr>
   <tr>
     <th><code>sso_mode</code></th>
-    <td>The SSO requirement for the invitee: <code>required</code> or <code>optional</code>. Defaults to <code>required</code>. When SSO is enabled for the organization, this field is required.</td>
+    <td>The SSO requirement for the invitee: <code>required</code> or <code>optional</code>. When SSO is disabled for the organization, omitting this field defaults it to <code>required</code>. When SSO is enabled, this field is required, and omitting it returns <code>422 Unprocessable Entity</code>.</td>
   </tr>
   <tr>
     <th><code>teams</code></th>
@@ -301,7 +301,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td>The request contains invalid input—for example, a malformed email address, an invalid role or SSO mode, conflicting team assignments, an email address that is already a member, a batch size that exceeds the organization's invitation quota, or an organization user limit that has been reached.</td>
+    <td>The request contains invalid input, such as a malformed email address, an invalid role or SSO mode, conflicting team assignments, an email address that is already a member, a batch size that exceeds the organization's invitation quota, or an organization user limit that has been reached. This response also occurs when the organization has SSO enabled and the request omits <code>sso_mode</code>.</td>
   </tr>
 </tbody>
 </table>
