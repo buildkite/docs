@@ -267,6 +267,9 @@ GitHub checks provide richer status information than commit statuses, including 
 > GitHub checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub commit status](#github-commit-status) notifications instead.
 > GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
+> 📘 Skipped builds
+> The commit status API only supports `pending`, `success`, `failure`, and `error`. Automatic commit statuses and [`github_commit_status`](#github-commit-status) report [skipped builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds) as failed. `github_check` reports them as `neutral`. If you use `github_check` for status reporting, disable **Update commit statuses** in your pipeline's GitHub settings. Automatic updates still use the commit status API.
+
 Add a GitHub check notification to your pipeline using the `github_check` attribute of the `notify` YAML block:
 
 ```yaml
@@ -400,7 +403,7 @@ You can set notifications:
 - On step status and other non-build events, by extending your Slack Workspace notification service with the `notify` attribute in your `pipeline.yml`.
 - On build status events in the Buildkite interface, by using a legacy Slack notification service's **Build state filtering** settings.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended), which requires only a once-off configuration for each Slack workspace and lets you notify any channel or user. The legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification service is also supported but is no longer recommended for new integrations. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notifications Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
+Before adding a `notify` attribute to your `pipeline.yml`, ensure a Buildkite organization admin has set up the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended), which requires only a once-off configuration for each Slack workspace and lets you notify any channel or user. The legacy [Slack](/docs/pipelines/integrations/notifications/slack) notification service is also supported but is no longer recommended for new integrations. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also select the [**Manage Notification Services**](https://buildkite.com/organizations/~/security/pipelines) checkbox to allow their users to create, edit, or delete notification services.
 
 - The recommended _Slack Workspace_ notification service requires a once-off configuration (only one per Slack workspace) in Buildkite, and then allows you to notify specific Slack channels or users, or both, directly within relevant pipeline steps.
 

@@ -23,6 +23,8 @@ Timeout precedence in the order of priority: step-level timeout → pipeline def
 
 Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](/docs/agent/self-hosted/configure#cancel-grace-period) flag.
 
+When a job times out, the job log displays a message such as `Terminated with signal SIGTERM (because the job timed out). Exit status -1`.
+
 Note that command step timeouts don't apply to [trigger steps](/docs/pipelines/configure/step-types/trigger-step) and [block steps](/docs/pipelines/configure/step-types/block-step).
 
 ### Updating timeouts during a job

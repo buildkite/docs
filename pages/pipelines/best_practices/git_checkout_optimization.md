@@ -1,28 +1,23 @@
 # Git checkout optimization
 
-This page covers best practices for optimizing Git workflows in Buildkite Pipelines through the use of sparse checkout and Git mirrors.
+This page covers best practices for optimizing Git workflows in Buildkite Pipelines through the use of shallow clones, sparse checkout, and Git mirrors.
+
+> 📘 Checkout configuration reference
+> For configuration details on individual checkout options such as `skip`, `depth`, `submodules`, `sparse`, `flags`, and `commit_verification`, see [Git checkout](/docs/pipelines/configure/git-checkout). This page focuses on optimization strategies.
+
+## Shallow clones
+
+Shallow clones limit the number of commits fetched during checkout, which reduces both download time and disk usage. This is one of the simplest ways to speed up checkout for repositories with long histories where the build only needs recent code.
+
+Buildkite Pipelines supports shallow clones natively through the `checkout.depth` key in your pipeline YAML. Set `checkout.depth` to a positive integer to fetch only that many commits.
+
+Shallow clones work well for steps that compile code, run tests, or perform other tasks that only need the current state of the repository. They are not suitable for steps that require full Git history, such as changelog generation, `git blame`, or `git merge-base` operations.
 
 ## Sparse checkout
 
-Sparse checkout is a [Git feature](https://git-scm.com/docs/git-sparse-checkout) that allows you to check out only a subset of paths from a repository into your working directory, while the local repository still retains the full commit history. When using sparse checkout, after you have specified the required paths, Git will populate only those files locally, which speeds up operations and reduces disk usage on very large, monorepo-style projects, without changing the repository itself or requiring server-side setup.
+Sparse checkout is a [Git feature](https://git-scm.com/docs/git-sparse-checkout) that allows you to check out only a subset of paths from a repository into your working directory, while the local repository still retains the full commit history. This speeds up operations and reduces disk usage on very large, monorepo-style projects, without changing the repository itself or requiring server-side setup.
 
-Buildkite Pipelines supports sparse checkout natively through the `checkout.sparse.paths` key in your pipeline YAML. Set it at the pipeline level as a default for all steps, or override it per step:
-
-```yaml
-steps:
-  - label: "Build frontend"
-    command: "make build"
-    checkout:
-      sparse:
-        paths:
-          - .buildkite/
-          - frontend/
-```
-{: codeblock-file="pipeline.yml"}
-
-The agent performs the sparse checkout using cone mode and sets only the listed paths in the working directory. Requires Git 2.26 or later; agents with an older Git version fall back to a full checkout. Submodules are not initialized when sparse checkout is enabled.
-
-For more details on the `checkout.sparse` key and its attributes, see [Checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes) in the command step reference.
+Buildkite Pipelines supports sparse checkout natively through the `checkout.sparse` key in your pipeline YAML. For full details on configuring sparse checkout, including cone mode behavior, Git version requirements, and submodule limitations, see [Git checkout](/docs/pipelines/configure/git-checkout).
 
 You can also use the [Sparse Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/), which supports cone and non-cone patterns, optional aggressive cleanup, skipping `ssh-keyscan`, and verbose mode for debugging.
 
@@ -32,15 +27,22 @@ You can also use the [Sparse Checkout Buildkite plugin](https://buildkite.com/re
 
 When a build runs, the Buildkite agent performs a fast local clone from the mirror by using `git clone --reference` flag, significantly reducing checkout times, especially for large repositories or those with extensive histories. Submodules also benefit from this optimization by referencing the mirror during their checkout process.
 
-## Comparing sparse checkout and Git mirrors
+## Comparing optimization approaches
 
-While both approaches help optimize your Git workflow, they solve different problems and work in fundamentally different ways. Understanding when to use each can make a real difference in your build performance.
+Shallow clones, sparse checkout, and Git mirrors solve different problems and can be combined. Understanding when to use each can make a real difference in your build performance.
+
+**Shallow clones:**
+
+- Reduce the amount of history fetched, which speeds up the clone and fetch phases.
+- Have no effect on which files appear in the working directory — all paths are still checked out.
+- Require no infrastructure changes or Git version constraints.
+- Best suited for build and test steps that only need recent commits.
 
 **Sparse checkout:**
 
 - Is client-side only, so no extra infrastructure or separate repository is required for its implementation.
-- Downloads the full repository history but only checks out the selected paths in the working tree - the files and folders that you actually need in your working directory.
-- Useful for [monorepo](/docs/pipelines/best-practices/working-with-monorepos) teams where different teams touch different directories - for example, when the frontend developers don't need backend code cluttering their workspace (and vice versa).
+- Downloads the full repository history but only checks out the selected paths in the working tree — the files and folders that you actually need in your working directory.
+- Useful for [monorepo](/docs/pipelines/best-practices/working-with-monorepos) teams where different teams touch different directories — for example, when the frontend developers don't need backend code cluttering their workspace (and vice versa).
 
 **Git mirrors:**
 
@@ -49,13 +51,15 @@ While both approaches help optimize your Git workflow, they solve different prob
 - Can mirror everything (all refs and history) or be combined with filtering if you build specialized mirrors.
 - Require some upfront setup and ongoing maintenance, but result in faster checkout times.
 
+### Combining approaches
+
+You can use `checkout.depth` and `checkout.sparse` together. When combined, the agent performs a shallow clone with the specified depth and checks out only the specified paths. This gives you both reduced history and a smaller working directory, which is useful for monorepo steps that need only a few directories and no historical context.
+
 ### When to use which
 
-- Use sparse checkout when you’re optimizing developer workstation performance - for example, developers need to work in a large repository but only on a few directories, optimizing local checkouts and IDE performance without changing server infrastructure.
-- Use a Git mirror when you’re optimizing distribution, reliability, or centralization for automation and scaling - for example, when you need a replicated source of truth for CI, faster clones for many agents, network isolation, or migration between hosts.
-
-> 📘
-> In addition to sparse checkout and Git mirrors, for checkout optimization you can also use the [Custom Checkout Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) that allows configuring the `--depth` flag for `git-clone` and `git-fetch` commands.
+- Use a shallow clone when you want to reduce checkout time with minimal configuration and no infrastructure changes.
+- Use sparse checkout when you’re optimizing developer workstation performance — for example, developers need to work in a large repository but only on a few directories, optimizing local checkouts and IDE performance without changing server infrastructure.
+- Use a Git mirror when you’re optimizing distribution, reliability, or centralization for automation and scaling — for example, when you need a replicated source of truth for CI, faster clones for many agents, network isolation, or migration between hosts.
 
 ## Understanding checkout defaults across platforms
 

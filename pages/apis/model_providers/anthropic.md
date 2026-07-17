@@ -122,6 +122,22 @@ steps:
         }'
 ```
 
+## Supported request headers
+
+The proxy forwards the following headers from your client to the Anthropic API:
+
+- **`anthropic-version`**: Specifies the Anthropic API version to use. When omitted, the proxy uses `2023-06-01` as the default. Passing a newer version (for example, `2024-06-01`) enables features introduced after that date.
+
+- **`anthropic-beta`**: Enables Anthropic beta features. Only the following vetted betas are forwarded; any other values are dropped:
+
+    * `context-management-2025-06-27`
+
+The following headers are controlled by the Buildkite proxy and cannot be overridden by the client:
+
+- `x-api-key`
+- `Content-Type`
+- `User-Agent`
+
 ## Rate limits
 
 The following rate limits apply to Anthropic API requests:

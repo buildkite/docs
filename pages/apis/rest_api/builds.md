@@ -191,7 +191,7 @@ Jobs are the individual units of work within a build.
   </tr>
   <tr>
     <th><code>signal_reason</code></th>
-    <td>Why the agent sent the termination signal. A non-null value means the agent (not the command itself) ended the job. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process — infrastructure failure), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), <code>agent_incompatible</code> (agent cannot run this job type). Null if the job ended normally or predates this field.</td>
+    <td>The reason the job received a signal or why its process could not start. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), and <code>agent_incompatible</code> (agent cannot run this job type). A value can help diagnose a failure, but does not determine whether retrying is safe by itself. The value is null if the job ended normally or predates this field.</td>
   </tr>
   <tr>
     <th><code>promised_exit_status</code></th>
@@ -348,9 +348,11 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds acr
 If using token-based authentication the list of builds will be for the authorized organizations only.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/builds"
+  -X GET "https://api.buildkite.com/v2/builds?exclude_jobs=true"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -377,9 +379,11 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's builds across all of an organization's pipelines.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds?exclude_jobs=true"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -406,10 +410,14 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's builds.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds?exclude_jobs=true"
 ```
+
+The following response shows the embedded jobs returned when you omit `exclude_jobs=true`.
 
 ```json
 [
@@ -564,12 +572,16 @@ Error responses:
 
 ## Get a build
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}?exclude_jobs=true"
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
+The following response shows the embedded jobs returned when you omit `exclude_jobs=true`.
 
 ```json
 {
@@ -745,6 +757,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <th><code>exclude_jobs</code></th>
     <td>Exclude the list of jobs from the build's details.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
+    <th><code>exclude_pipeline</code></th>
+    <td>Excludes expanded pipeline information from the build's details.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?exclude_pipeline=true</code></p></td>
   </tr>
   <tr>
     <th><code>include_retried_jobs</code></th>
@@ -1301,6 +1318,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 Required scope: `write_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason why the build could not be rebuilt" }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## Retry failed jobs for a build
 

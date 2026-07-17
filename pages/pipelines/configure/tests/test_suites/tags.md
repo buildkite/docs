@@ -133,7 +133,7 @@ Test Engine has the following tagging requirements:
 - Must begin with a letter, and may contain letters, numbers, underscores, hyphens and periods.
 - Must be less than 64 bytes of UTF-8 text.
 - Must not be a dot-separated prefix of another key. If a key like `service.instance.id` exists, you cannot create keys for its prefixes such as `service.instance` or `service`.
-- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for mutable execution tags that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
+- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for [mutable execution tags](#mutable-tags) that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
 
 #### Tag values
 
@@ -150,6 +150,17 @@ Tags may be assigned using the following collection methods:
 - [Ruby (RSpec, minitest)](/docs/pipelines/configure/tests/test-collection/ruby-collectors#upload-custom-tags-for-test-executions)
 - [Importing JSON](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-execution-level-custom-tags)
 
+## Mutable tags
+
+Execution data, including tags, are immutable by default.
+To attach additional metadata to executions after upload, use the [execution tags API](/docs/apis/rest-api/test-engine/execution-tags) endpoint to add mutable tags with the reserved `mut.` prefix.
+
+Mutable tags are identical to other tags with the following caveats:
+
+- Only tags prefixed with `mut.` can be added to executions after upload.
+- Tags with the `mut.` prefix cannot be added in the initial upload.
+- Tags with the `mut.` prefix cannot be used in [workflows](/docs/pipelines/configure/tests/workflows).
+
 ## Usage
 
 After you have assigned tags at the test collection level, start using them to filter and group your test results. Tags are used in the following areas of the Buildkite Platform.
@@ -161,6 +172,13 @@ On the test page, you can open the execution drawer by selection an execution.
 This presents all the tags which have been applied to the test execution.
 
 <%= image "execution-tags.png", width: 3274, height: 1838, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
+
+Expand a tag dropdown to access the following actions:
+
+- **Filter by** or **Remove filter**: filter executions by this tag.
+- **Group by** or **Remove group**: group executions by this tag.
+- **Copy value**: copy only the tag value to your clipboard.
+- **Copy tag**: copy the full `key:value` tag to your clipboard.
 
 ### Group by tag
 

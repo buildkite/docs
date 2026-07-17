@@ -83,7 +83,7 @@ If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted
 
 ## Log output limits
 
-If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed 100MB else it may fail to upload.
+If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed the default 1,024 MiB per-job log size limit else it may fail to upload. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
 If your log exceeds 2MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
 
@@ -132,14 +132,14 @@ your_build_command | tee build.log | grep 'some pattern'
 
 ## Truncating with tail
 
-Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your log output, whilst storing the original log for artifact uploading.
+Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding the per-job log size limit. For example, the following script only sends Buildkite the last 1000MB as your log output, while storing the original log for artifact uploading.
 
 ```bash
 #!/bin/bash
 
 set -euo pipefail
 
-your_build_command | tee build.log | tail -c90000000
+your_build_command | tee build.log | tail -c1000000000
 ```
 
 ## Improving Xcode logs with xcpretty
