@@ -86,11 +86,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   </tr>
   <tr>
     <th><code>step_key</code></th>
-    <td>Filter jobs by step key. Returns all jobs associated with the given step, including parallel jobs. If the key does not match any step in the build, an empty list is returned.<p class="Docs__api-param-eg"><em>Example:</em> <code>build</code></p></td>
+    <td>Filter jobs by step key. Returns all jobs associated with the given step, including parallel jobs. If the key does not match any step in the build, the endpoint returns an empty list.<p class="Docs__api-param-eg"><em>Example:</em> <code>build</code></p></td>
   </tr>
   <tr>
     <th><code>group_key</code></th>
-    <td>Filter jobs by group key. Returns all jobs belonging to the given step group. If the key does not match any group in the build, an empty list is returned.<p class="Docs__api-param-eg"><em>Example:</em> <code>test-suite</code></p></td>
+    <td>Filter jobs by group key. Returns all jobs belonging to the given group step. If the key does not match any group step in the build, the endpoint returns an empty list.<p class="Docs__api-param-eg"><em>Example:</em> <code>test-suite</code></p></td>
   </tr>
   <tr>
     <th><code>per_page</code></th>
