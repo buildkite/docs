@@ -211,7 +211,7 @@ Error responses:
 
 ## Create organization invitations
 
-Creates invitations for one or more email addresses. The response contains the created invitations. Duplicate email addresses in the request are deduplicated case-insensitively. The entire batch is validated before any invitations are created—if any address is invalid, no invitations are created.
+Creates invitations for one or more email addresses. The response contains the created invitations. Duplicate email addresses in the request are deduplicated case-insensitively. The entire batch is validated before any invitations are created. If any address is invalid, no invitations are created.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
