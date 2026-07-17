@@ -1032,6 +1032,8 @@
               path: "apis/rest-api/organizations/api-settings"
             - name: "Audit log"
               path: "apis/rest-api/organizations/audit-events"
+            - name: "Invitations"
+              path: "apis/rest-api/organizations/invitations"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
             - name: "Rate limits"
