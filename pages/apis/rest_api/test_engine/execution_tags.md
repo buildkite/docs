@@ -1,6 +1,6 @@
 # Execution tags API
 
-The execution tags endpoint permits modification of mutable tags with the `mut` prefix on executions.
+The execution tags endpoint permits modification of mutable tags with the `mut.` prefix on executions.
 
 The endpoint is designed for bulk insert, and consequently has a low rate limit but supports a large number of executions per request.
 
@@ -15,6 +15,7 @@ All mutable tags for a given execution are replaced with those in the payload. T
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -d @payload.json
   -X PUT "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/execution-tags"
 ```
 
@@ -31,7 +32,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     {
       "id":"01867216-8478-7fde-a55a-0300f88bb49b",
       "tags": {
-        "mut.label":"flaky",
+        "mut.label":"flaky"
       }
     }
   ]
