@@ -4,7 +4,7 @@ The execution tags endpoint permits modification of mutable tags with the `mut.`
 
 The endpoint is designed for bulk insert. It has a low rate limit but supports a large number of executions per request.
 
-All mutable tags for a given execution are replaced with those in the payload. To delete all mutable tags for an execution, send an empty tag set - `"tags: {}"`.
+All mutable tags for a given execution are replaced with those in the payload. To delete all mutable tags for an execution, send an empty tag set: `"tags": {}`.
 
 
 - Default rate limit is 1 request per minute.
