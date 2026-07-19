@@ -11,26 +11,29 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: Dispatch – Objects – GraphQL API
+title: artifactDelete – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  Dispatch
-  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
+  artifactDelete
+  <span data-algolia-exclude><a href="/docs/apis/graphql/schemas/object/artifactdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ArtifactDeletePayload">
+  <code>ArtifactDeletePayload</code>
+</a>
+</span>
 </h1>
 <!-- vale on -->
 
 
-A job dispatch for a particular Organization
+Delete an artifact. The artifact record is retained and marked as deleted. Files stored by Buildkite are removed from storage asynchronously; artifacts hosted outside Buildkite are left in place.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
     <th>
-      <h2 data-algolia-exclude>Fields</h2>
+      <h2 data-algolia-exclude>Arguments</h2>
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The public UUID for this organization dispatch</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input-object/artifactdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ArtifactDeleteInput"><code>ArtifactDeleteInput!</code></a></h3><p>Parameters for ArtifactDelete</p></td></tr>
   </tbody>
 </table>

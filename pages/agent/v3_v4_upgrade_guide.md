@@ -1,38 +1,180 @@
 # Agent v3 to v4 upgrade guide
 
-> 🛠 Pre-release software
+> 🚧 Pre-release software
 > Version 4 of the Buildkite Agent is in beta, and this upgrade guide should not be considered final.
+
+## Breaking changes in v4
+
+Read the following breaking changes carefully to determine if your agent setup, pipelines, or [plugins](/docs/pipelines/integrations/plugins) need updating for v4.
+
+### Changes to job handling
+
+- The [deprecated Docker integration](https://github.com/buildkite/agent/blob/497e6a42125a733d4615814faf9aab27fc9a7532/internal/job/docker.go) has been removed. The `docker` and `docker-compose` plugins remain supported. The integration used the `BUILDKITE_DOCKER` and `BUILDKITE_DOCKER_COMPOSE_CONTAINER` environment variables and had been deprecated since 2017. All current Docker usage for jobs known to Buildkite uses the `docker` and `docker-compose` plugins. If you use the deprecated Docker integration, switch to one of these plugins.
+- On Windows, the exit status of a canceled job is now `1` instead of `0`. Canceled jobs now appear as failed, consistent with jobs that run on other platforms.
+- The `--cancel-grace-period` and `--signal-grace-period-seconds` flags and configuration options (the `BUILDKITE_CANCEL_GRACE_PERIOD` and `BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS` environment variables) have been replaced with `--cancel-signal-timeout` and `--cancel-cleanup-timeout` (the `BUILDKITE_CANCEL_SIGNAL_TIMEOUT` and `BUILDKITE_CANCEL_CLEANUP_TIMEOUT` environment variables). The timeouts have increased slightly to a ten-second signal timeout and a five-second cleanup timeout. Both flags now accept non-negative durations. The maximum grace period after job cancellation is the sum of the two timeouts. Negative signal grace periods are no longer supported.
+
+### Changes to job logs
+
+- Timestamp options for logs have been simplified. The agent now always emits ANSI timestamp codes into the job log stream. The flags to disable ANSI timestamps (`--no-ansi-timestamps` and `BUILDKITE_NO_ANSI_TIMESTAMPS`) and enable plaintext timestamps (`--timestamp-lines` and `BUILDKITE_TIMESTAMP_LINES`) have been removed. Separate uploads of header times have also been removed.
+
+### Changes to checkout
+
+- After repository checkout, the agent resolves `BUILDKITE_COMMIT` to a commit hash. This change is useful when the initial value is a refspec such as `HEAD`.
+- The OpenSSH option `StrictHostKeyChecking=accept-new` has replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. The default checkout process now requires OpenSSH version 7.6 or later unless you enable `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN`. OpenSSH 7.6 was released in 2017.
+
+### Changes to agent parallelism
+
+- The `--spawn-with-priority` flag (the `BUILDKITE_AGENT_SPAWN_WITH_PRIORITY` environment variable) no longer accepts a Boolean value. It now accepts `static`, `ascending`, or `descending`:
+    * `--spawn-with-priority=static` is equivalent to the v3 `--spawn-with-priority=false` and spawns all agent workers with the same priority.
+    * `--spawn-with-priority=ascending` is equivalent to the v3 `--spawn-with-priority=true` and spawns agent workers with an increasing sequence of priority values (`1`, `2`, `3`, and so on).
+    * `--spawn-with-priority=descending` is equivalent to the v3 `--spawn-with-priority=true --experiment=descending-spawn-priority` and spawns agent workers with a decreasing sequence of priority values (`-1`, `-2`, `-3`, and so on). Combined with different `--spawn` values, this option can spread jobs across machines with different hardware capabilities. When the number of jobs is low, jobs tend to be evenly distributed across all machines. When the number of jobs is high, more jobs are assigned to agents on the more powerful machines with higher `--spawn` values.
+
+### Changes to observability
+
+- The agent no longer supports OpenTracing or direct connections to DogStatsD and no longer includes Datadog-related tracing workarounds. Use OpenTelemetry instead.
+    * Enable OpenTelemetry tracing with the `--opentelemetry-tracing` flag or `BUILDKITE_OPENTELEMETRY_TRACING` environment variable.
+    * `--tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `--telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`).
+    * `--tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed. Only OpenTelemetry is supported.
+    * `--tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed. Its function, accepting a trace parent from the Buildkite platform, is now always enabled.
+    * Configure the OpenTelemetry OTLP endpoint and protocol with the [standard `OTEL_EXPORTER_OTLP_*` environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
+- OpenTelemetry now uses a single `jobs.finished` metric instead of the `jobs.success` and `jobs.failed` counters. Use the `exit_status` tag on the metric to determine whether the job succeeded or failed.
+- The `buildkite_agent_jobs_started_total` and `buildkite_agent_jobs_ended_total` Prometheus metrics now have `priority` and `queue` labels. These metrics replace `buildkite_agent_jobs_started_with_labels_total` and `buildkite_agent_jobs_ended_with_labels_total`.
+
+### Changes to pipeline uploads
+
+- By default, the agent now immediately fails a `pipeline upload` command when it detects secrets. To allow secrets in pipeline uploads, pass the `--allow-secrets` flag or set the `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` environment variable. The agent no longer supports the `--reject-secrets` flag or the `BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS` environment variable.
+
+### Changes to artifacts
+
+- The agent now translates Windows path separators (`\`) into forward slashes (`/`) for storage, for example, in S3. The agent already translates forward slashes back to Windows path separators when downloading artifacts, so this change should not break agent-side behavior. However, the change may break workflows that assume specific storage paths.
+- The `--follow-symlinks` flag for the `artifact upload` command (the `BUILDKITE_AGENT_ARTIFACT_SYMLINKS` environment variable) has been removed. Use the equivalent `--glob-resolve-follow-symlinks` flag (the `BUILDKITE_AGENT_ARTIFACT_GLOB_RESOLVE_FOLLOW_SYMLINKS` environment variable) instead.
+
+### Changes to plugins and hooks
+
+- The agent now writes the names, but not the values, of various agent environment variables to `BUILDKITE_ENV_FILE`. This change automatically propagates the variables to child environments, for example, when using the `docker` and `docker-compose` plugins. The change may break hooks, such as a pre-bootstrap hook, that assume every line in the file contains an equal sign (`=`) and a variable value.
+- Deprecated environment variables generated for plugin configuration have been removed. When running a plugin, the agent generates environment variables that reflect the plugin configuration. The deprecated form removed consecutive underscores. For example, it changed `VAR__NAME` to `VAR_NAME`, making the environment variable for a plugin configuration key harder to predict. The new form, which preserves consecutive underscores, has existed for some time. Plugins should not depend on the deprecated variables. This change may break plugins that still use them.
+- Post-checkout, post-command, and pre-exit hooks now run in reverse order relative to pre-checkout and pre-command hooks. This ordering makes it easier to pair setup and cleanup hooks, particularly when using multiple instances of the same plugin. The change may break some combinations of hooks or plugins. To use the previous ordering, enable the new `legacy-post-hook-order` experiment. The following section provides an example.
+
+#### New hook ordering example
+
+Suppose a step specifies plugins A and B in that order and has agent and repository hooks. Under v3, pre-checkout, post-checkout, pre-command, post-command, and pre-exit hooks all execute in this order: agent, repository, plugin A, plugin B.
+
+1. Agent pre-checkout
+1. No repository pre-checkout hook
+1. Plugin A pre-checkout
+1. Plugin B pre-checkout
+1. Checkout
+1. Agent post-checkout
+1. Repository post-checkout
+1. Plugin A post-checkout
+1. Plugin B post-checkout
+1. Agent pre-command
+1. Repository pre-command
+1. Plugin A pre-command
+1. Plugin B pre-command
+1. Command
+1. Agent post-command
+1. Repository post-command
+1. Plugin A post-command
+1. Plugin B post-command
+1. Agent pre-exit
+1. Repository pre-exit
+1. Plugin A pre-exit
+1. Plugin B pre-exit
+
+In v4, the default execution order is reversed for post-checkout, post-command, and pre-exit hooks. The key differences are in _italics_:
+
+1. Agent pre-checkout
+1. No repository pre-checkout hook
+1. Plugin A pre-checkout
+1. Plugin B pre-checkout
+1. Checkout
+1. Plugin _B_ post-checkout
+1. Plugin _A_ post-checkout
+1. _Repository_ post-checkout
+1. _Agent_ post-checkout
+1. Agent pre-command
+1. Repository pre-command
+1. Plugin A pre-command
+1. Plugin B pre-command
+1. Command
+1. Plugin _B_ post-command
+1. Plugin _A_ post-command
+1. _Repository_ post-command
+1. _Agent_ post-command
+1. Plugin _B_ pre-exit
+1. Plugin _A_ pre-exit
+1. _Repository_ pre-exit
+1. _Agent_ pre-exit
+
+### Changes to job metadata
+
+- The output from `buildkite-agent meta-data get` now includes a trailing newline. This change may break code that assumes there is no trailing whitespace after fetching a metadata value with this command.
+
+### Changes to experiments
+
+- `legacy-post-hook-order`: Enable this new experiment to revert to the v3 hook ordering. See [Changes to plugins and hooks](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-plugins-and-hooks).
+- `allow-artifact-path-traversal`: Removed. The insecure behavior it enabled is no longer supported.
+- `normalised-upload-paths`: Removed because normalized upload paths are now the default behavior. See [Changes to artifacts](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-artifacts).
+- `override-zero-exit-on-cancel`: Removed because its behavior is now the default. See [Changes to job handling](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-handling).
+- `resolve-commit-after-checkout`: Removed because its behavior is now the default. See [Changes to checkout](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-checkout).
+- `propagate-agent-config-vars`: Removed because its behavior is now the default. See [Changes to plugins and hooks](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-plugins-and-hooks).
+- `descending-spawn-priority`: Removed. Use the `--spawn-with-priority` flag for equivalent functionality. See [Changes to agent parallelism](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-agent-parallelism).
+
+### Changes to flags, environment variables, and agent configuration
+
+The agent now uses a new version of the underlying CLI flag processing package. This change is not expected to cause problems.
+
+These CLI flags, environment variables, and agent configuration options have been removed:
+
+- `cancel-grace-period` (`BUILDKITE_CANCEL_GRACE_PERIOD`): Removed. See [Changes to job handling](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-handling).
+- `signal-grace-period-seconds` (`BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS`): Removed. See [Changes to job handling](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-handling).
+- `no-ansi-timestamps` (`BUILDKITE_NO_ANSI_TIMESTAMPS`): Removed. See [Changes to job logs](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-logs).
+- `timestamp-lines` (`BUILDKITE_TIMESTAMP_LINES`): Removed. See [Changes to job logs](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-logs).
+- `trace-context-encoding` (`BUILDKITE_TRACE_CONTEXT_ENCODING`): Removed with OpenTracing support. There is no replacement because trace context encoding is no longer configurable.
+- `tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`): Renamed to `telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`). See [Changes to observability](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-observability).
+- `tracing-backend` (`BUILDKITE_TRACING_BACKEND`): Removed. See [Changes to observability](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-observability).
+- `tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`): Removed because its behavior is now always enabled. See [Changes to observability](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-observability).
+- `kubernetes-log-collection-grace-period` (`BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD`): Removed after brief use with Agent Stack for Kubernetes. There is no replacement.
+- `no-automatic-ssh-fingerprint-verification` (`BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION`): Use the equivalent `no-ssh-keyscan` option (`BUILDKITE_NO_SSH_KEYSCAN`) instead.
+- `meta-data` (`BUILDKITE_AGENT_META_DATA`): Use the equivalent `tags` option (`BUILDKITE_AGENT_TAGS`) instead.
+- `meta-data-ec2` (`BUILDKITE_AGENT_META_DATA_EC2`): Use the equivalent `tags-from-ec2-meta-data` option (`BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA`) instead.
+- `meta-data-ec2-tags` (`BUILDKITE_AGENT_META_DATA_EC2_TAGS`): Use the equivalent `tags-from-ec2-tags` option (`BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS`) instead.
+- `meta-data-gcp` (`BUILDKITE_AGENT_META_DATA_GCP`): Use the equivalent `tags-from-gcp-meta-data` option (`BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA`) instead.
+- `tags-from-ec2` (`BUILDKITE_AGENT_TAGS_FROM_EC2`): Use the equivalent `tags-from-ec2-meta-data` option (`BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA`) instead.
+- `tags-from-gcp` (`BUILDKITE_AGENT_TAGS_FROM_GCP`): Use the equivalent `tags-from-gcp-meta-data` option (`BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA`) instead.
+- `disconnect-after-job-timeout` (`BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT`): Use the equivalent `disconnect-after-idle-timeout` option instead.
 
 ## How to test v4 in beta
 
-You can test Buildkite Agent v4 a number of ways, depending on how you installed or use Buildkite Agent.
+You can test Buildkite agent v4 in several ways, depending on how you installed or use the agent.
 
 ### Hosted agents
 
-Buildkite does not presently offer a way to use Buildkite Agent v4 in Hosted Agents in advance of the stable release.
+Buildkite hosted agents do not support Buildkite agent v4 before its stable release.
 
 ### Self-hosted installations
 
-#### With agent-stack-k8s
+#### With Agent Stack for Kubernetes
 
-In the `values.yaml` used to deploy the agent-stack-k8s Helm chart, set the `config.image` option to a beta-tagged agent image, for example:
+In the `values.yaml` file used to deploy the Agent Stack for Kubernetes Helm chart, set the `config.image` option to a beta-tagged agent image. For example:
 
 ```yaml
 config:
   image: ghcr.io/buildkite/agent:beta
 ```
 
-If you are using a custom image derived from the agent image, you will need to build a new custom image based on the beta.
+If you use a custom image derived from the agent image, build a new image based on the beta.
 
 #### With Elastic CI Stack for AWS
 
 When configuring Elastic CI Stack for AWS, set the `BuildkiteAgentRelease` parameter to `beta`.
 
-Note that because the exact beta release of the agent is baked into each release of the stack, you must update to the latest release of Elastic CI Stack to access a more recent beta.
+Each stack release includes a specific beta release of the agent. Update to the latest release of Elastic CI Stack to access a more recent beta.
 
-#### Using [install.sh](https://github.com/buildkite/agent/blob/main/install.sh)
+#### Using the installation script
 
-Set the environment variable `BETA=true` when executing the install script, for example:
+Set the `BETA` environment variable to `true` when executing the [installation script](https://github.com/buildkite/agent/blob/main/install.sh). For example:
 
 ```console
 $ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BETA=true bash
@@ -40,18 +182,18 @@ $ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install
 
 #### Ubuntu and Debian
 
-In the APT source list file for Buildkite Agent (usually `/etc/apt/sources.list.d/buildkite-agent.list`), change `stable` to `unstable`, for example:
+In the APT source list file for the Buildkite agent, usually `/etc/apt/sources.list.d/buildkite-agent.list`, change `stable` to `unstable`. For example:
 
 ```diff
--deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main"
-+deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent unstable main"
+-deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main
++deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent unstable main
 ```
 
-Then proceed to `sudo apt update` and `sudo apt install buildkite-agent`.
+Then run `sudo apt update` and `sudo apt install buildkite-agent`.
 
-#### Red Hat / CentOS / Amazon Linux
+#### Red Hat, CentOS, and Amazon Linux
 
-When following the [self-hosted install guide](/docs/agent/self-hosted/install/redhat), replace `/stable/` with `/unstable/` in the command for adding the Yum repository. For example, to install the x86_64 variant:
+When following the [self-hosted installation guide](/docs/agent/self-hosted/install/redhat), replace `/stable/` with `/unstable/` in the command that adds the Yum repository. For example, to install the `x86_64` variant:
 
 ```console
 $ sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/unstable/x86_64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
@@ -59,24 +201,24 @@ $ sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = ht
 
 #### FreeBSD
 
-v4 is not yet available in the `pkg` system. Manually download and install a FreeBSD binary from the latest v4 release.
+Buildkite agent v4 is not yet available in the `pkg` system. Manually download and install a FreeBSD binary from the latest v4 [release on GitHub](https://github.com/buildkite/agent/releases).
 
 #### macOS
 
-Homebrew can be used to install or upgrade to a version 4 release with the `@4` suffix, for example:
+Use Homebrew to install or upgrade to a v4 release with the `@4` suffix. For example:
 
 ```console
 $ brew install buildkite/buildkite/buildkite-agent@4
 ```
 
-(The latest release of version 3 is available using `@3`.)
+The latest v3 release is available using `@3`.
 
 #### Windows
 
-Within an Administrator PowerShell session, add the environment variable `buildkiteAgentBeta=true` before running the installation script. For example:
+In an Administrator PowerShell session, set the `buildkiteAgentBeta` environment variable to `true` before running the installation script. For example:
 
 ```console
-PS> $env:buildkiteAgentToken = "<your_token>"
+PS> $env:buildkiteAgentToken = "xxx-yyy-zzz"
 PS> $env:buildkiteAgentBeta = true
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
@@ -84,165 +226,115 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 #### From source
 
-Using the Go compiler, you can build and install Buildkite Agent v4 from source. For example:
+Use the Go compiler to build and install Buildkite agent v4 from source. For example:
 
 ```console
 $ go install github.com/buildkite/agent/v4@latest
 ```
 
-This typically installs the v4 agent at `~/go/bin/agent`.
+This command typically installs the v4 agent at `~/go/bin/agent`.
 
-#### Validating the install
+#### Validating the installation
 
-You can check which version of Buildkite Agent is installed with the `--version` flag:
+Check the installed version of the Buildkite agent with the `--version` flag:
 
 ```console
 $ buildkite-agent --version
 buildkite-agent version 4.0.0-beta.3+12492.5228a73b6906effe729cfe48cfd900f3291b3c3a
 ```
 
-## Breaking changes in v4
+## How to stay on v3 after v4 is stable
 
-Read the following breaking changes carefully to determine if your agent setup, pipelines, or plugins need updating for version 4.
+After v4 becomes stable, you can remain on Buildkite agent v3 in several ways, depending on how you installed or use the agent.
 
-### Changes to job handling
+### Hosted agents
 
-- The [deprecated Docker integration](https://github.com/buildkite/agent/blob/497e6a42125a733d4615814faf9aab27fc9a7532/internal/job/docker.go) has been removed. (Note that the `docker` and `docker-compose` _plugins_ are very much _not_ deprecated nor removed!) The deprecated Docker integration has been considered deprecated since 2017, and used the environment variables `BUILDKITE_DOCKER` and `BUILDKITE_DOCKER_COMPOSE_CONTAINER`. All current Docker usage for jobs known to us uses the `docker` and `docker-compose` plugins. If you were using the deprecated Docker integration, switch to using one of the plugins.
-- On Windows, the exit status of a cancelled job is now 1, where it used to be 0. A consequence of this is that cancelled jobs will appear “failed”, making them consistent with jobs run on other platforms.
-- The flags and config options `--cancel-grace-period` and `--signal-grace-period-seconds` (environment variables `BUILDKITE_CANCEL_GRACE_PERIOD` and `BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS`) have been replaced with `--cancel-signal-timeout` and `--cancel-cleanup-timeout` (`BUILDKITE_CANCEL_SIGNAL_TIMEOUT` and `BUILDKITE_CANCEL_CLEANUP_TIMEOUT`), and the timeouts have been increased slightly (10s signal timeout and 5s cleanup timeout). Both flags are now non-negative durations. The “total” maximum grace period following job cancellation is now the sum of the two timeouts. The “negative signal grace period” handling no longer exists.
+You cannot choose the agent version used by Buildkite hosted agents.
 
-### Changes to job logs
+### Self-hosted installations
 
-- Timestamp options for logs have been simplified. ANSI timestamp codes are now always emitted into the job log stream. Flags to disable ANSI timestamps (`--no-ansi-timestamps`, `BUILDKITE_NO_ANSI_TIMESTAMPS`) and enable plaintext timestamps (`--timestamp-lines`, `BUILDKITE_TIMESTAMP_LINES`) have been removed, as has the separate uploading of "header times".
+#### With Agent Stack for Kubernetes
 
-### Changes to checkout
+In the `values.yaml` file used to deploy the Agent Stack for Kubernetes Helm chart, set the `config.image` option to an agent image tagged with `oldstable`, `3`, or a related tag. For example:
 
-- After repository checkout, `BUILDKITE_COMMIT` is resolved to a commit hash, which is beneficial when the initial value is a refspec such as `HEAD`.
-- The inbuilt SSH key-scan and `known-hosts` file updater in the default checkout process has been replaced with the OpenSSH option `StrictHostKeyChecking=accept-new`. As such, the default checkout process now requires OpenSSH version 7.6 or later, unless `--no-ssh-keyscan` / `BUILDKITE_NO_SSH_KEYSCAN` is enabled. (Note that OpenSSH 7.6 was released in 2017.)
+```yaml
+config:
+  image: ghcr.io/buildkite/agent:oldstable
+  # Or use:
+  # image: ghcr.io/buildkite/agent:3
+```
 
-### Changes to agent parallelism
+If you use a custom image derived from the agent image, build it from one of these images.
 
-- The `--spawn-with-priority` flag (environment variable `BUILDKITE_AGENT_SPAWN_WITH_PRIORITY`) is no longer a boolean (true/false). It now takes a string value (one of `static`, `ascending`, or `descending`):
-    * `--spawn-with-priority=static` is equivalent to the v3 `--spawn-with-priority=false`, and will spawn all agent workers with the same priority.
-    * `--spawn-with-priority=ascending` is equivalent to the v3 `--spawn-with-priority=true`, and will spawn agent workers with an increasing sequence of priority values (1, 2, 3, …)
-    * `--spawn-with-priority=descending` is equivalent to the v3 `--spawn-with-priority=true --experiment=descending-spawn-priority`, and will spawn agent workers with a decreasing sequence of priority values (-1, -2, -3, …). Combined with varying `--spawn`, this option can be useful for spreading jobs across machines with different hardware capabilities. When the number of jobs is low, jobs will tend to be evenly distributed across all machines, and when the number of jobs is high, more jobs will be assigned to agents running on the more powerful machines (those with higher `--spawn`).
+#### With Elastic CI Stack for AWS
 
-### Changes to observability
+Elastic CI Stack for AWS version 6.69.0 and later supports `oldstable` as a value for the `BuildkiteAgentRelease` parameter. With this value, instances download and install the most recent `oldstable` binary.
 
-- Both OpenTracing and direct connection to Dogstatsd are no longer supported. Various Datadog-related tracing workarounds were also cleaned up. Use OpenTelemetry instead.
-  * Enable OpenTelemetry tracing with the `--opentelemetry-tracing` flag or `BUILDKITE_OPENTELEMETRY_TRACING` environment variable.
-  * `--tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `--telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`).
-  * `--tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed. (Only OpenTelemetry is supported.)
-  * `--tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed, and its function (accept a trace parent from the Buildkite backend) is now always enabled.
-  * OpenTelemetry OTLP endpoint and protocol can be configured with the [standard `OTEL_EXPORTER_OTLP_*` environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
-- Some OpenTelemetry metrics have changed. `jobs.success` and `jobs.failed` counters have been replaced with a single `jobs.finished` metric. Job failure or success can be inferred from the `exit_status` tag applied to the metric.
-- Some Prometheus metrics have changed. `buildkite_agent_jobs_started_total` and `buildkite_agent_jobs_ended_total` now have `priority` and `queue` labels, replacing `buildkite_agent_jobs_started_with_labels_total` and `buildkite_agent_jobs_ended_with_labels_total`.
+#### Using the installation script
 
-### Changes to pipeline uploads
+The [installation script](https://github.com/buildkite/agent/blob/main/install.sh) does not choose the most recent release in the `oldstable` release channel. Set the `BUILDKITE_AGENT_VERSION` environment variable to choose a specific version:
 
-- By default, secrets detected in a pipeline upload will now cause the pipeline upload to fail immediately. Secrets in pipeline uploads can be allowed again by passing the `--allow-secrets` flag (environment variable `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS`). The `--reject-secrets` flag (environment variable `BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS`) has been removed.
+```console
+$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BUILDKITE_AGENT_VERSION=3.132.0 bash
+```
 
-### Changes to artifacts
+#### Ubuntu and Debian
 
-- Windows path separators (`\`) are now translated into forward slashes `/` for storage (for example in S3). We do not anticipate this breaking any agent-side behaviour. (The inverse translation back to Windows path separators (`\`) is already applied on artifact download.) But this change may break workflows that assume particular storage paths.
-- The `artifact upload` command `--follow-symlinks` flag (`BUILDKITE_AGENT_ARTIFACT_SYMLINKS` environment variable) has been removed. Use `--glob-resolve-follow-symlinks` (`BUILDKITE_AGENT_ARTIFACT_GLOB_RESOLVE_FOLLOW_SYMLINKS`) instead, which is equivalent.
+In the APT source list file for the Buildkite agent, usually `/etc/apt/sources.list.d/buildkite-agent.list`, change `stable` to `oldstable`. For example:
 
-### Changes to plugins and hooks
+```diff
+-deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main
++deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent oldstable main
+```
 
-- The names (but not values) of various agent environment variables are now written to `BUILDKITE_ENV_FILE`, so that they can be automatically propagated to child environments, for example with the `docker` and `docker-compose` plugins. This may break hooks (for example a pre-bootstrap hook) that assume all lines in the file will have an equal sign `=` and a variable value.
-- Deprecated env vars generated for plugin configuration have been removed. When running a plugin, environment variables are generated reflecting the plugin configuration. The deprecated form of these variables eliminated any consecutive underscores (for example `VAR__NAME` was mangled into `VAR_NAME`), making it harder to predict the env var corresponding to a particular plugin config key.
+Then run `sudo apt update` and `sudo apt install buildkite-agent`.
 
-The new form of these generated variables, where consecutive underscores are *preserved*, has existed for some time now. Plugins should not depend on the deprecated variables, but this change may break plugins we are not currently aware of if they still use the deprecated variables.
-- Post-checkout, post-command, pre-exit hooks now run in "reverse" order (relative to pre-checkout, pre-command hooks).  See below for an example.
+#### Red Hat, CentOS, and Amazon Linux
 
-This change is aimed at making “setup/cleanup” pairing of hooks easier, particularly when using multiple instances of the same plugin. It may break some combinations of hooks or plugins that we are not currently aware of. The new ordering can be opted-out using the new  `legacy-post-hook-order` experiment.
+When following the [self-hosted installation guide](/docs/agent/self-hosted/install/redhat), replace `/stable/` with `/oldstable/` in the command that adds the Yum repository. For example, to install the `x86_64` variant:
 
-#### New hook ordering example
+```console
+$ sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/oldstable/x86_64/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
+```
 
-Suppose a step specifies two plugins A and B (in that order), and there are also agent and repository hooks present. Under version 3, hooks for each of these hook types (pre-checkout, post-checkout, pre-command, post-command, pre-exit) execute in the same order as one another: agent, repository, plugin A, plugin B. In full:
+#### FreeBSD
 
-1. agent pre-checkout
-2. (pre-checkout is not possible for repository hooks)
-3. plugin A pre-checkout
-4. plugin B pre-checkout
-5. (checkout)
-6. agent post-checkout
-7. repository post-checkout
-8. plugin A post-checkout
-9. plugin B post-checkout
-10. agent pre-command
-11. repository pre-command
-12. plugin A pre-command
-13. plugin B pre-command
-14. (command)
-15. agent post-command
-16. repository post-command
-17. plugin A post-command
-18. plugin B post-command
-19. agent pre-exit
-20. repository pre-exit
-21. plugin A pre-exit
-22. plugin B pre-exit
+Manually download and install a FreeBSD binary from the latest v3 [release on GitHub](https://github.com/buildkite/agent/releases).
 
-In version 4, the default execution order is reversed for post-checkout, post-command, and pre-exit hooks (key differences in **bold**):
+#### macOS
 
-1. agent pre-checkout
-2. (pre-checkout is not possible for repository hooks)
-3. plugin A pre-checkout
-4. plugin B pre-checkout
-5. (checkout)
-6. plugin **B** post-checkout
-7. plugin **A** post-checkout
-8. **repository** post-checkout
-9. **agent** post-checkout
-10. agent pre-command
-11. repository pre-command
-12. plugin A pre-command
-13. plugin B pre-command
-14. (command)
-15. plugin **B** post-command
-16. plugin **A** post-command
-17. **repository** post-command
-18. **agent** post-command
-19. plugin **B** pre-exit
-20. plugin **A** pre-exit
-21. **repository** pre-exit
-22. **agent** pre-exit
+Use Homebrew to install a v3 release with the `@3` suffix. For example:
 
-### Changes to job metadata
+```console
+$ brew install buildkite/buildkite/buildkite-agent@3
+```
 
-- A trailing newline has been added to the output from `buildkite-agent meta-data get`. This may break code that assumes there is no trailing whitespace after fetching a metadata value with this command.
+#### Windows
 
-### Changes to experiments
+The script does not choose the most recent release in the `oldstable` release channel. Set the `buildkiteAgentVersion` environment variable to choose a specific version. In an Administrator PowerShell session, set the environment variable before running the installation script. For example:
 
-- A new experiment, `legacy-post-hook-order`, can be used to revert to the v3 hook ordering (see “Changes to plugins and hooks” above).
-- `allow-artifact-path-traversal` has been removed. The insecure behaviour it enabled is no longer supported.
-- `normalised-upload-paths` is now default behaviour and has been removed (see "Changes to artifacts" above).
-- `override-zero-exit-on-cancel` is now default behaviour and has been removed (see "Changes to job handling" above).
-- `resolve-commit-after-checkout` is now default behaviour and has been removed(see “Changes to checkout” above).
-- `propagate-agent-config-vars` is now default behaviour and has been removed (see “Changes to plugins and hooks” above).
-- `descending-spawn-priority` has been removed, with equivalent functionality now available using the `--spawn-with-priority` flag (see “Changes to agent parallelism” above).
+```console
+PS> $env:buildkiteAgentToken = "xxx-yyy-zzz"
+PS> $env:buildkiteAgentVersion = "3.132.0"
+PS> Set-ExecutionPolicy Bypass -Scope Process -Force
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+```
 
-### Changes to flags, environment variables, and agent configuration
+#### From source
 
-The underlying CLI flag processing package has been upgraded to a new version. No problems are expected as a result.
+Use the Go compiler to build and install Buildkite agent v3 from source. For example:
 
-These CLI flags, environment variables, and agent configuration options have been removed:
+```console
+$ go install github.com/buildkite/agent/v3@latest
+```
 
-- `cancel-grace-period` (`BUILDKITE_CANCEL_GRACE_PERIOD` ) has been removed (see “Changes to job handling” above).
-- `signal-grace-period-seconds` (`BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS` ) has been removed (see “Changes to job handling” above).
-- `no-ansi-timestamps` (`BUILDKITE_NO_ANSI_TIMESTAMPS` ) has been removed (see “Changes to job logs” above).
-- `timestamp-lines` (`BUILDKITE_TIMESTAMP_LINES`) has been removed (see “Changes to job logs” above).
-- `trace-context-encoding` (`BUILDKITE_TRACE_CONTEXT_ENCODING`) - it applied to OpenTracing support, which was also removed in this version. There is no replacement flag, because there is no longer a trace context encoding to configure.
-- `tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`) (see "Changes to observability" above).
-- `tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed (see "Changes to observability" above).
-- `tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed as it is now always enabled (see "Changes to observability" above).
-- `kubernetes-log-collection-grace-period` (`BUILDKITE_KUBERNETES_LOG_COLLECTION_GRACE_PERIOD`) has been removed. It was only briefly used with agent-stack-k8s before the functionality was removed. There is no replacement flag, it should not be used.
-- `no-automatic-ssh-fingerprint-verification` (`BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION`) - use `no-ssh-keyscan` (`BUILDKITE_NO_SSH_KEYSCAN`) instead, which is equivalent.
-- `meta-data` (`BUILDKITE_AGENT_META_DATA`) - use `tags` (`BUILDKITE_AGENT_TAGS`) instead, which is equivalent.
-- `meta-data-ec2` (`BUILDKITE_AGENT_META_DATA_EC2`) - use `tags-from-ec2-meta-data` (`BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA`) instead, which is equivalent.
-- `meta-data-ec2-tags` (`BUILDKITE_AGENT_META_DATA_EC2_TAGS`) - use `tags-from-ec2-tags` (`BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS`) instead, which is equivalent.
-- `meta-data-gcp` (`BUILDKITE_AGENT_META_DATA_GCP`) - use `tags-from-gcp-meta-data` (`BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA`) instead, which is equivalent.
-- `tags-from-ec2` (`BUILDKITE_AGENT_TAGS_FROM_EC2`) - use `tags-from-ec2-meta-data` (`BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA`) instead, which is equivalent.
-- `tags-from-gcp` (`BUILDKITE_AGENT_TAGS_FROM_GCP`) - use `tags-from-gcp-meta-data` (`BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA`) instead, which is equivalent.
-- `disconnect-after-job-timeout` (`BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT`) - use `disconnect-after-idle-timeout` instead, which is equivalent.
+This command typically installs the agent at `~/go/bin/agent`.
+
+#### Validating the installation
+
+Check the installed version of the Buildkite agent with the `--version` flag:
+
+```console
+$ buildkite-agent --version
+buildkite-agent version 3.132.0+13129.e1b2453685eda0e266338a4a5dda2f51afc7081a
+```

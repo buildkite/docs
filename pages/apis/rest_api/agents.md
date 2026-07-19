@@ -28,7 +28,7 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
   </tr>
   <tr>
     <th><code>connection_state</code></th>
-    <td>Connection state: <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, or <code>stopped</code></td>
+    <td>Connection state: <code>never_connected</code>, <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, <code>stopped</code>, or <code>lost</code></td>
   </tr>
   <tr>
     <th><code>hostname</code></th>
@@ -103,7 +103,7 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
 
 ## List agents
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's connected and stopping agents. Agents in other connection states are not returned. Use [get an agent](#get-an-agent) to retrieve a known agent in any connection state.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

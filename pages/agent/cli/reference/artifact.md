@@ -12,7 +12,7 @@ example.
 You can use this command in your build scripts to store artifacts. Artifacts are accessible using the web interface and can be downloaded by future build steps.
 Artifacts can be stored in the Buildkite-managed artifact store, or your own storage location, depending on how you have configured your Buildkite agent.
 
-Be aware that the Buildkite-managed artifact store has an upload size limit of 5Gb per file/artifact.
+The Buildkite-managed artifact store has a default upload size limit of 10 GiB per file/artifact. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
 For documentation on configuring a custom storage location, see:
 
@@ -147,23 +147,19 @@ Return a list of artifacts that match a query.
 
 ## Parallelized steps
 
-When you use the `--step` option with a [parallelized step's](/docs/pipelines/configure/step-types/command-step#parallelism) key, the artifact command returns artifacts from all parallel shards of that step.
-
-For example, if every shard of a parallel step named `tests` uploads a file called `junit.xml`, the following command downloads one `junit.xml` per shard:
+Using `--step` with a parallelized step key or label returns artifacts from every parallel job in that step group. For example, if a step runs with `parallelism: 3`, a step-scoped download retrieves artifacts uploaded by all three jobs:
 
 ```bash
-buildkite-agent artifact download junit.xml . --step tests
+buildkite-agent artifact download "coverage/*.xml" . --step my-parallel-step
 ```
 
-Because all shards upload to the same filename, each downloaded file overwrites the previous one. To preserve artifacts from every shard, upload each file to a unique path (for example, using `$BUILDKITE_PARALLEL_JOB` in the filename) and use a glob pattern to download them all:
+By default, artifacts from retried jobs are excluded. To include artifacts from every retry attempt across all parallel jobs, add `--include-retried-jobs`:
 
 ```bash
-# Upload (in each shard's script)
-buildkite-agent artifact upload "junit-${BUILDKITE_PARALLEL_JOB}.xml"
-
-# Download all shards' results
-buildkite-agent artifact download "junit-*.xml" .
+buildkite-agent artifact download "coverage/*.xml" . --step my-parallel-step --include-retried-jobs
 ```
+
+Scoping by a specific job UUID instead of a step key always returns artifacts from that single job only, regardless of parallelism.
 
 ## Fetching the SHA of an artifact
 

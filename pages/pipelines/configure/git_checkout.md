@@ -2,6 +2,9 @@
 
 Before any build step runs, by default the Buildkite agent checks out your source code from the repository. This happens automatically without the need for extra configuration, but you can use a `checkout` block in your pipeline YAML to customize the behavior. You can skip the checkout entirely, perform shallow clones, restrict which paths are checked out, and more.
 
+> 📘 Agent version requirement
+> The `checkout` pipeline YAML features described on this page require Buildkite agent v3.130.0 or newer. Agents running older versions ignore the `checkout` block and use their default checkout behavior.
+
 This page explains each checkout option and when to use it. For the full attribute reference, see the [command step checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes).
 
 ## How checkout works
@@ -27,7 +30,7 @@ In Buildkite Pipelines, the `checkout` block can appear in two places:
 
 When both are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for keys the step leaves unset.
 
-For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, and `depth`, the `checkout` value always takes effect.
+For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value always takes effect.
 
 > 📘 Step-level ssh_secret
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
@@ -79,11 +82,54 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+### Precedence
+
+Multiple mechanisms can control whether the checkout is skipped. When more than one is set, the highest-priority setting wins:
+
+1. `BUILDKITE_SKIP_CHECKOUT` exported by an `environment` or `pre-checkout` hook (runs last, so it can override any earlier value)
+1. Step-level `checkout.skip` in pipeline YAML
+1. Pipeline-level `checkout.skip` in pipeline YAML
+1. `BUILDKITE_SKIP_CHECKOUT` set in a pipeline or step `env` block
+1. Agent `--skip-checkout` CLI flag
+1. Default (`false` — checkout runs)
+
+Hook exports are listed first because `environment` and `pre-checkout` hooks run after the agent has already resolved `checkout.skip` from the pipeline YAML. A hook that sets or unsets `BUILDKITE_SKIP_CHECKOUT` therefore has the final say.
+
+For the remaining levels, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
+
+### Migrating from the BUILDKITE_SKIP_CHECKOUT environment variable
+
+If you currently skip checkout by setting the `BUILDKITE_SKIP_CHECKOUT` environment variable, you can migrate to the native `checkout.skip` key and also use the other `checkout` features.
+
+**Before** — environment variable pattern:
+
+```yaml
+steps:
+  - label: "Notify deploy"
+    command: "curl -X POST https://example.com/webhook"
+    env:
+      BUILDKITE_SKIP_CHECKOUT: "true"
+```
+{: codeblock-file="pipeline.yml"}
+
+**After** — native `checkout.skip` key:
+
+```yaml
+steps:
+  - label: "Notify deploy"
+    command: "curl -X POST https://example.com/webhook"
+    checkout:
+      skip: true
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Shallow clones
 
 The `checkout.depth` key performs a shallow clone with the specified number of commits. This appends `--depth=N` to both [`BUILDKITE_GIT_CLONE_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_CLONE_FLAGS) and [`BUILDKITE_GIT_FETCH_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_FLAGS), so the agent fetches only the most recent history.
 
 Shallow clones are useful for large repositories where full history is not needed. They reduce checkout time and disk usage by downloading fewer objects from the remote.
+
+When `checkout.depth` is set, submodules are still fetched at full depth. The shallow depth applies only to the main repository clone and fetch operations.
 
 > 🚧 Limitations of shallow clones
 > Some Git operations require full history. Commands like `git log` across the entire history, `git blame`, and `git merge-base` may return incomplete or incorrect results with a shallow clone. If a step needs full history, omit `checkout.depth` for that step. `checkout.depth` must be a positive integer, so `0` is not a valid way to request full history.
@@ -137,6 +183,47 @@ steps:
 
 For a comparison of sparse checkout with Git mirrors and other optimization strategies, see [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
 
+### Migrating from the sparse checkout plugin
+
+If you currently use the [Sparse Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) to check out specific paths, you can migrate to the native `checkout.sparse` key. The native feature covers the core use case of cone-mode sparse checkout with no extra plugin configuration.
+
+**Before** — sparse checkout plugin:
+
+```yaml
+steps:
+  - label: "Pipeline upload"
+    command: "buildkite-agent pipeline upload"
+    plugins:
+      - sparse-checkout#v1.7.0:
+          paths:
+            - .buildkite
+```
+{: codeblock-file="pipeline.yml"}
+
+**After** — native `checkout.sparse` key:
+
+```yaml
+steps:
+  - label: "Pipeline upload"
+    command: "buildkite-agent pipeline upload"
+    checkout:
+      sparse:
+        paths:
+          - .buildkite/
+```
+{: codeblock-file="pipeline.yml"}
+
+The plugin offers several options that the native feature does not cover:
+
+- `no_cone`: The plugin supports non-cone patterns through the `--no-cone` flag. The native feature uses cone mode only.
+- `clean_checkout`: The plugin can remove lock files, reset the repository, and clean untracked files before checkout. Use `checkout.flags.clean` to customize clean flags natively, or handle cleanup in a `pre-checkout` hook.
+- `cleanup_sparse_state`: The plugin can tear down sparse-checkout Git config after the job finishes so that subsequent non-sparse jobs on the same agent are not affected. The native feature manages sparse-checkout state automatically.
+- `verbose`: The plugin can enable bash execution tracing for debugging. Use the [Verifying checkout options take effect](#troubleshooting-verifying-checkout-options-take-effect) approach instead.
+- `skip_ssh_keyscan`: The plugin can skip the `ssh-keyscan` step. This is not applicable to the native feature.
+- `post_checkout.unshallow`: The plugin can convert a shallow clone to a full-depth clone after checkout. Omit `checkout.depth` to get a full clone natively.
+
+If you rely on non-cone patterns or other plugin-specific options that have no native equivalent, you can continue using the plugin.
+
 ## Submodules
 
 The `checkout.submodules` key controls whether the Buildkite agent fetches Git submodules during checkout. It accepts a boolean (`true` or `false`) or the equivalent string, and is emitted as [`BUILDKITE_GIT_SUBMODULES`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES).
@@ -163,6 +250,40 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Git LFS
+
+The `checkout.lfs` key controls whether the Buildkite agent downloads [Git LFS](https://git-lfs.com/) objects during checkout. It accepts a boolean (`true` or `false`) or the equivalent string, and is emitted as [`BUILDKITE_GIT_LFS_ENABLED`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_LFS_ENABLED).
+
+When omitted at both the pipeline and step level, the agent uses its own `--git-lfs-enabled` configuration setting, which defaults to `false`.
+
+Use `checkout.lfs: true` when your repository stores binary assets such as images, videos, or compiled artifacts using Git LFS, and your build steps need access to those files:
+
+```yaml
+steps:
+  - label: "Build with assets"
+    command: "make build"
+    checkout:
+      lfs: true
+```
+{: codeblock-file="pipeline.yml"}
+
+You can enable LFS at the pipeline level as a default, then disable it for steps that do not need it:
+
+```yaml
+checkout:
+  lfs: true
+
+steps:
+  - label: "Build with assets"
+    command: "make build"
+
+  - label: "Run unit tests"
+    command: "make test"
+    checkout:
+      lfs: false
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Custom Git flags
 
 The `checkout.flags` key lets you set custom flags for specific Git operations during checkout. It is a map with four valid keys: `clone`, `fetch`, `checkout`, and `clean`. Each key sets the corresponding `BUILDKITE_GIT_*_FLAGS` [environment variable](/docs/pipelines/configure/environment-variables):
@@ -174,7 +295,7 @@ The `checkout.flags` key lets you set custom flags for specific Git operations d
 
 When pipeline-level and step-level `flags` are both present, step values win per key. Pipeline values are inherited for any key the step omits.
 
-Common use cases include partial clones with `--filter=blob:none` (which downloads commit and tree objects but defers blob downloads until needed), adding `--prune` to fetch for cleaning up stale remote-tracking references, and customizing clean behavior.
+Common use cases include partial clones with `--filter=blob:none` (which downloads commit and tree objects but defers blob downloads until needed), adding `--tags` to fetch for downloading all tags alongside branch history, and customizing clean behavior.
 
 > 🚧 Security consideration
 > These flags are passed directly to Git commands. In [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) where step definitions may come from untrusted input, validate the flag values to prevent command injection.
@@ -186,10 +307,92 @@ steps:
     checkout:
       flags:
         clone: "--filter=blob:none"
-        fetch: "--prune"
-        clean: "-ffdx"
+        fetch: "-v --prune --tags"
+        clean: "-ffxdq -e .cache/"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Common use cases
+
+The following examples show typical scenarios where custom Git flags can speed up builds or work around repository constraints.
+
+**Blobless clone for large repositories**: Download commit and tree objects during clone but defer blob downloads until Git needs them. This significantly reduces initial clone time for repositories with large files:
+
+```yaml
+checkout:
+  flags:
+    clone: "--filter=blob:none"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Treeless clone for very large monorepos**: Download only commit objects during clone, deferring both tree and blob objects. This is faster than a blobless clone but causes more on-demand fetches during checkout:
+
+```yaml
+checkout:
+  flags:
+    clone: "--filter=tree:0"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Fetch tags for release builds:** Add `--tags` to the default fetch flags so that all tags are downloaded alongside branch history. This is useful for steps that derive version numbers from Git tags:
+
+```yaml
+checkout:
+  flags:
+    fetch: "-v --prune --tags"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Aggressive clean but preserve log files**: Use `-ffdx -e '*.log'` to remove all untracked files and force-remove nested Git repositories, but preserve `.log` files between builds. This is useful for keeping build logs around for debugging while still starting from an otherwise clean state:
+
+```yaml
+checkout:
+  flags:
+    clean: "-ffdx -e '*.log'"
+```
+{: codeblock-file="pipeline.yml"}
+
+**Clear default checkout flags:** Set the checkout flags to an empty string to remove the default `-f` flag. This preserves local modifications, which can be useful for debugging or incremental build workflows:
+
+```yaml
+checkout:
+  flags:
+    checkout: ""
+```
+{: codeblock-file="pipeline.yml"}
+
+### Migrating from environment variables to pipeline checkout flags
+
+If you currently set `BUILDKITE_GIT_*_FLAGS` environment variables in your pipeline YAML, you can migrate to the native `checkout.flags` keys for clearer configuration and consistent precedence handling.
+
+**Before** — environment variable pattern:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "make build"
+    env:
+      BUILDKITE_GIT_CLONE_FLAGS: "--filter=blob:none"
+      BUILDKITE_GIT_FETCH_FLAGS: "--prune"
+      BUILDKITE_GIT_CLEAN_FLAGS: "-ffdx -e '*.log'"
+```
+{: codeblock-file="pipeline.yml"}
+
+**After** — native `checkout.flags` keys:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "make build"
+    checkout:
+      flags:
+        clone: "--filter=blob:none"
+        fetch: "--prune"
+        clean: "-ffdx -e '*.log'"
+```
+{: codeblock-file="pipeline.yml"}
+
+The environment variables continue to work, so you can migrate incrementally. When both a `checkout.flags` key and the corresponding environment variable are set in a step's `env` block, the `env` block value takes precedence.
 
 ## SSH key from Buildkite Secrets
 
@@ -267,14 +470,28 @@ steps:
   - label: "Debug checkout"
     command: |
       echo "Clone flags: $BUILDKITE_GIT_CLONE_FLAGS"
+      echo "Fetch flags: $BUILDKITE_GIT_FETCH_FLAGS"
+      echo "Checkout flags: $BUILDKITE_GIT_CHECKOUT_FLAGS"
+      echo "Clean flags: $BUILDKITE_GIT_CLEAN_FLAGS"
+      echo "Skip checkout: $BUILDKITE_SKIP_CHECKOUT"
       echo "Sparse paths: $BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS"
       echo "Submodules: $BUILDKITE_GIT_SUBMODULES"
+      echo "LFS enabled: $BUILDKITE_GIT_LFS_ENABLED"
 ```
 {: codeblock-file="pipeline.yml"}
 
 ### Sparse checkout paths not found
 
-If sparse checkout does not populate expected files, verify that the paths match the repository directory structure exactly. Paths are case-sensitive and must reference directories or files that exist in the repository. Also confirm that the agent is running Git 2.26 or later, as older versions fall back to a full checkout without an error.
+If sparse checkout does not populate expected files in the working directory, check the following:
+
+- **Path accuracy:** Paths are case-sensitive and must match the repository directory structure exactly. A trailing slash is optional. The path must reference a directory that exists in the repository.
+- **Git version:** Sparse checkout requires Git 2.26 or later. Older versions silently fall back to a full checkout without reporting an error. Run `git --version` on the agent to confirm.
+- **Cone mode restrictions:** The native `checkout.sparse` feature uses cone mode, which only accepts directory paths and their ancestors. Glob patterns and individual file paths within directories are not supported. If you need non-cone patterns, use the [Sparse Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) with the `no_cone` option instead.
+- **Step-level override:** A step-level `sparse.paths` replaces the pipeline-level paths entirely rather than merging with them. Verify that each step lists all the paths it needs, including any shared paths like `.buildkite/`.
+
+### Sparse checkout and submodule interaction
+
+Submodules are automatically disabled when sparse checkout is enabled. If a step needs both sparse checkout and submodule content, split the work into two steps: one with sparse checkout for the main repository paths, and another without sparse checkout that initializes the required submodules.
 
 ### Submodules not initializing
 
@@ -290,6 +507,15 @@ If the checkout fails with an SSH authentication error, verify that:
 - The secret name meets the [naming constraints](#ssh-key-from-buildkite-secrets) (starts with a letter, contains only letters, numbers, and underscores, and does not start with `buildkite` or `bk`).
 - The secret exists in [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets) and contains a valid SSH private key.
 - The `ssh_secret` key is set at the step level, not the pipeline level.
+
+### Checkout still runs despite checkout.skip
+
+If checkout continues to run after setting `checkout.skip: true`, check the following common causes:
+
+- **YAML indentation error:** The `skip` key must be nested under `checkout` at the correct level. If `skip` is not indented as a child of `checkout`, the agent ignores it.
+- **Conflicting environment variable:** A hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
+- **Agent version:** The native `checkout.skip` key requires Buildkite agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
+- **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#skipping-checkout-precedence) for the full priority order.
 
 ### Shallow clone limitations
 

@@ -343,7 +343,7 @@ steps:
 
 When both a pipeline-level and step-level `checkout` block are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for any key the step leaves unset.
 
-For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same environment variable. For `skip`, `submodules`, and `depth`, the `checkout` value always takes effect.
+For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same environment variable. For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value always takes effect.
 
 > 📘
 > The agent's `--no-git-submodules` flag retains a hard veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value emitted by the pipeline, and the build log emits a protected-environment-variable notice.
@@ -361,6 +361,13 @@ For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step'
     <td>
       Whether the agent should fetch git submodules for this step. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES"><code>BUILDKITE_GIT_SUBMODULES</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>true</code>).<br/>
       <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>lfs</code></td>
+    <td>
+      Whether the agent should download Git LFS objects during checkout. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_LFS_ENABLED"><code>BUILDKITE_GIT_LFS_ENABLED</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>false</code>).<br/>
+      <em>Example:</em> <code>true</code>
     </td>
   </tr>
   <tr>
