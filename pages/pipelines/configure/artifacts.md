@@ -169,9 +169,8 @@ The `buildkite-agent artifact download` command can fail with the following erro
 Failed to download artifacts: GET https://agent.buildkite.com/v3/builds/776402f5-90a8-458f-9a2c-57e67c50a888/artifacts/search?query=ambiguous-file-name.txt&state=finished: 400 Multiple artifacts were found for query: `ambiguous-file-name.txt`. Try scoping by the job ID or name.
 ```
 
-The error occurs when the agent tries to download a specific file by name, but cannot find a unique match.
-In other words, the file path was ambiguous and did not identify a single artifact with that name in the current the build.
-For example, two different steps (not shards of the same parallel step) uploaded a file with the same name.
+The error occurs when the agent tries to download a specific file by name, but cannot find a unique match in the current build.
+For example, multiple steps or multiple jobs in the same parallelized step uploaded a file with the same name.
 
 To fix this error, specify the step or build that uploaded the artifact.
 Use the `--step` or `--build` options to narrow the search for artifacts.
@@ -181,7 +180,7 @@ Alternatively, download the most recent matching file by using a glob pattern.
 For an example, read [download many artifacts](#download-artifacts-with-the-buildkite-agent-example-download-many-artifacts).
 
 > 📘 Parallel steps
-> If the ambiguous artifacts come from shards of the same [parallelized step](/docs/pipelines/configure/step-types/command-step#parallelism), this error is not raised. Using `--step` with a parallel step key returns one artifact per shard, which is expected behavior.
+> An unscoped exact-path download can raise this error when multiple jobs in the same [parallelized step](/docs/pipelines/configure/step-types/command-step#parallelism) upload a file with the same name. Using `--step` with the parallel step key scopes the search and returns one artifact per parallel job.
 
 ### Artifacts are missing from retried jobs
 
