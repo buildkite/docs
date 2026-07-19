@@ -170,7 +170,7 @@ Failed to download artifacts: GET https://agent.buildkite.com/v3/builds/776402f5
 ```
 
 The error occurs when the agent tries to download a specific file by name, but cannot find a unique match.
-In other words, the file path was ambiguous and did not identify a single artifact with that name in the current the build.
+In other words, the file path was ambiguous and did not identify a single artifact with that name in the current build.
 For example, two different steps (not shards of the same parallel step) uploaded a file with the same name.
 
 To fix this error, specify the step or build that uploaded the artifact.
