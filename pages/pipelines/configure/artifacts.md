@@ -181,7 +181,7 @@ Alternatively, download the most recent matching file by using a glob pattern.
 For an example, read [download many artifacts](#download-artifacts-with-the-buildkite-agent-example-download-many-artifacts).
 
 > 📘 Parallel steps
-> If the ambiguous artifacts come from shards of the same [parallelized step](/docs/pipelines/configure/step-types/command-step#parallelism), this error is not raised. Using `--step` with a parallel step key returns one artifact per shard, which is expected behavior.
+> When matching artifacts come from parallel jobs in the same [parallelized step](/docs/pipelines/configure/step-types/command-step#parallelism), scope the download with `--step`. Using a parallel step key returns one artifact per parallel job instead of raising this error.
 
 ### Artifacts are missing from retried jobs
 
