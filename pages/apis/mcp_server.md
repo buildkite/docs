@@ -75,7 +75,10 @@ https://mcp.buildkite.com/direct
 
 This remote MCP server version accepts the API access token in an `Authorization: Bearer <buildkite-api-token>` header. The token is forwarded to the Buildkite REST API, and the token scopes determine which MCP tool calls can complete successfully.
 
-Use this endpoint only for agents or services that cannot complete the interactive OAuth flow. For prompt-based AI tools, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
+Use this endpoint only for agents or services that cannot complete the interactive OAuth flow. It also avoids contention when multiple background agents would otherwise share OAuth tokens. For prompt-based AI tools, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
+
+> 📘 API access token authentication preview
+> API access token authentication for the remote MCP server is currently in preview. See the [API access token support announcement](https://buildkite.com/resources/changelog/363-remote-mcp-server-api-access-token-support-is-now-available-preview/) for details.
 
 > 📘
 > The API token pass-through endpoint supports the same [toolsets](/docs/apis/mcp-server/tools/toolsets) and read-only routing options as the OAuth-based remote MCP server. Learn more in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents).
@@ -139,7 +142,7 @@ Revoking the application removes the OAuth grant and its associated access and r
 
 ## Use an API access token for durable authentication
 
-API access tokens are suitable for headless agents, background services, and MCP gateways that cannot complete browser-based OAuth. Set the expiry when you [create the API access token](/docs/apis/managing-api-tokens#creating-and-editing-api-access-tokens-create-an-api-access-token), and rotate it before that expiry. The token remains valid until it expires or is revoked, and does not depend on an OAuth refresh session.
+API access tokens are suitable for headless agents, background services, and MCP gateways that cannot complete browser-based OAuth. They also avoid contention caused by multiple background agents sharing OAuth tokens. Set the expiry when you [create the API access token](/docs/apis/managing-api-tokens#creating-and-editing-api-access-tokens-create-an-api-access-token), and rotate it before that expiry. The token remains valid until it expires or is revoked, and does not depend on an OAuth refresh session.
 
 Send the token to `https://mcp.buildkite.com/direct` as described in [API token pass-through for headless agents](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents), or use it with a [local MCP server](/docs/apis/mcp-server/local/installing). Use a separate token for each agent or gateway, select only the scopes its tools require, and prefer read-only access when the workflow does not need to change Buildkite resources.
 

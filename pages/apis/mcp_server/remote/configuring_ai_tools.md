@@ -17,6 +17,9 @@ For headless agents and background services that already have a [Buildkite API a
 https://mcp.buildkite.com/direct
 ```
 
+> 📘 API access token authentication preview
+> API access token authentication for the remote MCP server is currently in preview. It avoids contention when multiple background agents would otherwise share OAuth tokens. See the [API access token support announcement](https://buildkite.com/resources/changelog/363-remote-mcp-server-api-access-token-support-is-now-available-preview/) for details.
+
 Configure your AI tool or agent to send the token in an `Authorization` header:
 
 ```url
