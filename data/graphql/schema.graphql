@@ -4800,6 +4800,8 @@ type JobTypeCommand implements JobInterface & Node {
   """
   automaticArtifactUploadPaths: String
 
+  brokenReason: String
+
   """
   The build that this job is a part of
   """
