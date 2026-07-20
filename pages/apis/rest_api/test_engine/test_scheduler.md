@@ -25,16 +25,16 @@ POST | `/pools/{pool.id}/leases/release` | [Release attempts](#release-attempts)
 
 ## Authentication
 
-Test Scheduler API requests require an [OpenID Connect (OIDC) token](/docs/pipelines/configure/tests/test-collection/oidc) issued to a Buildkite job. REST API access tokens are not accepted.
+Test Scheduler API requests require an OpenID Connect (OIDC) token issued to a Buildkite job. REST API access tokens are not accepted.
 
 The OIDC token must:
 
 - Use the test suite URL as its audience: `https://buildkite.com/organizations/{org.slug}/analytics/suites/{suite.slug}`.
 - Include the `organization_id`, `pipeline_id`, and `build_id` claims. Lease endpoints also require the `job_id` claim.
-- Be permitted by the test suite's OIDC policy.
+- Be permitted by the test suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc).
 - Have the `read_test_pool` scope for `GET` requests or the `write_test_pool` scope for all other requests.
 
-Request a token from within a Buildkite Pipelines job:
+Request a token from within a Buildkite Pipelines job using [`buildkite-agent oidc request-token`](/docs/agent/cli/reference/oidc#request-oidc-token):
 
 ```bash
 OIDC_TOKEN="$(buildkite-agent oidc request-token \
