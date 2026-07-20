@@ -113,6 +113,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
         Filtering and aggregating based on testing framework version to compare performance and reliability.
       </td>
     </tr>
+    <tr>
+      <td><code>test.selector.primary</code></td>
+      <td>
+        Identifies the runner-specific selector used to associate a test execution with historical timing data when generating selector-based test plans. This tag is usually applied automatically by <a href="/docs/pipelines/configure/tests/bktec/installing-and-using-the-client"><code>bktec</code></a> or a <a href="/docs/pipelines/configure/tests/test-collection">supported test collector</a>.
+      </td>
+    </tr>
   </tbody>
 </table>
 
