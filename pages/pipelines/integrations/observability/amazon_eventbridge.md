@@ -395,6 +395,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "passed": false,
       "soft_failed": false,
       "state": "assigned",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": null,
       "finished_at": null,
@@ -462,6 +463,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "passed": false,
       "soft_failed": false,
       "state": "started",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": null,
@@ -502,7 +504,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ### Job Finished
 
-These types of events [may contain a `signal_reason` field value](#signal-reason).
+These types of events [may contain a `signal_reason` field value](#signal-reason) and [may contain a `broken_reason` field value](#broken-reason).
 
 ```json
 {
@@ -531,6 +533,7 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "passed": true,
       "soft_failed": false,
       "state": "finished",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": "2019-08-11 06:01:35 UTC",
@@ -583,6 +586,22 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 | `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/self-hosted/security/signed-pipelines) |
 | `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
 
+<a id="broken-reason"></a>
+
+#### Broken reason in job finished events
+
+The `broken_reason` field of a [job finished](#events-job-finished) event is `null` when the job is not broken. When present, the value is either a reason code or a free-text skip reason explaining why the job did not run.
+
+| Broken reason | Description |
+| --- | --- |
+| `conditional_failed` | The job's `if` condition evaluated to false and the job was skipped |
+| `no_agents` | No agents were available to run the job |
+| `legacy_step` | The step was skipped because it uses legacy agent assignment. |
+| `branch_mismatch` | The build's branch did not match the step's branch conditions |
+| `optimizer_removed` | The pipeline optimizer removed the job |
+| `parallelism_zero` | The step's parallelism was set to `0` |
+| Free-text string | A human-readable explanation of why the job was skipped, for example when using `skip` with a message |
+
 <a id="events-job-activated"></a>
 
 ### Job Activated
@@ -611,6 +630,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
       "passed": false,
       "soft_failed": false,
       "state": "finished",
+      "broken_reason": null,
       "runnable_at": null,
       "started_at": null,
       "finished_at": null,
@@ -684,6 +704,7 @@ The `promised_exit_status_reason` field is included at the top level of the even
       "passed": false,
       "soft_failed": false,
       "state": "running",
+      "broken_reason": null,
       "runnable_at": "2026-06-03 04:14:00 UTC",
       "started_at": "2026-06-03 04:14:10 UTC",
       "finished_at": null,

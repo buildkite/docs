@@ -6,6 +6,9 @@ Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Statu
 > GitHub Enterprise is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 > This guide is based on GitHub Enterprise version 2.16.3. Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
 
+> 📘 Accessing private repositories
+> Connecting your GitHub Enterprise Server to Buildkite configures webhooks and commit statuses. If you use the GitHub App integration with code access enabled and [Buildkite-hosted agents](/docs/agent/buildkite-hosted), code access is included automatically. Otherwise, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+
 You can connect a GitHub Enterprise Server installation using either an OAuth App or a GitHub App. This guide covers the OAuth App integration first, which Buildkite shows as **GitHub Enterprise Server (legacy)**. The GitHub App integration is newer and currently in private preview. With it, Buildkite creates and manages the app for you and supports optional code access for hosted agents. For proxy and firewall setups, see [Firewalled installs](#firewalled-installs).
 
 ## OAuth App
@@ -91,6 +94,12 @@ With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.g
 1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
 1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.
 1. The provider isn't functional until the app is installed on your GitHub Enterprise Server. On the Buildkite provider settings page, select **Install GitHub App** to return to your GitHub Enterprise Server, then choose the organizations and repositories the app can access and install it. Your GitHub Enterprise Server returns you to Buildkite, which confirms the installation. Install the app in each GitHub organization you want to use with Buildkite.
+
+### Refreshing the repository list
+
+When repository access for an existing GitHub App installation changes in GitHub Enterprise Server (for example, when repositories are added to or removed from the installation's access), Buildkite may not show the updated list immediately.
+
+To refresh the repository list, open your Buildkite organization's **Settings**, choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers), select the GitHub Enterprise Server provider, and select **Synchronize installations**. Buildkite clears the cached repository list and re-fetches it. The updated repositories appear in the new pipeline repository picker shortly after.
 
 ### Known limitations for additional webhook events
 

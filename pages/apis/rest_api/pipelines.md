@@ -450,7 +450,7 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code></td>
+    <td>The YAML pipeline that consists of the build pipeline steps. Must be non-empty. A missing or blank value returns a <code>422</code> error. Pipelines using a <a href="/docs/apis/rest-api/pipeline-templates">pipeline template</a> for their steps do not need to supply this field.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code></td>
   </tr>
   </tbody>
 </table>
@@ -608,7 +608,7 @@ Error responses:
 <tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td>
+    <td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code>. When <code>configuration</code> is missing or blank, the error includes <code>{ "field": "configuration", "code": "Step configuration is missing, expected `steps: { yaml: \"...\" }`" }</code>.</td>
   </tr>
 </tbody>
 </table>
@@ -1397,6 +1397,106 @@ Error responses:
   </tr>
 </tbody>
 </table>
+
+## GitHub webhook processing
+
+These endpoints let you get, enable, or disable incoming GitHub webhook processing for a pipeline. They are only available for GitHub and GitHub Enterprise pipelines. Your organization must be enrolled in the expanded webhook triggers feature.
+
+> 📘 Feature availability
+> These endpoints return `404 Not Found` if your organization is not enrolled in the expanded webhook triggers feature, or if the pipeline is not connected to a GitHub or GitHub Enterprise repository.
+
+### GitHub webhook processing data model
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical API URL of the GitHub webhook processing state</td>
+  </tr>
+  <tr>
+    <th><code>enabled</code></th>
+    <td>Whether incoming GitHub webhook processing is enabled for this pipeline</td>
+  </tr>
+  <tr>
+    <th><code>disabled_at</code></th>
+    <td>The time webhook processing was disabled, or <code>null</code> when enabled</td>
+  </tr>
+  <tr>
+    <th><code>disabled_by</code></th>
+    <td>The name of the user who disabled webhook processing, or <code>null</code> when enabled</td>
+  </tr>
+</tbody>
+</table>
+
+### Get GitHub webhook processing state
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/github-webhooks"
+```
+
+Required scope: `read_pipelines`
+
+Required permission: [**Full Access**](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) to the pipeline
+
+Success response: `200 OK`
+
+```json
+{
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/github-webhooks",
+  "enabled": true,
+  "disabled_at": null,
+  "disabled_by": null
+}
+```
+
+### Enable GitHub webhook processing
+
+Enables incoming webhook processing for the pipeline. This operation is idempotent. If webhook processing is already enabled, the endpoint returns the current state without changing it.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/github-webhooks"
+```
+
+Required scope: `write_pipelines`
+
+Required permission: **Full Access** to the pipeline
+
+Success response: `200 OK`
+
+```json
+{
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/github-webhooks",
+  "enabled": true,
+  "disabled_at": null,
+  "disabled_by": null
+}
+```
+
+### Disable GitHub webhook processing
+
+Disables incoming webhook processing for the pipeline and records who disabled it and when. This operation is idempotent. If webhook processing is already disabled, the endpoint returns the current state without changing it.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/github-webhooks"
+```
+
+Required scope: `write_pipelines`
+
+Required permission: **Full Access** to the pipeline
+
+Success response: `200 OK`
+
+```json
+{
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/github-webhooks",
+  "enabled": false,
+  "disabled_at": "2024-01-15T09:30:00.000Z",
+  "disabled_by": "Jane Doe"
+}
+```
 
 ## Provider settings properties
 

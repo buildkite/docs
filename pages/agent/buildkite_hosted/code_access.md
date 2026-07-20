@@ -1,6 +1,6 @@
 # Buildkite hosted agents code access
 
-Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin is available to provide this capability.
+Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration).
 
@@ -27,34 +27,37 @@ Buildkite does not require any special permissions to access public repositories
 
 ## Private repositories with other providers
 
-Using Buildkite hosted agents with a private repository on provider other than GitHub, has the following two requirements:
+To use Buildkite hosted agents with a private repository on a provider other than GitHub, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
 
-1. Add an SSH key as a secret to the Buildkite hosted agent cluster.
-1. Add the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin to the initial pipeline steps, and any further steps within the uploaded pipeline.
+### Specifying an SSH secret in YAML
 
-### Add the SSH key secret
+The `checkout.ssh_secret` attribute references the name of a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) containing an SSH private key. At job startup, the agent fetches the key and configures `GIT_SSH_COMMAND` to use it during the Git checkout.
 
-Navigate to **Agents** from the top menu, and open the **Cluster** for Buildkite hosted agents. In the left-hand side navigation, there will be a **Secrets** option to follow. Clicking the **New Secret** button will open a modal to capture the new secret.
+To set this up:
 
-<%= image "secret-creation.png", width: 1516, height: 478, alt: "Creating a secret called GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY" %>
+1. Generate an SSH key pair and add the public key to your source control provider as a deploy key or machine user key.
+1. Store the private key as a Buildkite secret in your hosted agents cluster. See [Create a secret](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) for instructions.
+1. Reference the secret in your pipeline YAML using `checkout.ssh_secret`:
 
-This secret should contain the full private key (including the header and footer) that will be used to access the repository.
+```yaml
+steps:
+  - label: "\:pipeline\: Upload"
+    command: "buildkite-agent pipeline upload"
+    checkout:
+      ssh_secret: "MY_SSH_KEY"
+```
+{: codeblock-file="pipeline.yml"}
 
-If there are multiple distinct keys to be used throughout the cluster, make sure to name them appropriately so they can each be used at their correct times.
+> 📘 Step-level only
+> The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
 
-### Add a new pipeline
+For more details, see the [SSH key from Buildkite Secrets](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) section of the Git checkout documentation.
 
-With the secret now available, you can add a new pipeline to use it and access the Git repository.
+### Using the Git SSH Checkout plugin
 
-The availability of the secret allows the creation of a new pipeline to utilize it and access the Git repository.
+As an alternative, the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin can also provide SSH key-based access for private repositories. This approach may be useful for users who need plugin-level control over the checkout process or are running older agent versions that do not support `checkout.ssh_secret`.
 
-Once the secret is available, a new pipeline can be set up to use it and enable Git repository access.
-
-Create a new pipeline following the **Create a new pipeline without provider integration** link on the **New pipeline** page. Complete the form with the basic details about the new pipeline, including the Git URL. At this time, the **Steps** can also be updated to include the plugin usage.
-
-<%= image "pipeline-creation.png", width: 1752, height: 1060, alt: "Adding the details for creating a new pipeline" %>
-
-To illustrate an example, if we assume a secret named `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY` now exists we can set our **Steps** value accordingly.
+To use the plugin, add it to the initial pipeline steps, and any further steps within the uploaded pipeline. The plugin reads the SSH key from a Buildkite secret. For example, if a secret named `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY` exists:
 
 ```yaml
 steps:
@@ -63,9 +66,14 @@ steps:
     plugins:
       - git-ssh-checkout#v0.4.1:
 ```
+{: codeblock-file="pipeline.yml"}
 
-This base step content uses the new plugin with the default values to complete the Git checkout.
+### Add a new pipeline
 
-Once created, a screen is presented about setting up Webhooks. If the Git provider being used supports the GitHub format of webhook communication, the details shown can be used to complete the integration. If not, you can use the **Skip Webhook Setup** button to skip this step. This will mean that builds will require manual triggering.
+Create a new pipeline by following the **Create a new pipeline without provider integration** link on the **New pipeline** page. Complete the form with the basic details about the new pipeline, including the Git URL. At this time, the **Steps** can also be updated to include the `checkout.ssh_secret` configuration or plugin usage.
 
-At the completion of the pipeline creation process, a build can now be triggered that will use the SSH key from the secret to clone the Git repository.
+<%= image "pipeline-creation.png", width: 1752, height: 1060, alt: "Adding the details for creating a new pipeline" %>
+
+Once created, Buildkite shows a screen about setting up webhooks. If the Git provider being used supports the GitHub format of webhook communication, the details shown can be used to complete the integration. If not, you can use the **Skip Webhook Setup** button to skip this step. This means that builds require manual triggering.
+
+At the completion of the pipeline creation process, a build can be triggered that uses the SSH key from the secret to clone the Git repository.

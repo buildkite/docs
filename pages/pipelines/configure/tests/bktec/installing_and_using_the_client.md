@@ -94,7 +94,7 @@ Skipping automatic installation is useful when bktec is pre-installed in your bu
 
 ## Using bktec
 
-Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. Currently, the bktec tool supports [RSpec](/docs/pipelines/configure/tests/test-collection/ruby-collectors#rspec-collector), [Jest](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-jest), [Cypress](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-cypress), [PlayWright](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-playwright), and [Pytest](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector), pytest-pants, [Go](/docs/pipelines/configure/tests/test-collection/golang-collectors), and cucumber testing frameworks.
+Buildkite maintains its open source Test Engine Client ([bktec](https://github.com/buildkite/test-engine-client)) tool. For the current list of test frameworks bktec supports, see the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) table in the bktec README.
 
 If your testing framework is not supported, get in touch through support@buildkite.com or submit a pull request.
 

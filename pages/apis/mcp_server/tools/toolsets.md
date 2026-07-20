@@ -41,7 +41,7 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
       {
         "toolset": "builds",
         "description": "[Builds](/docs/apis/mcp-server/tools#available-mcp-tools-builds) operations",
-        "tools": "list_builds, get_build, get_build_test_engine_runs, create_build, cancel_build, rebuild_build, unblock_job, retry_job, get_job_env"
+        "tools": "list_builds, get_build, get_build_test_engine_runs, create_build, cancel_build, rebuild_build, list_jobs, get_job, unblock_job, retry_job, get_job_env"
       },
       {
         "toolset": "logs",

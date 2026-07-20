@@ -168,9 +168,27 @@ A token's REST API scopes are granular, and you can select some or all of the fo
         read: true, write: true, delete: false
       },
       {
+        name: "Organization invitations",
+        key: "read_organization_invitations, write_organization_invitations",
+        description: "List and retrieve details of organization invitations. Create and revoke organization invitations.",
+        read: true, write: true, delete: false
+      },
+      {
         name: "Organization settings",
         key: "read_organization_settings, write_organization_settings",
         description: "Read and update an organization's API security and pipeline settings.",
+        read: true, write: true, delete: false
+      },
+      {
+        name: "Repository connections",
+        key: "read_organization_repository_connections",
+        description: "List and retrieve details of an organization's connected source control integrations.",
+        read: true, write: false, delete: false
+      },
+      {
+        name: "Notification services",
+        key: "read_notification_services, write_notification_services",
+        description: "List and retrieve details of notification services—create, update, delete, enable, and disable notification services.",
         read: true, write: true, delete: false
       },
       {

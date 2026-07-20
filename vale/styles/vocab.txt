@@ -4,6 +4,7 @@ agentic
 allow_any_instance_of
 allowlist
 allowlisted
+allowlisting
 allowlists
 Amazon ECR
 Amazon Elastic Container Registry
@@ -25,6 +26,7 @@ architecting
 Argo CD
 ARNs
 argumentless
+artifactDelete
 Artifactory
 Artifactory's
 Athena
@@ -133,6 +135,8 @@ debuild
 debounces
 declaratively
 deduper
+deduplicated
+deduplicates
 deno
 deprioritize
 deprovisioning
@@ -215,6 +219,7 @@ heredoc
 heroku
 Honeycomb
 hostname
+hostnames
 hostPath
 hotfixes
 http
@@ -311,6 +316,7 @@ NVMe
 OAuth
 offboarding
 oidc
+oldstable
 onboarding
 Okta
 OpenTelemetry
@@ -385,6 +391,7 @@ repo
 repos
 reprioritize
 reprioritizes
+reserver
 resizable
 retryable
 rollout
@@ -427,6 +434,7 @@ signaltometrics
 skopeo
 SLA
 SLAs
+SLIs
 SLO
 SLOs
 snake_case
