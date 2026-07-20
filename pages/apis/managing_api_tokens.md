@@ -18,7 +18,7 @@ To create a new API access token:
 1. Select **New API Access Token**.
 
     If prompted, enter your password in the **Confirm Password** field.
-1. Enter an appropriate **Description** for your new API access token. Under **Credential Type**, select **Token** (the default) for standard bearer token authentication, or **Public Key** (preview) to register your own RSA public key. For Public Key setup instructions, see [Public key authentication](/docs/apis/rest-api#authentication-public-key).
+1. Enter an appropriate **Description** for your new API access token. Under **Credential Type**, select **Token** (the default) for standard bearer token authentication, or **Public Key** (preview) to register your own RSA public key. For **Public Key** setup instructions, see [Public key authentication](/docs/apis/rest-api#authentication-public-key).
 1. Ensure the appropriate Buildkite organization is selected in **Organization Access**. This organization is the one that your API access token will have access to and operate within.
 
     **Note:** Your most recently used Buildkite organization is automatically selected from this list.

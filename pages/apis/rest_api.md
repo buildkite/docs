@@ -387,7 +387,7 @@ openssl genrsa -out private_key.pem 2048
 openssl rsa -in private_key.pem -pubout -out public_key.pem
 ```
 
-When creating a token, select **Public Key** as the **Credential Type**, then paste the contents of `public_key.pem` into the **RSA public key (PEM)** field. Buildkite accepts RSA keys between 2048 and 4096 bits.
+When creating a token, select **Public Key** as the **Credential Type**. Paste the contents of `public_key.pem` into the **RSA public key (PEM)** field. Buildkite accepts RSA keys between 2048 and 4096 bits.
 
 To authenticate API calls, sign a JWT with your private key. Use the access token's UUID as the `iss` claim, set `iat` within 10 seconds of the current time, and set `exp` within five minutes of your `iat`.
 
