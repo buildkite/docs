@@ -36,7 +36,7 @@ The organization invitations REST API lets authorized users list, retrieve, crea
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>Array of team assignments included in the invitation. Each entry has an <code>id</code> (team UUID) and a <code>role</code> (<code>member</code> or <code>maintainer</code>).</td>
+    <td>Array of teams included in the invitation. Each entry contains the team <code>id</code> (UUID), <code>graphql_id</code>, and <code>slug</code>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
@@ -238,7 +238,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "role": "member",
     "sso_mode": "required",
     "teams": [
-      { "id": "00000000-0000-4000-8000-000000000003", "role": "member" }
+      { "id": "00000000-0000-4000-8000-000000000003", "graphql_id": "TEAM_GRAPHQL_ID", "slug": "example-team" }
     ],
     "created_at": "2024-11-12T09:15:04.000Z",
     "created_by": {
