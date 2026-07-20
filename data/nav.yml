@@ -1230,6 +1230,8 @@
               path: "apis/rest-api/test-engine/runs"
             - name: "Suites"
               path: "apis/rest-api/test-engine/suites"
+            - name: "Test Scheduler"
+              path: "apis/rest-api/test-engine/test-scheduler"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
             - name: "Workflows"
