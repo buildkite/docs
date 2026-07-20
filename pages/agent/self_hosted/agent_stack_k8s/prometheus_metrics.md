@@ -117,7 +117,7 @@ A few metrics are native histograms, which requires the Prometheus feature flag 
 
 Counter metrics that have labels (for example, a `reason` or `delete_reason` column in the tables below) are created per label value the first time that value actually occurs, not at startup. A freshly installed controller, or one that simply hasn't hit a particular error yet, won't report `buildkite_scheduler_job_create_errors_total` at all—not even as `0`—until a job creation error with some `reason` has actually happened. Counters without labels, such as `buildkite_scheduler_job_create_success_total`, are registered immediately and do start at `0`.
 
-This matters for SLIs and alerts built on `rate()`: querying a labelled counter that has never fired returns no data, which can be mistaken for "zero errors" rather than "this metric doesn't exist yet." For an aggregated query, `sum(rate(buildkite_scheduler_job_create_errors_total[5m])) or vector(0)` reliably resolves to `0` instead of no data, since the `or vector(0)` fallback only applies when the left-hand side is empty. See [Existential issues with metrics](https://www.robustperception.io/existential-issues-with-metrics/) for more detail, including patterns for preserving specific label combinations rather than aggregating them away.
+This matters for SLIs and alerts built on `rate()`: querying a labeled counter that has never fired returns no data, which can be mistaken for "zero errors" rather than "this metric doesn't exist yet." For an aggregated query, `sum(rate(buildkite_scheduler_job_create_errors_total[5m])) or vector(0)` reliably resolves to `0` instead of no data, since the `or vector(0)` fallback only applies when the left-hand side is empty. See [Existential issues with metrics](https://www.robustperception.io/existential-issues-with-metrics/) for more detail, including patterns for preserving specific label combinations rather than aggregating them away.
 
 ## Labels and their meanings
 
@@ -130,7 +130,7 @@ Label name | Description | Values
 
 ## completion_watcher
 
-Cleans up sidecar containers that the buildkite-agent doesn't manage directly, once the agent container has terminated. Without this, those containers would otherwise keep the pod running indefinitely after the job has already finished.
+Cleans up sidecar containers that the Buildkite agent doesn't manage directly, once the agent container has terminated. Without this, those containers would otherwise keep the pod running indefinitely after the job has already finished.
 
 Full metric name | Labels | Description
 --- | --- | ---
@@ -158,7 +158,7 @@ Full metric name | Labels | Description
 
 ## job_watcher
 
-Watches Kubernetes Jobs (rather than Pods directly) for two problems: a Job that never had a pod created for it, and a Job whose pod was created but failed before the buildkite-agent running in it could acquire the Buildkite job. For problems with a pod that has already been created and is running, see `pod_watcher` below.
+Watches Kubernetes Jobs (rather than Pods directly) for two problems: a Job that never had a pod created for it, and a Job whose pod was created but failed before the Buildkite agent running in it could acquire the Buildkite job. For problems with a pod that has already been created, see `pod_watcher` below.
 
 Full metric name | Labels | Description
 --- | --- | ---
@@ -227,12 +227,12 @@ Full metric name | Labels | Description
 `buildkite_pod_watcher_onadd_events_total` | - | Count of OnAdd informer events
 `buildkite_pod_watcher_ondelete_events_total` | - | Count of OnDelete informer events
 `buildkite_pod_watcher_onupdate_events_total` | - | Count of OnUpdate informer events
-`buildkite_pod_watcher_pods_forceful_deletion_errors_total` | `delete_reason`, `error_reason` | Count of failures to delete pod forcefully by podWatcher
-`buildkite_pod_watcher_pods_forcefully_deleted_total` | `delete_reason` | Count of forceful pods deletion by podWatcher
+`buildkite_pod_watcher_pods_forceful_deletion_errors_total` | `delete_reason`, `error_reason` | Count of failures by podWatcher when forcefully deleting pods
+`buildkite_pod_watcher_pods_forcefully_deleted_total` | `delete_reason` | Count of pods forcefully deleted by podWatcher
 
 ## scheduler
 
-Creates the Kubernetes Job for each Buildkite job passed to it by the deduper - the final step in the scheduling pipeline.
+Creates the Kubernetes Job for each Buildkite job passed to it by the deduper. The scheduler is the final step in the scheduling pipeline.
 
 Full metric name | Labels | Description
 --- | --- | ---
