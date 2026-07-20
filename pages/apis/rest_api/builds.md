@@ -195,7 +195,7 @@ Jobs are the individual units of work within a build.
   </tr>
   <tr>
     <th><code>broken_reason</code></th>
-    <td>Why the job is broken. Present only when <code>state</code> is <code>broken</code>; null otherwise. May be a reason code (for example, <code>conditional_failed</code> when an <code>if</code> condition evaluated to false, or <code>branch_mismatch</code> when the branch did not match the step's branch filter) or a free-text skip reason supplied at upload time.</td>
+    <td>Why the job is broken. Null unless <code>state</code> is <code>broken</code>. May be a reason code (for example, <code>conditional_failed</code> when an <code>if</code> condition evaluated to false, or <code>branch_mismatch</code> when the branch did not match the step's branch filter) or a free-text skip reason supplied at upload time.</td>
   </tr>
   <tr>
     <th><code>promised_exit_status</code></th>
