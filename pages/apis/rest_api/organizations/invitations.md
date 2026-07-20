@@ -238,7 +238,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "role": "member",
     "sso_mode": "required",
     "teams": [
-      { "id": "00000000-0000-4000-8000-000000000003", "graphql_id": "VGVhbS0tLTAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMw==", "slug": "example-team" }
+      { "id": "00000000-0000-4000-8000-000000000003", "graphql_id": "TEAM_GRAPHQL_ID", "slug": "example-team" }
     ],
     "created_at": "2024-11-12T09:15:04.000Z",
     "created_by": {
