@@ -36,7 +36,7 @@ The organization invitations REST API lets authorized users list, retrieve, crea
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>Array of teams included in the invitation. Each entry contains the team's <code>id</code> (UUID), <code>graphql_id</code>, and <code>slug</code>.</td>
+    <td>Array of teams included in the invitation. Each entry contains the team <code>id</code> (UUID), <code>graphql_id</code>, and <code>slug</code>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
