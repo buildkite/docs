@@ -391,6 +391,7 @@ repo
 repos
 reprioritize
 reprioritizes
+reserver
 resizable
 retryable
 rollout
@@ -433,6 +434,7 @@ signaltometrics
 skopeo
 SLA
 SLAs
+SLIs
 SLO
 SLOs
 snake_case
