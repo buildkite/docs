@@ -116,7 +116,7 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
     <tr>
       <td><code>test.selector.primary</code></td>
       <td>
-        Identifies the runner-specific selector used to associate a test execution with historical timing data when generating selector-based test plans. This tag is usually applied automatically by <code>bktec</code> or a supported test collector.
+        Identifies the runner-specific selector used to associate a test execution with historical timing data when generating selector-based test plans. This tag is usually applied automatically by <a href="/docs/pipelines/configure/tests/bktec/installing-and-using-the-client"><code>bktec</code></a> or a <a href="/docs/pipelines/configure/tests/test-collection">supported test collector</a>.
       </td>
     </tr>
   </tbody>
