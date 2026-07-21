@@ -274,7 +274,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>execution_policy.max_attempts</code></th>
-    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>100</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.min_passed</code></th>
@@ -331,6 +331,15 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "build_id": "3456789a-****-****-****-789abcdef012",
   "key": "rspec-main",
   "state": "consuming",
+  "execution_policy": {
+    "min_attempts": 1,
+    "max_attempts": 1,
+    "min_passed": 1,
+    "max_passed": 1,
+    "min_failed": 0,
+    "max_failed": 1,
+    "parallel_attempts": 1
+  },
   "expires_at": "2026-07-20T09:00:00.000Z",
   "created_at": "2026-07-20T08:00:00.000Z"
 }
