@@ -171,7 +171,7 @@ If you replace any of these, you're taking on responsibility for detecting termi
 
 ### S3 secrets plugin
 
-The Elastic CI Stack ships with a built-in [S3 secrets plugin](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) that fetches SSH keys, environment files, and per-pipeline secret files from an S3 bucket at the start of each job. It's enabled by default via the `EnableSecretsPlugin` CloudFormation parameter and depends on three things being present on the AMI:
+The Elastic CI Stack ships with a built-in [S3 secrets plugin](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket) that fetches SSH keys, environment files, and per-pipeline secret files from an S3 bucket at the start of each job. It's enabled by default using the `EnableSecretsPlugin` CloudFormation parameter and depends on three things being present on the AMI:
 
 - `/usr/local/bin/s3secrets-helper` — the binary that reads from S3
 - `/usr/local/buildkite-aws-stack/plugins/secrets` — the plugin's hooks
