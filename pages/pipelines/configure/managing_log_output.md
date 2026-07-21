@@ -75,6 +75,27 @@ echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 
 <%= image("collapsing_example.png", size: '261x127', alt: 'Screenshot of colored, emoji build output') %>
 
+> 🚧 Emoji shortcode
+> The `:emoji_name:` shortcode syntax is only converted into an emoji within step labels and group header lines (text following `---`, `+++`, `~~~`, or `^^^ +++`). It is not substituted in regular command output, use the actual Unicode character there instead.
+
+```yaml
+steps:
+  - label: "\:rocket\: Deploy"
+    command: |
+      echo "--- \:rocket\: Running pre-flight checks"
+      echo "Checking environment..."
+
+      echo "+++ \:rocket\: Running deploy script"
+      ./deploy.sh
+
+      if [[ $? -ne 0 ]]; then
+        echo "^^^ +++"
+        echo "🚀 Deploy failed — check the logs above"
+      fi
+```
+
+The `echo` line inside the `if` block uses the literal 🚀 Unicode character directly. Writing `\:rocket\:` there would print as plain text rather than an emoji.
+
 ## ANSI timestamps and disabling them
 
 By default, each line of log output begins with an ANSI timestamp.
