@@ -194,6 +194,10 @@ Jobs are the individual units of work within a build.
     <td>The reason the job received a signal or why its process could not start. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), and <code>agent_incompatible</code> (agent cannot run this job type). A value can help diagnose a failure, but does not determine whether retrying is safe by itself. The value is null if the job ended normally or predates this field.</td>
   </tr>
   <tr>
+    <th><code>broken_reason</code></th>
+    <td>Why the job is broken. Null unless <code>state</code> is <code>broken</code>. May be a reason code (for example, <code>conditional_failed</code> when an <code>if</code> condition evaluated to false, or <code>branch_mismatch</code> when the branch did not match the step's branch filter) or a free-text skip reason supplied at upload time.</td>
+  </tr>
+  <tr>
     <th><code>promised_exit_status</code></th>
     <td>The non-zero exit status a running job declared before finishing. Omitted if the job has not promised failure.</td>
   </tr>

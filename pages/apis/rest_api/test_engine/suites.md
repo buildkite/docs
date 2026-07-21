@@ -22,7 +22,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "default_branch":"main",
     "application_name": "Buildkite",
     "color": "#FFF700",
-    "emoji": "🍋"
+    "emoji": "🍋",
+    "oidc_policy": null
   }
 ]
 ```
@@ -54,7 +55,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "default_branch":"main",
   "application_name": "Buildkite",
   "color": "#FFF700",
-  "emoji": "🍋"
+  "emoji": "🍋",
+  "oidc_policy": null
 }
 ```
 
@@ -96,7 +98,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "application_name": "Buildkite",
   "color": "#FFF700",
   "emoji": "🍋",
-  "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA"
+  "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA",
+  "oidc_policy": null
 }
 ```
 
@@ -140,6 +143,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>emoji</code></th>
     <td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis?tab=readme-ov-file#emoji-reference">documentation for supported emoji</a>.<br><em>Example:</em> <code>"🍋"</code>, <code>"\:lemon\:"</code></td>
   </tr>
+  <tr>
+    <th><code>oidc_policy</code></th>
+    <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -171,7 +178,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "default_branch": "main",
   "application_name": "Buildkite",
   "color": "#FFF700",
-  "emoji": "🍋"
+  "emoji": "🍋",
+  "oidc_policy": null
 }
 ```
 
@@ -203,9 +211,12 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>show_api_token</code></th>
     <td>Return the suite's API token in the response.<br><em>Default value:</em> <code>false</code>.</td>
   </tr>
+  <tr>
+    <th><code>oidc_policy</code></th>
+    <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
+  </tr>
 </tbody>
 </table>
-
 
 Required scope: `write_suites`
 

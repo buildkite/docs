@@ -1032,6 +1032,8 @@
               path: "apis/rest-api/organizations/api-settings"
             - name: "Audit log"
               path: "apis/rest-api/organizations/audit-events"
+            - name: "Invitations"
+              path: "apis/rest-api/organizations/invitations"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
             - name: "Rate limits"
@@ -1042,6 +1044,8 @@
               path: "apis/rest-api/organizations/pipeline-settings"
             - name: "Repository connections"
               path: "apis/rest-api/organizations/repository-connections"
+            - name: "Repositories for a connection"
+              path: "apis/rest-api/repository-connections"
         - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.
@@ -1108,6 +1112,8 @@
           # Keep space at end to prevent "Test Engine" in global nav bar being
           # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
+            - name: "Execution tags"
+              path: "apis/rest-api/test-engine/execution-tags"
             - name: "Flaky tests"
               pill: "deprecated"
               path: "apis/rest-api/test-engine/flaky-tests"
@@ -1119,10 +1125,6 @@
               path: "apis/rest-api/test-engine/suites"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
-        - name: "Test Scheduler"
-          children:
-            - name: "Pools"
-              path: "apis/rest-api/test-scheduler-pools"
     - name: "GraphQL"
       children:
         - name: Overview

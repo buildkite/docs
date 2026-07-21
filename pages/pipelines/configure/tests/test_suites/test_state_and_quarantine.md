@@ -45,10 +45,7 @@ Manually quarantining a test either mutes or skips that test when the pipeline i
 
 The easiest way to respect test states in your builds is to run the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client) command in your pipelines. The `bktec` command automatically excludes quarantined tests from your test runs, preventing [flaky tests](/docs/pipelines/reduce-flaky-tests) from causing build failures, leading to faster, more reliable builds, and less need for retries.
 
-Currently, bktec supports the following test frameworks for:
-
-- muting tests—RSpec, Jest, and Playwright
-- skipping tests—RSpec only
+For the current list of test frameworks bktec supports for muting and skipping tests, see the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) table in the bktec README.
 
 When using a supported test framework, bktec automatically handles quarantined tests, along with providing the benefits of efficient [test splitting](/docs/pipelines/speed-up-builds-with-bktec) and retry support.
 
@@ -57,7 +54,7 @@ When using a supported test framework, bktec automatically handles quarantined t
   command: bktec
   parallelism: 10
   env:
-    BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec|jest|playwright
+    BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec # see supported runners in the bktec README
 ```
 
 ### REST API
