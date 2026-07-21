@@ -99,62 +99,85 @@ You'll also benefit from familiarity with:
 - [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
 - Bash or PowerShell (depending on the operating system)
 
-## How the AMI is layered
+## How the AMIs are layered
 
-The Packer templates build the AMI in two stages. Both the Linux (Amazon Linux 2023) and Windows Server 2022 AMIs follow the same two-stage structure, but with platform-specific scripts and service management. The descriptions below identify Linux-only and Windows-only components and provide Windows equivalents where available.
+The Linux and Windows Packer templates both build the AMI in two stages, but their components, scripts, and supported Docker behavior differ. The following sections describe each platform separately.
 
-### Base AMI
+### Linux base AMI
 
-The base AMI templates are in `packer/linux/base` and `packer/windows/base`.
+The Linux base AMI template is in `packer/linux/base`.
 
-The base layer is applied directly on top of the upstream Amazon Linux 2023 or Windows Server 2022 image. It installs the operating-system baseline that every Buildkite agent instance needs, regardless of how it is used:
+The base layer is applied directly on top of the upstream Amazon Linux 2023 image. It installs the operating-system baseline that every Linux Buildkite agent instance needs, regardless of how it is used:
 
 - Docker Engine, Docker Buildx, Docker Compose v2, and the ECR credential helper
 - Amazon CloudWatch agent
 - AWS Systems Manager (SSM) agent and the Session Manager plugin
 - Core CLI tooling: AWS CLI v2, `git`, `git-lfs`, `jq`
-- Linux only: `mdadm`, `nvme-cli`, GnuPG (full), Development Tools, systemd timers for Docker garbage collection and periodic refresh of `authorized_keys` from S3
-- Windows only: Windows Containers feature enabled
+- `mdadm`, `nvme-cli`, GnuPG (full), and Development Tools
+- Systemd timers for Docker garbage collection and periodic refresh of `authorized_keys` from S3
 
-The base AMI is cached by the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) and only rebuilt when `packer/{linux,windows}/base` changes. Its AMI ID is captured in the `packer-base-*.output` file next to the Makefile.
+The base AMI is cached by the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) and only rebuilt when `packer/linux/base` changes. Its AMI ID is captured in the corresponding `packer-base-linux-*.output` file next to the Makefile.
 
-### Stack AMI
+### Linux stack AMI
 
-The stack AMI templates are in `packer/linux/stack` and `packer/windows/stack`.
+The Linux stack AMI template is in `packer/linux/stack`.
 
 The stack layer is applied on top of the base AMI. This is what turns a Docker-capable host into a Buildkite Elastic CI Stack agent. It installs:
 
 - The Buildkite agent binary for the stable and beta channels (`edge` and `oldstable` are downloaded on first boot if selected)
-- **Linux:** the `buildkite-agent` user, group, and directory layout (`/etc/buildkite-agent`, `/var/lib/buildkite-agent/{builds,git-mirrors,plugins}`), plus the `buildkite-agent.service` systemd unit
-- **Windows:** the agent directory layout under `C:\buildkite-agent\` (`builds`, `hooks`, `plugins`, `git-mirrors`), with the agent managed as an NSSM service
-- Boot-time bootstrap scripts described in [What the stack layer adds on top of the Buildkite agent](#what-the-stack-layer-adds-on-top-of-the-buildkite-agent)
+- The `buildkite-agent` user, group, and directory layout (`/etc/buildkite-agent`, `/var/lib/buildkite-agent/{builds,git-mirrors,plugins}`), plus the `buildkite-agent.service` systemd unit
+- Boot-time bootstrap scripts described in [What the Linux stack layer adds on top of the Buildkite agent](#what-the-linux-stack-layer-adds-on-top-of-the-buildkite-agent)
 - Agent hooks (`environment`, `pre-command`, `pre-exit`) that wire in disk-space checks, Docker configuration, and the built-in plugins
-- Lifecycle and autoscaling tooling: [lifecycled](https://github.com/buildkite/lifecycled), `stop-agent-gracefully`, and `terminate-instance` (bash scripts on Linux, PowerShell scripts on Windows)
-- The built-in `secrets`, `ecr`, and `docker-login` plugins under `/usr/local/buildkite-aws-stack/plugins/` on Linux and `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\` on Windows
+- Lifecycle and autoscaling tooling: [lifecycled](https://github.com/buildkite/lifecycled), `stop-agent-gracefully`, and `terminate-instance`
+- The built-in `secrets`, `ecr`, and `docker-login` plugins under `/usr/local/buildkite-aws-stack/plugins/`
 - The `s3secrets-helper` binary
-- **Linux only:** `fix-buildkite-agent-builds-permissions`, `goss`/`dgoss`, rsyslog rules for `buildkite-agent` and `docker` service logs, a cloud-init systemd override (`10-power-off-on-failure.conf`) that powers off the instance if bootstrap fails
-- **Windows only:** a PowerShell error trap in `bk-install-elastic-stack.ps1` that marks the instance as unhealthy when bootstrap fails, so the Auto Scaling group can replace it
-- CloudWatch agent configuration for streaming agent and system logs (using rsyslog on Linux, Windows Events on Windows)
+- `fix-buildkite-agent-builds-permissions` and `goss`/`dgoss`
+- Rsyslog rules for `buildkite-agent` and `docker` service logs
+- A cloud-init systemd override (`10-power-off-on-failure.conf`) that powers off the instance if bootstrap fails
+- CloudWatch agent configuration for streaming agent and system logs using rsyslog
 
 > 📘 Reusing a pre-built base AMI
-> If you're only customizing the Buildkite-specific parts of the AMI, you can skip rebuilding the base by passing an existing base AMI to the stack build with `BASE_AMI_ID`. The Makefile also reuses an up-to-date `packer-base-*.output` file automatically.
+> If you're only customizing the Buildkite-specific parts of the Linux AMI, you can skip rebuilding the base by passing an existing base AMI to the stack build with `BASE_AMI_ID`. The Makefile also reuses an up-to-date `packer-base-linux-*.output` file automatically.
 
-## What the stack layer adds on top of the Buildkite agent
+### Windows base AMI
 
-An AMI that only contains the `buildkite-agent` binary does not boot into a working Elastic CI Stack instance. The CloudFormation `UserData` calls bootstrap scripts installed by the stack layer. A bare image also lacks the Linux cloud-init override and the Windows bootstrap error trap that provide the stack's failure safeguards.
+The Windows base AMI template is in `packer/windows/base`. It is applied to the upstream Windows Server 2022 English Full Base image and installs:
 
-On Linux, three scripts are called:
+- Docker CE, Docker Compose, and the ECR credential helper
+- The Windows Containers feature
+- Amazon CloudWatch agent
+- AWS CLI v2, Git for Windows, `jq`, Chocolatey, and NSSM
+- AWS Systems Manager Session Manager plugin
+- `lifecycled.exe` as the NSSM-managed `lifecycled` service
+
+The Windows base AMI does not include Linux packages, Docker Buildx, systemd timers, or the S3 `authorized_keys` refresh tooling described in the Linux base AMI section.
+
+### Windows stack AMI
+
+The Windows stack AMI template is in `packer/windows/stack`. It installs:
+
+- Stable and beta Buildkite agent executables under `C:\buildkite-agent\bin\`
+- The `builds`, `hooks`, `git-mirrors`, and `plugins` directories under `C:\buildkite-agent\`
+- PowerShell bootstrap scripts under `C:\buildkite-agent\bin\`
+- The NSSM-managed `buildkite-agent` service
+- `stop-agent-gracefully.ps1` and `terminate-instance.ps1` for lifecycle handling
+- The built-in `secrets`, `ecr`, and `docker-login` plugins under `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\`
+- `s3secrets-helper.exe` under `C:\buildkite-agent\bin\`
+- CloudWatch agent configuration for Windows log files and Windows Events
+
+The Windows stack does not install the Linux instance-storage, disk-cleanup, permissions-repair, goss, rsyslog, systemd, or cloud-init components. See [What the Windows stack layer adds on top of the Buildkite agent](#what-the-windows-stack-layer-adds-on-top-of-the-buildkite-agent) for the Windows bootstrap and feature differences.
+
+## What the Linux stack layer adds on top of the Buildkite agent
+
+An AMI that only contains the `buildkite-agent` binary does not boot into a working Elastic CI Stack instance. The CloudFormation `UserData` calls bootstrap scripts installed by the Linux stack layer. A bare image also lacks the cloud-init override that provides the Linux stack's failure safeguard.
+
+Three scripts are called:
 
 - `/usr/local/bin/bk-mount-instance-storage.sh`
 - `/usr/local/bin/bk-configure-docker.sh`
 - `/usr/local/bin/bk-install-elastic-stack.sh`
 
-On Windows, two scripts are called (there is no instance storage mounting equivalent):
-
-- `C:\buildkite-agent\bin\bk-configure-docker.ps1`
-- `C:\buildkite-agent\bin\bk-install-elastic-stack.ps1`
-
-If those scripts aren't present, bootstrap fails without automatically invoking the stack's failure safeguards. A customized Linux image that retains `10-power-off-on-failure.conf` triggers `poweroff.target` when bootstrap fails. A customized Windows image that retains the bootstrap script uses its PowerShell error trap to mark the instance as unhealthy so the Auto Scaling group replaces it.
+If those scripts aren't present, bootstrap fails without automatically invoking the stack's failure safeguard. A customized image that retains `10-power-off-on-failure.conf` triggers `poweroff.target` when bootstrap fails.
 
 Beyond the bootstrap scripts, each CloudFormation stack parameter that customizes agent behavior is applied by one of these scripts or by the agent hooks, not by the agent binary itself.
 
@@ -164,12 +187,12 @@ Preserve the lifecycle and autoscaling integration unless you plan to replace it
 
 The Elastic CI Stack does not rely on the Auto Scaling group alone to terminate agents. Instead, it uses [lifecycled](https://github.com/buildkite/lifecycled) and a small collection of scripts to give running jobs a chance to finish, upload artifacts, and disconnect cleanly before the instance is terminated. Keeping these components in your custom AMI provides graceful scale-in.
 
-The following table describes the Linux components. On Windows, `lifecycled` is managed using NSSM instead of systemd, and the bash scripts are replaced by PowerShell equivalents (`stop-agent-gracefully.ps1` and `terminate-instance.ps1`) under `C:\buildkite-agent\bin\`.
+The following table describes the Linux components.
 
 <table>
   <thead>
     <tr>
-      <th style="width:35%">Component (Linux)</th>
+      <th style="width:35%">Component</th>
       <th style="width:65%">Role</th>
     </tr>
   </thead>
@@ -212,23 +235,20 @@ The Elastic CI Stack ships with a built-in [S3 secrets plugin](/docs/agent/self-
 
 The plugin depends on three things being present on the AMI:
 
-- `s3secrets-helper`: The binary at `/usr/local/bin/s3secrets-helper` on Linux or downloaded by `install-s3secrets-helper.ps1` on Windows
-- `secrets`: The plugin hooks under `/usr/local/buildkite-aws-stack/plugins/secrets` on Linux or `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\secrets` on Windows
+- `s3secrets-helper`: The binary at `/usr/local/bin/s3secrets-helper`
+- `secrets`: The plugin hooks under `/usr/local/buildkite-aws-stack/plugins/secrets`
 - **Agent hooks:** The `environment` and `pre-exit` hooks that source the plugin hooks
 
 If the agent hooks remain but the plugin files are absent, the `environment` hook exits when it fails to source the missing plugin hook. Removing both the agent hooks and plugin files makes `EnableSecretsPlugin=true`, which is the default, have no effect.
 
 - **Keep the built-in plugin:** Leave the stack layer's secrets components in place and, if needed, add your own hooks that run alongside them.
-- **Replace it:** If you have a different secret store (AWS Secrets Manager, HashiCorp Vault, or an internal service), remove the built-in plugin from the AMI, set `EnableSecretsPlugin=false` in your stack parameters, and install your replacement's hooks under `/etc/buildkite-agent/hooks/` (Linux) or `C:\buildkite-agent\hooks\` (Windows) in your Packer template.
+- **Replace it:** If you have a different secret store (AWS Secrets Manager, HashiCorp Vault, or an internal service), remove the built-in plugin from the AMI, set `EnableSecretsPlugin=false` in your stack parameters, and install your replacement's hooks under `/etc/buildkite-agent/hooks/` in your Packer template.
 
 The `ecr` and `docker-login` built-in plugins follow the same pattern: enabled by CloudFormation parameters (`EnableECRPlugin`, `EnableDockerLoginPlugin`), and dependent on the plugin directories the stack layer copies into place.
 
 ### Feature-to-component mapping
 
-The tables below show which CloudFormation parameters or Elastic CI Stack features depend on each component in your custom AMI. Everything listed here comes from the _stack layer_. The base layer provides Docker, CloudWatch, SSM, and general operating system tooling.
-
-> 📘 Platform differences
-> The component paths shown are for Linux. On Windows, shell scripts (`.sh`) have PowerShell equivalents (`.ps1`), and paths are rooted at `C:\buildkite-agent\` instead of `/usr/local/bin/` and `/etc/buildkite-agent/`. NSSM services replace systemd services. Components marked "Linux only" have no Windows equivalent.
+The tables below show which CloudFormation parameters or Elastic CI Stack features depend on each Linux stack component. These mappings do not apply to Windows AMIs. Everything listed here comes from the _Linux stack layer_. The Linux base layer provides Docker, CloudWatch, SSM, and general operating system tooling.
 
 #### Bootstrap and boot-time configuration
 
@@ -242,20 +262,20 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
   <tbody>
     <% [
       {
-        "component": "<code>bk-install-elastic-stack.sh</code> / <code>.ps1</code>",
-        "features": "Bootstrap itself. Reads the agent token from SSM, writes <code>buildkite-agent.cfg</code>, and applies almost every <code>Buildkite*</code> parameter (<code>BuildkiteQueue</code>, <code>AgentsPerInstance</code>, <code>BuildkiteAgentTags</code>, <code>BuildkiteAgentRelease</code>, <code>BuildkiteAgentSigningKeySSMParameter</code>, <code>BuildkiteAgentVerificationKeySSMParameter</code>, <code>BuildkiteAgentEnableGitMirrors</code>, <code>BootstrapScriptUrl</code>, <code>AgentEnvFileUrl</code>, <code>AuthorizedUsersUrl</code>, <code>ExperimentalEnableResourceLimits</code>, and all <code>ResourceLimits*</code>, <code>EnableEC2LogRetentionPolicy</code>, <code>EC2LogRetentionDays</code>). Without it, bootstrap cannot configure or start the agent. Linux shutdown behavior also requires the cloud-init override. Windows instance-health reporting requires the bootstrap script's error trap."
+        "component": "<code>bk-install-elastic-stack.sh</code>",
+        "features": "Bootstrap itself. Reads the agent token from SSM, writes <code>buildkite-agent.cfg</code>, and applies almost every <code>Buildkite*</code> parameter (<code>BuildkiteQueue</code>, <code>AgentsPerInstance</code>, <code>BuildkiteAgentTags</code>, <code>BuildkiteAgentRelease</code>, <code>BuildkiteAgentSigningKeySSMParameter</code>, <code>BuildkiteAgentVerificationKeySSMParameter</code>, <code>BuildkiteAgentEnableGitMirrors</code>, <code>BootstrapScriptUrl</code>, <code>AgentEnvFileUrl</code>, <code>AuthorizedUsersUrl</code>, <code>ExperimentalEnableResourceLimits</code>, and all <code>ResourceLimits*</code>, <code>EnableEC2LogRetentionPolicy</code>, <code>EC2LogRetentionDays</code>). Without it, bootstrap cannot configure or start the agent. Shutdown behavior also requires the cloud-init override."
       },
       {
-        "component": "<code>bk-configure-docker.sh</code> / <code>.ps1</code>",
+        "component": "<code>bk-configure-docker.sh</code>",
         "features": "<code>EnableDockerUserNamespaceRemap</code>, <code>EnableDockerExperimental</code>, <code>DockerNetworkingProtocol</code>, <code>DockerIPv4AddressPool1</code>, <code>DockerIPv4AddressPool2</code>, <code>DockerIPv6AddressPool</code>, <code>DockerFixedCidrV4</code>, <code>DockerFixedCidrV6</code>."
       },
       {
-        "component": "<code>bk-mount-instance-storage.sh</code> (Linux only)",
-        "features": "<code>EnableInstanceStorage</code>, <code>MountTmpfsAtTmp</code>. Handles NVMe discovery, software RAID across multiple drives, and bind-mounting builds and git-mirrors onto ephemeral storage. Not available on Windows."
+        "component": "<code>bk-mount-instance-storage.sh</code>",
+        "features": "<code>EnableInstanceStorage</code>, <code>MountTmpfsAtTmp</code>. Handles NVMe discovery, software RAID across multiple drives, and bind-mounting builds and git-mirrors onto ephemeral storage."
       },
       {
-        "component": "<code>bk-check-disk-space.sh</code> + <code>environment</code> / <code>pre-exit</code> hooks (Linux only)",
-        "features": "<code>BuildkitePurgeBuildsOnDiskFull</code>, <code>BuildkiteTerminateInstanceOnDiskFull</code>, <code>EnablePreExitDiskCleanup</code>, <code>DockerPruneUntil</code>, <code>DockerBuilderPruneEnabled</code>. Not available on Windows."
+        "component": "<code>bk-check-disk-space.sh</code> + <code>environment</code> / <code>pre-exit</code> hooks",
+        "features": "<code>BuildkitePurgeBuildsOnDiskFull</code>, <code>BuildkiteTerminateInstanceOnDiskFull</code>, <code>EnablePreExitDiskCleanup</code>, <code>DockerPruneUntil</code>, <code>DockerBuilderPruneEnabled</code>."
       }
     ].each do |field| %>
       <tr>
@@ -279,15 +299,15 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
     <% [
       {
         "component": "<code>lifecycled</code>, <code>stop-agent-gracefully</code>, <code>terminate-instance</code>",
-        "features": "Graceful Auto Scaling group scale-in. <code>BuildkiteTerminateInstanceAfterJob</code>. Instance-health signaling that lets the Auto Scaling group replace failed hosts. Present on both Linux and Windows (PowerShell equivalents on Windows)."
+        "features": "Graceful Auto Scaling group scale-in. <code>BuildkiteTerminateInstanceAfterJob</code>. Instance-health signaling that lets the Auto Scaling group replace failed hosts."
       },
       {
-        "component": "<code>fix-buildkite-agent-builds-permissions</code> (Linux only)",
-        "features": "Docker-based builds that write files to the workspace as root. Without it, subsequent jobs on the same agent fail during Git operations because the <code>buildkite-agent</code> user cannot remove root-owned files. Not applicable on Windows."
+        "component": "<code>fix-buildkite-agent-builds-permissions</code>",
+        "features": "Docker-based builds that write files to the workspace as root. Without it, subsequent jobs on the same agent fail during Git operations because the <code>buildkite-agent</code> user cannot remove root-owned files."
       },
       {
-        "component": "<strong>Linux:</strong> <code>buildkite-agent.service</code> + <code>10-power-off-on-failure.conf</code><br><strong>Windows:</strong> NSSM service + PowerShell error trap",
-        "features": "The agent auto-starting on boot. Automatic shutdown or health-status marking when bootstrap fails, so the Auto Scaling group replaces broken instances instead of leaving them running."
+        "component": "<code>buildkite-agent.service</code> + <code>10-power-off-on-failure.conf</code>",
+        "features": "The agent auto-starting on boot. Automatic shutdown when bootstrap fails, so the Auto Scaling group replaces broken instances instead of leaving them running."
       }
     ].each do |field| %>
       <tr>
@@ -322,8 +342,8 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
         "features": "<code>EnableDockerLoginPlugin</code>, <code>DOCKER_LOGIN_USER</code>, <code>DOCKER_LOGIN_PASSWORD</code>, <code>DOCKER_LOGIN_SERVER</code>. See <a href=\"/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support\">Docker registry support</a>."
       },
       {
-        "component": "<strong>Linux:</strong> CloudWatch agent config + rsyslog rules<br><strong>Windows:</strong> CloudWatch agent config + Windows Events collection",
-        "features": "The <code>/buildkite/elastic-stack</code> and <code>/buildkite/system</code> log groups, alongside the other platform-specific <code>/buildkite/...</code> groups. On Linux, both groups use <code>{instance_id}</code> as the log stream name. On Windows, <code>/buildkite/elastic-stack</code> uses <code>{instance_id}</code>, while the Windows Events configuration defines <code>/buildkite/system</code> without an explicit stream name. <code>EnableEC2LogRetentionPolicy</code> and <code>EC2LogRetentionDays</code>. Without this configuration, the CloudWatch agent is installed but does not stream Buildkite or Docker service logs."
+        "component": "CloudWatch agent config + rsyslog rules",
+        "features": "The <code>/buildkite/elastic-stack</code> and <code>/buildkite/system</code> log groups, alongside the other Linux <code>/buildkite/...</code> groups. These groups use <code>{instance_id}</code> as the log stream name. <code>EnableEC2LogRetentionPolicy</code> and <code>EC2LogRetentionDays</code>. Without this configuration, the CloudWatch agent is installed but does not stream Buildkite or Docker service logs."
       }
     ].each do |field| %>
       <tr>
@@ -333,6 +353,54 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
     <% end %>
   </tbody>
 </table>
+
+## What the Windows stack layer adds on top of the Buildkite agent
+
+The Windows stack uses PowerShell scripts, NSSM services, Windows paths, and Windows-specific CloudWatch collection. It does not use the Linux component mappings in the previous section.
+
+CloudFormation `UserData` calls two scripts:
+
+- `C:\buildkite-agent\bin\bk-configure-docker.ps1`
+- `C:\buildkite-agent\bin\bk-install-elastic-stack.ps1`
+
+The Docker configuration script runs first. The stack installation script then selects the agent release, writes `buildkite-agent.cfg`, configures hooks and services, and signals the CloudFormation result.
+
+The error trap in `bk-install-elastic-stack.ps1` marks the instance as unhealthy and sends a failed CloudFormation signal when that script fails. A bare image without the script does not provide this safeguard. The earlier `bk-configure-docker.ps1` invocation also runs outside that error trap.
+
+### Services and lifecycle
+
+Windows uses NSSM instead of systemd:
+
+- `lifecycled`: Runs `C:\lifecycled\bin\lifecycled.exe` and calls `C:\buildkite-agent\bin\stop-agent-gracefully.ps1` during an Auto Scaling lifecycle event
+- `buildkite-agent`: Runs `C:\buildkite-agent\bin\buildkite-agent.exe start` and calls `terminate-instance.ps1` after the service exits
+
+The stack writes the agent disconnect settings used for scale-in. The termination script first asks the Auto Scaling group to terminate the instance and decrement the desired capacity. If that fails when `BuildkiteTerminateInstanceAfterJob=true`, it marks the instance as unhealthy. Otherwise, it restarts the agent service.
+
+### Built-in plugins and observability
+
+The Windows `environment`, `pre-command`, and `pre-exit` hooks source the enabled built-in plugins using the Git Bash view of `/usr/local/buildkite-aws-stack/plugins/`. The physical plugin files are under `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\`.
+
+The Windows CloudWatch configuration collects these file logs using `{instance_id}` as the stream name:
+
+- `/buildkite/cfn-init`
+- `/buildkite/EC2Launch/UserdataExecution`
+- `/buildkite/elastic-stack`
+- `/buildkite/buildkite-agent`
+- `/buildkite/lifecycled`
+
+It also sends Windows System events to `/buildkite/system`. Windows does not use the Linux rsyslog configuration or the Linux-only `/buildkite/docker-daemon`, `/buildkite/cloud-init`, `/buildkite/cloud-init/output`, and `/buildkite/auth` log groups.
+
+### Windows feature differences
+
+On Windows, `bk-configure-docker.ps1` implements `EnableDockerExperimental` by updating `C:\ProgramData\docker\config\daemon.json` and restarting Docker. It does not implement the other Docker behavior mapped to `bk-configure-docker.sh` on Linux.
+
+The following features and components in the Linux mapping have no Windows implementation:
+
+- `EnableDockerUserNamespaceRemap`, `DockerNetworkingProtocol`, `DockerIPv4AddressPool1`, `DockerIPv4AddressPool2`, `DockerIPv6AddressPool`, `DockerFixedCidrV4`, and `DockerFixedCidrV6`
+- `EnableInstanceStorage` and `MountTmpfsAtTmp`
+- `BuildkitePurgeBuildsOnDiskFull`, `BuildkiteTerminateInstanceOnDiskFull`, and `EnablePreExitDiskCleanup`
+- `DockerPruneUntil` and `DockerBuilderPruneEnabled`
+- `bk-mount-instance-storage.sh`, `bk-check-disk-space.sh`, `fix-buildkite-agent-builds-permissions`, `goss`, `dgoss`, rsyslog, systemd, and the cloud-init failure override
 
 ## Build targets and options
 
