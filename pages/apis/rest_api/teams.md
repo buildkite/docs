@@ -343,6 +343,34 @@ Error responses:
 </tbody>
 </table>
 
+## Enable teams
+
+Enables team-based permissions for the organization. This endpoint performs the same action as the **Enable Teams** button in the Buildkite web interface. Enabling teams creates a default "Everyone" team containing all organization members.
+
+This endpoint is idempotent — if teams are already enabled, it returns `204 No Content` without making further changes.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/teams/enable"
+```
+
+Required scope: `write_teams`
+
+Required permission: Organization administrator
+
+Success response: `204 No Content`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td><code>{ "message": "Your plan doesn't include team permissions. Upgrade your plan to enable teams." }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## Related endpoints
 
 - [Team members](/docs/apis/rest-api/teams/members) - manage members of a team
