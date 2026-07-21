@@ -276,6 +276,7 @@ macos
 manylinux
 matchfile
 matchers
+Makefile
 Memcache
 minitest
 misconfiguration
@@ -397,6 +398,7 @@ retag
 retrigger
 routable
 rpmbuild
+rsyslog
 RSpec
 ruleset
 runbook
