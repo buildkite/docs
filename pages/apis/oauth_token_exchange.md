@@ -42,10 +42,10 @@ To create a Token Exchange application:
     * **Description:** A description of the application.
     * **JWKS:** Your application's public key in [JWKS](https://datatracker.ietf.org/doc/html/rfc7517) format, provided as inline JSON or an `https://` URI (see [Provide your public key as a JWKS](#setup-provide-your-public-key-as-a-jwks)).
     * **Grantable Scopes:** The [scopes](/docs/apis/managing-api-tokens#token-scopes) that can be set on minted access tokens. A token exchange request can ask for any subset of these.
-    * **Default Scopes:** The [scopes](/docs/apis/managing-api-tokens#token-scopes) set on minted access tokens when a token exchange request omits the `scope` parameter. Must be a subset of the grantable scopes.
+    * **Default Scopes:** The [scopes](/docs/apis/managing-api-tokens#token-scopes) set on minted access tokens when a token exchange request omits the `scope` parameter. Default scopes must be a subset of the grantable scopes.
     * **Allowed IPs for Token Exchange Requests** (optional, **recommended**): Restrict which IP addresses can make token exchange requests to this application.
     * **Allowed IPs for Minted Token Usage** (optional, **recommended**): Restrict which IP addresses can use the access tokens this application mints.
-    * **Max Token TTL (seconds):** The maximum lifetime for minted access tokens, in seconds. Minimum 30 seconds, maximum 24 hours (86400 seconds). Defaults to 3600 (one hour).
+    * **Max Token TTL (seconds):** The maximum lifetime for minted access tokens, in seconds. The minimum is 30 seconds, and the maximum is 24 hours (86,400 seconds). The default is 3,600 seconds (one hour).
 
 1. Select **Create Token Exchange App**.
 
@@ -135,7 +135,7 @@ grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 &client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
 &client_assertion=eyJhbGciOi...
 &subject_token=user@example.com
-&subject_token_type=urn\:buildkite\:params:oauth:token-type:user-email
+&subject_token_type=urn:buildkite:params:oauth:token-type:user-email
 &audience=your-org-slug
 &scope=read_pipelines read_builds
 ```
@@ -148,7 +148,7 @@ grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 | `client_assertion_type` | Yes | Must be `urn:ietf:params:oauth:client-assertion-type:jwt-bearer` |
 | `client_assertion` | Yes | A signed JWT assertion (see [JWT assertion claims](#jwt-assertion-claims)) |
 | `subject_token` | Yes | The Buildkite user to act as, identified by either their email address or their user UUID (matching `subject_token_type`) |
-| `subject_token_type` | Yes | The type of `subject_token`. One of `urn\:buildkite\:params:oauth:token-type:user-email` (email address) or `urn\:buildkite\:params:oauth:token-type:user-uuid` (user UUID) |
+| `subject_token_type` | Yes | The type of `subject_token`. One of `urn:buildkite:params:oauth:token-type:user-email` (email address) or `urn:buildkite:params:oauth:token-type:user-uuid` (user UUID) |
 | `audience` | Yes | The Buildkite organization slug (from the URL, not the display name) |
 | `scope` | No | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). If omitted, the app's default scopes are used. If the app has no default scopes, omitting this parameter returns an error. |
 | `expires_in` | No | Requested token TTL in seconds. Capped by the app's maximum TTL. Defaults to the app's maximum TTL if omitted. |
