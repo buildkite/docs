@@ -82,6 +82,15 @@ curl --get "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler
       "build_id": "3456789a-****-****-****-789abcdef012",
       "key": "rspec-main",
       "state": "populating",
+      "execution_policy": {
+        "min_attempts": 1,
+        "max_attempts": 2,
+        "min_passed": 1,
+        "max_passed": 1,
+        "min_failed": 0,
+        "max_failed": 2,
+        "parallel_attempts": 1
+      },
       "expires_at": "2026-07-20T09:00:00.000Z",
       "created_at": "2026-07-20T08:00:00.000Z"
     }
@@ -155,6 +164,15 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "build_id": "3456789a-****-****-****-789abcdef012",
   "key": "rspec-main",
   "state": "populating",
+  "execution_policy": {
+    "min_attempts": 1,
+    "max_attempts": 2,
+    "min_passed": 1,
+    "max_passed": 1,
+    "min_failed": 0,
+    "max_failed": 2,
+    "parallel_attempts": 1
+  },
   "expires_at": "2026-07-20T09:00:00.000Z",
   "created_at": "2026-07-20T08:00:00.000Z"
 }
@@ -179,7 +197,16 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "pipeline": "example-pipeline",
     "build_id": "3456789a-****-****-****-789abcdef012",
     "key": "rspec-main",
-    "ttl_seconds": 3600
+    "ttl_seconds": 3600,
+    "execution_policy": {
+      "min_attempts": 1,
+      "max_attempts": 2,
+      "min_passed": 1,
+      "max_passed": 1,
+      "min_failed": 0,
+      "max_failed": 2,
+      "parallel_attempts": 1
+    }
   }'
 ```
 
@@ -192,6 +219,15 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "build_id": "3456789a-****-****-****-789abcdef012",
   "key": "rspec-main",
   "state": "populating",
+  "execution_policy": {
+    "min_attempts": 1,
+    "max_attempts": 2,
+    "min_passed": 1,
+    "max_passed": 1,
+    "min_failed": 0,
+    "max_failed": 2,
+    "parallel_attempts": 1
+  },
   "expires_at": "2026-07-20T09:00:00.000Z",
   "created_at": "2026-07-20T08:00:00.000Z"
 }
@@ -228,8 +264,42 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>ttl_seconds</code></th>
     <td>How long the pool remains available, in seconds. Must be an integer of at least <code>300</code> and no greater than the organization's pool time-to-live limit. Defaults to <code>86400</code> seconds, or the organization limit when it is lower.<br><em>Example:</em> <code>3600</code></td>
   </tr>
+  <tr>
+    <th><code>execution_policy</code></th>
+    <td>Controls how many attempts can run for each entry and when the entry finishes. Omit the object or any of its properties to use the corresponding defaults.</td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.min_attempts</code></th>
+    <td>The minimum number of completed attempts required before the minimum passed and failed thresholds can finish an entry. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.max_attempts</code></th>
+    <td>The maximum number of attempts that can be created for each entry. Must be an integer of at least <code>1</code>.<br><em>Default:</em> <code>2</code></td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.min_passed</code></th>
+    <td>The minimum number of passed attempts required to finish an entry after all minimum thresholds are met. Must be a non-negative integer no greater than <code>max_passed</code>.<br><em>Default:</em> <code>1</code></td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.max_passed</code></th>
+    <td>The number of passed attempts that immediately finishes an entry as passed. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.min_failed</code></th>
+    <td>The minimum number of failed attempts required to finish an entry after all minimum thresholds are met. Must be a non-negative integer no greater than <code>max_failed</code>.<br><em>Default:</em> <code>0</code></td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.max_failed</code></th>
+    <td>The number of failed attempts that immediately finishes an entry as failed. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>2</code></td>
+  </tr>
+  <tr>
+    <th><code>execution_policy.parallel_attempts</code></th>
+    <td>The maximum number of waiting or leased attempts for each entry at one time. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+  </tr>
 </tbody>
 </table>
+
+An entry finishes as soon as it reaches `max_passed`, `max_failed`, or `max_attempts`. Otherwise, it finishes when at least `min_attempts` have completed and both `min_passed` and `min_failed` are satisfied. While an entry remains unfinished, the scheduler creates attempts up to `max_attempts` without exceeding `parallel_attempts` waiting or leased attempts.
 
 Required scope: `write_test_pool`
 
