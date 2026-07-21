@@ -84,11 +84,11 @@ curl --get "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler
       "state": "populating",
       "execution_policy": {
         "min_attempts": 1,
-        "max_attempts": 2,
+        "max_attempts": 1,
         "min_passed": 1,
         "max_passed": 1,
         "min_failed": 0,
-        "max_failed": 2,
+        "max_failed": 1,
         "parallel_attempts": 1
       },
       "expires_at": "2026-07-20T09:00:00.000Z",
@@ -166,11 +166,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "state": "populating",
   "execution_policy": {
     "min_attempts": 1,
-    "max_attempts": 2,
+    "max_attempts": 1,
     "min_passed": 1,
     "max_passed": 1,
     "min_failed": 0,
-    "max_failed": 2,
+    "max_failed": 1,
     "parallel_attempts": 1
   },
   "expires_at": "2026-07-20T09:00:00.000Z",
@@ -200,11 +200,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "ttl_seconds": 3600,
     "execution_policy": {
       "min_attempts": 1,
-      "max_attempts": 2,
+      "max_attempts": 1,
       "min_passed": 1,
       "max_passed": 1,
       "min_failed": 0,
-      "max_failed": 2,
+      "max_failed": 1,
       "parallel_attempts": 1
     }
   }'
@@ -221,11 +221,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "state": "populating",
   "execution_policy": {
     "min_attempts": 1,
-    "max_attempts": 2,
+    "max_attempts": 1,
     "min_passed": 1,
     "max_passed": 1,
     "min_failed": 0,
-    "max_failed": 2,
+    "max_failed": 1,
     "parallel_attempts": 1
   },
   "expires_at": "2026-07-20T09:00:00.000Z",
@@ -270,15 +270,15 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>execution_policy.min_attempts</code></th>
-    <td>Minimum total attempts; terminal only when the other configured <code>min_</code> thresholds are also met. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum total attempts, combined with all other <code>min_</code> thresholds. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_attempts</code></th>
-    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code>.<br><em>Default:</em> <code>2</code></td>
+    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.min_passed</code></th>
-    <td>Minimum passed attempts; terminal only when the other configured <code>min_</code> thresholds are also met. Must be a non-negative integer no greater than <code>max_passed</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum passed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_passed</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_passed</code></th>
@@ -286,15 +286,15 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>execution_policy.min_failed</code></th>
-    <td>Minimum failed attempts; terminal only when the other configured <code>min_</code> thresholds are also met. Must be a non-negative integer no greater than <code>max_failed</code>.<br><em>Default:</em> <code>0</code></td>
+    <td>Minimum failed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_failed</code>.<br><em>Default:</em> <code>0</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_failed</code></th>
-    <td>Terminal after this many failed attempts. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>2</code></td>
+    <td>Terminal after this many failed attempts; at most <code>max_attempts</code>. Must be a non-negative integer.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.parallel_attempts</code></th>
-    <td>Maximum number of attempts for the entry that may be active in parallel. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Maximum active attempts for the entry. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
 </tbody>
 </table>
