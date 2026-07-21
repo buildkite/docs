@@ -76,7 +76,7 @@ echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 <%= image("collapsing_example.png", size: '261x127', alt: 'Screenshot of colored, emoji build output') %>
 
 > 🚧 Emoji shortcode
-> The `:emoji_name:` shortcode syntax is only converted into an emoji within step labels and group header lines (text following `---`, `+++`, `~~~`, or `^^^ +++`). It is not substituted in regular command output, use the actual Unicode character there instead.
+> The `:emoji_name:` shortcode syntax is only converted into an emoji within step labels and group header lines (text following `---`, `+++`, `~~~`, or `^^^ +++`). It is not substituted in regular command output. Use the actual Unicode character there instead.
 
 ```yaml
 steps:
