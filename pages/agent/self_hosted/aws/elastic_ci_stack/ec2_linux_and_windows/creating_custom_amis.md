@@ -12,7 +12,7 @@ To use the Packer templates provided, you will need the following installed on y
 - Make
 - AWS CLI
 - Git — the built-in `secrets`, `ecr`, and `docker-login` plugins are pulled in as git submodules
-- GNU sed (`gsed`) — required on macOS only (`brew install gnu-sed`); the `Makefile` errors out if it is not installed
+- GNU sed (`gsed`) — required on macOS only (`brew install gnu-sed`); the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) errors out if it is not installed
 
 Before your first build, initialize the submodules so the built-in plugins are populated:
 
@@ -93,7 +93,7 @@ Layered directly on top of the upstream Amazon Linux 2023 or Windows Server 2022
 - Core CLI tooling: AWS CLI v2, `git`, `git-lfs`, `jq`, `mdadm`, `nvme-cli`, GnuPG (full), Development Tools
 - systemd timers for Docker garbage collection and (Linux only) the periodic refresh of `authorized_keys` from S3
 
-The base AMI is cached by the Makefile and only rebuilt when `packer/{linux,windows}/base` changes. Its AMI ID is captured in the `packer-base-*.output` file next to the Makefile.
+The base AMI is cached by the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) and only rebuilt when `packer/{linux,windows}/base` changes. Its AMI ID is captured in the `packer-base-*.output` file next to the Makefile.
 
 **2. Stack AMI** (`packer/linux/stack`, `packer/windows/stack`)
 
