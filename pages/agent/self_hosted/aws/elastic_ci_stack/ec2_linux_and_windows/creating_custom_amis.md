@@ -77,6 +77,8 @@ You'll also benefit from familiarity with:
 - [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
 - Bash or PowerShell (depending on the operating system)
 
+If you already know what you need to customize and just want the build command, skip to [Creating an image](#creating-an-image). Otherwise, the next two sections explain what each layer of the stack AMI provides and which Elastic CI Stack features depend on which components.
+
 ## How the Elastic CI Stack for AWS AMI is layered
 
 The Packer templates build the AMI in two stages. Understanding what each stage provides makes it easier to customize an AMI without breaking the features the stack expects.
@@ -149,7 +151,7 @@ The Elastic CI Stack does not rely on the Auto Scaling group alone to terminate 
         "role": "Invoked when a job hits <code>BuildkiteTerminateInstanceAfterJob</code> or <code>BuildkiteTerminateInstanceOnDiskFull</code>. Sets the ASG instance health to <code>Unhealthy</code> so the ASG replaces it."
       },
       {
-        "component": "<code>buildkite-agent.service</code> + <code>cloud-init.service.d/10-power-off-on-failure.conf</code>",
+        "component": "<code>buildkite-agent.service</code> + <code>10-power-off-on-failure.conf</code> (installed under both <code>cloud-init.service.d/</code> and <code>cloud-final.service.d/</code>)",
         "role": "systemd override that powers off the instance if cloud-init bootstrap fails, letting the ASG replace failed instances instead of leaving them running unhealthy."
       },
       {
@@ -242,7 +244,7 @@ The tables below show which CloudFormation parameters or Elastic Stack features 
         "features": "Docker-based builds that write files to the workspace as root. Without it, subsequent jobs on the same agent fail during git operations because <code>buildkite-agent</code> cannot remove root-owned files."
       },
       {
-        "component": "<code>buildkite-agent.service</code> + <code>cloud-{init,final}.service.d/10-power-off-on-failure.conf</code>",
+        "component": "<code>buildkite-agent.service</code> + <code>10-power-off-on-failure.conf</code> (installed under both <code>cloud-init.service.d/</code> and <code>cloud-final.service.d/</code>)",
         "features": "The agent auto-starting on boot. Automatic power-off when bootstrap fails, so the ASG replaces bad instances instead of leaving them running unhealthy."
       }
     ].each do |field| %>
@@ -271,11 +273,11 @@ The tables below show which CloudFormation parameters or Elastic Stack features 
       },
       {
         "component": "<code>ecr</code> built-in plugin",
-        "features": "<code>EnableECRPlugin</code>, <code>ECRAccessPolicy</code>, <code>EnableECRCredentialHelper</code>, <code>AWS_ECR_LOGIN_REGISTRY_IDS</code>."
+        "features": "<code>EnableECRPlugin</code>, <code>ECRAccessPolicy</code>, <code>EnableECRCredentialHelper</code>, <code>AWS_ECR_LOGIN_REGISTRY_IDS</code>. See <a href=\"/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support\">Docker registry support</a>."
       },
       {
         "component": "<code>docker-login</code> built-in plugin",
-        "features": "<code>EnableDockerLoginPlugin</code>, <code>DOCKER_LOGIN_USER</code>, <code>DOCKER_LOGIN_PASSWORD</code>, <code>DOCKER_LOGIN_SERVER</code>."
+        "features": "<code>EnableDockerLoginPlugin</code>, <code>DOCKER_LOGIN_USER</code>, <code>DOCKER_LOGIN_PASSWORD</code>, <code>DOCKER_LOGIN_SERVER</code>. See <a href=\"/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support\">Docker registry support</a>."
       },
       {
         "component": "CloudWatch agent config + rsyslog rules (<code>configure-cloudwatch-agent.sh</code>)",
@@ -419,16 +421,6 @@ By default, all builds target the `us-east-1` region and use your default AWS pr
         "variable": "AGENT_VERSION",
         "default": "(pinned)",
         "description": "Override the Buildkite agent version pinned in <code>install-buildkite-agent.sh</code> / <code>install-buildkite-agent.ps1</code>."
-      },
-      {
-        "variable": "PACKER_VERSION",
-        "default": "1.11.2",
-        "description": "Version of the <code>hashicorp/packer</code> Docker image used to run Packer."
-      },
-      {
-        "variable": "GO_VERSION",
-        "default": "1.26.1",
-        "description": "Go version used inside Docker to build the <code>fix-buildkite-agent-builds-permissions</code> and <code>goss</code> binaries that are copied into the AMI."
       }
     ].select { |field| field[:variable] }.each do |field| %>
       <tr>
