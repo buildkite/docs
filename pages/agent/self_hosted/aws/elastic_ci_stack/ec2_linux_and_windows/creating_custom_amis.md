@@ -147,7 +147,7 @@ The Windows base AMI template is in `packer/windows/base`. It is applied to the 
 - The Windows Containers feature
 - Amazon CloudWatch agent
 - AWS CLI v2, Git for Windows, `jq`, Chocolatey, and NSSM
-- AWS Systems Manager Session Manager plugin
+- The AWS Systems Manager Session Manager plugin installer, downloaded to `C:\buildkite-agent\bin\SessionManagerPluginSetup.exe`
 - `lifecycled.exe` as the NSSM-managed `lifecycled` service
 
 The Windows base AMI does not include Linux packages, Docker Buildx, systemd timers, or the S3 `authorized_keys` refresh tooling described in the Linux base AMI section.
@@ -365,7 +365,7 @@ CloudFormation `UserData` calls two scripts:
 
 The Docker configuration script runs first. The stack installation script then selects the agent release, writes `buildkite-agent.cfg`, configures hooks and services, and signals the CloudFormation result.
 
-The error trap in `bk-install-elastic-stack.ps1` marks the instance as unhealthy and sends a failed CloudFormation signal when that script fails. A bare image without the script does not provide this safeguard. The earlier `bk-configure-docker.ps1` invocation also runs outside that error trap.
+Terminating PowerShell errors that reach the error trap in `bk-install-elastic-stack.ps1` mark the instance as unhealthy and, when deployed by CloudFormation, send a failed signal. Explicit `Exit` paths bypass the trap, so not every nonzero exit provides this safeguard. A bare image without the script also lacks the safeguard, and the earlier `bk-configure-docker.ps1` invocation runs outside the trap.
 
 ### Services and lifecycle
 
