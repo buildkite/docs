@@ -1,1 +1,28 @@
 --require spec_helper
+https://github.com/buildkite/docs/issues/1462curl -fsSL "https://packages.buildkite.com/buildkite/cli-deb/gpgkey" | sudo gpg --dearmor -o /etc/apt/keyrings/buildkite_cli-deb-archive-keyring.gpg
+echo -e "deb [signed-by=/etc/apt/keyrings/buildkite_cli-deb-archive-keyring.gpg] https://packages.buildkite.com/buildkite/cli-deb/any/ any main\ndeb-src [signed-by=/etc/apt/keyrings/buildkite_cli-deb-archive-keyring.gpg] https://packages.buildkite.com/buildkite/cli-deb/any/ any main" | sudo tee /etc/apt/sources.list.d/buildkite-buildkite-cli-deb.list
+{
+  "uuid": "01931fa7-b1c0-7abc-8abc-0123456789ab",
+  "graphql_id": "QXVkaXRFdmVudC0tLTAxOTMxZmE3LWIxYzAtN2FiYy04YWJjLTAxMjM0NTY3ODlhYg==",
+  "type": "OrganizationUpdatedEvent",
+  "occurred_at": "2024-11-12T09:15:04.000Z",
+  "actor": {
+    "type": "User",
+    "uuid": "01234567-89ab-4cde-8f01-23456789abcd",
+    "name": "Example User"
+  },
+  "subject": {
+    "type": "Organization",
+    "uuid": "12345678-9abc-4def-8012-3456789abcde",
+    "name": "acme-inc"
+  },
+  "context": {
+    "type": "WebContext",
+    "request_ip": "192.0.2.1",
+    "request_user_agent": "Mozilla/5.0"
+  },
+  "data": {},
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/audit_events/01931fa7-b1c0-7abc-8abc-0123456789ab"
+}
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/audit_events/{uuid}"
