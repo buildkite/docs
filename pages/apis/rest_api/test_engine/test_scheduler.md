@@ -270,31 +270,31 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>execution_policy.min_attempts</code></th>
-    <td>The minimum number of completed attempts. Reaching this threshold finishes the entry only when the other configured minimum thresholds are also met. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum total attempts; terminal only when the other configured <code>min_</code> thresholds are also met. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_attempts</code></th>
-    <td>The number of completed attempts of any result that finishes the entry. Must be an integer of at least <code>1</code>.<br><em>Default:</em> <code>2</code></td>
+    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code>.<br><em>Default:</em> <code>2</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.min_passed</code></th>
-    <td>The minimum number of passed attempts. Reaching this threshold finishes the entry only when the other configured minimum thresholds are also met. Must be a non-negative integer no greater than <code>max_passed</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum passed attempts; terminal only when the other configured <code>min_</code> thresholds are also met. Must be a non-negative integer no greater than <code>max_passed</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_passed</code></th>
-    <td>The number of passed attempts that immediately finishes an entry as passed. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Terminal after this many passed attempts. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.min_failed</code></th>
-    <td>The minimum number of failed attempts. Reaching this threshold finishes the entry only when the other configured minimum thresholds are also met. Must be a non-negative integer no greater than <code>max_failed</code>.<br><em>Default:</em> <code>0</code></td>
+    <td>Minimum failed attempts; terminal only when the other configured <code>min_</code> thresholds are also met. Must be a non-negative integer no greater than <code>max_failed</code>.<br><em>Default:</em> <code>0</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_failed</code></th>
-    <td>The number of failed attempts that immediately finishes an entry as failed. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>2</code></td>
+    <td>Terminal after this many failed attempts. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>2</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.parallel_attempts</code></th>
-    <td>The maximum number of waiting or leased attempts for each entry at one time. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Maximum number of attempts for the entry that may be active in parallel. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
 </tbody>
 </table>
