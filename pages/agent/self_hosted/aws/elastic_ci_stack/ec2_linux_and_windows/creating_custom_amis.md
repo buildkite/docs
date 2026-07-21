@@ -1,8 +1,30 @@
 # Creating custom AMIs
 
-Custom AMIs help teams ensure that their agents have all required tools and configurations before instance launch. This prevents instances from reverting to the base image state when agents restart, which would lose any manual changes made during runtime.
+Custom AMIs help teams ensure that their agents have all required tools and configurations before instance launch. These images preserve the required configuration when the stack launches new or replacement instances, which do not retain changes made to previous instances during runtime.
 
 Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can be used with the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows) by specifying the `ImageId` parameter. You can use any AMI available to your AWS account. For best results, start with the Packer templates provided in the [packer directory](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/packer) of the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) repository.
+
+## Creating an image
+
+To create a custom AMI using the provided Packer templates:
+
+1. Clone the [Elastic CI Stack for AWS repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
+1. Initialize the repository's Git submodules:
+
+    ```bash
+    git submodule update --init --recursive
+    ```
+
+1. Make your changes to the templates in the `packer` directory.
+1. From the repository's root directory, run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) target for the image you want to build. For example, run the following command to build an Amazon Linux 2023 AMD64 image:
+
+    ```bash
+    make packer-linux-amd64.output
+    ```
+
+When the build completes, the AMI is stored in your AWS account. The AMI ID appears in your terminal output and in the corresponding output file, such as `packer-linux-amd64.output`.
+
+The following sections describe the build requirements, the AMI components you can customize, and the available build targets and options.
 
 ## Requirements
 
@@ -11,8 +33,8 @@ To use the [Packer](https://developer.hashicorp.com/packer) templates provided, 
 - Docker
 - Make
 - AWS CLI
-- Git — the built-in `secrets`, `ecr`, and `docker-login` plugins are pulled in as git submodules
-- GNU sed (`gsed`) — required on macOS only (`brew install gnu-sed`); the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) errors out if it is not installed
+- **Git:** The built-in `secrets`, `ecr`, and `docker-login` plugins are pulled in as Git submodules
+- `GNU sed (gsed)`: Required on macOS only (`brew install gnu-sed`); the `Makefile` exits with an error if it is not installed
 
 Before your first build, initialize the submodules so the built-in plugins are populated:
 
@@ -77,8 +99,6 @@ You'll also benefit from familiarity with:
 - [HashiCorp configuration language (HCL)](https://github.com/hashicorp/hcl?tab=readme-ov-file#hcl)
 - Bash or PowerShell (depending on the operating system)
 
-If you already know what you need to customize and just want the build command, skip to [Creating an image](#creating-an-image). Otherwise, the next two sections explain what each layer of the stack AMI provides and which Elastic CI Stack features depend on which components.
-
 ## How the AMI is layered
 
 The Packer templates build the AMI in two stages. Both the Linux (Amazon Linux 2023) and Windows Server 2022 AMIs follow the same two-stage structure, but with platform-specific scripts and service management. Understanding what each stage provides makes it easier to customize an AMI without breaking the features the stack expects.
@@ -89,7 +109,7 @@ The base AMI templates are in `packer/linux/base` and `packer/windows/base`.
 
 The base layer is applied directly on top of the upstream Amazon Linux 2023 or Windows Server 2022 image. It installs the operating-system baseline that every Buildkite agent instance needs, regardless of how it is used:
 
-- Docker Engine with buildx, docker compose v2, and the ECR credential helper
+- Docker Engine with Buildx, Docker Compose v2, and the ECR credential helper
 - Amazon CloudWatch agent
 - AWS Systems Manager (SSM) agent and the Session Manager plugin
 - Core CLI tooling: AWS CLI v2, `git`, `git-lfs`, `jq`
@@ -104,13 +124,13 @@ The stack AMI templates are in `packer/linux/stack` and `packer/windows/stack`.
 
 The stack layer is applied on top of the base AMI. This is what turns a Docker-capable host into a Buildkite Elastic CI Stack agent. It installs:
 
-- The Buildkite agent binary (stable and beta channels — `edge` and `oldstable` are downloaded on first boot if selected)
+- The Buildkite agent binary for the stable and beta channels (`edge` and `oldstable` are downloaded on first boot if selected)
 - **Linux:** the `buildkite-agent` user, group, and directory layout (`/etc/buildkite-agent`, `/var/lib/buildkite-agent/{builds,git-mirrors,plugins}`), plus the `buildkite-agent.service` systemd unit
 - **Windows:** the agent directory layout under `C:\buildkite-agent\` (`builds`, `hooks`, `plugins`, `git-mirrors`), with the agent managed as an NSSM service
-- Boot-time bootstrap scripts — see [What the stack layer adds on top of the Buildkite agent](#what-the-stack-layer-adds-on-top-of-the-buildkite-agent) below
+- Boot-time bootstrap scripts described in [What the stack layer adds on top of the Buildkite agent](#what-the-stack-layer-adds-on-top-of-the-buildkite-agent)
 - Agent hooks (`environment`, `pre-command`, `pre-exit`) that wire in disk-space checks, Docker configuration, and the built-in plugins
 - Lifecycle and autoscaling tooling: [lifecycled](https://github.com/buildkite/lifecycled), `stop-agent-gracefully`, and `terminate-instance` (bash scripts on Linux, PowerShell scripts on Windows)
-- The built-in `secrets`, `ecr`, and `docker-login` plugins — under `/usr/local/buildkite-aws-stack/plugins/` on Linux and `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\` on Windows
+- The built-in `secrets`, `ecr`, and `docker-login` plugins under `/usr/local/buildkite-aws-stack/plugins/` on Linux and `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\` on Windows
 - The `s3secrets-helper` binary
 - **Linux only:** `fix-buildkite-agent-builds-permissions`, `goss`/`dgoss`, rsyslog rules for `buildkite-agent` and `docker` service logs, a cloud-init systemd override (`10-power-off-on-failure.conf`) that powers off the instance if bootstrap fails
 - **Windows only:** a PowerShell error trap in `bk-install-elastic-stack.ps1` that marks the instance as unhealthy when bootstrap fails, so the Auto Scaling group can replace it
@@ -134,15 +154,15 @@ On Windows, two scripts are called (there is no instance storage mounting equiva
 - `C:\buildkite-agent\bin\bk-configure-docker.ps1`
 - `C:\buildkite-agent\bin\bk-install-elastic-stack.ps1`
 
-If those scripts aren't present, bootstrap fails and the instance is shut down. On Linux, the `10-power-off-on-failure.conf` systemd override triggers `poweroff.target`. On Windows, the PowerShell error trap in the bootstrap script marks the instance as unhealthy so the Auto Scaling group replaces it.
+If those scripts aren't present, bootstrap fails. On Linux, the `10-power-off-on-failure.conf` systemd override triggers `poweroff.target`. On Windows, the PowerShell error trap in the bootstrap script marks the instance as unhealthy so the Auto Scaling group replaces it.
 
 Beyond the bootstrap scripts, each CloudFormation stack parameter that customizes agent behavior is applied by one of these scripts or by the agent hooks — not by the agent binary itself.
 
-The two areas most often overlooked when planning a custom AMI are the **lifecycle and autoscaling integration** (which you almost always want to keep) and the **S3 secrets plugin** (which is enabled by default but can be disabled if you use a different secret store).
+Preserve the lifecycle and autoscaling integration unless you plan to replace it. The S3 secrets plugin is enabled by default, but you can disable it if you use a different secret store.
 
 ### Lifecycle and autoscaling integration
 
-The Elastic CI Stack does not rely on the Auto Scaling group alone to terminate agents. Instead it uses [lifecycled](https://github.com/buildkite/lifecycled) plus a small collection of scripts to give running jobs a chance to finish, upload artifacts, and disconnect cleanly before the instance is terminated. If your custom AMI keeps these components in place, you get graceful scale-in "for free."
+The Elastic CI Stack does not rely on the Auto Scaling group alone to terminate agents. Instead, it uses [lifecycled](https://github.com/buildkite/lifecycled) and a small collection of scripts to give running jobs a chance to finish, upload artifacts, and disconnect cleanly before the instance is terminated. Keeping these components in your custom AMI provides graceful scale-in.
 
 The following table describes the Linux components. On Windows, `lifecycled` is managed using NSSM instead of systemd, and the bash scripts are replaced by PowerShell equivalents (`stop-agent-gracefully.ps1` and `terminate-instance.ps1`) under `C:\buildkite-agent\bin\`.
 
@@ -165,11 +185,11 @@ The following table describes the Linux components. On Windows, `lifecycled` is 
       },
       {
         "component": "<code>/usr/local/bin/terminate-instance</code>",
-        "role": "Invoked when a job triggers <code>BuildkiteTerminateInstanceAfterJob</code> or <code>BuildkiteTerminateInstanceOnDiskFull</code>. First attempts <code>terminate-instance-in-auto-scaling-group --should-decrement-desired-capacity</code> to scale in. If that fails (for example, the group is already at minimum size), it tries termination without decrement. As a last resort, it marks the instance as <code>Unhealthy</code> so the ASG replaces it."
+        "role": "Invoked when a job triggers <code>BuildkiteTerminateInstanceAfterJob</code> or <code>BuildkiteTerminateInstanceOnDiskFull</code>. First attempts <code>terminate-instance-in-auto-scaling-group --should-decrement-desired-capacity</code> to scale in. If that fails (for example, the group is already at minimum size), it tries termination without decrement. As a last resort, it marks the instance as <code>Unhealthy</code> so the Auto Scaling group replaces it."
       },
       {
         "component": "<code>buildkite-agent.service</code> + <code>10-power-off-on-failure.conf</code> (installed under both <code>cloud-init.service.d/</code> and <code>cloud-final.service.d/</code>)",
-        "role": "systemd override that powers off the instance if cloud-init bootstrap fails, letting the ASG replace failed instances instead of leaving them running in a broken state."
+        "role": "systemd override that powers off the instance if cloud-init bootstrap fails, letting the Auto Scaling group replace failed instances instead of leaving them running in a broken state."
       },
       {
         "component": "Agent config written by <code>bk-install-elastic-stack.sh</code>",
@@ -184,7 +204,7 @@ The following table describes the Linux components. On Windows, `lifecycled` is 
   </tbody>
 </table>
 
-If you replace any of these, you're taking on responsibility for detecting termination, draining the agent, and reporting instance health back to the Auto Scaling group. Keeping the stack layer as-is and adding your customizations _on top of it_ (extra provisioners, extra scripts, additional packages) is almost always the right choice.
+If you replace any of these components, you're responsible for detecting termination, draining the agent, and reporting instance health to the Auto Scaling group. To preserve this behavior, keep the stack layer and add extra provisioners, scripts, or packages on top of it.
 
 ### S3 secrets plugin
 
@@ -192,23 +212,23 @@ The Elastic CI Stack ships with a built-in [S3 secrets plugin](/docs/agent/self-
 
 The plugin depends on three things being present on the AMI:
 
-- The `s3secrets-helper` binary — at `/usr/local/bin/s3secrets-helper` on Linux or downloaded by `install-s3secrets-helper.ps1` on Windows
-- The `secrets` plugin hooks — under `/usr/local/buildkite-aws-stack/plugins/secrets` on Linux or `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\secrets` on Windows
+- `s3secrets-helper`: The binary at `/usr/local/bin/s3secrets-helper` on Linux or downloaded by `install-s3secrets-helper.ps1` on Windows
+- `secrets`: The plugin hooks under `/usr/local/buildkite-aws-stack/plugins/secrets` on Linux or `C:\Program Files\Git\usr\local\buildkite-aws-stack\plugins\secrets` on Windows
 - The `environment` and `pre-exit` agent hooks that source those plugin hooks
 
-If you build a custom AMI without them, setting `EnableSecretsPlugin=true` (the default) becomes a no-op — jobs start, but nothing is pulled from the secrets bucket, and any pipeline that expects a private SSH key or an `env` file fails during checkout. You have two options:
+If you build a custom AMI without these components, the agent hooks can fail when `EnableSecretsPlugin=true`, which is the default. Keep the built-in plugin or replace it:
 
-1. **Keep the built-in plugin.** Leave the stack layer's secrets components in place and, if needed, add your own extra hooks that run alongside them. This is what most customizations do.
-1. **Replace it.** If you have a different secret store (AWS Secrets Manager, HashiCorp Vault, or an internal service), remove the built-in plugin from the AMI, set `EnableSecretsPlugin=false` in your stack parameters, and install your replacement's hooks under `/etc/buildkite-agent/hooks/` (Linux) or `C:\buildkite-agent\hooks\` (Windows) in your Packer template.
+1. **Keep the built-in plugin:** Leave the stack layer's secrets components in place and, if needed, add your own hooks that run alongside them.
+1. **Replace the built-in plugin:** If you have a different secret store (AWS Secrets Manager, HashiCorp Vault, or an internal service), remove the built-in plugin from the AMI, set `EnableSecretsPlugin=false` in your stack parameters, and install your replacement's hooks under `/etc/buildkite-agent/hooks/` (Linux) or `C:\buildkite-agent\hooks\` (Windows) in your Packer template.
 
 The `ecr` and `docker-login` built-in plugins follow the same pattern: enabled by CloudFormation parameters (`EnableECRPlugin`, `EnableDockerLoginPlugin`), and dependent on the plugin directories the stack layer copies into place.
 
 ### Feature-to-component mapping
 
-The tables below show which CloudFormation parameters or Elastic CI Stack features stop working if a given component is removed from your custom AMI. Everything listed here comes from the **stack layer** — the base layer only provides Docker, CloudWatch, SSM, and general OS tooling.
+The tables below show which CloudFormation parameters or Elastic CI Stack features depend on each component in your custom AMI. Everything listed here comes from the _stack layer_. The base layer provides Docker, CloudWatch, SSM, and general operating system tooling.
 
 > 📘 Platform differences
-> The component paths shown are for Linux. On Windows, shell scripts (`.sh`) have PowerShell equivalents (`.ps1`), paths are rooted at `C:\buildkite-agent\` instead of `/usr/local/bin/` and `/etc/buildkite-agent/`, and systemd services are replaced by NSSM services. Components marked "Linux only" have no Windows equivalent.
+> The component paths shown are for Linux. On Windows, shell scripts (`.sh`) have PowerShell equivalents (`.ps1`), and paths are rooted at `C:\buildkite-agent\` instead of `/usr/local/bin/` and `/etc/buildkite-agent/`. NSSM services replace systemd services. Components marked "Linux only" have no Windows equivalent.
 
 #### Bootstrap and boot-time configuration
 
@@ -259,15 +279,15 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
     <% [
       {
         "component": "<code>lifecycled</code>, <code>stop-agent-gracefully</code>, <code>terminate-instance</code>",
-        "features": "Graceful ASG scale-in. <code>BuildkiteTerminateInstanceAfterJob</code>. Instance-health signalling that lets the ASG replace failed hosts. Present on both Linux and Windows (PowerShell equivalents on Windows)."
+        "features": "Graceful Auto Scaling group scale-in. <code>BuildkiteTerminateInstanceAfterJob</code>. Instance-health signaling that lets the Auto Scaling group replace failed hosts. Present on both Linux and Windows (PowerShell equivalents on Windows)."
       },
       {
         "component": "<code>fix-buildkite-agent-builds-permissions</code> (Linux only)",
-        "features": "Docker-based builds that write files to the workspace as root. Without it, subsequent jobs on the same agent fail during git operations because the <code>buildkite-agent</code> user cannot remove root-owned files. Not applicable on Windows."
+        "features": "Docker-based builds that write files to the workspace as root. Without it, subsequent jobs on the same agent fail during Git operations because the <code>buildkite-agent</code> user cannot remove root-owned files. Not applicable on Windows."
       },
       {
         "component": "<strong>Linux:</strong> <code>buildkite-agent.service</code> + <code>10-power-off-on-failure.conf</code><br><strong>Windows:</strong> NSSM service + PowerShell error trap",
-        "features": "The agent auto-starting on boot. Automatic shutdown or health-status marking when bootstrap fails, so the ASG replaces broken instances instead of leaving them running."
+        "features": "The agent auto-starting on boot. Automatic shutdown or health-status marking when bootstrap fails, so the Auto Scaling group replaces broken instances instead of leaving them running."
       }
     ].each do |field| %>
       <tr>
@@ -295,7 +315,7 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
       },
       {
         "component": "<code>ecr</code> built-in plugin",
-        "features": "<code>EnableECRPlugin</code>, <code>ECRAccessPolicy</code>, <code>EnableECRCredentialHelper</code>, <code>AWS_ECR_LOGIN_REGISTRY_IDS</code>. See <a href=\"/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support\">Docker registry support</a>."
+        "features": "<code>EnableECRPlugin</code>, <code>AWS_ECR_LOGIN_REGISTRY_IDS</code>, and agent-hook handling of <code>ECRAccessPolicy</code> and <code>EnableECRCredentialHelper</code>. See <a href=\"/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#docker-registry-support\">Docker registry support</a>."
       },
       {
         "component": "<code>docker-login</code> built-in plugin",
@@ -314,11 +334,9 @@ The tables below show which CloudFormation parameters or Elastic CI Stack featur
   </tbody>
 </table>
 
-## Creating an image
+## Build targets and options
 
-To create a custom AMI, use the provided Packer templates to build new images with your modifications. First, make your changes to the Packer templates, then run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) in the root directory to begin the build process.
-
-This [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) provides several build targets, each running Packer in a Docker container:
+The `Makefile` provides several build targets, each running Packer in a Docker container:
 
 <table>
   <thead>
@@ -427,7 +445,7 @@ By default, all builds target the `us-east-1` region and use your default AWS pr
       {
         "variable": "AMI_PUBLIC",
         "default": "false",
-        "description": "Set to <code>true</code> to make the built AMIs available to all AWS accounts. Defaults to private — recommended, since baked-in secrets would otherwise be exposed."
+        "description": "Set to <code>true</code> to make the built AMIs available to all AWS accounts. Keep AMIs private to avoid exposing baked-in secrets"
       },
       {
         "variable": "AMI_USERS",
@@ -460,7 +478,7 @@ By default, all builds target the `us-east-1` region and use your default AWS pr
 </table>
 
 > 📘 Changing the agent version
-> The agent version is pinned inside `install-buildkite-agent.sh` (Linux) and `install-buildkite-agent.ps1` (Windows). To change it, edit the `AGENT_VERSION` value in those scripts directly, or use `make bump-agent-version` to update both scripts and the README automatically.
+> The agent version is pinned in `packer/linux/stack/scripts/install-buildkite-agent.sh` and `packer/windows/stack/scripts/install-buildkite-agent.ps1`. To change it, edit the `AGENT_VERSION` value in each script.
 
 For example, you could build an AMD64 Linux image in the `eu-west-1` region using a smaller instance type and a specific AWS profile by running:
 
@@ -470,8 +488,6 @@ AWS_REGION="eu-west-1" \
 AWS_PROFILE="assets-profile" \
 make packer-linux-amd64.output
 ```
-
-Once your image build is completed, the AMI is stored in your AWS account and the AMI ID is displayed in your terminal output. You can also find the AMI ID in the corresponding output file (such as `packer-linux-amd64.output`).
 
 ### Common customization flows
 
@@ -486,7 +502,7 @@ Build private AMIs and share them with specific AWS accounts:
 
 ```bash
 AMI_PUBLIC=false \
-AMI_USERS="123456789012,987654321098" \
+AMI_USERS="111122223333,444455556666" \
   make packer
 ```
 
