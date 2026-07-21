@@ -113,6 +113,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
         Filtering and aggregating based on testing framework version to compare performance and reliability.
       </td>
     </tr>
+    <tr>
+      <td><code>test.selector.primary</code></td>
+      <td>
+        Identifies the runner-specific selector used to associate a test execution with historical timing data when generating selector-based test plans. This tag is usually applied automatically by <a href="/docs/pipelines/configure/tests/bktec/installing-and-using-the-client"><code>bktec</code></a> or a <a href="/docs/pipelines/configure/tests/test-collection">supported test collector</a>.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -133,7 +139,7 @@ Test Engine has the following tagging requirements:
 - Must begin with a letter, and may contain letters, numbers, underscores, hyphens and periods.
 - Must be less than 64 bytes of UTF-8 text.
 - Must not be a dot-separated prefix of another key. If a key like `service.instance.id` exists, you cannot create keys for its prefixes such as `service.instance` or `service`.
-- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for mutable execution tags that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
+- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for [mutable execution tags](#mutable-tags) that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
 
 #### Tag values
 
@@ -149,6 +155,17 @@ Tags may be assigned using the following collection methods:
 - [Python (PyTest)](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector-upload-custom-tags-for-test-executions)
 - [Ruby (RSpec, minitest)](/docs/pipelines/configure/tests/test-collection/ruby-collectors#upload-custom-tags-for-test-executions)
 - [Importing JSON](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-execution-level-custom-tags)
+
+## Mutable tags
+
+Execution data, including tags, are immutable by default.
+To attach additional metadata to executions after upload, use the [execution tags API](/docs/apis/rest-api/test-engine/execution-tags) endpoint to add mutable tags with the reserved `mut.` prefix.
+
+Mutable tags are identical to other tags with the following caveats:
+
+- Only tags prefixed with `mut.` can be added to executions after upload.
+- Tags with the `mut.` prefix cannot be added in the initial upload.
+- Tags with the `mut.` prefix cannot be used in [workflows](/docs/pipelines/configure/tests/workflows).
 
 ## Usage
 

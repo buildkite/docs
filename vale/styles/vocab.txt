@@ -26,6 +26,7 @@ architecting
 Argo CD
 ARNs
 argumentless
+artifactDelete
 Artifactory
 Artifactory's
 Athena
@@ -134,6 +135,7 @@ debuild
 debounces
 declaratively
 deduper
+deduplicated
 deduplicates
 deno
 deprioritize
@@ -389,6 +391,7 @@ repo
 repos
 reprioritize
 reprioritizes
+reserver
 resizable
 retryable
 rollout
@@ -431,6 +434,7 @@ signaltometrics
 skopeo
 SLA
 SLAs
+SLIs
 SLO
 SLOs
 snake_case
