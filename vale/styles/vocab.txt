@@ -195,6 +195,7 @@ globbing
 gmp
 gnupg
 goroutines
+goss
 grantable
 gotestsum
 gpg
