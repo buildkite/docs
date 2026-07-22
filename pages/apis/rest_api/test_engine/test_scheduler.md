@@ -274,7 +274,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>execution_policy.max_attempts</code></th>
-    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>100</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>10</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.min_passed</code></th>
