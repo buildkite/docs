@@ -77,7 +77,7 @@ From the **Tests** tab you can:
 
 By default, executions are grouped by test, so retried tests are shown together. For more detail on what's available here, see [Tests tab on build pages](/docs/test-engine/test-suites#tests-tab-on-build-pages).
 
-<%= image "tests-tab.png", width: 3170, height: 1668, alt: "Screenshot of the tests tab on the build page" %>
+<%= image "tests-tab.png", width: 3170/2, height: 1668/2, alt: "Screenshot of the tests tab on the build page" %>
 
 ### Browsing your build on mobile
 
