@@ -441,7 +441,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The environment variables continue to work, so you can migrate incrementally. When both a `checkout.flags` key and the corresponding environment variable are set in a step's `env` block, the `env` block value takes precedence.
+The environment variables continue to work in `environment` and `pre-checkout` hooks regardless of the checkout-override mode. Values set in pipeline YAML, either through `checkout.flags` or a step's `env` block, require an agent running in `none` mode. You can migrate incrementally on agents using that mode. When both a `checkout.flags` key and the corresponding environment variable are set in a step's `env` block, the `env` block value takes precedence.
 
 ## SSH key from Buildkite Secrets
 
