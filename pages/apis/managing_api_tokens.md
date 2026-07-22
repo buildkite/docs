@@ -12,7 +12,7 @@ You can [create](#creating-and-editing-api-access-tokens-create-an-api-access-to
 
 ### Create an API access token
 
-> 📘 The **Public Key** credential type is currently available in preview and only appears after Buildkite enables it for your organization. Contact [Buildkite support](https://buildkite.com/support) to request access.
+> 📘 The **Public Key** credential type is currently available in preview and only appears after Buildkite enables it for your organization. Contact [Buildkite support](mailto:support@buildkite.com) to request access.
 
 To create a new API access token:
 
@@ -24,12 +24,12 @@ To create a new API access token:
 1. Ensure the appropriate Buildkite organization is selected in **Organization Access**. This organization is the one that your API access token will have access to and operate within.
 
     **Note:** Your most recently used Buildkite organization is automatically selected from this list.
-1. Select an appropriate **Token Expiry** duration.
+1. If you selected **Token** as the credential type, select an appropriate **Token Expiry** duration.
 1. Select from the appropriate **REST API Scopes** or **GraphQL API** permission, or both. Learn more about these in [Token scopes](#token-scopes).
 1. To restrict which network addresses your new API access token can operate from, specify these addresses in the **Allowed IP Addresses** field, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 1. Select **Create New API Access Token** to create the token, and enter your password again if prompted.
 
-    **Note:** On the resulting page, don't forget to copy your new API access token's value now, as this is the last time you'll see this value.
+    **Note:** If you selected **Token** as the credential type, copy your new API access token's value from the resulting page, as this is the last time you'll see this value. If you selected **Public Key**, the resulting page confirms that your public key was registered and does not display a bearer token value.
 
 ### Edit an existing API access token
 
