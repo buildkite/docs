@@ -278,19 +278,19 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>execution_policy.min_passed</code></th>
-    <td>Minimum passed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_passed</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum passed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_passed</code>. A value of <code>0</code> disables this threshold for minimum-condition decisions.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_passed</code></th>
-    <td>Terminal after this many passed attempts. Must be a non-negative integer no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Terminal after this many passed attempts. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.min_failed</code></th>
-    <td>Minimum failed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_failed</code>.<br><em>Default:</em> <code>0</code></td>
+    <td>Minimum failed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_failed</code>. A value of <code>0</code> disables this threshold for minimum-condition decisions.<br><em>Default:</em> <code>0</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.max_failed</code></th>
-    <td>Terminal after this many failed attempts; at most <code>max_attempts</code>. Must be a non-negative integer.<br><em>Default:</em> <code>1</code></td>
+    <td>Terminal after this many failed attempts. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>execution_policy.parallel_attempts</code></th>
@@ -301,7 +301,9 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 The scheduler evaluates the policy when an entry is uploaded and after each of its attempts completes. Evaluation considers only attempts belonging to that entry. When an entry selector represents a file or another group of tests, the policy uses the aggregate attempt result for the selector, not individual test results within it.
 
-An entry finishes as soon as it reaches `max_passed`, `max_failed`, or `max_attempts`. Otherwise, it finishes when at least `min_attempts` have completed and both `min_passed` and `min_failed` are satisfied. While an entry remains unfinished, the scheduler creates attempts without exceeding `parallel_attempts` active attempts. Once the entry finishes, the scheduler cancels any remaining waiting attempts.
+An entry finishes as soon as it reaches `max_passed`, `max_failed`, or `max_attempts`. Otherwise, it finishes when at least `min_attempts` have completed, at least one of `min_passed` or `min_failed` is positive, and every positive result threshold is satisfied. While an entry remains unfinished, the scheduler creates attempts without exceeding `parallel_attempts` active attempts. Once the entry finishes, the scheduler cancels any remaining waiting attempts.
+
+When both `min_passed` and `min_failed` are `0`, the minimum condition cannot finish the entry. The scheduler continues creating attempts until the entry reaches a maximum threshold. At `max_attempts`, a satisfied positive `min_passed` threshold produces a passed outcome. Otherwise, the entry finishes with a failed outcome.
 
 Required scope: `write_test_pool`
 
