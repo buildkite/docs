@@ -117,7 +117,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Required scope: `view_teams`
+Required scope: `read_teams`
 
 Success response: `200 OK`
 
@@ -345,9 +345,9 @@ Error responses:
 
 ## Enable teams
 
-Enables team-based permissions for the organization. This endpoint performs the same action as the **Enable Teams** button in the Buildkite web interface. Enabling teams creates a default "Everyone" team containing all organization members.
+Enables team-based permissions for the organization. This endpoint performs the same action as the **Enable Teams** button in the Buildkite web interface. If the organization has no existing teams, enabling teams creates a default "Everyone" team containing all organization members.
 
-This endpoint is idempotent — if teams are already enabled, it returns `204 No Content` without making further changes.
+This endpoint is idempotent. If teams are already enabled, it returns `204 No Content` without making further changes.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

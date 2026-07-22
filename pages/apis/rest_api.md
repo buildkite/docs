@@ -176,6 +176,7 @@ Method | Endpoint | Description
 GET | `/v2/organizations/{org.slug}/teams` | [List teams](/docs/apis/rest-api/teams#list-teams)
 GET | `/v2/organizations/{org.slug}/teams/{team.uuid}` | [Get a team](/docs/apis/rest-api/teams#get-a-team)
 POST | `/v2/organizations/{org.slug}/teams` | [Create a team](/docs/apis/rest-api/teams#create-a-team)
+POST | `/v2/organizations/{org.slug}/teams/enable` | [Enable teams](/docs/apis/rest-api/teams#enable-teams)
 PATCH | `/v2/organizations/{org.slug}/teams/{team.uuid}` | [Update a team](/docs/apis/rest-api/teams#update-a-team)
 DELETE | `/v2/organizations/{org.slug}/teams/{team.uuid}` | [Delete a team](/docs/apis/rest-api/teams#delete-a-team)
 {: class="responsive-table"}
