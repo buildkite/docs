@@ -69,7 +69,7 @@ Set the mode with the agent's `--checkout-override-mode` flag, or the `BUILDKITE
 - `none`: Your pipeline YAML can override every `checkout` attribute, including `depth`, `flags`, and `commit_verification`.
 - `strict`: The agent is authoritative over every mode-governed attribute, and ignores pipeline YAML values for them.
 
-Both Buildkite hosted agents and self-hosted agents run `from-job` unless you configure otherwise, so the `depth`, `flags`, and `commit_verification` attributes require an agent running in `none` mode.
+Both Buildkite-hosted agents and self-hosted agents run `from-job` unless you configure otherwise, so the `depth`, `flags`, and `commit_verification` attributes require an agent running in `none` mode.
 
 The following table shows whether each pipeline YAML `checkout` attribute takes effect under each mode:
 
@@ -85,7 +85,7 @@ Attribute | `from-job` (default) | `none` | `strict`
 `ssh_secret` | Yes | Yes | Yes
 {: class="responsive-table"}
 
-The mode never governs the `lfs` and `ssh_secret` attributes, so a step can always set them. In `from-job` mode, `skip` and `submodules` take effect from pipeline YAML unless the agent forces the opposite setting with `--skip-checkout` or `--no-git-submodules`; when it does, the agent value wins and only `none` lets the pipeline override it.
+The mode never governs the `lfs` and `ssh_secret` attributes, so a step can always set them. In `from-job` mode, `skip` and `submodules` take effect from pipeline YAML unless the agent forces the opposite setting with `--skip-checkout` or `--no-git-submodules`. When it does, the agent value wins, and only `none` mode lets the pipeline override it.
 
 To use `depth`, `flags`, or `commit_verification` from your pipeline YAML, start the agent in `none` mode. For example, in the agent configuration file:
 
@@ -138,7 +138,7 @@ Hook exports are listed first because `environment` and `pre-checkout` hooks run
 
 For the remaining levels, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
 
-This ordering assumes the agent runs in the default `from-job` mode without the `--skip-checkout` flag. If you start an agent with `--skip-checkout`, the agent locks that value under `from-job` and `strict`, so `checkout.skip: false` in a pipeline or step has no effect; only an agent running in `none` mode lets a step re-enable checkout. See [Agent checkout-override mode](#agent-checkout-override-mode).
+This ordering assumes the agent runs in the default `from-job` mode without the `--skip-checkout` flag. If you start an agent with `--skip-checkout`, the agent locks that value under `from-job` and `strict`, so `checkout.skip: false` in a pipeline or step has no effect. Only an agent running in `none` mode lets a step re-enable checkout. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
 ### Migrating from the BUILDKITE_SKIP_CHECKOUT environment variable
 
