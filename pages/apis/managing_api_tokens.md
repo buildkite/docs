@@ -12,6 +12,8 @@ You can [create](#creating-and-editing-api-access-tokens-create-an-api-access-to
 
 ### Create an API access token
 
+> 📘 The **Public Key** credential type is currently available in preview and only appears after Buildkite enables it for your organization. Contact [Buildkite support](https://buildkite.com/support) to request access.
+
 To create a new API access token:
 
 1. Select **Personal Settings** in the global navigation > [**API Access Tokens**](https://buildkite.com/user/api-access-tokens) to open its page.

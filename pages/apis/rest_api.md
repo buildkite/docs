@@ -376,7 +376,7 @@ API access using basic HTTP authentication is not supported.
 
 ### Public key
 
-> 📘 This feature is currently available in preview.
+> 📘 This feature is currently available in preview and must be enabled by Buildkite for your organization. The **Public Key** credential type only appears after the feature is enabled. Contact [Buildkite support](https://buildkite.com/support) to request access.
 
 API access tokens can be created with an RSA public key instead of a static token. You generate a key pair, register the public key with Buildkite, and use the private key to sign [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) to authenticate API calls. Buildkite never receives your private key.
 
