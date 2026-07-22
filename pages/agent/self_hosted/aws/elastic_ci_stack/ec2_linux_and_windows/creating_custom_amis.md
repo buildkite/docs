@@ -9,11 +9,13 @@ Custom [AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html) can
 To create a custom AMI using the provided Packer templates:
 
 1. Clone the [Elastic CI Stack for AWS repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
-1. Initialize the repository's Git submodules:
+1. Initialize the repository's Git submodules. Before your first build, initialize the submodules so the built-in plugins are populated:
 
-    ```bash
-    git submodule update --init --recursive
-    ```
+```bash
+git submodule update --init --recursive
+```
+
+Without this step, Git leaves the built-in plugin directories empty, and Packer copies those empty directories into the AMI. The image build succeeds, but the resulting AMI lacks the plugin hooks. At runtime, enabling an affected plugin causes the agent's `environment` hook to exit when it tries to source the missing plugin hook.
 
 1. Make your changes to the templates in the `packer` directory.
 1. From the repository's root directory, run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) target for the image you want to build. For example, run the following command to build an Amazon Linux 2023 AMD64 image:
@@ -35,14 +37,6 @@ To use the [Packer](https://developer.hashicorp.com/packer) templates provided, 
 - AWS CLI
 - **Git:** The built-in `secrets`, `ecr`, and `docker-login` [plugins](/docs/pipelines/integrations/plugins) are pulled in as Git submodules
 - `GNU sed (gsed)`: Required on macOS only (`brew install gnu-sed`); the `Makefile` exits with an error if it is not installed
-
-Before your first build, initialize the submodules so the built-in plugins are populated:
-
-```bash
-git submodule update --init --recursive
-```
-
-Without this step, Git leaves the built-in plugin directories empty, and Packer copies those empty directories into the AMI. The image build succeeds, but the resulting AMI lacks the plugin hooks. At runtime, enabling an affected plugin causes the agent's `environment` hook to exit when it tries to source the missing plugin hook.
 
 The following AWS IAM permissions are required to build custom AMIs using the provided Packer templates:
 
