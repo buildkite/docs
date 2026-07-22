@@ -15,7 +15,7 @@ To create a custom AMI using the provided Packer templates:
     git submodule update --init --recursive
     ```
 
-Without this step, Git leaves the built-in plugin directories empty, and Packer copies those empty directories into the AMI. The image build succeeds, but the resulting AMI lacks the plugin hooks. At runtime, enabling an affected plugin causes the agent's `environment` hook to exit when it tries to source the missing plugin hook.
+    Without this step, Git leaves the built-in plugin directories empty, and Packer copies those empty directories into the AMI. The image build succeeds, but the resulting AMI lacks the plugin hooks. At runtime, enabling an affected plugin causes the agent's `environment` hook to exit when it tries to source the missing plugin hook.
 
 1. Make your changes to the templates in the `packer` directory.
 1. From the repository's root directory, run the [`Makefile`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/Makefile) target for the image you want to build. For example, run the following command to build an Amazon Linux 2023 AMD64 image:
