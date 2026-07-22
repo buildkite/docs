@@ -194,7 +194,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
       {
         name: "Teams",
         key: "read_teams, write_teams",
-        description: "List teams—create, update, and delete teams.",
+        description: "List teams—create, update, and delete teams, and enable teams for the organization.",
         read: true, write: true, delete: false
       },
       {
