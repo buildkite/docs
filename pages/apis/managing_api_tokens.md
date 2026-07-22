@@ -12,22 +12,24 @@ You can [create](#creating-and-editing-api-access-tokens-create-an-api-access-to
 
 ### Create an API access token
 
+> 📘 The **Public Key** credential type is currently available in preview and only appears after Buildkite enables it for your organization. Contact [Buildkite support](mailto:support@buildkite.com) to request access.
+
 To create a new API access token:
 
 1. Select **Personal Settings** in the global navigation > [**API Access Tokens**](https://buildkite.com/user/api-access-tokens) to open its page.
 1. Select **New API Access Token**.
 
     If prompted, enter your password in the **Confirm Password** field.
-1. Enter an appropriate **Description** for your new API access token, and ensure **Token** is selected in **Credential Type**.
+1. Enter an appropriate **Description** for your new API access token. Under **Credential Type**, select **Token** (the default) for standard bearer token authentication, or **Public Key** (preview) to register your own RSA public key. For **Public Key** setup instructions, see [Public key authentication](/docs/apis/rest-api#authentication-public-key).
 1. Ensure the appropriate Buildkite organization is selected in **Organization Access**. This organization is the one that your API access token will have access to and operate within.
 
     **Note:** Your most recently used Buildkite organization is automatically selected from this list.
-1. Select an appropriate **Token Expiry** duration.
+1. If you selected **Token** as the credential type, select an appropriate **Token Expiry** duration.
 1. Select from the appropriate **REST API Scopes** or **GraphQL API** permission, or both. Learn more about these in [Token scopes](#token-scopes).
 1. To restrict which network addresses your new API access token can operate from, specify these addresses in the **Allowed IP Addresses** field, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 1. Select **Create New API Access Token** to create the token, and enter your password again if prompted.
 
-    **Note:** On the resulting page, don't forget to copy your new API access token's value now, as this is the last time you'll see this value.
+    **Note:** If you selected **Token** as the credential type, copy your new API access token's value from the resulting page, as this is the last time you'll see this value. If you selected **Public Key**, the resulting page confirms that your public key was registered and does not display a bearer token value.
 
 ### Edit an existing API access token
 
@@ -455,7 +457,7 @@ This section explains risk mitigation strategies which you can implement, and ot
 
 ### Rotation
 
-When you [create an API access token](#creating-and-editing-api-access-tokens-create-an-api-access-token), you select a **Token Expiry** duration that determines when the token expires. This defaults to seven days if left unset. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, [invalidate](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) old tokens or [revoke](#inactive-api-tokens-revocation) inactive ones, and issue new tokens.
+When you [create an API access token](#creating-and-editing-api-access-tokens-create-an-api-access-token) with the **Token** credential type, you select a **Token Expiry** duration that determines when the token expires. This defaults to seven days if left unset. API access tokens using the **Public Key** credential type do not expire. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating credentials at least once a year. In case of a security compromise or breach, [invalidate](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) old tokens or [revoke](#inactive-api-tokens-revocation) inactive ones, and issue new tokens.
 
 The [API Access Tokens page](https://buildkite.com/user/api-access-tokens) has a _Duplicate_ button that can be used to create a new token with the same permissions as the existing token.
 
