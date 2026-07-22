@@ -30,7 +30,7 @@ In Buildkite Pipelines, the `checkout` block can appear in two places:
 
 When both are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for keys the step leaves unset.
 
-For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value always takes effect.
+For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value takes precedence over an entry in the step's `env` map when the agent's checkout-override mode permits the pipeline value. In particular, `depth` requires an agent running in `none` mode.
 
 > 📘 Step-level ssh_secret
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
@@ -54,7 +54,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In this pipeline, both steps inherit `submodules: false` from the pipeline level. The "Unit tests" step adds a shallow `depth: 10`, while the "Full history analysis" step re-enables submodules and, by not setting `depth`, checks out the full history. Set `checkout.depth` only on steps that can use a shallow clone: `depth` must be a positive integer, so it cannot be set at the pipeline level and then unset to `0` for a full-history step.
+On an agent running in `none` mode, both steps in this pipeline inherit `submodules: false` from the pipeline level. The "Unit tests" step adds a shallow `depth: 10`, while the "Full history analysis" step re-enables submodules and, by not setting `depth`, checks out the full history. Set `checkout.depth` only on steps that can use a shallow clone: `depth` must be a positive integer, so it cannot be set at the pipeline level and then unset to `0` for a full-history step.
 
 ## Agent checkout-override mode
 
@@ -550,7 +550,7 @@ Submodules are automatically disabled when sparse checkout is enabled. If a step
 If submodules are not being fetched, check:
 
 - Whether [sparse checkout](#sparse-checkout) is enabled, as it disables submodule initialization.
-- Whether the agent was started with the `--no-git-submodules` flag, which forces `BUILDKITE_GIT_SUBMODULES=false` regardless of pipeline configuration.
+- Whether the agent was started with the `--no-git-submodules` flag. In `from-job` or `strict` mode, this flag forces `BUILDKITE_GIT_SUBMODULES=false` regardless of pipeline configuration. In `none` mode, the pipeline can re-enable submodules.
 
 ### SSH key issues during checkout
 
