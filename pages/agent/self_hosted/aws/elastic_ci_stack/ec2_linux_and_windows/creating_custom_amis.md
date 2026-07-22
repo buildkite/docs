@@ -11,9 +11,9 @@ To create a custom AMI using the provided Packer templates:
 1. Clone the [Elastic CI Stack for AWS repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 1. Initialize the repository's Git submodules. Before your first build, initialize the submodules so the built-in plugins are populated:
 
-```bash
-git submodule update --init --recursive
-```
+    ```bash
+    git submodule update --init --recursive
+    ```
 
 Without this step, Git leaves the built-in plugin directories empty, and Packer copies those empty directories into the AMI. The image build succeeds, but the resulting AMI lacks the plugin hooks. At runtime, enabling an affected plugin causes the agent's `environment` hook to exit when it tries to source the missing plugin hook.
 
