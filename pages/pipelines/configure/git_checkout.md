@@ -56,6 +56,47 @@ steps:
 
 In this pipeline, both steps inherit `submodules: false` from the pipeline level. The "Unit tests" step adds a shallow `depth: 10`, while the "Full history analysis" step re-enables submodules and, by not setting `depth`, checks out the full history. Set `checkout.depth` only on steps that can use a shallow clone: `depth` must be a positive integer, so it cannot be set at the pipeline level and then unset to `0` for a full-history step.
 
+## Agent checkout-override mode
+
+The `checkout` attributes on this page reach the agent as environment variables, and the agent's `checkout-override-mode` setting decides whether the values in your pipeline YAML may override its own checkout configuration. Because Git flags can inject shell commands, the agent stays authoritative over the flag-based settings by default, and a pipeline must be explicitly permitted to set them.
+
+> 📘 Agent version requirement
+> The `checkout-override-mode` setting requires Buildkite agent v3.134.0 or newer.
+
+Set the mode with the agent's `--checkout-override-mode` flag, or the `BUILDKITE_CHECKOUT_OVERRIDE_MODE` [environment variable](/docs/agent/self-hosted/configure#configuration-settings). It accepts three values:
+
+- `from-job` (the default): Your pipeline YAML can set the checkout attributes that are not shell-injection vectors, but the agent stays authoritative over the Git flag settings. In practice, this means the agent ignores `depth`, `flags`, and `commit_verification` set in your pipeline YAML, and uses its own configuration instead.
+- `none`: Your pipeline YAML can override every `checkout` attribute, including `depth`, `flags`, and `commit_verification`.
+- `strict`: The agent is authoritative over every mode-governed attribute, and ignores pipeline YAML values for them.
+
+Both Buildkite hosted agents and self-hosted agents run `from-job` unless you configure otherwise, so the `depth`, `flags`, and `commit_verification` attributes require an agent running in `none` mode.
+
+The following table shows whether each pipeline YAML `checkout` attribute takes effect under each mode:
+
+Attribute | `from-job` (default) | `none` | `strict`
+--------- | -------------------- | ------ | --------
+`skip` | Yes | Yes | No
+`depth` | No | Yes | No
+`flags` | No | Yes | No
+`sparse` | Yes | Yes | No
+`submodules` | Yes | Yes | No
+`lfs` | Yes | Yes | Yes
+`commit_verification` | No | Yes | No
+`ssh_secret` | Yes | Yes | Yes
+{: class="responsive-table"}
+
+The mode never governs the `lfs` and `ssh_secret` attributes, so a step can always set them. In `from-job` mode, `skip` and `submodules` take effect from pipeline YAML unless the agent forces the opposite setting with `--skip-checkout` or `--no-git-submodules`; when it does, the agent value wins and only `none` lets the pipeline override it.
+
+To use `depth`, `flags`, or `commit_verification` from your pipeline YAML, start the agent in `none` mode. For example, in the agent configuration file:
+
+```ini
+checkout-override-mode="none"
+```
+{: codeblock-file="buildkite-agent.cfg"}
+
+> 🚧 Command evaluation forces strict mode
+> Disabling command evaluation on the agent (`no-command-eval`) forces `strict` regardless of the configured mode, so no pipeline YAML value can change a mode-governed checkout attribute.
+
 ## Skipping checkout
 
 The `checkout.skip` key tells the agent to skip the Git checkout phase entirely. When set to `true`, the agent does not clone, fetch, or check out any code before running the step's command.
@@ -97,6 +138,8 @@ Hook exports are listed first because `environment` and `pre-checkout` hooks run
 
 For the remaining levels, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
 
+This ordering assumes the agent runs in the default `from-job` mode without the `--skip-checkout` flag. If you start an agent with `--skip-checkout`, the agent locks that value under `from-job` and `strict`, so `checkout.skip: false` in a pipeline or step has no effect; only an agent running in `none` mode lets a step re-enable checkout. See [Agent checkout-override mode](#agent-checkout-override-mode).
+
 ### Migrating from the BUILDKITE_SKIP_CHECKOUT environment variable
 
 If you currently skip checkout by setting the `BUILDKITE_SKIP_CHECKOUT` environment variable, you can migrate to the native `checkout.skip` key and also use the other `checkout` features.
@@ -126,6 +169,9 @@ steps:
 ## Shallow clones
 
 The `checkout.depth` key performs a shallow clone with the specified number of commits. This appends `--depth=N` to both [`BUILDKITE_GIT_CLONE_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_CLONE_FLAGS) and [`BUILDKITE_GIT_FETCH_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_FLAGS), so the agent fetches only the most recent history.
+
+> 📘 Requires none mode
+> Because `checkout.depth` sets the agent's clone and fetch flags, it only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own clone and fetch flags and ignores `depth`. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
 Shallow clones are useful for large repositories where full history is not needed. They reduce checkout time and disk usage by downloading fewer objects from the remote.
 
@@ -231,7 +277,7 @@ The `checkout.submodules` key controls whether the Buildkite agent fetches Git s
 When omitted at both the pipeline and step level, the agent defaults to `true`, meaning submodules are fetched automatically.
 
 > 🚧 Agent-level override
-> The agent's `--no-git-submodules` flag retains a hard veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value set in the pipeline YAML, and the build log emits a protected-environment-variable notice.
+> Under the default `from-job` mode, the agent's `--no-git-submodules` flag takes precedence over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value set in the pipeline YAML, and the build log emits a protected-environment-variable notice. An agent running in `none` mode lets the pipeline re-enable submodules, while `strict` keeps the agent authoritative. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
 Disabling submodules can speed up checkout when your repository has large or numerous submodules that are not needed for every step. Note that submodules are also automatically disabled when [sparse checkout](#sparse-checkout) is enabled.
 
@@ -292,6 +338,9 @@ The `checkout.flags` key lets you set custom flags for specific Git operations d
 - `fetch`: Sets [`BUILDKITE_GIT_FETCH_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_FLAGS)
 - `checkout`: Sets [`BUILDKITE_GIT_CHECKOUT_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_CHECKOUT_FLAGS)
 - `clean`: Sets [`BUILDKITE_GIT_CLEAN_FLAGS`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_CLEAN_FLAGS)
+
+> 📘 Requires none mode
+> The `checkout.flags` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own Git flags and ignores `flags`. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
 When pipeline-level and step-level `flags` are both present, step values win per key. Pipeline values are inherited for any key the step omits.
 
@@ -429,6 +478,9 @@ Two modes are available:
 If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
 
 When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings).
+
+> 📘 Requires none mode
+> The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
 The agent silently skips verification in several cases where it is either not possible or not meaningful:
 
