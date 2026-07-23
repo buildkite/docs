@@ -26,6 +26,7 @@ var (
 	bkEnvVarRE                         = regexp.MustCompile(`\$BUILDKITE[A-Z0-9_]*`)
 	envAnnotationRE                    = regexp.MustCompile(`\s+\[((?:\$BUILDKITE[A-Z0-9_]+)(?:,\s*\$BUILDKITE[A-Z0-9_]+)*)\]\s*$`)
 	artifactUploadConcurrencyDefaultRE = regexp.MustCompile(`^Number of concurrent artifact upload operations \(default: \d+\)$`)
+	htmlTextEscaper                    = strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;")
 )
 
 func main() {
@@ -99,9 +100,6 @@ func main() {
 			desc = normalizeFlagDescription(command, desc)
 			desc = renderInlineCode(desc)
 
-			// Wrap https://agent.buildkite.com/v3 in code
-			desc = strings.ReplaceAll(desc, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
-
 			fmt.Printf(`<tr id="%s">`, command)
 			fmt.Printf(`<th><code>--%[1]s %[2]s</code> <a class="Docs__attribute__link" href="#%[1]s">#</a></th>`, command, value)
 			fmt.Printf("<td><p>%s", desc)
@@ -171,7 +169,7 @@ func normalizeFlagDescription(command, desc string) string {
 	}
 
 	if command == "concurrency" && artifactUploadConcurrencyDefaultRE.MatchString(desc) {
-		return artifactUploadConcurrencyDefaultRE.ReplaceAllString(desc, "Number of concurrent artifact upload operations (default: current <code>GOMAXPROCS</code> value)")
+		return artifactUploadConcurrencyDefaultRE.ReplaceAllString(desc, "Number of concurrent artifact upload operations (default: current `GOMAXPROCS` value)")
 	}
 
 	return desc
@@ -180,13 +178,16 @@ func normalizeFlagDescription(command, desc string) string {
 func renderInlineCode(desc string) string {
 	parts := strings.Split(desc, "`")
 	if len(parts)%2 == 0 {
-		return desc
+		plain := htmlTextEscaper.Replace(desc)
+		return strings.ReplaceAll(plain, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
 	}
 
 	var rendered strings.Builder
 	for i, part := range parts {
 		if i%2 == 0 {
-			rendered.WriteString(part)
+			plain := htmlTextEscaper.Replace(part)
+			plain = strings.ReplaceAll(plain, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
+			rendered.WriteString(plain)
 			continue
 		}
 

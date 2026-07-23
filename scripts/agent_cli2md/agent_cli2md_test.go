@@ -46,7 +46,7 @@ func TestNormalizeFlagDescriptionReplacesDynamicArtifactUploadConcurrencyDefault
 	desc := "Number of concurrent artifact upload operations (default: 15)"
 
 	got := normalizeFlagDescription("concurrency", desc)
-	want := "Number of concurrent artifact upload operations (default: current <code>GOMAXPROCS</code> value)"
+	want := "Number of concurrent artifact upload operations (default: current `GOMAXPROCS` value)"
 
 	if got != want {
 		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
@@ -103,11 +103,32 @@ func TestRenderInlineCodeEscapesCodeContent(t *testing.T) {
 	}
 }
 
-func TestRenderInlineCodeKeepsUnmatchedDelimiter(t *testing.T) {
-	desc := "Use `strict"
+func TestRenderInlineCodeEscapesPlainText(t *testing.T) {
+	desc := "Use <key> & `value < limit`"
 
 	got := renderInlineCode(desc)
-	if got != desc {
-		t.Fatalf("renderInlineCode() = %q, want %q", got, desc)
+	want := "Use &lt;key&gt; &amp; <code>value &lt; limit</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeEscapesTextWithUnmatchedDelimiter(t *testing.T) {
+	desc := "Use <key> & `strict"
+
+	got := renderInlineCode(desc)
+	want := "Use &lt;key&gt; &amp; `strict"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeDoesNotNestLegacyAPIURLCode(t *testing.T) {
+	desc := "Use `https://agent.buildkite.com/v3` instead of https://agent.buildkite.com/v3"
+
+	got := renderInlineCode(desc)
+	want := "Use <code>https://agent.buildkite.com/v3</code> instead of <code>https://agent.buildkite.com/v3</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
 	}
 }
