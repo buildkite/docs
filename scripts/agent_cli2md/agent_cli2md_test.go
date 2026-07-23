@@ -82,3 +82,32 @@ func TestNormalizeFlagDescriptionUsesAgentTokenTerminology(t *testing.T) {
 		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
 	}
 }
+
+func TestRenderInlineCodeUsesHTMLInsideOptionTables(t *testing.T) {
+	desc := "One of `strict`, `from-job`, or `none`"
+
+	got := renderInlineCode(desc)
+	want := "One of <code>strict</code>, <code>from-job</code>, or <code>none</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeEscapesCodeContent(t *testing.T) {
+	desc := "Use `value < limit`"
+
+	got := renderInlineCode(desc)
+	want := "Use <code>value &lt; limit</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeKeepsUnmatchedDelimiter(t *testing.T) {
+	desc := "Use `strict"
+
+	got := renderInlineCode(desc)
+	if got != desc {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, desc)
+	}
+}

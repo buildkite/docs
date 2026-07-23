@@ -97,6 +97,7 @@ func main() {
 			// Extract $BUILDKITE_* env and remove from desc
 			envVar, desc := extractEnvVar(desc)
 			desc = normalizeFlagDescription(command, desc)
+			desc = renderInlineCode(desc)
 
 			// Wrap https://agent.buildkite.com/v3 in code
 			desc = strings.ReplaceAll(desc, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
@@ -174,4 +175,25 @@ func normalizeFlagDescription(command, desc string) string {
 	}
 
 	return desc
+}
+
+func renderInlineCode(desc string) string {
+	parts := strings.Split(desc, "`")
+	if len(parts)%2 == 0 {
+		return desc
+	}
+
+	var rendered strings.Builder
+	for i, part := range parts {
+		if i%2 == 0 {
+			rendered.WriteString(part)
+			continue
+		}
+
+		rendered.WriteString("<code>")
+		rendered.WriteString(html.EscapeString(part))
+		rendered.WriteString("</code>")
+	}
+
+	return rendered.String()
 }
