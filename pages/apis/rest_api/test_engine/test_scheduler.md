@@ -82,7 +82,7 @@ curl --get "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler
       "build_id": "3456789a-****-****-****-789abcdef012",
       "key": "rspec-main",
       "state": "populating",
-      "execution_policy": {
+      "attempt_policy": {
         "min_attempts": 1,
         "max_attempts": 1,
         "min_passed": 1,
@@ -164,7 +164,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "build_id": "3456789a-****-****-****-789abcdef012",
   "key": "rspec-main",
   "state": "populating",
-  "execution_policy": {
+  "attempt_policy": {
     "min_attempts": 1,
     "max_attempts": 1,
     "min_passed": 1,
@@ -198,7 +198,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "build_id": "3456789a-****-****-****-789abcdef012",
     "key": "rspec-main",
     "ttl_seconds": 3600,
-    "execution_policy": {
+    "attempt_policy": {
       "min_attempts": 1,
       "max_attempts": 1,
       "min_passed": 1,
@@ -219,7 +219,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "build_id": "3456789a-****-****-****-789abcdef012",
   "key": "rspec-main",
   "state": "populating",
-  "execution_policy": {
+  "attempt_policy": {
     "min_attempts": 1,
     "max_attempts": 1,
     "min_passed": 1,
@@ -265,41 +265,41 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>How long the pool remains available, in seconds. Must be an integer of at least <code>300</code> and no greater than the organization's pool time-to-live limit. Defaults to <code>86400</code> seconds, or the organization limit when it is lower.<br><em>Example:</em> <code>3600</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy</code></th>
+    <th><code>attempt_policy</code></th>
     <td>Controls how many attempts can run for each entry and when the entry finishes. Omit the object or any of its properties to use the corresponding defaults.</td>
   </tr>
   <tr>
-    <th><code>execution_policy.min_attempts</code></th>
+    <th><code>attempt_policy.min_attempts</code></th>
     <td>Minimum total attempts, combined with all other <code>min_</code> thresholds. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy.max_attempts</code></th>
+    <th><code>attempt_policy.max_attempts</code></th>
     <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>10</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy.min_passed</code></th>
+    <th><code>attempt_policy.min_passed</code></th>
     <td>Minimum passed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_passed</code>. A value of <code>0</code> disables this threshold for minimum-condition decisions.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy.max_passed</code></th>
+    <th><code>attempt_policy.max_passed</code></th>
     <td>Terminal after this many passed attempts. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy.min_failed</code></th>
+    <th><code>attempt_policy.min_failed</code></th>
     <td>Minimum failed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_failed</code>. A value of <code>0</code> disables this threshold for minimum-condition decisions.<br><em>Default:</em> <code>0</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy.max_failed</code></th>
+    <th><code>attempt_policy.max_failed</code></th>
     <td>Terminal after this many failed attempts. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
-    <th><code>execution_policy.parallel_attempts</code></th>
+    <th><code>attempt_policy.parallel_attempts</code></th>
     <td>Maximum active attempts for the entry. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
 </tbody>
 </table>
 
-The scheduler evaluates the policy when an entry is uploaded and after each of its attempts completes. Evaluation considers only attempts belonging to that entry. When an entry selector represents a file or another group of tests, the policy uses the aggregate attempt result for the selector, not individual test results within it.
+The scheduler evaluates the attempt policy when an entry is uploaded and after each of its attempts completes. Evaluation considers only attempts belonging to that entry. When an entry selector represents a file or another group of tests, the attempt policy uses the aggregate attempt result for the selector, not individual test results within it.
 
 An entry finishes as soon as it reaches `max_passed`, `max_failed`, or `max_attempts`. Otherwise, it finishes when at least `min_attempts` have completed, at least one of `min_passed` or `min_failed` is positive, and every positive result threshold is satisfied. While an entry remains unfinished, the scheduler creates attempts without exceeding `parallel_attempts` active attempts. Once the entry finishes, the scheduler cancels any remaining waiting attempts.
 
@@ -333,7 +333,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "build_id": "3456789a-****-****-****-789abcdef012",
   "key": "rspec-main",
   "state": "consuming",
-  "execution_policy": {
+  "attempt_policy": {
     "min_attempts": 1,
     "max_attempts": 1,
     "min_passed": 1,
