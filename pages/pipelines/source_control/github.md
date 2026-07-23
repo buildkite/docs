@@ -201,7 +201,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 > 🚧 Configure the GitHub webhook for issue comments
 > To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
 >
-> You don't need to enable **Build when pull request is opened or updated** in the pipeline settings. Buildkite Pipelines records the pull request information when it receives the webhook, even when pull request builds are disabled.
+> You don't need to enable **Build when pull request is opened or updated** in **Pipeline Settings**. Buildkite Pipelines records the pull request information when it receives the webhook, even when pull request builds are disabled.
 >
 > GitHub does not send `pull_request` events retroactively when you update a webhook. After enabling **Pull requests**, open a new pull request or push a commit to an existing pull request before using the issue comment command word.
 
