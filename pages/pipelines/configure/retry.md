@@ -127,7 +127,7 @@ The `retry.automatic` attribute has the following optional attributes:
       <ul>
         <li><code>"*"</code> — matches any signal reason</li>
         <li><code>none</code> — matches jobs with no signal reason</li>
-        <li><code>cancel</code> — the job's process was stopped through cancelation, which also happens when a job times out (see the note below this table)</li>
+        <li><code>cancel</code> — the job's process was stopped through cancellation, which also happens when a job times out (see the note below this table)</li>
         <li><code>agent_stop</code> — the agent was stopped while running the job</li>
         <li><code>agent_refused</code> — the agent refused the job</li>
         <li><code>agent_incompatible</code> — the agent was incompatible with the job</li>
