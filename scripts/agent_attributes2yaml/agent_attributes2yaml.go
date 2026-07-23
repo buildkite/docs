@@ -69,6 +69,7 @@ func main() {
 		desc = stripDefaultRE.ReplaceAllString(desc, "")
 		desc = stripEnvVarRE.ReplaceAllString(desc, "")
 		desc = strings.TrimSpace(desc)
+		desc = normalizeDescription(name, desc)
 
 		fmt.Printf("  - name: %q\n", name)
 		fmt.Printf("    env_var: |\n")
@@ -96,4 +97,22 @@ func extractEnvVars(line string) string {
 	}
 
 	return strings.Join(envNameRE.FindAllString(m[1], -1), "\n      ")
+}
+
+func normalizeDescription(name, desc string) string {
+	desc = strings.ReplaceAll(desc, "behaviour", "behavior")
+
+	switch name {
+	case "checkout-override-mode":
+		return strings.ReplaceAll(desc, "′", "'")
+	case "token":
+		return strings.Replace(
+			desc,
+			"Your cluster token or unclustered registration token.",
+			"Your agent token.",
+			1,
+		)
+	default:
+		return desc
+	}
 }

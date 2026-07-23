@@ -62,3 +62,23 @@ func TestNormalizeFlagDescriptionKeepsOtherConcurrencyDescriptions(t *testing.T)
 		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, desc)
 	}
 }
+
+func TestNormalizeFlagDescriptionUsesUSEnglish(t *testing.T) {
+	desc := "Matches the earlier agent behaviour"
+
+	got := normalizeFlagDescription("checkout-override-mode", desc)
+	want := "Matches the earlier agent behavior"
+	if got != want {
+		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
+	}
+}
+
+func TestNormalizeFlagDescriptionUsesAgentTokenTerminology(t *testing.T) {
+	desc := "Your cluster token or unclustered registration token. Prefix with file:// to read the token from a file"
+
+	got := normalizeFlagDescription("token", desc)
+	want := "Your agent token. Prefix with file:// to read the token from a file"
+	if got != want {
+		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
+	}
+}

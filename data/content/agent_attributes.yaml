@@ -288,7 +288,7 @@ attributes:
       "from-job"
     required: false
     desc: |
-      Controls which sources may override the agent's checkout settings; one of [strict from-job none]. ′strict′ makes the agent authoritative against pipeline/step env, secrets, hooks, plugins, and the Job API. ′from-job′ (default) lets hooks, plugins, and the Job API set checkout vars, blocks secrets, and keeps the agent's checkout flags authoritative over pipeline/step env; pipeline/step env may still set the checkout timeout, submodules, skip-checkout, and skip-fetch-existing-commits toggles that the agent leaves unset, matching earlier agent behaviour, and may set the sparse-checkout paths outright. ′none′ additionally lets pipeline/step env and secrets set them. All mirror configuration and submodule clone config stay agent-authoritative in every mode. The checkout SSH key and Git LFS toggle are not governed by this flag and stay job-settable in every mode. Disabling command-eval forces this to ′strict′.
+      Controls which sources may override the agent's checkout settings; one of [strict from-job none]. 'strict' makes the agent authoritative against pipeline/step env, secrets, hooks, plugins, and the Job API. 'from-job' (default) lets hooks, plugins, and the Job API set checkout vars, blocks secrets, and keeps the agent's checkout flags authoritative over pipeline/step env; pipeline/step env may still set the checkout timeout, submodules, skip-checkout, and skip-fetch-existing-commits toggles that the agent leaves unset, matching earlier agent behavior, and may set the sparse-checkout paths outright. 'none' additionally lets pipeline/step env and secrets set them. All mirror configuration and submodule clone config stay agent-authoritative in every mode. The checkout SSH key and Git LFS toggle are not governed by this flag and stay job-settable in every mode. Disabling command-eval forces this to 'strict'.
   - name: "git-checkout-flags"
     env_var: |
       $BUILDKITE_GIT_CHECKOUT_FLAGS
@@ -761,7 +761,7 @@ attributes:
 
     required: true
     desc: |
-      Your cluster token or unclustered registration token. Prefix with file:// to read the token from a file, or fd:// to read it from an inherited file descriptor
+      Your agent token. Prefix with file:// to read the token from a file, or fd:// to read it from an inherited file descriptor
   - name: "endpoint"
     env_var: |
       $BUILDKITE_AGENT_ENDPOINT

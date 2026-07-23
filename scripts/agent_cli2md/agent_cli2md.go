@@ -158,6 +158,17 @@ func extractEnvVar(desc string) (string, string) {
 }
 
 func normalizeFlagDescription(command, desc string) string {
+	desc = strings.ReplaceAll(desc, "behaviour", "behavior")
+
+	if command == "token" {
+		desc = strings.Replace(
+			desc,
+			"Your cluster token or unclustered registration token.",
+			"Your agent token.",
+			1,
+		)
+	}
+
 	if command == "concurrency" && artifactUploadConcurrencyDefaultRE.MatchString(desc) {
 		return artifactUploadConcurrencyDefaultRE.ReplaceAllString(desc, "Number of concurrent artifact upload operations (default: current <code>GOMAXPROCS</code> value)")
 	}
