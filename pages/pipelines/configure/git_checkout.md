@@ -30,7 +30,7 @@ In Buildkite Pipelines, the `checkout` block can appear in two places:
 
 When both are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for keys the step leaves unset.
 
-For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same [environment variable](/docs/pipelines/configure/environment-variables). For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value always takes effect.
+Buildkite Pipelines resolves pipeline-level, step-level, and explicit [environment variable](/docs/pipelines/configure/environment-variables) values before the agent applies its checkout override mode. The mode can prevent the resolved job value from overriding the agent configuration.
 
 > 📘 Step-level ssh_secret
 > The `ssh_secret` key is step-level only. It is not inherited from a pipeline-level `checkout` block, so it must be set on each step that needs it.
@@ -55,6 +55,28 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 In this pipeline, both steps inherit `submodules: false` from the pipeline level. The "Unit tests" step adds a shallow `depth: 10`, while the "Full history analysis" step re-enables submodules and, by not setting `depth`, checks out the full history. Set `checkout.depth` only on steps that can use a shallow clone: `depth` must be a positive integer, so it cannot be set at the pipeline level and then unset to `0` for a full-history step.
+
+### Checkout override modes
+
+Buildkite agent v3.134.0 introduced the [`checkout-override-mode` configuration setting](/docs/agent/self-hosted/configure#checkout-override-mode). This setting controls whether job sources can override checkout settings configured on the agent. Set the mode using the `--checkout-override-mode` flag, the `checkout-override-mode` configuration file setting, or the `BUILDKITE_CHECKOUT_OVERRIDE_MODE` environment variable.
+
+The mode applies after Buildkite Pipelines resolves pipeline-level and step-level checkout configuration:
+
+Mode | Pipeline or step environment | Secrets | Hooks, plugins, and the Job API
+---- | ---------------------------- | ------- | -------------------------------
+`strict` | Blocked | Blocked | Blocked
+`from-job` (default) | Conditional | Blocked | Allowed
+`none` | Allowed | Allowed | Allowed
+{: class="responsive-table"}
+
+The conditional behavior under `from-job` depends on the checkout option:
+
+- `checkout.flags`, `checkout.depth`, and `checkout.commit_verification` require `none` when configured in pipeline YAML or a pipeline or step `env` block.
+- `checkout.sparse` works with `from-job` or `none`. The `strict` mode blocks it.
+- `checkout.skip` and `checkout.submodules` work with `from-job` when the agent leaves the corresponding setting at its default. Use `none` to override an explicit agent setting such as `--skip-checkout` or `--no-git-submodules`.
+- `checkout.lfs` and `checkout.ssh_secret` are not governed by this setting.
+
+Disabling command evaluation with `no-command-eval` forces the mode to `strict`, regardless of the configured value.
 
 ## Skipping checkout
 
@@ -84,18 +106,21 @@ steps:
 
 ### Precedence
 
-Multiple mechanisms can control whether the checkout is skipped. When more than one is set, the highest-priority setting wins:
+Multiple mechanisms can control whether the checkout is skipped. Buildkite Pipelines first resolves job values in the following order:
 
 1. `BUILDKITE_SKIP_CHECKOUT` exported by an `environment` or `pre-checkout` hook (runs last, so it can override any earlier value)
 1. Step-level `checkout.skip` in pipeline YAML
 1. Pipeline-level `checkout.skip` in pipeline YAML
 1. `BUILDKITE_SKIP_CHECKOUT` set in a pipeline or step `env` block
-1. Agent `--skip-checkout` CLI flag
 1. Default (`false` — checkout runs)
 
-Hook exports are listed first because `environment` and `pre-checkout` hooks run after the agent has already resolved `checkout.skip` from the pipeline YAML. A hook that sets or unsets `BUILDKITE_SKIP_CHECKOUT` therefore has the final say.
+The checkout override mode then determines whether the resolved job value can override the agent configuration:
 
-For the remaining levels, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`.
+- `strict`: The agent `--skip-checkout` setting is authoritative. Pipeline configuration, secrets, hooks, plugins, and the Job API cannot change it.
+- `from-job`: Pipeline configuration can enable checkout skipping when the agent uses its default of `false`. The agent `--skip-checkout` flag cannot be disabled by pipeline configuration. Hooks, plugins, and the Job API can change the value.
+- `none`: Pipeline configuration, secrets, hooks, plugins, and the Job API can override the agent setting.
+
+For values within the job, a higher-priority setting overrides a lower one. For example, a step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true` when the selected mode permits the job value.
 
 ### Migrating from the BUILDKITE_SKIP_CHECKOUT environment variable
 
@@ -129,6 +154,9 @@ The `checkout.depth` key performs a shallow clone with the specified number of c
 
 Shallow clones are useful for large repositories where full history is not needed. They reduce checkout time and disk usage by downloading fewer objects from the remote.
 
+> 📘 Checkout override mode
+> On Buildkite agent v3.134.0 or newer, set `checkout-override-mode` to `none` to use `checkout.depth`. The `strict` and `from-job` modes keep the agent clone and fetch flags.
+
 When `checkout.depth` is set, submodules are still fetched at full depth. The shallow depth applies only to the main repository clone and fetch operations.
 
 > 🚧 Limitations of shallow clones
@@ -153,6 +181,8 @@ The `sparse` key is a map containing a single key, `paths`, which accepts a stri
 
 > 📘 Requirements and constraints
 > Sparse checkout requires Git 2.26 or later. On agents with an older Git version, the agent falls back to a full checkout. Submodules are not initialized when sparse checkout is enabled.
+
+The `checkout.sparse` key works with the default `from-job` mode and with `none`. The `strict` mode keeps the agent sparse checkout configuration and blocks pipeline settings, hooks, plugins, and the Job API from changing it.
 
 A step-level `sparse.paths` replaces the pipeline-level paths rather than merging with them, so each step must repeat any pipeline-level paths it still needs. The following example sets a pipeline-level default of `.buildkite/`, then has each step override it with its own paths (repeating `.buildkite/` so it is not lost):
 
@@ -231,7 +261,7 @@ The `checkout.submodules` key controls whether the Buildkite agent fetches Git s
 When omitted at both the pipeline and step level, the agent defaults to `true`, meaning submodules are fetched automatically.
 
 > 🚧 Agent-level override
-> The agent's `--no-git-submodules` flag retains a hard veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value set in the pipeline YAML, and the build log emits a protected-environment-variable notice.
+> With the `strict` or `from-job` checkout override mode, the agent's `--no-git-submodules` flag forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value set in pipeline YAML. Set the mode to `none` to allow pipeline configuration to override this agent setting. The `strict` mode also blocks hooks, plugins, and the Job API from changing the value.
 
 Disabling submodules can speed up checkout when your repository has large or numerous submodules that are not needed for every step. Note that submodules are also automatically disabled when [sparse checkout](#sparse-checkout) is enabled.
 
@@ -298,7 +328,7 @@ When pipeline-level and step-level `flags` are both present, step values win per
 Common use cases include partial clones with `--filter=blob:none` (which downloads commit and tree objects but defers blob downloads until needed), adding `--tags` to fetch for downloading all tags alongside branch history, and customizing clean behavior.
 
 > 🚧 Security consideration
-> These flags are passed directly to Git commands. In [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) where step definitions may come from untrusted input, validate the flag values to prevent command injection.
+> These flags are passed directly to Git commands. In [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) where step definitions may come from untrusted input, validate the flag values to prevent command injection. On Buildkite agent v3.134.0 or newer, pipeline YAML and pipeline or step environment variables can set these flags only when `checkout-override-mode` is `none`. The default `from-job` mode allows hooks, plugins, and the Job API to set them. The `strict` mode blocks all job sources.
 
 ```yaml
 steps:
@@ -392,7 +422,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The environment variables continue to work, so you can migrate incrementally. When both a `checkout.flags` key and the corresponding environment variable are set in a step's `env` block, the `env` block value takes precedence.
+The environment variables continue to work, so you can migrate incrementally. When `checkout-override-mode` is `none`, an environment variable in a step's `env` block takes precedence over the corresponding `checkout.flags` key. The `strict` and `from-job` modes keep the agent flag configuration instead.
 
 ## SSH key from Buildkite Secrets
 
@@ -428,7 +458,7 @@ Two modes are available:
 
 If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
 
-When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings).
+On Buildkite agent v3.134.0 or newer, pipeline configuration can set `checkout.commit_verification` only when `checkout-override-mode` is `none`. The `strict` and `from-job` modes use the agent `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). When the pipeline key is omitted, the agent setting applies in every mode.
 
 The agent silently skips verification in several cases where it is either not possible or not meaningful:
 
@@ -498,7 +528,7 @@ Submodules are automatically disabled when sparse checkout is enabled. If a step
 If submodules are not being fetched, check:
 
 - Whether [sparse checkout](#sparse-checkout) is enabled, as it disables submodule initialization.
-- Whether the agent was started with the `--no-git-submodules` flag, which forces `BUILDKITE_GIT_SUBMODULES=false` regardless of pipeline configuration.
+- Whether the agent was started with the `--no-git-submodules` flag. The `strict` and `from-job` checkout override modes keep this agent setting. Use `none` if pipeline configuration must override it.
 
 ### SSH key issues during checkout
 
@@ -513,7 +543,8 @@ If the checkout fails with an SSH authentication error, verify that:
 If checkout continues to run after setting `checkout.skip: true`, check the following common causes:
 
 - **YAML indentation error:** The `skip` key must be nested under `checkout` at the correct level. If `skip` is not indented as a child of `checkout`, the agent ignores it.
-- **Conflicting environment variable:** A hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
+- **Checkout override mode:** The `strict` mode keeps the agent `--skip-checkout` setting and blocks the pipeline value. The default `from-job` mode also keeps an enabled agent setting. Use `none` if pipeline configuration must override the agent.
+- **Conflicting environment variable:** With the `from-job` or `none` mode, a hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
 - **Agent version:** The native `checkout.skip` key requires Buildkite agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
 - **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#skipping-checkout-precedence) for the full priority order.
 
