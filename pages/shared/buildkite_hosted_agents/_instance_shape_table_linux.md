@@ -56,7 +56,7 @@
       <td>AMD64</td>
       <td>32</td>
       <td>128 GB</td>
-      <td><!-- TODO: verify disk space --></td>
+      <td>544 GB</td>
     </tr>
     <tr>
       <td>
@@ -66,7 +66,7 @@
       <td>AMD64</td>
       <td>64</td>
       <td>256 GB</td>
-      <td><!-- TODO: verify disk space --></td>
+      <td>1056 GB</td>
     </tr>
     <tr>
       <td>
@@ -116,7 +116,7 @@
       <td>ARM64</td>
       <td>32</td>
       <td>128 GB</td>
-      <td><!-- TODO: verify disk space --></td>
+      <td>544 GB</td>
     </tr>
     <tr>
       <td>
@@ -126,7 +126,7 @@
       <td>ARM64</td>
       <td>64</td>
       <td>256 GB</td>
-      <td><!-- TODO: verify disk space --></td>
+      <td>1056 GB</td>
     </tr>
   </tbody>
 </table>
