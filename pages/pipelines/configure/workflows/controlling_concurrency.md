@@ -55,7 +55,7 @@ When jobs in a group have different limits, the group no longer behaves as a str
 
 > 🚧 Raising the limit of a busy concurrency group can strand its queued jobs
 > Suppose a group has a limit of 20, with 20 jobs running and 15 jobs waiting. If you raise the limit to 100, jobs created from then on carry a limit of 100, and the group can run well above 20 jobs at once. The 15 waiting jobs still carry their original limit of 20, so they can only start once fewer than 20 jobs are running. While jobs with the new limit keep arriving, that never happens, and the jobs created before the change stay queued indefinitely.
-> A stranded job also still counts as a job queued ahead of every ordered job behind it, so each stranded job permanently reduces the number of jobs the group can run at once.
+> A stranded job also still counts as a job queued ahead of every ordered job behind it. Each stranded job permanently reduces the number of jobs the group can run at once.
 
 To raise a concurrency limit without stranding jobs, wait for the group's queue to drain before making the change, or cancel any jobs left over from before the change. Stranded jobs never recover on their own and can only be cleared by canceling them.
 
