@@ -4,6 +4,7 @@ agentic
 allow_any_instance_of
 allowlist
 allowlisted
+allowlisting
 allowlists
 Amazon ECR
 Amazon Elastic Container Registry
@@ -25,6 +26,7 @@ architecting
 Argo CD
 ARNs
 argumentless
+artifactDelete
 Artifactory
 Artifactory's
 Athena
@@ -60,6 +62,7 @@ Bitrise
 bktec
 bktec's
 bktx
+blobless
 boolean
 Boomper
 bottlenecked
@@ -132,6 +135,8 @@ debuild
 debounces
 declaratively
 deduper
+deduplicated
+deduplicates
 deno
 deprioritize
 deprovisioning
@@ -190,6 +195,7 @@ globbing
 gmp
 gnupg
 goroutines
+goss
 grantable
 gotestsum
 gpg
@@ -214,6 +220,7 @@ heredoc
 heroku
 Honeycomb
 hostname
+hostnames
 hostPath
 hotfixes
 http
@@ -272,6 +279,7 @@ macos
 manylinux
 matchfile
 matchers
+Makefile
 Memcache
 minitest
 misconfiguration
@@ -310,6 +318,7 @@ NVMe
 OAuth
 offboarding
 oidc
+oldstable
 onboarding
 Okta
 OpenTelemetry
@@ -356,6 +365,7 @@ preemptible
 prefill
 prefetch
 preinstall
+prepended
 prepends
 preprovisioned
 proxied
@@ -383,6 +393,7 @@ repo
 repos
 reprioritize
 reprioritizes
+reserver
 resizable
 retryable
 rollout
@@ -391,6 +402,7 @@ retag
 retrigger
 routable
 rpmbuild
+rsyslog
 RSpec
 ruleset
 runbook
@@ -419,12 +431,14 @@ shasum
 shellcheck
 shellscripting
 Shipit
+shortcode
 sigstore
 sigstore's
 signaltometrics
 skopeo
 SLA
 SLAs
+SLIs
 SLO
 SLOs
 snake_case
@@ -437,6 +451,7 @@ Sonatype
 Sonoma
 Splitter's
 sre
+ssh_secret
 sso
 stack_error
 start_time
@@ -505,6 +520,7 @@ unset
 unsets
 unsetting
 unstaged
+unstarted
 untrusted
 unxip
 uploaders

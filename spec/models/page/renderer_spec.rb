@@ -16,6 +16,15 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
+  it "does not render emoji shortcodes embedded in identifiers" do
+    md = "`urn:buildkite:params:oauth:token-type:user-email`"
+
+    html = Page::Renderer.render(md)
+
+    expect(html).to include("<code>urn:buildkite:params:oauth:token-type:user-email</code>")
+    expect(html).not_to include("<img")
+  end
+
   it "adds custom syntax highlighting for curl examples" do
     md = <<~MD
       ```bash

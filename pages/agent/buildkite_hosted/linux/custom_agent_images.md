@@ -116,9 +116,6 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 
 ### Specify a custom image for a queue
 
-> 📘 Private preview feature
-> The custom image URL feature is currently in _private preview_. To enable this feature for your Buildkite organization, contact support@buildkite.com.
-
 You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). When configured, this URL overrides the [agent image selected from the **Agent image** dropdown](#use-an-agent-image-set-the-default-image-for-a-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
 
 To set a custom image URL through the Buildkite interface:

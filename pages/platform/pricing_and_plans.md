@@ -18,6 +18,8 @@ To find out which plan your organization is on or to manage your subscription, s
 
 Each plan has default [service quotas](/docs/platform/limits) that define usage limits across the Buildkite platform. Buildkite organization administrators can view the quotas that apply to their organization in the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page in the **Quotas** tab > **Service Quotas** section.
 
+For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
+
 ## Viewing prepaid inclusions
 
 Managed enterprise customers with the inclusions report enabled can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.

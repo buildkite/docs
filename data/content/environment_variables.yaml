@@ -220,21 +220,40 @@ variables:
       The path to the file containing the job's environment variables.
     modifiable: false
     example: "/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"
+  - name: BUILDKITE_GIT_CHECKOUT_FLAGS
+    desc: |
+      The value of the `git-checkout-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.checkout` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.
+    modifiable: true
+    example: "-f"
   - name: BUILDKITE_GIT_CLEAN_FLAGS
     desc: |
-      The value of the `git-clean-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `git-clean-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.clean` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.
     modifiable: true
     example: "-ffxdq"
   - name: BUILDKITE_GIT_CLONE_FLAGS
     desc: |
-      The value of the `git-clone-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `git-clone-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.clone` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.
     modifiable: true
     example: "-v"
+  - name: BUILDKITE_GIT_COMMIT_VERIFICATION
+    desc: |
+      Controls whether the agent verifies that the commit being built exists on the specified branch. Set automatically from the `checkout.commit_verification` key in your pipeline YAML, or from the agent's `--git-commit-verification` configuration setting. When set to `strict`, the agent fails the job when it determines the commit is not on the branch. When set to `warn`, the agent emits a warning without failing the job. If the agent cannot complete the check, it warns and continues in both modes. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
+    modifiable: false
+    values:
+      - strict
+      - warn
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
-      The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+      The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.fetch` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.
     modifiable: true
     example: "-v --prune"
+  - name: BUILDKITE_GIT_LFS_ENABLED
+    desc: |
+      Controls whether the agent downloads Git LFS objects during checkout. Set automatically from the `checkout.lfs` key in your pipeline YAML (which takes precedence over any value in `env`). When omitted, the agent uses its own `--git-lfs-enabled` configuration setting, which defaults to `false`.
+    modifiable: false
+    values:
+      - true
+      - false
   - name: BUILDKITE_GIT_MIRRORS_PATH
     desc: |
       The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or using the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.
@@ -254,7 +273,7 @@ variables:
     example: ".buildkite/,src/"
   - name: BUILDKITE_GIT_SUBMODULES
     desc: |
-      Controls whether the agent fetches git submodules. Set automatically from the `checkout.submodules` key in your pipeline YAML (which takes precedence over any value in `env`). When `checkout.submodules` is not set, the value reflects the opposite of the `no-git-submodules` [agent configuration option](/docs/agent/self-hosted/configure). The agent's `--no-git-submodules` flag retains a hard veto: if the agent starts with that flag, it forces this variable to `false` regardless of the pipeline value.
+      Controls whether the agent fetches git submodules. Set automatically from the `checkout.submodules` key in your pipeline YAML when the agent's checkout-override mode permits the pipeline value. When `checkout.submodules` is not set, the value reflects the opposite of the `no-git-submodules` [agent configuration option](/docs/agent/self-hosted/configure). In `from-job` or `strict` mode, the agent's `--no-git-submodules` flag forces this variable to `false` regardless of the pipeline value. In `none` mode, the pipeline can re-enable submodules.
     modifiable: false
     values:
       - true
@@ -544,7 +563,7 @@ variables:
     example: '"/bin/bash -e -c"'
   - name: BUILDKITE_SKIP_CHECKOUT
     desc: |
-      Whether the agent should skip the git checkout phase entirely. Set automatically from the `checkout.skip` key in your pipeline YAML (which takes precedence over any value in `env`). The variable is also read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks. It can also be set using the `skip-checkout` [agent configuration option](/docs/agent/self-hosted/configure).
+      Whether the agent should skip the git checkout phase entirely. The variable can be set using the `checkout.skip` key in pipeline YAML or the `skip-checkout` [agent configuration option](/docs/agent/self-hosted/configure). In `from-job` mode, the pipeline value takes effect unless the agent enables `skip-checkout`. In `none` mode, the pipeline value can override the agent setting. In `strict` mode, the agent setting takes precedence. The variable can be overridden in `environment` or `pre-checkout` hooks regardless of the checkout-override mode.
     modifiable: true
     values:
       - true

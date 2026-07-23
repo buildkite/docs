@@ -86,6 +86,7 @@ bk job list [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | Filter by pipeline slug |
+| `--build=STRING` | Filter by build number (requires a resolvable pipeline) |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--json` | Output as JSON |
@@ -117,6 +118,12 @@ List running jobs:
 
 ```bash
 bk job list --state running
+```
+
+List failed jobs from a known build (recommended when the build is known):
+
+```bash
+bk job list --pipeline my-app --build 429 --state failed
 ```
 
 List jobs that took longer than 10 minutes:
@@ -175,8 +182,12 @@ bk job log <job-id> [flags]
 | --- | --- |
 | `-b`, `--build-number=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
 | `-p`, `--pipeline=STRING` | Deprecated; ignored because job UUIDs no longer require pipeline or build context |
+| `--agent` | Format output to be optimal for LLM consumption (strips ANSI, deduplicates loops) |
 | `--debug` | Enable debug output for REST API calls |
+| `--format="plain"` | Output rendering for --agent: plain or Markdown |
+| `--max-tokens=INT` | Hard ceiling on the estimated token count of --agent output (0 = unlimited) |
 | `--no-timestamps` | Strip timestamp prefixes from log output |
+| `--no-window` | Disable failure-focused windowing in --agent output (keep all lines) |
 
 ### Examples
 
@@ -190,6 +201,18 @@ Strip timestamp prefixes from output:
 
 ```bash
 bk job log 0190046e-e199-453b-a302-a21a4d649d31 --no-timestamps
+```
+
+Format for LLM consumption:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 --agent
+```
+
+Format for LLM as Markdown, capped at 2000 tokens, keeping all lines:
+
+```bash
+bk job log 0190046e-e199-453b-a302-a21a4d649d31 --agent --format markdown --max-tokens 2000 --no-window
 ```
 
 ## Reprioritize job

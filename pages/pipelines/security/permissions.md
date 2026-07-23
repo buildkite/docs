@@ -52,7 +52,7 @@ Any user with the **Full Access** permission on a pipeline can change its permis
     * Edit the pipeline settings.
     * Archive or delete the pipeline.
     * Provide access to other users.
-- **Read Only** (`READ_ONLY`), which allows you to view builds only, but _not_:
+- **Read Only** (`READ_ONLY`), which allows you to view builds and manage your personal email notification preferences for the pipeline, but _not_:
     * Create builds or issue rebuilds.
     * Edit the pipeline settings.
     * Archive or delete the pipeline.
@@ -106,7 +106,7 @@ From this page, you can configure the following permissions for all users across
 - **Create Pipelines**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
 - **Delete pipelines**
 - **Change Pipeline Visibility**—Make private pipelines publicly available.
-- **Change Notification Services**—Allows notification services to be created, edited, and deleted.
+- **Manage Notification Services**—Allows notification services to be created, edited, and deleted.
 - **Manage Agent Registration Tokens**—Allows [agent tokens](/docs/agent/self-hosted/tokens) to be created, edited, and deleted.
 - **Stop Agents**—Allows users to disconnect agents from Buildkite.
 

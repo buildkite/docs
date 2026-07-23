@@ -271,8 +271,12 @@ su claude-user -c "
 
 # --- Check for changes ---
 
+# Safety net: if Claude committed changes despite instructions not to,
+# reset them back to working-tree changes so the status check detects them.
+git reset origin/main --quiet 2>/dev/null || true
+
 echo "--- :git: Check for changes"
-if git diff --quiet && git diff --cached --quiet; then
+if [[ -z "$(git status --porcelain)" ]]; then
   echo "No documentation changes were made."
   buildkite-agent annotate --style "info" --context "docs-result" \
     ":white_check_mark: Claude reviewed **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** and determined no documentation changes were needed." \
