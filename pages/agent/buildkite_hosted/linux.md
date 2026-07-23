@@ -27,11 +27,11 @@ Note the following about Linux hosted agent instances.
 
 - The [Personal plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.
 
-- Extra large instances are available on request.
+- The Extra Large (XL), Extra Extra Large (XXL), and 3XL instance shapes are available on Enterprise plans. These shapes are hidden in the queue creation UI for organizations that don't have access. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
 
 - To accommodate different workloads, instances are capable of running up to 8 hours.
 
-If you need extra large instances, or longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
+If you need longer running hosted agents (over 8 hours), please contact Support at support@buildkite.com.
 
 ## Concurrency
 
