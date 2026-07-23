@@ -198,6 +198,13 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
 
+> 🚧 Configure the GitHub webhook for issue comments
+> To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
+>
+> You don't need to enable **Build when pull request is opened or updated** in **Pipeline Settings**. Buildkite Pipelines records the pull request information when it receives the webhook, even when pull request builds are disabled.
+>
+> GitHub does not send `pull_request` events retroactively when you update a webhook. After enabling **Pull requests**, open a new pull request or push a commit to an existing pull request before using the issue comment command word.
+
 ## Environment variables
 
 GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation using `build.env()`, while others are only available in conditionals and pipeline interpolation:
