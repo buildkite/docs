@@ -149,7 +149,7 @@ The `retry.automatic` attribute has the following optional attributes:
 </table>
 
 > 📘 Canceled jobs are not retried automatically
-> Automatic retries never run for jobs that finish in the canceled state, or for any job in a canceled build. Canceling is a deliberate action, so canceled jobs can only be retried manually, and only while their build is not canceled. A retry rule with the `cancel` signal reason matches jobs that were stopped through cancelation but still finished in a retryable state. In practice, these are jobs that timed out.
+> Automatic retries never run for jobs that finish in the canceled state, or for any job in a canceled build. Canceling is a deliberate action, so canceled jobs can only be retried manually, and only while their build is not canceled. A retry rule with the `cancel` signal reason matches jobs that were stopped through cancellation but still finished in a retryable state. In practice, these are jobs that timed out.
 
 When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied. Exit statuses not matched by any rule are not retried, so you don't need to explicitly set `limit: 0` for unmatched statuses.
 
