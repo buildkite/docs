@@ -47,6 +47,18 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 > <p>
 > Be aware that both the [`block`](/docs/pipelines/configure/step-types/block-step) and [`input`](/docs/pipelines/configure/step-types/input-step) steps cause these steps to be uploaded and scheduled at the same time, which breaks concurrency groups. These two steps prevent jobs being added to the concurrency group, although these steps do not affect the jobs' ordering once they are allowed to continue. The concurrency group won't be added to the queue until the `block` or `input` step is allowed to continue, and once this happens, the timestamp will be from the pipeline upload step.
 
+## Changing concurrency limits
+
+Buildkite Pipelines reads the `concurrency` and `concurrency_group` attributes from your pipeline configuration when it creates each job, and stores them on the job itself. Changing the `concurrency` value on a step only applies to jobs created after the change. Jobs already waiting in the concurrency group keep the limit they were created with. A single group can contain jobs with different limits. Retrying a job doesn't update its limit either, because a retried job is created from the same configuration as the original.
+
+When jobs in a group have different limits, the group no longer behaves as a strict first-in, first-out queue. Each time the queue is processed, jobs are checked from the front of the queue against their own limits. With the default [ordered method](#concurrency-and-parallelism-controlling-command-order), a job can only start when the number of jobs holding a concurrency slot plus the number of jobs queued ahead of it is lower than that job's limit. A job that fails this check keeps its place in the queue, and processing continues with the jobs behind it, so a job with a higher limit can start before a job with a lower limit that's ahead of it. When all jobs in the group share the same limit, this preserves the creation-order behavior described in [Concurrency groups](#concurrency-groups) above.
+
+> 🚧 Raising the limit of a busy concurrency group can strand its queued jobs
+> Suppose a group has a limit of 20, with 20 jobs running and 15 jobs waiting. If you raise the limit to 100, jobs created from then on carry a limit of 100, and the group can run well above 20 jobs at once. The 15 waiting jobs still carry their original limit of 20, so they can only start once fewer than 20 jobs hold a concurrency slot. While jobs with the new limit keep arriving, that doesn't happen, and the jobs created before the change stay queued for as long as that load continues.
+> A stranded job also still counts as a job queued ahead of every ordered job behind it. Each stranded job reduces the number of jobs the group can run at once for as long as it stays queued.
+
+To raise a concurrency limit without stranding jobs, wait for the group's queue to drain before making the change, or cancel any jobs left over from before the change. Stranded jobs are still checked each time the queue is processed, and they start again on their own if the number of jobs holding slots drops below their original limit. Under sustained load that doesn't happen. To clear stranded jobs, cancel them, pause the work that keeps the group busy, or wait for the load to subside.
+
 ## Concurrency and parallelism
 
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
