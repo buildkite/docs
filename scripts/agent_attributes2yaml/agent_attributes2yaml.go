@@ -11,12 +11,13 @@ import (
 )
 
 var (
-	optionLineRE   = regexp.MustCompile(`^  --`)
-	envVarRE       = regexp.MustCompile(`\[([^\]]+)\]`)
-	defaultValRE   = regexp.MustCompile(`\(default:([^)]*)\)`)
-	stripOptionRE  = regexp.MustCompile(`^[a-zA-Z0-9-]+( value)?[ ]*`)
-	stripDefaultRE = regexp.MustCompile(`[ ]*\(default:[^)]*\)`)
-	stripEnvVarRE  = regexp.MustCompile(`[ ]*\[\$[^\]]*\][ ]*$`)
+	optionLineRE    = regexp.MustCompile(`^  --`)
+	envAnnotationRE = regexp.MustCompile(`\[((?:\$[A-Z][A-Z0-9_]*)(?:,\s*\$[A-Z][A-Z0-9_]*)*)\]\s*$`)
+	envNameRE       = regexp.MustCompile(`\$[A-Z][A-Z0-9_]*`)
+	defaultValRE    = regexp.MustCompile(`\(default:([^)]*)\)`)
+	stripOptionRE   = regexp.MustCompile(`^[a-zA-Z0-9-]+( value)?[ ]*`)
+	stripDefaultRE  = regexp.MustCompile(`[ ]*\(default:[^)]*\)`)
+	stripEnvVarRE   = regexp.MustCompile(`[ ]*\[\$[^\]]*\][ ]*$`)
 )
 
 var (
@@ -52,11 +53,9 @@ func main() {
 			continue
 		}
 
-		// Extract env var from [...] (may be comma-separated for multiple vars)
-		envVar := ""
-		if m := envVarRE.FindStringSubmatch(line); m != nil {
-			envVar = strings.ReplaceAll(m[1], ", ", "\n      ")
-		}
+		// Extract env var from the trailing [...] annotation (which may contain
+		// multiple comma-separated vars), not bracketed text in the description.
+		envVar := extractEnvVars(line)
 
 		// Extract default value from (default:...)
 		defaultVal := ""
@@ -88,4 +87,13 @@ func main() {
 		slog.Error("Failed scanning lines from stdin", "error", err)
 		os.Exit(1)
 	}
+}
+
+func extractEnvVars(line string) string {
+	m := envAnnotationRE.FindStringSubmatch(line)
+	if m == nil {
+		return ""
+	}
+
+	return strings.Join(envNameRE.FindAllString(m[1], -1), "\n      ")
 }

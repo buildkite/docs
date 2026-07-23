@@ -281,6 +281,14 @@ attributes:
     required: false
     desc: |
       Skip the git checkout phase entirely
+  - name: "checkout-override-mode"
+    env_var: |
+      $BUILDKITE_CHECKOUT_OVERRIDE_MODE
+    default_value: |
+      "from-job"
+    required: false
+    desc: |
+      Controls which sources may override the agent's checkout settings; one of [strict from-job none]. ′strict′ makes the agent authoritative against pipeline/step env, secrets, hooks, plugins, and the Job API. ′from-job′ (default) lets hooks, plugins, and the Job API set checkout vars, blocks secrets, and keeps the agent's checkout flags authoritative over pipeline/step env; pipeline/step env may still set the checkout timeout, submodules, skip-checkout, and skip-fetch-existing-commits toggles that the agent leaves unset, matching earlier agent behaviour, and may set the sparse-checkout paths outright. ′none′ additionally lets pipeline/step env and secrets set them. All mirror configuration and submodule clone config stay agent-authoritative in every mode. The checkout SSH key and Git LFS toggle are not governed by this flag and stay job-settable in every mode. Disabling command-eval forces this to ′strict′.
   - name: "git-checkout-flags"
     env_var: |
       $BUILDKITE_GIT_CHECKOUT_FLAGS
@@ -347,7 +355,7 @@ attributes:
       Path to where mirrors of git repositories are stored
   - name: "git-mirror-checkout-mode"
     env_var: |
-      dissociate reference
+      $BUILDKITE_GIT_MIRROR_CHECKOUT_MODE
     default_value: |
       "reference"
     required: false
@@ -496,7 +504,7 @@ attributes:
       false
     required: false
     desc: |
-      Don't allow this agent to run arbitrary console commands, including plugins
+      Don't allow this agent to run arbitrary console commands, including plugins; also forces checkout-override-mode to 'strict'
   - name: "no-plugins"
     env_var: |
       $BUILDKITE_NO_PLUGINS
@@ -724,7 +732,7 @@ attributes:
       Enable debug logging for pipeline signing. This can potentially leak secrets to the logs as it prints each step in full before signing. Requires debug logging to be enabled
   - name: "verification-failure-behavior"
     env_var: |
-      block warn
+      $BUILDKITE_AGENT_JOB_VERIFICATION_NO_SIGNATURE_BEHAVIOR
     default_value: |
       "block"
     required: false
@@ -753,7 +761,7 @@ attributes:
 
     required: true
     desc: |
-      Your account agent token
+      Your cluster token or unclustered registration token. Prefix with file:// to read the token from a file, or fd:// to read it from an inherited file descriptor
   - name: "endpoint"
     env_var: |
       $BUILDKITE_AGENT_ENDPOINT
