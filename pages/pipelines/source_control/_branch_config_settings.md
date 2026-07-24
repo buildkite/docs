@@ -2,5 +2,5 @@ You can edit the version control provider settings for each pipeline from the pi
 
 If you need more control over your pipeline configuration, add a [pipeline.yml](/docs/pipelines/configure/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/configure/conditionals) and [branch filtering](/docs/pipelines/configure/workflows/branch-configuration) to configure your pipeline.
 
-> 📘 Pull request builds ignore branch filters
-> Branch filters (branch limiting) apply to branch builds only. Builds created for pull requests ignore pipeline-level branch filters. To limit which branches can trigger pull request builds, add an additional branch filter under **Build pull requests** in your source control settings. For more information, see [Additional branch filtering for pull request builds](/docs/pipelines/configure/workflows/branch-configuration#additional-branch-filtering-for-pull-request-builds).
+> 📘 Pull request and merge request builds ignore branch filters
+> Branch filters (branch limiting) apply to branch builds only. Builds created for pull requests or merge requests ignore pipeline-level branch filters. To limit which branches can trigger these builds, add an additional branch filter under **Build pull requests** or **Build merge requests** in your source control settings. For more information, see [Additional branch filtering for pull request builds](/docs/pipelines/configure/workflows/branch-configuration#additional-branch-filtering-for-pull-request-builds).

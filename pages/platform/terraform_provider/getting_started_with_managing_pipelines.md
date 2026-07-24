@@ -166,7 +166,7 @@ Learn more about each available `provider_settings` configuration in the Buildki
 Add the required repository webhooks to trigger builds of these pipelines automatically (that is, when changes are pushed to these repositories). This is done using `buildkite_pipeline_webhook` resource blocks.
 
 > 📘 Terraform does not create repository webhooks automatically
-> Unlike creating a pipeline through the Buildkite interface, where the repository webhook is created automatically for repositories connected through the GitHub App, the Terraform provider does not create the repository webhook for you. Add a `buildkite_pipeline_webhook` resource for each pipeline, otherwise pushes to the repository won't trigger builds.
+> When you create a pipeline through the Buildkite interface, the repository webhook is created automatically for repositories connected through the GitHub App. The Terraform provider does not create the repository webhook for you. Add a `buildkite_pipeline_webhook` resource for each pipeline. Otherwise, pushes to the repository won't trigger builds.
 
 In this example, add the following `buildkite_pipeline_webhook` resource blocks to each pipeline of your `pipelines.tf` file, bearing in mind that the Terraform identifiers you use in these blocks (that is, `frontend` and `backend`) must match their respective `buildkite_pipeline` pipeline Terraform identifiers:
 
