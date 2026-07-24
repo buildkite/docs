@@ -264,8 +264,8 @@ A cluster maintainer can:
 - Stop, pause and resume agents belonging to a queue within the cluster.
 - Manage [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) associated with the cluster.
 
-> 📘 Creating pipelines needs the "Create pipelines" permission
-> Cluster maintainer access lets you add existing pipelines to, or remove them from, the cluster, but it doesn't by itself let you create pipelines. Creating a pipeline also requires the team-level **Create pipelines** permission (or being a team maintainer or organization administrator). Conversely, the **Create pipelines** permission alone lets a non-administrator create pipelines only in the organization's [default cluster](#set-a-default-cluster-for-new-pipelines); creating a pipeline in any other cluster also requires cluster maintainer access to that cluster.
+> 📘 Creating pipelines needs the **Create pipelines** permission
+> Cluster maintainer access lets you add existing pipelines to, or remove them from, the cluster, but it doesn't by itself let you create pipelines. Creating a pipeline also requires the team-level **Create pipelines** permission (or being a team maintainer or organization administrator). Conversely, the **Create pipelines** permission alone lets a non-administrator create pipelines only in the organization's [default cluster](#set-a-default-cluster-for-new-pipelines). Creating a pipeline in any other cluster also requires cluster maintainer access to that cluster.
 
 > 📘
 > Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).
