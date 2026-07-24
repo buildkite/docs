@@ -159,9 +159,8 @@ When the Request Log is enabled for your organization, a **Request Log** panel a
 
 Each row displays the HTTP status code, request UUID, the exported span name (for example, `buildkite.job` or `buildkite.step`), and the request duration. Expanding a row shows:
 
-- **Request headers**: All custom header values (such as API keys and bearer tokens) are redacted.
-- **Request body**: The OTLP protobuf payload is decoded into readable JSON. Trace and span IDs are displayed in hexadecimal format.
-- **Response body**: If the collector returns a protobuf response (for example, a `partialSuccess` with rejected spans and an error message), it is decoded into readable JSON.
+- **Request**: Shows the request headers and body. Custom header values (such as API keys and bearer tokens) are redacted. The OTLP protobuf body is decoded into readable JSON, with trace and span IDs displayed in hexadecimal format.
+- **Response**: Shows the response headers and body. If the collector returns a protobuf response (for example, a `partialSuccess` with rejected spans and an error message), the body is decoded into readable JSON.
 
 If a request fails before it gets an HTTP response (for example, a connection timeout), the row shows `n/a` for the status code. The row does not show a duration. Expanding the row shows an **Error** message instead of the request and response details.
 
