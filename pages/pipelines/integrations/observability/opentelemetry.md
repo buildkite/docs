@@ -150,6 +150,19 @@ Value: `Basic <base64 encoded ${USER}:${PASSWORD})>`
 
 See [Basic Authentication example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/basic-auth-debug.yml) for an example OpenTelemetry Collector configuration.
 
+### Request Log
+
+> 📘 Private preview
+> The Request Log for the OpenTelemetry Notification Service is in private preview. [Contact support](https://buildkite.com/support) to have it enabled for your organization.
+
+When the Request Log is enabled for your organization, a **Request Log** panel appears on the OpenTelemetry Notification Service settings page. It shows the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues.
+
+Each row displays the HTTP status code, request UUID, the exported span name (for example, `buildkite.job` or `buildkite.step`), and the request duration. Expanding a row shows:
+
+- **Request headers**: All custom header values (such as API keys and bearer tokens) are redacted.
+- **Request body**: The OTLP protobuf payload is decoded into readable JSON. Trace and span IDs are displayed in hexadecimal format.
+- **Response body**: If the collector returns a protobuf response (for example, a `partialSuccess` with rejected spans and an error message), it is decoded into readable JSON.
+
 ### Honeycomb
 
 Set the Endpoint to `https://api.honeycomb.io`, or `https://api.eu1.honeycomb.io ` if your Honeycomb team is in the EU instance.
