@@ -150,7 +150,7 @@ Value: `Basic <base64 encoded ${USER}:${PASSWORD})>`
 
 See [Basic Authentication example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/basic-auth-debug.yml) for an example OpenTelemetry Collector configuration.
 
-### Request Log
+### Request log
 
 > 📘 Private preview
 > The Request Log for the OpenTelemetry Notification Service is in private preview. [Contact support](https://buildkite.com/support) to have it enabled for your organization.
