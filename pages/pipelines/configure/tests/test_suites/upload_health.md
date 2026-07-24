@@ -1,6 +1,6 @@
 # Upload health
 
-The **Upload health** page shows a rolling summary of test result uploads received by a suite over the current UTC hour and the preceding 23 hours. Use it to monitor upload volume, identify rejected or failed uploads, and understand the distribution of test executions across successful uploads.
+The **Uploads** page shows a rolling summary of test result uploads received by a suite over the current UTC hour and the preceding 23 hours. Use it to monitor upload volume, identify rejected or failed uploads, and understand the distribution of test executions across successful uploads.
 
 The page is available to organization members who have private suite access. Anonymous viewers and organization members who are not assigned to the suite cannot access the page.
 
@@ -25,7 +25,7 @@ The most recent bucket covers the current partial UTC hour and is visually disti
 
 ## Executions per successful upload
 
-The histogram shows how successful uploads are distributed by the number of test executions they contained. It uses 18 predefined ranges (from 0 executions up to 100,000 or more). This section is hidden when there are no successful uploads in the period.
+The histogram uses 18 predefined ranges (from zero executions up to 100,000 or more) to show how successful uploads are distributed by the number of test executions they contained. When there are no successful uploads in the period, the page shows a message instead of the histogram.
 
 ## Upload problems
 
