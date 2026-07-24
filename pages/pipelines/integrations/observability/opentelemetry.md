@@ -155,13 +155,15 @@ See [Basic Authentication example](https://github.com/buildkite/opentelemetry-no
 > 📘 Private preview
 > The Request Log for the OpenTelemetry Notification Service is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
-When the Request Log is enabled for your organization, a **Request Log** panel appears on the OpenTelemetry Notification Service settings page. It shows the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues.
+When the Request Log is enabled for your organization, a **Request Log** panel appears on the OpenTelemetry Notification Service settings page after the service sends its first trace export request. It shows the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues.
 
 Each row displays the HTTP status code, request UUID, the exported span name (for example, `buildkite.job` or `buildkite.step`), and the request duration. Expanding a row shows:
 
 - **Request headers**: All custom header values (such as API keys and bearer tokens) are redacted.
 - **Request body**: The OTLP protobuf payload is decoded into readable JSON. Trace and span IDs are displayed in hexadecimal format.
 - **Response body**: If the collector returns a protobuf response (for example, a `partialSuccess` with rejected spans and an error message), it is decoded into readable JSON.
+
+If a request fails before it gets an HTTP response (for example, a connection timeout), the row shows `n/a` for the status code. The row does not show a duration. Expanding the row shows an **Error** message instead of the request and response details.
 
 ### Honeycomb
 
