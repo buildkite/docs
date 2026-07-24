@@ -186,7 +186,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   </tr>
   <tr>
     <th><code>cluster_queue_id</code></th>
-    <td>Filters the results to only agents registered to the given cluster queue UUID<p class="Docs__api-param-eg"><em>Example:</em> <code>?cluster_queue_id=c109939f-3b71-4cd3-b175-8eb79d2eb38e</code></p></td>
+    <td>Filters the results to only agents registered to the given queue UUID<p class="Docs__api-param-eg"><em>Example:</em> <code>?cluster_queue_id=c109939f-3b71-4cd3-b175-8eb79d2eb38e</code></p></td>
   </tr>
 </tbody>
 </table>
