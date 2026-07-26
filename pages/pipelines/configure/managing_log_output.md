@@ -166,7 +166,7 @@ Logs are AES-encrypted, and the build artifacts are encrypted in transit and at 
 
 If you choose to [host your build artifacts](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
-If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
+If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket. See [Job log archiving](/docs/pipelines/governance/job-log-archiving).
 
 To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API access tokens that can access your organization's data using the REST and GraphQL API.
 
@@ -197,8 +197,8 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SEC
 > 📘 Setting environment variables
 > Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
 
-## Private build log archive storage
+## Job log archive storage
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
+By default, job logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
 
 For setup instructions, including bucket requirements and the required bucket policy, see [Job log archiving](/docs/pipelines/governance/job-log-archiving).

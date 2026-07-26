@@ -4,11 +4,11 @@ By default, Buildkite Pipelines stores job logs in Buildkite's own infrastructur
 
 > 📘 Enterprise plan feature and current limitations
 > The private job log archiving feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
-> This feature currently only supports Amazon S3 buckets in the `us-east-1` region. Google Cloud Storage and Azure Blob Storage are currently not supported.
+> This feature currently only supports Amazon S3 buckets in the `us-east-1` region. Google Cloud Storage and Azure Blob Storage are not supported.
 
 ## How it works
 
-When job log archiving is enabled, Buildkite Pipelines writes job logs to your specified S3 bucket instead of the default storage location. Each job's log output is stored as an object in your bucket. Buildkite Pipelines reads from this location when users view job logs in the Buildkite dashboard or through the API.
+When job log archiving is enabled, Buildkite Pipelines writes each job's log output as an object in your S3 bucket, and does not retain a copy. Logs are read from this location whenever users view them in the Buildkite dashboard or through the API.
 
 ## Configure private job log archiving
 
@@ -98,7 +98,7 @@ Buildkite writes each job's log to your bucket using the following folder struct
 
 ### Enable job log archiving
 
-To enable job log archiving, contact Buildkite support at support@buildkite.com with your S3 bucket name and organization details. The support team will configure the archive location for your organization. After archiving is enabled, Buildkite does not retain a copy of the logs.
+To enable job log archiving, contact Buildkite support at support@buildkite.com with your S3 bucket name and organization details. The support team will configure the archive location for your organization.
 
 ## Related pages
 
