@@ -16,22 +16,89 @@ To configure job log archiving for your organization, you need to prepare an Ama
 
 ### Prepare your Amazon S3 bucket
 
-- Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
+Your bucket must meet the following criteria:
 
-- Your bucket must meet the following criteria:
-    * Be located in Amazon's `us-east-1` region.
-    * Have a policy allowing cross-account read and write access from Buildkite's AWS account `032379705303`.
-    * Should implement modern S3 security features and configurations, such as (but not limited to):
-        - [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
-        - [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
-        - [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default).
-        - [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
+- Be located in Amazon's `us-east-1` region (the only region currently supported).
+- Have a policy allowing cross-account read and write access from Buildkite's AWS account `032379705303` (see the example bucket policy below).
+- Use SSE-S3 for server-side encryption. SSE-KMS encryption is not supported.
 
-- You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
+Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html), and implement modern S3 security features and configurations, such as (but not limited to):
+
+- [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
+- [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
+- [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
+
+You may also want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
+
+#### Bucket policy
+
+Attach a bucket policy granting Buildkite's AWS account (`032379705303`) read and write access. Replace the `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn\:aws\:iam::032379705303:root"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            }
+        },
+        {
+            "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn\:aws\:iam::032379705303:root"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
+        },
+        {
+            "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn\:aws\:iam::032379705303:root"
+            },
+            "Action": "s3:DeleteObject",
+            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
+        },
+        {
+            "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn\:aws\:iam::032379705303:root"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn\:aws\:s3:::my-bucket",
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": "my-prefix/*"
+                }
+            }
+        }
+    ]
+}
+```
+
+#### Object naming
+
+Buildkite writes each job's log to your bucket using the following folder structure and file format. The format is not customizable:
+
+```text
+{ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
+```
 
 ### Enable job log archiving
 
-To enable job log archiving, contact Buildkite support at support@buildkite.com with your S3 bucket name and organization details. The support team will configure the archive location for your organization.
+To enable job log archiving, contact Buildkite support at support@buildkite.com with your S3 bucket name and organization details. The support team will configure the archive location for your organization. After archiving is enabled, Buildkite does not retain a copy of the logs.
 
 ## Related pages
 
