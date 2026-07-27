@@ -32,7 +32,7 @@ You may also want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/Amazo
 
 #### Bucket policy
 
-Use a bucket dedicated to Buildkite job logs, since Buildkite writes at the bucket root. Attach a bucket policy granting Buildkite's AWS account (`032379705303`) read and write access. Replace the `my-bucket` placeholder with your Amazon S3 bucket name:
+Use a bucket dedicated to Buildkite job logs, since Buildkite writes at the bucket root. Attach a bucket policy granting the Buildkite AWS account (`032379705303`) read and write access. Replace the `my-bucket` placeholder with your Amazon S3 bucket name:
 
 ```json
 {
