@@ -148,7 +148,11 @@ To use this feature, three things need to be in place:
 
 1. Your organization has the feature enabled by Buildkite support.
 1. In the pipeline's GitHub repository settings, **Build the test merge commit** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization.
-1. Your agents are started with the `--pull-request-using-merge-refspec` flag (or the `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true` environment variable).
+1. The Buildkite agents running the pipeline's jobs are [v3.105.0](https://github.com/buildkite/agent/releases/tag/v3.105.0) or newer.
+
+You do not need to configure an agent-side setting. Once **Build the test merge commit** is selected, Buildkite Pipelines automatically sets the `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true` environment variable on every job in each new pull request build for the pipeline. The environment variable tells the agent to check out the merge refspec. Do not set it globally when starting agents. A global setting changes checkout behavior for pipelines that do not have the feature enabled.
+
+The setting applies to all of the pipeline's new pull request builds, regardless of which queues their jobs target. Agents older than v3.105.0 ignore the environment variable and check out the pull request head commit instead. Upgrade all agents that the pipeline's jobs can run on before selecting the checkbox.
 
 With all three in place, pull request builds for that pipeline fetch and check out the GitHub-computed merge commit automatically. The build's reported commit in the Buildkite interface stays the pull request head commit, so GitHub commit statuses continue to attach to the right commit. The actual merge commit that was checked out is tracked separately on the build.
 
@@ -180,11 +184,11 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 > 📘 Build tags and `BUILDKITE_BRANCH`
 > When a build is triggered from a GitHub tag `push` event webhook, both the `BUILDKITE_TAG` and `BUILDKITE_BRANCH` environment variables are set to the name of the git tag being built.
 
-## Disabling GitHub webhooks
+## Disabling incoming GitHub webhook processing
 
-To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable GitHub Webhooks** button in the **Disable Webhooks** section of your pipeline's GitHub settings. This blocks all webhook processing — no new builds will be created from any GitHub event.
+To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable Incoming GitHub Webhook Processing** button in the **Disable Incoming Webhook Processing** section of your pipeline's GitHub settings. This blocks all incoming webhook processing. No new builds will be created from any GitHub event.
 
-Your existing trigger settings are preserved. To resume webhook-triggered builds, select **Enable GitHub Webhooks** and your previous configuration will be restored.
+Your existing trigger settings are preserved, and commit status settings remain configurable in the **GitHub Commit Statuses** section. To resume webhook-triggered builds, select **Enable Incoming GitHub Webhook Processing**. Your previous configuration will be restored.
 
 ## Running builds on additional GitHub events
 
@@ -197,6 +201,13 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Pull request review comments**: trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
 - **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
+
+> 🚧 Configure the GitHub webhook for issue comments
+> To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
+>
+> You don't need to enable **Build when pull request is opened or updated** in **Pipeline Settings**. Buildkite Pipelines records the pull request information when it receives the webhook, even when pull request builds are disabled.
+>
+> GitHub does not send `pull_request` events retroactively when you update a webhook. After enabling **Pull requests**, open a new pull request or push a commit to an existing pull request before using the issue comment command word.
 
 ## Environment variables
 
@@ -225,7 +236,7 @@ When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-gi
 
 The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses.
 
-For example, if you select **Update commit statuses** in your **Pipeline Settings**:
+For example, if you select **Update commit statuses** in the **GitHub Commit Statuses** section of your pipeline's GitHub settings:
 
 <%= image "update-commit-statuses-on.png", alt: "Screenshot of GitHub build settings with Update commit statuses enabled" %>
 

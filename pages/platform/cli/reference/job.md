@@ -86,6 +86,7 @@ bk job list [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | Filter by pipeline slug |
+| `--build=STRING` | Filter by build number (requires a resolvable pipeline) |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
 | `--json` | Output as JSON |
@@ -117,6 +118,12 @@ List running jobs:
 
 ```bash
 bk job list --state running
+```
+
+List failed jobs from a known build (recommended when the build is known):
+
+```bash
+bk job list --pipeline my-app --build 429 --state failed
 ```
 
 List jobs that took longer than 10 minutes:

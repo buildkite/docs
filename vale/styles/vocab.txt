@@ -431,6 +431,7 @@ shasum
 shellcheck
 shellscripting
 Shipit
+shortcode
 sigstore
 sigstore's
 signaltometrics

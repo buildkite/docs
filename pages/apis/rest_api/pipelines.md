@@ -1521,7 +1521,7 @@ Properties available for all providers:
 </tbody>
 </table>
 
-Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have optional `provider_settings`.
+Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, and GitHub Enterprise all have optional `provider_settings`.
 
 Properties available for Bitbucket Server:
 
@@ -1607,6 +1607,49 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
   </tr>
+  </tbody>
+</table>
+
+Properties available for GitLab and GitLab Self-Managed:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>build_branches</code></th>
+      <td>Whether to create builds when branches are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_tags</code></th>
+      <td>Whether to create builds when tags are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_requests</code></th>
+      <td>Whether to create builds for merge requests.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_merge</code></th>
+      <td>Whether to build the <a href="https://docs.gitlab.com/ci/pipelines/merged_results_pipelines/">merged results</a> commit instead of the head commit of the merge request source branch. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_base_branch_changed</code></th>
+      <td>Whether to rebuild merge requests when the target branch is updated. Requires <code>build_pull_request_merge</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>publish_commit_status</code></th>
+      <td>Whether to update the status of commits in GitLab.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
   </tbody>
 </table>
 

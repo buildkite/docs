@@ -13,6 +13,9 @@ class Emoji::Parser
 
     # Optional skin tone modifier
     (?: :skin-tone-[2-6]: )?
+
+    # Don't interpret a shortcode embedded in an identifier, such as a URN
+    (?! [\w] )
   /x
 
   def self.parse(catalogues, text, **options, &block)

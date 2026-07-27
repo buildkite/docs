@@ -139,6 +139,7 @@ bk build view [<build-number>] [flags]
 | `--debug` | Enable debug output for REST API calls |
 | `--json` | Output as JSON |
 | `--mine` | Filter builds to only my user. |
+| `--summary` | Return metadata only for fast state checks, polling, scripts, and LLM agents. |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -160,6 +161,12 @@ To view a specific build:
 
 ```bash
 bk build view 429
+```
+
+Check build state without downloading jobs, artifacts, annotations, or pipeline details:
+
+```bash
+bk build view 429 --summary
 ```
 
 Add -w to any command to open the build in your web browser instead:
@@ -223,6 +230,7 @@ bk build list [flags]
 | `--no-limit` | Fetch all builds (overrides --limit) |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
+| `--summary` | Return metadata only for fast state checks, polling, scripts, and LLM agents. |
 | `--text` | Output as text |
 | `--until=STRING` | Filter builds created before this time (e.g. 1h, 30m) |
 | `--yaml` | Output as YAML |
@@ -233,6 +241,12 @@ List recent builds (50 by default):
 
 ```bash
 bk build list
+```
+
+Check build states without downloading jobs or pipeline details:
+
+```bash
+bk build list --summary
 ```
 
 Get more builds (automatically paginates):

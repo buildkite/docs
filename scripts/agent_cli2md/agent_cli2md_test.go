@@ -46,7 +46,7 @@ func TestNormalizeFlagDescriptionReplacesDynamicArtifactUploadConcurrencyDefault
 	desc := "Number of concurrent artifact upload operations (default: 15)"
 
 	got := normalizeFlagDescription("concurrency", desc)
-	want := "Number of concurrent artifact upload operations (default: current <code>GOMAXPROCS</code> value)"
+	want := "Number of concurrent artifact upload operations (default: current `GOMAXPROCS` value)"
 
 	if got != want {
 		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
@@ -60,5 +60,75 @@ func TestNormalizeFlagDescriptionKeepsOtherConcurrencyDescriptions(t *testing.T)
 
 	if got != desc {
 		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, desc)
+	}
+}
+
+func TestNormalizeFlagDescriptionUsesUSEnglish(t *testing.T) {
+	desc := "Matches the earlier agent behaviour"
+
+	got := normalizeFlagDescription("checkout-override-mode", desc)
+	want := "Matches the earlier agent behavior"
+	if got != want {
+		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
+	}
+}
+
+func TestNormalizeFlagDescriptionUsesAgentTokenTerminology(t *testing.T) {
+	desc := "Your cluster token or unclustered registration token. Prefix with file:// to read the token from a file"
+
+	got := normalizeFlagDescription("token", desc)
+	want := "Your agent token. Prefix with file:// to read the token from a file"
+	if got != want {
+		t.Fatalf("normalizeFlagDescription() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeUsesHTMLInsideOptionTables(t *testing.T) {
+	desc := "One of `strict`, `from-job`, or `none`"
+
+	got := renderInlineCode(desc)
+	want := "One of <code>strict</code>, <code>from-job</code>, or <code>none</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeEscapesCodeContent(t *testing.T) {
+	desc := "Use `value < limit`"
+
+	got := renderInlineCode(desc)
+	want := "Use <code>value &lt; limit</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeEscapesPlainText(t *testing.T) {
+	desc := "Use <key> & `value < limit`"
+
+	got := renderInlineCode(desc)
+	want := "Use &lt;key&gt; &amp; <code>value &lt; limit</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeEscapesTextWithUnmatchedDelimiter(t *testing.T) {
+	desc := "Use <key> & `strict"
+
+	got := renderInlineCode(desc)
+	want := "Use &lt;key&gt; &amp; `strict"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
+	}
+}
+
+func TestRenderInlineCodeDoesNotNestLegacyAPIURLCode(t *testing.T) {
+	desc := "Use `https://agent.buildkite.com/v3` instead of https://agent.buildkite.com/v3"
+
+	got := renderInlineCode(desc)
+	want := "Use <code>https://agent.buildkite.com/v3</code> instead of <code>https://agent.buildkite.com/v3</code>"
+	if got != want {
+		t.Fatalf("renderInlineCode() = %q, want %q", got, want)
 	}
 }
