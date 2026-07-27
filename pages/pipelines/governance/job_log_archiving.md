@@ -32,57 +32,37 @@ You may also want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/Amazo
 
 #### Bucket policy
 
-Attach a bucket policy granting Buildkite's AWS account (`032379705303`) read and write access. Replace the `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
+Use a bucket dedicated to Buildkite job logs, since Buildkite writes at the bucket root. Attach a bucket policy granting Buildkite's AWS account (`032379705303`) read and write access. Replace the `my-bucket` placeholder with your Amazon S3 bucket name:
 
 ```json
 {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
+            "Sid": "BuildkiteJobLogArchivingBucketAccess",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "arn\:aws\:iam::032379705303:root"
             },
-            "Action": "s3:PutObject",
-            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
-            "Condition": {
-                "StringEquals": {
-                    "s3:x-amz-acl": "bucket-owner-full-control"
-                }
-            }
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn\:aws\:s3:::my-bucket"
         },
         {
-            "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
+            "Sid": "BuildkiteJobLogArchivingObjectAccess",
             "Effect": "Allow",
             "Principal": {
                 "AWS": "arn\:aws\:iam::032379705303:root"
             },
-            "Action": "s3:GetObject",
-            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-        },
-        {
-            "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
-            },
-            "Action": "s3:DeleteObject",
-            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-        },
-        {
-            "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
-            },
-            "Action": "s3:ListBucket",
-            "Resource": "arn\:aws\:s3:::my-bucket",
-            "Condition": {
-                "StringLike": {
-                    "s3:prefix": "my-prefix/*"
-                }
-            }
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:DeleteObject"
+            ],
+            "Resource": "arn\:aws\:s3:::my-bucket/*"
         }
     ]
 }
