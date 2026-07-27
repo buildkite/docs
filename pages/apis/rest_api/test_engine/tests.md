@@ -21,6 +21,67 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
+### Metrics response
+
+To receive per-test reliability and duration metrics, include the `Buildkite-Version` request header. The metrics are aggregated over the last 24 hours.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Buildkite-Version: 2026-07-23" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests"
+```
+
+```json
+[
+  {
+    "id": "01867216-8478-7fde-a55a-0300f88bb49b",
+    "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+    "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+    "scope": "User#email",
+    "name": "is correctly formatted",
+    "location": "./spec/models/user_spec.rb:42",
+    "file_name": "./spec/models/user_spec.rb",
+    "reliability": 0.98,
+    "duration_avg": 1.23,
+    "duration_min": 0.95,
+    "duration_max": 2.10,
+    "duration_sum": 24.6,
+    "executions_count": 20
+  }
+]
+```
+
+The additional response fields are:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>reliability</code></th>
+    <td>The pass rate of the test over the last 24 hours, expressed as a value between <code>0.0</code> and <code>1.0</code>.</td>
+  </tr>
+  <tr>
+    <th><code>duration_avg</code></th>
+    <td>The average test duration in seconds over the last 24 hours.</td>
+  </tr>
+  <tr>
+    <th><code>duration_min</code></th>
+    <td>The minimum test duration in seconds over the last 24 hours.</td>
+  </tr>
+  <tr>
+    <th><code>duration_max</code></th>
+    <td>The maximum test duration in seconds over the last 24 hours.</td>
+  </tr>
+  <tr>
+    <th><code>duration_sum</code></th>
+    <td>The total cumulative test duration in seconds over the last 24 hours.</td>
+  </tr>
+  <tr>
+    <th><code>executions_count</code></th>
+    <td>The number of test executions recorded over the last 24 hours.</td>
+  </tr>
+</tbody>
+</table>
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown partial: 'apis/rest_api/test_engine/tests_list_query_strings' %>
