@@ -199,6 +199,6 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SEC
 
 ## Job log archive storage
 
-By default, job logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
+By default, job logs are stored in encrypted form in Buildkite-managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
 
 For setup instructions, including bucket requirements and the required bucket policy, see [Job log archiving](/docs/pipelines/governance/job-log-archiving).
