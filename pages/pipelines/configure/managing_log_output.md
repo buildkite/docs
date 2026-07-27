@@ -197,6 +197,8 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SEC
 > 📘 Setting environment variables
 > Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
 
+<a id="private-build-log-archive-storage"></a>
+
 ## Job log archive storage
 
 By default, job logs are stored in encrypted form in Buildkite-managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
