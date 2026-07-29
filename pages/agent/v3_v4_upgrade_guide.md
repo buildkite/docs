@@ -152,7 +152,7 @@ You can test Buildkite agent v4 in several ways, depending on how you installed 
 
 ### Hosted agents
 
-Buildkite manages the agent version used by Buildkite hosted agents and updates it automatically, so there is nothing to install or test. Buildkite moves hosted agents to v4 as a staged rollout before it becomes the stable release.
+Buildkite manages the agent version used by Buildkite-hosted agents and updates it automatically, so there is nothing to install or test. Buildkite moves hosted agents to v4 as a staged rollout before it becomes the stable release.
 
 ### Self-hosted installations
 
