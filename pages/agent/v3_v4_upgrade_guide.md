@@ -250,7 +250,7 @@ After v4 becomes stable, you can remain on Buildkite agent v3 in several ways, d
 
 ### Hosted agents
 
-Buildkite manages the agent version used by Buildkite hosted agents and updates it automatically, so there is nothing to configure. If the timing of the move to v4 does not suit you, contact support at [support@buildkite.com](mailto:support@buildkite.com) to discuss your options.
+Buildkite manages the agent version used by Buildkite-hosted agents and updates it automatically, so there is nothing to configure. If the timing of the move to v4 does not suit you, contact support at [support@buildkite.com](mailto:support@buildkite.com) to discuss your options.
 
 ### Self-hosted installations
 
