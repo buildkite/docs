@@ -1329,7 +1329,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderCursorOrigin | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -7989,6 +7989,21 @@ type OrganizationPermissions {
 }
 
 interface OrganizationRepositoryProvider {
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+}
+
+"""
+Cursor Origin installation associated with this organization
+"""
+type OrganizationRepositoryProviderCursorOrigin implements Node & OrganizationRepositoryProvider {
+  """
+  The ID of the provider
+  """
+  id: ID!
+
   """
   The name of the OrganizationRepositoryProvider
   """
