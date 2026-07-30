@@ -73,8 +73,7 @@ The OIDC token must:
 - Match the organization in the request URL, suite in the token audience, and pipeline and build in the request.
 - Identify the job that owns a lease through the `job_id` claim. Another job cannot heartbeat, complete, or release that lease.
 - Use the test suite URL as its audience: `https://buildkite.com/organizations/{org.slug}/analytics/suites/{suite.slug}`.
-- Be permitted by the test suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc).
-- Have the `read_test_pool` scope for `GET` requests or the `write_test_pool` scope for all other requests.
+- Be permitted by the test suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) with the endpoints required scope, either `read_test_pool` or `write_test_pool`.
 - Include the `organization_id`, `pipeline_id`, and `build_id` claims. Lease endpoints also require the `job_id` claim.
 
 ### REST API authentication
@@ -107,7 +106,7 @@ A pool moves through three states:
 - `consuming`: All initial entries have been added. Jobs can continue to lease, complete, and release attempts.
 - `consumed`: No attempts are waiting or leased. Jobs cannot create leases.
 
-New pools start in the `populating` state. After adding the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` if unfinished attempts remain or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` when its last unfinished attempt is completed.
+New pools start in the `populating` state. After adding the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` if unfinished attempts remain or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` after its final attempts are completed and attempt-policy evaluation determines that no more attempts are needed.
 
 ## List pools
 
@@ -316,6 +315,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
+
 ## Attempt policy
 
 > 🚧 Pending breaking change
@@ -496,7 +496,7 @@ Success response: `200 OK`
 
 ## Upload entries
 
-Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates one waiting attempt for each entry.
+Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial entries from the minimum of `max_attempts` and `parallel_attempts`.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
@@ -603,7 +603,7 @@ Success response: `201 Created`
 
 ## Create a lease
 
-Claims a time-bounded batch of waiting attempts for the requesting job. Multiple jobs can lease from the same `populating` or `consuming` pool.
+Claims a time-bounded batch of waiting attempts for the requesting job. Multiple jobs can lease from the same pool. Both `populating` and `consuming` pools can lease attempts. The API rejects lease requests for `consumed`, expired, or destroyed pools.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases" \
@@ -852,11 +852,11 @@ Required [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-The request is atomic. Attempts omitted from the request remain leased. After completion, the scheduler evaluates each affected entry asynchronously and may create additional waiting attempts according to the pool's attempt policy.
+The request is atomic for the attempts listed. If any attempt cannot be completed, no attempts in the request are completed. Duplicate lease or attempt IDs are rejected. Attempts omitted from the request remain leased. After completion, the scheduler evaluates each affected entry asynchronously and may create additional waiting attempts according to the pool's attempt policy.
 
-Repeating a completion with the same result succeeds and returns `"completion_status": "already_completed"` without changing `completed_at`. Repeating it with a different result returns `409 Conflict`.
+The response contains the pool state before attempt-policy evaluation. Policy evaluation is triggered by completing an attempt. Completing the final attempt for the last unfinished entry can therefore return a pool state of `consuming`.
 
-Completing the last unfinished attempt in a `consuming` pool moves the pool to `consumed`. A drained `populating` pool remains `populating` until it is [updated](#update-a-pool).
+Repeating a completion with the same result succeeds and returns `"completion_status": "already_completed"` without changing `completed_at`, even after the pool expires or transitions to `consumed`. Repeating it with a different result returns `409 Conflict`.
 
 Required scope: `write_test_pool`
 
