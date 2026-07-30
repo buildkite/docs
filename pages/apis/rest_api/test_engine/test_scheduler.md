@@ -332,6 +332,9 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 ## Attempt policy
 
+> 🚧 Pending breaking change
+> The `null` behavior and validation described in this section have not landed yet. Currently, use `0` for `min_passed` or `min_failed` to disable the threshold; the API does not accept `null` for these properties. After the change lands, use `null` instead because `0` will no longer be valid.
+
 The attempt policy defines how many attempts an entry should perform before determining the outcome of the entry. The policy is defined when the pool is created and applies to every entry in the pool. The same policy is evaluated for each entry in the pool.
 
 Property | Type | Description | Validation
