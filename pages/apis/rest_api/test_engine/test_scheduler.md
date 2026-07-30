@@ -34,9 +34,9 @@ POST | `/pools/{pool.id}/leases/release` | [Release attempts](#release-attempts)
 
 ## Authentication
 
-Test Scheduler API requests require an OpenID Connect (OIDC) token issued to a Buildkite job. REST API access tokens are only accepted on the `metrics` endpoint.
+Test Scheduler API requests require an OpenID Connect (OIDC) token issued to a Buildkite job. [REST API access tokens](/docs/apis/managing-api-tokens) are only accepted on the `metrics` endpoint.
 
-### OIDC Authentication
+### OIDC authentication
 
 First, create a suite or choose an existing suite. Set the  [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) through the suite's Settings page in the Buildkite interface, or using the [suites REST API](https://buildkite.com/docs/apis/rest-api/test-engine/suites) with the `oidc_policy` field on create or update.
 
@@ -74,6 +74,17 @@ The OIDC token must:
 - Have the `read_test_pool` scope for `GET` requests or the `write_test_pool` scope for all other requests.
 - Include the `organization_id`, `pipeline_id`, and `build_id` claims. Lease endpoints also require the `job_id` claim.
 
+### REST API authentication
+
+The `GET /pools/{pool.id}/metrics` endpoint accepts a REST API access token with the `read_test_pool` [scope](/docs/apis/managing-api-tokens#token-scopes). The Buildkite user associated with the token must have access to the pool's test suite and build.
+
+Provide the token in the `Authorization` header:
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics" \
+  --header "Authorization: Bearer $TOKEN"
+```
+
 ## Core data model
 
 Pools contain entries, entries have attempts, and leases temporarily assign attempts to Buildkite Pipelines jobs.
@@ -97,7 +108,7 @@ New pools start in the `populating` state. After adding the initial entries, [up
 
 ## List pools
 
-Returns a cursor-paginated list of pools for a pipeline and build. Results are ordered from newest to oldest.
+Returns a cursor-paginated list of pools for a pipeline and build. Results are ordered by pool UUID in descending order.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools?pipeline_id={pipeline.id}&build_id={build.id}&key=rspec-main" \
@@ -297,35 +308,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>attempt_policy</code></th>
-    <td>Controls how many attempts can run for each entry and when the entry finishes. Omit the object or any of its properties to use the corresponding defaults.</td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.min_attempts</code></th>
-    <td>Minimum completed attempts, combined with all other <code>min_</code> thresholds. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.max_attempts</code></th>
-    <td>Terminal after this many completed attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>10</code>.<br><em>Default:</em> <code>1</code></td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.min_passed</code></th>
-    <td>Minimum passed attempts, combined with all other configured <code>min_</code> thresholds. Must be <code>null</code> or an integer of at least <code>1</code> and no greater than <code>max_passed</code>. If both result minimums are integers, their sum must be less than <code>max_attempts</code>. A value of <code>null</code> disables this threshold.<br><em>Default:</em> <code>1</code></td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.max_passed</code></th>
-    <td>Terminal after this many passed attempts. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.min_failed</code></th>
-    <td>Minimum failed attempts, combined with all other configured <code>min_</code> thresholds. Must be <code>null</code> or an integer of at least <code>1</code> and no greater than <code>max_failed</code>. If both result minimums are integers, their sum must be less than <code>max_attempts</code>. A value of <code>null</code> disables this threshold.<br><em>Default:</em> <code>null</code></td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.max_failed</code></th>
-    <td>Terminal after this many failed attempts. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
-  </tr>
-  <tr>
-    <th><code>attempt_policy.parallel_attempts</code></th>
-    <td>Maximum number of waiting and leased attempts for the entry at one time. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Controls how many attempts can run for each entry and when the entry finishes. Omit the object or any of its properties to use the corresponding defaults. See the Attempt policy for the fields of this object.</td>
   </tr>
 </tbody>
 </table>
@@ -333,19 +316,20 @@ Optional [request body properties](/docs/api#request-body-properties):
 ## Attempt policy
 
 > 🚧 Pending breaking change
+
 > The `null` behavior and validation described in this section have not landed yet. Currently, use `0` for `min_passed` or `min_failed` to disable the threshold; the API does not accept `null` for these properties. After the change lands, use `null` instead because `0` will no longer be valid.
 
 The attempt policy defines how many attempts an entry should perform before determining the outcome of the entry. The policy is defined when the pool is created and applies to every entry in the pool. The same policy is evaluated for each entry in the pool.
 
 Property | Type | Description | Validation
 -------- | ---- | ----------- | ----------
-`max_attempts` | Integer | Terminal after this many completed attempts of any result. | At least `1` and no greater than the organization's maximum attempts per entry service quota, which defaults to `10`.
-`max_failed` | Integer | Terminal after this many failed completed attempts. | At least `1` and no greater than `max_attempts`.
-`max_passed` | Integer | Terminal after this many passed completed attempts. | At least `1` and no greater than `max_attempts`.
-`min_attempts` | Integer | Minimum completed attempts; terminal only when the other configured `min_` thresholds are also met. | At least `1` and no greater than `max_attempts`.
-`min_passed` | Integer or null | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_passed`. When both result minimums are set, their sum must be less than `max_attempts`.
-`min_failed` | Integer or null | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_failed`. When both result minimums are set, their sum must be less than `max_attempts`.
-`parallel_attempts` | Integer | Maximum number of waiting and leased attempts for the entry at one time. | At least `1` and no greater than `max_attempts`.
+`attempt_policy.max_attempts` | Integer | Terminal after this many completed attempts of any result. | At least `1` and no greater than the organization's maximum attempts per entry service quota, which defaults to `10`.
+`attempt_policy.max_failed` | Integer | Terminal after this many failed completed attempts. | At least `1` and no greater than `max_attempts`.
+`attempt_policy.max_passed` | Integer | Terminal after this many passed completed attempts. | At least `1` and no greater than `max_attempts`.
+`attempt_policy.min_attempts` | Integer | Minimum completed attempts; terminal only when the other configured `min_` thresholds are also met. | At least `1` and no greater than `max_attempts`.
+`attempt_policy.min_passed` | Integer or null | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_passed`. When both result minimums are set, their sum must be less than `max_attempts`.
+`attempt_policy.min_failed` | Integer or null | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_failed`. When both result minimums are set, their sum must be less than `max_attempts`.
+`attempt_policy.parallel_attempts` | Integer | Maximum number of waiting and leased attempts for the entry at one time. | At least `1` and no greater than `max_attempts`.
 {: class="responsive-table"}
 
 The `attempt_policy` value must be an object containing only the properties listed in this table.
@@ -649,7 +633,19 @@ Optional [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-The API selects higher-priority attempts first, then the oldest attempts within the same priority. Attempts in the same non-empty affinity group are selected together. A lease contains no more than 300 attempts unless the first selected affinity group is larger.
+The API sorts waiting attempts by:
+
+- `priority` in descending order.
+- `created_at` in ascending order.
+- UUID in ascending order.
+
+Attempts without an affinity group are included in the lease on their own, but attempts belonging to an affinity group are expanded to include a single attempt from each entry in the group. Affinity groups with attempts locked by concurrent leases are not included.
+
+The API applies cost and attempt limits to each lease:
+
+- The first batch is always leased, even if it exceeds the target cost or the attempt limit (300 attempts by default).
+- Each later batch is added only if the entire batch fits within both limits.
+- Selection stops at the first later batch that does not fit. The API does not skip that batch to consider lower-priority work.
 
 ```json
 {
