@@ -945,3 +945,7 @@ Status | Description
 `409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired or consumed, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
 {: class="responsive-table"}
+
+## Breaking changes
+
+The attempt policy validation change described above has not landed in Buildkite yet. When it lands, `min_passed` and `min_failed` will use `null` instead of `0` to disable a threshold. Configured values will need to be integers of at least `1`, and when both thresholds are configured, their sum must be less than `max_attempts`. Until then, use `0` to disable either threshold; the API does not yet accept `null` for these properties.
