@@ -2,6 +2,8 @@
 
 The Test Scheduler API dynamically distributes tests across Buildkite Pipelines jobs. As each job becomes available, it requests additional work and reports the results.
 
+> The Test Scheduler API is currently in development. This documentation is currently being drafted. It is only available to design partners on a limited basis. It is subject to change.
+
 <%= image "test-scheduler-overview.png", width: 1406/2, height: 508/2, alt: "Diagram showing a discovery job uploading test entries to a test pool and three jobs leasing and completing test attempts" %>
 
 ## Endpoints
@@ -317,8 +319,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 ## Attempt policy
 
 > 🚧 Pending breaking change
-
-> The `null` behavior and validation described in this section have not landed yet. Currently, use `0` for `min_passed` or `min_failed` to disable the threshold; the API does not accept `null` for these properties. After the change lands, use `null` instead because `0` will no longer be valid.
+The `null` behavior and validation described in this section have not landed yet. Currently, use `0` for `min_passed` or `min_failed` to disable the threshold; the API does not accept `null` for these properties. After the change lands, use `null` instead because `0` will no longer be valid.
 
 The attempt policy defines how many attempts an entry should perform before determining the outcome of the entry. The policy is defined when the pool is created and applies to every entry in the pool. The same policy is evaluated for each entry in the pool.
 
