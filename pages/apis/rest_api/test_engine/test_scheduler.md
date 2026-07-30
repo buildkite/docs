@@ -1,6 +1,15 @@
 # Test Scheduler API
 
-The Test Scheduler API provides a build-scoped, pull-based queue for distributing tests across Buildkite Pipelines jobs. A producer creates a test pool and uploads entries. Worker jobs lease attempts from the pool, run the selected tests, and then complete or release the attempts.
+The Test Scheduler API dynamically distributes tests across Buildkite Pipelines jobs. As each job becomes available, it requests additional work and reports the results.
+
+<%= image "test-scheduler-overview.png", width: 1406/2, height: 508/2, alt: "Diagram showing a discovery job uploading test entries to a test pool and three jobs leasing and completing test attempts" %>
+
+## Endpoints
+
+The Test Scheduler API provides endpoints for creating and managing a Test Pool:
+
+- Test Pools contain Entries, and each Entry has one or more Attempts.
+- Leases assign Attempts to Buildkite Pipelines jobs for execution.
 
 All endpoints on this page use the following base path:
 
@@ -25,38 +34,67 @@ POST | `/pools/{pool.id}/leases/release` | [Release attempts](#release-attempts)
 
 ## Authentication
 
-Test Scheduler API requests require an OpenID Connect (OIDC) token issued to a Buildkite job. REST API access tokens are not accepted.
+Test Scheduler API requests require an OpenID Connect (OIDC) token issued to a Buildkite job. REST API access tokens are only accepted on the `metrics` endpoint.
 
-The OIDC token must:
+### OIDC Authentication
 
-- Use the test suite URL as its audience: `https://buildkite.com/organizations/{org.slug}/analytics/suites/{suite.slug}`.
-- Include the `organization_id`, `pipeline_id`, and `build_id` claims. Lease endpoints also require the `job_id` claim.
-- Be permitted by the test suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc).
-- Have the `read_test_pool` scope for `GET` requests or the `write_test_pool` scope for all other requests.
+First, create a suite or choose an existing suite. Set the  [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) through the suite's Settings page in the Buildkite interface, or using the [suites REST API](https://buildkite.com/docs/apis/rest-api/test-engine/suites) with the `oidc_policy` field on create or update.
+
+```
+- iss: "https://agent.buildkite.com"
+  claims:
+    organization_slug: "your-org"
+    pipeline_slug:
+      in:
+        - "your-pipeline"
+        - "another-pipeline"
+  scopes:
+    - "read_suites"
+    - "write_uploads"
+    - "read_test_pool"
+    - "write_test_pool"
+```
 
 Request a token from within a Buildkite Pipelines job using [`buildkite-agent oidc request-token`](/docs/agent/cli/reference/oidc#request-oidc-token):
 
 ```bash
-OIDC_TOKEN="$(buildkite-agent oidc request-token \
-  --audience "https://buildkite.com/organizations/${BUILDKITE_ORGANIZATION_SLUG}/analytics/suites/${TEST_SUITE_SLUG}" \
-  --claim organization_id,pipeline_id,build_id,job_id)"
+TEST_SUITE_SLUG="suite-slug"
+SUITE_URL="https://buildkite.com/organizations/${BUILDKITE_ORGANIZATION_SLUG}/analytics/suites/${TEST_SUITE_SLUG}"
+LIFETIME=300 # Lifetime of tokens in seconds, set to the expected duration of the longest job.
+OIDC_TOKEN=$(buildkite-agent oidc request-token --audience "$SUITE_URL" --lifetime $LIFETIME --claim organization_id,pipeline_id,build_id,job_id)
+export OIDC_TOKEN
 ```
 
-The organization in the request URL, suite in the token audience, and pipeline and build in the request must match the OIDC token claims. A lease belongs to the job identified by the `job_id` claim. Another job cannot heartbeat, complete, or release that lease.
+The OIDC token must:
 
-## Pool and attempt lifecycle
+- Match the organization in the request URL, suite in the token audience, and pipeline and build in the request.
+- Identify the job that owns a lease through the `job_id` claim. Another job cannot heartbeat, complete, or release that lease.
+- Use the test suite URL as its audience: `https://buildkite.com/organizations/{org.slug}/analytics/suites/{suite.slug}`.
+- Be permitted by the test suite's [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc).
+- Have the `read_test_pool` scope for `GET` requests or the `write_test_pool` scope for all other requests.
+- Include the `organization_id`, `pipeline_id`, and `build_id` claims. Lease endpoints also require the `job_id` claim.
 
-A pool progresses through these states:
 
-- `populating`: Producers can upload entries, and workers can lease attempts. A pool in this state is not considered drained, even when it has no waiting or leased attempts.
-- `consuming`: Producers have finished uploading the initial entries. Workers can continue to lease, complete, and release attempts.
-- `consumed`: The pool has no waiting or leased attempts. Workers cannot create new leases.
+## Core data model
 
-Create a pool to put it in the `populating` state. After uploading the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` while unfinished attempts remain, or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` when its last unfinished attempt is completed.
+Pools contain entries, entries have attempts, and leases temporarily assign attempts to Buildkite Pipelines jobs.
 
-Uploading an entry creates its first attempt in the `waiting` state. Creating a lease moves selected attempts to `leased`. Completing an attempt moves it to `completed`, while releasing it returns it to `waiting`. An unfinished attempt also returns to `waiting` when its lease expires.
+The Test Scheduler API uses these four resources:
 
-Lease endpoints operate on attempt IDs, not entry IDs. Each attempt response includes its own `id` and its parent `entry_id`.
+- **Pool:** A build-scoped collection of entries. Its attempt policy controls how many attempts the scheduler creates for each entry and when the scheduler considers the entry finished.
+- **Entry:** One unit of work, identified by a selector. An entry belongs to one pool and includes scheduling data such as cost, priority, affinity group, and metadata.
+- **Attempt:** One execution of an entry. Creating an entry creates its initial attempts in the `waiting` state. When a job acquires an attempt through a lease, the attempt moves to `leased`. The job executes the work, completes the attempt, and reports its result. Releasing an unfinished attempt or allowing its lease to expire returns the attempt to `waiting`.
+- **Lease:** A time-bounded claim by one Buildkite Pipelines job over a batch of waiting attempts. The job can extend the lease, complete attempts and report their results, or release unfinished attempts back to the pool.
+
+### Pool lifecycle
+
+A pool moves through three states:
+
+- `populating`: Entries can be added to the pool, and jobs can lease attempts. The pool remains in this state until the initial set of entries is marked as complete, even when no attempts are waiting or leased.
+- `consuming`: All initial entries have been added. Jobs can continue to lease, complete, and release attempts.
+- `consumed`: No attempts are waiting or leased. Jobs cannot create leases.
+
+New pools start in the `populating` state. After adding the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` if unfinished attempts remain or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` when its last unfinished attempt is completed.
 
 ## List pools
 
