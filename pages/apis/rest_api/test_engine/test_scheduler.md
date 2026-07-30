@@ -30,6 +30,7 @@ POST | `/pools/{pool.id}/leases` | [Create a lease](#create-a-lease)
 POST | `/pools/{pool.id}/leases/heartbeat` | [Heartbeat leases](#heartbeat-leases)
 POST | `/pools/{pool.id}/leases/complete` | [Complete attempts](#complete-attempts)
 POST | `/pools/{pool.id}/leases/release` | [Release attempts](#release-attempts)
+GET | `/pools/{pool.id}/metrics` | [Get pool metrics](#get-pool-metrics)
 {: class="responsive-table"}
 
 ## Authentication
@@ -930,6 +931,126 @@ The response groups released attempt IDs by lease. When `attempt_ids` is omitted
 The request is atomic. If any requested lease or attempt is invalid, the API releases no attempts.
 
 Required scope: `write_test_pool`
+
+Success response: `200 OK`
+
+
+## Get pool metrics
+
+Returns aggregate progress for a pool at the time of the request. This endpoint accepts either a Buildkite job OIDC token or a REST API access token. Set `$TOKEN` to the token you want to use.
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics" \
+  --header "Authorization: Bearer $TOKEN"
+```
+
+```json
+{
+  "observed_at": "2026-07-20T08:03:00.000Z",
+  "pool": {
+    "id": "0192f2fb-****-****-****-4a0d6a7c1000",
+    "state": "consuming",
+    "drained": false,
+    "expires_at": "2026-07-20T08:05:00.000Z"
+  },
+  "entries": {
+    "total": 5
+  },
+  "attempts": {
+    "total": 5,
+    "states": {
+      "waiting": {
+        "count": 3,
+        "costs": {
+          "custom": 3.0
+        }
+      },
+      "leased": {
+        "count": 2,
+        "costs": {
+          "custom": 2.0
+        }
+      },
+      "completed": {
+        "count": 0,
+        "costs": {
+          "custom": 0.0
+        }
+      },
+      "canceled": {
+        "count": 0,
+        "costs": {
+          "custom": 0.0
+        }
+      }
+    },
+    "results": {
+      "passed": 0,
+      "failed": 0,
+      "errored": 0
+    }
+  },
+  "leases": {
+    "active": {
+      "count": 1,
+      "attempt_count": 2
+    },
+    "expired": {
+      "count": 0,
+      "attempt_count": 0
+    }
+  },
+  "timing": {
+    "oldest_waiting_attempt_created_at": "2026-07-20T08:01:00.000Z",
+    "oldest_active_lease_started_at": "2026-07-20T08:02:00.000Z",
+    "oldest_expired_lease_started_at": null,
+    "next_active_lease_expires_at": "2026-07-20T08:04:00.000Z"
+  }
+}
+```
+
+The response includes:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>observed_at</code></th>
+    <td>The time used to calculate the metrics.</td>
+  </tr>
+  <tr>
+    <th><code>pool</code></th>
+    <td>The pool ID, state, expiry, and whether the pool is drained. A pool is drained when it has no waiting or leased attempts.</td>
+  </tr>
+  <tr>
+    <th><code>entries.total</code></th>
+    <td>The number of entries in the pool.</td>
+  </tr>
+  <tr>
+    <th><code>attempts.total</code></th>
+    <td>The total number of attempts across all entries.</td>
+  </tr>
+  <tr>
+    <th><code>attempts.states</code></th>
+    <td>Attempt counts and total custom costs grouped by <code>waiting</code>, <code>leased</code>, <code>completed</code>, and <code>canceled</code> state.</td>
+  </tr>
+  <tr>
+    <th><code>attempts.results</code></th>
+    <td>Completed attempt counts grouped by <code>passed</code>, <code>failed</code>, and <code>errored</code> result.</td>
+  </tr>
+  <tr>
+    <th><code>leases</code></th>
+    <td>Active and expired lease counts, with the number of attempts in each group.</td>
+  </tr>
+  <tr>
+    <th><code>timing</code></th>
+    <td>The oldest waiting attempt, oldest active and expired leases, and next active lease expiry. A value is <code>null</code> when the corresponding attempt or lease does not exist.</td>
+  </tr>
+</tbody>
+</table>
+
+Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. Pending work appears in `attempts.states.waiting`.
+
+Required scope: `read_test_pool`
 
 Success response: `200 OK`
 
