@@ -74,7 +74,6 @@ The OIDC token must:
 - Have the `read_test_pool` scope for `GET` requests or the `write_test_pool` scope for all other requests.
 - Include the `organization_id`, `pipeline_id`, and `build_id` claims. Lease endpoints also require the `job_id` claim.
 
-
 ## Core data model
 
 Pools contain entries, entries have attempts, and leases temporarily assign attempts to Buildkite Pipelines jobs.
@@ -101,12 +100,8 @@ New pools start in the `populating` state. After adding the initial entries, [up
 Returns a cursor-paginated list of pools for a pipeline and build. Results are ordered from newest to oldest.
 
 ```bash
-curl --get "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools" \
-  --header "Authorization: Bearer $OIDC_TOKEN" \
-  --header "Accept: application/json" \
-  --data-urlencode "pipeline_id={pipeline.id}" \
-  --data-urlencode "build_id={build.id}" \
-  --data-urlencode "key=rspec-main"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools?pipeline_id={pipeline.id}&build_id={build.id}&key=rspec-main" \
+  -H "Authorization: Bearer $OIDC_TOKEN"
 ```
 
 ```json
@@ -125,7 +120,7 @@ curl --get "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler
         "max_attempts": 1,
         "min_passed": 1,
         "max_passed": 1,
-        "min_failed": 0,
+        "min_failed": null,
         "max_failed": 1,
         "parallel_attempts": 1
       },
@@ -189,8 +184,7 @@ Returns a pool that belongs to the suite, pipeline, and build identified by the 
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}" \
-  --header "Authorization: Bearer $OIDC_TOKEN" \
-  --header "Accept: application/json"
+  --header "Authorization: Bearer $OIDC_TOKEN"
 ```
 
 ```json
@@ -207,7 +201,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_attempts": 1,
     "min_passed": 1,
     "max_passed": 1,
-    "min_failed": 0,
+    "min_failed": null,
     "max_failed": 1,
     "parallel_attempts": 1
   },
@@ -229,8 +223,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
-  --data '{
+  -d '{
     "suite": "example-suite",
     "pipeline": "example-pipeline",
     "build_id": "3456789a-****-****-****-789abcdef012",
@@ -241,7 +234,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
       "max_attempts": 1,
       "min_passed": 1,
       "max_passed": 1,
-      "min_failed": 0,
+      "min_failed": null,
       "max_failed": 1,
       "parallel_attempts": 1
     }
@@ -262,7 +255,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_attempts": 1,
     "min_passed": 1,
     "max_passed": 1,
-    "min_failed": 0,
+    "min_failed": null,
     "max_failed": 1,
     "parallel_attempts": 1
   },
@@ -308,15 +301,15 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>attempt_policy.min_attempts</code></th>
-    <td>Minimum total attempts, combined with all other <code>min_</code> thresholds. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum completed attempts, combined with all other <code>min_</code> thresholds. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>attempt_policy.max_attempts</code></th>
-    <td>Terminal after this many attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>10</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Terminal after this many completed attempts of any result. Must be an integer of at least <code>1</code> and no greater than the organization's maximum attempts per entry service quota, which defaults to <code>10</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>attempt_policy.min_passed</code></th>
-    <td>Minimum passed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_passed</code>. A value of <code>0</code> disables this threshold for minimum-condition decisions.<br><em>Default:</em> <code>1</code></td>
+    <td>Minimum passed attempts, combined with all other configured <code>min_</code> thresholds. Must be <code>null</code> or an integer of at least <code>1</code> and no greater than <code>max_passed</code>. If both result minimums are integers, their sum must be less than <code>max_attempts</code>. A value of <code>null</code> disables this threshold.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
     <th><code>attempt_policy.max_passed</code></th>
@@ -324,7 +317,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>attempt_policy.min_failed</code></th>
-    <td>Minimum failed attempts, combined with all other <code>min_</code> thresholds. Must be a non-negative integer no greater than <code>max_failed</code>. A value of <code>0</code> disables this threshold for minimum-condition decisions.<br><em>Default:</em> <code>0</code></td>
+    <td>Minimum failed attempts, combined with all other configured <code>min_</code> thresholds. Must be <code>null</code> or an integer of at least <code>1</code> and no greater than <code>max_failed</code>. If both result minimums are integers, their sum must be less than <code>max_attempts</code>. A value of <code>null</code> disables this threshold.<br><em>Default:</em> <code>null</code></td>
   </tr>
   <tr>
     <th><code>attempt_policy.max_failed</code></th>
@@ -332,16 +325,125 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>attempt_policy.parallel_attempts</code></th>
-    <td>Maximum active attempts for the entry. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
+    <td>Maximum number of waiting and leased attempts for the entry at one time. Must be an integer of at least <code>1</code> and no greater than <code>max_attempts</code>.<br><em>Default:</em> <code>1</code></td>
   </tr>
 </tbody>
 </table>
 
-The scheduler evaluates the attempt policy when an entry is uploaded and after each of its attempts completes. Evaluation considers only attempts belonging to that entry. When an entry selector represents a file or another group of tests, the attempt policy uses the aggregate attempt result for the selector, not individual test results within it.
+## Attempt policy
 
-An entry finishes as soon as it reaches `max_passed`, `max_failed`, or `max_attempts`. Otherwise, it finishes when at least `min_attempts` have completed, at least one of `min_passed` or `min_failed` is positive, and every positive result threshold is satisfied. While an entry remains unfinished, the scheduler creates attempts without exceeding `parallel_attempts` active attempts. Once the entry finishes, the scheduler cancels any remaining waiting attempts.
+The attempt policy defines how many attempts an entry should perform before determining the outcome of the entry. The policy is defined when the pool is created and applies to every entry in the pool. The same policy is evaluated for each entry in the pool.
 
-When both `min_passed` and `min_failed` are `0`, the minimum condition cannot finish the entry. The scheduler continues creating attempts until the entry reaches a maximum threshold. At `max_attempts`, a satisfied positive `min_passed` threshold produces a passed outcome. Otherwise, the entry finishes with a failed outcome.
+Property | Type | Description | Validation
+-------- | ---- | ----------- | ----------
+`max_attempts` | Integer | Terminal after this many completed attempts of any result. | At least `1` and no greater than the organization's maximum attempts per entry service quota, which defaults to `10`.
+`max_failed` | Integer | Terminal after this many failed completed attempts. | At least `1` and no greater than `max_attempts`.
+`max_passed` | Integer | Terminal after this many passed completed attempts. | At least `1` and no greater than `max_attempts`.
+`min_attempts` | Integer | Minimum completed attempts; terminal only when the other configured `min_` thresholds are also met. | At least `1` and no greater than `max_attempts`.
+`min_passed` | Integer or null | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_passed`. When both result minimums are set, their sum must be less than `max_attempts`.
+`min_failed` | Integer or null | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_failed`. When both result minimums are set, their sum must be less than `max_attempts`.
+`parallel_attempts` | Integer | Maximum number of waiting and leased attempts for the entry at one time. | At least `1` and no greater than `max_attempts`.
+{: class="responsive-table"}
+
+The `attempt_policy` value must be an object containing only the properties listed in this table.
+
+### Policy behavior
+
+- The policy may create multiple attempts for an entry and allow up to `parallel_attempts` attempts to be waiting or leased at one time.
+- A value of `null` disables `min_passed` or `min_failed`; `0` is invalid. All configured `min_` thresholds must be met before their minimum condition is terminal. If both result minimums are `null`, satisfying `min_attempts` alone does not make the entry terminal.
+- Reaching any configured `max_` threshold makes the entry terminal.
+- Once an entry is terminal, any remaining waiting attempts will be canceled.
+- Omit the entire `attempt_policy` object or any of its properties to use the corresponding defaults below.
+
+### Evaluation order
+
+The scheduler evaluates the policy in this order:
+
+1. `max_passed` reached: the entry passes.
+2. `max_failed` reached: the entry fails.
+3. `max_attempts` reached: the entry passes only if it reached a configured `min_passed` threshold; otherwise, it fails.
+4. All configured minimum thresholds reached: the entry passes when `min_passed` is configured; otherwise, it fails when `min_failed` is configured. If both result minimums are `null`, evaluation continues until a maximum is reached.
+
+The default policy creates one attempt per entry and does not retry `failed` or `errored` attempt results.
+
+```json
+{
+  "attempt_policy": {
+    "min_attempts": 1,
+    "max_attempts": 1,
+    "min_passed": 1,
+    "max_passed": 1,
+    "min_failed": null,
+    "max_failed": 1,
+    "parallel_attempts": 1
+  }
+}
+```
+
+Policy evaluation determines the entry's terminal outcome as passed or failed.
+
+### Configuring the attempt policy
+
+The following example configurations cover common attempt policy scenarios:
+
+<table class="responsive-table" style="table-layout:fixed">
+  <thead>
+    <tr>
+      <th style="width:40%">Scenario</th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>min_<br>attempts</code></th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>max_<br>attempts</code></th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>min_<br>passed</code></th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>max_<br>passed</code></th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>min_<br>failed</code></th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>max_<br>failed</code></th>
+      <th style="padding-left:4px;padding-right:4px;white-space:normal"><code>parallel_<br>attempts</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>No retry</strong><br>Runs each entry once. A <code>passed</code> result passes the entry; a <code>failed</code> or <code>errored</code> result fails it.</td>
+      <td><code>1</code></td>
+      <td><code>1</code></td>
+      <td><code>1</code></td>
+      <td><code>1</code></td>
+      <td><code>null</code></td>
+      <td><code>1</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><strong>One retry</strong><br>Runs attempts sequentially and allows one additional attempt after a <code>failed</code> or <code>errored</code> result. The first <code>passed</code> result passes the entry.</td>
+      <td><code>1</code></td>
+      <td><code>2</code></td>
+      <td><code>1</code></td>
+      <td><code>1</code></td>
+      <td><code>null</code></td>
+      <td><code>2</code></td>
+      <td><code>1</code></td>
+    </tr>
+    <tr>
+      <td><strong>Parallel capacity of two</strong><br>Creates up to two waiting or leased attempts at once. The first <code>passed</code> result passes the entry; otherwise, the policy allows up to three completed attempts.</td>
+      <td><code>1</code></td>
+      <td><code>3</code></td>
+      <td><code>1</code></td>
+      <td><code>1</code></td>
+      <td><code>null</code></td>
+      <td><code>3</code></td>
+      <td><code>2</code></td>
+    </tr>
+    <tr>
+      <td><strong>All three must pass</strong><br>Runs three attempts sequentially and passes only when all three attempts pass.</td>
+      <td><code>3</code></td>
+      <td><code>3</code></td>
+      <td><code>3</code></td>
+      <td><code>3</code></td>
+      <td><code>null</code></td>
+      <td><code>3</code></td>
+      <td><code>1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+The policy determines the initial attempt allocation when an entry is uploaded and is evaluated after each attempt completes. When a selector represents a file or another group of tests, the policy uses the aggregate attempt result for the selector, not individual test results within it. While the entry remains unfinished, the scheduler creates attempts without exceeding `max_attempts` total attempts or `parallel_attempts` waiting and leased attempts.
 
 Required scope: `write_test_pool`
 
@@ -356,7 +458,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request PATCH \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
   --data '{
     "populating": false
   }'
@@ -376,7 +477,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_attempts": 1,
     "min_passed": 1,
     "max_passed": 1,
-    "min_failed": 0,
+    "min_failed": null,
     "max_failed": 1,
     "parallel_attempts": 1
   },
@@ -411,7 +512,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
   --data '{
     "entries": [
       {
@@ -519,7 +619,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
   --data '{
     "target_cost_limit": {
       "custom": 25
@@ -606,7 +705,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
   --data '{
     "lease_ids": [
       "0192f2fd-****-****-****-2c0f3f986001"
@@ -665,7 +763,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
   --data '{
     "leases": [
       {
@@ -752,7 +849,7 @@ Required [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-The request is atomic. Attempts omitted from the request remain leased. Completing failed or errored attempts does not create retry attempts.
+The request is atomic. Attempts omitted from the request remain leased. After completion, the scheduler evaluates each affected entry asynchronously and may create additional waiting attempts according to the pool's attempt policy.
 
 Repeating a completion with the same result succeeds and returns `"completion_status": "already_completed"` without changing `completed_at`. Repeating it with a different result returns `409 Conflict`.
 
@@ -771,7 +868,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
-  --header "Accept: application/json" \
   --data '{
     "leases": [
       {
