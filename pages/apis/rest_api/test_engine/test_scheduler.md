@@ -364,6 +364,8 @@ The scheduler evaluates the policy in this order:
 3. `max_attempts` reached: the entry passes only if it reached a configured `min_passed` threshold; otherwise, it fails.
 4. All configured minimum thresholds reached: the entry passes when `min_passed` is configured; otherwise, it fails when `min_failed` is configured. If both result minimums are `null`, evaluation continues until a maximum is reached.
 
+At `max_attempts`, a configured and satisfied `min_passed` threshold is the only path to a passed outcome. If `min_passed` is `null` or has not been reached, the entry fails regardless of whether `min_failed` is configured or reached. Omitting `min_passed` applies its default of `1`; omitting `min_failed` applies its default of `null`.
+
 The default policy creates one attempt per entry and does not retry `failed` or `errored` attempt results.
 
 ```json
