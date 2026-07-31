@@ -21,6 +21,7 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
 
 - After repository checkout, the agent resolves `BUILDKITE_COMMIT` to a commit hash. This change is useful when the initial value is a refspec such as `HEAD`.
 - The OpenSSH option `StrictHostKeyChecking=accept-new` has replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. The default checkout process now requires OpenSSH version 7.6 or later unless you enable `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN`. OpenSSH 7.6 was released in 2017.
+- [Git commit verification](/docs/pipelines/configure/git-checkout#commit-verification) now defaults to `strict`. The agent fails a job when it determines that the requested commit is not on the specified branch. To continue the job with a warning instead, set the `git-commit-verification` agent configuration option or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable to `warn`. Disabling commit verification is no longer supported.
 
 ### Changes to agent parallelism
 

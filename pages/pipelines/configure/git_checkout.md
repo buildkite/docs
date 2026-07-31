@@ -477,7 +477,7 @@ Two modes are available:
 
 If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
 
-When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings).
+When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). Buildkite agent v4 uses `strict` by default. To continue with a warning when a commit is not on the specified branch, configure the agent with `git-commit-verification="warn"`. Buildkite agent v3 does not verify commits unless you configure this setting.
 
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
