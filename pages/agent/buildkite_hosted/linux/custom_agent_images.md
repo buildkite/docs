@@ -22,6 +22,7 @@ There is also no requirement into which Linux flavor this image is based on. The
 Creating an agent image requires you to define a Dockerfile that installs the tools and utilities you require. This Dockerfile should be based on the [Buildkite hosted agent base image](https://hub.docker.com/r/buildkite/hosted-agent-base/tags).
 
 > 📘
+> 📘 Also available on AWS ECR Public
 > The Buildkite hosted agent base image is also available on the [AWS ECR Public gallery](https://gallery.ecr.aws/buildkite/hosted-agent-base).
 
 An example Dockerfile that installs the `awscli` and `kubectl`:
