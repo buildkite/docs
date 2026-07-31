@@ -53,6 +53,10 @@ This section of the REST API documentation also contains several other endpoints
     <td>Branch filter pattern for limiting which branches trigger builds</td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>Optional repository URL that agents use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. Returns <code>null</code> when not configured.</td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>Default branch for the pipeline</td>
   </tr>
@@ -485,6 +489,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>
+      <p>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. The URL must not contain credentials, query parameters, or fragments.</p>
+      <p><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
   <tr>
@@ -1037,6 +1048,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. Set to <code>null</code> to remove the mirror. The URL must not contain credentials, query parameters, or fragments.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>color</code></th>
