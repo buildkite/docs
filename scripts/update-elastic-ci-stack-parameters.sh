@@ -30,6 +30,7 @@ MANUAL_PARAMETER_MAPPINGS = {
     'BuildkiteAgentSigningKeySSMParameter': 'pipeline_signing_jwks_parameter_store_path',
     'BuildkiteAgentSigningKeyID': 'pipeline_signing_jwks_key_id',
     'BuildkiteAgentVerificationKeySSMParameter': 'pipeline_verification_jwks_parameter_store_path',
+    'NestedVirtualizationEnabled': 'enable_nested_virtualization',
 }
 
 def cloudformation_constructor(loader, tag_suffix, node):

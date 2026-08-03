@@ -1,11 +1,11 @@
 # Agent v3 to v4 upgrade guide
 
-> 🚧 Pre-release software
-> Version 4 of the Buildkite Agent is in beta, and this upgrade guide should not be considered final.
+> 📘 Buildkite agent v4 becomes the stable release on September 1, 2026 (AEST)
+> Until then, v4 is in beta and details in this guide may change. From September 1, installations and upgrades that follow the `latest` or `stable` release channels will move to v4. You can [test v4 in beta](/docs/agent/v3-v4-upgrade-guide#how-to-test-v4-in-beta) before then, or [stay on v3](/docs/agent/v3-v4-upgrade-guide#how-to-stay-on-v3-after-v4-is-stable) if you need more time.
 
 ## Breaking changes in v4
 
-Read the following breaking changes carefully to determine if your agent setup, pipelines, or [plugins](/docs/pipelines/integrations/plugins) need updating for v4.
+Most agent setups need no changes for v4. Read the following breaking changes carefully to determine if your agent setup, pipelines, or [plugins](/docs/pipelines/integrations/plugins) need updating.
 
 ### Changes to job handling
 
@@ -33,6 +33,7 @@ Read the following breaking changes carefully to determine if your agent setup, 
 
 - The agent no longer supports OpenTracing or direct connections to DogStatsD and no longer includes Datadog-related tracing workarounds. Use OpenTelemetry instead.
     * Enable OpenTelemetry tracing with the `--opentelemetry-tracing` flag or `BUILDKITE_OPENTELEMETRY_TRACING` environment variable.
+    * Enable OpenTelemetry metrics with the `--opentelemetry-metrics` flag or `BUILDKITE_OPENTELEMETRY_METRICS` environment variable. These metrics replace the direct DogStatsD integration.
     * `--tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `--telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`).
     * `--tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed. Only OpenTelemetry is supported.
     * `--tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed. Its function, accepting a trace parent from the Buildkite platform, is now always enabled.
@@ -151,7 +152,7 @@ You can test Buildkite agent v4 in several ways, depending on how you installed 
 
 ### Hosted agents
 
-Buildkite hosted agents do not support Buildkite agent v4 before its stable release.
+Buildkite manages the agent version used by Buildkite-hosted agents and updates it automatically, so there is nothing to install or test. Buildkite moves hosted agents to v4 as a staged rollout before it becomes the stable release.
 
 ### Self-hosted installations
 
@@ -219,9 +220,9 @@ In an Administrator PowerShell session, set the `buildkiteAgentBeta` environment
 
 ```console
 PS> $env:buildkiteAgentToken = "xxx-yyy-zzz"
-PS> $env:buildkiteAgentBeta = true
+PS> $env:buildkiteAgentBeta = "true"
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+PS> iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
 
 #### From source
@@ -249,7 +250,7 @@ After v4 becomes stable, you can remain on Buildkite agent v3 in several ways, d
 
 ### Hosted agents
 
-You cannot choose the agent version used by Buildkite hosted agents.
+Buildkite manages the agent version used by Buildkite-hosted agents and updates it automatically, so there is nothing to configure. If the timing of the move to v4 does not suit you, contact support at [support@buildkite.com](mailto:support@buildkite.com) to discuss your options.
 
 ### Self-hosted installations
 
@@ -275,7 +276,7 @@ Elastic CI Stack for AWS version 6.69.0 and later supports `oldstable` as a valu
 The [installation script](https://github.com/buildkite/agent/blob/main/install.sh) does not choose the most recent release in the `oldstable` release channel. Set the `BUILDKITE_AGENT_VERSION` environment variable to choose a specific version:
 
 ```console
-$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BUILDKITE_AGENT_VERSION=3.132.0 bash
+$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BUILDKITE_AGENT_VERSION=3.134.0 bash
 ```
 
 #### Ubuntu and Debian
@@ -315,9 +316,9 @@ The script does not choose the most recent release in the `oldstable` release ch
 
 ```console
 PS> $env:buildkiteAgentToken = "xxx-yyy-zzz"
-PS> $env:buildkiteAgentVersion = "3.132.0"
+PS> $env:buildkiteAgentVersion = "3.134.0"
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+PS> iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
 
 #### From source

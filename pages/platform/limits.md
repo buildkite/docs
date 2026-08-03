@@ -181,11 +181,6 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
         default_value: "10 builds"
       },
       {
-        title: "Triggered builds per build",
-        description: "The maximum number of triggered builds per single build.",
-        default_value: "250 builds"
-      },
-      {
         title: "Concurrency key length",
         description: "The maximum length for concurrency group keys.",
         default_value: "200 characters"
