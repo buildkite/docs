@@ -8,5 +8,5 @@ fi
 
 DOCS_ROOT=$(dirname "$(dirname "$(realpath "$0")")")
 
-vale --glob='!**/agent_setup/prompt.md' --config "$DOCS_ROOT"/vale/.vale.ini "$DOCS_ROOT"/pages &&
+vale --config "$DOCS_ROOT"/vale/.vale.ini "$DOCS_ROOT"/pages &&
   vale --config "$DOCS_ROOT/vale/.vale.snippets.ini" "$DOCS_ROOT"/pages/**/_*
