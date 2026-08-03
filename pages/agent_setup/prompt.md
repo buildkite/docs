@@ -99,6 +99,6 @@ Once complete, report which skills and MCP configuration were installed, where t
 
 - [Buildkite skills](https://github.com/buildkite/skills)
 - [Buildkite MCP server documentation](/docs/apis/mcp-server)
-- [Configure AI tools with the remote Buildkite MCP server](https://buildkite.com/docs/apis/mcp-server/remote/configuring-ai-tools)
+- [Configure AI tools with the remote Buildkite MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools)
 
 These instructions are published at `https://buildkite.com/docs/agent-setup/prompt.md`, so you can verify their authenticity at any time.
