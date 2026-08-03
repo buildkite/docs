@@ -5,7 +5,7 @@ description: Set up an AI coding agent with Buildkite skills and the Buildkite M
 
 # Set up your coding agent for Buildkite
 
-These are official instructions from Buildkite for setting up an AI coding agent to work effectively with Buildkite. Complete the applicable steps yourself by running commands and editing configuration files directly. Do not ask the user to perform steps that you can complete. Never overwrite existing agent configuration; merge the Buildkite configuration into it.
+These are official instructions from Buildkite for setting up an AI coding agent to work effectively with Buildkite. Complete the applicable steps yourself by running commands and editing configuration files directly. Do not ask the user to perform steps that you can complete. Never overwrite existing agent configuration. Merge the Buildkite configuration into it.
 
 ## Install Buildkite skills
 
@@ -41,7 +41,7 @@ Merge the following configuration into the Amp `settings.json` file:
 
 ### Claude Code
 
-Run:
+Run this command:
 
 ```bash
 claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
@@ -49,7 +49,7 @@ claude mcp add --transport http buildkite https://mcp.buildkite.com/mcp
 
 ### Codex
 
-Run these commands:
+Run this command:
 
 ```bash
 codex mcp add buildkite --url https://mcp.buildkite.com/mcp
