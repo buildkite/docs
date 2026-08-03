@@ -104,23 +104,7 @@ Once you have [installed the bktec binary](#installation) and it is executable i
 
 bktec v3 uses selector-based test splitting by default for every supported test runner. A selector identifies a unit of work that a test runner can execute. Buildkite Test Engine matches each selector to historical test executions and uses their durations to balance work across parallel jobs.
 
-bktec v2 continues to use file-based test splitting. If your test suite requires file-based test plan requests, remain on v2. In v3, the deprecated `--selector-splitting` flag and `BUILDKITE_TEST_ENGINE_SELECTOR_SPLITTING` environment variable are accepted for compatibility, but their values have no effect. You can remove them after upgrading.
-
-Most built-in runners use discovered test file paths as selectors. Go uses package import paths, and custom runners can use selectors supplied in a newline-delimited file. See the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) and [selector-based test splitting](https://github.com/buildkite/test-engine-client#selector-based-test-splitting) sections of the bktec README for runner-specific behavior.
-
-#### Migrate from bktec v2
-
-Before upgrading to v3, check how your test results provide selector history:
-
-- If bktec uploads your test results, no collector changes are required. The built-in upload attributes the `test.selector.primary` tag automatically.
-- If you upload results with a [Buildkite test collector](/docs/pipelines/configure/tests/test-collection), use Ruby collector v2.14.0 or later, JavaScript collector v1.10.0 or later, or Python collector v1.6.0 or later. These versions attribute [`test.selector.primary`](/docs/pipelines/configure/tests/test-suites/tags#core-tags) directly.
-- If you use an older collector, Buildkite Test Engine falls back to matching the execution's file path. This fallback continues to work, but handling a configured location prefix is best effort. Upgrade the collector before bktec when your test suite uses a location prefix.
-- If you run Go tests, configure Go JSONL result output so bktec can attribute package import paths. Follow the [Go runner migration instructions](https://github.com/buildkite/test-engine-client/blob/main/docs/migrating-to-v3.md#update-go-result-output).
-- If you use a custom runner whose runnable selectors are not file paths, provide a selector file and attribute `test.selector.primary` in uploaded executions. Follow the [custom runner instructions](https://github.com/buildkite/test-engine-client/blob/main/docs/custom-test-runner.md#selector-based-test-splitting).
-
-When Test Engine cannot match selector history, it uses default duration estimates instead of legacy file timings, and bktec prints a warning in the job log. Run the suite once to record selector timings. Later runs use the timings from that run. If existing history should match, check the collector version and location-prefix configuration.
-
-For the complete upgrade checklist, see [Migrating from bktec v2 to v3](https://github.com/buildkite/test-engine-client/blob/main/docs/migrating-to-v3.md).
+bktec v2 continues to use file-based test splitting. Before upgrading, see [Migrating from bktec v2 to v3](https://github.com/buildkite/test-engine-client/blob/main/docs/migrating-to-v3.md) for collector version recommendations, location-prefix implications, Go and custom runner requirements, and behavior when selector history is unavailable.
 
 ### Configure environment variables
 
