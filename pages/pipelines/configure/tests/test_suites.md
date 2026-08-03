@@ -67,6 +67,12 @@ Other test execution results such as `unknown` and `skipped` are ignored in the 
 
 In Test Engine, a run is marked as `failed` as soon as a test execution fails, regardless of whether it passes on a retry. This helps surface unreliable tests. You can have a situation where a build eventually passes on retry in a Pipeline, and the related run is marked as `failed` in Test Engine.
 
+## Upload summary
+
+The **Uploads** view in a test suite shows a summary of test result uploads over time. Use it to track how frequently your suite receives uploads and to spot gaps or spikes in upload activity.
+
+A period picker lets you switch between a one-day and a seven-day view. One day is the default. The seven-day view displays data in 84 two-hour buckets. If your organization's Test Engine maximum time window is shorter than seven days, the **7d** option is shown as disabled and the view defaults to one day.
+
 ## Trends and analysis
 
 Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
