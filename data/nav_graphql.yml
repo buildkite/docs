@@ -690,6 +690,10 @@
     path: apis/graphql/schemas/object/repositoryprovidercodebase
   - name: RepositoryProviderCodebaseSettings
     path: apis/graphql/schemas/object/repositoryprovidercodebasesettings
+  - name: RepositoryProviderCursorOrigin
+    path: apis/graphql/schemas/object/repositoryprovidercursororigin
+  - name: RepositoryProviderCursorOriginSettings
+    path: apis/graphql/schemas/object/repositoryprovidercursororiginsettings
   - name: RepositoryProviderGitHubEnterpriseSettings
     path: apis/graphql/schemas/object/repositoryprovidergithubenterprisesettings
   - name: RepositoryProviderGitHubSettings
