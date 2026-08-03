@@ -2,8 +2,11 @@
 
 ## List tests
 
+Returns a list of tests in a suite with aggregated duration, reliability, and execution metrics. Send the `Buildkite-Version` request header to receive this versioned response.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -H "Buildkite-Version: 2026-07-23" \
   -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests"
 ```
 
@@ -17,9 +20,30 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": "is correctly formatted",
     "location": "./spec/models/user_spec.rb:42",
     "file_name": "./spec/models/user_spec.rb",
+    "reliability": 0.98,
+    "duration_avg": 0.452,
+    "duration_sum": 4.52,
+    "duration_min": 0.31,
+    "duration_max": 0.89,
+    "executions_count": 10,
+    "executions_count_by_result": {
+      "passed": 9,
+      "failed": 1
+    }
   }
 ]
 ```
+
+Required [request headers](/docs/api):
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>Buildkite-Version</code></th>
+    <td>Set to <code>2026-07-23</code> to receive the versioned response with aggregated metrics.</td>
+  </tr>
+</tbody>
+</table>
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
