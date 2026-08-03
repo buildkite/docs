@@ -53,7 +53,6 @@ Run these commands:
 
 ```bash
 codex mcp add buildkite --url https://mcp.buildkite.com/mcp
-codex mcp login buildkite
 ```
 
 ### Cursor
