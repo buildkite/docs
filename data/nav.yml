@@ -558,6 +558,8 @@
               path: "pipelines/configure/tests/test-suites/saved-views"
             - name: "Public test suites"
               path: "pipelines/configure/tests/test-suites/public"
+            - name: "Upload health"
+              path: "pipelines/configure/tests/test-suites/upload-health"
         - name: "Test collection"
           children:
             - name: "Overview"
