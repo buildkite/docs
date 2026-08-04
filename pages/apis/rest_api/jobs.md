@@ -8,6 +8,8 @@ A running command job can also declare an expected failure before it finishes by
 
 When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
 
+A job's `concurrency_wait_time_ms` field reports how long the job waited for a [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups) slot, in milliseconds. It's `0` when the job passed through the concurrency group without waiting, and `null` when the job didn't use a concurrency group, when the job hasn't finished waiting yet, or when the wait time can't be separated from a [platform limit](/docs/pipelines/configure/defining-steps#platform-limits) wait.
+
 ## List jobs
 
 Returns a paginated list of jobs in a build.
@@ -45,6 +47,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": "2015-05-09T21:06:00.000Z",
+      "concurrency_wait_time_ms": null,
       "started_at": "2015-05-09T21:06:05.000Z",
       "finished_at": "2015-05-09T21:06:20.000Z",
       "expired_at": null,
@@ -165,6 +168,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "runnable_at": "2015-05-09T21:06:00.000Z",
+  "concurrency_wait_time_ms": null,
   "started_at": "2015-05-09T21:06:05.000Z",
   "finished_at": "2015-05-09T21:06:20.000Z",
   "expired_at": null,
@@ -238,6 +242,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": null,
+      "concurrency_wait_time_ms": null,
       "started_at": null,
       "finished_at": null,
       "retried": false,
@@ -315,6 +320,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": null,
+      "concurrency_wait_time_ms": null,
       "started_at": null,
       "finished_at": null,
       "retried": false,
