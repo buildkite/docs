@@ -108,7 +108,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
-      - **GitHub pull request review webhook:** With strict creator semantics, set from the authenticated webhook sender. Otherwise, set from a linked commit author when available, or the webhook sender. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
+      - **GitHub pull request review webhook:** Set from a linked commit author when available. Otherwise, set from the authenticated webhook sender. If neither identity is linked to Buildkite, the value can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "Carol Danvers"
@@ -118,7 +118,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
-      - **GitHub pull request review webhook:** With strict creator semantics, set from the authenticated webhook sender. Otherwise, set from a linked commit author when available, or the webhook sender. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
+      - **GitHub pull request review webhook:** Set from a linked commit author when available. Otherwise, set from the authenticated webhook sender. If neither identity is linked to Buildkite, the value can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "cdanvers@kree-net.com"
@@ -128,7 +128,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
-      - **GitHub pull request review webhook:** With strict creator semantics, set from the authenticated webhook sender. Otherwise, set from a linked commit author when available, or the webhook sender. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
+      - **GitHub pull request review webhook:** Set from a linked commit author when available. Otherwise, set from the authenticated webhook sender. If neither identity is linked to Buildkite, the value is empty. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "everyone:platform"
