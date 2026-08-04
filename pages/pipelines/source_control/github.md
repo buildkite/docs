@@ -194,7 +194,7 @@ Your existing trigger settings are preserved, and commit status settings remain 
 
 Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
 
-- **Pull request reviews**: trigger builds when a review is submitted or dismissed.
+- **Pull request reviews**: trigger builds when a review is submitted or dismissed. For review-triggered builds, `BUILDKITE_BUILD_AUTHOR` identifies the commit author and `BUILDKITE_BUILD_CREATOR` identifies the reviewer.
 - **Check runs**: trigger builds when a check run from another GitHub App completes. Check runs from Buildkite Pipelines are automatically skipped to prevent feedback loops.
 - **Releases**: trigger builds when a GitHub release is published, created, or released.
 - **Issue comments**: trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` (default) and `contains` match modes.

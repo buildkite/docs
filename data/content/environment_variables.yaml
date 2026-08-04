@@ -108,6 +108,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      - **GitHub pull request review webhook:** Set from the reviewer who submitted the review.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "Carol Danvers"
@@ -117,6 +118,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      - **GitHub pull request review webhook:** Set from the reviewer who submitted the review.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "cdanvers@kree-net.com"
@@ -126,6 +128,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      - **GitHub pull request review webhook:** Set from the reviewer who submitted the review.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "everyone:platform"
