@@ -110,12 +110,12 @@ Job log records are sent using the standard OpenTelemetry OTLP exporter environm
 
 The service name follows the `--tracing-service-name` flag, defaulting to `buildkite-agent` when it is not set.
 
-The following example sends job logs to a local collector over gRPC:
+The following example sends job logs to a local collector over HTTP, using the `http/protobuf` protocol recommended by the OpenTelemetry specification:
 
 ```bash
 export BUILDKITE_JOB_LOGS_OTLP=true
-export OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4317"
-export OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
+export OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector:4318"
+export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
 buildkite-agent start
 ```
 
