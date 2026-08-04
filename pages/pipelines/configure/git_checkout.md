@@ -473,14 +473,14 @@ The `checkout.commit_verification` key tells the Buildkite agent to verify that 
 Two modes are available:
 
 - `strict`: Fails the job when the agent determines the commit is not on the branch.
-- `warn`: Emits a warning in the build log without failing the job.
+- `off`: Skips commit verification.
 
-If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
+If the agent cannot complete a `strict` check (for example, because a shallow clone cannot be deepened), it warns and continues.
 
-When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). Buildkite agent v4 uses `strict` by default. To continue with a warning when a commit is not on the specified branch, configure the agent with `git-commit-verification="warn"`. Buildkite agent v3 does not verify commits unless you configure this setting.
+When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). Buildkite agent v4 uses `strict` by default. To disable verification, configure the agent with `git-commit-verification="off"`. Buildkite agent v3 does not verify commits unless you configure this setting.
 
 > 📘 Requires none mode
-> The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. An empty `checkout.commit_verification` value is invalid and causes job bootstrap to fail; use `warn` for warning-only behavior. See [Agent checkout-override mode](#agent-checkout-override-mode).
+> The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. An empty `checkout.commit_verification` value is invalid and causes job bootstrap to fail when the agent runs in `none` mode. Use `off` to disable verification. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
 The agent silently skips verification in several cases where it is either not possible or not meaningful:
 
