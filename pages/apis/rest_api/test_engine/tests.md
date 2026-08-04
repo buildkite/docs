@@ -40,7 +40,7 @@ Optional request headers:
 </table>
 
 > 📘 Invalid format returns an error
-> If the `Buildkite-Version` header value is not in `YYYY-MM-DD` format, the API returns a `400` response with `{"message": "Buildkite-Version must be in format YYYY-MM-DD"}`.
+> If a non-blank `Buildkite-Version` header value is not in `YYYY-MM-DD` format, the API returns a `400` response with `{"message": "Buildkite-Version must be in format YYYY-MM-DD"}`. A blank value is treated as an omitted header, so the API returns the legacy `200` response instead.
 
 Required scope: `read_suites`
 
