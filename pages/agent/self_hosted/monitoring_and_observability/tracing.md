@@ -77,9 +77,9 @@ export OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=xxxxx"
 
 ## Exporting job logs as OpenTelemetry logs
 
-From Buildkite agent version [v3.135.0](https://github.com/buildkite/agent/releases/tag/v3.135.0), the agent can export job log output as [OpenTelemetry log records](https://opentelemetry.io/docs/concepts/signals/logs/), in addition to the regular Buildkite job log. This is an opt-in sink. When it is enabled, each line of job output is emitted as an OpenTelemetry log record, and the normal Buildkite job log stream that appears in the Buildkite dashboard is unchanged.
+From Buildkite agent version [v3.135.0](https://github.com/buildkite/agent/releases/tag/v3.135.0), the agent can export job log output as [OpenTelemetry log records](https://opentelemetry.io/docs/concepts/signals/logs/), in addition to the regular Buildkite job log. Job log export is opt-in. When it is enabled, job output is emitted as OpenTelemetry log records, and the normal Buildkite job log stream that appears in the Buildkite dashboard is unchanged.
 
-Exported records reuse the OTLP exporter configuration that the agent already reads for OpenTelemetry tracing, so you can send job logs to the same collector or backend that receives agent traces.
+Exported records reuse the OTLP exporter configuration that the agent already reads for OpenTelemetry tracing. You can send job logs to the same collector or backend that receives agent traces.
 
 ### Enabling job log export
 
@@ -121,13 +121,13 @@ buildkite-agent start
 
 ### What each record contains
 
-Every log record carries one line of job output as its body, with the same `[REDACTED]` markers as the Buildkite job log. Records inherit the [job log redaction](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) by construction, including secrets that are split across separate writes and secrets added mid-job through the Job API. Both child-process output and the bootstrap control output, such as section headers, prompts, comments, and warnings, are exported, so the records match the downloadable Buildkite job log.
+Each record carries a line of job output as its body, with the same `[REDACTED]` markers as the Buildkite job log. Records are built from the already-redacted job log stream, so they inherit the [job log redaction](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) automatically, including secrets split across separate writes and secrets added mid-job through the [Job API](/docs/agent/self-hosted/configure/experiments#promoted-experiments-job-api). Lines longer than the maximum record size of 64 KiB are split across multiple records. Both child-process output and the bootstrap control output, such as section headers, prompts, comments, and warnings, are exported, so the records match the downloadable Buildkite job log.
 
 Each record is emitted at `INFO` severity and is timestamped with the arrival of the line's first byte, matching the start-of-line semantics of the Buildkite job log. The following resource attributes are set on every record:
 
 | Attribute | Description |
 |-----------|-------------|
-| `service.name` | Service name, from `--tracing-service-name` (default: `buildkite-agent`). |
+| `service.name` | Service name (default: `buildkite-agent`). |
 | `service.version` | Buildkite agent version. |
 | `deployment.environment` | Always `ci`. |
 
@@ -148,8 +148,11 @@ The following attributes identify the source job on every record:
 | `buildkite.job.label` | Job label. |
 | `buildkite.job.key` | Step key. |
 
+> 🚧 Job output is exported in full
+> Redaction only masks values the agent recognizes as secrets, such as redacted environment variables and secrets registered through the Job API. Any other sensitive content that a build prints is exported to the configured OTLP endpoint. Treat that endpoint as handling sensitive data, and prefer an encrypted transport for anything beyond a trusted local collector.
+
 ### Correlating logs with traces
 
 When the agent also runs with OpenTelemetry tracing enabled, each log record is correlated with the trace of the job that produced it. Every record carries the trace ID and the span ID of the nearest enclosing phase or hook span at the time the line is emitted, falling back to the root job span. This lets you pivot from a trace span to the log lines it produced in a backend that supports log-to-trace correlation.
 
-Records deliberately carry the phase or hook span rather than a child operation span such as `git.clone`. When tracing is disabled, records are still exported, but without trace correlation.
+Records carry the enclosing phase or hook span rather than a more specific child operation span. When tracing is disabled, records are still exported, but without trace correlation.
