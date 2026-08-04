@@ -6,8 +6,6 @@
 #
 # 1. Automatically from upstream pipelines (e.g. buildkite/buildkite, buildkite/agent)
 #    on merge to main. The upstream trigger sets UPSTREAM_REPO and UPSTREAM_PR_NUMBER.
-#    Each step script checks the PR for its respective label ("needs-docs" or
-#    "needs-changelog") and exits early if the label is not present.
 #
 # 2. Manually via the Buildkite UI. If UPSTREAM_REPO and UPSTREAM_PR_NUMBER are not set,
 #    an input step prompts the user to select a repo, PR number, and what to generate.
@@ -16,7 +14,7 @@
 #   UPSTREAM_REPO       — GitHub repo slug (e.g. "buildkite/agent")
 #   UPSTREAM_PR_NUMBER  — PR number in the upstream repo
 #
-# Optional (set by manual input to skip label checks):
+# Optional (set by manual input to select which outputs to generate):
 #   WRITE_DOCS          — "true" to generate a docs draft
 #   WRITE_CHANGELOG     — "true" to generate a changelog entry
 
@@ -39,7 +37,7 @@ steps:
         fi
 
         if [ "$${WRITE_DOCS:-}" != "true" ] && [ "$${WRITE_CHANGELOG:-}" != "true" ]; then
-          echo "No WRITE_DOCS/WRITE_CHANGELOG set — uploading both steps (they will check labels themselves)"
+          echo "No WRITE_DOCS/WRITE_CHANGELOG set — uploading both steps"
           buildkite-agent pipeline upload .buildkite/steps/docs-draft-step.yml
           buildkite-agent pipeline upload .buildkite/steps/docs-draft-changelog.yml
         fi
