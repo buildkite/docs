@@ -143,7 +143,7 @@ After downloading the release archive and verifying it against the published che
 buildkite-gha validate .github/workflows/ci.yml
 ```
 
-The CLI also provides `compile` and `upload` commands. Direct `upload` use must run from a keyed Buildkite Pipelines command step. It also requires the supported `mise` version on `PATH` when a workflow uses actions. The plugin automates these installation and upload requirements, so use direct CLI execution only when you need more control or diagnostics.
+The CLI also provides `compile` and `upload` commands. Direct `upload` use must run from a keyed Buildkite Pipelines command step and requires the supported `mise` version on `PATH` when a workflow uses actions. The plugin automates these installation and upload requirements, so use direct CLI execution only when you need more control or diagnostics.
 
 ## Next steps
 
