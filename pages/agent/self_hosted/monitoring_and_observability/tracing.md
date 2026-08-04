@@ -108,7 +108,7 @@ Job log records are sent using the standard OpenTelemetry OTLP exporter environm
 | `OTEL_EXPORTER_OTLP_LOGS_HEADERS` or `OTEL_EXPORTER_OTLP_HEADERS` | Headers sent with each export request, for example, an authentication token. |
 | `OTEL_EXPORTER_OTLP_LOGS_PROTOCOL` or `OTEL_EXPORTER_OTLP_PROTOCOL` | Transport protocol: `grpc` (default) or `http/protobuf`. |
 
-The service name follows the `--tracing-service-name` flag, defaulting to `buildkite-agent` when it is not set.
+The service name defaults to `buildkite-agent`. When OpenTelemetry tracing is also enabled, it follows the `--tracing-service-name` flag.
 
 The following example sends job logs to a local collector over HTTP, using the `http/protobuf` protocol recommended by the OpenTelemetry specification:
 
