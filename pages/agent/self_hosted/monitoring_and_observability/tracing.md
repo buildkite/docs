@@ -104,7 +104,7 @@ Job log records are sent using the standard OpenTelemetry OTLP exporter environm
 
 | Environment variable | Description |
 |---------------------|-------------|
-| `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT` or `OTEL_EXPORTER_OTLP_ENDPOINT` | Endpoint of the OTLP collector or backend that receives the log records. |
+| `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT` or `OTEL_EXPORTER_OTLP_ENDPOINT` | Endpoint of the OTLP collector or backend that receives the log records. For `http/protobuf`, set the log-specific variable to the complete logs endpoint (for example, `http://otel-collector:4318/v1/logs`). The exporter appends `/v1/logs` to the generic endpoint. |
 | `OTEL_EXPORTER_OTLP_LOGS_HEADERS` or `OTEL_EXPORTER_OTLP_HEADERS` | Headers sent with each export request, for example, an authentication token. |
 | `OTEL_EXPORTER_OTLP_LOGS_PROTOCOL` or `OTEL_EXPORTER_OTLP_PROTOCOL` | Transport protocol: `grpc` (default) or `http/protobuf`. |
 
