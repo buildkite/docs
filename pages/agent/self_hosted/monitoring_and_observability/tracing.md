@@ -77,7 +77,7 @@ export OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=xxxxx"
 
 ## Exporting job logs as OpenTelemetry logs
 
-From Buildkite agent version [v3.135.0](https://github.com/buildkite/agent/releases/tag/v3.135.0), the agent can export job log output as [OpenTelemetry log records](https://opentelemetry.io/docs/concepts/signals/logs/), in addition to the regular Buildkite job log. Job log export is opt-in. When it is enabled, job output is emitted as OpenTelemetry log records, and the normal Buildkite job log stream that appears in the Buildkite dashboard is unchanged.
+From Buildkite agent version [v3.135.0](https://github.com/buildkite/agent/releases/tag/v3.135.0), the agent can export job log output as [OpenTelemetry log records](https://opentelemetry.io/docs/concepts/signals/logs/), in addition to the regular Buildkite job log. Job log export is opt-in. When enabled, job output is emitted as OpenTelemetry log records, and the normal Buildkite job log stream that appears in the Buildkite dashboard is unchanged.
 
 Exported records reuse the OTLP exporter configuration that the agent already reads for OpenTelemetry tracing. You can send job logs to the same collector or backend that receives agent traces.
 
@@ -105,7 +105,7 @@ Job log records are sent using the standard OpenTelemetry OTLP exporter environm
 | Environment variable | Description |
 |---------------------|-------------|
 | `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT` or `OTEL_EXPORTER_OTLP_ENDPOINT` | Endpoint of the OTLP collector or backend that receives the log records. |
-| `OTEL_EXPORTER_OTLP_LOGS_HEADERS` or `OTEL_EXPORTER_OTLP_HEADERS` | Headers sent with each export request, for example an authentication token. |
+| `OTEL_EXPORTER_OTLP_LOGS_HEADERS` or `OTEL_EXPORTER_OTLP_HEADERS` | Headers sent with each export request, for example, an authentication token. |
 | `OTEL_EXPORTER_OTLP_LOGS_PROTOCOL` or `OTEL_EXPORTER_OTLP_PROTOCOL` | Transport protocol: `grpc` (default) or `http/protobuf`. |
 
 The service name follows the `--tracing-service-name` flag, defaulting to `buildkite-agent` when it is not set.
