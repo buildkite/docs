@@ -8,7 +8,7 @@ A running command job can also declare an expected failure before it finishes by
 
 When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
 
-A job's `concurrency_wait_time_ms` field reports how long the job waited for a [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups) slot, in milliseconds. It's `0` when the job passed through the concurrency group without waiting. It's `null` when the job didn't use a concurrency group, when the job hasn't finished waiting yet, or when the wait time can't be separated from a [platform limit](/docs/pipelines/configure/defining-steps#platform-limits) wait.
+A command job's `concurrency_wait_time_ms` field reports how long the job waited for a [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups) slot, in milliseconds. It's `0` when the job passed through the concurrency group without waiting. It's `null` when the job didn't use a concurrency group, when the job hasn't finished waiting yet, or when the wait time can't be separated from a [platform limit](/docs/pipelines/configure/defining-steps#platform-limits) wait.
 
 ## List jobs
 
