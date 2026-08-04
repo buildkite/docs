@@ -44,6 +44,7 @@ VERSIONS_WITH_KNOWN_ISSUES = %w[
   3.81.0
   3.82.0
   3.112.0
+  3.136.0
 ].freeze
 
 def fetch_all_releases
