@@ -29,9 +29,6 @@ gem "commonmarker"
 # Syntax highlighting code
 gem "rouge", "5.0.0"
 
-# For escaping code snippets in markdown
-gem "escape_utils"
-
 # One rails log line per request, instead of enraging quantity
 gem "lograge"
 
