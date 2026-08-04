@@ -47,7 +47,7 @@ class Page::Renderer
     def image(link, title, alt)
       url = Camo::UrlBuilder.build(link) unless link.nil?
 
-      %{<img src="#{CGI.escapeHTML(url || '')}" alt="#{CGI.escapeHTML.escape_html(alt || '')}" class="#{@options[:img_classes]}"/>}
+      %{<img src="#{CGI.escapeHTML(url || '')}" alt="#{CGI.escapeHTML(alt || '')}" class="#{@options[:img_classes]}"/>}
     end
 
     def codespan(code)
