@@ -23,6 +23,8 @@ A concurrency group works like a queue; it returns jobs in the order they entere
 
 The full list of "active" [job states](/docs/pipelines/configure/defining-steps#job-states) is `limiting`, `limited`, `scheduled`, `reserved`, `waiting`, `assigned`, `accepted`, `running`, `canceling`, `timing out`.
 
+To measure how long a job spent waiting for a concurrency group slot, check its `concurrency_wait_time_ms` field, available from the [Jobs REST API](/docs/apis/rest-api/jobs).
+
 The following is an example [command step](/docs/pipelines/configure/step-types/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
 
 ```yaml
