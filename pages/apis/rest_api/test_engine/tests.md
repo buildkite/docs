@@ -72,7 +72,42 @@ The aggregated metrics in each test are calculated over the time range set by th
 </tbody>
 </table>
 
-Optional [query string parameters](/docs/api#query-string-parameters):
+### Query string parameters
+
+Some [query string parameters](/docs/api#query-string-parameters) support one or more of the additional operators listed below.
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>!</code></th>
+    <td>
+      Not equal
+      <p class="Docs__api-param-eg"><em>Example:</em> Tests labeled with <code>foo</code> but not <code>bar</code> - <code>labels=foo,!bar</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>~</code></th>
+    <td>
+      Group contains
+      <p class="Docs__api-param-eg"><em>Example:</em> tests with one or more failed executions within the requested time period <code>tags=result:~failed</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>^</code></th>
+    <td>
+      Group only
+      <p class="Docs__api-param-eg"><em>Example:</em> tests with only failed executions within the requested time period <code>tags=result:^failed</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>*</code></th>
+    <td>
+      Starts with
+      <p class="Docs__api-param-eg"><em>Example:</em> tests wth executions on branches with the staging- prefix within the requested time period <code>branch=staging-*</code></p>
+    </td>
+  </tr>
+</tbody>
+</table>
 
 <%= render_markdown partial: 'apis/rest_api/test_engine/tests_list_query_strings' %>
 

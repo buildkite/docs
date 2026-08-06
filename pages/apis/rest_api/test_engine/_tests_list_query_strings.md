@@ -3,8 +3,9 @@
   <tr>
     <th><code>labels</code></th>
     <td>
-      <span>Filters the results by a comma-separated list of test labels. Prefix a label with <code>!</code> to exclude tests carrying that label. Cannot be combined with <code>label</code>.</span>
+      <span>Filters the results by a comma-separated list of test labels. Cannot be combined with <code>label</code>.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?labels=flaky,!slow</code></p>
+      <p><em>Supported operators:</em> <code>!</code></p>
       <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
     </td>
   </tr>
@@ -20,6 +21,7 @@
     <td>
       <span>Only aggregates executions from the branch whose name is specified by the <code>branch</code> value.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=main</code></p>
+      <p><em>Supported operators:</em> <code>! *</code></p>
       <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
     </td>
   </tr>
@@ -28,6 +30,7 @@
     <td>
       <span>Filters the results by a comma-separated list of test owner slugs.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?owners=my-team,another-team</code></p>
+      <p><em>Supported operators:</em> <code>!</code></p>
       <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
     </td>
   </tr>
@@ -44,6 +47,7 @@
     <td>
       <span>Filters the results by a comma-separated list of execution tags, using <code>key:value</code> syntax.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?tags=framework:rspec,ci:true</code></p>
+      <p><em>Supported operators:</em> <code>! *</code>. Additionally the `result` tag supports the operators <code>^ ~</code></p>
       <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
     </td>
   </tr>
