@@ -6,7 +6,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) lets you run supported GitHub Actions workflows as jobs in a Buildkite Pipelines build. Use the plugin to move workflows to Buildkite Pipelines incrementally before [translating them to native pipeline steps](/docs/pipelines/migration/from-githubactions).
 
-This functionality is an experimental preview. The current compatibility profile supports public, tokenless Linux x86-64 workflows. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before adding a workflow.
+This functionality is an experimental preview. The current compatibility profile supports tokenless Linux x86-64 workflows from public repositories hosted on `github.com`. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before adding a workflow.
 
 ## Add a GitHub Actions workflow to a pipeline
 
@@ -120,13 +120,14 @@ The compatibility runtime supports a defined subset of GitHub Actions. The suppo
 - Restricted, native-backed artifact upload and download behavior.
 - Restricted cache behavior for an audited `actions/cache` revision when a compatible cache service is configured.
 
-The compatibility profile rejects unsupported or privileged functionality before uploading generated jobs. Current limitations include:
+The compatibility profile rejects many unsupported or privileged features before uploading generated jobs. Some limitations, including ignored settings, do not cause validation to fail. Current limitations include:
 
-- Private repositories and private actions.
+- Private repositories, GitHub Enterprise Server repositories, and private actions.
 - Workflow secrets, `GITHUB_TOKEN`, GitHub-compatible OIDC, protected environments, and protected queues.
 - Windows and macOS jobs.
 - Job containers, service containers, and `docker://` actions.
 - Dynamic matrices and remote reusable workflows.
+- Workflow- and job-level `concurrency` settings. v0.2.0 ignores these settings and does not apply corresponding Buildkite Pipelines concurrency controls, so builds and generated jobs that rely on concurrency groups can overlap.
 - Arbitrary action revisions for actions that receive special native support, including checkout, artifacts, and cache.
 - The complete `github.event` payload and GitHub-specific event behavior.
 
