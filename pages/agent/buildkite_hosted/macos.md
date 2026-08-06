@@ -55,6 +55,12 @@ Updated Xcode versions will be available one week after Apple offers them for do
 
 Older Xcode versions are removed from base images over time. If your queue has an Xcode version pinned that is no longer available, a warning is displayed on the queue list and queue settings pages: "Xcode {version} is no longer available for this macOS version. Your agents may fail to start until you update the base image of your queue." To resolve the warning, navigate to the queue's **Base image** settings and select an available Xcode version.
 
+### Docker support
+
+macOS hosted agents do not include a running Docker daemon. Pipeline jobs that require Docker daemon access, such as `docker build` or `docker run`, will fail unless they connect to a Docker daemon that you provide.
+
+For Docker image builds, use [Linux hosted agents](/docs/agent/buildkite-hosted/linux) with [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders), or run the job on [self-hosted agents](/docs/agent/self-hosted) where you control the Docker installation.
+
 > 📘
 > Three macOS Tahoe versions are available, each with a unique set of Xcode versions. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with newer Tahoe base images. [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) and [Tahoe (26.6)](#macos-tahoe-26-dot-6) include newer Xcode 26.x versions.
 
