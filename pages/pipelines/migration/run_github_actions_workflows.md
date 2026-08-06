@@ -47,6 +47,8 @@ steps:
 
 Buildkite controls when builds run. Configure source control triggers and schedules in Buildkite, and start manual builds with **New Build** or the API. The workflow's `on` key does not configure Buildkite Pipelines build triggers.
 
+Manual and scheduled builds can set `BUILDKITE_COMMIT` to `HEAD`. For these builds, enable the [`resolve-commit-after-checkout` experiment](/docs/agent/self-hosted/configure/experiments#resolve-commit-after-checkout) on the importer agent, or supply a full, lowercase 40-character commit SHA when triggering the build. Otherwise, v0.2.0 rejects the commit before uploading the generated jobs.
+
 The plugin provides `pull_request` context for pull request builds. Branch, tag, scheduled, and manual builds receive `push` context. The plugin does not provide `schedule`, `workflow_dispatch`, or dispatch inputs.
 
 ## Migrate incrementally
@@ -96,7 +98,7 @@ GitHub Actions concepts map to Buildkite Pipelines as follows:
 
 The plugin importer step requires:
 
-- A Linux x86-64 agent.
+- A Linux x86-64 agent running Buildkite agent v3. Buildkite agent v4 is not supported for the importer step in v0.2.0.
 - Bash, `curl`, `tar`, `sha256sum`, `awk`, `grep`, `find`, `sed`, `sort`, `mktemp`, and `cp`.
 - Outbound HTTPS access to public GitHub release and action sources.
 
