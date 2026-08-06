@@ -329,9 +329,27 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 
 ### Job tokens
 
-Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
+Job tokens are internal agent access tokens generated when each job starts. They expire when the job finishes. The job receives its token through the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`. The Buildkite agent’s local Job API uses the token to grant access to CLI commands, including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline).
 
-You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further scope the lifetime of job tokens.
+You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further limit a job token's lifetime.
+
+In addition to having a shorter lifetime than session tokens, job tokens have fewer permissions. These restrictions reduce the risk of accidentally exposing a job token. A request using a job token cannot perform the following actions on any job other than the one it's associated with:
+
+- Start a job
+- Update a job
+- Finish a job
+- Upload logs to a job
+- Upload header times for a job
+- Generate an OIDC token for a job
+- Generate a GitHub code access token for a job
+
+Large organizations often use complex pipelines where a parent build triggers child builds in related pipelines. These builds might need to coordinate and exchange data. To support these use cases, job tokens can:
+
+- Create and read metadata for jobs in other pipelines
+- Create and read annotations for jobs in other pipelines
+- Upload and download artifacts for jobs in other pipelines
+
+At present, job tokens can create (push) metadata, annotations, and artifacts to other jobs. However, where possible pulling data is recommended instead of pushing it. Buildkite may further restrict job token permissions in the future by allowing only read access to other jobs' data.
 
 ### Token exchange process
 
