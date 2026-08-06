@@ -37,7 +37,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 The `Buildkite-Version` request header opts in to the versioned response shown above, which includes the aggregated metrics. Requests made without this header receive a response which contains only the test attributes `id` through `labels`.
 
-The aggregated metrics in each test are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters:
+The aggregated metrics in each test are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters. Tests without any executions recorded in Test Engine during the requested time range will not be present in the response.
 
 <table class="responsive-table">
 <tbody>
