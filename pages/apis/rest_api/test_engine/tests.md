@@ -21,7 +21,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "location": "./spec/models/user_spec.rb:42",
     "file_name": "./spec/models/user_spec.rb",
     "labels": ["flaky"],
-    "reliability": 98.21,
+    "reliability": 0.98,
     "duration_avg": 0.213,
     "duration_sum": 23.856,
     "duration_min": 0.108,
