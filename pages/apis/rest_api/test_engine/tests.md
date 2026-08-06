@@ -103,7 +103,7 @@ Some [query string parameters](/docs/api#query-string-parameters) support one or
     <th><code>*</code></th>
     <td>
       Starts with
-      <p class="Docs__api-param-eg"><em>Example:</em> tests wth executions on branches with the staging- prefix within the requested time period <code>branch=staging-*</code></p>
+      <p class="Docs__api-param-eg"><em>Example:</em> tests with executions on branches with the staging- prefix within the requested time period <code>branch=staging-*</code></p>
     </td>
   </tr>
 </tbody>
