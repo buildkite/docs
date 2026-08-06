@@ -47,7 +47,7 @@
     <td>
       <span>Filters the results by a comma-separated list of execution tags, using <code>key:value</code> syntax.</span>
       <p class="Docs__api-param-eg"><em>Example:</em> <code>?tags=framework:rspec,ci:true</code></p>
-      <p><em>Supported operators:</em> <code>! *</code>. Additionally the `result` tag supports the operators <code>^ ~</code></p>
+      <p><em>Supported operators:</em> <code>! *</code>. The <code>result</code> tag also supports <code>^ ~</code>.</p>
       <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
     </td>
   </tr>
