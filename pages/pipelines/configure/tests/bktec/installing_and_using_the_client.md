@@ -100,6 +100,12 @@ If your testing framework is not supported, get in touch through support@buildki
 
 Once you have [installed the bktec binary](#installation) and it is executable in your pipeline, you'll need to [configure some additional environment variables](#using-bktec-configure-environment-variables) for bktec to function. You can then [update your pipeline step](#using-bktec-update-the-pipeline-step) to call `bktec run` instead of calling RSpec to run your tests.
 
+### Selector-based test splitting
+
+bktec v3 uses [selector-based test splitting](https://github.com/buildkite/test-engine-client#selector-based-test-splitting) by default for every supported test runner. A selector identifies a unit of work that a test runner can execute. Buildkite Test Engine matches each selector to historical test executions and uses their durations to balance work across parallel jobs. The Test Engine Client documentation explains how bktec discovers the selector for each runner.
+
+bktec v2 continues to use file-based test splitting. Before upgrading, see [Migrating from bktec v2 to v3](https://github.com/buildkite/test-engine-client/blob/main/docs/migrating-to-v3.md) for collector version recommendations, location-prefix implications, Go and custom runner requirements, and behavior when selector history is unavailable.
+
 ### Configure environment variables
 
 bktec uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
