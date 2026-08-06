@@ -6,7 +6,7 @@ Lists the tests in a suite, along with aggregated duration, reliability, and exe
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -H "Buildkite-Version: 2026-07-23" \
+  -H "Buildkite-Version: 2026-08-01" \
   -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests"
 ```
 
