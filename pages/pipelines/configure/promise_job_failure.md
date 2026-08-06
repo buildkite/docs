@@ -36,7 +36,7 @@ You cannot promise success. Exit status `0` is not valid for a promised failure.
 
 ## Use Buildkite Test Engine Client
 
-If you use [Buildkite Test Engine Client](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), turn on promised failures by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
+If you use [Buildkite Test Engine Client](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client) v2.9.0 or later, turn on promised failures by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
 
 ```yaml
 steps:
