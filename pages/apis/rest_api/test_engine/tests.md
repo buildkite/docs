@@ -43,7 +43,7 @@ The aggregated metrics in each test are calculated over the time range set by th
 <tbody>
   <tr>
     <th><code>reliability</code></th>
-    <td>The <a href="/docs/pipelines/configure/tests/test-suites#tracking-reliability">reliability</a> of the test, calculated from its passed and failed executions. This is <code>null</code> when the test has no passed or failed executions in the time range.</td>
+    <td>The reliability of the test, calculated from its passed and failed executions and expressed as a decimal fraction. This is <code>null</code> when the test has no passed or failed executions in the time range.</td>
   </tr>
   <tr>
     <th><code>duration_avg</code></th>
