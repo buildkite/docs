@@ -266,7 +266,7 @@ Trace propagation across triggered builds must be enabled for your organization 
 1. **Inherited TRACEPARENT**: If the parent build carries a valid `TRACEPARENT` in its environment—seeded via the [Create Build API](/docs/apis/rest-api/builds#create-a-build) or propagated from a build higher in the trigger chain—the triggered build inherits it and joins that existing trace.
 1. **Derived TRACEPARENT**: If the parent build carries no seeded `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This ensures that purely internal trigger chains appear as a single distributed trace even when no external trace context is provided.
 
-To receive the injected `TRACEPARENT` in the triggered build's agent spans, configure the triggered build's agents with the `--tracing-propagate-traceparent` flag, as described in the [required agent flags](#opentelemetry-tracing-from-buildkite-agent) section below.
+The Buildkite agent automatically receives the injected `TRACEPARENT` and uses it in the triggered build's agent spans. See [OpenTelemetry tracing from Buildkite agent](#opentelemetry-tracing-from-buildkite-agent) for the required tracing configuration.
 
 > 📘
 > Setting `TRACEPARENT` in a triggered pipeline's top-level `env:` block has no effect on propagation. Set it in the trigger step's `env:` block instead.
@@ -294,7 +294,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 If the request body includes a `TRACEPARENT` value in the `env` object, that value takes priority over the HTTP header.
 
-To propagate the trace all the way through to agent-emitted spans, also enable `--tracing-propagate-traceparent` on your Buildkite agents. See [Propagating traces to Buildkite agents](#open-telemetry-tracing-from-buildkite-agent-propagating-traces-to-buildkite-agents).
+The Buildkite agent automatically propagates the trace through to agent-emitted spans when OpenTelemetry tracing is enabled. See [OpenTelemetry tracing from Buildkite agent](#opentelemetry-tracing-from-buildkite-agent).
 
 ## OpenTelemetry tracing from Buildkite agent
 
@@ -302,19 +302,16 @@ See [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-obse
 
 ### Required agent flags / environment variables
 
-To propagate traces from the Buildkite control plane through to the agent running the job, include the following CLI flags to `buildkite-agent start` and include the appropriate environment variables to specify OpenTelemetry collector details.
+To propagate traces from the Buildkite control plane through to the agent running the job, enable OpenTelemetry tracing and set the appropriate environment variables for your OpenTelemetry Collector.
 
-| Flag                              | Environment Variable                      | Value                                   |
-| --------------------------------- | ----------------------------------------- | --------------------------------------- |
-| `--tracing-backend`               | `BUILDKITE_TRACING_BACKEND`               | `opentelemetry`                         |
-| `--tracing-propagate-traceparent` | `BUILDKITE_TRACING_PROPAGATE_TRACEPARENT` | `true` (default: `false`)               |
-| `--tracing-service-name`          | `BUILDKITE_TRACING_SERVICE_NAME`          | `buildkite-agent` (default)             |
-|                                   | `OTEL_EXPORTER_OTLP_ENDPOINT`             | `http://otel-collector:4317`            |
-|                                   | `OTEL_EXPORTER_OTLP_HEADERS`              | see the _Authentication_  section below |
-|                                   | `OTEL_EXPORTER_OTLP_PROTOCOL`             | `grpc` (default) or `http/protobuf`     |
-|                                   | `OTEL_RESOURCE_ATTRIBUTES`                | `key1=value1,key2=value2`               |
-
-Note: `http/protobuf` protocol is only supported on Buildkite agent [v3.101.0](https://github.com/buildkite/agent/releases/tag/v3.101.0) or newer.
+| Flag                       | Environment variable               | Value                                  |
+| -------------------------- | ---------------------------------- | -------------------------------------- |
+| `--opentelemetry-tracing`  | `BUILDKITE_OPENTELEMETRY_TRACING`  | `true`                                 |
+| `--telemetry-service-name` | `BUILDKITE_TELEMETRY_SERVICE_NAME` | `buildkite-agent` (default)            |
+|                            | `OTEL_EXPORTER_OTLP_ENDPOINT`      | `http://otel-collector:4317`           |
+|                            | `OTEL_EXPORTER_OTLP_HEADERS`       | see the _Authentication_ section below |
+|                            | `OTEL_EXPORTER_OTLP_PROTOCOL`      | `grpc` (default) or `http/protobuf`    |
+|                            | `OTEL_RESOURCE_ATTRIBUTES`         | `key1=value1,key2=value2`              |
 
 See [OpenTelemetry SDK documentation](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for more information on available environment variables.
 
@@ -362,7 +359,7 @@ OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer <token>,x-custom-header=value"
 
 ### Propagating traces to Buildkite agents
 
-Propagating trace spans from the OpenTelemetry Notification service requires Buildkite agent [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0) or newer, and the `--tracing-propagate-traceparent` flag or equivalent environment variable.
+The Buildkite agent automatically accepts trace context from the OpenTelemetry Notification service when OpenTelemetry tracing is enabled.
 
 ### Propagating traces from Buildkite agents to commands
 
@@ -370,19 +367,16 @@ Trace contexts are propagated automatically from a Buildkite agent to all its ch
 
 ### Buildkite hosted agents
 
-To export OpenTelemetry traces from hosted agents, this currently requires using a custom Agent Image with the following Environment variables set. Custom images can be created in Cluster settings, and is currently supported for Linux only.
+To export OpenTelemetry traces from hosted agents, use a custom agent image with the following environment variables set. You can create custom images in Cluster settings. Custom images are currently supported for Linux only.
 
 ```dockerfile
-# this is the same as --tracing-backend opentelemetry
-ENV BUILDKITE_TRACING_BACKEND="opentelemetry"
-
-# this is the same as --tracing-propagate-traceparent
-ENV BUILDKITE_TRACING_PROPAGATE_TRACEPARENT="true"
+# this is the same as --opentelemetry-tracing
+ENV BUILDKITE_OPENTELEMETRY_TRACING="true"
 
 # service name is configurable
-ENV OTEL_SERVICE_NAME="buildkite-agent"
+ENV BUILDKITE_TELEMETRY_SERVICE_NAME="buildkite-agent"
 
-# http/protobuf available on Buildkite agent v3.101.0 or newer
+# http/protobuf is also supported
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 
 # the gRPC transport requires a port to be specified in the URL

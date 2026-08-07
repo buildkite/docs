@@ -6,19 +6,18 @@ Datadog users can send the information about their Buildkite pipelines to Datado
 
 ## Using Datadog APM
 
-To use Datadog's Application Performance Monitoring (APM) integration, launch the Buildkite agent with the `--tracing-backend datadog` flag.
+The Buildkite agent exports traces using OpenTelemetry. To send agent traces to Datadog APM, configure an OpenTelemetry Collector to forward traces to Datadog, then launch the Buildkite agent with OpenTelemetry tracing enabled:
 
 ```bash
-buildkite-agent start --tracing-backend datadog
+buildkite-agent start --opentelemetry-tracing
 ```
 
-This will enable Datadog APM tracing, and send the traces to a Datadog Agent at `localhost:8126` by default.
+Set the standard `OTEL_EXPORTER_OTLP_*` environment variables to the endpoint, protocol, and authentication details of your Collector. See [OpenTelemetry tracing from the Buildkite agent](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-from-buildkite-agent) for the available configuration, and [Datadog APM using OpenTelemetry Collector](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-datadog-apm-using-opentelemetry-collector) for an example Collector configuration.
 
 > 📘
 > Learn more about the Datadog Agent and how to install it from Datadog's [Agent](https://docs.datadoghq.com/agent/) documentation.
 
-If your Datadog Agent is located at another host, the Buildkite agent will respect the [`DD_AGENT_HOST`](https://docs.datadoghq.com/tracing/trace_collection/library_config/go/#agent) and [`DD_TRACE_AGENT_PORT`](https://docs.datadoghq.com/tracing/trace_collection/library_config/go/#traces) environment variables defined by [`dd-trace-go`](https://github.com/DataDog/dd-trace-go). Note that there will need to be a Datadog Agent present at the above address to ingest these traces.
-Once the Buildkite agent is running with `--tracing-backend datadog`, you must run at least one job on that agent to generate trace data. After the job runs, go to Datadog > APM > Traces to view the traces.
+Once the Buildkite agent is running with `--opentelemetry-tracing`, run at least one job on that agent to generate trace data. After the job runs, go to Datadog > APM > Traces to view the traces.
 
 Once Datadog APM is integrated with Buildkite Pipelines, you gain full visibility into your CI pipeline through detailed tracing of Buildkite agent activity. Each job execution is captured as a trace with individual spans representing key phases such as hook execution, command runtime, and lifecycle events like pre-exit or post-command. These spans provide real-time insights into duration, performance bottlenecks, and potential failures across your builds. With built-in filtering, service tagging, Datadog enables deep observability into your CI workflows, making it easier to troubleshoot, optimize, and maintain high pipeline reliability.
 
