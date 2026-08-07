@@ -113,7 +113,7 @@ The compatibility runtime supports a defined subset of GitHub Actions. The suppo
 - Linux x86-64 jobs using `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04`.
 - Bash and `sh` run steps.
 - Static job dependencies and matrices, including `include` and `exclude`.
-- Supported job and step conditions, outputs, timeouts, and `continue-on-error` behavior.
+- Supported job and step conditions, outputs, and timeouts, plus step-level `continue-on-error` behavior.
 - Public JavaScript, composite, local, and supported Dockerfile actions.
 - Local reusable workflows with statically resolvable inputs.
 - Credential-free `actions/checkout` for the public event repository.
