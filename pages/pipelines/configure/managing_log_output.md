@@ -117,11 +117,9 @@ On the Buildkite Pipelines build page, select **Search logs** above the build lo
 
 Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
 
-## ANSI timestamps and disabling them
+## ANSI timestamps
 
-By default, each line of log output begins with an ANSI timestamp.
-
-If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), you can prevent them for generating ANSI timestamps at the start of each line of log output, by starting these agents with the [`--no-ansi-timestamps` option](/docs/agent/cli/reference/start#no-ansi-timestamps).
+Each line of log output begins with an ANSI timestamp. Agent v3 provided options to disable ANSI timestamps or replace them with plain-text timestamps.
 
 ## Log output limits
 

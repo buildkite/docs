@@ -152,16 +152,21 @@ variables:
       The url for this build on Buildkite.
     modifiable: false
     example: "https://buildkite.com/acme-inc/my-project/builds/1514"
-  - name: BUILDKITE_CANCEL_GRACE_PERIOD
+  - name: BUILDKITE_CANCEL_CLEANUP_TIMEOUT
     desc: |
-      The value of the `cancel-grace-period` [agent configuration option](/docs/agent/self-hosted/configure) in seconds.
+      The value of the `cancel-cleanup-timeout` [agent configuration option](/docs/agent/self-hosted/configure). This is the amount of time the agent has to upload logs and artifacts after a canceled process exits or is killed.
     modifiable: false
-    default_value: "10"
+    default_value: "5s"
   - name: BUILDKITE_CANCEL_SIGNAL
     desc: |
       The value of the `cancel-signal` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: true
     default_value: "SIGTERM"
+  - name: BUILDKITE_CANCEL_SIGNAL_TIMEOUT
+    desc: |
+      The value of the `cancel-signal-timeout` [agent configuration option](/docs/agent/self-hosted/configure). This is the amount of time a subprocess has to handle the cancel signal before the agent sends `SIGKILL`.
+    modifiable: false
+    default_value: "10s"
   - name: BUILDKITE_CLEAN_CHECKOUT
     desc: |
       Whether the build should perform a clean checkout. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks.
@@ -202,7 +207,7 @@ variables:
     example: "hosted"
   - name: BUILDKITE_COMMIT
     desc: |
-      The git commit object of the build. This is usually a 40-byte hexadecimal SHA-1 hash, but can also be a symbolic name like `HEAD`.
+      The Git commit object of the build. Before checkout, this can be a symbolic name such as `HEAD`. After checkout, the agent resolves it to the full commit hash.
     modifiable: false
     example: "83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d"
   - name: BUILDKITE_COMMIT_RESOLVED
@@ -220,7 +225,7 @@ variables:
     default_value: "/buildkite/buildkite-agent.cfg"
   - name: BUILDKITE_ENV_FILE
     desc: |
-      The path to the file containing the job's environment variables.
+      The path to the file containing the job's environment variables. Most lines contain a `NAME=value` assignment. Agent configuration variables can also be represented by a bare variable name without an equals sign or value, so consumers must not assume every line contains `=`.
     modifiable: false
     example: "/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"
   - name: BUILDKITE_GIT_CHECKOUT_FLAGS
@@ -599,7 +604,7 @@ variables:
       - schedule
   - name: BUILDKITE_SSH_KEYSCAN
     desc: |
-      The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/self-hosted/configure).
+      The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/self-hosted/configure). In agent v4, this controls whether the default checkout uses OpenSSH's `StrictHostKeyChecking=accept-new` option. The environment variable name is retained for compatibility.
     modifiable: false
     values:
       - true
@@ -623,17 +628,9 @@ variables:
     example: "v1.2.3"
   - name: BUILDKITE_TIMEOUT
     desc: |
-      The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified, otherwise it `false` if no timeout is set. Jobs that time out with an exit status of 0 are marked as "passed".
+      The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified, otherwise it is `false` if no timeout is set.
     modifiable: false
     example: "15"
-  - name: BUILDKITE_TRACING_BACKEND
-    default_value: ""
-    desc: |
-      Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
-
-      Also available as a [buildkite agent configuration option.](/docs/agent/self-hosted/configure#configuration-settings)
-
-    example: "datadog"
   - name: BUILDKITE_TRIGGERED_FROM_BUILD_ID
     desc: |
       The UUID of the build that triggered this build. This will be empty if the build was not triggered from another build.
