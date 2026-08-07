@@ -50,9 +50,9 @@ If you customized your `bootstrap.sh` file, you will need to move the changes to
 
 ### Docker and Docker Compose support
 
-In v2 we supported a variety of environment variables like `BUILDKITE_DOCKER_COMPOSE_CONTAINER` and `BUILDKITE_DOCKER`. These are deprecated in favour of the [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) pipeline plugin.
+In v2 we supported a variety of environment variables like `BUILDKITE_DOCKER_COMPOSE_CONTAINER` and `BUILDKITE_DOCKER`. These were deprecated in favor of the [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) pipeline plugins, and have been removed in v4.
 
-You can keep using the old environment variables in v3, but they will be removed in v4.
+You can keep using the old environment variables in v3, but they aren't supported in v4.
 
 #### Steps using `BUILDKITE_DOCKER_COMPOSE_CONTAINER`
 
