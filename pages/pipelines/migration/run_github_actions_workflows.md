@@ -128,6 +128,7 @@ The compatibility profile rejects many unsupported or privileged features before
 - Job containers, service containers, and `docker://` actions.
 - Dynamic matrices and remote reusable workflows.
 - Workflow- and job-level `concurrency` settings. v0.2.0 ignores these settings and does not apply corresponding Buildkite Pipelines concurrency controls, so builds and generated jobs that rely on concurrency groups can overlap.
+- The matrix `strategy.fail-fast` setting. v0.2.0 ignores this setting. Unlike the GitHub Actions default of `true`, remaining matrix jobs can continue after a sibling fails when the setting is omitted or explicitly set to `true`.
 - Arbitrary action revisions for actions that receive special native support, including checkout, artifacts, and cache.
 - The complete `github.event` payload and GitHub-specific event behavior.
 
