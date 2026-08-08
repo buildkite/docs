@@ -104,7 +104,7 @@ A pool moves through three states:
 
 - `populating`: Entries can be added to the pool, and jobs can lease attempts. The pool remains in this state until the initial set of entries is marked as complete, even when no attempts are waiting or leased.
 - `consuming`: All initial entries have been added. Jobs can continue to lease, complete, and release attempts.
-- `consumed`: No attempts are waiting or leased. Jobs cannot create leases.
+- `consumed`: No attempts are waiting or leased. Lease requests return no work and identify the pool as consumed.
 
 New pools start in the `populating` state. After adding the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` if unfinished attempts remain or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` after its final attempts are completed and attempt-policy evaluation determines that no more attempts are needed.
 
@@ -603,7 +603,7 @@ Success response: `201 Created`
 
 ## Create a lease
 
-Claims a time-bounded batch of waiting attempts for the requesting job. Multiple jobs can lease from the same pool. Both `populating` and `consuming` pools can lease attempts. The API rejects lease requests for `consumed`, expired, or destroyed pools.
+Claims a time-bounded batch of waiting attempts for the requesting job. Multiple jobs can lease from the same pool. Both `populating` and `consuming` pools can lease attempts. A consumed pool returns a successful response with no lease. The API rejects lease requests for expired or destroyed pools.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases" \
@@ -683,17 +683,27 @@ The API applies cost and attempt limits to each lease:
         "created_at": "2026-07-20T08:01:00.000Z"
       }
     ]
+  },
+  "pool": {
+    "id": "0192f2fb-****-****-****-4a0d6a7c1000",
+    "state": "populating"
   }
 }
 ```
 
-When no attempts are waiting, the endpoint still returns `200 OK`:
+Every successful response includes the pool ID and state. When no attempts are waiting, the endpoint still returns `200 OK`:
 
 ```json
 {
-  "lease": null
+  "lease": null,
+  "pool": {
+    "id": "0192f2fb-****-****-****-4a0d6a7c1000",
+    "state": "populating"
+  }
 }
 ```
+
+A consumed pool also returns `200 OK` with `"lease": null` and `"pool.state": "consumed"`. Clients can use this state to stop polling. Expired and destroyed pools return `409 Conflict`.
 
 Required scope: `write_test_pool`
 
@@ -1065,10 +1075,12 @@ Status | Description
 `401 Unauthorized` | Authentication is missing, invalid, or is not a Buildkite job OIDC token with a test suite audience.
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
 `404 Not Found` | The pool or lease does not exist or is not accessible to the token.
-`409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired or consumed, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
+`409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
 {: class="responsive-table"}
 
 ## Breaking changes
+
+Create-lease responses now include a `pool` object containing `id` and `state`. A consumed pool now returns `200 OK` with a null lease instead of `409 Conflict`. Clients that treated 409 as the consumed signal must migrate to checking `pool.state == "consumed"` in successful responses.
 
 The attempt policy validation change described above has not landed in Buildkite yet. When it lands, `min_passed` and `min_failed` will use `null` instead of `0` to disable a threshold. Configured values will need to be integers of at least `1`, and when both thresholds are configured, their sum must be less than `max_attempts`. Until then, use `0` to disable either threshold; the API does not yet accept `null` for these properties.
