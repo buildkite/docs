@@ -264,7 +264,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
       "max_passed": 1,
       "min_failed": null,
       "max_failed": 1,
-      "parallel_attempts": 1
+      "parallel_attempts": 1,
+      "initial_attempts": null
     },
     "lease": {
       "costs": {
@@ -465,7 +466,7 @@ Property | Type | Description | Validation
 `attempt_policy.min_passed` | Integer or null | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_passed`. When both result minimums are set, their sum must be less than `max_attempts`.
 `attempt_policy.min_failed` | Integer or null | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_failed`. When both result minimums are set, their sum must be less than `max_attempts`.
 `attempt_policy.parallel_attempts` | Integer | Maximum number of waiting and leased attempts for the entry at one time. | At least `1` and no greater than `max_attempts`.
-`attempt_policy.initial_attempts` | Integer or null | Number of attempts created when the entry is uploaded. `null` uses the lower of `min_attempts` and `parallel_attempts`. | When set, at least `1` and no greater than `parallel_attempts`.
+`attempt_policy.initial_attempts` | Integer or null | Number of attempts created for each entry during upload. `null` uses the lesser of `parallel_attempts` and `min_attempts`. Later allocations still use `parallel_attempts`. | When set, at least `1` and no greater than `parallel_attempts`.
 {: class="responsive-table"}
 
 Each policy definition may contain only the properties listed in this table. For a pool with one policy, `attempt_policy` contains the policy definition directly. For a pool with multiple policies, `attempt_policy` contains policy definitions keyed by name. Policy properties and policy keys cannot be mixed in the same object.
@@ -476,6 +477,7 @@ Each policy definition may contain only the properties listed in this table. For
 - A value of `null` disables `min_passed` or `min_failed`; `0` is invalid. All configured `min_` thresholds must be met before their minimum condition is terminal. If both result minimums are `null`, satisfying `min_attempts` alone does not make the entry terminal.
 - Reaching any configured `max_` threshold makes the entry terminal.
 - Once an entry is terminal, any remaining waiting attempts will be canceled.
+- An explicit `initial_attempts` value controls only the initial upload allocation. When it is `null`, the initial allocation is the lesser of `parallel_attempts` and `min_attempts`.
 - Omit `attempt_policy` for a pool with one policy, or omit properties from an individual policy definition, to use the corresponding defaults below.
 
 ### Evaluation order
@@ -1335,5 +1337,7 @@ The `target_cost_limit` property is no longer accepted when creating a lease. Re
 Since August 10, 2026, all entries that use the same non-empty `affinity_group` must be included in one upload request. After the request succeeds, later entry uploads to the same pool that reuse the affinity group return `409 Conflict`.
 
 Create-lease responses now include a `pool` object containing `id` and `state`. A consumed pool now returns `200 OK` with a null lease instead of `409 Conflict`. Clients that treated 409 as the consumed signal must migrate to checking `pool.state == "consumed"` in successful responses.
+
+The default initial attempt allocation changed for custom attempt policies. When `initial_attempts` is omitted or `null`, entry upload now creates the lesser of `parallel_attempts` and `min_attempts`, rather than allocating up to `parallel_attempts`. Clients that require immediate full parallelism must migrate by setting `initial_attempts` equal to `parallel_attempts`.
 
 Since August 19, 2026, use `null` instead of `0` to disable the `min_passed` or `min_failed` threshold. Configured values must be integers of at least `1`. When both thresholds are configured, their sum must be less than `max_attempts`.
