@@ -27,7 +27,7 @@ gem "redcarpet"
 gem "commonmarker"
 
 # Syntax highlighting code
-gem "rouge", "5.0.0"
+gem "rouge", "5.1.0"
 
 # One rails log line per request, instead of enraging quantity
 gem "lograge"
