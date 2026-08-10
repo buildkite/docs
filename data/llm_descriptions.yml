@@ -440,6 +440,7 @@
   apis/rest-api/builds: "Full Builds REST API reference: use exclude_jobs=true when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps; use exclude_pipeline=true when expanded pipeline information is unnecessary; fetch embedded jobs only when job information is needed. Covers build and job data models, timestamps, list and get endpoints, build creation and cancellation, rebuilds, and retries."
   apis/rest-api/clusters: "REST endpoints to create, list, get, update, and delete clusters."
   apis/rest-api/clusters/queues: "REST endpoints to create, list, get, update, pause, resume, and delete cluster queues."
+  apis/rest-api/clusters/queue-migrations: "Preview REST endpoints to create and update a queue migration, routing and adjusting a queue key's jobs toward a destination cluster queue."
   apis/rest-api/clusters/agent-tokens: "REST endpoints to create, list, get, update, and revoke cluster agent tokens."
   apis/rest-api/clusters/maintainers: "REST endpoints to list, create, get, and delete cluster maintainer assignments."
   apis/rest-api/clusters/secrets: "REST endpoints to create, list, get, update, and delete secrets in a cluster."
