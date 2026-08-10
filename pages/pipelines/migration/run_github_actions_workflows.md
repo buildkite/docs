@@ -6,6 +6,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 > 📘 Research preview
 > Running GitHub Actions workflows in Buildkite is currently in research preview. To provide feedback or report issues, contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> The plugin and runtime are under active development. Review the [current compatibility details](https://github.com/buildkite-plugins/github-actions-buildkite-plugin#compatibility) before adding a workflow.
 
 The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) gives you a quick way to get a supported GitHub Actions workflow running in Buildkite with minimal changes, without first rewriting it as a native Buildkite pipeline. Once the workflow is up and running, you can [convert it into native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) to take full advantage of Buildkite Pipelines features.
 
@@ -49,7 +50,7 @@ For a released runtime, use the following configuration:
 {: class="responsive-table"}
 
 > 📘 Runtime versions
-> The `v0.7.1` plugin uses runtime `0.7.1` by default. The examples on this page set `version` to `0.7.2` to use the newer runtime release.
+> The `v0.7.1` plugin uses runtime `0.7.1` by default. The examples on this page set `version` to `0.7.2` to use the newer runtime release. Check the current compatibility details before updating either version.
 
 Buildkite decides when the pipeline runs, so the workflow's `on` key doesn't create build triggers. Set up GitHub triggers and schedules in Buildkite, or start a build yourself by selecting **New Build** or using the REST API.
 
@@ -164,7 +165,7 @@ Without this volume, the plugin uses an agent or user cache when one is availabl
 
 ## Supported functionality and limitations
 
-The preview supports a defined subset of GitHub Actions. Common supported features include:
+The preview supports an evolving subset of GitHub Actions. The following lists summarize common supported features and limitations:
 
 - Linux x86-64 jobs using `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04`. These labels identify a compatible runner, but don't give the agent the same tools or image layout as a GitHub-hosted runner.
 - Bash and `sh` run steps.
@@ -197,7 +198,7 @@ You may need to update a workflow before you can run it during the preview:
 - **Update actions that use Node 16.** The runtime supports actions that declare `node20` or `node24`, but rejects `node16`. Choose a newer action release that uses a supported runtime. For example, update `actions/checkout@v3` to `actions/checkout@v4`.
 - **Check `actions/upload-artifact@v4` inputs.** The `retention-days` input isn't supported. The `path` input accepts up to 32 literal files or directories, and each path must be clean and relative to the workspace. It doesn't accept globs, exclusions, expressions, `./` prefixes, trailing slashes, symlinks, or non-regular files. For example, use `path: playwright-report`, not `path: playwright-report/` or `path: ./playwright-report/`. Each upload can contain up to 10,000 files and 1 GiB of source or archive data.
 
-See the [`buildkite-gha` v0.7.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.7.2/docs/compatibility.md) for the full compatibility matrix, audited action revisions, event behavior, and detailed limits.
+See the [GitHub Actions Buildkite plugin compatibility section](https://github.com/buildkite-plugins/github-actions-buildkite-plugin#compatibility) for the current supported functionality and limitations.
 
 > 🚧 Treat workflow code as build code
 > All steps in an imported job share a workspace and process lifecycle. Docker actions don't provide a security boundary between steps. If the workflow code must be isolated from other jobs or the agent host, run each job on a disposable machine.

@@ -4,6 +4,8 @@
 
 Buildkite Pipelines now supports many of the same GitHub webhook events that GitHub Actions uses as workflow triggers, making incremental migration easier.
 
+To run supported GitHub Actions workflows as jobs in Buildkite during an incremental migration, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows).
+
 ### Webhook event triggers
 
 The following GitHub webhook events can trigger Buildkite Pipelines builds:
