@@ -179,7 +179,7 @@ After downloading the release archive and verifying it against the published che
 buildkite-gha validate .github/workflows/ci.yml
 ```
 
-The CLI also provides `compile` and `upload` commands. The `validate` and `compile` commands do not require `mise` and do not execute workflow code. Run `upload` from a keyed Buildkite Pipelines command step: it requires the `BUILDKITE` and `BUILDKITE_STEP_KEY` environment variables. Generated jobs manage their own `mise` installation when a workflow uses actions that need it. Direct `upload` does not set an agent queue by default, so generated jobs run on the pipeline or organization default agents. To select one queue, set `BUILDKITE_GHA_TARGET_QUEUE`. The plugin automates these steps, so use the CLI directly only when you need more control or diagnostics.
+The CLI also provides `compile` and `upload` commands. The `validate` and `compile` commands do not require `mise` and do not execute workflow code. Run `upload` from a keyed Buildkite Pipelines command step: it requires the `BUILDKITE` and `BUILDKITE_STEP_KEY` environment variables. Direct `upload` requires Buildkite agent v3.34.1 or later in the v3 release series. Agent v4 is not supported. Generated jobs manage their own `mise` installation when a workflow uses actions that need it. Direct `upload` does not set an agent queue by default, so generated jobs run on the pipeline or organization default agents. To select one queue, set `BUILDKITE_GHA_TARGET_QUEUE`. The plugin automates these steps, so use the CLI directly only when you need more control or diagnostics.
 
 ## Next steps
 
