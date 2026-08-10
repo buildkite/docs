@@ -1,12 +1,15 @@
 ---
-description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs with the GitHub Actions Buildkite plugin and buildkite-gha compatibility runtime, including setup, requirements, compatibility limits, and the credential boundary."
+description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs in this research preview of the GitHub Actions Buildkite plugin and buildkite-gha compatibility runtime."
 ---
 
 # Run GitHub Actions workflows in Buildkite
 
+> 📘 Research preview
+> Running GitHub Actions workflows in Buildkite is currently in research preview. To provide feedback or report issues, contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+
 The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) lets you run supported GitHub Actions workflows as jobs in a Buildkite Pipelines build. Use the plugin to move workflows to Buildkite Pipelines incrementally, before [translating them to native pipeline steps](/docs/pipelines/migration/from-githubactions).
 
-This functionality is an experimental preview. It runs supported Linux x86-64 workflows hosted on `github.com`. The current profile is built for public code that runs without general credentials. It also supports a private event-repository checkout and short-lived job tokens in limited cases, when Buildkite supplies and authorizes the credentials. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before adding a workflow.
+The compatibility runtime runs supported Linux x86-64 workflows hosted on `github.com`. The current profile is built for public code that runs without general credentials. It also supports a private event-repository checkout and short-lived job tokens in limited cases, when Buildkite supplies and authorizes the credentials. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before adding a workflow.
 
 ## Add a GitHub Actions workflow to a pipeline
 
