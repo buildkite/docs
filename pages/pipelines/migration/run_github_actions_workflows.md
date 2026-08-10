@@ -13,20 +13,20 @@ At present, this feature supports only repositories on `github.com` and Linux x8
 
 ## Add a GitHub Actions workflow to a pipeline
 
-Add a keyed command step to your [pipeline configuration](/docs/pipelines/configure/defining-steps). Configure the plugin with the path to the workflow:
+Add the following step to your [pipeline configuration](/docs/pipelines/configure/defining-steps). Set `workflow` to the location of the GitHub Actions workflow file in your repository. Give the step a unique `key` so Buildkite can connect it to the jobs created by the plugin:
 
 ```yaml
 steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
     plugins:
-      - github-actions#v0.6.1:
+      - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.6.1"
+          version: "0.7.2"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-The `key` attribute is required. The plugin uploads the workflow jobs as a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines), and each generated job depends on the plugin step.
+The plugin uploads the workflow jobs as a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines), and each generated job depends on the plugin step.
 
 The plugin accepts the following configuration:
 
@@ -36,16 +36,16 @@ The plugin accepts the following configuration:
 | `version` | No | Exact `buildkite-gha` runtime version to run. When omitted, the plugin uses its default runtime version. |
 {: class="responsive-table"}
 
-The plugin release and the `buildkite-gha` runtime version are independent. The `v0.6.1` plugin runs `buildkite-gha` `0.6.0` by default. To run a specific runtime release, set `version`:
+The plugin and runtime have separate version numbers. Plugin `v0.7.1` installs runtime `0.7.1` by default. This page describes runtime `0.7.2`, so each example sets `version: "0.7.2"`:
 
 ```yaml
 steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
     plugins:
-      - github-actions#v0.6.1:
+      - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.6.1"
+          version: "0.7.2"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
@@ -64,9 +64,9 @@ steps:
   - label: "\:github\: Tests"
     key: "github-actions-tests"
     plugins:
-      - github-actions#v0.6.1:
+      - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.6.1"
+          version: "0.7.2"
 
   - label: "Deploy"
     key: "deploy"
@@ -112,7 +112,7 @@ The plugin importer step requires:
 
 Generated jobs do not set an agent queue by default, so they run on the pipeline or organization default agents. To send generated jobs to a specific queue, set the `BUILDKITE_GHA_TARGET_QUEUE` environment variable on the importer step. The runtime maps every accepted Ubuntu runner label to that queue. The named queue admits untrusted workflow code, so it must provide suitable per-job isolation and no ambient credentials.
 
-JavaScript actions run on managed Node 20 or Node 24 runtimes, according to the action's runtime declaration, and require glibc 2.28 or newer. These jobs need outbound HTTPS access to the managed Node.js and `mise` downloads. Shell-only workflows do not have the glibc requirement. Step summaries and warning or error annotations require Buildkite Agent v3.112.0 or later.
+JavaScript actions that declare `node20` or `node24` run on a managed Node 24 runtime and require glibc 2.28 or newer. These jobs need outbound HTTPS access to the managed Node.js and `mise` downloads. Shell-only workflows do not have the glibc requirement. Step summaries and warning or error annotations require Buildkite agent v3.112.0 or later.
 
 ## Supported functionality and limitations
 
@@ -146,10 +146,9 @@ The compatibility profile rejects many unsupported or privileged features before
 The research preview has the following gaps that may require workflow changes:
 
 - **Actions that use Node 16:** The runtime supports action metadata that declares `node20` or `node24`, but rejects `node16`. Update older action revisions to a release that uses a supported runtime. For example, update `actions/checkout@v3` to `actions/checkout@v4`.
-- `actions/setup-node@v7`: The default `token` expression uses operators that the runtime expression subset does not support. Set `token: ""` explicitly when authenticated Node.js distribution downloads are not required.
 - `actions/upload-artifact@v4`: The `retention-days` input is not supported. The `path` input accepts at most 32 clean, workspace-relative literal files or directories. The input does not accept globs, exclusions, expressions, `./` prefixes, trailing slashes, symlinks, or non-regular files. An upload can contain at most 10,000 files and 1 GiB of source or archive data. For example, use `path: playwright-report`, not `path: playwright-report/` or `path: ./playwright-report/`.
 
-See the [`buildkite-gha` v0.6.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.6.1/docs/compatibility.md) for the full compatibility matrix, audited action revisions, event behavior, and detailed limits.
+See the [`buildkite-gha` v0.7.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.7.2/docs/compatibility.md) for the full compatibility matrix, audited action revisions, event behavior, and detailed limits.
 
 > 🚧 Treat workflow code as build code
 > Steps in an imported GitHub Actions job share a workspace and process lifecycle. Docker actions are an execution backend, not a security boundary between steps. Use disposable per-job machines when workflow code must be isolated from other jobs or from the agent host.
@@ -164,7 +163,7 @@ This is queue compatibility, not cancellation parity. Buildkite Pipelines keeps 
 
 A private event repository can be checked out when the job has Buildkite repository-provider Git credentials enabled and the Buildkite backend authorizes the repository URL. The checkout is anonymous otherwise. This path does not populate `GITHUB_TOKEN` or `github.token`, and does not enable private actions or alternate repositories.
 
-A job that statically references `secrets.GITHUB_TOKEN`, or uses an action whose effective metadata input default references `github.token`, receives one short-lived token for the exact event repository. This requires a non-empty, explicit `permissions` map on the job or workflow, and the organization must enable the job-bound token service. The runtime does not add the token to the initial job environment. An action can export it to later steps through `GITHUB_ENV`, as on the GitHub runner. General workflow secrets and ambient `GITHUB_TOKEN` are not provided.
+A job that statically references `secrets.GITHUB_TOKEN`, or uses an action whose effective metadata input default references `github.token`, receives one short-lived token for the exact event repository. When `permissions` is omitted, the job receives the narrow `contents: read` default. An explicit permissions map replaces that default. The organization must enable the job-bound token service. The runtime does not add the token to the initial job environment. An action can export it to later steps through `GITHUB_ENV`, as on the GitHub runner. General workflow secrets and ambient `GITHUB_TOKEN` are not provided.
 
 > 🚧 Protect tokens from untrusted workflow changes
 > The job-bound token service does not establish fork or actor trust. If a pull request can change imported workflow files, that code can request any repository permission enabled by the service and use the resulting token. Prevent untrusted workflow changes from receiving write permissions.
