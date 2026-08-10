@@ -155,7 +155,7 @@ The runtime rejects many unsupported or privileged features before it uploads an
 - `docker://` actions, which the runtime rejects during validation.
 - Dynamic matrices and remote reusable workflows.
 - The matrix `strategy.fail-fast` setting. The runtime accepts this setting but doesn't enforce it, so a failed matrix job won't cancel the others. This differs from the GitHub Actions default. If `fail-fast` contains an expression, the workflow doesn't compile.
-- `cancel-in-progress`. Setting this to a literal `true` at the workflow level produces a warning but doesn't cancel an older build. Job-level settings and expressions don't compile. See [Concurrency](#concurrency) for more detail.
+- `cancel-in-progress`. Setting this to a literal `true` at the workflow level produces a warning but doesn't cancel an older build. Job-level settings and expressions don't compile. See [Concurrency](#supported-functionality-and-limitations-concurrency) for more detail.
 - Unaudited revisions of actions with native support, including checkout, artifacts, and cache.
 - The complete `github.event` payload and GitHub-specific event behavior.
 
