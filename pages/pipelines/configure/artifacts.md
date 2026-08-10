@@ -143,7 +143,7 @@ Buildkite agents upload artifacts directly to artifact storage, where they're en
 
 If you're using Buildkite-managed artifact storage, then your artifacts are stored in Amazon S3.
 At rest, artifacts are AES-256 encrypted with keys managed by AWS Key Management Service.
-Buildkite retains artifacts for 90 days before deletion.
+Buildkite retains artifacts for a limited period that depends on your plan. See [Limits](/docs/platform/limits) for the default retention period for each plan.
 Usage in Buildkite-managed artifact storage is billed by storage and transfer. For how this is calculated, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
 Alternatively, you can use a self-managed storage provider. Read these guides for details:
