@@ -346,7 +346,7 @@ In addition to having a shorter lifetime than session tokens, job tokens have fe
 Large organizations often use complex pipelines where a parent build triggers child builds in related pipelines. These builds might need to coordinate and exchange data. To support these use cases, job tokens can:
 
 - Create and read metadata for jobs in other pipelines
-- Create and read annotations for jobs in other pipelines
+- Create and remove annotations for jobs in other pipelines
 - Upload and download artifacts for jobs in other pipelines
 
 At present, job tokens can create (push) metadata, annotations, and artifacts to other jobs. However, where possible pulling data is recommended instead of pushing it. Buildkite may further restrict job token permissions in the future by allowing only read access to other jobs' data.
