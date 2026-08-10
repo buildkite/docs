@@ -124,12 +124,43 @@ Generated jobs need Buildkite agent v3.130.0 or later. The runtime tells the age
 
 Generated jobs use the pipeline or organization's default agents unless you choose a queue. To send every generated job to a specific queue, set `BUILDKITE_GHA_TARGET_QUEUE` on the importer step. The runtime sends all accepted Ubuntu runner labels to that queue.
 
+```yaml
+steps:
+  - label: "\:github\: GitHub Actions"
+    key: "github-actions"
+    env:
+      BUILDKITE_GHA_TARGET_QUEUE: "gha-preview"
+    plugins:
+      - github-actions#v0.7.1:
+          workflow: ".github/workflows/ci.yml"
+          version: "0.7.2"
+```
+{: codeblock-file=".buildkite/pipeline.yml"}
+
 Because the queue can run untrusted workflow code, use agents that isolate each job and don't provide ambient credentials.
 
 The generated jobs also need network access for anything they download at runtime:
 
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
 - Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads. Actions that declare `node20` or `node24` run on managed Node 24 and require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
+
+### Cache the runtime download
+
+On Buildkite hosted agents, attach the plugin cache volume to speed up the importer:
+
+```yaml
+steps:
+  - label: "\:github\: GitHub Actions"
+    key: "github-actions"
+    cache: "/cache/bkcache/github-actions-buildkite-plugin"
+    plugins:
+      - github-actions#v0.7.1:
+          workflow: ".github/workflows/ci.yml"
+          version: "0.7.2"
+```
+{: codeblock-file=".buildkite/pipeline.yml"}
+
+Without this volume, the plugin uses an agent or user cache when one is available, then falls back to a temporary directory. The plugin verifies cached archives before using them. This importer cache is separate from generated-job runtime caching and the workflow's `actions/cache` behavior.
 
 ## Supported functionality and limitations
 
