@@ -9,7 +9,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) lets you run a supported GitHub Actions workflow as part of a Buildkite Pipelines build. Start with one workflow, then move other workflows into Buildkite Pipelines when you are ready. Later, you can [convert each workflow into Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions).
 
-At present, this feature supports only repositories on `github.com` and Linux x86-64 jobs. It works best for public repositories that do not need secrets. Private repository checkout and temporary GitHub tokens need extra setup and have additional limits. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before adding a workflow.
+This preview runs GitHub Actions workflows from repositories on `github.com`. It supports Linux x86-64 jobs only. Public repositories that do not need secrets are the easiest place to start. Private repository checkout and temporary GitHub tokens need extra setup and have limits. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before adding a workflow.
 
 ## Add a GitHub Actions workflow to a pipeline
 
