@@ -118,6 +118,8 @@ The plugin importer step requires:
 
 Generated jobs do not set an agent queue by default, so they run on the pipeline or organization default agents. To send generated jobs to a specific queue, set the `BUILDKITE_GHA_TARGET_QUEUE` environment variable on the importer step. The runtime maps every accepted Ubuntu runner label to that queue. The named queue admits untrusted workflow code, so it must provide suitable per-job isolation and no ambient credentials.
 
+Generated jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`. The runtime uses this host to download each action's source archive before running it.
+
 JavaScript actions that declare `node20` or `node24` run on a managed Node 24 runtime and require glibc 2.28 or newer. These jobs need outbound HTTPS access to the managed Node.js and `mise` downloads. Shell-only workflows do not have the glibc requirement. Step summaries and warning or error annotations require Buildkite agent v3.112.0 or later.
 
 ## Supported functionality and limitations
