@@ -36,24 +36,18 @@ The plugin accepts the following configuration:
 | `version` | No | Exact `buildkite-gha` runtime version to run. When omitted, the plugin uses its default runtime version. |
 {: class="responsive-table"}
 
-The plugin and runtime have separate version numbers. Plugin `v0.7.1` installs runtime `0.7.1` by default. This page describes runtime `0.7.2`, so each example sets `version: "0.7.2"`:
+The examples pin runtime `0.7.2`. The `v0.7.1` plugin uses runtime `0.7.1` by default.
 
-```yaml
-steps:
-  - label: "\:github\: GitHub Actions"
-    key: "github-actions"
-    plugins:
-      - github-actions#v0.7.1:
-          workflow: ".github/workflows/ci.yml"
-          version: "0.7.2"
-```
-{: codeblock-file=".buildkite/pipeline.yml"}
+Buildkite Pipelines, not the workflow's `on` key, decides when a build starts. Configure GitHub triggers and schedules in Buildkite. To start a build yourself, select **New Build** or use the REST API.
 
-Buildkite Pipelines controls when builds run. Configure source control triggers and schedules in Buildkite, and start manual builds with **New Build** or the REST API. The workflow's `on` key does not configure Buildkite Pipelines build triggers.
+For manual and scheduled builds, the plugin finds the exact commit after checkout. No extra configuration is needed.
 
-The plugin resolves a symbolic Buildkite commit, such as `HEAD` on a manual or scheduled build, to a full commit SHA after checkout. No extra configuration is required.
+The workflow receives a GitHub event type based on how the Buildkite build started:
 
-The plugin provides `pull_request` context for pull request builds. Branch, tag, scheduled, and manual builds receive `push` context. The plugin does not provide `schedule`, `workflow_dispatch`, or dispatch inputs, so a scheduled or manual build is compatible only when the workflow expects push semantics.
+- Pull request builds receive `pull_request`.
+- Branch, tag, scheduled, and manual builds receive `push`.
+
+The plugin does not provide `schedule`, `workflow_dispatch`, or dispatch inputs. Scheduled and manual builds therefore work only with workflows that can run as a `push` event.
 
 ## Migrate incrementally
 
