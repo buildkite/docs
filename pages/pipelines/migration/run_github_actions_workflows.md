@@ -120,6 +120,8 @@ Before it can download the runtime and create the workflow jobs, the importer st
 - Git when `BUILDKITE_COMMIT` isn't already a full commit SHA.
 - Outbound HTTPS access to public GitHub release and action sources.
 
+Generated jobs need Buildkite agent v3.130.0 or later. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
+
 Generated jobs use the pipeline or organization's default agents unless you choose a queue. To send every generated job to a specific queue, set `BUILDKITE_GHA_TARGET_QUEUE` on the importer step. The runtime sends all accepted Ubuntu runner labels to that queue.
 
 Because the queue can run untrusted workflow code, use agents that isolate each job and don't provide ambient credentials.
@@ -128,8 +130,6 @@ The generated jobs also need network access for anything they download at runtim
 
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
 - Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads. Actions that declare `node20` or `node24` run on managed Node 24 and require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
-
-To publish step summaries and warning or error annotations, generated jobs need Buildkite agent v3.112.0 or later.
 
 ## Supported functionality and limitations
 
