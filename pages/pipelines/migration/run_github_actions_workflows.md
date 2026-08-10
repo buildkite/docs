@@ -22,6 +22,7 @@ steps:
     plugins:
       - github-actions#v0.6.1:
           workflow: ".github/workflows/ci.yml"
+          version: "0.6.1"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
@@ -65,6 +66,7 @@ steps:
     plugins:
       - github-actions#v0.6.1:
           workflow: ".github/workflows/ci.yml"
+          version: "0.6.1"
 
   - label: "Deploy"
     key: "deploy"
@@ -104,6 +106,7 @@ GitHub Actions concepts map to Buildkite Pipelines as follows:
 The plugin importer step requires:
 
 - A Linux x86-64 agent.
+- Buildkite agent v3.34.1 or later in the v3 release series. Agent v4 is not supported because the runtime calls `buildkite-agent pipeline upload` with `--reject-secrets`, which Agent v4 does not provide.
 - Bash, `curl`, `tar`, `sha256sum`, `awk`, `grep`, `find`, `sed`, `sort`, `mktemp`, and `cp`.
 - Outbound HTTPS access to public GitHub release and action sources.
 
@@ -124,7 +127,7 @@ The compatibility runtime supports a defined subset of GitHub Actions. The suppo
 - `actions/checkout` for the event repository at the exact event SHA. The checkout runs anonymously for a public repository, and uses Buildkite's repository-provider Git credentials for a private repository when the job has those credentials enabled and the Buildkite backend authorizes the repository URL.
 - Statically resolvable workflow- and job-level `concurrency`, mapped to repository-scoped Buildkite Pipelines concurrency groups.
 - Native-backed `actions/upload-artifact` and `actions/download-artifact`, for the audited action revisions only.
-- `actions/cache` for the audited revision, using the Buildkite Results service by default.
+- `actions/cache` for the audited revision, using the Buildkite Results service by default. The Buildkite organization must have GitHub Actions cache token minting enabled. Jobs must be able to reach the Results service and the Agent API.
 
 The compatibility profile rejects many unsupported or privileged features before uploading generated jobs. Some limitations, including ignored settings, do not fail validation. Current limitations include:
 
@@ -138,6 +141,14 @@ The compatibility profile rejects many unsupported or privileged features before
 - Arbitrary action revisions for actions that receive native support, including checkout, artifacts, and cache.
 - The complete `github.event` payload and GitHub-specific event behavior.
 
+### Known preview gaps
+
+The research preview has the following gaps that may require workflow changes:
+
+- **Actions that use Node 16:** The runtime supports action metadata that declares `node20` or `node24`, but rejects `node16`. Update older action revisions to a release that uses a supported runtime. For example, update `actions/checkout@v3` to `actions/checkout@v4`.
+- `actions/setup-node@v7`: The default `token` expression uses operators that the runtime expression subset does not support. Set `token: ""` explicitly when authenticated Node.js distribution downloads are not required.
+- `actions/upload-artifact@v4`: The `retention-days` input is not supported. The `path` input accepts at most 32 clean, workspace-relative literal files or directories. The input does not accept globs, exclusions, expressions, `./` prefixes, trailing slashes, symlinks, or non-regular files. An upload can contain at most 10,000 files and 1 GiB of source or archive data. For example, use `path: playwright-report`, not `path: playwright-report/` or `path: ./playwright-report/`.
+
 See the [`buildkite-gha` v0.6.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.6.1/docs/compatibility.md) for the full compatibility matrix, audited action revisions, event behavior, and detailed limits.
 
 > 🚧 Treat workflow code as build code
@@ -145,7 +156,7 @@ See the [`buildkite-gha` v0.6.1 compatibility guide](https://github.com/buildkit
 
 ### Concurrency
 
-Statically resolvable `concurrency` groups become repository-scoped, case-insensitive Buildkite Pipelines concurrency groups. A workflow-level group emits an ordered opening and closing gate, and a job-level group uses a concurrency limit of one. The group must resolve during compilation from supported `github` fields, `vars`, concrete `matrix` values, or statically substituted reusable-workflow inputs. Groups that cannot be resolved fail closed.
+Statically resolvable `concurrency` groups become repository-scoped, case-insensitive Buildkite Pipelines concurrency groups. A workflow-level group emits an ordered opening and closing gate, and a job-level group uses a concurrency limit of one. Workflow-level groups can use supported `github` fields and `vars`. Job-level groups can also use concrete `matrix` values and statically substituted inputs from local reusable workflows. Workflow-level concurrency in a called reusable workflow is not supported. Groups that cannot be resolved fail closed.
 
 This is queue compatibility, not cancellation parity. Buildkite Pipelines keeps all waiting entries in order, while GitHub's default concurrency mode replaces an existing pending entry. To approximate GitHub cancellation, configure **Cancel Intermediate Builds** and **Skip Intermediate Builds** in the pipeline's build settings. Those same-branch controls match a workflow's concurrency group only when the branch scope lines up.
 
@@ -154,6 +165,9 @@ This is queue compatibility, not cancellation parity. Buildkite Pipelines keeps 
 A private event repository can be checked out when the job has Buildkite repository-provider Git credentials enabled and the Buildkite backend authorizes the repository URL. The checkout is anonymous otherwise. This path does not populate `GITHUB_TOKEN` or `github.token`, and does not enable private actions or alternate repositories.
 
 A job that statically references `secrets.GITHUB_TOKEN`, or uses an action whose effective metadata input default references `github.token`, receives one short-lived token for the exact event repository. This requires a non-empty, explicit `permissions` map on the job or workflow, and the organization must enable the job-bound token service. The runtime does not add the token to the initial job environment. An action can export it to later steps through `GITHUB_ENV`, as on the GitHub runner. General workflow secrets and ambient `GITHUB_TOKEN` are not provided.
+
+> 🚧 Protect tokens from untrusted workflow changes
+> The job-bound token service does not establish fork or actor trust. If a pull request can change imported workflow files, that code can request any repository permission enabled by the service and use the resulting token. Prevent untrusted workflow changes from receiving write permissions.
 
 ## Use the buildkite-gha CLI directly
 
