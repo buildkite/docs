@@ -13,7 +13,19 @@ This preview runs GitHub Actions workflows from repositories on `github.com`. It
 
 ## Add a GitHub Actions workflow to a pipeline
 
-Add the following step to your [pipeline configuration](/docs/pipelines/configure/defining-steps). Set `workflow` to the location of the GitHub Actions workflow file in your repository. Give the step a unique `key` so Buildkite can connect it to the jobs created by the plugin:
+### Create a new pipeline from the template
+
+To create a pipeline for a GitHub Actions workflow:
+
+1. From the Buildkite dashboard, select **New Pipeline**.
+1. Select the GitHub repository that contains your workflow.
+1. In the **YAML Steps editor**, open the **Template** dropdown and select **GitHub Actions**.
+1. In the generated YAML, set `workflow` to the path of the workflow file in your repository.
+1. Select **Create and run**.
+
+### Add the plugin to an existing pipeline
+
+To run a GitHub Actions workflow from an existing pipeline, add the following step to your [pipeline configuration](/docs/pipelines/configure/defining-steps). Set `workflow` to the path of the workflow file in your repository. Give the step a unique `key` so Buildkite can connect it to the jobs created by the plugin:
 
 ```yaml
 steps:
@@ -36,7 +48,7 @@ The plugin accepts the following configuration:
 | `version` | No | Exact `buildkite-gha` runtime version to run. When omitted, the plugin uses its default runtime version. |
 {: class="responsive-table"}
 
-The examples pin runtime `0.7.2`. The `v0.7.1` plugin uses runtime `0.7.1` by default.
+The `v0.7.1` plugin uses runtime `0.7.1` by default. The examples on this page set `version` to `0.7.2` so they use the newer runtime release.
 
 Buildkite Pipelines, not the workflow's `on` key, decides when a build starts. Configure GitHub triggers and schedules in Buildkite. To start a build yourself, select **New Build** or use the REST API.
 
