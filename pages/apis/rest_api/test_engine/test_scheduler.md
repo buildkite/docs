@@ -649,6 +649,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     }
   ],
   "links": {
+    "self": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?state=pending&per_page=2",
     "next": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?state=pending&per_page=2&after=NEXT_CURSOR"
   }
 }
@@ -666,7 +667,7 @@ Optional query string parameters:
   </tr>
   <tr>
     <th><code>result</code></th>
-    <td>Filters by <code>passed</code> or <code>failed</code>. A result cannot be combined with <code>state=pending</code>.</td>
+    <td>Filters by <code>passed</code> or <code>failed</code>. You can use <code>result</code> alone or with <code>state=completed</code>. You cannot combine it with <code>state=pending</code>.</td>
   </tr>
   <tr>
     <th><code>per_page</code></th>
