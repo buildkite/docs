@@ -474,11 +474,11 @@ Each policy definition may contain only the properties listed in this table. For
 ### Policy behavior
 
 - The policy may create multiple attempts for an entry and allow up to `parallel_attempts` attempts to be waiting or leased at one time.
+- An explicit `initial_attempts` value controls only the initial upload allocation. When it is `null`, the initial allocation is the lesser of `parallel_attempts` and `min_attempts`.
 - When any attempt finishes and the entry remains non-terminal, the scheduler immediately creates more attempts to fill the available `parallel_attempts` capacity, subject to `max_attempts`. The scheduler does not wait for all `initial_attempts` to finish.
 - A value of `null` disables `min_passed` or `min_failed`; `0` is invalid. All configured `min_` thresholds must be met before their minimum condition is terminal. If both result minimums are `null`, satisfying `min_attempts` alone does not make the entry terminal.
 - Reaching any configured `max_` threshold makes the entry terminal.
 - Once an entry is terminal, any remaining waiting attempts will be canceled.
-- An explicit `initial_attempts` value controls only the initial upload allocation. When it is `null`, the initial allocation is the lesser of `parallel_attempts` and `min_attempts`.
 - Omit `attempt_policy` for a pool with one policy, or omit properties from an individual policy definition, to use the corresponding defaults below.
 
 ### Evaluation order
