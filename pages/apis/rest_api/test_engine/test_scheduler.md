@@ -28,6 +28,7 @@ GET | `/pools/{pool.id}` | [Get a pool](#get-a-pool)
 POST | `/pools` | [Create a pool](#create-a-pool)
 PATCH | `/pools/{pool.id}` | [Update a pool](#update-a-pool)
 POST | `/pools/{pool.id}/entries` | [Upload entries](#upload-entries)
+GET | `/pools/{pool.id}/entries` | [List entries](#list-entries)
 POST | `/pools/{pool.id}/leases` | [Create a lease](#create-a-lease)
 POST | `/pools/{pool.id}/leases/heartbeat` | [Heartbeat leases](#heartbeat-leases)
 POST | `/pools/{pool.id}/leases/complete` | [Complete attempts](#complete-attempts)
@@ -600,6 +601,99 @@ The request is atomic. If any entry is invalid, the API creates no entries. Entr
 Required scope: `write_test_pool`
 
 Success response: `201 Created`
+
+## List entries
+
+Returns a cursor-paginated list of a pool's entries in descending UUID order. Each entry includes its lifecycle state, terminal result, and attempt counts.
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries?state=pending&per_page=2" \
+  --header "Authorization: Bearer $OIDC_TOKEN"
+```
+
+```json
+{
+  "items": [
+    {
+      "id": "0192f2fc-****-****-****-600a780fd001",
+      "pool_id": "0192f2fb-****-****-****-4a0d6a7c1000",
+      "selector_type": "custom",
+      "selector": {
+        "file": "spec/models/user_spec.rb",
+        "line": 42
+      },
+      "costs": {
+        "custom": 12.5
+      },
+      "priority": 0,
+      "affinity_group": "bin-a",
+      "state": "pending",
+      "result": null,
+      "meta_data": {
+        "team": "platform"
+      },
+      "created_at": "2026-08-04T01:00:00.000Z",
+      "attempt_counts": {
+        "states": {
+          "waiting": 1,
+          "leased": 0,
+          "completed": 0,
+          "canceled": 0
+        },
+        "results": {
+          "passed": 0,
+          "failed": 0,
+          "errored": 0
+        }
+      }
+    }
+  ],
+  "links": {
+    "self": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?state=pending&per_page=2",
+    "next": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?state=pending&per_page=2&after=NEXT_CURSOR"
+  }
+}
+```
+
+Each entry includes its overall state and result, along with counts for its individual attempts:
+
+- `state`: The entry is `pending` until it has a terminal outcome. It is then `completed`.
+- `result`: The result is `null` while the entry is pending. After completion, it is `passed` or `failed`.
+- `attempt_counts.states`: The number of attempts in each state: `waiting`, `leased`, `completed`, and `canceled`.
+- `attempt_counts.results`: The number of completed attempts with each result: `passed`, `failed`, and `errored`.
+
+Optional query string parameters:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>state</code></th>
+    <td>Filters by <code>pending</code> or <code>completed</code>.</td>
+  </tr>
+  <tr>
+    <th><code>result</code></th>
+    <td>Filters by <code>passed</code> or <code>failed</code>. You can use <code>result</code> alone or with <code>state=completed</code>. You cannot combine it with <code>state=pending</code>.</td>
+  </tr>
+  <tr>
+    <th><code>per_page</code></th>
+    <td>The number of results per page. Must be between <code>1</code> and <code>100</code>.<br><em>Default:</em> <code>30</code></td>
+  </tr>
+  <tr>
+    <th><code>after</code></th>
+    <td>Returns results after this cursor. Use the <code>links.next</code> URL from the previous response.</td>
+  </tr>
+  <tr>
+    <th><code>before</code></th>
+    <td>Returns results before this cursor. You cannot use <code>before</code> with <code>after</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+Invalid filter values, an incompatible filter combination, invalid pagination, or using `after` and `before` together returns `400 Bad Request`. When no entries match, `items` is an empty array.
+
+Required scope: `read_test_pool`
+
+Success response: `200 OK`
 
 ## Create a lease
 
