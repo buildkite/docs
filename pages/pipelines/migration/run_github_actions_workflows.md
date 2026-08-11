@@ -127,6 +127,7 @@ Every generated-job host needs Bash, `buildkite-agent`, `mktemp`, `rm`, `sha256s
 
 - `git` available on `PATH` for `actions/checkout`.
 - Docker and Docker Buildx available on `PATH` for Dockerfile actions. The default Buildx builder must use the local `docker` driver.
+- `tar` and either the `zstd` tool suite or `gzip` available on `PATH` for `actions/cache`.
 
 Generated jobs use the pipeline or organization's default agents unless you choose a queue. To send every generated job to a specific queue, set `BUILDKITE_GHA_TARGET_QUEUE` on the importer step. The runtime sends all accepted Ubuntu runner labels to that queue.
 
