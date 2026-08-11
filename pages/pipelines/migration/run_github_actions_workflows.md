@@ -96,7 +96,7 @@ Each part has a different job:
 
 You don't need to install `buildkite-gha` yourself. The plugin downloads the Linux x86-64 runtime binary and checks its checksum and archive contents before running it.
 
-For jobs that use JavaScript actions, the runtime prepares a verified, managed `mise` installation that provides the supported Node.js versions. It doesn't install `mise` for shell-only jobs or jobs that use only native adapters or Docker. The importer step and the `validate` and `compile` commands don't need `mise` either.
+Unless a selected runtime image provides the supported Node.js versions, jobs that use JavaScript actions need `mise` 2026.5.12 or later. The runtime checks `BUILDKITE_GHA_MISE`, then `PATH`, and downloads and verifies a managed copy if neither provides a compatible version. Shell-only jobs and jobs that use only native adapters or Docker don't need `mise`. The importer step and the `validate` and `compile` commands don't need it either.
 
 The importer passes the runtime and compiled execution plans to the generated jobs using [Buildkite Pipelines artifacts](/docs/pipelines/configure/artifacts). Each job verifies these files before using them. This process doesn't create a corresponding workflow run in GitHub. Buildkite handles the schedule, logs, retries, cancellations, and build status.
 
@@ -117,13 +117,13 @@ Before it can download the runtime and create the workflow jobs, the importer st
 
 - A Linux x86-64 agent.
 - Buildkite agent v3.34.1 or later in the v3 release series. Agent v4 isn't supported because the runtime uses the `--reject-secrets` option, which Agent v4 doesn't provide.
-- Bash, `curl`, `tar`, `sha256sum`, `awk`, `grep`, `find`, `sed`, `sort`, `mktemp`, and `cp`.
+- Bash, `awk`, `chmod`, `cp`, `curl`, `dirname`, `find`, `grep`, `ln`, `mkdir`, `mktemp`, `mv`, `rm`, `sed`, `sha256sum`, `sort`, `tar`, and `uname`.
 - Git when `BUILDKITE_COMMIT` isn't already a full commit SHA.
 - Outbound HTTPS access to public GitHub release and action sources.
 
 Generated jobs need a Linux x86-64 execution environment and Buildkite agent v3.130.0 or later. They can run on [Buildkite hosted agents](/docs/agent/buildkite-hosted), the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), or other self-hosted agents that provide the tools used by the workflow. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
 
-Depending on the workflow, generated-job hosts also need:
+Every generated-job host needs Bash, `buildkite-agent`, `mktemp`, `rm`, `sha256sum`, `awk`, and `chmod`. Depending on the workflow, it also needs:
 
 - `git` available on `PATH` for `actions/checkout`.
 - Docker and Docker Buildx available on `PATH` for Dockerfile actions. The default Buildx builder must use the local `docker` driver.
@@ -148,7 +148,7 @@ Because the queue can run untrusted workflow code, it must provide whole-job iso
 The generated jobs also need network access for anything they download at runtime:
 
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
-- Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads. Actions that declare `node16` run on managed Node 16.20.2 and produce a deprecation warning. Actions that declare `node20` or `node24` run on managed Node 24.18.0. Managed Node binaries require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
+- Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads when compatible components aren't already available. Actions that declare `node16` run on managed Node 16.20.2 and produce a deprecation warning. Actions that declare `node20` or `node24` run on managed Node 24.18.0. Managed Node binaries require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
 
 When resolving a mutable tag or branch for a public action, the importer uses an available job-scoped GitHub token only for the GitHub API request. If it can't obtain or register the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request. The importer and generated jobs download the resolved action archive anonymously from `codeload.github.com`.
 
@@ -234,13 +234,22 @@ If the workflow doesn't include a `permissions` map, the token receives `content
 
 For most workflows, use the plugin. If you need more control or want to diagnose a problem, you can download the `buildkite-gha` binary from the [`buildkite-gha` releases](https://github.com/buildkite/buildkite-gha/releases).
 
-After downloading the release archive, verify it against the published checksums. You can then check a workflow's syntax and compatibility without running it:
+After downloading the release archive, verify it against the published checksums. You can then check a workflow's syntax and static job graph without running it:
 
 ```bash
 buildkite-gha validate .github/workflows/ci.yml
 ```
 
-The CLI also provides `compile` and `upload` commands. The `validate` and `compile` commands don't need `mise` and don't run workflow code. Each command produces a processing report with the status of each validation and generation stage. Use `validate --format json` for machine-readable output. The `compile` command writes its report to standard error, while `upload` writes it to the importer job log. If a required stage fails, the runtime doesn't produce plans or pipeline output.
+To resolve actions and apply the production upload policy, provide an event snapshot and the production profile:
+
+```bash
+buildkite-gha validate \
+  --profile hosted-tokenless \
+  --event-path event.json \
+  .github/workflows/ci.yml
+```
+
+The CLI also provides `compile` and `upload` commands. The `validate` and `compile` commands don't need `mise` and don't run workflow code. Each command produces a processing report with the status of each validation and generation stage. Use `validate --format json` for machine-readable output. The `compile` command writes its report to standard error, while `upload` writes it to the importer job log. Stages blocked by an earlier failure are reported as `not-evaluated`, not `failed`. If a required stage fails, the runtime doesn't publish plans or pipeline output.
 
 Run `upload` from a keyed Buildkite Pipelines command step so that the `BUILDKITE` and `BUILDKITE_STEP_KEY` environment variables are available. The step must use Buildkite agent v3.34.1 or later in the v3 release series; Agent v4 isn't supported.
 
