@@ -123,6 +123,11 @@ Before it can download the runtime and create the workflow jobs, the importer st
 
 Generated jobs need a Linux x86-64 execution environment and Buildkite agent v3.130.0 or later. They can run on [Buildkite hosted agents](/docs/agent/buildkite-hosted), the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), or other self-hosted agents that provide the tools used by the workflow. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
 
+Depending on the workflow, generated-job hosts also need:
+
+- `git` available on `PATH` for `actions/checkout`.
+- Docker and Docker Buildx available on `PATH` for Dockerfile actions. The default Buildx builder must use the local `docker` driver.
+
 Generated jobs use the pipeline or organization's default agents unless you choose a queue. To send every generated job to a specific queue, set `BUILDKITE_GHA_TARGET_QUEUE` on the importer step. The runtime sends all accepted Ubuntu runner labels to that queue.
 
 ```yaml
