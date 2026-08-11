@@ -6,7 +6,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 > 📘 Public preview
 > Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
-> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.7.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.7.2/docs/compatibility.md) before adding a workflow.
+> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.8.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.8.0/docs/compatibility.md) before adding a workflow.
 
 The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) gives you a quick way to get a supported GitHub Actions workflow running in Buildkite with minimal changes, without first rewriting it as a native Buildkite pipeline. Once the workflow is up and running, you can [convert it into native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) to take full advantage of Buildkite Pipelines features.
 
@@ -35,7 +35,7 @@ steps:
     plugins:
       - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.7.2"
+          version: "0.8.0"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
@@ -50,7 +50,7 @@ For a released runtime, use the following configuration:
 {: class="responsive-table"}
 
 > 📘 Runtime versions
-> The `v0.7.1` plugin uses runtime `0.7.1` by default. The examples on this page set `version` to `0.7.2` to use the newer runtime release. If you update the runtime version, use its matching compatibility guide.
+> The `v0.7.1` plugin uses runtime `0.7.1` by default. The examples on this page set `version` to `0.8.0` to use the newer runtime release. If you update the runtime version, use its matching compatibility guide.
 
 Buildkite decides when the pipeline runs, so the workflow's `on` key doesn't create build triggers. Set up GitHub triggers and schedules in Buildkite, or start a build yourself by selecting **New Build** or using the REST API.
 
@@ -74,7 +74,7 @@ steps:
     plugins:
       - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.7.2"
+          version: "0.8.0"
 
   - label: "Deploy"
     key: "deploy"
@@ -121,7 +121,7 @@ Before it can download the runtime and create the workflow jobs, the importer st
 - Git when `BUILDKITE_COMMIT` isn't already a full commit SHA.
 - Outbound HTTPS access to public GitHub release and action sources.
 
-Generated jobs need Buildkite agent v3.130.0 or later. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
+Generated jobs need a Linux x86-64 execution environment and Buildkite agent v3.130.0 or later. They can run on [Buildkite hosted agents](/docs/agent/buildkite-hosted), the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), or other self-hosted agents that provide the tools used by the workflow. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
 
 Generated jobs use the pipeline or organization's default agents unless you choose a queue. To send every generated job to a specific queue, set `BUILDKITE_GHA_TARGET_QUEUE` on the importer step. The runtime sends all accepted Ubuntu runner labels to that queue.
 
@@ -134,20 +134,20 @@ steps:
     plugins:
       - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.7.2"
+          version: "0.8.0"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-Because the queue can run untrusted workflow code, use agents that isolate each job and don't provide ambient credentials.
+Because the queue can run untrusted workflow code, it must provide whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Persistent self-hosted agents can expose host resources and state left by earlier jobs.
 
 The generated jobs also need network access for anything they download at runtime:
 
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
-- Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads. Actions that declare `node20` or `node24` run on managed Node 24 and require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
+- Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads. Actions that declare `node16` run on managed Node 16.20.2 and produce a deprecation warning. Actions that declare `node20` or `node24` run on managed Node 24.18.0. Managed Node binaries require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
 
 When resolving a mutable tag or branch for a public action, the importer uses an available job-scoped GitHub token only for the GitHub API request. If it can't obtain or register the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request. The importer and generated jobs download the resolved action archive anonymously from `codeload.github.com`.
 
-On [Buildkite hosted agents](/docs/agent/buildkite-hosted) or the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), you can use a toolchain-enabled image for every generated job. Set `BUILDKITE_GHA_RUNTIME_IMAGE` on the importer step to an immutable image digest. The runtime rejects tags and other mutable image references. Generated jobs use the image and its `/opt/hostedtoolcache` tools. Don't set this variable for other self-hosted agent environments. These environments don't provision the image or `/opt/hostedtoolcache`, so generated jobs fail before the workflow starts.
+`BUILDKITE_GHA_RUNTIME_IMAGE` is supported only when generated jobs run on Buildkite hosted agents or Agent Stack for Kubernetes controller v0.30.0 or later. These environments support the generated `image` step attribute. Set the variable on the importer step to the immutable digest of a toolchain-enabled image that provides `/opt/hostedtoolcache`. The runtime rejects tags and other mutable image references. Don't set this variable for other self-hosted agent environments. They don't provision the generated job image or `/opt/hostedtoolcache`, so the job fails before the workflow starts.
 
 ### Cache the runtime download
 
@@ -161,7 +161,7 @@ steps:
     plugins:
       - github-actions#v0.7.1:
           workflow: ".github/workflows/ci.yml"
-          version: "0.7.2"
+          version: "0.8.0"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
@@ -199,13 +199,12 @@ The runtime rejects many unsupported or privileged features before it uploads an
 
 You may need to update a workflow before you can run it during the preview:
 
-- **Update actions that use Node 16.** The runtime supports actions that declare `node20` or `node24`, but rejects `node16`. Choose a newer action release that uses a supported runtime. For example, update `actions/checkout@v3` to `actions/checkout@v4`.
-- **Check `actions/upload-artifact@v4` inputs.** The `retention-days` input isn't supported. The `path` input accepts up to 32 literal files or directories, and each path must be clean and relative to the workspace. It doesn't accept globs, exclusions, expressions, `./` prefixes, trailing slashes, symlinks, or non-regular files. For example, use `path: playwright-report`, not `path: playwright-report/` or `path: ./playwright-report/`. Each upload can contain up to 10,000 files and 1 GiB of source or archive data.
+- **Check `actions/upload-artifact` inputs.** The `path` input accepts up to 32 clean, workspace-relative literal paths or final-component `*` file globs. A leading `./` is normalized, and a trailing `/` selects directories only. Recursive globs, exclusions, path expressions, symlinks, and non-regular files aren't supported. The runtime accepts `retention-days` but treats it as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files and 1 GiB of source or archive data.
 
-See the [`buildkite-gha` v0.7.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.7.2/docs/compatibility.md) for the supported functionality and limitations of the runtime selected in this page's examples.
+See the [`buildkite-gha` v0.8.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.8.0/docs/compatibility.md) for the supported functionality and limitations of the runtime selected in this page's examples. If a feature isn't listed in the guide, treat it as unsupported.
 
 > 🚧 Treat workflow code as build code
-> All steps in an imported job share a workspace and process lifecycle. Docker actions don't provide a security boundary between steps. If the workflow code must be isolated from other jobs or the agent host, run each job on a disposable machine.
+> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` security model](https://github.com/buildkite/buildkite-gha/blob/v0.8.0/docs/security.md) for the complete trust boundaries.
 
 ### Concurrency
 
@@ -236,7 +235,7 @@ After downloading the release archive, verify it against the published checksums
 buildkite-gha validate .github/workflows/ci.yml
 ```
 
-The CLI also provides `compile` and `upload` commands. The `validate` and `compile` commands don't need `mise` and don't run workflow code.
+The CLI also provides `compile` and `upload` commands. The `validate` and `compile` commands don't need `mise` and don't run workflow code. Each command produces a processing report with the status of each validation and generation stage. Use `validate --format json` for machine-readable output. The `compile` command writes its report to standard error, while `upload` writes it to the importer job log. If a required stage fails, the runtime doesn't produce plans or pipeline output.
 
 Run `upload` from a keyed Buildkite Pipelines command step so that the `BUILDKITE` and `BUILDKITE_STEP_KEY` environment variables are available. The step must use Buildkite agent v3.34.1 or later in the v3 release series; Agent v4 isn't supported.
 
