@@ -147,7 +147,7 @@ The generated jobs also need network access for anything they download at runtim
 
 When resolving a mutable tag or branch for a public action, the importer uses an available job-scoped GitHub token only for the GitHub API request. If it can't obtain or register the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request. The importer and generated jobs download the resolved action archive anonymously from `codeload.github.com`.
 
-To use a toolchain-enabled image for every generated job, set `BUILDKITE_GHA_RUNTIME_IMAGE` on the importer step to an immutable image digest. The runtime rejects tags and other mutable image references. Generated jobs use the image and its `/opt/hostedtoolcache` tools. Without this setting, generated jobs retain their existing image selection and use a fresh, job-private tool cache.
+On [Buildkite hosted agents](/docs/agent/buildkite-hosted) or the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), you can use a toolchain-enabled image for every generated job. Set `BUILDKITE_GHA_RUNTIME_IMAGE` on the importer step to an immutable image digest. The runtime rejects tags and other mutable image references. Generated jobs use the image and its `/opt/hostedtoolcache` tools. Don't set this variable for other self-hosted agent environments. These environments don't provision the image or `/opt/hostedtoolcache`, so generated jobs fail before the workflow starts.
 
 ### Cache the runtime download
 
