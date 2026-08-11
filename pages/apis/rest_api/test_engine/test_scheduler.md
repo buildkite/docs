@@ -655,7 +655,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
 }
 ```
 
-An entry has a `pending` state until it has a terminal outcome, then its state becomes `completed`. Its `result` is `passed` or `failed` when completed and `null` while pending. The `attempt_counts.states` object groups attempts by `waiting`, `leased`, `completed`, and `canceled`. The `attempt_counts.results` object groups completed attempts by `passed`, `failed`, and `errored`.
+Each entry includes its overall state and result, along with counts for its individual attempts:
+
+- `state`: The entry is `pending` until it has a terminal outcome. It is then `completed`.
+- `result`: The result is `null` while the entry is pending. After completion, it is `passed` or `failed`.
+- `attempt_counts.states`: The number of attempts in each state: `waiting`, `leased`, `completed`, and `canceled`.
+- `attempt_counts.results`: The number of completed attempts with each result: `passed`, `failed`, and `errored`.
 
 Optional query string parameters:
 
