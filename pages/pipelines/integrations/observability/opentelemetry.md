@@ -114,9 +114,12 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.job.started_at`           | `buildkite.job`                                                                    | When job started                                            |
 | `buildkite.job.finished_at`          | `buildkite.job`                                                                    | When job finished                                           |
 | `buildkite.job.wait_time_ms`         | `buildkite.job`                                                                    | Job wait time in milliseconds                               |
+| `buildkite.job.priority.number`      | `buildkite.job`                                                                    | Job priority number                                         |
 | `buildkite.job.unblocked_by`         | `buildkite.job` (when unblocked)                                                   | User who unblocked job (object with uuid, graphql_id, name) |
 | `buildkite.job.retried_in_job_id`    | `buildkite.job` (when retried)                                                     | ID of retry job (if retried)                                |
 | `buildkite.job.signal_reason`        | `buildkite.job` (when terminated by signal)                                        | Signal reason (if terminated by signal)                     |
+| `buildkite.job.concurrency.group`    | `buildkite.job` (when job uses a concurrency group)                                | Concurrency group name                                      |
+| `buildkite.job.concurrency.limit`    | `buildkite.job` (when job uses a concurrency group)                                | Concurrency limit                                           |
 | `buildkite.job.matrix`               | `buildkite.job` (matrix jobs only)                                                 | Job matrix configuration (JSON)                             |
 | `buildkite.agent.name`               | `buildkite.job` (when agent assigned)                                              | Agent name                                                  |
 | `buildkite.agent.id`                 | `buildkite.job` (when agent assigned)                                              | Agent ID                                                    |
