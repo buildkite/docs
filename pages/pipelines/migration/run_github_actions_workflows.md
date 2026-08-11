@@ -145,6 +145,10 @@ The generated jobs also need network access for anything they download at runtim
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
 - Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` downloads. Actions that declare `node20` or `node24` run on managed Node 24 and require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
 
+When resolving a mutable tag or branch for a public action, the importer uses an available job-scoped GitHub token only for the GitHub API request. If it can't obtain or register the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request. The importer and generated jobs download the resolved action archive anonymously from `codeload.github.com`.
+
+To use a toolchain-enabled image for every generated job, set `BUILDKITE_GHA_RUNTIME_IMAGE` on the importer step to an immutable image digest. The runtime rejects tags and other mutable image references. Generated jobs use the image and its `/opt/hostedtoolcache` tools. Without this setting, generated jobs retain their existing image selection and use a fresh, job-private tool cache.
+
 ### Cache the runtime download
 
 On Buildkite hosted agents, attach the plugin cache volume to speed up the importer:
