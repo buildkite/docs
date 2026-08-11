@@ -48,6 +48,12 @@ Advanced Queue Metrics show a queue’s activity from the past hour, identifying
 
 The chart shows the past hour of activity with each data point representing a minute. A minute is represented by a snapshot of the metric at the end of that minute.
 
+### Data delays
+
+If the metrics behind the chart haven't been updated for more than two minutes, the chart shows a **Data delayed** warning next to the time of the last update it received. Minutes without data appear as a hatched pattern instead of as zero activity, and the `Connected Agents` line and job values stop after the last minute that was received.
+
+This indicates a temporary delay in Buildkite's data pipeline. The chart catches up automatically once new data is available.
+
 > 📘
 > Advanced Queue Metrics is complimentary while in beta however it will be a separate paid product once refined and no longer a beta feature.
 
