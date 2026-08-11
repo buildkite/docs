@@ -1,11 +1,11 @@
 ---
-description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs in this research preview of the GitHub Actions Buildkite plugin and buildkite-gha compatibility runtime."
+description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs in this public preview of the GitHub Actions Buildkite plugin and buildkite-gha compatibility runtime."
 ---
 
 # Run GitHub Actions workflows in Buildkite
 
-> 📘 Research preview
-> Running GitHub Actions workflows in Buildkite is currently in research preview. To provide feedback or report issues, contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> 📘 Public preview
+> Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 > The plugin and runtime are under active development. Review the [`buildkite-gha` v0.7.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.7.2/docs/compatibility.md) before adding a workflow.
 
 The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) gives you a quick way to get a supported GitHub Actions workflow running in Buildkite with minimal changes, without first rewriting it as a native Buildkite pipeline. Once the workflow is up and running, you can [convert it into native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) to take full advantage of Buildkite Pipelines features.
