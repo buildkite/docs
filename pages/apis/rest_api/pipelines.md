@@ -951,7 +951,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 🚧
-> Patch requests can only update attributes already present in the pipeline YAML.
+> Two attributes below behave differently for YAML pipelines. This endpoint ignores `env`. To set environment variables, get the current `configuration` for the pipeline, add or update the top-level `env` key, then PATCH the complete `configuration` back. This endpoint only rejects `steps` with a `422` error when `configuration` is absent from the request. If both are present, it ignores `steps` and applies `configuration` instead. Neither restriction applies to [visual step pipelines](#create-a-visual-step-pipeline), where `env` and `steps` are top-level, persisted settings.
 
 
 ```json
@@ -1051,7 +1051,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
+    <td>The YAML pipeline that consists of the build pipeline steps. Setting this attribute replaces the entire configuration for the pipeline, so include all existing steps and settings, not just the ones you want to change.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
@@ -1072,7 +1072,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
     <tr>
     <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+    <td>Environment variables for the pipeline. This only applies to visual step pipelines. For pipelines with YAML steps, this endpoint ignores <code>env</code>. To set environment variables, get the current <code>configuration</code> for the pipeline, add or update the top-level <code>env</code> key, then PATCH the complete <code>configuration</code> back. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>emoji</code></th>
@@ -1121,6 +1121,13 @@ Optional [request body properties](/docs/api#request-body-properties):
       <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
       The slug updates whenever the pipeline name changes. If you don't provide a slug when you update the pipeline name, the slug will be automatically generated from the new pipeline name.</p>
       <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>steps</code></th>
+    <td>
+      <p>An array of visual steps to replace the existing steps in the pipeline. This only applies to visual step pipelines. For pipelines with YAML steps, this endpoint rejects <code>steps</code> with a <code>422</code> error when <code>configuration</code> is absent from the request. If both are present, it ignores <code>steps</code> and applies <code>configuration</code> instead.</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>[{"type": "script", "name": "Build", "command": "script/release.sh"}]</code></p>
     </td>
   </tr>
   <tr>
