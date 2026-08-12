@@ -1131,6 +1131,9 @@ enum AuditEventType {
   API_APPLICATION_UPDATED
   AUTHORIZATION_CREATED
   AUTHORIZATION_DELETED
+  BUILD_PAGE_SETTING_CREATED
+  BUILD_PAGE_SETTING_DESTROYED
+  BUILD_PAGE_SETTING_UPDATED
   CACHE_REGISTRY_CREATED
   CACHE_REGISTRY_DELETED
   CACHE_REGISTRY_UPDATED
@@ -1140,6 +1143,9 @@ enum AuditEventType {
   CLUSTER_PERMISSION_DELETED
   CLUSTER_QUEUE_CREATED
   CLUSTER_QUEUE_DELETED
+  CLUSTER_QUEUE_MIGRATION_CREATED
+  CLUSTER_QUEUE_MIGRATION_DELETED
+  CLUSTER_QUEUE_MIGRATION_UPDATED
   CLUSTER_QUEUE_TOKEN_CREATED
   CLUSTER_QUEUE_TOKEN_DELETED
   CLUSTER_QUEUE_TOKEN_UPDATED
@@ -10455,6 +10461,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestReviewSubmitted: Boolean!
 
   """
+  Whether to create builds for stacked pull requests.
+  """
+  buildPullRequestStacks: Boolean!
+
+  """
   Whether to create builds for commits that are part of a Pull Request.
   """
   buildPullRequests: Boolean!
@@ -10696,6 +10707,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds when a pull request review is submitted.
   """
   buildPullRequestReviewSubmitted: Boolean!
+
+  """
+  Whether to create builds for stacked pull requests.
+  """
+  buildPullRequestStacks: Boolean!
 
   """
   Whether to create builds for commits that are part of a Pull Request.
@@ -13975,6 +13991,11 @@ type User implements Node {
   """
   hasPassword: Boolean!
   id: ID!
+
+  """
+  If this user account is a machine user
+  """
+  machineUser: Boolean!
 
   """
   The name of the user
