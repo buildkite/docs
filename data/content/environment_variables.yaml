@@ -108,6 +108,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      - **GitHub pull request review webhook:** Set from a linked commit author when available. Otherwise, set from the authenticated webhook sender. If neither identity is linked to Buildkite, the value can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "Carol Danvers"
@@ -117,6 +118,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      - **GitHub pull request review webhook:** Set from a linked commit author when available. Otherwise, set from the authenticated webhook sender. If neither identity is linked to Buildkite, the value can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "cdanvers@kree-net.com"
@@ -126,6 +128,7 @@ variables:
 
       - **Buildkite dashboard:** Set based on who manually created the build.
       - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      - **GitHub pull request review webhook:** Set from a linked commit author when available. Otherwise, set from the authenticated webhook sender. If neither identity is linked to Buildkite, the value is empty. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
       - **Webhook:** Set based on which user is attached to the API Key used.
     modifiable: false
     example: "everyone:platform"
@@ -237,11 +240,17 @@ variables:
     example: "-v"
   - name: BUILDKITE_GIT_COMMIT_VERIFICATION
     desc: |
-      Controls whether the agent verifies that the commit being built exists on the specified branch. Set automatically from the `checkout.commit_verification` key in your pipeline YAML, or from the agent's `--git-commit-verification` configuration setting. When set to `strict`, the agent fails the job when it determines the commit is not on the branch. When set to `warn`, the agent emits a warning without failing the job. If the agent cannot complete the check, it warns and continues in both modes. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
+      Controls whether the agent verifies that the commit being built exists on the specified branch. Set automatically from the `checkout.commit_verification` key in your pipeline YAML, or from the agent's `--git-commit-verification` configuration setting. Buildkite agent v4 accepts `strict` or `off` and uses `strict` by default. 
+      
+      The value `strict` fails the job when the agent determines that the commit is not on the branch.
+      The value `off` skips verification. An empty v4 agent configuration value prevents the agent from starting. An empty value from `checkout.commit_verification` causes job bootstrap to fail when a v4 agent runs with `checkout-override-mode` set to `none`. 
+      
+      Buildkite agent v3 accepts `strict`, `warn`, or an empty value. The value `strict` fails the job, `warn` emits a warning without failing the job, and an empty value skips verification. Do not use `off` with v3. The value `off` prevents a v3 agent from starting when supplied in agent configuration. When supplied by `checkout.commit_verification`, `off` uses warning behavior rather than skipping verification. If the agent cannot complete the check, it warns and continues. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
     modifiable: false
     values:
       - strict
       - warn
+      - off
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.fetch` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.

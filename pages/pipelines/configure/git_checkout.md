@@ -3,7 +3,7 @@
 Before any build step runs, by default the Buildkite agent checks out your source code from the repository. This happens automatically without the need for extra configuration, but you can use a `checkout` block in your pipeline YAML to customize the behavior. You can skip the checkout entirely, perform shallow clones, restrict which paths are checked out, and more.
 
 > 📘 Agent version requirement
-> The `checkout` pipeline YAML features described on this page require Buildkite agent v3.130.0 or newer. Agents running older versions ignore the `checkout` block and use their default checkout behavior.
+> The `checkout` pipeline YAML features described on this page require Buildkite agent v3.136.0 or newer. Older agent versions don't support all of the options and behavior described on this page.
 
 This page explains each checkout option and when to use it. For the full attribute reference, see the [command step checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes).
 
@@ -470,14 +470,14 @@ steps:
 
 The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check protects against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
 
-Two modes are available:
+The supported values depend on the Buildkite agent version:
 
-- `strict`: Fails the job when the agent determines the commit is not on the branch.
-- `warn`: Emits a warning in the build log without failing the job.
+- **Buildkite agent v4**: Set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set the value to `off` to skip commit verification. An empty value causes job bootstrap to fail.
+- **Buildkite agent v3**: Set the value to `strict` to fail the job, or `warn` to emit a warning without failing the job. An empty value skips commit verification. Do not use `off` with v3. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
-If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
+If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues.
 
-When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings).
+When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). Buildkite agent v4 uses `strict` by default. To disable verification, configure a v4 agent with `git-commit-verification="off"`. An empty v4 agent configuration value prevents the agent from starting. Buildkite agent v3 does not verify commits by default. To disable verification explicitly, leave the v3 agent configuration value empty. The value `off` prevents a v3 agent from starting.
 
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
@@ -566,7 +566,6 @@ If checkout continues to run after setting `checkout.skip: true`, check the foll
 
 - **YAML indentation error:** The `skip` key must be nested under `checkout` at the correct level. If `skip` is not indented as a child of `checkout`, the agent ignores it.
 - **Conflicting environment variable:** A hook or plugin may be unsetting `BUILDKITE_SKIP_CHECKOUT` after the pipeline sets it. Check `pre-checkout` and `environment` hooks for variable overrides.
-- **Agent version:** The native `checkout.skip` key requires Buildkite agent v3.130.0 or later. Run `buildkite-agent --version` to confirm.
 - **Step-level override:** A step-level `checkout.skip: false` overrides a pipeline-level `checkout.skip: true`. Check the step definition for an explicit override. See [Precedence](#skipping-checkout-precedence) for the full priority order.
 
 ### Shallow clone limitations

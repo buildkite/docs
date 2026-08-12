@@ -101,6 +101,7 @@ enum APIAccessTokenScopes {
   READ_SUITES
   READ_TEAMS
   READ_TEST_PLAN
+  READ_TEST_POOL
   READ_USER
   WRITE_AGENTS
   WRITE_ARTIFACTS
@@ -1130,6 +1131,9 @@ enum AuditEventType {
   API_APPLICATION_UPDATED
   AUTHORIZATION_CREATED
   AUTHORIZATION_DELETED
+  BUILD_PAGE_SETTING_CREATED
+  BUILD_PAGE_SETTING_DESTROYED
+  BUILD_PAGE_SETTING_UPDATED
   CACHE_REGISTRY_CREATED
   CACHE_REGISTRY_DELETED
   CACHE_REGISTRY_UPDATED
@@ -1139,6 +1143,9 @@ enum AuditEventType {
   CLUSTER_PERMISSION_DELETED
   CLUSTER_QUEUE_CREATED
   CLUSTER_QUEUE_DELETED
+  CLUSTER_QUEUE_MIGRATION_CREATED
+  CLUSTER_QUEUE_MIGRATION_DELETED
+  CLUSTER_QUEUE_MIGRATION_UPDATED
   CLUSTER_QUEUE_TOKEN_CREATED
   CLUSTER_QUEUE_TOKEN_DELETED
   CLUSTER_QUEUE_TOKEN_UPDATED
@@ -1329,7 +1336,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderCursorOrigin | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -7996,6 +8003,21 @@ interface OrganizationRepositoryProvider {
 }
 
 """
+Cursor Origin installation associated with this organization
+"""
+type OrganizationRepositoryProviderCursorOrigin implements Node & OrganizationRepositoryProvider {
+  """
+  The ID of the provider
+  """
+  id: ID!
+
+  """
+  The name of the OrganizationRepositoryProvider
+  """
+  name: String!
+}
+
+"""
 GitHub installation associated with this organization
 """
 type OrganizationRepositoryProviderGitHub implements Node & OrganizationRepositoryProvider {
@@ -8206,6 +8228,11 @@ type Pipeline implements Node {
   ensure that the main branch won't have it's builds automatically cancelled.
   """
   cancelIntermediateBuildsBranchFilter: String
+
+  """
+  The optional repository URL agents use as a Git clone mirror.
+  """
+  cloneMirrorUrl: String
   cluster: Cluster
 
   """
@@ -8499,6 +8526,11 @@ input PipelineCreateInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
+
+  """
+  An optional repository URL agents use as a Git clone mirror.
+  """
+  cloneMirrorUrl: String
 
   """
   The GraphQL ID of the cluster you want to use for the pipeline
@@ -9426,6 +9458,11 @@ input PipelineUpdateInput {
   clientMutationId: String
 
   """
+  An optional repository URL agents use as a Git clone mirror. Set to null to clear it.
+  """
+  cloneMirrorUrl: String
+
+  """
   The GraphQL ID of the cluster you want to update for the pipeline
   """
   clusterId: ID
@@ -10265,6 +10302,66 @@ type RepositoryProviderCodebaseSettings implements RepositoryProviderSettings {
 }
 
 """
+A pipeline's repository is being provided by Cursor Origin
+"""
+type RepositoryProviderCursorOrigin implements RepositoryProvider {
+  """
+  The name of the provider
+  """
+  name: String!
+
+  """
+  The repository’s provider settings
+  """
+  settings: RepositoryProviderCursorOriginSettings
+
+  """
+  This URL to the provider’s web interface
+  """
+  url: String
+
+  """
+  The URL to use when setting up webhooks from the provider to trigger Buildkite builds
+  """
+  webhookUrl: String
+}
+
+"""
+Settings for a Cursor Origin repository
+"""
+type RepositoryProviderCursorOriginSettings implements RepositoryProviderSettings {
+  """
+  Whether to create builds when branches are pushed.
+  """
+  buildBranches: Boolean!
+
+  """
+  Whether to create builds for commits that are part of a pull request.
+  """
+  buildPullRequests: Boolean!
+
+  """
+  Whether to create builds when tags are pushed.
+  """
+  buildTags: Boolean!
+
+  """
+  The conditions under which this pipeline will trigger a build.
+  """
+  filterCondition: String
+
+  """
+  Whether the filter is enabled
+  """
+  filterEnabled: Boolean
+
+  """
+  Whether to publish build results to Cursor Origin as a check run.
+  """
+  publishCommitStatus: Boolean!
+}
+
+"""
 Settings for a GitHub Enterprise repository.
 """
 type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSettings {
@@ -10362,6 +10459,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to create builds when a pull request review is submitted.
   """
   buildPullRequestReviewSubmitted: Boolean!
+
+  """
+  Whether to create builds for stacked pull requests.
+  """
+  buildPullRequestStacks: Boolean!
 
   """
   Whether to create builds for commits that are part of a Pull Request.
@@ -10605,6 +10707,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds when a pull request review is submitted.
   """
   buildPullRequestReviewSubmitted: Boolean!
+
+  """
+  Whether to create builds for stacked pull requests.
+  """
+  buildPullRequestStacks: Boolean!
 
   """
   Whether to create builds for commits that are part of a Pull Request.
@@ -13884,6 +13991,11 @@ type User implements Node {
   """
   hasPassword: Boolean!
   id: ID!
+
+  """
+  If this user account is a machine user
+  """
+  machineUser: Boolean!
 
   """
   The name of the user

@@ -47,11 +47,11 @@ class Page::Renderer
     def image(link, title, alt)
       url = Camo::UrlBuilder.build(link) unless link.nil?
 
-      %{<img src="#{EscapeUtils.escape_html(url || '')}" alt="#{EscapeUtils.escape_html(alt || '')}" class="#{@options[:img_classes]}"/>}
+      %{<img src="#{CGI.escapeHTML(url || '')}" alt="#{CGI.escapeHTML(alt || '')}" class="#{@options[:img_classes]}"/>}
     end
 
     def codespan(code)
-      %{<code>#{EscapeUtils.escape_html(code)}</code>}
+      %{<code>#{CGI.escapeHTML(code)}</code>}
     end
 
     # Rouge 5 stopped wrapping highlighted blocks in <div class="highlight">.
