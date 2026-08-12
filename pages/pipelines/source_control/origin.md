@@ -20,7 +20,7 @@ The app requests read access to repository contents and pull requests. It also r
 
 ### Manage repository access
 
-The Origin provider settings show whether the installation can access all repositories or selected repositories. To change this access, select **Origin settings**.
+The Origin provider settings show whether the installation can access all repositories or selected repositories. To change this access, select **manage your installation settings in Origin**.
 
 ### Disconnect Origin
 
@@ -113,7 +113,7 @@ Confirm that Buildkite Support has enabled the public preview for your organizat
 
 ### A repository is missing
 
-Open the provider under **Settings** > **Repository Providers** > **Origin**, then select **Origin settings**. Confirm that the app can access the repository.
+Open the provider under **Settings** > **Repository Providers** > **Origin**, then select **manage your installation settings in Origin**. Confirm that the app can access the repository.
 
 ### Hosted-agent checkout fails
 
