@@ -1175,6 +1175,8 @@ Status | Description
 
 ## Breaking changes
 
+On August 10, 2026, affinity groups became immutable after upload. All entries that use the same non-empty `affinity_group` must now be included in one upload request. After the request succeeds, later entry uploads to the same pool that reuse the affinity group return `409 Conflict`.
+
 Create-lease responses now include a `pool` object containing `id` and `state`. A consumed pool now returns `200 OK` with a null lease instead of `409 Conflict`. Clients that treated 409 as the consumed signal must migrate to checking `pool.state == "consumed"` in successful responses.
 
 The attempt policy validation change described above has not landed in Buildkite yet. When it lands, `min_passed` and `min_failed` will use `null` instead of `0` to disable a threshold. Configured values will need to be integers of at least `1`, and when both thresholds are configured, their sum must be less than `max_attempts`. Until then, use `0` to disable either threshold; the API does not yet accept `null` for these properties.
