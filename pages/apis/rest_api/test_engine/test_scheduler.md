@@ -587,7 +587,7 @@ Optional entry properties:
   </tr>
   <tr>
     <th><code>entries[].affinity_group</code></th>
-    <td>A string of up to 255 characters. Waiting attempts with the same non-empty affinity group are leased together. A blank or <code>null</code> value means that the entry has no affinity group.</td>
+    <td>A string of up to 255 characters. Waiting attempts with the same non-empty affinity group are leased together. All entries in an affinity group must be included in the same upload request. A blank or <code>null</code> value means that the entry has no affinity group.</td>
   </tr>
   <tr>
     <th><code>entries[].meta_data</code></th>
@@ -1174,6 +1174,8 @@ Status | Description
 {: class="responsive-table"}
 
 ## Breaking changes
+
+Since August 10, 2026, all entries that use the same non-empty `affinity_group` must be included in one upload request. After the request succeeds, later entry uploads to the same pool that reuse the affinity group return `409 Conflict`.
 
 Create-lease responses now include a `pool` object containing `id` and `state`. A consumed pool now returns `200 OK` with a null lease instead of `409 Conflict`. Clients that treated 409 as the consumed signal must migrate to checking `pool.state == "consumed"` in successful responses.
 
