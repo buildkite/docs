@@ -225,6 +225,8 @@ Buildkite can provide a short-lived token for the repository that triggered the 
 
 If the workflow doesn't include a `permissions` map, the token receives `contents: read`. A non-empty `permissions` map replaces that default, while an empty map or a map containing only `none` doesn't produce a token. The runtime doesn't add the token to the job's initial environment, although an action can make it available to later steps through `GITHUB_ENV`, as it can on a GitHub runner. General workflow secrets and an ambient `GITHUB_TOKEN` aren't available.
 
+Each job can request up to 10 workflow access tokens per hour. Requests beyond this limit receive a `429 Too Many Requests` response with a `Retry-After` header, and no token is issued. This limit is tracked separately for each job.
+
 > 🚧 Protect tokens from untrusted workflow changes
 > The job-bound token service doesn't decide whether a fork or actor is trusted. If a pull request can change an imported workflow, that workflow can request and use any repository permission enabled by the service. Make sure untrusted workflow changes can't receive write permissions.
 
