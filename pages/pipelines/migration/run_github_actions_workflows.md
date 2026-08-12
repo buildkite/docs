@@ -24,6 +24,9 @@ To create a pipeline for a GitHub Actions workflow:
 1. In the generated YAML, set `workflow` to the path of the workflow file in your repository.
 1. Select **Create and run**.
 
+> 📘 Pull request build settings for pipelines using GitHub Actions workflows
+> When you create a pipeline with GitHub Actions workflows selected, Buildkite Pipelines turns off the new pipeline's **Skip when pull request has existing build for commit and branch** and **Skip when pull request is closed or merged** GitHub settings. This ensures pull request webhook events reach the imported workflow as expected. Pipelines created without selecting any GitHub Actions workflows keep the normal defaults for both settings. You can change either setting at any time in the pipeline's [GitHub settings](/docs/pipelines/source-control/github#running-builds-on-pull-requests).
+
 ### Configure the plugin manually
 
 To configure the plugin without using the template, add the following step to your [pipeline configuration](/docs/pipelines/configure/defining-steps). Set `workflow` to the path of the workflow file in your repository. Give the step a unique `key` so Buildkite can connect it to the jobs created by the plugin:
