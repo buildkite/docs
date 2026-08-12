@@ -114,7 +114,7 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon. Once visible, hover over or select the step to see the reason (see <a href="/docs/pipelines/build-page#viewing-why-a-step-was-skipped">viewing why a step was skipped</a>).<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>

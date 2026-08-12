@@ -44,6 +44,14 @@ When you select a step, its details appear in a resizable step panel. You can:
 
 <%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
 
+### Viewing why a step was skipped
+
+Skipped steps show their reason without you needing to open a log.
+
+- Reveal skipped steps using the **Show skipped steps** toggle.
+- Hover over a skipped step in the sidebar or **Canvas** view to see the reason in a tooltip.
+- Select a skipped command or trigger step to view the reason in the step panel. Skipped wait and block steps don't open the step panel, because they have no further details to show.
+
 ### Managing retries
 
 The sidebar shows an indicator for steps with retries.
