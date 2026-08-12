@@ -375,6 +375,37 @@ To connect your GitHub account:
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
+## Workflow-scoped GitHub access tokens
+
+> 📘 Private preview
+> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+
+Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
+
+To use this feature, two things need to be in place:
+
+1. Your organization has the feature enabled by Buildkite support.
+1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization, and only for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+
+Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository. Changing the pipeline's repository automatically turns this setting off again.
+
+### How the workflow policy is applied
+
+When a job requests a token, Buildkite reads a single `.yml` or `.yaml` file from `.github/workflows/` in the pipeline's repository, at the build's commit SHA. Buildkite only reads the file's top-level `permissions` map to use as a static permissions policy. It doesn't evaluate the workflow's triggers, jobs, expressions, or otherwise run it.
+
+A requested permission is only granted when it's allowed by all of the following:
+
+- The workflow file's top-level `permissions` map. This must be an explicit, non-empty map of static permission names and access levels (`read`, `write`, or `none`). The `read-all` and `write-all` shorthand values, expressions (for example, `${{ ... }}`), job-level permission overrides, and reusable workflow permission inheritance aren't supported, and cause the request to be denied.
+- Buildkite's own allowlist of permissions that can be requested this way.
+- The permissions granted to the Buildkite GitHub App installation for the repository.
+
+### Restrictions
+
+- Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
+- Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
+- Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
+- The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history. Builds with incomplete history are denied.
+
 ## Using GitHub App installation access tokens
 
 > 📘 The difference between repository authentication and account connection
