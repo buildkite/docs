@@ -25,14 +25,14 @@ Your bucket must meet the following criteria:
 Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html), and implement modern S3 security features and configurations, such as (but not limited to):
 
 - [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
-- [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
+- [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite Pipelines.
 - [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
 
 You may also want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
 
 #### Bucket policy
 
-Use a bucket dedicated to Buildkite job logs, since Buildkite writes at the bucket root. Attach a bucket policy granting the Buildkite AWS account (`032379705303`) read and write access. Replace the `my-bucket` placeholder with your Amazon S3 bucket name:
+Use a bucket dedicated to Buildkite Pipelines job logs, since Buildkite Pipelines writes at the bucket root. Attach a bucket policy granting the Buildkite AWS account (`032379705303`) read and write access. Replace the `my-bucket` placeholder with your Amazon S3 bucket name:
 
 ```json
 {
@@ -70,7 +70,7 @@ Use a bucket dedicated to Buildkite job logs, since Buildkite writes at the buck
 
 #### Object naming
 
-Buildkite writes each job's log to your bucket using the following folder structure and file format. The format is not customizable:
+Buildkite Pipelines writes each job's log to your bucket using the following folder structure and file format. The format is not customizable:
 
 ```text
 {ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
