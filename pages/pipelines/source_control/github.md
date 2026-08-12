@@ -122,6 +122,7 @@ You can also configure these **Pull request webhook options** (these options may
 - **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 - **Limit pull request branches**: filter which branches trigger pull request builds
 - **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
+- **Skip when pull request is closed or merged**: skip creating a new build for a pull request that's closed or merged, useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests
 - **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
 - **Cancel deleted branch builds**: cancel running builds for a branch when the branch is deleted from GitHub
 
