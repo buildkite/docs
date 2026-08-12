@@ -587,7 +587,7 @@ Optional entry properties:
   </tr>
   <tr>
     <th><code>entries[].affinity_group</code></th>
-    <td>A string of up to 255 characters. Waiting attempts with the same non-empty affinity group are leased together. A blank or <code>null</code> value means that the entry has no affinity group.</td>
+    <td>A string of up to 255 characters. Waiting attempts with the same non-empty affinity group are leased together. All entries in an affinity group must be included in the same upload request. A blank or <code>null</code> value means that the entry has no affinity group.</td>
   </tr>
   <tr>
     <th><code>entries[].meta_data</code></th>
