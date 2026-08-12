@@ -19,7 +19,7 @@ The build page consists of three main components:
 The _sidebar_ provides a hierarchical view of all steps in your build. Here's how to use it:
 
 - Expand/collapse groups by selecting their arrow icons.
-- By default, steps are displayed in pipeline order. Switch to grouping by state instead to see important steps (such as blocked or failed) at the top. Buildkite remembers your choice for future builds.
+- By default, steps are displayed in pipeline order. Switch to grouping by state instead to see important steps (such as blocked or failed) at the top. Buildkite Pipelines remembers your choice for future builds.
 - Select any step to view its details.
 - Use the action button (with the curved arrow) or press the `f` key to cycle through failures.
 - Use keyword search to quickly open or focus a step.
@@ -118,7 +118,7 @@ For builds with many steps:
 
 ## Best practices
 
-- For large builds, group the sidebar by state and collapse lower priority states such as **Waiting** and **Passed**.
+- For large builds, group the sidebar by state and collapse lower-priority states such as **Waiting** and **Passed**.
 - If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. You can also enable the music mode.
 - Use appropriate views for different tasks:
 
