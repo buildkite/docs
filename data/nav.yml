@@ -77,6 +77,9 @@
           path: "pipelines/migration"
         - name: "From GitHub Actions"
           path: "pipelines/migration/from-githubactions"
+        - name: "Run GitHub Actions workflows"
+          path: "pipelines/migration/run-github-actions-workflows"
+          pill: "preview"
         - name: "From CircleCI"
           path: "pipelines/migration/from-circleci"
         - name: "From Jenkins"
@@ -639,6 +642,7 @@
             - name: "Migrate from unclustered to clustered agents"
               path: "pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents"
             - name: "Rules"
+              pill: "preview"
               children:
                 - name: "Overview"
                   path: "pipelines/security/clusters/rules"
