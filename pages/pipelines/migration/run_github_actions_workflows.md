@@ -24,7 +24,7 @@ Use the workflow picker or GitHub Actions template to create a new pipeline. You
 To create a pipeline using detected GitHub Actions workflows:
 
 1. From the Buildkite dashboard, select **New Pipeline**.
-1. Under **Git scope**, select **GitHub**, then select a repository that contains GitHub Actions workflow files on its default branch.
+1. Under **Git scope**, select your GitHub account or organization. Then select a repository that contains GitHub Actions workflow files on its default branch.
 1. In the detected **GitHub Actions** workflows panel, select **Run on Buildkite**.
 1. Select each supported workflow that you want to run, or select **Select all**.
 1. Review the generated plugin step in the **YAML Steps editor**.
