@@ -139,7 +139,7 @@ When a job was created by retrying a previous job, its payload includes a `retry
     <tr>
       <td><code>retried_by</code></td>
       <td>Object</td>
-      <td>The user who triggered a manual retry, containing <code>name</code> and <code>email</code>. <code>null</code> for automatic retries, or when no retry occurred</td>
+      <td>The user who triggered a manual retry, containing <code>name</code> and <code>email</code>. <code>null</code> for automatic retries</td>
     </tr>
   </tbody>
 </table>
@@ -154,7 +154,7 @@ Example `job.finished` request body for a manually retried job:
   "job": {
     "...": "...",
     "retry_source": {
-      "job_id": "0194b92a-4d74-46bb-a1bf-61c73c5642af",
+      "job_id": "01234567-89ab-cdef-0123-456789abcdef",
       "retry_type": "manual",
       "retried_by": {
         "name": "Some Person",
@@ -181,7 +181,7 @@ For automatic retries, `retried_by` is `null`:
 ```json
 {
   "retry_source": {
-    "job_id": "0194b92a-4d74-46bb-a1bf-61c73c5642af",
+    "job_id": "01234567-89ab-cdef-0123-456789abcdef",
     "retry_type": "automatic",
     "retried_by": null
   }
