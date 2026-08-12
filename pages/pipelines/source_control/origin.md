@@ -89,7 +89,7 @@ Use a [conditional expression](/docs/pipelines/configure/conditionals#conditiona
 
 **Update commit statuses** publishes Buildkite Pipelines build results to Origin. This setting is enabled by default.
 
-Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. Buildkite Pipelines creates a check run when a build is created and updates the same check as the build starts, finishes, fails, or is skipped.
+Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. Buildkite Pipelines creates a check run when a build is created. It updates the same check run as the build starts, finishes, fails, or is skipped.
 
 ### Configure required checks
 
