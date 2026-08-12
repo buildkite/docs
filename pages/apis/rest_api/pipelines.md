@@ -54,7 +54,7 @@ This section of the REST API documentation also contains several other endpoints
   </tr>
   <tr>
     <th><code>clone_mirror_url</code></th>
-    <td>Optional repository URL that agents use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. Returns <code>null</code> when not configured.</td>
+    <td>Optional repository URL that agents use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>.</td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
@@ -142,6 +142,9 @@ This section of the REST API documentation also contains several other endpoints
   </tr>
 </tbody>
 </table>
+
+> 📘 Clone mirror availability
+> Clone mirrors must be enabled for your organization. When enabled, responses return <code>clone_mirror_url</code> as <code>null</code> for pipelines without a configured mirror. When disabled, responses omit the property for pipelines without a configured mirror but continue to return previously configured mirror URLs. Create and update requests reject nonblank <code>clone_mirror_url</code> values when the feature is disabled. You can submit <code>null</code> or an empty string to remove an existing mirror even when the feature is disabled.
 
 ## List pipelines
 
@@ -842,6 +845,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>
       <p>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to.</p>
       <p><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>
+      <p>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. The URL must not contain credentials, query parameters, or fragments.</p>
+      <p><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
   <tr>
