@@ -472,7 +472,7 @@ The `checkout.commit_verification` key tells the Buildkite agent to verify that 
 
 The supported values depend on the Buildkite agent version:
 
-- **Buildkite agent v4:** Set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set the value to `off` to skip commit verification. An empty value causes job bootstrap to fail.
+- **Buildkite agent v4**: Set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set the value to `off` to skip commit verification. An empty value causes job bootstrap to fail.
 - **Buildkite agent v3:** Set the value to `strict` to fail the job, or `warn` to emit a warning without failing the job. An empty value skips commit verification. Do not use `off` with v3. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
 If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues.
