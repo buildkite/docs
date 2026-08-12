@@ -470,14 +470,14 @@ steps:
 
 The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check protects against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
 
-Two modes are available:
+The supported values depend on the Buildkite agent version:
 
-- `strict`: Fails the job when the agent determines the commit is not on the branch.
-- `warn`: Emits a warning in the build log without failing the job.
+- **Buildkite agent v4**: Set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set the value to `off` to skip commit verification. An empty value causes job bootstrap to fail.
+- **Buildkite agent v3**: Set the value to `strict` to fail the job, or `warn` to emit a warning without failing the job. An empty value skips commit verification. Do not use `off` with v3. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
-If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues in both modes.
+If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues.
 
-When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings).
+When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). Buildkite agent v4 uses `strict` by default. To disable verification, configure a v4 agent with `git-commit-verification="off"`. An empty v4 agent configuration value prevents the agent from starting. Buildkite agent v3 does not verify commits by default. To disable verification explicitly, leave the v3 agent configuration value empty. The value `off` prevents a v3 agent from starting.
 
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
