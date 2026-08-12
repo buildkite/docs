@@ -191,6 +191,7 @@ gh
 gif
 githooks
 GitLab
+glibc
 globbing
 gmp
 gnupg
@@ -484,6 +485,7 @@ timeframe
 tmp
 tmux
 tokenization
+tokenless
 toleration
 tolerations
 toolchain

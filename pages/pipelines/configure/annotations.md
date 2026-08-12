@@ -351,6 +351,8 @@ content-start content-end content-center content-between content-around content-
 order-0 order-1 order-2 order-3 order-last
 
 border border-top border-right border-bottom border-left border-none rounded
+border-black border-gray border-silver border-white border-aqua border-blue border-navy border-teal
+border-green border-olive border-lime border-yellow border-orange border-red border-fuchsia border-purple border-maroon
 
 h1 h2 h3 h4 h5 h6
 
