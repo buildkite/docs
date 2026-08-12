@@ -33,9 +33,8 @@ steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
     plugins:
-      - github-actions#v0.7.1:
+      - github-actions#v0.8.0:
           workflow: ".github/workflows/ci.yml"
-          version: "0.8.0"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
@@ -46,11 +45,8 @@ For a released runtime, use the following configuration:
 | Property | Required | Description |
 | --- | --- | --- |
 | `workflow` | Yes | Path to the GitHub Actions workflow in the repository. |
-| `version` | No | Exact `buildkite-gha` runtime version to run. When omitted, the plugin uses its default runtime version. |
+| `version` | No | `buildkite-gha` runtime version to run. The default is `latest`. |
 {: class="responsive-table"}
-
-> 📘 Runtime versions
-> The `v0.7.1` plugin uses runtime `0.7.1` by default. The examples on this page set `version` to `0.8.0` to use the newer runtime release. If you update the runtime version, use its matching compatibility guide.
 
 Buildkite decides when the pipeline runs, so the workflow's `on` key doesn't create build triggers. Set up GitHub triggers and schedules in Buildkite, or start a build yourself by selecting **New Build** or using the REST API.
 
@@ -72,9 +68,8 @@ steps:
   - label: "\:github\: Tests"
     key: "github-actions-tests"
     plugins:
-      - github-actions#v0.7.1:
+      - github-actions#v0.8.0:
           workflow: ".github/workflows/ci.yml"
-          version: "0.8.0"
 
   - label: "Deploy"
     key: "deploy"
@@ -138,9 +133,8 @@ steps:
     env:
       BUILDKITE_GHA_TARGET_QUEUE: "gha-preview"
     plugins:
-      - github-actions#v0.7.1:
+      - github-actions#v0.8.0:
           workflow: ".github/workflows/ci.yml"
-          version: "0.8.0"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
@@ -165,9 +159,8 @@ steps:
     key: "github-actions"
     cache: "/cache/bkcache/github-actions-buildkite-plugin"
     plugins:
-      - github-actions#v0.7.1:
+      - github-actions#v0.8.0:
           workflow: ".github/workflows/ci.yml"
-          version: "0.8.0"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
