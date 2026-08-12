@@ -14,12 +14,29 @@ During the preview, the quickest way to get started is with a Linux x86-64 workf
 
 ## Add a GitHub Actions workflow to a pipeline
 
-Use the GitHub Actions template to create a new pipeline, or configure the plugin manually in a new or existing pipeline.
+Use the workflow picker or GitHub Actions template to create a new pipeline. You can also configure the plugin manually in a new or existing pipeline.
+
+### Create a new pipeline with the workflow picker
+
+> 📘 Workflow picker availability
+> The workflow picker is rolling out to existing Buildkite organizations. It is available for repositories connected using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), which gives Buildkite access to workflow files on the repository's default branch. The picker isn't available for **GitHub (Limited Access)** connections. If the picker doesn't appear for an eligible repository, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com). In the meantime, use the GitHub Actions template described in the next section.
+
+To create a pipeline using detected GitHub Actions workflows:
+
+1. From the Buildkite dashboard, select **New Pipeline**.
+1. Under **Git scope**, select **GitHub**, then select a repository that contains GitHub Actions workflow files on its default branch.
+1. In the detected **GitHub Actions** workflows panel, select **Run on Buildkite**.
+1. Select each supported workflow that you want to run, or select **Select all**.
+1. Review the generated plugin step in the **YAML Steps editor**.
+1. Select **Create and run**.
+
+<%= image "github-actions-workflows-detected-panel.png", width: 2360/2, height: 1200/2, alt: "GitHub Actions workflows detected panel on the New Pipeline page, with a Run on Buildkite button" %>
+
+Opening the panel doesn't change the pipeline configuration until you select a workflow. Only workflows with supported triggers can be selected. Other workflows appear as **Not supported**. Selecting all workflows adds each workflow path explicitly.
 
 ### Create a new pipeline from the template
 
-> 📘 Use the YAML Steps editor
-> Existing Buildkite organizations must use the **YAML Steps editor**, rather than the traditional drag-and-drop editor, to access the GitHub Actions workflow option. If you don't see this option, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+The GitHub Actions template provides a manual fallback when the workflow picker isn't available. Your pipeline must use the **YAML Steps editor**, rather than the traditional drag-and-drop editor, to access this template.
 
 To create a pipeline for a GitHub Actions workflow:
 
@@ -28,8 +45,6 @@ To create a pipeline for a GitHub Actions workflow:
 1. In the **YAML Steps editor**, open the **Template** dropdown and select **GitHub Actions**.
 1. In the generated YAML, set `workflow` to the path of the workflow file in your repository.
 1. Select **Create and run**.
-
-<%= image "gha-workflows-template.png", width: 2360/2, height: 1200/2, alt: "Screenshot of the New Pipeline page showing the YAML Steps editor and a GitHub Actions workflows detected banner with a Run on Buildkite button" %>
 
 > 📘 Pull request build settings for pipelines using GitHub Actions workflows
 > When you create a pipeline with GitHub Actions workflows selected, Buildkite Pipelines turns off the new pipeline's **Skip when pull request has existing build for commit and branch** and **Skip when pull request is closed or merged** GitHub settings. This ensures pull request webhook events reach the imported workflow as expected. Pipelines created without selecting any GitHub Actions workflows keep the normal defaults for both settings. You can change either setting at any time in the pipeline's [GitHub settings](/docs/pipelines/source-control/github#running-builds-on-pull-requests).
@@ -75,6 +90,7 @@ The plugin supports the following configuration:
 | `version` | No | Latest stable or an exact `buildkite-gha` runtime release from `0.9.0` onward. The default is `latest`. |
 | `source-ref` | No | Full lowercase 40-character runtime commit for testing unreleased changes. This property can't be used with `version`. |
 | `minimum-release-age` | No | Minimum release age used by `mise` when resolving `latest`. The default is `0s`. |
+| `runners` | No | Array that maps GitHub runner labels to Buildkite queues and optional Linux images. |
 {: class="responsive-table"}
 
 Buildkite decides when the pipeline runs, so the workflow's `on` key doesn't create build triggers. Set up GitHub triggers and schedules in Buildkite, or start a build yourself by selecting **New Build** or using the REST API. Within an existing build, the `on` key determines whether each selected workflow is eligible to run.
@@ -122,7 +138,7 @@ Each part has a different job:
 - **GitHub Actions Buildkite plugin:** Reads your configuration, prepares `mise`, then asks it to select and run the configured `buildkite-gha` release.
 - **`buildkite-gha`:** Checks that the workflow is supported, turns its jobs into Buildkite Pipelines command jobs, uploads them, and runs each generated job.
 
-You don't need to install `mise` or `buildkite-gha` yourself. The plugin uses a compatible `mise` from `PATH` or installs a pinned, verified copy. Mise installs and verifies the selected Linux x86-64 runtime release, then caches the installation before running it.
+You don't need to install `mise` or `buildkite-gha` yourself. The plugin uses a compatible `mise` from `PATH` or installs a pinned, verified copy. Mise installs and verifies the selected Linux x86-64 runtime release, then caches the installation before running it. When a workflow needs macOS, the plugin also downloads and verifies the matching macOS arm64 runtime release.
 
 Jobs that use JavaScript actions need `mise` 2026.5.12 or later. The runtime checks `BUILDKITE_GHA_MISE`, then `PATH`, and downloads and verifies a managed copy if neither provides a compatible version. A runtime image doesn't remove this requirement. Shell-only jobs and jobs that use only native adapters or Docker don't need `mise`. The `validate` and `compile` commands don't need it either.
 
@@ -155,38 +171,41 @@ Before it can download the runtime and create the workflow jobs, the importer st
 
 ### Generated job requirements
 
-Generated jobs need a Linux x86-64 execution environment and Buildkite agent v3.130.0 or later. They can run on [Buildkite hosted agents](/docs/agent/buildkite-hosted), the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), or other self-hosted agents that provide the tools used by the workflow. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
+Generated jobs need Buildkite agent v3.130.0 or later and a Linux x86-64 or native macOS arm64 execution environment. Linux jobs can run on [Buildkite hosted agents](/docs/agent/buildkite-hosted), the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s), or other self-hosted agents that provide the tools used by the workflow. macOS jobs require a native macOS arm64 queue. The runtime tells the agent to skip its usual repository checkout so that it can prepare the workflow's workspace instead.
 
-Every generated-job host needs Bash, `buildkite-agent`, `mktemp`, `rm`, `sha256sum`, `awk`, and `chmod`. Depending on the workflow, it also needs:
+Every generated-job host needs Bash, `buildkite-agent`, `mktemp`, `rm`, `awk`, `chmod`, and either `sha256sum` or `shasum -a 256`. Depending on the workflow, it also needs:
 
 - `git` available on `PATH` for `actions/checkout`.
-- Docker and Docker Buildx available on `PATH` for Dockerfile actions. The default Buildx builder must use the local `docker` driver.
+- Docker and Docker Buildx available on `PATH` for Dockerfile actions on Linux. The default Buildx builder must use the local `docker` driver. macOS jobs don't support Dockerfile actions or other Docker capabilities.
 - `tar` and either the `zstd` tool suite or `gzip` available on `PATH` for `actions/cache`.
 
-Generated jobs use the pipeline or organization's default agents unless you choose a queue. To send every generated job to a specific queue, set `BUILDKITE_GHA_TARGET_QUEUE` on the importer step. The runtime sends all accepted Ubuntu runner labels to that queue.
+Generated Linux jobs use the pipeline or organization's default agents unless you configure `runners`. Add one entry for each GitHub runner label that you want to map to a Buildkite queue. macOS labels always require an explicit queue mapping.
 
 ```yaml
 steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
-    env:
-      BUILDKITE_GHA_TARGET_QUEUE: "gha-preview"
     plugins:
       - github-actions#v0.10.0:
           workflow: ".github/workflows/ci.yml"
+          runners:
+            - runs-on: "ubuntu-latest"
+              queue: "hosted"
+            - runs-on: "macos-14"
+              queue: "gha-macos-arm64"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-Because the queue can run untrusted workflow code, it must provide whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Persistent self-hosted agents can expose host resources and state left by earlier jobs.
+Each entry requires `runs-on` and `queue`. A configured Ubuntu label uses the runtime's pinned default toolchain image unless you set `image` to another lowercase registry reference pinned to an immutable SHA-256 digest. The image must provide `/opt/hostedtoolcache`. Images are supported only on Buildkite hosted agents or Agent Stack for Kubernetes controller v0.30.0 or later. For other self-hosted Linux agents, omit the runner mapping and use the pipeline or organization's default agent targeting. macOS entries don't support `image`.
+
+Because these queues can run untrusted workflow code, they must provide whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Persistent self-hosted agents can expose host resources and state left by earlier jobs.
 
 The generated jobs also need network access for anything they download at runtime:
 
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
-- Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` download sources. Actions that declare `node16` run on managed Node 16.20.2 and produce a deprecation warning. Actions that declare `node20` or `node24` run on managed Node 24.18.0. Managed Node binaries require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
+- Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` download sources. Actions that declare `node16` run on managed Node 16.20.2 and produce a deprecation warning. Actions that declare `node20` or `node24` run on managed Node 24.18.0. On Linux, managed Node binaries require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
 
 When resolving a mutable tag or branch for a public action, the importer requests one dedicated action-source token and reuses it for GitHub API metadata requests. If it can't obtain the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request. The importer and generated jobs download the resolved action archive anonymously from `codeload.github.com`.
-
-`BUILDKITE_GHA_RUNTIME_IMAGE` is supported only when generated jobs run on Buildkite hosted agents or Agent Stack for Kubernetes controller v0.30.0 or later. These environments support the generated `image` step attribute. Set the variable on the importer step to the immutable digest of a toolchain-enabled image that provides `/opt/hostedtoolcache`. The runtime rejects tags and other mutable image references. Don't set this variable for other self-hosted agent environments. They don't provision the generated job image or `/opt/hostedtoolcache`, so the job fails before the workflow starts.
 
 ### Cache mise installations
 
@@ -209,14 +228,14 @@ Without this volume, mise uses the agent or user data directory. Treat the mise 
 
 The preview supports an evolving subset of GitHub Actions. The following lists summarize common supported features and limitations:
 
-- Linux x86-64 jobs using `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04`. These labels identify a compatible runner, but don't give the agent the same tools or image layout as a GitHub-hosted runner.
+- Linux x86-64 jobs using `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04`, and native macOS arm64 jobs using `macos-latest`, `macos-15`, or `macos-14`. These labels identify a compatible platform, but don't give the agent the same tools, image layout, or Xcode installation as a GitHub-hosted runner.
 - Bash and `sh` run steps.
 - Static job dependencies and matrices, including `include` and `exclude`, up to 256 expanded instances per job.
 - Supported job and step conditions, outputs, and timeouts, plus step-level `continue-on-error` behavior. Job-level `continue-on-error` supports literal Boolean values. A tolerated job failure remains visible as a Buildkite soft failure, but downstream jobs receive `success` through the `needs` context. Timeout cancellations and runtime infrastructure failures remain hard failures.
-- Public JavaScript, composite, local, and compiler-verified Dockerfile actions.
+- Public JavaScript, composite, and local actions on Linux and macOS, plus compiler-verified Dockerfile actions on Linux.
 - Local reusable workflows with statically resolvable inputs.
 - `hashFiles()` in step conditions and top-level workflow step fields, including `run`, `env`, `with`, explicit `shell`, and explicit `working-directory`. The runtime evaluates the function against the workspace when each field is used. Job conditions and other compile-time fields don't support it.
-- `actions/checkout` for the repository and exact commit that triggered the build. Checkout is anonymous for a public repository. For a private repository, it uses Buildkite's repository-provider Git credentials when they are enabled for the job and Buildkite authorizes the repository URL.
+- `actions/checkout` for a detached checkout of the event repository at the exact commit that triggered the build or a static branch. Checkout is anonymous for a public repository. For a private repository, it uses Buildkite's repository-provider Git credentials when they are enabled for the job and Buildkite authorizes the repository URL.
 - Statically resolvable workflow- and job-level `concurrency`, mapped to repository-scoped Buildkite Pipelines concurrency groups.
 - Native-backed `actions/upload-artifact` and `actions/download-artifact`, for the audited action revisions only.
 - `actions/cache` for the audited revision, using the Buildkite Results service by default. The Buildkite organization must have GitHub Actions cache token minting enabled. Jobs must be able to reach the Results service and the Agent API.
@@ -224,13 +243,13 @@ The preview supports an evolving subset of GitHub Actions. The following lists s
 The runtime rejects many unsupported or privileged features before it uploads any jobs. However, some unsupported settings are ignored rather than rejected. Important limitations include:
 
 - GitHub Enterprise Server repositories, non-GitHub repository providers, private actions, and private reusable workflows.
-- General workflow secrets, ambient `GITHUB_TOKEN`, alternate-repository or alternate-ref checkout, and GitHub-compatible OIDC, including `id-token`.
-- Windows and macOS jobs, and Linux arm64.
+- General workflow secrets, ambient `GITHUB_TOKEN`, alternate-repository checkout, tags, dynamic refs other than expressions that resolve to the exact event SHA, and GitHub-compatible OIDC, including `id-token`.
+- Windows, Linux arm64, and macOS x86-64 jobs.
+- Dockerfile actions and other Docker capabilities on macOS.
 - Job and service containers. The runtime can run them, but the current production upload policy doesn't admit them.
 - `docker://` actions, which the runtime rejects during validation.
 - Dynamic matrices and remote reusable workflows.
 - The matrix `strategy.fail-fast` setting. The runtime accepts this setting but doesn't enforce it, so a failed matrix job won't cancel the others. This differs from the GitHub Actions default. If `fail-fast` contains an expression, the workflow doesn't compile.
-- `cancel-in-progress`. Setting this to a literal `true` at the workflow level produces a warning but doesn't cancel an older build. Job-level settings and expressions don't compile. See [Concurrency](#supported-functionality-and-limitations-concurrency) for more detail.
 - Unaudited revisions of actions with native support, including checkout, artifacts, and cache.
 - The complete `github.event` payload and GitHub-specific event behavior.
 
@@ -238,7 +257,7 @@ The runtime rejects many unsupported or privileged features before it uploads an
 
 You may need to update a workflow before you can run it during the preview:
 
-- **Check `actions/upload-artifact` inputs.** The `path` input accepts up to 32 clean, workspace-relative literal paths or final-component `*` file globs. A leading `./` is normalized, and a trailing `/` selects directories only. Recursive globs, exclusions, path expressions, symlinks, and non-regular files aren't supported. The runtime accepts `retention-days` but treats it as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files and 1 GiB of source or archive data.
+- **Check `actions/upload-artifact` inputs.** The `path` input accepts up to 32 clean, workspace-relative literal files or directories, or bounded file globs using `*`, `?`, character classes, and recursive `**`. Path expressions are supported when their evaluated values follow the same rules. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Literal directories include regular-file descendants. A trailing `/` selects directories only, and hidden paths require `include-hidden-files`. The runtime accepts `retention-days` but treats it as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
 
 See the [`buildkite-gha` v0.12.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.12.1/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
@@ -250,6 +269,8 @@ See the [`buildkite-gha` v0.12.1 compatibility guide](https://github.com/buildki
 The runtime turns each static `concurrency` group into a case-insensitive Buildkite Pipelines concurrency group scoped to the repository. Workflow-level groups use ordered opening and closing gates, while job-level groups use a concurrency limit of one.
 
 Workflow-level groups can use supported `github` fields and `vars`. Job-level groups can also use concrete `matrix` values and inputs from local reusable workflows when their values are known before the job runs. The workflow won't compile if a group can't be resolved, and workflow-level concurrency isn't supported inside a called reusable workflow.
+
+Workflow-level `cancel-in-progress` accepts literal values and expressions that resolve statically to a Boolean value. A resolved `false` is accepted without a warning. A literal or statically resolved `true` produces a warning but doesn't cancel an older build. Job-level cancellation remains unsupported.
 
 Buildkite queues every waiting entry, unlike GitHub's default behavior of replacing an existing pending entry. If you want similar cancellation behavior, turn on **Cancel Intermediate Builds** and **Skip Intermediate Builds** in the pipeline's build settings. These settings work by branch, so they match a workflow concurrency group only when its scope follows the same branch boundaries.
 
@@ -288,7 +309,11 @@ buildkite-gha validate \
 The CLI also provides `compile` and `upload` commands. Pass one or more explicit workflow paths to `upload`, with each path as a separate argument:
 
 ```bash
-buildkite-gha upload -- \
+buildkite-gha upload \
+  --runner-queue ubuntu-latest=hosted \
+  --runner-queue macos-14=gha-macos-arm64 \
+  --runtime-distribution darwin/arm64=/opt/buildkite-gha-darwin \
+  -- \
   .github/workflows/ci.yml \
   .github/workflows/release.yml
 ```
@@ -299,7 +324,7 @@ The `validate` and `compile` commands don't need `mise` and don't run workflow c
 
 Run `upload` from a keyed Buildkite Pipelines command step so that the `BUILDKITE` and `BUILDKITE_STEP_KEY` environment variables are available. The step must use Buildkite agent v3.34.1 or later in the v3 release series; Agent v4 isn't supported.
 
-As with the plugin, generated jobs manage their own `mise` setup only when their actions need it. They use the pipeline or organization's default agents unless you set `BUILDKITE_GHA_TARGET_QUEUE` to choose a queue. The plugin handles all of this setup for you, which is why it's the best option for most workflows.
+As with the plugin, generated jobs manage their own `mise` setup only when their actions need it. For a custom importer, use repeatable `--runner-queue` options to map runner labels to queues. Linux mappings can use `--runner-image` with an immutable image digest. The importer executable provides the Linux runtime by default. To run macOS jobs, provide the macOS arm64 runtime with `--runtime-distribution`. The plugin handles the runtime downloads and applies your `runners` configuration for you, which is why it's the best option for most workflows.
 
 ## Next steps
 
