@@ -44,7 +44,7 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
 ### Changes to pipeline uploads
 
 - By default, the agent now immediately fails a `pipeline upload` command when it detects secrets. To allow secrets in pipeline uploads, pass the `--allow-secrets` flag or set the `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` environment variable. The agent no longer supports the `--reject-secrets` flag or the `BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS` environment variable.
-- Secret detection during `pipeline upload` now also scans the `env` map nested inside a [trigger step](/docs/pipelines/configure/step-types/trigger-step)'s `build` attribute. Previously, only top-level and step-level `env` blocks were scanned, so secret values interpolated into a trigger step's `build.env` could be uploaded undetected.
+- Secret detection during `pipeline upload` now also scans the `env` map nested inside a [trigger step](/docs/pipelines/configure/step-types/trigger-step)'s `build` attribute. Previously, only top-level and step-level `env` maps were scanned, so secret values interpolated into a trigger step's `build.env` could be uploaded undetected.
 
 ### Changes to artifacts
 
