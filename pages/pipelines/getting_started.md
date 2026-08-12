@@ -65,6 +65,7 @@ The **New Pipeline** page has the following fields:
     * **Helper templates**:
         - **Hello world**: A simple example of command syntax in Buildkite pipeline YAML.
         - **Pipeline upload**: Uploads a Buildkite pipeline stored in your repository.
+        - **GitHub Actions**: Runs a GitHub Actions workflow from the selected repository using the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows), currently in public preview.
     * **Example templates**: Pipelines used to build example projects available from the **Repository** field when **Git scope** is set to **Buildkite Examples**.
 
 > 📘
