@@ -144,7 +144,7 @@ This section of the REST API documentation also contains several other endpoints
 </table>
 
 > 📘 Clone mirror availability
-> Clone mirrors must be enabled for your organization. When enabled, responses return <code>clone_mirror_url</code> as <code>null</code> for pipelines without a configured mirror. When disabled, responses omit the property for pipelines without a configured mirror but continue to return previously configured mirror URLs. Create and update requests reject nonblank <code>clone_mirror_url</code> values when the feature is disabled. You can submit <code>null</code> or an empty string to remove an existing mirror even when the feature is disabled.
+> Clone mirrors must be enabled for your organization. When enabled, responses return <code>clone_mirror_url</code> as <code>null</code> for pipelines without a configured mirror. When disabled, responses omit the property for pipelines without a configured mirror but continue to return previously configured mirror URLs. Create and update requests reject <code>clone_mirror_url</code> values that are not blank when the feature is disabled. You can submit <code>null</code> or an empty string to remove an existing mirror even when the feature is disabled.
 
 ## List pipelines
 
