@@ -8003,7 +8003,7 @@ interface OrganizationRepositoryProvider {
 }
 
 """
-Cursor Origin installation associated with this organization
+Origin installation associated with this organization
 """
 type OrganizationRepositoryProviderCursorOrigin implements Node & OrganizationRepositoryProvider {
   """
@@ -10302,7 +10302,7 @@ type RepositoryProviderCodebaseSettings implements RepositoryProviderSettings {
 }
 
 """
-A pipeline's repository is being provided by Cursor Origin
+A pipeline's repository is being provided by Origin
 """
 type RepositoryProviderCursorOrigin implements RepositoryProvider {
   """
@@ -10327,7 +10327,7 @@ type RepositoryProviderCursorOrigin implements RepositoryProvider {
 }
 
 """
-Settings for a Cursor Origin repository
+Settings for an Origin repository
 """
 type RepositoryProviderCursorOriginSettings implements RepositoryProviderSettings {
   """
@@ -10356,7 +10356,7 @@ type RepositoryProviderCursorOriginSettings implements RepositoryProviderSetting
   filterEnabled: Boolean
 
   """
-  Whether to publish build results to Cursor Origin as a check run.
+  Whether to publish build results to Origin as a check run.
   """
   publishCommitStatus: Boolean!
 }
