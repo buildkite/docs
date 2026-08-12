@@ -45,7 +45,8 @@ For a released runtime, use the following configuration:
 | Property | Required | Description |
 | --- | --- | --- |
 | `workflow` | Yes | Path to the GitHub Actions workflow in the repository. |
-| `version` | No | `buildkite-gha` runtime version to run. The default is `latest`. |
+| `version` | No | Latest stable or an exact `buildkite-gha` runtime release from `0.8.0` onward. The default is `latest`. |
+| `minimum-release-age` | No | Minimum release age used by `mise` when resolving `latest`. The default is `0s`. |
 {: class="responsive-table"}
 
 Buildkite decides when the pipeline runs, so the workflow's `on` key doesn't create build triggers. Set up GitHub triggers and schedules in Buildkite, or start a build yourself by selecting **New Build** or using the REST API.
@@ -86,12 +87,12 @@ The plugin and the `buildkite-gha` runtime work together to run the workflow. Th
 
 Each part has a different job:
 
-- **GitHub Actions Buildkite plugin:** Reads your configuration, downloads and verifies the selected `buildkite-gha` release, then starts the upload.
+- **GitHub Actions Buildkite plugin:** Reads your configuration, prepares `mise`, then asks it to select and run the configured `buildkite-gha` release.
 - **`buildkite-gha`:** Checks that the workflow is supported, turns its jobs into Buildkite Pipelines command jobs, uploads them, and runs each generated job.
 
-You don't need to install `buildkite-gha` yourself. The plugin downloads the Linux x86-64 runtime binary and checks its checksum and archive contents before running it.
+You don't need to install `mise` or `buildkite-gha` yourself. The plugin uses a compatible `mise` from `PATH` or installs a pinned, verified copy. Mise installs and verifies the selected Linux x86-64 runtime release, then caches the installation before running it.
 
-Jobs that use JavaScript actions need `mise` 2026.5.12 or later. The runtime checks `BUILDKITE_GHA_MISE`, then `PATH`, and downloads and verifies a managed copy if neither provides a compatible version. A runtime image doesn't remove this requirement. Shell-only jobs and jobs that use only native adapters or Docker don't need `mise`. The importer step and the `validate` and `compile` commands don't need it either.
+Jobs that use JavaScript actions need `mise` 2026.5.12 or later. The runtime checks `BUILDKITE_GHA_MISE`, then `PATH`, and downloads and verifies a managed copy if neither provides a compatible version. A runtime image doesn't remove this requirement. Shell-only jobs and jobs that use only native adapters or Docker don't need `mise`. The `validate` and `compile` commands don't need it either.
 
 The importer passes the runtime and compiled execution plans to the generated jobs using [Buildkite Pipelines artifacts](/docs/pipelines/configure/artifacts). Each job verifies these files before using them. This process doesn't create a corresponding workflow run in GitHub. Buildkite handles the schedule, logs, retries, cancellations, and build status.
 
@@ -112,7 +113,7 @@ Before it can download the runtime and create the workflow jobs, the importer st
 
 - A Linux x86-64 agent.
 - Buildkite agent v3.34.1 or later in the v3 release series. Agent v4 isn't supported because the runtime uses the `--reject-secrets` option, which Agent v4 doesn't provide.
-- Bash, `awk`, `chmod`, `cp`, `curl`, `dirname`, `find`, `grep`, `gzip`, `ln`, `mkdir`, `mktemp`, `mv`, `rm`, `sed`, `sha256sum`, `sort`, `tar`, and `uname`.
+- Bash, `cp`, `curl`, `mktemp`, `sha256sum`, and `tar`. The download tools are used only when a compatible `mise` isn't already on `PATH`.
 - Git when `BUILDKITE_COMMIT` isn't already a full commit SHA.
 - Outbound HTTPS access to public GitHub release and action sources.
 
@@ -149,22 +150,22 @@ When resolving a mutable tag or branch for a public action, the importer uses an
 
 `BUILDKITE_GHA_RUNTIME_IMAGE` is supported only when generated jobs run on Buildkite hosted agents or Agent Stack for Kubernetes controller v0.30.0 or later. These environments support the generated `image` step attribute. Set the variable on the importer step to the immutable digest of a toolchain-enabled image that provides `/opt/hostedtoolcache`. The runtime rejects tags and other mutable image references. Don't set this variable for other self-hosted agent environments. They don't provision the generated job image or `/opt/hostedtoolcache`, so the job fails before the workflow starts.
 
-### Cache the runtime download
+### Cache mise installations
 
-On Buildkite hosted agents, attach the plugin cache volume to speed up the importer:
+On Buildkite hosted agents, attach a mise data cache to avoid reinstalling `mise` and `buildkite-gha`:
 
 ```yaml
 steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
-    cache: "/cache/bkcache/github-actions-buildkite-plugin"
+    cache: "/cache/bkcache/mise"
     plugins:
       - github-actions#v0.8.0:
           workflow: ".github/workflows/ci.yml"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-Without this volume, the plugin uses an agent or user cache when one is available, then falls back to a temporary directory. The plugin verifies cached archives before using them. This importer cache is separate from generated-job runtime caching and the workflow's `actions/cache` behavior.
+Without this volume, mise uses the agent or user data directory. Treat the mise data directory as executable state. Don't share it with untrusted jobs or principals that can modify it. This importer cache is separate from generated-job runtime caching and the workflow's `actions/cache` behavior.
 
 ## Supported functionality and limitations
 
