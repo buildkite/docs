@@ -181,11 +181,6 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
         default_value: "10 builds"
       },
       {
-        title: "Triggered builds per build",
-        description: "The maximum number of triggered builds per single build.",
-        default_value: "250 builds"
-      },
-      {
         title: "Concurrency key length",
         description: "The maximum length for concurrency group keys.",
         default_value: "200 characters"
@@ -233,7 +228,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Artifact retention",
         description: "The maximum number of days artifacts are stored. See <a href=\"/docs/platform/artifact-storage-and-transfer-billing#artifact-retention\">Artifacts billing</a> for how retention relates to storage usage.",
-        default_value: "180 days"
+        default_value: "30 days on the Personal and Pro plans, 90 days on the Enterprise plan, and the duration of the trial on the Trial plan"
       },
       {
         title: "Log size per job",

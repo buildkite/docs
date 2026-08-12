@@ -2,8 +2,11 @@
 
 ## List tests
 
+Lists the tests in a suite, along with aggregated duration, reliability, and execution metrics for each test over a time range.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -H "Buildkite-Version: 2026-08-01" \
   -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests"
 ```
 
@@ -17,13 +20,115 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": "is correctly formatted",
     "location": "./spec/models/user_spec.rb:42",
     "file_name": "./spec/models/user_spec.rb",
+    "labels": ["flaky"],
+    "reliability": 0.98,
+    "duration_avg": 0.213,
+    "duration_sum": 23.856,
+    "duration_min": 0.108,
+    "duration_max": 1.942,
+    "executions_count": 112,
+    "executions_count_by_result": {
+      "passed": 110,
+      "failed": 2
+    }
   }
 ]
 ```
 
-Optional [query string parameters](/docs/api#query-string-parameters):
+The `Buildkite-Version` request header opts in to the versioned response shown above, which includes the aggregated metrics. Requests made without this header receive a response which contains only the test attributes `id` through `labels`.
+
+The aggregated metrics in each test are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters. Tests without any executions recorded in Test Engine during the requested time range will not be present in the response.
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>reliability</code></th>
+    <td>The reliability of the test, calculated from its passed and failed executions and expressed as a decimal fraction. This is <code>null</code> when the test has no passed or failed executions in the time range.</td>
+  </tr>
+  <tr>
+    <th><code>duration_avg</code></th>
+    <td>The average execution duration, in seconds.</td>
+  </tr>
+  <tr>
+    <th><code>duration_sum</code></th>
+    <td>The total execution duration, in seconds.</td>
+  </tr>
+  <tr>
+    <th><code>duration_min</code></th>
+    <td>The shortest execution duration, in seconds.</td>
+  </tr>
+  <tr>
+    <th><code>duration_max</code></th>
+    <td>The longest execution duration, in seconds.</td>
+  </tr>
+  <tr>
+    <th><code>executions_count</code></th>
+    <td>The number of executions in the time range.</td>
+  </tr>
+  <tr>
+    <th><code>executions_count_by_result</code></th>
+    <td>The number of executions in the time range, broken down by result. The <code>passed</code> and <code>failed</code> counts are always present. The <code>skipped</code>, <code>pending</code>, and <code>unknown</code> counts are only present when they're non-zero.</td>
+  </tr>
+</tbody>
+</table>
+
+### Query string parameters
+
+Some [query string parameters](/docs/api#query-string-parameters) support one or more of the additional operators listed below.
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>!</code></th>
+    <td>
+      Not equal
+      <p class="Docs__api-param-eg"><em>Example:</em> Tests labeled with <code>foo</code> but not <code>bar</code> - <code>labels=foo,!bar</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>~</code></th>
+    <td>
+      Group contains
+      <p class="Docs__api-param-eg"><em>Example:</em> tests with one or more failed executions within the requested time period <code>tags=result:~failed</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>^</code></th>
+    <td>
+      Group only
+      <p class="Docs__api-param-eg"><em>Example:</em> tests with only failed executions within the requested time period <code>tags=result:^failed</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>*</code></th>
+    <td>
+      Starts with
+      <p class="Docs__api-param-eg"><em>Example:</em> tests with executions on branches with the staging- prefix within the requested time period <code>branch=staging-*</code></p>
+    </td>
+  </tr>
+</tbody>
+</table>
 
 <%= render_markdown partial: 'apis/rest_api/test_engine/tests_list_query_strings' %>
+
+Optional request headers:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>Buildkite-Version</code></th>
+    <td>
+      Request an API version using a date in <code>YYYY-MM-DD</code> format. Set to <code>2026-08-01</code> or a later date to receive test metrics in the response. Without this header, or with a date before <code>2026-08-01</code>, the response uses the legacy format without metrics.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>Buildkite-Version: 2026-08-01</code></p>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+> 📘 Invalid format returns an error
+> If a non-blank `Buildkite-Version` header value is not in `YYYY-MM-DD` format, the API returns a `400` response with `{"message": "Buildkite-Version must be in format YYYY-MM-DD"}`. A blank value is treated as an omitted header, so the API returns the legacy `200` response instead.
+
+This endpoint is [paginated](/docs/apis/rest-api#pagination).
 
 Required scope: `read_suites`
 
@@ -45,6 +150,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "name": "is correctly formatted",
   "location": "./spec/models/user_spec.rb:42",
   "file_name": "./spec/models/user_spec.rb",
+  "labels": ["flaky"]
 }
 ```
 

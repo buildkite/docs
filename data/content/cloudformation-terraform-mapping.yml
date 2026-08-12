@@ -227,6 +227,9 @@ KeyName:
 LambdaArchitecture:
   variable: lambda_architecture
   type: string
+LinuxDistribution:
+  variable: linux_distribution
+  type: string
 LogRetentionDays:
   variable: ec2_log_retention_days
   type: number
@@ -241,6 +244,9 @@ MinSize:
   type: number
 MountTmpfsAtTmp:
   variable: mount_tmpfs_at_tmp
+  type: bool
+NestedVirtualizationEnabled:
+  variable: enable_nested_virtualization
   type: bool
 OnDemandBaseCapacity:
   variable: on_demand_base_capacity
