@@ -79,7 +79,7 @@ steps:
 
 Use either `workflow` or `workflows`, but not both. Each path must identify a tracked `.yml` or `.yaml` file inside the repository. Directories, globs, symlinks, untracked files, and paths outside the repository aren't supported.
 
-When this step runs, the plugin turns the workflows into a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines). Each directly runnable workflow becomes a group that depends on the plugin step. The generated jobs appear inside the group. The plugin processes all selected workflows in one transaction, so an error in any workflow prevents the complete set from uploading.
+When this step runs, the plugin turns the workflows into a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines). Each directly runnable workflow becomes a group that depends on the plugin step. The generated jobs appear inside the group. The plugin processes all selected workflows in one transaction. An error in any workflow prevents the complete set from uploading.
 
 The plugin supports the following configuration:
 
