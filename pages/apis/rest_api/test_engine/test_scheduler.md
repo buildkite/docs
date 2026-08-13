@@ -772,7 +772,7 @@ The API sorts waiting attempts by:
 
 Attempts without an affinity group are included in the lease on their own, but attempts belonging to an affinity group are expanded to include a single attempt from each entry in the group. Affinity groups with attempts locked by concurrent leases are not included.
 
-The API applies the pool's immutable `lease.costs.custom` and `lease.max_attempts` settings to each lease:
+The API applies the pool's `lease.costs.custom` and `lease.max_attempts` settings to each lease:
 
 - The first batch is always leased, even if it exceeds the target cost. When the first batch is an affinity group, the entire group is leased even if it exceeds the attempt limit.
 - Each later batch is added only if the entire batch fits within both limits.
@@ -1210,7 +1210,7 @@ Status | Description
 
 ## Breaking changes
 
-Since August 13, 2026, lease size is set when creating a pool. The settings apply to every lease from that pool and cannot be changed.
+Since August 13, 2026, lease configuration is set when creating a pool. The settings apply to every lease from that pool and cannot be changed after creation.
 
 Use `lease.costs.custom` to set the target custom cost. Use `lease.max_attempts` to set the maximum number of attempts. Pool responses include both settings in a `lease` object. Existing pools use the defaults of `1` for custom cost and `300` attempts per lease.
 
