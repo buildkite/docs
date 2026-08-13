@@ -31,7 +31,7 @@ A [_pipeline_](/docs/pipelines/glossary#pipeline) is what represents a CI/CD wor
 
 If you signed up:
 
-- With GitHub, the **New Pipeline** page's **Git scope** is set to your GitHub account, with its most recently updated repository selected in the **Repository** field. To explore example pipelines instead, select **Or try an example**. If your GitHub account has no repositories, the **Starter pipeline** of the **Buildkite Examples** is selected automatically.
+- With GitHub, the **New Pipeline** page's **Git scope** is set to your GitHub account, with its most recently updated repository selected in the **Repository** field. To explore example pipelines instead, select **try an example** in the page header. If your GitHub account has no repositories, the **Starter pipeline** of the **Buildkite Examples** is selected automatically.
 - By email, the **New Pipeline** page presents the **Starter pipeline** of the **Buildkite Examples**.
 
 ### Understanding the New Pipeline page
