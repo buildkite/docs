@@ -58,7 +58,7 @@ steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
     plugins:
-      - github-actions#v0.10.0:
+      - github-actions#latest:
           workflow: ".github/workflows/ci.yml"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
@@ -70,7 +70,7 @@ steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
     plugins:
-      - github-actions#v0.10.0:
+      - github-actions#latest:
           workflows:
             - ".github/workflows/ci.yml"
             - ".github/workflows/release.yml"
@@ -117,7 +117,7 @@ steps:
   - label: "\:github\: Tests"
     key: "github-actions-tests"
     plugins:
-      - github-actions#v0.10.0:
+      - github-actions#latest:
           workflow: ".github/workflows/ci.yml"
 
   - label: "Deploy"
@@ -186,7 +186,7 @@ steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
     plugins:
-      - github-actions#v0.10.0:
+      - github-actions#latest:
           workflow: ".github/workflows/ci.yml"
           runners:
             - runs-on: "ubuntu-latest"
@@ -217,7 +217,7 @@ steps:
     key: "github-actions"
     cache: "/cache/bkcache/mise"
     plugins:
-      - github-actions#v0.10.0:
+      - github-actions#latest:
           workflow: ".github/workflows/ci.yml"
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
