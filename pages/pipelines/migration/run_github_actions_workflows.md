@@ -308,11 +308,11 @@ Each job can request up to 10 workflow access tokens per hour. Requests beyond t
 
 ## Troubleshooting
 
-The importer processes selected workflows and uploads the generated pipeline as one transaction. Parse, event-input, admission, artifact, or upload failures prevent the complete pipeline from uploading. Some errors isolated to one workflow produce a failing replacement step while other selected workflows remain represented. Start with the importer job's annotation and log, which identify the failed processing stage and diagnostic.
+The importer processes selected workflows and uploads the generated pipeline as one transaction. Any input, trigger translation, event validation, compilation, admission, artifact, or upload failure aborts the transaction. No partially compiled pipeline is uploaded. Start with the importer job's annotation and log, which identify the failed processing stage and diagnostic.
 
 ### The importer reports path filters are unsupported
 
-The compatibility runtime rejects `paths` and `paths-ignore` under `push` and `pull_request` because Buildkite Pipelines `if_changed` has different semantics. The affected workflow appears as a failing replacement step. Remove these filters before importing the workflow. Without them, the workflow may run for changes that GitHub Actions would have skipped.
+The compatibility runtime rejects `paths` and `paths-ignore` under `push` and `pull_request` because Buildkite Pipelines `if_changed` has different semantics. A path filter in any selected workflow prevents the generated pipeline from uploading. Remove these filters before importing the workflow. Without them, the workflow may run for changes that GitHub Actions would have skipped.
 
 The [Buildkite pipeline converter](/docs/pipelines/converter/github-actions) is a separate tool that generates native pipeline configuration and can translate path filtering to `if_changed`.
 
