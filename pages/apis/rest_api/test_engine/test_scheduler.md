@@ -1210,7 +1210,11 @@ Status | Description
 
 ## Breaking changes
 
-Since August 13, 2026, lease sizing is configured when creating a pool and applies to every lease from that pool. Set `lease.costs.custom` and `lease.max_attempts` in the create-pool request. The settings cannot be changed after pool creation. Pool responses now include the fully populated `lease` object. Pools created before this change use the default custom cost of `1` and maximum of `300` attempts per lease. Create-lease requests that include the former `target_cost_limit` property now return `422 Unprocessable Entity`. Remove this property and move its `custom` value to `lease.costs.custom` when creating the pool.
+Since August 13, 2026, lease size is set when creating a pool. The settings apply to every lease from that pool and cannot be changed.
+
+Use `lease.costs.custom` to set the target custom cost. Use `lease.max_attempts` to set the maximum number of attempts. Pool responses include both settings in a `lease` object. Existing pools use the defaults of `1` for custom cost and `300` attempts per lease.
+
+The `target_cost_limit` property is no longer accepted when creating a lease. Requests that include it return `422 Unprocessable Entity`. To migrate, remove `target_cost_limit` from create-lease requests. Set the same custom cost in `lease.costs.custom` when creating the pool.
 
 Since August 10, 2026, all entries that use the same non-empty `affinity_group` must be included in one upload request. After the request succeeds, later entry uploads to the same pool that reuse the affinity group return `409 Conflict`.
 
