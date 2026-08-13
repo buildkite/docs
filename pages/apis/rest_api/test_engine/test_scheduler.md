@@ -94,7 +94,7 @@ Pools contain entries, entries have attempts, and leases temporarily assign atte
 
 The Test Scheduler API uses these four resources:
 
-- **Pool:** A build-scoped collection of entries. Its attempt policy controls how many attempts the scheduler creates for each entry and when the scheduler considers the entry finished.
+- **Pool:** A build-scoped collection of entries. Its attempt policy controls how many attempts the scheduler creates for each entry and when the scheduler considers the entry finished. Its lease settings control the target custom cost and maximum attempts for every lease created from the pool.
 - **Entry:** One unit of work, identified by a selector. An entry belongs to one pool and includes scheduling data such as cost, priority, affinity group, and metadata.
 - **Attempt:** One execution of an entry. Creating an entry creates its initial attempts in the `waiting` state. When a job acquires an attempt through a lease, the attempt moves to `leased`. The job executes the work, completes the attempt, and reports its result. Releasing an unfinished attempt or allowing its lease to expire returns the attempt to `waiting`.
 - **Lease:** A time-bounded claim by one Buildkite Pipelines job over a batch of waiting attempts. The job can extend the lease, complete attempts and report their results, or release unfinished attempts back to the pool.
@@ -137,6 +137,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
         "min_failed": null,
         "max_failed": 1,
         "parallel_attempts": 1
+      },
+      "lease": {
+        "costs": {
+          "custom": 25.0
+        },
+        "max_attempts": 100
       },
       "expires_at": "2026-07-20T09:00:00.000Z",
       "created_at": "2026-07-20T08:00:00.000Z"
@@ -219,6 +225,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_failed": 1,
     "parallel_attempts": 1
   },
+  "lease": {
+    "costs": {
+      "custom": 25.0
+    },
+    "max_attempts": 100
+  },
   "expires_at": "2026-07-20T09:00:00.000Z",
   "created_at": "2026-07-20T08:00:00.000Z"
 }
@@ -251,6 +263,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
       "min_failed": null,
       "max_failed": 1,
       "parallel_attempts": 1
+    },
+    "lease": {
+      "costs": {
+        "custom": 25
+      },
+      "max_attempts": 100
     }
   }'
 ```
@@ -272,6 +290,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "min_failed": null,
     "max_failed": 1,
     "parallel_attempts": 1
+  },
+  "lease": {
+    "costs": {
+      "custom": 25.0
+    },
+    "max_attempts": 100
   },
   "expires_at": "2026-07-20T09:00:00.000Z",
   "created_at": "2026-07-20T08:00:00.000Z"
@@ -312,6 +336,18 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>attempt_policy</code></th>
     <td>Controls how many attempts can run for each entry and when the entry finishes. Omit the object or any of its properties to use the corresponding defaults. See the Attempt policy for the fields of this object.</td>
+  </tr>
+  <tr>
+    <th><code>lease</code></th>
+    <td>Controls the size of every lease created from the pool. The settings cannot be changed after the pool is created. Omit this object or either of its properties to use the corresponding defaults.</td>
+  </tr>
+  <tr>
+    <th><code>lease.costs.custom</code></th>
+    <td>The target maximum combined custom cost for each lease. Must be a finite, non-negative number. The first selected attempt or affinity group is leased even when its cost exceeds this target. Later work is only added while it fits.<br><em>Default:</em> <code>1</code></td>
+  </tr>
+  <tr>
+    <th><code>lease.max_attempts</code></th>
+    <td>The maximum number of attempts in each lease. Must be an integer from <code>1</code> through <code>300</code>. The first affinity group is leased as a whole even when it exceeds this maximum.<br><em>Default:</em> <code>300</code></td>
   </tr>
 </tbody>
 </table>
@@ -472,6 +508,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "min_failed": null,
     "max_failed": 1,
     "parallel_attempts": 1
+  },
+  "lease": {
+    "costs": {
+      "custom": 25.0
+    },
+    "max_attempts": 100
   },
   "expires_at": "2026-07-20T09:00:00.000Z",
   "created_at": "2026-07-20T08:00:00.000Z"
@@ -705,9 +747,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
-    "target_cost_limit": {
-      "custom": 25
-    },
     "lease_ttl_seconds": 120
   }'
 ```
@@ -718,10 +757,6 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr>
-    <th><code>target_cost_limit.custom</code></th>
-    <td>The target maximum combined custom cost for the lease. Must be a finite, non-negative number. The first selected attempt or affinity group is leased even when its cost exceeds this target. Later work is only added while it fits.<br><em>Default:</em> <code>1</code></td>
-  </tr>
   <tr>
     <th><code>lease_ttl_seconds</code></th>
     <td>How long the lease is valid, in seconds. Must be an integer from <code>1</code> through <code>600</code> and cannot exceed the organization's maximum lease lifetime.<br><em>Default:</em> <code>60</code></td>
@@ -737,9 +772,9 @@ The API sorts waiting attempts by:
 
 Attempts without an affinity group are included in the lease on their own, but attempts belonging to an affinity group are expanded to include a single attempt from each entry in the group. Affinity groups with attempts locked by concurrent leases are not included.
 
-The API applies cost and attempt limits to each lease:
+The API applies the pool's immutable `lease.costs.custom` and `lease.max_attempts` settings to each lease:
 
-- The first batch is always leased, even if it exceeds the target cost or the attempt limit (300 attempts by default).
+- The first batch is always leased, even if it exceeds the target cost. When the first batch is an affinity group, the entire group is leased even if it exceeds the attempt limit.
 - Each later batch is added only if the entire batch fits within both limits.
 - Selection stops at the first later batch that does not fit. The API does not skip that batch to consider lower-priority work.
 
@@ -1174,6 +1209,8 @@ Status | Description
 {: class="responsive-table"}
 
 ## Breaking changes
+
+Since August 13, 2026, lease sizing is configured when creating a pool and applies to every lease from that pool. Set `lease.costs.custom` and `lease.max_attempts` in the create-pool request. The settings cannot be changed after pool creation, and pool responses now include the fully populated `lease` object. Pools created before this change use the default custom cost of `1` and maximum of `300` attempts per lease. Create-lease requests that include the former `target_cost_limit` property now return `422 Unprocessable Entity`; remove this property and move its `custom` value to `lease.costs.custom` when creating the pool.
 
 Since August 10, 2026, all entries that use the same non-empty `affinity_group` must be included in one upload request. After the request succeeds, later entry uploads to the same pool that reuse the affinity group return `409 Conflict`.
 
