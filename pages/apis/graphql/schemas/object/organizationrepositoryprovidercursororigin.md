@@ -22,7 +22,7 @@ toc: false
 <!-- vale on -->
 
 
-Cursor Origin installation associated with this organization
+Origin installation associated with this organization
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
