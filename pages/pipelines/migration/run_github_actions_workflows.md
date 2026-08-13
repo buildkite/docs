@@ -8,7 +8,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 > Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 > The plugin and runtime are under active development. Review the [`buildkite-gha` v0.12.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.12.1/docs/compatibility.md) before adding a workflow.
 
-The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/github-actions) gives you a quick way to get a supported GitHub Actions workflow running in Buildkite with minimal changes, without first rewriting it as a native Buildkite pipeline. Once the workflow is up and running, you can [convert it into native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) to take full advantage of Buildkite Pipelines features.
+The GitHub Actions Buildkite plugin gives you a quick way to get a supported GitHub Actions workflow running in Buildkite with minimal changes, without first rewriting it as a native Buildkite pipeline. Once the workflow is up and running, you can [convert it into native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) to take full advantage of Buildkite Pipelines features.
 
 During the preview, the quickest way to get started is with a Linux x86-64 workflow in a public `github.com` repository that doesn't need secrets. Private repository checkout and temporary GitHub tokens are also available in limited cases, but require extra setup, so [check what the preview supports and its current limitations](#supported-functionality-and-limitations) before you begin.
 
@@ -21,7 +21,7 @@ Use the workflow picker or GitHub Actions template to create a new pipeline. You
 > 📘 Workflow picker availability
 > The workflow picker is rolling out to existing Buildkite organizations. It is available for repositories connected using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), which gives Buildkite access to workflow files on the repository's default branch. The picker isn't available for **GitHub (Limited Access)** connections. If the picker doesn't appear for an eligible repository, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com). In the meantime, use the GitHub Actions template described in the next section.
 
-The workflow picker detects GitHub Actions workflows on the repository's default branch and lists them in the **YAML Steps editor**, so you don't have to configure the plugin step by hand. Selecting a detected workflow adds a [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/github-actions) step to your YAML.
+The workflow picker detects GitHub Actions workflows on the repository's default branch and lists them in the **YAML Steps editor**, so you don't have to configure the plugin step by hand. Selecting a detected workflow adds a GitHub Actions Buildkite plugin step to your YAML.
 
 #### Create a new pipeline with the workflow picker
 
@@ -42,10 +42,10 @@ Opening the panel doesn't change the pipeline configuration until you select a w
 
 To add detected workflows to an existing pipeline:
 
-1. Open the pipeline's **Pipeline Settings** page, then select **Edit Pipeline**. Any user who can edit the pipeline can use the workflow picker, even without permission to create pipelines.
+1. From your pipeline, select **Pipeline settings** > **Edit steps**. Any user who can edit the pipeline can use the workflow picker, even without permission to create pipelines.
 1. In the detected **GitHub Actions** workflows panel, select **Run on Buildkite**.
 1. Select each supported workflow that you want to run, or select **Select all**.
-1. Review the generated plugin step in the **YAML Steps editor**, then save your changes.
+1. Review the generated plugin step in the **YAML Steps editor**, then select **Save steps**.
 
 Your existing pipeline configuration, including any steps you've already added, is preserved while workflows load and while you select or deselect them.
 
