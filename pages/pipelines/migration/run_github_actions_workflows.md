@@ -29,12 +29,10 @@ To create a pipeline using detected GitHub Actions workflows:
 
 1. From the Buildkite dashboard, select **New Pipeline**.
 1. Under **Git scope**, select your GitHub account or organization. Then select a repository that contains GitHub Actions workflow files on its default branch.
-1. In the detected **GitHub Actions** workflows panel, select **Run on Buildkite**.
+1. In the detected **GitHub Actions** workflows panel, select **Select workflows...**.
 1. Select each supported workflow that you want to run, or select **Select all**.
 1. Review the generated plugin step in the **YAML Steps editor**.
 1. Select **Create and run**.
-
-<%= image "github-actions-workflows-detected-panel.png", width: 2360/2, height: 1200/2, alt: "GitHub Actions workflows detected panel on the New Pipeline page, with a Run on Buildkite button" %>
 
 Opening the panel doesn't change the pipeline configuration until you select a workflow. Only workflows with supported triggers can be selected. Other workflows appear as **Not supported**. Selecting all workflows adds each workflow path explicitly.
 
@@ -43,7 +41,8 @@ Opening the panel doesn't change the pipeline configuration until you select a w
 To add detected workflows to an existing pipeline:
 
 1. From your pipeline, select **Pipeline settings** > **Edit steps**. Any user who can edit the pipeline can use the workflow picker, even without permission to create pipelines.
-1. In the detected **GitHub Actions** workflows panel, select **Run on Buildkite**.
+1. If your existing GitHub Actions Buildkite plugin step uses `workflow`, replace it with `workflows` and set the value to an array of workflow paths. Alternatively, remove the plugin step before using the picker. The picker reads only `workflows`, and the plugin doesn't support both selectors.
+1. In the detected **GitHub Actions** workflows panel, select **Select workflows...**.
 1. Select each supported workflow that you want to run, or select **Select all**.
 1. Review the generated plugin step in the **YAML Steps editor**, then select **Save steps**.
 
