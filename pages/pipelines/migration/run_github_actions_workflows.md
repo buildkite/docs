@@ -8,31 +8,48 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 > Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 > The plugin and runtime are under active development. Review the [`buildkite-gha` v0.12.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.12.1/docs/compatibility.md) before adding a workflow.
 
-The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/github-actions) gives you a quick way to get a supported GitHub Actions workflow running in Buildkite with minimal changes, without first rewriting it as a native Buildkite pipeline. Once the workflow is up and running, you can [convert it into native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) to take full advantage of Buildkite Pipelines features.
+The GitHub Actions Buildkite plugin runs supported GitHub Actions workflows as Buildkite Pipelines jobs. This lets you migrate a workflow with minimal changes, then replace imported jobs with [native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) over time.
 
-During the preview, the quickest way to get started is with a Linux x86-64 workflow in a public `github.com` repository that doesn't need secrets. Private repository checkout and temporary GitHub tokens are also available in limited cases, but require extra setup, so [check what the preview supports and its current limitations](#supported-functionality-and-limitations) before you begin.
+During the preview, start with a Linux x86-64 workflow in a public `github.com` repository that doesn't need secrets. Private repository checkout and temporary GitHub tokens require additional setup. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before you begin.
 
 ## Add a GitHub Actions workflow to a pipeline
 
-Use the workflow picker or GitHub Actions template to create a new pipeline. You can also configure the plugin manually in a new or existing pipeline.
+Use the workflow picker or GitHub Actions template to create a new pipeline. You can also use the workflow picker or configure the plugin manually in an existing pipeline.
 
-### Create a new pipeline with the workflow picker
+### Detect workflows automatically
 
 > 📘 Workflow picker availability
 > The workflow picker is rolling out to existing Buildkite organizations. It is available for repositories connected using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), which gives Buildkite access to workflow files on the repository's default branch. The picker isn't available for **GitHub (Limited Access)** connections. If the picker doesn't appear for an eligible repository, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com). In the meantime, use the GitHub Actions template described in the next section.
+
+The workflow picker detects GitHub Actions workflows on the repository's default branch and lists them in the **YAML Steps editor**, so you don't have to configure the plugin step by hand. Selecting a detected workflow adds a GitHub Actions Buildkite plugin step to your YAML.
+
+#### Create a new pipeline with the workflow picker
 
 To create a pipeline using detected GitHub Actions workflows:
 
 1. From the Buildkite dashboard, select **New Pipeline**.
 1. Under **Git scope**, select your GitHub account or organization. Then select a repository that contains GitHub Actions workflow files on its default branch.
-1. In the detected **GitHub Actions** workflows panel, select **Run on Buildkite**.
+1. In the detected **GitHub Actions** workflows panel, select **Select workflows...**.
 1. Select each supported workflow that you want to run, or select **Select all**.
 1. Review the generated plugin step in the **YAML Steps editor**.
 1. Select **Create and run**.
 
-<%= image "github-actions-workflows-detected-panel.png", width: 2360/2, height: 1200/2, alt: "GitHub Actions workflows detected panel on the New Pipeline page, with a Run on Buildkite button" %>
-
 Opening the panel doesn't change the pipeline configuration until you select a workflow. Only workflows with supported triggers can be selected. Other workflows appear as **Not supported**. Selecting all workflows adds each workflow path explicitly.
+
+#### Add workflows to an existing pipeline
+
+To add detected workflows to an existing pipeline:
+
+1. From your pipeline, select **Pipeline settings** > **Edit steps**. Any user who can edit the pipeline can use the workflow picker, even without permission to create pipelines.
+1. If your existing GitHub Actions Buildkite plugin step uses `workflow`, replace it with `workflows` and set the value to an array of workflow paths. Alternatively, remove the plugin step before using the picker. The picker reads only `workflows`, and the plugin doesn't support both selectors.
+1. In the detected **GitHub Actions** workflows panel, select **Select workflows...**.
+1. Select each supported workflow that you want to run, or select **Select all**.
+1. Review the generated plugin step in the **YAML Steps editor**, then select **Save steps**.
+
+Your existing pipeline configuration, including any steps you've already added, is preserved while workflows load and while you select or deselect them.
+
+> 📘 Pull request build settings for existing pipelines
+> If a selected workflow handles pull request events, review the pipeline's [GitHub settings](/docs/pipelines/source-control/github#running-builds-on-pull-requests). Turn off **Skip when pull request has existing build for commit and branch** and **Skip when pull request is closed or merged** to ensure duplicate-commit and closed or merged pull request webhook events reach the imported workflow.
 
 ### Create a new pipeline from the template
 
@@ -205,7 +222,7 @@ The generated jobs also need network access for anything they download at runtim
 - Jobs that use public GitHub Actions need outbound HTTPS access to `codeload.github.com`, where the runtime downloads each action's source archive.
 - Jobs that use JavaScript actions need outbound HTTPS access to the managed Node.js and `mise` download sources. Actions that declare `node16` run on managed Node 16.20.2 and produce a deprecation warning. Actions that declare `node20` or `node24` run on managed Node 24.18.0. On Linux, managed Node binaries require glibc 2.28 or newer. Shell-only workflows don't have this glibc requirement.
 
-When resolving a mutable tag or branch for a public action, the importer requests one dedicated action-source token and reuses it for GitHub API metadata requests. If it can't obtain the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request. The importer and generated jobs download the resolved action archive anonymously from `codeload.github.com`.
+When resolving a mutable tag or branch for a public action, the importer uses a dedicated action-source token only for public GitHub metadata requests and reuses it across the selected workflows and nested composite actions. Metadata requests for the repository that triggered the build and action archive downloads from `codeload.github.com` remain anonymous. If the importer can't obtain the token, it reports a warning and retries anonymously. A lowercase, full 40-character commit SHA doesn't require an API request.
 
 ### Cache mise installations
 
@@ -278,16 +295,38 @@ Buildkite queues every waiting entry, unlike GitHub's default behavior of replac
 
 To check out the private repository that triggered the build, enable Buildkite's repository-provider Git credentials for the job. Buildkite must also authorize the repository URL. Without both, checkout is anonymous. This access doesn't provide `GITHUB_TOKEN` or `github.token`, and it can't be used for private actions or other repositories.
 
-Buildkite can provide a short-lived token for the repository that triggered the build. The organization feature and the pipeline's workflow access token setting must both be enabled. Both settings are off by default. The workflow file must be directly under `.github/workflows/` and have a simple `.yml` or `.yaml` filename. The job must either reference `secrets.GITHUB_TOKEN` directly or use an action whose default input references `github.token`.
+Buildkite can provide a short-lived token for the repository that triggered the build. The organization feature and the pipeline's workflow access token setting must both be enabled. The organization feature is off by default. The pipeline setting is also off by default when you configure the plugin manually. When you select workflows while creating a pipeline, Buildkite selects **Allow workflow-authorized GitHub access tokens** by default. Clear it before creating the pipeline if the workflows don't need tokens. The workflow picker for an existing pipeline doesn't change this setting. Configure it separately in the pipeline's GitHub settings.
 
-If the workflow doesn't include a top-level `permissions` map, the token receives only `contents: read`, regardless of the GitHub repository or organization defaults. A non-empty top-level map replaces that default, while an empty map or a map containing only `none` doesn't produce a token. Job-level permission maps and reusable workflow jobs can't receive tokens. Pull request builds can't receive more than `contents: read`, and merge queue builds can't receive a token. The runtime doesn't add the token to the job's initial environment, although an action can make it available to later steps through `GITHUB_ENV`, as it can on a GitHub runner. General workflow secrets and an ambient `GITHUB_TOKEN` aren't available.
+The workflow file must be directly under `.github/workflows/` and have a simple `.yml` or `.yaml` filename. The job must either reference `secrets.GITHUB_TOKEN` directly or use an action whose default input references `github.token`.
+
+If the workflow doesn't include a top-level `permissions` map, the token receives only `contents: read`, regardless of the GitHub repository or organization defaults. A non-empty top-level map replaces that default, while an empty map or a map containing only `none` doesn't produce a token. Job-level permission maps and reusable workflow jobs can't receive tokens. Pull request builds and their triggered or rebuilt descendants can't receive more than `contents: read`. Merge queue builds and their descendants can't receive a token. The runtime doesn't add the token to the job's initial environment, although an action can make it available to later steps through `GITHUB_ENV`, as it can on a GitHub runner. General workflow secrets and an ambient `GITHUB_TOKEN` aren't available.
 
 Each job can request up to 10 workflow access tokens per hour. Requests beyond this limit receive a `429 Too Many Requests` response with a `Retry-After` header, and no token is issued. This limit is tracked separately for each job.
 
-> 🚧 Protect tokens from untrusted workflow changes
-> The job-bound token service doesn't decide whether a fork or actor is trusted. If a pull request can change an imported workflow, that workflow can request and use any repository permission enabled by the service. Make sure untrusted workflow changes can't receive write permissions.
+> 🚧 Protect tokens in trusted branch and manual builds
+> For builds outside pull requests and merge queues, a user who can create a build at an arbitrary commit may select code that requests the workflow's allowed permissions. Enable write tokens only when branch builds and other build-creation paths run trusted code.
 
-## Use the buildkite-gha CLI directly
+## Troubleshooting
+
+The importer processes selected workflows and uploads the generated pipeline as one transaction. Any input, trigger translation, event validation, compilation, admission, artifact, or upload failure aborts the transaction. No partially compiled pipeline is uploaded. Start with the importer job's annotation and log, which identify the failed processing stage and diagnostic.
+
+### The importer reports path filters are unsupported
+
+The compatibility runtime rejects `paths` and `paths-ignore` under `push` and `pull_request` because Buildkite Pipelines `if_changed` has different semantics. A path filter in any selected workflow prevents the generated pipeline from uploading. Remove these filters before importing the workflow. Without them, the workflow may run for changes that GitHub Actions would have skipped.
+
+The [Buildkite pipeline converter](/docs/pipelines/converter/github-actions) is a separate tool that generates native pipeline configuration and can translate path filtering to `if_changed`.
+
+### No workflow jobs appear
+
+Check that each selected path is an explicit, tracked `.yml` or `.yaml` file. Also check that the workflow declares the event represented by the Buildkite build. A workflow that doesn't declare the effective event appears as a skipped group. If no selected workflows declare the event, the generated pipeline contains only skipped groups.
+
+A reusable workflow whose only trigger is `workflow_call` doesn't create its own group. Selecting only reusable workflows produces an error, but a reusable workflow can support another selected workflow. Buildkite webhook and schedule settings create builds. The workflow's `on` configuration determines whether a group is eligible after a build exists.
+
+### Private checkout or a GitHub token is unavailable
+
+Private checkout and workflow access tokens use separate settings. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the organization feature and the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials and tokens](#supported-functionality-and-limitations-credentials-and-tokens) restrictions before enabling write permissions.
+
+### Validate a workflow locally
 
 For most workflows, use the plugin. If you need more control or want to diagnose a problem, you can download the `buildkite-gha` binary from the [`buildkite-gha` releases](https://github.com/buildkite/buildkite-gha/releases).
 
