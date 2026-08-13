@@ -74,7 +74,7 @@ steps:
 
 To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipeline Settings page.
 
-For pipelines connected to a GitHub repository, this editor can also detect the repository's GitHub Actions workflows and let you add them as steps directly. See [Detect workflows automatically](/docs/pipelines/migration/run-github-actions-workflows#detect-workflows-automatically) for details.
+For pipelines connected using the full-access **GitHub** repository provider, this editor can also detect the repository's GitHub Actions workflows and let you add them as steps directly. See [Detect workflows automatically](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-detect-workflows-automatically) for details.
 
 Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
