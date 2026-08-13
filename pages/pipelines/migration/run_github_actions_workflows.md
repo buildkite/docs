@@ -14,6 +14,18 @@ During the preview, the quickest way to get started is with a Linux x86-64 workf
 
 ## Add a GitHub Actions workflow to a pipeline
 
+### Detect workflows automatically
+
+> 📘 Private preview
+> Automatic workflow detection is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+
+For pipelines connected to a GitHub repository, Buildkite Pipelines can detect the GitHub Actions workflows in that repository and list them in the **YAML Steps editor**, so you don't have to configure the plugin step by hand. This panel is available in two places:
+
+- On the **New Pipeline** page, after you select a GitHub repository.
+- On an existing pipeline's **Pipeline Settings** page, after you select **Edit Pipeline**. Any user who can edit the pipeline can use this panel, even without permission to create pipelines.
+
+Selecting a detected workflow adds a [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/) step for it to your YAML. The rest of your existing pipeline configuration, including any steps you've already added, is preserved while workflows load and while you select or deselect them.
+
 ### Create a new pipeline from the template
 
 To create a pipeline for a GitHub Actions workflow:
