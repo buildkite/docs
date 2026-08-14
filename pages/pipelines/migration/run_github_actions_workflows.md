@@ -41,9 +41,8 @@ Opening the panel doesn't change the pipeline configuration until you select a w
 To add detected workflows to an existing pipeline:
 
 1. From your pipeline, select **Pipeline settings** > **Edit steps**. Any user who can edit the pipeline can use the workflow picker, even without permission to create pipelines.
-1. If your existing GitHub Actions Buildkite plugin step uses `workflow`, replace it with `workflows` and set the value to an array of workflow paths. Alternatively, remove the plugin step before using the picker. The picker reads only `workflows`, and the plugin doesn't support both selectors.
 1. In the detected **GitHub Actions** workflows panel, select **Select workflows...**.
-1. Select each supported workflow that you want to run, or select **Select all**.
+1. Select each supported workflow that you want to run, or select **Select all**. If your existing GitHub Actions Buildkite plugin step uses `workflow`, selecting workflows replaces it with `workflows` and keeps the plugin's version, other options, and comments.
 1. Review the generated plugin step in the **YAML Steps editor**, then select **Save steps**.
 
 Your existing pipeline configuration, including any steps you've already added, is preserved while workflows load and while you select or deselect them.
