@@ -1,12 +1,17 @@
 # AGENTS.md
 
+## Repository workflow
+
+Always make documentation changes and open pull requests in `buildkite/docs-private`. Do not open pull requests directly in the public `buildkite/docs` repository.
+
 ## Buildkite documentation repository and pipeline
 
 This repository generates the Buildkite documentation website:
 
 https://buildkite.com/docs
 
-- **Repository**: `https://github.com/buildkite/docs`
+- **Source repository**: `https://github.com/buildkite/docs-private`
+- **Public repository**: `https://github.com/buildkite/docs`
 - **CI**: `https://buildkite.com/buildkite/docs`
 - **CI steps**: `.buildkite/pipeline.yml`
 
