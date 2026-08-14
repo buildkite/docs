@@ -237,6 +237,35 @@ mutation PipelinesDelete {
 }
 ```
 
+## Create a pipeline schedule
+
+Create a scheduled build on a pipeline. Use [crontab.guru](https://crontab.guru) to help build the `cronline` value. Multiple environment variables can be set using the new-line value `\n` as a delimiter.
+
+```graphql
+mutation CreateSchedule {
+  pipelineScheduleCreate(input: {
+    pipelineID: "pipeline-id"
+    label: "Nightly build"
+    cronline: "0 0 * * *"
+    message: "Nightly build of main"
+    commit: "HEAD"
+    branch: "main"
+    env: "FOO=bar\nBAR=foo"
+    enabled: true
+  }) {
+    pipelineScheduleEdge {
+      node {
+        id
+        uuid
+        label
+        cronline
+        nextBuildAt
+      }
+    }
+  }
+}
+```
+
 ## Update pipeline schedule with multiple environment variables
 
 You can set multiple environment variables on a pipeline schedule by using the new-line value `\n` as a delimiter.
