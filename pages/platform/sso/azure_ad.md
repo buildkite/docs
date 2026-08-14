@@ -17,7 +17,9 @@ In your [Buildkite organization **Settings**](https://buildkite.com/organization
 1. Choose the **Provide IdP Metadata Later** option when configuring your custom SAML provider
 2. Copy the Assertion Consumer Service (ACS) URL for use in [Step 2](#step-2-add-buildkite-in-azure-ad)
 
-## Step 2. Add Buildkite in Azure AD
+<a id="step-2-add-buildkite-in-azure-ad"></a>
+
+## Step 2. Add Buildkite in Microsoft Entra ID
 
 In your [Azure Admin Console](https://portal.azure.com/), follow these instructions:
 
