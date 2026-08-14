@@ -20,7 +20,7 @@ Buildkite supports the following SSO providers:
 * [GitHub](/docs/platform/sso/github-sso)
 * [Google Workspace](/docs/platform/sso/google-workspace)
 * [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml)
-* [Azure Active Directory](/docs/platform/sso/azure-ad)
+* [Azure Entra ID](/docs/platform/sso/azure-ad)
 * [OneLogin](/docs/platform/sso/onelogin)
 * [Custom SAML](/docs/platform/sso/custom-saml)
 

@@ -977,7 +977,7 @@
           path: "platform/sso/github-sso"
         - name: "OneLogin"
           path: "platform/sso/onelogin"
-        - name: "Azure AD"
+        - name: "Azure Entra ID"
           path: "platform/sso/azure-ad"
         - name: "Custom SAML"
           path: "platform/sso/custom-saml"
