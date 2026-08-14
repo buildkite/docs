@@ -19,8 +19,6 @@ All endpoints on this page use the following base path:
 https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler
 ```
 
-Every request requires build routing context. Provide `build_id` as a query string parameter for pool-specific endpoints and the list-pools endpoint. Provide `build_id` in the request body when creating a pool.
-
 The Test Scheduler API provides these endpoints:
 
 Method | Endpoint | Description
@@ -205,7 +203,7 @@ Success response: `200 OK`
 Returns a pool that belongs to the suite, pipeline, and build identified by the OIDC token.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}" \
   --header "Authorization: Bearer $OIDC_TOKEN"
 ```
 
@@ -237,17 +235,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   "created_at": "2026-07-20T08:00:00.000Z"
 }
 ```
-
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
 
 Required scope: `read_test_pool`
 
@@ -495,7 +482,7 @@ Success response: `201 Created`
 Marks the initial entry upload as finished. Send `"populating": false` once the producer has uploaded all initial entries.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}" \
   --request PATCH \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
@@ -533,17 +520,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
 }
 ```
 
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
-
 Required [request body property](/docs/api#request-body-properties):
 
 <table class="responsive-table">
@@ -566,7 +542,7 @@ Success response: `200 OK`
 Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial entries from the minimum of `max_attempts` and `parallel_attempts`.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
@@ -619,17 +595,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   ]
 }
 ```
-
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -684,7 +649,7 @@ Success response: `201 Created`
 Returns a cursor-paginated list of a pool's entries in descending UUID order. Each entry includes its lifecycle state, terminal result, and attempt counts.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries?build_id={build.id}&state=pending&per_page=2" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries?state=pending&per_page=2" \
   --header "Authorization: Bearer $OIDC_TOKEN"
 ```
 
@@ -726,8 +691,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     }
   ],
   "links": {
-    "self": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?build_id=3456789a-****-****-****-789abcdef012&state=pending&per_page=2",
-    "next": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?build_id=3456789a-****-****-****-789abcdef012&state=pending&per_page=2&after=NEXT_CURSOR"
+    "self": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?state=pending&per_page=2",
+    "next": "https://api.buildkite.com/v2/organizations/example-org/test-scheduler/pools/0192f2fb-****-****-****-4a0d6a7c1000/entries?state=pending&per_page=2&after=NEXT_CURSOR"
   }
 }
 ```
@@ -738,17 +703,6 @@ Each entry includes its overall state and result, along with counts for its indi
 - `result`: The result is `null` while the entry is pending. After completion, it is `passed` or `failed`.
 - `attempt_counts.states`: The number of attempts in each state: `waiting`, `leased`, `completed`, and `canceled`.
 - `attempt_counts.results`: The number of completed attempts with each result: `passed`, `failed`, and `errored`.
-
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
 
 Optional query string parameters:
 
@@ -788,7 +742,7 @@ Success response: `200 OK`
 Claims a time-bounded batch of waiting attempts for the requesting job. Multiple jobs can lease from the same pool. Both `populating` and `consuming` pools can lease attempts. A consumed pool returns a successful response with no lease. The API rejects lease requests for expired or destroyed pools.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases" \
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
@@ -798,17 +752,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
 ```
 
 The request body is optional. Send an empty JSON object or omit the body to use all defaults.
-
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
 
 Optional [request body properties](/docs/api#request-body-properties):
 
@@ -900,7 +843,7 @@ Success response: `200 OK`
 Extends one or more active leases owned by the requesting job.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases/heartbeat?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases/heartbeat" \
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
@@ -922,17 +865,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   ]
 }
 ```
-
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -969,7 +901,7 @@ Success response: `200 OK`
 Marks selected leased attempts as completed and records a result for each attempt.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases/complete?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases/complete" \
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
@@ -1032,17 +964,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
 }
 ```
 
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
-
 Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
@@ -1085,7 +1006,7 @@ Success response: `200 OK`
 Returns selected leased attempts to the `waiting` state so they can be leased again. Omit `attempt_ids` to release all active attempts held by a lease.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases/release?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/leases/release" \
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
@@ -1114,17 +1035,6 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   ]
 }
 ```
-
-Required query string parameter:
-
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
-  </tr>
-</tbody>
-</table>
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -1311,7 +1221,7 @@ Status | Description
 
 ## Breaking changes
 
-Since August 14, 2026, every Test Scheduler request requires a `build_id`. Provide it as a query string parameter for pool-specific endpoints and the list-pools endpoint. Provide it in the request body when creating a pool. This build context routes each request using the owning build instead of looking up Test Scheduler data by pool ID alone.
+Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter. OIDC requests already include build context in the token claims. REST API access-token requests must provide `build_id` so the request can be routed using the owning build instead of searching for a pool by UUID across shards.
 
 Since August 13, 2026, lease configuration is set when creating a pool. The settings apply to every lease from that pool and cannot be changed after creation.
 
