@@ -32,17 +32,21 @@ All implemented routes are JSON over HTTP beneath this organization-scoped prefi
 
 `/v2/organizations/{org-slug}/test-scheduler`
 
+Every request requires build routing context. Pool-specific routes require a `build_id` query parameter. The pool index requires `pipeline_id` and `build_id` query parameters, and pool creation requires `build_id` in the request body.
+
 | Method and path | Scope | Behavior |
 | :---- | :---- | :---- |
 | `GET /pools?pipeline_id=...&build_id=...&key=...` | `read_test_pool` | Lists pools for the token's suite, pipeline, and build. `key` is optional and matched case-insensitively. |
 | `POST /pools` | `write_test_pool` | Creates a pool. |
-| `GET /pools/{pool_id}` | `read_test_pool` | Gets one pool. |
-| `PATCH /pools/{pool_id}` | `write_test_pool` | Finishes population with `{ "populating": false }`. |
-| `POST /pools/{pool_id}/entries` | `write_test_pool` | Uploads entries and creates one initial waiting attempt per entry. |
-| `POST /pools/{pool_id}/leases` | `write_test_pool` | Leases a cost-bounded batch of waiting attempts to the authenticated job. |
-| `POST /pools/{pool_id}/leases/complete` | `write_test_pool` | Completes selected attempts from one or more leases. |
-| `POST /pools/{pool_id}/leases/release` | `write_test_pool` | Releases selected attempts or all active attempts from one or more leases. |
-| `GET /pools/{pool_id}/metrics` | `read_test_pool` | Returns aggregate progress for a pool. |
+| `GET /pools/{pool_id}?build_id=...` | `read_test_pool` | Gets one pool. |
+| `PATCH /pools/{pool_id}?build_id=...` | `write_test_pool` | Finishes population with `{ "populating": false }`. |
+| `POST /pools/{pool_id}/entries?build_id=...` | `write_test_pool` | Uploads entries and creates initial waiting attempts. |
+| `GET /pools/{pool_id}/entries?build_id=...` | `read_test_pool` | Lists entries and their attempt counts. |
+| `POST /pools/{pool_id}/leases?build_id=...` | `write_test_pool` | Leases a cost-bounded batch of waiting attempts to the authenticated job. |
+| `POST /pools/{pool_id}/leases/heartbeat?build_id=...` | `write_test_pool` | Extends active leases owned by the authenticated job. |
+| `POST /pools/{pool_id}/leases/complete?build_id=...` | `write_test_pool` | Completes selected attempts from one or more leases. |
+| `POST /pools/{pool_id}/leases/release?build_id=...` | `write_test_pool` | Releases selected attempts or all active attempts from one or more leases. |
+| `GET /pools/{pool_id}/metrics?build_id=...` | `read_test_pool` | Returns aggregate progress for a pool. |
 
 ### Example end-to-end request flow
 
@@ -167,7 +171,7 @@ Creating a duplicate non-destroyed pool returns `409 Conflict`. Pool keys are co
 
 The response wraps pools in an `items` array and includes `links.self`. It also includes `links.next` and `links.prev` cursor URLs when those directions are available.
 
-`GET /pools/{pool_id}` returns one unwrapped pool object. Both lookup routes are constrained to the token's organization, suite, pipeline, and build.
+`GET /pools/{pool_id}` requires a `build_id` query parameter and returns one unwrapped pool object. Both lookup routes are constrained to the token's organization, suite, pipeline, and build.
 
 #### Pool lifecycle
 
@@ -181,7 +185,7 @@ The only implemented update is:
 }
 ```
 
-`PATCH /pools/{pool_id}` transitions a pool with active attempts to `consuming`, or an already drained pool directly to `consumed`. When present, `populating` must be the JSON boolean `false`, and the transition can only be applied once. A body that omits `populating` returns the pool unchanged.
+`PATCH /pools/{pool_id}` requires a `build_id` query parameter. It transitions a pool with active attempts to `consuming`, or an already drained pool directly to `consumed`. When present, `populating` must be the JSON boolean `false`, and the transition can only be applied once. A body that omits `populating` returns the pool unchanged.
 
 ### TestPool.Entry
 
@@ -196,7 +200,7 @@ A pool entry is an opaque selector plus scheduling attributes understood by the 
 | `affinity_group` | `String` | false | `null` | Client-defined group of at most 255 characters. Empty strings are normalized to null. |
 | `meta_data` | `Object` | false | `null` | Customer-controlled metadata. Values may be strings, integers, or arrays of strings. Defaults allow 10 keys and 1 KiB of JSON-encoded data. |
 
-`POST /pools/{pool_id}/entries` accepts a non-empty `entries` array. The default organization quota allows 100 entries per request. The whole upload is atomic.
+`POST /pools/{pool_id}/entries` requires a `build_id` query parameter and accepts a non-empty `entries` array. The default organization quota allows 100 entries per request. The whole upload is atomic.
 
 ```json
 {
@@ -285,9 +289,9 @@ An attempt is an invocation of a pool entry and is the smallest unit of work ins
 | `meta_data` | `Object` | Metadata copied from the entry. | true |
 | `created_at` | `Timestamp` | Attempt creation time. | false |
 
-### Pool metrics \- Not available.
+### Pool metrics
 
-`GET /pools/{pool_id}/metrics` requires `read_test_pool` and returns aggregate progress for a pool.
+`GET /pools/{pool_id}/metrics` requires a `build_id` query parameter and the `read_test_pool` scope. It returns aggregate progress for a pool.
 
 ```json
 {
@@ -350,7 +354,7 @@ Entries and attempts are reported separately because execution policies may crea
 
 ### Acquire a lease
 
-`POST /pools/{pool_id}/leases` accepts an optional body:
+`POST /pools/{pool_id}/leases` requires a `build_id` query parameter and accepts an optional body:
 
 ```json
 {
@@ -404,7 +408,7 @@ When there is no waiting work, the response is `{"lease": null}`. Leasing is ava
 
 ### Complete attempts
 
-`POST /pools/{pool_id}/leases/complete` completes explicitly named attempts from one or more leases:
+`POST /pools/{pool_id}/leases/complete` requires a `build_id` query parameter and completes explicitly named attempts from one or more leases:
 
 ```json
 {
@@ -473,7 +477,7 @@ Completion is idempotent when retried with the same result; the response uses `c
 
 ### Lease heartbeat
 
-`POST /v2/organizations/{organization_slug}/test-scheduler/pools/{pool_id}/leases/heartbeat` extends one or more active leases owned by the requesting Buildkite job. The endpoint requires a Buildkite job OIDC token whose policy grants `write_test_pool`; REST API access tokens are not accepted.
+`POST /v2/organizations/{organization_slug}/test-scheduler/pools/{pool_id}/leases/heartbeat` requires a `build_id` query parameter and extends one or more active leases owned by the requesting Buildkite job. The endpoint requires a Buildkite job OIDC token whose policy grants `write_test_pool`; REST API access tokens are not accepted.
 
 Request:
 
@@ -533,7 +537,7 @@ Heartbeat batches are atomic. If any requested lease is unknown, expired, releas
 
 ### Release attempts
 
-`POST /pools/{pool_id}/leases/release` releases selected attempts, or every active attempt in a lease when `attempt_ids` is omitted:
+`POST /pools/{pool_id}/leases/release` requires a `build_id` query parameter and releases selected attempts, or every active attempt in a lease when `attempt_ids` is omitted:
 
 ```json
 {
@@ -658,12 +662,12 @@ There is currently no implemented limit for total entries per pool, pools per bu
 
 ## Authentication
 
-Every Test Scheduler route currently requires a suite-scoped Buildkite job OIDC bearer token; regular API access tokens are not accepted. The token audience identifies the Test Engine suite, whose OIDC policy must grant:
+Every Test Scheduler route currently requires a suite-scoped Buildkite job OIDC bearer token, except the pool metrics route, which also accepts a REST API access token. The token audience identifies the Test Engine suite, whose OIDC policy must grant:
 
 * `read_test_pool` for pool index and show routes.  
 * `write_test_pool` for pool creation/update, entry upload, and every lease route.
 
-The token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Lease acquisition, completion, and release additionally require a UUID `job_id` claim. Completion and release only mutate active leases owned by that job.
+The OIDC token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Lease acquisition, completion, and release additionally require a UUID `job_id` claim. Completion and release only mutate active leases owned by that job. REST API access-token requests to pool metrics must provide the build UUID in the required `build_id` query parameter.
 
 ```shell
 buildkite-agent oidc request-token \
