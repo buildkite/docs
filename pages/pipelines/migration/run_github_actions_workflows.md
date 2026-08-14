@@ -96,7 +96,7 @@ steps:
 
 Use either `workflow` or `workflows`, but not both. Each path must identify a tracked `.yml` or `.yaml` file inside the repository. Directories, globs, symlinks, untracked files, and paths outside the repository aren't supported.
 
-When this step runs, the plugin turns the workflows into a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines). Each successfully compiled, directly runnable workflow becomes a group that depends on the plugin step. The generated jobs appear inside the group. A safe workflow-specific compilation or trigger-translation failure becomes a failing top-level replacement step while other valid workflows continue. Parse, event-input, admission, artifact, and upload failures abort the transaction.
+When this step runs, the plugin turns the workflows into a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines). Each successfully compiled, directly runnable workflow becomes a group that depends on the plugin step. The generated jobs appear inside the group. A safe workflow-specific compilation or trigger-translation failure becomes a failing top-level replacement step. Other valid workflows continue. Parse, event-input, admission, artifact, and upload failures abort the transaction.
 
 The plugin supports the following configuration:
 
@@ -310,7 +310,7 @@ Each job can request up to 10 workflow access tokens per hour. Requests beyond t
 
 Start with the Buildkite annotation. Its concise heading and message identify the user-visible cause and a corrective action or compatibility link. Expand **Diagnostic detail** for lower-level evidence, including resolved commits, adapter, service, and admission boundaries, and complete supported-value lists. Provider check summaries show concise guidance only.
 
-Safe workflow-specific compilation and trigger-translation failures become failing top-level replacement steps while other valid workflows continue. Parse, event-input, admission, artifact, and upload failures abort the transaction.
+Safe workflow-specific compilation and trigger-translation failures become failing top-level replacement steps. Other valid workflows continue. Parse, event-input, admission, artifact, and upload failures abort the transaction.
 
 ### The importer reports path filters are unsupported
 
