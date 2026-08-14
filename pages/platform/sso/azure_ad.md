@@ -3,7 +3,7 @@
 You can use [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id#Overview) (formerly known as Azure Active Directory) as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both Azure and Buildkite.
 
 > 📘 Enterprise plan feature
-> Azure Entra ID SSO is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+> Microsoft Entra ID SSO is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 > 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
