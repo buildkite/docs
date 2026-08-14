@@ -386,7 +386,7 @@
   platform/cli/reference/update: "CLI reference for bk update: update the installed bk CLI or print update instructions, handling Homebrew, mise, and standalone binary installations."
   platform/cli/reference/user: "CLI reference for bk user: invite users to your organization."
   platform/cli/reference/version: "CLI reference for bk version: display the installed CLI version."
-  platform/sso: "Overview of SSO support, listing providers (Okta, ADFS, GitHub, Google, Azure AD, OneLogin, custom SAML)."
+  platform/sso: "Overview of SSO support, listing providers (Okta, ADFS, GitHub, Google, Microsoft Entra ID, OneLogin, custom SAML)."
   platform/sso/okta: "Configuring Okta as an SSO provider with SAML and optional SCIM user provisioning."
   platform/sso/adfs: "Step-by-step setup of Active Directory Federation Services (ADFS) as an SSO provider."
   platform/sso/google-workspace: "Setting up Google Workspace (G Suite) as an SSO provider using OpenID."
