@@ -1336,7 +1336,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderCursorOrigin | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -8003,21 +8003,6 @@ interface OrganizationRepositoryProvider {
 }
 
 """
-Origin installation associated with this organization
-"""
-type OrganizationRepositoryProviderCursorOrigin implements Node & OrganizationRepositoryProvider {
-  """
-  The ID of the provider
-  """
-  id: ID!
-
-  """
-  The name of the OrganizationRepositoryProvider
-  """
-  name: String!
-}
-
-"""
 GitHub installation associated with this organization
 """
 type OrganizationRepositoryProviderGitHub implements Node & OrganizationRepositoryProvider {
@@ -10299,66 +10284,6 @@ type RepositoryProviderCodebaseSettings implements RepositoryProviderSettings {
   Whether the filter is enabled
   """
   filterEnabled: Boolean
-}
-
-"""
-A pipeline's repository is being provided by Origin
-"""
-type RepositoryProviderCursorOrigin implements RepositoryProvider {
-  """
-  The name of the provider
-  """
-  name: String!
-
-  """
-  The repository’s provider settings
-  """
-  settings: RepositoryProviderCursorOriginSettings
-
-  """
-  This URL to the provider’s web interface
-  """
-  url: String
-
-  """
-  The URL to use when setting up webhooks from the provider to trigger Buildkite builds
-  """
-  webhookUrl: String
-}
-
-"""
-Settings for an Origin repository
-"""
-type RepositoryProviderCursorOriginSettings implements RepositoryProviderSettings {
-  """
-  Whether to create builds when branches are pushed.
-  """
-  buildBranches: Boolean!
-
-  """
-  Whether to create builds for commits that are part of a pull request.
-  """
-  buildPullRequests: Boolean!
-
-  """
-  Whether to create builds when tags are pushed.
-  """
-  buildTags: Boolean!
-
-  """
-  The conditions under which this pipeline will trigger a build.
-  """
-  filterCondition: String
-
-  """
-  Whether the filter is enabled
-  """
-  filterEnabled: Boolean
-
-  """
-  Whether to publish build results to Origin as a check run.
-  """
-  publishCommitStatus: Boolean!
 }
 
 """
