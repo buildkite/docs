@@ -239,7 +239,7 @@ mutation PipelinesDelete {
 
 ## Create a pipeline schedule
 
-Create a scheduled build on a pipeline. Use [crontab.guru](https://crontab.guru) to help build the `cronline` value. Multiple environment variables can be set using the new-line value `\n` as a delimiter.
+Create a scheduled build on a pipeline. Use [crontab.guru](https://crontab.guru) to help build the `cronline` value. Use the new-line value `\n` as a delimiter to set multiple environment variables.
 
 ```graphql
 mutation CreateSchedule {
