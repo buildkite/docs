@@ -15,14 +15,14 @@ You can enforce SSO authentication for your entire Buildkite organization by ens
 
 Buildkite supports the following SSO providers:
 
-* [Okta](/docs/platform/sso/okta) (Pro and Enterprise plans)
-* [ADFS](/docs/platform/sso/adfs) (Enterprise plan only)
-* [GitHub](/docs/platform/sso/github-sso) (Pro and Enterprise plans)
-* [Google Workspace](/docs/platform/sso/google-workspace) (Pro and Enterprise plans)
-* [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml) (Pro and Enterprise plans)
-* [Azure Active Directory](/docs/platform/sso/azure-ad) (Enterprise plan only)
-* [OneLogin](/docs/platform/sso/onelogin) (Pro and Enterprise plans)
-* [Custom SAML](/docs/platform/sso/custom-saml) (Enterprise plan only)
+* [Okta](/docs/platform/sso/okta)
+* [ADFS](/docs/platform/sso/adfs)
+* [GitHub](/docs/platform/sso/github-sso)
+* [Google Workspace](/docs/platform/sso/google-workspace)
+* [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml)
+* [Azure Entra ID](/docs/platform/sso/azure-ad)
+* [OneLogin](/docs/platform/sso/onelogin)
+* [Custom SAML](/docs/platform/sso/custom-saml)
 
 ## Adding SSO
 

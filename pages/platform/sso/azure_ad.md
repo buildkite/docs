@@ -56,7 +56,7 @@ Then, on your [Buildkite organization **Settings**](https://buildkite.com/organi
 Once you've [performed a test login](#step-4-perform-a-test-login) you can enable your SSO provider using the **Enable** button. Enabling the SSO provider will not force a log out of any signed in users, but will cause all new or expired sessions to authorize through Azure AD before accessing any organization data.
 
 > 🚧
->If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/platform/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
+>If you need to edit or update your Azure Entra ID provider settings, you will need to <a href="/docs/platform/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
 
 ## Using SCIM to provision and manage users
 
