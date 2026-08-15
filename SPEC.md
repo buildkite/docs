@@ -32,17 +32,21 @@ All implemented routes are JSON over HTTP beneath this organization-scoped prefi
 
 `/v2/organizations/{org-slug}/test-scheduler`
 
+The pool metrics route requires a caller-supplied `build_id` query parameter. Other pool-specific routes obtain build context from the OIDC token. The pool index requires `pipeline_id` and `build_id` query parameters, and pool creation requires `build_id` in the request body.
+
 | Method and path | Scope | Behavior |
 | :---- | :---- | :---- |
 | `GET /pools?pipeline_id=...&build_id=...&key=...` | `read_test_pool` | Lists pools for the token's suite, pipeline, and build. `key` is optional and matched case-insensitively. |
 | `POST /pools` | `write_test_pool` | Creates a pool. |
 | `GET /pools/{pool_id}` | `read_test_pool` | Gets one pool. |
 | `PATCH /pools/{pool_id}` | `write_test_pool` | Finishes population with `{ "populating": false }`. |
-| `POST /pools/{pool_id}/entries` | `write_test_pool` | Uploads entries and creates one initial waiting attempt per entry. |
+| `POST /pools/{pool_id}/entries` | `write_test_pool` | Uploads entries and creates initial waiting attempts. |
+| `GET /pools/{pool_id}/entries` | `read_test_pool` | Lists entries and their attempt counts. |
 | `POST /pools/{pool_id}/leases` | `write_test_pool` | Leases a cost-bounded batch of waiting attempts to the authenticated job. |
+| `POST /pools/{pool_id}/leases/heartbeat` | `write_test_pool` | Extends active leases owned by the authenticated job. |
 | `POST /pools/{pool_id}/leases/complete` | `write_test_pool` | Completes selected attempts from one or more leases. |
 | `POST /pools/{pool_id}/leases/release` | `write_test_pool` | Releases selected attempts or all active attempts from one or more leases. |
-| `GET /pools/{pool_id}/metrics` | `read_test_pool` | Returns aggregate progress for a pool. |
+| `GET /pools/{pool_id}/metrics?build_id=...` | `read_test_pool` | Returns aggregate progress for a pool. |
 
 ### Example end-to-end request flow
 
@@ -285,9 +289,9 @@ An attempt is an invocation of a pool entry and is the smallest unit of work ins
 | `meta_data` | `Object` | Metadata copied from the entry. | true |
 | `created_at` | `Timestamp` | Attempt creation time. | false |
 
-### Pool metrics \- Not available.
+### Pool metrics
 
-`GET /pools/{pool_id}/metrics` requires `read_test_pool` and returns aggregate progress for a pool.
+`GET /pools/{pool_id}/metrics` requires a `build_id` query parameter and the `read_test_pool` scope. It returns aggregate progress for a pool.
 
 ```json
 {
@@ -658,12 +662,12 @@ There is currently no implemented limit for total entries per pool, pools per bu
 
 ## Authentication
 
-Every Test Scheduler route currently requires a suite-scoped Buildkite job OIDC bearer token; regular API access tokens are not accepted. The token audience identifies the Test Engine suite, whose OIDC policy must grant:
+Every Test Scheduler route currently requires a suite-scoped Buildkite job OIDC bearer token, except the pool metrics route, which also accepts a REST API access token. The token audience identifies the Test Engine suite, whose OIDC policy must grant:
 
 * `read_test_pool` for pool index and show routes.  
 * `write_test_pool` for pool creation/update, entry upload, and every lease route.
 
-The token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Lease acquisition, completion, and release additionally require a UUID `job_id` claim. Completion and release only mutate active leases owned by that job.
+The OIDC token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Lease acquisition, completion, and release additionally require a UUID `job_id` claim. Completion and release only mutate active leases owned by that job. REST API access-token requests to pool metrics must provide the build UUID in the required `build_id` query parameter.
 
 ```shell
 buildkite-agent oidc request-token \

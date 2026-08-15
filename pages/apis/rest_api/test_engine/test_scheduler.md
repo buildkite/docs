@@ -84,7 +84,7 @@ The `GET /pools/{pool.id}/metrics` endpoint accepts a REST API access token with
 Provide the token in the `Authorization` header:
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics?build_id={build.id}" \
   --header "Authorization: Bearer $TOKEN"
 ```
 
@@ -1080,7 +1080,7 @@ Success response: `200 OK`
 Returns aggregate progress for a pool at the time of the request. This endpoint accepts either a Buildkite job OIDC token or a REST API access token. Set `$TOKEN` to the token you want to use.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics?build_id={build.id}" \
   --header "Authorization: Bearer $TOKEN"
 ```
 
@@ -1149,6 +1149,17 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
 }
 ```
 
+Required query string parameter:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>build_id</code></th>
+    <td>The build UUID. For OIDC authentication, the value must match the <code>build_id</code> claim in the token. For REST API authentication, the build must be accessible to the user associated with the token.</td>
+  </tr>
+</tbody>
+</table>
+
 The response includes:
 
 <table class="responsive-table">
@@ -1200,8 +1211,8 @@ Test Scheduler endpoints can return these errors:
 
 Status | Description
 ------ | -----------
-`400 Bad Request` | The request contains malformed JSON, is not a JSON object, or omits a required list-pools query parameter.
-`401 Unauthorized` | Authentication is missing, invalid, or is not a Buildkite job OIDC token with a test suite audience.
+`400 Bad Request` | The request contains malformed JSON, is not a JSON object, or omits a required query string parameter.
+`401 Unauthorized` | Authentication is missing or invalid.
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
 `404 Not Found` | The pool or lease does not exist or is not accessible to the token.
 `409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
@@ -1209,6 +1220,8 @@ Status | Description
 {: class="responsive-table"}
 
 ## Breaking changes
+
+Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter. OIDC requests already include build context in the token claims. REST API access-token requests must provide `build_id` so the request can be routed using the owning build instead of searching for a pool by UUID across shards.
 
 Since August 13, 2026, lease configuration is set when creating a pool. The settings apply to every lease from that pool and cannot be changed after creation.
 
