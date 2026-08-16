@@ -2,8 +2,8 @@
 
 [Origin](https://cursor.com/origin) is a Git repository hosting service. Buildkite Pipelines integrates with Origin to create builds from branch pushes, tag pushes, and pull request events. The integration can also check out private repositories on [Buildkite hosted agents](/docs/agent/buildkite-hosted) and publish build results to Origin.
 
-> 📘 Public preview
-> The Origin integration is in public preview. Cursor customers using Origin receive a 30-day trial of the Buildkite evaluation plan when they sign up through Origin. See [Buildkite pricing](https://buildkite.com/pricing/) for plan details.
+> 📘 Evaluation plan
+> Cursor customers using Origin receive a 30-day trial of the Buildkite evaluation plan when they sign up through Origin. See [Buildkite pricing](https://buildkite.com/pricing/) for plan details.
 
 ## Connect Origin
 
@@ -17,7 +17,7 @@ To install Buildkite from the Origin Marketplace:
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
-1. Select a Buildkite organization.
+1. Select or create a Buildkite organization.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
 
 ### Connect from Buildkite
@@ -145,6 +145,8 @@ Check **Build branches**, **Build tags**, **Build when pull request is opened or
 Confirm that **Update commit statuses** is enabled and that the pipeline remains associated with a repository from the connected Origin installation. If a required check stopped matching after an organization or pipeline rename, update its suite and run keys in Origin.
 
 For Origin availability, see the [Cursor status page](https://status.cursor.com/).
+
+For Origin API guidance, see the [Origin API reference](https://cursor.com/docs/api/origin).
 
 To inspect the connection using the Buildkite API, see:
 

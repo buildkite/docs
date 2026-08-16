@@ -1555,7 +1555,7 @@ Properties available for all providers:
 
 Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
 
-> 📘 Origin public preview
+> 📘 Origin provider settings
 > Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
 
 Properties available for Bitbucket Server:
