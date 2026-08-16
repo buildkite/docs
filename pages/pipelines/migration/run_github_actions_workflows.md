@@ -6,7 +6,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 > 📘 Public preview
 > Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
-> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.12.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.12.1/docs/compatibility.md) before adding a workflow.
+> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.13.11 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.13.11/docs/compatibility.md) before adding a workflow.
 
 The GitHub Actions Buildkite plugin runs supported GitHub Actions workflows as Buildkite Pipelines jobs. This lets you migrate a workflow with minimal changes, then replace imported jobs with [native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) over time.
 
@@ -41,9 +41,8 @@ Opening the panel doesn't change the pipeline configuration until you select a w
 To add detected workflows to an existing pipeline:
 
 1. From your pipeline, select **Pipeline settings** > **Edit steps**. Any user who can edit the pipeline can use the workflow picker, even without permission to create pipelines.
-1. If your existing GitHub Actions Buildkite plugin step uses `workflow`, replace it with `workflows` and set the value to an array of workflow paths. Alternatively, remove the plugin step before using the picker. The picker reads only `workflows`, and the plugin doesn't support both selectors.
 1. In the detected **GitHub Actions** workflows panel, select **Select workflows...**.
-1. Select each supported workflow that you want to run, or select **Select all**.
+1. Select each supported workflow that you want to run, or select **Select all**. If your existing GitHub Actions Buildkite plugin step uses `workflow`, selecting workflows replaces it with `workflows` and keeps the plugin's version, other options, and comments.
 1. Review the generated plugin step in the **YAML Steps editor**, then select **Save steps**.
 
 Your existing pipeline configuration, including any steps you've already added, is preserved while workflows load and while you select or deselect them.
@@ -96,7 +95,7 @@ steps:
 
 Use either `workflow` or `workflows`, but not both. Each path must identify a tracked `.yml` or `.yaml` file inside the repository. Directories, globs, symlinks, untracked files, and paths outside the repository aren't supported.
 
-When this step runs, the plugin turns the workflows into a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines). Each directly runnable workflow becomes a group that depends on the plugin step. The generated jobs appear inside the group. The plugin processes all selected workflows in one transaction. An error in any workflow prevents the complete set from uploading.
+When this step runs, the plugin turns the workflows into a [dynamic pipeline](/docs/pipelines/configure/dynamic-pipelines). Each successfully compiled, directly runnable workflow becomes a group that depends on the plugin step. The generated jobs appear inside the group. A safe workflow-specific compilation or trigger-translation failure becomes a failing top-level replacement step. Other valid workflows continue. Parse, event-input, admission, artifact, and upload failures abort the transaction.
 
 The plugin supports the following configuration:
 
@@ -121,7 +120,7 @@ The plugin gives each workflow a GitHub event type based on how the Buildkite bu
 - Scheduled builds receive `schedule`.
 - Other builds, including branch, tag, and triggered builds, receive `push`.
 
-Each directly runnable workflow becomes a group named for the workflow. Its external check identifies both the workflow and effective event. A workflow that doesn't declare the effective event becomes a skipped group. A local reusable workflow that declares only `workflow_call` can support another selected workflow, but doesn't create its own group.
+Each successfully compiled workflow that declares the effective event becomes a group named for the workflow. Its external check identifies both the workflow and effective event. A workflow that doesn't declare the effective event becomes a top-level skipped step. After upload, an importer-scoped informational annotation lists skipped workflows. A local reusable workflow that declares only `workflow_call` can support another selected workflow, but doesn't create its own group.
 
 The runtime supports branch and tag filters for `push`, and base-branch and activity filters for `pull_request`. Every workflow that declares `schedule` is eligible for every Buildkite scheduled build. Path filters are rejected because Buildkite Pipelines change-based conditions don't have equivalent behavior.
 
@@ -276,10 +275,10 @@ You may need to update a workflow before you can run it during the preview:
 
 - **Check `actions/upload-artifact` inputs.** The `path` input accepts up to 32 clean, workspace-relative literal files or directories, or bounded file globs using `*`, `?`, character classes, and recursive `**`. Path expressions are supported when their evaluated values follow the same rules. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Literal directories include regular-file descendants. A trailing `/` selects directories only, and hidden paths require `include-hidden-files`. The runtime accepts `retention-days` but treats it as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
 
-See the [`buildkite-gha` v0.12.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.12.1/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
+See the [`buildkite-gha` v0.13.11 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.13.11/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
 > 🚧 Treat workflow code as build code
-> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` security model](https://github.com/buildkite/buildkite-gha/blob/v0.12.1/docs/security.md) for the complete trust boundaries.
+> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` security model](https://github.com/buildkite/buildkite-gha/blob/v0.13.11/docs/security.md) for the complete trust boundaries.
 
 ### Concurrency
 
@@ -308,17 +307,19 @@ Each job can request up to 10 workflow access tokens per hour. Requests beyond t
 
 ## Troubleshooting
 
-The importer processes selected workflows and uploads the generated pipeline as one transaction. Any input, trigger translation, event validation, compilation, admission, artifact, or upload failure aborts the transaction. No partially compiled pipeline is uploaded. Start with the importer job's annotation and log, which identify the failed processing stage and diagnostic.
+Start with the Buildkite annotation. Its concise heading and message identify the user-visible cause and a corrective action or compatibility link. Expand **Diagnostic detail** for lower-level evidence, including resolved commits, adapter, service, and admission boundaries, and complete supported-value lists. Provider check summaries show concise guidance only.
+
+Safe workflow-specific compilation and trigger-translation failures become failing top-level replacement steps. Other valid workflows continue. Parse, event-input, admission, artifact, and upload failures abort the transaction.
 
 ### The importer reports path filters are unsupported
 
-The compatibility runtime rejects `paths` and `paths-ignore` under `push` and `pull_request` because Buildkite Pipelines `if_changed` has different semantics. A path filter in any selected workflow prevents the generated pipeline from uploading. Remove these filters before importing the workflow. Without them, the workflow may run for changes that GitHub Actions would have skipped.
+The compatibility runtime rejects `paths` and `paths-ignore` under `push` and `pull_request` because Buildkite Pipelines `if_changed` has different semantics. A path filter replaces the affected workflow with a failing top-level step. Remove these filters before importing the workflow. Without them, the workflow may run for changes that GitHub Actions would have skipped.
 
 The [Buildkite pipeline converter](/docs/pipelines/converter/github-actions) is a separate tool that generates native pipeline configuration and can translate path filtering to `if_changed`.
 
 ### No workflow jobs appear
 
-Check that each selected path is an explicit, tracked `.yml` or `.yaml` file. Also check that the workflow declares the event represented by the Buildkite build. A workflow that doesn't declare the effective event appears as a skipped group. If no selected workflows declare the event, the generated pipeline contains only skipped groups.
+Check that each selected path is an explicit, tracked `.yml` or `.yaml` file. Also check that the workflow declares the event represented by the Buildkite build. A workflow that doesn't declare the effective event appears as a top-level skipped step and in the importer-scoped informational annotation. If no selected workflows declare the event, the generated pipeline contains only skipped steps.
 
 A reusable workflow whose only trigger is `workflow_call` doesn't create its own group. Selecting only reusable workflows produces an error, but a reusable workflow can support another selected workflow. Buildkite webhook and schedule settings create builds. The workflow's `on` configuration determines whether a group is eligible after a build exists.
 
@@ -359,7 +360,9 @@ buildkite-gha upload \
 
 The `--` separator is required when a path begins with `-`.
 
-The `validate` and `compile` commands don't need `mise` and don't run workflow code. Each command produces a processing report with the status of each validation and generation stage. Use `validate --format json` for machine-readable output. The `compile` command writes its report to standard error, while `upload` writes it to the importer job log. When these commands run in a Buildkite job, they also publish processing warnings and errors as job-scoped annotations. A failure to publish an annotation produces a warning but doesn't change the command result. Stages blocked by an earlier failure are reported as `not-evaluated`, not `failed`. If a required stage fails, the runtime doesn't publish plans or pipeline output.
+The `validate` and `compile` commands don't need `mise` and don't run workflow code. Each command produces a processing report with the status of each validation and generation stage. Use `validate --format json` for a machine-readable `buildkite-gha/processing-report/v2` report. In each diagnostic, `message` provides actionable guidance, optional `detail` provides lower-level evidence, and the stable diagnostic `code`, `stage`, and `location` remain separate. Use the versioned compatibility guide as the authority for compatibility rules.
+
+The `compile` command writes its report to standard error, while `upload` writes it to the importer job log. When these commands run in a Buildkite job, they also publish processing warnings and errors as job-scoped annotations. A failure to publish an annotation produces a warning but doesn't change the command result. Stages blocked by an earlier failure are reported as `not-evaluated`, not `failed`. If a required stage fails, the runtime doesn't publish plans or pipeline output.
 
 Run `upload` from a keyed Buildkite Pipelines command step so that the `BUILDKITE` and `BUILDKITE_STEP_KEY` environment variables are available. The step must use Buildkite agent v3.34.1 or later in the v3 release series; Agent v4 isn't supported.
 
