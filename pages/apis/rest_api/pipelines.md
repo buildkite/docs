@@ -53,6 +53,10 @@ This section of the REST API documentation also contains several other endpoints
     <td>Branch filter pattern for limiting which branches trigger builds</td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>Optional repository URL that agents use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>.</td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>Default branch for the pipeline</td>
   </tr>
@@ -138,6 +142,9 @@ This section of the REST API documentation also contains several other endpoints
   </tr>
 </tbody>
 </table>
+
+> 📘 Clone mirror availability
+> Clone mirrors must be enabled for your organization. When enabled, responses return <code>clone_mirror_url</code> as <code>null</code> for pipelines without a configured mirror. When disabled, responses omit the property for pipelines without a configured mirror but continue to return previously configured mirror URLs. Create and update requests reject <code>clone_mirror_url</code> values that are not blank when the feature is disabled. You can submit <code>null</code> or an empty string to remove an existing mirror even when the feature is disabled.
 
 ## List pipelines
 
@@ -488,6 +495,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>
+      <p>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. The URL must not contain credentials, query parameters, or fragments.</p>
+      <p><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>color</code></th>
     <td>
       <p>A color hex code to represent this pipeline.</p>
@@ -834,6 +848,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>
+      <p>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. The URL must not contain credentials, query parameters, or fragments.</p>
+      <p><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -1037,6 +1058,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>cancel_running_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. Set to <code>null</code> to remove the mirror. The URL must not contain credentials, query parameters, or fragments.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>color</code></th>
@@ -1531,7 +1556,7 @@ Properties available for all providers:
 Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
 
 > 📘 Origin public preview
-> Origin provider settings require the Origin integration to be enabled for the organization and the pipeline to use a repository selected from a connected Origin installation.
+> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
 
 Properties available for Bitbucket Server:
 

@@ -1,6 +1,9 @@
-# Single sign-on with Microsoft Entra ID (Azure AD)
+# Single sign-on with Microsoft Entra ID
 
 You can use [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id#Overview) (formerly known as Azure Active Directory) as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both Azure and Buildkite.
+
+> 📘 Enterprise plan feature
+> Microsoft Entra ID SSO is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 > 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/platform/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
@@ -14,7 +17,9 @@ In your [Buildkite organization **Settings**](https://buildkite.com/organization
 1. Choose the **Provide IdP Metadata Later** option when configuring your custom SAML provider
 2. Copy the Assertion Consumer Service (ACS) URL for use in [Step 2](#step-2-add-buildkite-in-azure-ad)
 
-## Step 2. Add Buildkite in Azure AD
+<a id="step-2-add-buildkite-in-azure-ad"></a>
+
+## Step 2. Add Buildkite in Microsoft Entra ID
 
 In your [Azure Admin Console](https://portal.azure.com/), follow these instructions:
 
@@ -50,14 +55,14 @@ Then, on your [Buildkite organization **Settings**](https://buildkite.com/organi
 
 ## Step 5. Enable the new SSO provider
 
-Once you've [performed a test login](#step-4-perform-a-test-login) you can enable your SSO provider using the **Enable** button. Enabling the SSO provider will not force a log out of any signed in users, but will cause all new or expired sessions to authorize through Azure AD before accessing any organization data.
+Once you've [performed a test login](#step-4-perform-a-test-login) you can enable your SSO provider using the **Enable** button. Enabling the SSO provider will not force a log out of any signed in users, but will cause all new or expired sessions to authorize through Microsoft Entra ID before accessing any organization data.
 
 > 🚧
->If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/platform/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
+>If you need to edit or update your Microsoft Entra ID provider settings, you will need to <a href="/docs/platform/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
 
 ## Using SCIM to provision and manage users
 
-Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can automatically add and remove user accounts from their Buildkite organization using the SCIM provisioning settings in Azure AD.
+Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can automatically add and remove user accounts from their Buildkite organization using the SCIM provisioning settings in Microsoft Entra ID.
 
 ### Supported SCIM features
 
@@ -65,16 +70,16 @@ Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can
 * Deactivate users (deprovisioning)
 
 > 📘
-> Buildkite does not bill you for users that you add to Azure AD until they sign in to your Buildkite organization.
+> Buildkite does not bill you for users that you add to Microsoft Entra ID until they sign in to your Buildkite organization.
 
 ### Configuration instructions
 
-Adding and removing users accounts in Azure AD is called provisioning. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
+Adding and removing users accounts in Microsoft Entra ID is called provisioning. You need an enabled Microsoft Entra ID SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
 > 📘
 > User deprovisioning is an Enterprise plan-only feature and is automatically enabled. As an Enterprise plan customer, if you are using a [custom provider](/docs/platform/sso/custom-saml), please contact support@buildkite.com to have this feature enabled.
 
-After enabling your Azure AD SSO provider in Buildkite, get the **Base URL** and **API Token** from your Azure AD SSO provider settings:
+After enabling your Microsoft Entra ID SSO provider in Buildkite, get the **Base URL** and **API Token** from your Microsoft Entra ID SSO provider settings:
 
 <%= image "azuread-scim-settings.png", width: 1440/2, height: 548/2, alt: "Screenshot of the Buildkite Settings SCIM Deprovisioning section" %>
 
@@ -96,7 +101,7 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
         - `givenName` to `name.givenName`
         - `surname` to `name.familyName`
 1. Toggle **Provisioning Status** to **On** and save.
-1. Return to the **Provisioning** menu of your Azure AD enterprise app and view the **Current cycle status** section:
+1. Return to the **Provisioning** menu of your Microsoft Entra ID enterprise app and view the **Current cycle status** section:
     * If provisioning is working, this will say **Initial cycle completed**.
     * If errors are displayed, click **View provisioning logs** for more details on what went wrong.
 

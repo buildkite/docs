@@ -172,6 +172,7 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extglobs
 fastfile
 fastlane
 fastlane's
@@ -307,6 +308,7 @@ Nodejs
 NUnit
 nodeName
 nodeSelector
+nonblank
 Noreply
 noreply
 not_run
@@ -410,6 +412,7 @@ ruleset
 runbook
 runbooks
 runtimes
+runtime's
 rustup
 rvm
 sandboxed

@@ -3,18 +3,35 @@
 [Origin](https://cursor.com/origin) is a Git repository hosting service. Buildkite Pipelines integrates with Origin to create builds from branch pushes, tag pushes, and pull request events. The integration can also check out private repositories on [Buildkite hosted agents](/docs/agent/buildkite-hosted) and publish build results to Origin.
 
 > 📘 Public preview
-> The Origin integration is in public preview and must be enabled for your Buildkite organization. Contact support at support@buildkite.com to request access.
+> The Origin integration is in public preview. Cursor customers using Origin receive a 30-day trial of the Buildkite evaluation plan when they sign up through Origin. See [Buildkite pricing](https://buildkite.com/pricing/) for plan details.
 
 ## Connect Origin
 
-You must be a Buildkite organization administrator to connect Origin. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
+You can install Buildkite from the Origin Marketplace or connect Origin from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
 
-To connect Origin:
+### Connect from the Origin Marketplace
 
-1. Select **Settings** > **Repository Providers**.
-1. In **Add Provider**, select **Origin**. Buildkite redirects you to Origin.
+To install Buildkite from the Origin Marketplace:
+
+1. In the Origin Marketplace, select Buildkite.
+1. Choose whether to grant access to all repositories or selected repositories.
+1. Install the app. Origin redirects you to Buildkite.
+1. Sign in to an existing Buildkite account or sign up for a new account.
+1. Select a Buildkite organization.
+1. On the **New Pipeline** page, select a repository and create the pipeline.
+
+### Connect from Buildkite
+
+You must be a Buildkite organization administrator to connect Origin to an existing Buildkite organization.
+
+1. Start the connection from either of these locations:
+
+    * On the **New Pipeline** page, select **Connect Origin Account**.
+    * Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**, then select **Connect Origin**.
+
 1. In Origin, select the target and choose whether to grant access to all repositories or selected repositories.
-1. Install the app. Origin returns you to the repository provider settings in Buildkite.
+1. Install the app. Origin returns you to Buildkite.
+1. If you started from **Repository Providers**, [create a pipeline](#create-a-pipeline) for an accessible repository.
 
 The app requests read access to repository contents and pull requests. It also requests read and write access to checks so Buildkite Pipelines can publish build results.
 
@@ -109,7 +126,7 @@ The keys use the current organization and pipeline slugs. If either slug changes
 
 ### Origin is not available in repository providers
 
-Confirm that Buildkite Support has enabled the public preview for your organization and that you are a Buildkite organization administrator.
+Confirm that you are a Buildkite organization administrator. You can also install Buildkite from the Origin Marketplace and select an existing Buildkite organization during setup.
 
 ### A repository is missing
 
@@ -134,5 +151,3 @@ To inspect the connection using the Buildkite API, see:
 - [Repository connections REST API](/docs/apis/rest-api/organizations/repository-connections)
 - [Repositories for a connection REST API](/docs/apis/rest-api/repository-connections)
 - [Origin provider settings in the pipelines REST API](/docs/apis/rest-api/pipelines#provider-settings-properties)
-- [Origin organization connection in the GraphQL API](/docs/apis/graphql/schemas/object/organizationrepositoryprovidercursororigin)
-- [Origin pipeline provider settings in the GraphQL API](/docs/apis/graphql/schemas/object/repositoryprovidercursororiginsettings)
