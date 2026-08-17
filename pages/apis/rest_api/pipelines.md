@@ -1908,7 +1908,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>github_workflow_access_tokens_enabled</code></th>
-      <td>Whether jobs on this pipeline can request short-lived GitHub access tokens scoped to this repository. Pull request builds are limited to <code>contents:read</code>, and merge queue builds are unsupported. Other permissions are bounded by the workflow file at the build commit. Enable only when branch builds run trusted code.
+      <td>Whether jobs can request GitHub access tokens bounded by workflow permissions.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
