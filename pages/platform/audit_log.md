@@ -32,7 +32,7 @@ The following GraphQL `Audit Event` types are available and you can find more de
 
 The **Events** tab has a search bar to filter events by type. The search supports the following syntax:
 
-- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`.
+- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`. Event type values are matched case-insensitively.
 - Use `-type:EVENT_TYPE` to exclude events of a specific type. For example: `-type:SECRET_READ`.
 - Combine multiple space-separated terms to search for more than one event type. Positive `type:` filters use `OR` logic, matching any of the specified types. Negative `-type:` filters use `AND-NOT` logic, excluding all specified types.
 
@@ -43,6 +43,8 @@ The search has the following constraints:
 - Maximum of three unique terms (positive and negative combined)
 - Maximum of 250 characters for the query string
 - Only events from the last 90 days are returned
+
+If a search query can't be understood, Buildkite returns an error message instead of results. This happens when the query contains free text or a term other than `type:`, a `type:` term with no value, or a `type:` term with an unrecognized event type.
 
 To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
