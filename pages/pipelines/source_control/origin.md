@@ -105,8 +105,8 @@ Buildkite Pipelines receives signed events through the installed Origin app. You
 
 ### Branch and tag pushes
 
-- **Build branches**: Creates builds when commits are pushed to branches. This setting is enabled by default.
-- **Build tags**: Creates builds when tags are pushed. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
+* **Build branches**: Creates builds when commits are pushed to branches. This setting is enabled by default.
+* **Build tags**: Creates builds when tags are pushed. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
 
 Deleted branches and tags do not create builds.
 
@@ -170,6 +170,6 @@ For Origin API guidance, see the [Origin API reference](https://cursor.com/docs/
 
 To inspect the connection using the Buildkite API, see:
 
-- [Repository connections REST API](/docs/apis/rest-api/organizations/repository-connections)
-- [Repositories for a connection REST API](/docs/apis/rest-api/repository-connections)
-- [Origin provider settings in the pipelines REST API](/docs/apis/rest-api/pipelines#provider-settings-properties)
+* [Repository connections REST API](/docs/apis/rest-api/organizations/repository-connections)
+* [Repositories for a connection REST API](/docs/apis/rest-api/repository-connections)
+* [Origin provider settings in the pipelines REST API](/docs/apis/rest-api/pipelines#provider-settings-properties)
