@@ -30,6 +30,8 @@ You must be a Buildkite organization administrator to connect Origin to an exist
     * On the **New Pipeline** page, select **Connect Origin account**.
     * Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**. Buildkite redirects you to Origin.
 
+        <%= image "connect-provider-origin.png", width: 1396/2, height: 1058/2, alt: "Screenshot of Origin in the Buildkite Repository Providers settings" %>
+
 1. In Origin, select the target and choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin returns you to Buildkite.
 1. If you started from **Repository Providers**, [create a pipeline](#create-a-pipeline) for an accessible repository.
@@ -56,6 +58,9 @@ After connecting Origin, create a pipeline from a repository that the app can ac
 1. Select **Pipelines** > **New Pipeline**.
 1. From **Git scope**, select the Origin installation. It appears as **Origin (target-name)**.
 1. From **Repository**, search for and select the repository.
+
+    <%= image "origin-new-pipeline.png", width: 2424/2, height: 1120/2, alt: "Screenshot of creating a pipeline from an Origin repository" %>
+
 1. Complete the remaining pipeline settings, then select **Create pipeline**.
 
 Buildkite Pipelines validates access to the selected repository and saves its canonical HTTPS checkout URL. If the repository contains `.buildkite/pipeline.yml`, the **YAML Steps editor** automatically selects **Pipeline upload**.
