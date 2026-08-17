@@ -24,7 +24,7 @@ The following diagram shows the lifecycle of build data by plan.
     </tr>
     <tr>
       <td>Pro plan</td>
-      <td>1 year</td>
+      <td>90 days</td>
       <td>No</td>
     </tr>
     <tr>
