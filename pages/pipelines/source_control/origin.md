@@ -137,6 +137,8 @@ The keys use the current organization and pipeline slugs. If either slug changes
 
 ## Troubleshooting
 
+Use the following guidance to troubleshoot Origin connection, checkout, build trigger, and check publishing issues.
+
 ### Origin is not available in repository providers
 
 Confirm that you are a Buildkite organization administrator. You can also install Buildkite from the Origin Marketplace and select an existing Buildkite organization during setup.
