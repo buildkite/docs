@@ -4,6 +4,7 @@
 
 > 📘 Evaluation plan
 > Cursor customers using Origin receive a 30-day trial of the Buildkite evaluation plan when they sign up through Origin. See [Buildkite pricing](https://buildkite.com/pricing/) for plan details.
+> When the trial ends, you can request an extension, switch to the Free plan, upgrade to the Pro plan, or discuss the Enterprise plan with Buildkite. If you take no action, your Buildkite account becomes inactive.
 
 ## Connect Origin
 
@@ -78,6 +79,14 @@ If the associated Origin installation is disconnected, the repository settings s
 Jobs running on Buildkite hosted agents can check out a connected private Origin repository without an SSH key or extra pipeline configuration. Before checkout, Buildkite Pipelines creates a short-lived `repository:contents:read` token scoped to the exact repository configured on the pipeline.
 
 Native Origin authentication applies only to Buildkite hosted agents.
+
+## Use Origin as a clone mirror for GitHub
+
+You can keep GitHub as the source of truth, build trigger, and build-status destination for a pipeline while using Origin as a remote clone mirror. After Buildkite Pipelines resolves the exact commit from GitHub, jobs fetch the commit from Origin. If the commit is not available from the mirror, the agent falls back to GitHub.
+
+An Origin mirror can reduce repeated GitHub fetches for pipelines that create many jobs from a single push. The effect on build time depends on the pipeline's workload.
+
+Clone mirrors must be enabled for your Buildkite organization. To configure an existing GitHub pipeline, set its [`clone_mirror_url`](/docs/apis/rest-api/pipelines#update-a-pipeline) to the Origin repository URL. Buildkite agents receive the configured URL in [`BUILDKITE_GIT_REMOTE_MIRROR_URL`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_REMOTE_MIRROR_URL).
 
 ## Configure build triggers
 

@@ -25,7 +25,7 @@
   pipelines/source-control/gitlab: "Setting up GitLab and GitLab Self-Managed integration with webhooks and commit status updates."
   pipelines/source-control/bitbucket: "Setting up Bitbucket Cloud integration with webhooks and commit status updates."
   pipelines/source-control/bitbucket-server: "Setting up Bitbucket Server integration with webhooks for triggering builds on code pushes and pull requests."
-  pipelines/source-control/origin: "Guide for starting a Buildkite evaluation from the Origin Marketplace, connecting Origin to an existing Buildkite organization, selecting repositories, creating pipelines, checking out private repositories on hosted agents, triggering branch, tag, and pull request builds, publishing check runs, configuring required-check keys, and troubleshooting."
+  pipelines/source-control/origin: "Guide for starting a Buildkite evaluation from the Origin Marketplace, connecting Origin to an existing Buildkite organization, selecting repositories, creating pipelines, checking out private repositories on hosted agents, using Origin as a clone mirror for GitHub, triggering branch, tag, and pull request builds, publishing check runs, configuring required-check keys, and troubleshooting."
   pipelines/source-control/phabricator: "Setting up Phabricator integration using Harbormaster build plans and webhooks for build status reporting."
   pipelines/source-control/git: "Triggering builds from non-integrated Git servers using post-receive hooks and the Buildkite REST API."
   pipelines/migration: "Overview of migration tools and guides for moving to Buildkite from Jenkins, GitHub Actions, Bamboo, and other CI/CD platforms."
