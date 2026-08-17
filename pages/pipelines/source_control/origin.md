@@ -25,10 +25,15 @@ To install Buildkite from the Origin Marketplace:
 
 You must be a Buildkite organization administrator to connect Origin to an existing Buildkite organization.
 
-1. Start the connection from either of these locations:
+Start the connection from either of these locations:
+
 * On the **New Pipeline** page, select **Connect Origin account**.
 * Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**. Buildkite redirects you to Origin.
-    <%= image "connect-provider-origin.png", width: 1396/2, height: 1058/2, alt: "Selecting Origin from the Repository Providers settings to connect it to Buildkite" %>
+
+<%= image "connect-provider-origin.png", width: 1396/2, height: 1058/2, alt: "Selecting Origin from the Repository Providers settings to connect it to Buildkite" %>
+
+Complete the connection in Origin:
+
 1. In Origin, select the target and choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin returns you to Buildkite.
 1. If you started from **Repository Providers**, [create a pipeline](#create-a-pipeline) for an accessible repository.
