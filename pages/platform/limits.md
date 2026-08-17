@@ -188,7 +188,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Build retention",
         description: "The time period builds are stored in Buildkite after running.",
-        default_value: "90 days on the Personal and Pro plans, 365 days on the Enterprise plan"
+        default_value: "30 days on the Personal plan, 90 days on the Pro plan, 365 days on the Enterprise plan"
       },
       {
         title: "Teams per block step",
@@ -323,9 +323,11 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkite-hosted) used in Buildkite Pipelines.
 
+<!-- TODO: the Personal plan's Linux AMD64 vCPU minutes entitlement increased from 1,000 to 2,000 (see buildkite/buildkite#32442). Confirm the correct "Linux minutes, per month" figure in the table below before publishing, since it isn't a direct 1:1 conversion from vCPU minutes. -->
+
 | Limit type | Trial | Personal | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
-| **Linux concurrency** | 10 | 3 | 20 | Custom |
+| **Linux concurrency** | 10 | 10 | 20 | Custom |
 | **macOS concurrency** | 3 | - | 5 | Custom |
 | **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
@@ -348,7 +350,7 @@ The following table lists the default service limits for [Test Engine](/docs/pip
       {
         title: "Test Engine workflows per suite",
         description: "The maximum number of Test Engine workflows per suite.",
-        default_value: "1 workflow on the Personal plan, 3 workflows on the Pro and Enterprise plans"
+        default_value: "Not available on the Personal plan, 3 workflows on the Pro and Enterprise plans"
       },
       {
         title: "Test Engine workflow events per minute",
