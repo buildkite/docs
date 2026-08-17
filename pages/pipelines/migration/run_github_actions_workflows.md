@@ -325,6 +325,12 @@ Check that each selected path is an explicit, tracked `.yml` or `.yaml` file. Al
 
 A reusable workflow whose only trigger is `workflow_call` doesn't create its own group. Selecting only reusable workflows produces an error, but a reusable workflow can support another selected workflow. Buildkite webhook and schedule settings create builds. The workflow's `on` configuration determines whether a group is eligible after a build exists.
 
+### The workflow picker shows a repository access notice
+
+If Buildkite doesn't have code access to the selected repository, the workflow picker doesn't try to detect workflows. Instead, it shows a notice explaining that Buildkite can't scan the repository, with a **Manage GitHub access** link when GitHub provides one. Grant Buildkite code access to the repository, then reopen the picker to detect its workflows. See [GitHub repository provider options](/docs/pipelines/source-control/github#github-repository-provider-options) for the difference between full-access and limited-access connections.
+
+If the picker fails to scan an accessible repository for another reason, it shows a notice with a **Try again** option. Select **Try again** to retry the scan without reloading the page.
+
 ### Private checkout or a GitHub token is unavailable
 
 Private checkout and workflow access tokens use separate settings. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the organization feature and the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials and tokens](#supported-functionality-and-limitations-credentials-and-tokens) restrictions before enabling write permissions.
