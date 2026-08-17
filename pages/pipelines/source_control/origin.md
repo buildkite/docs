@@ -8,7 +8,19 @@
 
 ## Connect Origin
 
-You can install Buildkite from the Origin Marketplace or connect Origin from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
+You can install Buildkite from an Origin codebase's settings, from the Origin Marketplace, or from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
+
+### Connect from Codebase Settings
+
+You must be an Origin administrator to install Buildkite from a codebase's settings.
+
+1. In Origin, open **Codebase Settings**.
+1. Select **Apps**.
+1. Select **Buildkite**, then select **Install**.
+1. Choose whether to grant access to all repositories or selected repositories.
+1. Sign in to an existing Buildkite account or sign up for a new account.
+1. Select or create a Buildkite organization.
+1. On the **New Pipeline** page, select a repository and create the pipeline.
 
 ### Connect from the Origin Marketplace
 
@@ -139,6 +151,24 @@ Check run key   | `<pipeline-slug>`
 When configuring a required Buildkite check in Origin, select the Buildkite app and use both keys. Retries keep the same keys and appear as separate attempts.
 
 The keys use the current organization and pipeline slugs. If either slug changes, update the required check configuration in Origin to use the new keys.
+
+## Use Buildkite tools in Origin
+
+You can give Origin agents access to Buildkite tools by adding Buildkite's remote MCP server or installing the Buildkite plugin. These integrations are separate from connecting Origin as a repository provider.
+
+### Add a team MCP server
+
+In the Origin Dashboard, open **Integrations & MCP**, then add Buildkite as a **Team MCP Server** with the following endpoint:
+
+```url
+https://mcp.buildkite.com/mcp
+```
+
+The remote MCP server uses your Buildkite account to provide tools for working with pipelines, builds, jobs, and tests. For details about its authentication and available tools, see the [Buildkite MCP server overview](/docs/apis/mcp-server).
+
+### Install the Buildkite plugin
+
+In the Origin Dashboard, open **Plugins**, then select **Buildkite**. The [Buildkite plugin](https://cursor.com/marketplace/buildkite) combines the Buildkite MCP server with skills for designing pipelines, troubleshooting builds, and working with the Buildkite agent runtime, CLI, and API.
 
 ## Troubleshooting
 
