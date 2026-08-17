@@ -19,7 +19,7 @@ Buildkite supports the following SSO providers on the specified plans:
 - [ADFS](/docs/platform/sso/adfs) (Enterprise plan only)
 - [GitHub](/docs/platform/sso/github-sso) (Pro and Enterprise plans)
 - [Google Workspace](/docs/platform/sso/google-workspace) (Pro and Enterprise plans)
-- [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml) (Pro and Enterprise plans)
+- [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml) (Enterprise plan only)
 - [Microsoft Entra ID](/docs/platform/sso/azure-ad) (Enterprise plan only)
 - [OneLogin](/docs/platform/sso/onelogin) (Pro and Enterprise plans)
 - [Custom SAML](/docs/platform/sso/custom-saml) (Enterprise plan only)
