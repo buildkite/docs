@@ -28,7 +28,7 @@ You must be a Buildkite organization administrator to connect Origin to an exist
 1. Start the connection from either of these locations:
 
     * On the **New Pipeline** page, select **Connect Origin Account**.
-    * Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**, then select **Connect Origin**.
+    * Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**. Buildkite redirects you to Origin.
 
 1. In Origin, select the target and choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin returns you to Buildkite.
@@ -84,7 +84,7 @@ Native Origin authentication applies only to Buildkite hosted agents.
 
 You can keep GitHub as the source of truth, build trigger, and build-status destination for a pipeline while using Origin as a remote clone mirror. After Buildkite Pipelines resolves the exact commit from GitHub, supported jobs fetch the commit from Origin. If the commit is not available from the mirror, the agent falls back to GitHub.
 
-Remote mirror checkout requires Buildkite agent v3.136.0 or later and Git 2.45.0 or later. Pull request builds that check out the head commit require Buildkite agent v3.137.0 or later. Jobs that do not meet these version requirements fetch from GitHub instead.
+Remote mirror checkout requires Git 2.45.0 or later. Branch-build support is available in Buildkite agent v3.136.0 and from v3.136.2 onward. Buildkite agent v3.136.1 ignores remote mirrors. Pull request builds that check out the head commit require Buildkite agent v3.137.0 or later. Jobs that do not meet these version requirements fetch from GitHub instead.
 
 Tag builds and pull request builds that use the [GitHub test merge commit](/docs/pipelines/source-control/github#building-the-test-merge-commit) bypass the mirror and fetch from GitHub.
 
