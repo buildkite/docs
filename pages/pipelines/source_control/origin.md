@@ -60,9 +60,7 @@ After connecting Origin, create a pipeline from a repository that the app can ac
 1. Select **Pipelines** > **New Pipeline**.
 1. From **Git scope**, select the Origin installation. It appears as **Origin (target-name)**.
 1. From **Repository**, search for and select the repository.
-
     <%= image "origin-new-pipeline.png", width: 2424/2, height: 1120/2, alt: "Selecting an Origin repository while creating a Buildkite pipeline" %>
-
 1. Complete the remaining pipeline settings, then select **Create pipeline**.
 
 Buildkite Pipelines validates access to the selected repository and saves its canonical HTTPS checkout URL. If the repository contains `.buildkite/pipeline.yml`, the **YAML Steps editor** automatically selects **Pipeline upload**.
