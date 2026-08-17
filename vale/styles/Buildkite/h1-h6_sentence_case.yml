@@ -97,6 +97,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Codebase Settings
   - Cognito
   - completion_watcher
   - Comliance
