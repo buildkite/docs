@@ -298,11 +298,28 @@ Annotations do not support GitHub-style syntax highlighting, task lists, user me
 CommonMark supports HTML inside Markdown blocks, but will revert to Markdown parsing on newlines. For more information about how HTML is parsed and which tags CommonMark supports please refer to the [CommonMark spec](https://spec.commonmark.org).
 
 > 🚧 HTML limitations
-> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<h1>` through `<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
+> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<details>`, `<summary>`, `<h1>` through `<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
 >
-> Attributes are also restricted. The `class` attribute is allowed but only for a specific allowlist of CSS class names (see [Supported CSS classes](#formatting-annotations-supported-css-classes) below). Link `href` values are limited to `http`, `https`, `mailto`, `itms-services`, and relative URL schemes.
+> Attributes are also restricted. The `open` attribute is allowed on `<details>`. The `class` attribute is allowed but only for a specific allowlist of CSS class names (see [Supported CSS classes](#formatting-annotations-supported-css-classes) below). Link `href` values are limited to `http`, `https`, `mailto`, `itms-services`, and relative URL schemes.
 >
 > Inline styles (for example, `style="margin-top: 0;"`) are stripped. Some CSS classes may not work on certain HTML elements due to CSS specificity. Use the supported Basscss classes listed below instead.
+
+Use `<details>` and `<summary>` to collapse long content such as failure output. By default, `<details>` starts collapsed. `<details open>` starts expanded, and the content of `<summary>` is the label that users select to expand or collapse the section. This native behavior doesn't require `<script>` tags or Basscss classes.
+
+For example, this command creates an annotation with collapsed failure output:
+
+```bash
+cat <<'EOF' | buildkite-agent annotate --style "error" --context "failure-details"
+<details>
+<summary>Failure details</summary>
+
+~~~text
+... long failure output ...
+~~~
+
+</details>
+EOF
+```
 
 ### Supported CSS classes
 
