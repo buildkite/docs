@@ -455,6 +455,7 @@
   apis/rest-api/teams/members: "REST endpoints to list, create, update, and delete team member associations."
   apis/rest-api/teams/pipelines: "REST endpoints to list, create, update, and delete team-pipeline associations."
   apis/rest-api/teams/suites: "REST endpoints to list, create, update, and delete team-suite associations."
+  apis/rest-api/test-engine/build-tests: "REST endpoint to list tests and aggregated execution metrics for a Buildkite Pipelines build."
   apis/rest-api/test-engine/execution-tags: "REST endpoint to bulk replace or delete mutable tags on Test Engine executions."
   apis/rest-api/test-engine/flaky-tests: "Deprecated REST endpoint for listing flaky tests; use the tests endpoint with label=flaky instead."
   apis/rest-api/test-engine/quarantine: "REST endpoints to skip, mute, and enable tests for quarantine management."

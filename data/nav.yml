@@ -1120,6 +1120,8 @@
           # Keep space at end to prevent "Test Engine" in global nav bar being
           # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
+            - name: "Build tests"
+              path: "apis/rest-api/test-engine/build-tests"
             - name: "Execution tags"
               path: "apis/rest-api/test-engine/execution-tags"
             - name: "Flaky tests"
