@@ -10,7 +10,7 @@ This can be useful when migrating your pipelines across to [queues](/docs/agent/
 
 ## Use terminal access on hosted agents
 
-Assuming that [terminal access is active across your Buildkite organization](#deactivate-and-reactivate-terminal-access-on-hosted-agents), you can access this terminal access feature from a currently building pipeline, when the job of the relevant step is being built.
+Assuming that [remote access is active across your Buildkite organization](#deactivate-and-reactivate-remote-access-on-hosted-agents), you can access this terminal access feature from a currently building pipeline, when the job of the relevant step is being built.
 
 The terminal access feature is available to users who have/are any of the following:
 
@@ -35,21 +35,21 @@ steps:
       echo "Job complete."
 ```
 
-## Deactivate and reactivate terminal access on hosted agents
+## Deactivate and reactivate remote access on hosted agents
 
-By default, the terminal access feature for Buildkite hosted agents is active.
+The same organization setting controls both terminal (SSH) access and VNC access to Buildkite hosted agents. By default, this remote access is active.
 
-If this feature is not active, you can reactivate it for all hosted agents across all clusters within your Buildkite organization. Reactivating or deactivating the terminal access feature requires Buildkite organization administrator permissions.
+If this feature is not active, you can reactivate it for all hosted agents across all clusters within your Buildkite organization. Reactivating or deactivating remote access requires Buildkite organization administrator permissions.
 
-To deactivate or reactivate the hosted agent terminal access feature:
+To deactivate or reactivate remote access for hosted agents:
 
 1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 1. Select **Pipelines** > **Settings** to access your organization's [**Pipeline Settings**](https://buildkite.com/organizations/~/pipeline-settings) page.
-1. Scroll down to the **Hosted Agents Terminal Access** and to:
-    * _Deactivate this feature_, select the **Disable Terminal Access** button, followed by **Disable Hosted Agents Terminal Access** in the confirmation message.
-    * _Reactivate this feature_, select the **Enable Terminal Access** button, followed by **Enable Hosted Agents Terminal Access** in the confirmation message.
+1. Scroll down to **Hosted Agents Remote Access (SSH and VNC)** and to:
+    * _Deactivate this feature_, select the **Disable Remote Access** button, followed by **Disable Hosted Agents Remote Access** in the confirmation message.
+    * _Reactivate this feature_, select the **Enable Remote Access** button, followed by **Enable Hosted Agents Remote Access** in the confirmation message.
 
-Terminal access will now be either removed or made available to all Buildkite hosted agents across all clusters within your Buildkite organization.
+SSH and VNC access will now be either removed or made available to all Buildkite hosted agents across all clusters within your Buildkite organization.
 
 When this feature is active, be aware that users require either:
 
