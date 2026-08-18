@@ -304,7 +304,7 @@ CommonMark supports HTML inside Markdown blocks, but will revert to Markdown par
 >
 > Inline styles (for example, `style="margin-top: 0;"`) are stripped. Some CSS classes may not work on certain HTML elements due to CSS specificity. Use the supported Basscss classes listed below instead.
 
-Use `<details>` and `<summary>` to collapse long content such as failure output. By default, `<details>` starts collapsed. `<details open>` starts expanded, and the content of `<summary>` is the label that users select to expand or collapse the section. This native behavior doesn't require `<script>` tags or Basscss classes.
+Use `<details>` and `<summary>` to collapse long content such as failure output. By default, `<details>` starts collapsed. `<details open>` starts expanded. The content of `<summary>` is the label that users select to expand or collapse the section. This native behavior doesn't require `<script>` tags or Basscss classes.
 
 For example, this command creates an annotation with collapsed failure output:
 
