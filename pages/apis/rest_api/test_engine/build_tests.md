@@ -2,7 +2,7 @@
 
 ## List tests for a build
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of tests that ran in a Buildkite Pipelines build. Each test includes execution metrics aggregated over the build's time window. The response includes tests from every Test Engine suite associated with the build that the API token can access.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of tests that ran in a Buildkite Pipelines build. Each test includes execution metrics aggregated over the build's time window. The response includes tests from every Buildkite Test Engine suite associated with the build that the API token can access.
 
 The build identifier must be the build UUID, not the pipeline build number.
 
