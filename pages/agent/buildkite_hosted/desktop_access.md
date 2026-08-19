@@ -34,7 +34,7 @@ Buildkite CLI version 3.55.0 and later provides the `bk job vnc` command. Use th
 bk job vnc 0190046e-e199-453b-a302-a21a4d649d31
 ```
 
-The command requests a short-lived access token, opens a local port on your computer, and opens the VNC client registered with your operating system. The CLI proxies the connection until the client disconnects. You don't need to configure port forwarding.
+The command requests a short-lived access token and opens a local port on your computer. It then opens the VNC client registered with your operating system and proxies the connection until the client disconnects. You don't need to configure port forwarding.
 
 Before running the command:
 
