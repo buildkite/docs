@@ -352,6 +352,65 @@ Optional [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
+### Create a pool with multiple attempt policies
+
+To apply different attempt policies to entries in the same pool, set `attempt_policy` to an object keyed by policy name. The object must include a `default` policy. Each policy supports the properties described in the [Attempt policy](#attempt-policy) section.
+
+The following example creates a pool with a `default` policy that runs an entry once and an `alternate` policy that runs an entry three times:
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools" \
+  --request POST \
+  --header "Authorization: Bearer $OIDC_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "suite": "example-suite",
+    "pipeline": "example-pipeline",
+    "build_id": "3456789a-****-****-****-789abcdef012",
+    "key": "rspec-main",
+    "attempt_policy": {
+      "default": {
+        "max_attempts": 1
+      },
+      "alternate": {
+        "min_attempts": 3,
+        "max_attempts": 3,
+        "min_passed": 3,
+        "max_passed": 3,
+        "max_failed": 3,
+        "parallel_attempts": 3
+      }
+    }
+  }'
+```
+
+Entries use the `default` policy when `entries[].attempt_policy` is omitted or set to `default`. To select another policy, set `entries[].attempt_policy` to that policy's key:
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
+  --request POST \
+  --header "Authorization: Bearer $OIDC_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "entries": [
+      {
+        "selector_type": "custom",
+        "selector": {
+          "file": "spec/models/user_spec.rb"
+        }
+      },
+      {
+        "selector_type": "custom",
+        "selector": {
+          "file": "spec/features/checkout_spec.rb"
+        },
+        "attempt_policy": "alternate"
+      }
+    ]
+  }'
+```
+
+When a pool has multiple policies, entry upload and list responses include the selected `attempt_policy` key for every entry, including entries that use `default`. An unknown policy key makes the entire entry upload fail.
 
 ## Attempt policy
 
@@ -619,6 +678,10 @@ Optional entry properties:
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>entries[].attempt_policy</code></th>
+    <td>The key of an attempt policy defined by the pool. Omit this property or set it to <code>default</code> to use the pool's default policy. This property is only available when the pool has multiple policies.</td>
+  </tr>
   <tr>
     <th><code>entries[].costs.custom</code></th>
     <td>A finite, non-negative number used when selecting work for a lease. A missing or <code>null</code> value has an effective scheduling cost of <code>0</code>.</td>
