@@ -101,7 +101,7 @@ steps:
       echo "--- :package: Creating archive"
       TAR_FILE=$$(mktemp --suffix=.tar.gz)
       trap 'rm -f "$$TAR_FILE"' EXIT
-      tar czf "$$TAR_FILE" -C "$$(dirname "$$MIRROR_PATH")" "$$SANITIZED_NAME"
+      flock "$${MIRROR_PATH}.updatelockf" tar czf "$$TAR_FILE" -C "$$(dirname "$$MIRROR_PATH")" "$$SANITIZED_NAME"
 
       echo "--- :s3: Uploading"
       aws s3 cp "$$TAR_FILE" "s3://$$SEED_BUCKET/git-mirror-seeds/$$SANITIZED_NAME.tar.gz"
