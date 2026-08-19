@@ -471,6 +471,46 @@ API responses include the following [CORS headers](https://developer.mozilla.org
 
 For an example of this in use, see the [Emojis API example on CodePen](https://codepen.io/dannymidnight/pen/jOpJpmY) for adding emoji support to your own browser-based dashboards and build screens.
 
+## OpenAPI specification
+
+The Buildkite Test Engine REST API publishes a machine-readable [OpenAPI](https://www.openapis.org/) specification describing the `/v2/analytics` endpoints intended for general consumption.
+
+Discover the specification using the [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727.html) API catalog endpoint:
+
+```bash
+curl "https://api.buildkite.com/.well-known/api-catalog"
+```
+
+```json
+{
+  "linkset": [
+    {
+      "anchor": "https://api.buildkite.com/v2/analytics",
+      "service-desc": [
+        {
+          "href": "https://api.buildkite.com/v2/analytics/openapi.yaml",
+          "type": "application/openapi+yaml"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://buildkite.com/docs/apis/rest-api",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}
+```
+
+You can also fetch the specification directly:
+
+```bash
+curl "https://api.buildkite.com/v2/analytics/openapi.yaml"
+```
+
+Both endpoints are unauthenticated.
+
 ## Migrating from v1 to v2
 
 The following changes were made in v2 of our API:
