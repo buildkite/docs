@@ -13,7 +13,7 @@ Desktop access is useful for:
 
 ## Use desktop access on hosted agents
 
-Desktop access is available for currently running jobs on [macOS hosted agents](/docs/agent/buildkite-hosted/macos). It requires permission to manage hosted agents in your Buildkite organization.
+Desktop access is available for currently running jobs on macOS hosted agents. [Terminal access must be active across your Buildkite organization](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-terminal-access-on-hosted-agents). You also need permission to manage hosted agents in your Buildkite organization.
 
 To open a job's desktop:
 
