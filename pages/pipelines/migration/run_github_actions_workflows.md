@@ -6,7 +6,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 > 📘 Public preview
 > Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
-> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.13.11 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.13.11/docs/compatibility.md) before adding a workflow.
+> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.17.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.17.0/docs/compatibility.md) before adding a workflow.
 
 The GitHub Actions Buildkite plugin runs supported GitHub Actions workflows as Buildkite Pipelines jobs. This lets you migrate a workflow with minimal changes, then replace imported jobs with [native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) over time.
 
@@ -277,10 +277,10 @@ You may need to update a workflow before you can run it during the preview:
 
 - **Check `actions/upload-artifact` inputs.** The `path` input accepts up to 32 clean, workspace-relative literal files or directories, or bounded file globs using `*`, `?`, character classes, and recursive `**`. Path expressions are supported when their evaluated values follow the same rules. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Literal directories include regular-file descendants. A trailing `/` selects directories only, and hidden paths require `include-hidden-files`. The runtime accepts `retention-days` but treats it as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
 
-See the [`buildkite-gha` v0.13.11 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.13.11/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
+See the [`buildkite-gha` v0.17.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.17.0/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
 > 🚧 Treat workflow code as build code
-> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` security model](https://github.com/buildkite/buildkite-gha/blob/v0.13.11/docs/security.md) for the complete trust boundaries.
+> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` security model](https://github.com/buildkite/buildkite-gha/blob/v0.17.0/docs/security.md) for the complete trust boundaries.
 
 ### Concurrency
 
@@ -300,7 +300,7 @@ Buildkite can provide a short-lived token for the repository that triggered the 
 
 The workflow file must be directly under `.github/workflows/` and have a simple `.yml` or `.yaml` filename. The job must either reference `secrets.GITHUB_TOKEN` directly or use an action whose default input references `github.token`.
 
-If the workflow doesn't include a top-level `permissions` map, the token receives only `contents: read`, regardless of the GitHub repository or organization defaults. A non-empty top-level map replaces that default, while an empty map or a map containing only `none` doesn't produce a token. Job-level permission maps and reusable workflow jobs can't receive tokens. Pull request builds and their triggered or rebuilt descendants can't receive more than `contents: read`. Merge queue builds and their descendants can't receive a token. The runtime doesn't add the token to the job's initial environment, although an action can make it available to later steps through `GITHUB_ENV`, as it can on a GitHub runner. General workflow secrets and an ambient `GITHUB_TOKEN` aren't available.
+If the workflow doesn't include a top-level `permissions` map, the token receives only `contents: read`, regardless of the GitHub repository or organization defaults. A non-empty top-level map replaces that default, while an empty map or a map containing only `none` doesn't produce a token. Job-level permission maps aren't supported, including maps on reusable workflow call jobs. A job expanded from a local reusable workflow can receive a token. Its `GITHUB_TOKEN` repository permissions always come from the top-level workflow's `permissions` map. Buildkite Pipelines doesn't inspect permission maps in called workflows for `GITHUB_TOKEN`, so those maps don't narrow the token. The separate `id-token` permission retains called workflow narrowing. Pull request builds and their triggered or rebuilt descendants can't receive more than `contents: read`. Merge queue builds and their descendants can't receive a token. The runtime doesn't add the token to the job's initial environment, although an action can make it available to later steps through `GITHUB_ENV`, as it can on a GitHub runner. General workflow secrets and an ambient `GITHUB_TOKEN` aren't available.
 
 Each job can request up to 10 workflow access tokens per hour. Requests beyond this limit receive a `429 Too Many Requests` response with a `Retry-After` header, and no token is issued. This limit is tracked separately for each job.
 
