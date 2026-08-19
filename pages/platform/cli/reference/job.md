@@ -89,6 +89,7 @@ bk job list [flags]
 | `--build=STRING` | Filter by build number (requires a resolvable pipeline) |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
+| `--group-key=STRING` | Filter by group key (requires --build) |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
@@ -96,6 +97,7 @@ bk job list [flags]
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by job state |
+| `--step-key=STRING` | Filter by step key (requires --build) |
 | `--text` | Output as text |
 | `--until=STRING` | Filter jobs from builds created before this time (e.g. 1h, 30m) |
 | `--yaml` | Output as YAML |
@@ -124,6 +126,12 @@ List failed jobs from a known build (recommended when the build is known):
 
 ```bash
 bk job list --pipeline my-app --build 429 --state failed
+```
+
+List jobs for step and group keys from a known build:
+
+```bash
+bk job list --pipeline my-app --build 429 --step-key test --group-key verification
 ```
 
 List jobs that took longer than 10 minutes:
