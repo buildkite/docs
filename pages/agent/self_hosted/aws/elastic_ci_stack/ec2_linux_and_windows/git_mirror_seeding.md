@@ -11,7 +11,7 @@ Seeding is best-effort. If the bucket is empty, unreachable, or an archive is in
 
 ## Enabling Git mirror seeding
 
-Set both of the following [configuration parameters](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) on your stack:
+For an AWS CloudFormation deployment, set both of the following [configuration parameters](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) on your stack:
 
 - `BuildkiteAgentEnableGitMirrors`: `true`
 - `GitMirrorSeedBucket`: the name of an existing S3 bucket containing your seed archives
