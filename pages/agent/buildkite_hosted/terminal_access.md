@@ -37,6 +37,9 @@ steps:
 
 ## Use terminal access from the Buildkite CLI
 
+> 📘 Limited availability
+> SSH access from the Buildkite CLI for hosted macOS jobs is being rolled out to Buildkite organizations. If the `bk job ssh` command described below isn't available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+
 Buildkite CLI version 3.55.0 and later provides the `bk job ssh` command for running macOS hosted jobs:
 
 ```bash

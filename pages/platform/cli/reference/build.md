@@ -343,7 +343,7 @@ bk build download [<build-number>] [flags]
 | `-m`, `--mine` | Filter builds to only my user. |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
-| `--artifacts-path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --artifacts-path "log/rspec*.json". |
+| `--artifacts-path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--artifacts-path "log/rspec*.json"`. |
 | `--artifacts-state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
 | `--debug` | Enable debug output for REST API calls |
 

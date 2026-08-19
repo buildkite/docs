@@ -49,7 +49,7 @@ bk artifacts download [<artifact-id>] [flags]
 | `-j`, `--job-uuid=STRING` | The job UUID containing the artifact. |
 | `-p`, `--pipeline=STRING` | The pipeline containing the artifact. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
-| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --path "log/rspec*.json". |
+| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
 | `--state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
 
 ### Examples
@@ -117,7 +117,7 @@ bk artifacts list [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
 | `--json` | Output as JSON |
-| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --path "log/rspec*.json". |
+| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
 | `--state=STRING` | Filter artifacts by state. Must be one of: new, finished, error, deleted, expired. |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |

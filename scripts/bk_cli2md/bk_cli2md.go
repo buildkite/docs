@@ -51,6 +51,8 @@ var (
 	subcommandRE = regexp.MustCompile(`^\s{2}(\S+(?:\s+\S+)?)\s+(\[.+\])?\s*$`)
 	// Matches argument lines: "  [<arg>]  Description" or "  <arg>  Description"
 	argumentRE = regexp.MustCompile(`^\s{2,}(\[?<([^>]+)>\]?)\s{2,}(.+)$`)
+	// Matches command-line examples in descriptions, for example: --path "log/*.json"
+	commandLineExampleRE = regexp.MustCompile(`\be\.g\. (--[a-zA-Z0-9-]+(?: "[^"]*")?)`)
 )
 
 func main() {
@@ -418,7 +420,7 @@ func generateMarkdown(cmd *Command) string {
 			b.WriteString("| --- | --- |\n")
 			for _, flag := range localFlags {
 				flagStr := formatFlag(flag)
-				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, flag.Description)
+				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, formatDescription(flag.Description))
 			}
 			b.WriteString("\n")
 		}
@@ -485,7 +487,7 @@ func generateMarkdown(cmd *Command) string {
 			b.WriteString("| --- | --- |\n")
 			for _, flag := range localFlags {
 				flagStr := formatFlag(flag)
-				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, flag.Description)
+				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, formatDescription(flag.Description))
 			}
 			b.WriteString("\n")
 		}
@@ -711,6 +713,10 @@ func formatFlag(f Flag) string {
 	longFlag += "`"
 	parts = append(parts, longFlag)
 	return strings.Join(parts, ", ")
+}
+
+func formatDescription(description string) string {
+	return commandLineExampleRE.ReplaceAllString(description, "for example `$1`")
 }
 
 func writeExamples(b *strings.Builder, examples []string) {

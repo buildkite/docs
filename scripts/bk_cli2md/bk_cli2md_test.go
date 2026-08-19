@@ -79,3 +79,12 @@ func TestNormalizeMarkdownUsesOneTrailingNewline(t *testing.T) {
 		t.Fatalf("normalizeMarkdown() = %q, want %q", got, want)
 	}
 }
+
+func TestFormatDescriptionFormatsCommandLineExamples(t *testing.T) {
+	got := formatDescription(`Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --path "log/rspec*.json".`)
+	want := "Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path \"log/rspec*.json\"`."
+
+	if got != want {
+		t.Fatalf("formatDescription() = %q, want %q", got, want)
+	}
+}
