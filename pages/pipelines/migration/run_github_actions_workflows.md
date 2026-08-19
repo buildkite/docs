@@ -325,6 +325,12 @@ Check that each selected path is an explicit, tracked `.yml` or `.yaml` file. Al
 
 A reusable workflow whose only trigger is `workflow_call` doesn't create its own group. Selecting only reusable workflows produces an error, but a reusable workflow can support another selected workflow. Buildkite webhook and schedule settings create builds. The workflow's `on` configuration determines whether a group is eligible after a build exists.
 
+### The workflow picker shows a repository access notice
+
+If Buildkite doesn't have code access to the selected repository, the workflow picker doesn't try to detect workflows. Instead, the picker shows a notice explaining that Buildkite can't scan the repository. For a **GitHub (Limited Access)** connection, the notice includes a **Manage GitHub access** link when GitHub provides one. This connection can't provide code access, so connect the repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), then select it in the repository picker. If a repository is missing from an existing full-access GitHub App installation, select **GitHub settings** in the repository picker to add it. The access notice can also appear without an action if Buildkite can't access a repository during a full-access scan.
+
+When you create a new pipeline, other scan failures show a notice with a **Try again** option. Select **Try again** to retry the scan without reloading the page.
+
 ### Private checkout or a GitHub token is unavailable
 
 Private checkout and workflow access tokens use separate settings. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the organization feature and the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials and tokens](#supported-functionality-and-limitations-credentials-and-tokens) restrictions before enabling write permissions.
