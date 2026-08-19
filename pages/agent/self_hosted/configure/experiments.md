@@ -172,11 +172,11 @@ Learn more about this feature in [Internal job API](/docs/apis/agent-api/interna
 
 ### Normalised upload paths
 
-Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
+Promoted in [v4.0.0-beta.1](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.1).
 
 ### Override zero exit on cancel
 
-Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
+Promoted in [v4.0.0-beta.1](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.1).
 
 ### Polyglot hooks
 
@@ -185,11 +185,11 @@ Learn more about this feature in [Polyglot hooks](/docs/agent/hooks#polyglot-hoo
 
 ### Propagate agent config vars
 
-Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
+Promoted in [v4.0.0-beta.1](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.1).
 
 ### Resolve commit after checkout
 
-Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
+Promoted in [v4.0.0-beta.1](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.1).
 
 ### Use zzglob
 
@@ -202,7 +202,7 @@ The following experiments were replaced by supported agent options.
 
 ### Descending spawn priority
 
-Replaced in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4) by `--spawn-with-priority descending`.
+Replaced in [v4.0.0-beta.1](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.1) by `--spawn-with-priority descending`.
 
 ### Kubernetes exec
 
@@ -214,4 +214,4 @@ The following experiments were removed without becoming part of the default agen
 
 ### Allow artifact path traversal
 
-Removed in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4) because the path traversal behavior was insecure.
+Removed in [v4.0.0-beta.1](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.1) because the path traversal behavior was insecure.

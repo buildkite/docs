@@ -47,7 +47,7 @@ PROMOTED_EXPERIMENT_LINKS = {
 # The agent source uses major versions for changes made during prereleases. Map
 # those versions to the first release that contains the change so links resolve.
 RELEASE_TAG_OVERRIDES = {
-  'v4' => 'v4.0.0-beta.4'
+  'v4' => 'v4.0.0-beta.1'
 }.freeze
 
 def fetch_url(url)
