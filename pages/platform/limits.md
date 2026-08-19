@@ -188,7 +188,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Build retention",
         description: "The time period builds are stored in Buildkite after running.",
-        default_value: "90 days on the Personal and Pro plans, 365 days on the Enterprise plan"
+        default_value: "30 days on the Personal plan, 90 days on the Pro plan, and 365 days on the Enterprise plan"
       },
       {
         title: "Teams per block step",
