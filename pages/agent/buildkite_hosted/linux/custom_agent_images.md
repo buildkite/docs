@@ -2,7 +2,7 @@
 
 Custom agent images let you control which packages, tools, and security patches run in your hosted agent environment. A custom agent image is recommended for production workloads.
 
-Creating a custom agent image requires you to define a Dockerfile that installs the tools and utilities you require. You can [create a custom agent image](#create-an-agent-image) using the [Buildkite interface](#create-an-agent-image-using-the-buildkite-interface), [agent hooks](#create-an-agent-image-using-agent-hooks) or the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
+Creating a custom agent image requires you to define a Dockerfile that installs the tools and utilities you require. You can [create a custom agent image](#create-an-agent-image) using the [Buildkite interface](#create-an-agent-image-using-the-buildkite-interface), [agent hooks](#create-an-agent-image-using-agent-hooks), the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry), or the [agent images endpoints](/docs/apis/rest-api/clusters/agent-images) in the REST API.
 
 ## Requirements within the image
 
@@ -119,7 +119,7 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 
 ### Specify a custom image for a queue
 
-You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). When configured, this URL overrides the [agent image selected from the **Agent image** dropdown](#use-an-agent-image-set-the-default-image-for-a-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
+You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). When configured, this URL overrides the [agent image selected from the **Agent image** dropdown](#use-an-agent-image-set-the-default-image-for-a-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry). Specifying a custom image requires access to the custom agent images feature.
 
 To set a custom image URL through the Buildkite interface:
 
@@ -139,12 +139,21 @@ To set a custom image URL through the Buildkite interface:
 
 You can also set a custom image URL through the Buildkite API or Terraform:
 
-- **REST API:** Use the `agentImageRef` parameter in the `hostedAgents` object when <!-- [creating](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or --> [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
-
-    **Note:** You must always specify the `instanceShape` parameter when using `agentImageRef`. If you don't wish to change the `instanceShape` value, specify its current value when submitting your call to specify the `agentImageRef` value.
-
-- **GraphQL API:** Use the `agentImageRef` field in the `hostedAgents` input when calling the [`clusterQueueUpdate` mutation](/docs/apis/graphql/cookbooks/hosted-agents#set-a-custom-image-url-for-a-buildkite-hosted-queue).
+- **REST API:** Use the `agentImageRef` property in the `hostedAgents` object when <!-- [creating](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or -->[updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
+- **GraphQL API:** Use the `agentImageRef` field in the `platformSettings.linux` input when calling the [`clusterQueueUpdate` mutation](/docs/apis/graphql/cookbooks/hosted-agents#set-a-custom-image-url-for-a-buildkite-hosted-queue). This field requires access to the custom agent images feature.
 - **Terraform:** Use the `agent_image_ref` attribute in the `hosted_agents.linux` block of the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue).
+
+To point a queue at an image that Buildkite builds for you, pass that image's `image_ref` value from the [agent images endpoints](/docs/apis/rest-api/clusters/agent-images) as the `agentImageRef` value, rather than selecting the image from the **Agent image** dropdown.
+
+> 📘 REST API constraints
+> You cannot set a custom image URL when you create a queue. That call succeeds with the image unset, so create the queue first, then update it. You must also send `instanceShape` alongside `agentImageRef`. Omitting `instanceShape` fails with a validation error stating that the instance shape cannot be changed, so specify the queue's current instance shape unless you also intend to resize it.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{ "hostedAgents": { "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-registry.example.com/my-org/my-image:tag" } }'
+```
 
 ### Specify an image in your pipeline YAML
 

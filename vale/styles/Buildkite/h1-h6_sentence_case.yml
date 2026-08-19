@@ -97,6 +97,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Codebase Settings
   - Cognito
   - completion_watcher
   - Comliance
@@ -227,6 +228,7 @@ exceptions:
   - OpenTelemetry
   - Open Container Initiative
   - Open Policy Agent
+  - Origin
   - OS X
   - Package Registries
   - Packagecloud

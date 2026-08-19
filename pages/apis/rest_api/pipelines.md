@@ -1553,7 +1553,10 @@ Properties available for all providers:
 </tbody>
 </table>
 
-Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, and GitHub Enterprise all have optional `provider_settings`.
+Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
+
+> 📘 Origin provider settings
+> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
 
 Properties available for Bitbucket Server:
 
@@ -1679,6 +1682,37 @@ Properties available for GitLab and GitLab Self-Managed:
     <tr>
       <th><code>publish_commit_status</code></th>
       <td>Whether to update the status of commits in GitLab.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Properties available for Origin:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>build_branches</code></th>
+      <td>Whether to create builds when branches are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_requests</code></th>
+      <td>Whether to create builds when pull requests are opened or updated.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_tags</code></th>
+      <td>Whether to create builds when tags are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>publish_commit_status</code></th>
+      <td>Whether to publish build results to Origin using the Checks API. The property name is retained for API compatibility.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>

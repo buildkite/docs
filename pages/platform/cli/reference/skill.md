@@ -155,4 +155,3 @@ bk skill delete buildkite-api --agent cursor --global
 ```bash
 bk skill delete buildkite-api --path ~/.amp/skills
 ```
-

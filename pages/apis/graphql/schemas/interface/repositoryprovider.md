@@ -53,6 +53,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/repositoryprovidercodebase" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderCodebase">
   <code>RepositoryProviderCodebase</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidercursororigin" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderCursorOrigin">
+  <code>RepositoryProviderCursorOrigin</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/repositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGithub">
   <code>RepositoryProviderGithub</code>
 </a>

@@ -67,6 +67,8 @@
           path: "pipelines/source-control/bitbucket"
         - name: "Bitbucket Server"
           path: "pipelines/source-control/bitbucket-server"
+        - name: "Origin"
+          path: "pipelines/source-control/origin"
         - name: "Phabricator"
           path: "pipelines/source-control/phabricator"
         - name: "Other Git servers"
@@ -390,6 +392,9 @@
               path: "agent/buildkite-hosted/pipeline-migration"
             - name: "Terminal access"
               path: "agent/buildkite-hosted/terminal-access"
+            - name: "Desktop access"
+              path: "agent/buildkite-hosted/desktop-access"
+              pill: "preview"
             - name: "Cache volumes"
               path: "agent/buildkite-hosted/cache-volumes"
             - name: "Internal container registry"
@@ -941,6 +946,8 @@
               path: "platform/cli/reference/secret"
             - name: "skill"
               path: "platform/cli/reference/skill"
+            - name: "team"
+              path: "platform/cli/reference/team"
             - name: "update"
               path: "platform/cli/reference/update"
             - name: "user"
@@ -1118,6 +1125,8 @@
           # Keep space at end to prevent "Test Engine" in global nav bar being
           # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
+            - name: "Build tests"
+              path: "apis/rest-api/test-engine/build-tests"
             - name: "Execution tags"
               path: "apis/rest-api/test-engine/execution-tags"
             - name: "Flaky tests"
