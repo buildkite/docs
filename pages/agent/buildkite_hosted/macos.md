@@ -47,7 +47,7 @@ Queue             | macOS version
 `macos-27-medium` | [Golden Gate](#macos-golden-gate)
 {: class="responsive-table"}
 
-Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as **macos-medium**. The queue names match GitHub Actions style `macos-<version>` runner labels. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
+Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as **macos-medium**. The queue names match GitHub Actions-style `macos-<version>` runner labels. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
 
 ## Concurrency
 
