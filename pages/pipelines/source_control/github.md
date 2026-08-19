@@ -101,11 +101,15 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 <%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 > 📘 Build branches vs build pull requests
-> If **Build branches** is enabled, Buildkite Pipelines runs builds on branch pushes, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs pull request information, make sure **Build Pull Requests** is enabled. Consider turning off **Build branches** or limiting it to just your default branch (like `main`) so you don't end up with branch builds when you expect pull request builds.
+> If **Build branches** is enabled, Buildkite Pipelines runs builds on branch pushes, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs pull request information, make sure **Build when pull request is opened or updated** is enabled. Consider turning off **Build branches** or limiting it to just your default branch (like `main`) so you don't end up with branch builds when you expect pull request builds.
 
 ## Running builds on pull requests
 
-To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**. This triggers builds for the `opened` and `synchronize` pull request actions.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**.
+
+Buildkite Pipelines creates a build directly from the `opened` action. When you push more commits to a pull request branch in your own repository, those commits create builds from the `push` event instead, and Buildkite Pipelines adds the pull request details to those builds. The matching `synchronize` webhook delivery therefore doesn't create a build of its own, but it does refresh the pull request details (such as the base branch, labels, and draft state) that Buildkite Pipelines attaches to the push build.
+
+Pull requests opened from third-party forks work differently because GitHub doesn't send your repository a `push` event for commits on a fork. For these pull requests, the `synchronize` action creates the build. Fork builds also require the **Allow builds from third-party forked repositories** option described below.
 
 You can enable additional pull request actions to trigger builds:
 
@@ -121,10 +125,12 @@ You can also configure these **Pull request webhook options** (these options may
 
 - **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 - **Limit pull request branches**: filter which branches trigger pull request builds
-- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
-- **Skip when pull request is closed or merged**: skip creating a new build for a pull request that's closed or merged, useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests
-- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
+- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch. This option is enabled by default.
+- **Skip when pull request is closed or merged**: skip creating a new build for a pull request that's closed or merged, useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests. This option is enabled by default.
+- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch. This option is disabled by default.
 - **Cancel deleted branch builds**: cancel running builds for a branch when the branch is deleted from GitHub
+
+Even when **Skip when pull request source is default branch** is disabled, Buildkite Pipelines skips pull request builds whose source branch is the default branch if **Build when pull request is opened or updated** is also disabled.
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
