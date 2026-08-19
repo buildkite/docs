@@ -327,7 +327,7 @@ A reusable workflow whose only trigger is `workflow_call` doesn't create its own
 
 ### The workflow picker shows a repository access notice
 
-If Buildkite doesn't have code access to the selected repository, the workflow picker doesn't try to detect workflows. Instead, the picker shows a notice explaining that Buildkite can't scan the repository. For a **GitHub (Limited Access)** connection, connect the repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options). If the repository uses the full-access provider but isn't included in its GitHub App installation, select **Manage GitHub access** to add it. Then reopen the picker to detect the workflows.
+If Buildkite doesn't have code access to the selected repository, the workflow picker doesn't try to detect workflows. Instead, the picker shows a notice with a **Manage GitHub access** link. This notice means that the repository uses a **GitHub (Limited Access)** connection, which can't provide code access. Connect the repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), then select it in the repository picker. If a repository is missing from an existing full-access GitHub App installation, select **GitHub settings** in the repository picker to add it.
 
 When you create a new pipeline, other scan failures show a notice with a **Try again** option. Select **Try again** to retry the scan without reloading the page.
 
