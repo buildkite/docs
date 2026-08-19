@@ -22,6 +22,6 @@ To open a job's desktop:
 
 A new browser tab opens and connects to the job's remote desktop. The desktop scales to fit the browser window, and resizes automatically as the window changes size. Mouse and keyboard input in the browser tab are sent directly to the remote desktop.
 
-Each desktop session uses connection credentials that are created on demand and are short-lived, and aren't reused between sessions.
+Each desktop session uses a short-lived access token that is created on demand. The response containing the access token and VNC credentials is not cached.
 
 The **Open Desktop** button only appears for jobs running on macOS hosted agents, not for jobs on Linux hosted agents or self-hosted agents.
