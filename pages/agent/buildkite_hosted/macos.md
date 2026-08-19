@@ -21,6 +21,8 @@ Learn more about:
 
 - The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
 
+- The [versioned queues](#versioned-queues) pre-provisioned for new organizations, which pin a specific macOS version.
+
 ## Sizes
 
 Buildkite offers a selection of macOS instance types (each based on a different size combination of virtual CPU power and memory capacity, known as an _instance shape_), allowing you to tailor your hosted agents' resources to the demands of your jobs.
@@ -34,6 +36,20 @@ Also note the following about macOS hosted agent instances.
 - To accommodate different workloads, instances are capable of running up to 4 hours.
 
 If you have specific needs for longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
+
+## Versioned queues
+
+New Buildkite organizations are pre-provisioned with the following macOS hosted queues, in addition to **macos-medium** and **macos-large**:
+
+Queue             | macOS version
+----------------- | ----------------
+`macos-14-medium` | [Sonoma](#macos-sonoma)
+`macos-15-medium` | [Sequoia](#macos-sequoia)
+`macos-26-medium` | [Tahoe (26.6)](#macos-tahoe-26-dot-6)
+`macos-27-medium` | [Golden Gate](#macos-golden-gate)
+{: class="responsive-table"}
+
+Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as **macos-medium**. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
 
 ## Concurrency
 
