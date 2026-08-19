@@ -343,6 +343,8 @@ bk build download [<build-number>] [flags]
 | `-m`, `--mine` | Filter builds to only my user. |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
+| `--artifacts-path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --artifacts-path "log/rspec*.json". |
+| `--artifacts-state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples
@@ -375,6 +377,16 @@ Download most recent build by yourself:
 
 ```bash
 bk build download --pipeline my-pipeline --mine
+```
+
+Filter artifacts to download by path or state:
+
+```bash
+bk build download --pipeline my-pipeline --artifacts-path "log/rspec*.json"
+```
+
+```bash
+bk build download --pipeline my-pipeline --artifacts-state finished
 ```
 
 ## Rebuild a build
@@ -494,4 +506,3 @@ Set a custom polling interval (in seconds):
 ```bash
 bk build watch --interval 5 --pipeline my-pipeline
 ```
-

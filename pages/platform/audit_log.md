@@ -152,7 +152,11 @@ PIPELINE_TEMPLATE_DELETED
 PIPELINE_TEMPLATE_UPDATED
 
 PIPELINE_VISIBILITY_CHANGED
+
+JOB_TERMINAL_SESSION_STARTED
 ```
+
+`JOB_TERMINAL_SESSION_STARTED` records SSH and VNC access to a running job from the Buildkite interface or Buildkite CLI.
 
 ### Team management
 

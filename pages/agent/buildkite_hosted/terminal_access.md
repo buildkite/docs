@@ -8,7 +8,7 @@ The Buildkite hosted agents feature provides you with _terminal/console access_ 
 
 This can be useful when migrating your pipelines across to [queues](/docs/agent/queues/managing) on Buildkite hosted agents.
 
-## Use terminal access on hosted agents
+## Use terminal access in the Buildkite interface
 
 Assuming that [remote access is active across your Buildkite organization](#deactivate-and-reactivate-remote-access-on-hosted-agents), you can access this terminal access feature from a currently building pipeline, when the job of the relevant step is being built.
 
@@ -34,6 +34,25 @@ steps:
       sleep 600  # Sleep for 10 minutes
       echo "Job complete."
 ```
+
+## Use terminal access from the Buildkite CLI
+
+Buildkite CLI version 3.55.0 and later provides the `bk job ssh` command for running macOS hosted jobs:
+
+```bash
+bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
+```
+
+The command requests a short-lived access token and opens an interactive shell in your current terminal. The CLI securely proxies the connection and keeps the ephemeral SSH private key in memory.
+
+Before running the command:
+
+- [Configure the Buildkite CLI](/docs/platform/cli/configuration) with your Buildkite organization and an API access token that has the `write_builds` scope.
+- Confirm that [remote access is active](#deactivate-and-reactivate-remote-access-on-hosted-agents) for your Buildkite organization.
+- Find the UUID of a running command job on a macOS hosted agent.
+- Confirm that you have permission to manage hosted agents for the job.
+
+The `bk job ssh` command does not support Linux hosted jobs or self-hosted jobs. Use the **Open Terminal** button in the Buildkite interface to access supported Linux hosted jobs.
 
 ## Deactivate and reactivate remote access on hosted agents
 

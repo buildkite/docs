@@ -130,6 +130,8 @@ PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/re
 
 Method | Endpoint | Description
 ------ | -------- | -----------
+POST | `/v2/organizations/{org.slug}/jobs/{job.id}/vnc-session` | [Create a remote desktop session](/docs/apis/rest-api/jobs#create-a-remote-desktop-session)
+POST | `/v2/organizations/{org.slug}/jobs/{job.id}/ssh-session` | [Create an SSH session](/docs/apis/rest-api/jobs#create-an-ssh-session)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/retry` | [Retry a job](/docs/apis/rest-api/jobs#retry-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/reprioritize` | [Reprioritize a job](/docs/apis/rest-api/jobs#reprioritize-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/unblock` | [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job)

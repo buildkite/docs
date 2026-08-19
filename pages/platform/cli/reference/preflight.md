@@ -39,7 +39,8 @@ bk preflight run [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-p`, `--pipeline=STRING` | The pipeline to build. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. --[no-]watch             Watch the build until completion. |
+| `-p`, `--pipeline=STRING` | The pipeline to build. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
+| `--[no-]watch` | Watch the build until completion. |
 | `--await-test-results` | After the build finishes, wait for test results to be processed by Test Engine. Provide a duration like 10s, or omit the value to wait 30s. |
 | `--debug` | Enable debug output for REST API calls |
 | `--exit-on=EXIT-ON,...` | Exit when a condition is met. Options: build-failing (default, exits when a build enters the failing state), build-terminal (exits when the build reaches a terminal state). |
@@ -66,4 +67,3 @@ bk preflight cleanup [flags]
 | `--json` | Emit one JSON object per event (JSONL). |
 | `--preflight-uuid=STRING` | Target a single preflight branch by its UUID (bk/preflight/<uuid>). |
 | `--text` | Use plain text output instead of interactive terminal UI. |
-

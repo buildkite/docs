@@ -946,6 +946,8 @@
               path: "platform/cli/reference/secret"
             - name: "skill"
               path: "platform/cli/reference/skill"
+            - name: "team"
+              path: "platform/cli/reference/team"
             - name: "update"
               path: "platform/cli/reference/update"
             - name: "user"
