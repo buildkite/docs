@@ -107,7 +107,7 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 
 To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**.
 
-Buildkite Pipelines creates a build directly from the `opened` action. When you push more commits to a pull request branch in your own repository, those commits create builds from the `push` event instead, and Buildkite Pipelines adds the pull request details to those builds. The matching `synchronize` webhook delivery therefore doesn't create a build of its own, but it does refresh the pull request details (such as the base branch, labels, and draft state) that Buildkite Pipelines attaches to the push build.
+Buildkite Pipelines creates a build directly from the `opened` action. When you push more commits to a pull request branch in your own repository, those commits create builds from the `push` event instead. Buildkite Pipelines adds the pull request details to those builds. The matching `synchronize` webhook delivery therefore doesn't create a build of its own, but it does refresh the pull request details (such as the base branch, labels, and draft state) that Buildkite Pipelines attaches to the push build.
 
 Pull requests opened from third-party forks work differently because GitHub doesn't send your repository a `push` event for commits on a fork. For these pull requests, the `synchronize` action creates the build. Fork builds also require the **Allow builds from third-party forked repositories** option described below.
 
