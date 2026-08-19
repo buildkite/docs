@@ -37,9 +37,9 @@ steps:
 
 ## Deactivate and reactivate remote access on hosted agents
 
-The same organization setting controls both terminal (SSH) access and VNC access to Buildkite hosted agents. By default, this remote access is active.
+The same organization-wide setting controls remote access across all clusters. When active, the setting enables SSH access to all Buildkite hosted agents and VNC access to supported macOS hosted jobs. By default, remote access is active.
 
-If this feature is not active, you can reactivate it for all hosted agents across all clusters within your Buildkite organization. Reactivating or deactivating remote access requires Buildkite organization administrator permissions.
+Reactivating or deactivating remote access requires Buildkite organization administrator permissions.
 
 To deactivate or reactivate remote access for hosted agents:
 
@@ -49,7 +49,7 @@ To deactivate or reactivate remote access for hosted agents:
     * _Deactivate this feature_, select the **Disable Remote Access** button, followed by **Disable Hosted Agents Remote Access** in the confirmation message.
     * _Reactivate this feature_, select the **Enable Remote Access** button, followed by **Enable Hosted Agents Remote Access** in the confirmation message.
 
-SSH and VNC access will now be either removed or made available to all Buildkite hosted agents across all clusters within your Buildkite organization.
+Deactivating the setting removes SSH access from all Buildkite hosted agents across all clusters in your Buildkite organization. Reactivating it makes SSH access available again. These actions also remove or make VNC access available for supported macOS hosted jobs.
 
 When this feature is active, be aware that users require either:
 

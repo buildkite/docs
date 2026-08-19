@@ -69,8 +69,8 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/pipeline-settings` | [Get pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#get-pipeline-settings)
 PATCH | `/v2/organizations/{org.slug}/pipeline-settings` | [Update pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#update-pipeline-settings)
-PUT | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Enable hosted agents terminal access](/docs/apis/rest-api/organizations/pipeline-settings#enable-hosted-agents-terminal-access)
-DELETE | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Disable hosted agents terminal access](/docs/apis/rest-api/organizations/pipeline-settings#disable-hosted-agents-terminal-access)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Enable hosted agents remote access](/docs/apis/rest-api/organizations/pipeline-settings#enable-hosted-agents-remote-access)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Disable hosted agents remote access](/docs/apis/rest-api/organizations/pipeline-settings#disable-hosted-agents-remote-access)
 PUT | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Enable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#enable-public-pipeline-creation)
 DELETE | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Disable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#disable-public-pipeline-creation)
 PUT | `/v2/organizations/{org.slug}/pipeline-settings/advanced-queue-metrics` | [Enable advanced queue metrics](/docs/apis/rest-api/organizations/pipeline-settings#enable-advanced-queue-metrics)
