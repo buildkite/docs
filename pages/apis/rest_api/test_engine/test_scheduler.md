@@ -448,7 +448,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   }'
 ```
 
-The create, get, and list pool responses use the keyed `attempt_policy` object for pools with multiple policies. Pools with only a default policy retain the flat `attempt_policy` response shown above.
+The create, get, list, and update pool responses use the keyed `attempt_policy` object for pools with multiple policies. Pools with only a default policy retain the flat `attempt_policy` response shown above.
 
 When a pool has multiple policies, entry upload and list responses include the selected `attempt_policy` key for every entry, including entries that use `default`. An unknown policy key makes the entire entry upload fail.
 
