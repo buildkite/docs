@@ -471,7 +471,7 @@ For an example of this in use, see the [Emojis API example on CodePen](https://c
 
 ## OpenAPI specification
 
-The Buildkite Test Engine REST API publishes a machine-readable [OpenAPI](https://www.openapis.org/) specification describing every endpoint under `/v2/analytics`.
+The Buildkite Test Engine REST API publishes a machine-readable [OpenAPI](https://www.openapis.org/) specification describing the `/v2/analytics` endpoints intended for general consumption.
 
 Discover the specification using the [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727.html) API catalog endpoint:
 
