@@ -44,6 +44,8 @@ The search has the following constraints:
 - Maximum of 250 characters for the query string
 - Only events from the last 90 days are returned
 
+If a `type:` or `-type:` value doesn't match a known event type, the search returns an error instead of any results. When the value is close to a valid event type, the error names the closest match. For example, `type:PIPLINE_UPDATED` returns the error `Unknown event type "PIPLINE_UPDATED". Did you mean PIPELINE_UPDATED?`.
+
 To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
 ## Logged events
