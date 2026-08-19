@@ -138,6 +138,20 @@ Use a [conditional expression](/docs/pipelines/configure/conditionals#conditiona
 
 Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. Buildkite Pipelines creates a check run when a build is created. It updates the same check run as the build starts, finishes, fails, or is skipped.
 
+### Check run report content
+
+As a build runs, its check run report updates to show details relevant to the current state:
+
+* Scheduled and running builds show a link back to the build in Buildkite.
+* Passed builds show the total job count and the run time.
+* Failing and failed builds show the failed jobs and their exit results, along with the job count and run time.
+* Canceled builds show the cancellation reason, when known.
+* Blocked builds ask you to open Buildkite to unblock the build.
+
+A report shows up to 50 failed jobs, with hard failures listed before soft failures. If a build has more than 50 failed jobs, the report links to the full list of failed jobs in Buildkite.
+
+Buildkite Pipelines saves the build state and timing whenever the state changes. This means a delayed check update still reports the state and job results for the attempt it describes, even if the build has since been retried.
+
 ### Configure required checks
 
 Origin identifies required checks by the installed app and the keys of the check suite and check run. Display names are not used for matching.
