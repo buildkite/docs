@@ -10599,7 +10599,7 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   """
   Whether to skip creating a new build for a pull request when the pull request
   is closed or merged. Useful for ignoring late activity from automated
-  housekeeping (e.g. label changes from bots) on closed pull requests.
+  housekeeping (for example, label changes from bots) on closed pull requests.
   """
   skipBuildsForClosedPullRequests: Boolean!
 
