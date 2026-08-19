@@ -18,6 +18,9 @@ Set both of the following [configuration parameters](/docs/agent/self-hosted/aws
 
 The S3 bucket must already exist. The stack does not create it. The stack grants its instances read-only access (`s3:GetObject` and `s3:ListBucket`) scoped to the `git-mirror-seeds/` prefix of the bucket. If your stack uses a custom `InstanceRoleARN`, grant that role equivalent access to the bucket separately.
 
+> 📘 Buckets encrypted with a customer-managed KMS key
+> The stack only grants the S3 actions listed above. If your bucket is encrypted with a customer-managed KMS key, also grant the instance role `kms:Decrypt` on that key. Without it, seed downloads fail and instances fall back to a full clone on the first job.
+
 When `GitMirrorSeedBucket` is set, the default `InstanceCreationTimeout` increases from `PT5M` to `PT15M` to allow time for downloading and extracting seed archives at boot. If extracting your archives takes longer, set `InstanceCreationTimeout` explicitly.
 
 ## Creating seed archives
