@@ -27,7 +27,7 @@ Store archives in your bucket under the fixed `git-mirror-seeds/` prefix, one ar
 ```
 s3://<bucket>/git-mirror-seeds/
   git-github-com-org-repo-git.tar.gz
-  https---github-com-acme-inc-project-git.tar.gz
+  https---github-com-inc-project-git.tar.gz
 ```
 
 Supported archive formats are `.tar`, `.tar.gz`, and `.zip`. Compressed archives (`.tar.gz`) are recommended, as they transfer from S3 significantly faster.
@@ -41,7 +41,7 @@ printf '%s' "git@github.com:org/repo.git" | sed 's/[^a-zA-Z0-9]/-/g'
 # => git-github-com-org-repo-git
 ```
 
-Use the exact repository URL your pipelines are configured with. For example, `https://github.com/acme-inc/project.git` produces `https---github-com-acme-inc-project-git`, which is a different mirror name than the SSH URL for the same repository.
+Use the exact repository URL your pipelines are configured with. For example, `https://github.com/inc/project.git` produces `https---github-com-inc-project-git`, which is a different mirror name than the SSH URL for the same repository.
 
 ### Archive contents
 
