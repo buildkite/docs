@@ -17,6 +17,8 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/agent/buildkite-hosted/macos/getting-started-with-ios).
 
+- How to interactively debug a running job using [terminal access](/docs/agent/buildkite-hosted/terminal-access) or browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access).
+
 - The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
 
 ## Sizes
