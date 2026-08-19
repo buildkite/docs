@@ -340,15 +340,11 @@ ScaleUpSchedule:
 ScalerEnableExperimentalElasticCIMode:
   variable: scaler_enable_elastic_ci_mode
   type: bool
-ScalerEventScheduleJitter:
-  variable: scaler_event_schedule_period
-  type: string
+ScalerEventScheduleJitter: N/A
 ScalerEventSchedulePeriod:
   variable: scaler_event_schedule_period
   type: string
-ScalerManagedPolicyARNs:
-  variable: managed_policy_arns
-  type: list(string)
+ScalerManagedPolicyARNs: N/A
 ScalerMinPollInterval:
   variable: scaler_min_poll_interval
   type: string
