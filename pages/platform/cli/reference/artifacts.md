@@ -116,7 +116,7 @@ bk artifacts list [<build-number>] [flags]
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
-| `--json` | Output as JSON |
+| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
 | `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
 | `--state=STRING` | Filter artifacts by state. Must be one of: new, finished, error, deleted, expired. |
 | `--text` | Output as text |
