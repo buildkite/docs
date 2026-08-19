@@ -24,4 +24,4 @@ A new browser tab opens and connects to the job's remote desktop. The desktop sc
 
 Each desktop session uses connection credentials that are created on demand and are short-lived, and aren't reused between sessions.
 
-The **Open Desktop** button only appears for jobs running on macOS hosted agents. It isn't available for jobs on Linux hosted agents or self-hosted agents.
+The **Open Desktop** button only appears for jobs running on macOS hosted agents, not for jobs on Linux hosted agents or self-hosted agents.
