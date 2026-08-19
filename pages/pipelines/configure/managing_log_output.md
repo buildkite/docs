@@ -22,6 +22,10 @@ Use `~~~` to create groups that by default are collapsed and visually de-emphasi
 echo "~~~ An unimportant section of the build"
 ```
 
+On the build page, de-emphasized groups are hidden from the log by default. Select **Configure logs** above the log, then switch on **Show all system groups** to reveal them. A count of the hidden groups is shown next to the **Configure logs** icon, and your choice is remembered for future visits to the build page.
+
+The **Configure logs** menu also lets you change the log's theme and toggle timestamps. The **Expand groups** and **Collapse groups** buttons remain directly in the log toolbar so you can open or close all groups at once.
+
 ### Expanded groups
 
 Use `+++` to create groups that are open by default:
