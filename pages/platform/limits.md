@@ -327,7 +327,7 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkit
 | --- | --- | --- | --- | --- |
 | **Linux concurrency** | 10 | 10 | 20 | Custom |
 | **macOS concurrency** | 3 | - | 5 | Custom |
-| **Linux AMD64 vCPU minutes, per month** | 2,000 | 2,000 | usage-based | usage-based |
+| **Linux AMD64 vCPU minutes, per month** | 4,000 | 2,000 | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
 | **Container cache volume** | 50 GB | 50 GB | 50 GB | 50 GB |
 | **Git mirror volume** | 5 GB | 5 GB | 5 GB | 5 GB |
