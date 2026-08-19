@@ -138,10 +138,6 @@ Allows plugins to be downloaded as zip archives instead of being cloned from a G
 
 The following features started as experiments before being promoted to fully supported features. Therefore, these features are now a part of the Buildkite agent's default behavior, and there's no additional configuration required to use them.
 
-### Allow artifact path traversal
-
-Promoted in [deprecated](https://github.com/buildkite/agent/releases/tag/deprecated).
-
 ### ANSI timestamps
 
 Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
@@ -150,10 +146,6 @@ Learn more about this feature in [ANSI timestamps and disabling them](/docs/pipe
 ### Avoid recursive trap
 
 Promoted in [v3.66.0](https://github.com/buildkite/agent/releases/tag/v3.66.0).
-
-### Descending spawn priority
-
-Promoted in [deprecated](https://github.com/buildkite/agent/releases/tag/deprecated).
 
 ### Flock file locks
 
@@ -178,17 +170,13 @@ Promoted in [v3.67.0](https://github.com/buildkite/agent/releases/tag/v3.67.0).
 Promoted in [v3.64.0](https://github.com/buildkite/agent/releases/tag/v3.64.0).
 Learn more about this feature in [Internal job API](/docs/apis/agent-api/internal-job).
 
-### Kubernetes exec
-
-Promoted in [v3.74.0](https://github.com/buildkite/agent/releases/tag/v3.74.0).
-
 ### Normalised upload paths
 
-Promoted in [v4](https://github.com/buildkite/agent/releases/tag/v4).
+Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
 
 ### Override zero exit on cancel
 
-Promoted in [v4](https://github.com/buildkite/agent/releases/tag/v4).
+Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
 
 ### Polyglot hooks
 
@@ -197,13 +185,33 @@ Learn more about this feature in [Polyglot hooks](/docs/agent/hooks#polyglot-hoo
 
 ### Propagate agent config vars
 
-Promoted in [v4](https://github.com/buildkite/agent/releases/tag/v4).
+Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
 
 ### Resolve commit after checkout
 
-Promoted in [v4](https://github.com/buildkite/agent/releases/tag/v4).
+Promoted in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4).
 
 ### Use zzglob
 
 Promoted in [v3.104.0](https://github.com/buildkite/agent/releases/tag/v3.104.0).
 Learn more about this feature in [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax).
+
+## Replaced experiments
+
+The following experiments were replaced by supported agent options.
+
+### Descending spawn priority
+
+Replaced in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4) by `--spawn-with-priority descending`.
+
+### Kubernetes exec
+
+Replaced in [v3.74.0](https://github.com/buildkite/agent/releases/tag/v3.74.0) by `--kubernetes-exec`.
+
+## Removed experiments
+
+The following experiments were removed without becoming part of the default agent behavior.
+
+### Allow artifact path traversal
+
+Removed in [v4.0.0-beta.4](https://github.com/buildkite/agent/releases/tag/v4.0.0-beta.4) because the path traversal behavior was insecure.
