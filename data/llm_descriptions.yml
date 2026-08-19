@@ -255,6 +255,7 @@
   agent/buildkite-hosted/code-access: "Configuring hosted agents to access private GitHub repositories and other providers using SSH or HTTPS."
   agent/buildkite-hosted/pipeline-migration: "Steps to migrate existing pipelines to Buildkite hosted agent queues, including repository checkout changes."
   agent/buildkite-hosted/terminal-access: "Accessing a live terminal on running hosted agent jobs for debugging and environment inspection."
+  agent/buildkite-hosted/desktop-access: "Opening a browser-based remote desktop (VNC) for running jobs on macOS hosted agents."
   agent/buildkite-hosted/cache-volumes: "Configuring NVMe cache volumes on hosted agents for build dependencies, Docker images, and Git mirrors."
   agent/buildkite-hosted/internal-container-registry: "Using the cluster-scoped internal container registry to store and share Docker images built by hosted agents."
   agent/buildkite-hosted/network-security: "IP allowlisting, OIDC-based authentication, and network security configuration for Buildkite hosted agents."
