@@ -167,11 +167,19 @@ In the Origin Dashboard, open **Integrations & MCP**, then add Buildkite as a **
 https://mcp.buildkite.com/mcp
 ```
 
+<%= image "buildkite-mcp.png", width: 1552/2, height: 348/2, alt: "Team MCP Servers showing Buildkite configured with the remote MCP endpoint" %>
+
+_Buildkite appears under **Team MCP Servers** after configuration._
+
 The remote MCP server uses your Buildkite account to provide tools for working with pipelines, builds, jobs, and tests. For details about its authentication and available tools, see the [Buildkite MCP server overview](/docs/apis/mcp-server).
 
 ### Install the Buildkite plugin
 
 In the Origin Dashboard, open **Plugins**, then select **Buildkite**. The [Buildkite plugin](https://cursor.com/marketplace/buildkite) combines the Buildkite MCP server with skills for designing pipelines, troubleshooting builds, and working with the Buildkite agent runtime, CLI, and API.
+
+<%= image "buildkite-plugin-origin.png", width: 1568/2, height: 696/2, alt: "Origin Dashboard Plugins page listing the Buildkite plugin" %>
+
+_The **Plugins** page lists the Buildkite plugin with other available plugins._
 
 ## Troubleshooting
 
