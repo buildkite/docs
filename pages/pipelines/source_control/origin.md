@@ -8,30 +8,43 @@
 
 ## Connect Origin
 
-You can install Buildkite from an Origin codebase's settings, from the Origin Marketplace, or from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
+You can install Buildkite from an Origin codebase's Apps settings or from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
 
-### Connect from Codebase Settings
+The Buildkite app supports Origin-hosted repositories. It does not support repositories mirrored from GitHub, which continue to use GitHub for CI.
 
-You must be an Origin administrator to install Buildkite from a codebase's settings.
+> 📘 Origin app and Cursor plugin
+> The [Buildkite plugin](https://cursor.com/marketplace/buildkite) in the Cursor Marketplace adds the Buildkite MCP server and skills to Cursor. It does not connect an Origin repository to Buildkite Pipelines.
 
-1. In Origin, open **Codebase Settings**.
-1. Select **Apps**.
-1. Select **Buildkite**, then select **Install**.
-1. Choose whether to grant access to all repositories or selected repositories.
-1. Sign in to an existing Buildkite account or sign up for a new account.
-1. Select or create a Buildkite organization.
-1. On the **New Pipeline** page, select a repository and create the pipeline.
+### Connect from Origin codebase settings
 
-### Connect from the Origin Marketplace
+You must be an Origin administrator to install Buildkite from a codebase's settings. Your team must also have [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin).
 
-To install Buildkite from the Origin Marketplace:
+Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps).
 
-1. In the Origin Marketplace, select Buildkite.
+<%= image "codebase-settings-bk.png", width: 2184/2, height: 688/2, alt: "Origin Codebase Settings Apps tab showing Buildkite under Installed" %>
+
+_In **Codebase**, open **Settings** > **Apps** to find Buildkite._
+
+If Buildkite appears under **Installed**, the app is already installed for the codebase. You can [create a pipeline](#create-a-pipeline) for an accessible repository.
+
+Otherwise, install Buildkite:
+
+1. Select **Buildkite**.
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
-1. Select or create a Buildkite organization.
+1. Select or create a Buildkite organization. Buildkite names the verified Origin account before you confirm the connection. Check that it matches the installation you started from.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
+
+To confirm that Buildkite is active for a specific Origin-hosted repository, open the repository, then select **Settings** > **Apps**.
+
+<%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
+
+Confirm that Buildkite appears under **Installed**.
+
+<%= image "installed-buildkite.png", width: 1600/2, height: 672/2, alt: "Origin repository Apps settings showing Buildkite under Installed" %>
+
+_The repository **Apps** settings list Buildkite after installation._
 
 ### Connect from Buildkite
 
@@ -164,19 +177,33 @@ In the Origin Dashboard, open **Integrations & MCP**, then add Buildkite as a **
 https://mcp.buildkite.com/mcp
 ```
 
+<%= image "buildkite-mcp.png", width: 1552/2, height: 348/2, alt: "Team MCP Servers showing Buildkite configured with the remote MCP endpoint" %>
+
+_Buildkite appears under **Team MCP Servers** after configuration._
+
 The remote MCP server uses your Buildkite account to provide tools for working with pipelines, builds, jobs, and tests. For details about its authentication and available tools, see the [Buildkite MCP server overview](/docs/apis/mcp-server).
 
 ### Install the Buildkite plugin
 
 In the Origin Dashboard, open **Plugins**, then select **Buildkite**. The [Buildkite plugin](https://cursor.com/marketplace/buildkite) combines the Buildkite MCP server with skills for designing pipelines, troubleshooting builds, and working with the Buildkite agent runtime, CLI, and API.
 
+<%= image "buildkite-plugin-origin.png", width: 1568/2, height: 696/2, alt: "Origin Dashboard Plugins page listing the Buildkite plugin" %>
+
+_The **Plugins** page lists the Buildkite plugin with other available plugins._
+
 ## Troubleshooting
 
 Use the following guidance to troubleshoot Origin connection, checkout, build trigger, and check publishing issues.
 
+### Buildkite is missing from Origin Apps
+
+Confirm that your team has [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin). You must also be signed in as an Origin administrator and use an Origin-hosted repository. The Buildkite app does not support repositories mirrored from GitHub.
+
+Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps) directly. You can also open an Origin-hosted repository, select **Settings** > **Apps**, then select **Manage Apps**.
+
 ### Origin is not available in repository providers
 
-Confirm that you are a Buildkite organization administrator. You can also install Buildkite from the Origin Marketplace and select an existing Buildkite organization during setup.
+Confirm that you are a Buildkite organization administrator. You can also install Buildkite from [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps) and select an existing Buildkite organization during setup.
 
 ### A repository is missing
 
