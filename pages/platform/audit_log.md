@@ -30,13 +30,17 @@ The following GraphQL `Audit Event` types are available and you can find more de
 
 ## Search events
 
-The **Events** tab has a search bar to filter events by type. The search supports the following syntax:
+The **Events** tab has a search bar to filter events by type and pipeline. The search supports the following syntax:
 
 - Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`.
 - Use `-type:EVENT_TYPE` to exclude events of a specific type. For example: `-type:SECRET_READ`.
-- Combine multiple space-separated terms to search for more than one event type. Positive `type:` filters use `OR` logic, matching any of the specified types. Negative `-type:` filters use `AND-NOT` logic, excluding all specified types.
+- Use `pipeline:PIPELINE_SLUG` to only return events for a specific pipeline. For example: `pipeline:my-app`. You can use a pipeline UUID in place of its slug.
+- Use `-pipeline:PIPELINE_SLUG` to exclude the events for a specific pipeline. For example: `-pipeline:my-app`.
+- Combine multiple space-separated terms to narrow a search. Repeating `type:` or `pipeline:` uses `OR` logic, matching any of the values given, while negative terms use `AND-NOT` logic, excluding all of them. A `type:` term and a `pipeline:` term together return only the events matching both.
 
-For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns events where the type is either `TEAM_CREATED` or `TEAM_DELETED`, but not `TEAM_UPDATED`.
+For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns events where the type is either `TEAM_CREATED` or `TEAM_DELETED`, but not `TEAM_UPDATED`. The query `type:PIPELINE_UPDATED pipeline:my-app` returns only the configuration changes made to the `my-app` pipeline.
+
+A `pipeline:` term matches the events that the pipeline is the subject of, so events about something belonging to it, such as one of its schedules, aren't included. The slug of a deleted pipeline still resolves, which is how you find the event recording the deletion. Where more than one pipeline has used the same slug, the search returns the events of the pipeline using it now, or of the last pipeline to use it.
 
 The search has the following constraints:
 
@@ -45,6 +49,8 @@ The search has the following constraints:
 - Only events from the last 90 days are returned
 
 If a `type:` or `-type:` value doesn't match a known event type, the search returns an error instead of any results. When the value is close to a valid event type, the error names the closest match. For example, `type:PIPLINE_UPDATED` returns the error `Unknown event type "PIPLINE_UPDATED". Did you mean PIPELINE_UPDATED?`.
+
+A `pipeline:` or `-pipeline:` value that doesn't match a pipeline in the Buildkite organization returns the error `Unknown pipeline "my-app"`, with no results returned.
 
 To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
