@@ -19,16 +19,22 @@ The Buildkite app supports Origin-hosted repositories. It does not support repos
 
 You must be an Origin administrator to install Buildkite from a codebase's settings. Your team must also have [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin).
 
-1. Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps). You can also open an Origin-hosted repository, select **Settings** > **Apps**, then select **Manage Apps**.
+1. Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps).
 
-    <%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
+    <%= image "codebase-settings-bk.png", width: 2184/2, height: 688/2, alt: "Origin Codebase Settings Apps tab showing Buildkite under Installed" %>
 
-1. Under **Third-party apps**, select **Buildkite**, then select **Install**.
+    _In **Codebase**, open **Settings** > **Apps** to find Buildkite._
+
+1. Select **Buildkite**. If Buildkite appears under **Installed**, the app is already installed for the codebase. Skip to [create a pipeline](#create-a-pipeline).
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
 1. Select or create a Buildkite organization. Buildkite names the verified Origin account before you confirm the connection. Check that it matches the installation you started from.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
+
+To confirm that Buildkite is active for a specific Origin-hosted repository, open the repository, then select **Settings** > **Apps**.
+
+<%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
 
 <%= image "installed-buildkite.png", width: 1600/2, height: 672/2, alt: "Origin repository Apps settings showing Buildkite under Installed" %>
 
