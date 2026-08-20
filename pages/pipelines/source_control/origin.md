@@ -8,25 +8,16 @@
 
 ## Connect Origin
 
-You can install Buildkite from an Origin codebase's settings, from the Origin Marketplace, or from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
+You can install Buildkite from an Origin codebase's Apps settings or from an existing Buildkite account. The Origin app can access all repositories in an Origin installation or only repositories selected during installation.
 
-### Connect from Codebase Settings
+The Buildkite app supports Origin-hosted repositories. It does not support repositories mirrored from GitHub, which continue to use GitHub for CI.
 
-You must be an Origin administrator to install Buildkite from a codebase's settings.
+### Connect from Origin codebase settings
 
-1. In Origin, open **Codebase Settings**.
-1. Select **Apps**.
-1. Select **Buildkite**, then select **Install**.
-1. Choose whether to grant access to all repositories or selected repositories.
-1. Sign in to an existing Buildkite account or sign up for a new account.
-1. Select or create a Buildkite organization.
-1. On the **New Pipeline** page, select a repository and create the pipeline.
+You must be an Origin administrator to install Buildkite from a codebase's settings. Your team must also have [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin).
 
-### Connect from the Origin Marketplace
-
-To install Buildkite from the Origin Marketplace:
-
-1. In the Origin Marketplace, select Buildkite.
+1. Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps). You can also open an Origin-hosted repository, select **Settings** > **Apps**, then select **Manage Apps**.
+1. Under **Third-party apps**, select **Buildkite**, then select **Install**.
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
