@@ -5,6 +5,13 @@ ignores:
   - id: CVE-2025-69720 # ncurses 6.4-4
     reason: Not exploitable in this containerized Rails app — ncurses is not exposed to untrusted terminal input.
 
+  # --- OpenSSL (incorrect scanner match; QUIC server implementation requires OpenSSL 3.5+) ---
+  - id: CVE-2026-14456 # openssl 3.0.20-1~deb12u2
+    reason: |
+      The vulnerable QUIC server implementation was introduced in OpenSSL 3.5. This image uses OpenSSL 3.0, which upstream identifies as not affected.
+
+      https://openssl-library.org/news/secadv/20260813.txt
+
   # --- perl (no fix in any Debian Bookworm release; only perl-base is installed and the app contains no Perl code) ---
   - id: CVE-2026-7017 # perl 5.36.0-7+deb12u3
     reason: The application contains no Perl code and does not issue HTTP requests with HTTP::Tiny.

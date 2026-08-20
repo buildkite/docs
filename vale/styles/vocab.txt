@@ -105,6 +105,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codebase's
 codeql
 codesign
 codesigning
@@ -325,6 +326,7 @@ oldstable
 onboarding
 Okta
 OpenTelemetry
+Origin
 OTel
 opentelemetry
 onboarding
@@ -527,6 +529,7 @@ unsetting
 unstaged
 unstarted
 untrusted
+unversioned
 unxip
 uploaders
 upstreams
