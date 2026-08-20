@@ -30,7 +30,7 @@ To install Buildkite from the Origin Marketplace:
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
-1. Select or create a Buildkite organization.
+1. Select or create a Buildkite organization. Buildkite names the verified Origin account before you confirm the connection. Check that it matches the installation you started from.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
 
 ### Connect from Buildkite
