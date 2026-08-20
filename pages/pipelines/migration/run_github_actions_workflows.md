@@ -209,12 +209,16 @@ Every generated-job host needs Bash, `buildkite-agent`, `mktemp`, `rm`, `awk`, `
 - Docker available on `PATH` for Linux job containers, service containers, and Dockerfile actions. Dockerfile actions also require Docker Buildx. The default Buildx builder must use the local `docker` driver. macOS jobs don't support Dockerfile actions or other Docker capabilities.
 - `tar` and either the `zstd` tool suite or `gzip` available on `PATH` for `actions/cache`.
 
+With the default dedicated `runner` user, generated Linux job hosts also need `getent`, `useradd`, `usermod`, `install`, and `sudo`. If the Docker socket exists and its group doesn't exist, the host also needs `groupadd`.
+
 During upload, the runtime first asks the job-scoped Agent API to resolve each `runs-on` selector. A result from the Agent API takes precedence over configured `runners` mappings and runtime presets. Add a `runners` entry to provide a fallback mapping from a GitHub runner label to a Buildkite queue. Unmapped supported Linux labels retain the default Buildkite agent targeting and use the matching immutable hosted-toolchains image. Supported macOS labels use a native macOS fallback when available or require an explicit queue mapping.
 
 ```yaml
 steps:
   - label: "\:github\: GitHub Actions"
     key: "github-actions"
+    agents:
+      queue: "importer-linux"
     plugins:
       - github-actions#latest:
           workflow: ".github/workflows/ci.yml"
@@ -297,7 +301,7 @@ The runtime rejects many unsupported or privileged features before it uploads an
 
 You may need to update a workflow before you can run it during the preview:
 
-- **Check the `actions/upload-artifact` revision and inputs:** The native adapter supports audited revisions from v1 through v7.
+- **Check the `actions/upload-artifact` revision and inputs:** The native adapter supports audited revisions from v1 through v7. The v1 adapter accepts one literal file or directory. Later adapters accept up to 32 clean, workspace-relative literal paths or bounded file globs using `*`, `?`, character classes, and recursive `**`. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Hidden-file behavior and accepted inputs depend on the action revision. The runtime accepts `retention-days` where the action declares it, but treats the value as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
 
 See the [`buildkite-gha` v0.29.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.29.0/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
