@@ -168,9 +168,15 @@ In the Origin Dashboard, open **Plugins**, then select **Buildkite**. The [Build
 
 Use the following guidance to troubleshoot Origin connection, checkout, build trigger, and check publishing issues.
 
+### Buildkite is missing from Origin Apps
+
+Confirm that your team has [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin). You must also be signed in as an Origin administrator and use an Origin-hosted repository. The Buildkite app does not support repositories mirrored from GitHub.
+
+Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps) directly. You can also open an Origin-hosted repository, select **Settings** > **Apps**, then select **Manage Apps**.
+
 ### Origin is not available in repository providers
 
-Confirm that you are a Buildkite organization administrator. You can also install Buildkite from the Origin Marketplace and select an existing Buildkite organization during setup.
+Confirm that you are a Buildkite organization administrator. You can also install Buildkite from [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps) and select an existing Buildkite organization during setup.
 
 ### A repository is missing
 
