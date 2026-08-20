@@ -19,13 +19,17 @@ The Buildkite app supports Origin-hosted repositories. It does not support repos
 
 You must be an Origin administrator to install Buildkite from a codebase's settings. Your team must also have [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin).
 
-1. Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps).
+Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps).
 
-    <%= image "codebase-settings-bk.png", width: 2184/2, height: 688/2, alt: "Origin Codebase Settings Apps tab showing Buildkite under Installed" %>
+<%= image "codebase-settings-bk.png", width: 2184/2, height: 688/2, alt: "Origin Codebase Settings Apps tab showing Buildkite under Installed" %>
 
-    _In **Codebase**, open **Settings** > **Apps** to find Buildkite._
+_In **Codebase**, open **Settings** > **Apps** to find Buildkite._
 
-1. Select **Buildkite**. If Buildkite appears under **Installed**, the app is already installed for the codebase. Skip to [create a pipeline](#create-a-pipeline).
+If Buildkite appears under **Installed**, the app is already installed for the codebase. You can [create a pipeline](#create-a-pipeline) for an accessible repository.
+
+Otherwise, install Buildkite:
+
+1. Select **Buildkite**.
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
@@ -35,6 +39,8 @@ You must be an Origin administrator to install Buildkite from a codebase's setti
 To confirm that Buildkite is active for a specific Origin-hosted repository, open the repository, then select **Settings** > **Apps**.
 
 <%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
+
+Confirm that Buildkite appears under **Installed**.
 
 <%= image "installed-buildkite.png", width: 1600/2, height: 672/2, alt: "Origin repository Apps settings showing Buildkite under Installed" %>
 
