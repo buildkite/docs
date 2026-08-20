@@ -136,7 +136,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
         "max_passed": 1,
         "min_failed": null,
         "max_failed": 1,
-        "parallel_attempts": 1
+        "parallel_attempts": 1,
+        "initial_attempts": null
       },
       "lease": {
         "costs": {
@@ -223,7 +224,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_passed": 1,
     "min_failed": null,
     "max_failed": 1,
-    "parallel_attempts": 1
+    "parallel_attempts": 1,
+    "initial_attempts": null
   },
   "lease": {
     "costs": {
@@ -289,7 +291,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_passed": 1,
     "min_failed": null,
     "max_failed": 1,
-    "parallel_attempts": 1
+    "parallel_attempts": 1,
+    "initial_attempts": null
   },
   "lease": {
     "costs": {
@@ -352,13 +355,106 @@ Optional [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
+### Create a pool with multiple attempt policies
+
+To apply different attempt policies to entries in the same pool, set `attempt_policy` to an object keyed by policy name. The object must include a `default` policy. Each policy supports the properties described in the [Attempt policy](#attempt-policy) section.
+
+Policy keys must meet these requirements:
+
+- Include the exact key `default` and between one and five additional keys.
+- Start with a letter or number, contain only letters, numbers, hyphens, underscores, periods, and colons, and contain no more than 255 characters.
+- Be unique regardless of letter case.
+
+The following example creates a pool with a `default` policy that runs an entry once. The `alternate` policy runs an entry three times:
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools" \
+  --request POST \
+  --header "Authorization: Bearer $OIDC_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "suite": "example-suite",
+    "pipeline": "example-pipeline",
+    "build_id": "3456789a-****-****-****-789abcdef012",
+    "key": "rspec-main",
+    "attempt_policy": {
+      "default": {
+        "max_attempts": 1
+      },
+      "alternate": {
+        "min_attempts": 3,
+        "max_attempts": 3,
+        "min_passed": 3,
+        "max_passed": 3,
+        "max_failed": 3,
+        "parallel_attempts": 3
+      }
+    }
+  }'
+```
+
+For a pool with multiple policies, the `attempt_policy` property in the response is also keyed by policy name:
+
+```json
+{
+  "attempt_policy": {
+    "default": {
+      "max_attempts": 1,
+      "max_failed": 1,
+      "max_passed": 1,
+      "min_attempts": 1,
+      "min_passed": 1,
+      "min_failed": null,
+      "parallel_attempts": 1,
+      "initial_attempts": null
+    },
+    "alternate": {
+      "max_attempts": 3,
+      "max_failed": 3,
+      "max_passed": 3,
+      "min_attempts": 3,
+      "min_passed": 3,
+      "min_failed": null,
+      "parallel_attempts": 3,
+      "initial_attempts": null
+    }
+  }
+}
+```
+
+Entries use the `default` policy when `entries[].attempt_policy` is omitted or set to `default`. To select another policy, set `entries[].attempt_policy` to that policy's key:
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
+  --request POST \
+  --header "Authorization: Bearer $OIDC_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{
+    "entries": [
+      {
+        "selector_type": "custom",
+        "selector": {
+          "file": "spec/models/user_spec.rb"
+        }
+      },
+      {
+        "selector_type": "custom",
+        "selector": {
+          "file": "spec/features/checkout_spec.rb"
+        },
+        "attempt_policy": "alternate"
+      }
+    ]
+  }'
+```
+
+The create, get, list, and update pool responses use the keyed `attempt_policy` object for pools with multiple policies. Pools with only a default policy retain the flat `attempt_policy` response shown above.
+
+When a pool has multiple policies, entry upload and list responses include the selected `attempt_policy` key for every entry, including entries that use `default`. An unknown policy key makes the entire entry upload fail.
 
 ## Attempt policy
 
-> 🚧 Pending breaking change
-The `null` behavior and validation described in this section have not landed yet. Currently, use `0` for `min_passed` or `min_failed` to disable the threshold; the API does not accept `null` for these properties. After the change lands, use `null` instead because `0` will no longer be valid.
-
-The attempt policy defines how many attempts an entry should perform before determining the outcome of the entry. The policy is defined when the pool is created and applies to every entry in the pool. The same policy is evaluated for each entry in the pool.
+An attempt policy defines how many attempts an entry should perform before determining the outcome of the entry. Every pool has a default policy and can have additional policies. The scheduler evaluates the policy selected for each entry.
 
 Property | Type | Description | Validation
 -------- | ---- | ----------- | ----------
@@ -369,9 +465,10 @@ Property | Type | Description | Validation
 `attempt_policy.min_passed` | Integer or null | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_passed`. When both result minimums are set, their sum must be less than `max_attempts`.
 `attempt_policy.min_failed` | Integer or null | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_failed`. When both result minimums are set, their sum must be less than `max_attempts`.
 `attempt_policy.parallel_attempts` | Integer | Maximum number of waiting and leased attempts for the entry at one time. | At least `1` and no greater than `max_attempts`.
+`attempt_policy.initial_attempts` | Integer or null | Number of attempts created when the entry is uploaded. `null` uses the lower of `min_attempts` and `parallel_attempts`. | When set, at least `1` and no greater than `parallel_attempts`.
 {: class="responsive-table"}
 
-The `attempt_policy` value must be an object containing only the properties listed in this table.
+Each policy definition may contain only the properties listed in this table. For a pool with one policy, `attempt_policy` contains the policy definition directly. For a pool with multiple policies, `attempt_policy` contains policy definitions keyed by name. Policy properties and policy keys cannot be mixed in the same object.
 
 ### Policy behavior
 
@@ -379,7 +476,7 @@ The `attempt_policy` value must be an object containing only the properties list
 - A value of `null` disables `min_passed` or `min_failed`; `0` is invalid. All configured `min_` thresholds must be met before their minimum condition is terminal. If both result minimums are `null`, satisfying `min_attempts` alone does not make the entry terminal.
 - Reaching any configured `max_` threshold makes the entry terminal.
 - Once an entry is terminal, any remaining waiting attempts will be canceled.
-- Omit the entire `attempt_policy` object or any of its properties to use the corresponding defaults below.
+- Omit `attempt_policy` for a pool with one policy, or omit properties from an individual policy definition, to use the corresponding defaults below.
 
 ### Evaluation order
 
@@ -403,7 +500,8 @@ The default policy creates one attempt per entry and does not retry `failed` or 
     "max_passed": 1,
     "min_failed": null,
     "max_failed": 1,
-    "parallel_attempts": 1
+    "parallel_attempts": 1,
+    "initial_attempts": null
   }
 }
 ```
@@ -507,7 +605,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
     "max_passed": 1,
     "min_failed": null,
     "max_failed": 1,
-    "parallel_attempts": 1
+    "parallel_attempts": 1,
+    "initial_attempts": null
   },
   "lease": {
     "costs": {
@@ -539,7 +638,7 @@ Success response: `200 OK`
 
 ## Upload entries
 
-Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial entries from the minimum of `max_attempts` and `parallel_attempts`.
+Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial attempts according to the entry's selected policy. When `initial_attempts` is `null`, it creates the lower of `min_attempts` and `parallel_attempts`.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
@@ -619,6 +718,10 @@ Optional entry properties:
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>entries[].attempt_policy</code></th>
+    <td>The key of an attempt policy defined by the pool. Omit this property or set it to <code>default</code> to use the pool's default policy. This property is only available when the pool has multiple policies.</td>
+  </tr>
   <tr>
     <th><code>entries[].costs.custom</code></th>
     <td>A finite, non-negative number used when selecting work for a lease. A missing or <code>null</code> value has an effective scheduling cost of <code>0</code>.</td>
@@ -1233,4 +1336,4 @@ Since August 10, 2026, all entries that use the same non-empty `affinity_group` 
 
 Create-lease responses now include a `pool` object containing `id` and `state`. A consumed pool now returns `200 OK` with a null lease instead of `409 Conflict`. Clients that treated 409 as the consumed signal must migrate to checking `pool.state == "consumed"` in successful responses.
 
-The attempt policy validation change described above has not landed in Buildkite yet. When it lands, `min_passed` and `min_failed` will use `null` instead of `0` to disable a threshold. Configured values will need to be integers of at least `1`, and when both thresholds are configured, their sum must be less than `max_attempts`. Until then, use `0` to disable either threshold; the API does not yet accept `null` for these properties.
+Since August 19, 2026, use `null` instead of `0` to disable the `min_passed` or `min_failed` threshold. Configured values must be integers of at least `1`. When both thresholds are configured, their sum must be less than `max_attempts`.
