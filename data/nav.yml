@@ -57,6 +57,9 @@
       children:
         - name: "Overview"
           path: "pipelines/source-control"
+        - name: "Origin"
+          path: "pipelines/source-control/origin"
+          pill: "new"
         - name: "GitHub"
           path: "pipelines/source-control/github"
         - name: "GitHub Enterprise"
@@ -67,8 +70,6 @@
           path: "pipelines/source-control/bitbucket"
         - name: "Bitbucket Server"
           path: "pipelines/source-control/bitbucket-server"
-        - name: "Origin"
-          path: "pipelines/source-control/origin"
         - name: "Phabricator"
           path: "pipelines/source-control/phabricator"
         - name: "Other Git servers"
