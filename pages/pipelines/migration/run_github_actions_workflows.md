@@ -297,7 +297,7 @@ The runtime rejects many unsupported or privileged features before it uploads an
 
 You may need to update a workflow before you can run it during the preview:
 
-- **Check the `actions/upload-artifact` revision and inputs.** The native adapter supports audited revisions from v1 through v7. The v1 adapter accepts one literal file or directory. Later adapters accept up to 32 clean, workspace-relative literal paths or bounded file globs using `*`, `?`, character classes, and recursive `**`. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Hidden-file behavior and accepted inputs depend on the action revision. The runtime accepts `retention-days` where the action declares it, but treats the value as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
+- **Check the `actions/upload-artifact` revision and inputs:** The native adapter supports audited revisions from v1 through v7.
 
 See the [`buildkite-gha` v0.29.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.29.0/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
