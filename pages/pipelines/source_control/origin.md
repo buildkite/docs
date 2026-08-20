@@ -20,12 +20,21 @@ The Buildkite app supports Origin-hosted repositories. It does not support repos
 You must be an Origin administrator to install Buildkite from a codebase's settings. Your team must also have [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin).
 
 1. Open [Origin codebase Apps settings](https://cursor.com/codebase/settings/apps). You can also open an Origin-hosted repository, select **Settings** > **Apps**, then select **Manage Apps**.
+
+    <%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
+
+    _From an Origin repository, open **Settings**, then **Apps**._
+
 1. Under **Third-party apps**, select **Buildkite**, then select **Install**.
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
 1. Sign in to an existing Buildkite account or sign up for a new account.
 1. Select or create a Buildkite organization. Buildkite names the verified Origin account before you confirm the connection. Check that it matches the installation you started from.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
+
+<%= image "installed-buildkite.png", width: 1600/2, height: 800/2, alt: "Origin repository Apps settings showing Buildkite under Installed" %>
+
+_The repository **Apps** settings list Buildkite after installation._
 
 ### Connect from Buildkite
 
