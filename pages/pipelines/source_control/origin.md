@@ -23,8 +23,6 @@ You must be an Origin administrator to install Buildkite from a codebase's setti
 
     <%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
 
-    _From an Origin repository, open **Settings**, then **Apps**._
-
 1. Under **Third-party apps**, select **Buildkite**, then select **Install**.
 1. Choose whether to grant access to all repositories or selected repositories.
 1. Install the app. Origin redirects you to Buildkite.
