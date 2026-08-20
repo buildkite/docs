@@ -12,6 +12,9 @@ You can install Buildkite from an Origin codebase's Apps settings or from an exi
 
 The Buildkite app supports Origin-hosted repositories. It does not support repositories mirrored from GitHub, which continue to use GitHub for CI.
 
+> 📘 Origin app and Cursor plugin
+> The [Buildkite plugin](https://cursor.com/marketplace/buildkite) in the Cursor Marketplace adds the Buildkite MCP server and skills to Cursor. It does not connect an Origin repository to Buildkite Pipelines.
+
 ### Connect from Origin codebase settings
 
 You must be an Origin administrator to install Buildkite from a codebase's settings. Your team must also have [enabled Origin and claimed a codebase name](https://cursor.com/docs/origin#enable-origin).
