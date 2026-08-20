@@ -30,7 +30,7 @@ You must be an Origin administrator to install Buildkite from a codebase's setti
 1. Select or create a Buildkite organization. Buildkite names the verified Origin account before you confirm the connection. Check that it matches the installation you started from.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
 
-<%= image "installed-buildkite.png", width: 1600/2, height: 800/2, alt: "Origin repository Apps settings showing Buildkite under Installed" %>
+<%= image "installed-buildkite.png", width: 1600/2, height: 672/2, alt: "Origin repository Apps settings showing Buildkite under Installed" %>
 
 _The repository **Apps** settings list Buildkite after installation._
 
