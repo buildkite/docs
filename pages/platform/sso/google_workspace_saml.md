@@ -1,6 +1,6 @@
 # Single sign-on with Google Workspace (SAML)
 
-> 📘 Enterprise plan feature and setting up with GraphQL
+> 📘 Enterprise plan feature
 > Google Workspace (SAML) SSO is set up as a [Custom SAML provider](/docs/platform/sso/custom-saml), which is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan. For an option available on the Pro plan, see [Google Workspace SSO using OpenID](/docs/platform/sso/google-workspace).
 
 As an alternative to [Google Workspace SSO using OpenID](/docs/platform/sso/google-workspace), you can use Google Workspace as an SSO provider for your Buildkite organization using SAML.
