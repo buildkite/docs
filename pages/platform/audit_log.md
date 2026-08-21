@@ -44,7 +44,7 @@ For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns ev
 
 A `pipeline:` term matches the events that the pipeline is the subject of, so events about something belonging to it, such as one of its schedules, aren't included. The slug of a deleted pipeline still resolves, which is how you find the event recording the deletion. Where more than one pipeline has used the same slug, the search returns the events of the pipeline using it now, or of the last pipeline to use it.
 
-An `actor:` term matches user actors only, so an event performed by an agent or an API application is never returned by one, and never excluded by a negated one. An email address matches against current and removed members of the organization, so you can still search for events performed by someone who has since lost access. A user UUID is matched as given, without checking that it belongs to a member of the organization, so an unrecognized UUID returns no events rather than an error.
+An `actor:` term matches user actors only. Events performed by an agent or an API application are not matched or excluded by an `actor:` term. An email address matches against current and removed members of the organization, so you can still search for events performed by someone who has since lost access. A user UUID is matched as given, without checking that it belongs to a member of the organization. An unrecognized UUID returns no events rather than an error.
 
 The search has the following constraints:
 
@@ -56,7 +56,7 @@ If a `type:` or `-type:` value doesn't match a known event type, the search retu
 
 A `pipeline:` or `-pipeline:` value that doesn't match a pipeline in the Buildkite organization returns the error `Unknown pipeline "my-app"`, with no results returned.
 
-An `actor:` or `-actor:` email address that doesn't match a member of the organization returns the error `Unknown user "sam@example.com"`, with no results returned. A user UUID that doesn't match any actor in the organization's events returns no results, without an error.
+An `actor:` or `-actor:` email address that doesn't match a member of the organization returns the error `Unknown user "sam@example.com"`, with no results returned. A user UUID that doesn't match any actor in the organization's events returns no results, without returning an error.
 
 To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
