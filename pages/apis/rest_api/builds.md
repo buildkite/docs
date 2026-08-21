@@ -735,7 +735,7 @@ When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-
 
 When a job is a [trigger step](/docs/pipelines/configure/step-types/trigger-step), the job object includes `async` and `triggered_build` fields. `triggered_build` contains the `id`, `number`, `url`, and `web_url` of the build that was triggered, or `null` if the build has not yet been created.
 
-The `job_state_counts` field summarizes every job in the build by API state, so you can confirm the complete set of job states without making a follow-up request for the build's jobs. `total` is the number of jobs counted, and `states` maps each observed API state (for example, `passed`, `failed`, or `running`) to how many jobs are in that state.
+The `job_state_counts` field summarizes every job in the build by API state. Use it to confirm the complete set of job states without making a follow-up request for the build's jobs. `total` is the number of jobs counted. `states` maps each observed API state (for example, `passed`, `failed`, or `running`) to how many jobs are in that state.
 
 `job_state_counts` always describes every job in the build, regardless of the `job_states[]` or `exclude_jobs` parameters. The count still respects `include_retried_jobs`: by default, retried job executions are excluded from the count, matching the jobs returned in the `jobs` field.
 
