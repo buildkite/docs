@@ -1748,6 +1748,13 @@ Additional properties available for GitHub and GitHub Enterprise:
       </td>
     </tr>
     <tr>
+      <th><code>build_pull_request_stacks</code></th>
+      <td>Whether to create builds for stacked pull requests. GitHub includes stack metadata on subsequent pull request events for stacks; the initial <code>opened</code> event does not carry stack metadata and is processed as a normal pull request. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>build_pull_request_reopened</code></th>
       <td>Whether to create builds when a pull request is reopened. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
@@ -1929,6 +1936,13 @@ Additional properties available for GitHub and GitHub Enterprise:
       </td>
     </tr>
     <tr>
+      <th><code>prevent_custom_statuses_from_using_buildkite_prefix</code></th>
+      <td>Whether to prevent custom commit statuses configured using <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from setting <code>context:</code> to a value that starts with <code>buildkite/</code>. When enabled, custom commit statuses must specify a <code>context:</code>. Effective enforcement also requires this feature to be enabled for your organization. When the feature is inactive, the setting is stored but not enforced.
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>trigger_mode</code></th>
       <td>What type of event to trigger builds on.
         <ul>
@@ -1938,6 +1952,21 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Additional properties available for GitHub:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>github_workflow_access_tokens_enabled</code></th>
+      <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
+        <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-and-tokens">credentials and tokens</a> for requirements and limitations.</p>
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
   </tbody>
