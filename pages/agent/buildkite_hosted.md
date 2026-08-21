@@ -58,6 +58,9 @@ The ephemeral nature of Buildkite hosted agents' virtualized environments also o
 
 - Short-lived hosted agents mitigate the window of opportunity for attackers to compromise the build environment, and any data generated or used during job execution, such as secrets or credentials, are destroyed after job completion or failure.
 
+> 📘 Signed pipelines
+> [Signed pipeline validation](/docs/agent/self-hosted/security/signed-pipelines) is not supported for Buildkite hosted agents.
+
 ## Getting started with Buildkite hosted agents
 
 Buildkite offers both [Linux](/docs/agent/buildkite-hosted/linux) and [macOS](/docs/agent/buildkite-hosted/macos) hosted agents, whose respective pages explain how to start setting them up.
