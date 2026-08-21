@@ -102,7 +102,7 @@ Note that some API request types on this page, especially those involving only a
   </tr>
   <tr>
     <th><code>merge_queue</code></th>
-    <td>Merge queue information if the build belongs to a merge queue, containing <code>base_branch</code> (the branch the merge queue build is queued against), or <code>null</code> otherwise</td>
+    <td><a href="/docs/pipelines/tutorials/github-merge-queue">Merge queue</a> information if the build belongs to a merge queue, containing <code>base_branch</code> (the branch the merge queue build is queued against), or <code>null</code> otherwise</td>
   </tr>
   <tr>
     <th><code>rebuilt_from</code></th>
