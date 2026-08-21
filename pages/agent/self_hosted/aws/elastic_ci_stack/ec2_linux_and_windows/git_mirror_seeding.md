@@ -59,7 +59,7 @@ SANITIZED_NAME=$(printf '%s' "${REPO_URL}" | sed 's/[^a-zA-Z0-9]/-/g')
 
 # Create a compressed tar from an existing mirror
 MIRROR_PATH="/var/lib/buildkite-agent/git-mirrors/${SANITIZED_NAME}"
-tar czf "/tmp/${SANITIZED_NAME}.tar.gz" -C "$(dirname "${MIRROR_PATH}")" "${SANITIZED_NAME}"
+flock "${MIRROR_PATH}.updatelockf" tar czf "/tmp/${SANITIZED_NAME}.tar.gz" -C "$(dirname "${MIRROR_PATH}")" "${SANITIZED_NAME}"
 
 # Upload to S3
 aws s3 cp "/tmp/${SANITIZED_NAME}.tar.gz" "s3://<bucket>/git-mirror-seeds/${SANITIZED_NAME}.tar.gz"
