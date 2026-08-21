@@ -262,6 +262,8 @@
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters"
                         - name: "Creating custom AMIs"
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis"
+                        - name: "Git mirror seeding"
+                          path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/git-mirror-seeding"
                         - name: "Build container images"
                           children:
                             - name: "BuildKit"

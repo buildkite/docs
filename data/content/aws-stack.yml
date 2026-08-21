@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.70.0"
+Description: "Buildkite stack %v"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -54,6 +54,7 @@ Metadata:
         - BuildkiteAgentTimestampLines
         - BuildkiteAgentExperiments
         - BuildkiteAgentEnableGitMirrors
+        - GitMirrorSeedBucket
         - BuildkiteAgentTracingBackend
         - BuildkiteAgentCancelGracePeriod
         - BuildkiteAgentSignalGracePeriod
@@ -772,7 +773,10 @@ Parameters:
     Default: "false"
 
   InstanceCreationTimeout:
-    Description: Optional - Timeout period for Auto Scaling Group Creation Policy.
+    Description: >
+      Optional - Timeout period for Auto Scaling Group Creation Policy. Defaults to PT5M on
+      Linux (PT15M when GitMirrorSeedBucket is set, to allow for downloading and extracting
+      seed archives at boot) and PT10M on Windows.
     Type: String
     Default: ""
 
@@ -1120,6 +1124,21 @@ Parameters:
       - "false"
     Default: "false"
 
+  GitMirrorSeedBucket:
+    Description: >
+      Optional - Name of an existing S3 bucket containing git mirror seed archives under the
+      git-mirror-seeds/ prefix, one archive (.tar, .tar.gz, or .zip) per repository, named
+      after the agent's mirror directory for that repository. Only used when
+      BuildkiteAgentEnableGitMirrors is true; each archive is extracted into the git-mirrors
+      path at instance boot, before the agent starts. If blank, or archives cannot be fetched,
+      git mirrors start empty as usual. Instances using a custom InstanceRoleARN must be
+      granted access to this bucket separately. When set, the default InstanceCreationTimeout
+      is raised from PT5M to PT15M to allow for seed extraction at boot; set
+      InstanceCreationTimeout explicitly if extracting your archives takes longer.
+      Linux instances only.
+    Type: String
+    Default: ""
+
   EnableDetailedMonitoring:
     Type: String
     Description: Enable detailed EC2 monitoring.
@@ -1349,6 +1368,12 @@ Conditions:
 
     HasSecretsBucket:
       !Or [ !Condition CreateSecretsBucket, !Condition UseSpecifiedSecretsBucket ]
+
+    HasGitMirrorSeedBucket:
+      !And
+         - !Equals [ !Ref InstanceOperatingSystem, "linux" ]
+         - !Equals [ !Ref BuildkiteAgentEnableGitMirrors, "true" ]
+         - !Not [ !Equals [ !Ref GitMirrorSeedBucket, "" ] ]
 
     UseSpecifiedAvailabilityZones:
       !Not [ !Equals [ !Join [ "", !Ref AvailabilityZones ], "" ]  ]
@@ -1621,26 +1646,7 @@ Mappings:
     arm64: { ARN: 'arn:aws:serverlessrepo:us-east-1:172840064832:applications/buildkite-agent-scaler-arm64' }
 
   # Generated from Makefile via build/mappings.yml
-  AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0bc1117b0015fd07b, linuxarm64: ami-057856d0c248f58e0, windows: ami-00b2b7e9f61b98d6f, ubuntu2404amd64: ami-0cde1d56eff2ff7e1, ubuntu2404arm64: ami-0c47b2f75b5f8ce2e }
-    us-east-2 : { linuxamd64: ami-011953657ee1ab99b, linuxarm64: ami-0746ab61475de82c3, windows: ami-03500817d96eaa3fd, ubuntu2404amd64: ami-0065308ff115b09a2, ubuntu2404arm64: ami-083a4cfd99c72d699 }
-    us-west-1 : { linuxamd64: ami-0dd649d27163217b8, linuxarm64: ami-0284b3cd0a8c7107f, windows: ami-07bd14ecc07b5acb2, ubuntu2404amd64: ami-09a8cd986aafc077f, ubuntu2404arm64: ami-0f578ef195e7e45a0 }
-    us-west-2 : { linuxamd64: ami-0ff9de06c17000d8e, linuxarm64: ami-0aef68c342bfc7aca, windows: ami-0d626da95055f6f7f, ubuntu2404amd64: ami-00ce1412c68e5bbff, ubuntu2404arm64: ami-0f76f528a81080044 }
-    af-south-1 : { linuxamd64: ami-026799d1726a379a0, linuxarm64: ami-024081ab783df7ff7, windows: ami-0aebf965c1baba766, ubuntu2404amd64: ami-0cb60deb6d8dea26b, ubuntu2404arm64: ami-0f32b70643f06e4c8 }
-    ap-east-1 : { linuxamd64: ami-0e58ef5b5c4e03a6d, linuxarm64: ami-0a51e3a1ad144518d, windows: ami-0c75667c7d9901cec, ubuntu2404amd64: ami-05c4f5ec66a57ff6c, ubuntu2404arm64: ami-01c457ad5dc468c29 }
-    ap-south-1 : { linuxamd64: ami-0a015da676a4fac1e, linuxarm64: ami-035dcddabdf130e45, windows: ami-0548d355d99dab5d5, ubuntu2404amd64: ami-0a6d1a61b6be99986, ubuntu2404arm64: ami-081c56056780d3cef }
-    ap-northeast-2 : { linuxamd64: ami-0fc001ac730a9e092, linuxarm64: ami-012df1f5605eba1e1, windows: ami-026c68e2fd52a48c4, ubuntu2404amd64: ami-0b564b6ebc440041b, ubuntu2404arm64: ami-07a668fe483c39ddf }
-    ap-northeast-1 : { linuxamd64: ami-098625a3c9363408e, linuxarm64: ami-0278f0b57f8e49447, windows: ami-01f1fc113c3b0b3fa, ubuntu2404amd64: ami-0c78b9961a007987e, ubuntu2404arm64: ami-066df7bda9ac1f404 }
-    ap-southeast-2 : { linuxamd64: ami-0d22d428945a4e018, linuxarm64: ami-090329e02370990c3, windows: ami-0ae504011bb6b31b8, ubuntu2404amd64: ami-0cbd7e937968a1da8, ubuntu2404arm64: ami-05df281ef92dfe191 }
-    ap-southeast-1 : { linuxamd64: ami-0cae6deda19a6658b, linuxarm64: ami-059c8baf137353b61, windows: ami-0b4d62cdfd3d3ed00, ubuntu2404amd64: ami-0920e2913f6d0f567, ubuntu2404arm64: ami-027f195c106ab6bd2 }
-    ca-central-1 : { linuxamd64: ami-06ac6fd281aae1e31, linuxarm64: ami-0ff357e14ad16cfdd, windows: ami-0ce6e935e39e5e00e, ubuntu2404amd64: ami-02103eaca038579b5, ubuntu2404arm64: ami-040a87d99fd7d59e9 }
-    eu-central-1 : { linuxamd64: ami-0d33b6fabb226293a, linuxarm64: ami-08321b2cc56650806, windows: ami-0b2ef5595b2de9f50, ubuntu2404amd64: ami-00648219d48c076f6, ubuntu2404arm64: ami-0fd63dbfb43ae0e01 }
-    eu-west-1 : { linuxamd64: ami-0a3077811c1b4a6b1, linuxarm64: ami-01a25e691d79e0124, windows: ami-0e533f9f2728e1aa4, ubuntu2404amd64: ami-02fb2309b9ee5ada8, ubuntu2404arm64: ami-07fb33deff5c9fd2e }
-    eu-west-2 : { linuxamd64: ami-095d23290f492524c, linuxarm64: ami-05319fbdca0a69d01, windows: ami-0adb94ea6dfa5f177, ubuntu2404amd64: ami-082b39921ada47323, ubuntu2404arm64: ami-001b08e1e40ebb3de }
-    eu-south-1 : { linuxamd64: ami-06b527f17bcc16988, linuxarm64: ami-04848aec3ff89c648, windows: ami-0d082ec33b9f88623, ubuntu2404amd64: ami-06e166335169af76d, ubuntu2404arm64: ami-0b0ff616ab8ad2adf }
-    eu-west-3 : { linuxamd64: ami-016ecade7bf852154, linuxarm64: ami-07ae195d8f798e142, windows: ami-052f27bcb7d54b4cf, ubuntu2404amd64: ami-019da3aba8be2a9af, ubuntu2404arm64: ami-03022e7acec218250 }
-    eu-north-1 : { linuxamd64: ami-07da6b66a5ab5c9ce, linuxarm64: ami-03358eb49fc229625, windows: ami-0b4fc10ac561b58ed, ubuntu2404amd64: ami-0b45eb9fea069eaec, ubuntu2404arm64: ami-06b2edf02c99c234d }
-    sa-east-1 : { linuxamd64: ami-0d37f74b294d8044a, linuxarm64: ami-0d969c59a8304638c, windows: ami-0b8028006ed96ce10, ubuntu2404amd64: ami-0de8ecf6f64b6d4a4, ubuntu2404arm64: ami-0e6c3800237124a1b }
+  AWSRegion2AMI: { linuxamd64: !Ref ImageId, linuxarm64: !Ref ImageId, windows: !Ref ImageId, ubuntu2404amd64: !Ref ImageId, ubuntu2404arm64: !Ref ImageId }
 
 Resources:
   Vpc:
@@ -2101,6 +2107,29 @@ Resources:
                 - !Sub "arn:aws:s3:::${ArtifactsBucket}/*"
                 - !Sub "arn:aws:s3:::${ArtifactsBucket}"
             - !Ref "AWS::NoValue"
+          - !If
+            - HasGitMirrorSeedBucket
+            - Sid: GitMirrorSeedBucketRead
+              Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource:
+                - !Sub "arn:aws:s3:::${GitMirrorSeedBucket}/git-mirror-seeds/*"
+            - !Ref "AWS::NoValue"
+          - !If
+            - HasGitMirrorSeedBucket
+            - Sid: GitMirrorSeedBucketList
+              Effect: Allow
+              Action:
+                - s3:ListBucket
+              Resource:
+                - !Sub "arn:aws:s3:::${GitMirrorSeedBucket}"
+              Condition:
+                StringLike:
+                  s3:prefix:
+                    - git-mirror-seeds/
+                    - git-mirror-seeds/*
+            - !Ref "AWS::NoValue"
           - Effect: Allow
             Action:
               - autoscaling:DescribeAutoScalingInstances
@@ -2376,7 +2405,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.70.0"
+                  $Env:BUILDKITE_STACK_VERSION="%v"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
@@ -2478,7 +2507,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.70.0" \
+                  BUILDKITE_STACK_VERSION="%v" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
@@ -2504,6 +2533,7 @@ Resources:
                   BUILDKITE_AGENT_JOB_VERIFICATION_NO_SIGNATURE_BEHAVIOR="${PipelineSigningVerificationFailureBehavior}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \
                   BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${BuildkiteAgentEnableGitMirrors}" \
+                  BUILDKITE_GIT_MIRROR_SEED_BUCKET="${LocalGitMirrorSeedBucket}" \
                   BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}" \
                   BUILDKITE_ENV_FILE_URL=${AgentEnvFileUrl} \
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
@@ -2559,6 +2589,10 @@ Resources:
                     - CreatePipelineSigningKMSKey
                     - !Sub arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/${PipelineSigningKMSKey}
                     - !Ref PipelineSigningKMSKeyId
+                  LocalGitMirrorSeedBucket: !If
+                    - HasGitMirrorSeedBucket
+                    - !Ref GitMirrorSeedBucket
+                    - ""
 
   AgentAutoScaleGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -2699,7 +2733,7 @@ Resources:
           Value: !Ref AgentsPerInstance
     CreationPolicy:
       ResourceSignal:
-        Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT10M, PT5M ], !Ref InstanceCreationTimeout ]
+        Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT10M, !If [ HasGitMirrorSeedBucket, PT15M, PT5M ] ], !Ref InstanceCreationTimeout ]
         Count: !Ref MinSize
     UpdatePolicy:
       AutoScalingReplacingUpdate:
