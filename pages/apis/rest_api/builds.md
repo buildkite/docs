@@ -73,6 +73,10 @@ Note that some API request types on this page, especially those involving only a
     <td>Array of <a href="#job-data-model">Job</a> objects in the build</td>
   </tr>
   <tr>
+    <th><code>job_state_counts</code></th>
+    <td>Counts of jobs grouped by API state. Returned only by the <a href="#get-a-build">Get a build</a> endpoint</td>
+  </tr>
+  <tr>
     <th><code>created_at</code></th>
     <td>When the build was created</td>
   </tr>
@@ -681,6 +685,12 @@ The following response shows the embedded jobs returned when you omit `exclude_j
       "cluster_queue_url": null
     }
   ],
+  "job_state_counts": {
+    "total": 1,
+    "states": {
+      "passed": 1
+    }
+  },
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
@@ -728,6 +738,10 @@ Unlike [build states](/docs/pipelines/configure/notify#build-states) for notific
 When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-step), the job object includes a `group_key` field. The value corresponds to the group step's `key` attribute, allowing you to identify which jobs belong to which logical groups in your pipeline.
 
 When a job is a [trigger step](/docs/pipelines/configure/step-types/trigger-step), the job object includes `async` and `triggered_build` fields. `triggered_build` contains the `id`, `number`, `url`, and `web_url` of the build that was triggered, or `null` if the build has not yet been created.
+
+The `job_state_counts` field summarizes every job in the build by API state. Use it to confirm the complete set of job states without making a follow-up request for the build's jobs. `total` is the number of jobs counted. `states` maps each observed API state (for example, `passed`, `failed`, or `running`) to how many jobs are in that state.
+
+`job_state_counts` always describes every job in the build, regardless of the `job_states[]` or `exclude_jobs` parameters. The count still respects `include_retried_jobs`: by default, retried job executions are excluded from the count, matching the jobs returned in the `jobs` field.
 
 ```json
 {
