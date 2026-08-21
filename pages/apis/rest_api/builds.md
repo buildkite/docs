@@ -73,6 +73,10 @@ Note that some API request types on this page, especially those involving only a
     <td>Array of <a href="#job-data-model">Job</a> objects in the build</td>
   </tr>
   <tr>
+    <th><code>job_state_counts</code></th>
+    <td>Counts of jobs grouped by API state. Returned only by the <a href="#get-a-build">Get a build</a> endpoint</td>
+  </tr>
+  <tr>
     <th><code>created_at</code></th>
     <td>When the build was created</td>
   </tr>
