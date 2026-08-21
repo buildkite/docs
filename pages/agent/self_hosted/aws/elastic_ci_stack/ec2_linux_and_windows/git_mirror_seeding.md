@@ -1,3 +1,7 @@
+---
+description: Seed Git mirrors on Elastic CI Stack for AWS instances from S3 archives to avoid full repository clones during the first job.
+---
+
 # Git mirror seeding
 
 When [Git mirrors](/docs/agent/self-hosted/configure/git-mirrors) are enabled on the Elastic CI Stack for AWS, each instance maintains a local bare mirror of every repository it builds. On ephemeral instances, the first job on each new instance must create these mirrors with a full `git clone --mirror`. For large repositories, this cold start can dominate job startup time.
