@@ -105,6 +105,10 @@ Note that some API request types on this page, especially those involving only a
     <td>Pull request information if applicable</td>
   </tr>
   <tr>
+    <th><code>merge_queue</code></th>
+    <td><a href="/docs/pipelines/tutorials/github-merge-queue">Merge queue</a> information if the build belongs to a merge queue, containing <code>base_branch</code> (the branch the merge queue build is queued against), or <code>null</code> otherwise</td>
+  </tr>
+  <tr>
     <th><code>rebuilt_from</code></th>
     <td>Build this was rebuilt from (if applicable)</td>
   </tr>
@@ -511,6 +515,7 @@ The following response shows the embedded jobs returned when you omit `exclude_j
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
     "pull_request": { },
+    "merge_queue": null,
     "rebuilt_from": null,
     "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
@@ -698,6 +703,7 @@ The following response shows the embedded jobs returned when you omit `exclude_j
   "finished_at": "2015-05-09T21:08:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "rebuilt_from": {
     "id": "812135b3-eee7-408c-9f63-760538b96bd5",
     "number": 1,
@@ -924,6 +930,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -1146,6 +1153,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -1303,6 +1311,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -1460,6 +1469,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
