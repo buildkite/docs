@@ -59,10 +59,10 @@ SANITIZED_NAME=$(printf '%s' "${REPO_URL}" | sed 's/[^a-zA-Z0-9]/-/g')
 
 # Create a compressed tar from an existing mirror
 MIRROR_PATH="/var/lib/buildkite-agent/git-mirrors/${SANITIZED_NAME}"
-flock "${MIRROR_PATH}.updatelockf" tar czf "/tmp/${SANITIZED_NAME}.tar.gz" -C "$(dirname "${MIRROR_PATH}")" "${SANITIZED_NAME}"
+flock "${MIRROR_PATH}.updatelockf" tar czf "/var/tmp/${SANITIZED_NAME}.tar.gz" -C "$(dirname "${MIRROR_PATH}")" "${SANITIZED_NAME}"
 
 # Upload to S3
-aws s3 cp "/tmp/${SANITIZED_NAME}.tar.gz" "s3://<bucket>/git-mirror-seeds/${SANITIZED_NAME}.tar.gz"
+aws s3 cp "/var/tmp/${SANITIZED_NAME}.tar.gz" "s3://<bucket>/git-mirror-seeds/${SANITIZED_NAME}.tar.gz"
 ```
 
 > 🚧 Build archives on Linux
@@ -99,7 +99,7 @@ steps:
       fi
 
       echo "--- Creating archive"
-      TAR_FILE=$$(mktemp --suffix=.tar.gz)
+      TAR_FILE=$$(mktemp --tmpdir=/var/tmp --suffix=.tar.gz)
       trap 'rm -f "$$TAR_FILE"' EXIT
       flock "$${MIRROR_PATH}.updatelockf" tar czf "$$TAR_FILE" -C "$$(dirname "$$MIRROR_PATH")" "$$SANITIZED_NAME"
 
@@ -108,4 +108,4 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The stack only grants its instances read access to the seed prefix, so the pipeline that creates archives needs `s3:PutObject` on the seed bucket. Grant this via a separate IAM policy, a custom bootstrap script, or by running the pipeline on a queue whose instances have broader S3 permissions.
+The stack only grants its instances read access to the seed prefix, so the pipeline that creates archives needs `s3:PutObject` on the seed bucket. If the bucket uses a customer-managed KMS key, also grant the pipeline role `kms:GenerateDataKey` and `kms:Decrypt` on that key. Grant these permissions using a separate IAM policy, a custom bootstrap script, or by running the pipeline on a queue whose instances have broader S3 permissions.
