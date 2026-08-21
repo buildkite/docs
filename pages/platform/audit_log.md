@@ -56,7 +56,7 @@ If a `type:` or `-type:` value doesn't match a known event type, the search retu
 
 A `pipeline:` or `-pipeline:` value that doesn't match a pipeline in the Buildkite organization returns the error `Unknown pipeline "my-app"`, with no results returned.
 
-An `actor:` or `-actor:` email address that doesn't match a member of the organization returns the error `Unknown user "sam@example.com"`, with no results returned. A user UUID that doesn't match any actor in the organization's events returns no results, without returning an error.
+An `actor:` or `-actor:` email address that doesn't match a member of the organization returns the error `Unknown user "sam@example.com"` and no results. An `actor:` term with a user UUID that doesn't match any actor in the organization's events returns no results and no error. A `-actor:` term with that UUID excludes no events.
 
 To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
