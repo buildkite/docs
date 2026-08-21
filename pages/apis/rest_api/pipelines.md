@@ -1903,7 +1903,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>prevent_custom_statuses_from_using_buildkite_prefix</code></th>
-      <td>Stored setting indicating whether the pipeline should block custom commit statuses posted from pipelines via <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from using a <code>context:</code> starting with <code>buildkite/</code>. Effective enforcement additionally requires this feature to be enabled for your organization; when the feature is inactive, the setting is stored but not applied to incoming commit statuses.
+      <td>Whether to prevent custom commit statuses configured using <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from setting <code>context:</code> to a value that starts with <code>buildkite/</code>. When enabled, custom commit statuses must specify a <code>context:</code>. Effective enforcement also requires this feature to be enabled for your organization. When the feature is inactive, the setting is stored but not enforced.
         <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
