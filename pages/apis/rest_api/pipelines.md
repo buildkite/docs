@@ -1909,13 +1909,6 @@ Additional properties available for GitHub and GitHub Enterprise:
       </td>
     </tr>
     <tr>
-      <th><code>github_workflow_access_tokens_enabled</code></th>
-      <td>Whether jobs can request GitHub access tokens bounded by workflow permissions.
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
-      </td>
-    </tr>
-    <tr>
       <th><code>trigger_mode</code></th>
       <td>What type of event to trigger builds on.
         <ul>
@@ -1925,6 +1918,21 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Additional properties available for GitHub:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>github_workflow_access_tokens_enabled</code></th>
+      <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
+        <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-and-tokens">credentials and tokens</a> for requirements and limitations.</p>
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
   </tbody>
