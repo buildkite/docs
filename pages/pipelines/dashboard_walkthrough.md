@@ -42,9 +42,9 @@ You can keep your most used pipelines at the top of the page by hovering over a 
 
 ## Filtering pipelines
 
-You can filter pipelines using the search bar at the top of the page. This will search the titles of pipelines, and return all those matching your search terms. Press `/` to jump straight to the search bar from anywhere on the page.
+You can filter pipelines by name or slug using the search bar at the top of the page. Press `/` to jump straight to the search bar from anywhere on the page.
 
-If you enter more than one word, each word is matched independently against the pipeline's name or slug. A search doesn't need to match an exact substring. For example, searching for `devenv image` matches a pipeline with the slug `devenv-image-publish-go`.
+If you enter more than one word, the search matches a pipeline when each word appears in either its name or its slug. The full search doesn't need to match an exact substring. For example, searching for `devenv image` matches a pipeline with the slug `devenv-image-publish-go`.
 
 <%= image "filtering-pipelines.png", width: 2028/2, height: 880/2, alt: "Screenshot of the filtering text input field" %>
 
