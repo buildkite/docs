@@ -156,7 +156,7 @@ See [Basic Authentication example](https://github.com/buildkite/opentelemetry-no
 > 📘 Private feature
 > The Request Log for the OpenTelemetry Notification Service is in preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
-The request logs appears after the service sends its first trace export request. This panel shows the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues.
+Select **Load recent requests** to view the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues. If the service hasn't sent any trace export requests yet, no requests are shown.
 
 Each row displays the HTTP status code, request UUID, the exported span name (for example, `buildkite.job` or `buildkite.step`), and the request duration. Expanding a row shows:
 
