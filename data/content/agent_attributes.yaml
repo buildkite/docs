@@ -137,6 +137,14 @@ attributes:
     required: false
     desc: |
       Writes job logs to the agent process' stdout. This simplifies log collection if running agents in Docker
+  - name: "job-logs-otlp"
+    env_var: |
+      $BUILDKITE_JOB_LOGS_OTLP
+    default_value: |
+      false
+    required: false
+    desc: |
+      Export job logs directly as OpenTelemetry log records using the OTEL_EXPORTER_OTLP_LOGS_* / OTEL_EXPORTER_OTLP_* environment configuration
   - name: "shell"
     env_var: |
       $BUILDKITE_SHELL
@@ -288,7 +296,7 @@ attributes:
       "from-job"
     required: false
     desc: |
-      Controls which sources may override the agent's checkout settings; one of [strict from-job none]. 'strict' makes the agent authoritative against pipeline/step env, secrets, hooks, plugins, and the Job API. 'from-job' (default) lets hooks, plugins, and the Job API set checkout vars, blocks secrets, and keeps the agent's checkout flags authoritative over pipeline/step env; pipeline/step env may still set the checkout timeout, submodules, skip-checkout, and skip-fetch-existing-commits toggles that the agent leaves unset, matching earlier agent behavior, and may set the sparse-checkout paths outright. 'none' additionally lets pipeline/step env and secrets set them. All mirror configuration and submodule clone config stay agent-authoritative in every mode. The checkout SSH key and Git LFS toggle are not governed by this flag and stay job-settable in every mode. Disabling command-eval forces this to 'strict'.
+      Controls which sources may override the agent's checkout settings; one of [strict from-job none]. 'strict' makes the agent authoritative against pipeline/step env, secrets, hooks, plugins, and the Job API. 'from-job' (default) lets hooks, plugins, and the Job API set checkout vars, blocks secrets, and keeps the agent's checkout flags authoritative over pipeline/step env; pipeline/step env may still set the checkout timeout, submodules, skip-checkout, and skip-fetch-existing-commits toggles that the agent leaves unset, matching earlier agent behavior, and may set the sparse-checkout paths and mode outright. 'none' additionally lets pipeline/step env and secrets set them. All mirror configuration and submodule clone config stay agent-authoritative in every mode. The checkout SSH key and Git LFS toggle are not governed by this flag and stay job-settable in every mode. Disabling command-eval forces this to 'strict'.
   - name: "git-checkout-flags"
     env_var: |
       $BUILDKITE_GIT_CHECKOUT_FLAGS
@@ -336,7 +344,15 @@ attributes:
 
     required: false
     desc: |
-      Comma-separated list of paths for git sparse checkout (cone mode). When set, only the listed paths are materialized in the working tree.
+      Comma-separated list of paths for git sparse checkout. When set, only the listed paths are materialized in the working tree. Paths are interpreted according to --git-sparse-checkout-mode.
+  - name: "git-sparse-checkout-mode"
+    env_var: |
+      $BUILDKITE_GIT_SPARSE_CHECKOUT_MODE
+    default_value: |
+      "cone"
+    required: false
+    desc: |
+      Changes how the sparse checkout paths are interpreted; available modes are [cone no-cone]. ′cone′ treats each path as a directory to include, which is git's default and enables faster pattern matching, but it accepts only directory names. ′no-cone′ treats each path as a gitignore-style pattern, which allows globs and exclusions such as ′!/docs/′, and requires git >= 2.35. Git LFS objects are not scoped to the sparse paths in ′no-cone′ mode.
   - name: "git-clone-mirror-flags"
     env_var: |
       $BUILDKITE_GIT_CLONE_MIRROR_FLAGS
@@ -810,6 +826,14 @@ attributes:
     required: false
     desc: |
       Timeout for waiting for all containers to start in a Kubernetes pod
+  - name: "job-context-dir"
+    env_var: |
+      $BUILDKITE_JOB_CONTEXT_DIR
+    default_value: |
+
+    required: false
+    desc: |
+      The directory for files the agent uses to coordinate with the processes running the job: the job env files, the job timeout marker file, and, in Kubernetes mode, the coordination socket (buildkite.sock). With agent-stack-k8s, leave this unset: the stack manages the shared /workspace volume that Kubernetes mode defaults to. When running --kubernetes-exec under your own orchestration, set this on every container to the path where the shared volume is mounted in that container. Outside Kubernetes mode it defaults to the system temporary directory and rarely needs changing
   - name: "redacted-vars"
     env_var: |
       $BUILDKITE_REDACTED_VARS

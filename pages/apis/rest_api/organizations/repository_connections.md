@@ -1,6 +1,6 @@
 # Repository connections API
 
-The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a consistent representation across GitHub, GitHub Enterprise Server, Bitbucket Server, and GitLab Self-Managed connection types.
+The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a consistent representation across GitHub, GitHub Enterprise Server, Bitbucket Server, GitLab Self-Managed, and Origin connection types.
 
 These endpoints are read-only and do not return credentials or other secret values. The endpoints require the `read_organization_repository_connections` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes) and organization administrator access.
 
@@ -16,7 +16,7 @@ List responses contain the following fields:
   </tr>
   <tr>
     <th><code>type</code></th>
-    <td>Connection type: <code>github_app</code>, <code>github_code_access_app</code>, <code>github_enterprise_app</code>, <code>github_restricted_app</code>, <code>github_enterprise</code>, <code>bitbucket_server</code>, or <code>gitlab_self_managed</code></td>
+    <td>Connection type: <code>github_app</code>, <code>github_code_access_app</code>, <code>github_enterprise_app</code>, <code>github_restricted_app</code>, <code>github_enterprise</code>, <code>bitbucket_server</code>, <code>gitlab_self_managed</code>, or <code>cursor_origin_app</code></td>
   </tr>
   <tr>
     <th><code>display_name</code></th>

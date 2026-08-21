@@ -7,22 +7,22 @@ toc_include_h3: false
 You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
 > 📘 Pro and Enterprise plan feature
-> SSO capabilities are only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
+> SSO capabilities are only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan. Which providers you can configure depends on your plan. See [Supported providers](/docs/platform/sso#supported-providers) for the plan each provider requires.
 
 You can enforce SSO authentication for your entire Buildkite organization by ensuring that [2FA authentication](/docs/platform/team-management/enforce-2fa) has been disabled for your Buildkite organization. Doing so ensures that all users must log in using SSO when accessing your Buildkite organization.
 
 ## Supported providers
 
-Buildkite supports the following SSO providers:
+Buildkite supports the following SSO providers on the specified plans:
 
-* [Okta](/docs/platform/sso/okta)
-* [ADFS](/docs/platform/sso/adfs)
-* [GitHub](/docs/platform/sso/github-sso)
-* [Google Workspace](/docs/platform/sso/google-workspace)
-* [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml)
-* [Microsoft Entra ID](/docs/platform/sso/azure-ad)
-* [OneLogin](/docs/platform/sso/onelogin)
-* [Custom SAML](/docs/platform/sso/custom-saml)
+- [Okta](/docs/platform/sso/okta) (Pro and Enterprise plans)
+- [ADFS](/docs/platform/sso/adfs) (Enterprise plan only)
+- [GitHub](/docs/platform/sso/github-sso) (Pro and Enterprise plans)
+- [Google Workspace](/docs/platform/sso/google-workspace) (Pro and Enterprise plans)
+- [Google Workspace (SAML)](/docs/platform/sso/google-workspace-saml) (Enterprise plan only)
+- [Microsoft Entra ID](/docs/platform/sso/azure-ad) (Enterprise plan only)
+- [OneLogin](/docs/platform/sso/onelogin) (Pro and Enterprise plans)
+- [Custom SAML](/docs/platform/sso/custom-saml) (Enterprise plan only)
 
 ## Adding SSO
 

@@ -82,7 +82,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <tbody>
   <tr>
     <th><code>state[]</code></th>
-    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted. When your organization has early failure declarations enabled and configured to count promised exit statuses toward a build failing, <code>state=failed</code> also matches running script jobs that have declared a hard-failing promised exit status (a non-zero promised exit status that is not covered by the step's soft-fail rules). The job's <code>state</code> field in the response still reads <code>running</code> for these jobs. Correspondingly, <code>state=running</code> excludes those same jobs, keeping the two filters mutually exclusive.</td>
+    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted. A finished <code>waiter</code> job (the job type used by <a href="/docs/pipelines/configure/step-types/wait-step">wait steps</a>) always matches <code>passed</code> rather than <code>failed</code>. It never runs, so it never has an exit status. When your organization has early failure declarations enabled and configured to count promised exit statuses toward a build failing, <code>state=failed</code> also matches running script jobs that have declared a hard-failing promised exit status (a non-zero promised exit status that is not covered by the step's soft-fail rules). The job's <code>state</code> field in the response still reads <code>running</code> for these jobs. Correspondingly, <code>state=running</code> excludes those same jobs, keeping the two filters mutually exclusive.</td>
   </tr>
   <tr>
     <th><code>include_retried_jobs</code></th>
@@ -200,6 +200,117 @@ Error responses:
   <tr>
     <th><code>404 Not Found</code></th>
     <td><code>{ "message": "No job found" }</code></td>
+  </tr>
+</tbody>
+</table>
+
+## Create a remote desktop session
+
+Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to connect a VNC client to the job's desktop.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/vnc-session"
+```
+
+```json
+{
+  "endpoint": "wss://example.remote-access.invalid",
+  "access_token": "<access-token>",
+  "expires_at": "2026-08-19T04:30:00Z",
+  "vnc": {
+    "username": "<username>",
+    "password": "<password>"
+  }
+}
+```
+
+The response includes the `Cache-Control: no-store` header.
+
+> 🚧 Protect remote access credentials
+> The response contains credentials that grant access to the running job. Don't log, cache, or persist the response.
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to manage hosted agents for the job. [Remote access must also be active](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-remote-access-on-hosted-agents) for the Buildkite organization.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to manage hosted agents for the job.</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The job does not exist in the organization, or VNC access is not available for the organization.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td>The job is not a running command job on a supported macOS hosted agent.</td>
+  </tr>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td>The hosted agent provider could not create the VNC session.</td>
+  </tr>
+</tbody>
+</table>
+
+## Create an SSH session
+
+Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to open an interactive SSH session with the job.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/ssh-session"
+```
+
+```json
+{
+  "endpoint": "wss://example.remote-access.invalid",
+  "access_token": "<access-token>",
+  "expires_at": "2026-08-19T04:30:00Z",
+  "transport": "namespace_ingress",
+  "ssh": {
+    "username": "<username>",
+    "private_key": "<private-key>"
+  }
+}
+```
+
+The response includes the `Cache-Control: no-store` header.
+
+> 🚧 Protect remote access credentials
+> The response contains credentials that grant access to the running job. Don't log, cache, or persist the response.
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to manage hosted agents for the job. [Remote access must also be active](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-remote-access-on-hosted-agents) for the Buildkite organization.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to manage hosted agents for the job.</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The job does not exist in the organization, or SSH access is not available for the organization.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td>The job is not a running command job on a supported macOS hosted agent.</td>
+  </tr>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td>The hosted agent provider could not create the SSH session.</td>
   </tr>
 </tbody>
 </table>

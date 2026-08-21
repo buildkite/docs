@@ -39,7 +39,7 @@ bk artifacts download [<artifact-id>] [flags]
 
 | Argument | Description |
 | --- | --- |
-| `[<artifact-id>]` | Artifact ID to download. If omitted, all artifacts are downloaded. Use 'bk artifacts list' to find IDs. |
+| `[<artifact-id>]` | Artifact ID to download. If omitted, all matching artifacts are downloaded (see --path/--state). Use 'bk artifacts list' to find IDs. |
 
 ### Flags
 
@@ -49,6 +49,8 @@ bk artifacts download [<artifact-id>] [flags]
 | `-j`, `--job-uuid=STRING` | The job UUID containing the artifact. |
 | `-p`, `--pipeline=STRING` | The pipeline containing the artifact. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
+| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
 
 ### Examples
 
@@ -82,6 +84,16 @@ Specify the pipeline explicitly:
 bk artifacts download --build 429 -p monolith
 ```
 
+Filter artifacts to download by path or state:
+
+```bash
+bk artifacts download --build 429 --path "log/rspec*.json"
+```
+
+```bash
+bk artifacts download --build 429 --state finished
+```
+
 ## List artifacts
 
 List artifacts for a build or a job in a build.
@@ -104,7 +116,9 @@ bk artifacts list [<build-number>] [flags]
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
-| `--json` | Output as JSON |
+| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--state=STRING` | Filter artifacts by state. Must be one of: new, finished, error, deleted, expired. |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -134,3 +148,12 @@ If not inside a repository or to use a specific pipeline, pass -p:
 bk artifacts list 429 -p monolith
 ```
 
+Filter artifacts by path or state:
+
+```bash
+bk artifacts list 429 --path "log/rspec*.json"
+```
+
+```bash
+bk artifacts list 429 --state finished
+```
