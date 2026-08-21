@@ -114,6 +114,7 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.job.started_at`           | `buildkite.job`                                                                    | When job started                                            |
 | `buildkite.job.finished_at`          | `buildkite.job`                                                                    | When job finished                                           |
 | `buildkite.job.wait_time_ms`         | `buildkite.job`                                                                    | Job wait time in milliseconds                               |
+| `buildkite.job.concurrency_wait_time_ms` | `buildkite.job` (concurrency-group jobs only, omitted for incomplete waits and platform-limited jobs) | Time in milliseconds the job spent in its first concurrency-group wait (zero if the job was immediately promoted, omitted if the wait is incomplete or platform-limit wait cannot be separated) |
 | `buildkite.job.priority.number`      | `buildkite.job`                                                                    | Job priority number                                         |
 | `buildkite.job.unblocked_by`         | `buildkite.job` (when unblocked)                                                   | User who unblocked job (object with uuid, graphql_id, name) |
 | `buildkite.job.retried_in_job_id`    | `buildkite.job` (when retried)                                                     | ID of retry job (if retried)                                |
@@ -158,7 +159,7 @@ See [Basic Authentication example](https://github.com/buildkite/opentelemetry-no
 > 📘 Private feature
 > The Request Log for the OpenTelemetry Notification Service is in preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
-The request logs appears after the service sends its first trace export request. This panel shows the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues.
+Select **Load recent requests** to view the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues. If the service hasn't sent any trace export requests yet, no requests are shown.
 
 Each row displays the HTTP status code, request UUID, the exported span name (for example, `buildkite.job` or `buildkite.step`), and the request duration. Expanding a row shows:
 

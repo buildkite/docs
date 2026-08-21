@@ -1,9 +1,11 @@
 # Single sign-on with ADFS
 
+> 📘 Enterprise plan feature
+> ADFS capabilities for SSO are only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+
 You can use Active Directory Federation Services (ADFS) for your Buildkite organization. To complete this tutorial, you need admin privileges for both your ADFS server and Buildkite.
 
-> 📘 Enterprise plan feature and setting up with GraphQL
-> ADFS capabilities for SSO are only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+> 📘 Setting up with GraphQL
 > You can also set up SSO providers manually with GraphQL. See the [SSO setup with GraphQL guide](/docs/platform/sso/sso-setup-with-graphql) for detailed instructions and code samples.
 
 ## Step 1. Create a Buildkite SSO provider

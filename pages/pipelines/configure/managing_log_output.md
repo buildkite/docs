@@ -187,7 +187,7 @@ Logs are AES-encrypted, and the build artifacts are encrypted in transit and at 
 
 If you choose to [host your build artifacts](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
-If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
+If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 job log archive location and store the job logs in your private bucket. See [Job log archiving](/docs/pipelines/governance/job-log-archiving).
 
 To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API access tokens that can access your organization's data using the REST and GraphQL API.
 
@@ -218,78 +218,10 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SEC
 > 📘 Setting environment variables
 > Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
 
-## Private build log archive storage
+<a id="private-build-log-archive-storage"></a>
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
+## Job log archive storage
 
-> 📘 Enterprise plan feature
-> This feature is only available to customers on the [Enterprise](https://buildkite.com/pricing) plan and is applied at the Buildkite organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
+By default, job logs are stored in encrypted form in Buildkite-managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
 
-The folder structure and file format are as follows and are not customizable:
-
-```text
-{ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
-```
-
-To set up a private build log archive storage:
-
-1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
-2. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`.
-
-    Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
-
-    ```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:PutObject",
-                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
-                "Condition": {
-                    "StringEquals": {
-                        "s3:x-amz-acl": "bucket-owner-full-control"
-                    }
-                }
-            },
-            {
-                "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:GetObject",
-                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-            },
-            {
-                "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:DeleteObject",
-                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-            },
-            {
-                "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:ListBucket",
-                "Resource": "arn\:aws\:s3:::my-bucket",
-                "Condition": {
-                    "StringLike": {
-                        "s3:prefix": "my-prefix/*"
-                    }
-                }
-            }
-        ]
-    }
-    ```
-
-3. Reach out to [support@buildkite.com](mailto:support@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.
+For setup instructions, including bucket requirements and the required bucket policy, see [Job log archiving](/docs/pipelines/governance/job-log-archiving).

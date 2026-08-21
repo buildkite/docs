@@ -71,7 +71,7 @@ why-buildkite-pipelines:
 
 migrating-to-buildkite:
   name: "Migrating to Buildkite Pipelines"
-  description: "Buildkite documentation for migrating to Buildkite Pipelines from other CI/CD tools, covering migration guides from Jenkins, GitHub Actions, Bamboo, and CircleCI, plus the AI-powered pipeline converter for translating CI configurations."
+  description: "Buildkite documentation for migrating to Buildkite Pipelines from other CI/CD tools, covering migration guides, running supported GitHub Actions workflows in Buildkite, and the AI-powered pipeline converter for translating CI configurations."
   paths:
     - "pipelines/migration"
     - "pipelines/converter"
@@ -245,7 +245,7 @@ self-hosted-agents:
 
 hosted-agents:
   name: "Buildkite Hosted Agent Documentation"
-  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, and terminal access."
+  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, terminal access, and desktop access."
   paths:
     - "agent/buildkite-hosted"
   exact_paths:
@@ -359,7 +359,7 @@ insights:
 
 debugging:
   name: "Buildkite Troubleshooting and Debugging Documentation"
-  description: "Buildkite documentation for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, agent lifecycle, and platform-specific troubleshooting guides."
+  description: "Buildkite documentation for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, desktop access, agent lifecycle, and platform-specific troubleshooting guides."
   exact_paths:
     - "agent/self-hosted/agent-stack-k8s/troubleshooting"
     - "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
@@ -367,6 +367,7 @@ debugging:
     - "agent/self-hosted/gcp/elastic-ci-stack/troubleshooting"
     - "agent/buildkite-hosted/macos/troubleshooting-fastlane"
     - "agent/buildkite-hosted/terminal-access"
+    - "agent/buildkite-hosted/desktop-access"
     - "agent/lifecycle"
     - "agent/cli/reference/annotate"
     - "agent/cli/reference/annotation"

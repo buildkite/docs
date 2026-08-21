@@ -2,6 +2,8 @@
 
 This guide helps [GitHub Actions](https://github.com/features/actions) users migrate to Buildkite Pipelines, and covers key differences between the platforms.
 
+To keep supported GitHub Actions workflows running while you migrate incrementally, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows).
+
 ## Understand the differences
 
 Most concepts will feel familiar, but there are some differences to understand about the approaches.
@@ -679,6 +681,7 @@ Be aware of common pipeline-translation mistakes, which might include:
 
 Explore these resources to enhance your migrated pipelines:
 
+- [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
 - [Buildkite agent overview](/docs/agent)
 - [Plugins directory](https://buildkite.com/resources/plugins/)

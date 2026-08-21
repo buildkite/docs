@@ -500,6 +500,11 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/pip
   <tbody>
     <% [
       {
+        "tool": "list_tests",
+        "description": "Uses the [List tests](/docs/apis/rest-api/test-engine/tests#list-tests) REST API endpoint to list tests in a Buildkite Test Engine test suite, with execution metrics aggregated over a selected time range. Supports filtering, metric sorting, and pagination.",
+        "scope": "read_suites"
+      },
+      {
         "tool": "get_test",
         "description": "Uses the [Get a test](/docs/apis/rest-api/test-engine/tests#get-a-test) REST API endpoint to retrieve a specific test in Buildkite Test Engine. This provides additional metadata for failed test executions.",
         "scope": "read_suites"

@@ -53,6 +53,10 @@ This section of the REST API documentation also contains several other endpoints
     <td>Branch filter pattern for limiting which branches trigger builds</td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>Optional repository URL that agents use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>.</td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>Default branch for the pipeline</td>
   </tr>
@@ -138,6 +142,9 @@ This section of the REST API documentation also contains several other endpoints
   </tr>
 </tbody>
 </table>
+
+> 📘 Clone mirror availability
+> Clone mirrors must be enabled for your organization. When enabled, responses return <code>clone_mirror_url</code> as <code>null</code> for pipelines without a configured mirror. When disabled, responses omit the property for pipelines without a configured mirror but continue to return previously configured mirror URLs. Create and update requests reject <code>clone_mirror_url</code> values that are not blank when the feature is disabled. You can submit <code>null</code> or an empty string to remove an existing mirror even when the feature is disabled.
 
 ## List pipelines
 
@@ -488,6 +495,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>
+      <p>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. The URL must not contain credentials, query parameters, or fragments.</p>
+      <p><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>color</code></th>
     <td>
       <p>A color hex code to represent this pipeline.</p>
@@ -834,6 +848,13 @@ Optional [request body properties](/docs/api#request-body-properties):
     </td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>
+      <p>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. The URL must not contain credentials, query parameters, or fragments.</p>
+      <p><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
@@ -951,7 +972,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 🚧
-> Patch requests can only update attributes already present in the pipeline YAML.
+> Two attributes below behave differently for YAML pipelines. This endpoint ignores `env`. To set environment variables, get the current `configuration` for the pipeline, add or update the top-level `env` key, then PATCH the complete `configuration` back. This endpoint only rejects `steps` with a `422` error when `configuration` is absent from the request. If both are present, it ignores `steps` and applies `configuration` instead. Neither restriction applies to [visual step pipelines](#create-a-visual-step-pipeline), where `env` and `steps` are top-level, persisted settings.
 
 
 ```json
@@ -1039,6 +1060,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/configure/workflows/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build canceling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
+    <th><code>clone_mirror_url</code></th>
+    <td>An optional repository URL for agents to use as a Git clone mirror. When set, agents receive this URL in <code>BUILDKITE_GIT_REMOTE_MIRROR_URL</code>. Set to <code>null</code> to remove the mirror. The URL must not contain credentials, query parameters, or fragments.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@mirror.example.com:acme/my-pipeline.git"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
     <th><code>color</code></th>
     <td>
       <p>A color hex code to represent this pipeline.</p>
@@ -1051,7 +1076,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
+    <td>The YAML pipeline that consists of the build pipeline steps. Setting this attribute replaces the entire configuration for the pipeline, so include all existing steps and settings, not just the ones you want to change.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
@@ -1072,7 +1097,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
     <tr>
     <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+    <td>Environment variables for the pipeline. This only applies to visual step pipelines. For pipelines with YAML steps, this endpoint ignores <code>env</code>. To set environment variables, get the current <code>configuration</code> for the pipeline, add or update the top-level <code>env</code> key, then PATCH the complete <code>configuration</code> back. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>emoji</code></th>
@@ -1121,6 +1146,13 @@ Optional [request body properties](/docs/api#request-body-properties):
       <p>A custom identifier for the pipeline. This slug will be used as the pipeline's URL path. It can only contain alphanumeric characters or dashes and cannot begin with a dash.<br>
       The slug updates whenever the pipeline name changes. If you don't provide a slug when you update the pipeline name, the slug will be automatically generated from the new pipeline name.</p>
       <p><em>Example:</em> <code>"my-custom-pipeline-slug"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>steps</code></th>
+    <td>
+      <p>An array of visual steps to replace the existing steps in the pipeline. This only applies to visual step pipelines. For pipelines with YAML steps, this endpoint rejects <code>steps</code> with a <code>422</code> error when <code>configuration</code> is absent from the request. If both are present, it ignores <code>steps</code> and applies <code>configuration</code> instead.</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>[{"type": "script", "name": "Build", "command": "script/release.sh"}]</code></p>
     </td>
   </tr>
   <tr>
@@ -1521,7 +1553,10 @@ Properties available for all providers:
 </tbody>
 </table>
 
-Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, and GitHub Enterprise all have optional `provider_settings`.
+Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
+
+> 📘 Origin provider settings
+> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
 
 Properties available for Bitbucket Server:
 
@@ -1647,6 +1682,37 @@ Properties available for GitLab and GitLab Self-Managed:
     <tr>
       <th><code>publish_commit_status</code></th>
       <td>Whether to update the status of commits in GitLab.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Properties available for Origin:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>build_branches</code></th>
+      <td>Whether to create builds when branches are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_requests</code></th>
+      <td>Whether to create builds when pull requests are opened or updated.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_tags</code></th>
+      <td>Whether to create builds when tags are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>publish_commit_status</code></th>
+      <td>Whether to publish build results to Origin using the Checks API. The property name is retained for API compatibility.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>

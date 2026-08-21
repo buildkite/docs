@@ -44,12 +44,15 @@ type Flag struct {
 
 var (
 	// Matches: "  -s, --long=TYPE  Description" or "  --long=TYPE  Description" or "  -s, --long  Description"
-	// Also handles default values like --output="json" and repeatable flags like --env=ENV,...
-	flagRE = regexp.MustCompile(`^\s{2,}(-([a-zA-Z]),\s+)?--([a-zA-Z0-9-]+)(=("[^"]*"|[A-Z0-9-=;]+(?:,\.\.\.)?|\.\.\.))?(\s{2,}(.+))?$`)
+	// Also handles default values like --output="json", repeatable flags like --env=ENV,...,
+	// and negatable flags like --[no-]members-can-create-pipelines.
+	flagRE = regexp.MustCompile(`^\s{2,}(-([a-zA-Z]),\s+)?--((?:\[no-\])?[a-zA-Z0-9-]+)(=("[^"]*"|[A-Z0-9-=;]+(?:,\.\.\.)?|\.\.\.))?(\s{2,}(.+))?$`)
 	// Matches subcommand lines: "  command subcommand [args] [flags]"
 	subcommandRE = regexp.MustCompile(`^\s{2}(\S+(?:\s+\S+)?)\s+(\[.+\])?\s*$`)
 	// Matches argument lines: "  [<arg>]  Description" or "  <arg>  Description"
 	argumentRE = regexp.MustCompile(`^\s{2,}(\[?<([^>]+)>\]?)\s{2,}(.+)$`)
+	// Matches command-line examples in descriptions, for example: --path "log/*.json"
+	commandLineExampleRE = regexp.MustCompile(`\be\.g\. (--[a-zA-Z0-9-]+(?: "[^"]*")?)`)
 )
 
 func main() {
@@ -97,7 +100,7 @@ func main() {
 			continue
 		}
 
-		md := generateMarkdown(cmd)
+		md := normalizeMarkdown(generateMarkdown(cmd))
 		outputPath := filepath.Join(outputDir, groupName+".md")
 
 		if err := os.WriteFile(outputPath, []byte(md), 0644); err != nil {
@@ -107,6 +110,10 @@ func main() {
 
 		fmt.Fprintf(os.Stderr, "  -> %s\n", outputPath)
 	}
+}
+
+func normalizeMarkdown(markdown string) string {
+	return strings.TrimRight(markdown, "\n") + "\n"
 }
 
 // getHelp runs the binary with --help and returns the output
@@ -413,7 +420,7 @@ func generateMarkdown(cmd *Command) string {
 			b.WriteString("| --- | --- |\n")
 			for _, flag := range localFlags {
 				flagStr := formatFlag(flag)
-				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, flag.Description)
+				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, formatDescription(flag.Description))
 			}
 			b.WriteString("\n")
 		}
@@ -480,7 +487,7 @@ func generateMarkdown(cmd *Command) string {
 			b.WriteString("| --- | --- |\n")
 			for _, flag := range localFlags {
 				flagStr := formatFlag(flag)
-				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, flag.Description)
+				fmt.Fprintf(&b, "| %s | %s |\n", flagStr, formatDescription(flag.Description))
 			}
 			b.WriteString("\n")
 		}
@@ -580,6 +587,10 @@ func getSubcommandTitle(name string) string {
 		"configure add":      "Add a new organization",
 		"artifacts download": "Download an artifact",
 		"artifacts list":     "List artifacts",
+		"job ssh":            "Connect to a job using SSH",
+		"job vnc":            "Connect to a job using VNC",
+		"team update":        "Update a team",
+		"team delete":        "Delete a team",
 	}
 	if title, ok := specialTitles[name]; ok {
 		return title
@@ -702,6 +713,10 @@ func formatFlag(f Flag) string {
 	longFlag += "`"
 	parts = append(parts, longFlag)
 	return strings.Join(parts, ", ")
+}
+
+func formatDescription(description string) string {
+	return commandLineExampleRE.ReplaceAllString(description, "for example `$1`")
 }
 
 func writeExamples(b *strings.Builder, examples []string) {
