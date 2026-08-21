@@ -32,7 +32,7 @@ The following GraphQL `Audit Event` types are available and you can find more de
 
 The **Events** tab has a search bar to filter events by type, pipeline, and actor. The search supports the following syntax:
 
-- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`.
+- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`. Event type values are matched case-insensitively.
 - Use `-type:EVENT_TYPE` to exclude events of a specific type. For example: `-type:SECRET_READ`.
 - Use `pipeline:PIPELINE_SLUG` to only return events for a specific pipeline. For example: `pipeline:my-app`. You can use a pipeline UUID in place of its slug.
 - Use `-pipeline:PIPELINE_SLUG` to exclude the events for a specific pipeline. For example: `-pipeline:my-app`.
@@ -51,6 +51,8 @@ The search has the following constraints:
 - Maximum of three unique terms (positive and negative combined)
 - Maximum of 250 characters for the query string
 - Only events from the last 90 days are returned
+
+Buildkite returns an error instead of results when it cannot understand a search query. This happens when the query contains free text, an unsupported term, or a term with no value.
 
 If a `type:` or `-type:` value doesn't match a known event type, the search returns an error instead of any results. When the value is close to a valid event type, the error names the closest match. For example, `type:PIPLINE_UPDATED` returns the error `Unknown event type "PIPLINE_UPDATED". Did you mean PIPELINE_UPDATED?`.
 
