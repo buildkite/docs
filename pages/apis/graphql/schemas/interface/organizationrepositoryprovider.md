@@ -41,10 +41,7 @@ toc: false
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<div><a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidercursororigin" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderCursorOrigin">
-  <code>OrganizationRepositoryProviderCursorOrigin</code>
-</a>
-<a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHub">
+<div><a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHub">
   <code>OrganizationRepositoryProviderGitHub</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithubenterpriseserver" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHubEnterpriseServer">
