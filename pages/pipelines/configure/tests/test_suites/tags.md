@@ -36,6 +36,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
       <td>Filtering and aggregating based on the step identifier.</td>
     </tr>
     <tr>
+      <td><code>ci.worker.id</code></td>
+      <td>
+        Filtering and aggregating based on the Buildkite agent that ran the test, to identify failures concentrated on a specific (broken) agent.
+      </td>
+    </tr>
+    <tr>
       <td><code>cloud.provider</code></td>
       <td>
         Filtering and aggregating based on your cloud provider to compare cloud provider performance and reliability in your test suite.<br/><em>Example:</em> <code>aws</code> vs <code>gcp</code>.
