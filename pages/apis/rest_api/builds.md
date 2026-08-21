@@ -779,7 +779,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   </tr>
   <tr>
     <th><code>job_states[]</code></th>
-    <td>Filter the jobs included in the response to only those matching the specified API states. Accepts one or more values: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>canceled</code>, <code>broken</code>, <code>unblocked</code>, and others. When omitted, all jobs are returned. A finished <code>waiter</code> job (the job type used by <a href="/docs/pipelines/configure/step-types/wait-step">wait steps</a>) always matches <code>passed</code> rather than <code>failed</code>, since it never runs and so never has an exit status.<p class="Docs__api-param-eg">
+    <td>Filter the jobs included in the response to only those matching the specified API states. Accepts one or more values: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>canceled</code>, <code>broken</code>, <code>unblocked</code>, and others. When omitted, all jobs are returned. A finished <code>waiter</code> job (the job type used by <a href="/docs/pipelines/configure/step-types/wait-step">wait steps</a>) always matches <code>passed</code> rather than <code>failed</code>. It never runs, so it never has an exit status.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?job_states[]=failed&amp;job_states[]=canceled</code></p></td>
   </tr>
 </tbody>
