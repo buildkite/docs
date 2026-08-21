@@ -160,8 +160,8 @@ With all three in place, pull request builds for that pipeline fetch and check o
 Note the following limitations:
 
 - Buildkite recommends disabling **Build branches** on pipelines using this feature, to avoid mixed commit statuses on the same commit SHA.
-- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout.
-- Builds that fire very quickly after a pull request is opened or synchronized may occasionally fail at checkout if GitHub has not yet computed the merge ref. The agent retries the checkout a few times before failing.
+- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout, and the failure includes a hint that this is possibly due to a merge conflict, or GitHub being unable to create the merge ref automatically. The agent doesn't retry this fetch, because a missing merge ref usually means a real conflict rather than a temporary delay.
+- Builds that fire very quickly after a pull request is opened or synchronized may occasionally hit the same checkout failure if GitHub hasn't finished computing the merge ref yet. Retrying the build after a short delay usually resolves this.
 
 ## Running builds on merge queues
 
