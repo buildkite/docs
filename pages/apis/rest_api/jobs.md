@@ -261,7 +261,7 @@ Error responses:
 
 ## Create an SSH session
 
-Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to open an interactive SSH session with the job.
+Creates connection details for a running command job on a macOS or Linux hosted agent. The response includes a short-lived access token. Use this endpoint to open an interactive SSH session with the job.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -276,10 +276,13 @@ curl -H "Authorization: Bearer $TOKEN" \
   "transport": "namespace_ingress",
   "ssh": {
     "username": "<username>",
-    "private_key": "<private-key>"
+    "private_key": "<private-key>",
+    "host_keys": []
   }
 }
 ```
+
+For a Linux hosted job, `transport` is `tcp`, and `ssh.host_keys` contains one or more SSH host public keys. Verify the job's host against these keys before completing the SSH handshake. For a macOS hosted job, `transport` remains `namespace_ingress` and `ssh.host_keys` is always an empty array, because host verification happens as part of the ingress connection.
 
 The response includes the `Cache-Control: no-store` header.
 
@@ -306,11 +309,11 @@ Error responses:
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td>The job is not a running command job on a supported macOS hosted agent.</td>
+    <td>The job is not a running command job on a supported macOS or Linux hosted agent.</td>
   </tr>
   <tr>
     <th><code>503 Service Unavailable</code></th>
-    <td>The hosted agent provider could not create the SSH session.</td>
+    <td>The hosted agent provider could not create the SSH session, or could not supply valid SSH host keys for a Linux hosted job.</td>
   </tr>
 </tbody>
 </table>
