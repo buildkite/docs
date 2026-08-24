@@ -134,23 +134,21 @@ Use a [conditional expression](/docs/pipelines/configure/conditionals#conditiona
 
 ## Publish checks to Origin
 
-**Update commit statuses** publishes Buildkite Pipelines build results to Origin. This setting is enabled by default.
+Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. The check contains relevant build information and updates as the build progresses.
 
-Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. Buildkite Pipelines creates a check run when a build is created. It updates the same check run as the build starts, finishes, fails, or is skipped.
+When **Update commit statuses** is enabled, Buildkite Pipelines publishes a check to Origin for each build. This setting is enabled by default.
 
-### Check run report content
+The check shows information relevant to the build state:
 
-As a build runs, its check run report updates to show details relevant to the current state:
-
-* Scheduled and running builds show a link back to the build in Buildkite.
-* Passed builds show the total job count and the run time.
-* Failing and failed builds show the failed jobs and their exit results, along with the job count and run time.
+* Scheduled and running builds link to the build in Buildkite.
+* Passed builds show the job count and run time.
+* Failing and failed builds show failed jobs, exit results, job count, and run time.
 * Canceled builds show the cancellation reason, when known.
-* Blocked builds ask you to open Buildkite to unblock the build.
+* Blocked builds link to Buildkite so you can unblock them.
 
-A report shows up to 50 failed jobs, with hard failures listed before soft failures. If a build has more than 50 failed jobs, the report links to the full list of failed jobs in Buildkite.
+Checks show up to 50 failed jobs, listing hard failures before soft failures. Checks with more than 50 failed jobs link to the full list in Buildkite.
 
-Buildkite Pipelines saves the build state and timing whenever the state changes. This means a delayed check update still reports the state and job results for the attempt it describes, even if the build has since been retried.
+Buildkite Pipelines records build state and timing when the state changes. Delayed check updates therefore reflect the attempt they describe, even if the build has since been retried.
 
 ### Configure required checks
 
