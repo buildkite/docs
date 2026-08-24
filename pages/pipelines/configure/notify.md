@@ -374,7 +374,7 @@ Step-level GitHub check notifications happen at the following [events](/docs/api
 
 ## Origin check
 
-Create a check on [Cursor Origin](https://cursor.com) to provide live status updates and rich output for builds and steps. This requires the pipeline's repository to be hosted on Cursor Origin.
+Create a check on [Cursor Origin](/docs/pipelines/source-control/origin) to provide live status updates and rich output for builds and steps. This requires the pipeline's repository to be hosted on Cursor Origin.
 
 > 📘 Requirements
 > Origin check notifications are being rolled out to Buildkite organizations. If they're not yet available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
