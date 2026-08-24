@@ -57,6 +57,9 @@
       children:
         - name: "Overview"
           path: "pipelines/source-control"
+        - name: "Origin"
+          path: "pipelines/source-control/origin"
+          pill: "new"
         - name: "GitHub"
           path: "pipelines/source-control/github"
         - name: "GitHub Enterprise"
@@ -77,6 +80,9 @@
           path: "pipelines/migration"
         - name: "From GitHub Actions"
           path: "pipelines/migration/from-githubactions"
+        - name: "Run GitHub Actions workflows"
+          path: "pipelines/migration/run-github-actions-workflows"
+          pill: "preview"
         - name: "From CircleCI"
           path: "pipelines/migration/from-circleci"
         - name: "From Jenkins"
@@ -258,6 +264,8 @@
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters"
                         - name: "Creating custom AMIs"
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis"
+                        - name: "Git mirror seeding"
+                          path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/git-mirror-seeding"
                         - name: "Build container images"
                           children:
                             - name: "BuildKit"
@@ -389,6 +397,9 @@
               path: "agent/buildkite-hosted/pipeline-migration"
             - name: "Terminal access"
               path: "agent/buildkite-hosted/terminal-access"
+            - name: "Desktop access"
+              path: "agent/buildkite-hosted/desktop-access"
+              pill: "preview"
             - name: "Cache volumes"
               path: "agent/buildkite-hosted/cache-volumes"
             - name: "Internal container registry"
@@ -512,6 +523,8 @@
           path: "pipelines/configure/build-retention"
         - name: "Public pipelines"
           path: "pipelines/configure/public-pipelines"
+        - name: "Auto-create build triggers"
+          path: "pipelines/configure/auto-create-build-triggers"
         - name: "Using build meta-data"
           path: "pipelines/configure/build-meta-data"
         - name: "Managing log output"
@@ -558,6 +571,8 @@
               path: "pipelines/configure/tests/test-suites/saved-views"
             - name: "Public test suites"
               path: "pipelines/configure/tests/test-suites/public"
+            - name: "Upload health"
+              path: "pipelines/configure/tests/test-suites/upload-health"
         - name: "Test collection"
           children:
             - name: "Overview"
@@ -637,6 +652,7 @@
             - name: "Migrate from unclustered to clustered agents"
               path: "pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents"
             - name: "Rules"
+              pill: "preview"
               children:
                 - name: "Overview"
                   path: "pipelines/security/clusters/rules"
@@ -935,6 +951,8 @@
               path: "platform/cli/reference/secret"
             - name: "skill"
               path: "platform/cli/reference/skill"
+            - name: "team"
+              path: "platform/cli/reference/team"
             - name: "update"
               path: "platform/cli/reference/update"
             - name: "user"
@@ -971,7 +989,7 @@
           path: "platform/sso/github-sso"
         - name: "OneLogin"
           path: "platform/sso/onelogin"
-        - name: "Azure AD"
+        - name: "Microsoft Entra ID"
           path: "platform/sso/azure-ad"
         - name: "Custom SAML"
           path: "platform/sso/custom-saml"
@@ -1032,6 +1050,8 @@
               path: "apis/rest-api/organizations/api-settings"
             - name: "Audit log"
               path: "apis/rest-api/organizations/audit-events"
+            - name: "Invitations"
+              path: "apis/rest-api/organizations/invitations"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
             - name: "Rate limits"
@@ -1040,6 +1060,10 @@
               path: "apis/rest-api/organizations/notification-services"
             - name: "Pipeline settings"
               path: "apis/rest-api/organizations/pipeline-settings"
+            - name: "Repository connections"
+              path: "apis/rest-api/organizations/repository-connections"
+            - name: "Repositories for a connection"
+              path: "apis/rest-api/repository-connections"
         - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.
@@ -1106,6 +1130,10 @@
           # Keep space at end to prevent "Test Engine" in global nav bar being
           # highlighted when any child page of "API > REST > Pipelines" is selected.
           children:
+            - name: "Build tests"
+              path: "apis/rest-api/test-engine/build-tests"
+            - name: "Execution tags"
+              path: "apis/rest-api/test-engine/execution-tags"
             - name: "Flaky tests"
               pill: "deprecated"
               path: "apis/rest-api/test-engine/flaky-tests"
@@ -1117,10 +1145,6 @@
               path: "apis/rest-api/test-engine/suites"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
-        - name: "Test Scheduler"
-          children:
-            - name: "Pools"
-              path: "apis/rest-api/test-scheduler-pools"
     - name: "GraphQL"
       children:
         - name: Overview

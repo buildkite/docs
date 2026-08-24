@@ -4,7 +4,9 @@ This page provides details on how to manage queues within a [cluster](/docs/pipe
 
 ## Setting up queues
 
-A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite agents](/docs/agent) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/security/clusters/manage#setting-up-clusters) (named **Default cluster**), five queues are also created within this cluster: **linux-small** (the default), **linux-medium**, **linux-large**, **macos-medium**, and **macos-large**.
+A [_queue_](/docs/pipelines/glossary#queue) defines and manages [Buildkite agents](/docs/agent) within a cluster. When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/pipelines/security/clusters/manage#setting-up-clusters) (named **Default cluster**), nine queues are also created within this cluster: **linux-small** (the default), **linux-medium**, **linux-large**, **macos-medium**, **macos-large**, **macos-14-medium**, **macos-15-medium**, **macos-26-medium**, and **macos-27-medium**.
+
+The **macos-14-medium**, **macos-15-medium**, **macos-26-medium**, and **macos-27-medium** queues each pin a specific [macOS version](/docs/agent/buildkite-hosted/macos#macos-instance-software-support): Sonoma, Sequoia, Tahoe (26.6), and Golden Gate respectively. This lets you map GitHub Actions-style `macos-<version>` runner labels to a queue running that exact OS. See [macOS hosted agents](/docs/agent/buildkite-hosted/macos) for details.
 
 A cluster can be configured with multiple queues. Each queue can be used for workload routing to specific combinations of your [build/agent infrastructure](#agent-infrastructure), based on:
 
@@ -181,7 +183,7 @@ where:
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
 - `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` parameter) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
-<!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only), by passing its URL as the value to its `agentImageRef` parameter.
+<!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only), by passing its URL as the value to its `agentImageRef` parameter.
 -->
 
     ```json
@@ -256,7 +258,7 @@ where:
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
 - `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` field) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
-<!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only) by passing its URL as the value to its `agentImageRef` field nested within `linux`, then `platformSettings` objects.
+<!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only) by passing its URL as the value to its `agentImageRef` field nested within `linux`, then `platformSettings` objects.
 -->
 
     ```graphql

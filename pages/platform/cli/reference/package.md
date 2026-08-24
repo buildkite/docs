@@ -69,4 +69,3 @@ add -w to open the build in your web browser:
 ```bash
 bk package push my-registry --file-path my-package.tar.gz -w
 ```
-

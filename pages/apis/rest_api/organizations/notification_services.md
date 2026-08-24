@@ -1,12 +1,16 @@
-# Notification services
+# Notification services API
 
-The notification services API endpoints let you manage an organization's notification services over REST. Notification services deliver Buildkite Pipelines notifications to destinations such as Slack, webhooks, and Datadog. See [Integrations](/docs/pipelines/integrations) for provider setup guides.
+The notification services API lets you manage the organization-level integrations that send build and job notifications to services such as Slack, webhooks, Amazon EventBridge, Datadog, and OpenTelemetry.
 
-All endpoints require the authenticated user to have the **Change Notification Services** permission. Read operations require the `read_notification_services` API access token scope. Create, update, delete, enable, and disable operations require the `write_notification_services` scope.
+> 📘 Required permissions
+> These endpoints require both an API access token scope and sufficient organization access for the user who owns the token:
+> - List and get operations require the `read_notification_services` [scope](/docs/apis/managing-api-tokens#token-scopes).
+> - Create, update, delete, enable, and disable operations require the `write_notification_services` scope.
+> The user who owns the token must be an organization administrator. Other organization members can use these endpoints when [**Manage Notification Services**](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) is enabled across the organization.
 
 ## Notification service data model
 
-The API returns the following fields for a notification service:
+Notification service endpoints return objects with the following fields:
 
 <table class="responsive-table">
 <tbody>
@@ -16,108 +20,138 @@ The API returns the following fields for a notification service:
   </tr>
   <tr>
     <th><code>graphql_id</code></th>
-    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the notification service. The value is <code>null</code> for providers without a corresponding GraphQL type.</td>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the notification service, or <code>null</code> if unavailable.</td>
   </tr>
   <tr>
     <th><code>url</code></th>
-    <td>Canonical REST API URL of the notification service.</td>
+    <td>Canonical API URL of the notification service.</td>
   </tr>
   <tr>
     <th><code>provider</code></th>
-    <td>Map containing the provider's <code>id</code> and display <code>name</code>.</td>
+    <td>The notification service type, including a machine-readable <code>id</code>, such as <code>webhook</code>, <code>aws_event_bridge</code>, or <code>open_telemetry_tracing</code>, and a display <code>name</code>.</td>
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>Description of the notification service.</td>
+    <td>User-provided description of the notification service.</td>
   </tr>
   <tr>
     <th><code>enabled</code></th>
-    <td>Whether the notification service is enabled.</td>
+    <td>Whether the notification service is active.</td>
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Resources that use the notification service: <code>all</code>, <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>.</td>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters.</td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
-    <td>Array of pipeline, team, or cluster UUIDs selected by <code>scope</code>. The array is empty when <code>scope</code> is <code>all</code>.</td>
+    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Empty when <code>scope</code> is <code>all</code>.</td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>Branch pattern that limits notifications, or an empty string when no branch filter is configured.</td>
+    <td>Branch filter pattern. An empty string means all branches.</td>
   </tr>
   <tr>
     <th><code>build_states</code></th>
-    <td>Map of notification events and whether each event is enabled. See <a href="#notification-service-data-model-build-state-fields">Build state fields</a>.</td>
+    <td>Object whose keys are build or job states and whose values indicate whether that state triggers a notification.</td>
   </tr>
   <tr>
     <th><code>settings</code></th>
-    <td>Provider-specific settings. Secret fields can be masked or omitted. See <a href="#notification-service-data-model-provider-settings">Provider settings</a>.</td>
+    <td>Provider-specific configuration. See <a href="#notification-service-data-model-settings-and-secret-handling">Settings and secret handling</a>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
-    <td>Time when the notification service was created.</td>
+    <td>ISO 8601 timestamp of when the notification service was created.</td>
   </tr>
   <tr>
     <th><code>created_by</code></th>
-    <td>User who created the notification service, or <code>null</code> when the creator is unavailable.</td>
+    <td>User who created the notification service, or <code>null</code> when unavailable.</td>
   </tr>
 </tbody>
 </table>
 
-### Build state fields
+For example:
 
-The `build_states` map contains boolean values for these fields:
+```json
+{
+  "id": "9f0f9a19-1b88-4e37-98d8-c5a0cebcdb9a",
+  "graphql_id": "Tm90aWZpY2F0aW9uU2VydmljZVdlYmhvb2stLS05ZjBmOWExOS0xYjg4LTRlMzctOThkOC1jNWEwY2ViY2RiOWE=",
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/services/9f0f9a19-1b88-4e37-98d8-c5a0cebcdb9a",
+  "provider": {
+    "id": "webhook",
+    "name": "Webhook"
+  },
+  "description": "Deploy notifications",
+  "enabled": true,
+  "scope": "all",
+  "scope_uuids": [],
+  "branch_configuration": "",
+  "build_states": {
+    "build_passed": false,
+    "build_fixed": false,
+    "build_failed": true,
+    "build_blocked": false,
+    "build_canceled": false,
+    "build_failing": false,
+    "job_activated": false
+  },
+  "settings": {
+    "url": "https://example.com/buildkite-webhook",
+    "version": 3,
+    "token": "xxx-yyy-zzz",
+    "token_mode": "token",
+    "events": ["build.finished"],
+    "tls_verify": true
+  },
+  "created_at": "2026-07-01T10:00:00.000Z",
+  "created_by": {
+    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2025-01-01T00:00:00.000Z"
+  }
+}
+```
 
-- `build_passed`
-- `build_fixed`
-- `build_failed`
-- `build_blocked`
-- `build_canceled`
-- `build_failing`
-- `job_activated`
+### Settings and secret handling
 
-### Provider settings
+The `settings` object varies by provider. Secret handling mirrors the Buildkite interface:
 
-The `provider` value is immutable after you create a notification service. The following provider IDs and settings are available:
+- Webhook `token` values are returned in full so that callers can verify webhook tokens or HMAC signatures.
+- Masked fields, such as the Datadog `api_key` and Amazon EventBridge `aws_account_id`, show only their final characters.
+- OAuth credentials such as `access_token` and `refresh_token` are omitted.
+- Slack incoming webhook URLs and encrypted OpenTelemetry headers are omitted.
 
-Provider ID | Writable settings | Notes
------------ | ----------------- | -----
-`aws_event_bridge` | `aws_region`, `aws_account_id`, `include_build_meta_data` | `aws_region` and `aws_account_id` are required when creating the service and cannot be changed later.
-`datadog_pipeline_visibility` | `api_key`, `datadog_site`, `datadog_tags` | The API masks `api_key` in responses.
-`event_log_api` | `events` | Available only to organizations with the Event Log API provider enabled.
-`linear` | None | Uses OAuth. Create the service in the Buildkite interface. You can update its common fields using the API.
-`open_telemetry_tracing` | `endpoint`, `service_name`, `headers`, `resource_attributes`, `tracestate` | The API omits encrypted `headers` from responses. Availability of `tracestate` depends on the organization.
-`slack` | `url`, `theme` | The API omits `url` from responses. OAuth-connected Slack service URLs cannot be changed using the API.
-`slack_workspace` | None | Uses OAuth. Create the service in the Buildkite interface. You can update its common fields using the API.
-`webhook` | `url`, `token`, `token_mode`, `version`, `events`, `tls_verify` | New services must use the latest webhook payload version. The API returns `token` without masking so it can be used to verify webhook signatures.
-{: class="responsive-table"}
+When updating a service, sending a masked value back unchanged preserves the stored secret. Send a new plaintext value to replace it.
 
 ## List notification services
 
-Returns an organization's notification services in chronological order. The response uses cursor pagination and excludes Package Registries notification services, hosted agent dispatch webhooks, and providers that are not available to the organization.
+Returns a cursor-paginated list of notification services, ordered from oldest to newest.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/services"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/services?per_page=30"
 ```
+
+The response contains notification service objects in `items` and pagination URLs in `links`:
 
 ```json
 {
   "items": [
     {
-      "id": "01234567-89ab-cdef-0123-456789abcdef",
-      "graphql_id": "Tm90aWZpY2F0aW9uU2VydmljZVdlYmhvb2stLS0wMTIzNDU2Ny04OWFiLWNkZWYtMDEyMy00NTY3ODlhYmNkZWY=",
-      "url": "https://api.buildkite.com/v2/organizations/acme-inc/services/01234567-89ab-cdef-0123-456789abcdef",
+      "id": "9f0f9a19-1b88-4e37-98d8-c5a0cebcdb9a",
+      "graphql_id": null,
+      "url": "https://api.buildkite.com/v2/organizations/acme-inc/services/9f0f9a19-1b88-4e37-98d8-c5a0cebcdb9a",
       "provider": {
-        "id": "webhook",
-        "name": "Webhook"
+        "id": "datadog_pipeline_visibility",
+        "name": "Datadog Pipeline Visibility"
       },
-      "description": "Deployment events",
+      "description": "Pipeline visibility",
       "enabled": true,
       "scope": "all",
       "scope_uuids": [],
-      "branch_configuration": "main",
+      "branch_configuration": "",
       "build_states": {
         "build_passed": true,
         "build_fixed": true,
@@ -128,22 +162,17 @@ curl -H "Authorization: Bearer $TOKEN" \
         "job_activated": false
       },
       "settings": {
-        "url": "https://example.com/webhook",
-        "token": "YOUR_WEBHOOK_TOKEN",
-        "token_mode": "token",
-        "version": 3,
-        "events": ["build.finished"],
-        "tls_verify": true
+        "api_key": "XXXXXXXXXXXXcdef",
+        "datadog_site": "datadoghq.com",
+        "datadog_tags": null
       },
-      "created_at": "2026-07-01T12:00:00.000Z",
-      "created_by": {
-        "id": "abcdef01-2345-6789-abcd-ef0123456789",
-        "name": "Sam Kim"
-      }
+      "created_at": "2026-07-01T10:00:00.000Z",
+      "created_by": null
     }
   ],
   "links": {
-    "self": "https://api.buildkite.com/v2/organizations/acme-inc/services?per_page=30"
+    "self": "https://api.buildkite.com/v2/organizations/acme-inc/services?per_page=30",
+    "next": "https://api.buildkite.com/v2/organizations/acme-inc/services?after=CURSOR&per_page=30"
   }
 }
 ```
@@ -154,15 +183,15 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <tbody>
   <tr>
     <th><code>per_page</code></th>
-    <td>Number of notification services to return per page.</td>
+    <td>Number of results per page.<p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p><p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td>
   </tr>
   <tr>
     <th><code>after</code></th>
-    <td>Returns the page after this cursor. Do not use with <code>before</code>.</td>
+    <td>Return results after this cursor. Mutually exclusive with <code>before</code>.</td>
   </tr>
   <tr>
     <th><code>before</code></th>
-    <td>Returns the page before this cursor. Do not use with <code>after</code>.</td>
+    <td>Return results before this cursor. Mutually exclusive with <code>after</code>.</td>
   </tr>
 </tbody>
 </table>
@@ -173,24 +202,22 @@ Success response: `200 OK`
 
 ## Get a notification service
 
-Returns one notification service.
+Returns a notification service by UUID.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/services/{uuid}"
 ```
 
-The response uses the [notification service data model](#notification-service-data-model).
-
 Required scope: `read_notification_services`
 
 Success response: `200 OK`
 
-Error response: `404 Not Found` when the notification service does not exist, belongs to another organization, or is not visible through this API.
+Error response: `404 Not Found` when no notification service is found for the UUID in the organization.
 
 ## Create a notification service
 
-Creates a notification service. The following example creates a webhook notification service:
+Creates a notification service. OAuth-managed `slack_workspace` and `linear` services must first be connected using the Buildkite interface, but can then be read, updated, deleted, enabled, and disabled using the API.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -198,90 +225,127 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/services" \
   -d '{
     "provider": "webhook",
-    "description": "Deployment events",
-    "scope": "all",
-    "branch_configuration": "main",
-    "build_states": {
-      "build_failed": true,
-      "build_passed": true
-    },
+    "description": "Deploy notifications",
     "settings": {
-      "url": "https://example.com/webhook",
-      "events": ["build.finished"],
-      "tls_verify": true
+      "url": "https://example.com/buildkite-webhook",
+      "token": "xxx-yyy-zzz",
+      "events": ["build.finished"]
+    },
+    "build_states": {
+      "build_failed": true
     }
   }'
 ```
 
-Request body fields:
+[Request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
   <tr>
     <th><code>provider</code></th>
-    <td>Required provider ID. See <a href="#notification-service-data-model-provider-settings">Provider settings</a>.</td>
+    <td>Required. Machine-readable notification service type, such as <code>webhook</code>, <code>aws_event_bridge</code>, or <code>open_telemetry_tracing</code>. See <a href="#create-a-notification-service-providers">Providers</a>.</td>
   </tr>
   <tr>
     <th><code>description</code></th>
-    <td>Description of the notification service.</td>
-  </tr>
-  <tr>
-    <th><code>scope</code></th>
-    <td>Resources that use the notification service: <code>all</code>, <code>some_projects</code>, <code>some_teams</code>, or <code>some_clusters</code>. Defaults to <code>all</code>.</td>
-  </tr>
-  <tr>
-    <th><code>scope_uuids</code></th>
-    <td>Array of pipeline, team, or cluster UUIDs. Supply this field when <code>scope</code> is a corresponding <code>some_*</code> value.</td>
+    <td>User-provided description of the notification service.</td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>Branch pattern that limits notifications.</td>
+    <td>Branch filter pattern. For example, <code>main feature/*</code>. An empty string means all branches.</td>
+  </tr>
+  <tr>
+    <th><code>scope</code></th>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters. Defaults to <code>all</code>.</td>
+  </tr>
+  <tr>
+    <th><code>scope_uuids</code></th>
+    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Omit when <code>scope</code> is <code>all</code>.</td>
   </tr>
   <tr>
     <th><code>build_states</code></th>
-    <td>Map containing the events to enable or disable. See <a href="#notification-service-data-model-build-state-fields">Build state fields</a>.</td>
+    <td>Object whose keys are build or job states and whose boolean values indicate whether that state triggers a notification. Supported keys are <code>build_passed</code>, <code>build_fixed</code>, <code>build_failed</code>, <code>build_blocked</code>, <code>build_canceled</code>, <code>build_failing</code>, and <code>job_activated</code>.</td>
   </tr>
   <tr>
     <th><code>settings</code></th>
-    <td>Map of settings accepted by the selected provider.</td>
+    <td>Provider-specific configuration. See <a href="#create-a-notification-service-providers">Providers</a>.</td>
   </tr>
 </tbody>
 </table>
-
-Returns the created notification service.
 
 Required scope: `write_notification_services`
 
 Success response: `201 Created`
 
-Error response: `422 Unprocessable Entity` when the provider, scope, event, or provider-specific setting is invalid. Providers that use OAuth must be created in the Buildkite interface.
+Error response: `422 Unprocessable Entity` when the request contains invalid, unavailable, unknown, or read-only fields.
+
+### Providers
+
+The following providers can be created using the REST API:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>webhook</code></th>
+    <td>Settings: <code>url</code> (required), <code>token</code>, <code>token_mode</code> (<code>token</code> or <code>signature</code>), <code>version</code>, <code>events</code>, and <code>tls_verify</code>.</td>
+  </tr>
+  <tr>
+    <th><code>slack</code></th>
+    <td>Slack or Slack-compatible incoming webhook. Settings: <code>url</code> (required) and <code>theme</code> (<code>text</code> or <code>emoji</code>).</td>
+  </tr>
+  <tr>
+    <th><code>aws_event_bridge</code></th>
+    <td>Settings: <code>aws_region</code> (required), <code>aws_account_id</code> (required 12-digit string), and <code>include_build_meta_data</code> when available for the organization.</td>
+  </tr>
+  <tr>
+    <th><code>datadog_pipeline_visibility</code></th>
+    <td>Settings: <code>api_key</code> (required), <code>datadog_site</code>, and <code>datadog_tags</code>.</td>
+  </tr>
+  <tr>
+    <th><code>open_telemetry_tracing</code></th>
+    <td>Settings: <code>endpoint</code> (required), <code>service_name</code>, <code>headers</code>, <code>resource_attributes</code>, and <code>tracestate</code> when available for the organization. Map values must be strings.</td>
+  </tr>
+  <tr>
+    <th><code>event_log_api</code></th>
+    <td>Available only when enabled for the organization. Settings: <code>events</code>.</td>
+  </tr>
+</tbody>
+</table>
 
 ## Update a notification service
 
-Updates the supplied fields of a notification service. Omitted fields remain unchanged. The `provider` cannot be changed.
+Updates only the fields in the request. Omitted top-level fields and settings remain unchanged.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/services/{uuid}" \
   -d '{
-    "description": "Production deployment events",
+    "description": "Production deploy notifications",
+    "scope": "some_projects",
+    "scope_uuids": ["16f3b56f-4934-4546-923c-287859851332"],
     "build_states": {
       "build_failed": true,
-      "build_passed": false
+      "build_fixed": true
     }
   }'
 ```
 
-The request accepts the same fields as [Create a notification service](#create-a-notification-service). The API accepts a masked secret from a previous response without replacing the stored secret. OAuth-managed and create-only settings cannot be changed.
+The request accepts the same optional properties as create. If supplied, `provider` must match the existing provider because a service's provider cannot be changed.
 
-Returns the updated notification service.
+Some settings have additional update restrictions:
+
+- Amazon EventBridge `aws_region` and `aws_account_id` are create-only.
+- A webhook can be upgraded to the latest payload `version`, but cannot be downgraded.
+- OAuth credentials and provider-managed metadata cannot be changed.
+- A Slack webhook URL connected using the Buildkite interface cannot be changed.
+
+Resending unchanged restricted or masked values from a get response is allowed, so a get-update round trip does not overwrite secrets.
 
 Required scope: `write_notification_services`
 
 Success response: `200 OK`
 
-Error responses: `404 Not Found` when the notification service is unavailable, or `422 Unprocessable Entity` when a field is invalid or cannot be changed.
+Error responses: `404 Not Found` when the notification service cannot be found, or `422 Unprocessable Entity` when the update is invalid.
 
 ## Delete a notification service
 
@@ -296,32 +360,34 @@ Required scope: `write_notification_services`
 
 Success response: `204 No Content`
 
+Error responses: `404 Not Found` when the notification service cannot be found, or `422 Unprocessable Entity` when Buildkite cannot remove the provider configuration.
+
 ## Enable a notification service
 
-Enables a notification service. If delivery failures automatically disabled the service, enabling it also clears its broken state and associated error message.
+Enables a notification service and clears any previous disabled or broken state. The response contains the updated notification service object.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/services/{uuid}/enable"
 ```
 
-Returns the updated notification service and records an audit event.
-
 Required scope: `write_notification_services`
 
 Success response: `200 OK`
 
+Error response: `404 Not Found` when the notification service cannot be found.
+
 ## Disable a notification service
 
-Disables a notification service and records the user who disabled it.
+Disables a notification service. The response contains the updated notification service object.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/services/{uuid}/disable"
 ```
 
-Returns the updated notification service and records an audit event.
-
 Required scope: `write_notification_services`
 
 Success response: `200 OK`
+
+Error response: `404 Not Found` when the notification service cannot be found.

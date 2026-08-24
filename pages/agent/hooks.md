@@ -39,6 +39,8 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 <p>Any environment variables added, changed, or removed are then exported to the subsequent phases and hooks. Functionally, this is very similar to how <code>source</code> would work, but it's not quite the same. If you're relying on some very specific pieces of shellscripting functionality, you might find that things don't work quite as you expect.</p>
 
 <p>We do this because there's no shared bash environment between two different hooks on the same job. Functionally, each hook runs in its own shell, orchestrated through the agent's Go code. This means that if you set an environment variable in one hook, it wouldn't be available in the next hook without this scriptwrapper process.</p>
+
+<p>Calling <code>exit</code> from a hook ends its process before the scriptwrapper can capture the environment, so any variables exported earlier in the hook are lost, even with <code>exit 0</code>. Use <code>return</code> instead for early exits. See <a href="#job-lifecycle-hooks-creating-job-lifecycle-hooks">Creating job lifecycle hooks</a> for details.</p>
 </details>
 
 ## Hook locations
@@ -215,6 +217,23 @@ set -eu
 echo '--- \:house_with_garden\: Setting up the environment'
 
 export GITHUB_RELEASE_ACCESS_KEY='xxx'
+```
+
+> 🚧 Environment variables exported before exit don't reach later hooks
+> Shell script hooks are sourced (see [What's a hook?](#whats-a-hook) above), so `exit` ends the hook before the agent can capture the environment, even with `exit 0`. Use `return 0` for early exits instead. This doesn't apply to [polyglot hooks](#polyglot-hooks), which use the Job API for environment changes.
+
+For example:
+
+```bash
+#!/bin/bash
+export DEPLOY_TARGET="production"
+
+if [[ -z "${RELEASE_BRANCH:-}" ]]; then
+  echo "Not a release branch, nothing else to do"
+  return 0 # use 'return', not 'exit', to keep DEPLOY_TARGET available to later hooks
+fi
+
+export DEPLOY_TARGET="production"
 ```
 
 ## Job hooks on Windows

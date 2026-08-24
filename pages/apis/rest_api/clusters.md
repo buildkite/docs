@@ -331,7 +331,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-[Request body properties](/docs/api#request-body-properties):
+[Request body properties](/docs/apis/rest-api#request-body-properties):
+
+The `hosted_git_mirror_enabled` and `hosted_container_cache_enabled` fields can only be set when updating a cluster. Cluster creation requests do not apply these fields.
 
 <table class="responsive-table">
 <tbody>
@@ -376,11 +378,11 @@ Error responses:
 <tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td><code>{ "message": "Validation failed: Reason for failure" }</code></td>
+    <td>A hosted-agent cache field is not <code>true</code> or <code>false</code>, a changed cache field targets a non-hosted cluster, or another cluster validation fails.</td>
   </tr>
   <tr>
     <th><code>503 Service Unavailable</code></th>
-    <td>Returned when a change to <code>hosted_git_mirror_enabled</code> could not be synced to the external Namespace installation. The update is rolled back and is safe to retry.</td>
+    <td>A change to <code>hosted_git_mirror_enabled</code> could not be applied by the hosted-agent service. The update is rolled back and is safe to retry.</td>
   </tr>
 </tbody>
 </table>

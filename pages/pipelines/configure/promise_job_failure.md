@@ -6,9 +6,6 @@ Promising job failure removes that wait. A running command job can declare the n
 
 This is useful whenever a job can determine its final result before the rest of its work is done. For example, a test job might know the build must fail after two of 100 tests fail, but you still want the remaining tests to run so engineers and AI agents can see the full set of failures.
 
-> 📘 Private preview
-> This feature is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
-
 ## How it works
 
 When a job declares a promised failure, Buildkite Pipelines records:
@@ -39,7 +36,7 @@ You cannot promise success. Exit status `0` is not valid for a promised failure.
 
 ## Use Buildkite Test Engine Client
 
-If you use [Buildkite Test Engine Client](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client), turn on promised failures by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
+If you use [Buildkite Test Engine Client](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client) v2.9.0 or later, turn on promised failures by setting `BUILDKITE_TEST_ENGINE_PROMISE_FAILURE` to `true`:
 
 ```yaml
 steps:

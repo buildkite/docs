@@ -72,7 +72,9 @@ steps:
 
 ### YAML steps editor
 
-To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipeline Settings page.
+To add steps using the YAML editor, select **Pipeline settings** > **Edit steps** from your pipeline.
+
+For pipelines connected using the full-access **GitHub** repository provider, this editor can also detect the repository's GitHub Actions workflows and let you add them as steps directly. See [Detect workflows automatically](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-detect-workflows-automatically) for details.
 
 Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
@@ -253,7 +255,7 @@ Platform limits are restrictions imposed by Buildkite on usage within your Build
 
 The following platform limits may apply:
 
-- **Job concurrency limits**: A Buildkite organization on the [Personal](https://buildkite.com/pricing/) plan has a total concurrency limit of three jobs that applies across both [Buildkite hosted agents](/docs/agent/buildkite-hosted) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your Buildkite organization, at least [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or reach out to Buildkite support at support@buildkite.com for help.
+- **Job concurrency limits**: A Buildkite organization on the [Personal](https://buildkite.com/pricing/) plan has a total concurrency limit of ten jobs that applies across both [Buildkite hosted agents](/docs/agent/buildkite-hosted) and [self-hosted agents](/docs/pipelines/architecture). When jobs are scheduled beyond this limit, they will be queued using the platform limiting states. To remove or increase this limit for your Buildkite organization, at least [upgrade to the Pro plan](https://buildkite.com/organizations/~/billing/plan_changes/new?plan_id=platform_pro_monthly_plan) or reach out to Buildkite support at support@buildkite.com for help.
 
 ## Example pipeline
 

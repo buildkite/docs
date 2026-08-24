@@ -100,7 +100,11 @@ mutation {
       organizationId: "organization-id"
       id: "cluster-queue-id"
       hostedAgents: {
-        agentImageRef: "my-custom-image:latest"
+        platformSettings: {
+          linux: {
+            agentImageRef: "my-custom-image:latest"
+          }
+        }
       }
     }
   ) {
@@ -113,17 +117,21 @@ mutation {
           vcpu
           memory
         }
-        agentImageRef
+        platformSettings {
+          linux {
+            agentImageRef
+          }
+        }
       }
     }
   }
 }
 ```
 
-The `agentImageRef` value is a URL or reference to a custom image. The image must be publicly available or pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
+The `agentImageRef` value is a URL or reference to a custom image. The image must be publicly available or pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry). Setting it requires access to the custom agent images feature.
 
 > 📘
-> Only one of `agentImageRef` or `platformSettings.linux.agentImageRef` can be provided in a single mutation. Providing both results in a validation error.
+> The `hostedAgents.agentImageRef` input field is deprecated; use `platformSettings.linux.agentImageRef` instead. Only one of the two can be provided in a single mutation, and providing both results in a validation error.
 
 ## Instance shape values for Linux
 

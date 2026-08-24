@@ -37,6 +37,7 @@ Several areas of the application support keyboard shortcuts:
 
 - **Build page**: has dedicated keyboard shortcuts for navigating builds, jumping to failures, and searching steps. See [build page keyboard shortcuts](/docs/pipelines/build-page#keyboard-shortcuts) for the full list.
 - **Job log search**: type `s` to focus the search input, and `Escape` to close it.
+- **Pipelines dashboard search**: type `/` to focus the [pipeline search bar](/docs/pipelines/dashboard-walkthrough#filtering-pipelines).
 - **Dialogs**: type `Escape` to close any open dialog, and focus is trapped within the dialog while it is open.
 - **Dropdowns and autocomplete**: arrow keys navigate options, `Enter` selects, and `Escape` closes.
 

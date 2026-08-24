@@ -212,4 +212,3 @@ Use the token in a curl request:
 ```bash
 curl -H "Authorization: Bearer $(bk auth token)" https://api.buildkite.com/v2/user
 ```
-

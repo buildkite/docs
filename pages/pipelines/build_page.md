@@ -19,7 +19,7 @@ The build page consists of three main components:
 The _sidebar_ provides a hierarchical view of all steps in your build. Here's how to use it:
 
 - Expand/collapse groups by selecting their arrow icons.
-- Group steps by state to see important steps (such as blocked or failed) at the top.
+- By default, steps are displayed in pipeline order. Switch to grouping by state instead to see important steps (such as blocked or failed) at the top. Buildkite Pipelines remembers your choice for future builds.
 - Select any step to view its details.
 - Use the action button (with the curved arrow) or press the `f` key to cycle through failures.
 - Use keyword search to quickly open or focus a step.
@@ -65,6 +65,20 @@ Here's how to use it:
 
 <%= image "build_table.png", alt: "Screenshot showing the build table" %>
 
+### Viewing test results
+
+When a build's pipeline uploads test results to [Test Engine](/docs/test-engine), a **Tests** tab appears in the content area. This is where you see how your tests did for that build — the executions, which ones failed, and the trends across the run, all in one place alongside the rest of the build.
+
+From the **Tests** tab you can:
+
+- See the failing tests in a given build at a glance.
+- Filter test executions to analyze and surface trends across the run.
+- Select **Display** to change the columns shown (for example, average duration) and surface other aggregate data.
+
+By default, executions are grouped by test, so retried tests are shown together. For more detail on what's available here, see [Tests tab on build pages](/docs/test-engine/test-suites#tests-tab-on-build-pages).
+
+<%= image "tests-tab.png", width: 3170/2, height: 1668/2, alt: "Screenshot of the tests tab on the build page" %>
+
 ### Browsing your build on mobile
 
 The build page works fully on all devices. You can use the sidebar to navigate to any step and view its details. On mobile devices, only the **Canvas**, **Table**, and **Waterfall** views are hidden.
@@ -100,11 +114,11 @@ For builds with many steps:
 - Avoid the **Canvas** view on large builds unless you're debugging dependencies between steps.
 - Collapse passed and waiting groups to reduce clutter.
 - Use browser search to quickly find specific steps (search isn't built in yet).
-- Group by state to organize large numbers of steps.
+- Switch to grouping by state to organize large numbers of steps.
 
 ## Best practices
 
-- Keep the sidebar grouped by states and collapse lower priority states such as **Waiting** and **Passed**.
+- For large builds, group the sidebar by state and collapse lower-priority states such as **Waiting** and **Passed**.
 - If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. You can also enable the music mode.
 - Use appropriate views for different tasks:
 

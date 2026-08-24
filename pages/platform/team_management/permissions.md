@@ -54,6 +54,8 @@ A user who is a _team maintainer_ on an existing team can:
 
     * Add another existing user to this team, using the **Add Member** button from the **Members** tab.
 
+    * Filter the **Members** tab list by role, using the role dropdown (**Everyone**, **Team Member**, or **Team Maintainer**) to find members with a specific role.
+
     * Remove a user from this team, by selecting the user's **Remove** button.
 
     * Change the permission for all users in this team on any:

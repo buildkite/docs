@@ -30,6 +30,9 @@ Group, matrix and parallel steps are shown with nested rows underneath a 'parent
 
 <%= image "waterfall-view-parent-row.png", alt: "Image showing an example of a parent row and its children in a waterfall chart" %>
 
+> 📘 Build size limits
+> Waterfall view is available for builds with up to 3,000 jobs and up to 1,800 steps. Builds that exceed either limit will not render the waterfall chart.
+
 > 📘 Build time discrepancies in the waterfall view
 > Although canceled jobs appear as a blank line in the waterfall view, their duration still contributes to the total build time. For example, if a job ran for 20 minutes and was then canceled, that job will appear as a blank line in the waterfall view, but contributes 20 minutes to the total build time.
 

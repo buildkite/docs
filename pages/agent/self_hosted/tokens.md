@@ -329,9 +329,19 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 
 ### Job tokens
 
-Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
+Job tokens are internal agent access tokens generated when each job starts. They expire when the job finishes. The job receives its token through the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`. The Buildkite agent uses the token to manage the job's lifecycle in the Buildkite control plane. CLI commands, including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline), also use the token for authorization.
 
-You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further scope the lifetime of job tokens.
+You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further limit a job token's lifetime.
+
+In most cases, job tokens can only be used to perform operations on the job they refer to. For example, you couldn't use a job token to issue an OIDC token pretending to be another job, or to emit logs to another job.
+
+That said, certain operations can be used for cross-job and cross-build coordination. Job tokens are, by default, permitted to perform the following operations on any job in the same cluster:
+
+- Create, read, and update metadata
+- Create, update, and remove annotations
+- Upload and download artifacts
+
+At present, job tokens can create (push) metadata, annotations, and artifacts to other jobs. However, where possible, we recommend pulling data from other jobs rather than pushing data to them. Buildkite may further restrict job token permissions in the future by allowing only read access to other jobs' data.
 
 ### Token exchange process
 

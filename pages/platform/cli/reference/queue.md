@@ -342,4 +342,3 @@ Output the resumed queue as JSON:
 ```bash
 bk queue resume my-cluster-uuid my-queue-uuid -o json
 ```
-

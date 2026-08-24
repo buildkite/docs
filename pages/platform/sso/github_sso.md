@@ -2,10 +2,12 @@
 
 You can use GitHub as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both the Buildkite organization and your GitHub organization.
 
+> 🚧 GitHub SSO works with GitHub.com only
+> This provider always authenticates against GitHub.com. This provider can't be used with GitHub Enterprise Server or with GitHub Enterprise Cloud with data residency, where your organization is hosted at `your-tenant.ghe.com`. For either deployment, set up [Custom SAML](/docs/platform/sso/custom-saml) instead. Custom SAML is available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
 ## Step 1. Link your Buildkite organization to your GitHub organization
 
-Set up the [Buildkite GitHub Application](https://github.com/apps/buildkite) for your GitHub organization. You need to install Buildkite for the GitHub organization that you want to connect to Buildkite as an SSO provider.
+GitHub SSO uses the _Buildkite (Limited Access)_ GitHub App to verify your organization membership. This app must be installed on your GitHub organization for SSO to work. Set up the [Buildkite (Limited Access) GitHub App](https://github.com/apps/buildkite-limited-access), and make sure you install it on the GitHub _organization_ you want to connect as an SSO provider, not on a personal GitHub user account.
 
 In your [Buildkite organization **Settings**](https://buildkite.com/organizations/~/settings)' **Repository Providers** menu item, connect your GitHub user account to Buildkite. Grant Buildkite the permission to verify your GitHub identity.
 
@@ -33,4 +35,3 @@ Sending the sign-in link by email is an additional security and privacy measure,
 ## SAML user attributes
 
 <%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
-

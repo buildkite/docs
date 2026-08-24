@@ -104,6 +104,10 @@ When editing pages with ERB, preserve the template logic.
 
 ## Important rules
 
+- Do NOT run `git add`, `git commit`, `git push`, or any other git write operations.
+  Only edit files. The CI pipeline handles all git operations after you finish.
+  If you commit or push, the pipeline will fail to detect your changes and no PR
+  will be created.
 - Do NOT fabricate documentation. Every claim must be supported by the PR diff, description,
   or comments.
 - If the PR description is unclear about user-facing behavior, document what you can

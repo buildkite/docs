@@ -58,6 +58,9 @@ The ephemeral nature of Buildkite hosted agents' virtualized environments also o
 
 - Short-lived hosted agents mitigate the window of opportunity for attackers to compromise the build environment, and any data generated or used during job execution, such as secrets or credentials, are destroyed after job completion or failure.
 
+> 📘 Signed pipelines
+> [Signed pipeline validation](/docs/agent/self-hosted/security/signed-pipelines) is not supported for Buildkite hosted agents.
+
 ## Getting started with Buildkite hosted agents
 
 Buildkite offers both [Linux](/docs/agent/buildkite-hosted/linux) and [macOS](/docs/agent/buildkite-hosted/macos) hosted agents, whose respective pages explain how to start setting them up.
@@ -66,7 +69,7 @@ Buildkite hosted agent services support both public and private repositories. Le
 
 If you need to migrate your existing Buildkite pipelines from using Buildkite agents in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration) for details.
 
-When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/agent/buildkite-hosted/terminal-access).
+When a Buildkite hosted agent machine is running during a pipeline build, you can use [terminal access](/docs/agent/buildkite-hosted/terminal-access) to open an interactive shell. Running macOS hosted jobs also support browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access).
 
 Last, learn more about how to secure your network when using Buildkite hosted agents in [Network security](/docs/agent/buildkite-hosted/network-security).
 

@@ -212,4 +212,3 @@ Delete a secret without confirmation:
 ```bash
 bk secret delete --cluster-uuid my-cluster-uuid --secret-id my-secret-id --yes
 ```
-

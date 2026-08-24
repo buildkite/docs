@@ -220,7 +220,7 @@ Be aware that pipeline triggers have the following limitations:
 - Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
 - A pipeline trigger's webhook cannot be restricted by IP address.
 - A pipeline trigger's JSON payload is limited to a maximum size of 5MB.
-- Trigger URL endpoints have a request limit of 300 requests per hour. This limit is shared across all pipeline triggers for an organization.
+- Trigger URL endpoints have a request limit of 300 requests per hour. This limit is shared across all pipeline triggers for an organization. To request a higher limit for your Buildkite organization, contact support@buildkite.com.
 - Webhook metadata payload retrieval is rate limited to 10 requests per minute per build.
 - Each pipeline is limited to 10 configurable triggers.
 
