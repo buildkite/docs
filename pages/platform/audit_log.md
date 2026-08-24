@@ -38,8 +38,8 @@ The **Events** tab has a search bar to filter events by type, pipeline, actor, a
 - Use `-pipeline:PIPELINE_SLUG` to exclude the events for a specific pipeline. For example: `-pipeline:my-app`.
 - Use `actor:EMAIL_OR_UUID` to only return events performed by a specific user. For example: `actor:sam@example.com`. You can use a user UUID in place of an email address.
 - Use `-actor:EMAIL_OR_UUID` to exclude the events performed by a specific user. For example: `-actor:sam@example.com`.
-- Use `subject:SUBJECT_TYPE` to only return events performed on a specific kind of record. For example: `subject:CLUSTER`. Subject type values are matched case-insensitively.
-- Use `-subject:SUBJECT_TYPE` to exclude events performed on a specific kind of record. For example: `-subject:SECRET`.
+- Use `subject:SUBJECT_TYPE` to only return events about a specific kind of record. For example: `subject:CLUSTER`. Subject type values are matched case-insensitively.
+- Use `-subject:SUBJECT_TYPE` to exclude the events about a specific kind of record. For example: `-subject:SECRET`.
 - Combine multiple space-separated terms to narrow a search. Repeating `type:`, `pipeline:`, `actor:`, or `subject:` uses `OR` logic, matching any of the values given, while negative terms use `AND-NOT` logic, excluding all of them. Terms with different keys (for example, a `type:` term and a `pipeline:` term) together return only the events matching both.
 
 For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns events where the type is either `TEAM_CREATED` or `TEAM_DELETED`, but not `TEAM_UPDATED`. The query `type:PIPELINE_UPDATED pipeline:my-app` returns only the configuration changes made to the `my-app` pipeline.
@@ -48,7 +48,7 @@ A `pipeline:` term matches the events that the pipeline is the subject of, so ev
 
 An `actor:` term matches user actors only. Events performed by an agent or an API application are not matched or excluded by an `actor:` term. An email address matches against current and removed members of the organization, so you can still search for events performed by someone who has since lost access. A user UUID is matched as given, without checking that it belongs to a member of the organization. An unrecognized UUID returns no events rather than an error.
 
-A `subject:` term is the same filter one step broader than `pipeline:`: it names a kind of record rather than an individual one, so `subject:PIPELINE` covers every pipeline the way `pipeline:my-app` covers one. Subject type values match the [`AuditSubjectType`](/docs/apis/graphql/schemas/enum/auditsubjecttype) GraphQL enum, for example `CLUSTER`, `PIPELINE`, or `SCM_SERVICE`.
+A `subject:` term works like `pipeline:`, but matches a kind of record rather than an individual one. Where `pipeline:my-app` returns events for a single pipeline, `subject:PIPELINE` returns events for all of them. Subject type values match the [`AuditSubjectType`](/docs/apis/graphql/schemas/enum/auditsubjecttype) GraphQL enum, for example `CLUSTER`, `PIPELINE`, or `SCM_SERVICE`.
 
 The search has the following constraints:
 
@@ -66,9 +66,9 @@ An `actor:` or `-actor:` email address that doesn't match a member of the organi
 
 If a `subject:` or `-subject:` value doesn't match a known subject type, the search returns an error instead of any results. When the value is close to a valid subject type, the error names the closest match. For example, `subject:CLUSTR` returns the error `Unknown subject type "CLUSTR". Did you mean CLUSTER?`.
 
-To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
+To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Selecting a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
 
-To discover available subject type names, select **Browse available subjects** below the search bar. Clicking a subject inserts it into the search field.
+To discover available subject type names, select **Browse available subjects** below the search bar. Selecting a subject inserts it into the search field.
 
 ## Logged events
 
