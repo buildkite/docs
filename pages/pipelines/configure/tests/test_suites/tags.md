@@ -38,7 +38,7 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
     <tr>
       <td><code>ci.worker.id</code></td>
       <td>
-        Filtering and aggregating based on the Buildkite agent that ran the test, to identify failures concentrated on a specific (broken) agent. Currently added automatically by the <a href="/docs/pipelines/configure/tests/test-collection/ruby-collectors">Ruby</a>, <a href="/docs/pipelines/configure/tests/test-collection/python-collectors">Python</a>, and <a href="/docs/pipelines/configure/tests/test-collection/javascript-collectors">JavaScript</a> collectors, and the <a href="https://github.com/buildkite-plugins/test-collector-buildkite-plugin">Test Collector plugin</a>.
+        Filtering and aggregating based on the Buildkite agent that ran the test, to identify failures concentrated on a specific (broken) agent. Currently added automatically by the <a href="/docs/pipelines/configure/tests/test-collection/ruby-collectors">Ruby</a>, <a href="/docs/pipelines/configure/tests/test-collection/python-collectors">Python</a>, and <a href="/docs/pipelines/configure/tests/test-collection/javascript-collectors">JavaScript</a> collectors, and the <a href="https://github.com/buildkite-plugins/test-collector-buildkite-plugin">Test Collector plugin</a>. Requires the <code>BUILDKITE_AGENT_ID</code> environment variable — if your test collector runs inside a <a href="/docs/pipelines/configure/tests/test-collection/ci-environments#containers-and-test-collectors">container</a>, make sure it's forwarded through.
       </td>
     </tr>
     <tr>
