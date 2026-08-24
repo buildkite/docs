@@ -412,7 +412,7 @@ steps:
 
 The `origin_check` attribute supports the following options:
 
-- `key`: A stable identifier for the logical check. This attribute is required. Use a unique key for each independent check, including across dynamic pipeline uploads. Runs that share a key are treated as attempts of the same check, and Cursor shows only the newest run.
+- `key`: A stable identifier for the logical check. This attribute is required. Use a unique key for each independent check, including across [dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines). Runs that share a key are treated as attempts of the same check, and Cursor shows only the newest run.
 
 - `name`: Display name for the check run. Defaults to the step's label or key.
 
