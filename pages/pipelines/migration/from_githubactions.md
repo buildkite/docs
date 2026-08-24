@@ -460,6 +460,7 @@ Buildkite Pipelines natively supports:
 - `push` (branches)
 - `pull_request`
 - `issue_comment` (comments on pull requests)
+- `issues` (issue activity, private preview)
 - `tag` (using "Build tags" setting)
 - `schedule` (cron)
 
@@ -470,13 +471,14 @@ These are configured in the Buildkite UI under Pipeline Settings, not in the YAM
 | `push` | UI → Pipeline Settings → GitHub |
 | `pull_request` | UI → Pipeline Settings → GitHub |
 | `issue_comment` | UI → Pipeline Settings → GitHub → Additional Webhooks |
+| `issues` | UI → Pipeline Settings → GitHub → Additional Webhooks |
 | `schedule` | UI → Pipeline Settings → Schedules |
 | `workflow_dispatch` | `input` step + "New Build" button/API |
 | `release` / `create` (tags) | UI → Build tags setting |
 
-For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
+For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events). For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-issue-activity).
 
-For triggers not natively supported by Buildkite Pipelines (`issues`, `workflow_run`, etc.), you can:
+For triggers not natively supported by Buildkite Pipelines (`workflow_run`, `discussion`, etc.), you can:
 
 1. **Keep in GitHub Actions:** Best for GitHub-specific automation.
 2. **Configure webhook:** Set up an endpoint to call the Buildkite API.
