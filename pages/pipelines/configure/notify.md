@@ -380,7 +380,7 @@ Create a check on [Cursor Origin](https://cursor.com) to provide live status upd
 > Origin check notifications are being rolled out to Buildkite organizations. If they're not yet available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 > Origin notifications also require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
-Add an Origin check notification to your pipeline using the `origin_check` attribute of the `notify` YAML block:
+Add an Origin check notification to your pipeline using the `origin_check` attribute of the `notify` YAML map:
 
 ```yaml
 steps:
@@ -416,7 +416,7 @@ The `origin_check` attribute supports the following options:
 
 - `name`: Display name for the check run. Defaults to the step's label or key.
 
-- `output`: An object containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), and `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes). If you don't provide output, Buildkite generates a title and summary based on the step's current status.
+- `output`: A map containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), and `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes). If you don't provide output, Buildkite generates a title and summary based on the step's current status.
 
 ### Dynamic Origin check updates
 
@@ -438,9 +438,9 @@ Only the `output.title`, `output.summary`, and `output.text` attributes can be u
 
 ### Origin check status and retries
 
-Origin checks track a step's status throughout its lifecycle, for example, showing the check as queued while the step waits to start, in progress while it runs, and completed with a conclusion of success, failure, cancelled, skipped, or neutral once it finishes.
+Origin checks track a step's status throughout its lifecycle. For example, a check appears as queued while the step waits to start, in progress while it runs, and completed with a conclusion of success, failure, cancelled, skipped, or neutral once it finishes.
 
-If a step automatically retries, Cursor continues to update the same check run. If a step is manually retried, the retry gets its own run identity, job link, and start time, but keeps the same logical check, so Cursor still shows only the newest run under the check's `key`.
+If a step automatically retries, Cursor continues to update the same check run. A manual retry gets its own run identity, job link, and start time, but keeps the same logical check. Cursor shows only the newest run under the check's `key`.
 
 ## PagerDuty change events
 
