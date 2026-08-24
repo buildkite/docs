@@ -282,7 +282,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-For a Linux hosted job, `transport` is `tcp`, and `ssh.host_keys` contains one or more SSH host public keys. Verify the job's host against these keys before completing the SSH handshake. For a macOS hosted job, `transport` remains `namespace_ingress` and `ssh.host_keys` is always an empty array, because host verification happens as part of the ingress connection.
+For a Linux hosted job, `transport` is `tcp`, and `ssh.host_keys` contains one or more SSH host public keys. Verify the job's host against these keys before completing the SSH handshake. For a macOS hosted job, `transport` remains `namespace_ingress` and `ssh.host_keys` is always an empty array. Host verification happens as part of the ingress connection.
 
 The response includes the `Cache-Control: no-store` header.
 
