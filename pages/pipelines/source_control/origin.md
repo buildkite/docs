@@ -148,8 +148,6 @@ The check shows information relevant to the build state:
 
 Checks show up to 50 failed jobs, listing hard failures before soft failures. Checks with more than 50 failed jobs link to the full list in Buildkite.
 
-Buildkite Pipelines records build state and timing when the state changes. A delayed check update reports the state and job results for the attempt it describes, even if the build has since been retried.
-
 ### Configure required checks
 
 Origin identifies required checks by the installed app and the keys of the check suite and check run. Display names are not used for matching.
