@@ -147,9 +147,19 @@ Use a [conditional expression](/docs/pipelines/configure/conditionals#conditiona
 
 ## Publish checks to Origin
 
-**Update commit statuses** publishes Buildkite Pipelines build results to Origin. This setting is enabled by default.
+Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. The check contains relevant build information and updates as the build progresses.
 
-Despite the setting name, the integration uses the Origin Checks API rather than commit statuses. Buildkite Pipelines creates a check run when a build is created. It updates the same check run as the build starts, finishes, fails, or is skipped.
+When **Update commit statuses** is enabled, Buildkite Pipelines publishes a check to Origin for each build. This setting is enabled by default.
+
+The check shows information relevant to the build state:
+
+* Scheduled and running builds link to the build in Buildkite.
+* Passed builds show the job count and run time.
+* Failing and failed builds show failed jobs, exit results, job count, and run time.
+* Canceled builds show the cancellation reason, when known.
+* Blocked builds link to Buildkite so you can unblock them.
+
+Checks show up to 50 failed jobs, listing hard failures before soft failures. Checks with more than 50 failed jobs link to the full list in Buildkite.
 
 ### Configure required checks
 
