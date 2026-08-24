@@ -30,13 +30,25 @@ The following GraphQL `Audit Event` types are available and you can find more de
 
 ## Search events
 
-The **Events** tab has a search bar to filter events by type. The search supports the following syntax:
+The **Events** tab has a search bar to filter events by type, pipeline, actor, and subject. The search supports the following syntax:
 
-- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`.
+- Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`. Event type values are matched case-insensitively.
 - Use `-type:EVENT_TYPE` to exclude events of a specific type. For example: `-type:SECRET_READ`.
-- Combine multiple space-separated terms to search for more than one event type. Positive `type:` filters use `OR` logic, matching any of the specified types. Negative `-type:` filters use `AND-NOT` logic, excluding all specified types.
+- Use `pipeline:PIPELINE_SLUG` to only return events for a specific pipeline. For example: `pipeline:my-app`. You can use a pipeline UUID in place of its slug.
+- Use `-pipeline:PIPELINE_SLUG` to exclude the events for a specific pipeline. For example: `-pipeline:my-app`.
+- Use `actor:EMAIL_OR_UUID` to only return events performed by a specific user. For example: `actor:sam@example.com`. You can use a user UUID in place of an email address.
+- Use `-actor:EMAIL_OR_UUID` to exclude the events performed by a specific user. For example: `-actor:sam@example.com`.
+- Use `subject:SUBJECT_TYPE` to only return events about a specific kind of record. For example: `subject:CLUSTER`. Subject type values are matched case-insensitively.
+- Use `-subject:SUBJECT_TYPE` to exclude the events about a specific kind of record. For example: `-subject:SECRET`.
+- Combine multiple space-separated terms to narrow a search. Repeating `type:`, `pipeline:`, `actor:`, or `subject:` uses `OR` logic, matching any of the values given, while negative terms use `AND-NOT` logic, excluding all of them. Terms with different keys (for example, a `type:` term and a `pipeline:` term) together return only the events matching both.
 
-For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns events where the type is either `TEAM_CREATED` or `TEAM_DELETED`, but not `TEAM_UPDATED`.
+For example, `type:TEAM_CREATED type:TEAM_DELETED -type:TEAM_UPDATED` returns events where the type is either `TEAM_CREATED` or `TEAM_DELETED`, but not `TEAM_UPDATED`. The query `type:PIPELINE_UPDATED pipeline:my-app` returns only the configuration changes made to the `my-app` pipeline.
+
+A `pipeline:` term matches the events that the pipeline is the subject of, so events about something belonging to it, such as one of its schedules, aren't included. The slug of a deleted pipeline still resolves, which is how you find the event recording the deletion. Where more than one pipeline has used the same slug, the search returns the events of the pipeline using it now, or of the last pipeline to use it.
+
+An `actor:` term matches user actors only. Events performed by an agent or an API application are not matched or excluded by an `actor:` term. An email address matches against current and removed members of the organization, so you can still search for events performed by someone who has since lost access. A user UUID is matched as given, without checking that it belongs to a member of the organization. An unrecognized UUID returns no events rather than an error.
+
+A `subject:` term works like `pipeline:`, but matches a kind of record rather than an individual one. Where `pipeline:my-app` returns events for a single pipeline, `subject:PIPELINE` returns events for all of them. Subject type values match the [`AuditSubjectType`](/docs/apis/graphql/schemas/enum/auditsubjecttype) GraphQL enum, for example `CLUSTER`, `PIPELINE`, or `SCM_SERVICE`.
 
 The search has the following constraints:
 
@@ -44,7 +56,19 @@ The search has the following constraints:
 - Maximum of 250 characters for the query string
 - Only events from the last 90 days are returned
 
-To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Clicking a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
+Buildkite returns an error instead of results when it cannot understand a search query. This happens when the query contains free text, an unsupported term, or a term with no value.
+
+If a `type:` or `-type:` value doesn't match a known event type, the search returns an error instead of any results. When the value is close to a valid event type, the error names the closest match. For example, `type:PIPLINE_UPDATED` returns the error `Unknown event type "PIPLINE_UPDATED". Did you mean PIPELINE_UPDATED?`.
+
+A `pipeline:` or `-pipeline:` value that doesn't match a pipeline in the Buildkite organization returns the error `Unknown pipeline "my-app"`, with no results returned.
+
+An `actor:` or `-actor:` email address that doesn't match a member of the organization returns the error `Unknown user "sam@example.com"` and no results. An `actor:` term with a user UUID that doesn't match any actor in the organization's events returns no results and no error. A `-actor:` term with that UUID excludes no events.
+
+If a `subject:` or `-subject:` value doesn't match a known subject type, the search returns an error instead of any results. When the value is close to a valid subject type, the error names the closest match. For example, `subject:CLUSTR` returns the error `Unknown subject type "CLUSTR". Did you mean CLUSTER?`.
+
+To discover available event type names, select **Browse available event types** below the search bar. Types are grouped by category. Selecting a type inserts it into the search field. The full list of event types is also available in [Logged events](#logged-events) below.
+
+To discover available subject type names, select **Browse available subjects** below the search bar. Selecting a subject inserts it into the search field.
 
 ## Logged events
 
@@ -152,7 +176,11 @@ PIPELINE_TEMPLATE_DELETED
 PIPELINE_TEMPLATE_UPDATED
 
 PIPELINE_VISIBILITY_CHANGED
+
+JOB_TERMINAL_SESSION_STARTED
 ```
+
+`JOB_TERMINAL_SESSION_STARTED` records SSH and VNC access to a running job from the Buildkite interface or Buildkite CLI.
 
 ### Team management
 

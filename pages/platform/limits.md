@@ -188,7 +188,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Build retention",
         description: "The time period builds are stored in Buildkite after running.",
-        default_value: "90 days on the Personal and Pro plans, 365 days on the Enterprise plan"
+        default_value: "30 days on the Personal plan, 90 days on the Pro plan, and 365 days on the Enterprise plan"
       },
       {
         title: "Teams per block step",
@@ -325,9 +325,9 @@ The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkit
 
 | Limit type | Trial | Personal | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
-| **Linux concurrency** | 10 | 3 | 20 | Custom |
+| **Linux concurrency** | 10 | 10 | 20 | Custom |
 | **macOS concurrency** | 3 | - | 5 | Custom |
-| **Linux minutes, per month** | 2,000 | 550 | usage-based | usage-based |
+| **Linux AMD64 vCPU minutes, per month** | 4,000 | 2,000 | usage-based | usage-based |
 | **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
 | **Container cache volume** | 50 GB | 50 GB | 50 GB | 50 GB |
 | **Git mirror volume** | 5 GB | 5 GB | 5 GB | 5 GB |
@@ -348,7 +348,7 @@ The following table lists the default service limits for [Test Engine](/docs/pip
       {
         title: "Test Engine workflows per suite",
         description: "The maximum number of Test Engine workflows per suite.",
-        default_value: "1 workflow on the Personal plan, 3 workflows on the Pro and Enterprise plans"
+        default_value: "Not available on the Personal plan, 3 workflows on the Pro and Enterprise plans"
       },
       {
         title: "Test Engine workflow events per minute",
