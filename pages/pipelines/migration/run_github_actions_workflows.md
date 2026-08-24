@@ -308,7 +308,7 @@ You may need to update a workflow before you can run it during the preview:
 See the [`buildkite-gha` v0.30.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.30.0/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
 > 🚧 Treat workflow code as build code
-> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions and containers provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` v0.29.0 security model](https://github.com/buildkite/buildkite-gha/blob/v0.29.0/docs/security.md) for the complete trust boundaries.
+> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions and containers provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, and a clean machine for each untrusted job. Review the [`buildkite-gha` v0.30.0 security model](https://github.com/buildkite/buildkite-gha/blob/v0.30.0/docs/security.md) for the complete trust boundaries.
 
 ### Concurrency
 
