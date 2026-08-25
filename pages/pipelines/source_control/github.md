@@ -394,7 +394,7 @@ To use this feature, two things need to be in place:
 1. Your organization has the feature enabled by Buildkite support.
 1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization, and only for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
 
-Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository. Changing the pipeline's repository automatically turns this setting off again.
+Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository. Changing the pipeline's repository preserves this setting, so review it after a repository change.
 
 ### Request a token
 
@@ -431,7 +431,7 @@ The selected workflow file isn't bound to a GitHub Actions job or trigger. Any e
 
 A requested permission is only granted when it's allowed by all of the following:
 
-- The workflow file's top-level `permissions` map. This must be an explicit, non-empty map of static permission names and access levels (`read`, `write`, or `none`). The `read-all` and `write-all` shorthand values, expressions (for example, `${{ ... }}`), job-level permission overrides, and reusable workflow permission inheritance aren't supported, and cause the request to be denied.
+- The selected workflow file's top-level `permissions` policy. If the file omits this map, the policy defaults to `contents: read`. The `read-all` shorthand expands to every supported read permission. An explicit map must be non-empty and contain static permission names and access levels (`read`, `write`, or `none`). The `write-all` shorthand and expressions (for example, `${{ ... }}`) cause the request to be denied. Job-level permissions and reusable workflow `uses` declarations don't affect the selected file's policy.
 - Buildkite's own allowlist of permissions that can be requested this way.
 - The permissions granted to the Buildkite GitHub App installation for the repository.
 
