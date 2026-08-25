@@ -23,7 +23,7 @@ Jobs running on [Buildkite hosted agents](/docs/agent/buildkite-hosted) receive 
 
 ### Self-hosted agents
 
-For [self-hosted agents](/docs/agent/self-hosted), provide an Amazon S3 or S3-compatible cache store URL using the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. The Buildkite agent uses ambient AWS credentials to access the bucket. Grant the agent runtime read and write access to the cache store using an instance role, workload identity, or temporary credentials such as [Buildkite OIDC with AWS](/docs/pipelines/security/oidc/aws).
+For [self-hosted agents](/docs/agent/self-hosted), provide an Amazon S3 or S3-compatible cache store URL using the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. Configure the same store for every agent that uses the registry. The Buildkite agent uses ambient AWS credentials to access the bucket. Grant the agent runtime read and write access to the cache store using an instance role, workload identity, or temporary credentials such as [Buildkite OIDC with AWS](/docs/pipelines/security/oidc/aws).
 
 The following pipeline-level environment variable configures an S3 bucket and optional prefix in `us-west-2`:
 
@@ -184,7 +184,7 @@ rules:
 
 Available scope dimensions are `branch`, `build`, and `pipeline`. Restore scopes are searched in order. The `$current` value resolves from the authenticated job.
 
-Rules are evaluated from top to bottom, and the first rule that matches the requested action and optional `when` condition determines access. If no rule matches, access is denied. Conditions use CEL expressions and can inspect verified job claims and cache entry scopes.
+Rules are evaluated from top to bottom, and the first rule that matches the requested action and optional `when` condition determines access. If no rule matches, access is denied. Conditions use [Common Expression Language (CEL)](https://cel.dev/) expressions and can inspect verified job claims and cache entry scopes.
 
 > 🚧 Protect caches from untrusted builds
 > Configure registry scopes and rules before sharing a registry with untrusted builds. Don't cache secrets, credentials, or untrusted executable output.
