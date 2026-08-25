@@ -44,6 +44,74 @@ A queue migration associates a queue key with a specific destination [queue](/do
   </tbody>
 </table>
 
+## List queue migrations
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of queue migrations. Organization administrators can view all queue migrations in the organization. Cluster maintainers can view migrations whose destination queues belong to clusters they maintain.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations"
+```
+
+```json
+{
+  "items": [
+    {
+      "id": "0198f47a-9c1a-7db2-93aa-2b6f6a2e9d41",
+      "source": {
+        "queue_key": "default"
+      },
+      "destination": {
+        "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+        "queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
+        "queue_key": "default"
+      },
+      "routed_percent": 70,
+      "created_at": "2026-08-07T04:17:55.867Z",
+      "updated_at": "2026-08-07T05:02:11.221Z"
+    }
+  ]
+}
+```
+
+Required scope: `read_clusters`
+
+Required permission: organization administrator privileges or cluster maintainer permissions for at least one cluster
+
+Success response: `200 OK`
+
+## Get a queue migration
+
+Organization administrators can retrieve any queue migration in the organization. Cluster maintainers can retrieve a migration if its destination queue belongs to a cluster they maintain.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations/{migration.id}"
+```
+
+```json
+{
+  "id": "0198f47a-9c1a-7db2-93aa-2b6f6a2e9d41",
+  "source": {
+    "queue_key": "default"
+  },
+  "destination": {
+    "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "queue_key": "default"
+  },
+  "routed_percent": 70,
+  "created_at": "2026-08-07T04:17:55.867Z",
+  "updated_at": "2026-08-07T05:02:11.221Z"
+}
+```
+
+Required scope: `read_clusters`
+
+Required permission: organization administrator privileges or cluster maintainer permissions for the destination cluster
+
+Success response: `200 OK`
+
 ## Create a queue migration
 
 ```bash
@@ -87,12 +155,18 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_clusters`
 
+Required permissions: organization administrator privileges (the `change_organization` permission) and permission to manage the destination cluster
+
 Success response: `201 Created`
 
 Error responses:
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the required scope, or the user lacks organization administrator privileges or permission to manage the destination cluster.</td>
+  </tr>
   <tr>
     <th><code>404 Not Found</code></th>
     <td><code>{ "message": "No cluster found" }</code> if <code>cluster_id</code> doesn't resolve to a cluster in your organization, or <code>{ "message": "No cluster queue found" }</code> if <code>queue_key</code> doesn't resolve to a queue in that cluster</td>
