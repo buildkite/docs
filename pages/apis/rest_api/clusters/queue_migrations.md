@@ -46,7 +46,7 @@ A queue migration associates a queue key with a specific destination [queue](/do
 
 ## List queue migrations
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of queue migrations. Organization administrators can view all queue migrations in the organization. Cluster maintainers can view migrations whose destination queues belong to clusters they maintain.
+Returns a cursor-paginated list of queue migrations. Organization administrators can view all queue migrations in the organization. Cluster maintainers can view migrations whose destination queues belong to clusters they maintain.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -70,15 +70,54 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2026-08-07T04:17:55.867Z",
       "updated_at": "2026-08-07T05:02:11.221Z"
     }
-  ]
+  ],
+  "links": {
+    "self": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations?per_page=30",
+    "next": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations?per_page=30&after=eyJ1dWlkIjoiLi4uIn0"
+  }
 }
 ```
+
+The response body contains the following pagination fields:
+
+- `items`: The queue migrations on the current page.
+- `links`: URLs for the current page and available `first`, `prev`, and `next` pages. Follow these URLs instead of constructing cursors. The response also includes these links in the HTTP `Link` header.
+
+Optional query string parameters:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>after</code></th>
+    <td>Returns the next page after the supplied cursor. Cannot be combined with <code>before</code>.</td>
+  </tr>
+  <tr>
+    <th><code>before</code></th>
+    <td>Returns the previous page before the supplied cursor. Cannot be combined with <code>after</code>.</td>
+  </tr>
+  <tr>
+    <th><code>per_page</code></th>
+    <td>Number of results per page. Defaults to <code>30</code> and has a maximum of <code>100</code>.</td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `read_clusters`
 
 Required permission: organization administrator privileges or cluster maintainer permissions for at least one cluster
 
 Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td>The request supplies both cursor parameters, an invalid cursor, or a <code>per_page</code> value outside the supported range.</td>
+  </tr>
+</tbody>
+</table>
 
 ## Get a queue migration
 
