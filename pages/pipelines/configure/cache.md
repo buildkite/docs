@@ -15,7 +15,7 @@ Use Buildkite Cache for data that can be regenerated, such as package manager do
 
 When the preview is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
 
-Your jobs must run on clustered agents with Buildkite agent version 3.111.0 or later.
+Your jobs must run on clustered agents with Buildkite agent version 3.136.3 or later.
 
 ### Buildkite hosted agents
 
@@ -41,7 +41,7 @@ Set `region` to the bucket's region. If you omit it, the agent uses `us-east-1`.
 
 Configure your storage provider to expire cache objects. For Amazon S3, add a lifecycle rule scoped to the cache object prefix (`buildkite` in the example) that expires current object versions three days after their last modification. Also configure cleanup for incomplete multipart uploads and, if bucket versioning is enabled, noncurrent object versions. Configure an equivalent expiration policy for an S3-compatible store.
 
-Buildkite expires cache registry metadata after three days but can't delete objects from your agent-managed store. Exact restores refresh an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. The storage lifecycle rule removes objects that are no longer used.
+Buildkite expires cache registry metadata after three days but can't delete objects from your agent-managed store. Successful restores, including fallback restores, refresh an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. The storage lifecycle rule removes objects that are no longer used.
 
 ## Define and use a cache
 
@@ -91,7 +91,7 @@ Each key part can use one of the following sources:
 - **Literal string**: Adds a fixed value, such as `npm` or a cache format version.
 - `agent`: Adds `os`, `arch`, `branch`, `pipeline`, or `step`. A step uses the step key when one is configured, or the step ID otherwise.
 - `env`: Adds the value of an environment variable. The variable must resolve to a non-empty value. Otherwise, the cache command fails.
-- `checksum`: Adds a SHA-256 checksum of one file, or a combined checksum of an array of files and [glob patterns](/docs/pipelines/configure/glob-pattern-syntax). Paths and patterns are relative to the job working directory.
+- `checksum`: Adds a SHA-256 checksum of one file, or a combined checksum of an array of files and [glob patterns](/docs/pipelines/configure/glob-pattern-syntax). Paths and patterns are relative to the job working directory. Unlike general Buildkite glob patterns, checksum paths and patterns don't expand `~` to the agent user's home directory.
 
 All literal checksum files must exist. An array can contain unmatched glob patterns when at least one other pattern matches. Buildkite Cache sorts and deduplicates matched paths before calculating the checksum, so pattern order doesn't affect the result.
 
