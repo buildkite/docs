@@ -25,7 +25,7 @@ Jobs running on [Buildkite hosted agents](/docs/agent/buildkite-hosted) receive 
 
 For [self-hosted agents](/docs/agent/self-hosted), provide an Amazon S3 or S3-compatible cache store URL using the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. Configure the same store for every agent that uses the registry. The Buildkite agent uses ambient AWS credentials to access the bucket. Grant the agent runtime read and write access to the cache store using an instance role, workload identity, or temporary credentials such as [Buildkite OIDC with AWS](/docs/pipelines/security/oidc/aws).
 
-The following pipeline-level environment variable configures an S3 bucket and optional prefix in `us-west-2`:
+The following pipeline-level environment variable configures an S3 bucket in `us-west-2`, using `buildkite` as an optional object key prefix:
 
 ```yaml
 env:
@@ -37,7 +37,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also set the store URL using `--cache-store-url`.
+Set `region` to the bucket's region. If you omit it, the agent uses `us-east-1`. You can also set the store URL using `--cache-store-url`.
 
 ## Define and use a cache
 
