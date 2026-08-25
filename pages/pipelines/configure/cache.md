@@ -107,7 +107,7 @@ Target paths use the following anchors:
 
 - **Relative paths**: Resolve from the job working directory.
 - **Home-relative paths**: Start with `~/` and resolve from the home directory of the user running the agent.
-- **Absolute paths**: Restore to the same absolute location.
+- **Absolute paths**: Must be within the home directory of the user running the agent and restore to the same absolute location. In containers, the home directory is usually `/root`. Paths outside the user's home directory are rejected.
 
 When a cache entry is restored, Buildkite Cache removes each existing target before extracting the cached data. Restoration replaces the target instead of merging with its contents.
 
