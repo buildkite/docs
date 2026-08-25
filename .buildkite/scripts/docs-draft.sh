@@ -5,15 +5,12 @@ set -euo pipefail
 #
 # This script:
 #   1. Installs dependencies (git, gh CLI, Claude Code)
-#   2. Decides whether to proceed:
-#        buildkite/buildkite — always runs (no label needed)
-#        buildkite/agent     — requires "needs-docs" label
-#   3. Fetches PR context (title, body, diff, comments, reviews)
-#   4. Checks for feature flags in the diff and annotates the build
-#   5. Builds a prompt and runs Claude Code to analyze/write docs
-#   6. Commits and pushes any changes
-#   7. Opens (or updates) a draft PR on docs-private
-#   8. Annotates the build with the result; comments on the upstream PR only if a PR was created
+#   2. Fetches PR context (title, body, diff, comments, reviews)
+#   3. Checks for feature flags in the diff and annotates the build
+#   4. Builds a prompt and runs Claude Code to analyze/write docs
+#   5. Commits and pushes any changes
+#   6. Opens (or updates) a draft PR on docs-private
+#   7. Annotates the build with the result; comments on the upstream PR only if a PR was created
 #
 # Required environment variables:
 #   UPSTREAM_REPO                — GitHub repo slug (e.g. "buildkite/agent")
@@ -66,45 +63,16 @@ echo "CLAUDE_MAX_TURNS: '${CLAUDE_MAX_TURNS}'"
 export ANTHROPIC_API_KEY="${BUILDKITE_AGENT_ACCESS_TOKEN}"
 export GH_TOKEN="${GITHUB_TOKEN}"
 
-# --- Install minimal dependencies for label check ---
+# --- Install dependencies ---
 
 echo "--- :hammer: Install dependencies"
 apt-get update -qq && apt-get install -y -qq git curl jq > /dev/null 2>&1
 
-# --- Decide whether to proceed based on repo and labels ---
-# buildkite/buildkite: always run — docs are a human gate after every merge
-# buildkite/agent:     requires "needs-docs" label — agent releases are batched,
-#                      so docs should only be drafted when the feature is ready to ship
-
-if [ "${WRITE_DOCS:-}" = "true" ]; then
-  echo "WRITE_DOCS=true set explicitly, proceeding"
-  buildkite-agent annotate --style "info" --context "docs-trigger" \
-    ":memo: Docs draft triggered explicitly (\`WRITE_DOCS=true\`) for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
-    || true
-elif [ "${UPSTREAM_REPO}" = "buildkite/buildkite" ]; then
-  echo "Repo is buildkite/buildkite — docs run on every merge, no label required"
-  buildkite-agent annotate --style "info" --context "docs-trigger" \
-    ":memo: Docs draft triggered automatically — \`buildkite/buildkite\` runs on every merge" \
-    || true
-else
-  echo "--- :label: Checking for 'needs-docs' label on ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
-  LABELS=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
-    "https://api.github.com/repos/${UPSTREAM_REPO}/pulls/${UPSTREAM_PR_NUMBER}" \
-    | jq -r '.labels[].name // empty' 2>/dev/null || true)
-  echo "PR labels: ${LABELS:-<none>}"
-
-  if ! echo "${LABELS}" | grep -q "^needs-docs$"; then
-    echo "No 'needs-docs' label found, skipping docs draft"
-    buildkite-agent annotate --style "info" --context "docs-trigger" \
-      ":skip: No \`needs-docs\` label on **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** — skipping docs draft. Add the label when the feature is ready to ship." \
-      || true
-    exit 0
-  fi
-  echo "'needs-docs' label found, proceeding"
-  buildkite-agent annotate --style "info" --context "docs-trigger" \
-    ":memo: Docs draft triggered by \`needs-docs\` label on **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
-    || true
-fi
+# --- Annotate trigger ---
+echo "Proceeding with docs draft for ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
+buildkite-agent annotate --style "info" --context "docs-trigger" \
+  ":memo: Docs draft triggered for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
+  || true
 
 # Install gh CLI
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
@@ -114,19 +82,11 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 apt-get update -qq && apt-get install -y -qq gh > /dev/null 2>&1
 
 # Install Claude Code
-npm install -g @anthropic-ai/claude-code@2.1.74 > /dev/null 2>&1
+npm install -g @anthropic-ai/claude-code@2.1.221 > /dev/null 2>&1
 
 # Create non-root user (Claude Code refuses --dangerously-skip-permissions as root)
 useradd -m -s /bin/bash claude-user
 chown -R claude-user:claude-user /workdir
-
-# --- Remove the "needs-docs" label (one-shot trigger) ---
-
-echo "--- :label: Remove needs-docs label"
-gh pr edit "${UPSTREAM_PR_NUMBER}" \
-  --repo "${UPSTREAM_REPO}" \
-  --remove-label "needs-docs" \
-  || echo "Warning: Could not remove label (may already be removed)"
 
 # --- Fetch PR context ---
 

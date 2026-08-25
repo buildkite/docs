@@ -101,11 +101,15 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 <%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 > 📘 Build branches vs build pull requests
-> If **Build branches** is enabled, Buildkite Pipelines runs builds on branch pushes, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs pull request information, make sure **Build Pull Requests** is enabled. Consider turning off **Build branches** or limiting it to just your default branch (like `main`) so you don't end up with branch builds when you expect pull request builds.
+> If **Build branches** is enabled, Buildkite Pipelines runs builds on branch pushes, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs pull request information, make sure **Build when pull request is opened or updated** is enabled. Consider turning off **Build branches** or limiting it to just your default branch (like `main`) so you don't end up with branch builds when you expect pull request builds.
 
 ## Running builds on pull requests
 
-To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**. This triggers builds for the `opened` and `synchronize` pull request actions.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**.
+
+Buildkite Pipelines creates a build directly from the `opened` action. When you push more commits to a pull request branch in your own repository, those commits create builds from the `push` event instead. Buildkite Pipelines adds the pull request details to those builds. The matching `synchronize` webhook delivery therefore doesn't create a build of its own, but it does refresh the pull request details (such as the base branch, labels, and draft state) that Buildkite Pipelines attaches to the push build.
+
+Pull requests opened from third-party forks work differently because GitHub doesn't send your repository a `push` event for commits on a fork. For these pull requests, the `synchronize` action creates the build. Fork builds also require the **Allow builds from third-party forked repositories** option described below.
 
 You can enable additional pull request actions to trigger builds:
 
@@ -121,9 +125,12 @@ You can also configure these **Pull request webhook options** (these options may
 
 - **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 - **Limit pull request branches**: filter which branches trigger pull request builds
-- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
-- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
+- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch. This option is enabled by default.
+- **Skip when pull request is closed or merged**: skip creating a new build for a pull request that's closed or merged, useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests. This option is enabled by default.
+- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch. This option is disabled by default.
 - **Cancel deleted branch builds**: cancel running builds for a branch when the branch is deleted from GitHub
+
+Even when **Skip when pull request source is default branch** is disabled, Buildkite Pipelines skips pull request builds whose source branch is the default branch if **Build when pull request is opened or updated** is also disabled.
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
@@ -159,8 +166,8 @@ With all three in place, pull request builds for that pipeline fetch and check o
 Note the following limitations:
 
 - Buildkite recommends disabling **Build branches** on pipelines using this feature, to avoid mixed commit statuses on the same commit SHA.
-- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout.
-- Builds that fire very quickly after a pull request is opened or synchronized may occasionally fail at checkout if GitHub has not yet computed the merge ref. The agent retries the checkout a few times before failing.
+- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout. The build log identifies two possible causes: a merge conflict or GitHub being unable to create the merge ref automatically. The agent skips the fetch-specific retry loop for a missing merge ref, but the outer checkout retry loop still retries the entire checkout.
+- Builds that fire very quickly after a pull request is opened or synchronized may occasionally hit the same checkout failure if GitHub hasn't finished computing the merge ref yet. Retrying the build after a short delay usually resolves this.
 
 ## Running builds on merge queues
 
@@ -194,7 +201,7 @@ Your existing trigger settings are preserved, and commit status settings remain 
 
 Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds from a broader set of GitHub webhook events. These are configured in the **Additional Webhooks** section of your pipeline's GitHub settings and require the **Code** trigger mode (except where noted).
 
-- **Pull request reviews**: trigger builds when a review is submitted or dismissed.
+- **Pull request reviews**: trigger builds when a review is submitted or dismissed. `BUILDKITE_BUILD_AUTHOR` identifies the author of the pull request's head commit when cached or persisted commit context is available. Otherwise, it identifies the webhook sender. With strict creator semantics, `BUILDKITE_BUILD_CREATOR` identifies the webhook sender when their GitHub identity is linked to a Buildkite user with access to the organization. It is empty when no eligible linked Buildkite user exists. Without strict creator semantics, a linked commit author takes precedence over a linked webhook sender. If neither identity is linked, `BUILDKITE_BUILD_CREATOR` can fall back to commit-author or webhook-sender information. For dismissed reviews, the webhook sender can be the user who dismissed the review rather than the original reviewer.
 - **Check runs**: trigger builds when a check run from another GitHub App completes. Check runs from Buildkite Pipelines are automatically skipped to prevent feedback loops.
 - **Releases**: trigger builds when a GitHub release is published, created, or released.
 - **Issue comments**: trigger builds from comments on pull requests. Comments must match a configurable command word (default: `/bk`) and come from a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` (default) and `contains` match modes.

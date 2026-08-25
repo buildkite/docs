@@ -1,59 +1,79 @@
 <table class="responsive-table">
 <tbody>
   <tr>
-    <th><code>label</code></th>
-    <td><span>Filters the results by a single test label. Cannot be combined with <code>labels</code>.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?label=flaky</code></p></td>
+    <th><code>labels</code></th>
+    <td>
+      <span>Filters the results by a comma-separated list of test labels. Cannot be combined with <code>label</code>.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?labels=flaky,!slow</code></p>
+      <p><em>Supported operators:</em> <code>!</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
-    <th><code>labels</code></th>
-    <td><span>Comma-separated test label filters. Prefix a label with <code>!</code> to exclude it.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?labels=flaky,!slow</code></p></td>
+    <th><code>label</code></th>
+    <td>
+      <span>Filters the results by a single test label. This parameter is a legacy alternative to <code>labels</code> and cannot be combined with it.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?label=flaky</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>branch</code></th>
-    <td><span>Filters the results to executions from the specified branch.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=main</code></p></td>
+    <td>
+      <span>Only aggregates executions from the branch whose name is specified by the <code>branch</code> value.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=main</code></p>
+      <p><em>Supported operators:</em> <code>! *</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>owners</code></th>
-    <td><span>Comma-separated test owner slugs.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?owners=frontend-team,backend-team</code></p></td>
+    <td>
+      <span>Filters the results by a comma-separated list of test owner slugs.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?owners=my-team,another-team</code></p>
+      <p><em>Supported operators:</em> <code>!</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>state</code></th>
-    <td><span>Filters the results by test state: <code>enabled</code>, <code>muted</code>, or <code>skipped</code>.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?state=muted</code></p></td>
+    <td>
+      <span>Filters the results by test state. Valid values are <code>enabled</code>, <code>muted</code>, and <code>skipped</code>.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?state=muted</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>tags</code></th>
-    <td><span>Comma-separated execution tag filters using <code>key:value</code> syntax.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?tags=framework:rspec,language:ruby</code></p></td>
+    <td>
+      <span>Filters the results by a comma-separated list of execution tags, using <code>key:value</code> syntax.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?tags=framework:rspec,ci:true</code></p>
+      <p><em>Supported operators:</em> <code>! *</code>. The <code>result</code> tag also supports <code>^ ~</code>.</p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>sort_by</code></th>
-    <td><span>Metric to sort by: <code>duration_avg</code> (default), <code>duration_sum</code>, <code>duration_min</code>, <code>duration_max</code>, or <code>reliability</code>.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?sort_by=reliability</code></p></td>
+    <td>
+      <span>The metric to sort the results by. Valid values are <code>duration_avg</code>, <code>duration_sum</code>, <code>duration_min</code>, <code>duration_max</code>, and <code>reliability</code>. The default value is <code>duration_avg</code>.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?sort_by=reliability</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>order</code></th>
-    <td><span>Sort direction: <code>asc</code> or <code>desc</code> (default).</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?order=asc</code></p></td>
+    <td>
+      <span>The direction to sort the results in. Valid values are <code>asc</code> and <code>desc</code>. The default value is <code>desc</code>.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?order=asc</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
   <tr>
-    <th><code>period</code></th>
-    <td><span>Relative aggregation period, for example <code>7days</code> or <code>28days</code>. Available periods depend on the organization's maximum time-window quota. Cannot be combined with <code>min_timestamp</code> or <code>max_timestamp</code>.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?period=7days</code></p></td>
+    <th><code>page</code></th>
+    <td>The page number to return. Defaults to <code>1</code>.</td>
   </tr>
   <tr>
-    <th><code>max_timestamp</code></th>
-    <td><span>End of the aggregation window as an ISO 8601 timestamp. Defaults to the current time. Cannot be combined with <code>period</code>.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?max_timestamp=2026-07-23T00:00:00Z</code></p></td>
-  </tr>
-  <tr>
-    <th><code>min_timestamp</code></th>
-    <td><span>Start of the aggregation window as an ISO 8601 timestamp. Defaults to the organization's default period before the current time. Cannot be combined with <code>period</code>.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?min_timestamp=2026-07-16T00:00:00Z</code></p></td>
+    <th><code>per_page</code></th>
+    <td>The number of results to return per page. Defaults to <code>30</code> and has a maximum of <code>100</code>.</td>
   </tr>
 </tbody>
 </table>

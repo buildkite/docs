@@ -159,6 +159,7 @@ Rails.application.routes.draw do
   get "/docs/apis/rest-api/analytics/*page",                                                         to: redirect("/docs/apis/rest-api/test-engine/%{page}")
   get "/docs/apis/rest-api/limits",                                                                  to: redirect("/docs/apis/rest-api/rate-limits")
   get "/docs/apis/rest-api/packages/*page",                                                          to: redirect("/docs/apis/rest-api/package-registries/%{page}")
+  get "/docs/apis/rest-api/test-engine/flaky-tests",                                                 to: redirect("/docs/apis/rest-api/test-engine/tests#list-tests")
   get "/docs/apis/webhooks/agent-events",                                                            to: redirect("/docs/apis/webhooks/pipelines/agent-events")
   get "/docs/apis/webhooks/build-events",                                                            to: redirect("/docs/apis/webhooks/pipelines/build-events")
   get "/docs/apis/webhooks/agent-token-events",                                                      to: redirect("/docs/apis/webhooks/pipelines/agent-token-events")
