@@ -445,6 +445,7 @@ A requested permission is only granted when it's allowed by all of the following
 - The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history. Builds with incomplete history are denied.
 - For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
 - Each job can make up to 10 token requests per hour. Further requests return `429 Too Many Requests` with a `Retry-After` response header.
+- The selected workflow file must not exceed 128 KiB.
 
 ## Using GitHub App installation access tokens
 
