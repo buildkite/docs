@@ -21,6 +21,7 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
 
 - After repository checkout, the agent resolves `BUILDKITE_COMMIT` to a commit hash. This change is useful when the initial value is a refspec such as `HEAD`.
 - The OpenSSH option `StrictHostKeyChecking=accept-new` has replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. The default checkout process now requires OpenSSH version 7.6 or later unless you enable `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN`. OpenSSH 7.6 was released in 2017.
+- [Git commit verification](/docs/pipelines/configure/git-checkout#commit-verification) now defaults to `strict`. The agent fails a job when it determines that the requested commit is not on the specified branch. To disable verification, set the `git-commit-verification` agent configuration option or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable to `off`. Before upgrading, replace any v3 `warn` value with `strict` or `off`. Replace any empty value used to disable verification with `off`. In v4, an empty agent configuration value prevents the agent from starting. An empty value supplied by `checkout.commit_verification` causes job bootstrap to fail when the agent runs with `checkout-override-mode` set to `none`.
 
 ### Changes to agent parallelism
 
@@ -44,6 +45,7 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
 ### Changes to pipeline uploads
 
 - By default, the agent now immediately fails a `pipeline upload` command when it detects secrets. To allow secrets in pipeline uploads, pass the `--allow-secrets` flag or set the `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` environment variable. The agent no longer supports the `--reject-secrets` flag or the `BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS` environment variable.
+- Secret detection during `pipeline upload` now also scans the `env` map nested inside a [trigger step](/docs/pipelines/configure/step-types/trigger-step)'s `build` attribute. Previously, only top-level and step-level `env` maps were scanned, so secret values interpolated into a trigger step's `build.env` could be uploaded undetected.
 
 ### Changes to artifacts
 

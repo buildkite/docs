@@ -6,7 +6,7 @@ The repository connections API endpoint lets you list repositories available to 
 
 Returns the repositories available to the specified repository connection, in provider order.
 
-This endpoint is supported for GitHub, GitHub Limited Access, GitHub Restricted, and GitHub Enterprise Server (GHES) connections. For Bitbucket Server, GitLab Self-Managed, and GHES Legacy connections, the endpoint returns `422 Unprocessable Entity`.
+This endpoint is supported for GitHub, GitHub Limited Access, GitHub Restricted, GitHub Enterprise Server (GHES), and Origin connections. For Bitbucket Server, GitLab Self-Managed, and GHES Legacy connections, the endpoint returns `422 Unprocessable Entity`.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

@@ -101,11 +101,15 @@ You can edit your pipeline configuration at any time in your pipeline's **Settin
 <%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
 > 📘 Build branches vs build pull requests
-> If **Build branches** is enabled, Buildkite Pipelines runs builds on branch pushes, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs pull request information, make sure **Build Pull Requests** is enabled. Consider turning off **Build branches** or limiting it to just your default branch (like `main`) so you don't end up with branch builds when you expect pull request builds.
+> If **Build branches** is enabled, Buildkite Pipelines runs builds on branch pushes, and those builds don't include pull request details. That's why pull request variables like `BUILDKITE_PULL_REQUEST_BASE_BRANCH` can be empty, even when the branch has an open pull request. If your pipeline needs pull request information, make sure **Build when pull request is opened or updated** is enabled. Consider turning off **Build branches** or limiting it to just your default branch (like `main`) so you don't end up with branch builds when you expect pull request builds.
 
 ## Running builds on pull requests
 
-To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**. This triggers builds for the `opened` and `synchronize` pull request actions.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and select **Build when pull request is opened or updated**.
+
+Buildkite Pipelines creates a build directly from the `opened` action. When you push more commits to a pull request branch in your own repository, those commits create builds from the `push` event instead. Buildkite Pipelines adds the pull request details to those builds. The matching `synchronize` webhook delivery therefore doesn't create a build of its own, but it does refresh the pull request details (such as the base branch, labels, and draft state) that Buildkite Pipelines attaches to the push build.
+
+Pull requests opened from third-party forks work differently because GitHub doesn't send your repository a `push` event for commits on a fork. For these pull requests, the `synchronize` action creates the build. Fork builds also require the **Allow builds from third-party forked repositories** option described below.
 
 You can enable additional pull request actions to trigger builds:
 
@@ -121,9 +125,12 @@ You can also configure these **Pull request webhook options** (these options may
 
 - **Allow builds from third-party forked repositories**: allow builds to be created for pull requests opened from third-party forks. Make sure to check the [managing secrets](/docs/pipelines/security/secrets/managing) guide if you choose to do this.
 - **Limit pull request branches**: filter which branches trigger pull request builds
-- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch
-- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch
+- **Skip when pull request has existing build for commit and branch**: skip creating a duplicate build if one already exists for the same commit and branch. This option is enabled by default.
+- **Skip when pull request is closed or merged**: skip creating a new build for a pull request that's closed or merged, useful for ignoring late activity from automated housekeeping (such as label changes from bots) on closed pull requests. This option is enabled by default.
+- **Skip when pull request source is default branch**: skip pull request builds when the source branch is the default branch. This option is disabled by default.
 - **Cancel deleted branch builds**: cancel running builds for a branch when the branch is deleted from GitHub
+
+Even when **Skip when pull request source is default branch** is disabled, Buildkite Pipelines skips pull request builds whose source branch is the default branch if **Build when pull request is opened or updated** is also disabled.
 
 If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**.
 
@@ -159,8 +166,8 @@ With all three in place, pull request builds for that pipeline fetch and check o
 Note the following limitations:
 
 - Buildkite recommends disabling **Build branches** on pipelines using this feature, to avoid mixed commit statuses on the same commit SHA.
-- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout.
-- Builds that fire very quickly after a pull request is opened or synchronized may occasionally fail at checkout if GitHub has not yet computed the merge ref. The agent retries the checkout a few times before failing.
+- `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout. The build log identifies two possible causes: a merge conflict or GitHub being unable to create the merge ref automatically. The agent skips the fetch-specific retry loop for a missing merge ref, but the outer checkout retry loop still retries the entire checkout.
+- Builds that fire very quickly after a pull request is opened or synchronized may occasionally hit the same checkout failure if GitHub hasn't finished computing the merge ref yet. Retrying the build after a short delay usually resolves this.
 
 ## Running builds on merge queues
 
@@ -389,9 +396,38 @@ To use this feature, two things need to be in place:
 
 Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository. Changing the pipeline's repository automatically turns this setting off again.
 
+### Request a token
+
+From a running job, send a request to the Agent API with the pipeline repository URL, a workflow filename, and the required permissions. The job token in `BUILDKITE_AGENT_ACCESS_TOKEN` can only request a token for the same job.
+
+For example, the following command requests `contents: write` and exports the returned token as `GITHUB_TOKEN`:
+
+```bash
+response=$(curl --fail --silent --show-error \
+  --request POST \
+  --header "Authorization: Token $BUILDKITE_AGENT_ACCESS_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data "{\"repo_url\":\"$BUILDKITE_REPO\",\"workflow\":\"release.yml\",\"permissions\":{\"contents\":\"write\"}}" \
+  "$BUILDKITE_AGENT_ENDPOINT/jobs/$BUILDKITE_JOB_ID/github_workflow_access_token")
+
+export GITHUB_TOKEN="$(printf '%s' "$response" | jq --raw-output '.token')"
+```
+
+The successful response has the following shape:
+
+```json
+{
+  "token": "ghs_xxx"
+}
+```
+
+The request supports the `read`, `write`, and `none` access levels for `actions`, `artifact_metadata`, `attestations`, `checks`, `code_quality`, `contents`, `deployments`, `discussions`, `issues`, `packages`, `pages`, `pull_requests`, `security_events`, and `statuses`. The `metadata` and `vulnerability_alerts` permissions support `read` and `none`. Use underscores in the request body for permission names that GitHub writes with hyphens in the workflow file.
+
 ### How the workflow policy is applied
 
-When a job requests a token, Buildkite reads a single `.yml` or `.yaml` file from `.github/workflows/` in the pipeline's repository, at the build's commit SHA. Buildkite only reads the file's top-level `permissions` map to use as a static permissions policy. It doesn't evaluate the workflow's triggers, jobs, expressions, or otherwise run it.
+When a job requests a token, the job selects a single `.yml` or `.yaml` file from `.github/workflows/` in the pipeline's repository. Buildkite reads the file at the build's commit SHA and uses only its top-level `permissions` map as a static permissions policy. Buildkite doesn't evaluate the workflow's triggers, jobs, or expressions, and doesn't run the workflow.
+
+The selected workflow file isn't bound to a GitHub Actions job or trigger. Any eligible job can select any supported workflow file at the build's commit. Treat the broadest compatible top-level `permissions` map in `.github/workflows/` as the permission limit available to a job.
 
 A requested permission is only granted when it's allowed by all of the following:
 
@@ -405,6 +441,7 @@ A requested permission is only granted when it's allowed by all of the following
 - Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
 - Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
 - The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history. Builds with incomplete history are denied.
+- For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
 
 ## Using GitHub App installation access tokens
 

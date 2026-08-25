@@ -29,7 +29,9 @@ The `bk job` command allows you to manage jobs within builds from the command li
 | `bk job log` | Get logs for a job. |
 | `bk job reprioritize` | Reprioritize a job. |
 | `bk job retry` | Retry a job. |
+| `bk job ssh` | Connect to a running hosted macOS job over SSH. |
 | `bk job unblock` | Unblock a job. |
+| `bk job vnc` | Connect to a running hosted macOS job over VNC. |
 
 ## Cancel a job
 
@@ -89,6 +91,7 @@ bk job list [flags]
 | `--build=STRING` | Filter by build number (requires a resolvable pipeline) |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
+| `--group-key=STRING` | Filter by group key (requires --build) |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of jobs to return |
 | `--no-limit` | Fetch all jobs (overrides --limit) |
@@ -96,6 +99,7 @@ bk job list [flags]
 | `--queue=STRING` | Filter by queue name |
 | `--since=STRING` | Filter jobs from builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by job state |
+| `--step-key=STRING` | Filter by step key (requires --build) |
 | `--text` | Output as text |
 | `--until=STRING` | Filter jobs from builds created before this time (e.g. 1h, 30m) |
 | `--yaml` | Output as YAML |
@@ -124,6 +128,12 @@ List failed jobs from a known build (recommended when the build is known):
 
 ```bash
 bk job list --pipeline my-app --build 429 --state failed
+```
+
+List jobs for step and group keys from a known build:
+
+```bash
+bk job list --pipeline my-app --build 429 --step-key test --group-key verification
 ```
 
 List jobs that took longer than 10 minutes:
@@ -274,6 +284,34 @@ Retry a job by UUID:
 bk job retry 0190046e-e199-453b-a302-a21a4d649d31
 ```
 
+## Connect to a job using SSH
+
+Connect to a running hosted macOS job over SSH.
+
+```bash
+bk job ssh <job-uuid>
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<job-uuid>` | UUID of the hosted agent job |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
+### Examples
+
+Open an interactive shell on a running hosted macOS job:
+
+```bash
+bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
+```
+
 ## Unblock a job
 
 Unblock a job.
@@ -315,3 +353,30 @@ Unblock with data from stdin:
 echo '{"field": "value"}' | bk job unblock 0190046e-e199-453b-a302-a21a4d649d31
 ```
 
+## Connect to a job using VNC
+
+Connect to a running hosted macOS job over VNC.
+
+```bash
+bk job vnc <job-uuid>
+```
+
+### Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<job-uuid>` | UUID of the hosted agent job |
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+
+### Examples
+
+Connect a local VNC client to a running hosted macOS job:
+
+```bash
+bk job vnc 0190046e-e199-453b-a302-a21a4d649d31
+```

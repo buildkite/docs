@@ -105,6 +105,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codebase's
 codeql
 codesign
 codesigning
@@ -172,6 +173,7 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extglobs
 fastfile
 fastlane
 fastlane's
@@ -307,6 +309,7 @@ Nodejs
 NUnit
 nodeName
 nodeSelector
+nonblank
 Noreply
 noreply
 not_run
@@ -323,6 +326,7 @@ oldstable
 onboarding
 Okta
 OpenTelemetry
+Origin
 OTel
 opentelemetry
 onboarding
@@ -409,6 +413,7 @@ ruleset
 runbook
 runbooks
 runtimes
+runtime's
 rustup
 rvm
 sandboxed
@@ -524,6 +529,7 @@ unsetting
 unstaged
 unstarted
 untrusted
+unversioned
 unxip
 uploaders
 upstreams
