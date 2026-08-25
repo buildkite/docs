@@ -161,7 +161,7 @@ The registry value `~` also selects the cluster default.
 
 Cache policies control how entries are scoped and which jobs can save or restore them. The default unrestricted policy allows jobs in the cluster to share entries with matching cache keys and target paths.
 
-The following policy scopes saved entries by pipeline and branch. Restore first searches the current branch, then the `main` branch in the same pipeline:
+The following policy scopes saved entries by pipeline and branch. Restore first searches the current branch, then the `master` branch in the same pipeline. The CEL conditions allow a job to restore entries from its own branch or the trusted `master` branch, while allowing all jobs to save entries under their resolved scopes:
 
 ```yaml
 save:
@@ -172,19 +172,70 @@ restore:
   scopes:
     - branch: "$current"
       pipeline: "$current"
-    - branch: "main"
+    - branch: "master"
       pipeline: "$current"
 rules:
-  - name: "allow-save-and-restore"
+  - name: "restore-own"
     effect: "allow"
-    action:
-      - "save"
-      - "restore"
+    action: "restore"
+    when: >-
+      entry.pipeline == claims.pipeline_slug &&
+      entry.branch == claims.build_branch
+  - name: "restore-trusted-master"
+    effect: "allow"
+    action: "restore"
+    when: >-
+      entry.pipeline == claims.pipeline_slug &&
+      entry.branch == 'master'
+  - name: "allow-save"
+    effect: "allow"
+    action: "save"
 ```
 
 Available scope dimensions are `branch`, `build`, and `pipeline`. Restore scopes are searched in order. The `$current` value resolves from the authenticated job.
 
 Rules are evaluated from top to bottom, and the first rule that matches the requested action and optional `when` condition determines access. If no rule matches, access is denied. Conditions use [Common Expression Language (CEL)](https://cel.dev/) expressions and can inspect verified job claims and cache entry scopes.
+
+#### Available CEL attributes
+
+Each `when` expression can access the `entry` and `claims` maps. Buildkite derives both maps from stored cache scopes and the authenticated job. Values aren't taken from the cache command request.
+
+The `entry` map contains all cache scope dimensions. A dimension is `null` when the saved entry doesn't use that scope:
+
+Attribute | Type | Description
+--- | --- | ---
+`entry.pipeline` | String or `null` | Pipeline slug associated with the entry.
+`entry.branch` | String or `null` | Build branch associated with the entry.
+`entry.build` | String or `null` | Build UUID associated with the entry.
+{: class="responsive-table"}
+
+The `claims` map contains the following verified job identity values:
+
+Attribute | Type | Description
+--- | --- | ---
+`claims.organization_slug` | String | Organization slug.
+`claims.pipeline_slug` | String | Pipeline slug.
+`claims.build_number` | Integer | Build number, which is unique within the pipeline.
+`claims.build_branch` | String | Build branch.
+`claims.build_tag` | String or `null` | Build tag, or `null` for a build that isn't for a tag.
+`claims.build_commit` | String | Build commit.
+`claims.step_key` | String | Step key.
+`claims.job_id` | String | Job UUID.
+`claims.agent_id` | String or `null` | Agent UUID, or `null` when unavailable.
+`claims.build_source` | String | Build source, such as `webhook` or `ui`.
+`claims.runner_environment` | String | Runner environment, either `buildkite-hosted` or `self-hosted`.
+`claims.organization_id` | String | Organization UUID.
+`claims.pipeline_id` | String | Pipeline UUID.
+`claims.build_id` | String | Build UUID.
+`claims.cluster_id` | String or `null` | Cluster UUID, or `null` when unavailable.
+`claims.cluster_name` | String or `null` | Cluster name, or `null` when unavailable.
+`claims.queue_id` | String or `null` | Queue UUID, or `null` when unavailable.
+`claims.queue_key` | String or `null` | Queue key, or `null` when unavailable.
+{: class="responsive-table"}
+
+Compare matching identifier types. For example, compare `entry.pipeline` with `claims.pipeline_slug`, and compare `entry.build` with `claims.build_id`. The `entry.pipeline` value is a slug rather than the UUID in `claims.pipeline_id`.
+
+Guard nullable entry values before calling string functions. For example, `entry.branch != null && entry.branch.startsWith("release/")` safely checks a branch-scoped entry.
 
 > 🚧 Protect caches from untrusted builds
 > Configure registry scopes and rules before sharing a registry with untrusted builds. Don't cache secrets, credentials, or untrusted executable output.
