@@ -10,6 +10,7 @@ variables:
   - name: BUILDKITE_AGENT_CACHE_STORE_URL
     desc: |
       The URL of the default cache store backend used by the Buildkite agent for the `cache` step attribute and `buildkite-agent cache` commands. For jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), the variable is automatically set to a URL scoped to the cluster.
+    modifiable: true
     example: "nsc://buildkite-cache-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   - name: BUILDKITE_AGENT_DEBUG
     desc: |
