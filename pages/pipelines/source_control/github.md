@@ -408,6 +408,7 @@ response=$(curl --fail --silent --show-error \
   --data "{\"repo_url\":\"$BUILDKITE_REPO\",\"workflow\":\"release.yml\",\"permissions\":{\"contents\":\"write\"}}" \
   "$BUILDKITE_AGENT_ENDPOINT/jobs/$BUILDKITE_JOB_ID/github_workflow_access_token")
 
+printf '%s' "$response" | buildkite-agent redactor add --format json
 export GITHUB_TOKEN="$(printf '%s' "$response" | jq --raw-output '.token')"
 ```
 
@@ -438,9 +439,10 @@ A requested permission is only granted when it's allowed by all of the following
 - Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
 - Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
 - Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
-- The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history. Builds with incomplete history are denied.
+- The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.
 - For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
-- Each job can make up to 10 token requests per hour. Further requests return `429 Too Many Requests` with a `Retry-After` response header.
+- Issued tokens expire after one hour. The response doesn't include an expiration timestamp.
+- Each job can make up to ten token requests per hour. Further requests return `429 Too Many Requests` with a `Retry-After` response header.
 - The selected workflow file must not exceed 128 KiB.
 
 ## Using GitHub App installation access tokens
