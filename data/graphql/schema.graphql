@@ -10318,6 +10318,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildIssueCommentCreated: Boolean!
 
   """
+  Whether to create builds for GitHub issue activity.
+  """
+  buildIssues: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10586,6 +10591,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   Whether to create builds when an issue comment is created on a pull request.
   """
   buildIssueCommentCreated: Boolean!
+
+  """
+  Whether to create builds for GitHub issue activity.
+  """
+  buildIssues: Boolean!
 
   """
   Whether to create builds for merge group check runs.
