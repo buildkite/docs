@@ -67,5 +67,13 @@
       <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
     </td>
   </tr>
+  <tr>
+    <th><code>page</code></th>
+    <td>The page number to return. Defaults to <code>1</code>.</td>
+  </tr>
+  <tr>
+    <th><code>per_page</code></th>
+    <td>The number of results to return per page. Defaults to <code>30</code> and has a maximum of <code>100</code>.</td>
+  </tr>
 </tbody>
 </table>
