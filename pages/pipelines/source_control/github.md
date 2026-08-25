@@ -208,6 +208,21 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Pull request review comments**: trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
 - **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
+- **Issue activity**: trigger builds for the GitHub `issues` event. This option is off by default and appears only for pipelines in organizations where the rollout is enabled.
+
+### Issue activity events
+
+To enable issue activity builds for an eligible organization, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, select **Issue activity**.
+
+Buildkite Pipelines accepts every [GitHub-documented `issues` activity type](https://docs.github.com/en/webhooks/webhook-events-and-payloads#issues). Deliveries with an unknown or empty activity type do not create builds. Branch, tag, path, and workflow filters are not supported for this event.
+
+When processing the delivery, Buildkite Pipelines resolves the repository default branch to an exact, immutable commit. The build loads its code and pipeline configuration from that commit. Rebuilds and builds created from trigger steps preserve the original event and commit provenance instead of resolving the default branch again.
+
+Issue authors do not need access to the Buildkite organization to trigger these builds, so activity from public GitHub users can create builds. Buildkite platform quota controls still apply. Configure steps that process issue content as untrusted input.
+
+GitHub suppresses recursive webhook events created with the Buildkite-minted `GITHUB_TOKEN`. Third-party automation can create more issue activity and cause a loop, so configure that automation to ignore Buildkite Pipelines activity or otherwise bound its updates.
+
+Issue activity builds are separate from issue comment commands. The **Issue comments** option requires a trusted author and a matching command word. **Issue activity** responds to changes to the issue itself and does not use comment commands.
 
 > 🚧 Configure the GitHub webhook for issue comments
 > To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
