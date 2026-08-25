@@ -13,7 +13,7 @@ By default, volumes:
 - Are scoped to a pipeline and are shared between all steps in the pipeline.
 
 > 📘 Buildkite Cache
-> [Buildkite Cache](/docs/pipelines/configure/cache) is a separate, key-based caching feature configured in `.buildkite/cache.yml` and used with the `buildkite-agent cache save` and `buildkite-agent cache restore` commands. It addresses stored entries deterministically by cache key rather than relying on best-effort volume attachment. Cache misses remain expected.
+> [Buildkite Cache](/docs/pipelines/configure/cache) is a separate, key-based caching feature configured in `.buildkite/cache.yml` and used with the `buildkite-agent cache save` and `buildkite-agent cache restore` commands. Buildkite Cache addresses stored entries deterministically by cache key rather than relying on best-effort volume attachment. Cache misses remain expected.
 
 Volumes act as regular disks, and have the following properties on Linux:
 

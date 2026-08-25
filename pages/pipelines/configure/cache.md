@@ -13,9 +13,9 @@ Use Buildkite Cache for data that can be regenerated, such as package manager do
 
 ## Set up Buildkite Cache
 
-When the preview is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#select-a-cache-registry).
+When the preview is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
 
-Your jobs must run on clustered agents with a Buildkite agent version that includes the `buildkite-agent cache restore` and `buildkite-agent cache save` commands.
+Your jobs must run on clustered agents with Buildkite agent version 3.111.0 or later.
 
 ### Buildkite hosted agents
 
@@ -23,7 +23,7 @@ Jobs running on [Buildkite hosted agents](/docs/agent/buildkite-hosted) receive 
 
 ### Self-hosted agents
 
-For [self-hosted agents](/docs/agent/self-hosted), provide an Amazon S3 or S3-compatible cache store URL using the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. Configure the same store for every agent that uses the registry. The Buildkite agent uses ambient AWS credentials to access the bucket. Grant the agent runtime read and write access to the cache store using an instance role, workload identity, or temporary credentials such as [Buildkite OIDC with AWS](/docs/pipelines/security/oidc/aws).
+For [self-hosted agents](/docs/agent/self-hosted), provide an Amazon S3 or S3-compatible cache store URL using the `BUILDKITE_AGENT_CACHE_STORE_URL` [environment variable](/docs/pipelines/configure/environment-variables). Configure the same store for every agent that uses the registry. The Buildkite agent uses ambient AWS credentials to access the bucket. Grant the agent runtime read and write access to the cache store using an instance role, workload identity, or temporary credentials such as [Buildkite OIDC with AWS](/docs/pipelines/security/oidc/aws).
 
 The following pipeline-level environment variable configures an S3 bucket in `us-west-2`, using `buildkite` as an optional object key prefix:
 
@@ -38,6 +38,10 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 Set `region` to the bucket's region. If you omit it, the agent uses `us-east-1`. You can also set the store URL using `--cache-store-url`.
+
+Configure your storage provider to expire cache objects. For Amazon S3, add a lifecycle rule scoped to the cache object prefix (`buildkite` in the example) that expires current object versions three days after their last modification. Also configure cleanup for incomplete multipart uploads and, if bucket versioning is enabled, noncurrent object versions. Configure an equivalent expiration policy for an S3-compatible store.
+
+Buildkite expires cache registry metadata after three days but can't delete objects from your agent-managed store. Exact restores refresh an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. The storage lifecycle rule removes objects that are no longer used.
 
 ## Define and use a cache
 
@@ -86,8 +90,8 @@ Each key part can use one of the following sources:
 
 - **Literal string**: Adds a fixed value, such as `npm` or a cache format version.
 - `agent`: Adds `os`, `arch`, `branch`, `pipeline`, or `step`. A step uses the step key when one is configured, or the step ID otherwise.
-- `env`: Adds the value of an environment variable. An unset variable adds an empty value.
-- `checksum`: Adds a SHA-256 checksum of one file, or a combined checksum of an array of files and glob patterns. Paths and patterns are relative to the job working directory.
+- `env`: Adds the value of an environment variable. The variable must resolve to a non-empty value. Otherwise, the cache command fails.
+- `checksum`: Adds a SHA-256 checksum of one file, or a combined checksum of an array of files and [glob patterns](/docs/pipelines/configure/glob-pattern-syntax). Paths and patterns are relative to the job working directory.
 
 All literal checksum files must exist. An array can contain unmatched glob patterns when at least one other pattern matches. Buildkite Cache sorts and deduplicates matched paths before calculating the checksum, so pattern order doesn't affect the result.
 
@@ -95,7 +99,7 @@ All literal checksum files must exist. An array can contain unmatched glob patte
 
 By default, every cache key part must match. Add `fallback_limit: true` to one part to make every following part optional during restore. The marked part remains required.
 
-In the npm example, Buildkite Cache looks for an exact match that includes the lockfile checksum. If no exact entry exists, it can restore the newest entry that matches `npm`, the operating system, and the architecture. The subsequent `npm ci` command updates the restored data, and the save command creates an entry for the new exact key.
+In the npm example, Buildkite Cache looks for an exact match that includes the lockfile checksum. If no exact entry exists, Buildkite Cache restores the newest entry that matches `npm`, the operating system, and the architecture. The subsequent `npm ci` command updates the restored data, and the save command creates an entry for the new exact key.
 
 You can add `fallback_limit` to at most one key part.
 
@@ -107,7 +111,7 @@ Target paths use the following anchors:
 
 - **Relative paths**: Resolve from the job working directory.
 - **Home-relative paths**: Start with `~/` and resolve from the home directory of the user running the agent.
-- **Absolute paths**: Must be within the home directory of the user running the agent and restore to the same absolute location. In containers, the home directory is usually `/root`. Paths outside the user's home directory are rejected.
+- **Absolute paths**: Use platform-native path syntax and restore to the same absolute location. For example, use `/opt/cache` on POSIX systems or `C:\cache` on Windows.
 
 When a cache entry is restored, Buildkite Cache removes each existing target before extracting the cached data. Restoration replaces the target instead of merging with its contents.
 
@@ -117,13 +121,9 @@ You can't cache an entire working directory, home directory, filesystem root, dr
 
 A cache registry holds cache entry metadata and controls which jobs can save and restore entries. Registries are scoped to a cluster. Organization administrators and cluster maintainers can manage them.
 
-To open the registries for a cluster:
+To open the registries for a cluster, select **Agents** > the cluster > **Cache Registries**.
 
-1. Select **Agents** in the global navigation.
-1. Select the cluster.
-1. Select **Cache Registries**.
-
-The **Entries** tab lists cache entries and lets you delete entries that are no longer needed. Use the **Cache Store**, **Policy**, and **Settings** tabs to manage the registry.
+The **Entries** tab lists cache entries and lets you remove entries that are no longer needed from the registry. Use the **Cache Store**, **Policy**, and **Settings** tabs to manage the registry.
 
 ### Create a cache registry
 
@@ -135,11 +135,13 @@ Create another registry when jobs in the cluster need a different access policy 
 1. Configure the cache policy.
 1. Select **Create cache registry**.
 
-Buildkite generates the registry slug from its name. Renaming a registry changes its slug and can break commands that select it explicitly.
+> 🚧 Renaming a registry changes its slug
+> Buildkite generates the registry slug from its name. Renaming a registry can break commands that select the old slug explicitly.
 
-To make a registry the cluster default, open its **Settings** tab and select **Set as default**. You can't delete the default registry until you select another default.
+To make a registry the cluster default, select **Settings** > **Set as default**. You can't delete the default registry until you select another default.
 
-Changing a registry's cache store removes its existing cache keys. Subsequent restores miss until jobs save new entries.
+> 🚧 Changing a cache store removes cache keys
+> Changing a registry's cache store removes its existing cache keys. Subsequent restores miss until jobs save new entries.
 
 ### Select a cache registry
 
@@ -154,6 +156,7 @@ buildkite-agent cache save --registry dependency-cache
 env:
   BUILDKITE_AGENT_CACHE_REGISTRY: "dependency-cache"
 ```
+{: codeblock-file="pipeline.yml"}
 
 The registry value `~` also selects the cluster default.
 
@@ -161,7 +164,7 @@ The registry value `~` also selects the cluster default.
 
 Cache policies control how entries are scoped and which jobs can save or restore them. The default unrestricted policy allows jobs in the cluster to share entries with matching cache keys and target paths.
 
-The following policy scopes saved entries by pipeline and branch. Restore first searches the current branch, then the `master` branch in the same pipeline. The CEL conditions allow a job to restore entries from its own branch or the trusted `master` branch, while allowing all jobs to save entries under their resolved scopes:
+The following policy scopes saved entries by pipeline and branch. Restore first searches the current branch, then the `master` branch in the same pipeline. The CEL conditions allow a job to restore entries from its own branch or the trusted `master` branch. A separate rule allows all jobs to save entries under their resolved scopes:
 
 ```yaml
 save:
@@ -219,21 +222,14 @@ Attribute | Type | Description
 `claims.build_branch` | String | Build branch.
 `claims.build_tag` | String or `null` | Build tag, or `null` for a build that isn't for a tag.
 `claims.build_commit` | String | Build commit.
-`claims.step_key` | String | Step key.
+`claims.step_key` | String or `null` | Step key, or `null` when the step doesn't have a key.
 `claims.job_id` | String | Job UUID.
-`claims.agent_id` | String or `null` | Agent UUID, or `null` when unavailable.
+`claims.agent_id` | String | Agent UUID.
 `claims.build_source` | String | Build source, such as `webhook` or `ui`.
 `claims.runner_environment` | String | Runner environment, either `buildkite-hosted` or `self-hosted`.
-`claims.organization_id` | String | Organization UUID.
-`claims.pipeline_id` | String | Pipeline UUID.
-`claims.build_id` | String | Build UUID.
-`claims.cluster_id` | String or `null` | Cluster UUID, or `null` when unavailable.
-`claims.cluster_name` | String or `null` | Cluster name, or `null` when unavailable.
-`claims.queue_id` | String or `null` | Queue UUID, or `null` when unavailable.
-`claims.queue_key` | String or `null` | Queue key, or `null` when unavailable.
 {: class="responsive-table"}
 
-Compare matching identifier types. For example, compare `entry.pipeline` with `claims.pipeline_slug`, and compare `entry.build` with `claims.build_id`. The `entry.pipeline` value is a slug rather than the UUID in `claims.pipeline_id`.
+Compare matching values. For example, compare `entry.pipeline` with `claims.pipeline_slug`, and compare `entry.branch` with `claims.build_branch`.
 
 Guard nullable entry values before calling string functions. For example, `entry.branch != null && entry.branch.startsWith("release/")` safely checks a branch-scoped entry.
 
@@ -248,6 +244,6 @@ Buildkite Cache uses the following save and restore behavior:
 - Restore checks the exact key first, then progressively removes optional trailing key parts up to the configured fallback limit. The newest matching entry is restored.
 - A miss leaves existing target paths unchanged and exits successfully.
 - A missing, corrupted, or unrecognized stored archive is treated as a miss and isn't extracted.
-- Cache entries expire three days after creation or their latest exact restore. A fallback restore doesn't extend an entry's expiration.
+- Cache registry entries expire three days after creation or their latest exact restore. A fallback restore doesn't extend an entry's expiration. Buildkite doesn't delete stored objects when registry entries expire. For agent-managed stores, the storage provider lifecycle policy controls object deletion.
 
 Treat caches as temporary performance optimizations. Build and test commands must continue to work after a cache miss.
