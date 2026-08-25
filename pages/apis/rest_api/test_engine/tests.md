@@ -39,6 +39,14 @@ The `Buildkite-Version` request header opts in to the versioned response shown a
 
 The aggregated metrics in each test are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters. Tests without any executions recorded in Test Engine during the requested time range will not be present in the response.
 
+To retrieve flaky tests, filter by the `flaky` label. You can also sort by reliability in ascending order to return the least reliable tests first:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Buildkite-Version: 2026-08-01" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests?labels=flaky&sort_by=reliability&order=asc"
+```
+
 <table class="responsive-table">
 <tbody>
   <tr>
