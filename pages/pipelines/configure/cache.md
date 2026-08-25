@@ -37,7 +37,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also set the store URL using `--cache-store-url`. S3 store URLs support the `region`, `endpoint`, `use_path_style`, `concurrency`, and `part_size_mb` query parameters.
+You can also set the store URL using `--cache-store-url`.
 
 ## Define and use a cache
 
