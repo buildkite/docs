@@ -58,6 +58,7 @@
   pipelines/tutorials/attributing-aws-agent-costs: "Tutorial for attributing AWS agent compute costs to teams in monorepo setups by streaming Buildkite Amazon EventBridge events to Amazon S3 through Amazon Data Firehose and querying the data with Amazon Athena. Covers prerequisites, how the data pipeline works, setting up the infrastructure with Terraform, and correlating queues, agents, EC2 instances, and job duration to AWS pricing."
   pipelines/configure: "Overview of pipeline configuration concepts: what pipelines are, step types, and links to key configuration topics."
   pipelines/configure/defining-steps: "How to define pipeline steps in YAML, set up webhooks, configure step defaults, and manage pipeline.yml files."
+  pipelines/configure/cache: "Preview documentation for Buildkite Cache: configuring cache stores, defining cache keys and target paths, saving and restoring entries, managing cluster cache registries, and controlling access with cache policies."
   pipelines/configure/step-types: "Index of available step types: command, wait, block, input, trigger, and group steps."
   pipelines/configure/step-types/command-step: "Reference for command steps: running shell commands, all attributes, plugins, matrix, soft_fail, and agent targeting."
   pipelines/configure/retry: "Configuring automatic and manual retry for command step jobs, including exit status, signal, signal_reason conditions, retry limits, and retry behavior."

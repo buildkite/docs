@@ -188,32 +188,11 @@ A Git mirror volume's name is based on your cloud-based Git service's account an
 
 You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
 
-## Default cache store URL
+## Buildkite Cache storage
 
-Jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) automatically receive the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. This variable configures the Buildkite agent's default cache store backend for the `cache` step attribute. The value is scoped to the cluster. Cache data is shared only between jobs running in the same cluster.
+Jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) automatically receive the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. [Buildkite Cache](/docs/pipelines/configure/cache) uses this variable as the default cache store for the `buildkite-agent cache restore` and `buildkite-agent cache save` commands. Cache entries are shared only between jobs running in the same cluster.
 
-You do not need to set this variable manually for Buildkite hosted agents.
-
-## Configuring cache operation concurrency
-
-When saving or restoring multiple cache volumes, the agent processes them concurrently. Control the number of concurrent operations using the `BUILDKITE_CACHE_CONCURRENCY` environment variable. The default is `2`.
-
-Increase this value to reduce overall cache operation time for pipelines that use many small cache volumes:
-
-```yaml
-steps:
-  - command: "your-build-command"
-    env:
-      BUILDKITE_CACHE_CONCURRENCY: 4
-    cache:
-      paths:
-        - "node_modules"
-        - ".build"
-        - "vendor/bundle"
-```
-{: codeblock-file="pipeline.yml"}
-
-Setting `BUILDKITE_CACHE_CONCURRENCY` to `0` or a negative value causes the agent to use the number of available CPU cores as the concurrency limit.
+You don't need to set this variable manually for Buildkite hosted agents. Buildkite Cache and cache volumes are separate features. Buildkite Cache stores keyed archives, while cache volumes provide best-effort attached storage.
 
 ## Viewing and deleting volumes
 

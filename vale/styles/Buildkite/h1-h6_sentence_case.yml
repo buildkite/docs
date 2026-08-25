@@ -68,6 +68,7 @@ exceptions:
   - Bottlerocket
   - Bottlerocket OS
   - Buildkite
+  - Buildkite Cache
   - Buildkite Package Registries
   - Buildkite Pipelines
   - Buildkite SDK

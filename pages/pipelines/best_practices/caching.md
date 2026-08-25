@@ -19,6 +19,12 @@ Don't cache:
 - Final build artifacts that will be published elsewhere
 - Test outputs that depend on current code
 
+## Using Buildkite Cache
+
+[Buildkite Cache](/docs/pipelines/configure/cache) is a preview feature for saving files and directories under configurable keys, then restoring them in later jobs and builds. The feature supports Buildkite hosted agents and self-hosted agents, and provides cluster-scoped cache registries with configurable access policies.
+
+Use Buildkite Cache when jobs need to share dependencies that can be regenerated across different agents. Design every build to handle a cache miss, and use keys that include the platform and a checksum of the dependency lockfile.
+
 ## Caching strategies
 
 - For Git checkout caching, use Git mirrors or shallow clones on persistent workers to speed up fetches. Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
