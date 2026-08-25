@@ -384,17 +384,13 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Workflow-scoped GitHub access tokens
 
-> 📘 Private preview
-> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
-
 Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
 
 To use this feature, the following requirements must be met:
 
-1. Your organization has the feature enabled by Buildkite support.
 1. The pipeline uses the full-access **GitHub** repository provider. The **GitHub (Limited Access)** provider isn't supported because it doesn't provide code access.
 1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
-1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization, and only for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
 
 Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository. Changing the pipeline's repository preserves this setting, so review it after a repository change.
 
