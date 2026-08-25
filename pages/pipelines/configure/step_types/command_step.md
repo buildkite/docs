@@ -492,7 +492,7 @@ steps:
 
 To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-When a job fails, the build enters a _failing_ state. Any other jobs with `cancel_on_build_failing: true` are automatically canceled, whether they are already running, or are still waiting to start (for example, jobs waiting on a [`depends_on`](/docs/pipelines/configure/depends-on) step, or blocked by a concurrency limit). Once all of these jobs have been canceled, the build is marked as _failed_ due to the initial job failure.
+When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on_build_failing: true` are automatically canceled, including jobs that are already running and jobs that are still waiting to start. Waiting jobs can include jobs whose dependencies are incomplete or that are blocked by a concurrency limit. Once all of these jobs have been canceled, the build is marked as _failed_ due to the initial job failure.
 
 Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 
