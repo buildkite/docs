@@ -164,7 +164,10 @@ The registry value `~` also selects the cluster default.
 
 Cache policies control how entries are scoped and which jobs can save or restore them. The default unrestricted policy allows jobs in the cluster to share entries with matching cache keys and target paths.
 
-The following policy scopes saved entries by pipeline and branch. Restore first searches the current branch, then the `master` branch in the same pipeline. The CEL conditions allow a job to restore entries from its own branch or the trusted `master` branch. A separate rule allows all jobs to save entries under their resolved scopes:
+The following policy scopes saved entries by pipeline and branch. Restore first searches the current branch, then the `master` branch in the same pipeline. The CEL conditions allow a job to restore entries from its own branch or the `master` branch. A separate rule allows all jobs to save entries under their resolved scopes:
+
+> 🚧 Use this policy only with trusted builds
+> This example is suitable only for cache registries used exclusively by trusted builds. Branch names aren't trust boundaries. Unless your [GitHub settings](/docs/pipelines/source-control/github#running-builds-on-pull-requests) enable **Prefix third-party fork branch names**, a third-party fork branch named `master` has the same branch scope as the `master` branch of the pipeline. Don't allow untrusted builds to save caches that trusted builds can restore.
 
 ```yaml
 save:
@@ -184,7 +187,7 @@ rules:
     when: >-
       entry.pipeline == claims.pipeline_slug &&
       entry.branch == claims.build_branch
-  - name: "restore-trusted-master"
+  - name: "restore-master"
     effect: "allow"
     action: "restore"
     when: >-
@@ -240,7 +243,7 @@ Guard nullable entry values before calling string functions. For example, `entry
 
 Buildkite Cache uses the following save and restore behavior:
 
-- A save is write-once for an address. If an entry already exists for the resolved key, target paths, policy scopes, and registry, the existing entry isn't overwritten.
+- Cache entries are effectively write-once after an address exists. Later saves normally detect the existing entry and skip uploading. Concurrent first saves to the same new address can race, and the last commit can determine which entry is retained.
 - Restore checks the exact key first, then progressively removes optional trailing key parts up to the configured fallback limit. The newest matching entry is restored.
 - A miss leaves existing target paths unchanged and exits successfully.
 - A missing, corrupted, or unrecognized stored archive is treated as a miss and isn't extracted.
