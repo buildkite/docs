@@ -208,6 +208,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Pull request review comments**: trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
 - **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
+- **Issue activity**: trigger builds from GitHub issue activity, such as an issue being opened, edited, labeled, or closed. See [Running builds on issue activity](#running-builds-on-issue-activity) for requirements and limitations.
 
 > 🚧 Configure the GitHub webhook for issue comments
 > To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
@@ -215,6 +216,31 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 > You don't need to enable **Build when pull request is opened or updated** in **Pipeline Settings**. Buildkite Pipelines records the pull request information when it receives the webhook, even when pull request builds are disabled.
 >
 > GitHub does not send `pull_request` events retroactively when you update a webhook. After enabling **Pull requests**, open a new pull request or push a commit to an existing pull request before using the issue comment command word.
+
+### Running builds on issue activity
+
+> 📘 Private preview
+> Running builds on issue activity is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+
+To enable issue activity builds, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, expand **Issue activity**, then select **Build on GitHub issue activity**. This option is only available for GitHub.com pipelines that use the full-access **GitHub** App. It isn't available for GitHub Enterprise Server pipelines.
+
+Buildkite Pipelines supports every GitHub `issues` webhook activity type:
+
+- **Assignment:** `assigned` and `unassigned`
+- **Classification:** `typed`, `untyped`, `labeled`, `unlabeled`, `milestoned`, `demilestoned`, `field_added`, and `field_removed`
+- **Content:** `opened`, `edited`, `deleted`, and `transferred`
+- **State:** `closed`, `reopened`, `locked`, `unlocked`, `pinned`, and `unpinned`
+
+The setting enables all activity types and has no per-action selector. To limit which issue events create builds, use **Filter builds using a conditional** in the pipeline's GitHub settings with `build.source_event` and `build.source_action`. For example, `build.source_event == "issues" && build.source_action == "opened"` creates a build only when an issue is opened. The pipeline's branch configuration also applies to the repository's default branch, so a configuration that excludes the default branch prevents issue builds.
+
+Unlike [issue comments](#running-builds-on-additional-github-events), issue builds don't require a trusted author. Any GitHub user, including public issue authors outside your organization, can trigger a build by interacting with an issue. Buildkite platform quota controls still apply. Configure steps that process issue content as untrusted input.
+
+Every issue build runs the repository's default branch at the exact commit that Buildkite Pipelines resolves when it processes the webhook delivery. This differs from the commit checked out for a pull request or push build. Code triggered by a public author always comes from your trusted default branch rather than from the issue itself. Rebuilds and builds created from trigger steps preserve the original event and commit provenance instead of resolving the default branch again.
+
+> 🚧 Issue builds can request normal workflow permissions
+> Builds triggered by issue activity aren't pull request builds, so they aren't limited to the read-only permission ceiling applied to pull request workflow access tokens. These builds can request the same [workflow access token permissions](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc), including write permissions, as other trusted branch builds. Only enable this event for pipelines whose default branch code is safe to run with those permissions.
+
+GitHub still delivers issue events created with a Buildkite-minted `GITHUB_TOKEN`. Buildkite Pipelines recognizes the Code Access App bot and skips the corresponding builds to prevent feedback loops. Third-party automation, bots, and other integrations aren't suppressed. They can still repeatedly trigger an opted-in issue workflow, for example, by editing the same issue. Review your workflow's triggers and permissions before opting in.
 
 ## Environment variables
 
@@ -227,6 +253,7 @@ GitHub webhook-triggered builds expose environment variables that you can use at
 - `BUILDKITE_GITHUB_EVENT`: the GitHub webhook event name (for example, `pull_request`, `check_run`, `release`)
 - `BUILDKITE_GITHUB_ACTION`: the GitHub webhook action (for example, `opened`, `completed`, `published`)
 - `BUILDKITE_GITHUB_DEPLOYMENT_ID`: the deployment ID (deployment status events)
+- `BUILDKITE_GITHUB_ISSUE_NUMBER`: the number of the issue that triggered the build (issue events)
 
 **Available in conditionals and pipeline interpolation only:**
 
@@ -381,6 +408,92 @@ To connect your GitHub account:
 1. Select **Authorize Buildkite**. GitHub redirects you back to your **Connected Apps** page.
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
+
+## Workflow-scoped GitHub access tokens
+
+Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
+
+To use this feature, the following requirements must be met:
+
+1. The pipeline uses the full-access **GitHub** repository provider. The **GitHub (Limited Access)** provider isn't supported because it doesn't provide code access.
+1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
+1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+
+> 🚧 Protect workflow-scoped tokens
+> Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository.
+> For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
+> Changing the pipeline's repository preserves this setting, so review it after a repository change.
+
+### Request a token
+
+From a running job, send a request to the Agent API with the pipeline repository URL, a workflow filename, and the required permissions. The job token in `BUILDKITE_AGENT_ACCESS_TOKEN` can only request a token for the same job.
+
+For example, add the following top-level policy to `.github/workflows/release.yml` and commit it before running the build:
+
+```yaml
+permissions:
+  contents: write
+```
+{: codeblock-file=".github/workflows/release.yml"}
+
+The following command requests `contents: write` and exports the returned token as `GITHUB_TOKEN`:
+
+```bash
+if ! response=$(curl --fail-with-body --silent --show-error \
+  --request POST \
+  --header "Authorization: Token $BUILDKITE_AGENT_ACCESS_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data "{\"repo_url\":\"$BUILDKITE_REPO\",\"workflow\":\"release.yml\",\"permissions\":{\"contents\":\"write\"}}" \
+  "$BUILDKITE_AGENT_ENDPOINT/jobs/$BUILDKITE_JOB_ID/github_workflow_access_token"); then
+  printf '%s\n' "$response" >&2
+  exit 1
+fi
+
+if ! printf '%s' "$response" | buildkite-agent redactor add --format json; then
+  unset response
+  exit 1
+fi
+
+if ! GITHUB_TOKEN=$(printf '%s' "$response" | jq --exit-status --raw-output '.token'); then
+  unset response
+  exit 1
+fi
+
+export GITHUB_TOKEN
+unset response
+```
+
+The successful response has the following shape:
+
+```json
+{
+  "token": "ghs_xxx"
+}
+```
+
+The request supports the `read`, `write`, and `none` access levels for `actions`, `artifact_metadata`, `attestations`, `checks`, `code_quality`, `contents`, `deployments`, `discussions`, `issues`, `packages`, `pages`, `pull_requests`, `security_events`, and `statuses`. The `metadata` and `vulnerability_alerts` permissions support `read` and `none`. Use underscores in the request body for permission names that GitHub writes with hyphens in the workflow file.
+
+### How the workflow policy is applied
+
+When a job requests a token, the job selects a single `.yml` or `.yaml` file from `.github/workflows/` in the pipeline's repository. Buildkite reads the file at the build's commit SHA and uses only its top-level `permissions` map as a static permissions policy. Buildkite doesn't evaluate the workflow's triggers, jobs, or expressions, and doesn't run the workflow.
+
+The selected workflow file isn't bound to a GitHub Actions job or trigger. Any eligible job can select any supported workflow file at the build's commit. Treat the broadest compatible top-level `permissions` map in `.github/workflows/` as the permission limit available to a job.
+
+A requested permission is only granted when it's allowed by all of the following:
+
+- The selected workflow file's top-level `permissions` policy. If the file omits this map, the policy defaults to `contents: read`. The `read-all` shorthand expands to every supported read permission. An explicit map must be non-empty and contain static permission names and access levels (`read`, `write`, or `none`). The `write-all` shorthand and expressions (for example, `${{ ... }}`) cause the request to be denied. Job-level permissions and reusable workflow `uses` declarations don't affect the selected file's policy.
+- Buildkite's own allowlist of permissions that can be requested this way.
+- The permissions granted to the Buildkite GitHub App installation for the repository.
+
+### Restrictions
+
+- Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
+- Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
+- Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
+- The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.
+- Issued tokens expire after one hour. The response doesn't include an expiration timestamp.
+- Each job can make up to ten token requests per hour. Further requests return `429 Too Many Requests` with a `Retry-After` response header.
+- The selected workflow file must not exceed 128 KiB.
 
 ## Using GitHub App installation access tokens
 

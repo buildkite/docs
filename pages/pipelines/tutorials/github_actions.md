@@ -15,6 +15,7 @@ The following GitHub webhook events can trigger Buildkite Pipelines builds:
 - Check runs (`check_run`)
 - Releases (`release`)
 - Issue comments (`issue_comment`)
+- Issue activity (`issues`, private preview)
 - Deployment statuses (`deployment_status`)
 - Branch/tag creation (`create`)
 
