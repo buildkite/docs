@@ -222,7 +222,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 > 📘 Private preview
 > Running builds on issue activity is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
 
-To enable issue activity builds, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, expand **Issue activity**, then select **Build on GitHub issue activity**. This option is only available for GitHub.com pipelines that use the full-access **GitHub** App with [workflow-authorized GitHub access tokens](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc) enabled. It isn't available for GitHub Enterprise Server pipelines.
+To enable issue activity builds, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, expand **Issue activity**, then select **Build on GitHub issue activity**. This option is only available for GitHub.com pipelines that use the full-access **GitHub** App. It isn't available for GitHub Enterprise Server pipelines.
 
 Buildkite Pipelines supports every GitHub `issues` webhook activity type:
 
@@ -231,7 +231,7 @@ Buildkite Pipelines supports every GitHub `issues` webhook activity type:
 - **Content:** `opened`, `edited`, `deleted`, and `transferred`
 - **State:** `closed`, `reopened`, `locked`, `unlocked`, `pinned`, and `unpinned`
 
-The setting enables all activity types and has no per-action selector. Branch, tag, path, and workflow filters don't apply to issue activity builds. To limit which steps run, use a pipeline [conditional](/docs/pipelines/configure/conditionals) with `build.source_event` and `build.source_action`. For example, `build.source_event == "issues" && build.source_action == "opened"` runs a step only when an issue is opened.
+The setting enables all activity types and has no per-action selector. To limit which issue events create builds, use **Filter builds using a conditional** in the pipeline's GitHub settings with `build.source_event` and `build.source_action`. For example, `build.source_event == "issues" && build.source_action == "opened"` creates a build only when an issue is opened. The pipeline's branch configuration also applies to the repository's default branch, so a configuration that excludes the default branch prevents issue builds.
 
 Unlike [issue comments](#running-builds-on-additional-github-events), issue builds don't require a trusted author. Any GitHub user, including public issue authors outside your organization, can trigger a build by interacting with an issue. Buildkite platform quota controls still apply. Configure steps that process issue content as untrusted input.
 
