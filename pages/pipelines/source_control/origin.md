@@ -135,6 +135,9 @@ Buildkite Pipelines receives signed events through the installed Origin app. You
 
 Deleted branches and tags do not create builds.
 
+> 📘 Branch and tag limit per push
+> A single push event creates builds for up to 1,000 distinct branch and tag names. If a push affects more names than that, Buildkite Pipelines builds the first 1,000 names in payload order and skips the rest. The push does not fail or retry because of the limit.
+
 ### Pull requests
 
 **Build when pull request is opened or updated** creates a build when a pull request is opened or its head branch is pushed. This setting is enabled by default.
