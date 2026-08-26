@@ -553,6 +553,8 @@
       children:
         - name: "Overview"
           path: "pipelines/configure/tests"
+        - name: "Flaky tests"
+          path: "pipelines/configure/tests/flaky-tests"
         - name: "Test suites"
           children:
             - name: "Overview"
