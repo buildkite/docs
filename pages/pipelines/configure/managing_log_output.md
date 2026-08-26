@@ -22,13 +22,18 @@ Use `~~~` to create groups that by default are collapsed and visually de-emphasi
 echo "~~~ An unimportant section of the build"
 ```
 
-On the build page, de-emphasized groups are hidden from the log by default. Select **Configure logs** above the log, then switch on **Show all system groups** to reveal them. A count of hidden groups appears next to the **Configure logs** icon. Your choice is remembered for future visits to the build page.
+> 📘 Availability
+> The controls in this section are available to organizations where de-emphasized job log groups are enabled in the new build experience.
 
-The default group that reports your build's running script, commands, or command hooks (for example, **Running commands**) always stays visible. This group isn't included in the hidden group count. A de-emphasized group that's explicitly expanded using `^^^ +++` also stays visible. See [Advanced grouping techniques](#grouping-log-output-advanced-grouping-techniques) for details. Unrelated system groups remain hidden. If a log contains only de-emphasized groups and has no default running group, every group is shown by default.
+In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Reveal groups** in the log toolbar to reveal all folded groups. The button changes to **Hide groups**, which folds them again.
 
-If you open a link to a specific log line inside a hidden group, that group is shown automatically. Other hidden groups remain hidden. If hiding system groups hides every group in the log, a message reports the number of hidden groups. Select **Show all** in the message to reveal them. This option only affects the current job and doesn't change your saved **Show all system groups** preference.
+Select **Configure view** > **Show all system groups** to keep all de-emphasized groups visible. Your choice is remembered for future visits to the build page. The **Configure view** menu also lets you change the log's theme and toggle timestamps.
 
-The **Configure logs** menu also lets you change the log's theme and toggle timestamps. The **Expand groups** and **Collapse groups** buttons remain directly in the log toolbar. Use them to open or close all groups at once.
+The default group that reports your build's running script, commands, or command hooks (for example, **Running commands**) always stays visible. A de-emphasized group that's explicitly expanded using `^^^ +++` also stays visible. See [Advanced grouping techniques](#grouping-log-output-advanced-grouping-techniques) for details. While a job is running, its active group stays visible. The group is folded when the job finishes.
+
+If you open a link to a specific log line inside a folded group, that group is shown automatically. Other folded groups remain folded. Search results and groups revealed using expander rows are also shown temporarily. These actions don't change your saved **Show all system groups** preference.
+
+The **Expand groups** and **Collapse groups** buttons act on visible groups without revealing folded groups. Use them to open or close all visible groups at once.
 
 ### Expanded groups
 
@@ -110,7 +115,7 @@ The `echo` line inside the `if` block uses the literal 🚀 Unicode character di
 
 Select the search icon above the build log to search its text. Enter a search term, then use the up and down arrows to move between matches. Switch on **Match case sensitivity** (**Aa**) to require an exact-case match.
 
-By default, search only matches visible groups. Text inside [hidden de-emphasized groups](#grouping-log-output-de-emphasized-groups) isn't included. Switch on **Match hidden log groups** to search those groups. Matching hidden groups are revealed for the duration of the search. This option doesn't change your saved **Show all system groups** preference.
+Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
 
 ## ANSI timestamps and disabling them
 
