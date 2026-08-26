@@ -2,6 +2,36 @@
 
 Proper caching makes your builds faster and cheaper by reusing data across jobs and builds. This page covers the caching capabilities and recommended patterns for Buildkite Pipelines.
 
+## Choosing a caching approach
+
+Buildkite Pipelines supports several caching approaches. Which ones you can use depends on where your agents run:
+
+Approach | Runs on | How data is addressed | Scope and retention | Availability
+--- | --- | --- | --- | ---
+[Buildkite Cache](/docs/pipelines/configure/cache) | Buildkite hosted agents and self-hosted agents in a [cluster](/docs/pipelines/security/clusters) | Explicitly, using the `buildkite-agent cache save` and `buildkite-agent cache restore` commands with a cache key you define | Held in a cluster cache registry, with configurable pipeline, branch, and build scopes. Entries expire three days after they're created or last restored by an exact key match | Currently in private preview
+[Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) | Buildkite hosted agents only | Implicitly, from the paths you list in the `cache` attribute of your pipeline YAML | Scoped to a pipeline and shared between its steps. Retained for up to 14 days from last use | Generally available
+[Build artifacts](/docs/pipelines/configure/artifacts) | Any agent | Explicitly, by uploading and downloading files by path, job, or build | Retained according to your artifact storage policy | Generally available
+Plugins and external caches | Any agent | Whatever the plugin or tool implements, such as an Amazon S3 bucket or a Bazel remote cache | You manage the storage and its lifecycle | Generally available
+{: class="responsive-table"}
+
+### Buildkite Cache compared with cache volumes
+
+Buildkite Cache and cache volumes have similar names, and both cache data between jobs, but they behave differently:
+
+Behavior | Buildkite Cache | Cache volumes
+--- | --- | ---
+Determinism | A job restores the entry that matches its cache key, or reports a miss that the build can handle | Volumes are attached on a best-effort basis depending on locality, expiration, and current usage, so what a job finds in one varies between builds
+Storage and performance | Entries are archived to an object store, so every save and restore transfers and extracts data. Large caches cost network time in each job that uses them | The volume is a disk attached to the agent instance, using NVMe storage on Linux, so jobs read and write files in place with nothing to transfer
+Partial matches | Marking one cache key part with `fallback_limit` lets a restore fall back to the newest entry matching the earlier parts | Not configurable. A job uses whatever the attached volume contains
+Access control | Cache registry policies scope entries by pipeline, branch, or build, and rules determine which jobs can save or restore them | No equivalent. Volume access isn't restricted by job, branch, or build
+Concurrency | An entry is written once per address. Concurrent first saves to the same address can race | Each job works on a forked copy of the volume, and the volume is updated only after the job completes successfully
+Configuration | A `.buildkite/cache.yml` file, plus `buildkite-agent cache save` and `buildkite-agent cache restore` commands in your steps | A list of paths under the `cache` attribute in your pipeline YAML
+{: class="responsive-table"}
+
+Use Buildkite Cache when a job needs to restore a known set of dependencies, when your builds run on self-hosted agents, or when untrusted builds share a cluster and cache access needs to be controlled. Use cache volumes for large working data on Buildkite hosted agents, where local disk speed matters more than knowing exactly what a job will find.
+
+Whichever approach you choose, design your builds to succeed after a cache miss.
+
 ## What to cache
 
 Cache the following for faster builds:
@@ -19,12 +49,6 @@ Don't cache:
 - Final build artifacts that will be published elsewhere
 - Test outputs that depend on current code
 
-## Using Buildkite Cache
-
-[Buildkite Cache](/docs/pipelines/configure/cache) is a preview feature for saving files and directories under configurable keys, then restoring them in later jobs and builds. The feature supports Buildkite hosted agents and self-hosted agents, and provides cluster-scoped cache registries with configurable access policies.
-
-Use Buildkite Cache when jobs need to share dependencies that can be regenerated across different agents. Design every build to handle a cache miss, and use keys that include the platform and a checksum of the dependency lockfile.
-
 ## Caching strategies
 
 - For Git checkout caching, use Git mirrors or shallow clones on persistent workers to speed up fetches. Learn more in [Git checkout optimization](/docs/pipelines/best-practices/git-checkout-optimization).
@@ -40,6 +64,19 @@ Use Buildkite Cache when jobs need to share dependencies that can be regenerated
 
 - For artifact caching, store heavyweight build outputs as artifacts between steps instead of re-building. See more in the following section.
 
+## Using Buildkite Cache
+
+When you cache with [Buildkite Cache](/docs/pipelines/configure/cache), most of the design work is in the cache key:
+
+- Order key parts from coarse to fine. A restore drops optional parts from the end of the key, so put stable values such as the cache name, operating system, and architecture first, and the most specific value, such as a lockfile checksum, last.
+- Mark the part immediately before your lockfile checksum with `fallback_limit: true`. A lockfile change then still restores the previous set of dependencies, and the install command reconciles the difference instead of starting from nothing.
+- Restore before the command that needs the data, and save after that command has populated the target path. A cache miss exits successfully, so the build carries on either way.
+- Change a literal part of the key, such as bumping `v1` to `v2`, when you need to invalidate a cache. An entry is written once per address, so saving again won't refresh an entry that already exists.
+- Keep target paths narrow. A restore deletes each target before extracting into it, so cache a dependency directory rather than a whole working directory.
+- Expect misses in pipelines that build infrequently. Entries expire three days after they're created or last restored by an exact key match, and a fallback restore doesn't extend that.
+- Don't cache secrets, credentials, or the output of untrusted builds. Where untrusted builds share a cluster, configure a cache registry policy before sharing a registry with them.
+- Configure a storage lifecycle policy on your own bucket if your agents are self-hosted. Buildkite expires the registry metadata, but it can't delete objects from a store it doesn't manage.
+
 ## Using artifacts for caching
 
 Buildkite [build artifacts](/docs/pipelines/configure/artifacts) are files uploaded by a job that you can download in later steps or later builds. Artifacts are durable and addressable, so you can reuse previously produced files to cache common data between steps instead of re-computing them. Unlike a purpose‑built cache, artifacts are:
@@ -49,7 +86,7 @@ Buildkite [build artifacts](/docs/pipelines/configure/artifacts) are files uploa
 - Retrieved by path patterns, job, build number, or using the API
 
 > 📘
-> Buildkite’s dedicated cache features and hosted cache volumes serve different goals and trade-offs than artifacts. Cache volumes aim for speed with different retention and locality guarantees. Artifacts are deterministic and durable.
+> [Buildkite Cache](/docs/pipelines/configure/cache) and [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) serve different goals and trade-offs than artifacts. Cache volumes aim for speed with different retention and locality guarantees. Artifacts are deterministic and durable.
 
 To use artifacts for caching:
 

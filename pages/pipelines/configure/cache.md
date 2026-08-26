@@ -1,19 +1,19 @@
 ---
-description: "Configure the Buildkite Cache preview to save and restore keyed files and directories across Buildkite Pipelines jobs and builds."
+description: "Configure the Buildkite Cache private preview to save and restore keyed files and directories across Buildkite Pipelines jobs and builds."
 ---
 
 # Buildkite Cache
 
-> 📘 Preview feature
-> Buildkite Cache is currently in preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> 📘 Private preview feature
+> Buildkite Cache is currently in private preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 Buildkite Cache saves files and directories from Buildkite Pipelines jobs, then restores them in later jobs and builds. Each cache entry has an ordered cache key. A cache store holds the archived data, while a cache registry associated with a [cluster](/docs/pipelines/security/clusters) tracks entries and controls access.
 
-Use Buildkite Cache for data that can be regenerated, such as package manager download caches and compiled dependencies. Use [build artifacts](/docs/pipelines/configure/artifacts) for build outputs that must be retained or passed between specific jobs. [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are a separate Buildkite hosted agent feature that provides best-effort attached storage instead of key-based cache entries.
+Use Buildkite Cache for data that can be regenerated, such as package manager download caches and compiled dependencies. Use [build artifacts](/docs/pipelines/configure/artifacts) for build outputs that must be retained or passed between specific jobs. [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are a separate Buildkite hosted agent feature that provides best-effort attached storage instead of key-based cache entries. To compare all of the caching approaches available in Buildkite Pipelines, see [Caching](/docs/pipelines/best-practices/caching#choosing-a-caching-approach).
 
 ## Set up Buildkite Cache
 
-When the preview is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
+When the private preview is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
 
 Your jobs must run on clustered agents with Buildkite agent version 3.136.3 or later.
 
@@ -81,6 +81,8 @@ A normal cache miss exits successfully, so the job continues to `npm ci`. Config
 If you omit `--name`, the command processes every cache in the configuration file. Repeat `--name` to select multiple caches. Set `BUILDKITE_CACHE_NAMES` to provide the same selection using an environment variable.
 
 By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.yaml`. If both files exist, discovery fails. Use `--cache-config-file` or `BUILDKITE_CACHE_CONFIG_FILE` to select a different file.
+
+When a command processes more than one cache, it works on them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
 
 ## Configure cache keys
 
