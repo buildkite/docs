@@ -157,7 +157,7 @@ The subject user must be an active member of the target organization. When ident
 
 > 📘
 > The request `audience` parameter and the JWT `aud` claim are different values:
-> - `audience` (form parameter) is the Buildkite **organization slug or UUID** (for example, `my-org`)
+> - `audience` (form parameter) is the Buildkite **organization slug or UUID** (for example, `my-org` or `01234567-89ab-cdef-0123-456789abcdef`)
 > - `aud` (JWT claim) is the **token endpoint URL** (`https://buildkite.com/oauth/token`)
 
 ### Response
