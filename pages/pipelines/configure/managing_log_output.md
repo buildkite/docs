@@ -22,9 +22,13 @@ Use `~~~` to create groups that by default are collapsed and visually de-emphasi
 echo "~~~ An unimportant section of the build"
 ```
 
-On the build page, de-emphasized groups are hidden from the log by default. Select **Configure logs** above the log, then switch on **Show all system groups** to reveal them. A count of the hidden groups is shown next to the **Configure logs** icon, and your choice is remembered for future visits to the build page.
+On the build page, de-emphasized groups are hidden from the log by default. Select **Configure logs** above the log, then switch on **Show all system groups** to reveal them. A count of hidden groups appears next to the **Configure logs** icon. Your choice is remembered for future visits to the build page.
 
-The **Configure logs** menu also lets you change the log's theme and toggle timestamps. The **Expand groups** and **Collapse groups** buttons remain directly in the log toolbar so you can open or close all groups at once.
+The default group that reports your build's running script, commands, or command hooks (for example, **Running commands**) always stays visible. This group isn't included in the hidden group count. A de-emphasized group that's explicitly expanded using `^^^ +++` also stays visible. See [Advanced grouping techniques](#grouping-log-output-advanced-grouping-techniques) for details. Unrelated system groups remain hidden. If a log contains only de-emphasized groups and has no default running group, every group is shown by default.
+
+If you open a link to a specific log line inside a hidden group, that group is shown automatically. Other hidden groups remain hidden. If hiding system groups hides every group in the log, a message reports the number of hidden groups. Select **Show all** in the message to reveal them. This option only affects the current job and doesn't change your saved **Show all system groups** preference.
+
+The **Configure logs** menu also lets you change the log's theme and toggle timestamps. The **Expand groups** and **Collapse groups** buttons remain directly in the log toolbar. Use them to open or close all groups at once.
 
 ### Expanded groups
 
@@ -57,6 +61,8 @@ if [[ $? -ne 0 ]]; then
   echo "Bundler failed, oh no!!"
 fi
 ```
+
+If the group you open with `^^^ +++` is a [de-emphasized](#grouping-log-output-de-emphasized-groups) (`~~~`) group, it stays visible on the build page even when de-emphasized groups are hidden by default.
 
 #### Creating section boundaries
 
@@ -99,6 +105,12 @@ steps:
 ```
 
 The `echo` line inside the `if` block uses the literal 🚀 Unicode character directly. Writing `\:rocket\:` there would print as plain text rather than an emoji.
+
+## Searching log output
+
+Select the search icon above the build log to search its text. Enter a search term, then use the up and down arrows to move between matches. Switch on **Match case sensitivity** (**Aa**) to require an exact-case match.
+
+By default, search only matches visible groups. Text inside [hidden de-emphasized groups](#grouping-log-output-de-emphasized-groups) isn't included. Switch on **Match hidden log groups** to search those groups. Matching hidden groups are revealed for the duration of the search. This option doesn't change your saved **Show all system groups** preference.
 
 ## ANSI timestamps and disabling them
 
