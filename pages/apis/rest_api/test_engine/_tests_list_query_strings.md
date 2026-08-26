@@ -52,14 +52,6 @@
     </td>
   </tr>
   <tr>
-    <th><code>min_executions</code></th>
-    <td>
-      <span>Only returns tests with at least this many executions in the requested time window, after the <code>branch</code>, <code>owners</code>, <code>state</code>, and <code>tags</code> filters are applied. Must be a positive integer.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?min_executions=10</code></p>
-      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
-    </td>
-  </tr>
-  <tr>
     <th><code>sort_by</code></th>
     <td>
       <span>The metric to sort the results by. Valid values are <code>duration_avg</code>, <code>duration_sum</code>, <code>duration_min</code>, <code>duration_max</code>, and <code>reliability</code>. The default value is <code>duration_avg</code>.</span>
@@ -82,6 +74,14 @@
   <tr>
     <th><code>per_page</code></th>
     <td>The number of results to return per page. Defaults to <code>30</code> and has a maximum of <code>100</code>.</td>
+  </tr>
+  <tr>
+    <th><code>min_executions</code></th>
+    <td>
+      <span>Only returns tests with at least this many executions in the requested time window, after the filters are applied. Must be a positive integer.</span>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?min_executions=10</code></p>
+      <p>Available with <code>Buildkite-Version</code> header >= <code>2026-08-01</code></p>
+    </td>
   </tr>
 </tbody>
 </table>
