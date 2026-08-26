@@ -256,7 +256,13 @@ SUITE_VISIBILITY_CHANGED
 SUITE_MONITOR_CREATED
 SUITE_MONITOR_DELETED
 SUITE_MONITOR_UPDATED
+
+SUITE_WORKFLOW_CREATED
+SUITE_WORKFLOW_DELETED
+SUITE_WORKFLOW_UPDATED
 ```
+
+`SUITE_WORKFLOW_CREATED`, `SUITE_WORKFLOW_UPDATED`, and `SUITE_WORKFLOW_DELETED` record the [workflow's](/docs/pipelines/configure/tests/workflows) condition thresholds, [actions](/docs/pipelines/configure/tests/workflows/actions), notification templates, and [tag filters](/docs/pipelines/configure/tests/workflows/monitors#tag-filters). **Send webhook notification** action endpoints are redacted in the recorded snapshot.
 
 ### Buildkite secrets
 
