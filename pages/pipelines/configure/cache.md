@@ -82,7 +82,7 @@ If you omit `--name`, the command processes every cache in the configuration fil
 
 By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.yaml`. If both files exist, discovery fails. Use `--cache-config-file` or `BUILDKITE_CACHE_CONFIG_FILE` to select a different file.
 
-When a command processes more than one cache, it works on them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
+When `buildkite-agent cache save` processes more than one cache, it saves them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
 
 ## Configure cache keys
 

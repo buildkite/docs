@@ -31,6 +31,8 @@ When volume paths are defined, the volume is mounted under `/cache/bkcache` in t
 
 Volumes can be created by specifying a name for the volume, which allows different steps within a pipeline to each use a different named volume. Each step can only reference one cache volume, and volumes cannot be shared across multiple pipelines.
 
+A volume is identified by its pipeline and its name, so every branch and every build of that pipeline uses the same volume. A job on one branch can write data that later jobs on other branches read, so don't put anything in a volume that a build on another branch shouldn't be able to read or replace.
+
 When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
 Defining a top-level volume configuration (using the `cache` key at the root level of your pipeline YAML) sets the default volume for all steps in the pipeline. Any volume defined within a step will be merged with the top-level volume configuration, with step-level volume size taking precedence when the same volume name is specified at both levels. Paths from both levels will be available when using the same volume name.

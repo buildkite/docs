@@ -21,7 +21,7 @@ Buildkite Cache and cache volumes have similar names, and both cache data betwee
 Behavior | Buildkite Cache | Cache volumes
 --- | --- | ---
 Determinism | A job restores the entry that matches its cache key, or reports a miss that the build can handle | Volumes are attached on a best-effort basis depending on locality, expiration, and current usage, so what a job finds in one varies between builds
-Storage and performance | Entries are archived to an object store, so every save and restore transfers and extracts data. Large caches cost network time in each job that uses them | The volume is a disk attached to the agent instance, using NVMe storage on Linux, so jobs read and write files in place with nothing to transfer
+Storage and performance | Entries are archived to an object store, so saving a new entry uploads it and restoring one downloads and extracts it. Large caches cost network time in the jobs that transfer them | The volume is a disk attached to the agent instance, using NVMe storage on Linux, so jobs read and write files in place with nothing to transfer
 Partial matches | Marking one cache key part with `fallback_limit` lets a restore fall back to the newest entry matching the earlier parts | Not configurable. A job uses whatever the attached volume contains
 Access control | Cache registry policies scope entries by pipeline, branch, or build, and rules determine which jobs can save or restore them | No equivalent. Volume access isn't restricted by job, branch, or build
 Concurrency | An entry is written once per address. Concurrent first saves to the same address can race | Each job works on a forked copy of the volume, and the volume is updated only after the job completes successfully
