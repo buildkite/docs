@@ -113,7 +113,7 @@ The `echo` line inside the `if` block uses the literal 🚀 Unicode character di
 
 ## Searching log output
 
-Select the search icon above the build log to search its text. Enter a search term, then use the up and down arrows to move between matches. Switch on **Match case sensitivity** (**Aa**) to require an exact-case match.
+On the Buildkite Pipelines build page, select **Search logs** above the build log. Enter a search term. Select **Previous** or **Next** to move between matches. Select **Match case sensitivity** (**Aa**) to require an exact-case match.
 
 Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
 
