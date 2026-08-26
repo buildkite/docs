@@ -476,9 +476,11 @@ These are configured in the Buildkite UI under Pipeline Settings, not in the YAM
 | `workflow_dispatch` | `input` step + "New Build" button/API |
 | `release` / `create` (tags) | UI → Build tags setting |
 
-For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events). For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-issue-activity).
+For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
 
-For triggers not natively supported by Buildkite Pipelines (`workflow_run`, `discussion`, etc.), you can:
+For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-issue-activity).
+
+For triggers not natively supported by Buildkite Pipelines, such as `workflow_run` and `discussion`, you can:
 
 1. **Keep in GitHub Actions:** Best for GitHub-specific automation.
 2. **Configure webhook:** Set up an endpoint to call the Buildkite API.
