@@ -392,24 +392,48 @@ To use this feature, the following requirements must be met:
 1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
 1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
 
-Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository. Changing the pipeline's repository preserves this setting, so review it after a repository change.
+> 🚧 Protect workflow-scoped tokens
+> Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository.
+> For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
+> Changing the pipeline's repository preserves this setting, so review it after a repository change.
 
 ### Request a token
 
 From a running job, send a request to the Agent API with the pipeline repository URL, a workflow filename, and the required permissions. The job token in `BUILDKITE_AGENT_ACCESS_TOKEN` can only request a token for the same job.
 
-For example, the following command requests `contents: write` and exports the returned token as `GITHUB_TOKEN`:
+For example, add the following top-level policy to `.github/workflows/release.yml` and commit it before running the build:
+
+```yaml
+permissions:
+  contents: write
+```
+{: codeblock-file=".github/workflows/release.yml"}
+
+The following command requests `contents: write` and exports the returned token as `GITHUB_TOKEN`:
 
 ```bash
-response=$(curl --fail --silent --show-error \
+if ! response=$(curl --fail-with-body --silent --show-error \
   --request POST \
   --header "Authorization: Token $BUILDKITE_AGENT_ACCESS_TOKEN" \
   --header "Content-Type: application/json" \
   --data "{\"repo_url\":\"$BUILDKITE_REPO\",\"workflow\":\"release.yml\",\"permissions\":{\"contents\":\"write\"}}" \
-  "$BUILDKITE_AGENT_ENDPOINT/jobs/$BUILDKITE_JOB_ID/github_workflow_access_token")
+  "$BUILDKITE_AGENT_ENDPOINT/jobs/$BUILDKITE_JOB_ID/github_workflow_access_token"); then
+  printf '%s\n' "$response" >&2
+  exit 1
+fi
 
-printf '%s' "$response" | buildkite-agent redactor add --format json
-export GITHUB_TOKEN="$(printf '%s' "$response" | jq --raw-output '.token')"
+if ! printf '%s' "$response" | buildkite-agent redactor add --format json; then
+  unset response
+  exit 1
+fi
+
+if ! GITHUB_TOKEN=$(printf '%s' "$response" | jq --exit-status --raw-output '.token'); then
+  unset response
+  exit 1
+fi
+
+export GITHUB_TOKEN
+unset response
 ```
 
 The successful response has the following shape:
@@ -440,7 +464,6 @@ A requested permission is only granted when it's allowed by all of the following
 - Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
 - Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
 - The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.
-- For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
 - Issued tokens expire after one hour. The response doesn't include an expiration timestamp.
 - Each job can make up to ten token requests per hour. Further requests return `429 Too Many Requests` with a `Retry-After` response header.
 - The selected workflow file must not exceed 128 KiB.
