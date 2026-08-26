@@ -40,11 +40,13 @@ Notification service endpoints return objects with the following fields:
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters.</td>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>exclude_projects</code> for all pipelines except selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> or <code>exclude_projects</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters.
+      <p>The <code>exclude_projects</code> scope is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+    </td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
-    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Empty when <code>scope</code> is <code>all</code>.</td>
+    <td>Pipeline UUIDs for <code>some_projects</code> or <code>exclude_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Empty when <code>scope</code> is <code>all</code>, or when <code>exclude_projects</code> excludes no pipelines.</td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -255,11 +257,13 @@ curl -H "Authorization: Bearer $TOKEN" \
   </tr>
   <tr>
     <th><code>scope</code></th>
-    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters. Defaults to <code>all</code>.</td>
+    <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>exclude_projects</code> for all pipelines except selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> or <code>exclude_projects</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters. Defaults to <code>all</code>.
+      <p>The <code>exclude_projects</code> scope is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+    </td>
   </tr>
   <tr>
     <th><code>scope_uuids</code></th>
-    <td>Pipeline UUIDs for <code>some_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Omit when <code>scope</code> is <code>all</code>.</td>
+    <td>Pipeline UUIDs for <code>some_projects</code> or <code>exclude_projects</code>, team UUIDs for <code>some_teams</code>, or cluster UUIDs for <code>some_clusters</code>. Omit when <code>scope</code> is <code>all</code>, or when <code>exclude_projects</code> excludes no pipelines.</td>
   </tr>
   <tr>
     <th><code>build_states</code></th>

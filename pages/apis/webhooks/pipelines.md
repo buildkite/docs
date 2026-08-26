@@ -29,6 +29,7 @@ To add a webhook for your pipeline event:
 1. Select the **Pipelines** that this webhook will trigger:
     * **All Pipelines**.
     * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
+    * **Exclude Pipelines...**, where you can select specific pipelines in your Buildkite organization to exclude, triggering the webhook for all other pipelines. This option is currently in private preview—contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
     * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
     * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
 
