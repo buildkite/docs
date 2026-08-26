@@ -409,6 +409,92 @@ To connect your GitHub account:
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
+## Workflow-scoped GitHub access tokens
+
+Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
+
+To use this feature, the following requirements must be met:
+
+1. The pipeline uses the full-access **GitHub** repository provider. The **GitHub (Limited Access)** provider isn't supported because it doesn't provide code access.
+1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
+1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+
+> 🚧 Protect workflow-scoped tokens
+> Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository.
+> For builds outside pull requests and merge queues, enable write permissions only when users who can create builds at arbitrary commits are trusted to select the code and workflow policy that will run.
+> Changing the pipeline's repository preserves this setting, so review it after a repository change.
+
+### Request a token
+
+From a running job, send a request to the Agent API with the pipeline repository URL, a workflow filename, and the required permissions. The job token in `BUILDKITE_AGENT_ACCESS_TOKEN` can only request a token for the same job.
+
+For example, add the following top-level policy to `.github/workflows/release.yml` and commit it before running the build:
+
+```yaml
+permissions:
+  contents: write
+```
+{: codeblock-file=".github/workflows/release.yml"}
+
+The following command requests `contents: write` and exports the returned token as `GITHUB_TOKEN`:
+
+```bash
+if ! response=$(curl --fail-with-body --silent --show-error \
+  --request POST \
+  --header "Authorization: Token $BUILDKITE_AGENT_ACCESS_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data "{\"repo_url\":\"$BUILDKITE_REPO\",\"workflow\":\"release.yml\",\"permissions\":{\"contents\":\"write\"}}" \
+  "$BUILDKITE_AGENT_ENDPOINT/jobs/$BUILDKITE_JOB_ID/github_workflow_access_token"); then
+  printf '%s\n' "$response" >&2
+  exit 1
+fi
+
+if ! printf '%s' "$response" | buildkite-agent redactor add --format json; then
+  unset response
+  exit 1
+fi
+
+if ! GITHUB_TOKEN=$(printf '%s' "$response" | jq --exit-status --raw-output '.token'); then
+  unset response
+  exit 1
+fi
+
+export GITHUB_TOKEN
+unset response
+```
+
+The successful response has the following shape:
+
+```json
+{
+  "token": "ghs_xxx"
+}
+```
+
+The request supports the `read`, `write`, and `none` access levels for `actions`, `artifact_metadata`, `attestations`, `checks`, `code_quality`, `contents`, `deployments`, `discussions`, `issues`, `packages`, `pages`, `pull_requests`, `security_events`, and `statuses`. The `metadata` and `vulnerability_alerts` permissions support `read` and `none`. Use underscores in the request body for permission names that GitHub writes with hyphens in the workflow file.
+
+### How the workflow policy is applied
+
+When a job requests a token, the job selects a single `.yml` or `.yaml` file from `.github/workflows/` in the pipeline's repository. Buildkite reads the file at the build's commit SHA and uses only its top-level `permissions` map as a static permissions policy. Buildkite doesn't evaluate the workflow's triggers, jobs, or expressions, and doesn't run the workflow.
+
+The selected workflow file isn't bound to a GitHub Actions job or trigger. Any eligible job can select any supported workflow file at the build's commit. Treat the broadest compatible top-level `permissions` map in `.github/workflows/` as the permission limit available to a job.
+
+A requested permission is only granted when it's allowed by all of the following:
+
+- The selected workflow file's top-level `permissions` policy. If the file omits this map, the policy defaults to `contents: read`. The `read-all` shorthand expands to every supported read permission. An explicit map must be non-empty and contain static permission names and access levels (`read`, `write`, or `none`). The `write-all` shorthand and expressions (for example, `${{ ... }}`) cause the request to be denied. Job-level permissions and reusable workflow `uses` declarations don't affect the selected file's policy.
+- Buildkite's own allowlist of permissions that can be requested this way.
+- The permissions granted to the Buildkite GitHub App installation for the repository.
+
+### Restrictions
+
+- Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
+- Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
+- Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
+- The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.
+- Issued tokens expire after one hour. The response doesn't include an expiration timestamp.
+- Each job can make up to ten token requests per hour. Further requests return `429 Too Many Requests` with a `Retry-After` response header.
+- The selected workflow file must not exceed 128 KiB.
+
 ## Using GitHub App installation access tokens
 
 > 📘 The difference between repository authentication and account connection
