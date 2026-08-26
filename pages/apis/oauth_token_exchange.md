@@ -149,7 +149,7 @@ grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 | `client_assertion` | Yes | A signed JWT assertion (see [JWT assertion claims](#jwt-assertion-claims)) |
 | `subject_token` | Yes | The Buildkite user to act as, identified by either their email address or their user UUID (matching `subject_token_type`) |
 | `subject_token_type` | Yes | The type of `subject_token`. One of `urn:buildkite:params:oauth:token-type:user-email` (email address) or `urn:buildkite:params:oauth:token-type:user-uuid` (user UUID) |
-| `audience` | Yes | The Buildkite organization slug (from the URL, not the display name) |
+| `audience` | Yes | The Buildkite organization, identified by either its slug (from the URL, not the display name) or its UUID. The UUID is stable across organization renames. |
 | `scope` | No | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). If omitted, the app's default scopes are used. If the app has no default scopes, omitting this parameter returns an error. |
 | `expires_in` | No | Requested token TTL in seconds. Capped by the app's maximum TTL. Defaults to the app's maximum TTL if omitted. |
 
@@ -157,7 +157,7 @@ The subject user must be an active member of the target organization. When ident
 
 > 📘
 > The request `audience` parameter and the JWT `aud` claim are different values:
-> - `audience` (form parameter) is the Buildkite **organization slug** (for example, `my-org`)
+> - `audience` (form parameter) is the Buildkite **organization slug or UUID** (for example, `my-org`)
 > - `aud` (JWT claim) is the **token endpoint URL** (`https://buildkite.com/oauth/token`)
 
 ### Response
@@ -302,7 +302,7 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_client` | "JWT must contain a \`jti\` claim" | Your organization requires a `jti` claim. Add a unique `jti` (for example, a UUID) to your JWT payload |
 | `invalid_request` | "Subject user must be an active member of the organization" | Verify the email address or user UUID belongs to an active member of the target organization |
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
-| `invalid_target` | "Invalid audience organization" | Use the organization slug from the URL, not the display name |
+| `invalid_target` | "Invalid audience organization" | Use the organization slug (from the URL, not the display name) or the organization UUID |
 | `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization |
 
 <!-- vale Buildkite.existence = YES -->
