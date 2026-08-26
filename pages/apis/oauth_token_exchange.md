@@ -149,7 +149,7 @@ grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 | `client_assertion` | Yes | A signed JWT assertion (see [JWT assertion claims](#jwt-assertion-claims)) |
 | `subject_token` | Yes | The Buildkite user to act as, identified by either their email address or their user UUID (matching `subject_token_type`) |
 | `subject_token_type` | Yes | The type of `subject_token`. One of `urn:buildkite:params:oauth:token-type:user-email` (email address) or `urn:buildkite:params:oauth:token-type:user-uuid` (user UUID) |
-| `audience` | Yes | The Buildkite organization, identified by either its slug (from the URL, not the display name) or its UUID. The UUID is stable across organization renames. |
+| `audience` | Yes | The Buildkite organization, identified by either its slug (from the URL, not the display name) or its UUID (see [`id`](/docs/apis/rest-api/organizations#get-an-organization) in the REST API). The UUID is stable across organization renames. |
 | `scope` | No | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). If omitted, the app's default scopes are used. If the app has no default scopes, omitting this parameter returns an error. |
 | `expires_in` | No | Requested token TTL in seconds. Capped by the app's maximum TTL. Defaults to the app's maximum TTL if omitted. |
 
