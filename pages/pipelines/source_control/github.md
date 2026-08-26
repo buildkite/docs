@@ -208,6 +208,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 - **Pull request review comments**: trigger builds from inline diff comments on pull requests. Like issue comments, requires a command word match and a trusted author. A commenter is trusted if GitHub reports their association as owner, member, or collaborator. They are also trusted if their GitHub account is linked to a Buildkite user who has build permission on the pipeline. Supports `exact` and `contains` match modes (useful for AI assistant triggers like `@claude`).
 - **Deployment statuses**: trigger builds when a deployment status changes. Requires the **Deployment** trigger mode.
 - **Branch and tag creation**: trigger builds when a new branch or tag is created.
+- **Issue activity**: trigger builds from GitHub issue activity, such as an issue being opened, edited, labeled, or closed. See [Running builds on issue activity](#running-builds-on-issue-activity) for requirements and limitations.
 
 > 🚧 Configure the GitHub webhook for issue comments
 > To trigger builds from pull request comments, configure the repository webhook in GitHub to send both **Issue comments** and **Pull requests** events. Buildkite Pipelines uses the `pull_request` event to identify the pull request branch and commit when processing a later `issue_comment` event.
@@ -215,6 +216,31 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 > You don't need to enable **Build when pull request is opened or updated** in **Pipeline Settings**. Buildkite Pipelines records the pull request information when it receives the webhook, even when pull request builds are disabled.
 >
 > GitHub does not send `pull_request` events retroactively when you update a webhook. After enabling **Pull requests**, open a new pull request or push a commit to an existing pull request before using the issue comment command word.
+
+### Running builds on issue activity
+
+> 📘 Private preview
+> Running builds on issue activity is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+
+To enable issue activity builds, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, expand **Issue activity**, then select **Build on GitHub issue activity**. This option is only available for GitHub.com pipelines that use the full-access **GitHub** App. It isn't available for GitHub Enterprise Server pipelines.
+
+Buildkite Pipelines supports every GitHub `issues` webhook activity type:
+
+- **Assignment:** `assigned` and `unassigned`
+- **Classification:** `typed`, `untyped`, `labeled`, `unlabeled`, `milestoned`, `demilestoned`, `field_added`, and `field_removed`
+- **Content:** `opened`, `edited`, `deleted`, and `transferred`
+- **State:** `closed`, `reopened`, `locked`, `unlocked`, `pinned`, and `unpinned`
+
+The setting enables all activity types and has no per-action selector. To limit which issue events create builds, use **Filter builds using a conditional** in the pipeline's GitHub settings with `build.source_event` and `build.source_action`. For example, `build.source_event == "issues" && build.source_action == "opened"` creates a build only when an issue is opened. The pipeline's branch configuration also applies to the repository's default branch, so a configuration that excludes the default branch prevents issue builds.
+
+Unlike [issue comments](#running-builds-on-additional-github-events), issue builds don't require a trusted author. Any GitHub user, including public issue authors outside your organization, can trigger a build by interacting with an issue. Buildkite platform quota controls still apply. Configure steps that process issue content as untrusted input.
+
+Every issue build runs the repository's default branch at the exact commit that Buildkite Pipelines resolves when it processes the webhook delivery. This differs from the commit checked out for a pull request or push build. Code triggered by a public author always comes from your trusted default branch rather than from the issue itself. Rebuilds and builds created from trigger steps preserve the original event and commit provenance instead of resolving the default branch again.
+
+> 🚧 Issue builds can request normal workflow permissions
+> Builds triggered by issue activity aren't pull request builds, so they aren't limited to the read-only permission ceiling applied to pull request workflow access tokens. These builds can request the same [workflow access token permissions](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc), including write permissions, as other trusted branch builds. Only enable this event for pipelines whose default branch code is safe to run with those permissions.
+
+GitHub still delivers issue events created with a Buildkite-minted `GITHUB_TOKEN`. Buildkite Pipelines recognizes the Code Access App bot and skips the corresponding builds to prevent feedback loops. Third-party automation, bots, and other integrations aren't suppressed. They can still repeatedly trigger an opted-in issue workflow, for example, by editing the same issue. Review your workflow's triggers and permissions before opting in.
 
 ## Environment variables
 
@@ -227,6 +253,7 @@ GitHub webhook-triggered builds expose environment variables that you can use at
 - `BUILDKITE_GITHUB_EVENT`: the GitHub webhook event name (for example, `pull_request`, `check_run`, `release`)
 - `BUILDKITE_GITHUB_ACTION`: the GitHub webhook action (for example, `opened`, `completed`, `published`)
 - `BUILDKITE_GITHUB_DEPLOYMENT_ID`: the deployment ID (deployment status events)
+- `BUILDKITE_GITHUB_ISSUE_NUMBER`: the number of the issue that triggered the build (issue events)
 
 **Available in conditionals and pipeline interpolation only:**
 

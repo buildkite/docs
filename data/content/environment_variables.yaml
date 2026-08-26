@@ -327,6 +327,11 @@ variables:
       The GitHub webhook event type that triggered the build (for example, `push`, `pull_request`, `release`, `check_run`). Only available on builds triggered by GitHub webhook events.
     modifiable: false
     example: "pull_request"
+  - name: BUILDKITE_GITHUB_ISSUE_NUMBER
+    desc: |
+      The number of the GitHub issue that triggered the build. Only available on builds triggered by a GitHub `issues` event.
+    modifiable: false
+    example: "42"
   - name: BUILDKITE_GITHUB_REVIEW_ID
     desc: |
       The ID of the pull request review that triggered the build. Only available on builds triggered by a GitHub `pull_request_review` event.

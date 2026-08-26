@@ -327,6 +327,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE</code><br>
 		<code>BUILDKITE_GITHUB_EVENT</code><br>
+		<code>BUILDKITE_GITHUB_ISSUE_NUMBER</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_DRAFT</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_PRERELEASE</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_TAG</code><br>
