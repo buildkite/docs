@@ -1,35 +1,25 @@
 # Reduce flaky tests
 
-Flaky tests are automated tests that produce inconsistent or unreliable results, despite being run on the same code and environment, and can cause frustration, decrease confidence in testing, and waste time while you investigate whether or not the failure is due to a genuine bug.
+Flaky tests produce inconsistent results when run against the same code and environment. They can block builds, waste investigation time, and reduce confidence in your test suite.
 
-Test Engine allows you to set up a [workflow](/docs/pipelines/configure/tests/workflows) to manage your flaky tests. You can configure the workflow to automatically detect and label flaky tests, and to notify the relevant people when a new flaky test appears.
+[Test Engine](/docs/pipelines/configure/tests), the testing layer of Buildkite Pipelines, helps you manage flaky tests throughout their lifecycle. Test Engine uses historical test data to detect unreliable tests, limit their effect on builds, notify the teams responsible for fixing them, and recognize when they become reliable again.
 
 ## Detecting flaky tests
 
-Test Engine's workflows feature has a number of monitors that can be used to detect flaky tests. Choosing the best flaky test monitor for your test suite depends on the shape of your test data and the configuration of your test pipeline. See [Monitors](/docs/pipelines/configure/tests/workflows/monitors) to learn more about the different monitors. If you're unsure which monitor is best suited for your test suite, we recommend using the transition count monitor.
+Test Engine [workflow monitors](/docs/pipelines/configure/tests/workflows/monitors) identify tests whose results indicate flakiness. Labels then make these tests easy to find in Test Engine and on the **Tests** tab of a build.
 
-Once you've chosen your monitor, add a Workflow action to label this test as "flaky". Having the flaky test labelled as such means that Test Engine can drive other automatic behavior from this, and you can easily surface "flaky" tests in the Test Engine UI and on the Tests tab in the Builds page. By default, Test Engine provides a [saved view](/docs/pipelines/configure/tests/test-suites/saved-views) called "Flaky" which shows you all test with the flaky label.
+Learn how to [detect flaky tests with Test Engine](/docs/pipelines/configure/tests/flaky-tests#detect-flaky-tests).
 
-<%= image "workflows.png", alt: "The workflows index page in Test Engine" %>
+<%= image "workflows.png", width: 2576/2, height: 1422/2, alt: "The workflows index page in Test Engine" %>
 
 ## Quarantining flaky tests
 
-Optionally, if your test suite has test state enabled, you can quarantine a flaky test by changing its state to "muted" or "skipped". You can do this manually through the Test Engine interface, using the Test Engine API, or by configuring a Workflow action for this to happen automatically.
+Quarantine prevents unreliable tests from blocking builds. Test Engine can continue collecting data from muted tests, while bktec applies the test state during test execution.
 
-Once a test has been quarantined, you can speed up your builds by using bktec to ignore quarantined tests as part of your test suite execution.
-
-Learn more about quarantining in [Test state and quarantine](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine).
+Learn how to [quarantine flaky tests with Test Engine](/docs/pipelines/configure/tests/flaky-tests#quarantine-flaky-tests).
 
 ## Remediating flaky tests
 
-Once the flaky test has been identified, it needs to be fixed or removed so that it stops impacting everyone. Workflows provides a number of actions to surface the flaky test so that it can be remediated. You can set up a Workflow action to automatically:
+Workflow actions can send a webhook, post a Slack message, or create a Linear issue for the team responsible for fixing a flaky test. Recovery actions remove flaky labels and restore quarantined tests automatically after their reliability improves.
 
-- send a webhook
-- post a Slack message
-- create a Linear issue
-
-This allows the relevant team(s) to be notified about any newly identified flaky tests and prioritise a fix for this.
-
-With Workflow actions, you can set up a trigger to automatically remove the "flaky" label (and transition its state back to "enabled", if applicable) once an acceptable level of reliability has been reached for the given test. This means you don't have to do any manual monitoring of flaky test fixes.
-
-Learn more about setting up a Workflow [here](/docs/pipelines/configure/tests/workflows).
+Learn how to [notify the responsible team](/docs/pipelines/configure/tests/flaky-tests#notify-the-responsible-team) and [track test recovery](/docs/pipelines/configure/tests/flaky-tests#track-recovery).

@@ -4,7 +4,7 @@ Test Engine's **Test state** management feature provides the [test state](/docs/
 
 [_Quarantine_](/docs/pipelines/glossary#quarantine) refers to the action of moving a test from a trusted state (**enabled**) to one of the untrusted states (**muted** or **skipped**). Tests can be quarantined [automatically](#automatic-quarantine) or [manually](#manual-quarantine).
 
-Quarantining [flaky tests](/docs/pipelines/reduce-flaky-tests) and then using [bktec](/docs/pipelines/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) on pipeline's builds allows the pipeline to be built more rapidly, and run with a higher success rate.
+Quarantining [flaky tests](/docs/pipelines/configure/tests/flaky-tests) and then using [bktec](/docs/pipelines/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) on pipeline's builds allows the pipeline to be built more rapidly, and run with a higher success rate.
 
 > 📘 Pro and Enterprise plan features
 > The _test state_ management and _automatic quarantining_ features are only available to customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
@@ -21,11 +21,11 @@ Muted tests will still execute as jobs in your pipeline builds, but any failed r
 
 ### Skip
 
-Skipped tests are not run during your pipeline builds. Since these tests are not executed, no data is recorded from them by Test Engine. To collect metadata about your [flaky tests](/docs/pipelines/reduce-flaky-tests), it is recommended that you only use the **Skip** option when you have a scheduled pipeline that is running skipped tests.
+Skipped tests are not run during your pipeline builds. Since these tests are not executed, no data is recorded from them by Test Engine. To collect metadata about your [flaky tests](/docs/pipelines/configure/tests/flaky-tests), it is recommended that you only use the **Skip** option when you have a scheduled pipeline that is running skipped tests.
 
 ## Automatic quarantine
 
-You can automatically quarantine tests using [workflows](/docs/pipelines/reduce-flaky-tests#quarantining-flaky-tests). To do this, use the [workflow change state action](/docs/pipelines/configure/tests/workflows/actions#change-state), to automatically transition tests into different states.
+You can automatically quarantine tests using [workflows](/docs/pipelines/configure/tests/flaky-tests#quarantine-flaky-tests). To do this, use the [workflow change state action](/docs/pipelines/configure/tests/workflows/actions#change-state), to automatically transition tests into different states.
 
 <%= image "automatic-quarantine.png", width: 1364/2, height: 318/2, alt: "Screenshot showing Slack workflow action configuration", align: :center %>
 
@@ -43,7 +43,7 @@ Manually quarantining a test either mutes or skips that test when the pipeline i
 
 ### bktec
 
-The easiest way to respect test states in your builds is to run the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client) command in your pipelines. The `bktec` command automatically excludes quarantined tests from your test runs, preventing [flaky tests](/docs/pipelines/reduce-flaky-tests) from causing build failures, leading to faster, more reliable builds, and less need for retries.
+The easiest way to respect test states in your builds is to run the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client) command in your pipelines. The `bktec` command automatically excludes quarantined tests from your test runs, preventing [flaky tests](/docs/pipelines/configure/tests/flaky-tests) from causing build failures, leading to faster, more reliable builds, and less need for retries.
 
 For the current list of test frameworks bktec supports for muting and skipping tests, see the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) table in the bktec README.
 
