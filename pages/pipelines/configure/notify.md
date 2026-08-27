@@ -672,6 +672,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 🚧 Multiple Slack workspaces require a qualified channel or user ID
+> If your organization has more than one Slack Workspace integration enabled, an unqualified Slack channel or user ID (for example, `U12345678`) is ambiguous, because Buildkite Pipelines can't tell which workspace it belongs to. Qualify the identifier with the workspace name, using the same `team-name#channel` format shown above. An unqualified identifier fails validation and, for a [scheduled build](/docs/pipelines/configure/workflows/scheduled-builds#invalid-notification-configuration), disables the schedule until the `notify` configuration is corrected.
+
 ### Notify multiple teams and channels
 
 You can specify multiple teams and channels by listing them in the `channels` attribute.
