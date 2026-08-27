@@ -78,6 +78,18 @@ To disconnect Origin from your Buildkite organization:
 
 Disconnecting the provider from Buildkite does not uninstall the app in Origin.
 
+### Suspended installations
+
+Origin can suspend an app installation, for example when an Origin administrator suspends it or a subscription lapses. Buildkite recognizes the suspension and keeps the installation unavailable until Origin unsuspends it.
+
+While an installation is suspended:
+
+* Origin repository events, including branch pushes, tag pushes, and pull request events, do not create builds.
+* Buildkite Pipelines can't check out code, publish checks, or issue hosted-agent checkout credentials for repositories in the installation.
+* **Settings** > **Repository Providers** > **Origin** shows **This Origin integration is currently suspended.**, with a link to manage or unsuspend the installation in Origin.
+
+Unsuspending the installation in Origin automatically restores it in Buildkite. You don't need to reconnect the installation or recreate its pipelines.
+
 ## Create a pipeline
 
 After connecting Origin, create a pipeline from a repository that the app can access:
@@ -103,6 +115,8 @@ To associate an existing pipeline with an Origin repository:
 1. Select **Save Repository**.
 
 If the associated Origin installation is disconnected, the repository settings show **The Origin installation for this pipeline is disconnected.** Organization administrators can select **Reconnect Origin** to restore the connection. Buildkite Pipelines preserves the existing repository URL and provider settings while the installation is disconnected.
+
+If the associated installation is [suspended](#suspended-installations) instead, the repository settings show **The Origin installation for this pipeline is suspended.** Organization administrators can select **Manage Origin installation** to open the provider settings and unsuspend the installation in Origin.
 
 ## Check out private repositories on hosted agents
 
@@ -229,6 +243,8 @@ Confirm that the pipeline repository was selected from a connected Origin instal
 ### Builds are not created
 
 Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, and any conditional filter under the pipeline's **Origin** settings. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
+
+If the pipeline's repository settings show **The Origin installation for this pipeline is suspended.**, see [Suspended installations](#suspended-installations).
 
 ### Checks do not appear
 
