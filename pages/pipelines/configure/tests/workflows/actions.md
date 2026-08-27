@@ -1,6 +1,6 @@
 # Alarm and recover actions
 
-When conditions from a [monitor](/docs/pipelines/configure/tests/workflows/monitors) in your test suite's [workflow](/docs/pipelines/configure/tests/workflows) triggers an [_alarm_ or _recover_ action event](/docs/pipelines/configure/tests/workflows#how-they-work), there are several automatic actions that Test Engine can perform. Workflows are subject to a rate limit. See [Rate limit](/docs/pipelines/configure/tests/workflows#rate-limit) for more information.
+When conditions from a [monitor](/docs/pipelines/configure/tests/workflows/monitors) in your test suite's [workflow](/docs/pipelines/configure/tests/workflows) triggers an [_alarm_ or _recover_ action event](/docs/pipelines/configure/tests/workflows#how-they-work), there are several automatic actions that Test Engine can perform. Workflows are subject to a rate limit, but this only affects notification actions (send webhook notification, send Slack notification, and create Linear issue)—the **Add label**, **Remove label**, and **Change state** actions always run. See [Rate limit](/docs/pipelines/configure/tests/workflows#rate-limit) for more information.
 
 ## Add or remove label
 
