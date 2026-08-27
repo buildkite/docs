@@ -130,6 +130,8 @@ The plugin gives each workflow a GitHub event type based on how the Buildkite bu
 - Scheduled builds receive `schedule`.
 - Other builds, including branch, tag, and triggered builds, receive `push`.
 
+Pull request builds check out and run against the head commit of the pull request branch (`refs/pull/<N>/head`), matching how [Buildkite Pipelines handles pull request builds by default](/docs/pipelines/source-control/github#building-the-test-merge-commit). This applies even before GitHub finishes computing the pull request's merge commit.
+
 Release workflows require the GitHub Releases additional webhook, the **Code** trigger mode, and a supported `published`, `created`, or `released` activity type.
 
 Each successfully compiled workflow that declares the effective event becomes a group named for the workflow. Its external check identifies both the workflow and effective event. A workflow that doesn't declare the effective event becomes a top-level skipped step. After upload, an importer-scoped informational annotation lists skipped workflows. A local reusable workflow that declares only `workflow_call` can support another selected workflow, but doesn't create its own group.
