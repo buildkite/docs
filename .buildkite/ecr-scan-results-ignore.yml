@@ -34,7 +34,7 @@ ignores:
     reason: |
       Needs a scanf-family call whose format contains `%mc` or `%mC` with an explicit field width above 1024, which under-allocates by one byte in `__vfscanf_internal`. Upstream's regression test is `"%1040mc"`.
 
-      Searching every file in the image for `%<digits>m` followed by `c`, `C` or `lc` returns no match at any width. The only width-bearing allocating conversions present are `%9ms` in ripper.so and two matches inside a PNG and a gem tarball.
+      Searching every file in the image against the full glibc grammar — `%` `[N$]` `[*'I]*` `[width]` `m` `[l]` conversion, so positional forms like `%1$1040mc` are included — returns no `c`/`C` match with any width at all. Every allocating `c`/`C` conversion present is width-free (`%mc` in node; `%mC` in libruby, cp949.so and gbk.so), and no positional allocating conversion exists anywhere.
 
       libruby imports no scanf-family symbol at all, so no request-driven input reaches `__vfscanf_internal`. Ruby's scanf stdlib is also absent (`require "scanf"` raises LoadError).
 
