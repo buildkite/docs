@@ -328,6 +328,8 @@ Direct jobs can use statically named `${{ secrets.NAME }}` references. Jobs expa
 
 Buildkite can provide a short-lived token for the repository that triggered the build. The pipeline's workflow access token setting must be enabled. The setting is off by default when you configure the plugin manually. When you select workflows while creating a pipeline, Buildkite selects **Allow workflow-authorized GitHub access tokens** by default. Clear it before creating the pipeline if the workflows don't need tokens. The workflow picker for an existing pipeline doesn't change this setting. Configure it separately in the pipeline's GitHub settings.
 
+During the preview, the Buildkite organization must also have GitHub scoped access token minting enabled. Contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to enable it for your organization.
+
 The workflow file must be directly under `.github/workflows/` and have a simple `.yml` or `.yaml` filename. The job must either reference `secrets.GITHUB_TOKEN` directly or use an action whose default input references `github.token`.
 
 If the workflow doesn't include top-level `permissions`, the token receives only `contents: read`, regardless of the GitHub repository or organization defaults. A non-empty top-level permissions map replaces that default. The `read-all` alias expands to every supported read permission. The `write-all` alias isn't supported and causes the token request to be denied. An empty map or a map containing only `none` doesn't produce a token. Job-level repository permission maps don't change the token scope. A job expanded from a local reusable workflow can receive a token, but its repository permissions always come from the top-level requesting workflow. The separate job-level `id-token` permission retains its documented behavior. Pull request builds and their triggered or rebuilt descendants can't receive more than `contents: read`. Merge queue builds and their descendants can't receive a token. The runtime doesn't add the token to the job's initial environment, although an action can make it available to later steps through `GITHUB_ENV`, as it can on a GitHub runner. An ambient `GITHUB_TOKEN` isn't available.
@@ -381,6 +383,8 @@ When you create a new pipeline, other scan failures show a notice with a **Try a
 ### Private checkout or a GitHub token is unavailable
 
 Private checkout and workflow access tokens use separate settings. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials, secrets, and OIDC](#supported-functionality-and-limitations-credentials-secrets-and-oidc) restrictions before enabling write permissions.
+
+If a generated job fails with `buildkite-gha: run-job: GitHub scoped access tokens are not enabled for this organization`, the Buildkite organization doesn't have GitHub scoped access token minting enabled. Contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to enable it.
 
 ### Validate a workflow locally
 
