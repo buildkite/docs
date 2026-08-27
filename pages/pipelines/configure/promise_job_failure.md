@@ -89,15 +89,15 @@ This pattern suits long-running parallel jobs where later work is no longer usef
 
 ## Canceled jobs still show their declared failure
 
-A job that declares a hard failure promise can still end up canceled before it finishes—for example, if a teammate cancels the build, or an automated process such as a [GitHub merge queue update](/docs/pipelines/tutorials/github-merge-queue#automatic-cancellation-of-redundant-builds) cancels it. The job's final state is `canceled`, but Buildkite Pipelines keeps the promised exit status as durable evidence of the failure that was already reported, and continues to surface it on the Build page:
+A job that declares a hard failure promise can still end up canceled before it finishes—for example, if a teammate cancels the build, or an automated process such as a [GitHub merge queue update](/docs/pipelines/tutorials/github-merge-queue#understanding-merge-queue-behavior-automatic-cancellation-of-redundant-builds) cancels it. The job's final state is `canceled`, but Buildkite Pipelines keeps the promised exit status as durable evidence of the failure that was already reported, and continues to surface it on the Build page:
 
 - The job continues to appear under the **Failed** filter and count, instead of disappearing into an unexplained cancellation.
-- The job remains reachable using **Go to failure**.
-- The job displays **Canceled after declaring failure** instead of plain **Canceled**.
+- The job remains reachable using **Next failure**.
+- The job shows **Canceled after declaring failure** instead of plain **Canceled**.
 
 This is a presentation change only: the job's underlying state remains `canceled`, and no notifications change as a result.
 
-Soft failure promises, a promised exit status of `0`, and ordinary cancellations without a declared failure are unaffected, and continue to appear under **Canceled** as normal. A job that is still in the process of canceling (`canceling`) also remains under **Canceled** until the cancellation completes.
+Soft failure promises and ordinary cancellations without a declared hard failure are unaffected and continue to appear under **Canceled** as normal. A job that is still in the process of canceling (`canceling`) also remains under **Canceled** until the cancellation completes.
 
 For a merge queue build, if the build already reported a failure before it was canceled because GitHub destroyed the merge group, the build summary explains this as **Canceled after reporting a failure and being removed from the merge queue**.
 
