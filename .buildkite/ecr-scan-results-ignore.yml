@@ -29,13 +29,23 @@ ignores:
   - id: CVE-2026-54371 # attr 1:2.5.2-3
     reason: Symlink traversal in getfattr/setfattr — requires a local attacker controlling path components during privileged invocation. Not applicable in this container context.
 
-  # --- glibc (both require a caller that this image does not contain) ---
+  # --- glibc (no fix in Bookworm or Trixie; both need a caller this image does not contain) ---
   - id: CVE-2026-5450 # glibc 2.41-12+deb13u3
     reason: |
-      Needs a scanf-family call whose format string contains `%mc` with an explicit field width above 1024. Those formats are compile-time constants in the calling binary, and no library loaded by the puma process contains that literal.
+      Needs a scanf-family call whose format contains `%mc` or `%mC` with an explicit field width above 1024, which under-allocates by one byte in `__vfscanf_internal`. Upstream's regression test is `"%1040mc"`.
+
+      Searching every file in the image for `%<digits>m` followed by `c`, `C` or `lc` returns no match at any width. The only width-bearing allocating conversions present are `%9ms` in ripper.so and two matches inside a PNG and a gem tarball.
+
+      libruby imports no scanf-family symbol at all, so no request-driven input reaches `__vfscanf_internal`. Ruby's scanf stdlib is also absent (`require "scanf"` raises LoadError).
+
+      A format assembled at runtime would escape a static scan; the import evidence is what rules out the serving path. Debian rates this <no-dsa> (Minor issue) in both Bookworm and Trixie, and upstream notes `%[width]mc` "does not appear to have notable use in major Linux-based OS distributions".
+
+      https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0009
   - id: CVE-2026-5928 # glibc 2.41-12+deb13u3
     reason: |
-      Needs ungetwc() on a wide-character FILE stream in an encoding whose single-byte and multi-byte forms overlap. Only libstdc++ imports ungetwc in this image, and libruby does not link libstdc++. The app is UTF-8 throughout.
+      Needs `ungetwc()` on a wide-character FILE stream in an encoding whose single-byte and multi-byte forms overlap.
+
+      Exactly one object in the image imports `ungetwc`: libstdc++. The serving process never loads it — libruby lists only libc.so.6 as NEEDED, and neither the ruby binary nor nokogiri.so links libstdc++. The app is UTF-8 throughout.
 
   # --- sqlite3 (present only because liblastlog2 links it; the app has no database) ---
   - id: CVE-2026-11822 # sqlite3 3.46.1-7+deb13u1
