@@ -1,39 +1,49 @@
 ignores:
-  # --- ncurses (not remotely exploitable; no Bookworm fix, fixed only in Trixie) ---
-  - id: CVE-2023-50495 # ncurses 6.4-4
-    reason: Segfault in _nc_wrap_entry(); ncurses is not exposed to untrusted terminal input in this containerized Rails app.
-  - id: CVE-2025-69720 # ncurses 6.4-4
+  # --- ncurses (not remotely exploitable; no fix in Bookworm or Trixie) ---
+  - id: CVE-2025-69720 # ncurses 6.5+20250216-2
     reason: Not exploitable in this containerized Rails app — ncurses is not exposed to untrusted terminal input.
 
-  # --- OpenSSL (incorrect scanner match; QUIC server implementation requires OpenSSL 3.5+) ---
-  - id: CVE-2026-14456 # openssl 3.0.20-1~deb12u2
-    reason: |
-      The vulnerable QUIC server implementation was introduced in OpenSSL 3.5. This image uses OpenSSL 3.0, which upstream identifies as not affected.
-
-      https://openssl-library.org/news/secadv/20260813.txt
-
-  # --- perl (no fix in any Debian Bookworm release; only perl-base is installed and the app contains no Perl code) ---
-  - id: CVE-2026-7017 # perl 5.36.0-7+deb12u3
+  # --- perl (no fix in Bookworm or Trixie; only perl-base is installed and the app contains no Perl code) ---
+  - id: CVE-2026-7017 # perl 5.40.1-6
     reason: The application contains no Perl code and does not issue HTTP requests with HTTP::Tiny.
-  - id: CVE-2026-12087 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-12087 # perl 5.40.1-6
     reason: The application contains no Perl code and does not call Socket::pack_ip_mreq_source.
-  - id: CVE-2026-13221 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-13221 # perl 5.40.1-6
     reason: The application contains no Perl code and does not compile or execute Perl regular expressions.
-  - id: CVE-2026-48959 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-48959 # perl 5.40.1-6
     reason: The application contains no Perl code and does not use IO::Uncompress::Unzip.
-  - id: CVE-2026-48961 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-48961 # perl 5.40.1-6
     reason: The application does not invoke Perl's zipdetails CLI.
-  - id: CVE-2026-48962 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-48962 # perl 5.40.1-6
     reason: The application contains no Perl code and does not use File::GlobMapper.
-  - id: CVE-2026-57432 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-57432 # perl 5.40.1-6
     reason: The application contains no Perl code and does not execute attacker-controlled Perl pack or unpack templates.
-  - id: CVE-2026-57433 # perl 5.36.0-7+deb12u3
+  - id: CVE-2026-57433 # perl 5.40.1-6
     reason: The application contains no Perl code and does not deserialize data with Perl's Storable module.
 
-  # --- attr/acl (local privilege escalation, not applicable in container context; no Bookworm fix) ---
-  - id: CVE-2026-54369 # acl 2.3.1-3
+  # --- attr/acl (local privilege escalation, not applicable in container context; no fix in Bookworm or Trixie) ---
+  - id: CVE-2026-54369 # acl 2.3.2-2
     reason: Symlink traversal in libacl pathname-based functions — requires a local attacker controlling path components during a privileged caller. Not applicable in this container context.
-  - id: CVE-2026-54370 # acl 2.3.1-3
+  - id: CVE-2026-54370 # acl 2.3.2-2
     reason: TOCTOU race in getfacl/setfacl/chacl — requires a local attacker controlling path components during privileged invocation. Not applicable in this container context.
-  - id: CVE-2026-54371 # attr 2.5.1-4
+  - id: CVE-2026-54371 # attr 1:2.5.2-3
     reason: Symlink traversal in getfattr/setfattr — requires a local attacker controlling path components during privileged invocation. Not applicable in this container context.
+
+  # --- glibc (both require a caller that this image does not contain) ---
+  - id: CVE-2026-5450 # glibc 2.41-12+deb13u3
+    reason: |
+      Needs a scanf-family call whose format string contains `%mc` with an explicit field width above 1024. Those formats are compile-time constants in the calling binary, and no library loaded by the puma process contains that literal.
+  - id: CVE-2026-5928 # glibc 2.41-12+deb13u3
+    reason: |
+      Needs ungetwc() on a wide-character FILE stream in an encoding whose single-byte and multi-byte forms overlap. Only libstdc++ imports ungetwc in this image, and libruby does not link libstdc++. The app is UTF-8 throughout.
+
+  # --- sqlite3 (present only because liblastlog2 links it; the app has no database) ---
+  - id: CVE-2026-11822 # sqlite3 3.46.1-7+deb13u1
+    reason: |
+      FTS5 out-of-bounds read reached by running a MATCH query over an attacker-supplied database. This app opens no SQLite database: ActiveRecord is not loaded and libsqlite3 is pulled in only by liblastlog2, which nothing invokes.
+  - id: CVE-2026-11824 # sqlite3 3.46.1-7+deb13u1
+    reason: |
+      FTS5 heap overflow reached by running a MATCH query over an attacker-supplied database. Unreachable for the same reason as CVE-2026-11822.
+  - id: CVE-2026-39113 # sqlite3 3.46.1-7+deb13u1
+    reason: |
+      Denial of service in the sqlar extension's sqlar_uncompress(). Currently scored Undefined so it does not count against the threshold; listed so a later rescore does not break the build. Unreachable for the same reason as CVE-2026-11822.
