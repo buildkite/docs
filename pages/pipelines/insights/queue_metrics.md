@@ -57,7 +57,7 @@ A freshness indicator above the chart shows one of the following:
 - **Data delayed · last update received**: The queue's data hasn't updated recently. A timestamp shows the last update.
 
 > 📘
-> Advanced Queue Metrics is complementary while in beta. It will be a separate paid product once refined and no longer a beta feature.
+> Advanced Queue Metrics is complimentary while in beta. It will be a separate paid product once refined and no longer a beta feature.
 
 ### Enable Advanced Queue Metrics
 
