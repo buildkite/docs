@@ -88,3 +88,12 @@ func TestFormatDescriptionFormatsCommandLineExamples(t *testing.T) {
 		t.Fatalf("formatDescription() = %q, want %q", got, want)
 	}
 }
+
+func TestFormatDescriptionFormatsStdinMarker(t *testing.T) {
+	got := formatDescription("Read the secret value from a file, or from stdin with -. Content is preserved exactly.")
+	want := "Read the secret value from a file, or from stdin with `-`. Content is preserved exactly."
+
+	if got != want {
+		t.Fatalf("formatDescription() = %q, want %q", got, want)
+	}
+}

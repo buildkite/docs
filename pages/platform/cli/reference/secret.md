@@ -118,7 +118,7 @@ bk secret create --cluster-uuid=STRING --key=STRING [flags]
 | `--policy=STRING` | The access policy for the secret (YAML format) |
 | `--text` | Output as text |
 | `--value=STRING` | The secret value. If neither value source is provided, you will be prompted to enter it. |
-| `--value-file=STRING` | Read the secret value from a file, or from stdin with -. Content is preserved exactly. |
+| `--value-file=STRING` | Read the secret value from a file, or from stdin with `-`. Content is preserved exactly. |
 | `--yaml` | Output as YAML |
 
 ### Examples
