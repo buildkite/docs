@@ -38,9 +38,9 @@ steps:
 ## Use terminal access from the Buildkite CLI
 
 > 📘 Limited availability
-> SSH access from the Buildkite CLI for hosted macOS jobs is being rolled out to Buildkite organizations. If the `bk job ssh` command described below isn't available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+> SSH access from the Buildkite CLI for Linux and macOS hosted jobs is being rolled out to Buildkite organizations. If the `bk job ssh` command described below isn't available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 
-Buildkite CLI version 3.55.0 and later provides the `bk job ssh` command for running macOS hosted jobs:
+To use the `bk job ssh` command, install [Buildkite CLI version 3.55.1](https://github.com/buildkite/cli/releases/tag/v3.55.1) or later. You can connect to running Linux or macOS hosted jobs:
 
 ```bash
 bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
@@ -52,10 +52,10 @@ Before running the command:
 
 - [Configure the Buildkite CLI](/docs/platform/cli/configuration) with your Buildkite organization and an API access token that has the `write_builds` scope.
 - Confirm that [remote access is active](#deactivate-and-reactivate-remote-access-on-hosted-agents) for your Buildkite organization.
-- Find the UUID of a running command job on a macOS hosted agent.
+- Find the UUID of a running command job on a Linux or macOS hosted agent.
 - Confirm that you have permission to manage hosted agents for the job.
 
-The `bk job ssh` command does not support Linux hosted jobs or self-hosted jobs. Use the **Open Terminal** button in the Buildkite interface to access supported Linux hosted jobs.
+The `bk job ssh` command does not support self-hosted jobs.
 
 ## Deactivate and reactivate remote access on hosted agents
 
