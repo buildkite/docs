@@ -48,6 +48,14 @@ Advanced Queue Metrics show a queue’s activity from the past hour, identifying
 
 The chart shows the past hour of activity with each data point representing a minute. A minute is represented by a snapshot of the metric at the end of that minute.
 
+If data for an individual minute isn't available, the chart shows a gap at that point instead of hiding the whole chart. Hovering over a gap shows a **Data unavailable** tooltip.
+
+A freshness indicator above the chart shows one of the following:
+
+- **Data current through** and a timestamp: the chart reflects the most recent successful update.
+- **Some data points unavailable**: one or more minutes in the chart don't have data.
+- **Data delayed · last update received** and a timestamp: the queue's data hasn't updated recently.
+
 > 📘
 > Advanced Queue Metrics is complimentary while in beta however it will be a separate paid product once refined and no longer a beta feature.
 
