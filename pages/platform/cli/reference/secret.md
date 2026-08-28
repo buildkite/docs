@@ -117,7 +117,8 @@ bk secret create --cluster-uuid=STRING --key=STRING [flags]
 | `--key=STRING` | The key name for the secret (e.g. MY_SECRET) |
 | `--policy=STRING` | The access policy for the secret (YAML format) |
 | `--text` | Output as text |
-| `--value=STRING` | The secret value. If not provided, you will be prompted to enter it. |
+| `--value=STRING` | The secret value. If neither value source is provided, you will be prompted to enter it. |
+| `--value-file=STRING` | Read the secret value from a file, or from stdin with `-`. Content is preserved exactly. |
 | `--yaml` | Output as YAML |
 
 ### Examples
@@ -132,6 +133,18 @@ Create a secret with the value provided inline:
 
 ```bash
 bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --value "s3cr3t"
+```
+
+Create a secret from a file, preserving its content exactly:
+
+```bash
+bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --value-file ./secret.txt
+```
+
+Create a secret from stdin (including the trailing newline from printf):
+
+```bash
+printf 'line one\nline two\n' | bk secret create --no-input --cluster-uuid my-cluster-uuid --key MY_SECRET --value-file -
 ```
 
 Create a secret with a description:
