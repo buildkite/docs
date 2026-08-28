@@ -18,7 +18,7 @@ Builds created by a trigger step inherit the author details from the parent buil
 
 For builds created by GitHub push webhooks, Buildkite first uses the commit author information in the webhook payload to identify a Buildkite user. The commit author's email must match a verified email on the Buildkite account. If no verified email matches, Buildkite tries to identify the webhook sender through their [connected GitHub account](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
 
-When Buildkite identifies a user, that user's permissions are checked when a trigger step runs. If neither the commit author nor the webhook sender can be identified, the trigger step uses the shared-team permissions described below.
+When Buildkite identifies a user, Buildkite checks that user's permissions when a trigger step runs. If neither the commit author nor the webhook sender can be identified, the trigger step uses the shared-team permissions described below.
 
 If you have [Teams](/docs/platform/team-management/permissions) enabled in your organization, *one* of the following conditions must be met:
 
