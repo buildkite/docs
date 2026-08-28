@@ -5,16 +5,14 @@
 
 A queue migration associates a queue key with a specific destination [queue](/docs/apis/rest-api/clusters/queues), tracking the proportion of that queue key's jobs routed to the destination using `routed_percent`. Creating a migration starts `routed_percent` at 0, and the create endpoint doesn't accept a value for it. Use the update endpoint to move `routed_percent` up or down after creation. Only one queue migration can exist for a queue key in your organization at a time.
 
+A queue migration is addressed by its `queue_key`, matched exactly and case-sensitively. A request using a differently-cased key returns a `404 Not Found`.
+
 ## Queue migration data model
 
 <table class="responsive-table">
   <tbody>
     <tr>
-      <th><code>id</code></th>
-      <td>ID of the queue migration</td>
-    </tr>
-    <tr>
-      <th><code>source.queue_key</code></th>
+      <th><code>queue_key</code></th>
       <td>Key of the queue being migrated</td>
     </tr>
     <tr>
@@ -32,6 +30,10 @@ A queue migration associates a queue key with a specific destination [queue](/do
     <tr>
       <th><code>routed_percent</code></th>
       <td>Percentage of the queue key's jobs currently routed to the destination queue. New queue migrations start at <code>0</code>.</td>
+    </tr>
+    <tr>
+      <th><code>url</code></th>
+      <td>Canonical URL of the queue migration, addressed by <code>queue_key</code></td>
     </tr>
     <tr>
       <th><code>created_at</code></th>
@@ -57,16 +59,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "items": [
     {
-      "id": "0198f47a-9c1a-7db2-93aa-2b6f6a2e9d41",
-      "source": {
-        "queue_key": "default"
-      },
+      "queue_key": "default",
       "destination": {
         "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
         "queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
         "queue_key": "default"
       },
       "routed_percent": 70,
+      "url": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations/default",
       "created_at": "2026-08-07T04:17:55.867Z",
       "updated_at": "2026-08-07T05:02:11.221Z"
     }
@@ -125,21 +125,19 @@ Organization administrators can retrieve any queue migration in the organization
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations/{migration.id}"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations/{queue_key}"
 ```
 
 ```json
 {
-  "id": "0198f47a-9c1a-7db2-93aa-2b6f6a2e9d41",
-  "source": {
-    "queue_key": "default"
-  },
+  "queue_key": "default",
   "destination": {
     "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
     "queue_key": "default"
   },
   "routed_percent": 70,
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations/default",
   "created_at": "2026-08-07T04:17:55.867Z",
   "updated_at": "2026-08-07T05:02:11.221Z"
 }
@@ -162,20 +160,20 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ```json
 {
-  "id": "0198f47a-9c1a-7db2-93aa-2b6f6a2e9d41",
-  "source": {
-    "queue_key": "default"
-  },
+  "queue_key": "default",
   "destination": {
     "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
     "queue_key": "default"
   },
   "routed_percent": 0,
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations/default",
   "created_at": "2026-08-07T04:17:55.867Z",
   "updated_at": "2026-08-07T04:17:55.867Z"
 }
 ```
+
+The response also includes a `Location` header set to the created queue migration's `url`.
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -231,23 +229,21 @@ Changes the percentage of a queue key's jobs routed to the migration's destinati
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations/{migration.id}" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations/{queue_key}" \
   -H "Content-Type: application/json" \
   -d '{ "routed_percent": 70 }'
 ```
 
 ```json
 {
-  "id": "0198f47a-9c1a-7db2-93aa-2b6f6a2e9d41",
-  "source": {
-    "queue_key": "default"
-  },
+  "queue_key": "default",
   "destination": {
     "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
     "queue_key": "default"
   },
   "routed_percent": 70,
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations/default",
   "created_at": "2026-08-07T04:17:55.867Z",
   "updated_at": "2026-08-07T05:02:11.221Z"
 }
