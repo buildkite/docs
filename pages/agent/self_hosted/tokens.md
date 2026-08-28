@@ -1,6 +1,8 @@
 # Agent tokens
 
-A Buildkite agent running in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) requires an _agent token_ to connect to Buildkite and register for work. Agent tokens connect to Buildkite using a [cluster](/docs/pipelines/security/clusters), and can be accessed from the cluster's **Agent Tokens** page.
+An _agent token_ is a long-lived credential that a Buildkite agent running in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) can use to connect to Buildkite and register for work. Stack controllers also use agent tokens to access the [Stacks API](/docs/apis/agent-api/stacks). Agent tokens connect to Buildkite using a [cluster](/docs/pipelines/security/clusters), and can be accessed from the cluster's **Agent Tokens** page.
+
+For stack-managed ephemeral agents, use a short-lived [job acquisition token](/docs/agent/self-hosted/job-acquisition-tokens) as the registration credential. This keeps the agent token in the stack controller and out of job workloads.
 
 A user who is a Buildkite organization administrator or a [maintainer of a cluster](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) within the organization can manage agent tokens for that cluster.
 
