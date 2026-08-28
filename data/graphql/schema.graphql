@@ -10393,7 +10393,7 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestReviewSubmitted: Boolean!
 
   """
-  Whether to create builds for stacked pull requests.
+  Whether to create a build when a pull request is added to a stack.
   """
   buildPullRequestStacks: Boolean!
 
@@ -10668,7 +10668,7 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildPullRequestReviewSubmitted: Boolean!
 
   """
-  Whether to create builds for stacked pull requests.
+  Whether to create a build when a pull request is added to a stack.
   """
   buildPullRequestStacks: Boolean!
 

@@ -148,8 +148,10 @@
           children:
             - name: "Overview"
               path: "agent/self-hosted"
-            - name: "Tokens"
+            - name: "Agent tokens"
               path: "agent/self-hosted/tokens"
+            - name: "Job acquisition tokens"
+              path: "agent/self-hosted/job-acquisition-tokens"
             - name: "Code access"
               path: "agent/self-hosted/code-access"
             - name: "Run on Kubernetes"
