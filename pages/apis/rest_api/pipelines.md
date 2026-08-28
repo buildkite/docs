@@ -1749,9 +1749,8 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>build_pull_request_stacks</code></th>
-      <td>Whether to create builds for stacked pull requests. GitHub includes stack metadata on subsequent pull request events for stacks; the initial <code>opened</code> event does not carry stack metadata and is processed as a normal pull request. Requires <code>build_pull_requests</code> to be <code>true</code>.
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      <td>Whether to create a build when a pull request is added to a stack. The initial <code>opened</code> event does not carry stack metadata and is processed as a normal pull request. Buildkite caches metadata from the later <code>stacked</code> event for subsequent builds, regardless of this setting. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
       </td>
     </tr>
     <tr>
