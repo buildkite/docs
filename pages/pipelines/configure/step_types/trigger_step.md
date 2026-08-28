@@ -16,7 +16,7 @@ steps:
 
 Builds created by a trigger step inherit ownership details from the parent build. Buildkite Pipelines uses these details to identify a user and determine whether the trigger is allowed.
 
-If a user unblocks a preceding block step, Pipelines identifies the most recent unblocker as the creator. Otherwise, Pipelines uses the creator of the parent build.
+If a user unblocks a preceding [block step](/docs/pipelines/configure/step-types/block-step) or submits an [input step](/docs/pipelines/configure/step-types/input-step), Pipelines identifies the most recent unblocker or submitter as the creator. Otherwise, Pipelines uses the creator of the parent build.
 
 For parent builds created by GitHub push webhooks, the creator depends on your organization's build creator semantics:
 
@@ -32,7 +32,7 @@ If you have [Teams](/docs/platform/team-management/permissions) enabled in your 
 
 If neither condition is true, the build will fail, and builds on subsequent pipelines will not be triggered.
 
-Without strict build creator semantics, adding a verified commit-author email can change authorization from the shared-team fallback to the identified user's permissions. To keep permission checks consistent, give identified commit authors **Build** permission on every target pipeline. With strict build creator semantics, give the authenticated webhook sender this permission. If a user unblocks a preceding block step, give the unblocker this permission. For builds without an identified creator, make sure the source and target pipelines share a team with **Build** permission.
+Without strict build creator semantics, adding a verified commit-author email can change authorization from the shared-team fallback to the identified user's permissions. To keep permission checks consistent, give identified commit authors **Build** permission on every target pipeline. With strict build creator semantics, give the authenticated webhook sender this permission. If a user unblocks a preceding block step or submits an input step, give that user this permission. For builds without an identified creator, make sure the source and target pipelines share a team with **Build** permission.
 
 > 📘 Pipeline trigger rules
 > A matching [pipeline trigger rule](/docs/pipelines/security/clusters/rules) can allow one pipeline to trigger another without relying on user or team permissions.
