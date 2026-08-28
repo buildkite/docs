@@ -187,4 +187,3 @@ Reset pager to default (less -R):
 ```bash
 bk config unset pager
 ```
-

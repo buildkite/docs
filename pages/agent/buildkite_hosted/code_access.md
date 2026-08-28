@@ -1,6 +1,6 @@
 # Buildkite hosted agents code access
 
-Buildkite hosted agents can access private repositories in GitHub natively, by authorizing Buildkite to access these GitHub repositories. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
+Buildkite hosted agents can access private repositories in GitHub and Origin natively when you authorize Buildkite to access the repositories. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration).
 
@@ -21,13 +21,21 @@ Buildkite caches these GitHub access tokens for 50 minutes, where they remain en
 
 There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
+## Origin private repositories
+
+When a pipeline is connected to an Origin repository, jobs running on Buildkite hosted agents automatically receive a read-only credential for checkout. No SSH key or additional pipeline configuration is required.
+
+Buildkite issues a short-lived `repository:contents:read` token scoped to the exact repository configured on the pipeline. Native authentication applies only to jobs running on Buildkite hosted agents.
+
+To connect an Origin repository, see the [Origin source control integration](/docs/pipelines/source-control/origin).
+
 ## Public repositories
 
 Buildkite does not require any special permissions to access public repositories.
 
 ## Private repositories with other providers
 
-To use Buildkite hosted agents with a private repository on a provider other than GitHub, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
+To use Buildkite hosted agents with a private repository on a provider other than GitHub or Origin, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
 
 ### Specifying an SSH secret in YAML
 

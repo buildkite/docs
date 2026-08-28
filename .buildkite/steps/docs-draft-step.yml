@@ -10,7 +10,7 @@ steps:
     env:
       AWS_DEFAULT_REGION: us-east-1
     plugins:
-      - aws-assume-role-with-web-identity#v1.6.0:
+      - aws-assume-role-with-web-identity#v1.7.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-draft-writer
           session-tags:
             - organization_slug
@@ -30,7 +30,6 @@ steps:
             - "BUILDKITE_AGENT_ENDPOINT"
             - "UPSTREAM_REPO=${UPSTREAM_REPO}"
             - "UPSTREAM_PR_NUMBER=${UPSTREAM_PR_NUMBER}"
-            - "WRITE_DOCS=${WRITE_DOCS:-}"
             - "GITHUB_TOKEN"
             - "ANTHROPIC_BASE_URL=https://agent.buildkite.com/v3/ai/anthropic"
             - "DISABLE_AUTOUPDATER=1"

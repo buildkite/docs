@@ -114,9 +114,13 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.job.started_at`           | `buildkite.job`                                                                    | When job started                                            |
 | `buildkite.job.finished_at`          | `buildkite.job`                                                                    | When job finished                                           |
 | `buildkite.job.wait_time_ms`         | `buildkite.job`                                                                    | Job wait time in milliseconds                               |
+| `buildkite.job.concurrency_wait_time_ms` | `buildkite.job` (concurrency-group jobs only, omitted for incomplete waits and platform-limited jobs) | Time in milliseconds the job spent in its first concurrency-group wait (zero if the job was immediately promoted, omitted if the wait is incomplete or platform-limit wait cannot be separated) |
+| `buildkite.job.priority.number`      | `buildkite.job`                                                                    | Job priority number                                         |
 | `buildkite.job.unblocked_by`         | `buildkite.job` (when unblocked)                                                   | User who unblocked job (object with uuid, graphql_id, name) |
 | `buildkite.job.retried_in_job_id`    | `buildkite.job` (when retried)                                                     | ID of retry job (if retried)                                |
 | `buildkite.job.signal_reason`        | `buildkite.job` (when terminated by signal)                                        | Signal reason (if terminated by signal)                     |
+| `buildkite.job.concurrency.group`    | `buildkite.job` (when job uses a concurrency group)                                | Concurrency group name                                      |
+| `buildkite.job.concurrency.limit`    | `buildkite.job` (when job uses a concurrency group)                                | Concurrency limit                                           |
 | `buildkite.job.matrix`               | `buildkite.job` (matrix jobs only)                                                 | Job matrix configuration (JSON)                             |
 | `buildkite.agent.name`               | `buildkite.job` (when agent assigned)                                              | Agent name                                                  |
 | `buildkite.agent.id`                 | `buildkite.job` (when agent assigned)                                              | Agent ID                                                    |
@@ -149,6 +153,20 @@ Key: `Authorization`
 Value: `Basic <base64 encoded ${USER}:${PASSWORD})>`
 
 See [Basic Authentication example](https://github.com/buildkite/opentelemetry-notification-service-examples/blob/main/collector-config/basic-auth-debug.yml) for an example OpenTelemetry Collector configuration.
+
+### Request log
+
+> 📘 Private feature
+> The Request Log for the OpenTelemetry Notification Service is in preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
+
+Select **Load recent requests** to view the last 20 outbound trace export requests, which you can use to diagnose connectivity, authentication, and endpoint configuration issues. If the service hasn't sent any trace export requests yet, no requests are shown.
+
+Each row displays the HTTP status code, request UUID, the exported span name (for example, `buildkite.job` or `buildkite.step`), and the request duration. Expanding a row shows:
+
+- **Request**: Shows the request headers and body. Custom header values (such as API keys and bearer tokens) are redacted. The OTLP protobuf body is decoded into readable JSON, with trace and span IDs displayed in hexadecimal format.
+- **Response**: Shows the response headers and body. If the collector returns a protobuf response (for example, a `partialSuccess` with rejected spans and an error message), the body is decoded into readable JSON.
+
+If a request fails before it gets an HTTP response (for example, a connection timeout), the row shows `n/a` for the status code and no duration. Expanding the row still shows the **Request** tab as normal. The **Response** tab shows an **Error** message instead of response details.
 
 ### Honeycomb
 

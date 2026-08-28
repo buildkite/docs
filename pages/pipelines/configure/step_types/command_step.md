@@ -408,7 +408,9 @@ For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step'
   <tr>
     <td><code>commit_verification</code></td>
     <td>
-      <p>Whether the agent should verify that the commit being built exists on the specified branch. Set to <code>strict</code> to fail the job when the agent determines the commit is not on the branch, or <code>warn</code> to emit a warning without failing. If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues in both modes. Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>.</p>
+      <p>Whether the agent should verify that the commit being built exists on the specified branch. For Buildkite agent v4, set the value to <code>strict</code> to fail the job when the agent determines that the commit is not on the branch. Set the value to <code>off</code> to skip verification. An empty value causes job bootstrap to fail.</p>
+      <p>For Buildkite agent v3, set the value to <code>strict</code> to fail the job, or <code>warn</code> to emit a warning without failing the job. An empty value skips verification. Do not use <code>off</code> with v3. A job-supplied <code>off</code> value uses warning behavior rather than skipping verification.</p>
+      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. Buildkite agent v4 uses <code>strict</code> by default. Buildkite agent v3 does not verify commits by default.</p>
       <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. In each of these cases, verification is either not possible or not meaningful.</p>
       <em>Example:</em> <code>strict</code>
     </td>
@@ -492,7 +494,7 @@ steps:
 
 To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been canceled, the build is marked as _failed_ due to the initial job failure.
+When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on_build_failing: true` are automatically canceled, including jobs that are already running and jobs that are still waiting to start. Waiting jobs can include jobs whose dependencies are incomplete or that are blocked by a concurrency limit. After all remaining jobs have finished or been canceled, the build is marked as _failed_ due to the initial job failure.
 
 Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 

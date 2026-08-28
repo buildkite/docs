@@ -175,15 +175,14 @@ After you have assigned tags at the test collection level, start using them to f
 
 On the test page, you can open the execution drawer by selection an execution.
 
-This presents all the tags which have been applied to the test execution.
+This presents all the tags which have been applied to the test execution as a collapsible key/value tree. Tags with dot-separated keys, such as `build.id` and `build.url`, are grouped under a shared branch, for example `build`.
 
 <%= image "execution-tags.png", width: 3274, height: 1838, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
 
-Expand a tag dropdown to access the following actions:
+Hover over a tag to reveal a button that copies its value, and a **More actions** menu with the following actions:
 
 - **Filter by** or **Remove filter**: filter executions by this tag.
 - **Group by** or **Remove group**: group executions by this tag.
-- **Copy value**: copy only the tag value to your clipboard.
 - **Copy tag**: copy the full `key:value` tag to your clipboard.
 
 ### Group by tag

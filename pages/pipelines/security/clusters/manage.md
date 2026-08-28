@@ -33,7 +33,7 @@ To create a new cluster using the Buildkite interface:
 1. Enter an optional **Emoji** and **Color** using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select **Create Cluster**.
 
-    The new cluster's **Queues** page will appear, displaying the cluster's name and its default queue, named **queue**. The cluster will also automatically create a default cache registry named **Default**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
+    The new cluster's **Queues** page will appear, displaying the cluster's name and its default queue, named **queue**. The cluster will also automatically create a default [cache registry](/docs/pipelines/configure/cache#manage-cache-registries) named **Default**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
 
 ### Using the REST API
 
@@ -263,6 +263,9 @@ A cluster maintainer can:
 - Add pipelines to or remove them from the cluster.
 - Stop, pause and resume agents belonging to a queue within the cluster.
 - Manage [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) associated with the cluster.
+
+> 📘 Creating pipelines needs the **Create pipelines** permission
+> Cluster maintainer access lets you add existing pipelines to, or remove them from, the cluster, but it doesn't by itself let you create pipelines. Creating a pipeline also requires the team-level **Create pipelines** permission (or being a team maintainer or organization administrator). Conversely, the **Create pipelines** permission alone lets a non-administrator create pipelines only in the organization's [default cluster](#set-a-default-cluster-for-new-pipelines). Creating a pipeline in any other cluster also requires cluster maintainer access to that cluster.
 
 > 📘
 > Learn more about Buildkite organization administrators and user permissions in Buildkite from [User and team permissions](/docs/platform/team-management/permissions).

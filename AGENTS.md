@@ -18,6 +18,17 @@ Run the CI steps locally and correct any errors before pushing commits. Review t
 
 ---
 
+## Cursor Cloud specific instructions
+
+This repository is a Rails-based static-site generator for the Buildkite docs. There is a single service: the local docs web app.
+
+- **Toolchain**: Ruby, Node, and Yarn versions are pinned in `mise.toml`. The VM uses [mise](https://mise.jdx.dev/) (activated in `~/.bashrc`) to provide them. `nvm` is also present on the VM but `mise` is activated after it, so `mise` versions take precedence. The startup update script runs `mise install`, `bundle install`, `yarn install`, and initializes the `vendor/emojis` git submodule, so dependencies are ready when a session starts.
+- **Run the dev server**: `foreman start` (see `Procfile`; it runs Vite plus the Rails web process on port 3000). Then open `http://localhost:3000/docs`. Use `WEB_PORT=3010 foreman start` for a different port. Do not use `docker-compose` on the VM; run natively via `foreman`.
+- **Editing content**: pages are re-rendered per request in development, so edits to an existing page under `pages/` appear on browser refresh without restarting the server. Restart `foreman start` after adding a new page, changing `data/nav.yml`, or other non-page changes.
+- **Lint/test/build**: standard commands live in `package.json` scripts and `.buildkite/pipeline.yml`. Tests: `bundle exec rspec`. Prettier: `npm run prettier-check`. Markdown: `npm run mdlint`. Insensitive-word lint: `npm run lint`. Filename lint: `npx @ls-lint/ls-lint`. Vale prose lint: `./scripts/vale.sh`. YAML validators: `npm run validate-agent-attributes-yaml` and `npm run validate-environment-variables-yaml`.
+
+---
+
 ## Understanding Buildkite products and documentation
 
 The other sections in this file cover authoring documentation. This section covers understanding and navigating the Buildkite product documentation as a consumer.

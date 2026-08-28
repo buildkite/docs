@@ -38,7 +38,7 @@ This means:
 
 ## Rate limit
 
-Each workflow monitor has a rate limit of 500 events per minute across alarm and recover events. If a workflow exceeds this limit within a one minute window, no new alarm or recover events will trigger their configured [actions](/docs/pipelines/configure/tests/workflows/actions) for the remainder of that minute. Event processing resumes in the following minute when usage falls below the limit. To avoid hitting the limit, you can refine your workflow using [tag filters](/docs/pipelines/configure/tests/workflows/monitors#tag-filters) or adjust monitor thresholds.
+Each workflow monitor has a rate limit of 500 events per minute across alarm and recover events. If a workflow exceeds this limit within a one-minute window, the **Add label**, **Remove label**, and **Change state** [actions](/docs/pipelines/configure/tests/workflows/actions) for the excess events still run as normal. The **Send webhook notification**, **Send Slack notification**, and **Create Linear issue** actions for excess events are suppressed and are not delivered later. Notification actions resume for subsequent events in the following minute when usage falls below the limit. To avoid hitting the limit, you can refine your workflow using [tag filters](/docs/pipelines/configure/tests/workflows/monitors#tag-filters) or adjust monitor thresholds.
 
 > 🚧
-> Currently, there is no indicator when a workflow monitor is rate limited. To check if your workflow is triggering events as expected, go to your test suite and select **Workflows**. In the Events section of the workflow, select **view** to see the list of triggered events.
+> Currently, there is no indicator when a workflow monitor's notifications are being throttled by the rate limit. To check if your workflow is triggering events as expected, go to your test suite and select **Workflows**. In the Events section of the workflow, select **view** to see the list of triggered events.
