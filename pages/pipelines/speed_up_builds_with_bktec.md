@@ -18,14 +18,14 @@ Since the sum of all test executions across all agents is 16 minutes, _with_ tes
 
 The test splitting setup page shows a _partition timeline_ for each run, with a bar for each partition that reflects how its test time was distributed across assigned tests.
 
-Two breakdown views are available via the **Breakdown** dropdown:
+Two breakdown views are available using the **Breakdown** dropdown:
 
-- **Actual**: sizes each test's segment using the actual execution durations recorded for that run. This is the default view.
+- **Actual**: sizes each test's segment using the actual execution durations recorded for that run. This is the default view. If no actual durations match the tests in a partition, this view uses their estimated durations. If actual durations match only some tests, tests without matching data have no width.
 - **Estimated**: sizes each test's segment using the estimated durations from the test plan.
 
-When actual duration data is available, each test segment's hover card shows both an estimated percentage and an actual percentage of the partition's test time.
+Each test segment's hover card shows its estimated percentage of the partition's test time. When a matching actual duration is available, the hover card also shows the actual percentage.
 
-The **Show Retries** checkbox, checked by default, controls whether retry execution segments are visible in the actual breakdown. Unchecking it removes retry segments and rescales the remaining segments to fill the bar.
+The **Show Retries** checkbox, checked by default, controls whether retry execution segments are visible in the actual breakdown. Clear the checkbox to remove retry segments and rescale the remaining segments to fill the bar.
 
 ## Increase build reliability with test states
 
