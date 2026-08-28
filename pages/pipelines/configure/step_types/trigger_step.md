@@ -14,24 +14,29 @@ steps:
 
 ## Permissions
 
-Builds created by a trigger step inherit the author details from the parent build. Buildkite uses these details to identify a user and determine whether the trigger is allowed.
+Builds created by a trigger step inherit ownership details from the parent build. Buildkite Pipelines uses these details to identify a user and determine whether the trigger is allowed.
 
-For builds created by GitHub push webhooks, Buildkite first uses the commit author information in the webhook payload to identify a Buildkite user. The commit author's email must match a verified email on the Buildkite account. If no verified email matches, Buildkite tries to identify the webhook sender through their [connected GitHub account](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
+If a user unblocks a preceding block step, Pipelines identifies the most recent unblocker as the creator. Otherwise, Pipelines uses the creator of the parent build.
 
-When Buildkite identifies a user, Buildkite checks that user's permissions when a trigger step runs. If neither the commit author nor the webhook sender can be identified, the trigger step uses the shared-team permissions described below.
+For parent builds created by GitHub push webhooks, the creator depends on your organization's build creator semantics:
+
+- With strict build creator semantics, Pipelines identifies the authenticated webhook sender through their [connected GitHub account](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
+- Without strict build creator semantics, Pipelines first uses the commit author information in the webhook payload to identify a Buildkite user. The commit author's email must match a verified email on the Buildkite account. If no verified email matches, Pipelines tries to identify the webhook sender through their connected GitHub account.
+
+When Pipelines identifies a creator, it checks that user's permissions when a trigger step runs. If Pipelines cannot identify a creator and Teams is enabled, the trigger step can use the shared-team permissions described below.
 
 If you have [Teams](/docs/platform/team-management/permissions) enabled in your organization, *one* of the following conditions must be met:
 
-- The identified user must be a member of your organization and have **Build** permission on every pipeline that will be triggered
-- The triggering build has no creator and no unblocker, and the source pipeline and the target pipeline share a team with **Build** permission
+- The identified user must be a member of your organization and have **Build** permission on every target pipeline.
+- The triggering build has no creator and no unblocker, and the source pipeline and the target pipeline share a team with **Build** permission.
 
 If neither condition is true, the build will fail, and builds on subsequent pipelines will not be triggered.
 
-Adding a verified commit-author email can change authorization from the shared-team fallback to the identified user's permissions. To keep permission checks consistent, give identified users **Build** permission on every target pipeline. For builds without an identified user, make sure the source and target pipelines share a team with **Build** permission.
+Without strict build creator semantics, adding a verified commit-author email can change authorization from the shared-team fallback to the identified user's permissions. To keep permission checks consistent, give identified commit authors **Build** permission on every target pipeline. With strict build creator semantics, give the authenticated webhook sender this permission. If a user unblocks a preceding block step, give the unblocker this permission. For builds without an identified creator, make sure the source and target pipelines share a team with **Build** permission.
 
 > 📘 Pipeline trigger rules
 > A matching [pipeline trigger rule](/docs/pipelines/security/clusters/rules) can allow one pipeline to trigger another without relying on user or team permissions.
-> Rules do not provide a separate deny action. Conditions limit when a rule allows a trigger, such as only when the source build was created by a webhook. Rules can apply to pipelines in the same or different clusters.
+> Rules do not provide a separate deny action. Conditions limit when a rule allows a trigger, such as allowing triggers only from webhook-created source builds. Rules can apply to pipelines in the same or different clusters.
 > Rules do not prevent users from creating source builds or retrying jobs. Use user and team permissions to control those actions.
 
 ## Trigger step attributes
