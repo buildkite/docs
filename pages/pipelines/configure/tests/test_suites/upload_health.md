@@ -23,11 +23,15 @@ The stacked bar chart displays each time bucket split by outcome:
 - **Rejected** (orange): Uploads that were syntactically or semantically invalid.
 - **Failed** (red): Uploads that encountered a processing error.
 
+When the selected period includes uploads ingested through OpenTelemetry, the chart adds a lighter-colored **OpenTelemetry** series for each outcome (for example, **OpenTelemetry · Succeeded**), alongside the three series above. Periods without OpenTelemetry uploads show only the three series above.
+
 The one-day summary uses 24 one-hour UTC-aligned buckets. The seven-day summary uses 84 two-hour UTC-aligned buckets. The most recent bucket covers the current partial period and is visually distinguished from completed buckets. The chart uses your local timezone for axis labels and the full dates and times shown on hover.
 
 ## Executions per successful upload
 
 The histogram uses 18 predefined ranges (from zero executions up to 100,000 or more) to show how successful uploads are distributed by the number of test executions they contained. When there are no successful uploads in the period, the page shows a message instead of the histogram.
+
+When the selected period includes OpenTelemetry uploads, successful uploads are split into two stacked series—**Successful test result uploads** (blue) and **Successful OpenTelemetry uploads** (purple)—with a legend shown above the chart. Periods without OpenTelemetry uploads show a single **Successful uploads** series.
 
 ## Upload problems
 
