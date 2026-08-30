@@ -157,9 +157,9 @@ Error responses:
 </tbody>
 </table>
 
-## Enable hosted agents terminal access
+## Enable hosted agents remote access
 
-Enables SSH terminal access for hosted agents in the organization. Records who enabled it and when.
+Enables remote access for hosted agents in the organization. SSH access applies to all hosted agents. VNC access applies only to supported macOS hosted jobs. Records who enabled remote access and when.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -183,9 +183,9 @@ Error responses:
 </tbody>
 </table>
 
-## Disable hosted agents terminal access
+## Disable hosted agents remote access
 
-Disables SSH terminal access for hosted agents in the organization.
+Disables remote access for hosted agents in the organization. This action removes SSH access from all hosted agents and VNC access from supported macOS hosted jobs.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -394,9 +394,9 @@ Error responses:
   <tr>
     <th><code>hosted_agents_terminal_access</code></th>
     <td>
-      SSH terminal access settings for hosted agents. Contains:
+      Remote access setting for hosted agents. When enabled, this setting makes SSH access available for all hosted agents and VNC access available for supported macOS hosted jobs. Contains:
       <ul>
-        <li><code>enabled</code> — whether SSH terminal access is currently enabled.</li>
+        <li><code>enabled</code> — whether remote access is currently enabled.</li>
         <li><code>enabled_at</code> — ISO 8601 timestamp when it was enabled, or <code>null</code>.</li>
         <li><code>enabled_by</code> — object with <code>id</code> and <code>name</code> of the user who enabled it, or <code>null</code>.</li>
       </ul>

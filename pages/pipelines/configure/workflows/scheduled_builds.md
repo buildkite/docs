@@ -25,6 +25,9 @@ The interval defines when the schedule will create builds. Schedules run in UTC 
 > 🚧 Interval granularity
 > Buildkite only guarantees that scheduled builds run within 10 minutes of the scheduled time, and therefore does not support intervals less than 10 minutes.
 
+> 📘 Default cron expression
+> When you create a new schedule, the **Cron Interval** field is pre-filled with a daily cron expression at a random minute and a random hour, for example, `37 14 * * *`. This spreads scheduled builds throughout the day, rather than clustering them at the top of the hour or at midnight UTC. You can edit this value to set any supported interval.
+
 ### Predefined intervals
 
 Buildkite supports 6 predefined intervals:

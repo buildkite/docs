@@ -9,8 +9,8 @@ variables:
     example: "83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"
   - name: BUILDKITE_AGENT_CACHE_STORE_URL
     desc: |
-      The URL of the default cache store backend used by the Buildkite agent for the `cache` step attribute. For jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), the variable is automatically set to a URL scoped to the cluster.
-    modifiable: false
+      The URL of the cache store backend used by the `buildkite-agent cache save` and `buildkite-agent cache restore` commands ([Buildkite Cache](/docs/pipelines/configure/cache)). For jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), the variable is automatically set to a URL scoped to the cluster and can't be overridden by a pipeline-level environment variable. Elsewhere, the value can be set in the pipeline's `env` block, or by exporting the environment variable in the `environment` hook.
+    modifiable: true
     example: "nsc://buildkite-cache-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   - name: BUILDKITE_AGENT_DEBUG
     desc: |
@@ -268,6 +268,11 @@ variables:
       The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or using the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.
     modifiable: false
     example: "/var/lib/git-mirrors"
+  - name: BUILDKITE_GIT_REMOTE_MIRROR_URL
+    desc: |
+      The URL of the remote clone mirror configured for the pipeline. Only present when a clone mirror is configured on the pipeline. The primary repository variables (`BUILDKITE_REPO`, `BUILDKITE_REPO_SSH_HOST`) are not replaced and can be used to fall back to the primary repository when the mirror is unavailable.
+    modifiable: false
+    example: "https://mirror.example.com/git/acme/my-project.git"
   - name: BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
     desc: |
       The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When set to `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository.
@@ -322,6 +327,11 @@ variables:
       The GitHub webhook event type that triggered the build (for example, `push`, `pull_request`, `release`, `check_run`). Only available on builds triggered by GitHub webhook events.
     modifiable: false
     example: "pull_request"
+  - name: BUILDKITE_GITHUB_ISSUE_NUMBER
+    desc: |
+      The number of the GitHub issue that triggered the build. Only available on builds triggered by a GitHub `issues` event.
+    modifiable: false
+    example: "42"
   - name: BUILDKITE_GITHUB_REVIEW_ID
     desc: |
       The ID of the pull request review that triggered the build. Only available on builds triggered by a GitHub `pull_request_review` event.

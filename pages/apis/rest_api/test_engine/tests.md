@@ -14,8 +14,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 [
   {
     "id": "01867216-8478-7fde-a55a-0300f88bb49b",
-    "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
-    "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+    "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+    "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
     "scope": "User#email",
     "name": "is correctly formatted",
     "location": "./spec/models/user_spec.rb:42",
@@ -38,6 +38,14 @@ curl -H "Authorization: Bearer $TOKEN" \
 The `Buildkite-Version` request header opts in to the versioned response shown above, which includes the aggregated metrics. Requests made without this header receive a response which contains only the test attributes `id` through `labels`.
 
 The aggregated metrics in each test are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters. Tests without any executions recorded in Test Engine during the requested time range will not be present in the response.
+
+To retrieve flaky tests, filter by the `flaky` label. You can also sort by reliability in ascending order to return the least reliable tests first:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Buildkite-Version: 2026-08-01" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests?labels=flaky&sort_by=reliability&order=asc"
+```
 
 <table class="responsive-table">
 <tbody>
@@ -111,22 +119,11 @@ Some [query string parameters](/docs/api#query-string-parameters) support one or
 
 <%= render_markdown partial: 'apis/rest_api/test_engine/tests_list_query_strings' %>
 
+<%= render_markdown partial: 'apis/rest_api/test_engine/tests_metrics_query_strings' %>
+
 Optional request headers:
 
-<table class="responsive-table">
-<tbody>
-  <tr>
-    <th><code>Buildkite-Version</code></th>
-    <td>
-      Request an API version using a date in <code>YYYY-MM-DD</code> format. Set to <code>2026-08-01</code> or a later date to receive test metrics in the response. Without this header, or with a date before <code>2026-08-01</code>, the response uses the legacy format without metrics.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>Buildkite-Version: 2026-08-01</code></p>
-    </td>
-  </tr>
-</tbody>
-</table>
-
-> 📘 Invalid format returns an error
-> If a non-blank `Buildkite-Version` header value is not in `YYYY-MM-DD` format, the API returns a `400` response with `{"message": "Buildkite-Version must be in format YYYY-MM-DD"}`. A blank value is treated as an omitted header, so the API returns the legacy `200` response instead.
+<%= render_markdown partial: 'apis/rest_api/test_engine/tests_version_header' %>
 
 This endpoint is [paginated](/docs/apis/rest-api#pagination).
 
@@ -136,23 +133,48 @@ Success response: `200 OK`
 
 ## Get a test
 
+Returns a test with aggregated duration, reliability, and execution metrics over a time range.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
+  -H "Buildkite-Version: 2026-08-01" \
   -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/tests/{test.id}"
 ```
 
 ```json
 {
   "id": "01867216-8478-7fde-a55a-0300f88bb49b",
-  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
-  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
   "scope": "User#email",
   "name": "is correctly formatted",
   "location": "./spec/models/user_spec.rb:42",
   "file_name": "./spec/models/user_spec.rb",
-  "labels": ["flaky"]
+  "labels": ["flaky"],
+  "reliability": 0.98,
+  "duration_avg": 0.213,
+  "duration_sum": 23.856,
+  "duration_min": 0.108,
+  "duration_max": 1.942,
+  "executions_count": 112,
+  "executions_count_by_result": {
+    "passed": 110,
+    "failed": 2
+  }
 }
 ```
+
+The `Buildkite-Version` request header opts in to the versioned response shown above, which includes the aggregated metrics described in [List tests](#list-tests). Requests made without this header receive a response which contains only the test attributes `id` through `labels`.
+
+The metrics are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters. A test without executions during the requested time range is still returned. Its duration and reliability values are `null`, its `executions_count` is `0`, and its `passed` and `failed` execution counts are `0`.
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<%= render_markdown partial: 'apis/rest_api/test_engine/tests_metrics_query_strings' %>
+
+Optional request headers:
+
+<%= render_markdown partial: 'apis/rest_api/test_engine/tests_version_header' %>
 
 Required scope: `read_suites`
 
@@ -176,8 +198,8 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 {
   "id": "01867216-8478-7fde-a55a-0300f88bb49b",
-  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
-  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
   "scope": "User#email",
   "name": "is correctly formatted",
   "location": "./spec/models/user_spec.rb:42",
