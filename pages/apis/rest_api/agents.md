@@ -338,7 +338,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>timeout_in_minutes</code></th>
-    <td>The number of minutes after which the agent is automatically resumed<p class="Docs__api-param-eg"><em>Default:</em> <code>5</code>. <em>Maximum:</em> <code>10080</code> (7 days).</p></td>
+    <td>The number of minutes after which the agent is automatically resumed<p class="Docs__api-param-eg"><em>Default:</em> <code>5</code>. <em>Maximum:</em> <code>10080</code> (seven days).</p></td>
   </tr>
 </tbody>
 </table>
