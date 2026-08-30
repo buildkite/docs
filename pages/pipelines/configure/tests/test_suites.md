@@ -69,9 +69,9 @@ In Test Engine, a run is marked as `failed` as soon as a test execution fails, r
 
 ## Upload summary
 
-The **Uploads** view in a test suite shows a summary of test result uploads over time. Use it to track how frequently your suite receives uploads and to spot gaps or spikes in upload activity.
+The **Uploads** view in a Buildkite Test Engine test suite shows a summary of test result uploads over time. Use it to track how frequently your suite receives uploads and to spot gaps or spikes in upload activity.
 
-A period picker lets you switch between a one-day and a seven-day view. One day is the default. The seven-day view displays data in 84 two-hour buckets. If your organization's Test Engine maximum time window is shorter than seven days, the **7d** option is shown as disabled and the view defaults to one day.
+A period picker lets you switch between a one-day and a seven-day view. One day is the default. The seven-day view displays data in 84 two-hour buckets. If the maximum time window configured for Test Engine in your organization is shorter than seven days, the **7d** option is shown as disabled and the view defaults to one day.
 
 ## Trends and analysis
 
