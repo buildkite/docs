@@ -109,7 +109,8 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   <tr>
     <th><code>per_page</code></th>
     <td>How many results to return per page.
-      <p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p></td>
+      <p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p>
+      <p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td>
   </tr>
   <tr>
     <th><code>after</code></th>
