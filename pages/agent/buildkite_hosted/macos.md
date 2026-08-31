@@ -39,7 +39,7 @@ If you have specific needs for longer running hosted agents (over 4 hours), plea
 
 ## Versioned queues
 
-New Buildkite organizations are pre-provisioned with the following macOS hosted queues, in addition to **macos-medium** and **macos-large**:
+New Buildkite organizations are pre-provisioned with the following macOS hosted queues, in addition to `macos-medium` and `macos-large`:
 
 Queue             | macOS version
 ----------------- | ----------------
@@ -49,7 +49,9 @@ Queue             | macOS version
 `macos-27-medium` | [Golden Gate](#macos-golden-gate)
 {: class="responsive-table"}
 
-Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as **macos-medium**. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
+Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as `macos-medium`. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
+
+New macOS hosted queues without an explicitly selected macOS or Xcode version default to macOS Tahoe (26.6) with Xcode 26.6. This includes queues you create and the `macos-medium` and `macos-large` queues created automatically for new Buildkite organizations. You can change this default at any time in the queue's **Base image** settings.
 
 ## Concurrency
 
@@ -66,8 +68,6 @@ When concurrency limits are exceeded, additional jobs will be queued until suffi
 ## macOS instance software support
 
 All standard macOS [Golden Gate (27.0)](#macos-golden-gate), [Tahoe (26.6)](#macos-tahoe-26-dot-6), [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5), [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe), [Sequoia](#macos-sequoia), and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Buildkite Support at support@buildkite.com.
-
-New macOS hosted queues that don't have a macOS version or Xcode version explicitly selected default to macOS Tahoe (26.6) with Xcode 26.6. This applies both to queues you create yourself, as well as the **macos-medium** and **macos-large** queues that are created automatically for new Buildkite organizations. You can change this default at any time in the queue's **Base image** settings.
 
 While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/agent/buildkite-hosted/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes) for performance, and use persistent [cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
 
