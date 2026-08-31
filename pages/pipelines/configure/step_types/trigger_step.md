@@ -14,24 +14,30 @@ steps:
 
 ## Permissions
 
-All builds created by a trigger step will have the same author as the parent build. This user must:
+Builds created by a trigger step inherit ownership details from the parent build. Buildkite Pipelines uses these details to identify a user and determine whether the trigger is allowed.
 
-* be a member of your organization
-* have a verified email address
+If a user unblocks a preceding [block step](/docs/pipelines/configure/step-types/block-step) or submits an [input step](/docs/pipelines/configure/step-types/input-step), Pipelines identifies the most recent unblocker or submitter as the creator. Otherwise, Pipelines uses the creator of the parent build.
+
+For parent builds created by GitHub push webhooks, the creator depends on your organization's build creator semantics:
+
+- With strict build creator semantics, Pipelines identifies the authenticated webhook sender through their [connected GitHub account](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
+- Without strict build creator semantics, Pipelines first uses the commit author information in the webhook payload to identify a Buildkite user. The commit author's email must match a verified email on the Buildkite account. If no verified email matches, Pipelines tries to identify the webhook sender through their connected GitHub account.
+
+When Pipelines identifies a creator, it checks that user's permissions when a trigger step runs. If Pipelines cannot identify a creator and Teams is enabled, the trigger step can use the shared-team permissions described below.
 
 If you have [Teams](/docs/platform/team-management/permissions) enabled in your organization, *one* of the following conditions must be met:
 
-* The authoring user must have 'Build' permission on *every* pipeline that will be triggered
-* The triggering build has no creator and no unblocker, *and* the source pipeline and the target pipeline share a team that can 'Build'
+- The identified user must be a member of your organization and have **Build** permission on every target pipeline.
+- The triggering build has no creator and no unblocker, and the source pipeline and the target pipeline share a team with **Build** permission.
 
 If neither condition is true, the build will fail, and builds on subsequent pipelines will not be triggered.
 
-If using bot users (unregistered users who are not part of any team) to trigger pipelines, make sure you have shared team which has the build permission on parent and child pipelines.
+Without strict build creator semantics, adding a verified commit-author email can change authorization from the shared-team fallback to the identified user's permissions. To keep permission checks consistent, give identified commit authors **Build** permission on every target pipeline. With strict build creator semantics, give the authenticated webhook sender this permission. If a user unblocks a preceding block step or submits an input step, give that user this permission. For builds without an identified creator, make sure the source and target pipelines share a team with **Build** permission.
 
-If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/pipelines/source-control/github#connecting-buildkite-and-github).
-
-> 📘 Pipeline triggering
-> Pipelines associated with one [cluster](/docs/pipelines/glossary#cluster) cannot trigger pipelines associated with another cluster, unless a [rule](/docs/pipelines/security/clusters/rules) has been created to explicitly allow triggering between pipelines in different clusters.
+> 📘 Pipeline trigger rules
+> A matching [pipeline trigger rule](/docs/pipelines/security/clusters/rules) can allow one pipeline to trigger another without relying on user or team permissions.
+> Rules do not provide a separate deny action. Conditions limit when a rule allows a trigger, such as allowing triggers only from webhook-created source builds. Rules can apply to pipelines in the same or different clusters.
+> Rules do not prevent users from creating source builds or retrying jobs. Use user and team permissions to control those actions.
 
 ## Trigger step attributes
 
@@ -114,7 +120,7 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      On the modern build page, reveal skipped steps using <strong>Show skipped steps</strong>. In the <strong>Canvas</strong> view, a badge beside the eye icon on the <strong>Show skipped steps</strong> or <strong>Hide skipped steps</strong> control shows the skipped step count. Hover over a skipped step to see the reason, or select a skipped trigger step to see the reason in the step panel. See <a href="/docs/pipelines/build-page#core-actions-viewing-why-a-step-was-skipped">Viewing why a step was skipped</a>.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
@@ -265,9 +271,9 @@ While you cannot trigger only a specific step in a pipeline, you can use [condit
 
 An example using conditionals might look like this:
 
-* Testing for [BUILDKITE_SOURCE](/docs/pipelines/configure/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
-* Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/configure/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
-* Custom [environment variables](#environment-variables) passed to the triggered build
+- Testing for [BUILDKITE_SOURCE](/docs/pipelines/configure/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
+- Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/configure/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
+- Custom [environment variables](#environment-variables) passed to the triggered build
 
 In the target pipeline, to run the command step only if the build was triggered by a specific pipeline, you might use something like this:
 
@@ -301,8 +307,8 @@ For example, assume a scenario with three pipelines—**Pipeline A**, **Pipeline
 
 When **Cancel Intermediate Builds**:
 
-* _Is enabled_, the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered **Pipeline B** build would be allowed to run.
+- _Is enabled_, the build of **Pipeline B**, run by whichever pipeline it was triggered by _first_, is _canceled_ and the newest triggered **Pipeline B** build would be allowed to run.
 
-* _Is not enabled_, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
+- _Is not enabled_, **Pipeline B** will run twice, as it will be triggered by both **Pipeline A** and **Pipeline C** without cancellation.
 
 Regardless of whether or not **Cancel Intermediate Builds** is enabled, if either **Pipeline A** or **Pipeline C** is manually canceled before their triggering steps have occurred, then the **Pipeline B** build triggered by its canceled pipeline will not run, and **Pipeline B** will only run once (triggered by the other, non-canceled pipeline).

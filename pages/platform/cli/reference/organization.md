@@ -57,4 +57,3 @@ List organizations in text format:
 ```bash
 bk organization list -o text
 ```
-
