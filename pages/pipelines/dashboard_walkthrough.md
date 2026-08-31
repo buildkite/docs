@@ -84,6 +84,8 @@ To see the steps for a build, select the Show steps button on the right of any b
 
 <%= image "showing-build-steps.png", width: 2408/2, height: 520/2, alt: "Screenshot of toggling build steps" %>
 
+If you have permission to cancel a build, and that build is running or scheduled, a **Cancel** button appears on its row in the list. Selecting **Cancel** stops all of that build's running and pending jobs without leaving the pipeline's Builds list.
+
 ## Build page
 
 Select a build to view its page, which shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or canceling the build while it's in progress.
