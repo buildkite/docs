@@ -49,7 +49,7 @@ When you select a step, its details appear in a resizable step panel. You can:
 Skipped steps show their reason without you needing to open a log.
 
 - Reveal skipped steps using the **Show skipped steps** toggle.
-- Hover over a skipped step in the sidebar or **Canvas** view to see the reason in a tooltip.
+- Hover over a skipped step in the **List** or **Canvas** view to see the reason in a tooltip.
 - Select a skipped command or trigger step to view the reason in the step panel. Skipped wait and block steps don't open the step panel, because they have no further details to show.
 
 ### Managing retries
