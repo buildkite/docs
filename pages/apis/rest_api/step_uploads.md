@@ -13,6 +13,10 @@ Step uploads are only available for builds within their maximum lifetime (up to 
     <td>UUID of the step upload</td>
   </tr>
   <tr>
+    <th><code>graphql_id</code></th>
+    <td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the step upload</td>
+  </tr>
+  <tr>
     <th><code>state</code></th>
     <td>State of the step upload. One of <code>pending</code>, <code>processing</code>, <code>applied</code>, <code>rejected</code>, or <code>failed</code></td>
   </tr>
@@ -34,7 +38,7 @@ Step uploads are only available for builds within their maximum lifetime (up to 
   </tr>
   <tr>
     <th><code>rejection_type</code></th>
-    <td>Type of rejection for a <code>rejected</code> upload, otherwise <code>null</code></td>
+    <td>Type of rejection for a <code>rejected</code> upload. One of <code>custom_error</code>, <code>validation_error</code>, <code>build_not_running_error</code>, or <code>job_creation_error</code>. Otherwise <code>null</code></td>
   </tr>
   <tr>
     <th><code>message</code></th>
@@ -172,9 +176,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-The uploaded document isn't retained as raw text, so `definition_yaml` is re-rendered from the stored definition and may not preserve the original file's formatting, comments, or anchors.
+The uploaded document isn't retained as raw text, so `definition_yaml` is re-rendered from the stored definition and may not preserve the original file's formatting, comments, or anchors. `definition_bytes` reports the size of the serialized JSON definition, not the rendered YAML.
 
-Definitions larger than 2 MB when serialized aren't rendered. For these, `definition_yaml` is `null` and `definition_yaml_omitted` is `true`, while `definition_bytes` still reports the definition's serialized size.
+Definitions whose serialized JSON is larger than 2 MB aren't rendered as YAML. For these, `definition_yaml` is `null` and `definition_yaml_omitted` is `true`, while `definition_bytes` still reports the serialized JSON size.
 
 Required scope: `read_builds`
 
