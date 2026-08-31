@@ -558,7 +558,7 @@ To register a GitHub App, follow the GitHub [documentation](https://docs.github.
 - GitHub App name: choose a unique name (for example, buildkite-agent-ro-access)
 - Homepage URL: your company's homepage
 - Webhook:
-    + Uncheck **Active** (webhooks are not required)
+    + Deselect **Active** (webhooks are not required)
     + Webhook URL (leave blank)
     + Secret (leave blank)
 - Permissions:

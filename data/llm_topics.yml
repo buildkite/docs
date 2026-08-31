@@ -97,6 +97,7 @@ pipelines:
     - "apis/rest-api/pipeline-schedules"
     - "apis/rest-api/builds"
     - "apis/rest-api/jobs"
+    - "apis/rest-api/step-uploads"
     - "apis/rest-api/agents"
     - "apis/rest-api/annotations"
     - "apis/rest-api/artifacts"
@@ -155,6 +156,7 @@ dynamic-pipelines:
     - "pipelines/configure/writing-build-scripts"
     - "pipelines/configure/glob-pattern-syntax"
     - "agent/cli/reference/pipeline"
+    - "apis/rest-api/step-uploads"
   related_topics:
     - pipeline-configurations
     - monorepos

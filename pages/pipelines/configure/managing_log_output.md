@@ -25,7 +25,7 @@ echo "~~~ An unimportant section of the build"
 > 📘 Availability
 > The controls in this section are available to organizations where de-emphasized job log groups are enabled in the new build experience.
 
-In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Reveal groups** in the log toolbar to reveal all folded groups. The button changes to **Hide groups**, which folds them again.
+In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Show system groups** in the log toolbar to reveal all folded groups. The **Show system groups** tooltip shows how many groups are currently hidden. The button changes to **Hide system groups**, which folds them again.
 
 Select **Configure view** > **Show all system groups** to keep all de-emphasized groups visible. Your choice is remembered for future visits to the build page. The **Configure view** menu also lets you change the log's theme and toggle timestamps.
 

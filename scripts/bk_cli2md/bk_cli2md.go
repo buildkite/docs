@@ -716,7 +716,8 @@ func formatFlag(f Flag) string {
 }
 
 func formatDescription(description string) string {
-	return commandLineExampleRE.ReplaceAllString(description, "for example `$1`")
+	description = commandLineExampleRE.ReplaceAllString(description, "for example `$1`")
+	return strings.ReplaceAll(description, "stdin with -", "stdin with `-`")
 }
 
 func writeExamples(b *strings.Builder, examples []string) {

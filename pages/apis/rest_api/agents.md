@@ -328,6 +328,21 @@ curl -H "Authorization: Bearer ${TOKEN}" \
   }'
 ```
 
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>note</code></th>
+    <td>A short note explaining why the agent is being paused</td>
+  </tr>
+  <tr>
+    <th><code>timeout_in_minutes</code></th>
+    <td>The number of minutes after which the agent is automatically resumed<p class="Docs__api-param-eg"><em>If omitted:</em> Uses the agent's existing timeout value, which is initially <code>5</code>. <em>Maximum:</em> <code>10080</code> (seven days).</p></td>
+  </tr>
+</tbody>
+</table>
+
 Required scope: `write_agents`
 
 Success response: `204 No Content`
