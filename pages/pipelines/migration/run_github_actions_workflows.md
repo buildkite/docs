@@ -36,7 +36,7 @@ To create a pipeline using detected GitHub Actions workflows:
 
 Opening the panel doesn't change the pipeline configuration until you select a workflow. Only workflows with supported triggers can be selected. Other workflows appear as **Not supported**. Selecting all workflows adds each workflow path explicitly.
 
-For organizations in the private preview for [issue activity builds](/docs/pipelines/source-control/github#running-builds-on-issue-activity), workflows that declare the `issues` event are also selectable. Selecting one while creating a pipeline enables **Build on GitHub issue activity** for the new pipeline.
+For organizations in the private preview for [issue activity builds](/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity), workflows that declare the `issues` event are also selectable. Selecting one while creating a pipeline enables **Build on GitHub issue activity** for the new pipeline.
 
 #### Add workflows to an existing pipeline
 
@@ -137,7 +137,7 @@ Pull request builds check out and run against the head commit of the pull reques
 
 Release workflows require the GitHub Releases additional webhook, the **Code** trigger mode, and a supported `published`, `created`, or `released` activity type. With the full-access **GitHub** repository provider, Buildkite Pipelines resolves the release tag to its immutable commit before creating the build. Without this access, the plugin can use the checked-out `HEAD` as a compatibility fallback, but the build can't receive a workflow access token for the release.
 
-Issue workflows require the private-preview [issue activity build setting](/docs/pipelines/source-control/github#running-builds-on-issue-activity). A bare `issues` trigger accepts every supported activity. You can also list supported GitHub issue activity types explicitly. Branch, tag, path, and workflow filters aren't supported for this event.
+Issue workflows require the private-preview [issue activity build setting](/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity). A bare `issues` trigger accepts every supported activity. You can also list supported GitHub issue activity types explicitly. Branch, tag, path, and workflow filters aren't supported for this event.
 
 Each successfully compiled workflow that declares the effective event becomes a group named for the workflow. A supported, non-empty `run-name` is appended to the group label, but doesn't change the build message or external check name. The external check identifies both the workflow and effective event. A workflow that doesn't declare the effective event becomes a top-level skipped step. After upload, an importer-scoped informational annotation lists skipped workflows. A local reusable workflow that declares only `workflow_call` can support another selected workflow, but doesn't create its own group.
 
