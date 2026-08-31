@@ -14,15 +14,15 @@ In addition to being scoped within a cluster, access to Buildkite secrets is man
 
 ## Browse and sort secrets
 
-The **Secrets** page lists all secrets in a cluster, and its table can be sorted to make large numbers of secrets easier to browse and audit without relying on search.
+The organization-level **Secrets** page and each cluster's **Secrets** page list their available secrets. Their tables can be sorted to make large numbers of secrets easier to browse and audit without relying on search.
 
-Select the **Key**, **Updated at**, or **Last read** column header to sort the list by that column. Select the same header again to reverse the sort direction. The active column and its sort direction are indicated in the header.
+Select the **Key**, **Updated at**, or **Last read** column header to sort the list by that column. Select the same header again to reverse the sort direction. The header indicates the active column and its sort direction.
 
 By default, secrets are sorted by **Key** in ascending order, using a case-insensitive comparison.
 
 When sorting by **Last read**, secrets that have never been read are treated as the oldest entries. Never-read secrets appear first when sorting in ascending order, and last when sorting in descending order.
 
-The selected sort order is preserved when searching or paging through the list of secrets.
+The selected sort order is preserved when searching or paging through the list of secrets. On the organization-level **Secrets** page, the sort order is also preserved when filtering by team.
 
 ## Create a secret
 
