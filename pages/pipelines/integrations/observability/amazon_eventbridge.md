@@ -595,7 +595,6 @@ The `broken_reason` field of a [job finished](#events-job-finished) event is `nu
 | Broken reason | Description |
 | --- | --- |
 | `conditional_failed` | The job's `if` condition evaluated to false and the job was skipped |
-| `no_agents` | No agents were available to run the job |
 | `legacy_step` | The step was skipped because it uses legacy agent assignment. |
 | `branch_mismatch` | The build's branch did not match the step's branch conditions |
 | `optimizer_removed` | The pipeline optimizer removed the job |

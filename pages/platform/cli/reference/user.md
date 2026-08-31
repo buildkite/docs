@@ -53,4 +53,3 @@ Invite multiple users to your organization:
 ```bash
 bk user invite bob@supercoolorg.com bobs_mate@supercoolorg.com
 ```
-

@@ -235,7 +235,7 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string (with a 70-character limit) provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon, which shows a count of the skipped steps.<br/>
+      On the modern build page, reveal skipped steps using <strong>Show skipped steps</strong>. In the <strong>Canvas</strong> view, a badge beside the eye icon on the <strong>Show skipped steps</strong> or <strong>Hide skipped steps</strong> control shows the skipped step count. Hover over a skipped step to see the reason, or select a skipped command step to see the reason in the step panel. See <a href="/docs/pipelines/build-page#core-actions-viewing-why-a-step-was-skipped">Viewing why a step was skipped</a>.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
@@ -494,7 +494,7 @@ steps:
 
 To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been canceled, the build is marked as _failed_ due to the initial job failure.
+When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on_build_failing: true` are automatically canceled, including jobs that are already running and jobs that are still waiting to start. Waiting jobs can include jobs whose dependencies are incomplete or that are blocked by a concurrency limit. After all remaining jobs have finished or been canceled, the build is marked as _failed_ due to the initial job failure.
 
 Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 

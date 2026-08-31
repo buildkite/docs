@@ -92,4 +92,3 @@ Print the URL instead of opening a browser:
 ```bash
 bk browse 420 -n
 ```
-

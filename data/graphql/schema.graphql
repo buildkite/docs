@@ -1158,6 +1158,7 @@ enum AuditEventType {
   COMPOSITE_REGISTRY_UPSTREAM_REMOVED
   CREDIT_CARD_ADDED
   CREDIT_CARD_REMOVED
+  GITHUB_ACTIONS_SECRET_MIGRATION_GRANT_CREATED
   JOB_TERMINAL_SESSION_STARTED
   MODEL_PROVIDER_CREATED
   MODEL_PROVIDER_DELETED
@@ -1336,7 +1337,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderCursorOrigin | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | APIApplication | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | CompositeRegistryUpstream | Email | JobTypeBlock | JobTypeCommand | JobTypeTrigger | JobTypeWait | NotificationServiceOpenTelemetryTracing | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationImpersonationRequest | OrganizationInvitation | OrganizationMember | OrganizationRepositoryProviderGitHub | OrganizationRepositoryProviderGitHubEnterpriseServer | Pipeline | PipelineSchedule | PipelineTemplate | Registry | RegistryToken | Rule | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Secret | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamRegistry | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -1346,6 +1347,7 @@ enum AuditSubjectType {
   API_ACCESS_TOKEN
   API_APPLICATION
   AUTHORIZATION
+  BUILD_PAGE_SETTING
   CACHE_REGISTRY
   CLUSTER
   CLUSTER_PERMISSION
@@ -8003,21 +8005,6 @@ interface OrganizationRepositoryProvider {
 }
 
 """
-Origin installation associated with this organization
-"""
-type OrganizationRepositoryProviderCursorOrigin implements Node & OrganizationRepositoryProvider {
-  """
-  The ID of the provider
-  """
-  id: ID!
-
-  """
-  The name of the OrganizationRepositoryProvider
-  """
-  name: String!
-}
-
-"""
 GitHub installation associated with this organization
 """
 type OrganizationRepositoryProviderGitHub implements Node & OrganizationRepositoryProvider {
@@ -10302,66 +10289,6 @@ type RepositoryProviderCodebaseSettings implements RepositoryProviderSettings {
 }
 
 """
-A pipeline's repository is being provided by Origin
-"""
-type RepositoryProviderCursorOrigin implements RepositoryProvider {
-  """
-  The name of the provider
-  """
-  name: String!
-
-  """
-  The repository’s provider settings
-  """
-  settings: RepositoryProviderCursorOriginSettings
-
-  """
-  This URL to the provider’s web interface
-  """
-  url: String
-
-  """
-  The URL to use when setting up webhooks from the provider to trigger Buildkite builds
-  """
-  webhookUrl: String
-}
-
-"""
-Settings for an Origin repository
-"""
-type RepositoryProviderCursorOriginSettings implements RepositoryProviderSettings {
-  """
-  Whether to create builds when branches are pushed.
-  """
-  buildBranches: Boolean!
-
-  """
-  Whether to create builds for commits that are part of a pull request.
-  """
-  buildPullRequests: Boolean!
-
-  """
-  Whether to create builds when tags are pushed.
-  """
-  buildTags: Boolean!
-
-  """
-  The conditions under which this pipeline will trigger a build.
-  """
-  filterCondition: String
-
-  """
-  Whether the filter is enabled
-  """
-  filterEnabled: Boolean
-
-  """
-  Whether to publish build results to Origin as a check run.
-  """
-  publishCommitStatus: Boolean!
-}
-
-"""
 Settings for a GitHub Enterprise repository.
 """
 type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSettings {
@@ -10389,6 +10316,11 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   Whether to create builds when an issue comment is created on a pull request.
   """
   buildIssueCommentCreated: Boolean!
+
+  """
+  Whether to create builds for GitHub issue activity.
+  """
+  buildIssues: Boolean!
 
   """
   Whether to create builds for merge group check runs.
@@ -10461,7 +10393,7 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   buildPullRequestReviewSubmitted: Boolean!
 
   """
-  Whether to create builds for stacked pull requests.
+  Whether to create a build when a pull request is added to a stack.
   """
   buildPullRequestStacks: Boolean!
 
@@ -10544,6 +10476,16 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   prefixPullRequestForkBranchNames: Boolean!
 
   """
+  Whether to prevent custom commit statuses posted via `notify:` from using a
+  `context:` starting with `buildkite/`. Prevents conflicts with commit statuses
+  automatically generated by Buildkite. When enabled, custom commit statuses
+  must specify a `context:`. Effective enforcement also requires this
+  restriction to be enabled at the organization level; when the
+  organization-level restriction is inactive, the setting is stored but not enforced.
+  """
+  preventCustomStatusesFromUsingBuildkitePrefix: Boolean!
+
+  """
   The status to use for blocked builds. Pending can be used with required status
   checks to prevent merging pull requests with blocked builds.
   """
@@ -10586,6 +10528,13 @@ type RepositoryProviderGitHubEnterpriseSettings implements RepositoryProviderSet
   require a passing pull request build in your required status checks in GitHub.
   """
   separatePullRequestStatuses: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request when the pull request
+  is closed or merged. Useful for ignoring late activity from automated
+  housekeeping (e.g. label changes from bots) on closed pull requests.
+  """
+  skipBuildsForClosedPullRequests: Boolean!
 
   """
   Whether to skip creating a new build if a build for the commit and branch already exists.
@@ -10644,6 +10593,11 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildIssueCommentCreated: Boolean!
 
   """
+  Whether to create builds for GitHub issue activity.
+  """
+  buildIssues: Boolean!
+
+  """
   Whether to create builds for merge group check runs.
   """
   buildMergeGroupChecksRequested: Boolean!
@@ -10714,7 +10668,7 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   buildPullRequestReviewSubmitted: Boolean!
 
   """
-  Whether to create builds for stacked pull requests.
+  Whether to create a build when a pull request is added to a stack.
   """
   buildPullRequestStacks: Boolean!
 
@@ -10797,6 +10751,16 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   prefixPullRequestForkBranchNames: Boolean!
 
   """
+  Whether to prevent custom commit statuses posted via `notify:` from using a
+  `context:` starting with `buildkite/`. Prevents conflicts with commit statuses
+  automatically generated by Buildkite. When enabled, custom commit statuses
+  must specify a `context:`. Effective enforcement also requires this
+  restriction to be enabled at the organization level; when the
+  organization-level restriction is inactive, the setting is stored but not enforced.
+  """
+  preventCustomStatusesFromUsingBuildkitePrefix: Boolean!
+
+  """
   The status to use for blocked builds. Pending can be used with required status
   checks to prevent merging pull requests with blocked builds.
   """
@@ -10839,6 +10803,13 @@ type RepositoryProviderGitHubSettings implements RepositoryProviderSettings {
   require a passing pull request build in your required status checks in GitHub.
   """
   separatePullRequestStatuses: Boolean!
+
+  """
+  Whether to skip creating a new build for a pull request when the pull request
+  is closed or merged. Useful for ignoring late activity from automated
+  housekeeping (e.g. label changes from bots) on closed pull requests.
+  """
+  skipBuildsForClosedPullRequests: Boolean!
 
   """
   Whether to skip creating a new build if a build for the commit and branch already exists.

@@ -105,6 +105,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codebase's
 codeql
 codesign
 codesigning
@@ -325,6 +326,7 @@ oldstable
 onboarding
 Okta
 OpenTelemetry
+Origin
 OTel
 opentelemetry
 onboarding
@@ -361,6 +363,7 @@ PR's
 predeclare
 predeclared
 Prepends
+printf
 Prometheus
 promised_exit_status
 protobuf
@@ -527,6 +530,7 @@ unsetting
 unstaged
 unstarted
 untrusted
+unversioned
 unxip
 uploaders
 upstreams

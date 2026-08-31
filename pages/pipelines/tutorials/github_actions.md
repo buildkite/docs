@@ -11,16 +11,17 @@ To run supported GitHub Actions workflows as jobs in Buildkite during an increme
 The following GitHub webhook events can trigger Buildkite Pipelines builds:
 
 - Pull request reviews (`pull_request_review`)
-- Pull request review comments (`pull_request_review_comment`)—inline diff comments
+- Pull request review comments (`pull_request_review_comment`): inline diff comments
 - Check runs (`check_run`)
 - Releases (`release`)
 - Issue comments (`issue_comment`)
+- Issue activity (`issues`, private preview)
 - Deployment statuses (`deployment_status`)
 - Branch/tag creation (`create`)
 
 ### Expanded pull request actions
 
-Beyond `opened` and `synchronize`, Buildkite Pipelines now supports these pull request actions: `edited`, `reopened`, `labeled`, `unlabeled`, `ready_for_review`, `converted_to_draft`, `review_requested`, and `dequeued`.
+In addition to builds created when a pull request is opened or updated, Buildkite Pipelines supports these actions: `edited`, `reopened`, `labeled`, `unlabeled`, `ready_for_review`, `converted_to_draft`, `review_requested`, and `dequeued`.
 
 ### Conditional variables
 

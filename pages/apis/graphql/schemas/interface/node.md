@@ -173,9 +173,6 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember">
   <code>OrganizationMember</code>
 </a>
-<a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidercursororigin" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderCursorOrigin">
-  <code>OrganizationRepositoryProviderCursorOrigin</code>
-</a>
 <a href="/docs/apis/graphql/schemas/object/organizationrepositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRepositoryProviderGitHub">
   <code>OrganizationRepositoryProviderGitHub</code>
 </a>
