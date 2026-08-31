@@ -1120,6 +1120,8 @@
               path: "apis/rest-api/rules"
             - name: "Schedules"
               path: "apis/rest-api/pipeline-schedules"
+            - name: "Step uploads"
+              path: "apis/rest-api/step-uploads"
         - name: "Portals"
           path: "apis/rest-api/portals"
         - name: "Teams"
