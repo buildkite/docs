@@ -130,6 +130,8 @@ The plugin gives each workflow a GitHub event type based on how the Buildkite bu
 - Scheduled builds receive `schedule`.
 - Other builds, including branch, tag, and triggered builds, receive `push`.
 
+Pull request builds check out and run against the head commit of the pull request branch (`refs/pull/<N>/head`). This matches how [Buildkite Pipelines handles pull request builds by default](/docs/pipelines/source-control/github#building-the-test-merge-commit), and applies even before GitHub finishes computing the pull request's merge commit.
+
 Release workflows require the GitHub Releases additional webhook, the **Code** trigger mode, and a supported `published`, `created`, or `released` activity type.
 
 Each successfully compiled workflow that declares the effective event becomes a group named for the workflow. Its external check identifies both the workflow and effective event. A workflow that doesn't declare the effective event becomes a top-level skipped step. After upload, an importer-scoped informational annotation lists skipped workflows. A local reusable workflow that declares only `workflow_call` can support another selected workflow, but doesn't create its own group.
@@ -304,6 +306,7 @@ The runtime rejects many unsupported or privileged features before it uploads an
 You may need to update a workflow before you can run it during the preview:
 
 - **Check the `actions/upload-artifact` revision and inputs:** The native adapter supports audited revisions from v1 through v7. The v1 adapter accepts one literal file or directory. Later adapters accept up to 32 clean, workspace-relative literal paths or bounded file globs using `*`, `?`, character classes, and recursive `**`. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Hidden-file behavior and accepted inputs depend on the action revision. The runtime accepts `retention-days` where the action declares it, but treats the value as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
+- **Set action working directories explicitly:** Action input defaults that reference `${{ github.workspace }}` aren't supported. Set the action's path input to a repository-relative path, such as `working-directory: .`, instead.
 
 See the [`buildkite-gha` v0.30.0 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.30.0/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
@@ -385,6 +388,24 @@ When you create a new pipeline, other scan failures show a notice with a **Try a
 Private checkout and workflow access tokens use separate settings. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials, secrets, and OIDC](#supported-functionality-and-limitations-credentials-secrets-and-oidc) restrictions before enabling write permissions.
 
 If a generated job fails with `buildkite-gha: run-job: GitHub scoped access tokens are not enabled for this organization`, the Buildkite organization doesn't have GitHub scoped access token minting enabled. Contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to enable it.
+
+### An action input default references the github.workspace expression
+
+An action can fail before it runs with an error similar to:
+
+```text
+buildkite-gha: run-job: step "step-2": action input "working-directory" default: expression references unavailable github value "workspace"
+```
+
+The compatibility runtime exposes a [bounded `github` context](https://github.com/buildkite/buildkite-gha/blob/v0.30.0/docs/compatibility.md#runtime-interpolation) that doesn't include `github.workspace`. If an action uses `${{ github.workspace }}` as an input default, set that input explicitly to a repository-relative path:
+
+```yaml
+- uses: some/action@v1
+  with:
+    working-directory: .
+```
+
+If you maintain the action, read the `GITHUB_WORKSPACE` environment variable from the action code instead. The environment variable is available when the action runs, but the `${{ github.workspace }}` expression isn't supported.
 
 ### Validate a workflow locally
 

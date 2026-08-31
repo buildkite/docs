@@ -363,6 +363,7 @@ PR's
 predeclare
 predeclared
 Prepends
+printf
 Prometheus
 promised_exit_status
 protobuf

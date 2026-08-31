@@ -169,6 +169,49 @@ Note the following limitations:
 - `refs/pull/<N>/merge` only exists once GitHub has computed the merge. It is created asynchronously and does not exist for pull requests with merge conflicts. Builds for pull requests with merge conflicts fail at checkout. The build log identifies two possible causes: a merge conflict or GitHub being unable to create the merge ref automatically. The agent skips the fetch-specific retry loop for a missing merge ref, but the outer checkout retry loop still retries the entire checkout.
 - Builds that fire very quickly after a pull request is opened or synchronized may occasionally hit the same checkout failure if GitHub hasn't finished computing the merge ref yet. Retrying the build after a short delay usually resolves this.
 
+## Running builds for stacked pull requests
+
+Buildkite Pipelines uses stack metadata from GitHub pull request webhooks to create builds and make stack details available to pipeline interpolation and [step-level `if` conditions](/docs/pipelines/configure/conditionals#conditionals-in-steps).
+
+The **Build when a pull request is added to a stack** option in the pipeline's GitHub settings is disabled by default. Enable this option to create a build when GitHub sends a `pull_request` `stacked` event. When it is disabled, Buildkite still caches the stack metadata for subsequent builds.
+
+GitHub does not include stack metadata in the initial `pull_request` `opened` event. Buildkite Pipelines processes that event as a normal pull request build without the stack variables. GitHub sends a later `pull_request` `stacked` event with the metadata.
+
+When **Build when a pull request is added to a stack** is enabled, **Skip when pull request has existing build for commit and branch** is enabled by default. Buildkite Pipelines skips the later `stacked` event when the initial build has the same commit and branch. Clear this option to create a separate stack-aware build for the same commit.
+
+Buildkite Pipelines caches the metadata from the `stacked` event and includes it in builds created by subsequent pushes to the pull request branch.
+
+### Use stack metadata in step conditions
+
+The following variables are available in pipeline interpolation and step-level `if` conditions when GitHub provides stack metadata, but not at runtime or in pipeline-level build conditionals:
+
+Variable | Description
+--- | ---
+`BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION` | The one-based position of the pull request in the stack
+`BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE` | The total number of pull requests in the stack
+`BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH` | The base branch targeted by the entire stack
+{: class="responsive-table"}
+
+The following pipeline runs the full test suite when stack metadata is not available, including for the initial `opened` build. For stack-aware builds, it runs the full test suite for the lowest open pull request and the top pull request. It runs a lighter test suite for pull requests between them:
+
+```yaml
+steps:
+  - label: "Full test suite"
+    command: "scripts/run-full-tests"
+    if: |
+      build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION") == null ||
+      build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH") == build.pull_request.base_branch ||
+      build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION") == build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE")
+  - label: "Light test suite"
+    command: "scripts/run-light-tests"
+    if: |
+      build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION") != null &&
+      build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH") != build.pull_request.base_branch &&
+      build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION") != build.env("BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE")
+```
+
+For builds created from a GitHub `pull_request` event, use `buildkite-agent meta-data get buildkite:webhook` to retrieve the full webhook payload at runtime. The stack object is at `.pull_request.stack`. A subsequent `push` webhook does not contain this object.
+
 ## Running builds on merge queues
 
 To enable merge queue builds, edit the GitHub settings for the pipeline and select **Build merge queues**.
@@ -244,9 +287,9 @@ GitHub still delivers issue events created with a Buildkite-minted `GITHUB_TOKEN
 
 ## Environment variables
 
-GitHub webhook-triggered builds expose environment variables that you can use at runtime and in [conditionals](/docs/pipelines/configure/conditionals). Some variables are available at runtime (in your build scripts and hooks), conditionals, and pipeline interpolation using `build.env()`, while others are only available in conditionals and pipeline interpolation:
+GitHub webhook-triggered builds expose environment variables for pipeline interpolation and [step-level `if` conditions](/docs/pipelines/configure/conditionals#conditionals-in-steps). Some are also available at runtime in build scripts and hooks.
 
-**Available at runtime, conditionals, and pipeline interpolation:**
+**Also available at runtime:**
 
 - `BUILDKITE_GITHUB_COMMENT_ID`: the comment that triggered the build (issue comments and review comments)
 - `BUILDKITE_GITHUB_REVIEW_ID`: the review that triggered the build (pull request reviews)
@@ -255,12 +298,13 @@ GitHub webhook-triggered builds expose environment variables that you can use at
 - `BUILDKITE_GITHUB_DEPLOYMENT_ID`: the deployment ID (deployment status events)
 - `BUILDKITE_GITHUB_ISSUE_NUMBER`: the number of the issue that triggered the build (issue events)
 
-**Available in conditionals and pipeline interpolation only:**
+**Not available at runtime or in pipeline-level build conditionals:**
 
 - `BUILDKITE_GITHUB_CHECK_RUN_NAME`, `BUILDKITE_GITHUB_CHECK_RUN_CONCLUSION`: check run details
 - `BUILDKITE_GITHUB_RELEASE_TAG`, `BUILDKITE_GITHUB_RELEASE_DRAFT`, `BUILDKITE_GITHUB_RELEASE_PRERELEASE`: release details
-- `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, etc.)
+- `BUILDKITE_GITHUB_REVIEW_STATE`: the review state (`approved`, `changes_requested`, and so on)
 - `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE`, `BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT`: deployment status details
+- `BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION`, `BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE`, `BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH`: pull request stack details
 
 ## Noreply email handling
 
@@ -514,7 +558,7 @@ To register a GitHub App, follow the GitHub [documentation](https://docs.github.
 - GitHub App name: choose a unique name (for example, buildkite-agent-ro-access)
 - Homepage URL: your company's homepage
 - Webhook:
-    + Uncheck **Active** (webhooks are not required)
+    + Deselect **Active** (webhooks are not required)
     + Webhook URL (leave blank)
     + Secret (leave blank)
 - Permissions:

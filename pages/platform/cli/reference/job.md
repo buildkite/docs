@@ -29,7 +29,7 @@ The `bk job` command allows you to manage jobs within builds from the command li
 | `bk job log` | Get logs for a job. |
 | `bk job reprioritize` | Reprioritize a job. |
 | `bk job retry` | Retry a job. |
-| `bk job ssh` | Connect to a running hosted macOS job over SSH. |
+| `bk job ssh` | Connect to a running hosted job over SSH. |
 | `bk job unblock` | Unblock a job. |
 | `bk job vnc` | Connect to a running hosted macOS job over VNC. |
 
@@ -116,6 +116,12 @@ List jobs from a specific queue:
 
 ```bash
 bk job list --queue test-queue
+```
+
+List running jobs in a queue (both filters applied by the server):
+
+```bash
+bk job list --queue test-queue --state running
 ```
 
 List running jobs:
@@ -286,7 +292,7 @@ bk job retry 0190046e-e199-453b-a302-a21a4d649d31
 
 ## Connect to a job using SSH
 
-Connect to a running hosted macOS job over SSH.
+Connect to a running hosted job over SSH.
 
 ```bash
 bk job ssh <job-uuid>
@@ -306,7 +312,7 @@ bk job ssh <job-uuid>
 
 ### Examples
 
-Open an interactive shell on a running hosted macOS job:
+Open an interactive shell on a running hosted job:
 
 ```bash
 bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
