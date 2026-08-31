@@ -1553,7 +1553,10 @@ Properties available for all providers:
 </tbody>
 </table>
 
-Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, and GitHub Enterprise all have optional `provider_settings`.
+Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
+
+> 📘 Origin provider settings
+> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
 
 Properties available for Bitbucket Server:
 
@@ -1685,6 +1688,37 @@ Properties available for GitLab and GitLab Self-Managed:
   </tbody>
 </table>
 
+Properties available for Origin:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>build_branches</code></th>
+      <td>Whether to create builds when branches are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_requests</code></th>
+      <td>Whether to create builds when pull requests are opened or updated.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_tags</code></th>
+      <td>Whether to create builds when tags are pushed.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>publish_commit_status</code></th>
+      <td>Whether to publish build results to Origin using the Checks API. The property name is retained for API compatibility.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 Additional properties available for GitHub and GitHub Enterprise:
 
 <table class="responsive-table responsive-table--wrap-th-codeblocks">
@@ -1711,6 +1745,12 @@ Additional properties available for GitHub and GitHub Enterprise:
       <th><code>build_pull_request_ready_for_review</code></th>
       <td>Whether to create builds for pull requests that are ready for review. Requires <code>build_pull_requests</code> to be <code>true</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_stacks</code></th>
+      <td>Whether to create a build when a pull request is added to a stack. The initial <code>opened</code> event does not carry stack metadata and is processed as a normal pull request. Buildkite caches metadata from the later <code>stacked</code> event for subsequent builds, regardless of this setting. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
       </td>
     </tr>
     <tr>
@@ -1895,6 +1935,13 @@ Additional properties available for GitHub and GitHub Enterprise:
       </td>
     </tr>
     <tr>
+      <th><code>prevent_custom_statuses_from_using_buildkite_prefix</code></th>
+      <td>Whether to prevent custom commit statuses configured using <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from setting <code>context:</code> to a value that starts with <code>buildkite/</code>. When enabled, custom commit statuses must specify a <code>context:</code>. Effective enforcement also requires this feature to be enabled for your organization. When the feature is inactive, the setting is stored but not enforced.
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>trigger_mode</code></th>
       <td>What type of event to trigger builds on.
         <ul>
@@ -1904,6 +1951,29 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>none</code> will not create any builds based on GitHub activity.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Additional properties available for GitHub:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>github_workflow_access_tokens_enabled</code></th>
+      <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
+        <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-and-tokens">credentials and tokens</a> for requirements and limitations.</p>
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_issues</code></th>
+      <td>Whether to create builds for GitHub issue activity, such as an issue being opened, edited, labeled, or closed. This setting is not supported for GitHub Enterprise Server pipelines.
+        <p>Only available for GitHub.com pipelines that use the full-access <strong>GitHub</strong> App. Builds run the repository's default branch at the exact commit resolved when Buildkite Pipelines processes the webhook delivery. Public issue authors can trigger these builds without a trusted-author check. See <a href="/docs/pipelines/source-control/github#running-builds-on-issue-activity">running builds on issue activity</a> for details.</p>
+        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
   </tbody>

@@ -97,11 +97,13 @@ pipelines:
     - "apis/rest-api/pipeline-schedules"
     - "apis/rest-api/builds"
     - "apis/rest-api/jobs"
+    - "apis/rest-api/step-uploads"
     - "apis/rest-api/agents"
     - "apis/rest-api/annotations"
     - "apis/rest-api/artifacts"
     - "apis/rest-api/clusters"
     - "apis/rest-api/clusters/queues"
+    - "apis/rest-api/clusters/queue-migrations"
     - "apis/rest-api/clusters/agent-tokens"
     - "apis/rest-api/clusters/maintainers"
     - "apis/rest-api/clusters/secrets"
@@ -154,6 +156,7 @@ dynamic-pipelines:
     - "pipelines/configure/writing-build-scripts"
     - "pipelines/configure/glob-pattern-syntax"
     - "agent/cli/reference/pipeline"
+    - "apis/rest-api/step-uploads"
   related_topics:
     - pipeline-configurations
     - monorepos
@@ -245,7 +248,7 @@ self-hosted-agents:
 
 hosted-agents:
   name: "Buildkite Hosted Agent Documentation"
-  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, and terminal access."
+  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, terminal access, and desktop access."
   paths:
     - "agent/buildkite-hosted"
   exact_paths:
@@ -359,7 +362,7 @@ insights:
 
 debugging:
   name: "Buildkite Troubleshooting and Debugging Documentation"
-  description: "Buildkite documentation for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, agent lifecycle, and platform-specific troubleshooting guides."
+  description: "Buildkite documentation for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, desktop access, agent lifecycle, and platform-specific troubleshooting guides."
   exact_paths:
     - "agent/self-hosted/agent-stack-k8s/troubleshooting"
     - "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
@@ -367,6 +370,7 @@ debugging:
     - "agent/self-hosted/gcp/elastic-ci-stack/troubleshooting"
     - "agent/buildkite-hosted/macos/troubleshooting-fastlane"
     - "agent/buildkite-hosted/terminal-access"
+    - "agent/buildkite-hosted/desktop-access"
     - "agent/lifecycle"
     - "agent/cli/reference/annotate"
     - "agent/cli/reference/annotation"

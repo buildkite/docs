@@ -22,6 +22,19 @@ Use `~~~` to create groups that by default are collapsed and visually de-emphasi
 echo "~~~ An unimportant section of the build"
 ```
 
+> 📘 Availability
+> The controls in this section are available to organizations where de-emphasized job log groups are enabled in the new build experience.
+
+In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Reveal groups** in the log toolbar to reveal all folded groups. The button changes to **Hide groups**, which folds them again.
+
+Select **Configure view** > **Show all system groups** to keep all de-emphasized groups visible. Your choice is remembered for future visits to the build page. The **Configure view** menu also lets you change the log's theme and toggle timestamps.
+
+The default group that reports your build's running script, commands, or command hooks (for example, **Running commands**) always stays visible. A de-emphasized group that's explicitly expanded using `^^^ +++` also stays visible. See [Advanced grouping techniques](#grouping-log-output-advanced-grouping-techniques) for details. While a job is running, its active group stays visible. The group is folded when the job finishes.
+
+If you open a link to a specific log line inside a folded group, that group is shown automatically. Other folded groups remain folded. Search results and groups revealed using expander rows are also shown temporarily. These actions don't change your saved **Show all system groups** preference.
+
+The **Expand groups** and **Collapse groups** buttons act on visible groups without revealing folded groups. Use them to open or close all visible groups at once.
+
 ### Expanded groups
 
 Use `+++` to create groups that are open by default:
@@ -53,6 +66,8 @@ if [[ $? -ne 0 ]]; then
   echo "Bundler failed, oh no!!"
 fi
 ```
+
+If the group you open with `^^^ +++` is a [de-emphasized](#grouping-log-output-de-emphasized-groups) (`~~~`) group, it stays visible on the build page even when de-emphasized groups are hidden by default.
 
 #### Creating section boundaries
 
@@ -95,6 +110,12 @@ steps:
 ```
 
 The `echo` line inside the `if` block uses the literal 🚀 Unicode character directly. Writing `\:rocket\:` there would print as plain text rather than an emoji.
+
+## Searching log output
+
+On the Buildkite Pipelines build page, select **Search logs** above the build log. Enter a search term. Select **Previous** or **Next** to move between matches. Select **Match case sensitivity** (**Aa**) to require an exact-case match.
+
+Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
 
 ## ANSI timestamps and disabling them
 
