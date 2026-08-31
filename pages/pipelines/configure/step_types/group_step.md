@@ -111,7 +111,7 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>. When set on a group step, the value is merged into the <code>skip</code> attribute of each step inside the group, rather than applied to the group itself. As a result, the group container is still shown in the Buildkite interface even when every step inside it is skipped.<br/>
-      On the modern build page, reveal skipped steps using <strong>Show skipped steps</strong>. Hover over a skipped step inside the group to see the reason. Select a skipped command or trigger step to see the reason in the step panel. See <a href="/docs/pipelines/build-page#core-actions-viewing-why-a-step-was-skipped">Viewing why a step was skipped</a>.<br/>
+      On the modern build page, reveal skipped steps using <strong>Show skipped steps</strong>. In the <strong>Canvas</strong> view, a badge beside the eye icon on the <strong>Show skipped steps</strong> or <strong>Hide skipped steps</strong> control shows the skipped step count. Hover over a skipped step inside the group to see the reason. Select a skipped command or trigger step to see the reason in the step panel. See <a href="/docs/pipelines/build-page#core-actions-viewing-why-a-step-was-skipped">Viewing why a step was skipped</a>.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
