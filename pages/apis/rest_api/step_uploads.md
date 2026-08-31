@@ -38,7 +38,7 @@ Step uploads are only available for builds within their maximum lifetime (up to 
   </tr>
   <tr>
     <th><code>message</code></th>
-    <td>Human-readable message describing the upload's outcome for <code>rejected</code> and <code>failed</code> uploads, otherwise <code>null</code>. The message never includes the uploaded configuration or internal failure details</td>
+    <td>Human-readable message describing the outcome of <code>rejected</code> and <code>failed</code> uploads, otherwise <code>null</code>. The message never includes the uploaded configuration or internal failure details</td>
   </tr>
   <tr>
     <th><code>url</code></th>
@@ -57,7 +57,7 @@ Step uploads are only available for builds within their maximum lifetime (up to 
 
 ## List a build's step uploads
 
-Returns a paginated list of a build's step uploads, newest first. The uploaded definitions aren't included — use [Get a step upload](#get-a-step-upload) to fetch a specific upload's definition.
+Returns a paginated list of step uploads for a build, newest first. The uploaded definitions aren't included. Use [Get a step upload](#get-a-step-upload) to fetch the definition for a specific upload.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -71,12 +71,12 @@ curl -H "Authorization: Bearer $TOKEN" \
   "items": [
     {
       "uuid": "0198f2f4-1c33-4e0a-9d5e-3a4a5b6c7d8e",
-      "graphql_id": "U3RlcFVwbG9hZC0tLTAxOThmMmY0LTFjMzMtNGUwYS05ZDVlLTNhNGE1YjZjN2Q4ZQ==",
+      "graphql_id": "QnVpbGRTdGVwVXBsb2FkLS0tMDE5OGYyZjQtMWMzMy00ZTBhLTlkNWUtM2E0YTViNmM3ZDhl",
       "state": "applied",
       "source": "job",
       "source_job_id": "0198f2f3-64a2-4a8e-8b78-0d9157a0e35f",
       "replace_existing_steps": false,
-      "created_jobs_count": 2,
+      "created_jobs_count": 1,
       "rejection_type": null,
       "message": null,
       "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/42/step-uploads/0198f2f4-1c33-4e0a-9d5e-3a4a5b6c7d8e",
@@ -155,18 +155,18 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 {
   "uuid": "0198f2f4-1c33-4e0a-9d5e-3a4a5b6c7d8e",
-  "graphql_id": "U3RlcFVwbG9hZC0tLTAxOThmMmY0LTFjMzMtNGUwYS05ZDVlLTNhNGE1YjZjN2Q4ZQ==",
+  "graphql_id": "QnVpbGRTdGVwVXBsb2FkLS0tMDE5OGYyZjQtMWMzMy00ZTBhLTlkNWUtM2E0YTViNmM3ZDhl",
   "state": "applied",
   "source": "job",
   "source_job_id": "0198f2f3-64a2-4a8e-8b78-0d9157a0e35f",
   "replace_existing_steps": false,
-  "created_jobs_count": 2,
+  "created_jobs_count": 1,
   "rejection_type": null,
   "message": null,
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/42/step-uploads/0198f2f4-1c33-4e0a-9d5e-3a4a5b6c7d8e",
   "created_at": "2026-08-11T10:15:32.000Z",
   "processed_at": "2026-08-11T10:15:33.000Z",
-  "definition_bytes": 148,
+  "definition_bytes": 61,
   "definition_yaml": "---\nsteps:\n- command: echo hello\n  key: dynamic-step\n",
   "definition_yaml_omitted": false
 }

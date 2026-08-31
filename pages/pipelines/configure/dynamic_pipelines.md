@@ -252,7 +252,7 @@ set -euo pipefail
 
 ### Debugging the generator output
 
-When a build produces unexpected steps, retrieve the YAML the script actually uploaded rather than re-running the script locally and guessing. Use the [step uploads REST API](/docs/apis/rest-api/step-uploads) to list a build's uploads and fetch a specific upload's rendered YAML, for builds within their maximum lifetime. For older builds, or to replay the upload locally with `--dry-run`, use the artifact-capture approach in [Production validation with artifact capture](#testing-dynamic-pipelines-production-validation-with-artifact-capture) so every build has an auditable copy, then download it with [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts).
+When a build produces unexpected steps, retrieve the YAML the script actually uploaded rather than re-running the script locally and guessing. Use the [step uploads REST API](/docs/apis/rest-api/step-uploads) to list uploads for a build and fetch the rendered YAML for a specific upload, for builds within their maximum lifetime. For older builds, download a pipeline artifact captured when the build ran. To retain these artifacts for future builds or replay an upload locally with `--dry-run`, configure the artifact-capture approach in [Production validation with artifact capture](#testing-dynamic-pipelines-production-validation-with-artifact-capture), then use [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts).
 
 ### Retried steps producing duplicates
 
