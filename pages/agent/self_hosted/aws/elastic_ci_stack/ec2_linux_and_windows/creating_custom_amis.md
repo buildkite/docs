@@ -507,7 +507,7 @@ By default, all builds target the `us-east-1` region and use your default AWS pr
       {
         "variable": "AMI_PUBLIC",
         "default": "false",
-        "description": "Set to <code>true</code> to make the built AMIs available to all AWS accounts. Keep AMIs private to avoid exposing baked-in secrets"
+        "description": "Set to <code>true</code> to make the built AMIs available to all AWS accounts. Keep AMIs private to avoid exposing baked-in secrets."
       },
       {
         "variable": "AMI_USERS",

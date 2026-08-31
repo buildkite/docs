@@ -4,8 +4,8 @@ _Cache volumes_ (also known as _volumes_) are external volumes attached to Build
 
 Volumes are useful if your pipeline builds on Buildkite hosted agents have jobs that make use of build dependencies, use Docker images, which can be stored in [container cache volumes](#container-cache-volumes), or Git mirrors, which can be stored in [Git mirror volumes](#git-mirror-volumes). Managing build dependencies, Docker images, and Git mirrors in volumes can greatly speed up the duration of your overall pipeline builds.
 
-> 📘 Pro and Enterprise plan feature
-> The cache volumes feature is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans. If you don't have access to this feature, please contact support@buildkite.com to get it activated.
+> 📘 Other caching approaches
+> [Buildkite Cache](/docs/pipelines/configure/cache) is a separate, key-based caching feature that works on both Buildkite hosted agents and self-hosted agents. Unlike a volume, it restores the specific entry a job asks for, and its cache registries support access policies. It's currently in private preview and must be enabled for your organization. To compare the two features, see [Buildkite Cache compared with cache volumes](/docs/pipelines/best-practices/caching#choosing-a-caching-approach-buildkite-cache-compared-with-cache-volumes).
 
 By default, volumes:
 
@@ -30,6 +30,8 @@ Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/d
 When volume paths are defined, the volume is mounted under `/cache/bkcache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
 Volumes can be created by specifying a name for the volume, which allows different steps within a pipeline to each use a different named volume. Each step can only reference one cache volume, and volumes cannot be shared across multiple pipelines.
+
+A volume is identified by its pipeline and its name, so branches and builds that resolve to the same volume name share one volume. A job on one branch can write data that later jobs on other branches read, so don't put anything in a shared volume that a build on another branch shouldn't be able to read or replace. To keep branches apart, include the branch in the volume name.
 
 When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
@@ -187,33 +189,6 @@ Once enabled, Git mirror volumes will be used for all Buildkite hosted agent job
 A Git mirror volume's name is based on your cloud-based Git service's account and repository name, and begins with "buildkite-git-mirror-". For example, **buildkite-git-mirror-my-account-my-repository**.
 
 You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
-
-## Default cache store URL
-
-Jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) automatically receive the `BUILDKITE_AGENT_CACHE_STORE_URL` environment variable. This variable configures the Buildkite agent's default cache store backend for the `cache` step attribute. The value is scoped to the cluster. Cache data is shared only between jobs running in the same cluster.
-
-You do not need to set this variable manually for Buildkite hosted agents.
-
-## Configuring cache operation concurrency
-
-When saving or restoring multiple cache volumes, the agent processes them concurrently. Control the number of concurrent operations using the `BUILDKITE_CACHE_CONCURRENCY` environment variable. The default is `2`.
-
-Increase this value to reduce overall cache operation time for pipelines that use many small cache volumes:
-
-```yaml
-steps:
-  - command: "your-build-command"
-    env:
-      BUILDKITE_CACHE_CONCURRENCY: 4
-    cache:
-      paths:
-        - "node_modules"
-        - ".build"
-        - "vendor/bundle"
-```
-{: codeblock-file="pipeline.yml"}
-
-Setting `BUILDKITE_CACHE_CONCURRENCY` to `0` or a negative value causes the agent to use the number of available CPU cores as the concurrency limit.
 
 ## Viewing and deleting volumes
 

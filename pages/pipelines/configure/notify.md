@@ -21,6 +21,7 @@ Available notification types:
 - [Email](#email): Send an email to the specified email address.
 - [GitHub commit status](#github-commit-status): Create a GitHub commit status.
 - [GitHub check](#github-check): Create a GitHub check status.
+- [Origin check](#origin-check): Create a Cursor Origin check.
 - [PagerDuty](#pagerduty-change-events)
 - [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack channel. Requires the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended) or one or more legacy Slack notification services to be configured for your Buildkite organization.
 - [Webhooks](#webhooks): Send a notification to the specified webhook URL.
@@ -47,6 +48,10 @@ These types of notifications are available at the following levels.
   <tr>
     <td>GitHub check</td>
     <td>GitHub check</td>
+  </tr>
+  <tr>
+    <td>Origin check</td>
+    <td>Origin check</td>
   </tr>
   <tr>
     <td>PagerDuty</td>
@@ -366,6 +371,81 @@ Step-level GitHub check notifications happen at the following [events](/docs/api
 
 - `step.failing`
 - `step.finished`
+
+## Origin check
+
+Create a check on [Cursor Origin](/docs/pipelines/source-control/origin) to provide live status updates and rich output for builds and steps. This requires the pipeline's repository to be hosted on Cursor Origin.
+
+> 📘 Requirements
+> Origin check notifications are being rolled out to Buildkite organizations. If they're not yet available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+> Origin check notifications require a full 40-character commit SHA. For build-level notifications, Buildkite Pipelines defers events when the commit is `HEAD` and replays them after resolving the commit SHA. Build-level events with a short commit SHA do not trigger notifications and are not replayed.
+> For step-level notifications, events that occur while the commit is `HEAD` or a short SHA do not trigger notifications and are not replayed. Only events that occur after Buildkite Pipelines resolves the full commit SHA trigger notifications.
+
+Add an Origin check notification to the `notify` array using the `origin_check` attribute:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - origin_check:
+      key: "build"
+```
+{: codeblock-file="pipeline.yml"}
+
+> 📘 Automatic build checks
+> Buildkite Pipelines publishes an automatic build check to Origin by default. A build-level `origin_check` notification adds another check. To avoid creating two build checks, disable **Update commit statuses** in the pipeline's Origin settings.
+
+You can also add Origin check notifications at the step level:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "bin/rspec"
+    notify:
+      - key: "tests-notification"
+        origin_check:
+          key: "tests"
+          name: "Tests"
+          output:
+            title: "Test results"
+            summary: "Run the test suite"
+```
+{: codeblock-file="pipeline.yml"}
+
+### Origin check attributes
+
+The `origin_check` attribute supports the following options:
+
+- `key`: A stable identifier for the logical check. This attribute is required. Use a unique key for each independent check, including across [dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines). Runs that share a key are treated as attempts of the same check, and Cursor shows only the newest run.
+
+- `name`: Display name for the check run. A build-level check defaults to `<pipeline name> #<build number>`. A step-level check defaults to the step's `label`, then its `key`, or `Step <step ID>` if neither is configured.
+
+- `output`: A map containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), and `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes). If you don't provide output, Buildkite Pipelines generates a title and summary. Build-level output describes the build's current state. Step-level output combines the check's name and the step's current state.
+
+### Dynamic Origin check updates
+
+For step-level Origin check notifications, you can dynamically update the check output while the step runs using the `buildkite-agent step update` command. Use the notification's outer `key` in brackets to select the check. This differs from the nested `origin_check.key`, which identifies the logical check in Origin.
+
+```bash
+# Update the check title
+buildkite-agent step update "notify.origin_check[tests-notification].output.title" "Updated title"
+
+# Update the check summary
+buildkite-agent step update "notify.origin_check[tests-notification].output.summary" "Build completed successfully"
+
+# Update the check text with detailed results
+buildkite-agent step update "notify.origin_check[tests-notification].output.text" "## Test results\n\n✅ All tests passed"
+```
+{: codeblock-file=".buildkite/hooks/post-command"}
+
+Only the `origin_check.output.title`, `origin_check.output.summary`, and `origin_check.output.text` attributes can be updated this way. The nested `origin_check.key` and `origin_check.name` attributes can't be changed after the step starts. Changing `origin_check.key` would create a new check and leave the previous one unfinished.
+
+### Origin check status and retries
+
+Origin checks track a step's status throughout its lifecycle. For example, a check appears as queued while the step waits to start, in progress while it runs, and completed with a conclusion of `success`, `failure`, `cancelled`, `skipped`, or `neutral` once it finishes.
+
+If a step automatically retries, Cursor continues to update the same check run. A manual retry gets its own run identity, job link, and start time, but keeps the same logical check. Cursor shows only the newest run under the check's `key`.
 
 ## PagerDuty change events
 

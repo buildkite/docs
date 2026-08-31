@@ -65,10 +65,11 @@ The **New Pipeline** page has the following fields:
     * **Helper templates**:
         - **Hello world**: A simple example of command syntax in Buildkite pipeline YAML.
         - **Pipeline upload**: Uploads a Buildkite pipeline stored in your repository.
+        - **GitHub Actions**: Runs a GitHub Actions workflow from the selected repository using the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows), currently in public preview.
     * **Example templates**: Pipelines used to build example projects available from the **Repository** field when **Git scope** is set to **Buildkite Examples**.
 
 > 📘
-> If you've already created a pipeline definition at `.buildkite/pipeline.yml` in your selected **Repository**, select the **Pipeline upload** option from the **Template** dropdown of the **YAML Steps editor**. This generates a step that uploads and runs the rest of your pipeline from that file. Learn more in [Create your own pipeline](#create-your-own-pipeline).
+> If you've already created a pipeline definition at `.buildkite/pipeline.yml` in your selected **Repository**, select the **Pipeline upload** option from the **Template** dropdown of the **YAML Steps editor**. This generates a step that uploads and runs the rest of your pipeline from that file. For repositories connected through GitHub with code access or Origin, Buildkite Pipelines automatically detects existing pipeline configuration files and pre-selects **Pipeline upload**. Learn more in [Create your own pipeline](#create-your-own-pipeline).
 
 ### Example pipelines
 
@@ -237,7 +238,7 @@ You've created a pipeline from a Buildkite Example, written and uploaded your ow
 During sign-up, Buildkite Pipelines set up a few defaults:
 
 - A [Buildkite cluster](/docs/pipelines/glossary#cluster) named **Default cluster**—a security feature used to organize queues. See the [Clusters overview](/docs/pipelines/security/clusters).
-- Five [queues](/docs/pipelines/glossary#queue) in it: **linux-small** (default), **linux-medium**, **linux-large**, **macos-medium**, and **macos-large**. For personal accounts, the default queue is a _Buildkite hosted queue_ running _Buildkite hosted agents_. See the [Queues overview](/docs/agent/queues) and [Buildkite hosted agents overview](/docs/agent/buildkite-hosted).
+- Nine [queues](/docs/pipelines/glossary#queue) in it: **linux-small** (default), **linux-medium**, **linux-large**, **macos-medium**, **macos-large**, **macos-14-medium**, **macos-15-medium**, **macos-26-medium**, and **macos-27-medium**. The versioned macOS queues each pin a specific macOS version (Sonoma, Sequoia, Tahoe 26.6, and Golden Gate respectively). GitHub Actions-style `macos-<version>` runner labels map to these queues. For personal accounts, the default queue is a _Buildkite hosted queue_ running _Buildkite hosted agents_. See the [Queues overview](/docs/agent/queues) and [Buildkite hosted agents overview](/docs/agent/buildkite-hosted).
 
 Buildkite also supports self-hosted agents you manage in your own infrastructure—see [Buildkite Pipelines architecture](/docs/pipelines/architecture) for the differences.
 

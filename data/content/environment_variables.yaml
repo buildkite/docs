@@ -9,8 +9,8 @@ variables:
     example: "83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"
   - name: BUILDKITE_AGENT_CACHE_STORE_URL
     desc: |
-      The URL of the default cache store backend used by the Buildkite agent for the `cache` step attribute. For jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), the variable is automatically set to a URL scoped to the cluster.
-    modifiable: false
+      The URL of the cache store backend used by the `buildkite-agent cache save` and `buildkite-agent cache restore` commands ([Buildkite Cache](/docs/pipelines/configure/cache)). For jobs running on [Buildkite hosted queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), the variable is automatically set to a URL scoped to the cluster and can't be overridden by a pipeline-level environment variable. Elsewhere, the value can be set in the pipeline's `env` block, or by exporting the environment variable in the `environment` hook.
+    modifiable: true
     example: "nsc://buildkite-cache-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   - name: BUILDKITE_AGENT_DEBUG
     desc: |
@@ -240,11 +240,17 @@ variables:
     example: "-v"
   - name: BUILDKITE_GIT_COMMIT_VERIFICATION
     desc: |
-      Controls whether the agent verifies that the commit being built exists on the specified branch. Set automatically from the `checkout.commit_verification` key in your pipeline YAML, or from the agent's `--git-commit-verification` configuration setting. When set to `strict`, the agent fails the job when it determines the commit is not on the branch. When set to `warn`, the agent emits a warning without failing the job. If the agent cannot complete the check, it warns and continues in both modes. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
+      Controls whether the agent verifies that the commit being built exists on the specified branch. Set automatically from the `checkout.commit_verification` key in your pipeline YAML, or from the agent's `--git-commit-verification` configuration setting. Buildkite agent v4 accepts `strict` or `off` and uses `strict` by default. 
+      
+      The value `strict` fails the job when the agent determines that the commit is not on the branch.
+      The value `off` skips verification. An empty v4 agent configuration value prevents the agent from starting. An empty value from `checkout.commit_verification` causes job bootstrap to fail when a v4 agent runs with `checkout-override-mode` set to `none`. 
+      
+      Buildkite agent v3 accepts `strict`, `warn`, or an empty value. The value `strict` fails the job, `warn` emits a warning without failing the job, and an empty value skips verification. Do not use `off` with v3. The value `off` prevents a v3 agent from starting when supplied in agent configuration. When supplied by `checkout.commit_verification`, `off` uses warning behavior rather than skipping verification. If the agent cannot complete the check, it warns and continues. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
     modifiable: false
     values:
       - strict
       - warn
+      - off
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.fetch` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.
@@ -262,6 +268,11 @@ variables:
       The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or using the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.
     modifiable: false
     example: "/var/lib/git-mirrors"
+  - name: BUILDKITE_GIT_REMOTE_MIRROR_URL
+    desc: |
+      The URL of the remote clone mirror configured for the pipeline. Only present when a clone mirror is configured on the pipeline. The primary repository variables (`BUILDKITE_REPO`, `BUILDKITE_REPO_SSH_HOST`) are not replaced and can be used to fall back to the primary repository when the mirror is unavailable.
+    modifiable: false
+    example: "https://mirror.example.com/git/acme/my-project.git"
   - name: BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
     desc: |
       The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When set to `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository.
@@ -316,6 +327,11 @@ variables:
       The GitHub webhook event type that triggered the build (for example, `push`, `pull_request`, `release`, `check_run`). Only available on builds triggered by GitHub webhook events.
     modifiable: false
     example: "pull_request"
+  - name: BUILDKITE_GITHUB_ISSUE_NUMBER
+    desc: |
+      The number of the GitHub issue that triggered the build. Only available on builds triggered by a GitHub `issues` event.
+    modifiable: false
+    example: "42"
   - name: BUILDKITE_GITHUB_REVIEW_ID
     desc: |
       The ID of the pull request review that triggered the build. Only available on builds triggered by a GitHub `pull_request_review` event.

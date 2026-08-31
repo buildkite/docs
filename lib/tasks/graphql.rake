@@ -10,7 +10,10 @@ namespace :graphql do
 
     HTTP = GraphQL::Client::HTTP.new("https://graphql.buildkite.com/v1") do
       def headers(context)
-        { "Authorization": "Bearer #{ENV["API_ACCESS_TOKEN"]}" }
+        {
+          "Authorization" => "Bearer #{ENV["API_ACCESS_TOKEN"]}",
+          "Buildkite-GraphQL-Documentation" => "true",
+        }
       end
     end
 

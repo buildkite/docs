@@ -63,9 +63,6 @@ BuildkiteAgentRelease:
 BuildkiteAgentScalerServerlessARN:
   variable: buildkite_agent_scaler_serverless_arn
   type: string
-BuildkiteAgentScalerVersion:
-  variable: buildkite_agent_scaler_version
-  type: string
 BuildkiteAgentSignalGracePeriod:
   variable: buildkite_agent_signal_grace_period
   type: number
@@ -120,8 +117,12 @@ CostAllocationTagValue:
 CpuCredits:
   variable: cpu_credits
   type: string
+DanglingCheckMinimumInstanceUptime: N/A
 DisableScaleIn:
   variable: disable_scale_in
+  type: bool
+DockerBuilderPruneEnabled:
+  variable: docker_builder_prune_enabled
   type: bool
 DockerFixedCidrV4:
   variable: docker_fixed_cidr_v4
@@ -140,6 +141,9 @@ DockerIPv6AddressPool:
   type: string
 DockerNetworkingProtocol:
   variable: docker_networking_protocol
+  type: string
+DockerPruneUntil:
+  variable: docker_prune_until
   type: string
 EC2LogRetentionDays:
   variable: ec2_log_retention_days
@@ -174,6 +178,9 @@ EnableECRPlugin:
 EnableInstanceStorage:
   variable: enable_instance_storage
   type: bool
+EnablePreExitDiskCleanup:
+  variable: enable_pre_exit_disk_cleanup
+  type: bool
 EnableScheduledScaling:
   variable: enable_scheduled_scaling
   type: bool
@@ -184,6 +191,7 @@ EnableVpcEndpoints: N/A
 ExperimentalEnableResourceLimits:
   variable: experimental_enable_resource_limits
   type: bool
+GitMirrorSeedBucket: N/A
 IMDSv2Tokens:
   variable: imdsv2_tokens
   type: string
@@ -236,6 +244,7 @@ LogRetentionDays:
 ManagedPolicyARNs:
   variable: managed_policy_arns
   type: list(string)
+MaxDanglingInstancesToCheck: N/A
 MaxSize:
   variable: max_size
   type: number
@@ -284,6 +293,7 @@ ResourceLimitsMemoryMax:
 ResourceLimitsMemorySwapMax:
   variable: resource_limits_memory_swap_max
   type: string
+RootVolumeDeleteOnTermination: N/A
 RootVolumeEncrypted:
   variable: root_volume_encrypted
   type: bool
@@ -332,9 +342,11 @@ ScaleUpSchedule:
 ScalerEnableExperimentalElasticCIMode:
   variable: scaler_enable_elastic_ci_mode
   type: bool
+ScalerEventScheduleJitter: N/A
 ScalerEventSchedulePeriod:
   variable: scaler_event_schedule_period
   type: string
+ScalerManagedPolicyARNs: N/A
 ScalerMinPollInterval:
   variable: scaler_min_poll_interval
   type: string
