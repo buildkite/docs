@@ -111,6 +111,7 @@ Older Xcode versions are removed from base images over time. If your queue has a
 ### Xcode
 
 - 27-Beta
+- 26.6
 - 26.6-RC2
 - 26.5
 - 26.5-RC
