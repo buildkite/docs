@@ -117,6 +117,7 @@ CostAllocationTagValue:
 CpuCredits:
   variable: cpu_credits
   type: string
+DanglingCheckMinimumInstanceUptime: N/A
 DisableScaleIn:
   variable: disable_scale_in
   type: bool
@@ -243,6 +244,7 @@ LogRetentionDays:
 ManagedPolicyARNs:
   variable: managed_policy_arns
   type: list(string)
+MaxDanglingInstancesToCheck: N/A
 MaxSize:
   variable: max_size
   type: number
