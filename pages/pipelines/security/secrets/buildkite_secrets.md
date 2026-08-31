@@ -12,6 +12,18 @@ Buildkite secrets:
 
 In addition to being scoped within a cluster, access to Buildkite secrets is managed through agent access policies. These policies restrict which agents can access secrets during builds. For detailed information about policy structure and examples, see [Access policies for Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
 
+## Browse and sort secrets
+
+The organization-level **Secrets** page and each cluster's **Secrets** page list their available secrets. Their tables can be sorted to make large numbers of secrets easier to browse and audit without relying on search.
+
+Select the **Key**, **Updated at**, or **Last read** column header to sort the list by that column. Select the same header again to reverse the sort direction. The header indicates the active column and its sort direction.
+
+By default, secrets are sorted by **Key** in ascending order, using a case-insensitive comparison.
+
+When sorting by **Last read**, secrets that have never been read are treated as the oldest entries. Never-read secrets appear first when sorting in ascending order, and last when sorting in descending order.
+
+The selected sort order is preserved when searching or paging through the list of secrets. On the organization-level **Secrets** page, the sort order is also preserved when filtering by team.
+
 ## Create a secret
 
 Buildkite secrets can only be created by [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster), as well as [Buildkite organization administrators](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions).
