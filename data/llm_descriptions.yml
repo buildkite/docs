@@ -251,7 +251,7 @@
   agent/buildkite-hosted/linux: "Linux hosted agent instance sizes, architectures (AMD64/ARM64), agent images, concurrency, and security details."
   agent/buildkite-hosted/linux/custom-agent-images: "Creating custom Docker-based agent images for Linux hosted agents: image requirements, building from the Buildkite hosted agent base image, creating images via the Buildkite interface, agent hooks, or the internal container registry, using and deleting images, and troubleshooting job startup issues."
   agent/buildkite-hosted/linux/remote-docker-builders: "How remote Docker builders offload docker build commands to dedicated machines with layer caching (Enterprise)."
-  agent/buildkite-hosted/macos: "macOS hosted agent sizes, Apple silicon support, pre-installed software (Xcode, Homebrew), and configuration."
+  agent/buildkite-hosted/macos: "macOS hosted agent sizes, Apple silicon support, pre-installed software (Xcode, Homebrew), Docker daemon limitations, and configuration."
   agent/buildkite-hosted/macos/getting-started-with-ios: "Tutorial for building iOS apps using Buildkite macOS hosted agents with the FlappyKite sample project."
   agent/buildkite-hosted/macos/troubleshooting-fastlane: "Troubleshooting fastlane issues on Buildkite hosted macOS agents: code signing, provisioning profiles, and keychains."
   agent/buildkite-hosted/code-access: "Configuring hosted agents to access private GitHub repositories and other providers using SSH or HTTPS."
