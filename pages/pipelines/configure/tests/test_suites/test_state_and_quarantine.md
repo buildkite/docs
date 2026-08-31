@@ -17,11 +17,11 @@ Users with the [**Full Access** permission to a test suite](/docs/pipelines/secu
 
 ### Mute (recommended)
 
-Muted tests will still execute as jobs in your pipeline builds, but any failed results of these test jobs are handled as a _soft fail_. A soft fail result does not affect the result of your pipeline build, and allows the pipeline build to pass. However, metadata about the test is still collected by Test Engine.
+Prefer muting over skipping. Muted tests continue running, but their failures do not affect the build result. Test Engine continues collecting execution data from muted tests, so it can detect when they become reliable.
 
 ### Skip
 
-Skipped tests are not run during your pipeline builds. Since these tests are not executed, no data is recorded from them by Test Engine. To collect metadata about your [flaky tests](/docs/pipelines/configure/tests/flaky-tests), it is recommended that you only use the **Skip** option when you have a scheduled pipeline that is running skipped tests.
+Use skipping only when a test must not run. Skipped tests do not produce execution data, so Test Engine cannot detect when they become reliable. If you skip [flaky tests](/docs/pipelines/configure/tests/flaky-tests), use a scheduled pipeline to run them and collect their results.
 
 ## Automatic quarantine
 
@@ -43,9 +43,9 @@ Manually quarantining a test either mutes or skips that test when the pipeline i
 
 ### bktec
 
-The easiest way to respect test states in your builds is to run the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client) command in your pipelines. The `bktec` command automatically excludes quarantined tests from your test runs, preventing [flaky tests](/docs/pipelines/configure/tests/flaky-tests) from causing build failures, leading to faster, more reliable builds, and less need for retries.
+The easiest way to apply test states in your builds is to run the [Buildkite Test Engine Client (bktec)](https://github.com/buildkite/test-engine-client) command in your pipelines. Depending on the state, bktec prevents a quarantined test failure from failing the build or excludes the test from the run.
 
-For the current list of test frameworks bktec supports for muting and skipping tests, see the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) table in the bktec README.
+Support for muting and skipping varies by test framework. Check the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) table for your framework's current support.
 
 When using a supported test framework, bktec automatically handles quarantined tests, along with providing the benefits of efficient [test splitting](/docs/pipelines/speed-up-builds-with-bktec) and retry support.
 

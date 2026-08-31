@@ -18,9 +18,9 @@ Configure the workflow's alarm action to add the **flaky** label to tests that m
 
 If [test state](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine) is enabled for the test suite, quarantine a flaky test by changing its state to **muted** or **skipped**. You can change its state manually in Test Engine, using the Test Engine API, or automatically with a workflow action.
 
-Prefer **muted** when you need the test to continue running without affecting the build result. Test Engine continues collecting execution data for muted tests, so the workflow can detect when they become reliable. A **skipped** test does not run or produce execution data.
+Prefer **muted** over **skipped**. Muted tests continue running without affecting the build result, so Test Engine can collect execution data and detect when they become reliable. Use **skipped** only when the test must not run. Skipped tests do not produce the execution data that Test Engine needs to detect recovery.
 
-Use [bktec](/docs/pipelines/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) to apply test states during test execution. Depending on the state, bktec prevents a quarantined test failure from failing the build or excludes the test from the run.
+Use [bktec](/docs/pipelines/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) to apply test states during test execution. Depending on the state, bktec prevents a quarantined test failure from failing the build or excludes the test from the run. Support for muting and skipping varies by test framework. Check the [supported runners and features](https://github.com/buildkite/test-engine-client#supported-runners-and-features) table for your framework's current support.
 
 ## Notify the responsible team
 
