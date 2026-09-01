@@ -106,7 +106,7 @@ The button that's presented as the primary action on the build page depends on t
 - If the build has failed but has no jobs eligible for retry, **Rebuild** is the primary action.
 - For all other build states, **New build** is the primary action.
 
-Other available actions appear in the dropdown menu next to the primary action button. If your pipeline has rebuilds disabled, **New build** remains the primary action. The dropdown menu explains why **Rebuild** is unavailable.
+Other available actions appear in the dropdown menu next to the primary action button. For a failed build with no jobs eligible for retry, **New build** remains the primary action if the pipeline has rebuilds disabled. The dropdown menu explains why **Rebuild** is unavailable.
 
 Each job in a build has a footer that displays the job exit status, which provides more visibility into the outcome of each job. It helps you to diagnose failed builds by finding issues with agents and pipelines.
 
