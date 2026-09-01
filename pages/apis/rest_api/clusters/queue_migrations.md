@@ -406,7 +406,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>404 Not Found</code></th>
-    <td><code>destination_cluster_id</code> doesn't resolve to a cluster in your organization</td>
+    <td>The pipeline slug is unknown, or <code>destination_cluster_id</code> doesn't resolve to a cluster the user can access. This includes organization clusters the user doesn't maintain.</td>
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
