@@ -107,8 +107,12 @@ PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
 PR_REVIEWS=$(echo "${PR_JSON}" | jq -r '
   [.reviews[]? | "\(.author.login) (\(.state)):\n\(.body // "No body")"] | join("\n\n---\n\n") // "No reviews."')
 
-# Cap the diff size to avoid overwhelming the prompt
-PR_DIFF=$(gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" | head -n "${DIFF_MAX_LINES}")
+# Fetch the complete diff for feature-flag detection, then cap only the copy
+# included in the model prompt. Detecting against the capped prompt could miss a
+# feature file that appears after DIFF_MAX_LINES.
+PR_DIFF_FILE="/tmp/docs-draft-upstream-pr.diff"
+gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" > "${PR_DIFF_FILE}"
+PR_DIFF=$(head -n "${DIFF_MAX_LINES}" "${PR_DIFF_FILE}")
 
 echo "PR: ${PR_TITLE}"
 echo "URL: ${PR_URL}"
@@ -116,7 +120,13 @@ echo "URL: ${PR_URL}"
 # --- Check for feature flags in the diff ---
 
 echo "--- :triangular_flag_on_post: Checking for feature flags"
-if echo "${PR_DIFF}" | grep -qE "(Feature::[A-Z][A-Z_]+|Feature\.new\b|\.active_for_(organization|user|all_users|request|current_organization)|\.active\?\(|activate_for_|deactivate_for_|Billing::Plan::Feature|lib/buildkite/feature_flags/)"; then
+# Check canonical flag files and added lines only. V2 flags use CamelCase
+# Feature::Base subclasses and may call active? with or without parentheses.
+if { grep -E '^\+\+\+ b/app/models/feature/[^/]+\.rb$' "${PR_DIFF_FILE}" \
+       | grep -Ev '/(base|base_store|caching_store|database_store|redis_store|status)\.rb$' > /dev/null; } \
+  || grep -E '^\+\+\+ b/lib/buildkite/feature_flags/[^/]+\.rb$' "${PR_DIFF_FILE}" > /dev/null \
+  || { grep -E '^\+' "${PR_DIFF_FILE}" | grep -Ev '^\+\+\+' \
+       | grep -E '(class[[:space:]]+Feature::[A-Z][[:alnum:]_]*[[:space:]]*<[[:space:]]*Feature::Base|Feature::[A-Z][[:alnum:]_]*|Feature\.new([^[:alnum:]_]|$)|\.(active\?\(|active_for_[a-z_]+\?|activate_for_[a-z_]+|deactivate_for_[a-z_]+)|Billing::Plan::Feature)' > /dev/null; }; then
   echo "Feature flag indicators detected in diff"
   FEATURE_FLAG_DETECTED="true"
   buildkite-agent annotate --style "warning" --context "feature-flag" \
