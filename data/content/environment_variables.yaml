@@ -507,6 +507,11 @@ variables:
       Set to `true` when the pull request is a draft. This variable is only available if a build contains a draft pull request.
     modifiable: false
     example: "true"
+  - name: BUILDKITE_PULL_REQUEST_HEAD_COMMIT
+    desc: |
+      The expected head commit of the pull request. This variable is only available for GitHub pull request builds that use [test merge commits](/docs/pipelines/source-control/github#building-the-test-merge-commit). Starting with Buildkite agent v3.137.1, the agent captures this value before hooks run. When checking out an unresolved test merge ref, the agent uses the captured value to confirm that the fetched merge commit was built from the expected pull request head. If a stale merge ref was fetched, the agent retries the checkout. The `environment` and `pre-checkout` hooks can modify the environment variable for subsequent hooks and commands. Changes don't affect the captured value used for checkout validation.
+    modifiable: true
+    example: "5f12bdf972eb6b9dc7cca17c56a973b0e1656024"
   - name: BUILDKITE_PULL_REQUEST_LABELS
     desc: |
       A comma-separated list of labels attached to the pull request, or `""` if not a pull request or no labels are attached.
