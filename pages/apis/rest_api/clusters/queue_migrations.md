@@ -288,3 +288,133 @@ Error responses:
   </tr>
 </tbody>
 </table>
+
+## Check pipeline migration readiness
+
+Reports whether an unclustered pipeline is ready to move to a destination cluster, based on the queue activity and [concurrency groups](/docs/pipelines/configure/workflows/controlling-concurrency) Buildkite Pipelines has observed for that pipeline. This is a read-only evidence check: a `ready: false` response is a successful read, not an error, and it doesn't perform the move itself.
+
+The check evaluates jobs created during a rolling 10-minute history window and active source jobs regardless of age. Because the history window is bounded, the observation is never a complete picture of the pipeline's queues and concurrency groups. Any concurrency group observed for the pipeline blocks readiness. Concurrency groups can't be routed individually.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/cluster-queue-migrations/pipelines/{pipeline.slug}/readiness?destination_cluster_id={destination_cluster_id}"
+```
+
+```json
+{
+  "pipeline": "my-pipeline",
+  "destination_cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "ready": false,
+  "status": "blocked",
+  "retry_after_seconds": null,
+  "queue_observation": {
+    "observed_at": "2026-08-31T07:00:00.000Z",
+    "window_started_at": "2026-08-31T06:50:00.000Z",
+    "window_seconds": 600,
+    "complete": false,
+    "blocking_queues": [
+      {
+        "queue": "deploy",
+        "reasons": ["active_source_jobs"],
+        "routed_percent": 100,
+        "active_source_jobs": 1
+      }
+    ]
+  },
+  "concurrency_group_observation": {
+    "observed_at": "2026-08-31T07:00:00.000Z",
+    "window_started_at": "2026-08-31T06:50:00.000Z",
+    "window_seconds": 600,
+    "complete": false,
+    "blocking_concurrency_groups": [
+      {
+        "scope": "custom",
+        "key": "deploy/settings",
+        "reason": "concurrency_group_migration_unavailable"
+      }
+    ]
+  },
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations/pipelines/my-pipeline/readiness?destination_cluster_id=42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
+}
+```
+
+The response body contains the following fields:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>ready</code></th>
+    <td>Whether the pipeline can move to the destination cluster based on the available evidence</td>
+  </tr>
+  <tr>
+    <th><code>status</code></th>
+    <td><code>no_known_blockers</code> if nothing observed is blocking the move, <code>blocked</code> if something observed is blocking it, or <code>observation_pending</code> if a fresh observation is still being calculated</td>
+  </tr>
+  <tr>
+    <th><code>retry_after_seconds</code></th>
+    <td>How long to wait before retrying, when <code>status</code> is <code>observation_pending</code>. <code>null</code> otherwise.</td>
+  </tr>
+  <tr>
+    <th><code>queue_observation.blocking_queues</code></th>
+    <td>Queues observed for the pipeline that are blocking readiness, each with one or more <code>reasons</code>: <code>migration_missing</code> (no queue migration exists for the queue), <code>routing_incomplete</code> (the queue migration's <code>routed_percent</code> is below 100), <code>wrong_destination</code> (the queue migration targets a different cluster), or <code>active_source_jobs</code> (the queue still has active, non-grouped legacy jobs)</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_group_observation.blocking_concurrency_groups</code></th>
+    <td>Concurrency groups observed for the pipeline, each with a <code>scope</code> of <code>custom</code> or <code>step</code>, a <code>key</code>, and a <code>reason</code> of <code>concurrency_group_migration_unavailable</code></td>
+  </tr>
+  <tr>
+    <th><code>queue_observation.window_seconds</code>, <code>concurrency_group_observation.window_seconds</code></th>
+    <td>Length of the recent job history window used to discover queues and concurrency groups, in seconds. Active source jobs are also evaluated regardless of age.</td>
+  </tr>
+  <tr>
+    <th><code>queue_observation.complete</code>, <code>concurrency_group_observation.complete</code></th>
+    <td>Always <code>false</code>. The evidence isn't guaranteed to include every queue or concurrency group used by the pipeline because the recent job history window is bounded. Active source jobs are included regardless of age.</td>
+  </tr>
+  <tr>
+    <th><code>url</code></th>
+    <td>Canonical URL of this readiness check, including the <code>destination_cluster_id</code> query string parameter</td>
+  </tr>
+</tbody>
+</table>
+
+Readiness observations are cached for up to two minutes. `queue_observation` and `concurrency_group_observation` reflect the cached observation's timestamp. For `blocked` and `no_known_blockers` responses, migrations are resolved fresh, so `ready` and `status` reflect current migration state. An `observation_pending` response is returned before migrations are resolved, so its `ready: false` value is not a verdict about current migration state.
+
+Required query string parameter:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>destination_cluster_id</code></th>
+    <td>ID of the destination cluster to check readiness against</td>
+  </tr>
+</tbody>
+</table>
+
+Required scopes: `read_clusters`, `read_pipelines`
+
+Required permission: organization administrator privileges, or cluster maintainer permissions for the destination cluster
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the required scopes, or the user lacks the required permission</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The pipeline slug is unknown, or <code>destination_cluster_id</code> doesn't resolve to a cluster the user can access. This includes organization clusters the user doesn't maintain.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Pipeline must not already belong to a cluster" }</code> or <code>{ "message": "destination_cluster_id must be a valid UUID" }</code></td>
+  </tr>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td><code>{ "message": "This feature hasn't been enabled for your organization" }</code></td>
+  </tr>
+</tbody>
+</table>
