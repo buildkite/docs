@@ -533,6 +533,7 @@ untrusted
 unversioned
 unxip
 uploaders
+uppercases
 upstreams
 url
 urls

@@ -12,21 +12,25 @@ Learn more about other secrets management approaches in Buildkite on the [Secret
 
 For secure and automated agent token lifecycle management, you can use the Buildkite APIs to set the expiration date for agent tokens. Learn more about this feature in [Agent token lifetime](/docs/agent/self-hosted/tokens#agent-token-lifetime). This feature allows for automated token rotation for long-lived tokens. Once set, an agent token's expiration date cannot be changed.
 
-## Disable automatic ssh-keyscan
+## Require strict SSH host-key checking
 
-By default, the agent automatically accepts the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:
+By default, the agent configures SSH host-key checking through `GIT_SSH_COMMAND` when it checks out a Git repository. With OpenSSH 7.6 or later, it passes:
 
 ```bash
-ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
+StrictHostKeyChecking=accept-new
 ```
 
-If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+This option automatically adds new host keys to the user's `known_hosts` file while rejecting changed host keys. If the agent detects an older OpenSSH version, it instead uses `StrictHostKeyChecking=no` with `UserKnownHostsFile=/dev/null`. If version detection fails, the agent assumes that `accept-new` is supported.
 
-To disable automatic ssh-keyscan, set [`no-ssh-keyscan`](/docs/agent/self-hosted/configure#no-ssh-keyscan):
+To require strict host-key checking using your existing SSH configuration, set [`no-ssh-keyscan`](/docs/agent/self-hosted/configure#no-ssh-keyscan). This setting passes `StrictHostKeyChecking=yes`. Despite the configuration option's legacy name, the agent does not run the `ssh-keyscan` command:
 
 - Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
 - Command line flag: `--no-ssh-keyscan`
 - Configuration setting: `no-ssh-keyscan=true`
+
+If `GIT_SSH` is set, the agent leaves SSH host-key configuration unchanged because it cannot add command-line options to the configured binary.
+
+Agent v3 instead runs the `ssh-keyscan` command before checkout and appends the repository host's keys to the `known_hosts` file. Setting `no-ssh-keyscan` on a v3 agent disables that, leaving host-key verification to your existing SSH configuration.
 
 ## Restrict access by the Buildkite agent controller
 
@@ -148,6 +152,8 @@ done
 ```
 
 You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of the file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set.
+
+Agent configuration variables can appear in this file as bare variable names without an equals sign or value. Parse only the assignments you need, as in the previous example, rather than assuming every line uses the `NAME=value` format.
 
 Alternatively, you can use `$BUILDKITE_ENV_JSON_FILE`, which points to the same environment data in JSON format. This can be more convenient when you want to inspect values using tools such as `jq`.
 

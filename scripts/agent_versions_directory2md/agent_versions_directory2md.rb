@@ -80,8 +80,9 @@ end
 def filter_releases(releases)
   releases
     .reject { |r| r['draft'] }
+    .reject { |r| r['prerelease'] }
     .reject { |r| r['tag_name'].match?(/beta/i) }
-    .select { |r| parse_version(r['tag_name'])&.fetch(:major) == MIN_MAJOR_VERSION }
+    .select { |r| parse_version(r['tag_name'])&.fetch(:major) >= MIN_MAJOR_VERSION }
 end
 
 def group_releases(releases)
@@ -171,7 +172,7 @@ def generate_markdown(version_groups)
   output << ''
   output << '# Agent versions directory'
   output << ''
-  output << 'The following lists of Buildkite agent versions are of stable version 3.x releases in reverse chronological order. Each version links through to its changelog on GitHub.'
+  output << 'The following lists of Buildkite agent versions are of stable version 3.x and later releases in reverse chronological order. Each version links through to its changelog on GitHub.'
   output << ''
   output << 'Agent versions with known issues are indicated in these tables.'
   output << ''

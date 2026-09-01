@@ -14,11 +14,14 @@ fi
 echo "Fetching latest agent version..."
 AGENT_VERSION="$("${scripts_dir}/fetch-latest-agent-version.sh")"
 echo "Using agent version: ${AGENT_VERSION}"
+AGENT_MAJOR="${AGENT_VERSION#v}"
+AGENT_MAJOR="${AGENT_MAJOR%%.*}"
+AGENT_MODULE="github.com/buildkite/agent/v${AGENT_MAJOR}"
 
 AGENT="${INSTALL_PATH}/agent"
 
 echo "Installing buildkite-agent ${AGENT_VERSION} to ${INSTALL_PATH}"
-go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
+go install "${AGENT_MODULE}@${AGENT_VERSION}"
 
 echo "Installing agent_attributes2yaml"
 go install -buildvcs=false ./scripts/agent_attributes2yaml

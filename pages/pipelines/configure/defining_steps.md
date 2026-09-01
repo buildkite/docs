@@ -265,16 +265,18 @@ Here's a more complete example based on [the Buildkite agent's build pipeline](
 steps:
   - label: "\:hammer\: Tests"
     command: scripts/tests.sh
-    env:
-      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
+    plugins:
+      - docker-compose#v5.13.0:
+          run: app
 
   - wait
 
   - label: "\:package\: Package"
     command: scripts/build-binaries.sh
     artifact_paths: "pkg/*"
-    env:
-      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
+    plugins:
+      - docker-compose#v5.13.0:
+          run: app
 
   - wait
 

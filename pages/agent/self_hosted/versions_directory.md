@@ -15,7 +15,7 @@ Run './scripts/update-agent-versions-directory.sh' from the docs repo root
 
 # Agent versions directory
 
-The following lists of Buildkite agent versions are of stable version 3.x releases in reverse chronological order. Each version links through to its changelog on GitHub.
+The following lists of Buildkite agent versions are of stable version 3.x and later releases in reverse chronological order. Each version links through to its changelog on GitHub.
 
 Agent versions with known issues are indicated in these tables.
 

@@ -2,6 +2,30 @@ package main
 
 import "testing"
 
+func TestParseOptionLineHandlesTypedRepeatableFlag(t *testing.T) {
+	line := "  --tags string [ --tags string ]  A comma-separated list of tags [$BUILDKITE_AGENT_TAGS]"
+
+	name, desc, ok := parseOptionLine(line)
+	if !ok {
+		t.Fatal("parseOptionLine() did not match")
+	}
+	if name != "tags" {
+		t.Fatalf("name = %q, want %q", name, "tags")
+	}
+	if desc != "A comma-separated list of tags [$BUILDKITE_AGENT_TAGS]" {
+		t.Fatalf("desc = %q", desc)
+	}
+}
+
+func TestParseOptionLineHandlesLegacyValueFlag(t *testing.T) {
+	line := "  --token value  Your agent token [$BUILDKITE_AGENT_TOKEN]"
+
+	name, desc, ok := parseOptionLine(line)
+	if !ok || name != "token" || desc != "Your agent token [$BUILDKITE_AGENT_TOKEN]" {
+		t.Fatalf("parseOptionLine() = %q, %q, %v", name, desc, ok)
+	}
+}
+
 func TestExtractEnvVarsIgnoresBracketedDescriptionText(t *testing.T) {
 	line := "  --checkout-override-mode value  One of [strict from-job none]. (default: \"from-job\") [$BUILDKITE_CHECKOUT_OVERRIDE_MODE]"
 
