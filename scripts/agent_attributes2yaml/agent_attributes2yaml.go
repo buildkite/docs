@@ -11,18 +11,17 @@ import (
 )
 
 var (
-	optionLineRE    = regexp.MustCompile(`^  --`)
+	optionLineRE    = regexp.MustCompile(`^  (--.*?)\s{2,}(\S.*)$`)
 	envAnnotationRE = regexp.MustCompile(`\[((?:\$[A-Z][A-Z0-9_]*)(?:,\s*\$[A-Z][A-Z0-9_]*)*)\]\s*$`)
 	envNameRE       = regexp.MustCompile(`\$[A-Z][A-Z0-9_]*`)
 	defaultValRE    = regexp.MustCompile(`\(default:([^)]*)\)`)
-	stripOptionRE   = regexp.MustCompile(`^[a-zA-Z0-9-]+( value)?[ ]*`)
 	stripDefaultRE  = regexp.MustCompile(`[ ]*\(default:[^)]*\)`)
 	stripEnvVarRE   = regexp.MustCompile(`[ ]*\[\$[^\]]*\][ ]*$`)
 )
 
 var (
 	requiredOptions = map[string]bool{"token": true, "build-path": true}
-	excludedOptions = map[string]bool{"config": true}
+	excludedOptions = map[string]bool{"config": true, "help": true}
 )
 
 func main() {
@@ -37,17 +36,10 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if !optionLineRE.MatchString(line) {
+		name, desc, ok := parseOptionLine(line)
+		if !ok {
 			continue
 		}
-
-		rest := line[4:] // strip leading "  --"
-
-		fields := strings.Fields(rest)
-		if len(fields) == 0 {
-			continue
-		}
-		name := fields[0]
 
 		if excludedOptions[name] {
 			continue
@@ -64,8 +56,7 @@ func main() {
 			defaultVal = strings.ReplaceAll(defaultVal, u.HomeDir, "~")
 		}
 
-		// Extract description by stripping option name/value, default, and env var
-		desc := stripOptionRE.ReplaceAllString(rest, "")
+		// Extract description by stripping the default and env var.
 		desc = stripDefaultRE.ReplaceAllString(desc, "")
 		desc = stripEnvVarRE.ReplaceAllString(desc, "")
 		desc = strings.TrimSpace(desc)
@@ -88,6 +79,21 @@ func main() {
 		slog.Error("Failed scanning lines from stdin", "error", err)
 		os.Exit(1)
 	}
+}
+
+func parseOptionLine(line string) (string, string, bool) {
+	m := optionLineRE.FindStringSubmatch(line)
+	if m == nil {
+		return "", "", false
+	}
+
+	fields := strings.Fields(m[1])
+	if len(fields) == 0 {
+		return "", "", false
+	}
+
+	name := strings.TrimSuffix(strings.TrimPrefix(fields[0], "--"), ",")
+	return name, m[2], true
 }
 
 func extractEnvVars(line string) string {
