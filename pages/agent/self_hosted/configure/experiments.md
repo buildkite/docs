@@ -57,36 +57,11 @@ We previously made this the default behaviour of the agent (as of v3.63.0) but h
 
 ### Legacy post hook order
 
-Multiple `post-checkout`, `post-command`, and `pre-exit` hooks execute in reverse order. This ordering makes it easier for multiple plugins and hooks to compose.
+This experiment is an escape hatch that reverts to the v3 execution order of `post-checkout` and `post-command` hooks.
 
-This experiment restores the v3 execution order, where hooks of every kind ran in the same order as one another. For plugins, this was the order in which they were specified for a step.
+In Agent v3, hooks of any kind would run in the same order as one another (for plugins, the order in which plugins are specified for a step). In v4, multiple `post-checkout`, `post-command`, or `pre-exit` hooks execute in _reverse_ order. This change makes it easier for multiple plugins and hooks to compose.
 
-For example, suppose a step specifies two plugins A and B, and there are also agent and repository hooks. By default, the execution order is:
-
-- agent pre-checkout
-- (pre-checkout is not possible for repository hooks)
-- plugin A pre-checkout
-- plugin B pre-checkout
-- (checkout)
-- plugin **B** post-checkout
-- plugin **A** post-checkout
-- **repository** post-checkout
-- **agent** post-checkout
-- agent pre-command
-- repository pre-command
-- plugin A pre-command
-- plugin B pre-command
-- (command)
-- plugin **B** post-command
-- plugin **A** post-command
-- **repository** post-command
-- **agent** post-command
-- plugin **B** pre-exit
-- plugin **A** pre-exit
-- **repository** pre-exit
-- **agent** pre-exit
-
-With this experiment enabled, the v3 execution order is restored:
+For example, suppose a step specifies two plugins A and B, and there are also agent and repository hooks. Under version 3, each hook type would execute in the same order:
 
 - agent pre-checkout
 - (pre-checkout is not possible for repository hooks)
@@ -110,6 +85,31 @@ With this experiment enabled, the v3 execution order is restored:
 - repository pre-exit
 - plugin A pre-exit
 - plugin B pre-exit
+
+Under version 4, the execution order is (key differences in bold):
+
+- agent pre-checkout
+- (pre-checkout is not possible for repository hooks)
+- plugin A pre-checkout
+- plugin B pre-checkout
+- (checkout)
+- plugin **B** post-checkout
+- plugin **A** post-checkout
+- **repository** post-checkout
+- **agent** post-checkout
+- agent pre-command
+- repository pre-command
+- plugin A pre-command
+- plugin B pre-command
+- (command)
+- plugin **B** post-command
+- plugin **A** post-command
+- **repository** post-command
+- **agent** post-command
+- plugin **B** pre-exit
+- plugin **A** pre-exit
+- **repository** pre-exit
+- **agent** pre-exit
 
 > 🛠
 > To use this feature, set <code>experiment="legacy-post-hook-order"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.

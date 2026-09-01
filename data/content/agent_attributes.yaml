@@ -496,7 +496,7 @@ attributes:
       false
     required: false
     desc: |
-      Don't automatically run ssh-keyscan before checkout
+      Require known SSH host keys for the default checkout instead of accepting new keys
   - name: "no-command-eval"
     env_var: |
       $BUILDKITE_NO_COMMAND_EVAL
@@ -625,7 +625,7 @@ attributes:
       "static"
     required: false
     desc: |
-      Assign priorities to every spawned agent (when using --spawn or --spawn-per-cpu). Pass "static" (1, 1, 1, ...), "ascending" (1, 2, 3, ...), or "descending" (-1, -2, -3, ...). Descending helps jobs be assigned across all hosts when the value of --spawn varies between hosts
+      Assign priorities to every spawned agent (when using --spawn or --spawn-per-cpu). Pass "static" (the configured --priority for every agent, or no priority if unset), "ascending" (1, 2, 3, ...), or "descending" (-1, -2, -3, ...). Descending helps jobs be assigned across all hosts when the value of --spawn varies between hosts
   - name: "cancel-signal"
     env_var: |
       $BUILDKITE_CANCEL_SIGNAL
@@ -641,7 +641,7 @@ attributes:
       5s
     required: false
     desc: |
-      The amount of time given to the agent after the process exits or is killed to upload logs and artifacts
+      Extra time for a stopping agent to upload logs and artifacts after a job process exits or is killed, before the agent forcefully exits
   - name: "opentelemetry-tracing"
     env_var: |
       $BUILDKITE_OPENTELEMETRY_TRACING
