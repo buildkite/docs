@@ -98,9 +98,15 @@ A rebuild does not fetch anything new from the source control provider. Whatever
 
 To run a build against the current state of a pull request or branch, create a new build instead. Push a commit, enable the relevant [GitHub webhook event triggers](/docs/pipelines/source-control/github#running-builds-on-pull-requests) on the pipeline, or use the [REST API](/docs/apis/rest-api/builds#create-a-build) with the values you want.
 
-To retry all failed jobs for a build, select the dropdown menu next to the **Rebuild** button, and then select **Retry failed jobs**. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries. If a pipeline build contains trigger steps, failed jobs in any of its triggered pipelines' builds are also included in the retry. Note that this does not apply to builds triggered by steps where the `async` attribute has been set to `true`.
+To retry all failed jobs for a build, select **Retry failures**. This option only appears when the build is finished and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries. If a pipeline build contains trigger steps, failed jobs in any of its triggered pipelines' builds are also included in the retry. Note that this does not apply to builds triggered by steps where the `async` attribute has been set to `true`.
 
-<%= image "inside-build-page.png", width: 2028/2, height: 880/2, alt: "Inside the build page" %>
+The button that's presented as the primary action on the build page depends on the build's state:
+
+- If the build has failed jobs that are eligible for retry, **Retry failures** is the primary action.
+- If the build has failed but has no jobs eligible for retry, **Rebuild** is the primary action.
+- For all other build states, **New build** is the primary action.
+
+Other available actions appear in the dropdown menu next to the primary action button. For a failed build with no jobs eligible for retry, **New build** remains the primary action if the pipeline has rebuilds disabled. The dropdown menu explains why **Rebuild** is unavailable.
 
 Each job in a build has a footer that displays the job exit status, which provides more visibility into the outcome of each job. It helps you to diagnose failed builds by finding issues with agents and pipelines.
 
