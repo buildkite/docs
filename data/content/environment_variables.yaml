@@ -509,7 +509,7 @@ variables:
     example: "true"
   - name: BUILDKITE_PULL_REQUEST_HEAD_COMMIT
     desc: |
-      The expected head commit of the pull request. This variable is only available for GitHub pull request builds that check out an unresolved test merge ref. The agent uses this value to confirm that the fetched merge commit was built from the expected pull request head. If a stale merge ref was fetched, the agent retries the checkout. This variable can't be modified from the `environment` or `pre-checkout` hooks.
+      The expected head commit of the pull request. This variable is only available for GitHub pull request builds that use test merge commits. When checking out an unresolved test merge ref, the agent uses this value to confirm that the fetched merge commit was built from the expected pull request head. If a stale merge ref was fetched, the agent retries the checkout. This variable can't be modified from the `environment` or `pre-checkout` hooks.
     modifiable: false
     example: "5f12bdf972eb6b9dc7cca17c56a973b0e1656024"
   - name: BUILDKITE_PULL_REQUEST_LABELS
