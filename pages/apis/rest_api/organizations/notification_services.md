@@ -41,7 +41,7 @@ Notification service endpoints return objects with the following fields:
   <tr>
     <th><code>scope</code></th>
     <td>Determines which pipelines the service applies to: <code>all</code> for all pipelines, <code>some_projects</code> for selected pipelines, <code>exclude_projects</code> for all pipelines except selected pipelines, <code>some_teams</code> for pipelines in selected teams, or <code>some_clusters</code> for pipelines in selected clusters. For a <code>some_*</code> or <code>exclude_projects</code> scope, <code>scope_uuids</code> identifies the selected pipelines, teams, or clusters.
-      <p>The <code>exclude_projects</code> scope is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+      <p>The <code>exclude_projects</code> scope is currently in private preview.</p>
     </td>
   </tr>
   <tr>
