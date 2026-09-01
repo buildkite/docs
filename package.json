@@ -2,7 +2,6 @@
   "name": "docs",
   "private": true,
   "devDependencies": {
-    "husky": "^9.0.0",
     "netlify-cli": "^27.0.0",
     "prettier": "3.9.6",
     "sass": "^1.66.1",
@@ -14,7 +13,6 @@
     "validate-environment-variables-yaml": "npx --package ajv-cli ajv validate -s \"data/content/environment_variables.schema.yaml\" -d \"data/content/environment_variables.yaml\"",
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/cli/help/*\"",
-    "prepare": "husky install",
     "prettier-check": "prettier -c \"app/frontend/**/*.{js,scss}\"",
     "prettier-fix": "prettier -w \"app/frontend/**/*.{js,scss}\""
   },
