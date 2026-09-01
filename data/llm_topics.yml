@@ -103,7 +103,6 @@ pipelines:
     - "apis/rest-api/artifacts"
     - "apis/rest-api/clusters"
     - "apis/rest-api/clusters/queues"
-    - "apis/rest-api/clusters/queue-migrations"
     - "apis/rest-api/clusters/agent-tokens"
     - "apis/rest-api/clusters/maintainers"
     - "apis/rest-api/clusters/secrets"

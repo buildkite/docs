@@ -448,7 +448,6 @@
   apis/rest-api/step-uploads: "REST endpoints to list a build's dynamic pipeline (step) uploads and get a single upload's definition rendered as YAML, gated to builds within their maximum lifetime."
   apis/rest-api/clusters: "REST endpoints to create, list, get, update, and delete clusters."
   apis/rest-api/clusters/queues: "REST endpoints to create, list, get, update, pause, resume, and delete cluster queues."
-  apis/rest-api/clusters/queue-migrations: "Preview REST endpoints to list, get, create, and update queue migrations that route a queue key's jobs toward a destination queue, and to check a pipeline's readiness to move to a destination cluster."
   apis/rest-api/clusters/agent-tokens: "REST endpoints to create, list, get, update, and revoke cluster agent tokens."
   apis/rest-api/clusters/maintainers: "REST endpoints to list, create, get, and delete cluster maintainer assignments."
   apis/rest-api/clusters/secrets: "REST endpoints to create, list, get, update, and delete secrets in a cluster."
