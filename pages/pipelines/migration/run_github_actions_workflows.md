@@ -133,7 +133,7 @@ The plugin gives each workflow a GitHub event type based on how the Buildkite bu
 - Scheduled builds receive `schedule`.
 - Other builds, including branch, tag, and triggered builds, receive `push`.
 
-Pull request builds check out and run against the head commit of the pull request branch (`refs/pull/<N>/head`). This matches how [Buildkite Pipelines handles pull request builds by default](/docs/pipelines/source-control/github#building-the-test-merge-commit), and applies even before GitHub finishes computing the pull request's merge commit.
+Pull request builds check out and run against the head commit of the pull request branch (`refs/pull/<N>/head`). This matches how [Buildkite Pipelines handles pull request builds by default](/docs/pipelines/source-control/github#running-builds-on-pull-requests-building-the-test-merge-commit), and applies even before GitHub finishes computing the pull request's merge commit.
 
 Release workflows require the GitHub Releases additional webhook, the **Code** trigger mode, and a supported `published`, `created`, or `released` activity type. With the full-access **GitHub** repository provider, Buildkite Pipelines resolves the release tag to its immutable commit before creating the build. Without this access, the plugin can use the checked-out `HEAD` as a compatibility fallback, but the build can't receive a workflow access token for the release.
 
