@@ -291,9 +291,9 @@ Error responses:
 
 ## Check pipeline migration readiness
 
-Reports whether an unclustered pipeline is ready to move to a destination cluster, based on the queue and concurrency group activity Buildkite has observed for that pipeline. This is a read-only evidence check: a `ready: false` response is a successful read, not an error, and it doesn't perform the move itself.
+Reports whether an unclustered pipeline is ready to move to a destination cluster, based on the queue activity and [concurrency groups](/docs/pipelines/configure/workflows/controlling-concurrency) Buildkite Pipelines has observed for that pipeline. This is a read-only evidence check: a `ready: false` response is a successful read, not an error, and it doesn't perform the move itself.
 
-The check only evaluates queues and concurrency groups actually observed for the pipeline, using a rolling 10-minute job history window. Because the window is bounded, the observation is never a complete picture of the pipeline's queues, and any concurrency group observed for the pipeline blocks readiness, since concurrency groups can't be routed individually.
+The check evaluates jobs created during a rolling 10-minute history window and active source jobs regardless of age. Because the history window is bounded, the observation is never a complete picture of the pipeline's queues and concurrency groups. Any concurrency group observed for the pipeline blocks readiness. Concurrency groups can't be routed individually.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -326,7 +326,13 @@ curl -H "Authorization: Bearer $TOKEN" \
     "window_started_at": "2026-08-31T06:50:00.000Z",
     "window_seconds": 600,
     "complete": false,
-    "blocking_concurrency_groups": []
+    "blocking_concurrency_groups": [
+      {
+        "scope": "custom",
+        "key": "deploy/settings",
+        "reason": "concurrency_group_migration_unavailable"
+      }
+    ]
   },
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/cluster-queue-migrations/pipelines/my-pipeline/readiness?destination_cluster_id=42f1a7da-812d-4430-93d8-1cc7c33a6bcf"
 }
@@ -354,15 +360,15 @@ The response body contains the following fields:
   </tr>
   <tr>
     <th><code>concurrency_group_observation.blocking_concurrency_groups</code></th>
-    <td>Concurrency groups observed for the pipeline, each blocking readiness with reason <code>concurrency_group_migration_unavailable</code></td>
+    <td>Concurrency groups observed for the pipeline, each with a <code>scope</code> of <code>custom</code> or <code>step</code>, a <code>key</code>, and a <code>reason</code> of <code>concurrency_group_migration_unavailable</code></td>
   </tr>
   <tr>
     <th><code>queue_observation.window_seconds</code>, <code>concurrency_group_observation.window_seconds</code></th>
-    <td>Length of the job history window used to discover queues and concurrency groups, in seconds</td>
+    <td>Length of the recent job history window used to discover queues and concurrency groups, in seconds. Active source jobs are also evaluated regardless of age.</td>
   </tr>
   <tr>
     <th><code>queue_observation.complete</code>, <code>concurrency_group_observation.complete</code></th>
-    <td>Always <code>false</code>. The observation only covers the bounded window and is never guaranteed to be a complete picture of the pipeline's queues or concurrency groups.</td>
+    <td>Always <code>false</code>. The evidence isn't guaranteed to include every queue or concurrency group used by the pipeline because the recent job history window is bounded. Active source jobs are included regardless of age.</td>
   </tr>
   <tr>
     <th><code>url</code></th>
@@ -371,7 +377,7 @@ The response body contains the following fields:
 </tbody>
 </table>
 
-Readiness observations are cached for up to two minutes. `queue_observation` and `concurrency_group_observation` reflect the cached observation's timestamp, but the migrations they're checked against are always resolved fresh, so `ready` and `status` always reflect current migration state.
+Readiness observations are cached for up to two minutes. `queue_observation` and `concurrency_group_observation` reflect the cached observation's timestamp. For `blocked` and `no_known_blockers` responses, migrations are resolved fresh, so `ready` and `status` reflect current migration state. An `observation_pending` response is returned before migrations are resolved, so its `ready: false` value is not a verdict about current migration state.
 
 Required query string parameter:
 
