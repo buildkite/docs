@@ -83,4 +83,4 @@ If the agents run on the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/
 
 ### Timeouts
 
-Occasionally, a job may time out if it exceeds the maximum allowed [command step timeout](/docs/pipelines/configure/build-timeouts). Depending on the `cancel-signal-timeout` and `cancel-cleanup-timeout` set on the agent, the job may not complete gracefully, resulting in an unexpected exit code (`-1`).
+Occasionally, a job may time out if it exceeds the maximum allowed [command step timeout](/docs/pipelines/configure/build-timeouts). Depending on the `cancel-signal-timeout` set on the agent, the job may not complete gracefully, resulting in an unexpected exit code (`-1`).

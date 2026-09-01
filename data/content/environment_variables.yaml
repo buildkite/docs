@@ -154,7 +154,7 @@ variables:
     example: "https://buildkite.com/acme-inc/my-project/builds/1514"
   - name: BUILDKITE_CANCEL_CLEANUP_TIMEOUT
     desc: |
-      The value of the `cancel-cleanup-timeout` [agent configuration option](/docs/agent/self-hosted/configure). This is the amount of time the agent has to upload logs and artifacts after a canceled process exits or is killed.
+      The value of the `cancel-cleanup-timeout` [agent configuration option](/docs/agent/self-hosted/configure). This is extra time a stopping agent has to upload logs and artifacts after a job process exits or is killed, before the agent forcefully exits.
     modifiable: false
     default_value: "5s"
   - name: BUILDKITE_CANCEL_SIGNAL
