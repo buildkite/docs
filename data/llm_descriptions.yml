@@ -465,7 +465,7 @@
   apis/rest-api/test-engine/execution-tags: "REST endpoint to bulk replace or delete mutable tags on Test Engine executions."
   apis/rest-api/test-engine/quarantine: "REST endpoints to skip, mute, and enable tests for quarantine management."
   apis/rest-api/test-engine/runs: "REST endpoints to list and get test suite runs."
-  apis/rest-api/test-engine/suites: "REST endpoints to list, get, create, update, and delete test suites."
+  apis/rest-api/test-engine/suites: "REST endpoints to list, get, create, update, and delete test suites, including listing the suites associated with a pipeline."
   apis/rest-api/test-engine/tests: "REST endpoints to list and get individual tests with filtering by label, state, and scope."
   apis/graphql-api: "GraphQL API overview: endpoint, authentication, explorer console, introspection, and IDs."
   apis/graphql/graphql-tutorial: "Tutorial for running GraphQL queries using the Buildkite console and command line."
