@@ -116,7 +116,7 @@ You can keep GitHub as the source of truth, build trigger, and build-status dest
 
 Remote mirror checkout requires Git 2.45.0 or later. Branch-build support is available in Buildkite agent v3.136.0 and from v3.136.2 onward. Buildkite agent v3.136.1 ignores remote mirrors. Pull request builds that check out the head commit require Buildkite agent v3.137.0 or later. Jobs that do not meet these version requirements fetch from GitHub instead.
 
-Tag builds and pull request builds that use the [GitHub test merge commit](/docs/pipelines/source-control/github#building-the-test-merge-commit) bypass the mirror and fetch from GitHub.
+Tag builds and pull request builds that use the [GitHub test merge commit](/docs/pipelines/source-control/github#running-builds-on-pull-requests-building-the-test-merge-commit) bypass the mirror and fetch from GitHub.
 
 An Origin mirror can reduce repeated GitHub fetches for pipelines that create many jobs from a single push. The effect on build time depends on the pipeline's workload.
 
