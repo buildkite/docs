@@ -15,7 +15,7 @@ buildkite-agent start --opentelemetry-tracing
 Set the standard `OTEL_EXPORTER_OTLP_*` environment variables to the endpoint, protocol, and authentication details of your Collector. See [OpenTelemetry tracing from the Buildkite agent](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-from-buildkite-agent) for the available configuration, and [Datadog APM using OpenTelemetry Collector](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service-datadog-apm-using-opentelemetry-collector) for an example Collector configuration.
 
 > 📘
-> Learn more about the Datadog Agent and how to install it from Datadog's [Agent](https://docs.datadoghq.com/agent/) documentation.
+> The [Datadog Agent](https://docs.datadoghq.com/agent/) can also ingest OTLP directly, so you can use it in place of a standalone OpenTelemetry Collector. See Datadog's [OTLP ingestion documentation](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest_in_the_agent/) for details.
 
 Once the Buildkite agent is running with `--opentelemetry-tracing`, run at least one job on that agent to generate trace data. After the job runs, go to Datadog > APM > Traces to view the traces.
 

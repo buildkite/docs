@@ -141,7 +141,7 @@ The following features started as experiments before being promoted to fully sup
 ### ANSI timestamps
 
 Promoted in [v3.48.0](https://github.com/buildkite/agent/releases/tag/v3.48.0).
-Learn more about this feature in [ANSI timestamps and disabling them](/docs/pipelines/configure/managing-log-output#ansi-timestamps-and-disabling-them).
+Learn more about this feature in [ANSI timestamps](/docs/pipelines/configure/managing-log-output#ansi-timestamps).
 
 ### Avoid recursive trap
 

@@ -30,6 +30,8 @@ To require strict host-key checking using your existing SSH configuration, set [
 
 If `GIT_SSH` is set, the agent leaves SSH host-key configuration unchanged because it cannot add command-line options to the configured binary.
 
+Agent v3 instead runs the `ssh-keyscan` command before checkout and appends the repository host's keys to the `known_hosts` file. Setting `no-ssh-keyscan` on a v3 agent disables that, leaving host-key verification to your existing SSH configuration.
+
 ## Restrict access by the Buildkite agent controller
 
 To safeguard your organization's infrastructure if Buildkite infrastructure is ever compromised, you can restrict what the agent does. All of the information above about securing the Buildkite agent applies, specifically:
