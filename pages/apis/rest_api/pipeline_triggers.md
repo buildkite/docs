@@ -454,7 +454,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>build</code></th>
-    <td>Build fields to update. Set <code>message</code>, <code>commit</code>, or <code>branch</code> to <code>null</code> to restore its default. Set <code>environment</code> to an empty object to remove all environment variables.</td>
+    <td>Build fields to update. Set <code>message</code>, <code>commit</code>, or <code>branch</code> to <code>null</code> to restore its default. Omit <code>environment</code> to preserve the existing environment variables. Supplying <code>environment</code> replaces the entire environment map, so include every variable you want to retain. Set <code>environment</code> to an empty object to remove all environment variables.</td>
   </tr>
   <tr>
     <th><code>filter</code></th>
