@@ -374,6 +374,7 @@ preinstall
 prepended
 prepends
 preprovisioned
+preselecting
 proxied
 ptrace
 pty
