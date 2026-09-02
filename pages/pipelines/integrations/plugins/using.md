@@ -46,7 +46,7 @@ location.
 
 ## Adding a single plugin
 
-If a step only needs one plugin, use the singular `plugin` attribute instead of `plugins`. The `plugin` attribute accepts the same value as a single entry in a `plugins` array: a plugin source, or a map of one plugin source to its configuration.
+If a step only needs one plugin, you may use the singular `plugin` attribute for convenience. The plural `plugins` attribute remains valid for one plugin. The `plugin` attribute accepts the same value as a single entry in a `plugins` array: a plugin source, or a map of one plugin source to its configuration.
 
 ```yml
 steps:

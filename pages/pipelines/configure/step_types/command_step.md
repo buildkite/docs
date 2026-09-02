@@ -212,7 +212,7 @@ Optional attributes:
       <em>Example:</em><br/>
       <code>- docker-compose#v1.0.0:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;run: app</code><br/>
-      For a step that only needs one plugin, use the singular <a href="/docs/pipelines/integrations/plugins/using#adding-a-single-plugin"><code>plugin</code></a> attribute instead.
+      For a step that only needs one plugin, you may use the singular <a href="/docs/pipelines/integrations/plugins/using#adding-a-single-plugin"><code>plugin</code></a> attribute for convenience.
     </td>
   </tr>
   <tr id="priority">
