@@ -211,7 +211,8 @@ Optional attributes:
       An array of <a href="/docs/pipelines/integrations/plugins">plugins</a> for this step.<br/>
       <em>Example:</em><br/>
       <code>- docker-compose#v1.0.0:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
+&nbsp;&nbsp;&nbsp;&nbsp;run: app</code><br/>
+      For a step that only needs one plugin, use the singular <a href="/docs/pipelines/integrations/plugins/using#adding-a-single-plugin"><code>plugin</code></a> attribute instead.
     </td>
   </tr>
   <tr id="priority">
