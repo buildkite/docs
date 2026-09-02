@@ -38,6 +38,7 @@ Content-Type: application/x-www-form-urlencoded
 
 client_id=your-client-id
 &scope=read_user read_organizations
+&organization=your-organization
 ```
 
 ### Request parameters
@@ -47,6 +48,10 @@ client_id=your-client-id
 | `client_id` | Yes | The client ID of your OAuth application |
 | `scope` | Yes | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). At least one valid scope is required |
 | `client_secret` | Conditional | Required for confidential clients. Not required for public clients |
+| `organization` | No | Organization slug to preselect on the authorization page |
+| `organization_uuid` | No | Organization UUID to preselect on the authorization page. If both organization parameters identify an organization, `organization_uuid` takes precedence |
+
+The organization parameters are hints, not access controls. The hinted organization is preselected only when the user can authorize it, and the user can select another available organization before approving the request.
 
 ### Response
 
@@ -80,7 +85,7 @@ The user:
 
 1. Enters the code (when using `verification_uri`).
 1. Reviews the application name and requested scopes.
-1. Selects a Buildkite organization to authorize.
+1. Reviews the preselected Buildkite organization, when one was requested, or selects an organization to authorize.
 1. Approves or denies the request.
 
 ## Token request

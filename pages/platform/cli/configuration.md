@@ -13,6 +13,14 @@ To restrict the scopes requested during OAuth login, use the `--scopes` flag. Fo
 > 📘 Restricting CLI token scopes
 > For organizations that enforce the principle of least privilege, use `--scopes` to issue CLI tokens with only the minimum scopes required. Without `--scopes`, the token is issued with all scopes that your account has permission for.
 
+To preselect an organization during OAuth login, use the `--org` flag. This also works with device authorization on a headless machine or remote shell:
+
+```bash
+bk auth login --device --org my-org
+```
+
+The organization is a hint. You can select another available organization on the authorization page before approving the request.
+
 ## Create an API access token for the Buildkite CLI
 
 To create a new API access token:
