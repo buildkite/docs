@@ -462,7 +462,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>verification</code></th>
-    <td>Verification configuration with a required <code>strategy</code> value. Omit <code>secret</code> to keep the existing secret, or provide a new value to replace it. Set <code>verification</code> to <code>null</code> to remove verification.</td>
+    <td>Verification configuration with a required <code>strategy</code> value. When adding verification, provide a non-empty <code>secret</code>. When verification is already configured, omit <code>secret</code> to keep the existing secret, or provide a new value to replace it. Set <code>verification</code> to <code>null</code> to remove verification.</td>
   </tr>
 </tbody>
 </table>
