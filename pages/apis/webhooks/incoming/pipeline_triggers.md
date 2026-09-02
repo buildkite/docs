@@ -8,8 +8,10 @@ Pipeline triggers are HTTP endpoints that create builds when they receive POST r
 
 A pipeline trigger is scoped to a specific Buildkite pipeline, and can be used to trigger builds from monitoring alerts, deployment systems, or any service that can send outbound webhooks.
 
+You can create and manage pipeline triggers using the Buildkite interface or the [pipeline triggers API](/docs/apis/rest-api/pipeline-triggers). You can also use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to inspect recent deliveries and the builds they created.
+
 > 📘 Public preview feature
-> The pipeline triggers feature is currently in public preview. To provide feedback, please contact Buildkite's Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> The pipeline triggers feature is currently in public preview. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 ## Supported incoming webhooks
 
@@ -214,9 +216,7 @@ Be aware that pipeline triggers have the following limitations:
 - Custom webhook triggers do not support webhook signature verification (for example, HMAC signatures).
 - A pipeline trigger's URL cannot be rotated. If the trigger's `bktr_` value has been compromised, you'll need to delete and re-[create](#create-a-new-pipeline-trigger) a new trigger with the same attributes.
 - The **Commit** and **Branch** build attributes are only supported by their values defined in the pipeline trigger itself, when it was either [created](#create-a-new-pipeline-trigger) or last edited, and these values cannot be mapped from fields of the incoming webhook's JSON payload.
-- A successful POST request to a pipeline trigger will always trigger a build. Pipeline triggers cannot be selectively triggered based on any content from the incoming webhook's JSON payload.
-- Pipeline triggers can only be managed through the Buildkite interface. There is no support for managing pipeline triggers (that is, creating, editing or deleting pipeline triggers) through the Buildkite API.
-- There is no Buildkite interface or API support for listing builds created from a pipeline trigger.
+- By default, a successful POST request to a pipeline trigger will trigger a build. Organizations with webhook filtering enabled can use a [filter expression](/docs/apis/rest-api/pipeline-triggers#filter-webhook-deliveries) to create builds only for matching payloads or headers.
 - Unlike JSON payloads, HTTP headers are not accessible to pipelines in requests to pipeline triggers.
 - A pipeline trigger's webhook cannot be restricted by IP address.
 - A pipeline trigger's JSON payload is limited to a maximum size of 5MB.
@@ -231,3 +231,5 @@ Learn more about how pipeline triggers integrate with other aspects of Buildkite
 - [Special meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)—covers details on how to retrieve meta-data from a Buildkite pipeline.
 - [`buildkite-agent meta-data` CLI command](/docs/agent/cli/reference/meta-data)—covers details on this actual meta-data retrieval command of the [Buildkite agent](/docs/agent) and all of its options.
 - [Incoming webhook security overview](/docs/pipelines/security/incoming-webhooks#what-kind-of-information-on-incoming-webhooks-is-logged-by-buildkite)—provides information on the type of data logged by incoming webhooks.
+- [Pipeline triggers API](/docs/apis/rest-api/pipeline-triggers)—covers how to create and manage pipeline triggers using the REST API.
+- [Pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries)—covers how to inspect recent deliveries, their outcomes, and their requests.

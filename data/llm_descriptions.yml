@@ -440,6 +440,8 @@
   apis/rest-api/package-registries/packages: "REST endpoints to publish, list, get, and delete packages in a registry."
   apis/rest-api/pipelines: "Full Pipelines REST API reference: the pipeline data model and provider settings properties, plus endpoints to list and get pipelines, create a YAML pipeline (including how a pipeline slug is derived from its name), create a visual step pipeline, update, archive, unarchive, and delete pipelines, and add a webhook."
   apis/rest-api/pipeline-schedules: "REST endpoints to list, get, create, update, and delete pipeline schedules that automatically trigger builds at specified intervals."
+  apis/rest-api/pipeline-trigger-deliveries: "REST endpoints to list and get a pipeline trigger's retained recent deliveries and fetch a delivery's parsed request payload and redacted headers."
+  apis/rest-api/pipeline-triggers: "REST endpoints to list, get, create, update, and delete generic webhook, GitHub, and Linear pipeline triggers, including one-time endpoint URL disclosure and redacted secrets."
   apis/rest-api/portals: "REST endpoints to list, get, create, update, and delete portals, which expose stored GraphQL operations as authenticated URL endpoints with restricted scope."
   apis/rest-api/agents: "REST endpoints to list, get, stop, pause, and resume agents."
   apis/rest-api/annotations: "REST endpoints to list and create Markdown annotations on builds."

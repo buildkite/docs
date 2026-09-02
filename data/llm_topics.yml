@@ -95,6 +95,8 @@ pipelines:
     - "apis/rest-api"
     - "apis/rest-api/pipelines"
     - "apis/rest-api/pipeline-schedules"
+    - "apis/rest-api/pipeline-trigger-deliveries"
+    - "apis/rest-api/pipeline-triggers"
     - "apis/rest-api/builds"
     - "apis/rest-api/jobs"
     - "apis/rest-api/step-uploads"
