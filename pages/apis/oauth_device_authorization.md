@@ -48,7 +48,7 @@ client_id=your-client-id
 | `scope` | Yes | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). At least one valid scope is required |
 | `client_secret` | Conditional | Required for confidential clients. Not required for public clients |
 | `organization` | No | The slug of the Buildkite organization to preselect during user authorization |
-| `organization_uuid` | No | The UUID of the Buildkite organization to preselect during user authorization. When both are provided, this parameter takes precedence over `organization` |
+| `organization_uuid` | No | The UUID of the Buildkite organization to preselect during user authorization. When both parameters identify an organization, this parameter takes precedence over `organization` |
 
 ### Response
 
@@ -86,7 +86,7 @@ The user:
 1. Approves or denies the request.
 
 > 📘 Preselecting an organization
-> If the device authorization request includes an `organization` or `organization_uuid` hint, and the signed-in user belongs to that organization, the organization is preselected for them. The user can still select a different organization before approving the request.
+> If the device authorization request includes an `organization` or `organization_uuid` hint and the signed-in user can authorize that organization, the organization is preselected for them. The user can still select a different organization before approving the request.
 
 ## Token request
 
