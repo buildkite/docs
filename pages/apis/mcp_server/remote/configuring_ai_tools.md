@@ -55,6 +55,18 @@ You can also use the `X-Buildkite-Readonly: true` header with `/direct` to enfor
 
 For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
 
+## Preselect an organization for OAuth
+
+To preselect an organization on the OAuth authorization page, add its slug to the remote MCP server URL:
+
+```url
+https://mcp.buildkite.com/mcp?organization=your-organization
+```
+
+You can use `organization_uuid` instead when you have the organization's UUID. The organization parameter works with toolset and read-only URLs too—for example, `https://mcp.buildkite.com/mcp/x/pipelines/readonly?organization=your-organization`.
+
+The organization is a hint, not an access control. It is preselected only when you can authorize it, and you can select another available organization before approving the request.
+
 ## Amp
 
 You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration). This configuration uses the `mcp-remote` command argument to allow OAuth authorization. For more about this configuration type, see [Custom Tools (MCP)](https://ampcode.com/manual#mcp) in the Amp documentation.
@@ -66,7 +78,7 @@ You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP serv
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://mcp.buildkite.com/mcp"
+        "https://mcp.buildkite.com/mcp?organization=your-organization"
       ]
     }
   }
