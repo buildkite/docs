@@ -48,14 +48,14 @@ location.
 
 If a step only needs one plugin, you may use the singular `plugin` attribute for convenience. The plural `plugins` attribute remains valid for one plugin. The `plugin` attribute accepts the same value as a single entry in a `plugins` array: a plugin source, or a map of one plugin source to its configuration.
 
-```yml
+```yaml
 steps:
   - plugin: docker-compose#v5.13.0
 ```
 
 Configure the plugin the same way as you would with `plugins`:
 
-```yml
+```yaml
 steps:
   - plugin:
       docker-compose#v5.11.0:
