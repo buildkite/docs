@@ -48,7 +48,7 @@ client_id=your-client-id
 | `scope` | Yes | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). At least one valid scope is required |
 | `client_secret` | Conditional | Required for confidential clients. Not required for public clients |
 | `organization` | No | The slug of the Buildkite organization to preselect during user authorization |
-| `organization_uuid` | No | The UUID of the Buildkite organization to preselect during user authorization. Takes precedence over `organization` when both are provided |
+| `organization_uuid` | No | The UUID of the Buildkite organization to preselect during user authorization. When both are provided, this parameter takes precedence over `organization` |
 
 ### Response
 
