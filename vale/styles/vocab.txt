@@ -526,6 +526,9 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
 unstarted
 untrusted

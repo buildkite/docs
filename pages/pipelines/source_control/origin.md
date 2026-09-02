@@ -52,8 +52,8 @@ You must be a Buildkite organization administrator to connect Origin to an exist
 
 Start the connection from either of these locations:
 
-* On the **New Pipeline** page, select **Connect Origin account**.
-* Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**. Buildkite redirects you to Origin.
+- On the **New Pipeline** page, select **Connect Origin account**.
+- Select **Settings** > **Repository Providers**. In **Add Provider**, select **Origin**. Buildkite redirects you to Origin.
 
 <%= image "connect-provider-origin.png", width: 1396/2, height: 1058/2, alt: "Selecting Origin from the Repository Providers settings to connect it to Buildkite" %>
 
@@ -80,13 +80,13 @@ Disconnecting the provider from Buildkite does not uninstall the app in Origin.
 
 ### Suspended installations
 
-Origin can suspend an app installation, for example when an Origin administrator suspends it or a subscription lapses. Buildkite recognizes the suspension and keeps the installation unavailable until Origin unsuspends it.
+Origin can suspend an app installation. Buildkite recognizes the suspension and keeps the installation unavailable until Origin unsuspends it.
 
 While an installation is suspended:
 
-* Origin repository events, including branch pushes, tag pushes, and pull request events, do not create builds.
-* Buildkite Pipelines can't check out code, publish checks, or issue hosted-agent checkout credentials for repositories in the installation.
-* **Settings** > **Repository Providers** > **Origin** shows **This Origin integration is currently suspended.**, with a link to manage or unsuspend the installation in Origin.
+- Origin repository events, including branch pushes, tag pushes, and pull request events, do not create builds.
+- Buildkite Pipelines can't check out code, publish checks, or issue hosted-agent checkout credentials for repositories in the installation.
+- **Settings** > **Repository Providers** > **Origin** shows **This Origin integration is currently suspended.**, with a link to manage or unsuspend the installation in Origin.
 
 Unsuspending the installation in Origin automatically restores it in Buildkite. You don't need to reconnect the installation or recreate its pipelines.
 
@@ -116,7 +116,7 @@ To associate an existing pipeline with an Origin repository:
 
 If the associated Origin installation is disconnected, the repository settings show **The Origin installation for this pipeline is disconnected.** Organization administrators can select **Reconnect Origin** to restore the connection. Buildkite Pipelines preserves the existing repository URL and provider settings while the installation is disconnected.
 
-If the associated installation is [suspended](#suspended-installations) instead, the repository settings show **The Origin installation for this pipeline is suspended.** Organization administrators can select **Manage Origin installation** to open the provider settings and unsuspend the installation in Origin.
+If the associated installation is [suspended](#connect-origin-suspended-installations) instead, the repository settings show **The Origin installation for this pipeline is suspended.** Organization administrators can select **Manage Origin installation** to open the provider settings and unsuspend the installation in Origin.
 
 ## Check out private repositories on hosted agents
 
@@ -144,8 +144,8 @@ Buildkite Pipelines receives signed events through the installed Origin app. You
 
 ### Branch and tag pushes
 
-* **Build branches**: Creates builds when commits are pushed to branches. This setting is enabled by default.
-* **Build tags**: Creates builds when tags are pushed. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
+- **Build branches**: Creates builds when commits are pushed to branches. This setting is enabled by default.
+- **Build tags**: Creates builds when tags are pushed. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
 
 Deleted branches and tags do not create builds.
 
@@ -170,11 +170,11 @@ When **Update commit statuses** is enabled, Buildkite Pipelines publishes a chec
 
 The check shows information relevant to the build state:
 
-* Scheduled and running builds link to the build in Buildkite.
-* Passed builds show the job count and run time.
-* Failing and failed builds show failed jobs, exit results, job count, and run time.
-* Canceled builds show the cancellation reason, when known.
-* Blocked builds link to Buildkite so you can unblock them.
+- Scheduled and running builds link to the build in Buildkite.
+- Passed builds show the job count and run time.
+- Failing and failed builds show failed jobs, exit results, job count, and run time.
+- Canceled builds show the cancellation reason, when known.
+- Blocked builds link to Buildkite so you can unblock them.
 
 Checks show up to 50 failed jobs, listing hard failures before soft failures. Checks with more than 50 failed jobs link to the full list in Buildkite.
 
@@ -244,7 +244,7 @@ Confirm that the pipeline repository was selected from a connected Origin instal
 
 Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, and any conditional filter under the pipeline's **Origin** settings. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
 
-If the pipeline's repository settings show **The Origin installation for this pipeline is suspended.**, see [Suspended installations](#suspended-installations).
+If the pipeline's repository settings show **The Origin installation for this pipeline is suspended.**, see [Suspended installations](#connect-origin-suspended-installations).
 
 ### Checks do not appear
 
@@ -256,6 +256,6 @@ For Origin API guidance, see the [Origin API reference](https://cursor.com/docs/
 
 To inspect the connection using the Buildkite API, see:
 
-* [Repository connections REST API](/docs/apis/rest-api/organizations/repository-connections)
-* [Repositories for a connection REST API](/docs/apis/rest-api/repository-connections)
-* [Origin provider settings in the pipelines REST API](/docs/apis/rest-api/pipelines#provider-settings-properties)
+- [Repository connections REST API](/docs/apis/rest-api/organizations/repository-connections)
+- [Repositories for a connection REST API](/docs/apis/rest-api/repository-connections)
+- [Origin provider settings in the pipelines REST API](/docs/apis/rest-api/pipelines#provider-settings-properties)
