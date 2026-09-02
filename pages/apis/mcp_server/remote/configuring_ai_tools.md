@@ -55,7 +55,7 @@ You can also use the `X-Buildkite-Readonly: true` header with `/direct` to enfor
 
 For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
 
-### Preselect an organization for OAuth
+## Preselect an organization for OAuth
 
 To preselect an organization on the OAuth authorization page, add its slug to the remote MCP server URL:
 
