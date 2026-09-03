@@ -6,7 +6,7 @@ Test ownership can be assigned to [teams](/docs/platform/team-management/permiss
 
 ## How ownership is assigned
 
-TESTOWNERS patterns match against each test's **location** — the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
+TESTOWNERS patterns match against each test's `location` — the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
 
 For ownership (and the **My teams** view) to work:
 
@@ -14,7 +14,7 @@ For ownership (and the **My teams** view) to work:
 2. Upload a TESTOWNERS file whose patterns match those `location` values.
 3. Assign the teams listed in TESTOWNERS to the test suite before ownership records are created.
 
-Path-only locations (without a line number) are valid. After a successful match, open a test's details page — you should see **Location** and **Owners** in the header. **My teams** on the suite Tests page shows tests owned by teams you belong to that are also assigned to the suite.
+Path-only locations (without a line number) are valid. After a successful match, open a test's details page. You should see **Location** and **Owners** in the header. **My teams** on the suite Tests page shows tests owned by teams you belong to that are also assigned to the suite.
 
 ## TESTOWNERS file format
 
@@ -107,7 +107,7 @@ curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \
 
 You can upload the same TESTOWNERS file to multiple test suites. However, a test suite can only have one active TESTOWNERS file.
 
-Uploading a **changed** TESTOWNERS file re-runs ownership matching for recent tests in the suite that already have a `location`. Identical file content is skipped. Tests without `location` still do not receive owners.
+Uploading a _changed_ TESTOWNERS file re-runs ownership matching for recent tests in the suite that already have a `location`. Identical file content is skipped. Tests without `location` still do not receive owners.
 
 > 📘
 > You can also create a new pipeline to automatically upload your TESTOWNERS file when changes are detected.

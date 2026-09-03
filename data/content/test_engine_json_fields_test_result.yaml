@@ -19,7 +19,7 @@ fields:
   type: string
   enumerated_values:
   desc: |
-      The path where the test originates. Optionally include a line number after a colon (`:`). Path-only values are valid. Buildkite uses this top-level field for [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership) matching. A tag named `location` is not used for ownership. Each newer upload of the same test overwrites this field; omitting it clears any previous value.
+      The path where the test originates. Optionally include a line number after a colon (`:`). Path-only values are valid. Buildkite Test Engine uses this top-level field for [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership) matching. A tag named `location` is not used for ownership. Each newer upload of the same test overwrites this field; omitting it clears any previous value.
   examples:
       - ./tests/Manager/isEnrolled.js:32
       - common/cpp
