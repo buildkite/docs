@@ -52,7 +52,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Establish environment-specific [cluster](/docs/pipelines/security/clusters/manage) and [queue](/docs/agent/queues/managing) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
 - Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
 - Use additional secret scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
-- Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/cli/reference/pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
+- Keep the default pipeline upload guard enabled. The agent rejects pipelines containing values from the agent process environment whose variable names match the default secret-name patterns (`*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_PRIVATE_KEY`, `*_SSH_KEY`, `*_ACCESS_KEY`, `*_SECRET_KEY`, `*_CONNECTION_STRING`, and `*_API_KEY`). It also checks values assigned to matching variables in pipeline-level, step-level, and trigger-step `build` environment maps. Pure runtime substitutions and values shorter than six bytes are not treated as secrets. Don't use `--allow-secrets` or `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` unless the upload intentionally contains a secret and you understand the risk of exposing it in the Buildkite interface. Agent v3 does not run this check by default—pass the `--reject-secrets` flag to `pipeline upload` to enable it.
 - Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/self-hosted/tokens#revoke-a-token) using the REST API for rapid containment.
 
 ## Buildkite agent security
@@ -153,7 +153,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 **Controls:**
 
-- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
+- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
 - Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For [Enterprise](https://buildkite.com/pricing/) plan customers, older logs can be rehydrated for in-depth forensic analysis.
 
 ## Further questions

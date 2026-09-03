@@ -100,6 +100,26 @@ If your testing framework is not supported, get in touch through support@buildki
 
 Once you have [installed the bktec binary](#installation) and it is executable in your pipeline, you'll need to [configure some additional environment variables](#using-bktec-configure-environment-variables) for bktec to function. You can then [update your pipeline step](#using-bktec-update-the-pipeline-step) to call `bktec run` instead of calling RSpec to run your tests.
 
+### Configure result uploads
+
+A [language-specific test collector](/docs/pipelines/configure/tests/test-collection) is not required to use bktec. Configure one of these methods to upload results from each test run:
+
+- **Built-in bktec upload:** With bktec version 2.7.0 or later, set `BUILDKITE_TEST_ENGINE_UPLOAD_RESULTS` to `true`. Do not configure a language-specific collector to upload the same results.
+- **Language-specific collector:** Install and configure the collector, then set `BUILDKITE_TEST_ENGINE_UPLOAD_RESULTS` to `false`. The collector uploads the results while bktec continues to run and split the tests.
+
+Built-in uploads require either a suite token in `BUILDKITE_ANALYTICS_TOKEN` or an [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) that grants the `write_uploads` scope.
+
+> 🚧 Avoid duplicate test executions
+> Do not activate both result upload methods for the same test run. If bktec and a language-specific collector both upload the results, Test Engine records duplicate test executions.
+
+When you invoke bktec directly, built-in uploads are disabled by default. If you configure bktec using the Tests Buildkite plugin, built-in uploads are enabled by default. Set `upload-results: false` when a language-specific collector uploads the results.
+
+### Selector-based test splitting
+
+bktec v3 uses [selector-based test splitting](https://github.com/buildkite/test-engine-client#selector-based-test-splitting) by default for every supported test runner. A selector identifies a unit of work that a test runner can execute. Buildkite Test Engine matches each selector to historical test executions and uses their durations to balance work across parallel jobs. The Test Engine Client documentation explains how bktec discovers the selector for each runner.
+
+bktec v2 continues to use file-based test splitting. Before upgrading, see [Migrating from bktec v2 to v3](https://github.com/buildkite/test-engine-client/blob/main/docs/migrating-to-v3.md) for collector version recommendations, location-prefix implications, Go and custom runner requirements, and behavior when selector history is unavailable.
+
 ### Configure environment variables
 
 bktec uses a number of [predefined](#predefined-environment-variables) and [mandatory](#mandatory-environment-variables) environment variables, as well as several optional ones for either [RSpec](#optional-rspec-environment-variables) or [Jest](#optional-jest-environment-variables).
@@ -147,6 +167,31 @@ The following mandatory environment variables must be set.
                 <%= render_markdown(text: d) %>
               <% end %>
             </section>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h4 id="result-upload-environment-variables">Result upload environment variables</h4>
+
+The following optional environment variable controls whether `bktec` uploads test results.
+
+<table class="Docs__attribute__table">
+  <tbody>
+    <% TEST_SPLITTING_ENV['optional']['result_upload'].each do |var| %>
+      <tr id="<%= var['name'] %>">
+        <th>
+          <code><%= var['name'] %> <a class="Docs__attribute__link" href="#<%= var['name'] %>">#</a></code>
+          <p class="Docs__attribute__env-var">
+            <strong>Default</strong>:<br>
+            <code><%= var['default'] %></code>
+          </p>
+        </th>
+        <td>
+          <% var['desc'].each do |d| %>
+            <%= render_markdown(text: d) %>
           <% end %>
         </td>
       </tr>
@@ -273,17 +318,18 @@ This helps Buildkite Pipelines move the build to `failing` earlier while the tes
 
 ### Update the pipeline step
 
-With the environment variables configured, you can now update your pipeline step to run bktec instead of running RSpec, or Jest directly. The following example pipeline step demonstrates how to partition your RSpec test suite across 10 nodes.
+With the environment variables configured, you can now update your pipeline step to run bktec instead of running RSpec or Jest directly. The following example pipeline step partitions an RSpec test suite across 10 jobs and uses the built-in `bktec` upload:
 
-```
+```yaml
 steps:
-  - name: "RSpec"
+  - label: "RSpec"
     command: bktec run
     parallelism: 10
     env:
       BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
       BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
       BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
+      BUILDKITE_TEST_ENGINE_UPLOAD_RESULTS: "true"
 ```
 {: codeblock-file="pipeline.yml"}
 

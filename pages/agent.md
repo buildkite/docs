@@ -40,7 +40,7 @@ In summary though:
       {
         feature: "Supported platforms",
         self_hosted: "[Linux](/docs/agent/self-hosted/install/linux), [macOS](/docs/agent/self-hosted/install/macos), [Windows](/docs/agent/self-hosted/install/windows), [Docker](/docs/agent/self-hosted/install/docker), and [more](/docs/agent/self-hosted/install)",
-        hosted: "[Linux](/docs/agent/buildkite-hosted/linux) and [macOS](/docs/agent/buildkite-hosted/macos)"
+        hosted: "[Linux](/docs/agent/buildkite-hosted/linux), [macOS](/docs/agent/buildkite-hosted/macos), and [Windows](/docs/agent/buildkite-hosted/windows)"
       },
       {
         feature: "Agent lifecycle",

@@ -37,7 +37,7 @@ class Emoji::Parser
     # instead.
     text = text.dup if not @mutate
 
-    text = EscapeUtils.escape_html(text) if @sanitize
+    text = CGI.escapeHTML(text) if @sanitize
 
     text.gsub!(SHORTCODE_REGEXP) do |match|
       # Escaped shortcodes "\\:code\\:" => ":code:"

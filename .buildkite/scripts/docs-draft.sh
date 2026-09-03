@@ -5,15 +5,12 @@ set -euo pipefail
 #
 # This script:
 #   1. Installs dependencies (git, gh CLI, Claude Code)
-#   2. Decides whether to proceed:
-#        buildkite/buildkite — always runs (no label needed)
-#        buildkite/agent     — requires "needs-docs" label
-#   3. Fetches PR context (title, body, diff, comments, reviews)
-#   4. Checks for feature flags in the diff and annotates the build
-#   5. Builds a prompt and runs Claude Code to analyze/write docs
-#   6. Commits and pushes any changes
-#   7. Opens (or updates) a draft PR on docs-private
-#   8. Annotates the build with the result; comments on the upstream PR only if a PR was created
+#   2. Fetches PR context (title, body, diff, comments, reviews)
+#   3. Checks for feature flags in the diff and annotates the build
+#   4. Builds a prompt and runs Claude Code to analyze/write docs
+#   5. Commits and pushes any changes
+#   6. Opens (or updates) a draft PR on docs-private
+#   7. Annotates the build with the result; comments on the upstream PR only if a PR was created
 #
 # Required environment variables:
 #   UPSTREAM_REPO                — GitHub repo slug (e.g. "buildkite/agent")
@@ -66,45 +63,16 @@ echo "CLAUDE_MAX_TURNS: '${CLAUDE_MAX_TURNS}'"
 export ANTHROPIC_API_KEY="${BUILDKITE_AGENT_ACCESS_TOKEN}"
 export GH_TOKEN="${GITHUB_TOKEN}"
 
-# --- Install minimal dependencies for label check ---
+# --- Install dependencies ---
 
 echo "--- :hammer: Install dependencies"
 apt-get update -qq && apt-get install -y -qq git curl jq > /dev/null 2>&1
 
-# --- Decide whether to proceed based on repo and labels ---
-# buildkite/buildkite: always run — docs are a human gate after every merge
-# buildkite/agent:     requires "needs-docs" label — agent releases are batched,
-#                      so docs should only be drafted when the feature is ready to ship
-
-if [ "${WRITE_DOCS:-}" = "true" ]; then
-  echo "WRITE_DOCS=true set explicitly, proceeding"
-  buildkite-agent annotate --style "info" --context "docs-trigger" \
-    ":memo: Docs draft triggered explicitly (\`WRITE_DOCS=true\`) for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
-    || true
-elif [ "${UPSTREAM_REPO}" = "buildkite/buildkite" ]; then
-  echo "Repo is buildkite/buildkite — docs run on every merge, no label required"
-  buildkite-agent annotate --style "info" --context "docs-trigger" \
-    ":memo: Docs draft triggered automatically — \`buildkite/buildkite\` runs on every merge" \
-    || true
-else
-  echo "--- :label: Checking for 'needs-docs' label on ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
-  LABELS=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
-    "https://api.github.com/repos/${UPSTREAM_REPO}/pulls/${UPSTREAM_PR_NUMBER}" \
-    | jq -r '.labels[].name // empty' 2>/dev/null || true)
-  echo "PR labels: ${LABELS:-<none>}"
-
-  if ! echo "${LABELS}" | grep -q "^needs-docs$"; then
-    echo "No 'needs-docs' label found, skipping docs draft"
-    buildkite-agent annotate --style "info" --context "docs-trigger" \
-      ":skip: No \`needs-docs\` label on **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** — skipping docs draft. Add the label when the feature is ready to ship." \
-      || true
-    exit 0
-  fi
-  echo "'needs-docs' label found, proceeding"
-  buildkite-agent annotate --style "info" --context "docs-trigger" \
-    ":memo: Docs draft triggered by \`needs-docs\` label on **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
-    || true
-fi
+# --- Annotate trigger ---
+echo "Proceeding with docs draft for ${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}"
+buildkite-agent annotate --style "info" --context "docs-trigger" \
+  ":memo: Docs draft triggered for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}**" \
+  || true
 
 # Install gh CLI
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
@@ -114,26 +82,18 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 apt-get update -qq && apt-get install -y -qq gh > /dev/null 2>&1
 
 # Install Claude Code
-npm install -g @anthropic-ai/claude-code@2.1.74 > /dev/null 2>&1
+npm install -g @anthropic-ai/claude-code@2.1.221 > /dev/null 2>&1
 
 # Create non-root user (Claude Code refuses --dangerously-skip-permissions as root)
 useradd -m -s /bin/bash claude-user
 chown -R claude-user:claude-user /workdir
-
-# --- Remove the "needs-docs" label (one-shot trigger) ---
-
-echo "--- :label: Remove needs-docs label"
-gh pr edit "${UPSTREAM_PR_NUMBER}" \
-  --repo "${UPSTREAM_REPO}" \
-  --remove-label "needs-docs" \
-  || echo "Warning: Could not remove label (may already be removed)"
 
 # --- Fetch PR context ---
 
 echo "--- :github: Fetch PR context"
 PR_JSON=$(gh pr view "${UPSTREAM_PR_NUMBER}" \
   --repo "${UPSTREAM_REPO}" \
-  --json title,body,url,comments,reviews)
+  --json title,body,url,author,comments,reviews)
 
 PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
 
@@ -142,13 +102,19 @@ PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
 PR_TITLE_CLEAN=$(echo "${PR_TITLE}" | sed -E 's/\[?[A-Z]{1,5}-[0-9]+\]?[[:space:]:/-]*//' | sed 's/^[[:space:]]*//')
 PR_BODY=$(echo "${PR_JSON}" | jq -r '.body // "No description provided."')
 PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
+PR_AUTHOR=$(echo "${PR_JSON}" | jq -r '.author.login // empty')
+PR_AUTHOR_IS_BOT=$(echo "${PR_JSON}" | jq -r '.author.is_bot // false')
 PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
   [.comments[]? | "\(.author.login) wrote:\n\(.body)"] | join("\n\n---\n\n") // "No comments."')
 PR_REVIEWS=$(echo "${PR_JSON}" | jq -r '
   [.reviews[]? | "\(.author.login) (\(.state)):\n\(.body // "No body")"] | join("\n\n---\n\n") // "No reviews."')
 
-# Cap the diff size to avoid overwhelming the prompt
-PR_DIFF=$(gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" | head -n "${DIFF_MAX_LINES}")
+# Fetch the complete diff for feature-flag detection, then cap only the copy
+# included in the model prompt. Detecting against the capped prompt could miss a
+# feature file that appears after DIFF_MAX_LINES.
+PR_DIFF_FILE="/tmp/docs-draft-upstream-pr.diff"
+gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" > "${PR_DIFF_FILE}"
+PR_DIFF=$(head -n "${DIFF_MAX_LINES}" "${PR_DIFF_FILE}")
 
 echo "PR: ${PR_TITLE}"
 echo "URL: ${PR_URL}"
@@ -156,7 +122,13 @@ echo "URL: ${PR_URL}"
 # --- Check for feature flags in the diff ---
 
 echo "--- :triangular_flag_on_post: Checking for feature flags"
-if echo "${PR_DIFF}" | grep -qE "(Feature::[A-Z][A-Z_]+|Feature\.new\b|\.active_for_(organization|user|all_users|request|current_organization)|\.active\?\(|activate_for_|deactivate_for_|Billing::Plan::Feature|lib/buildkite/feature_flags/)"; then
+# Check canonical flag files and added lines only. V2 flags use CamelCase
+# Feature::Base subclasses and may call active? with or without parentheses.
+if { grep -E '^\+\+\+ b/app/models/feature/[^/]+\.rb$' "${PR_DIFF_FILE}" \
+       | grep -Ev '/(base|base_store|caching_store|database_store|redis_store|status)\.rb$' > /dev/null; } \
+  || grep -E '^\+\+\+ b/lib/buildkite/feature_flags/[^/]+\.rb$' "${PR_DIFF_FILE}" > /dev/null \
+  || { grep -E '^\+' "${PR_DIFF_FILE}" | grep -Ev '^\+\+\+' \
+       | grep -E '(class[[:space:]]+Feature::[A-Z][[:alnum:]_]*[[:space:]]*<[[:space:]]*Feature::Base|Feature::[A-Z][[:alnum:]_]*|Feature\.new([^[:alnum:]_]|$)|\.(active\?\(|active_for_[a-z_]+\?|activate_for_[a-z_]+|deactivate_for_[a-z_]+)|Billing::Plan::Feature)' > /dev/null; }; then
   echo "Feature flag indicators detected in diff"
   FEATURE_FLAG_DETECTED="true"
   buildkite-agent annotate --style "warning" --context "feature-flag" \
@@ -323,6 +295,19 @@ else
     --title "[Docs Draft] ${PR_TITLE_CLEAN}" \
     --body "${PR_BODY_CONTENT}")
   echo "Created new PR: ${DOCS_PR_URL}"
+fi
+
+# Ask the upstream author to verify technical accuracy and publication readiness.
+# A missing author, a bot-authored PR, or a failed review request must not prevent
+# the docs draft from being created.
+if [ -n "${PR_AUTHOR}" ] && [ "${PR_AUTHOR_IS_BOT}" != "true" ]; then
+  echo "--- :eyes: Request review from upstream author @${PR_AUTHOR}"
+  gh pr edit "${DOCS_PR_URL}" \
+    --repo buildkite/docs-private \
+    --add-reviewer "${PR_AUTHOR}" \
+    || echo "Could not request review from @${PR_AUTHOR}; continuing"
+else
+  echo "Skipping upstream author review request"
 fi
 
 # --- Annotate build and comment on upstream PR ---

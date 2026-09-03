@@ -24,7 +24,7 @@ EXPERIMENTS_MD_URL = 'https://raw.githubusercontent.com/buildkite/agent/main/EXP
 # Use the formatted heading name as it appears in the docs (output of format_experiment_name)
 PROMOTED_EXPERIMENT_LINKS = {
   'ANSI timestamps' => [
-    ['ANSI timestamps and disabling them', '/docs/pipelines/configure/managing-log-output#ansi-timestamps-and-disabling-them']
+    ['ANSI timestamps', '/docs/pipelines/configure/managing-log-output#ansi-timestamps']
   ],
   'Flock file locks' => [
     ['Flock file locks', '/docs/agent/cli/reference/lock#flock-file-locks']
@@ -44,6 +44,12 @@ PROMOTED_EXPERIMENT_LINKS = {
   ]
 }.freeze
 
+# The agent source uses major versions for changes made during prereleases. Map
+# those versions to the first release that contains the change so links resolve.
+RELEASE_TAG_OVERRIDES = {
+  'v4' => 'v4.0.0-beta.1'
+}.freeze
+
 def fetch_url(url)
   stdout, stderr, status = Open3.capture3('curl', '-sS', '-f', url)
   raise "Failed to fetch #{url}: #{stderr}" unless status.success?
@@ -54,6 +60,8 @@ end
 def parse_experiments_go(content)
   available = []
   promoted = {}
+  removed = {}
+  replaced = {}
 
   # Parse constants to get experiment string values
   constants = {}
@@ -86,17 +94,20 @@ def parse_experiments_go(content)
     # Also match direct string assignments (like KubernetesExec)
     promoted_block.scan(/(\w+):\s*"([^"]+)"/).each do |const_name, msg|
       if constants[const_name]
-        # Extract version from message if present
-        if msg =~ /v\d+\.\d+\.\d+/
-          promoted[constants[const_name]] = msg[/v\d+\.\d+\.\d+/]
+        name = constants[const_name]
+        case msg
+        when /has been removed as of agent (v[\w.-]+), because (.+)\z/
+          removed[name] = { version: $1, reason: $2 }
+        when /has been replaced with (?:`([^`]+)`|the ([^ ]+) flag) as of agent (v[\w.-]+)\z/
+          replaced[name] = { version: $3, replacement: $1 || $2 }
         else
-          promoted[constants[const_name]] = 'deprecated'
+          raise "Unrecognized lifecycle message for #{name}: #{msg}"
         end
       end
     end
   end
 
-  { available: available, promoted: promoted }
+  { available: available, promoted: promoted, removed: removed, replaced: replaced }
 end
 
 def parse_experiments_md(content)
@@ -147,9 +158,20 @@ def format_experiment_name(name)
   end.join(' ')
 end
 
+def release_tag(version)
+  RELEASE_TAG_OVERRIDES.fetch(version, version)
+end
+
+def release_link(version)
+  tag = release_tag(version)
+  "[#{tag}](https://github.com/buildkite/agent/releases/tag/#{tag})"
+end
+
 def generate_markdown(experiments_data, descriptions)
   available = experiments_data[:available].sort
   promoted = experiments_data[:promoted].sort_by { |name, _| name }
+  removed = experiments_data[:removed].sort_by { |name, _| name }
+  replaced = experiments_data[:replaced].sort_by { |name, _| name }
 
   output = []
 
@@ -220,7 +242,7 @@ def generate_markdown(experiments_data, descriptions)
   promoted.each do |name, version|
     output << "### #{format_experiment_name(name)}"
     output << ''
-    output << "Promoted in [#{version}](https://github.com/buildkite/agent/releases/tag/#{version})."
+    output << "Promoted in #{release_link(version)}."
 
     # Add documentation links if defined (lookup by formatted heading name)
     heading_name = format_experiment_name(name)
@@ -234,6 +256,31 @@ def generate_markdown(experiments_data, descriptions)
       end
     end
 
+    output << ''
+  end
+
+  output << '## Replaced experiments'
+  output << ''
+  output << 'The following experiments were replaced by supported agent options.'
+  output << ''
+
+  replaced.each do |name, details|
+    output << "### #{format_experiment_name(name)}"
+    output << ''
+    output << "Replaced in #{release_link(details[:version])} by `#{details[:replacement]}`."
+    output << ''
+  end
+
+  output << '## Removed experiments'
+  output << ''
+  output << 'The following experiments were removed without becoming part of the default agent behavior.'
+  output << ''
+
+  removed.each do |name, details|
+    output << "### #{format_experiment_name(name)}"
+    output << ''
+    reason = details[:reason].sub(/\bbehaviour\b/, 'behavior')
+    output << "Removed in #{release_link(details[:version])} because #{reason}."
     output << ''
   end
 
@@ -253,6 +300,8 @@ def main
 
   $stderr.puts "Found #{experiments_data[:available].length} available experiments"
   $stderr.puts "Found #{experiments_data[:promoted].length} promoted experiments"
+  $stderr.puts "Found #{experiments_data[:replaced].length} replaced experiments"
+  $stderr.puts "Found #{experiments_data[:removed].length} removed experiments"
 
   puts generate_markdown(experiments_data, descriptions)
 end

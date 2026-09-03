@@ -11,7 +11,7 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
 
 - The [deprecated Docker integration](https://github.com/buildkite/agent/blob/497e6a42125a733d4615814faf9aab27fc9a7532/internal/job/docker.go) has been removed. The `docker` and `docker-compose` plugins remain supported. The integration used the `BUILDKITE_DOCKER` and `BUILDKITE_DOCKER_COMPOSE_CONTAINER` environment variables and had been deprecated since 2017. All current Docker usage for jobs known to Buildkite uses the `docker` and `docker-compose` plugins. If you use the deprecated Docker integration, switch to one of these plugins.
 - On Windows, the exit status of a canceled job is now `1` instead of `0`. Canceled jobs now appear as failed, consistent with jobs that run on other platforms.
-- The `--cancel-grace-period` and `--signal-grace-period-seconds` flags and configuration options (the `BUILDKITE_CANCEL_GRACE_PERIOD` and `BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS` environment variables) have been replaced with `--cancel-signal-timeout` and `--cancel-cleanup-timeout` (the `BUILDKITE_CANCEL_SIGNAL_TIMEOUT` and `BUILDKITE_CANCEL_CLEANUP_TIMEOUT` environment variables). The timeouts have increased slightly to a ten-second signal timeout and a five-second cleanup timeout. Both flags now accept non-negative durations. The maximum grace period after job cancellation is the sum of the two timeouts. Negative signal grace periods are no longer supported.
+- The `--cancel-grace-period` and `--signal-grace-period-seconds` flags and configuration options (the `BUILDKITE_CANCEL_GRACE_PERIOD` and `BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS` environment variables) have been replaced with `--cancel-signal-timeout` and `--cancel-cleanup-timeout` (the `BUILDKITE_CANCEL_SIGNAL_TIMEOUT` and `BUILDKITE_CANCEL_CLEANUP_TIMEOUT` environment variables). The timeouts have increased slightly to a ten-second signal timeout and a five-second cleanup timeout. The signal timeout is how long a canceled job's process has to handle the cancel signal before it is forcefully killed. The cleanup timeout only applies while the agent itself is stopping—it's extra time to upload logs and artifacts before the agent forcefully exits.
 
 ### Changes to job logs
 
@@ -20,7 +20,8 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
 ### Changes to checkout
 
 - After repository checkout, the agent resolves `BUILDKITE_COMMIT` to a commit hash. This change is useful when the initial value is a refspec such as `HEAD`.
-- The OpenSSH option `StrictHostKeyChecking=accept-new` has replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. The default checkout process now requires OpenSSH version 7.6 or later unless you enable `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN`. OpenSSH 7.6 was released in 2017.
+- OpenSSH options have replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. When the agent detects OpenSSH 7.6 or later, it sets `StrictHostKeyChecking=accept-new`. For detected earlier versions, it falls back to `StrictHostKeyChecking=no` and `UserKnownHostsFile=/dev/null`. If the agent can't determine the OpenSSH version, it assumes `accept-new` is supported. Enabling `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN` sets `StrictHostKeyChecking=yes` and relies on existing host-key configuration.
+- [Git commit verification](/docs/pipelines/configure/git-checkout#commit-verification) now defaults to `strict`. The agent fails a job when it determines that the requested commit is not on the specified branch. To disable verification, set the `git-commit-verification` agent configuration option or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable to `off`. Before upgrading, replace any v3 `warn` value with `strict` or `off`. Replace any empty value used to disable verification with `off`. In v4, an empty agent configuration value prevents the agent from starting. An empty value supplied by `checkout.commit_verification` causes job bootstrap to fail when the agent runs with `checkout-override-mode` set to `none`.
 
 ### Changes to agent parallelism
 
@@ -38,12 +39,13 @@ Most agent setups need no changes for v4. Read the following breaking changes ca
     * `--tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed. Only OpenTelemetry is supported.
     * `--tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed. Its function, accepting a trace parent from the Buildkite platform, is now always enabled.
     * Configure the OpenTelemetry OTLP endpoint and protocol with the [standard `OTEL_EXPORTER_OTLP_*` environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
-- OpenTelemetry now uses a single `jobs.finished` metric instead of the `jobs.success` and `jobs.failed` counters. Use the `exit_status` tag on the metric to determine whether the job succeeded or failed.
+- OpenTelemetry now uses a single `jobs.finished` metric instead of the `jobs.success` and `jobs.failed` counters, and a single `jobs.duration` metric instead of `jobs.duration.success` and `jobs.duration.error`. Use the `exit_code` attribute on both replacement metrics to determine whether the job succeeded or failed.
 - The `buildkite_agent_jobs_started_total` and `buildkite_agent_jobs_ended_total` Prometheus metrics now have `priority` and `queue` labels. These metrics replace `buildkite_agent_jobs_started_with_labels_total` and `buildkite_agent_jobs_ended_with_labels_total`.
 
 ### Changes to pipeline uploads
 
 - By default, the agent now immediately fails a `pipeline upload` command when it detects secrets. To allow secrets in pipeline uploads, pass the `--allow-secrets` flag or set the `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` environment variable. The agent no longer supports the `--reject-secrets` flag or the `BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS` environment variable.
+- Secret detection during `pipeline upload` now also scans the `env` map nested inside a [trigger step](/docs/pipelines/configure/step-types/trigger-step)'s `build` attribute. Previously, only top-level and step-level `env` maps were scanned, so secret values interpolated into a trigger step's `build.env` could be uploaded undetected.
 
 ### Changes to artifacts
 

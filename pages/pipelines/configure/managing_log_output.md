@@ -22,6 +22,19 @@ Use `~~~` to create groups that by default are collapsed and visually de-emphasi
 echo "~~~ An unimportant section of the build"
 ```
 
+> 📘 Availability
+> The controls in this section are available to organizations where de-emphasized job log groups are enabled in the new build experience.
+
+In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Show system groups** in the log toolbar to reveal all folded groups. The **Show system groups** tooltip shows how many groups are currently hidden. The button changes to **Hide system groups**, which folds them again.
+
+Select **Configure view** > **Show all system groups** to keep all de-emphasized groups visible. Your choice is remembered for future visits to the build page. The **Configure view** menu also lets you change the log's theme and toggle timestamps.
+
+The default group that reports your build's running script, commands, or command hooks (for example, **Running commands**) always stays visible. A de-emphasized group that's explicitly expanded using `^^^ +++` also stays visible. See [Advanced grouping techniques](#grouping-log-output-advanced-grouping-techniques) for details. While a job is running, its active group stays visible. The group is folded when the job finishes.
+
+If you open a link to a specific log line inside a folded group, that group is shown automatically. Other folded groups remain folded. Search results and groups revealed using expander rows are also shown temporarily. These actions don't change your saved **Show all system groups** preference.
+
+The **Expand groups** and **Collapse groups** buttons act on visible groups without revealing folded groups. Use them to open or close all visible groups at once.
+
 ### Expanded groups
 
 Use `+++` to create groups that are open by default:
@@ -45,14 +58,18 @@ This section covers build log output grouping methods that go beyond formatting,
 
 If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
 
+To also update the previous group's title, add the new title after `^^^ +++`:
+
 ```bash
 echo "--- Bundling"
 bundle
 if [[ $? -ne 0 ]]; then
-  echo "^^^ +++"
+  echo "^^^ +++ Bundling failed"
   echo "Bundler failed, oh no!!"
 fi
 ```
+
+If the group you open with `^^^ +++` is a [de-emphasized](#grouping-log-output-de-emphasized-groups) (`~~~`) group, it stays visible on the build page even when de-emphasized groups are hidden by default.
 
 #### Creating section boundaries
 
@@ -96,11 +113,15 @@ steps:
 
 The `echo` line inside the `if` block uses the literal 🚀 Unicode character directly. Writing `\:rocket\:` there would print as plain text rather than an emoji.
 
-## ANSI timestamps and disabling them
+## Searching log output
 
-By default, each line of log output begins with an ANSI timestamp.
+On the Buildkite Pipelines build page, select **Search logs** above the build log. Enter a search term. Select **Previous** or **Next** to move between matches. Select **Match case sensitivity** (**Aa**) to require an exact-case match.
 
-If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), you can prevent them for generating ANSI timestamps at the start of each line of log output, by starting these agents with the [`--no-ansi-timestamps` option](/docs/agent/cli/reference/start#no-ansi-timestamps).
+Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
+
+## ANSI timestamps
+
+Each line of log output begins with an ANSI timestamp. Agent v3 provided options to disable ANSI timestamps or replace them with plain-text timestamps.
 
 ## Log output limits
 
@@ -187,7 +208,7 @@ Logs are AES-encrypted, and the build artifacts are encrypted in transit and at 
 
 If you choose to [host your build artifacts](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
-If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
+If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 job log archive location and store the job logs in your private bucket. See [Job log archiving](/docs/pipelines/governance/job-log-archiving).
 
 To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API access tokens that can access your organization's data using the REST and GraphQL API.
 
@@ -218,78 +239,10 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SEC
 > 📘 Setting environment variables
 > Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
 
-## Private build log archive storage
+<a id="private-build-log-archive-storage"></a>
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
+## Job log archive storage
 
-> 📘 Enterprise plan feature
-> This feature is only available to customers on the [Enterprise](https://buildkite.com/pricing) plan and is applied at the Buildkite organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
+By default, job logs are stored in encrypted form in Buildkite-managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
 
-The folder structure and file format are as follows and are not customizable:
-
-```text
-{ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
-```
-
-To set up a private build log archive storage:
-
-1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
-2. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`.
-
-    Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
-
-    ```json
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:PutObject",
-                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
-                "Condition": {
-                    "StringEquals": {
-                        "s3:x-amz-acl": "bucket-owner-full-control"
-                    }
-                }
-            },
-            {
-                "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:GetObject",
-                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-            },
-            {
-                "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:DeleteObject",
-                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-            },
-            {
-                "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
-                "Effect": "Allow",
-                "Principal": {
-                    "AWS": "arn\:aws\:iam::032379705303:root"
-                },
-                "Action": "s3:ListBucket",
-                "Resource": "arn\:aws\:s3:::my-bucket",
-                "Condition": {
-                    "StringLike": {
-                        "s3:prefix": "my-prefix/*"
-                    }
-                }
-            }
-        ]
-    }
-    ```
-
-3. Reach out to [support@buildkite.com](mailto:support@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.
+For setup instructions, including bucket requirements and the required bucket policy, see [Job log archiving](/docs/pipelines/governance/job-log-archiving).

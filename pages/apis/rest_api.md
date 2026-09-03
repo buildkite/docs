@@ -69,8 +69,8 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/pipeline-settings` | [Get pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#get-pipeline-settings)
 PATCH | `/v2/organizations/{org.slug}/pipeline-settings` | [Update pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#update-pipeline-settings)
-PUT | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Enable hosted agents terminal access](/docs/apis/rest-api/organizations/pipeline-settings#enable-hosted-agents-terminal-access)
-DELETE | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Disable hosted agents terminal access](/docs/apis/rest-api/organizations/pipeline-settings#disable-hosted-agents-terminal-access)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Enable hosted agents remote access](/docs/apis/rest-api/organizations/pipeline-settings#enable-hosted-agents-remote-access)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Disable hosted agents remote access](/docs/apis/rest-api/organizations/pipeline-settings#disable-hosted-agents-remote-access)
 PUT | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Enable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#enable-public-pipeline-creation)
 DELETE | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Disable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#disable-public-pipeline-creation)
 PUT | `/v2/organizations/{org.slug}/pipeline-settings/advanced-queue-metrics` | [Enable advanced queue metrics](/docs/apis/rest-api/organizations/pipeline-settings#enable-advanced-queue-metrics)
@@ -113,6 +113,26 @@ POST | `/v2/organizations/{org.slug}/pipelines/{slug}/unarchive` | [Unarchive a 
 POST | `/v2/organizations/{org.slug}/pipelines/{slug}/webhook` | [Add a webhook](/docs/apis/rest-api/pipelines#add-a-webhook)
 {: class="responsive-table"}
 
+### Pipeline triggers
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers` | [List pipeline triggers](/docs/apis/rest-api/pipeline-triggers#list-pipeline-triggers)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Get a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#get-a-pipeline-trigger)
+POST | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers` | [Create a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger)
+PATCH | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Update a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger)
+DELETE | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Delete a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#delete-a-pipeline-trigger)
+{: class="responsive-table"}
+
+### Pipeline trigger deliveries
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries` | [List a trigger's deliveries](/docs/apis/rest-api/pipeline-trigger-deliveries#list-a-triggers-deliveries)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries/{delivery.id}` | [Get a delivery](/docs/apis/rest-api/pipeline-trigger-deliveries#get-a-delivery)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries/{delivery.id}/request` | [Get a delivery's request](/docs/apis/rest-api/pipeline-trigger-deliveries#get-a-deliverys-request)
+{: class="responsive-table"}
+
 ### Builds
 
 Method | Endpoint | Description
@@ -130,6 +150,8 @@ PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/re
 
 Method | Endpoint | Description
 ------ | -------- | -----------
+POST | `/v2/organizations/{org.slug}/jobs/{job.id}/vnc-session` | [Create a remote desktop session](/docs/apis/rest-api/jobs#create-a-remote-desktop-session)
+POST | `/v2/organizations/{org.slug}/jobs/{job.id}/ssh-session` | [Create an SSH session](/docs/apis/rest-api/jobs#create-an-ssh-session)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/retry` | [Retry a job](/docs/apis/rest-api/jobs#retry-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/reprioritize` | [Reprioritize a job](/docs/apis/rest-api/jobs#reprioritize-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/unblock` | [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job)
@@ -468,6 +490,46 @@ API responses include the following [CORS headers](https://developer.mozilla.org
 * `Access-Control-Expose-Headers: Link`
 
 For an example of this in use, see the [Emojis API example on CodePen](https://codepen.io/dannymidnight/pen/jOpJpmY) for adding emoji support to your own browser-based dashboards and build screens.
+
+## OpenAPI specification
+
+The Buildkite Test Engine REST API publishes a machine-readable [OpenAPI](https://www.openapis.org/) specification describing the `/v2/analytics` endpoints intended for general consumption.
+
+Discover the specification using the [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727.html) API catalog endpoint:
+
+```bash
+curl "https://api.buildkite.com/.well-known/api-catalog"
+```
+
+```json
+{
+  "linkset": [
+    {
+      "anchor": "https://api.buildkite.com/v2/analytics",
+      "service-desc": [
+        {
+          "href": "https://api.buildkite.com/v2/analytics/openapi.yaml",
+          "type": "application/openapi+yaml"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://buildkite.com/docs/apis/rest-api",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}
+```
+
+You can also fetch the specification directly:
+
+```bash
+curl "https://api.buildkite.com/v2/analytics/openapi.yaml"
+```
+
+Both endpoints are unauthenticated.
 
 ## Migrating from v1 to v2
 

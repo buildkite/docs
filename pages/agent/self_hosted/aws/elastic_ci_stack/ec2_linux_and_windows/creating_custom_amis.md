@@ -507,7 +507,7 @@ By default, all builds target the `us-east-1` region and use your default AWS pr
       {
         "variable": "AMI_PUBLIC",
         "default": "false",
-        "description": "Set to <code>true</code> to make the built AMIs available to all AWS accounts. Keep AMIs private to avoid exposing baked-in secrets"
+        "description": "Set to <code>true</code> to make the built AMIs available to all AWS accounts. Keep AMIs private to avoid exposing baked-in secrets."
       },
       {
         "variable": "AMI_USERS",
@@ -560,7 +560,7 @@ BASE_AMI_ID=ami-0123456789abcdef0 \
   make packer-linux-amd64.output
 ```
 
-The Linux stack template expects the source AMI to use the `ec2-user` SSH user and to include the packages and services installed by the [Linux base layer](#linux-base-ami). Standard Ubuntu AMIs use the `ubuntu` SSH user and do not provide all of those dependencies. To use an Ubuntu base AMI, change `ssh_username` in `packer/linux/stack/buildkite-ami.pkr.hcl` from `ec2-user` to `ubuntu`, then add provisioning for the required base-layer dependencies before applying the stack layer.
+The Linux stack template expects the source AMI to use the `ec2-user` SSH user and to include the packages and services installed by the [Linux base layer](#how-the-amis-are-layered-linux-base-ami). Standard Ubuntu AMIs use the `ubuntu` SSH user and do not provide all of those dependencies. To use an Ubuntu base AMI, change `ssh_username` in `packer/linux/stack/buildkite-ami.pkr.hcl` from `ec2-user` to `ubuntu`, then add provisioning for the required base-layer dependencies before applying the stack layer.
 
 Build private AMIs and share them with specific AWS accounts:
 

@@ -98,7 +98,7 @@ Depending on your build requirements, you may want to include:
 You can use `buildkite/agent` as a base image for custom images that need agent tooling pre-installed:
 
 ```dockerfile
-FROM buildkite/agent:3
+FROM buildkite/agent:4
 
 # Install additional dependencies
 RUN apk add --no-cache nodejs npm

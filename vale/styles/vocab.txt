@@ -105,6 +105,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codebase's
 codeql
 codesign
 codesigning
@@ -172,6 +173,7 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extglobs
 fastfile
 fastlane
 fastlane's
@@ -191,6 +193,7 @@ gh
 gif
 githooks
 GitLab
+glibc
 globbing
 gmp
 gnupg
@@ -306,6 +309,7 @@ Nodejs
 NUnit
 nodeName
 nodeSelector
+nonblank
 Noreply
 noreply
 not_run
@@ -322,6 +326,7 @@ oldstable
 onboarding
 Okta
 OpenTelemetry
+Origin
 OTel
 opentelemetry
 onboarding
@@ -358,6 +363,7 @@ PR's
 predeclare
 predeclared
 Prepends
+printf
 Prometheus
 promised_exit_status
 protobuf
@@ -368,6 +374,7 @@ preinstall
 prepended
 prepends
 preprovisioned
+preselecting
 proxied
 ptrace
 pty
@@ -408,6 +415,7 @@ ruleset
 runbook
 runbooks
 runtimes
+runtime's
 rustup
 rvm
 sandboxed
@@ -484,6 +492,7 @@ timeframe
 tmp
 tmux
 tokenization
+tokenless
 toleration
 tolerations
 toolchain
@@ -519,11 +528,16 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
 unstarted
 untrusted
+unversioned
 unxip
 uploaders
+uppercases
 upstreams
 url
 urls

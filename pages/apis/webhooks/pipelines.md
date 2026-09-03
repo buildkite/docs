@@ -29,6 +29,7 @@ To add a webhook for your pipeline event:
 1. Select the **Pipelines** that this webhook will trigger:
     * **All Pipelines**.
     * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
+    * **Exclude Pipelines...**, where you can select specific pipelines in your Buildkite organization to exclude, triggering the webhook for all other pipelines. This option is currently in private preview. For agent events, excluding a pipeline also excludes events from every agent in that pipeline's cluster. Events from agents not associated with a cluster are still delivered.
     * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
     * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
 
@@ -148,4 +149,4 @@ The following example repositories show how to receive a webhook event and trigg
 
 ## Request logs
 
-The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.
+The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.
