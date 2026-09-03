@@ -47,12 +47,12 @@ Each Windows job runs in an isolated virtual machine that Buildkite destroys, to
 
 Windows hosted agents don't currently support:
 
-- Custom base images.
-- [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
-- [Terminal access](/docs/agent/buildkite-hosted/terminal-access) using SSH.
-- [Desktop access](/docs/agent/buildkite-hosted/desktop-access) using VNC or Remote Desktop.
-- ARM64 architecture.
-- Windows Server 2025.
-- Selecting a Windows shell in the queue settings.
-- Selecting or managing the Buildkite agent version.
-- Windows jobs through the [GitHub Actions compatibility feature](/docs/pipelines/migration/run-github-actions-workflows).
+- Custom base images
+- [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes)
+- [Terminal access](/docs/agent/buildkite-hosted/terminal-access) using SSH
+- [Desktop access](/docs/agent/buildkite-hosted/desktop-access) using VNC or Remote Desktop
+- ARM64 architecture
+- Windows Server 2025
+- Selecting a Windows shell in the queue settings
+- Selecting or managing the Buildkite agent version
+- Windows jobs through the [GitHub Actions compatibility feature](/docs/pipelines/migration/run-github-actions-workflows)
