@@ -30,6 +30,36 @@ Documentation is NOT needed when:
 If no documentation is needed, output a clear explanation of why and stop.
 Do not create any files or make any changes.
 
+The upstream PR description may include a **Documentation and publication** section.
+Read its checked answers and publication notes before making the triage decision:
+
+For **Does this change need public documentation?**:
+
+- **No**: Normally do not create documentation. If the diff clearly contradicts the
+  answer, create a draft and leave the discrepancy for human review.
+- **Yes**: Treat this as a strong signal to create or update documentation.
+- **Unsure**: Use the PR diff and context to decide whether a draft is useful.
+
+For **Is this change safe to document publicly when this PR merges?**:
+
+- **Yes**: Draft the documentation normally.
+- **No, the documentation must be held**: Still create a useful documentation draft
+  while the implementation context is current. The resulting draft PR must wait for
+  human approval before publication. Do not add internal launch timing or warnings to
+  the documentation itself unless readers need that information after publication.
+- **It can be documented as a limited-availability or preview feature**: Include
+  availability language supported by the publication notes. Do not invent access
+  instructions, release stages, or availability details.
+- **Not applicable (docs not needed)**: Normally do not create documentation. If the
+  diff clearly contradicts the answer, create a draft for human review.
+
+For incomplete, missing, or conflicting answers, use the PR diff and context to decide
+whether a draft is useful. The resulting PR will remain a draft for human review.
+
+The engineer's answers determine publication readiness. Feature-flag detection is only
+an additional warning and does not override those answers. Creating documentation files
+is not approval to publish them.
+
 ### Step 2: Plan
 
 Start by reading the PR diff and description to understand what changed. Then, before
