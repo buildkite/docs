@@ -41,13 +41,14 @@ When a job would exceed the allocated concurrency, it remains queued until suffi
 
 ## Security
 
-<%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
+Each Windows job runs in an isolated virtual machine that Buildkite destroys, together with its data, after the job completes.
 
 ## Current limitations
 
 Windows hosted agents don't currently support:
 
 - Custom base images.
+- [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
 - [Terminal access](/docs/agent/buildkite-hosted/terminal-access) using SSH.
 - [Desktop access](/docs/agent/buildkite-hosted/desktop-access) using VNC or Remote Desktop.
 - ARM64 architecture.
