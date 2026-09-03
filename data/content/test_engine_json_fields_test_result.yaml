@@ -19,9 +19,10 @@ fields:
   type: string
   enumerated_values:
   desc: |
-      The file and line number where the test originates, separated by a colon (`:`)
+      The path where the test originates. Optionally include a line number after a colon (`:`). Path-only values are valid. Buildkite uses this top-level field for [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership) matching. A tag named `location` is not used for ownership. Each newer upload of the same test overwrites this field; omitting it clears any previous value.
   examples:
       - ./tests/Manager/isEnrolled.js:32
+      - common/cpp
 - name: file_name
   required: false
   type: string
@@ -59,12 +60,12 @@ fields:
   required: true
   type: history object
   desc: |
-      Read [History objects](/docs/test-analytics/importing-json#json-test-results-data-reference-history-objects)
+      Read [History objects](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-history-objects)
 
 - name: tags
   required: false
   type: Key-value hash
   desc: |
-      Read [Execution level custom tags](/docs/test-analytics/importing-json#json-test-results-data-reference-execution-level-custom-tags)
+      Read [Execution level custom tags](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-execution-level-custom-tags). Tags are not used for [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership); put ownership paths in the top-level `location` field instead.
   examples:
       - "{ \"team\": \"foobar\", \"feature\": \"frontend\" }"
