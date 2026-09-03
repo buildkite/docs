@@ -17,7 +17,7 @@ If the process does not exit within the [`cancel-signal-timeout`](/docs/agent/se
 
 When the agent itself is shutting down, it reserves an additional [`cancel-cleanup-timeout`](/docs/agent/self-hosted/configure#cancel-cleanup-timeout) (five seconds by default) after the job process exits or is killed to upload logs and artifacts before forcefully exiting. During normal operation, uploads after a cancellation are not time-limited.
 
-A canceled or timed-out job whose process exits with status `0` is reported with exit status `1` on all platforms. This mainly affects Windows, where signaled processes exit with status `0`. Agent v3 reported these jobs with exit status `0` unless the [`override-zero-exit-on-cancel` experiment](/docs/agent/self-hosted/configure/experiments#override-zero-exit-on-cancel) was enabled.
+A canceled or timed-out job whose process exits with status `0` is reported with exit status `1` on all platforms. This mainly affects Windows, where signaled processes exit with status `0`. Agent v3 reported these jobs with exit status `0` unless the [`override-zero-exit-on-cancel` experiment](/docs/agent/self-hosted/configure/experiments#promoted-experiments-override-zero-exit-on-cancel) was enabled.
 
 The agent also accepts the following two signals directly:
 

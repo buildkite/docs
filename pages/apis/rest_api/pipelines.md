@@ -1912,7 +1912,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     <tr>
       <th><code>build_pull_request_merge_commits</code></th>
       <td>Whether builds for pull requests target the latest test merge commit ref (<code>refs/pull/:pr_number/merge</code>) instead of the latest commit on the pull request branch. Requires <code>build_pull_requests</code> to be <code>true</code>. When enabling this, we recommend disabling <code>build_branches</code> so that commit statuses accurately reflect the state of the pull request.
-        <p><a href="/docs/pipelines/source-control/github#building-the-test-merge-commit">Building the test merge commit</a> is currently in private preview.</p>
+        <p><a href="/docs/pipelines/source-control/github#running-builds-on-pull-requests-building-the-test-merge-commit">Building the test merge commit</a> is currently in private preview.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -1963,7 +1963,7 @@ Additional properties available for GitHub:
     <tr>
       <th><code>github_workflow_access_tokens_enabled</code></th>
       <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
-        <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-and-tokens">credentials and tokens</a> for requirements and limitations.</p>
+        <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc">credentials, secrets, and OIDC</a> for requirements and limitations.</p>
         <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
@@ -1971,7 +1971,7 @@ Additional properties available for GitHub:
     <tr>
       <th><code>build_issues</code></th>
       <td>Whether to create builds for GitHub issue activity, such as an issue being opened, edited, labeled, or closed. This setting is not supported for GitHub Enterprise Server pipelines.
-        <p>Only available for GitHub.com pipelines that use the full-access <strong>GitHub</strong> App. Builds run the repository's default branch at the exact commit resolved when Buildkite Pipelines processes the webhook delivery. Public issue authors can trigger these builds without a trusted-author check. See <a href="/docs/pipelines/source-control/github#running-builds-on-issue-activity">running builds on issue activity</a> for details.</p>
+        <p>Only available for GitHub.com pipelines that use the full-access <strong>GitHub</strong> App. Builds run the repository's default branch at the exact commit resolved when Buildkite Pipelines processes the webhook delivery. Public issue authors can trigger these builds without a trusted-author check. See <a href="/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity">running builds on issue activity</a> for details.</p>
         <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>

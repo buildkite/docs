@@ -478,7 +478,7 @@ These are configured in the Buildkite UI under Pipeline Settings, not in the YAM
 
 For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
 
-For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-issue-activity).
+For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity).
 
 For triggers not natively supported by Buildkite Pipelines, such as `workflow_run` and `discussion`, you can:
 
