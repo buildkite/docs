@@ -93,7 +93,7 @@ chown -R claude-user:claude-user /workdir
 echo "--- :github: Fetch PR context"
 PR_JSON=$(gh pr view "${UPSTREAM_PR_NUMBER}" \
   --repo "${UPSTREAM_REPO}" \
-  --json title,body,url,comments,reviews)
+  --json title,body,url,author,comments,reviews)
 
 PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
 
@@ -102,6 +102,8 @@ PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
 PR_TITLE_CLEAN=$(echo "${PR_TITLE}" | sed -E 's/\[?[A-Z]{1,5}-[0-9]+\]?[[:space:]:/-]*//' | sed 's/^[[:space:]]*//')
 PR_BODY=$(echo "${PR_JSON}" | jq -r '.body // "No description provided."')
 PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
+PR_AUTHOR=$(echo "${PR_JSON}" | jq -r '.author.login // empty')
+PR_AUTHOR_IS_BOT=$(echo "${PR_JSON}" | jq -r '.author.is_bot // false')
 PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
   [.comments[]? | "\(.author.login) wrote:\n\(.body)"] | join("\n\n---\n\n") // "No comments."')
 PR_REVIEWS=$(echo "${PR_JSON}" | jq -r '
@@ -293,6 +295,19 @@ else
     --title "[Docs Draft] ${PR_TITLE_CLEAN}" \
     --body "${PR_BODY_CONTENT}")
   echo "Created new PR: ${DOCS_PR_URL}"
+fi
+
+# Ask the upstream author to verify technical accuracy and publication readiness.
+# A missing author, a bot-authored PR, or a failed review request must not prevent
+# the docs draft from being created.
+if [ -n "${PR_AUTHOR}" ] && [ "${PR_AUTHOR_IS_BOT}" != "true" ]; then
+  echo "--- :eyes: Request review from upstream author @${PR_AUTHOR}"
+  gh pr edit "${DOCS_PR_URL}" \
+    --repo buildkite/docs-private \
+    --add-reviewer "${PR_AUTHOR}" \
+    || echo "Could not request review from @${PR_AUTHOR}; continuing"
+else
+  echo "Skipping upstream author review request"
 fi
 
 # --- Annotate build and comment on upstream PR ---
