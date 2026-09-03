@@ -6,8 +6,8 @@ Windows hosted agents are:
 
 - Configured as part of a _Buildkite hosted queue_, where the machine type is Windows, with a particular [size](#sizes) to efficiently manage jobs with varying requirements.
 
-> 📘 Contact Support for access
-> Windows hosted agents have no automatic or included allowance. Buildkite manually allocates Windows access and capacity to specific organizations. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
+> 📘 Private preview feature
+> Windows hosted agents are currently in private preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 Learn more about:
 
@@ -22,12 +22,6 @@ Learn more about:
 Windows hosted agents support the AMD64 architecture in four instance shapes:
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
-
-## Pricing
-
-Windows usage is billed at $0.008 per vCPU minute, twice the Linux AMD64 vCPU-minute rate. The effective per-minute cost of an instance is its vCPU count multiplied by this rate. See [Buildkite pricing](https://buildkite.com/pricing/) for details about hosted agent billing.
-
-Windows usage is not included with any Buildkite plan. Buildkite allocates Windows usage and concurrency to each entitled organization separately.
 
 ## Base image
 

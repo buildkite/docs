@@ -393,6 +393,7 @@
                   path: "agent/buildkite-hosted/macos/troubleshooting-fastlane"
             - name: "Windows hosted agents"
               path: "agent/buildkite-hosted/windows"
+              pill: "preview"
             - name: "Code access"
               path: "agent/buildkite-hosted/code-access"
             - name: "Pipeline migration"
