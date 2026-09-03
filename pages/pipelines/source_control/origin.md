@@ -36,6 +36,8 @@ Otherwise, install Buildkite:
 1. Select or create a Buildkite organization. Buildkite names the verified Origin account before you confirm the connection. Check that it matches the installation you started from.
 1. On the **New Pipeline** page, select a repository and create the pipeline.
 
+Buildkite returns you to the Origin organization selection after signing up with GitHub, linking an existing account, or completing two-factor authentication. Buildkite also preserves the Origin setup when the email sign-up process redirects you to your only single sign-on (SSO) organization.
+
 To confirm that Buildkite is active for a specific Origin-hosted repository, open the repository, then select **Settings** > **Apps**.
 
 <%= image "codebase-settings-apps.png", width: 1600/2, height: 652/2, alt: "Origin repository settings with Codebase and Apps highlighted" %>
@@ -77,6 +79,8 @@ To disconnect Origin from your Buildkite organization:
 1. In **Disconnect**, select **Disconnect**.
 
 Disconnecting the provider from Buildkite does not uninstall the app in Origin.
+
+If the app is uninstalled in Origin, Buildkite disconnects the provider. For organizations with access to the [**Audit Log**](/docs/platform/audit-log), this action is recorded there.
 
 ### Suspended installations
 
@@ -171,12 +175,10 @@ When **Update commit statuses** is enabled, Buildkite Pipelines publishes a chec
 The check shows information relevant to the build state:
 
 - Scheduled and running builds link to the build in Buildkite.
-- Passed builds show the job count and run time.
-- Failing and failed builds show failed jobs, exit results, job count, and run time.
+- Passed and failed builds show the run time.
+- Failing builds indicate that some jobs have started failing.
 - Canceled builds show the cancellation reason, when known.
 - Blocked builds link to Buildkite so you can unblock them.
-
-Checks show up to 50 failed jobs, listing hard failures before soft failures. Checks with more than 50 failed jobs link to the full list in Buildkite.
 
 ### Configure required checks
 
