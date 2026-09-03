@@ -20,13 +20,12 @@ This error is indicative of a mismatch in team assignments and highlights the im
 
 ## Invalid notification configuration
 
-If a scheduled build's `notify` configuration is invalid, Buildkite Pipelines disables the schedule and stores the validation error, rather than silently skipping the build. For example, an unqualified Slack channel or user ID is ambiguous when your organization has more than one [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration enabled, and fails validation with an error like the following:
+If a scheduled build's build-level `notify` configuration is invalid, Buildkite Pipelines disables the schedule and stores the validation error, rather than silently skipping the build. For example, an unqualified Slack channel, conversation, or user ID is ambiguous when your organization has more than one [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration enabled. This configuration fails with an error like the following:
 
-**Error:**
+> 🚧 Validation error
+> The `slack` notification is invalid: Channel `U12345678` must specify a team (for example, `team-name#channel`) when multiple Slack workspaces are configured
 
-**The `slack` notification is invalid: Channel `U12345678` must specify a team (e.g., `team-name#channel`) when multiple Slack workspaces are configured**
-
-To resolve this, qualify the Slack channel or user ID with the workspace name. See [Notify a channel in one workspace](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-a-channel-in-one-workspace) for the correct syntax.
+To resolve this error, replace the ID with a qualified workspace slug and channel name, for example, `buildkite-community#general`. See [Notify a channel in one workspace](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-a-channel-in-one-workspace) for the correct syntax.
 
 The disabled schedule's failure notification email contains the same error message. After correcting the `notify` configuration, re-enable the schedule to resume scheduled builds.
 
