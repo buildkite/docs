@@ -34,7 +34,9 @@ To create a pipeline using detected GitHub Actions workflows:
 1. Review the generated plugin step in the **YAML Steps editor**.
 1. Select **Create and run**.
 
-Opening the panel doesn't change the pipeline configuration until you select a workflow. Only workflows with supported triggers can be selected. Other workflows appear as **Not supported**. Selecting all workflows adds each workflow path explicitly.
+Opening the panel doesn't change the pipeline configuration until you select a workflow. A workflow is selectable when at least one of its declared triggers can start a Buildkite build. `push`, `pull_request`, `workflow_dispatch`, `schedule`, `merge_group`, and a `release` trigger with a supported activity type always qualify. A trigger that can't start a build, such as `workflow_call` on its own, is struck through in the workflow's trigger list, with a tooltip explaining why. A workflow whose triggers are all like this shows a **Not directly runnable** badge and can't be selected. A workflow that mixes build-starting and other triggers stays selectable and shows a **Partially supported** badge. Selecting all workflows adds each selectable workflow path explicitly.
+
+Selecting a workflow that declares `merge_group` or a supported `release` activity type also turns on the matching GitHub webhook setting for the pipeline, such as **Build merge queues**, so builds can start without further configuration. This applies whether you're creating a new pipeline or adding workflows to an existing one. A `release` trigger must declare a non-empty `types` list containing only `created`, `published`, or `released`, with no branch, tag, or path filters. A workflow with any other `release` declaration remains unavailable, because `buildkite-gha` can't compile it.
 
 For organizations in the private preview for [issue activity builds](/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity), workflows that declare the `issues` event are also selectable. Selecting one while creating a pipeline enables **Build on GitHub issue activity** for the new pipeline.
 
