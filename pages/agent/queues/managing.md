@@ -132,9 +132,12 @@ where:
 
 ## Create a Buildkite hosted queue
 
-Buildkite hosted queues use [Buildkite's hosted agent infrastructure](/docs/agent/buildkite-hosted) to run your pipeline builds. New Buildkite hosted queues can be created by a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [Buildkite interface](#create-a-buildkite-hosted-queue-using-the-buildkite-interface), as well as Buildkite's [REST API](#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-buildkite-hosted-queue-using-the-graphql-api).
+Buildkite hosted queues use [Buildkite hosted agent infrastructure](/docs/agent/buildkite-hosted) to run your pipeline builds. New Buildkite hosted queues can be created by a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [Buildkite interface](#create-a-buildkite-hosted-queue-using-the-buildkite-interface), as well as the [REST API](#create-a-buildkite-hosted-queue-using-the-rest-api) or [GraphQL API](#create-a-buildkite-hosted-queue-using-the-graphql-api).
 
-When you create a Buildkite hosted queue, you can choose the machine type (Linux or macOS) and the capacity (small, medium, large, or extra large), known as the _instance shape_, of the Buildkite hosted agents that will run your builds.
+When you create a Buildkite hosted queue, you can choose the machine type (Linux, macOS, or [Windows](/docs/agent/buildkite-hosted/windows)) and the capacity (small, medium, large, or extra large), known as the _instance shape_, of the Buildkite hosted agents that will run your builds.
+
+> 📘 Windows availability
+> Windows has no automatic or included allowance. If Buildkite hasn't allocated Windows access and capacity to your organization, selecting **Windows** causes a message to appear directing you to contact [Buildkite Support](mailto:support@buildkite.com).
 
 Only one instance shape can be configured on a Buildkite hosted queue. However, depending on your pipeline's requirements, multiple Buildkite hosted agents of the queue's configured instance shape can be spawned automatically by Buildkite.
 
@@ -148,9 +151,9 @@ To create a new Buildkite hosted queue using the Buildkite interface:
 1. In the **Create a key** field, enter a unique _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
 1. Select the **Add description** checkbox to enter an optional longer description for the queue. This description appears under the queue's key, which is listed on the **Queues** page, as well as when viewing the queue's details.
 1. In the **Select your agent infrastructure** section, select **Hosted** for your agent infrastructure.
-1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/agent/buildkite-hosted/linux) or [**macOS**](/docs/agent/buildkite-hosted/macos)).
-1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**.
-1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium** or **Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
+1. In the new **Configure your hosted agent infrastructure** section, select your **Machine type** ([**Linux**](/docs/agent/buildkite-hosted/linux), [**macOS**](/docs/agent/buildkite-hosted/macos), or [**Windows**](/docs/agent/buildkite-hosted/windows)).
+1. If you selected **Linux**, within **Architecture**, you can choose between **AMD64** (the default and recommended) or **ARM64** architectures for the Linux machines running as hosted agents. To switch to **ARM64**, select **Change**, followed by **ARM64 (AArch64)**. Windows hosted agents only support the **AMD64** architecture.
+1. Select the appropriate **Capacity** for your hosted agent machine type (**Small**, **Medium**, **Large**, or **Extra Large**). Take note of the additional information provided in the new **Hosted agents trial** section, which changes based on your selected **Capacity**.
 1. Select **Create Queue**.
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
@@ -182,7 +185,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` parameter) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos)based Buildkite hosted agent. For example:
+- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` parameter) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux), [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos), or [Windows-](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows)based Buildkite hosted agent. For example:
 <!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only), by passing its URL as the value to its `agentImageRef` parameter.
 -->
 
@@ -191,6 +194,8 @@ where:
       "instanceShape": "LINUX_AMD64_2X4"
     }
     ```
+
+    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows access and capacity must be allocated to your organization before the request can succeed.
 
 <!--
     or for an example using a custom agent image:
@@ -257,7 +262,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` field) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. For example:
+- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` field) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux), [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos), or [Windows-](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows)based Buildkite hosted agent. For example:
 <!-- You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only) by passing its URL as the value to its `agentImageRef` field nested within `linux`, then `platformSettings` objects.
 -->
 
@@ -266,6 +271,8 @@ where:
       instanceShape: LINUX_AMD64_2X4
     }
     ```
+
+    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows access and capacity must be allocated to your organization before the mutation can succeed.
 
 <!--
     or for an example using a custom agent image:
@@ -293,6 +300,23 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 Specify the appropriate **Instance shape** for the `instanceShape` value in your API call.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
+
+### Instance shape values for Windows
+
+Specify the appropriate **Instance shape** for the `instanceShape` value in your API call. Windows access and capacity must be allocated to your organization before you can use these values.
+
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
+
+### Resize a Buildkite hosted queue
+
+To resize a Buildkite hosted queue using the Buildkite interface:
+
+1. Select **Agents** in the global navigation, then select the cluster containing the queue.
+1. On the **Queues** page, select the queue to resize.
+1. On the queue's **Settings** page, select a new **Capacity**.
+1. Select **Save Queue**.
+
+You can also resize a queue using the REST API [update a queue](/docs/apis/rest-api/clusters/queues#update-a-queue) endpoint or the GraphQL API [`clusterQueueUpdate`](/docs/apis/graphql/cookbooks/hosted-agents#change-the-instance-shape-of-a-buildkite-hosted-queues-agents) mutation. Set `instanceShape` to another size for the queue's current machine type and architecture. You can't change the machine type or architecture of an existing queue.
 
 ## Pause and resume a queue
 

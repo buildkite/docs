@@ -45,6 +45,8 @@ The hosted queue's ephemeral agent begins its lifecycle with the initiation of a
 
 - For [macOS hosted agents](/docs/agent/buildkite-hosted/macos), this environment is a virtual machine, based on the macOS and Xcode version configured in your queue settings, running on dedicated Mac hardware.
 
+- For [Windows hosted agents](/docs/agent/buildkite-hosted/windows), this environment is a Windows Server 2022 virtual machine running on AMD64 hardware.
+
 As part of this initiation process, any configured [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete (appearing as job wait time), and varies depending on the size and recency of the cache volumes and the base image being used.
 
 Once started, the Buildkite agent running in the virtualized environment acquires the job and proceeds to run the job through to its completion. Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
@@ -63,13 +65,13 @@ The ephemeral nature of Buildkite hosted agents' virtualized environments also o
 
 ## Getting started with Buildkite hosted agents
 
-Buildkite offers both [Linux](/docs/agent/buildkite-hosted/linux) and [macOS](/docs/agent/buildkite-hosted/macos) hosted agents, whose respective pages explain how to start setting them up.
+Buildkite offers [Linux](/docs/agent/buildkite-hosted/linux), [macOS](/docs/agent/buildkite-hosted/macos), and [Windows](/docs/agent/buildkite-hosted/windows) hosted agents. Their respective pages explain how to start setting them up.
 
 Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/agent/buildkite-hosted/code-access).
 
 If you need to migrate your existing Buildkite pipelines from using Buildkite agents in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration) for details.
 
-When a Buildkite hosted agent machine is running during a pipeline build, you can use [terminal access](/docs/agent/buildkite-hosted/terminal-access) to open an interactive shell. Running macOS hosted jobs also support browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access).
+When a Linux or macOS hosted agent machine is running during a pipeline build, you can use [terminal access](/docs/agent/buildkite-hosted/terminal-access) to open an interactive shell. Running macOS hosted jobs also support browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access). Windows hosted agents don't support terminal or desktop access.
 
 Last, learn more about how to secure your network when using Buildkite hosted agents in [Network security](/docs/agent/buildkite-hosted/network-security).
 

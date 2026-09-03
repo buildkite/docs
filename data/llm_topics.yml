@@ -249,7 +249,7 @@ self-hosted-agents:
 
 hosted-agents:
   name: "Buildkite Hosted Agent Documentation"
-  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, terminal access, and desktop access."
+  description: "Buildkite documentation for Buildkite hosted agents, covering Linux, macOS, and Windows instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, terminal access, and desktop access."
   paths:
     - "agent/buildkite-hosted"
   exact_paths:
