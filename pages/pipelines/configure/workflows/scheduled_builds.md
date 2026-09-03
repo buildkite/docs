@@ -25,7 +25,7 @@ If a scheduled build's build-level `notify` configuration is invalid, Buildkite 
 > 🚧 Validation error
 > The `slack` notification is invalid: Channel `U12345678` must specify a team (for example, `team-name#channel`) when multiple Slack workspaces are configured
 
-To resolve this error, replace the ID with a qualified workspace slug and channel name, for example, `buildkite-community#general`. See [Notify a channel in one workspace](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-a-channel-in-one-workspace) for the correct syntax.
+To resolve this error while preserving the notification destination, prefix the ID with the workspace slug and `@`, for example, `buildkite-community@U12345678`. See [Notify a channel in one workspace](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-a-channel-in-one-workspace) for the correct syntax.
 
 The disabled schedule's failure notification email contains the same error message. After correcting the `notify` configuration, re-enable the schedule to resume scheduled builds.
 
