@@ -6,7 +6,7 @@ Test ownership can be assigned to [teams](/docs/platform/team-management/permiss
 
 ## How ownership is assigned
 
-`TESTOWNERS` patterns match against each test's `location`—the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
+`TESTOWNERS` patterns match against each test's `location` — the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
 
 For ownership (and the **My teams** view) to work:
 
