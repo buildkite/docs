@@ -11,7 +11,7 @@ The details page for a queue shows current agent capacity, job demand, and dispa
 
 ### Agents panel
 
-**Connected** is the number of agents currently connected to the queue. This total excludes agents that are stopping. The panel breaks connected agents down as follows:
+**Connected** is the number of agents currently connected to the queue. This total excludes agents that are stopping. The panel shows the following agent counts:
 
 - **In use**: Agents currently assigned to a job.
 - **Idle**: Connected agents with no assigned job.
@@ -41,8 +41,6 @@ Select the magnifying glass next to **In progress**, **Starting up**, **Waiting 
 
 The sample lists each job's state, the time since its relevant state transition, priority, assigned agent, and agent query rules. It also links to the job, pipeline, build, and agent when applicable.
 
-<%= image "queue-active-jobs.png", alt: "Active jobs sampled for a queue, with state filters and the Open in GraphQL Explorer action" %>
-
 Samples are limited as follows:
 
 - **Scheduled (needs agent)**: The first 25 jobs in dispatch order.
@@ -56,7 +54,7 @@ Select **Open in GraphQL Explorer** to continue the investigation with a query f
 **Agent and Job Activity** shows the last two hours for the following metrics:
 
 - **Connected agents**: Agents connected to the queue.
-- **Jobs on agents**: Jobs running or in the dispatch handoff to an agent.
+- **Jobs on agents**: Jobs in progress.
 - **Queued jobs**: Jobs scheduled or in the dispatch handoff to an agent.
 
 Use this queue-level activity chart to identify patterns in how fleet capacity responds to job demand and evaluate the efficiency of your [scaling rules](/docs/pipelines/tutorials/parallel-builds#auto-scaling-your-build-agents). Each data point represents a snapshot at the end of a minute.
