@@ -105,17 +105,17 @@ PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
 PR_AUTHOR=$(echo "${PR_JSON}" | jq -r '.author.login // empty')
 PR_AUTHOR_IS_BOT=$(echo "${PR_JSON}" | jq -r '.author.is_bot // false')
 
-# Copy the engineer's documentation and publication answers into the generated
-# docs PR so reviewers can see them without returning to the upstream PR.
-PUBLICATION_READINESS=$(printf '%s\n' "${PR_BODY}" | awk '
-  /^###[[:space:]]+Documentation and publication[[:space:]]*$/ { found = 3; next }
-  /^##[[:space:]]+Documentation and publication[[:space:]]*$/ { found = 2; next }
-  found == 3 && /^###[[:space:]]+/ { exit }
+# Copy the engineer's public documentation selection into the generated docs
+# PR so reviewers can see it without returning to the upstream PR.
+PUBLIC_DOCUMENTATION=$(printf '%s\n' "${PR_BODY}" | awk '
+  /^###[[:space:]]+Public documentation[[:space:]]*$/ { found = 3; next }
+  /^##[[:space:]]+Public documentation[[:space:]]*$/ { found = 2; next }
+  found == 3 && /^##[#]?[[:space:]]+/ { exit }
   found == 2 && /^##[[:space:]]+/ { exit }
   found { print }
 ')
-if [ -z "${PUBLICATION_READINESS//[[:space:]]/}" ]; then
-  PUBLICATION_READINESS="The upstream PR did not provide publication-readiness information. Confirm with the upstream author that the documentation is safe to publish."
+if [ -z "${PUBLIC_DOCUMENTATION//[[:space:]]/}" ]; then
+  PUBLIC_DOCUMENTATION="The upstream PR did not provide public documentation instructions. Confirm with the upstream author whether the documentation is safe to publish."
 fi
 PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
   [.comments[]? | "\(.author.login) wrote:\n\(.body)"] | join("\n\n---\n\n") // "No comments."')
@@ -289,19 +289,19 @@ EXISTING_PR=$(gh pr list \
   --json number \
   --jq '.[0].number // empty')
 
-# Build the PR body from the latest upstream publication answers.
+# Build the PR body from the latest upstream public documentation selection.
 FEATURE_FLAG_STATUS=$([ "${FEATURE_FLAG_DETECTED}" = "true" ] && echo "Yes — review whether docs should note limited availability" || echo "No")
 PR_BODY_CONTENT=$(echo "${DRAFT_PR_BODY_TEMPLATE}" | sed \
   -e "s|\${PR_URL}|${PR_URL}|g" \
   -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g" \
   -e "s|\${FEATURE_FLAG_STATUS}|${FEATURE_FLAG_STATUS}|g" \
   -e "s|\${BUILD_URL}|${BUILDKITE_BUILD_URL}|g")
-PUBLICATION_READINESS_FILE="/tmp/docs-draft-publication-readiness.md"
-printf '%s\n' "${PUBLICATION_READINESS}" > "${PUBLICATION_READINESS_FILE}"
-PR_BODY_CONTENT=$(printf '%s\n' "${PR_BODY_CONTENT}" | awk -v readiness_file="${PUBLICATION_READINESS_FILE}" '
-  $0 == "${PUBLICATION_READINESS}" {
-    while ((getline line < readiness_file) > 0) print line
-    close(readiness_file)
+PUBLIC_DOCUMENTATION_FILE="/tmp/docs-draft-public-documentation.md"
+printf '%s\n' "${PUBLIC_DOCUMENTATION}" > "${PUBLIC_DOCUMENTATION_FILE}"
+PR_BODY_CONTENT=$(printf '%s\n' "${PR_BODY_CONTENT}" | awk -v public_documentation_file="${PUBLIC_DOCUMENTATION_FILE}" '
+  $0 == "${PUBLIC_DOCUMENTATION}" {
+    while ((getline line < public_documentation_file) > 0) print line
+    close(public_documentation_file)
     next
   }
   { print }
