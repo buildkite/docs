@@ -153,7 +153,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 **Controls:**
 
-- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
+- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
 - Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For [Enterprise](https://buildkite.com/pricing/) plan customers, older logs can be rehydrated for in-depth forensic analysis.
 
 ## Further questions
