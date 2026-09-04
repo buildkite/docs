@@ -2,8 +2,8 @@
 
 This page outlines usage limits designed to protect your builds from unintentional resource issues and ensure reliable service for all customers. Limits vary by subscription tier:
 
-- Personal plan
-- Trial plan
+- Free plan
+- All Access Trial
 - Pro plan
 - Enterprise plan
 
@@ -163,7 +163,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Job timeout",
         description: "The maximum time before a running job will time out.",
-        default_value: "4 hours on the Personal plan. Unlimited on Pro and Enterprise plans"
+        default_value: "4 hours on the Free plan. Unlimited on Pro and Enterprise plans"
       },
       {
         title: "Pipeline uploads per build",
@@ -188,7 +188,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Build retention",
         description: "The time period builds are stored in Buildkite after running.",
-        default_value: "30 days on the Personal plan, 90 days on the Pro plan, and 365 days on the Enterprise plan"
+        default_value: "30 days on the Free plan, 90 days on the Pro plan, and 365 days on the Enterprise plan"
       },
       {
         title: "Teams per block step",
@@ -228,7 +228,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Artifact retention",
         description: "The maximum number of days artifacts are stored. See <a href=\"/docs/platform/artifact-storage-and-transfer-billing#artifact-retention\">Artifacts billing</a> for how retention relates to storage usage.",
-        default_value: "30 days on the Personal and Pro plans, 90 days on the Enterprise plan, and the duration of the trial on the Trial plan"
+        default_value: "30 days on the Free and Pro plans, 90 days on the Enterprise plan, and the duration of the All Access Trial"
       },
       {
         title: "Log size per job",
@@ -238,7 +238,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Number of clusters",
         description: "The maximum number of clusters that can be created in a Buildkite organization.",
-        default_value: "1 on the Personal plan, unlimited on Pro and Enterprise plans"
+        default_value: "1 on the Free plan, unlimited on Pro and Enterprise plans"
       },
       {
         title: "Number of queues per cluster",
@@ -298,12 +298,12 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Anthropic spend",
         description: "Model provider spend limits for Anthropic, per month in USD.",
-        default_value: "$50 on Trial plan, $1,000 on Pro and Enterprise"
+        default_value: "$50 during the All Access Trial, $1,000 on Pro and Enterprise"
       },
       {
         title: "OpenAI spend",
         description: "Model provider spend limits for OpenAI, per month in USD.",
-        default_value: "$50 on Trial plan, $1,000 on Pro and Enterprise"
+        default_value: "$50 during the All Access Trial, $1,000 on Pro and Enterprise"
       }
     ].each do |limit| %>
       <tr>
@@ -321,16 +321,23 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 ### Hosted agents limits
 
-The following limits apply to the [Buildkite hosted agents](/docs/agent/buildkite-hosted) used in Buildkite Pipelines.
+[Buildkite hosted agent](/docs/agent/buildkite-hosted) concurrency is the maximum combined vCPU capacity that the hosted agent machines allocated to an organization can use at once. Each machine runs one job and consumes the vCPU capacity specified by its [instance shape](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). A machine consumes concurrency from the time it starts booting to acquire a job until it is released.
 
-| Limit type | Trial | Personal | Pro | Enterprise |
+| Limit type | All Access Trial | Free | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
-| **Linux concurrency** | 10 | 10 | 20 | Custom |
-| **macOS concurrency** | 3 | - | 5 | Custom |
-| **Linux AMD64 vCPU minutes, per month** | 4,000 | 2,000 | usage-based | usage-based |
-| **macOS minutes, per month** | 3,000 | not available | usage-based | usage-based |
-| **Container cache volume** | 50 GB | 50 GB | 50 GB | 50 GB |
-| **Git mirror volume** | 5 GB | 5 GB | 5 GB | 5 GB |
+| **Linux vCPU concurrency** | See [Service Quotas](#viewing-your-organizations-service-quotas) | 20 vCPU | 256 vCPU | Custom |
+| **M4 Mac vCPU concurrency** | See [Service Quotas](#viewing-your-organizations-service-quotas) | Not available | 48 vCPU | Custom |
+
+To calculate the maximum number of jobs that can run concurrently when they all use the same instance shape, divide the vCPU concurrency limit by the shape's vCPU count. For example, the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each. The Pro plan's 256-vCPU Linux limit supports up to 128 Small machines, 64 Medium machines at 4 vCPU each, or 32 Large machines at 8 vCPU each. When jobs use a mix of shapes, the sum of the machines' vCPU capacity must remain within the limit. Jobs that would exceed the limit remain queued until sufficient capacity becomes available.
+
+The following default storage quotas apply to [hosted agent cache volumes](/docs/agent/buildkite-hosted/cache-volumes):
+
+| Storage quota | Default |
+| --- | --- |
+| **Container cache volume** | 50 GB |
+| **Git mirror volume** | 5 GB |
+
+Monthly vCPU minute allowances are separate from concurrency limits. See [Pricing](https://buildkite.com/pricing/) for current allowances, usage rates, available [Linux](/docs/agent/buildkite-hosted/linux#sizes) and [macOS](/docs/agent/buildkite-hosted/macos#sizes) shapes, and hosted agent features included with each plan. For an All Access Trial or an organization with custom limits, check the [**Service Quotas** page](#viewing-your-organizations-service-quotas) for the limits that apply to that organization.
 
 ## Test Engine limits
 
@@ -348,7 +355,7 @@ The following table lists the default service limits for [Test Engine](/docs/pip
       {
         title: "Test Engine workflows per suite",
         description: "The maximum number of Test Engine workflows per suite.",
-        default_value: "Not available on the Personal plan, 3 workflows on the Pro and Enterprise plans"
+        default_value: "Not available on the Free plan, 3 workflows on the Pro and Enterprise plans"
       },
       {
         title: "Test Engine workflow events per minute",
@@ -398,7 +405,7 @@ The following table lists the default service limits for [Package Registries](/d
   <tbody>
     <% [
       {
-        title: "Personal plan",
+        title: "Free plan",
         description: "Allocated storage and bandwidth volume (combined).",
         default_value: "1 GB per month (hard limit)"
       },
