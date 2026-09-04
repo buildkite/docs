@@ -39,7 +39,7 @@ With Buildkite Pipelines, you have additional control over where supporting infr
 
 CircleCI provides hosted compute, but performance and cost can vary depending on the resource classes and what you need to add on top. Docker layer caching, for example, carries both a per-job credit cost and a storage cost, and all cached layers live entirely on CircleCI infrastructure with no option to redirect them elsewhere.
 
-Buildkite Pipelines offers flexible compute options: run on your own infrastructure using [self-hosted agents](/docs/agent/self-hosted) when that is the best option for your use case, or use [Buildkite hosted agents](/docs/agent/buildkite-hosted) when you want fully managed Linux or macOS compute. Hosted agents are designed for fast startup and isolated environments, with higher-performance options for workloads like mobile CI that benefit from modern Apple silicon. Persistent cache volumes on NVMe (Linux) and disk images (macOS) retain dependencies, Git mirrors, and Docker layers for up to 14 days.
+Buildkite Pipelines offers flexible compute options: run on your own infrastructure using [self-hosted agents](/docs/agent/self-hosted) when that is the best option for your use case, or use [Buildkite hosted agents](/docs/agent/buildkite-hosted) when you want fully managed Linux, macOS, or Windows compute. Hosted agents are designed for fast startup and isolated environments, with higher-performance options for workloads like mobile CI that benefit from modern Apple silicon. Persistent cache volumes on NVMe (Linux) and disk images (macOS) retain dependencies, Git mirrors, and Docker layers for up to 14 days.
 
 ## Data sharing and caching
 
