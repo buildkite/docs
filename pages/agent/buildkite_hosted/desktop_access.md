@@ -21,7 +21,7 @@ A new browser tab opens and connects to the job's remote desktop. The desktop sc
 
 Each desktop session uses a short-lived access token that is created on demand. The response containing the access token and VNC credentials is not cached.
 
-The **Open Desktop** button only appears for jobs running on macOS hosted agents, not for jobs on Linux hosted agents or self-hosted agents.
+The **Open Desktop** button only appears for jobs running on macOS hosted agents, not for jobs on Linux or Windows hosted agents, or self-hosted agents.
 
 ## Use desktop access from the Buildkite CLI
 
@@ -40,4 +40,4 @@ Before running the command:
 - Find the UUID of a running command job on a macOS hosted agent.
 - Confirm that you have permission to manage hosted agents for the job.
 
-The `bk job vnc` command does not support Linux hosted jobs or self-hosted jobs.
+The `bk job vnc` command does not support Linux or Windows hosted jobs, or self-hosted jobs.

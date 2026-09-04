@@ -42,12 +42,15 @@ To pass them through to the Docker container, use the `--env` option:
     --env BUILDKITE_BUILD_ID \
     --env BUILDKITE_BUILD_NUMBER \
     --env BUILDKITE_JOB_ID \
+    --env BUILDKITE_AGENT_ID \
     --env BUILDKITE_BRANCH \
     --env BUILDKITE_COMMIT \
     --env BUILDKITE_MESSAGE \
     --env BUILDKITE_BUILD_URL \
     bundle exec rspec
 ```
+
+`BUILDKITE_AGENT_ID` in particular must be forwarded for the Ruby, Python, and JavaScript test collectors to automatically tag executions with [`ci.worker.id`](/docs/pipelines/configure/tests/test-suites/tags#core-tags), identifying the agent that ran each test.
 
 Review the following sections for the environment variables expected by test collectors.
 
