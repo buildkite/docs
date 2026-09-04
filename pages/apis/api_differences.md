@@ -14,7 +14,6 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "AGENTS", "agents" %> Create [remote desktop sessions](/docs/apis/rest-api/jobs#create-a-remote-desktop-session) and [SSH sessions](/docs/apis/rest-api/jobs#create-an-ssh-session) for jobs running on Buildkite hosted agents.
 - <%= pill "AGENTS", "agents" %> Manage [agent images](/docs/apis/rest-api/clusters/agent-images) and [cache volumes](/docs/apis/rest-api/clusters/cache-volumes), list [network ranges](/docs/apis/rest-api/clusters/network-ranges), and assign [cluster maintainers](/docs/apis/rest-api/clusters/maintainers).
 - <%= pill "AGENTS", "agents" %> List, create, update, and delete [Buildkite secrets](/docs/apis/rest-api/clusters/secrets).
-- <%= pill "BUILDS", "builds" %> List and inspect [step uploads](/docs/apis/rest-api/step-uploads) for a build.
 - <%= pill "JOBS", "jobs" %> Get the `group_key` field for jobs that belong to [group steps](/docs/apis/rest-api/builds#get-a-build).
 - <%= pill "JOBS", "jobs" %> [Retrieve](/docs/apis/rest-api/jobs#get-a-jobs-log-output) and [delete](/docs/apis/rest-api/jobs#delete-a-jobs-log-output) job log output.
 - <%= pill "JOBS", "jobs" %> [Reprioritize a job](/docs/apis/rest-api/jobs#reprioritize-a-job).
@@ -23,7 +22,7 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "ORGANIZATIONS", "organizations" %> [Prevent non-administrators from creating API access tokens](/docs/apis/rest-api/organizations/api-settings#request-fields).
 - <%= pill "ORGANIZATIONS", "organizations" %> Manage [organization-level pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings), including hosted agent remote access, public pipeline creation, advanced queue metrics, and build exports.
 - <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [notification services](/docs/apis/rest-api/organizations/notification-services).
-- <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [Package Registries](/docs/apis/rest-api/package-registries/registries), [packages](/docs/apis/rest-api/package-registries/packages), and [registry tokens](/docs/apis/rest-api/package-registries/registry-tokens).
+- <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [Buildkite Package Registries](/docs/apis/rest-api/package-registries/registries), [packages](/docs/apis/rest-api/package-registries/packages), and [registry tokens](/docs/apis/rest-api/package-registries/registry-tokens).
 - <%= pill "ORGANIZATIONS", "organizations" %> Use the Test Engine APIs to manage [test suites](/docs/apis/rest-api/test-engine/suites), [tests](/docs/apis/rest-api/test-engine/tests), [quarantine states](/docs/apis/rest-api/test-engine/quarantine), and [execution tags](/docs/apis/rest-api/test-engine/execution-tags), and inspect [test runs](/docs/apis/rest-api/test-engine/runs).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Enable team-based permissions](/docs/apis/rest-api/teams#enable-teams).
 - <%= pill "PIPELINES", "pipelines" %> [Set source code provider settings](/docs/apis/rest-api/pipelines#provider-settings-properties) when creating or updating a pipeline.
@@ -44,7 +43,7 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "ORGANIZATIONS", "organizations" %> [Set up and manage SSO](/docs/platform/sso/sso-setup-with-graphql).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Create and delete system banners](/docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Enforce two-factor authentication for organization members](/docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization).
-- <%= pill "ORGANIZATIONS", "organizations" %> Assign [Package Registries to teams](/docs/apis/graphql/schemas/mutation/teamregistrycreate) and update or remove those assignments.
+- <%= pill "ORGANIZATIONS", "organizations" %> Assign [Buildkite Package Registries to teams](/docs/apis/graphql/schemas/mutation/teamregistrycreate) and update or remove those assignments.
 - <%= pill "PIPELINES", "pipelines" %> [Get the speed, reliability, and builds per week metrics shown on the pipeline dashboard](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).
 - <%= pill "PIPELINES", "pipelines" %> [Get the creation date of the most recent build in every pipeline in one request](/docs/apis/graphql/cookbooks/builds#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
 - <%= pill "PIPELINES", "pipelines" %> [Count the number of builds on a branch without retrieving every build](/docs/apis/graphql/cookbooks/builds#count-the-number-of-builds-on-a-branch).
