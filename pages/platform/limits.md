@@ -330,6 +330,13 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 To calculate the maximum number of jobs that can run concurrently when they all use the same instance shape, divide the vCPU concurrency limit by the shape's vCPU count. For example, the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each. The Pro plan's 256-vCPU Linux limit supports up to 128 Small machines, 64 Medium machines at 4 vCPU each, or 32 Large machines at 8 vCPU each. When jobs use a mix of shapes, the sum of the machines' vCPU capacity must remain within the limit. Jobs that would exceed the limit remain queued until sufficient capacity becomes available.
 
+The following default storage quotas apply to [hosted agent cache volumes](/docs/agent/buildkite-hosted/cache-volumes):
+
+| Storage quota | Default |
+| --- | --- |
+| **Container cache volume** | 50 GB |
+| **Git mirror volume** | 5 GB |
+
 Monthly vCPU minute allowances are separate from concurrency limits. See [Pricing](https://buildkite.com/pricing/) for current allowances, usage rates, available [Linux](/docs/agent/buildkite-hosted/linux#sizes) and [macOS](/docs/agent/buildkite-hosted/macos#sizes) shapes, and hosted agent features included with each plan. For an All Access Trial or an organization with custom limits, check the [**Service Quotas** page](#viewing-your-organizations-service-quotas) for the limits that apply to that organization.
 
 ## Test Engine limits
