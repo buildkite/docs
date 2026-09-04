@@ -6,15 +6,15 @@ Test ownership can be assigned to [teams](/docs/platform/team-management/permiss
 
 ## How ownership is assigned
 
-`TESTOWNERS` patterns match against each test's `location` — the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
+`TESTOWNERS` patterns match each test's location metadata, whether supplied by a [test collector](/docs/pipelines/configure/tests/test-collection), a [JSON test upload](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects), or a [JUnit import](/docs/pipelines/configure/tests/test-collection/importing-junit-xml). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
 
 For ownership (and the **My teams** view) to work:
 
-1. Every upload path that reports those tests must include top-level `location` on each test. Later uploads overwrite the test record; an upload without `location` clears it.
-1. Upload a `TESTOWNERS` file whose patterns match those `location` values.
+1. Ensure every upload path reports location metadata for each test. For JSON uploads, include the top-level `location` field. For JUnit reports, include the `file` attribute on each `<testcase>` element and, optionally, the `line` attribute. Test collectors supply the equivalent location metadata. Later uploads overwrite the test record; an upload without location metadata clears it.
+1. Upload a `TESTOWNERS` file whose patterns match those location paths.
 1. Assign the teams listed in `TESTOWNERS` to the test suite before ownership records are created.
 
-Path-only locations (without a line number) are valid. After a successful match, open a test's details page. You should see **Location** and **Owners** in the header. **My teams** on the suite **Tests** page shows tests owned by teams you belong to that are also assigned to the suite.
+Path-only locations (without a line number) are valid. After a successful match, open a test's details page. You should see the location path and **Owners** in the header. **My teams** on the suite **Tests** page shows tests owned by teams you belong to that are also assigned to the suite.
 
 ## TESTOWNERS file format
 
@@ -118,13 +118,13 @@ You can view the current test ownership rules for a test suite in your **Test Su
 
 <%= image "test-ownership.png", width: 2572/2, height: 1386/2, alt: "Suite settings page showing test ownership" %>
 
-To confirm ownership was applied to a specific test, open that test's details page and check for **Location** and **Owners** under the test name. The **My teams** preset on the suite **Tests** page filters to tests owned by your teams (intersected with teams assigned to the suite).
+To confirm ownership was applied to a specific test, open that test's details page and check for the location path and **Owners** under the test name. The **My teams** preset on the suite **Tests** page filters to tests owned by your teams (intersected with teams assigned to the suite).
 
 ## Troubleshooting
 
 ### Location missing or My teams empty
 
-If **Location** does not appear on the test details page, `TESTOWNERS` cannot assign owners (even with a catch-all `*` rule), and **My teams** stays empty for those tests.
+If the location path does not appear on the test details page, `TESTOWNERS` cannot assign owners (even with a catch-all `*` rule), and **My teams** stays empty for those tests.
 
 Common causes:
 
