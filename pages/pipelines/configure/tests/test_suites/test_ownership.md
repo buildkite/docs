@@ -6,15 +6,15 @@ Test ownership can be assigned to [teams](/docs/platform/team-management/permiss
 
 ## How ownership is assigned
 
-TESTOWNERS patterns match against each test's `location` — the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
+`TESTOWNERS` patterns match against each test's `location`—the top-level `location` field from your [JSON test uploads](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-test-result-objects) (or the equivalent location from a collector or JUnit import). Ownership is not configured in pipeline YAML, and a tag named `location` is not used for matching.
 
 For ownership (and the **My teams** view) to work:
 
 1. Every upload path that reports those tests must include top-level `location` on each test. Later uploads overwrite the test record; an upload without `location` clears it.
-2. Upload a TESTOWNERS file whose patterns match those `location` values.
-3. Assign the teams listed in TESTOWNERS to the test suite before ownership records are created.
+1. Upload a `TESTOWNERS` file whose patterns match those `location` values.
+1. Assign the teams listed in `TESTOWNERS` to the test suite before ownership records are created.
 
-Path-only locations (without a line number) are valid. After a successful match, open a test's details page. You should see **Location** and **Owners** in the header. **My teams** on the suite Tests page shows tests owned by teams you belong to that are also assigned to the suite.
+Path-only locations (without a line number) are valid. After a successful match, open a test's details page. You should see **Location** and **Owners** in the header. **My teams** on the suite **Tests** page shows tests owned by teams you belong to that are also assigned to the suite.
 
 ## TESTOWNERS file format
 
@@ -107,7 +107,7 @@ curl --location 'https://analytics-api.buildkite.com/v1/test-ownerships' \
 
 You can upload the same TESTOWNERS file to multiple test suites. However, a test suite can only have one active TESTOWNERS file.
 
-Uploading a _changed_ TESTOWNERS file re-runs ownership matching for recent tests in the suite that already have a `location`. Identical file content is skipped. Tests without `location` still do not receive owners.
+Uploading a _changed_ `TESTOWNERS` file re-runs ownership matching for recent tests in the suite that already have a `location`. Identical file content is skipped. Tests without `location` still do not receive owners.
 
 > 📘
 > You can also create a new pipeline to automatically upload your TESTOWNERS file when changes are detected.
@@ -118,19 +118,19 @@ You can view the current test ownership rules for a test suite in your **Test Su
 
 <%= image "test-ownership.png", width: 2572/2, height: 1386/2, alt: "Suite settings page showing test ownership" %>
 
-To confirm ownership was applied to a specific test, open that test's details page and check for **Location** and **Owners** under the test name. The **My teams** preset on the suite Tests page filters to tests owned by your teams (intersected with teams assigned to the suite).
+To confirm ownership was applied to a specific test, open that test's details page and check for **Location** and **Owners** under the test name. The **My teams** preset on the suite **Tests** page filters to tests owned by your teams (intersected with teams assigned to the suite).
 
 ## Troubleshooting
 
 ### Location missing or My teams empty
 
-If **Location** does not appear on the test details page, TESTOWNERS cannot assign owners (even with a catch-all `*` rule), and **My teams** stays empty for those tests.
+If **Location** does not appear on the test details page, `TESTOWNERS` cannot assign owners (even with a catch-all `*` rule), and **My teams** stays empty for those tests.
 
 Common causes:
 
 - `location` was sent only as an execution tag, not as the top-level test field.
 - One upload path includes `location`, but a later CI upload of the same tests omits it and clears the field.
-- Teams in TESTOWNERS are not yet assigned to the suite.
+- Teams in `TESTOWNERS` are not yet assigned to the suite.
 
 ### TESTOWNERS syntax
 
