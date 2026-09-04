@@ -323,10 +323,10 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
 
 [Buildkite hosted agent](/docs/agent/buildkite-hosted) concurrency is the maximum combined vCPU capacity that the hosted agent machines allocated to an organization can use at once. Each machine runs one job and consumes the vCPU capacity specified by its [instance shape](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). A machine consumes concurrency from the time it starts booting to acquire a job until it is released.
 
-| Limit type | Free | Pro | Enterprise |
-| --- | --- | --- | --- |
-| **Linux vCPU concurrency** | 20 vCPU | 256 vCPU | Custom |
-| **M4 Mac vCPU concurrency** | Not available | 48 vCPU | Custom |
+| Limit type | All Access Trial | Free | Pro | Enterprise |
+| --- | --- | --- | --- | --- |
+| **Linux vCPU concurrency** | See [Service Quotas](#viewing-your-organizations-service-quotas) | 20 vCPU | 256 vCPU | Custom |
+| **M4 Mac vCPU concurrency** | See [Service Quotas](#viewing-your-organizations-service-quotas) | Not available | 48 vCPU | Custom |
 
 To calculate the maximum number of jobs that can run concurrently when they all use the same instance shape, divide the vCPU concurrency limit by the shape's vCPU count. For example, the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each. The Pro plan's 256-vCPU Linux limit supports up to 128 Small machines, 64 Medium machines at 4 vCPU each, or 32 Large machines at 8 vCPU each. When jobs use a mix of shapes, the sum of the machines' vCPU capacity must remain within the limit. Jobs that would exceed the limit remain queued until sufficient capacity becomes available.
 
