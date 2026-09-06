@@ -48,7 +48,7 @@ For self-hosted agents, jobs are dispatched (taken from the queue and assigned t
 1. Upload order in pipeline, first to last.
 1. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
 
-Buildkite hosted agents prefer higher-priority jobs on a best-effort basis, but available capacity can affect job start order. The self-hosted dispatch ordering above does not describe how hosted agents order jobs with the same priority.
+Buildkite hosted agents prefer higher-priority jobs on a best-effort basis, but available capacity can affect job start order. This prevents a high-priority job that requires a large instance from blocking smaller, lower-priority jobs that fit the available capacity. The self-hosted dispatch ordering above does not describe how hosted agents order jobs with the same priority.
 
 ## Example
 
