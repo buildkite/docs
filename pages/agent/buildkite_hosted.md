@@ -39,7 +39,7 @@ Buildkite hosted agents also provides the following assurances:
 
 When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), this action begins the process of starting the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
 
-Buildkite hosted agents support [job priority](/docs/pipelines/configure/workflows/job-priority). Set the `priority` key on a command step or at the top level of your pipeline to prioritize jobs waiting for hosted compute capacity. Higher values take precedence over lower values when capacity is limited.
+Buildkite hosted agents support [job priority](/docs/pipelines/configure/workflows/job-priority). Set the `priority` key on a command step or at the top level of your pipeline to prioritize jobs waiting for hosted compute capacity. Priority is best effort: higher-priority jobs are preferred, but available capacity can affect job start order.
 
 The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
 

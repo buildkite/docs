@@ -2,7 +2,7 @@
 
 By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-Job priority is supported by both [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+Job priority is supported by both [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted). For hosted agents, priority is best effort and does not guarantee job start order.
 
 ## Prioritizing specific jobs
 
@@ -48,7 +48,7 @@ For self-hosted agents, jobs are dispatched (taken from the queue and assigned t
 1. Upload order in pipeline, first to last.
 1. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
 
-For Buildkite hosted agents, job priority is used when scheduling hosted compute capacity. When capacity is limited, higher-priority jobs take precedence over lower-priority jobs waiting for capacity. The self-hosted dispatch ordering above does not describe how hosted agents order jobs with the same priority.
+Buildkite hosted agents prefer higher-priority jobs on a best-effort basis, but available capacity can affect job start order. The self-hosted dispatch ordering above does not describe how hosted agents order jobs with the same priority.
 
 ## Example
 
