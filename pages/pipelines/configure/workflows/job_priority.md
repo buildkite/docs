@@ -1,8 +1,8 @@
 # Job priority
 
-Job priority lets you prioritize or deprioritize command jobs waiting to run. Both [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted) support job priority using the same pipeline configuration.
+By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-Priority does not interrupt jobs that are already running or bypass [dependencies](/docs/pipelines/configure/depends-on) or [concurrency limits](/docs/pipelines/configure/workflows/controlling-concurrency).
+Job priority is supported by both [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
 ## Prioritizing specific jobs
 
@@ -17,7 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Jobs with higher priority are prioritized ahead of lower-priority jobs waiting to run, regardless of which has been waiting longest. Priority only applies to command jobs, including plugin commands.
+Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
 
 ## Prioritizing whole builds
 
@@ -35,7 +35,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The `emergency fix` step has a priority of 100, while `this can wait` overrides the pipeline-level priority with a value of 1. The higher priority gives `emergency fix` precedence over lower-priority jobs competing for available agents, but does not guarantee an immediate start.
+The `emergency fix` step runs before _any step of any other running pipeline_ within your organization, unless one of these other pipeline steps has a priority greater than 100. If all available agents are running jobs, an appropriate agent will run the `emergency fix` step _only_ after its current job completes running.
 
 Prioritizing whole builds comes in handy when you need to reduce the number of agents (for example, to reduce costs over a weekend due to fewer available team members) but want to ensure any builds created on a critical pipeline are not left waiting for agents to run their jobs.
 
