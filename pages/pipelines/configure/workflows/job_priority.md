@@ -2,7 +2,7 @@
 
 By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-Job priority is supported by both [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted). For hosted agents, priority is best effort and does not guarantee job start order.
+Buildkite Pipelines supports job priority for both [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted). For hosted agents, priority is best effort and does not guarantee job start order.
 
 ## Prioritizing specific jobs
 
@@ -17,7 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
+For self-hosted agents, job priority is considered before jobs are dispatched to [agent queues](/docs/agent/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
 
 ## Prioritizing whole builds
 
@@ -35,7 +35,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The `emergency fix` step runs before _any step of any other running pipeline_ within your organization, unless one of these other pipeline steps has a priority greater than 100. If all available agents are running jobs, an appropriate agent will run the `emergency fix` step _only_ after its current job completes running.
+For self-hosted agents, the `emergency fix` step runs before _any step of any other running pipeline_ within your organization, unless one of these other pipeline steps has a priority greater than 100. If all available agents are running jobs, an appropriate agent will run the `emergency fix` step _only_ after its current job completes running.
 
 Prioritizing whole builds comes in handy when you need to reduce the number of agents (for example, to reduce costs over a weekend due to fewer available team members) but want to ensure any builds created on a critical pipeline are not left waiting for agents to run their jobs.
 
