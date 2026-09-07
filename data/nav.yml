@@ -1064,6 +1064,8 @@
               path: "apis/rest-api/organizations/members"
             - name: "Rate limits"
               path: "apis/rest-api/organizations/rate-limits"
+            - name: "Usage"
+              path: "apis/rest-api/organizations/usage"
             - name: "Notification services"
               path: "apis/rest-api/organizations/notification-services"
             - name: "Pipeline settings"
