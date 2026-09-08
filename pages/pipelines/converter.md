@@ -203,5 +203,6 @@ For more tools and recommendations regarding migrating from your existing CI/CD 
 
 - [Migrate to Buildkite Pipelines](/docs/pipelines/migration)
 - [Migration from GitHub Actions - a step-by-step guide](/docs/pipelines/migration/from-githubactions)
+- [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
 - [Migration from Jenkins - a step-by-step guide](/docs/pipelines/migration/from-jenkins)
 - [Migration from Bamboo - a step-by-step guide](/docs/pipelines/migration/from-bamboo)

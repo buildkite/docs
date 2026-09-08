@@ -26,6 +26,16 @@
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?creator=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td>
   </tr>
   <tr>
+    <th><code>exclude_jobs</code></th>
+    <td><span>Excludes the list of jobs from each build's details. Use this when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information.</span>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>?exclude_jobs=true</code></p></td>
+  </tr>
+  <tr>
+    <th><code>exclude_pipeline</code></th>
+    <td><span>Excludes expanded pipeline information from each build's details. Use this when you do not need pipeline information.</span>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>?exclude_pipeline=true</code></p></td>
+  </tr>
+  <tr>
     <th><code>finished_from</code></th>
     <td><span>Filters the results by builds finished on or after the given time (in ISO 8601 format)</span>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>?finished_from=2025-01-11T23:22:05Z</code></p></td>

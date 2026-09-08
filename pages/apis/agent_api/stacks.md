@@ -25,6 +25,8 @@ Authorization: Token <agent-token-value>
 
 Agent tokens ([prefixed with `bkct_`](/docs/platform/security/tokens#supported-buildkite-tokens-agent-tokens)) are located on your cluster's **Agent Tokens** page, and these tokens grant access to all [self-hosted queues](/docs/agent/queues) within the cluster.
 
+Keep the agent token in the stack controller. When the stack starts an ephemeral agent for a job, use a [job acquisition token](/docs/agent/self-hosted/job-acquisition-tokens) so that the agent can acquire only that job without receiving the long-lived agent token.
+
 ## Endpoint summary
 
 | Method | Path | Description |
@@ -33,6 +35,7 @@ Agent tokens ([prefixed with `bkct_`](/docs/platform/security/tokens#supported-b
 | POST | `/v3/stacks/:key/deregister` | [De-register a stack](#de-register-a-stack) |
 | GET | `/v3/stacks/:key/scheduled-jobs` | [List scheduled jobs](#list-scheduled-jobs-metadata-only) |
 | PUT | `/v3/stacks/:key/scheduled-jobs/batch-reserve` | [Reserve jobs](#reserve-jobs) |
+| POST | `/v3/stacks/:key/job-acquisition-tokens` | [Issue job acquisition tokens](#issue-job-acquisition-tokens) |
 | GET | `/v3/stacks/:key/jobs/:id` | [Get a job](#get-a-job-env-plus-command) |
 | POST | `/v3/stacks/:key/jobs/get-states` | [Get job states](#get-job-states) |
 | POST | `/v3/stacks/:key/jobs/:id/finish` | [Finish a job](#finish-a-job) |
@@ -44,7 +47,7 @@ Register a new stack or update an existing one. You must use this API to registe
 
 The register payload includes a mandatory `queue_key` field, which tells Buildkite which self-hosted queue the stack is intended to serve. However, such binding isn't enforced so there is a possibility that you could use a single stack implementation to power all self-hosted queues.
 
-The number of active stacks per organization is limited, and each stack is subject to independent rate limits.
+The number of active stacks per organization is limited, and each stack is subject to per-stack rate limits.
 
 Request payload:
 
@@ -105,14 +108,14 @@ Success response: `204 No Content`
 
 ## List scheduled jobs (Metadata only)
 
-This is the most important API of the stacks APIs, and it fetches all jobs that have been scheduled to run by Buildkite's internal state machine. When a self-hosted queue is paused, `cluster_queue.dispatch_paused` will return `true`, and a stack implementation **must** respect this flag (that is, avoid starting new jobs whenever the queue is paused).
+This is the most important API of the stacks APIs, and it fetches all jobs scheduled to run by the Buildkite Pipelines state machine. When a self-hosted queue is paused, `cluster_queue.dispatch_paused` will return `true`, and a stack implementation **must** respect this flag (that is, avoid starting new jobs whenever the queue is paused).
 
-A stack often makes scheduling decisions based on returned metadata and turns this job metadata into running agents using [--acquire-jobs](https://buildkite.com/resources/changelog/129-one-shot-agents-with-the-acquire-job-flag/).
+A stack often makes scheduling decisions based on returned metadata and turns this job metadata into running agents using [job acquisition tokens](#issue-job-acquisition-tokens) and the [`--acquire-job` flag](/docs/agent/cli/reference/start#run-a-single-job).
 
 Until these jobs transition into another state, the API will keep returning them. To avoid starting duplicate jobs, we offer some utility APIs below.
 
 > 📘 Queue connection status
-> Polling this endpoint keeps the associated queue's status set to **Connected** in the Buildkite Pipelines interface. If a stack stops polling for more than approximately 30 seconds, the queue's status changes to **Disconnected**. Learn more in [Queue connection status](/docs/agent/queues/managing#queue-connection-status).
+> Polling this endpoint keeps the associated queue's status set to **Connected** in the Buildkite Pipelines interface. If a stack stops polling for more than approximately five to six minutes, the queue's status changes to **Disconnected**. Learn more in [Queue connection status](/docs/agent/queues/managing#queue-connection-status).
 
 Query parameters:
 
@@ -240,6 +243,65 @@ curl -H "Authorization: Token $BUILDKITE_CLUSTER_TOKEN" \
 ```
 
 Success response: `200 OK`
+
+## Issue job acquisition tokens
+
+A _job acquisition token_ (JAT) is a short-lived credential that allows an ephemeral agent to register with Buildkite and acquire one specific job. Use job acquisition tokens to prevent the agent workload from accessing the long-lived [agent token](/docs/agent/self-hosted/tokens) held by the stack controller.
+
+The stack must [reserve a job](#reserve-jobs) before requesting a JAT for it. Request the JAT after execution capacity is available and immediately before starting the workload. By default, each token expires 15 minutes after issuance. Use `token_lifetime_seconds` to request a lifetime of up to one hour. The token expires earlier if the job reservation expires first.
+
+Request payload:
+
+| Field                    | Type          | Required | Description                                                  |
+| ------------------------ | ------------- | -------- | ------------------------------------------------------------ |
+| `job_uuids`              | array[string] | Yes      | Array of reserved job UUIDs to issue tokens for (maximum 1,000) |
+| `token_lifetime_seconds` | integer       | No       | Token lifetime in seconds. Defaults to 900 (15 minutes). Minimum 1, maximum 3,600 (1 hour). |
+
+Example:
+
+```bash
+curl -H "Authorization: Token $BUILDKITE_AGENT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -X POST "https://agent.buildkite.com/v3/stacks/my-kubernetes-stack/job-acquisition-tokens" \
+  -d '{
+    "job_uuids": [
+      "01234567-89ab-cdef-0123-456789abcdef"
+    ]
+  }'
+```
+
+```json
+{
+  "job_acquisition_tokens": [
+    {
+      "job_uuid": "01234567-89ab-cdef-0123-456789abcdef",
+      "job_acquisition_token": "bkjat_<opaque-token>",
+      "expires_at": "2026-08-20T00:15:00Z"
+    }
+  ],
+  "not_issued": []
+}
+```
+
+Success response: `201 Created`
+
+A request can succeed for only some jobs. Buildkite does not issue a token if the job doesn't exist, isn't reserved by the stack, is outside the stack's cluster, has an expired reservation, or isn't a command job. Match each result to its job using `job_uuid`, rather than its position in the array. Do not start a workload for a job listed in `not_issued`.
+
+### Start an agent with a job acquisition token
+
+Pass the JAT to the agent as `BUILDKITE_AGENT_TOKEN`, and set `BUILDKITE_AGENT_ACQUIRE_JOB` to the corresponding job UUID:
+
+```bash
+export BUILDKITE_AGENT_TOKEN='bkjat_<opaque-token>'
+export BUILDKITE_AGENT_ACQUIRE_JOB='01234567-89ab-cdef-0123-456789abcdef'
+exec buildkite-agent start
+```
+
+The `BUILDKITE_AGENT_ACQUIRE_JOB` environment variable puts the agent in [single-job acquisition mode](/docs/agent/cli/reference/start#run-a-single-job). Buildkite validates the JAT during registration and returns an agent session that can acquire only the specified job. Buildkite also checks that the agent token used to issue the JAT is still active and applies its expiration and IP restrictions. The agent disconnects after the job finishes.
+
+Treat job acquisition tokens as bearer credentials. Don't log them or include them in persistent workload definitions. In a multi-container workload, inject the JAT only into the container running the Buildkite agent. Don't expose it to checkout, command, or sidecar containers.
+
+Retry network errors, `429 Too Many Requests` responses, and `5xx` responses using bounded exponential backoff with jitter. Honor the `Retry-After` header when present. Don't retry other `4xx` responses without changing the request.
 
 ## Get job states
 
@@ -406,7 +468,7 @@ Valid notifications are created even if some fail validation. An empty `errors` 
 
 ## Rate limiting
 
-Each endpoint has an independent rate limit applied per stack (scoped to the combination of organization, cluster, and stack key). Rate limits use a one-second sliding window.
+Rate limits apply per stack, scoped to the combination of organization, cluster, and stack key. Most endpoints have an independent scope. Endpoints with the same scope share a limit. Rate limits use a one-second sliding window.
 
 Every response includes these headers:
 
@@ -427,7 +489,7 @@ Default rate limits per endpoint:
 | Get job states | `batch-load-job-states` | 20 |
 | Finish a job | `finish-job` | 100 |
 | Create stack notifications | `stack-notification` | 200 |
-| De-register | `default` | 10 |
+| De-register and issue job acquisition tokens | `default` | 10 |
 
 When the rate limit is exceeded, the API returns `429 Too Many Requests`:
 

@@ -12,7 +12,7 @@ You can have complete control over when to trigger pipeline builds by using cond
 
 Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
-Conditionals are supported in [Bitbucket](/docs/pipelines/source-control/bitbucket), [Bitbucket Server](/docs/pipelines/source-control/bitbucket-server), [GitHub](/docs/pipelines/source-control/github), [GitHub Enterprise](/docs/pipelines/source-control/github-enterprise), and [GitLab](/docs/pipelines/source-control/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your pipeline's **Settings** page in the Buildkite interface or using the REST API.
+Conditionals are supported in [Bitbucket](/docs/pipelines/source-control/bitbucket), [Bitbucket Server](/docs/pipelines/source-control/bitbucket-server), [GitHub](/docs/pipelines/source-control/github), [GitHub Enterprise](/docs/pipelines/source-control/github-enterprise), [GitLab](/docs/pipelines/source-control/gitlab) (including GitLab Community and GitLab Enterprise), and [Origin](/docs/pipelines/source-control/origin). You can add a conditional on your pipeline's **Settings** page in the Buildkite interface or using the REST API.
 
 > 📘 Evaluating conditionals
 > Conditional expressions are evaluated at pipeline upload, not at step runtime.
@@ -327,6 +327,11 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_ENVIRONMENT</code><br>
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE</code><br>
 		<code>BUILDKITE_GITHUB_EVENT</code><br>
+		<code>BUILDKITE_GITHUB_ISSUE_NUMBER</code><br>
+		<code>BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH</code><br>
+		<code>BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION</code><br>
+		<code>BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE</code><br>
+		<em>Pull request stack variables are only available in step-level <code>if</code> conditions.</em><br>
 		<code>BUILDKITE_GITHUB_RELEASE_DRAFT</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_PRERELEASE</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_TAG</code><br>

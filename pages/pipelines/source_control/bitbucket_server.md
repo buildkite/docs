@@ -6,6 +6,9 @@ Buildkite integrates with Bitbucket Server to provide automated builds based on 
 > Bitbucket Server is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
 > This guide is based on Bitbucket Server version 7.11.1. Earlier or later versions may have variations in the interface.
 
+> 📘 Accessing private repositories
+> Connecting Bitbucket Server to Buildkite configures webhooks and commit statuses. To give your agents access to clone private repositories, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+
 ## Step 1: connect Bitbucket Server and set up a pipeline
 
 1. Select **Settings** to open the **Organization Settings** page.

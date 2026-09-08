@@ -262,7 +262,6 @@ end
 
 ```js
 {
-  "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa9",
   "scope": "Analytics::Upload associations",
   "name": "fails",
   "location": "./spec/models/analytics/upload_spec.rb:24",
@@ -277,6 +276,9 @@ end
   }
 }
 ```
+
+> 🚧 Location and test ownership
+> Use the top-level `location` field for [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership). A value only in `tags` (for example `tags.location`) is not used for ownership matching. Path-only values are valid; a line number is optional. Each newer upload of the same test overwrites `location`, and an upload that omits it clears any previous value. Include `location` on every upload path that reports the same tests.
 
 ### Failure expanded objects
 
@@ -482,7 +484,6 @@ The following JSON code block shows an example of how your JSON test results sho
 ```json
 [
   {
-    "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa10",
     "scope": "Analytics::Upload associations",
     "name": "fails",
     "location": "./spec/models/analytics/upload_spec.rb:24",
@@ -510,7 +511,6 @@ The following JSON code block shows an example of how your JSON test results sho
     }
   },
   {
-    "id": "56f6e013-8e9a-340f-bc53-8edb51d32fa09",
     "scope": "Analytics::Upload associations",
     "name": "passes",
     "location": "./spec/models/analytics/upload_spec.rb:56",

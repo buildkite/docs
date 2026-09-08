@@ -171,7 +171,7 @@ You can access both time-based limits and query complexity information through t
 Every GraphQL API response includes two independent sets of rate limit headers:
 
 -  one for the [organization-level limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-organization-level-time-based-rate-limit)
--  one for the [per-user limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit).
+-  one for the [per-user limit](/docs/apis/graphql/graphql-resource-limits#rate-limits-per-user-rate-limit)
 
 You can monitor both limits independently and determine which one your application is closer to reaching.
 

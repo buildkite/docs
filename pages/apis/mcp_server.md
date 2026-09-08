@@ -6,13 +6,18 @@ Buildkite provides its own [open-source MCP server](https://github.com/buildkite
 
 Buildkite's MCP server is built on and interacts with the [Buildkite REST API](/docs/apis/rest-api). Learn more about what the MCP server is capable of in the [MCP tools overview](/docs/apis/mcp-server/tools).
 
+When Buildkite Pipelines jobs use [promise job failure](/docs/pipelines/configure/promise-job-failure), the MCP server can help AI agents react before the job finishes. A job can still be `running` while it has declared a promised failure and caused the build to enter `failing`. Agents should treat this as a promised failure signal, start investigating, and then check the final job result later for any additional logs, artifacts, or test results.
+
 To start using Buildkite's MCP server, first determine which [type of Buildkite MCP server](#types-of-mcp-servers) to work with. This next section provides an overview of the differences between these MCP server types and how they need to be configured.
 
 Once you have established which Buildkite MCP server to use (remote or local) and if local, have [installed the MCP server](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally) and [configured its API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token), you can then proceed to configure your AI tools to work with the [remote](/docs/apis/mcp-server/remote/configuring-ai-tools) (recommended) or [local](/docs/apis/mcp-server/local/configuring-ai-tools) MCP server.
 
+> 📘 Remote MCP server rate limits
+> Requests made through the remote Buildkite MCP server count against a separate rate limit from your Buildkite organization's REST API rate limit. See [Platform and organization-level limits](/docs/platform/limits#platform-and-organization-level-limits) for specific values.
+
 ## Types of MCP servers
 
-Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server, both of which provide access to its [MCP server tools](/docs/apis/mcp-server/tools#available-mcp-tools).
+Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server, both of which provide access to its [MCP server tools](/docs/apis/mcp-server/tools#available-mcp-tools). The remote MCP server supports OAuth authentication for interactive AI tools and [API token pass-through](#api-token-pass-through-remote-mcp-server) for headless agents.
 
 ### Remote MCP server
 
@@ -22,11 +27,11 @@ The _remote_ MCP server is one that Buildkite hosts, and is available for all us
 https://mcp.buildkite.com/mcp
 ```
 
-This type of MCP server is typically used by AI tools that you interact with directly from a prompt, and it's the recommended MCP server type to use.
+The OAuth-based remote MCP server at this URL is typically used by AI tools that you interact with directly from a prompt, and it's the recommended MCP server type to use.
 
 #### What it's suitable for and advantages
 
-The remote MCP server is suitable for personal usage with an AI tool, as it has the following advantages.
+The OAuth-based remote MCP server is suitable for personal usage with an AI tool, as it has the following advantages.
 
 - You don't need to configure an API access token, which poses a potential security risk if leaked.
 
@@ -42,7 +47,22 @@ The remote MCP server is suitable for personal usage with an AI tool, as it has 
 
 #### What it's not suitable for
 
-The remote MCP server is not suitable for use in automated workflows, where running a specific version of the MCP server is important for generating consistent results.
+The OAuth-based remote MCP server is not suitable for automated workflows that cannot complete interactive OAuth. For workflows where running a specific version of the MCP server is important for generating consistent results, use the [local MCP server](#types-of-mcp-servers-local-mcp-server).
+
+<h4 id="api-token-pass-through-remote-mcp-server">API token pass-through remote MCP server</h4>
+
+Buildkite also provides a version of the remote MCP server for headless agents and background services that already have a [Buildkite API access token](/docs/apis/managing-api-tokens). This version is available at the following URL:
+
+```url
+https://mcp.buildkite.com/direct
+```
+
+This remote MCP server version accepts the API access token in an `Authorization: Bearer <buildkite-api-token>` header. The token is forwarded to the Buildkite REST API, and the token scopes determine which MCP tool calls can complete successfully.
+
+Use this endpoint only for agents or services that cannot complete the interactive OAuth flow. For prompt-based AI tools, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
+
+> 📘
+> The API token pass-through endpoint supports the same [toolsets](/docs/apis/mcp-server/tools/toolsets) and read-only routing options as the OAuth-based remote MCP server. Learn more in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents).
 
 <h4 id="read-only-remote-mcp-server">Read-only remote MCP server</h4>
 

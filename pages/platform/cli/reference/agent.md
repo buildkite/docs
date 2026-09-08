@@ -375,4 +375,3 @@ View agent as JSON:
 ```bash
 bk agent view 0198d108-a532-4a62-9bd7-b2e744bf5c45 --output json
 ```
-

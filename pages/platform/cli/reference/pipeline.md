@@ -380,4 +380,3 @@ Output as JSON:
 ```bash
 bk pipeline view my-pipeline -o json
 ```
-

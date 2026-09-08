@@ -20,6 +20,7 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-job-started">Job Started</a></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished. To check a job's result, use the <code>passed</code> field. The value is <code>true</code> when the job passed, and <code>false</code> otherwise.</td></tr>
   <tr><th><a href="#events-job-activated">Job Activated</a></th><td>A block step job has been unblocked using the web or API</td></tr>
+  <tr><th><a href="#events-job-promised-exit-status">Job Promised Exit Status</a></th><td>A running job has declared an anticipated exit status before it has finished</td></tr>
   <tr><th><a href="#events-agent-connected">Agent Connected</a></th><td>An agent has connected to the API</td></tr>
   <tr><th><a href="#events-agent-lost">Agent Lost</a></th><td>An agent has been marked as lost. This happens when Buildkite stops receiving pings from the agent</td></tr>
   <tr><th><a href="#events-agent-disconnected">Agent Disconnected</a></th><td>An agent has disconnected. This happens when the agent shuts down and disconnects from the API</td></tr>
@@ -163,10 +164,9 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "branch": "main",
       "state": "scheduled",
       "started_at": null,
+      "failing_at": null,
       "finished_at": null,
       "source": "webhook",
-      "started_at": null,
-      "finished_at": null,
       "meta_data": {}
     },
     "pipeline": {
@@ -210,6 +210,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "state": "started",
       "blocked_state": null,
       "started_at": "2019-08-11 06:01:16 UTC",
+      "failing_at": null,
       "finished_at": null,
       "source": "webhook"
     },
@@ -255,6 +256,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "webhook",
       "started_at": "2019-08-11 06:01:16 UTC",
+      "failing_at": null,
       "finished_at": "2019-08-11 06:01:35 UTC",
       "meta_data": {}
     },
@@ -299,6 +301,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "ui",
       "started_at": "2024-09-12 10:19:49 UTC",
+      "failing_at": "2024-09-12 10:20:54 UTC",
       "finished_at": null
     },
     "pipeline": {
@@ -343,6 +346,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "ui",
       "started_at": "2022-01-30 04:31:59 UTC",
+      "failing_at": null,
       "finished_at": "2022-01-30 04:32:06 UTC"
     },
     "pipeline": {
@@ -391,6 +395,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "passed": false,
       "soft_failed": false,
       "state": "assigned",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": null,
       "finished_at": null,
@@ -408,6 +413,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "webhook",
       "started_at": "2024-08-19 07:03:37 UTC",
+      "failing_at": null,
       "finished_at": null,
       "meta_data": {}
     },
@@ -457,6 +463,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "passed": false,
       "soft_failed": false,
       "state": "started",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": null,
@@ -474,6 +481,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "blocked_state": null,
       "source": "webhook",
       "started_at": "2024-08-19 07:07:44 UTC",
+      "failing_at": null,
       "finished_at": null,
       "meta_data": {}
     },
@@ -496,7 +504,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ### Job Finished
 
-These types of events [may contain a `signal_reason` field value](#signal-reason).
+These types of events [may contain a `signal_reason` field value](#signal-reason) and [may contain a `broken_reason` field value](#broken-reason).
 
 ```json
 {
@@ -525,6 +533,7 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "passed": true,
       "soft_failed": false,
       "state": "finished",
+      "broken_reason": null,
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
       "finished_at": "2019-08-11 06:01:35 UTC",
@@ -541,6 +550,7 @@ These types of events [may contain a `signal_reason` field value](#signal-reason
       "state": "started",
       "source": "webhook",
       "started_at": "2024-08-19 07:00:14 UTC",
+      "failing_at": null,
       "finished_at": null,
       "meta_data": {}
     },
@@ -576,6 +586,21 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
 | `signature_rejected` | The job was rejected due to a mismatch with the [step's signature](/docs/agent/self-hosted/security/signed-pipelines) |
 | `process_run_error` | The job failed to start due to an error in the process run. This is usually a bug in the agent, contact support if this is happening regularly. |
 
+<a id="broken-reason"></a>
+
+#### Broken reason in job finished events
+
+The `broken_reason` field of a [job finished](#events-job-finished) event is `null` when the job is not broken. When present, the value is either a reason code or a free-text skip reason explaining why the job did not run.
+
+| Broken reason | Description |
+| --- | --- |
+| `conditional_failed` | The job's `if` condition evaluated to false and the job was skipped |
+| `legacy_step` | The step was skipped because it uses legacy agent assignment. |
+| `branch_mismatch` | The build's branch did not match the step's branch conditions |
+| `optimizer_removed` | The pipeline optimizer removed the job |
+| `parallelism_zero` | The step's parallelism was set to `0` |
+| Free-text string | A human-readable explanation of why the job was skipped, for example when using `skip` with a message |
+
 <a id="events-job-activated"></a>
 
 ### Job Activated
@@ -604,6 +629,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
       "passed": false,
       "soft_failed": false,
       "state": "finished",
+      "broken_reason": null,
       "runnable_at": null,
       "started_at": null,
       "finished_at": null,
@@ -622,6 +648,7 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
       "branch": "main",
       "state": "started",
       "started_at": "2024-08-19 07:00:14 UTC",
+      "failing_at": null,
       "source": "webhook",
       "meta_data": {}
     },
@@ -634,6 +661,80 @@ The `signal_reason` field of a [job finished](#example-event-payloads-job-finish
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+      "slug": "my-org"
+    }
+  }
+}
+```
+
+<a id="events-job-promised-exit-status"></a>
+
+### Job Promised Exit Status
+
+When a running job declares an anticipated failure before it has finished, Buildkite Pipelines emits a `Job Promised Exit Status` event. The job's state is still `running` at the time of this event. This event does not replace the subsequent `Job Finished` event.
+
+The `promised_exit_status_reason` field is included at the top level of the event detail and can be `null`. The `promised_exit_status` and `promised_exit_status_at` fields are included on the `job` object.
+
+```json
+{
+  "version": "0",
+  "id": "...",
+  "detail-type": "Job Promised Exit Status",
+  "source": "aws.partner/buildkite.com/buildkite/...",
+  "account": "123123123123",
+  "time": "2026-06-03T04:15:41Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "promised_exit_status_reason": "test_failure (2 failed after retries)",
+    "job": {
+      "uuid": "01234567-89ab-cdef-0123-456789abcdef",
+      "graphql_id": "Sm9iLS0tMDEyMzQ1NjctODlhYi1jZGVmLTAxMjMtNDU2Nzg5YWJjZGVm",
+      "type": "script",
+      "label": "Test",
+      "step_key": "test",
+      "command": "bktec run",
+      "agent_query_rules": [
+        "queue=default"
+      ],
+      "exit_status": null,
+      "signal_reason": null,
+      "passed": false,
+      "soft_failed": false,
+      "state": "running",
+      "broken_reason": null,
+      "runnable_at": "2026-06-03 04:14:00 UTC",
+      "started_at": "2026-06-03 04:14:10 UTC",
+      "finished_at": null,
+      "unblocked_by": null,
+      "retried_in_job_id": null,
+      "promised_exit_status": 1,
+      "promised_exit_status_at": "2026-06-03 04:15:41 UTC"
+    },
+    "build": {
+      "uuid": "89abcdef-0123-4567-89ab-cdef01234567",
+      "graphql_id": "QnVpbGQtLS04OWFiY2RlZi0wMTIzLTQ1NjctODlhYi1jZGVmMDEyMzQ1Njc=",
+      "number": 123456,
+      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+      "message": "Update test suite",
+      "branch": "main",
+      "state": "failing",
+      "blocked_state": null,
+      "source": "webhook",
+      "started_at": "2026-06-03 04:14:10 UTC",
+      "finished_at": null,
+      "meta_data": {}
+    },
+    "pipeline": {
+      "uuid": "abcdef01-2345-6789-abcd-ef0123456789",
+      "graphql_id": "UGlwZWxpbmUtLS1hYmNkZWYwMS0yMzQ1LTY3ODktYWJjZC1lZjAxMjM0NTY3ODk=",
+      "slug": "my-pipeline",
+      "repo": "git@example.com:project.git"
+    },
+    "organization": {
+      "uuid": "23456789-abcd-ef01-2345-6789abcdef01",
+      "graphql_id": "T3JnYW5pemF0aW9uLS0tMjM0NTY3ODktYWJjZC1lZjAxLTIzNDUtNjc4OWFiY2RlZjAx",
       "slug": "my-org"
     }
   }

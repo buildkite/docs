@@ -2,6 +2,8 @@
 
 This guide helps [GitHub Actions](https://github.com/features/actions) users migrate to Buildkite Pipelines, and covers key differences between the platforms.
 
+To keep supported GitHub Actions workflows running while you migrate incrementally, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows).
+
 ## Understand the differences
 
 Most concepts will feel familiar, but there are some differences to understand about the approaches.
@@ -26,7 +28,7 @@ GitHub Actions' `actions/checkout@v4` uses a shallow clone (`--depth=1`) and ski
 In Buildkite Pipelines:
 
 - Git LFS is enabled by default. You can disable it with `GIT_LFS_SKIP_SMUDGE=1`.
-- Agents check out the full repository. However, you can configure shallow clones using the [Git Shallow Clone plugin](https://buildkite.com/resources/plugins/peakon/git-shallow-clone-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
+- Agents check out the full repository. However, you can configure shallow clones using the [Custom Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) or an agent checkout hook with `--depth=1`, `--single-branch`, and `--no-recurse-submodules`.
 
 For further checkout optimization in Buildkite Pipelines, you can use additional plugins: [Sparse Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/sparse-checkout-buildkite-plugin/) and [Custom Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/).
 
@@ -457,6 +459,8 @@ Buildkite Pipelines natively supports:
 
 - `push` (branches)
 - `pull_request`
+- `issue_comment` (comments on pull requests)
+- `issues` (issue activity, private preview)
 - `tag` (using "Build tags" setting)
 - `schedule` (cron)
 
@@ -466,11 +470,17 @@ These are configured in the Buildkite UI under Pipeline Settings, not in the YAM
 |------------------------|------------------------|
 | `push` | UI → Pipeline Settings → GitHub |
 | `pull_request` | UI → Pipeline Settings → GitHub |
+| `issue_comment` | UI → Pipeline Settings → GitHub → Additional Webhooks |
+| `issues` | UI → Pipeline Settings → GitHub → Additional Webhooks |
 | `schedule` | UI → Pipeline Settings → Schedules |
 | `workflow_dispatch` | `input` step + "New Build" button/API |
 | `release` / `create` (tags) | UI → Build tags setting |
 
-For triggers not natively supported by Buildkite Pipelines (`issues`, `issue_comment`, `workflow_run`, etc.), you can:
+For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
+
+For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity).
+
+For triggers not natively supported by Buildkite Pipelines, such as `workflow_run` and `discussion`, you can:
 
 1. **Keep in GitHub Actions:** Best for GitHub-specific automation.
 2. **Configure webhook:** Set up an endpoint to call the Buildkite API.
@@ -675,6 +685,7 @@ Be aware of common pipeline-translation mistakes, which might include:
 
 Explore these resources to enhance your migrated pipelines:
 
+- [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
 - [Buildkite agent overview](/docs/agent)
 - [Plugins directory](https://buildkite.com/resources/plugins/)

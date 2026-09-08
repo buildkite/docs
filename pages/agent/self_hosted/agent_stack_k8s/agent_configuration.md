@@ -15,7 +15,6 @@ config:
     no-color: false
     strict-single-hooks: true
     no-multipart-artifact-upload: false
-    trace-context-encoding: json
     disable-warnings-for: ["submodules-disabled"]
     no-pty: false
     no-command-eval: true

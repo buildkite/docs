@@ -13,6 +13,9 @@ class Emoji::Parser
 
     # Optional skin tone modifier
     (?: :skin-tone-[2-6]: )?
+
+    # Don't interpret a shortcode embedded in an identifier, such as a URN
+    (?! [\w] )
   /x
 
   def self.parse(catalogues, text, **options, &block)
@@ -34,7 +37,7 @@ class Emoji::Parser
     # instead.
     text = text.dup if not @mutate
 
-    text = EscapeUtils.escape_html(text) if @sanitize
+    text = CGI.escapeHTML(text) if @sanitize
 
     text.gsub!(SHORTCODE_REGEXP) do |match|
       # Escaped shortcodes "\\:code\\:" => ":code:"

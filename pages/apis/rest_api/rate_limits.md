@@ -10,7 +10,7 @@ The REST API enforces two rate limits, and a request is rejected if either is ex
 
 ## Organization rate limit
 
-Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization.
+Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization. This default can vary by plan. See [Limits](/docs/platform/limits) for the values that apply to your organization.
 
 > 📘 Buildkite MCP server requests
 > Requests to the Buildkite REST API made through the [Buildkite MCP server](/docs/apis/mcp-server) are handled differently based on whether you're using the [remote](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) or [local](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) MCP server.
@@ -81,6 +81,8 @@ The `429` response body includes additional context about which limit was exceed
 ```
 
 The `scope` field indicates which limit was exceeded. For example, `rest` for the organization limit or `rest_user` for the per-user limit.
+
+When a limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level) or `RateLimit-User-Warning` (per-user) header set to `You have exceeded your API rate limit.`. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
 
 ## Best practices to avoid rate limits
 

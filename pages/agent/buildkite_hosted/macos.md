@@ -17,7 +17,11 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/agent/buildkite-hosted/macos/getting-started-with-ios).
 
+- How to interactively debug a running job using [terminal access](/docs/agent/buildkite-hosted/terminal-access) or browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access).
+
 - The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
+
+- The [versioned queues](#versioned-queues) pre-provisioned for new organizations, which pin a specific macOS version.
 
 ## Sizes
 
@@ -33,6 +37,22 @@ Also note the following about macOS hosted agent instances.
 
 If you have specific needs for longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
 
+## Versioned queues
+
+New Buildkite organizations are pre-provisioned with the following macOS hosted queues, in addition to `macos-medium` and `macos-large`:
+
+Queue             | macOS version
+----------------- | ----------------
+`macos-14-medium` | [Sonoma](#macos-sonoma)
+`macos-15-medium` | [Sequoia](#macos-sequoia)
+`macos-26-medium` | [Tahoe (26.6)](#macos-tahoe-26-dot-6)
+`macos-27-medium` | [Golden Gate](#macos-golden-gate)
+{: class="responsive-table"}
+
+Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as `macos-medium`. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
+
+New macOS hosted queues without an explicitly selected macOS or Xcode version default to macOS Tahoe (26.6) with Xcode 26.6. This includes queues you create and the `macos-medium` and `macos-large` queues created automatically for new Buildkite organizations. You can change this default at any time in the queue's **Base image** settings.
+
 ## Concurrency
 
 macOS hosted agents can operate concurrently when running your Buildkite pipeline jobs.
@@ -47,14 +67,94 @@ When concurrency limits are exceeded, additional jobs will be queued until suffi
 
 ## macOS instance software support
 
-All standard macOS [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5), [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe), [Sequoia](#macos-sequoia), and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Buildkite Support at support@buildkite.com.
+All standard macOS [Golden Gate (27.0)](#macos-golden-gate), [Tahoe (26.6)](#macos-tahoe-26-dot-6), [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5), [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe), [Sequoia](#macos-sequoia), and [Sonoma](#macos-sonoma) version instances have their own respective Xcode and runtime software versions available by default (listed below). Each macOS version also has its own set of [Homebrew packages](#homebrew-packages) with specific versions optimized for that operating system. If you have specific requirements for software that is not listed here, please contact Buildkite Support at support@buildkite.com.
 
-While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/agent/buildkite-hosted/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes) for performance, and leverage persistent [cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
+While you currently cannot provide custom base images for macOS hosted agents (as is possible using [agent images](/docs/agent/buildkite-hosted/linux#agent-images) for Linux hosted agents), you do have significant control over these virtual machines during job execution—including the ability to install software using Homebrew, use [git mirroring](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes) for performance, and use persistent [cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
+Older Xcode versions are removed from base images over time. If your queue has an Xcode version pinned that is no longer available, a warning is displayed on the queue list and queue settings pages: "Xcode {version} is no longer available for this macOS version. Your agents may fail to start until you update the base image of your queue." To resolve the warning, navigate to the queue's **Base image** settings and select an available Xcode version.
+
 > 📘
-> Two macOS Tahoe versions are available. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with the macOS 26.5 base image, while [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) includes the newer Xcode 26.x versions.
+> Three macOS Tahoe versions are available, each with a unique set of Xcode versions. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with newer Tahoe base images. [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) and [Tahoe (26.6)](#macos-tahoe-26-dot-6) include newer Xcode 26.x versions.
+
+## macOS Golden Gate
+
+- 27.0
+
+### Xcode
+
+- 27-Beta
+
+### Runtimes
+
+#### iOS
+
+- 27.0
+
+#### tvOS
+
+- 27.0
+
+#### visionOS
+
+- 27.0
+
+#### watchOS
+
+- 27.0
+
+## macOS Tahoe 26.6
+
+- 26.6
+
+### Xcode
+
+- 27-Beta
+- 26.6
+- 26.6-RC2
+- 26.5
+- 26.5-RC
+- 26.4.1
+- 26.3
+- 26.2
+
+### Runtimes
+
+#### iOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+- 18.6
+
+#### tvOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+- 18.5
+
+#### visionOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+
+#### watchOS
+
+- 27.0
+- 26.5
+- 26.4.1
+- 26.4
+- 26.2
+- 11.5
 
 ## macOS Tahoe 26.5
 

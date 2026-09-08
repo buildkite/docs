@@ -249,7 +249,7 @@ These MCP tools are used to retrieve details about existing [pipelines](/docs/ap
 
 ### Builds
 
-These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) of a [pipeline](#available-mcp-tools-pipelines), create new builds, cancel builds, and retry builds.
+These MCP tools are used to retrieve details about existing [builds](/docs/apis/rest-api/builds) across a Buildkite organization or for a [pipeline](#available-mcp-tools-pipelines), create new builds, cancel builds, and retry builds.
 
 <table>
   <thead>
@@ -262,12 +262,12 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
     <% [
       {
         "tool": "list_builds",
-        "description": "Uses the [List all builds](/docs/apis/rest-api/builds#list-all-builds) REST API endpoint to list all builds for a pipeline with their status, commit information, and metadata.",
+        "description": "Uses the [List builds for an organization](/docs/apis/rest-api/builds#list-builds-for-an-organization) REST API endpoint when `pipeline_slug` is omitted, or the [List builds for a pipeline](/docs/apis/rest-api/builds#list-builds-for-a-pipeline) endpoint when it is provided. Both modes return lightweight summaries with each build's state, branch, commit, message, URL, and creation time. The summaries exclude jobs and expanded pipeline information. Use `list_jobs` when you need job information.",
         "scope": "read_builds"
       },
       {
         "tool": "get_build",
-        "description": "Uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve detailed information about a specific build including its jobs, timing, and execution details.",
+        "description": "Uses the [Get a build](/docs/apis/rest-api/builds#get-a-build) REST API endpoint to retrieve metadata for a specific build without jobs or expanded pipeline information. Use `list_jobs` or `get_job` when you need job information.",
         "scope": "read_builds"
       },
       {
@@ -310,6 +310,9 @@ These MCP tools are used to retrieve details about existing [builds](/docs/apis/
 
 These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jobs) from a pipeline [build](#available-mcp-tools-builds), retry jobs, and unblock jobs in a pipeline build.
 
+> 📘 Promise job failure
+> Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can be `running` while also carrying a promised failure signal. When an AI agent investigates a failing build, it should inspect failed jobs from the [Jobs REST API](/docs/apis/rest-api/jobs) so it can include both terminally failed jobs and running jobs that have declared a promised failure.
+
 <table>
   <thead>
     <tr>
@@ -319,6 +322,16 @@ These MCP tools are used to retrieve details about [jobs](/docs/apis/rest-api/jo
   </thead>
   <tbody>
     <% [
+      {
+        "tool": "list_jobs",
+        "description": "Uses the [List jobs](/docs/apis/rest-api/jobs#list-jobs) REST API endpoint to list jobs for a build, with optional state filtering and cursor-based pagination.",
+        "scope": "read_builds"
+      },
+      {
+        "tool": "get_job",
+        "description": "Uses the [Get a job](/docs/apis/rest-api/jobs#get-a-job) REST API endpoint to retrieve a job by UUID. Provide `pipeline_slug` and `build_number` for a build-scoped lookup, or omit both for an organization-scoped lookup.",
+        "scope": "read_builds"
+      },
       {
         "tool": "unblock_job",
         "description": "Uses the [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job) REST API endpoint to unblock a blocked job in a Buildkite build to allow it to continue execution.",
@@ -486,6 +499,11 @@ These MCP tools are used to retrieve details about Test Engine [tests](/docs/pip
   </thead>
   <tbody>
     <% [
+      {
+        "tool": "list_tests",
+        "description": "Uses the [List tests](/docs/apis/rest-api/test-engine/tests#list-tests) REST API endpoint to list tests in a Buildkite Test Engine test suite, with execution metrics aggregated over a selected time range. Supports filtering, metric sorting, and pagination.",
+        "scope": "read_suites"
+      },
       {
         "tool": "get_test",
         "description": "Uses the [Get a test](/docs/apis/rest-api/test-engine/tests#get-a-test) REST API endpoint to retrieve a specific test in Buildkite Test Engine. This provides additional metadata for failed test executions.",

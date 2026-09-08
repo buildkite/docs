@@ -95,6 +95,9 @@ When a merge group is invalidated, GitHub sends a `merge_group` webhook event th
 
 <%= image "merge-queue-cancel-builds-setting.png", alt: "Setting to enable automatic cancellation of builds for destroyed merge groups" %>
 
+> 📘 Canceled after reporting a failure
+> If the build already reported a failure (for example, using [promise job failure](/docs/pipelines/configure/promise-job-failure)) before it was canceled for a destroyed merge group, the build summary explains this as **Canceled after reporting a failure and being removed from the merge queue**.
+
 ### Interaction with if_changed agent behavior
 
 The agent [supports an `if_changed` attribute](/docs/agent/cli/reference/pipeline#apply-if-changed) that allows steps to be conditionally included in a build based on the files changed in the commit range for that build.

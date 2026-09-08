@@ -7,6 +7,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Fetching latest agent version..."
 AGENT_VERSION="$("${SCRIPT_DIR}/fetch-latest-agent-version.sh")"
 echo "Using agent version: ${AGENT_VERSION}"
+AGENT_MAJOR="${AGENT_VERSION#v}"
+AGENT_MAJOR="${AGENT_MAJOR%%.*}"
+AGENT_MODULE="github.com/buildkite/agent/v${AGENT_MAJOR}"
 
 # Locally, things tend to get installed to $(go env GOBIN), but in CI, they get installed to $(go env GOPATH)/bin
 # TIL these can be different!
@@ -22,7 +25,7 @@ AGENT="${INSTALL_PATH}/agent"
 
 echo "Installing buildkite-agent ${AGENT_VERSION} to ${AGENT}"
 
-go install "github.com/buildkite/agent/v3@${AGENT_VERSION}"
+go install "${AGENT_MODULE}@${AGENT_VERSION}"
 
 echo "Installing agent_cli_discover"
 go install -buildvcs=false ./scripts/agent_cli_discover

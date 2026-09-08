@@ -18,12 +18,26 @@ When setting up a cron job in your parent pipeline, it's important to ensure tha
 
 This error is indicative of a mismatch in team assignments and highlights the importance of maintaining consistent team configurations across interconnected pipelines to avoid permission-related issues.
 
+## Invalid notification configuration
+
+If a scheduled build's build-level `notify` configuration is invalid, Buildkite Pipelines disables the schedule and stores the validation error, rather than silently skipping the build. For example, a Slack ID for a channel, conversation, or user is ambiguous when your organization has more than one [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration enabled. This configuration fails with an error like the following:
+
+> 🚧 Validation error
+> The `slack` notification is invalid: Channel `U12345678` must specify a team (for example, `team-name#channel`) when multiple Slack workspaces are configured
+
+To resolve this error while preserving the notification destination, prefix the ID with the workspace slug and `@`, for example, `buildkite-community@U12345678`. See [Notify a channel in one workspace](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-a-channel-in-one-workspace) for the correct syntax.
+
+The disabled schedule's failure notification email contains the same error message. After correcting the `notify` configuration, re-enable the schedule to resume scheduled builds.
+
 ## Schedule intervals
 
 The interval defines when the schedule will create builds. Schedules run in UTC time by default, and can be defined using either predefined intervals or standard crontab time syntax.
 
 > 🚧 Interval granularity
 > Buildkite only guarantees that scheduled builds run within 10 minutes of the scheduled time, and therefore does not support intervals less than 10 minutes.
+
+> 📘 Default cron expression
+> When you create a new schedule, the **Cron Interval** field is pre-filled with a daily cron expression at a random minute and a random hour, for example, `37 14 * * *`. This spreads scheduled builds throughout the day, rather than clustering them at the top of the hour or at midnight UTC. You can edit this value to set any supported interval.
 
 ### Predefined intervals
 
@@ -80,6 +94,10 @@ Modulo can only be used with the "day of week" field. For example, `0 0 * * 0` r
 You can also use the offset + operator alongside a modulo value. For instance, adding an offset of 1 to our previous example `0 0 * * 0%3+1` will create a schedule to run a build every third Sunday that is an odd calendar number. Modulo is calculated based on the time since 2019-01-01.
 
 For more information on how modulo works, see the official documentation of [Fugit](https://github.com/floraison/fugit?tab=readme-ov-file#the-modulo-extension), which is used for extending the POSIX cron syntax in Buildkite.
+
+#### Unsupported syntax
+
+The `~` random-value operator (for example, `0 ~ * * *`) is not supported in Buildkite Pipelines schedules and will be rejected at validation time.
 
 #### Examples
 

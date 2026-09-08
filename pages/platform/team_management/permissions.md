@@ -54,6 +54,8 @@ A user who is a _team maintainer_ on an existing team can:
 
     * Add another existing user to this team, using the **Add Member** button from the **Members** tab.
 
+    * Filter the **Members** tab list by role, using the role dropdown (**Everyone**, **Team Member**, or **Team Maintainer**) to find members with a specific role.
+
     * Remove a user from this team, by selecting the user's **Remove** button.
 
     * Change the permission for all users in this team on any:
@@ -80,6 +82,8 @@ A user who is a _team maintainer_ on an existing team can:
 
             **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries within the team.
 
+            **Note:** **Create test suites** only appears for organizations that have Test Engine available on their plan. If Test Engine is not available, this permission is hidden, and any previously configured setting for it is kept and restored if Test Engine becomes available again.
+
         - Delete the team, using the **Delete** button.
 
 As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team (that is, no team management capabilities) than a **Team Maintainer**.
@@ -88,6 +92,8 @@ All team members in a team have the same level of access to the [pipelines](/doc
 
 > 📘 Pipeline-level permissions override team member permissions
 > When a user belongs to multiple teams that have access to the same pipeline, the highest pipeline-level permission across all of those teams applies. For example, if a user belongs to Team A, which has **Read Only** access to a pipeline, and also belongs to Team B, which has **Full Access** to the same pipeline, the user has **Full Access** to that pipeline. This means the user can edit pipeline settings, create builds, and manage access, regardless of the lower permission set through Team A.
+
+Permission levels also affect who can change a resource's access settings later.
 
 > 🚧 Changing **Full Access** permissions on pipelines, test suites and registries
 > As a team maintainer, once you change the permission on any of these items away from **Full Access**, you could lose the ability to change the permissions on that item again. This can happen if you are no longer a member of a team that provides **Full Access** to this item.

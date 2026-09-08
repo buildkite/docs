@@ -14,11 +14,16 @@ curl -H "Authorization: Bearer $TOKEN" \
   {
     "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
     "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+    "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "slug":"my_suite_slug",
     "name":"My suite name",
     "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
     "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
-    "default_branch":"main"
+    "default_branch":"main",
+    "application_name": "Buildkite",
+    "color": "#FFF700",
+    "emoji": "🍋",
+    "oidc_policy": null
   }
 ]
 ```
@@ -26,6 +31,38 @@ curl -H "Authorization: Bearer $TOKEN" \
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown partial: 'apis/rest_api/test_engine/suites_query_strings' %>
+
+Required scope: `read_suites`
+
+Success response: `200 OK`
+
+## List suites for a pipeline
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the Buildkite Test Engine suites that have recorded at least one run attributed to a pipeline, ordered by creation time. Each suite is returned once, even if it has recorded several runs for the pipeline.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/pipelines/{pipeline.slug}/suites"
+```
+
+```json
+[
+  {
+    "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+    "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+    "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "slug":"my_suite_slug",
+    "name":"My suite name",
+    "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
+    "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
+    "default_branch":"main",
+    "application_name": "Buildkite",
+    "color": "#FFF700",
+    "emoji": "🍋",
+    "oidc_policy": null
+  }
+]
+```
 
 Required scope: `read_suites`
 
@@ -42,11 +79,16 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+  "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slug":"my_suite_slug",
   "name":"My suite name",
   "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
   "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
-  "default_branch":"main"
+  "default_branch":"main",
+  "application_name": "Buildkite",
+  "color": "#FFF700",
+  "emoji": "🍋",
+  "oidc_policy": null
 }
 ```
 
@@ -79,6 +121,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+  "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slug": "jasmine",
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
@@ -87,7 +130,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "application_name": "Buildkite",
   "color": "#FFF700",
   "emoji": "🍋",
-  "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA"
+  "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA",
+  "oidc_policy": null
 }
 ```
 
@@ -131,6 +175,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>emoji</code></th>
     <td>Emoji for the suite navatar. Check out our <a href="https://github.com/buildkite/emojis?tab=readme-ov-file#emoji-reference">documentation for supported emoji</a>.<br><em>Example:</em> <code>"🍋"</code>, <code>"\:lemon\:"</code></td>
   </tr>
+  <tr>
+    <th><code>oidc_policy</code></th>
+    <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
+  </tr>
 </tbody>
 </table>
 
@@ -154,11 +202,16 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+  "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slug": "jasmine",
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
   "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/jasmine",
-  "default_branch": "main"
+  "default_branch": "main",
+  "application_name": "Buildkite",
+  "color": "#FFF700",
+  "emoji": "🍋",
+  "oidc_policy": null
 }
 ```
 
@@ -190,9 +243,12 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>show_api_token</code></th>
     <td>Return the suite's API token in the response.<br><em>Default value:</em> <code>false</code>.</td>
   </tr>
+  <tr>
+    <th><code>oidc_policy</code></th>
+    <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
+  </tr>
 </tbody>
 </table>
-
 
 Required scope: `write_suites`
 

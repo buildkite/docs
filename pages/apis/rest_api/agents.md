@@ -28,7 +28,7 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
   </tr>
   <tr>
     <th><code>connection_state</code></th>
-    <td>Connection state: <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, or <code>stopped</code></td>
+    <td>Connection state: <code>never_connected</code>, <code>connected</code>, <code>disconnected</code>, <code>stopping</code>, <code>stopped</code>, or <code>lost</code></td>
   </tr>
   <tr>
     <th><code>hostname</code></th>
@@ -47,12 +47,40 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
     <td>Version of the Buildkite agent</td>
   </tr>
   <tr>
+    <th><code>os_id</code></th>
+    <td>Operating system identifier of the runner (for example, <code>linux</code>, <code>darwin</code>)</td>
+  </tr>
+  <tr>
+    <th><code>arch</code></th>
+    <td>CPU architecture of the runner (for example, <code>amd64</code>, <code>arm64</code>)</td>
+  </tr>
+  <tr>
+    <th><code>queue</code></th>
+    <td>Queue the agent is registered to</td>
+  </tr>
+  <tr>
     <th><code>creator</code></th>
     <td>User or token that registered the agent</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
     <td>When the agent was registered</td>
+  </tr>
+  <tr>
+    <th><code>connected_at</code></th>
+    <td>When the agent connected</td>
+  </tr>
+  <tr>
+    <th><code>disconnected_at</code></th>
+    <td>When the agent disconnected gracefully (<code>null</code> if still connected or lost)</td>
+  </tr>
+  <tr>
+    <th><code>lost_at</code></th>
+    <td>When the agent was marked as lost due to an unexpected disconnection (<code>null</code> if not lost)</td>
+  </tr>
+  <tr>
+    <th><code>stopped_at</code></th>
+    <td>When the agent was stopped (<code>null</code> if not stopped)</td>
   </tr>
   <tr>
     <th><code>job</code></th>
@@ -75,7 +103,7 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
 
 ## List agents
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's connected and stopping agents. Agents in other connection states are not returned. Use [get an agent](#get-an-agent) to retrieve a known agent in any connection state.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -95,6 +123,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "ip_address": "144.132.19.12",
     "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
     "version": "2.1.0",
+    "os_id": "linux",
+    "arch": "amd64",
+    "queue": "default",
     "creator": {
       "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
       "name": "Keith Pitt",
@@ -103,6 +134,10 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z"
     },
     "created_at": "2014-02-24T22:33:45.263Z",
+    "connected_at": "2014-02-24T22:33:45.263Z",
+    "disconnected_at": null,
+    "lost_at": null,
+    "stopped_at": null,
     "job": {
       "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
       "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
@@ -149,6 +184,10 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <th><code>version</code></th>
     <td>Filters the results by the given exact version number<p class="Docs__api-param-eg"><em>Example:</em> <code>?version=2.1.0</code></p></td>
   </tr>
+  <tr>
+    <th><code>cluster_queue_id</code></th>
+    <td>Filters the results to only agents registered to the given queue UUID<p class="Docs__api-param-eg"><em>Example:</em> <code>?cluster_queue_id=c109939f-3b71-4cd3-b175-8eb79d2eb38e</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -177,6 +216,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "ip_address": "144.132.19.12",
   "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
   "version": "2.1.0",
+  "os_id": "linux",
+  "arch": "amd64",
+  "queue": "default",
   "creator": {
     "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
     "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
@@ -186,6 +228,10 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2015-05-09T21:05:59.874Z"
   },
   "created_at": "2015-05-09T21:05:59.874Z",
+  "connected_at": "2015-05-09T21:05:59.874Z",
+  "disconnected_at": null,
+  "lost_at": null,
+  "stopped_at": null,
   "job": {
     "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
     "graphql_id": "Sm9iLS0tZGM5YTg5MmQtM2I5Ny00MzgyLWEzYzItNWJhZmU5M2RlZWI1",
@@ -281,6 +327,21 @@ curl -H "Authorization: Bearer ${TOKEN}" \
     "timeout_in_minutes": 60
   }'
 ```
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>note</code></th>
+    <td>A short note explaining why the agent is being paused</td>
+  </tr>
+  <tr>
+    <th><code>timeout_in_minutes</code></th>
+    <td>The number of minutes after which the agent is automatically resumed<p class="Docs__api-param-eg"><em>If omitted:</em> Uses the agent's existing timeout value, which is initially <code>5</code>. <em>Maximum:</em> <code>10080</code> (seven days).</p></td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `write_agents`
 

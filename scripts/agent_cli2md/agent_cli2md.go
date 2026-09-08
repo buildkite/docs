@@ -20,11 +20,13 @@ const (
 )
 
 var (
-	headingRE      = regexp.MustCompile(`^(\w*):$`) // Headings end in `:`
-	codeBlockRE    = regexp.MustCompile(`^\s{4}`)
-	flagRE         = regexp.MustCompile(`\s{2}(-{2}[a-z0-9\- ]*)([A-Z].*)$`)
-	bkEnvVarRE     = regexp.MustCompile(`\$BUILDKITE[A-Z0-9_]*`)
-	bracketedVarRE = regexp.MustCompile(`\s\[\$BUILDKITE[A-Z0-9_]*\]`)
+	headingRE                          = regexp.MustCompile(`^(\w*):$`) // Headings end in `:`
+	codeBlockRE                        = regexp.MustCompile(`^\s{4}`)
+	flagRE                             = regexp.MustCompile(`^  (--.*?)\s{2,}(\S.*)$`)
+	bkEnvVarRE                         = regexp.MustCompile(`\$BUILDKITE[A-Z0-9_]*`)
+	envAnnotationRE                    = regexp.MustCompile(`\s+\[((?:\$BUILDKITE[A-Z0-9_]+)(?:,\s*\$BUILDKITE[A-Z0-9_]+)*)\]\s*$`)
+	artifactUploadConcurrencyDefaultRE = regexp.MustCompile(`^Number of concurrent artifact upload operations \(default: \d+\)$`)
+	htmlTextEscaper                    = strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;")
 )
 
 func main() {
@@ -80,25 +82,19 @@ func main() {
 
 		// Lists of parameters
 		//  --config value             Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
-		if m := flagRE.FindStringSubmatch(line); m != nil {
+		if command, value, desc, ok := parseFlagLine(line); ok {
+			if command == "help" {
+				continue
+			}
+
 			if state != stateTable {
 				fmt.Println("<!-- vale off -->\n\n" + `<table class="Docs__attribute__table">`)
 			}
 
-			commandAndValue := strings.Fields(m[1])
-			command := commandAndValue[0][2:]
-			value := ""
-			if len(commandAndValue) > 1 {
-				value = commandAndValue[1]
-			}
-			desc := m[2]
-
 			// Extract $BUILDKITE_* env and remove from desc
-			envVar := bkEnvVarRE.FindString(desc)
-			desc = bracketedVarRE.ReplaceAllString(desc, "")
-
-			// Wrap https://agent.buildkite.com/v3 in code
-			desc = strings.ReplaceAll(desc, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
+			envVar, desc := extractEnvVar(desc)
+			desc = normalizeFlagDescription(command, desc)
+			desc = renderInlineCode(desc)
 
 			fmt.Printf(`<tr id="%s">`, command)
 			fmt.Printf(`<th><code>--%[1]s %[2]s</code> <a class="Docs__attribute__link" href="#%[1]s">#</a></th>`, command, value)
@@ -145,4 +141,76 @@ func main() {
 	case stateCode:
 		fmt.Println("```")
 	}
+}
+
+func parseFlagLine(line string) (string, string, string, bool) {
+	m := flagRE.FindStringSubmatch(line)
+	if m == nil {
+		return "", "", "", false
+	}
+
+	fields := strings.Fields(m[1])
+	if len(fields) == 0 {
+		return "", "", "", false
+	}
+
+	command := strings.TrimSuffix(strings.TrimPrefix(fields[0], "--"), ",")
+	value := ""
+	if len(fields) > 1 && !strings.HasPrefix(fields[1], "-") && fields[1] != "[" {
+		value = fields[1]
+	}
+
+	return command, value, m[2], true
+}
+
+func extractEnvVar(desc string) (string, string) {
+	if m := envAnnotationRE.FindStringSubmatch(desc); m != nil {
+		envVars := bkEnvVarRE.FindAllString(m[1], -1)
+		return strings.Join(envVars, ", "), envAnnotationRE.ReplaceAllString(desc, "")
+	}
+
+	return bkEnvVarRE.FindString(desc), desc
+}
+
+func normalizeFlagDescription(command, desc string) string {
+	desc = strings.ReplaceAll(desc, "behaviour", "behavior")
+
+	if command == "token" {
+		desc = strings.Replace(
+			desc,
+			"Your cluster token or unclustered registration token.",
+			"Your agent token.",
+			1,
+		)
+	}
+
+	if command == "concurrency" && artifactUploadConcurrencyDefaultRE.MatchString(desc) {
+		return artifactUploadConcurrencyDefaultRE.ReplaceAllString(desc, "Number of concurrent artifact upload operations (default: current `GOMAXPROCS` value)")
+	}
+
+	return desc
+}
+
+func renderInlineCode(desc string) string {
+	parts := strings.Split(desc, "`")
+	if len(parts)%2 == 0 {
+		plain := htmlTextEscaper.Replace(desc)
+		return strings.ReplaceAll(plain, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
+	}
+
+	var rendered strings.Builder
+	for i, part := range parts {
+		if i%2 == 0 {
+			plain := htmlTextEscaper.Replace(part)
+			plain = strings.ReplaceAll(plain, "https://agent.buildkite.com/v3", "<code>https://agent.buildkite.com/v3</code>")
+			rendered.WriteString(plain)
+			continue
+		}
+
+		rendered.WriteString("<code>")
+		rendered.WriteString(html.EscapeString(part))
+		rendered.WriteString("</code>")
+	}
+
+	return rendered.String()
 }

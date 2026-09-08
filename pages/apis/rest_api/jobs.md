@@ -4,6 +4,12 @@ A job is the execution of a command step during a build. Jobs run the commands, 
 
 A job can be in various states during its lifecycle, such as `pending`, `scheduled`, `running`, `finished`, `failed`, `canceled`, and others. These states represent the execution state of the job as it progresses through the build system.
 
+A running command job can also declare an expected failure before it finishes by using [promise job failure](/docs/pipelines/configure/promise-job-failure). In that case, the job state remains `running`, and the job payload includes the promised exit status and the time when the promise was recorded.
+
+When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
+
+A command job's `concurrency_wait_time_ms` field reports how long the job waited for a [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups) slot, in milliseconds. It's `0` when the job passed through the concurrency group without waiting. It's `null` when the job didn't use a concurrency group, when the job hasn't finished waiting yet, or when the wait time can't be separated from a [platform limit](/docs/pipelines/configure/defining-steps#job-states-platform-limits) wait.
+
 ## List jobs
 
 Returns a paginated list of jobs in a build.
@@ -34,10 +40,14 @@ curl -H "Authorization: Bearer $TOKEN" \
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
+      "signal": null,
+      "signal_reason": null,
+      "broken_reason": null,
       "artifact_paths": null,
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": "2015-05-09T21:06:00.000Z",
+      "concurrency_wait_time_ms": null,
       "started_at": "2015-05-09T21:06:05.000Z",
       "finished_at": "2015-05-09T21:06:20.000Z",
       "expired_at": null,
@@ -72,11 +82,19 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <tbody>
   <tr>
     <th><code>state[]</code></th>
-    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted.</td>
+    <td>Filter by job state. Pass multiple values to OR them together (for example, <code>?state[]=passed&amp;state[]=failed</code>). Accepted values: <code>pending</code>, <code>waiting</code>, <code>waiting_failed</code>, <code>blocked</code>, <code>blocked_failed</code>, <code>unblocked</code>, <code>unblocked_failed</code>, <code>scheduled</code>, <code>assigned</code>, <code>accepted</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>timed_out</code>, <code>timing_out</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>broken</code>, <code>expired</code>, or <code>limited</code>. Note: <code>passed</code> and <code>failed</code> are API-only aliases derived from the job's exit status; the raw <code>finished</code> DB state is not accepted. A finished <code>waiter</code> job (the job type used by <a href="/docs/pipelines/configure/step-types/wait-step">wait steps</a>) always matches <code>passed</code> rather than <code>failed</code>. It never runs, so it never has an exit status. When your organization has early failure declarations enabled and configured to count promised exit statuses toward a build failing, <code>state=failed</code> also matches running script jobs that have declared a hard-failing promised exit status (a non-zero promised exit status that is not covered by the step's soft-fail rules). The job's <code>state</code> field in the response still reads <code>running</code> for these jobs. Correspondingly, <code>state=running</code> excludes those same jobs, keeping the two filters mutually exclusive.</td>
   </tr>
   <tr>
     <th><code>include_retried_jobs</code></th>
     <td>Include jobs that have been retried. Default: <code>true</code>. Set to <code>false</code> to return only the most recent attempt for each step.<p class="Docs__api-param-eg"><em>Example:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>step_key</code></th>
+    <td>Filter jobs by step key. Returns all jobs associated with the given step, including parallel jobs. If the key does not match any step in the build, the endpoint returns an empty list.<p class="Docs__api-param-eg"><em>Example:</em> <code>deploy</code></p></td>
+  </tr>
+  <tr>
+    <th><code>group_key</code></th>
+    <td>Filter jobs by group key. Returns all jobs belonging to the given group step. If the key does not match any group step in the build, the endpoint returns an empty list.<p class="Docs__api-param-eg"><em>Example:</em> <code>test-suite</code></p></td>
   </tr>
   <tr>
     <th><code>per_page</code></th>
@@ -143,10 +161,14 @@ curl -H "Authorization: Bearer $TOKEN" \
   "command": "scripts/build.sh",
   "soft_failed": false,
   "exit_status": 0,
+  "signal": null,
+  "signal_reason": null,
+  "broken_reason": null,
   "artifact_paths": null,
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "runnable_at": "2015-05-09T21:06:00.000Z",
+  "concurrency_wait_time_ms": null,
   "started_at": "2015-05-09T21:06:05.000Z",
   "finished_at": "2015-05-09T21:06:20.000Z",
   "expired_at": null,
@@ -178,6 +200,120 @@ Error responses:
   <tr>
     <th><code>404 Not Found</code></th>
     <td><code>{ "message": "No job found" }</code></td>
+  </tr>
+</tbody>
+</table>
+
+## Create a remote desktop session
+
+Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to connect a VNC client to the job's desktop.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/vnc-session"
+```
+
+```json
+{
+  "endpoint": "wss://example.remote-access.invalid",
+  "access_token": "<access-token>",
+  "expires_at": "2026-08-19T04:30:00Z",
+  "vnc": {
+    "username": "<username>",
+    "password": "<password>"
+  }
+}
+```
+
+The response includes the `Cache-Control: no-store` header.
+
+> 🚧 Protect remote access credentials
+> The response contains credentials that grant access to the running job. Don't log, cache, or persist the response.
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to manage hosted agents for the job. [Remote access must also be active](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-remote-access-on-hosted-agents) for the Buildkite organization.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to manage hosted agents for the job.</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The job does not exist in the organization, or VNC access is not available for the organization.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td>The job is not a running command job on a supported macOS hosted agent.</td>
+  </tr>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td>The hosted agent provider could not create the VNC session.</td>
+  </tr>
+</tbody>
+</table>
+
+## Create an SSH session
+
+Creates connection details for a running command job on a macOS or Linux hosted agent. The response includes a short-lived access token. Use this endpoint to open an interactive SSH session with the job.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/ssh-session"
+```
+
+```json
+{
+  "endpoint": "wss://example.remote-access.invalid",
+  "access_token": "<access-token>",
+  "expires_at": "2026-08-19T04:30:00Z",
+  "transport": "namespace_ingress",
+  "ssh": {
+    "username": "<username>",
+    "private_key": "<private-key>",
+    "host_keys": []
+  }
+}
+```
+
+For a Linux hosted job, `transport` is `tcp`, and `ssh.host_keys` contains one or more SSH host public keys. Verify the job's host against these keys before completing the SSH handshake. For a macOS hosted job, `transport` remains `namespace_ingress` and `ssh.host_keys` is always an empty array. Host verification happens as part of the ingress connection.
+
+The response includes the `Cache-Control: no-store` header.
+
+> 🚧 Protect remote access credentials
+> The response contains credentials that grant access to the running job. Don't log, cache, or persist the response.
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to manage hosted agents for the job. [Remote access must also be active](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-remote-access-on-hosted-agents) for the Buildkite organization.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to manage hosted agents for the job.</td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The job does not exist in the organization, or SSH access is not available for the organization.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td>The job is not a running command job on a supported macOS or Linux hosted agent.</td>
+  </tr>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td>The hosted agent provider could not create the SSH session, or could not supply valid SSH host keys for a Linux hosted job.</td>
   </tr>
 </tbody>
 </table>
@@ -220,6 +356,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": null,
+      "concurrency_wait_time_ms": null,
       "started_at": null,
       "finished_at": null,
       "retried": false,
@@ -297,6 +434,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": null,
+      "concurrency_wait_time_ms": null,
       "started_at": null,
       "finished_at": null,
       "retried": false,
@@ -466,6 +604,69 @@ Alternative formats (using `Accept` header or file extension):
     <th><code>text/html</code></th>
     <th><code>.html</code></th>
     <td>The job's log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td>
+  </tr>
+</tbody>
+</table>
+
+### Get log size without downloading
+
+Use `HEAD` instead of `GET` to retrieve the byte size of a job log without downloading its content. This is useful for monitoring log growth or checking whether new output is available.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -I "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+You can also use the build-scoped route:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -I "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+```
+
+A successful response has no body and includes:
+
+- `Content-Length`: the total size of the raw stored log bytes
+- `Accept-Ranges: bytes`: indicates that suffix byte range requests are supported
+
+Required scope: `read_build_logs`
+
+Success response: `200 OK`
+
+### Get a log tail using a range request
+
+To retrieve only the last _N_ bytes of a job log, send a `GET` request with `Accept: text/plain` and a `Range: bytes=-N` header. This avoids downloading the entire log when you only need the most recent output.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: text/plain" \
+  -H "Range: bytes=-100" \
+  "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/log"
+```
+
+Range requests are only supported with `Accept: text/plain`. Only suffix ranges (`bytes=-N`) are supported. Explicit start-end ranges and multipart ranges are not supported. The response body contains the raw stored bytes without UTF-8 normalization, so `Content-Length` reflects the exact number of bytes returned.
+
+A successful partial response includes:
+
+- `Accept-Ranges: bytes`
+- `Content-Range`: the byte range returned and total log size (for example, `bytes 900-999/1000`)
+- `Content-Length`: the number of bytes in the response body
+
+Required scope: `read_build_logs`
+
+Success response: `206 Partial Content`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td>Range request sent without <code>Accept: text/plain</code>, or an unsupported range form such as an explicit start-end range (<code>bytes=500-1000</code>), a multipart range, or a zero-byte suffix (<code>bytes=-0</code>)</td>
+  </tr>
+  <tr>
+    <th><code>416 Range Not Satisfiable</code></th>
+    <td>The suffix range cannot be satisfied because the job log is empty</td>
   </tr>
 </tbody>
 </table>

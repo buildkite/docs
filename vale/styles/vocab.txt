@@ -4,6 +4,7 @@ agentic
 allow_any_instance_of
 allowlist
 allowlisted
+allowlisting
 allowlists
 Amazon ECR
 Amazon Elastic Container Registry
@@ -25,6 +26,7 @@ architecting
 Argo CD
 ARNs
 argumentless
+artifactDelete
 Artifactory
 Artifactory's
 Athena
@@ -60,6 +62,7 @@ Bitrise
 bktec
 bktec's
 bktx
+blobless
 boolean
 Boomper
 bottlenecked
@@ -102,6 +105,7 @@ CloudWatch
 CMake
 cmake
 cocoapods
+codebase's
 codeql
 codesign
 codesigning
@@ -129,13 +133,17 @@ Datadog's
 daemonless
 datasource
 debuild
+debounces
 declaratively
 deduper
+deduplicated
+deduplicates
 deno
 deprioritize
 deprovisioning
 deregistration
 deprovision
+dev
 dialog's
 dialogs
 discoverability
@@ -165,6 +173,7 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extglobs
 fastfile
 fastlane
 fastlane's
@@ -184,10 +193,12 @@ gh
 gif
 githooks
 GitLab
+glibc
 globbing
 gmp
 gnupg
 goroutines
+goss
 grantable
 gotestsum
 gpg
@@ -212,6 +223,7 @@ heredoc
 heroku
 Honeycomb
 hostname
+hostnames
 hostPath
 hotfixes
 http
@@ -222,6 +234,7 @@ IdP's
 if_changed
 initContainer
 inlining
+invoiceable
 IPs
 iTerm
 iTerm's
@@ -269,6 +282,7 @@ macos
 manylinux
 matchfile
 matchers
+Makefile
 Memcache
 minitest
 misconfiguration
@@ -295,6 +309,7 @@ Nodejs
 NUnit
 nodeName
 nodeSelector
+nonblank
 Noreply
 noreply
 not_run
@@ -307,9 +322,11 @@ NVMe
 OAuth
 offboarding
 oidc
+oldstable
 onboarding
 Okta
 OpenTelemetry
+Origin
 OTel
 opentelemetry
 onboarding
@@ -346,18 +363,23 @@ PR's
 predeclare
 predeclared
 Prepends
+printf
 Prometheus
-protobuf
 promised_exit_status
+protobuf
 preemptible
 prefill
 prefetch
 preinstall
+prepended
 prepends
 preprovisioned
+preselecting
 proxied
 ptrace
 pty
+publish_commit_status
+publish_commit_status_per_step
 pullrequest
 pybuildkite
 pytest
@@ -378,6 +400,7 @@ repo
 repos
 reprioritize
 reprioritizes
+reserver
 resizable
 retryable
 rollout
@@ -386,11 +409,13 @@ retag
 retrigger
 routable
 rpmbuild
+rsyslog
 RSpec
 ruleset
 runbook
 runbooks
 runtimes
+runtime's
 rustup
 rvm
 sandboxed
@@ -414,12 +439,16 @@ shasum
 shellcheck
 shellscripting
 Shipit
+shortcode
 sigstore
 sigstore's
 signaltometrics
 skopeo
+subproject
+subprojects
 SLA
 SLAs
+SLIs
 SLO
 SLOs
 snake_case
@@ -432,6 +461,7 @@ Sonatype
 Sonoma
 Splitter's
 sre
+ssh_secret
 sso
 stack_error
 start_time
@@ -464,6 +494,7 @@ timeframe
 tmp
 tmux
 tokenization
+tokenless
 toleration
 tolerations
 toolchain
@@ -499,10 +530,16 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
+unstarted
 untrusted
+unversioned
 unxip
 uploaders
+uppercases
 upstreams
 url
 urls
@@ -527,6 +564,7 @@ webtask
 wget
 whoami
 Windsurf's
+workdir
 workgroup
 worktree
 worktrees

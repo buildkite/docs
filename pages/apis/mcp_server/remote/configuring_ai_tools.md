@@ -9,9 +9,55 @@ This page explains how to configure your AI tool to work with the [_remote_ Buil
 
 If your Buildkite organization has an [API IP allowlist](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address) configured, you must add Buildkite's egress IP addresses to this allowlist for the remote MCP server to function. The remote MCP server makes API calls from Buildkite's infrastructure, and these requests are subject to your organization's API IP allowlist. Buildkite's current egress IP addresses are provided from the [meta API endpoint](/docs/apis/rest-api/meta).
 
+## API token pass-through for headless agents
+
+For headless agents and background services that already have a [Buildkite API access token](/docs/apis/managing-api-tokens), configure the remote MCP server with the API token pass-through endpoint:
+
+```url
+https://mcp.buildkite.com/direct
+```
+
+Configure your AI tool or agent to send the token in an `Authorization` header:
+
+```url
+Authorization: Bearer bkua_xxxxx
+```
+
+The remote MCP server forwards this token to the Buildkite REST API. The token scopes determine which MCP tool calls can complete successfully. Use the minimum token scopes required by the agent.
+
+To enforce read-only access across all toolsets, configure your AI tool or agent with the read-only endpoint:
+
+```url
+https://mcp.buildkite.com/direct/readonly
+```
+
+To enable a single toolset, append `/x/{toolset.name}` to the endpoint. For example, to enable the `pipelines` toolset:
+
+```url
+https://mcp.buildkite.com/direct/x/pipelines
+```
+
+To enable the same toolset with read-only access, append `/readonly` to the endpoint:
+
+```url
+https://mcp.buildkite.com/direct/x/pipelines/readonly
+```
+
+To enable multiple toolsets, configure your AI tool or agent with the `/direct` endpoint and include the `X-Buildkite-Toolsets` header:
+
+```url
+https://mcp.buildkite.com/direct
+Authorization: Bearer bkua_xxxxx
+X-Buildkite-Toolsets: user,pipelines,builds
+```
+
+You can also use the `X-Buildkite-Readonly: true` header with `/direct` to enforce read-only access. If both the path and header configure the same option, the request fails.
+
+For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
+
 ## Amp
 
-You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration). This configuration uses the `mcp-remote` command argument to allow OAuth authorization. For more about this configuration type, see [Custom Tools (MCP)](https://ampcode.com/manual#mcp) in the Amp documentation.
+You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/docs/cli/settings). This configuration uses the `mcp-remote` command argument to allow OAuth authorization. For more about this configuration type, see [MCP](https://ampcode.com/docs/customize/mcp) in the Amp documentation.
 
 ```json
 {
@@ -94,7 +140,7 @@ You can configure [Claude Desktop](https://claude.ai/download) with the remote B
 
     **Note:** If you are on the Enterprise or Team plan, to access this **Connect** button, you may need to select the **Your connectors** tab first.
 
-If you need a new OAuth token, the **Authorize Application** for the **Buildkite MCP server** page appears. If so, scroll down and select your Buildkite organization in **Authorize for organization**, followed by **Authorize**.
+<%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
 You're now ready to use Buildkite's remote MCP server through Claude Desktop for this Buildkite organization.
 
@@ -208,7 +254,7 @@ You can configure [Visual Studio Code](https://code.visualstudio.com/) with the 
 
 Alternatively, you can initiate this process through the Visual Studio Code interface. To do this:
 
-1. In the [Command Palette](https://code.visualstudio.com/docs/getstarted/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
+1. In the [Command Palette](https://code.visualstudio.com/docs/editing/getting-started#_access-commands-with-the-command-palette), find and select the **MCP: Add Server** command.
 1. Select **HTTP (HTTP or Server-Sent Events)** to start configuring a remote MCP server.
 1. For **Enter Server URL**, specify `https://mcp.buildkite.com/mcp`.
 1. For **Enter Server ID**, specify `buildkite`.

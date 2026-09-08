@@ -34,6 +34,8 @@ Use these agent configuration options:
 - [git-mirrors-skip-update](/docs/agent/self-hosted/configure#git-mirrors-skip-update)
 - [git-skip-fetch-existing-commits](/docs/agent/self-hosted/configure#git-skip-fetch-existing-commits)
 
+On the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack), enable Git mirrors by setting the `BuildkiteAgentEnableGitMirrors` CloudFormation parameter to `true`. To avoid the initial full clone on freshly launched instances, you can also pre-populate mirrors from S3 archives at instance boot — see [Git mirror seeding](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/git-mirror-seeding).
+
 ## Git submodules
 
 Git submodules allow one repository to reference another, enabling code in the first repository to use contents from the second. When you enable mirrors, the agent also mirrors submodules. You can create and update submodule mirrors the same way as regular mirrors.

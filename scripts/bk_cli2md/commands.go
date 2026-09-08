@@ -9,6 +9,7 @@ var commandDescriptions = map[string]string{
 	"api":          "interact with the Buildkite API",
 	"artifacts":    "manage build artifacts",
 	"auth":         "manage authorization",
+	"browse":       "open Buildkite resources in a web browser",
 	"build":        "manage pipeline builds",
 	"cluster":      "manage Buildkite organization clusters",
 	"config":       "manage Buildkite CLI configurations",
@@ -23,6 +24,8 @@ var commandDescriptions = map[string]string{
 	"queue":        "manage cluster queues",
 	"secret":       "manage Buildkite secrets",
 	"skill":        "manage Buildkite skills for AI coding agents",
+	"team":         "manage organization teams",
+	"update":       "update the installed bk CLI or print update instructions",
 	"user":         "manage users in your Buildkite organization",
 	"version":      "display which version of the Buildkite CLI you're using",
 }

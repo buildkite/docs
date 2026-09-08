@@ -50,6 +50,9 @@
 <meta property="og:site_name" content="Buildkite" />
 <meta property="og:locale" content="en_US" />
 
+<!-- Structured data (schema.org JSON-LD) -->
+<%= content_for(:json_ld) if content_for?(:json_ld) %>
+
 <%= render 'analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
 
 <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" || [ "https://badge.buildkite.com", "https://badge.buildbox.io"].include?(request.base_url) %>

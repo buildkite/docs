@@ -19,7 +19,7 @@ The build page consists of three main components:
 The _sidebar_ provides a hierarchical view of all steps in your build. Here's how to use it:
 
 - Expand/collapse groups by selecting their arrow icons.
-- Group steps by state to see important steps (such as blocked or failed) at the top.
+- By default, steps are displayed in pipeline order. Switch to grouping by state instead to see important steps (such as those waiting for input or failed) at the top. Buildkite Pipelines remembers your choice for future builds.
 - Select any step to view its details.
 - Use the action button (with the curved arrow) or press the `f` key to cycle through failures.
 - Use keyword search to quickly open or focus a step.
@@ -44,6 +44,14 @@ When you select a step, its details appear in a resizable step panel. You can:
 
 <%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
 
+### Viewing why a step was skipped
+
+Skipped steps show their reason without you needing to open a log.
+
+- Reveal skipped steps using the **Show skipped steps** toggle.
+- Hover over a skipped step in the **List** or **Canvas** view to see the reason in a tooltip.
+- Select a skipped command or trigger step to view the reason in the step panel. Skipped wait and block steps don't open the step panel, because they have no further details to show.
+
 ### Managing retries
 
 The sidebar shows an indicator for steps with retries.
@@ -64,6 +72,20 @@ Here's how to use it:
 - Filter jobs using the state filter.
 
 <%= image "build_table.png", alt: "Screenshot showing the build table" %>
+
+### Viewing test results
+
+When a build's pipeline uploads test results to [Test Engine](/docs/test-engine), a **Tests** tab appears in the content area. This is where you see how your tests did for that build — the executions, which ones failed, and the trends across the run, all in one place alongside the rest of the build.
+
+From the **Tests** tab you can:
+
+- See the failing tests in a given build at a glance.
+- Filter test executions to analyze and surface trends across the run.
+- Select **Display** to change the columns shown (for example, average duration) and surface other aggregate data.
+
+By default, executions are grouped by test, so retried tests are shown together. For more detail on what's available here, see [Tests tab on build pages](/docs/test-engine/test-suites#tests-tab-on-build-pages).
+
+<%= image "tests-tab.png", width: 3170/2, height: 1668/2, alt: "Screenshot of the tests tab on the build page" %>
 
 ### Browsing your build on mobile
 
@@ -100,11 +122,11 @@ For builds with many steps:
 - Avoid the **Canvas** view on large builds unless you're debugging dependencies between steps.
 - Collapse passed and waiting groups to reduce clutter.
 - Use browser search to quickly find specific steps (search isn't built in yet).
-- Group by state to organize large numbers of steps.
+- Switch to grouping by state to organize large numbers of steps.
 
 ## Best practices
 
-- Keep the sidebar grouped by states and collapse lower priority states such as **Waiting** and **Passed**.
+- For large builds, group the sidebar by state and collapse lower-priority states such as **Waiting** and **Passed**. Steps grouped under **Waiting for input** need your action, so they're kept near the top instead.
 - If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. You can also enable the music mode.
 - Use appropriate views for different tasks:
 

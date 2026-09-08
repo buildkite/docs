@@ -47,6 +47,8 @@ client_id=your-client-id
 | `client_id` | Yes | The client ID of your OAuth application |
 | `scope` | Yes | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). At least one valid scope is required |
 | `client_secret` | Conditional | Required for confidential clients. Not required for public clients |
+| `organization` | No | The slug of the Buildkite organization to preselect during user authorization |
+| `organization_uuid` | No | The UUID of the Buildkite organization to preselect during user authorization. When both parameters identify an organization, this parameter takes precedence over `organization` |
 
 ### Response
 
@@ -80,8 +82,11 @@ The user:
 
 1. Enters the code (when using `verification_uri`).
 1. Reviews the application name and requested scopes.
-1. Selects a Buildkite organization to authorize.
+1. Selects a Buildkite organization to authorize, unless it was already preselected using the `organization` or `organization_uuid` hint.
 1. Approves or denies the request.
+
+> 📘 Preselecting an organization
+> If the device authorization request includes an `organization` or `organization_uuid` hint and the signed-in user can authorize that organization, the organization is preselected for them. The user can still select a different organization before approving the request.
 
 ## Token request
 
@@ -119,11 +124,19 @@ Once the user approves the request, the token endpoint returns:
 {
   "access_token": "bkua_...",
   "token_type": "Bearer",
-  "expires_in": 3600,
+  "expires_in": 86400,
   "refresh_token": "...",
   "scope": "read_user read_organizations"
 }
 ```
+
+| Field | Description |
+|-------|-------------|
+| `access_token` | The access token to use in API requests |
+| `token_type` | Always `Bearer` |
+| `expires_in` | Seconds until the access token expires. Present when the OAuth application has a token expiry configured (using `expiry_hours` or the access token lifetime for applications with refresh tokens enabled). Omitted when the application has no expiry configured |
+| `refresh_token` | A refresh token for obtaining new access tokens. Present only when the application has refresh tokens enabled. Omitted when refresh tokens are not enabled |
+| `scope` | Space-delimited list of granted scopes |
 
 Use the `access_token` value in the `Authorization` header for API requests:
 

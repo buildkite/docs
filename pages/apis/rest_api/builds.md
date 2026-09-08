@@ -73,6 +73,10 @@ Note that some API request types on this page, especially those involving only a
     <td>Array of <a href="#job-data-model">Job</a> objects in the build</td>
   </tr>
   <tr>
+    <th><code>job_state_counts</code></th>
+    <td>Counts of jobs grouped by API state. Returned only by the <a href="#get-a-build">Get a build</a> endpoint</td>
+  </tr>
+  <tr>
     <th><code>created_at</code></th>
     <td>When the build was created</td>
   </tr>
@@ -85,6 +89,10 @@ Note that some API request types on this page, especially those involving only a
     <td>When the build's first job was started by an agent</td>
   </tr>
   <tr>
+    <th><code>failing_at</code></th>
+    <td>When the build first entered the <code>failing</code> state (that is, when a hard, non-retryable job failure occurred before the build finished). <code>null</code> if the build has not entered the <code>failing</code> state</td>
+  </tr>
+  <tr>
     <th><code>finished_at</code></th>
     <td>When the build finished (passed, failed, canceled)</td>
   </tr>
@@ -95,6 +103,10 @@ Note that some API request types on this page, especially those involving only a
   <tr>
     <th><code>pull_request</code></th>
     <td>Pull request information if applicable</td>
+  </tr>
+  <tr>
+    <th><code>merge_queue</code></th>
+    <td><a href="/docs/pipelines/tutorials/github-merge-queue">Merge queue</a> information if the build belongs to a merge queue, containing <code>base_branch</code> (the branch the merge queue build is queued against), or <code>null</code> otherwise</td>
   </tr>
   <tr>
     <th><code>rebuilt_from</code></th>
@@ -182,6 +194,26 @@ Jobs are the individual units of work within a build.
     <td>Exit code of the command (integer)</td>
   </tr>
   <tr>
+    <th><code>signal</code></th>
+    <td>The OS signal that terminated the job process (for example, <code>SIGTERM</code>). Null if the job was not terminated by a signal, or if the job predates this field.</td>
+  </tr>
+  <tr>
+    <th><code>signal_reason</code></th>
+    <td>The reason the job received a signal or why its process could not start. Possible values: <code>agent_stop</code> (agent was gracefully stopped), <code>cancel</code> (job was canceled), <code>process_run_error</code> (agent failed to start the process), <code>agent_refused</code> (agent refused the job), <code>signature_rejected</code> (job signature was invalid), <code>stack_error</code> (internal agent error), and <code>agent_incompatible</code> (agent cannot run this job type). A value can help diagnose a failure, but does not determine whether retrying is safe by itself. The value is null if the job ended normally or predates this field.</td>
+  </tr>
+  <tr>
+    <th><code>broken_reason</code></th>
+    <td>Why the job is broken. Null unless <code>state</code> is <code>broken</code>. May be a reason code (for example, <code>conditional_failed</code> when an <code>if</code> condition evaluated to false, or <code>branch_mismatch</code> when the branch did not match the step's branch filter) or a free-text skip reason supplied at upload time.</td>
+  </tr>
+  <tr>
+    <th><code>promised_exit_status</code></th>
+    <td>The non-zero exit status a running job declared before finishing. Omitted if the job has not promised failure.</td>
+  </tr>
+  <tr>
+    <th><code>promised_exit_status_at</code></th>
+    <td>The time when the job declared its promised exit status. Omitted if the job has not promised failure.</td>
+  </tr>
+  <tr>
     <th><code>artifact_paths</code></th>
     <td>Glob patterns for artifact upload</td>
   </tr>
@@ -264,6 +296,8 @@ Jobs are the individual units of work within a build.
 
 There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
 
+Jobs that use [promise job failure](/docs/pipelines/configure/promise-job-failure) can also include `promised_exit_status` and `promised_exit_status_at`. Compare `promised_exit_status_at` with `finished_at` to measure how much earlier the job declared failure before it finished.
+
 The timestamps are available using both the GraphQL and REST APIs. They differ slightly between the build and job objects.
 
 Each <em>build</em> is provided with the following timestamps:
@@ -281,6 +315,10 @@ Each <em>build</em> is provided with the following timestamps:
   <tr>
     <th><code>started_at</code></th>
     <td>The time the build's first job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>failing_at</code></th>
+    <td>The time the build first entered the failing state, when a hard, non-retryable job failure occurred before the build finished. Returns <code>null</code> if the build never started failing. Once set, this timestamp is not cleared, even if a later retry passes.</td>
   </tr>
   <tr>
     <th><code>finished_at</code></th>
@@ -322,9 +360,11 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds acr
 If using token-based authentication the list of builds will be for the authorized organizations only.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/builds"
+  -X GET "https://api.buildkite.com/v2/builds?exclude_jobs=true"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -334,15 +374,28 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 Required scope: `read_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Listing builds this deep is not supported. Please narrow your query using filters such as branch or created_from." }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## List builds for an organization
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's builds across all of an organization's pipelines.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/builds?exclude_jobs=true"
 ```
 
 Optional [query string parameters](/docs/api#query-string-parameters):
@@ -353,15 +406,30 @@ Required scope: `read_builds`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Listing builds this deep is not supported. Please narrow your query using filters such as branch or created_from." }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## List builds for a pipeline
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's builds.
 Builds are listed in the order they were created (newest first).
 
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds?exclude_jobs=true"
 ```
+
+The following response shows the embedded jobs returned when you omit `exclude_jobs=true`.
 
 ```json
 [
@@ -443,9 +511,11 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2015-05-09T21:05:59.874Z",
     "scheduled_at": "2015-05-09T21:05:59.874Z",
     "started_at": "2015-05-09T21:05:59.874Z",
+    "failing_at": null,
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
     "pull_request": { },
+    "merge_queue": null,
     "rebuilt_from": null,
     "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
@@ -492,7 +562,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
@@ -502,14 +572,29 @@ Required scope: `read_builds`
 
 Success response: `200 OK`
 
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>400 Bad Request</code></th>
+    <td><code>{ "message": "Listing builds this deep is not supported. Please narrow your query using filters such as branch or created_from." }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## Get a build
+
+Use `exclude_jobs=true` when polling build state or retrieving build metadata, such as the branch, commit, creator, or timestamps. Fetch embedded jobs only when you need job information. You can also use `exclude_pipeline=true` when you do not need expanded pipeline information.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}?exclude_jobs=true"
 ```
 
 <%= render_markdown partial: 'apis/rest_api/build_number_vs_build_id' %>
+
+The following response shows the embedded jobs returned when you omit `exclude_jobs=true`.
 
 ```json
 {
@@ -605,12 +690,20 @@ curl -H "Authorization: Bearer $TOKEN" \
       "cluster_queue_url": null
     }
   ],
+  "job_state_counts": {
+    "total": 1,
+    "states": {
+      "passed": 1
+    }
+  },
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:08:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "rebuilt_from": {
     "id": "812135b3-eee7-408c-9f63-760538b96bd5",
     "number": 1,
@@ -644,13 +737,17 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Unlike [build states](/docs/pipelines/configure/notify#build-states) for notifications, when a build is blocked, the `state` of a build does not return the value `blocked`. Instead, the build `state` retains its last value (for example, `passed`) and the `blocked` field value will be `true`.
 
 When a job belongs to a [group step](/docs/pipelines/configure/step-types/group-step), the job object includes a `group_key` field. The value corresponds to the group step's `key` attribute, allowing you to identify which jobs belong to which logical groups in your pipeline.
 
 When a job is a [trigger step](/docs/pipelines/configure/step-types/trigger-step), the job object includes `async` and `triggered_build` fields. `triggered_build` contains the `id`, `number`, `url`, and `web_url` of the build that was triggered, or `null` if the build has not yet been created.
+
+The `job_state_counts` field summarizes every job in the build by API state. Use it to confirm the complete set of job states without making a follow-up request for the build's jobs. `total` is the number of jobs counted. `states` maps each observed API state (for example, `passed`, `failed`, or `running`) to how many jobs are in that state.
+
+`job_state_counts` always describes every job in the build, regardless of the `job_states[]` or `exclude_jobs` parameters. The count still respects `include_retried_jobs`: by default, retried job executions are excluded from the count, matching the jobs returned in the `jobs` field.
 
 ```json
 {
@@ -686,6 +783,11 @@ Optional [query string parameters](/docs/api#query-string-parameters):
       <em>Example:</em> <code>?exclude_jobs=true</code></p></td>
   </tr>
   <tr>
+    <th><code>exclude_pipeline</code></th>
+    <td>Excludes expanded pipeline information from the build's details.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?exclude_pipeline=true</code></p></td>
+  </tr>
+  <tr>
     <th><code>include_retried_jobs</code></th>
     <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_retried_jobs=true</code></p></td>
@@ -697,7 +799,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   </tr>
   <tr>
     <th><code>job_states[]</code></th>
-    <td>Filter the jobs included in the response to only those matching the specified API states. Accepts one or more values: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>canceled</code>, <code>broken</code>, <code>unblocked</code>, and others. When omitted, all jobs are returned.<p class="Docs__api-param-eg">
+    <td>Filter the jobs included in the response to only those matching the specified API states. Accepts one or more values: <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>canceled</code>, <code>broken</code>, <code>unblocked</code>, and others. When omitted, all jobs are returned. A finished <code>waiter</code> job (the job type used by <a href="/docs/pipelines/configure/step-types/wait-step">wait steps</a>) always matches <code>passed</code> rather than <code>failed</code>. It never runs, so it never has an exit status.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?job_states[]=failed&amp;job_states[]=canceled</code></p></td>
   </tr>
 </tbody>
@@ -824,9 +926,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -856,7 +960,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -1045,9 +1149,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -1076,7 +1182,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 
@@ -1201,9 +1307,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -1232,11 +1340,22 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, the field returns with an empty string.
 
 Required scope: `write_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Reason why the build could not be rebuilt" }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## Retry failed jobs for a build
 
@@ -1346,9 +1465,11 @@ curl -H "Authorization: Bearer $TOKEN" \
   "created_at": "2015-05-09T21:05:59.874Z",
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
+  "failing_at": null,
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "merge_queue": null,
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -1378,7 +1499,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 > 📘 Webhook URL
-> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, this field returns an empty string.
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline and the API access token has the `write_pipelines` scope. Otherwise, this field returns an empty string.
 
 This request is asynchronous, meaning that jobs are queued to be retried, but the request does not wait for the jobs to be completed before returning a response. The `retried_jobs_count` field in the response indicates how many jobs were queued to be retried.
 

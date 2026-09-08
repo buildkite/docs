@@ -34,6 +34,15 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations` | [List organizations](/docs/apis/rest-api/organizations#list-organizations)
 GET | `/v2/organizations/{org.slug}` | [Get an organization](/docs/apis/rest-api/organizations#get-an-organization)
+GET | `/v2/organizations/{org.slug}/rate_limit` | [Get organization rate limits](/docs/apis/rest-api/organizations/rate-limits#get-rate-limits)
+{: class="responsive-table"}
+
+### Audit events
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/audit_events` | [List audit events](/docs/apis/rest-api/organizations/audit-events#list-audit-events)
+GET | `/v2/organizations/{org.slug}/audit_events/{uuid}` | [Get an audit event](/docs/apis/rest-api/organizations/audit-events#get-an-audit-event)
 {: class="responsive-table"}
 
 ### Organization members
@@ -42,6 +51,52 @@ Method | Endpoint | Description
 ------ | -------- | -----------
 GET | `/v2/organizations/{org.slug}/members` | [List organization members](/docs/apis/rest-api/organizations/members#list-organization-members)
 GET | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Get an organization member](/docs/apis/rest-api/organizations/members#get-an-organization-member)
+PATCH | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Update an organization member](/docs/apis/rest-api/organizations/members#update-an-organization-member)
+DELETE | `/v2/organizations/{org.slug}/members/{user.uuid}` | [Remove an organization member](/docs/apis/rest-api/organizations/members#remove-an-organization-member)
+{: class="responsive-table"}
+
+### Organization API settings
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/api-settings` | [Get API settings](/docs/apis/rest-api/organizations/api-settings#get-api-settings)
+PATCH | `/v2/organizations/{org.slug}/api-settings` | [Update API settings](/docs/apis/rest-api/organizations/api-settings#update-api-settings)
+{: class="responsive-table"}
+
+### Organization pipeline settings
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipeline-settings` | [Get pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#get-pipeline-settings)
+PATCH | `/v2/organizations/{org.slug}/pipeline-settings` | [Update pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings#update-pipeline-settings)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Enable hosted agents remote access](/docs/apis/rest-api/organizations/pipeline-settings#enable-hosted-agents-remote-access)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/hosted-agents-ssh` | [Disable hosted agents remote access](/docs/apis/rest-api/organizations/pipeline-settings#disable-hosted-agents-remote-access)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Enable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#enable-public-pipeline-creation)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/public-pipelines` | [Disable public pipeline creation](/docs/apis/rest-api/organizations/pipeline-settings#disable-public-pipeline-creation)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/advanced-queue-metrics` | [Enable advanced queue metrics](/docs/apis/rest-api/organizations/pipeline-settings#enable-advanced-queue-metrics)
+PUT | `/v2/organizations/{org.slug}/pipeline-settings/build-export` | [Configure build export](/docs/apis/rest-api/organizations/pipeline-settings#configure-build-export)
+DELETE | `/v2/organizations/{org.slug}/pipeline-settings/build-export` | [Disable build export](/docs/apis/rest-api/organizations/pipeline-settings#disable-build-export)
+{: class="responsive-table"}
+
+### Repository connections
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/repository_connections` | [List repository connections](/docs/apis/rest-api/organizations/repository-connections#list-repository-connections)
+GET | `/v2/organizations/{org.slug}/repository_connections/{id}` | [Get a repository connection](/docs/apis/rest-api/organizations/repository-connections#get-a-repository-connection)
+{: class="responsive-table"}
+
+### Notification services
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/services` | [List notification services](/docs/apis/rest-api/organizations/notification-services#list-notification-services)
+GET | `/v2/organizations/{org.slug}/services/{uuid}` | [Get a notification service](/docs/apis/rest-api/organizations/notification-services#get-a-notification-service)
+POST | `/v2/organizations/{org.slug}/services` | [Create a notification service](/docs/apis/rest-api/organizations/notification-services#create-a-notification-service)
+PATCH | `/v2/organizations/{org.slug}/services/{uuid}` | [Update a notification service](/docs/apis/rest-api/organizations/notification-services#update-a-notification-service)
+DELETE | `/v2/organizations/{org.slug}/services/{uuid}` | [Delete a notification service](/docs/apis/rest-api/organizations/notification-services#delete-a-notification-service)
+PUT | `/v2/organizations/{org.slug}/services/{uuid}/enable` | [Enable a notification service](/docs/apis/rest-api/organizations/notification-services#enable-a-notification-service)
+PUT | `/v2/organizations/{org.slug}/services/{uuid}/disable` | [Disable a notification service](/docs/apis/rest-api/organizations/notification-services#disable-a-notification-service)
 {: class="responsive-table"}
 
 ### Pipelines
@@ -56,6 +111,26 @@ DELETE | `/v2/organizations/{org.slug}/pipelines/{slug}` | [Delete a pipeline](/
 POST | `/v2/organizations/{org.slug}/pipelines/{slug}/archive` | [Archive a pipeline](/docs/apis/rest-api/pipelines#archive-a-pipeline)
 POST | `/v2/organizations/{org.slug}/pipelines/{slug}/unarchive` | [Unarchive a pipeline](/docs/apis/rest-api/pipelines#unarchive-a-pipeline)
 POST | `/v2/organizations/{org.slug}/pipelines/{slug}/webhook` | [Add a webhook](/docs/apis/rest-api/pipelines#add-a-webhook)
+{: class="responsive-table"}
+
+### Pipeline triggers
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers` | [List pipeline triggers](/docs/apis/rest-api/pipeline-triggers#list-pipeline-triggers)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Get a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#get-a-pipeline-trigger)
+POST | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers` | [Create a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger)
+PATCH | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Update a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger)
+DELETE | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Delete a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#delete-a-pipeline-trigger)
+{: class="responsive-table"}
+
+### Pipeline trigger deliveries
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries` | [List a trigger's deliveries](/docs/apis/rest-api/pipeline-trigger-deliveries#list-a-triggers-deliveries)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries/{delivery.id}` | [Get a delivery](/docs/apis/rest-api/pipeline-trigger-deliveries#get-a-delivery)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries/{delivery.id}/request` | [Get a delivery's request](/docs/apis/rest-api/pipeline-trigger-deliveries#get-a-deliverys-request)
 {: class="responsive-table"}
 
 ### Builds
@@ -75,6 +150,8 @@ PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/re
 
 Method | Endpoint | Description
 ------ | -------- | -----------
+POST | `/v2/organizations/{org.slug}/jobs/{job.id}/vnc-session` | [Create a remote desktop session](/docs/apis/rest-api/jobs#create-a-remote-desktop-session)
+POST | `/v2/organizations/{org.slug}/jobs/{job.id}/ssh-session` | [Create an SSH session](/docs/apis/rest-api/jobs#create-an-ssh-session)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/retry` | [Retry a job](/docs/apis/rest-api/jobs#retry-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/reprioritize` | [Reprioritize a job](/docs/apis/rest-api/jobs#reprioritize-a-job)
 PUT | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/jobs/{job.id}/unblock` | [Unblock a job](/docs/apis/rest-api/jobs#unblock-a-job)
@@ -121,6 +198,7 @@ Method | Endpoint | Description
 GET | `/v2/organizations/{org.slug}/teams` | [List teams](/docs/apis/rest-api/teams#list-teams)
 GET | `/v2/organizations/{org.slug}/teams/{team.uuid}` | [Get a team](/docs/apis/rest-api/teams#get-a-team)
 POST | `/v2/organizations/{org.slug}/teams` | [Create a team](/docs/apis/rest-api/teams#create-a-team)
+POST | `/v2/organizations/{org.slug}/teams/enable` | [Enable teams](/docs/apis/rest-api/teams#enable-teams)
 PATCH | `/v2/organizations/{org.slug}/teams/{team.uuid}` | [Update a team](/docs/apis/rest-api/teams#update-a-team)
 DELETE | `/v2/organizations/{org.slug}/teams/{team.uuid}` | [Delete a team](/docs/apis/rest-api/teams#delete-a-team)
 {: class="responsive-table"}
@@ -167,6 +245,31 @@ GET | `/v2/organizations/{org.slug}/clusters/{id}` | [Get a cluster](/docs/apis/
 POST | `/v2/organizations/{org.slug}/clusters` | [Create a cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster)
 PUT | `/v2/organizations/{org.slug}/clusters/{id}` | [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster)
 DELETE | `/v2/organizations/{org.slug}/clusters/{id}` | [Delete a cluster](/docs/apis/rest-api/clusters#clusters-delete-a-cluster)
+{: class="responsive-table"}
+
+### Hosted agent images
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images` | [List agent images](/docs/apis/rest-api/clusters/agent-images#list-agent-images)
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images/{id}` | [Get an agent image](/docs/apis/rest-api/clusters/agent-images#get-an-agent-image)
+POST | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images` | [Create an agent image](/docs/apis/rest-api/clusters/agent-images#create-an-agent-image)
+DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/agent-images/{id}` | [Delete an agent image](/docs/apis/rest-api/clusters/agent-images#delete-an-agent-image)
+{: class="responsive-table"}
+
+### Hosted agent network ranges
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/network_ranges` | [List network ranges](/docs/apis/rest-api/clusters/network-ranges#list-network-ranges)
+{: class="responsive-table"}
+
+### Hosted agent cache volumes
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/clusters/{cluster.id}/cache_volumes` | [List cache volumes](/docs/apis/rest-api/clusters/cache-volumes#list-cache-volumes)
+DELETE | `/v2/organizations/{org.slug}/clusters/{cluster.id}/cache_volumes` | [Delete a cache volume](/docs/apis/rest-api/clusters/cache-volumes#delete-a-cache-volume)
 {: class="responsive-table"}
 
 ### Queues
@@ -296,11 +399,22 @@ API access using basic HTTP authentication is not supported.
 
 ### Public key
 
-> 📘 This feature is currently available in preview.
+> 📘 This feature is currently available in preview and must be enabled by Buildkite for your organization. The **Public Key** credential type only appears after the feature is enabled. Contact [Buildkite support](mailto:support@buildkite.com) to request access.
 
-API access tokens can be created with a public key pair instead of a static token. The private key can be used to sign [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) to authenticate API calls. You must use the API access token's UUID as the `iss` claim in the JWT, have an `iat` within 10 seconds of the current time, and an `exp` within 5 minutes of your `iat`.
+API access tokens can be created with an RSA public key instead of a static token. You generate a key pair, register the public key with Buildkite, and use the private key to sign [JWTs](https://datatracker.ietf.org/doc/html/rfc7519) to authenticate API calls. Buildkite never receives your private key.
 
-For example, in Ruby - where `private_key.pem` contains the private key corresponding to an access token's public key and `$UUID` is the UUID of the access token:
+To generate a key pair using OpenSSL:
+
+```bash
+openssl genrsa -out private_key.pem 2048
+openssl rsa -in private_key.pem -pubout -out public_key.pem
+```
+
+When creating a token, select **Public Key** as the **Credential Type**. Paste the contents of `public_key.pem` into the **RSA public key (PEM)** field. Buildkite accepts RSA keys between 2048 and 4096 bits.
+
+To authenticate API calls, sign a JWT with your private key using the `RS256` algorithm. Use the access token's UUID as the `iss` claim, set `iat` within 10 seconds of the current time, and set `exp` within five minutes of your `iat`.
+
+For example, in Ruby—where `private_key.pem` contains your private key and `$UUID` is the UUID of the access token:
 
 ```ruby
 require "net/http"
@@ -344,6 +458,30 @@ You can set the page using the following query string parameters:
 </tbody>
 </table>
 
+## Rate limiting
+
+The REST API enforces rate limits to ensure stability and fair use across all customers. Two limits apply to each request:
+
+* An **organization-level limit** shared across all users in your organization
+* A **per-user limit** for the authenticated user associated with the API access token
+
+Every API response includes two independent sets of rate limit headers — `RateLimit-*` for the organization-level limit and `RateLimit-User-*` for the per-user limit—so you can monitor both and determine which one you're closer to reaching:
+
+```js
+RateLimit-Scope: rest
+RateLimit-Remaining: 80
+RateLimit-Limit: 200
+RateLimit-Reset: 42
+RateLimit-User-Scope: rest_user
+RateLimit-User-Remaining: 35
+RateLimit-User-Limit: 50
+RateLimit-User-Reset: 42
+```
+
+If either limit is exceeded, the request is rejected with a `429 Too Many Requests` status code. Wait until the number of seconds reported by the `RateLimit-Reset` or `RateLimit-User-Reset` header has elapsed before retrying.
+
+For the full list of headers, the `429` response body, and best practices for backing off, see [REST API rate limits](/docs/apis/rest-api/rate-limits). For the default limit values that apply to your organization's plan, see [Limits](/docs/platform/limits).
+
 ## CORS headers
 
 API responses include the following [CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) allowing you to use the API directly from the browser:
@@ -352,6 +490,46 @@ API responses include the following [CORS headers](https://developer.mozilla.org
 * `Access-Control-Expose-Headers: Link`
 
 For an example of this in use, see the [Emojis API example on CodePen](https://codepen.io/dannymidnight/pen/jOpJpmY) for adding emoji support to your own browser-based dashboards and build screens.
+
+## OpenAPI specification
+
+The Buildkite Test Engine REST API publishes a machine-readable [OpenAPI](https://www.openapis.org/) specification describing the `/v2/analytics` endpoints intended for general consumption.
+
+Discover the specification using the [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727.html) API catalog endpoint:
+
+```bash
+curl "https://api.buildkite.com/.well-known/api-catalog"
+```
+
+```json
+{
+  "linkset": [
+    {
+      "anchor": "https://api.buildkite.com/v2/analytics",
+      "service-desc": [
+        {
+          "href": "https://api.buildkite.com/v2/analytics/openapi.yaml",
+          "type": "application/openapi+yaml"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://buildkite.com/docs/apis/rest-api",
+          "type": "text/html"
+        }
+      ]
+    }
+  ]
+}
+```
+
+You can also fetch the specification directly:
+
+```bash
+curl "https://api.buildkite.com/v2/analytics/openapi.yaml"
+```
+
+Both endpoints are unauthenticated.
 
 ## Migrating from v1 to v2
 

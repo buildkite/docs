@@ -11,6 +11,9 @@ When a pipeline has a template assigned, the pipeline inherits its step configur
 
 Before assigning a template to a pipeline, you need to mark that template as available for use in your organization.
 
+> 📘 Pipeline templates are static
+> Pipeline templates are static. They define a fixed set of pipeline steps and don't support variables, parameters, or runtime substitution. Assigning a template to a pipeline replaces that pipeline's step configuration with the template's configuration. That configuration then becomes read-only. If you need a pipeline's steps to vary at runtime, use [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) within the template's step configuration.
+
 ## Creating a pipeline template
 
 Only administrators can create or update pipeline templates. You can do this through the Buildkite UI or the REST and GraphQL APIs.

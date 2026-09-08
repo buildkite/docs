@@ -1,6 +1,6 @@
 # Creating dynamic pipelines and build annotations using Bazel
 
-This tutorial takes you through the process of creating dynamic pipelines and build annotations in Buildkite Pipelines, using [Bazel](https://www.bazel.build/) as the build tool. If you are not already familiar with:
+This tutorial takes you through the process of creating dynamic pipelines and build annotations in Buildkite Pipelines, using [Bazel](https://bazel.build/) as the build tool. If you are not already familiar with:
 
 - How the Bazel build tool can integrate with Buildkite, learn more about this in the [Using Bazel with Buildkite tutorial](/docs/pipelines/tutorials/bazel), which uses a Buildkite pipeline to build a simple Bazel example.
 - The basics of Buildkite Pipelines, run through the [Pipelines getting started tutorial](/docs/pipelines/getting-started) first.
@@ -55,7 +55,7 @@ Your Buildkite macOS hosted agent, as the new default queue, is now ready to use
 
 ### Set up a self-hosted agent
 
-Setting up a self-hosted agent for this tutorial requires you to first install a Buildkite agent in a self-hosted environment, and then install [Bazel](https://www.bazel.build/) to the same environment.
+Setting up a self-hosted agent for this tutorial requires you to first install a Buildkite agent in a self-hosted environment, and then install [Bazel](https://bazel.build/) to the same environment.
 
 To set up a self-hosted agent for this tutorial:
 

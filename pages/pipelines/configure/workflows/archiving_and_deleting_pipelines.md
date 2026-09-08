@@ -17,7 +17,7 @@ To archive or unarchive a pipeline:
 1. Type in the slug of the pipeline.
 1. Select **Archive Pipeline**/**Unarchive Pipeline**.
 
-You can view archived pipelines using the team selector on the Pipelines dashboard.
+You can view archived pipelines by selecting **Archived Pipelines** from the dropdown at the top of the Pipelines dashboard.
 
 ## Deleting pipelines
 

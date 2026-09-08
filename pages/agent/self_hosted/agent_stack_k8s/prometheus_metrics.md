@@ -113,16 +113,24 @@ A few metrics are native histograms, which requires the Prometheus feature flag 
 - `rate(buildkite_job_end_to_end_seconds[10m])` - histogram of time in seconds that jobs spent between being returned from a query to Buildkite and being created in Kubernetes, over a 10 minute window.
 - `rate(buildkite_monitor_job_query_seconds[10m])` - histogram of time spent querying Buildkite for jobs that can be scheduled, over a 10 minute window.
 
+### Some counters don't exist until their first increment
+
+Counter metrics that have labels (for example, a `reason` or `delete_reason` column in the tables below) are created per label value the first time that value actually occurs, not at startup. A freshly installed controller, or one that simply hasn't hit a particular error yet, won't report `buildkite_scheduler_job_create_errors_total` at all—not even as `0`—until a job creation error with some `reason` has actually happened. Counters without labels, such as `buildkite_scheduler_job_create_success_total`, are registered immediately and do start at `0`.
+
+This matters for service-level indicators (SLIs) and alerts built on `rate()`: querying a labeled counter that has never fired returns no data, which can be mistaken for "zero errors" rather than "this metric doesn't exist yet." For an aggregated query, `sum(rate(buildkite_scheduler_job_create_errors_total[5m])) or vector(0)` reliably resolves to `0` instead of no data, since the `or vector(0)` fallback only applies when the left-hand side is empty. See [Existential issues with metrics](https://www.robustperception.io/existential-issues-with-metrics/) for more detail, including patterns for preserving specific label combinations rather than aggregating them away.
+
 ## Labels and their meanings
 
 Label name | Description | Values
 --- | --- | ---
 `source` | The event that caused a counter to increase. | <ul><li>`Handle` - the previous component</li><li>`OnAdd` - the Kubernetes Informer (for example, an existing job, or a job created by another instance of agent-stack-k8s)</li><li>`OnDelete` - the Kubernetes Informer (for example, the job was deleted externally)</li><li>`OnUpdate` - the Kubernetes Informer (for example, the job was modified externally or changed state automatically)</li></ul>
 `reason`, `error_reason` | For operations on Kubernetes, the Kubernetes reason associated with an error | Examples <ul><li>`TooManyRequests` - the Kubernetes server is overloaded</li><li>`AlreadyExists` - the resource (for example, job) already exists in the cluster</li><li>`Invalid` - the resource (for example, job) couldn't be created because it was invalid</li></ul>
-`reason` | For the limiter, a classification of the error returned by the downstream component | <ul><li>`duplicate` - a latter component or Kubernetes determined the job is a duplicate</li><li>`stale` - the job was cancelled or no longer existed by the time it was possible to start work on it</li><li>`other` - some other error prevented the job from being handled</li></ul>
-`eviction_reason` | The reason an eviction was created | <ul><li>`image_pull_failure` - One or more container images couldn't be pulled within a timeout<li>`bk_job_cancelled` - The corresponding Buildkite job was cancelled on Buildkite</li></ul>
+`reason` | For the limiter, a classification of the error returned by the downstream component | <ul><li>`duplicate` - a later component or Kubernetes determined the job is a duplicate</li><li>`stale` - the job was canceled or no longer existed by the time it was possible to start work on it</li><li>`other` - some other error prevented the job from being handled</li></ul>
+`delete_reason` | The reason a pod was forcefully deleted | <ul><li>`pending_timeout` - The pod stayed in `Pending` state for longer than the configured timeout</li><li>`image_pull_failure` - One or more containers stayed in a failing state (for example, an image pull failure or a container creation error) for longer than the grace period</li><li>`job_cancelled` - The corresponding Buildkite job was canceled while the pod was still pending</li></ul>
 
 ## completion_watcher
+
+Cleans up sidecar containers that the Buildkite agent doesn't manage directly, once the agent container has terminated. Without this, those containers would otherwise keep the pod running indefinitely after the job has already finished.
 
 Full metric name | Labels | Description
 --- | --- | ---
@@ -132,6 +140,8 @@ Full metric name | Labels | Description
 `buildkite_completion_watcher_onupdate_events_total` | - | Count of OnUpdate informer events
 
 ## deduper
+
+Prevents the same Buildkite job from being scheduled more than once, by tracking which jobs are currently in flight.
 
 Full metric name | Labels | Description
 --- | --- | ---
@@ -148,11 +158,14 @@ Full metric name | Labels | Description
 
 ## job_watcher
 
+Watches Kubernetes Jobs (rather than Pods directly) for two problems: a Job that never had a pod created for it, and a Job whose pod was created but failed before the Buildkite agent running in it could acquire the Buildkite job. For problems with a pod that has already been created, see `pod_watcher` below.
+
 Full metric name | Labels | Description
 --- | --- | ---
 `buildkite_job_watcher_cleanup_errors_total` | `reason` | Count of errors during attempts to clean up a stalled job
 `buildkite_job_watcher_cleanups_total` | - | Count of stalled jobs successfully cleaned up
 `buildkite_job_watcher_job_fail_on_buildkite_errors_total` | - | Count of errors when jobWatcher tried to acquire and fail a job on Buildkite
+`buildkite_job_watcher_jobs_failed_before_agent_acquire_total` | - | Count of jobs whose pod failed before the Buildkite agent acquired the Buildkite job
 `buildkite_job_watcher_jobs_failed_on_buildkite_total` | - | Count of jobs that jobWatcher successfully acquired and failed on Buildkite
 `buildkite_job_watcher_jobs_finished_without_pod_total` | - | Count of jobs that entered a terminal state (Failed or Succeeded) without a pod
 `buildkite_job_watcher_jobs_stalled_without_pod_total` | - | Count of jobs that ran for too long without a pod
@@ -163,6 +176,8 @@ Full metric name | Labels | Description
 `buildkite_job_watcher_onupdate_events_total` | - | Count of OnUpdate informer events
 
 ## limiter
+
+Limits how many jobs are in flight at once, queuing jobs over the configured limit until a slot is available.
 
 Full metric name | Labels | Description
 --- | --- | ---
@@ -183,18 +198,24 @@ Full metric name | Labels | Description
 
 ## monitor
 
+Polls Buildkite for jobs to run, filters them by agent tags, and passes matching jobs into the rest of the scheduling pipeline (reserver, then limiter, then deduper, then scheduler).
+
 Full metric name | Labels | Description
 --- | --- | ---
-`buildkite_monitor_job_handler_errors_total` | - | Count of jobs that weren't scheduled because the next handler in the chain returned an error
+`buildkite_monitor_job_handler_calls_total` | - | Count of calls to the next handler
+`buildkite_monitor_job_handler_errors_total` | - | Count of calls to the next handler where the call returned an error
 `buildkite_monitor_job_queries_total` | - | Count of queries to Buildkite to fetch jobs
 `buildkite_monitor_job_query_errors_total` | - | Count of errors from queries to Buildkite to fetch jobs
 `buildkite_monitor_job_query_seconds` | - | Time taken to fetch jobs from Buildkite
 `buildkite_monitor_jobs_filtered_out_total` | - | Count of jobs that didn't match the configured agent tags
+`buildkite_monitor_jobs_handled_errors_total` | - | Count of jobs that were passed to the next handler in the chain but the handler returned an error
 `buildkite_monitor_jobs_handled_total` | - | Count of jobs that were passed to the next handler in the chain
 `buildkite_monitor_jobs_returned_total` | - | Count of jobs returned from queries to Buildkite
 `buildkite_monitor_monitor_up` | - | Whether the monitor loop is running (0 = stopped, 1 = running)
 
 ## pod_watcher
+
+Watches pods that have already been created, and handles failures that happen after scheduling: an image that won't pull, a pod stuck in `Pending` for too long, or a Buildkite job that's canceled while its pod is still pending. For a job that never got a pod at all, see `job_watcher` above.
 
 Full metric name | Labels | Description
 --- | --- | ---
@@ -206,10 +227,12 @@ Full metric name | Labels | Description
 `buildkite_pod_watcher_onadd_events_total` | - | Count of OnAdd informer events
 `buildkite_pod_watcher_ondelete_events_total` | - | Count of OnDelete informer events
 `buildkite_pod_watcher_onupdate_events_total` | - | Count of OnUpdate informer events
-`buildkite_pod_watcher_pod_eviction_errors_total` | `eviction_reason`, `error_reason` | Count of failures to create pod evictions by podWatcher
-`buildkite_pod_watcher_pods_evicted_total` | `eviction_reason` | Count of evictions created for pods by podWatcher
+`buildkite_pod_watcher_pods_forceful_deletion_errors_total` | `delete_reason`, `error_reason` | Count of failures by podWatcher when forcefully deleting pods
+`buildkite_pod_watcher_pods_forcefully_deleted_total` | `delete_reason` | Count of pods forcefully deleted by podWatcher
 
 ## scheduler
+
+Creates the Kubernetes Job for each Buildkite job passed to it by the deduper. The scheduler is the final step in the scheduling pipeline.
 
 Full metric name | Labels | Description
 --- | --- | ---

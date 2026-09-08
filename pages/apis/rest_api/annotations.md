@@ -23,12 +23,16 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
     <td>The scope of the annotation. Either <code>build</code> or <code>job</code>.</td>
   </tr>
   <tr>
+    <th><code>job_id</code></th>
+    <td>The ID of the job associated with the annotation, or <code>null</code> for build-scoped annotations</td>
+  </tr>
+  <tr>
     <th><code>priority</code></th>
     <td>The priority of the annotation (<code>1</code> to <code>10</code>). Higher values are shown first. Default is <code>3</code>.</td>
   </tr>
   <tr>
     <th><code>body_html</code></th>
-    <td>Rendered HTML of the annotation's body</td>
+    <td>Rendered HTML of the annotation's body. The <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-build">List annotations for a build</a> endpoint omits this field when the request includes <code>omit_body=true</code>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
@@ -59,6 +63,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "context": "default",
     "style": "info",
     "scope": "build",
+    "job_id": null,
     "priority": 3,
     "body_html": "<h1>My Markdown Heading</h1>\n<img src=\"artifact://indy.png\" alt=\"Belongs in a museum\" height=250 />",
     "created_at": "2019-04-09T18:07:15.775Z",
@@ -69,6 +74,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "context": "coverage",
     "style": "info",
     "scope": "build",
+    "job_id": null,
     "priority": 3,
     "body_html": "Read the <a href=\"artifact://coverage/index.html\">uploaded coverage report</a>",
     "created_at": "2019-04-09T18:07:16.320Z",
@@ -76,6 +82,23 @@ curl -H "Authorization: Bearer $TOKEN" \
   }
 ]
 ```
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>scope</code></th>
+    <td>Filters annotations by scope. The <code>build</code> value returns build-scoped annotations and is the default. The <code>job</code> value returns job-scoped annotations. The <code>all</code> value returns both.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>scope=all</code></p></td>
+  </tr>
+  <tr>
+    <th><code>omit_body</code></th>
+    <td>Omits the <code>body_html</code> field from each annotation in the response when set to <code>true</code>. Use this parameter to fetch annotation metadata without response bodies. The default is <code>false</code>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>omit_body=true</code></p></td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `read_builds`
 
@@ -105,6 +128,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "context": "greeting",
   "style": "info",
   "scope": "build",
+  "job_id": null,
   "priority": 5,
   "body_html": "<p>Hello world!</p>\n",
   "created_at": "2023-11-01T22:45:45.435Z",
@@ -191,6 +215,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "context": "test-results",
     "style": "success",
     "scope": "job",
+    "job_id": "01234567-89ab-4cde-8f01-23456789abcd",
     "priority": 3,
     "body_html": "<p>All 42 tests passed</p>\n",
     "created_at": "2024-01-15T10:30:00.000Z",
@@ -237,6 +262,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "context": "test-results",
   "style": "success",
   "scope": "job",
+  "job_id": "01234567-89ab-4cde-8f01-23456789abcd",
   "priority": 3,
   "body_html": "<p>Test results: 42 passed</p>\n",
   "created_at": "2024-01-15T10:30:00.000Z",

@@ -36,6 +36,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
       <td>Filtering and aggregating based on the step identifier.</td>
     </tr>
     <tr>
+      <td><code>ci.worker.id</code></td>
+      <td>
+        Filtering and aggregating based on the Buildkite agent that ran the test, to identify failures concentrated on a specific (broken) agent. Added automatically by the <a href="/docs/pipelines/configure/tests/test-collection/ruby-collectors">Ruby</a> (v2.15.0 or later), <a href="/docs/pipelines/configure/tests/test-collection/python-collectors">Python</a> (v1.9.0 or later), and <a href="/docs/pipelines/configure/tests/test-collection/javascript-collectors">JavaScript</a> (v1.11.0 or later) collectors, and the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/test-collector-buildkite-plugin/">Test Collector plugin</a> (v1.12.0 or later). Requires the <code>BUILDKITE_AGENT_ID</code> environment variable — if your test collector runs inside a <a href="/docs/pipelines/configure/tests/test-collection/ci-environments#containers-and-test-collectors">container</a>, make sure it's forwarded through.
+      </td>
+    </tr>
+    <tr>
       <td><code>cloud.provider</code></td>
       <td>
         Filtering and aggregating based on your cloud provider to compare cloud provider performance and reliability in your test suite.<br/><em>Example:</em> <code>aws</code> vs <code>gcp</code>.
@@ -113,6 +119,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
         Filtering and aggregating based on testing framework version to compare performance and reliability.
       </td>
     </tr>
+    <tr>
+      <td><code>test.selector.primary</code></td>
+      <td>
+        Identifies the runner-specific selector used to associate a test execution with historical timing data when generating selector-based test plans. This tag is usually applied automatically by <a href="/docs/pipelines/configure/tests/bktec/installing-and-using-the-client"><code>bktec</code></a> or a <a href="/docs/pipelines/configure/tests/test-collection">supported test collector</a>.
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -133,7 +145,7 @@ Test Engine has the following tagging requirements:
 - Must begin with a letter, and may contain letters, numbers, underscores, hyphens and periods.
 - Must be less than 64 bytes of UTF-8 text.
 - Must not be a dot-separated prefix of another key. If a key like `service.instance.id` exists, you cannot create keys for its prefixes such as `service.instance` or `service`.
-- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for mutable execution tags that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
+- Must not use the reserved `mut.` prefix or the reserved bare key `mut`. These are reserved for [mutable execution tags](#mutable-tags) that are applied after ingestion. Keys that merely share the letters (for example, `mutation` or `mutable.tag`) are unaffected.
 
 #### Tag values
 
@@ -150,6 +162,17 @@ Tags may be assigned using the following collection methods:
 - [Ruby (RSpec, minitest)](/docs/pipelines/configure/tests/test-collection/ruby-collectors#upload-custom-tags-for-test-executions)
 - [Importing JSON](/docs/pipelines/configure/tests/test-collection/importing-json#json-test-results-data-reference-execution-level-custom-tags)
 
+## Mutable tags
+
+Execution data, including tags, are immutable by default.
+To attach additional metadata to executions after upload, use the [execution tags API](/docs/apis/rest-api/test-engine/execution-tags) endpoint to add mutable tags with the reserved `mut.` prefix.
+
+Mutable tags are identical to other tags with the following caveats:
+
+- Only tags prefixed with `mut.` can be added to executions after upload.
+- Tags with the `mut.` prefix cannot be added in the initial upload.
+- Tags with the `mut.` prefix cannot be used in [workflows](/docs/pipelines/configure/tests/workflows).
+
 ## Usage
 
 After you have assigned tags at the test collection level, start using them to filter and group your test results. Tags are used in the following areas of the Buildkite Platform.
@@ -158,9 +181,15 @@ After you have assigned tags at the test collection level, start using them to f
 
 On the test page, you can open the execution drawer by selection an execution.
 
-This presents all the tags which have been applied to the test execution.
+This presents all the tags which have been applied to the test execution as a collapsible key/value tree. Tags with dot-separated keys, such as `build.id` and `build.url`, are grouped under a shared branch, for example `build`.
 
 <%= image "execution-tags.png", width: 3274, height: 1838, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
+
+Hover over a tag to reveal a button that copies its value, and a **More actions** menu with the following actions:
+
+- **Filter by** or **Remove filter**: filter executions by this tag.
+- **Group by** or **Remove group**: group executions by this tag.
+- **Copy tag**: copy the full `key:value` tag to your clipboard.
 
 ### Group by tag
 

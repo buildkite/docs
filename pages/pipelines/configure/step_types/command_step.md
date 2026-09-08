@@ -113,6 +113,13 @@ Optional attributes:
     </td>
   </tr>
   <tr>
+    <td><code>checkout</code></td>
+    <td>
+      A map of git checkout configuration options for this step. See <a href="#checkout-attributes">Checkout attributes</a> for available keys.<br/>
+      <em>Example:</em> <code>submodules: false</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>concurrency</code></td>
     <td>
       The <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br/>
@@ -204,7 +211,8 @@ Optional attributes:
       An array of <a href="/docs/pipelines/integrations/plugins">plugins</a> for this step.<br/>
       <em>Example:</em><br/>
       <code>- docker-compose#v1.0.0:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
+&nbsp;&nbsp;&nbsp;&nbsp;run: app</code><br/>
+      For a step that only needs one plugin, you may use the singular <a href="/docs/pipelines/integrations/plugins/using#adding-a-single-plugin"><code>plugin</code></a> attribute for convenience.
     </td>
   </tr>
   <tr id="priority">
@@ -228,7 +236,7 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string (with a 70-character limit) provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      On the modern build page, reveal skipped steps using <strong>Show skipped steps</strong>. In the <strong>Canvas</strong> view, a badge beside the eye icon on the <strong>Show skipped steps</strong> or <strong>Hide skipped steps</strong> control shows the skipped step count. Hover over a skipped step to see the reason, or select a skipped command step to see the reason in the step panel. See <a href="/docs/pipelines/build-page#core-actions-viewing-why-a-step-was-skipped">Viewing why a step was skipped</a>.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
@@ -317,6 +325,125 @@ steps:
     # Therefore, this step's job uses the pipeline's default ubuntu:22.04 image
 ```
 
+## Checkout attributes
+
+> 📘 Checkout configuration reference
+> For detailed guidance on configuring checkout, including use cases, security considerations, and troubleshooting, see [Git checkout](/docs/pipelines/configure/git-checkout).
+
+The `checkout` block controls the git checkout behavior for a command step. You can set it at the pipeline level as a default for all steps, or override it per step.
+
+```yaml
+checkout:
+  submodules: false  # pipeline-level default
+steps:
+  - command: "test.sh"
+    checkout:
+      depth: 50  # overrides pipeline default for this step
+```
+{: codeblock-file="pipeline.yml"}
+
+When both a pipeline-level and step-level `checkout` block are present, each key is resolved independently. The step value takes precedence for any key it sets, and the pipeline value is inherited for any key the step leaves unset.
+
+For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step's `env` map takes precedence if it sets the same environment variable. For `skip`, `submodules`, `lfs`, and `depth`, the `checkout` value always takes effect.
+
+> 📘
+> The agent's `--no-git-submodules` flag retains a hard veto over `checkout.submodules`. If an agent starts with that flag, it forces `BUILDKITE_GIT_SUBMODULES=false` regardless of the value emitted by the pipeline, and the build log emits a protected-environment-variable notice.
+
+<table>
+  <tr>
+    <td><code>skip</code></td>
+    <td>
+      Whether the agent should skip the git checkout phase entirely for this step. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_SKIP_CHECKOUT"><code>BUILDKITE_SKIP_CHECKOUT</code></a>.<br/>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>submodules</code></td>
+    <td>
+      Whether the agent should fetch git submodules for this step. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SUBMODULES"><code>BUILDKITE_GIT_SUBMODULES</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>true</code>).<br/>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>lfs</code></td>
+    <td>
+      Whether the agent should download Git LFS objects during checkout. Accepts a boolean (<code>true</code> or <code>false</code>) or the equivalent string (<code>"true"</code> or <code>"false"</code>). Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_LFS_ENABLED"><code>BUILDKITE_GIT_LFS_ENABLED</code></a>. When omitted at both the pipeline and step level, the agent uses its own default (<code>false</code>).<br/>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>depth</code></td>
+    <td>
+      A shallow-clone depth as a positive integer. Appends <code>--depth=N</code> to both <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_CLONE_FLAGS"><code>BUILDKITE_GIT_CLONE_FLAGS</code></a> and <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_FLAGS"><code>BUILDKITE_GIT_FETCH_FLAGS</code></a>.<br/>
+      <em>Example:</em> <code>50</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>flags</code></td>
+    <td>
+      A map of git operation names to flag strings. Each key sets the corresponding <code>BUILDKITE_GIT_*_FLAGS</code> environment variable. When pipeline-level and step-level <code>flags</code> are both present, step-level values win per key and pipeline-level values are inherited for any key the step omits. Valid keys: <code>clone</code>, <code>fetch</code>, <code>checkout</code>, <code>clean</code>.<br/>
+      <em>Example:</em><br/>
+      <code>clone: "--filter=blob:none"</code><br/>
+      <code>fetch: "--prune"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>sparse</code></td>
+    <td>
+      A map that enables <a href="https://git-scm.com/docs/git-sparse-checkout">git sparse checkout</a>, populating only the listed paths in the working directory. Contains a single key, <code>paths</code>, which accepts a string or a list of strings. Emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS"><code>BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS</code></a>. Requires git 2.26 or later; the agent falls back to a full checkout on older git versions. Submodules are not initialized when sparse checkout is enabled.<br/>
+      <em>Example:</em><br/>
+      <code>paths:<br/>
+&nbsp;&nbsp;- ".buildkite/"<br/>
+&nbsp;&nbsp;- "src/"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>ssh_secret</code></td>
+    <td>
+      The key of a <a href="/docs/pipelines/security/secrets/buildkite-secrets">Buildkite secret</a> containing an SSH private key to use when cloning the repository. The secret value is fetched at job startup and set as <code>BUILDKITE_GIT_SSH_KEY</code> in the job environment. The agent uses this to configure <code>GIT_SSH_COMMAND</code> for the git checkout.<br/>
+      Unlike the other <code>checkout</code> keys, <code>ssh_secret</code> is <strong>step-level only</strong>. It is not inherited from a pipeline-level <code>checkout</code> block, so it must be set on each step that needs it.<br/>
+      The value must be a string that starts with a letter and contains only letters, numbers, and underscores. It cannot start with <code>buildkite</code> or <code>bk</code>.<br/>
+      <em>Example:</em> <code>DEPLOY_KEY</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>commit_verification</code></td>
+    <td>
+      <p>Whether the agent should verify that the commit being built exists on the specified branch. Set the value to <code>strict</code> to fail the job when the agent determines that the commit is not on the branch. Set the value to <code>off</code> to skip verification. An empty value causes job bootstrap to fail.</p>
+      <p>Agent v3 also accepts <code>warn</code> to emit a warning without failing the job. With v3, an empty value skips verification, and a job-supplied <code>off</code> value uses warning behavior rather than skipping verification.</p>
+      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>, which defaults to <code>strict</code>. Agent v3 does not verify commits by default.</p>
+      <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. In each of these cases, verification is either not possible or not meaningful.</p>
+      <em>Example:</em> <code>strict</code>
+    </td>
+  </tr>
+</table>
+
+```yaml
+steps:
+  - command: "test.sh"
+    checkout:
+      submodules: false
+      depth: 50
+      flags:
+        clone: "--filter=blob:none"
+        fetch: "--prune"
+      sparse:
+        paths:
+          - .buildkite/
+          - src/
+```
+{: codeblock-file="pipeline.yml"}
+
+To clone a private repository using an SSH key stored as a Buildkite secret:
+
+```yaml
+steps:
+  - command: "make build"
+    checkout:
+      ssh_secret: "DEPLOY_KEY"
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Matrix attributes
 
 <table>
@@ -368,7 +495,9 @@ steps:
 
 To automatically cancel any remaining jobs as soon as any job in the build fails (except jobs marked as `soft_fail`), add the `cancel_on_build_failing: true` attribute to your command steps.
 
-When a job fails, the build enters a _failing_ state. Any jobs still running that have `cancel_on_build_failing: true` are automatically canceled. Once all running jobs have been cancelled, the build is marked as _failed_ due to the initial job failure.
+When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on_build_failing: true` are automatically canceled, including jobs that are already running and jobs that are still waiting to start. Waiting jobs can include jobs whose dependencies are incomplete or that are blocked by a concurrency limit. After all remaining jobs have finished or been canceled, the build is marked as _failed_ due to the initial job failure.
+
+Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 
 ## Example
 

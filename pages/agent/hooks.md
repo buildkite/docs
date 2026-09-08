@@ -39,6 +39,8 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 <p>Any environment variables added, changed, or removed are then exported to the subsequent phases and hooks. Functionally, this is very similar to how <code>source</code> would work, but it's not quite the same. If you're relying on some very specific pieces of shellscripting functionality, you might find that things don't work quite as you expect.</p>
 
 <p>We do this because there's no shared bash environment between two different hooks on the same job. Functionally, each hook runs in its own shell, orchestrated through the agent's Go code. This means that if you set an environment variable in one hook, it wouldn't be available in the next hook without this scriptwrapper process.</p>
+
+<p>Calling <code>exit</code> from a hook ends its process before the scriptwrapper can capture the environment, so any variables exported earlier in the hook are lost, even with <code>exit 0</code>. Use <code>return</code> instead for early exits. See <a href="#job-lifecycle-hooks-creating-job-lifecycle-hooks">Creating job lifecycle hooks</a> for details.</p>
 </details>
 
 ## Hook locations
@@ -47,7 +49,7 @@ You can define hooks in the following locations:
 
 - **Agent hooks:** These exist in a pre-configured directory on the agent file system. For [self-hosted agents](/docs/agent/self-hosted), this directory created by your agent installer, and can be configured by the [`hooks-path`](/docs/agent/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle hooks (self-hosted agents only) and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
 
-    **Note:** For [Buildkite hosted agents](/docs/agent/buildkite-hosted), agent hooks are supported on [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only. Agent hooks are not available on [macOS hosted agents](/docs/agent/buildkite-hosted/macos).
+    **Note:** For [Buildkite hosted agents](/docs/agent/buildkite-hosted), the agent hooks location is available on [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only, and supports job lifecycle hooks only. Agent lifecycle hooks are not available on any Buildkite hosted agents. The agent hooks location is not available on [macOS hosted agents](/docs/agent/buildkite-hosted/macos).
 
 - **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. In scenarios where the current working directory is modified as part of the command or a post-command hook, this modification will cause these hooks to fail as the `.buildkite/hooks` directory can no longer be found in its new directory path. Ensure that the working directory is not modified to avoid these issues.
 
@@ -61,7 +63,7 @@ When an agent is set up, it creates a hooks directory:
 
     Self-hosted agents are provided with a number of sample hooks within this directory. To get started with one of these agent hooks, copy the relevant example script and remove the `.sample` file extension.
 
-- For [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks), the agents hooks directory is `/buildkite/agent/hooks`.
+- For [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks), the agent hooks directory is `/buildkite/agent/hooks`. This directory supports job lifecycle hooks only. Agent lifecycle hooks are not available on Buildkite hosted agents.
 
     Currently, [Buildkite hosted agents for macOS](/docs/agent/buildkite-hosted/macos) do not support agent hooks. Instead, use either [repository](#hook-locations-repository-hooks)- or [plugin](#hook-locations-plugin-hooks)-based hooks with these types of agents.
 
@@ -121,9 +123,20 @@ Agent lifecycle hooks are only available to [self-hosted agents](/docs/agent/sel
 
 | Hook             | Location Order | Description |
 | ---------------- | -------------- | ----------- |
-| `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed at agent startup, immediately prior to the agent being registered with Buildkite. Useful for initialising resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
+| `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed after the agent process starts and after any spawned agents have registered with Buildkite. Useful for initializing resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
 | `agent-shutdown` | <span class="add-icon-agent">Agent</span> | Executed when the agent shuts down. Useful for performing cleanup tasks for the entire agent, outside of the job lifecycle. |
 {: class="table table--no-wrap"}
+
+### Agent identity in lifecycle hooks
+
+Buildkite agent v3.130.0 and later sets the following environment variables for `agent-startup` and `agent-shutdown` hooks after agents have registered:
+
+- `BUILDKITE_AGENT_IDS`: A comma-separated list of agent UUIDs, in spawn order.
+- `BUILDKITE_AGENT_NAMES`: A comma-separated list of agent names, in the same order as `BUILDKITE_AGENT_IDS`.
+
+The `agent-startup` and `agent-shutdown` hooks run once per process, not once for each spawned agent. With `--spawn 1`, or when `--spawn` is not set, each variable contains a single value. With multiple spawned agents, each variable contains a comma-separated list.
+
+Use these variables to set up or tear down per-agent resources, such as autoscaler registrations, without querying the API.
 
 ### Creating agent lifecycle hooks
 
@@ -145,19 +158,21 @@ they are run as part of each job:
 
 | Hook            | Location Order | Description |
 | --------------- | -------------- | ----------- |
-| `pre-bootstrap`<br/>(Self-hosted<br/>agents only) | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run. This specific hook is only applicable to self-hosted agents.<br/><br/>The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br/><br/>If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
+| `pre-bootstrap`<br/>(Self-hosted<br/>agents only) | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run. This specific hook is only applicable to self-hosted agents.<br/><br/>The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent. The file contains both `KEY="value"` assignments for the proposed job environment and bare variable names for agent configuration inherited by child environments. Don't assume that every line contains an equals sign (`=`).<br/><br/>If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
 | `environment`   | <span class="add-icon-agent">Agent</span><br/><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before all other hooks. Useful for [exporting secret keys](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks). |
 | `pre-checkout`  | <span class="add-icon-agent">Agent</span><br/><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before checkout. |
 | `checkout`      | <span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-agent">Agent</span>                                                                                                                    | Overrides the default git checkout behavior. (See [Hook exceptions](#job-lifecycle-hooks-hook-exceptions).) |
-| `post-checkout` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                           | Runs after checkout. |
+| `post-checkout` | <span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-agent">Agent</span>                                                           | Runs after checkout. |
 | `environment`   | <span class="add-icon-plugin">Plugin (vendored)</span>                                                                                                                                                                       | Unlike other plugins, environment hooks for vendored plugins run after checkout. |
 | `pre-command`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the build command |
 | `command`       | <span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-agent">Agent</span> | Overrides the default command running behavior. (See [Hook exceptions](#job-lifecycle-hooks-hook-exceptions).) |
-| `post-command`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs after the command. |
+| `post-command`  | <span class="add-icon-plugin">Plugin (vendored)</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-agent">Agent</span> | Runs after the command. |
 | `pre-artifact`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before artifacts are uploaded, if an artifact upload pattern was defined for the job. |
 | `post-artifact` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job. |
-| `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-plugin">Plugin (vendored)</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
+| `pre-exit`      | <span class="add-icon-plugin">Plugin (vendored)</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-agent">Agent</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
 {: class="table table--no-wrap"}
+
+Within each plugin location, plugins usually run in the order they're declared in the step. For `post-checkout`, `post-command`, and `pre-exit`, plugins instead run in reverse declaration order. The reversed location and plugin ordering lets cleanup hooks unwind setup hooks. Agent v3 used declaration order for these hook types. To temporarily restore that ordering, enable the [`legacy-post-hook-order` experiment](/docs/agent/self-hosted/configure/experiments).
 
 Each `command` job defined in a pipeline's `pipeline.yml` file runs independently of one another. Therefore, each defined hook will run for every one of these `command` jobs.
 
@@ -204,6 +219,23 @@ set -eu
 echo '--- \:house_with_garden\: Setting up the environment'
 
 export GITHUB_RELEASE_ACCESS_KEY='xxx'
+```
+
+> 🚧 Environment variables exported before exit don't reach later hooks
+> Shell script hooks are sourced (see [What's a hook?](#whats-a-hook) above), so `exit` ends the hook before the agent can capture the environment, even with `exit 0`. Use `return 0` for early exits instead. This doesn't apply to [polyglot hooks](#polyglot-hooks), which use the Job API for environment changes.
+
+For example:
+
+```bash
+#!/bin/bash
+export DEPLOY_TARGET="production"
+
+if [[ -z "${RELEASE_BRANCH:-}" ]]; then
+  echo "Not a release branch, nothing else to do"
+  return 0 # use 'return', not 'exit', to keep DEPLOY_TARGET available to later hooks
+fi
+
+export DEPLOY_TARGET="production"
 ```
 
 ## Job hooks on Windows

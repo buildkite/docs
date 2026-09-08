@@ -29,6 +29,7 @@ To add a webhook for your pipeline event:
 1. Select the **Pipelines** that this webhook will trigger:
     * **All Pipelines**.
     * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
+    * **Exclude Pipelines...**, where you can select specific pipelines in your Buildkite organization to exclude, triggering the webhook for all other pipelines. This option is currently in private preview. For agent events, excluding a pipeline also excludes events from every agent in that pipeline's cluster. Events from agents not associated with a cluster are still delivered.
     * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
     * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
 
@@ -55,6 +56,7 @@ You can subscribe to one or more of the following events:
   <tr><th><code>job.started</code></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><code>job.finished</code></th><td>A job has finished</td></tr>
   <tr><th><code>job.activated</code></th><td>A block step job has been unblocked using the web or API</td></tr>
+  <tr><th><code>job.promised_exit_status</code></th><td>A running job has declared an anticipated exit status before it has finished</td></tr>
   <%= render_markdown partial: 'apis/webhooks/pipelines/agent_events_table' %>
   <tr><th><code>cluster_token.registration_blocked</code></th><td>An attempted agent registration has been blocked because the request IP address is not included in the agent token's <a href="/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address">allowed IP addresses</a></td></tr>
 </tbody>
@@ -147,4 +149,4 @@ The following example repositories show how to receive a webhook event and trigg
 
 ## Request logs
 
-The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.
+The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.

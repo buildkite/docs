@@ -37,11 +37,12 @@ Commands that can be run within a Buildkite job:
   <a href="/docs/agent/cli/reference/secret">secret</a>      Interact with Pipelines Secrets
   <a href="/docs/agent/cli/reference/step">step</a>        Get or update an attribute of a build step, or cancel unfinished jobs for a step
   <a href="/docs/agent/cli/reference/stop">stop</a>        Stop the agent
+  <a href="/docs/agent/cli/reference/workdir">workdir</a>     Interact with the working directory of the currently running job
 
 Internal commands, not intended to be run by users:
   <a href="/docs/agent/cli/reference/bootstrap">bootstrap</a>               Harness used internally by the agent to run jobs as subprocesses
   kubernetes-bootstrap    Harness used internally by the agent to run jobs on Kubernetes
-  git-credentials-helper  Internal process used by hosted compute jobs to authenticate with Github
+  git-credentials-helper  Internal process used to authenticate with repository providers
 
 Use "buildkite-agent &lt;command&gt; --help" for more information about a command.
 </code></pre>

@@ -26,6 +26,6 @@ Buildkite frequently introduces new experimental features to the agent, which yo
 
 ## Agent versions directory
 
-For a complete list of stable Buildkite agent 3.x versions, see the [Agent versions directory](/docs/agent/self-hosted/versions-directory).
+For a complete list of stable Buildkite agent versions, see the [Agent versions directory](/docs/agent/self-hosted/versions-directory).
 
 When running self-hosted agents, you are responsible for keeping them up to date.

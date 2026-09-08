@@ -206,6 +206,12 @@ Use `agent-stack-k8s [command] --help` for more information about a command.
         default_value: "1000"
       },
       {
+        flag: "--pod-pending-timeout",
+        type: "duration",
+        description: "The duration after a pod enters the Pending state that the controller will wait before failing the job.",
+        default_value: "15m"
+      },
+      {
         flag: "--poll-interval",
         type: "duration",
         description: "The time to wait between polling for new jobs (minimum <code>1s</code>). Note that increasing this causes jobs to be slower to start.",

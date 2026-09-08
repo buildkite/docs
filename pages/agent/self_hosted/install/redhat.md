@@ -20,13 +20,14 @@ Start by adding the yum repository for your architecture (if unsure, run `uname 
 
 <!-- TODO: Verify if this is still valid for yum repository packages for the agent -->
 
-Buildkite agent versions come in three release channels:
+Buildkite agent versions come in four release channels:
 
+- **Old stable** (`oldstable`): The previous major version, for users who need more time before upgrading. With v4 stable, this channel tracks v3.
 - **Stable**: Thoroughly tested, production-ready releases recommended for most users.
 - **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.
 - **Experimental**: Built directly from the `main` branch, may be incomplete or have unresolved issues.
 
-The default version of the agent is `stable`. You can get the beta version by using `unstable` instead of `stable` or the experimental version by using `experimental` instead of `stable` in the installation commands that follow.
+The default version of the agent is `stable`. To remain on the previous major version, use `oldstable` instead of `stable`. You can get the beta version by using `unstable`, or the experimental version by using `experimental`, in the installation commands that follow.
 
 > 📘
 > The `repo_gpgcheck=0` parameter is required when additional OS hardening has been enabled to verify the GPG signature of the repository's metadata. Without this extra parameter for disabling metadata signature checking, the package installation will not succeed.

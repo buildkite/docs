@@ -12,21 +12,25 @@ Learn more about other secrets management approaches in Buildkite on the [Secret
 
 For secure and automated agent token lifecycle management, you can use the Buildkite APIs to set the expiration date for agent tokens. Learn more about this feature in [Agent token lifetime](/docs/agent/self-hosted/tokens#agent-token-lifetime). This feature allows for automated token rotation for long-lived tokens. Once set, an agent token's expiration date cannot be changed.
 
-## Disable automatic ssh-keyscan
+## Require strict SSH host-key checking
 
-By default, the agent automatically accepts the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:
+By default, the agent configures SSH host-key checking through `GIT_SSH_COMMAND` when it checks out a Git repository. With OpenSSH 7.6 or later, it passes:
 
 ```bash
-ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
+StrictHostKeyChecking=accept-new
 ```
 
-If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+This option automatically adds new host keys to the user's `known_hosts` file while rejecting changed host keys. If the agent detects an older OpenSSH version, it instead uses `StrictHostKeyChecking=no` with `UserKnownHostsFile=/dev/null`. If version detection fails, the agent assumes that `accept-new` is supported.
 
-To disable automatic ssh-keyscan, set [`no-ssh-keyscan`](/docs/agent/self-hosted/configure#no-ssh-keyscan):
+To require strict host-key checking using your existing SSH configuration, set [`no-ssh-keyscan`](/docs/agent/self-hosted/configure#no-ssh-keyscan). This setting passes `StrictHostKeyChecking=yes`. Despite the configuration option's legacy name, the agent does not run the `ssh-keyscan` command:
 
 - Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
 - Command line flag: `--no-ssh-keyscan`
 - Configuration setting: `no-ssh-keyscan=true`
+
+If `GIT_SSH` is set, the agent leaves SSH host-key configuration unchanged because it cannot add command-line options to the configured binary.
+
+Agent v3 instead runs the `ssh-keyscan` command before checkout and appends the repository host's keys to the `known_hosts` file. Setting `no-ssh-keyscan` on a v3 agent disables that, leaving host-key verification to your existing SSH configuration.
 
 ## Restrict access by the Buildkite agent controller
 
@@ -41,12 +45,33 @@ With these settings applied, your Buildkite agent refuses to run anything that i
 
 ### Allow a list of plugins
 
-By defining an [environment hook](/docs/agent/hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks), you can create a
-list of plugins that an agent is allowed to run by inspecting the
-`BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables).
-For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
-repository on GitHub.
+You can restrict an agent to only run plugins from sources you trust, for example, the official [`buildkite-plugins`](https://github.com/buildkite-plugins) organization and your own internal plugins—using the [`allowed-plugins`](/docs/agent/self-hosted/configure#allowed-plugins) setting:
+
+- Environment variable: `BUILDKITE_ALLOWED_PLUGINS="^github\.com/buildkite-plugins/.*$,^github\.com/my-org/.*$"`
+- Command line flag: `--allowed-plugins "^github\.com/buildkite-plugins/.*$,^github\.com/my-org/.*$"`
+- Configuration setting: `allowed-plugins="^github\.com/buildkite-plugins/.*$,^github\.com/my-org/.*$"`
+
+This is a comma-separated list of regular expressions. Before a job runs, the agent checks each of the job's plugins against these patterns. If any plugin does not match at least one pattern, the agent refuses to run the job.
+
+The agent matches against each plugin's canonical "full source". Shorthand plugin references are expanded before the check is applied. For example:
+
+- `docker-compose#v5.0.0` becomes `github.com/buildkite-plugins/docker-compose-buildkite-plugin#v5.0.0`
+- `my-org/my-plugin#v1.0.0` becomes `github.com/my-org/my-plugin-buildkite-plugin#v1.0.0`
+- Full URLs and filesystem paths are used as-is (for example, `/var/lib/buildkite-plugins/my-plugin`)
+
+This means a pipeline cannot bypass the allowlist by using the shorthand form of a plugin name.
+
+> 🚧 Anchor your patterns
+> Use `^` and `$` anchors and escape dots (`\.`) so that a pattern like `^github\.com/buildkite-plugins/.*$` cannot be matched by a lookalike source such as `github.com/evil-buildkite-plugins-clone/...`.
+
+> 📘 Each agent enforces its own allowlist
+> Unlike a centrally-managed organization setting, `allowed-plugins` is enforced by each agent based on its own configuration. Apply it consistently through your agent provisioning (config file or environment variables) across every agent you want to restrict.
+
+To lock down exact plugin versions in addition to their sources, combine `allowed-plugins` with [signed pipelines](/docs/agent/self-hosted/security#sign-your-pipelines).
+
+#### Custom plugin allowlist logic
+
+If you need more complex logic than regular expressions can express, you can instead define an [environment hook](/docs/agent/hooks#job-lifecycle-hooks) in the [agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks) that inspects the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/configure/environment-variables) and rejects disallowed plugins. For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository on GitHub.
 
 ### Disable plugins
 
@@ -72,6 +97,8 @@ To disable command line evaluation, set [`no-command-eval`](/docs/agent/self-hos
 
 > 🚧 Custom hooks and environment variables
 > If you have a custom `command` hook, using `no-command-eval` will have no effect on your command execution. See [Allowing a list of plugins](#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) and [Custom bootstrap scripts](#customize-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+
+Command evaluation is also not the only way that arbitrary commands can run during a job.
 
 > 🚧 Environment variable injection
 > Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands using environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/cli/reference/start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
@@ -125,6 +152,8 @@ done
 ```
 
 You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of the file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set.
+
+Agent configuration variables can appear in this file as bare variable names without an equals sign or value. Parse only the assignments you need, as in the previous example, rather than assuming every line uses the `NAME=value` format.
 
 Alternatively, you can use `$BUILDKITE_ENV_JSON_FILE`, which points to the same environment data in JSON format. This can be more convenient when you want to inspect values using tools such as `jq`.
 
@@ -205,10 +234,10 @@ By default, Buildkite Pipelines reuses (after cleaning) a previous checkout. Thi
 
 ```yaml
 steps:
-- label: "Clean checkout"
-  command: echo "clean checkout"
-  env:
-    BUILDKITE_CLEAN_CHECKOUT: true
+  - label: "Clean checkout"
+    command: echo "clean checkout"
+    env:
+      BUILDKITE_CLEAN_CHECKOUT: true
 ```
 
 In the logs for this step, you will find a log group called "Cleaning pipeline checkout."
@@ -232,6 +261,7 @@ An example systemd `proxy.conf` file:
 Environment=http_proxy=http://username:password@proxyserver:8080/
 Environment=https_proxy=http://username:password@proxyserver:8080/
 ```
+
 {: codeblock-file="proxy.conf"}
 
 After creating this file, reload systemd and restart the `buildkite-agent` service.

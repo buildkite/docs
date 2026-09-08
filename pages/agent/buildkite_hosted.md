@@ -14,7 +14,7 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **Ephemeral, isolated environments that scale**: Hosted agents are provisioned on demand and destroyed after each job, providing clean, reproducible builds that dynamically scale and operate concurrently to meet high demand.
 
-- **Pricing is calculated per second**: Charges apply only to the precise duration of command or script execution—excluding startup and shutdown periods, with no minimum charges and no rounding to the nearest minute.
+- **Usage is billed in vCPU minutes**: Each instance shape has a vCPU count, and usage is calculated as that count multiplied by job runtime in minutes, measured to the second. Startup and shutdown periods are excluded, with no minimum charges. You can view your vCPU minute consumption on the [**Usage** page](https://buildkite.com/organizations/~/usage) in your Buildkite organization, which shows vCPU minutes by default with a toggle to switch to job minutes by instance shape.
 
 - **Caching is included at no additional cost**: There are no supplementary charges for storage or cache usage. [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes) operate on high-speed, local NVMe-attached disks, substantially accelerating caching and disk operations. This results in faster job completion, reduced minute consumption, and lower overall costs.
 
@@ -39,15 +39,19 @@ Buildkite hosted agents also provides the following assurances:
 
 When a pipeline's job is scheduled on a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), this action begins the process of starting the job's execution on a new [ephemeral agent](/docs/pipelines/glossary#ephemeral-agent).
 
+Buildkite Pipelines supports [job priority](/docs/pipelines/configure/workflows/job-priority) for hosted agents. Set the `priority` key on a command step or at the top level of your pipeline to prioritize jobs waiting for hosted compute capacity. The scheduler prefers higher-priority jobs on a best-effort basis. Available capacity can affect job start order.
+
 The hosted queue's ephemeral agent begins its lifecycle with the initiation of a virtualized environment.
 
 - For [Linux hosted agents](/docs/agent/buildkite-hosted/linux), this environment includes a base image for containerization, which is either the hosted queue's [configured agent image](/docs/agent/buildkite-hosted/linux#agent-images), or one that you've configured to use in your pipeline, to which custom layers are added, including the Buildkite agent, and Buildkite-specific configurations.
 
 - For [macOS hosted agents](/docs/agent/buildkite-hosted/macos), this environment is a virtual machine, based on the macOS and Xcode version configured in your queue settings, running on dedicated Mac hardware.
 
-As part of this initiation process, any configured [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are attached, and then the entire virtualized environment is started. This process can take a few seconds to complete (appearing as job wait time), and varies depending on the size and recency of the cache volumes and the base image being used.
+- For [Windows hosted agents](/docs/agent/buildkite-hosted/windows), this environment is a Windows Server 2022 virtual machine running on AMD64 hardware.
 
-Once started, the Buildkite agent running in the virtualized environment acquires the job and proceeds to run the job through to its completion. Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. Any cache volume data, however, is persisted.
+For Linux and macOS hosted agents, any configured [cache volumes](/docs/agent/buildkite-hosted/cache-volumes) are attached as part of this initiation process. The entire virtualized environment is then started. This process can take a few seconds to complete (appearing as job wait time), and varies depending on the size and recency of the cache volumes and the base image being used.
+
+Once started, the Buildkite agent running in the virtualized environment acquires the job and proceeds to run the job through to its completion. Once the job is complete, regardless of its exit status, the virtualized environment and all of its associated data, including data it generated during job execution, is removed and destroyed. For Linux and macOS hosted agents, any cache volume data is persisted.
 
 > 📘 Cluster isolation
 > Every Buildkite hosted queue and its agents are configured within a [Buildkite cluster](/docs/pipelines/security/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has its own [cache volumes](/docs/agent/buildkite-hosted/cache-volumes), [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) and [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), as well as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), which are not available to any other cluster.
@@ -58,15 +62,18 @@ The ephemeral nature of Buildkite hosted agents' virtualized environments also o
 
 - Short-lived hosted agents mitigate the window of opportunity for attackers to compromise the build environment, and any data generated or used during job execution, such as secrets or credentials, are destroyed after job completion or failure.
 
+> 📘 Signed pipelines
+> [Signed pipeline validation](/docs/agent/self-hosted/security/signed-pipelines) is not supported for Buildkite hosted agents.
+
 ## Getting started with Buildkite hosted agents
 
-Buildkite offers both [Linux](/docs/agent/buildkite-hosted/linux) and [macOS](/docs/agent/buildkite-hosted/macos) hosted agents, whose respective pages explain how to start setting them up.
+Buildkite offers [Linux](/docs/agent/buildkite-hosted/linux), [macOS](/docs/agent/buildkite-hosted/macos), and [Windows](/docs/agent/buildkite-hosted/windows) hosted agents. Their respective pages explain how to start setting them up.
 
 Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/agent/buildkite-hosted/code-access).
 
 If you need to migrate your existing Buildkite pipelines from using Buildkite agents in a [self-hosted architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to those using Buildkite hosted agents, see [Hosted agent pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration) for details.
 
-When a Buildkite hosted agent machine is running (during a pipeline build) you can access the machine through a terminal. Learn more about this feature in [Hosted agents terminal access](/docs/agent/buildkite-hosted/terminal-access).
+When a Linux or macOS hosted agent machine is running during a pipeline build, you can use [terminal access](/docs/agent/buildkite-hosted/terminal-access) to open an interactive shell. Running macOS hosted jobs also support browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access). Windows hosted agents don't support terminal or desktop access.
 
 Last, learn more about how to secure your network when using Buildkite hosted agents in [Network security](/docs/agent/buildkite-hosted/network-security).
 

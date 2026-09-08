@@ -146,4 +146,3 @@ Use list to find maintainer assignment IDs:
 ```bash
 bk maintainer list my-cluster-uuid
 ```
-
