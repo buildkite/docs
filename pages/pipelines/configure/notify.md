@@ -672,6 +672,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> 🚧 Replace Slack IDs in build-level notifications when using multiple workspaces
+> If your organization has more than one Slack Workspace integration enabled, an unqualified Slack ID for a channel, conversation, or user can't identify a workspace in a build-level notification. Prefix the ID with the workspace slug and `@`, for example, `buildkite-community@U12345678`. An unqualified channel name such as `#general` remains supported. This validation does not apply to step-level notifications. For a [scheduled build](/docs/pipelines/configure/workflows/scheduled-builds#invalid-notification-configuration), an invalid build-level notification disables the schedule until you correct the `notify` configuration.
+
 ### Notify multiple teams and channels
 
 You can specify multiple teams and channels by listing them in the `channels` attribute.

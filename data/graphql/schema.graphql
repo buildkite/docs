@@ -3340,6 +3340,26 @@ enum HostedAgentInstanceShapeName {
   macOS 6 vCPU x 28 GB Memory
   """
   MACOS_ARM64_M4_6X28
+
+  """
+  Windows 16 vCPU x 64 GB Memory
+  """
+  WINDOWS_AMD64_16X64
+
+  """
+  Windows 2 vCPU x 8 GB Memory
+  """
+  WINDOWS_AMD64_2X8
+
+  """
+  Windows 4 vCPU x 16 GB Memory
+  """
+  WINDOWS_AMD64_4X16
+
+  """
+  Windows 8 vCPU x 32 GB Memory
+  """
+  WINDOWS_AMD64_8X32
 }
 
 """
@@ -3417,6 +3437,11 @@ enum HostedAgentMachineType {
   macOS
   """
   MACOS
+
+  """
+  Windows
+  """
+  WINDOWS
 }
 
 """

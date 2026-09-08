@@ -30,6 +30,27 @@ Documentation is NOT needed when:
 If no documentation is needed, output a clear explanation of why and stop.
 Do not create any files or make any changes.
 
+The upstream PR description may include a **Public documentation** section. Follow its
+checked option before making the triage decision:
+
+- **Ready for public documentation - document and publish**: Create or update the
+  required documentation. The documentation is safe to publish after human review.
+- **Not ready for public docs - document and hold**: Create or update the required
+  documentation while the implementation context is current. The resulting draft PR
+  must wait for human approval before publication. Do not add internal launch timing or
+  warnings to the documentation itself unless readers need that information after
+  publication.
+- **Not applicable - docs not needed**: Do not create documentation. Output a clear
+  explanation and stop without making changes.
+
+If no option is selected, or multiple options are selected, use the PR diff and context
+to decide whether a draft is useful. The resulting PR will remain a draft for human
+review.
+
+The engineer's selection determines publication readiness. Feature-flag detection is
+only an additional warning and does not override it. Creating documentation files is not
+approval to publish them.
+
 ### Step 2: Plan
 
 Start by reading the PR diff and description to understand what changed. Then, before

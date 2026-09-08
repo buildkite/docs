@@ -84,6 +84,12 @@ By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.y
 
 When `buildkite-agent cache save` processes more than one cache, it saves them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
 
+### Configure caches in a monorepo
+
+In a [monorepo](/docs/pipelines/best-practices/working-with-monorepos), give each subproject its own `subproject/.buildkite/cache.yml` instead of a single top-level `cache.yml` for the whole repository. This keeps cache definitions independently configurable for each subproject, and lets Buildkite Cache discover them automatically without selecting entries out of a larger shared file.
+
+Cache configuration file discovery is relative to the job's working directory, so a job that runs its cache commands from `subproject/` finds `subproject/.buildkite/cache.yml` automatically, with no extra configuration. If a job's working directory doesn't match the subproject layout, select the file explicitly with `--cache-config-file subproject/.buildkite/cache.yml` or `BUILDKITE_CACHE_CONFIG_FILE`.
+
 ## Configure cache keys
 
 The `cache_key` attribute is an ordered array. Buildkite Cache resolves each part and combines the results to address a cache entry. Key order affects the address.

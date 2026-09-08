@@ -444,6 +444,8 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+subproject
+subprojects
 SLA
 SLAs
 SLIs
@@ -528,6 +530,9 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
 unstarted
 untrusted

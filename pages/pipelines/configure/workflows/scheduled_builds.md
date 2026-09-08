@@ -18,6 +18,17 @@ When setting up a cron job in your parent pipeline, it's important to ensure tha
 
 This error is indicative of a mismatch in team assignments and highlights the importance of maintaining consistent team configurations across interconnected pipelines to avoid permission-related issues.
 
+## Invalid notification configuration
+
+If a scheduled build's build-level `notify` configuration is invalid, Buildkite Pipelines disables the schedule and stores the validation error, rather than silently skipping the build. For example, a Slack ID for a channel, conversation, or user is ambiguous when your organization has more than one [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration enabled. This configuration fails with an error like the following:
+
+> 🚧 Validation error
+> The `slack` notification is invalid: Channel `U12345678` must specify a team (for example, `team-name#channel`) when multiple Slack workspaces are configured
+
+To resolve this error while preserving the notification destination, prefix the ID with the workspace slug and `@`, for example, `buildkite-community@U12345678`. See [Notify a channel in one workspace](/docs/pipelines/configure/notify#slack-channel-and-direct-messages-notify-a-channel-in-one-workspace) for the correct syntax.
+
+The disabled schedule's failure notification email contains the same error message. After correcting the `notify` configuration, re-enable the schedule to resume scheduled builds.
+
 ## Schedule intervals
 
 The interval defines when the schedule will create builds. Schedules run in UTC time by default, and can be defined using either predefined intervals or standard crontab time syntax.
