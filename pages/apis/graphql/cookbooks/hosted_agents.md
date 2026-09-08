@@ -52,7 +52,10 @@ mutation {
 
 Creates a small Buildkite hosted queue using AMD64-based Linux Buildkite hosted agents. The `instanceShape` value is referenced from the [InstanceShape](/docs/apis/graphql/schemas/enum/hostedagentinstanceshapename) enum, and represents the combination of machine type, architecture, CPU and Memory available to each job running on a hosted queue. The `LINUX_AMD64_2X4` value is a Linux AMD64 2 vCPU and 4 GB memory instance.
 
-Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux) and [macOS](#instance-shape-values-for-macos) Buildkite hosted agents.
+Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux), [macOS](#instance-shape-values-for-macos), and [Windows](#instance-shape-values-for-windows) Buildkite hosted agents.
+
+> 📘 Windows availability
+> Windows has no automatic or included allowance. Buildkite must allocate Windows access and capacity to your organization before you can create a Windows hosted queue.
 
 ## Change the instance shape of a Buildkite hosted queue's agents
 
@@ -84,10 +87,10 @@ mutation {
 
 To increase the size of the AMD64-based Linux agent instances for a Buildkite hosted queue, update the `instanceShape` value to a one of a greater size, such as `LINUX_AMD64_4X8`, which is a 4 vCPU and 8 GB memory. This allows you to scale the resources available to each job running on this Buildkite hosted queue.
 
-Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux) and [macOS](#instance-shape-values-for-macos) Buildkite hosted agents.
+Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux), [macOS](#instance-shape-values-for-macos), and [Windows](#instance-shape-values-for-windows) Buildkite hosted agents.
 
 > 📘
-> It is only possible to change the _size_ of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).
+> It is only possible to change the _size_ of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (for example, from macOS to Linux), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).
 
 ## Set a custom image URL for a Buildkite hosted queue
 
@@ -144,3 +147,9 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 Specify the appropriate **Instance shape** for the `instanceShape` value in your GraphQL API mutation.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
+
+## Instance shape values for Windows
+
+Specify the appropriate **Instance shape** for the `instanceShape` value in your GraphQL API mutation. Buildkite must allocate Windows access and capacity to your organization before you can use these values.
+
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
