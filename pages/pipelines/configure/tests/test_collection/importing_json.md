@@ -277,6 +277,9 @@ end
 }
 ```
 
+> 🚧 Location and test ownership
+> Use the top-level `location` field for [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership). A value only in `tags` (for example `tags.location`) is not used for ownership matching. Path-only values are valid; a line number is optional. Each newer upload of the same test overwrites `location`, and an upload that omits it clears any previous value. Include `location` on every upload path that reports the same tests.
+
 ### Failure expanded objects
 
 A failure expanded array contains extra details about the failed test.
