@@ -35,7 +35,7 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
       },
       {
         topic: "[Visual Studio Code extension](/docs/platform/vscode-extension)",
-        description: "Manage your pipelines, builds, jobs, and agents from Visual Studio Code, with automatic pipeline YAML validation."
+        description: "Manage your pipelines, builds, jobs, and agents from Visual Studio Code."
       },
       {
         topic: "[Terraform provider](/docs/platform/terraform-provider)",

@@ -4,60 +4,66 @@ The [Buildkite VS Code extension](https://marketplace.visualstudio.com/items?ite
 
 ## Requirements
 
-Visual Studio Code 1.60 or later.
+Visual Studio Code 1.105 or later.
 
 ## Installation
 
-Install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite). The [YAML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension is installed automatically as a dependency, which enables pipeline YAML validation.
+Install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite).
 
 ## Authentication
 
-The extension uses OAuth to authenticate with Buildkite. When you first open a Buildkite panel or run **Buildkite: Sign In** from the Command Palette, you are prompted to sign in with your browser. This opens buildkite.com where you authorize the extension, and you are then returned to VS Code automatically.
+The extension uses OAuth to authenticate with Buildkite. When you first open a Buildkite panel or run **Buildkite: Sign In** from the Command Palette, you are prompted to sign in with your browser. This opens buildkite.com where you authorize the extension, and then returns you to VS Code.
 
-To sign out, run **Buildkite: Sign Out** from the Command Palette.
+To sign out, run **Buildkite: Sign Out of OAuth Session** from the Command Palette.
 
 > 📘 Using an API token instead of OAuth
-> If you prefer to use a [Buildkite API access token](/docs/apis/managing-api-tokens) instead, select **Use API Token** when prompted, or run **Buildkite: Set API Token** from the Command Palette. An API token and an OAuth session can coexist; the OAuth session takes priority. To remove a stored API token, run **Buildkite: Clear API Token**.
+> To use a [Buildkite API access token](/docs/apis/managing-api-tokens) instead, select **Use API Token** when prompted, or run **Buildkite: Set API Token** from the Command Palette. The extension stores the token in VS Code Secret Storage. An API token and an OAuth session can coexist, but the OAuth session takes priority. Signing out of OAuth leaves the API token active. To remove it, run **Buildkite: Clear API Token**.
 
 ## Pipelines panel
 
 The Buildkite activity bar icon opens a sidebar with three panels. The **Pipelines** panel shows a tree view of your pipelines and their recent builds.
 
-Each pipeline shows up to 10 of its most recent builds. Builds in an active state (running, scheduled, or being created) refresh automatically every 60 seconds. Each build shows its individual jobs, including their status.
+Each pipeline shows up to 10 of its most recent builds. Builds in an active state (running, scheduled, being created, or being canceled) refresh automatically every 60 seconds. Each build shows its individual jobs, including their status.
 
 The following actions are available from the **Pipelines** panel:
 
 - **View on Buildkite**: opens the build in your browser
 - **Rebuild**: triggers a new build with the same configuration
 - **Create a build**: creates a build on the current Git branch
-- **Cancel build**: cancels a running or scheduled build
-- **Unblock next job**: unblocks a build waiting at a [block step](/docs/pipelines/configure/step-types/block-step); if the block step defines input fields, you are prompted to fill them in before the build continues
-- **View build error**: shows the log for the failed job; if multiple jobs failed, a quick picker lets you choose which to view
-- **View annotations**: displays build [annotations](/docs/pipelines/configure/annotations) in a panel
-- **View job log**: opens the job log in VS Code with ANSI color support (see [Job logs](#job-logs))
-- **Retry job**: retries a failed or timed-out job
-- **Download artifact**: downloads a build [artifact](/docs/pipelines/configure/artifacts) to your local machine
+- **Cancel Build**: cancels a running or scheduled build
+- **Unblock Next Job**: unblocks a build waiting at a [block step](/docs/pipelines/configure/step-types/block-step); if the block step defines input fields, you are prompted to fill them in before the build continues
+- **View Build Error**: shows the log for the failed job; if multiple jobs failed, a quick picker lets you choose which to view
+- **View Annotations**: shows build [annotations](/docs/pipelines/configure/annotations) in a panel
+- **View Job Log in Output**: opens the job log in a VS Code panel with ANSI color support (see [Job logs](#job-logs))
+- **Open Job Log in Browser**: opens the job log in the Buildkite interface
+- **Retry Job**: retries a failed or timed-out job
+- **Unblock Job**: unblocks a specific block step and prompts for any input fields
+- **Download Artifact**: downloads a build [artifact](/docs/pipelines/configure/artifacts) to your local machine
+
+For builds with more than 40 jobs, the panel shows a summary or the jobs that need attention. Select the final item in the job list to open all steps in your browser.
 
 ### Managing pipelines
 
 Right-click any pipeline in the tree to access pipeline management actions:
 
-- **Edit pipeline settings**: update the pipeline name, description, default branch, or repository URL
-- **Create pipeline**: add a new pipeline by entering its name, repository URL, and optionally a description and default branch
-- **Archive pipeline**: hides the pipeline from the active list
-- **Unarchive pipeline**: restores an archived pipeline
-- **Delete pipeline**: permanently deletes the pipeline (requires confirmation)
+- **Edit Pipeline Settings**: update the pipeline name, description, default branch, or repository URL
+- **Create Pipeline**: add a new pipeline by entering its name, repository URL, and optionally a description and default branch
+- **Archive Pipeline**: hides the pipeline from the active list
+- **Unarchive Pipeline**: restores an archived pipeline
+- **Delete Pipeline**: permanently deletes the pipeline (requires confirmation)
+
+Use **Filter Pipelines to Current Repository** in the panel toolbar to show only pipelines whose repository matches a Git remote in the current workspace. Use **Show All Pipelines** to clear the filter. The extension remembers this selection for each workspace.
 
 ## Agents panel
 
-The **Agents** panel lists your organization's connected agents and their current status (connected, running, paused, or idle). The following actions are available per agent:
+The **Agents** panel lists your organization's connected agents and their current status. The list refreshes every 60 seconds. The following actions are available per agent:
 
-- **Pause**: prevents the agent from accepting new jobs
-- **Resume**: allows a paused agent to accept jobs again
-- **Stop**: gracefully stops the agent after its current job completes
-- **Force stop**: immediately terminates the agent
+- **Pause Agent**: prevents the agent from accepting new jobs
+- **Resume Agent**: allows a paused agent to accept jobs again
+- **Stop Agent**: gracefully stops the agent after its current job completes
+- **Force Stop Agent**: immediately terminates the agent and its running job
 
-To narrow the list, select the filter icon in the panel toolbar and enter a query. You can filter by agent name, hostname, or [queue](/docs/agent/queues) tag (for example, `queue=deploy`). Select the close icon to clear an active filter.
+To narrow the list, select the filter icon in the panel toolbar and enter a query. You can filter by agent name, hostname, or any agent metadata, such as a [queue](/docs/agent/queues) tag (for example, `queue=deploy`). Select the close icon to clear an active filter.
 
 ## Support panel
 
@@ -67,7 +73,7 @@ You can also run **Buildkite: Search Docs** from the Command Palette to search d
 
 ## Job logs
 
-To view a job's log output inside VS Code, right-click the job in the **Pipelines** panel and select **View Job Log in Output**. The log renders with ANSI color codes and shows the pipeline name, build number, and job name as context.
+To view a job's log output inside VS Code, right-click the job in the **Pipelines** panel and select **View Job Log in Output**. Despite the command name, the extension opens the log in a dedicated panel rather than the VS Code Output panel. The panel renders ANSI colors and shows the pipeline name, build number, and job name as context.
 
 To open the log in your browser instead, select **Open Job Log in Browser**.
 
@@ -75,14 +81,28 @@ To open the log in your browser instead, select **Open Job Log in Browser**.
 
 The extension adds a status indicator to the VS Code status bar that shows the build status for the pipeline associated with your current workspace. The extension identifies the matching pipeline by reading your Git remote URL and comparing it against your Buildkite pipelines.
 
-The status bar updates every 60 seconds. Selecting it opens a quick picker for switching between matched pipelines. Use the keyboard shortcut `Cmd+Alt+P` (macOS) or `Ctrl+Alt+P` (Windows and Linux) to open the same quick picker.
+The status bar updates every 60 seconds. Selecting it opens actions for matched pipelines and their latest builds. You can open a pipeline or build in your browser, or rebuild the latest build. Use the keyboard shortcut `Cmd+Alt+P` (macOS) or `Ctrl+Alt+P` (Windows and Linux) to open the same picker.
 
 By default, the status bar is hidden when no matching pipeline is found. To show it regardless, set `buildkite.statusBar.showWhenNoMatch` to `true` in your VS Code settings.
 
 ## Build notifications
 
-The extension sends a notification when a build completes. Notifications are enabled by default for both passing and failing builds.
+The extension sends a notification when a build that it is tracking passes, fails, is canceled, is skipped, or does not run. Notifications are enabled by default for passing and unsuccessful builds. Notifications include actions for opening the build or viewing a build error.
 
-## Pipeline YAML validation
+Use the following VS Code settings to configure notifications:
 
-The extension automatically validates `.buildkite/pipeline.yml` (and related pipeline files) against the official Buildkite pipeline schema from [SchemaStore](https://www.schemastore.org/). This provides real-time validation, context-aware autocomplete, and hover documentation as you edit pipeline files. No configuration is required.
+- `buildkite.notifications.enabled`: enables or disables all build notifications
+- `buildkite.notifications.notifyOnPass`: controls notifications for passed builds
+- `buildkite.notifications.notifyOnFail`: controls notifications for failed, canceled, skipped, or not-run builds
+- `buildkite.notifications.notifyOnAllBuilds`: includes builds that had already finished when the extension first found them; disabled by default
+
+## Configuration
+
+You can configure the extension using VS Code settings. In addition to the notification settings, the following options control common behavior:
+
+- `buildkite.pipelines.filterToWorkspaceByDefault`: filters the **Pipelines** panel to pipelines that match the current workspace repository by default
+- `buildkite.statusBar.showWhenNoMatch`: shows the Buildkite status bar item when no pipeline matches the current workspace
+- `buildkite.oauth.scopePreset`: sets the OAuth access level to `all`, `read-only`, or `custom`
+- `buildkite.oauth.scopes`: lists the OAuth scopes to request when `buildkite.oauth.scopePreset` is `custom`
+
+OAuth setting changes take effect after you sign out and sign in again.
