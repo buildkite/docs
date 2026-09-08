@@ -105,8 +105,8 @@ PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
 PR_AUTHOR=$(echo "${PR_JSON}" | jq -r '.author.login // empty')
 PR_AUTHOR_IS_BOT=$(echo "${PR_JSON}" | jq -r '.author.is_bot // false')
 
-# Copy the engineer's public documentation selection into the generated docs
-# PR so reviewers can see it without returning to the upstream PR.
+# Copy the engineer's public documentation status into the generated docs PR
+# so reviewers can see it without returning to the upstream PR.
 PUBLIC_DOCUMENTATION=$(printf '%s\n' "${PR_BODY}" | awk '
   /^###[[:space:]]+Public documentation[[:space:]]*$/ { found = 3; next }
   /^##[[:space:]]+Public documentation[[:space:]]*$/ { found = 2; next }
