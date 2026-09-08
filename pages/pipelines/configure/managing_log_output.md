@@ -58,11 +58,13 @@ This section covers build log output grouping methods that go beyond formatting,
 
 If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
 
+To also update the previous group's title, add the new title after `^^^ +++`:
+
 ```bash
 echo "--- Bundling"
 bundle
 if [[ $? -ne 0 ]]; then
-  echo "^^^ +++"
+  echo "^^^ +++ Bundling failed"
   echo "Bundler failed, oh no!!"
 fi
 ```
