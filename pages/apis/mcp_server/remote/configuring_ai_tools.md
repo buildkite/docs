@@ -69,7 +69,7 @@ The organization is a hint, not an access control. It is preselected only when y
 
 ## Amp
 
-You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration). This configuration uses the `mcp-remote` command argument to allow OAuth authorization. For more about this configuration type, see [Custom Tools (MCP)](https://ampcode.com/manual#mcp) in the Amp documentation.
+You can configure [Amp](https://ampcode.com/) with the remote Buildkite MCP server by adding the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/docs/cli/settings). This configuration uses the `mcp-remote` command argument to allow OAuth authorization. For more about this configuration type, see [MCP](https://ampcode.com/docs/customize/mcp) in the Amp documentation.
 
 ```json
 {

@@ -44,6 +44,28 @@ See [job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks)
 for the overall order of hooks, and the relative order of invocation for each
 location.
 
+## Adding a single plugin
+
+If a step only needs one plugin, you may use the singular `plugin` attribute for convenience. The plural `plugins` attribute remains valid for one plugin. The `plugin` attribute accepts the same value as a single entry in a `plugins` array: a plugin source, or a map of one plugin source to its configuration.
+
+```yaml
+steps:
+  - plugin: docker-compose#v5.13.0
+```
+
+Configure the plugin the same way as you would with `plugins`:
+
+```yaml
+steps:
+  - plugin:
+      docker-compose#v5.11.0:
+        run: app
+```
+
+As with `plugins`, a step that defines a `plugin` doesn't require a `command` attribute, and is still considered a command step.
+
+The `plugin` attribute supports only one plugin. A step can't combine `plugin` with `plugins`, and `plugin` can't define more than one plugin. Use `plugins` instead when a step needs multiple plugins.
+
 ## Configuring plugins
 
 Plugins are configured using attributes on steps in your pipeline YAML definition. While you can't define plugins at a pipeline level, you can use [YAML anchors](/docs/pipelines/integrations/plugins/using#using-yaml-anchors-with-plugins) to avoid repeating the plugin code over multiple steps. The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin):

@@ -374,6 +374,7 @@ preinstall
 prepended
 prepends
 preprovisioned
+preselecting
 proxied
 ptrace
 pty
@@ -527,6 +528,9 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
 unstarted
 untrusted

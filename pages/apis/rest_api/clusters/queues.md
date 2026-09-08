@@ -301,7 +301,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <br/>
     <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
     <br/>
-    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
+    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> hosted agents. Buildkite must allocate Windows access and capacity to your organization before you can create a Windows hosted queue.
     <br/>
     You cannot set a custom image URL when you create a queue. Buildkite ignores any <code>agentImageRef</code> you submit in this call and creates the queue with the default agent image. To use a custom image URL, <a href="#update-a-queue">update the queue</a> after creating it.
     <!--
@@ -388,8 +388,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     <br/>
     <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
     <br/>
-    It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
-    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> Buildkite hosted agents.
+    It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (for example, from macOS to Linux), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
+    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> Buildkite hosted agents.
     <br/><br/>
     <code>agentImageRef</code> (optional): A <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">custom image URL</a> to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Setting this property requires access to the custom agent images feature.
     <br/>
@@ -573,3 +573,9 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_mac' %>
+
+## Instance shape values for Windows
+
+Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Buildkite must allocate Windows access and capacity to your organization before you can use these values.
+
+<%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
