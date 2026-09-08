@@ -36,6 +36,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
       <td>Filtering and aggregating based on the step identifier.</td>
     </tr>
     <tr>
+      <td><code>ci.worker.id</code></td>
+      <td>
+        Filtering and aggregating based on the Buildkite agent that ran the test, to identify failures concentrated on a specific (broken) agent. Added automatically by the <a href="/docs/pipelines/configure/tests/test-collection/ruby-collectors">Ruby</a> (v2.15.0 or later), <a href="/docs/pipelines/configure/tests/test-collection/python-collectors">Python</a> (v1.9.0 or later), and <a href="/docs/pipelines/configure/tests/test-collection/javascript-collectors">JavaScript</a> (v1.11.0 or later) collectors, and the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/test-collector-buildkite-plugin/">Test Collector plugin</a> (v1.12.0 or later). Requires the <code>BUILDKITE_AGENT_ID</code> environment variable — if your test collector runs inside a <a href="/docs/pipelines/configure/tests/test-collection/ci-environments#containers-and-test-collectors">container</a>, make sure it's forwarded through.
+      </td>
+    </tr>
+    <tr>
       <td><code>cloud.provider</code></td>
       <td>
         Filtering and aggregating based on your cloud provider to compare cloud provider performance and reliability in your test suite.<br/><em>Example:</em> <code>aws</code> vs <code>gcp</code>.
