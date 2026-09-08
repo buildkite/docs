@@ -182,7 +182,7 @@ The following _matchers_ can be used within a [_claim rule_](#claim-rules).
 | `not_equals` | Scalar | The claim value must not be exactly equal to the argument. |
 | `in` | List of scalars | The claim value must be in the list of arguments. |
 | `not_in` | List of scalars | The claim value must not be in the list of arguments. |
-| `matches` | List of glob strings OR a single glob string | The claim value must match at least one of the globs provided. Note that this matcher is only applied when the claim value is a string, and is ignored otherwise. |
+| `matches` | List of glob strings OR a single glob string | The claim value must match at least one of the globs provided. Since glob patterns can only match strings, this matcher fails to match if the claim value is not a string. |
 
 Argument type details:
 
