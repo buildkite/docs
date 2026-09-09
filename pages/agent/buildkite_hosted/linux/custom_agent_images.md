@@ -12,6 +12,8 @@ Buildkite Linux hosted agents have the `buildkite-agent` and `docker` binaries l
 - `ca-certificates`
 - `bash`
 
+These tools must be installed in every custom agent image, including images selected with the pipeline or command step [`image` attribute](#use-an-agent-image-specify-an-image-in-your-pipeline-yaml). Bash must be available as an executable within the image.
+
 There is also no requirement into which Linux flavor this image is based on. The default Buildkite Linux hosted agents image is based on Ubuntu, with other Linux flavors such as Alpine or CentOS being perfectly acceptable.
 
 > 📘
@@ -157,14 +159,19 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ### Specify an image in your pipeline YAML
 
-You can specify an agent image directly in your pipeline YAML using the `image` attribute under `agents`. The image name must match the name of an [agent image you have created](#create-an-agent-image) in the cluster.
+Use the [`image` attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) at the pipeline root or directly on a command step, alongside `command`. Do not put `image` under `agents`, which configures agent query rules such as the queue to use.
 
-To set a default image for all steps in a pipeline, add the `image` attribute at the root level:
+The value must be a container image reference, such as `registry.example.com/image-name:tag`, not the display name shown on the **Agent Images** page. The image must be publicly available or stored in your cluster's [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry). For an image created through the Buildkite interface, use the `image_ref` value returned by the [agent images endpoints](/docs/apis/rest-api/clusters/agent-images).
+
+The following examples assume you have already pushed the referenced images to your internal container registry and installed the [required tools](#requirements-within-the-image) in them.
+
+To set a default image for all steps in a pipeline, add `image` at the pipeline root, alongside `agents` and `steps`. This overrides the queue's default image:
 
 ```yaml
+image: "${BUILDKITE_HOSTED_REGISTRY_URL}/build:latest"
+
 agents:
   queue: "hosted-linux"
-  image: "DevOps Agent Image"
 
 steps:
   - label: "Build"
@@ -172,25 +179,25 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also override the image for individual steps, allowing different steps to use different images within the same queue:
+To override the pipeline's default image for an individual step, add `image` directly to that step. Steps without an `image` attribute use the pipeline's default image, or the queue's default image if no pipeline default is set:
 
 ```yaml
+image: "${BUILDKITE_HOSTED_REGISTRY_URL}/build:latest"
+
 agents:
   queue: "hosted-linux"
-  image: "DevOps Agent Image"
 
 steps:
-  # Uses "DevOps Agent Image" from root-level agents
+  # Uses the pipeline's default image
   - label: "Build"
     command: "make build"
 
-  # Overrides root-level image
+  # Overrides the pipeline's default image for this step
   - label: "Run integration tests"
     command: "make integration-test"
-    agents:
-      image: "Default Agent Image"
+    image: "${BUILDKITE_HOSTED_REGISTRY_URL}/integration-test:latest"
 
-  # Uses "DevOps Agent Image" from root-level agents
+  # Uses the pipeline's default image
   - label: "Deploy"
     command: "make deploy"
 ```
