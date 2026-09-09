@@ -14,6 +14,7 @@ This repository generates the Buildkite documentation website:
 
 https://buildkite.com/docs
 
+- **Staff contributions**: `https://github.com/buildkite/docs-private`
 - **Public contributions**: `https://github.com/buildkite/docs`
 - **CI**: `https://buildkite.com/buildkite/docs`
 - **CI steps**: `.buildkite/pipeline.yml`
