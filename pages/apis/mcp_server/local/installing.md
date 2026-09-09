@@ -74,7 +74,7 @@ You can also [create a new Buildkite API access token rapidly with these pre-sel
 
 ### All read-only access
 
-For all read-only access, select both the [minimum access permissions](#configure-an-api-access-token-minimum-access), as well as the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with all read-only access permissions available through the Buildkite MCP server. These additional scopes include permission to access more information about your Buildkite organization, including clusters, more pipeline build details (that is, log information), as well as access to Test Engine test suite data.
+For all read-only access, select both the [minimum access permissions](#configure-an-api-access-token-minimum-access), as well as the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with all read-only access permissions available through the Buildkite MCP server. These additional scopes include permission to access more information about your Buildkite organization, including clusters and secret details, more pipeline build details (that is, log information), as well as access to Test Engine test suite data.
 
 <table>
   <thead>
@@ -90,6 +90,11 @@ For all read-only access, select both the [minimum access permissions](#configur
         "scope": "Read Clusters",
         "scope_internal": "read_clusters",
         "access_permissions": "List and retrieve details of clusters and their queues."
+      },
+      {
+        "scope": "Read Secrets Details",
+        "scope_internal": "read_secrets_details",
+        "access_permissions": "List and retrieve details of secrets. Secret values are never returned."
       },
       {
         "scope": "Read Artifacts",
@@ -127,11 +132,11 @@ For all read-only access, select both the [minimum access permissions](#configur
   </tbody>
 </table>
 
-You can also [create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites).
+You can also [create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_secrets_details&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites).
 
 ### All read and write access
 
-For all read and write access, select both the [minimum access permissions](#configure-an-api-access-token-minimum-access) and [all read-only access permissions](#configure-an-api-access-token-all-read-only-access), as well as the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with all available read _and_ write access permissions available through the Buildkite MCP server. These additional scopes include permission to edit pipelines and their builds within your Buildkite organization.
+For all read and write access, select both the [minimum access permissions](#configure-an-api-access-token-minimum-access) and [all read-only access permissions](#configure-an-api-access-token-all-read-only-access), as well as the following additional [scopes](/docs/apis/managing-api-tokens#token-scopes) for your local MCP server's API access token. These scopes provide your token with all available read _and_ write access permissions available through the Buildkite MCP server. These additional scopes include permission to edit pipelines and their builds, and create cluster secrets within your Buildkite organization.
 
 <table>
   <thead>
@@ -152,6 +157,11 @@ For all read and write access, select both the [minimum access permissions](#con
         "scope": "Write Pipelines",
         "scope_internal": "write_pipelines",
         "access_permissions": "Create new pipelines, update update existing ones, and delete pipelines too."
+      },
+      {
+        "scope": "Write Secrets",
+        "scope_internal": "write_secrets",
+        "access_permissions": "Create cluster secrets."
       }
     ].select { |field| field[:scope] }.each do |field| %>
       <tr>
@@ -169,7 +179,7 @@ For all read and write access, select both the [minimum access permissions](#con
   </tbody>
 </table>
 
-You can also [create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites&scopes%5B%5D=write_builds&scopes%5B%5D=write_pipelines).
+You can also [create a new Buildkite API access token rapidly with these pre-selected scopes](https://buildkite.com/user/api-access-tokens/new?scopes%5B%5D=read_clusters&scopes%5B%5D=read_secrets_details&scopes%5B%5D=read_pipelines&scopes%5B%5D=read_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_user&scopes%5B%5D=read_organizations&scopes%5B%5D=read_artifacts&scopes%5B%5D=read_suites&scopes%5B%5D=write_builds&scopes%5B%5D=write_pipelines&scopes%5B%5D=write_secrets).
 
 ## Install and run the server locally
 
