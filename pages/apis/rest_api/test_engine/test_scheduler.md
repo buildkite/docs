@@ -644,11 +644,14 @@ Success response: `200 OK`
 
 Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial attempts according to the entry's selected policy. When `initial_attempts` is `null`, it creates the lower of `min_attempts` and `parallel_attempts`.
 
+To protect retries from creating duplicate entries, include the optional `Idempotency-Key` header. Set `IDEMPOTENCY_KEY` to a new UUIDv7 once per batch, and reuse that key with the unchanged `entries` payload when retrying. Keys are scoped to the organization and pool. Requests without this header have no protection against duplicate uploads.
+
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
+  --header "Idempotency-Key: $IDEMPOTENCY_KEY" \
   --data '{
     "entries": [
       {
@@ -745,11 +748,22 @@ Optional entry properties:
 </tbody>
 </table>
 
-The request is atomic. If any entry is invalid, the API creates no entries. Entries can only be uploaded while the pool is unexpired and in the `populating` state.
+The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is unexpired and in the `populating` state.
+
+Successful requests with an `Idempotency-Key` are remembered for five minutes. Retrying does not extend this period. During this period, retrying the same key and entries after a successful upload returns `204 No Content` with an empty response body and creates no additional entries or attempts. After the key expires, another request with that key is processed as a new upload and can create duplicates if the pool still accepts new entries.
 
 Required scope: `write_test_pool`
 
-Success response: `201 Created`
+Success responses:
+
+- `201 Created`: The upload created entries, returned in the response body shown above.
+- `204 No Content`: The same key and entries were already uploaded successfully within the five-minute protection window. The response body is empty.
+
+Error responses with `Idempotency-Key`:
+
+- `400 Bad Request`: The key is not a valid UUIDv7.
+- `409 Conflict`: The key is still remembered but the entries differ, or an earlier request with the key is still in progress or has an unknown outcome. Do not reuse a key for different entries. If the earlier request is in progress or its outcome is unknown, retry with the same key and unchanged entries within the protection window.
+- `503 Service Unavailable`: Protection against duplicate uploads is temporarily unavailable. Retry with the same key and unchanged entries.
 
 ## List entries
 
