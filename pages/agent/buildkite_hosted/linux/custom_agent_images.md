@@ -12,7 +12,7 @@ Buildkite Linux hosted agents have the `buildkite-agent` and `docker` binaries l
 - `ca-certificates`
 - `bash`
 
-These tools must be installed in every custom agent image, including images selected with the pipeline or command step [`image` attribute](#use-an-agent-image-specify-an-image-in-your-pipeline-yaml). Bash must be available as an executable within the image.
+Install these tools in every custom agent image that the Buildkite Pipelines pipeline-level or command-step [`image` attribute](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-an-image-in-your-pipeline-yaml) specifies. Make Bash available as an executable within the image.
 
 There is also no requirement into which Linux flavor this image is based on. The default Buildkite Linux hosted agents image is based on Ubuntu, with other Linux flavors such as Alpine or CentOS being perfectly acceptable.
 
@@ -159,13 +159,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ### Specify an image in your pipeline YAML
 
-Use the [`image` attribute](/docs/pipelines/configure/step-types/command-step#container-image-attributes) at the pipeline root or directly on a command step, alongside `command`. Do not put `image` under `agents`, which configures agent query rules such as the queue to use.
+In Buildkite Pipelines, use the `image` attribute at the pipeline root or directly on a command step, alongside the `command` attribute. Do not put the `image` attribute under the `agents` attribute, which configures [agent query rules](/docs/agent/cli/reference/start#agent-targeting) such as the queue to use.
 
-The value must be a container image reference, such as `registry.example.com/image-name:tag`, not the display name shown on the **Agent Images** page. The image must be publicly available or stored in your cluster's [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry). For an image created through the Buildkite interface, use the `image_ref` value returned by the [agent images endpoints](/docs/apis/rest-api/clusters/agent-images).
+The value must be a container image reference, such as `registry.example.com/image-name:tag`, not the display name shown on the **Agent Images** page. Host the image publicly or store it in your cluster's internal container registry. For an image created through the Buildkite interface, wait until its status reaches `READY` and the agent images endpoints return a non-null `image_ref` value. Then, use that value for the `image` attribute.
 
-The following examples assume you have already pushed the referenced images to your internal container registry and installed the [required tools](#requirements-within-the-image) in them.
+The following examples assume you have already pushed the referenced images to your internal container registry and installed the [required tools](/docs/agent/buildkite-hosted/linux/custom-agent-images#requirements-within-the-image) in them. Buildkite hosted agents set the predefined `BUILDKITE_HOSTED_REGISTRY_URL` environment variable to the URL of the current cluster's internal container registry.
 
-To set a default image for all steps in a pipeline, add `image` at the pipeline root, alongside `agents` and `steps`. This overrides the queue's default image:
+To set a default image for all steps in a pipeline, add the `image` attribute at the pipeline root, alongside the `agents` and `steps` attributes. This overrides the queue's default image:
 
 ```yaml
 image: "${BUILDKITE_HOSTED_REGISTRY_URL}/build:latest"
@@ -179,7 +179,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To override the pipeline's default image for an individual step, add `image` directly to that step. Steps without an `image` attribute use the pipeline's default image, or the queue's default image if no pipeline default is set:
+To override the pipeline's default image for an individual step, add the `image` attribute directly to that step. Steps without an `image` attribute use the pipeline's default image, or the queue's default image if the pipeline does not define a default:
 
 ```yaml
 image: "${BUILDKITE_HOSTED_REGISTRY_URL}/build:latest"
