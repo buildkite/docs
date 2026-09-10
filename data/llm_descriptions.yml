@@ -127,7 +127,7 @@
   pipelines/deployments/deployment-plugins: "Directory of Buildkite plugins for deployment automation."
   pipelines/insights/waterfall: "Waterfall chart view for visualizing build job timing, wait times, agent assignment, and execution durations."
   pipelines/insights/clusters: "Enterprise dashboard showing real-time cluster metrics: queue wait time, agent utilization, and job pass rate."
-  pipelines/insights/queue-metrics: "Real-time queue statistics showing connected agents, running/waiting/scheduled jobs, and agent utilization."
+  pipelines/insights/queue-metrics: "Queue details for current agent capacity, job demand, dispatch wait times, active job samples, and queue-level activity."
   pipelines/integrations: "Landing page for Buildkite Pipelines integrations with third-party tools and services."
   pipelines/integrations/plugins: "How plugins extend build steps using job lifecycle hooks, including open source, private, and vendored plugin types."
   pipelines/integrations/plugins/directory: "Searchable directory of all Buildkite-maintained and third-party plugins."
