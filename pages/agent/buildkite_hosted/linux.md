@@ -25,7 +25,7 @@ Buildkite offers a selection of Linux instance types (each based on a different 
 
 Note the following about Linux hosted agent instances.
 
-- The [Personal plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.
+- The [Free plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.
 
 - The Extra Large (XL), Extra Extra Large (XXL), and 3XL instance shapes are available on Enterprise plans. These shapes are hidden in the queue creation UI for organizations that don't have access. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
 
