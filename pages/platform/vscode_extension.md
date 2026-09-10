@@ -8,7 +8,19 @@ Visual Studio Code 1.105 or later.
 
 ## Installation
 
-Install the extension from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite).
+You can install the extension from the Visual Studio Code Marketplace website or from the Extensions view in Visual Studio Code.
+
+### Install from the Visual Studio Code Marketplace
+
+Open the [Buildkite extension listing](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite), then select **Install**.
+
+<%= image "vscode-buildkite-marketplace-web.png", width: 1164/2, height: 1188/2, alt: "The Buildkite extension listing in the Visual Studio Code Marketplace, with the Install button and Overview tab" %>
+
+### Install from Visual Studio Code
+
+Select **Extensions** in the Activity Bar, search for `Buildkite`, then select **Install** on the Buildkite extension published by Buildkite.
+
+<%= image "vscode-marketplace-ui.png", width: 1388/2, height: 448/2, alt: "The Extensions view in Visual Studio Code, showing a search for Buildkite and the Install button on the official Buildkite extension" %>
 
 ## Authentication
 
@@ -93,7 +105,9 @@ By default, the status bar is hidden when no matching pipeline is found. To show
 
 ## Build notifications
 
-The extension sends a notification when a build that it is tracking passes, fails, is canceled, is skipped, or does not run. Notifications are enabled by default for passing and unsuccessful builds. Notifications include actions for opening the build or viewing a build error. Selecting **View Error** opens the failed job's log. If multiple jobs failed, the extension prompts you to choose a job.
+The extension sends a notification when a build that it is tracking passes, fails, is canceled, is skipped, or does not run. To start tracking an active build, expand its pipeline in the **Pipelines** panel. Status bar polling alone does not enable completion notifications.
+
+Notifications are enabled by default for passing and unsuccessful builds. Notifications include actions for opening the build or viewing a build error. Selecting **View Error** opens the failed job's log. If multiple jobs failed, the extension prompts you to choose a job.
 
 Use the following VS Code settings to configure notifications:
 
