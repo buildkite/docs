@@ -65,7 +65,7 @@ https://mcp.buildkite.com/mcp?organization=your-organization
 
 You can use `organization_uuid` instead when you have the organization's UUID. The organization parameter works with toolset and read-only URLs too—for example, `https://mcp.buildkite.com/mcp/x/pipelines/readonly?organization=your-organization`.
 
-The organization is a hint, not an access control. It is preselected only when you can authorize it, and you can select another available organization before approving the request.
+The organization is a hint, not an access control. The organization is preselected only when you can authorize it, and you can select another available organization before approving the request.
 
 ## Amp
 
