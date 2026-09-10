@@ -1,12 +1,21 @@
 # AGENTS.md
 
+## Repository workflow
+
+Open documentation pull requests in `buildkite/docs-private` by default. This destination is required for Buildkite staff.
+
+For known external contributors, use `buildkite/docs` instead.
+
+Verify the push destination and pull request base repository before publishing. If the required destination is unavailable, ask for guidance rather than switching repositories.
+
 ## Buildkite documentation repository and pipeline
 
 This repository generates the Buildkite documentation website:
 
 https://buildkite.com/docs
 
-- **Repository**: `https://github.com/buildkite/docs`
+- **Staff contributions**: `https://github.com/buildkite/docs-private`
+- **Public contributions**: `https://github.com/buildkite/docs`
 - **CI**: `https://buildkite.com/buildkite/docs`
 - **CI steps**: `.buildkite/pipeline.yml`
 

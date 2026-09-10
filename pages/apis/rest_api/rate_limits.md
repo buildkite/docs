@@ -62,7 +62,7 @@ RateLimit-Reset: 42
 
 ### Using the rate limit API
 
-You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving comprehensive rate limit information for both REST API and GraphQL API usage.
+You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. Requests to this endpoint don't count towards your organization's REST API rate limit or your per-user rate limit. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving rate limit information for both REST and GraphQL API usage.
 
 ## Exceeding the rate limit
 
