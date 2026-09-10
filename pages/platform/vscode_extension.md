@@ -1,6 +1,6 @@
 # Buildkite Visual Studio Code extension
 
-The [Buildkite VS Code extension](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite) lets you manage your pipelines, builds, jobs, and agents directly from Visual Studio Code without switching to the Buildkite web interface. The extension is [open source and available on GitHub](https://github.com/buildkite/vscode-buildkite).
+The [Buildkite VS Code extension](https://marketplace.visualstudio.com/items?itemName=Buildkite.buildkite) lets you manage your pipelines, builds, jobs, and agents directly from Visual Studio Code without switching to the Buildkite web interface.
 
 ## Requirements
 
@@ -73,7 +73,7 @@ To narrow the list, select the filter icon in the panel toolbar and enter a quer
 
 ## Support panel
 
-The **Support** panel provides a search field for querying the Buildkite documentation, along with links to contact support and raise issues against the extension on GitHub.
+The **Support** panel provides a search field for querying the Buildkite documentation, along with a link to contact support.
 
 You can also run **Buildkite: Search Docs** from the Command Palette to search documentation directly and open results in your browser.
 
@@ -100,7 +100,6 @@ Use the following VS Code settings to configure notifications:
 - `buildkite.notifications.enabled`: enables or disables all build notifications
 - `buildkite.notifications.notifyOnPass`: controls notifications for passed builds
 - `buildkite.notifications.notifyOnFail`: controls notifications for failed, canceled, skipped, or not-run builds
-- `buildkite.notifications.notifyOnAllBuilds`: includes builds that had already finished when the extension first found them; disabled by default
 
 ## Configuration
 
