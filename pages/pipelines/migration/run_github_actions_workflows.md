@@ -14,9 +14,12 @@ During the preview, start with a simple workflow in a public `github.com` reposi
 
 ## Add a GitHub Actions workflow to a pipeline
 
-Use GitHub Actions setup mode when creating a pipeline in the Buildkite interface. For pipelines created using the CLI, API, or an agent-based automation workflow, configure the equivalent steps, settings, and trigger manually.
+If your organization has access, use GitHub Actions setup mode when creating a pipeline in the Buildkite interface. Otherwise, configure the equivalent steps, settings, and trigger manually using the CLI, API, or an agent-based automation workflow.
 
 ### Create a GitHub Actions pipeline
+
+> 📘 Private preview
+> Streamlined GitHub Actions pipeline setup in the Buildkite interface is in private preview and available only to selected Buildkite organizations. Organizations without access can use the [manual API setup](#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually).
 
 Connect your repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), which gives Buildkite Pipelines access to workflow files. **GitHub (Limited Access)** and GitHub Enterprise Server aren't supported for server-side dispatch.
 
@@ -74,6 +77,8 @@ Creating or uploading pipeline YAML alone doesn't configure server-side dispatch
       }
     }
     ```
+
+    If your organization requires [pipeline templates](/docs/pipelines/governance/templates), the API rejects custom `configuration`. Create an approved template containing the GitHub Actions plugin configuration, then replace `configuration` in this request with its `pipeline_template_uuid`. Don't send both fields. Configure the provider settings shown above and complete the remaining trigger setup separately.
 
 1. [Create a GitHub Actions pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger) with `type: "github_actions"`, a `label` such as `"GitHub Actions"`, `enabled: true`, and `create_webhook: true`. This provisions a signed repository webhook. Don't configure a traditional repository webhook for the pipeline.
 1. Save the response's `endpoint_url` securely and check `webhook_creation.status`. A `201 Created` response confirms trigger creation, not successful webhook provisioning. If provisioning failed, repair the webhook setup for the existing trigger rather than creating another trigger.
