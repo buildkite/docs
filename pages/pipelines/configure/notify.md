@@ -474,7 +474,7 @@ Omit all location attributes to create a run-level annotation. Cursor Origin enf
 
 ### Dynamic Origin check updates
 
-For step-level Origin check notifications, you can dynamically update the check output while the step runs using the `buildkite-agent step update` command. Use the notification's outer `key` in brackets to select the check. This differs from the nested `origin_check.key`, which identifies the logical check in Origin.
+For step-level Origin check notifications, you can dynamically update the check output before the step finishes using the `buildkite-agent step update` command. If the step has multiple Origin check notifications, use the notification's outer `key` in brackets to select the check. You can omit the brackets when the step has only one Origin check notification. The outer key differs from the nested `origin_check.key`, which identifies the logical check in Origin.
 
 ```bash
 # Update the check title
@@ -485,10 +485,18 @@ buildkite-agent step update "notify.origin_check[tests-notification].output.summ
 
 # Update the check text with detailed results
 buildkite-agent step update "notify.origin_check[tests-notification].output.text" "## Test results\n\n✅ All tests passed"
+
+# Append an annotation
+buildkite-agent step update "notify.origin_check[tests-notification].output.annotations" '{"annotation_level":"warning","message":"Avoid this call","path":"src/main.js","start_line":10,"end_line":10}' --append
 ```
 {: codeblock-file=".buildkite/hooks/post-command"}
 
-Only the `origin_check.output.title`, `origin_check.output.summary`, and `origin_check.output.text` attributes can be updated this way. The nested `origin_check.key` and `origin_check.name` attributes can't be changed after the step starts. Changing `origin_check.key` would create a new check and leave the previous one unfinished.
+The annotation value can be one annotation map or an array of annotation maps, using the same [attributes and validation](#origin-check-origin-check-annotations) as configured annotations. The `--append` flag is required. Replacing `output.annotations` returns an error.
+
+Only the `origin_check.output.title`, `origin_check.output.summary`, and `origin_check.output.text` attributes can otherwise be updated this way. The nested `origin_check.key` and `origin_check.name` attributes can't be changed after the step starts. Changing `origin_check.key` would create a new check and leave the previous one unfinished.
+
+> 📘 Availability
+> Appending annotations to Origin checks is being rolled out to Buildkite organizations. If appends are rejected for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 
 ### Origin check status and retries
 
@@ -496,7 +504,7 @@ Origin checks track a step's status throughout its lifecycle. For example, a che
 
 If a step automatically retries, Cursor continues to update the same check run. A manual retry gets its own run identity, job link, and start time, but keeps the same logical check. Cursor shows only the newest run under the check's `key`.
 
-Annotations remain associated with their check run, so annotations from an earlier attempt don't appear on a later manual retry.
+Annotations remain associated with their check run, so dynamically appended annotations from an earlier attempt don't appear on a later manual retry. Annotations configured in the pipeline can be published again for the new run.
 
 ## PagerDuty change events
 
