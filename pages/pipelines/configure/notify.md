@@ -380,6 +380,7 @@ Create a check on [Cursor Origin](/docs/pipelines/source-control/origin) to prov
 > Origin check notifications are being rolled out to Buildkite organizations. If they're not yet available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 > Origin check notifications require a full 40-character commit SHA. For build-level notifications, Buildkite Pipelines defers events when the commit is `HEAD` and replays them after resolving the commit SHA. Build-level events with a short commit SHA do not trigger notifications and are not replayed.
 > For step-level notifications, events that occur while the commit is `HEAD` or a short SHA do not trigger notifications and are not replayed. Only events that occur after Buildkite Pipelines resolves the full commit SHA trigger notifications.
+> Annotations are supported only in step-level Origin check notifications. A build-level `origin_check` notification rejects the `annotations` attribute.
 
 Add an Origin check notification to the `notify` array using the `origin_check` attribute:
 
@@ -421,11 +422,59 @@ The `origin_check` attribute supports the following options:
 
 - `name`: Display name for the check run. A build-level check defaults to `<pipeline name> #<build number>`. A step-level check defaults to the step's `label`, then its `key`, or `Step <step ID>` if neither is configured.
 
-- `output`: A map containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), and `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes). If you don't provide output, Buildkite Pipelines generates a title and summary. Build-level output describes the build's current state. Step-level output combines the check's name and the step's current state.
+- `output`: A map containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes), and `annotations` (an array of source or run-level annotations for step-level checks). If you don't provide output, Buildkite Pipelines generates a title and summary. Build-level output describes the build's current state. Step-level output combines the check's name and the step's current state.
+
+### Origin check annotations
+
+For step-level Origin check notifications, add an `annotations` array to `output` to highlight a line or range in a file, or to add a run-level note with no file location:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "bin/rspec"
+    notify:
+      - key: "tests-notification"
+        origin_check:
+          key: "tests"
+          name: "Tests"
+          output:
+            title: "Test results"
+            summary: "Run the test suite"
+            annotations:
+              - annotation_level: "warning"
+                message: "One test was skipped"
+              - annotation_level: "failure"
+                message: "Use the inclusive range"
+                title: "Invalid range"
+                path: "lib/range.rb"
+                start_line: 12
+                end_line: 12
+                start_column: 4
+                end_column: 15
+```
+{: codeblock-file="pipeline.yml"}
+
+Each annotation is a map with the following attributes:
+
+- `annotation_level`: The severity of the annotation. This attribute is required. One of `notice`, `warning`, or `failure`.
+
+- `message`: The annotation's non-empty message, up to 65,535 UTF-8 bytes. This attribute is required.
+
+- `title`: A short title for the annotation, up to 255 characters.
+
+- `raw_details`: Extended details for the annotation, up to 65,535 UTF-8 bytes.
+
+- `path`: The canonical path to the file, relative to the repository root and up to 4,096 UTF-8 bytes. The path can't be absolute or include empty, `.`, or `..` segments. Provide `path` together with `start_line` and `end_line`.
+
+- `start_line` and `end_line`: The range of lines the annotation applies to, as positive integers. `end_line` must be at or after `start_line`. Provide both together with `path`.
+
+- `start_column` and `end_column`: The range of columns the annotation applies to, as positive integers. `end_column` must be at or after `start_column`. Provide both together with `path`, `start_line`, and `end_line`, and only when `start_line` and `end_line` are the same.
+
+Omit all location attributes to create a run-level annotation. Cursor Origin enforces its own limit on the number of annotations per check run.
 
 ### Dynamic Origin check updates
 
-For step-level Origin check notifications, you can dynamically update the check output while the step runs using the `buildkite-agent step update` command. Use the notification's outer `key` in brackets to select the check. This differs from the nested `origin_check.key`, which identifies the logical check in Origin.
+For step-level Origin check notifications, you can dynamically update the check output before the step finishes using the `buildkite-agent step update` command. If the step has multiple Origin check notifications, use the notification's outer `key` in brackets to select the check. You can omit the brackets when the step has only one Origin check notification. The outer key differs from the nested `origin_check.key`, which identifies the logical check in Origin.
 
 ```bash
 # Update the check title
@@ -436,16 +485,26 @@ buildkite-agent step update "notify.origin_check[tests-notification].output.summ
 
 # Update the check text with detailed results
 buildkite-agent step update "notify.origin_check[tests-notification].output.text" "## Test results\n\n✅ All tests passed"
+
+# Append an annotation
+buildkite-agent step update "notify.origin_check[tests-notification].output.annotations" '{"annotation_level":"warning","message":"Avoid this call","path":"src/main.js","start_line":10,"end_line":10}' --append
 ```
 {: codeblock-file=".buildkite/hooks/post-command"}
 
-Only the `origin_check.output.title`, `origin_check.output.summary`, and `origin_check.output.text` attributes can be updated this way. The nested `origin_check.key` and `origin_check.name` attributes can't be changed after the step starts. Changing `origin_check.key` would create a new check and leave the previous one unfinished.
+The annotation value can be one annotation map or an array of annotation maps, using the same [attributes and validation](#origin-check-origin-check-annotations) as configured annotations. The `--append` flag is required. Replacing `output.annotations` returns an error.
+
+Only the `origin_check.output.title`, `origin_check.output.summary`, and `origin_check.output.text` attributes can otherwise be updated this way. The nested `origin_check.key` and `origin_check.name` attributes can't be changed after the step starts. Changing `origin_check.key` would create a new check and leave the previous one unfinished.
+
+> 📘 Availability
+> Appending annotations to Origin checks is being rolled out to Buildkite organizations. If appends are rejected for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 
 ### Origin check status and retries
 
 Origin checks track a step's status throughout its lifecycle. For example, a check appears as queued while the step waits to start, in progress while it runs, and completed with a conclusion of `success`, `failure`, `cancelled`, `skipped`, or `neutral` once it finishes.
 
 If a step automatically retries, Cursor continues to update the same check run. A manual retry gets its own run identity, job link, and start time, but keeps the same logical check. Cursor shows only the newest run under the check's `key`.
+
+Annotations remain associated with their check run, so dynamically appended annotations from an earlier attempt don't appear on a later manual retry.
 
 ## PagerDuty change events
 
