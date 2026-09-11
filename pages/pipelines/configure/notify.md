@@ -21,7 +21,7 @@ Available notification types:
 - [Email](#email): Send an email to the specified email address.
 - [GitHub commit status](#github-commit-status): Create a GitHub commit status.
 - [GitHub check](#github-check): Create a GitHub check status.
-- [Origin check](#origin-check): Create a Cursor Origin check.
+- [Origin check](#origin-check): Create an Origin check.
 - [PagerDuty](#pagerduty-change-events)
 - [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack channel. Requires the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended) or one or more legacy Slack notification services to be configured for your Buildkite organization.
 - [Webhooks](#webhooks): Send a notification to the specified webhook URL.
@@ -374,7 +374,7 @@ Step-level GitHub check notifications happen at the following [events](/docs/api
 
 ## Origin check
 
-Create a check on [Cursor Origin](/docs/pipelines/source-control/origin) to provide live status updates and rich output for builds and steps. This requires the pipeline's repository to be hosted on Cursor Origin.
+Create a check on [Origin](/docs/pipelines/source-control/origin) to provide live status updates and rich output for builds and steps. This requires the pipeline's repository to be hosted on Origin.
 
 > 📘 Requirements
 > Origin check notifications are being rolled out to Buildkite organizations. If they're not yet available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
@@ -470,7 +470,7 @@ Each annotation is a map with the following attributes:
 
 - `start_column` and `end_column`: The range of columns the annotation applies to, as positive integers. `end_column` must be at or after `start_column`. Provide both together with `path`, `start_line`, and `end_line`, and only when `start_line` and `end_line` are the same.
 
-Omit all location attributes to create a run-level annotation. Cursor Origin enforces its own limit on the number of annotations per check run.
+Omit all location attributes to create a run-level annotation. Origin accepts up to 100 annotations per check run. For more information, see Cursor's [Create Check Run Annotations API documentation](https://cursor.com/docs/api/origin#create-check-run-annotations).
 
 ### Dynamic Origin check updates
 
