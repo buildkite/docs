@@ -6,7 +6,7 @@ description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs
 
 > 📘 Public preview
 > Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
-> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.44.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.44.2/docs/compatibility.md) before adding a workflow.
+> The plugin and runtime are under active development. Review the [`buildkite-gha` v0.71.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.71.1/docs/compatibility.md) before adding a workflow.
 
 Buildkite Pipelines can match GitHub events against your workflows and create one build per matching workflow for each event. This server-side workflow dispatch is the recommended way to run GitHub Actions workflows. The GitHub Actions Buildkite plugin runs the selected workflow as Pipelines jobs, so you can migrate with minimal changes, then replace imported jobs with [native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) over time.
 
@@ -85,7 +85,7 @@ The REST API requires the `write_pipelines` scope to create pipelines and trigge
 
 A GitHub Actions pipeline trigger reads top-level workflow files under `.github/workflows/` and matches their `on` declarations against each incoming GitHub event before creating builds. It creates one build per matching workflow per event, and passes the selected workflow to the plugin. Don't set `workflow` or `workflows` in the plugin configuration: either explicit selector overrides the server's choice.
 
-Server-side dispatch is not GitHub's `workflow_dispatch` event. The trigger handles supported `push`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `issues`, `issue_comment`, `release`, and `merge_group` declarations. It doesn't start builds for standalone `workflow_dispatch`, `schedule`, or `workflow_call` declarations. Manual and scheduled Buildkite builds remain available through the [explicit-workflow setup](#use-explicit-workflows-in-an-existing-build).
+Server-side dispatch is not GitHub's `workflow_dispatch` event. The trigger handles supported `create`, `delete`, `deployment`, `deployment_status`, `issue_comment`, `issues`, `label`, `merge_group`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `push`, and `release` declarations. It doesn't start builds for standalone `workflow_dispatch`, `schedule`, or `workflow_call` declarations. Manual and scheduled Buildkite builds remain available through the [explicit-workflow setup](#use-explicit-workflows-in-an-existing-build).
 
 The trigger supports branch and tag pushes, plus same-repository pull requests. It supports `branches`, `branches-ignore`, `tags`, and `tags-ignore`. Without an explicit `types` filter, a pull request workflow triggers on `opened`, `reopened`, and `synchronize`. Pull request builds use the head branch and commit, while `GITHUB_WORKFLOW_REF` identifies `refs/pull/<N>/merge`. Fork pull requests, unsupported activity types, and unsupported filter patterns fail closed and appear in **Recent Deliveries**.
 
@@ -399,10 +399,10 @@ You may need to update a workflow before you can run it during the preview:
 
 - **Check the `actions/upload-artifact` revision and inputs:** The native adapter supports known revisions from v1 through v7. An unknown lowercase, full 40-character commit uses the v7.0.1 contract with a warning. Known unsupported revisions, including v3.2.2, remain rejected. The v1 adapter accepts one literal file or directory. Later adapters accept up to 32 clean, workspace-relative literal paths or bounded file globs using `*`, `?`, character classes, and recursive `**`. Exclusions, braces, extglobs, leading glob comments, absolute or traversing paths, symlinks, and special files aren't supported. Hidden-file behavior and accepted inputs depend on the action revision. The runtime accepts `retention-days` where the action declares it, but treats the value as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
 
-See the [`buildkite-gha` v0.44.2 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.44.2/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
+See the [`buildkite-gha` v0.71.1 compatibility guide](https://github.com/buildkite/buildkite-gha/blob/v0.71.1/docs/compatibility.md) for the supported functionality and limitations of the latest stable runtime covered by this page. If a feature isn't listed in the guide, treat it as unsupported.
 
 > 🚧 Treat workflow code as build code
-> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions and containers provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, a clean machine for each untrusted job, and host-level resource limits. Review the [`buildkite-gha` v0.44.2 security model](https://github.com/buildkite/buildkite-gha/blob/v0.44.2/docs/security.md) for the complete trust boundaries.
+> All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions and containers provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, a clean machine for each untrusted job, and host-level resource limits. Review the [`buildkite-gha` v0.71.1 security model](https://github.com/buildkite/buildkite-gha/blob/v0.71.1/docs/security.md) for the complete trust boundaries.
 
 ### Concurrency
 
@@ -414,7 +414,7 @@ The workflow won't compile if a group can't be resolved. Called-workflow concurr
 
 Workflow-level `cancel-in-progress` accepts literal values and expressions that resolve statically to a Boolean value. A resolved `false` is accepted without a warning. A literal or statically resolved `true` produces a warning but doesn't cancel an older build. Job-level cancellation remains unsupported.
 
-Buildkite queues every waiting entry, unlike GitHub's default behavior of replacing an existing pending entry. If you want similar cancellation behavior, turn on **Cancel Intermediate Builds** and **Skip Intermediate Builds** in the pipeline's build settings. These settings work by branch, so they match a workflow concurrency group only when its scope follows the same branch boundaries.
+Buildkite queues every waiting entry, unlike GitHub's default behavior of replacing an existing pending entry. For an explicit-workflow pipeline, you can turn on **Cancel Intermediate Builds** and **Skip Intermediate Builds** in the pipeline's build settings for similar cancellation behavior. These settings work by branch, so they match a workflow concurrency group only when its scope follows the same branch boundaries. Leave both settings disabled for server-side dispatch, where they can cancel or skip sibling workflow builds from the same event.
 
 ### Credentials, secrets, and OIDC
 
