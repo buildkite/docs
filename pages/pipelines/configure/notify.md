@@ -464,7 +464,7 @@ Each annotation is a map with the following attributes:
 
 - `raw_details`: Extended details for the annotation, up to 65,535 UTF-8 bytes.
 
-- `path`: The canonical path to the file, relative to the repository root and up to 4,096 UTF-8 bytes. The path can't be absolute or include empty, `.` or `..` segments. Provide `path` together with `start_line` and `end_line`.
+- `path`: The canonical path to the file, relative to the repository root and up to 4,096 UTF-8 bytes. The path can't be absolute or include empty, `.`, or `..` segments. Provide `path` together with `start_line` and `end_line`.
 
 - `start_line` and `end_line`: The range of lines the annotation applies to, as positive integers. `end_line` must be at or after `start_line`. Provide both together with `path`.
 
@@ -504,7 +504,7 @@ Origin checks track a step's status throughout its lifecycle. For example, a che
 
 If a step automatically retries, Cursor continues to update the same check run. A manual retry gets its own run identity, job link, and start time, but keeps the same logical check. Cursor shows only the newest run under the check's `key`.
 
-Annotations remain associated with their check run, so dynamically appended annotations from an earlier attempt don't appear on a later manual retry. Annotations configured in the pipeline can be published again for the new run.
+Annotations remain associated with their check run, so dynamically appended annotations from an earlier attempt don't appear on a later manual retry.
 
 ## PagerDuty change events
 
