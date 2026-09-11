@@ -74,6 +74,33 @@ query getAgentTokens {
 > 🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
+## List cache registries
+
+> 📘 Private preview feature
+> [Buildkite Cache](/docs/pipelines/configure/cache) is currently in private preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+
+Get the first 10 [cache registries](/docs/pipelines/configure/cache#manage-cache-registries) for a particular cluster, specifying the cluster's UUID as the `id` argument of the `cluster` query:
+
+```graphql
+query getCacheRegistries {
+  organization(slug: "organization-slug") {
+    cluster(id: "cluster-uuid") {
+      cacheRegistries(first: 10) {
+        edges {
+          node {
+            id
+            uuid
+            slug
+            name
+            description
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Create agent token with an expiration date
 
 Create an agent token with an expiration date. The expiration date is displayed in the Buildkite interface and cannot be changed using another Buildkite API call.
@@ -192,6 +219,76 @@ mutation {
   }
 }
 ```
+
+## Create a cache registry
+
+Create another [cache registry](/docs/pipelines/configure/cache#manage-cache-registries) in a cluster, specifying the cluster's ID as the `clusterId` argument:
+
+```graphql
+mutation createCacheRegistry {
+  cacheRegistryCreate(input: {
+    organizationId: "organization-id",
+    clusterId: "cluster-id",
+    name: "Build cache",
+    description: "Compiler output cache"
+  }) {
+    cacheRegistry {
+      id
+      uuid
+      slug
+      name
+      description
+      cluster {
+        id
+        uuid
+      }
+    }
+  }
+}
+```
+
+Set the `policy` argument to a JSON-encoded string of the structured policy document described in [Configure a cache policy](/docs/pipelines/configure/cache#configure-a-cache-policy). Omit `policy`, or set it to `null`, to use the default unrestricted policy. The API validates and normalizes this structured document, and doesn't accept authored YAML.
+
+## Update a cache registry
+
+Update an existing cache registry's attributes, specifying the registry's ID as the `id` argument:
+
+```graphql
+mutation updateCacheRegistry {
+  cacheRegistryUpdate(input: {
+    organizationId: "organization-id",
+    id: "cache-registry-id",
+    description: "Updated compiler output cache"
+  }) {
+    cacheRegistry {
+      id
+      uuid
+      slug
+      name
+      description
+    }
+  }
+}
+```
+
+## Delete a cache registry
+
+Delete an existing cache registry using the registry's ID:
+
+```graphql
+mutation deleteCacheRegistry {
+  cacheRegistryDelete(input: {
+    organizationId: "organization-id",
+    id: "cache-registry-id"
+  }) {
+    deletedCacheRegistryId
+  }
+}
+```
+
+You can't delete a cluster's default cache registry. [Select another default registry](/docs/pipelines/configure/cache#manage-cache-registries) first.
+
+Creating, updating, and deleting cache registries requires organization administrator or [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions.
 
 ## List jobs in a particular queue
 
