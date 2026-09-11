@@ -75,7 +75,7 @@ Creating or uploading pipeline YAML alone doesn't configure server-side dispatch
     }
     ```
 
-1. [Create a GitHub Actions pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger) with `type: "github_actions"`, `enabled: true`, and `create_webhook: true`. This provisions a signed repository webhook. Don't configure a traditional repository webhook for the pipeline.
+1. [Create a GitHub Actions pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger) with `type: "github_actions"`, a `label` such as `"GitHub Actions"`, `enabled: true`, and `create_webhook: true`. This provisions a signed repository webhook. Don't configure a traditional repository webhook for the pipeline.
 1. Save the response's `endpoint_url` securely and check `webhook_creation.status`. A `201 Created` response confirms trigger creation, not successful webhook provisioning. If provisioning failed, repair the webhook setup for the existing trigger rather than creating another trigger.
 1. Send a supported GitHub event and inspect **Recent Deliveries** and the resulting builds. An event matching two workflows should create two builds, each running its matched workflow.
 
