@@ -1117,6 +1117,8 @@
                   path: "apis/rest-api/clusters/network-ranges"
                 - name: "Cache volumes"
                   path: "apis/rest-api/clusters/cache-volumes"
+                - name: "Cache registries"
+                  path: "apis/rest-api/clusters/cache-registries"
             - name: "Jobs"
               path: "apis/rest-api/jobs"
             - name: "Pipeline templates"
