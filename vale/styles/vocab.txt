@@ -99,6 +99,7 @@ CLIs
 Cloudsmith
 Cognito
 Cooldown
+clonekit
 Cloudsmith's
 CloudTrail
 CloudWatch
