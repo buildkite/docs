@@ -470,7 +470,7 @@ Each annotation is a map with the following attributes:
 
 - `start_column` and `end_column`: The range of columns the annotation applies to, as positive integers. `end_column` must be at or after `start_column`. Provide both together with `path`, `start_line`, and `end_line`, and only when `start_line` and `end_line` are the same.
 
-Omit all location attributes to create a run-level annotation. Cursor Origin enforces its own limit on the number of annotations per check run.
+Omit all location attributes to create a run-level annotation. Cursor Origin accepts up to 100 annotations per check run. For more information, see Cursor's [Create Check Run Annotations API documentation](https://cursor.com/docs/api/origin#create-check-run-annotations).
 
 ### Dynamic Origin check updates
 
