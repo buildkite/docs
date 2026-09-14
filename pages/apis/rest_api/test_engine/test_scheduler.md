@@ -1328,7 +1328,7 @@ Success response: `200 OK`
 
 ## Rate limits
 
-Test Scheduler requests are rate limited with the rate limits below, and the shared REST API rate limits do not apply to the Test Scheduler API. 
+Test Scheduler requests are rate limited with the limits below, and the shared REST API rate limits do not apply to the Test Scheduler API. 
 
 The API enforces two independent levels of rate limits:
 
