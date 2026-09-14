@@ -1354,7 +1354,13 @@ Operation | Path | Organization requests per minute
 [Get pool metrics](#get-pool-metrics) | `/pools/{pool.id}/metrics` | `10000`
 {: class="responsive-table"}
 
-Organization service quota overrides can change these defaults, including the pool and empty-lease job limits below.
+Organization-level headers:
+
+- `RateLimit-Scope`: Identifies the organization-wide rate-limit bucket for the operation.
+- `RateLimit-Remaining`: The remaining request capacity in the window, clamped to zero.
+- `RateLimit-Limit`: The configured maximum number of requests in a 60-second window.
+- `RateLimit-Reset`: The number of seconds until the window resets.
+- `RateLimit-Warning`: Appears when the organization limit rejects the request.
 
 ### Pool rate limits
 
@@ -1373,22 +1379,6 @@ Operation | Path | Pool requests per minute
 [Get pool metrics](#get-pool-metrics) | `/pools/{pool.id}/metrics` | `1000`
 {: class="responsive-table"}
 
-#### Empty lease job rate limits
-
-Empty create-lease responses have an additional per-job limit of `15` responses per minute by default. An empty response consumes this limit, but a response containing a lease does not. After a job reaches the limit, later create-lease requests from that job return `429 Too Many Requests` without checking for available work until the limit resets.
-
-### Checking rate limit details
-
-Responses include organization rate-limit headers. Pool-scoped endpoints also include pool rate-limit headers, and create-lease responses that use the empty-response limit include job rate-limit headers. Use the corresponding headers to monitor each limit independently.
-
-Organization-level headers:
-
-- `RateLimit-Scope`: Identifies the organization-wide rate-limit bucket for the operation.
-- `RateLimit-Remaining`: The remaining request capacity in the window, clamped to zero.
-- `RateLimit-Limit`: The configured maximum number of requests in a 60-second window.
-- `RateLimit-Reset`: The number of seconds until the window resets.
-- `RateLimit-Warning`: Appears when the organization limit rejects the request.
-
 Pool-level headers:
 
 - `RateLimit-Pool-Scope`: Identifies the pool-specific rate-limit bucket for the operation.
@@ -1396,6 +1386,10 @@ Pool-level headers:
 - `RateLimit-Pool-Limit`: The configured maximum number of requests in a 60-second window.
 - `RateLimit-Pool-Reset`: The number of seconds until the window resets.
 - `RateLimit-Pool-Warning`: Appears when the pool limit rejects the request.
+
+#### Empty lease job rate limits
+
+Empty create-lease responses have an additional per-job limit of `15` responses per minute by default. An empty response consumes this limit, but a response containing a lease does not. After a job reaches the limit, later create-lease requests from that job return `429 Too Many Requests` without checking for available work until the limit resets.
 
 Per-job empty-lease headers:
 
@@ -1441,8 +1435,6 @@ Status | Description
 {: class="responsive-table"}
 
 ## Breaking changes
-
-Test Scheduler operations no longer consume the shared REST API rate limit. Clients that exceed a dedicated organization or pool limit now receive `429 Too Many Requests` and must use the scoped rate limit headers to schedule a later request. Migrate clients that only inspect the shared REST rate limit to read both the organization and pool Test Scheduler headers.
 
 Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter. OIDC requests already include build context in the token claims. REST API access-token requests must provide `build_id` so the request can be routed using the owning build instead of searching for a pool by UUID across shards.
 
