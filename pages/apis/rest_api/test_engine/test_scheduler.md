@@ -1339,19 +1339,19 @@ The API enforces two independent levels of rate limits:
 
 Each operation has a separate organization-wide limit:
 
-Operation | Organization requests per minute
---------- | --------------------------------
-List pools | `10`
-Create a pool | `10`
-Get a pool | `100`
-Update a pool | `100`
-List entries | `10000`
-Upload entries | `1000`
-Create a lease | `10000`
-Heartbeat leases | `1000`
-Complete attempts | `10000`
-Release attempts | `10000`
-Get pool metrics | `10000`
+Operation | Path | Organization requests per minute
+--------- | ---- | --------------------------------
+[List pools](#list-pools) | `/pools` | `10`
+[Create a pool](#create-a-pool) | `/pools` | `10`
+[Get a pool](#get-a-pool) | `/pools/{pool.id}` | `100`
+[Update a pool](#update-a-pool) | `/pools/{pool.id}` | `100`
+[List entries](#list-entries) | `/pools/{pool.id}/entries` | `10000`
+[Upload entries](#upload-entries) | `/pools/{pool.id}/entries` | `1000`
+[Create a lease](#create-a-lease) | `/pools/{pool.id}/leases` | `10000`
+[Heartbeat leases](#heartbeat-leases) | `/pools/{pool.id}/leases/heartbeat` | `1000`
+[Complete attempts](#complete-attempts) | `/pools/{pool.id}/leases/complete` | `10000`
+[Release attempts](#release-attempts) | `/pools/{pool.id}/leases/release` | `10000`
+[Get pool metrics](#get-pool-metrics) | `/pools/{pool.id}/metrics` | `10000`
 {: class="responsive-table"}
 
 Organization service quota overrides can change these defaults, including the pool and empty-lease job limits below.
@@ -1360,17 +1360,17 @@ Organization service quota overrides can change these defaults, including the po
 
 Pool-scoped operations also have a separate limit for each pool. Both organization and pool limits apply, and a request is rejected if either limit is exceeded.
 
-Operation | Pool requests per minute
---------- | ------------------------
-Get a pool | `10`
-Update a pool | `10`
-List entries | `1000`
-Upload entries | `100`
-Create a lease | `1000`
-Heartbeat leases | `100`
-Complete attempts | `1000`
-Release attempts | `1000`
-Get pool metrics | `1000`
+Operation | Path | Pool requests per minute
+--------- | ---- | ------------------------
+[Get a pool](#get-a-pool) | `/pools/{pool.id}` | `10`
+[Update a pool](#update-a-pool) | `/pools/{pool.id}` | `10`
+[List entries](#list-entries) | `/pools/{pool.id}/entries` | `1000`
+[Upload entries](#upload-entries) | `/pools/{pool.id}/entries` | `100`
+[Create a lease](#create-a-lease) | `/pools/{pool.id}/leases` | `1000`
+[Heartbeat leases](#heartbeat-leases) | `/pools/{pool.id}/leases/heartbeat` | `100`
+[Complete attempts](#complete-attempts) | `/pools/{pool.id}/leases/complete` | `1000`
+[Release attempts](#release-attempts) | `/pools/{pool.id}/leases/release` | `1000`
+[Get pool metrics](#get-pool-metrics) | `/pools/{pool.id}/metrics` | `1000`
 {: class="responsive-table"}
 
 #### Empty lease job rate limits
