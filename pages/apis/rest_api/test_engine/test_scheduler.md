@@ -644,8 +644,6 @@ Success response: `200 OK`
 
 Uploads a batch of entries to a pool. Each entry describes work that the producer and worker understand. The API creates initial attempts according to the entry's selected policy. When `initial_attempts` is `null`, it creates the lower of `min_attempts` and `parallel_attempts`.
 
-Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each batch. Reuse the key and send the same `entries` when retrying that batch. Each key applies to one organization and pool. Without this header, retries can create duplicate entries.
-
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/entries" \
   --request POST \
@@ -747,6 +745,8 @@ Optional entry properties:
   </tr>
 </tbody>
 </table>
+
+Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each batch. Reuse the key and send the same `entries` when retrying that batch. Each key applies to one organization and pool. Without this header, retries can create duplicate entries.
 
 The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is unexpired and in the `populating` state.
 
