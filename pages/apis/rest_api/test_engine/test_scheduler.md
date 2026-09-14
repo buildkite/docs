@@ -1306,7 +1306,7 @@ The response includes:
 </tbody>
 </table>
 
-Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. Pending work appears in `attempts.states.waiting`.
+Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. For each state in `attempts.states`, `costs.custom` is the sum of the custom costs for all attempts currently in that state. An entry contributes its custom cost once for each of its attempts in that state.
 
 Required scope: `read_test_pool`
 
