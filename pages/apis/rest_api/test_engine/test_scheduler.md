@@ -1326,6 +1326,41 @@ Required scope: `read_test_pool`
 
 Success response: `200 OK`
 
+## Rate limits
+
+Test Scheduler requests use separate one-minute organization and pool rate limits instead of the shared REST API rate limit. Organization service quota overrides can change these defaults.
+
+Operation | Organization requests per minute | Pool requests per minute
+--------- | -------------------------------- | ------------------------
+List pools | `10` | Not applicable
+Create a pool | `10` | Not applicable
+Get a pool | `100` | `10`
+Update a pool | `100` | `10`
+List entries | `10000` | `1000`
+Upload entries | `1000` | `100`
+Create a lease | `10000` | `1000`
+Heartbeat leases | `1000` | `100`
+Complete attempts | `10000` | `1000`
+Release attempts | `10000` | `1000`
+Get pool metrics | `10000` | `1000`
+{: class="responsive-table"}
+
+Responses include organization rate information in the `RateLimit-Scope`, `RateLimit-Limit`, `RateLimit-Remaining`, and `RateLimit-Reset` headers. Pool-scoped endpoints also include the corresponding `RateLimit-Pool-Scope`, `RateLimit-Pool-Limit`, `RateLimit-Pool-Remaining`, and `RateLimit-Pool-Reset` headers. An exceeded limit adds the corresponding `RateLimit-Warning` or `RateLimit-Pool-Warning` header.
+
+Empty create-lease responses have an additional per-job limit of `15` responses per minute by default. An empty response consumes this limit, but a response containing a lease does not. After a job reaches the limit, later create-lease requests from that job return `429 Too Many Requests` without checking for available work until the limit resets. Responses that use this limit include `RateLimit-Job-Scope`, `RateLimit-Job-Limit`, `RateLimit-Job-Remaining`, and `RateLimit-Job-Reset` headers. An exceeded limit also includes `RateLimit-Job-Warning`. These responses do not include a `Retry-After` header.
+
+When an enforced limit is exceeded, the API returns `429 Too Many Requests`:
+
+```json
+{
+  "message": "You have exceeded your test_scheduler_get_pool_pool API rate limit. Please wait 42 seconds before making more requests.",
+  "scope": "test_scheduler_get_pool_pool",
+  "limit": 10,
+  "current": 10,
+  "reset": 42
+}
+```
+
 ## Error responses
 
 Test Scheduler endpoints can return these errors:
@@ -1337,10 +1372,13 @@ Status | Description
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
 `404 Not Found` | The pool or lease does not exist or is not accessible to the token.
 `409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
+`429 Too Many Requests` | The request exceeded an organization, pool, or empty-lease job rate limit. Use the response body and scoped rate limit headers to determine when capacity becomes available.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
 {: class="responsive-table"}
 
 ## Breaking changes
+
+Test Scheduler operations no longer consume the shared REST API rate limit. Clients that exceed a dedicated organization or pool limit now receive `429 Too Many Requests` and must use the scoped rate limit headers to schedule a later request. Migrate clients that only inspect the shared REST rate limit to read both the organization and pool Test Scheduler headers.
 
 Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter. OIDC requests already include build context in the token claims. REST API access-token requests must provide `build_id` so the request can be routed using the owning build instead of searching for a pool by UUID across shards.
 
