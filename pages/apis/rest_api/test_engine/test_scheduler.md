@@ -1357,7 +1357,7 @@ Operation | Path | Organization requests per minute
 Organization-level headers:
 
 - `RateLimit-Scope`: Identifies the organization-wide rate-limit bucket for the operation.
-- `RateLimit-Remaining`: The remaining request capacity in the window, clamped to zero.
+- `RateLimit-Remaining`: The remaining requests within the current time window.
 - `RateLimit-Limit`: The configured maximum number of requests in a 60-second window.
 - `RateLimit-Reset`: The number of seconds until the window resets.
 
