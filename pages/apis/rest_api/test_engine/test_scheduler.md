@@ -474,7 +474,7 @@ Each policy definition may contain only the properties listed in this table. For
 ### Policy behavior
 
 - The policy may create multiple attempts for an entry and allow up to `parallel_attempts` attempts to be waiting or leased at one time.
-- An explicit `initial_attempts` value controls the number of attempts created for uploaded entries. When it is `null`, the lesser of `parallel_attempts` and `min_attempts` is created.
+- An explicit `initial_attempts` value controls the number of attempts created for uploaded entries. When `initial_attempts` is `null`, the lesser of `parallel_attempts` and `min_attempts` is created.
 - The policy is evaluated whenever an attempt completes. Before all initial attempts complete, evaluation may make the entry terminal but will not create additional attempts.
 - After all initial attempts complete, each completion that leaves the entry non-terminal may create attempts to fill the available `parallel_attempts` capacity, subject to `max_attempts`.
 - A value of `null` disables `min_passed` or `min_failed`; `0` is invalid. All configured `min_` thresholds must be met before their minimum condition is terminal. If both result minimums are `null`, satisfying `min_attempts` alone does not make the entry terminal.
