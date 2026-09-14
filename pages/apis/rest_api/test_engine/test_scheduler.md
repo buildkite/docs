@@ -748,7 +748,7 @@ Optional entry properties:
 
 Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each set of entries. Reuse the same `Idempotency-Key` value and send the same `entries` when retrying that batch. Without this header, retries can create duplicate entries.
 
-The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not been updated to the `consuming` state.
+The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state.
 
 The API remembers successful requests with an `Idempotency-Key` for five minutes.  After the key expires, the API can create duplicates if the pool is still accepting entries.
 
