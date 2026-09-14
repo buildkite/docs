@@ -1306,9 +1306,9 @@ The response includes:
 </tbody>
 </table>
 
-Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. Pending work appears in `attempts.states.waiting`. The custom cost for this state is the total cost of all currently waiting attempts. Each entry contributes its cost once for every waiting attempt created after attempt-policy evaluation, rather than once per entry or directly according to `parallel_attempts`.
+Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. For each state in `attempts.states`, `costs.custom` is the sum of the custom costs for all attempts currently in that state. An entry contributes its custom cost once for each of its attempts in that state, rather than once per entry or directly according to `parallel_attempts`.
 
-For example, an entry with a custom cost of `5` and an attempt policy with `min_attempts`, `max_attempts`, `max_failed`, and `max_passed` set to `2`, `5`, `5`, and `5`, respectively, and `parallel_attempts` set to `2`, initially creates two waiting attempts. The custom cost for the waiting state is `10` while both attempts remain waiting. The cost decreases as attempts are leased.
+For example, an entry with a custom cost of `5` and an attempt policy with `min_attempts`, `max_attempts`, `max_failed`, and `max_passed` set to `2`, `5`, `5`, and `5`, respectively, and `parallel_attempts` set to `2`, initially creates two waiting attempts. The custom cost for the waiting state is `10` while both attempts remain waiting. As attempts are leased, they move from the waiting state to the leased state, so the waiting custom cost decreases while the leased custom cost increases.
 
 Required scope: `read_test_pool`
 
