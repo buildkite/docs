@@ -649,6 +649,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
+  --header "Idempotency-Key: $IDEMPOTENCY_KEY" \
   --data '{
     "entries": [
       {
@@ -745,11 +746,24 @@ Optional entry properties:
 </tbody>
 </table>
 
-The request is atomic. If any entry is invalid, the API creates no entries. Entries can only be uploaded while the pool is unexpired and in the `populating` state.
+Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each set of entries. Reuse the same `Idempotency-Key` value and send the same `entries` when retrying that batch. Without this header, retries can create duplicate entries.
+
+The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not been updated to the `populating` state.
+
+The API remembers successful requests with an `Idempotency-Key` for five minutes.  After the key expires, the API can create duplicates if the pool is still accepting entries.
 
 Required scope: `write_test_pool`
 
-Success response: `201 Created`
+Success responses:
+
+- `201 Created`: The API created the entries and returns them in the response body shown above.
+- `204 No Content`: The key and entries match a successful upload that the API still remembers. The API creates no additional entries or attempts and returns an empty response body.
+
+Error responses with `Idempotency-Key`:
+
+- `400 Bad Request`: The key is not a valid UUIDv7.
+- `409 Conflict`: The key matches an earlier upload with different entries. Use a new key for a different batch.
+- `409 Conflict`: An earlier request with this key is still in progress or has an unknown outcome. Retry with the same key and unchanged entries before the key expires.
 
 ## List entries
 
