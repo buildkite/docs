@@ -1360,7 +1360,6 @@ Organization-level headers:
 - `RateLimit-Remaining`: The remaining request capacity in the window, clamped to zero.
 - `RateLimit-Limit`: The configured maximum number of requests in a 60-second window.
 - `RateLimit-Reset`: The number of seconds until the window resets.
-- `RateLimit-Warning`: Appears when the organization limit rejects the request.
 
 ### Pool rate limits
 
@@ -1385,7 +1384,6 @@ Pool-level headers:
 - `RateLimit-Pool-Remaining`: The remaining request capacity in the window, clamped to zero.
 - `RateLimit-Pool-Limit`: The configured maximum number of requests in a 60-second window.
 - `RateLimit-Pool-Reset`: The number of seconds until the window resets.
-- `RateLimit-Pool-Warning`: Appears when the pool limit rejects the request.
 
 #### Empty lease job rate limits
 
@@ -1397,7 +1395,6 @@ Per-job empty-lease headers:
 - `RateLimit-Job-Remaining`: The remaining empty-response capacity in the window, clamped to zero.
 - `RateLimit-Job-Limit`: The configured maximum number of empty create-lease responses in a 60-second window.
 - `RateLimit-Job-Reset`: The number of seconds until the window resets.
-- `RateLimit-Job-Warning`: Appears when the empty-lease job limit rejects the request.
 
 ### Exceeding the rate limit
 
@@ -1417,7 +1414,9 @@ The response body identifies the limit that rejected the request:
 
 The `scope` field identifies the rate-limit bucket. In this example, `test_scheduler_get_pool_pool` is the per-pool limit for getting a pool. The `reset` field is the number of seconds until the window resets.
 
-The corresponding `RateLimit-Warning`, `RateLimit-Pool-Warning`, or `RateLimit-Job-Warning` header appears when that limit rejects the request. Empty-lease rate-limit responses do not include a `Retry-After` header; use `RateLimit-Job-Reset` instead.
+When an organization or pool limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level) or `RateLimit-Pool-Warning` (per-pool) header set to `You have exceeded your API rate limit.`. When the empty-lease job limit rejects a request, the headers include a `RateLimit-Job-Warning` header with the same value. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
+
+Empty-lease rate-limit responses do not include a `Retry-After` header; use `RateLimit-Job-Reset` instead.
 
 ## Error responses
 
