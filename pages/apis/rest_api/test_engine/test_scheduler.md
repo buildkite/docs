@@ -264,7 +264,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
       "max_passed": 1,
       "min_failed": null,
       "max_failed": 1,
-      "parallel_attempts": 1
+      "parallel_attempts": 1,
+      "initial_attempts": null
     },
     "lease": {
       "costs": {
@@ -465,7 +466,7 @@ Property | Type | Description | Validation
 `attempt_policy.min_passed` | Integer or null | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_passed`. When both result minimums are set, their sum must be less than `max_attempts`.
 `attempt_policy.min_failed` | Integer or null | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. `null` disables this threshold. | When set, at least `1` and no greater than `max_failed`. When both result minimums are set, their sum must be less than `max_attempts`.
 `attempt_policy.parallel_attempts` | Integer | Maximum number of waiting and leased attempts for the entry at one time. | At least `1` and no greater than `max_attempts`.
-`attempt_policy.initial_attempts` | Integer or null | Number of attempts created when the entry is uploaded. `null` uses the lower of `min_attempts` and `parallel_attempts`. | When set, at least `1` and no greater than `parallel_attempts`.
+`attempt_policy.initial_attempts` | Integer or null | Number of attempts created for each entry during upload. `null` uses the lesser of `parallel_attempts` and `min_attempts`. | When set, at least `1` and no greater than `parallel_attempts`.
 {: class="responsive-table"}
 
 Each policy definition may contain only the properties listed in this table. For a pool with one policy, `attempt_policy` contains the policy definition directly. For a pool with multiple policies, `attempt_policy` contains policy definitions keyed by name. Policy properties and policy keys cannot be mixed in the same object.
@@ -473,6 +474,9 @@ Each policy definition may contain only the properties listed in this table. For
 ### Policy behavior
 
 - The policy may create multiple attempts for an entry and allow up to `parallel_attempts` attempts to be waiting or leased at one time.
+- An explicit `initial_attempts` value controls the number of attempts created for uploaded entries. When `initial_attempts` is `null`, the lesser of `parallel_attempts` and `min_attempts` is created.
+- The policy is evaluated whenever an attempt completes. Before all initial attempts complete, evaluation may make the entry terminal but will not create additional attempts.
+- After all initial attempts complete, each completion that leaves the entry non-terminal may create attempts to fill the available `parallel_attempts` capacity, subject to `max_attempts`.
 - A value of `null` disables `min_passed` or `min_failed`; `0` is invalid. All configured `min_` thresholds must be met before their minimum condition is terminal. If both result minimums are `null`, satisfying `min_attempts` alone does not make the entry terminal.
 - Reaching any configured `max_` threshold makes the entry terminal.
 - Once an entry is terminal, any remaining waiting attempts will be canceled.
