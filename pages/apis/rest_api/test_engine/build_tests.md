@@ -44,7 +44,7 @@ The aggregation window starts when the build is created, unless the organization
 <tbody>
   <tr>
     <th><code>state</code></th>
-    <td>The <a href="/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine">lifecycle state</a> of the test: <code>enabled</code>, <code>muted</code>, or <code>skipped</code>. This is <code>null</code> when test state management is disabled for the suite.</td>
+    <td>The <a href="/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine">lifecycle state</a> of the test: <code>enabled</code>, <code>muted</code>, or <code>skipped</code>. This is always <code>enabled</code> when test state management is disabled for the suite.</td>
   </tr>
   <tr>
     <th><code>reliability</code></th>
