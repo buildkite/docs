@@ -69,7 +69,10 @@ Set the mode with the agent's `--checkout-override-mode` flag, or the `BUILDKITE
 - `none`: Your pipeline YAML can override every `checkout` attribute, including `depth`, `flags`, and `commit_verification`.
 - `strict`: The agent is authoritative over every mode-governed attribute, and ignores pipeline YAML values for them.
 
-Both Buildkite-hosted agents and self-hosted agents run `from-job` unless you configure otherwise, so the `depth`, `flags`, and `commit_verification` attributes require an agent running in `none` mode.
+Self-hosted agents run `from-job` unless you configure otherwise, so the `depth`, `flags`, and `commit_verification` attributes require an agent running in `none` mode.
+
+> 🚧 Buildkite hosted agents
+> Buildkite hosted agents run in `from-job` mode and cannot currently be configured to use `none` mode. Therefore, `checkout.depth`, `checkout.flags`, and `checkout.commit_verification` are not currently supported on hosted agents. For shallow clones or custom clone and fetch flags on hosted agents, use the [Custom Checkout Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/custom-checkout-buildkite-plugin/) instead.
 
 The following table shows whether each pipeline YAML `checkout` attribute takes effect under each mode:
 
