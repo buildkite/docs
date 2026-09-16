@@ -20,6 +20,20 @@ Each plan has default [service quotas](/docs/platform/limits) that define usage 
 
 For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
+## Usage overview during your trial
+
+Organizations with an active All Access Trial see an **Overview** tab on the [**Usage** page](https://buildkite.com/organizations/~/usage). This tab summarizes how your organization has explored Buildkite so far, and what else is available on your plan.
+
+The **Overview** tab shows:
+
+- The current usage period.
+- A trial countdown during the final seven days of your trial.
+- Feature cards grouped into explored and unexplored sections, with a utilization indicator showing how many available features your organization has tried.
+
+Select a feature card to go to that feature.
+
+Organizations without an active trial continue to land on the **Platform** tab when they select **Usage**.
+
 ## Viewing prepaid inclusions
 
 Managed enterprise customers with the inclusions report enabled can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.
