@@ -985,6 +985,7 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks/pipel
 - `build created`
 - `build started`
 - `build blocked`
+- `build failing`
 - `build finished`
 
 ## Build states
