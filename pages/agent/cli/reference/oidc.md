@@ -123,7 +123,7 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
     <td><code>pipeline_id</code></td>
     <td>
       <p>The pipeline UUID.</p>
-      <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b1l0</code></p>
+      <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b1b0</code></p>
     </td>
   </tr>
    <tr id="pipeline-slug">
@@ -287,7 +287,7 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
   "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
   "organization_slug": "acme-inc",
-  "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1l0",
+  "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1b0",
   "pipeline_slug": "super-duper-app",
   "build_id": "019583d7-3737-4e38-af67-f7cc356bd580",
   "build_number": 1,
@@ -334,7 +334,7 @@ When the `--aws-session-tag` flag has been used to generate an OIDC token, the c
   "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
   "organization_slug": "acme-inc",
-  "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1l0",
+  "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1b0",
   "pipeline_slug": "super-duper-app",
   "build_id": "019583d7-3737-4e38-af67-f7cc356bd580",
   "build_number": 1,
@@ -400,7 +400,7 @@ When `--subject-claim cluster_id` is used, the `sub` claim contains the cluster 
   "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
   "organization_slug": "acme-inc",
-  "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1l0",
+  "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1b0",
   "pipeline_slug": "super-duper-app",
   "build_id": "019583d7-3737-4e38-af67-f7cc356bd580",
   "build_number": 1,
