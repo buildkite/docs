@@ -89,6 +89,10 @@ The user:
 > 📘 Preselecting an organization
 > If the device authorization request includes an `organization` or `organization_uuid` hint and the signed-in user can authorize that organization, the organization is preselected for them. The user can still select a different organization before approving the request.
 
+> 🚧 An approved organization can still be missing from the API
+> This page lists organizations that the REST API doesn't return. You can select an organization here after its evaluation trial has ended, even when no plan is selected. After approval, clients that list organizations for the token, including `bk auth login --device`, report `no organizations found for this token`.
+> Choosing a plan, including the Free plan, makes the organization available to the API. See [Organizations API](/docs/apis/rest-api/organizations).
+
 ## Token request
 
 While the user completes authorization, poll the token endpoint using the `device_code`:
