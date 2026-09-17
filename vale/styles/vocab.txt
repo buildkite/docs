@@ -99,6 +99,7 @@ CLIs
 Cloudsmith
 Cognito
 Cooldown
+clonekit
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -444,6 +445,8 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+subproject
+subprojects
 SLA
 SLAs
 SLIs

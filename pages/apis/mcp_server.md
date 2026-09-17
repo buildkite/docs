@@ -59,6 +59,8 @@ https://mcp.buildkite.com/direct
 
 This remote MCP server version accepts the API access token in an `Authorization: Bearer <buildkite-api-token>` header. The token is forwarded to the Buildkite REST API, and the token scopes determine which MCP tool calls can complete successfully.
 
+Requests through this endpoint count toward the [remote MCP server rate limit](/docs/apis/mcp-server/remote/rate-limits) of 50 requests per minute per user. They do not count toward your Buildkite organization's standard REST API rate limit.
+
 Use this endpoint only for agents or services that cannot complete the interactive OAuth flow. For prompt-based AI tools, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
 
 > 📘

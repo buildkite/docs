@@ -35,6 +35,7 @@ Method | Endpoint | Description
 GET | `/v2/organizations` | [List organizations](/docs/apis/rest-api/organizations#list-organizations)
 GET | `/v2/organizations/{org.slug}` | [Get an organization](/docs/apis/rest-api/organizations#get-an-organization)
 GET | `/v2/organizations/{org.slug}/rate_limit` | [Get organization rate limits](/docs/apis/rest-api/organizations/rate-limits#get-rate-limits)
+GET | `/v2/organizations/{org.slug}/usage` | [Get organization usage](/docs/apis/rest-api/organizations/usage#get-organization-usage)
 {: class="responsive-table"}
 
 ### Audit events

@@ -38,6 +38,7 @@ Content-Type: application/x-www-form-urlencoded
 
 client_id=your-client-id
 &scope=read_user read_organizations
+&organization=your-organization
 ```
 
 ### Request parameters
