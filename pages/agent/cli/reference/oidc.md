@@ -102,7 +102,7 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
     <td>
       <p>JWT ID</p>
       <p>A unique identifier for the token, which consumers can use to allow the token to be used only once.</p>
-      <p><em>Example:</em> <code>0191f956-042f-7ec4-aa62-8e5eeae396d0</code></p>
+      <p><em>Example:</em> <code>0184990a-4550-7000-8000-000000000001</code></p>
     </td>
   </tr>
    <tr id="organization-id">
@@ -284,7 +284,7 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
   "iat": 1669014898,
   "nbf": 1669014898,
   "exp": 1669015198,
-  "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
+  "jti": "0184990a-4550-7000-8000-000000000001",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
   "organization_slug": "acme-inc",
   "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1b0",
@@ -331,7 +331,7 @@ When the `--aws-session-tag` flag has been used to generate an OIDC token, the c
   "iat": 1669014898,
   "nbf": 1669014898,
   "exp": 1669015198,
-  "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
+  "jti": "0184990a-4550-7000-8000-000000000002",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
   "organization_slug": "acme-inc",
   "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1b0",
@@ -397,7 +397,7 @@ When `--subject-claim cluster_id` is used, the `sub` claim contains the cluster 
   "iat": 1669014898,
   "nbf": 1669014898,
   "exp": 1669015198,
-  "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
+  "jti": "0184990a-4550-7000-8000-000000000003",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
   "organization_slug": "acme-inc",
   "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1b0",
