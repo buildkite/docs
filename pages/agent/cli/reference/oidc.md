@@ -105,13 +105,6 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
       <p><em>Example:</em> <code>0191f956-042f-7ec4-aa62-8e5eeae396d0</code></p>
     </td>
   </tr>
-   <tr id="organization-slug">
-    <td><code>organization_slug</code></td>
-    <td>
-      <p>The organization's slug.</p>
-      <p><em>Example:</em> <code>acme-inc</code></p>
-    </td>
-  </tr>
    <tr id="organization-id">
     <td><code>organization_id</code></td>
     <td>
@@ -119,11 +112,11 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
       <p><em>Example:</em> <code>0184990a-477b-4fa8-9968-496074483cec</code></p>
     </td>
   </tr>
-   <tr id="pipeline-slug">
-    <td><code>pipeline_slug</code></td>
+   <tr id="organization-slug">
+    <td><code>organization_slug</code></td>
     <td>
-      <p>The pipeline's slug.</p>
-      <p><em>Example:</em> <code>super-duper-app</code></p>
+      <p>The organization's slug.</p>
+      <p><em>Example:</em> <code>acme-inc</code></p>
     </td>
   </tr>
    <tr id="pipeline-id">
@@ -133,11 +126,11 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
       <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b1l0</code></p>
     </td>
   </tr>
-   <tr>
-    <td><code>build_number</code></td>
+   <tr id="pipeline-slug">
+    <td><code>pipeline_slug</code></td>
     <td>
-      <p>The build number.</p>
-      <p><em>Example:</em> <code>1</code></p>
+      <p>The pipeline's slug.</p>
+      <p><em>Example:</em> <code>super-duper-app</code></p>
     </td>
   </tr>
    <tr id="build-id">
@@ -145,6 +138,13 @@ All of the following claims (with the exception of the [`aud` claim](#aud), whic
     <td>
       <p>The build UUID.</p>
       <p><em>Example:</em> <code>019583d7-3737-4e38-af67-f7cc356bd580</code></p>
+    </td>
+  </tr>
+   <tr>
+    <td><code>build_number</code></td>
+    <td>
+      <p>The build number.</p>
+      <p><em>Example:</em> <code>1</code></p>
     </td>
   </tr>
    <tr id="build-branch">
@@ -285,12 +285,12 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
   "nbf": 1669014898,
   "exp": 1669015198,
   "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
-  "organization_slug": "acme-inc",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
-  "pipeline_slug": "super-duper-app",
+  "organization_slug": "acme-inc",
   "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1l0",
-  "build_number": 1,
+  "pipeline_slug": "super-duper-app",
   "build_id": "019583d7-3737-4e38-af67-f7cc356bd580",
+  "build_number": 1,
   "build_branch": "main",
   "build_tag": "v1.0.0",
   "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
@@ -306,10 +306,10 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
 
 For Buildkite OIDC tokens used to integrate with Amazon Web Services (AWS), you can optionally include any of the supported claims in the [AWS session tag format required by the `AssumeRoleWithWebIdentity` operation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_adding-assume-role-idp).
 
-These OIDC tokens also typically have an audience of `sts.amazonaws.com`. For example, this command generates an AWS compatible OIDC token that includes the `organization_slug` and `organization_id`:
+These OIDC tokens also typically have an audience of `sts.amazonaws.com`. For example, this command generates an AWS compatible OIDC token that includes the `organization_id` and `organization_slug`:
 
 ```sh
-$ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_slug,organization_id"
+$ buildkite-agent oidc request-token --audience sts.amazonaws.com --aws-session-tag "organization_id,organization_slug"
 ```
 
 AWS requires that session tags are string values. Therefore:
@@ -332,12 +332,12 @@ When the `--aws-session-tag` flag has been used to generate an OIDC token, the c
   "nbf": 1669014898,
   "exp": 1669015198,
   "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
-  "organization_slug": "acme-inc",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
-  "pipeline_slug": "super-duper-app",
+  "organization_slug": "acme-inc",
   "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1l0",
-  "build_number": 1,
+  "pipeline_slug": "super-duper-app",
   "build_id": "019583d7-3737-4e38-af67-f7cc356bd580",
+  "build_number": 1,
   "build_branch": "main",
   "build_tag": "v1.0.0",
   "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
@@ -348,11 +348,11 @@ When the `--aws-session-tag` flag has been used to generate an OIDC token, the c
   "runner_environment": "buildkite-hosted",
   "https://aws.amazon.com/tags": {
     "principal_tags": {
-      "organization_slug": [
-        "acme-inc"
-      ],
       "organization_id": [
         "f892efa9-103e-4d28-97a1-3b8616a0994d"
+      ],
+      "organization_slug": [
+        "acme-inc"
       ]
     }
   }
@@ -398,12 +398,12 @@ When `--subject-claim cluster_id` is used, the `sub` claim contains the cluster 
   "nbf": 1669014898,
   "exp": 1669015198,
   "jti": "0191f956-042f-7ec4-aa62-8e5eeae396d0",
-  "organization_slug": "acme-inc",
   "organization_id": "0184990a-477b-4fa8-9968-496074483cec",
-  "pipeline_slug": "super-duper-app",
+  "organization_slug": "acme-inc",
   "pipeline_id": "0184990a-4782-42b5-afc1-16715b10b1l0",
-  "build_number": 1,
+  "pipeline_slug": "super-duper-app",
   "build_id": "019583d7-3737-4e38-af67-f7cc356bd580",
+  "build_number": 1,
   "build_branch": "main",
   "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
   "step_key": "build",
