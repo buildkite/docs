@@ -260,6 +260,8 @@
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security"
                         - name: "Managing the Stack"
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack"
+                        - name: "Upgrading from v6 to v7"
+                          path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/v6-v7-upgrade-guide"
                         - name: "Configuration parameters"
                           path: "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters"
                         - name: "Creating custom AMIs"
