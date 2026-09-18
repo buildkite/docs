@@ -2,7 +2,7 @@
 
 Elastic CI Stack for AWS v7 upgrades the bundled Linux and Windows Buildkite agents from v3 to v4. This guide covers the stack-specific changes. Read the [Agent v3 to v4 upgrade guide](/docs/agent/v3-v4-upgrade-guide) for changes that affect your pipelines, hooks, plugins, and custom agent configuration.
 
-If you need Buildkite agent v3, remain on Elastic CI Stack v6. Stack v7 no longer supports agent v3 or the `oldstable` release channel.
+If you need Buildkite agent v3, remain on Elastic CI Stack v6. Elastic CI Stack v7 no longer supports agent v3 or the `oldstable` release channel.
 
 ## Prepare the upgrade
 
