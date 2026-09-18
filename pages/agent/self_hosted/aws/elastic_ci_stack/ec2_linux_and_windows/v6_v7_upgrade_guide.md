@@ -38,7 +38,7 @@ v6 parameter | v7 replacement | Migration
 
 ## Cancellation timing
 
-Stack v7 separates cancellation into two timeouts:
+Elastic CI Stack v7 separates cancellation into two timeouts:
 
 - `BuildkiteAgentCancelSignalTimeout` controls how long the job process has to stop before it is forcibly terminated.
 - `BuildkiteAgentCancelCleanupTimeout` gives a stopping agent extra time to upload logs and artifacts.
