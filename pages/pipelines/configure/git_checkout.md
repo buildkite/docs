@@ -471,20 +471,22 @@ steps:
 
 ## Commit verification
 
-The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check protects against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
+The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check helps protect against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
 
 Set the value to `strict` to fail the job when the agent determines that the commit is not on the branch, or `off` to skip commit verification. An empty value causes job bootstrap to fail.
 
-Agent v3 also accepts `warn` to emit a warning without failing the job. With v3, an empty value skips commit verification, and a job-supplied `off` value uses warning behavior rather than skipping verification.
+> 🚧 Strict mode does not require successful verification
+> `strict` fails the job when verification establishes that the commit is not on the specified branch. If verification cannot complete, for example, because fetching the branch or deepening a shallow clone fails, the agent warns and continues, even in strict mode. The cases listed below skip verification. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook also bypasses the built-in check.
+> Commit verification provides an additional security check, but does not guarantee that every executed commit belongs to the specified branch. Do not rely on it alone to grant protected-branch privileges or access to secrets. Secrets can be available and hooks or plugins can execute before verification runs. There is currently no built-in verification mode that requires successful verification for every checkout path.
 
-If the agent cannot complete the check (for example, because a shallow clone cannot be deepened), it warns and continues.
+Agent v3 also accepts `warn` to emit a warning without failing the job. With v3, an empty value skips commit verification, and a job-supplied `off` value uses warning behavior rather than skipping verification.
 
 When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings), which defaults to `strict`. To disable verification, set `git-commit-verification="off"`. An empty agent configuration value prevents the agent from starting. Agent v3 does not verify commits by default; leave its configuration value empty to disable verification explicitly. The value `off` prevents a v3 agent from starting.
 
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
-The agent silently skips verification in several cases where it is either not possible or not meaningful:
+The agent skips verification in the following cases, including in `strict` mode:
 
 - Tag builds
 - Pull request builds
