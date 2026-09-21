@@ -473,18 +473,21 @@ steps:
 
 The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check helps protect against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
 
-Set the value to `strict` to fail the job when the agent determines that the commit is not on the branch, or `off` to skip commit verification. An empty value causes job bootstrap to fail.
+For Buildkite agent v4, set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set it to `off` to skip commit verification. An empty value causes job bootstrap to fail.
 
 > 🚧 Strict mode does not require successful verification
-> `strict` fails the job when verification establishes that the commit is not on the specified branch. If verification cannot complete, for example, because fetching the branch or deepening a shallow clone fails, the agent warns and continues, even in `strict` mode. The cases listed below skip verification. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook also bypasses the built-in check.
-> Commit verification provides an additional security check, but does not guarantee that every executed commit belongs to the specified branch. Do not rely on it alone to grant protected-branch privileges or access to secrets. Secrets can be available and hooks or plugins can execute before verification runs. There is currently no built-in verification mode that requires successful verification for every checkout path.
+> In both v3 and v4, the agent warns and continues if it cannot complete verification, even in `strict` mode. Commit verification does not guarantee that every executed commit belongs to the specified branch. Do not rely on it alone to grant protected-branch privileges or access to secrets.
 
-Agent v3 also accepts `warn` to emit a warning without failing the job. With v3, an empty value skips commit verification, and a job-supplied `off` value uses warning behavior rather than skipping verification.
+In Buildkite agent v3, commit verification is available from v3.128.0. In addition to `strict`, v3 accepts `warn` to emit a warning without failing the job when the commit is not on the branch. An empty value skips commit verification. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
-When omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings), which defaults to `strict`. To disable verification, set `git-commit-verification="off"`. An empty agent configuration value prevents the agent from starting. Agent v3 does not verify commits by default; leave its configuration value empty to disable verification explicitly. The value `off` prevents a v3 agent from starting.
+When `checkout.commit_verification` is omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). In v4, this setting defaults to `strict`. To disable verification in v4, set `git-commit-verification="off"`. An empty configuration value prevents a v4 agent from starting.
+
+Agent v3 does not verify commits by default. Leave its configuration value empty to disable verification explicitly. The value `off` prevents a v3 agent from starting.
 
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
+
+Verification may be unable to complete if fetching the branch or deepening a shallow clone fails. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook bypasses the built-in check. Secrets can be available before verification runs. Hooks or plugins can also execute before verification runs. There is currently no built-in verification mode that requires successful verification for every checkout path.
 
 The agent skips verification in the following cases, including in `strict` mode:
 
