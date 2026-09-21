@@ -69,6 +69,8 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.cluster.id`          | Cluster ID (if pipeline uses a cluster)              |
 | `buildkite.cluster.name`        | Cluster name (if pipeline uses a cluster)            |
 | `buildkite.cluster.graphql_id`  | Cluster GraphQL ID (if pipeline uses a cluster)      |
+| `buildkite.build.pull_request.number` | Pull request number, as a string (if the build is associated with a pull request, including [GitHub merge queue](/docs/pipelines/tutorials/github-merge-queue) builds) |
+| `buildkite.build.pull_request.url` | Pull request URL (if the source control provider can determine one)                    |
 
 #### Span attributes
 
