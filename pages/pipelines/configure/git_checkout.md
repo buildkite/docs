@@ -478,7 +478,7 @@ For Buildkite agent v4, set the value to `strict` to fail the job when the agent
 > 🚧 Strict mode does not require successful verification
 > In both v3 and v4, the agent warns and continues if it cannot complete verification, even in `strict` mode. Commit verification does not guarantee that every executed commit belongs to the specified branch. Do not rely on it alone to grant protected-branch privileges or access to secrets.
 
-In Buildkite agent v3, commit verification is available from v3.128.0. In addition to `strict`, v3 accepts `warn` to emit a warning without failing the job when the commit is not on the branch. An empty value skips commit verification. A job-supplied `off` value uses warning behavior rather than skipping verification.
+For Buildkite agent v3, use v3.136.0 or later for commit verification. In addition to `strict`, v3 accepts `warn` to emit a warning without failing the job when the commit is not on the branch. An empty value skips commit verification. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
 When `checkout.commit_verification` is omitted, the agent falls back to its own `--git-commit-verification` [configuration setting](/docs/agent/self-hosted/configure#configuration-settings). In v4, this setting defaults to `strict`. To disable verification in v4, set `git-commit-verification="off"`. An empty configuration value prevents a v4 agent from starting.
 
