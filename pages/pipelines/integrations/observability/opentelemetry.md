@@ -117,7 +117,10 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.job.concurrency_wait_time_ms` | `buildkite.job` (concurrency-group jobs only, omitted for incomplete waits and platform-limited jobs) | Time in milliseconds the job spent in its first concurrency-group wait (zero if the job was immediately promoted, omitted if the wait is incomplete or platform-limit wait cannot be separated) |
 | `buildkite.job.priority.number`      | `buildkite.job`                                                                    | Job priority number                                         |
 | `buildkite.job.unblocked_by`         | `buildkite.job` (when unblocked)                                                   | User who unblocked job (object with uuid, graphql_id, name) |
+| `buildkite.job.retries_count`        | `buildkite.job`                                                                    | Integer. Number of retries preceding this attempt: `0` for the original job, `1` for its first retry, and so on. Includes both manual and automatic retries. |
 | `buildkite.job.retried_in_job_id`    | `buildkite.job` (when retried)                                                     | ID of retry job (if retried)                                |
+| `buildkite.job.retry_source.job_id`  | `buildkite.job` (when this attempt is a retry and the preceding job is available)  | String. UUID of the immediately preceding job that was retried to create this attempt |
+| `buildkite.job.retry_source.retry_type` | `buildkite.job` (when this attempt is a retry and the preceding job is available) | String. `manual` or `automatic`, describing the retry that created this attempt. `manual` includes retries triggered using the API, including automation |
 | `buildkite.job.signal_reason`        | `buildkite.job` (when terminated by signal)                                        | Signal reason (if terminated by signal)                     |
 | `buildkite.job.concurrency.group`    | `buildkite.job` (when job uses a concurrency group)                                | Concurrency group name                                      |
 | `buildkite.job.concurrency.limit`    | `buildkite.job` (when job uses a concurrency group)                                | Concurrency limit                                           |
@@ -127,6 +130,12 @@ The following attributes are included in OpenTelemetry traces from the Buildkite
 | `buildkite.agent.queue`              | `buildkite.job` (when agent assigned)                                              | Agent queue                                                 |
 | `buildkite.agent.meta_data`          | `buildkite.job` (when agent assigned)                                              | Agent metadata                                              |
 | `error.type`                         | All (when error status)                                                            | Error type description                                      |
+
+The `buildkite.job.retry_source.job_id` and `buildkite.job.retry_source.retry_type` attributes are omitted for original jobs, and for retries where the preceding job is unavailable. No details about who triggered the retry are exported. The `buildkite.job.retried_in_job_id` attribute points in the opposite direction: to the next attempt, if one exists when the span is exported.
+
+For example, after an automatic retry followed by a manual retry, the three attempts have `buildkite.job.retries_count` values of `0`, `1`, and `2`. The latter two attempts have `buildkite.job.retry_source.retry_type` values of `automatic` and `manual`, even if the last attempt passes.
+
+Because `buildkite.job` spans require both a start and finish time to be exported, retries that never start are not represented in these attributes.
 
 ### Headers
 
