@@ -5,7 +5,7 @@ description: "Configure the Buildkite Cache public preview to save and restore k
 # Buildkite Cache
 
 > 📘 Public preview feature
-> Buildkite Cache is available in public preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> Buildkite Cache is available in public preview and is enabled for all Buildkite organizations. You don't need to request access.
 
 Buildkite Cache saves files and directories from Buildkite Pipelines jobs, then restores them in later jobs and builds. Each cache entry has an ordered cache key. A cache store holds the archived data, while a cache registry associated with a [cluster](/docs/pipelines/security/clusters) tracks entries and controls access.
 
@@ -13,7 +13,7 @@ Use Buildkite Cache for data that can be regenerated, such as package manager do
 
 ## Set up Buildkite Cache
 
-When Buildkite Cache is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
+Each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
 
 Your jobs must run on clustered agents with Buildkite agent version 3.136.3 or later.
 
