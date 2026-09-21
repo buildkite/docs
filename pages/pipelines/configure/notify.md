@@ -982,10 +982,13 @@ notify:
 
 Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notify#conditional-notifications):
 
-- `build created`
-- `build started`
-- `build blocked`
-- `build finished`
+- `build.scheduled`: A build has been scheduled.
+- `build.running`: A build has started running.
+- `build.failing`: A build is failing.
+- `build.finished`: A build has finished.
+- `build.skipped`: A build has been skipped.
+
+Each webhook request includes the event identifier in the `X-Buildkite-Event` header and the `event` field of the JSON request body. Use these identifiers to distinguish events in your webhook handler.
 
 ## Build states
 
