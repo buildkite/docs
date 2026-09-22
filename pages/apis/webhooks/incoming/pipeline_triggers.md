@@ -19,7 +19,7 @@ Buildkite's pipeline triggers feature supports the following types of incoming w
 
 - **Webhook**: A generic webhook from any service that can send HTTP POST requests.
 - **GitHub**: A [GitHub webhook](https://docs.github.com/en/webhooks) trigger with [signature verification support](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries). This is supplementary to Buildkite's [GitHub repository provider](/docs/pipelines/source-control/github) integration.
-- **GitHub Actions**: Matches supported workflow events and creates one Buildkite Pipelines build per matching workflow per event. This is the recommended setup for [running GitHub Actions workflows](/docs/pipelines/migration/run-github-actions-workflows). It is separate from the generic **GitHub** trigger and the native repository webhook.
+- **GitHub Actions**: Matches supported workflow events and creates one Buildkite Pipelines build per matching workflow per event. This is the recommended setup for [running GitHub Actions workflows](/docs/pipelines/migration/run-github-actions-workflows). This trigger is separate from the generic **GitHub** trigger and the native repository webhook.
 - **Linear**: A [Linear webhook](https://linear.app/developers/webhooks) trigger with [signature verification support](https://linear.app/developers/webhooks#securing-webhooks).
 
 ## Create a new pipeline trigger

@@ -38,7 +38,7 @@ steps:
     plugin: github-actions
 ```
 
-This setup creates an enabled **GitHub Actions** pipeline trigger and provisions its own signed repository webhook. It skips the traditional GitHub webhook setup, not webhooks altogether. Don't add a second native repository webhook for this pipeline, because it can create duplicate builds.
+This setup creates an enabled **GitHub Actions** pipeline trigger and provisions its own signed repository webhook. This skips the traditional GitHub webhook setup, not webhooks altogether. Don't add a second native repository webhook for this pipeline, because it can create duplicate builds.
 
 The pipeline enables workflow-authorized GitHub access tokens and disables pipeline-level commit status publishing. Review [token permissions and trust boundaries](#supported-functionality-and-limitations-credentials-secrets-and-oidc), and disable workflow access tokens in the pipeline's GitHub settings if your workflows don't need them.
 
@@ -73,10 +73,12 @@ Creating or uploading pipeline YAML alone doesn't configure server-side dispatch
         "skip_builds_for_closed_pull_requests": false,
         "skip_builds_for_existing_commits": false,
         "skip_pull_request_builds_for_existing_commits": false,
-        "trigger_mode": "code"
+        "trigger_mode": "none"
       }
     }
     ```
+
+    Setting `trigger_mode` to `none` disables traditional GitHub webhook triggering without affecting the GitHub Actions pipeline trigger. This prevents native webhook deliveries from creating duplicate builds.
 
     If your organization requires [pipeline templates](/docs/pipelines/governance/templates), the API rejects custom `configuration`. Create an approved template containing the GitHub Actions plugin configuration, then replace `configuration` in this request with its `pipeline_template_uuid`. Don't send both fields. Configure the provider settings shown above and complete the remaining trigger setup separately.
 
@@ -88,13 +90,13 @@ The REST API requires the `write_pipelines` scope to create pipelines and trigge
 
 ### Trigger builds from workflow events
 
-A GitHub Actions pipeline trigger reads top-level workflow files under `.github/workflows/` and matches their `on` declarations against each incoming GitHub event before creating builds. It creates one build per matching workflow per event, and passes the selected workflow to the plugin. Don't set `workflow` or `workflows` in the plugin configuration: either explicit selector overrides the server's choice.
+A GitHub Actions pipeline trigger reads top-level workflow files under `.github/workflows/` and matches their `on` declarations against each incoming GitHub event before creating builds. The trigger creates one build per matching workflow per event, and passes the selected workflow to the plugin. If a delivery produces more than 100 workflow candidates, the entire delivery is rejected before any builds are created. Don't set `workflow` or `workflows` in the plugin configuration: either explicit selector overrides the server's choice.
 
-Server-side dispatch is not GitHub's `workflow_dispatch` event. The trigger handles supported `create`, `delete`, `deployment`, `deployment_status`, `issue_comment`, `issues`, `label`, `merge_group`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `push`, and `release` declarations. It doesn't start builds for standalone `workflow_dispatch`, `schedule`, or `workflow_call` declarations. Manual and scheduled Buildkite builds remain available through the [explicit-workflow setup](#use-explicit-workflows-in-an-existing-build).
+Server-side dispatch is not GitHub's `workflow_dispatch` event. The trigger handles supported `create`, `delete`, `deployment`, `deployment_status`, `issue_comment`, `issues`, `label`, `merge_group`, `pull_request`, `pull_request_review`, `pull_request_review_comment`, `push`, and `release` declarations. The trigger doesn't start builds for standalone `workflow_dispatch`, `schedule`, or `workflow_call` declarations. Manual and scheduled Buildkite builds remain available through the [explicit-workflow setup](#use-explicit-workflows-in-an-existing-build).
 
 The trigger supports branch and tag pushes, plus same-repository pull requests. It supports `branches`, `branches-ignore`, `tags`, and `tags-ignore`. Without an explicit `types` filter, a pull request workflow triggers on `opened`, `reopened`, and `synchronize`. Pull request builds use the head branch and commit, while `GITHUB_WORKFLOW_REF` identifies `refs/pull/<N>/merge`. Fork pull requests, unsupported activity types, and unsupported filter patterns fail closed and appear in **Recent Deliveries**.
 
-For push and pull request workflows, the server accepts `paths` and `paths-ignore` but defers path matching to the importer. A candidate build can be created before the importer determines that the workflow should be skipped. Path matching requires a verified linked webhook and matching diff evidence from the checkout. Runtime event support alone doesn't imply server-side dispatch support; review the current [pipeline trigger selection contract](https://github.com/buildkite/buildkite-gha/blob/main/docs/cli.md#github-actions-pipeline-trigger-selection) and [compatibility guide](https://github.com/buildkite/buildkite-gha/blob/main/docs/compatibility.md) for event-specific limits.
+For push and pull request workflows, the server accepts `paths` and `paths-ignore` but defers path matching to the importer. A candidate build can be created before the importer determines that the workflow should be skipped. Path matching requires a verified linked webhook and matching diff evidence from the checkout. Runtime event support alone doesn't imply server-side dispatch support; review the current [pipeline trigger selection contract](https://github.com/buildkite/buildkite-gha/blob/main/docs/cli.md#private-preview-pipeline-trigger-selection) and [compatibility guide](https://github.com/buildkite/buildkite-gha/blob/main/docs/compatibility.md) for event-specific limits.
 
 The trigger's workflow matching decides which builds to create. Traditional provider build filters and duplicate-commit qualification aren't applied to these builds. Don't rely on those settings to restrict workflow-triggered builds. Configure supported workflow filters instead, and leave branch-wide intermediate-build skipping and cancellation disabled so one workflow's build doesn't suppress another.
 
@@ -124,7 +126,7 @@ For an existing pipeline connected through the full-access **GitHub** repository
 1. Select supported workflows, then review the generated step in the **YAML Steps editor**.
 1. Select **Save steps**.
 
-This configures explicit workflow selection inside a build. It doesn't migrate the pipeline to server-side dispatch. Don't add explicit selectors to a pipeline that already uses server-side dispatch.
+This configures explicit workflow selection inside a build and doesn't migrate the pipeline to server-side dispatch. Don't add explicit selectors to a pipeline that already uses server-side dispatch.
 
 ### Configure the plugin manually
 
@@ -419,7 +421,7 @@ The workflow won't compile if a group can't be resolved. Called-workflow concurr
 
 Workflow-level `cancel-in-progress` accepts literal values and expressions that resolve statically to a Boolean value. A resolved `false` is accepted without a warning. A literal or statically resolved `true` produces a warning but doesn't cancel an older build. Job-level cancellation remains unsupported.
 
-Buildkite queues every waiting entry, unlike GitHub's default behavior of replacing an existing pending entry. For an explicit-workflow pipeline, you can turn on **Cancel Intermediate Builds** and **Skip Intermediate Builds** in the pipeline's build settings for similar cancellation behavior. These settings work by branch, so they match a workflow concurrency group only when its scope follows the same branch boundaries. Leave both settings disabled for server-side dispatch, where they can cancel or skip sibling workflow builds from the same event.
+Buildkite Pipelines queues every waiting entry, unlike GitHub's default behavior of replacing an existing pending entry. For an explicit-workflow pipeline, you can turn on **Cancel Intermediate Builds** and **Skip Intermediate Builds** in the pipeline's build settings for similar cancellation behavior. These settings work by branch, so they match a workflow concurrency group only when its scope follows the same branch boundaries. Leave both settings disabled for server-side dispatch, where they can cancel or skip sibling workflow builds from the same event.
 
 ### Credentials, secrets, and OIDC
 

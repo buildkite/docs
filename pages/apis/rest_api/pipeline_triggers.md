@@ -245,7 +245,7 @@ Error response: `404 Not Found` when no pipeline trigger matches the given ID fo
 
 Pipeline trigger filters use [Common Expression Language (CEL)](https://cel.dev/). A filter must evaluate to `true` for an incoming webhook delivery to create a build.
 
-GitHub Actions triggers don't accept a `filter` configuration. They match supported workflow `on` declarations instead. See [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events) for matching behavior and limitations.
+GitHub Actions triggers don't accept a `filter` configuration and match supported workflow `on` declarations instead. See [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events) for matching behavior and limitations.
 
 Filter configuration is available only to organizations with webhook filtering enabled. Filter expressions have the following constraints:
 
