@@ -5,7 +5,7 @@ description: "Configure the Buildkite Cache public preview to save and restore k
 # Buildkite Cache
 
 > 📘 Public preview feature
-> Buildkite Cache is available in public preview and is enabled for all Buildkite organizations. You don't need to request access.
+> Buildkite Cache is available in public preview and is enabled for all Buildkite organizations.
 
 Buildkite Cache saves files and directories from Buildkite Pipelines jobs, then restores them in later jobs and builds. Each cache entry has an ordered cache key. A cache store holds the archived data, while a cache registry associated with a [cluster](/docs/pipelines/security/clusters) tracks entries and controls access.
 
