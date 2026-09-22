@@ -36,7 +36,7 @@ If you signed up:
 
 ### Understanding the New Pipeline page
 
-<%= image "new-pipeline-page.png", alt: "New Pipeline page" %>
+<%= image "new-pipeline-page.png", width: 2136/2, height: 1132/2, alt: "New Pipeline page with the 'try an example' link in the header" %>
 
 The **New Pipeline** page has the following fields:
 

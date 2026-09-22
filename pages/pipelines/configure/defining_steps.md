@@ -10,7 +10,7 @@ On the **Pipelines** page, select **New pipeline** to begin creating a new pipel
 
 The required fields are **Git scope**, **Repository** and **Pipeline name**.
 
-<%= image "new-pipeline-page.png", width: 1768/2, height: 928/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
+<%= image "new-pipeline-page.png", width: 2136/2, height: 1132/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
 
 Learn more about this page from [Understanding the New Pipeline page](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page).
 
