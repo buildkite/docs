@@ -78,6 +78,14 @@ steps:
 
 A normal cache miss exits successfully, so the job continues to `npm ci`. Configuration, storage, and extraction errors cause the cache command to fail. In the example, the save command doesn't overwrite an entry that already exists at the same address.
 
+To save updated cache contents without changing the cache key, add `--force`. This option requires Buildkite agent v4.0.2 or later and is not available in v3:
+
+```bash
+buildkite-agent cache save --name npm --force
+```
+
+The `--force` option replaces the entire entry at the same save address. The cache key, target paths, and registry save scopes still determine that address. Force saving doesn't merge files with the existing entry or bypass registry access policies. If concurrent jobs save to the same address, the last commit determines which entry is retained.
+
 If you omit `--name`, the command processes every cache in the configuration file. Repeat `--name` to select multiple caches. Set `BUILDKITE_CACHE_NAMES` to provide the same selection using an environment variable.
 
 By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.yaml`. If both files exist, discovery fails. Use `--cache-config-file` or `BUILDKITE_CACHE_CONFIG_FILE` to select a different file.
@@ -251,7 +259,7 @@ Guard nullable entry values before calling string functions. For example, `entry
 
 Buildkite Cache uses the following save and restore behavior:
 
-- Cache entries are effectively write-once after an address exists. Later saves normally detect the existing entry and skip uploading. Concurrent first saves to the same new address can race, and the last commit can determine which entry is retained.
+- Saves normally detect an existing entry at the same address and skip uploading. On Buildkite agent v4.0.2 or later, use `--force` to replace the entry. Concurrent saves to the same address can race, and the last commit determines which entry is retained.
 - Restore checks the exact key first, then progressively removes optional trailing key parts up to the configured fallback limit. The newest matching entry is restored.
 - A miss leaves existing target paths unchanged and exits successfully.
 - A missing, corrupted, or unrecognized stored archive is treated as a miss and isn't extracted.

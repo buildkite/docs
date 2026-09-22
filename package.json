@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "netlify-cli": "^27.0.0",
-    "prettier": "3.9.6",
+    "prettier": "3.9.8",
     "sass": "^1.66.1",
     "vite": "^8.0.0",
     "vite-plugin-ruby": "^5.2.0"
