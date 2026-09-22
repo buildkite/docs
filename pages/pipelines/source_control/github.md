@@ -74,6 +74,10 @@ The **GitHub** (full access) option additionally requests read access to code, w
 
 ## Set up a new pipeline for a GitHub repository
 
+To run GitHub Actions workflows, use the recommended [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows). It creates a GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below.
+
+For a native Buildkite pipeline:
+
 1. Select **Pipelines** > **New pipeline**.
 1. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
@@ -238,7 +242,7 @@ Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#
 
 ## Disabling incoming GitHub webhook processing
 
-To stop all GitHub webhook-triggered builds for a pipeline, use the **Disable Incoming GitHub Webhook Processing** button in the **Disable Incoming Webhook Processing** section of your pipeline's GitHub settings. This blocks all incoming webhook processing. No new builds will be created from any GitHub event.
+To stop native GitHub webhook-triggered builds for a pipeline, use the **Disable Incoming GitHub Webhook Processing** button in the **Disable Incoming Webhook Processing** section of your pipeline's GitHub settings. This blocks the repository provider's webhook processing for this pipeline. It doesn't disable [GitHub Actions pipeline triggers](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events), which process deliveries separately.
 
 Your existing trigger settings are preserved, and commit status settings remain configurable in the **GitHub Commit Statuses** section. To resume webhook-triggered builds, select **Enable Incoming GitHub Webhook Processing**. Your previous configuration will be restored.
 
