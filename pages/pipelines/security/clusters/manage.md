@@ -125,6 +125,29 @@ To clear the default cluster, select **No default** from the dropdown and select
 > 🚧 Deleting the default cluster
 > A cluster set as the organization's default for new pipelines cannot be deleted. To delete it, first assign a different default or clear the default on the **Pipeline settings** page.
 
+## Automatically configure agent OpenTelemetry tracing for a cluster
+
+A cluster can automatically deliver [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) exporter settings to its capable agents when they register, using an existing [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service). This lets agents connected to the cluster export traces without needing local OTLP destination configuration on each agent.
+
+Only enabled OpenTelemetry notification services that cover all of the organization's pipelines and branches are available for selection. Local OTLP destination settings configured directly on an agent take precedence over this automatic configuration.
+
+Changing this setting requires both [cluster maintainer](#manage-maintainers-on-a-cluster) (or organization administrator) access to the cluster, and the [**Manage Notification Services**](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) permission.
+
+To configure agent OpenTelemetry tracing for a cluster:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster to configure.
+1. Select **Settings**.
+1. In the **Agent OpenTelemetry tracing** field, select the notification service to use, or select **Disabled** to turn off automatic configuration.
+1. Save your changes.
+
+Only agents that register to the cluster after this change receive the selected notification service's exporter settings. Agents already registered to the cluster keep their existing configuration until they restart or reconnect, including when the setting is disabled or the notification service's credentials are rotated.
+
+> 🚧 Exporter credentials are available to jobs
+> The selected notification service's exporter credentials become available to the agent's environment, including its hooks, plugins, and job commands. Use OpenTelemetry credentials that are scoped for trace ingestion only.
+
+If the selected notification service later becomes unavailable, for example, if it's deleted, disabled, or narrowed to a subset of pipelines or branches, agents that register after that point don't receive tracing configuration until a valid replacement is selected.
+
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/self-hosted/tokens).
