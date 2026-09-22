@@ -748,7 +748,7 @@ Optional entry properties:
 
 Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each set of entries. Reuse the same `Idempotency-Key` value and send the same `entries` when retrying that batch. Without this header, retries can create duplicate entries.
 
-The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not been updated to the `populating` state.
+The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state.
 
 The API remembers successful requests with an `Idempotency-Key` for five minutes.  After the key expires, the API can create duplicates if the pool is still accepting entries.
 
@@ -1326,6 +1326,98 @@ Required scope: `read_test_pool`
 
 Success response: `200 OK`
 
+## Rate limits
+
+Test Scheduler requests are rate limited with the limits below, and the shared REST API rate limits do not apply to the Test Scheduler API.
+
+The API enforces two independent levels of rate limits:
+
+- An organization-level limit for each operation.
+- A per-pool limit for each pool-scoped operation.
+
+### Organization rate limits
+
+Each operation has a separate organization-wide limit:
+
+Operation | Path | Organization requests per minute
+--------- | ---- | --------------------------------
+[List pools](#list-pools) | `/pools` | `10`
+[Create a pool](#create-a-pool) | `/pools` | `10`
+[Get a pool](#get-a-pool) | `/pools/{pool.id}` | `100`
+[Update a pool](#update-a-pool) | `/pools/{pool.id}` | `100`
+[List entries](#list-entries) | `/pools/{pool.id}/entries` | `10000`
+[Upload entries](#upload-entries) | `/pools/{pool.id}/entries` | `1000`
+[Create a lease](#create-a-lease) | `/pools/{pool.id}/leases` | `10000`
+[Heartbeat leases](#heartbeat-leases) | `/pools/{pool.id}/leases/heartbeat` | `1000`
+[Complete attempts](#complete-attempts) | `/pools/{pool.id}/leases/complete` | `10000`
+[Release attempts](#release-attempts) | `/pools/{pool.id}/leases/release` | `10000`
+[Get pool metrics](#get-pool-metrics) | `/pools/{pool.id}/metrics` | `10000`
+{: class="responsive-table"}
+
+Organization-level headers:
+
+- `RateLimit-Scope`: Identifies the organization-wide rate-limit bucket for the operation.
+- `RateLimit-Remaining`: The remaining requests within the current time window.
+- `RateLimit-Limit`: The configured maximum number of requests in a 60-second window.
+- `RateLimit-Reset`: The number of seconds until the window resets.
+
+### Pool rate limits
+
+Pool-scoped operations also have a separate limit for each pool. Both organization and pool limits apply, and a request is rejected if either limit is exceeded.
+
+Operation | Path | Pool requests per minute
+--------- | ---- | ------------------------
+[Get a pool](#get-a-pool) | `/pools/{pool.id}` | `10`
+[Update a pool](#update-a-pool) | `/pools/{pool.id}` | `10`
+[List entries](#list-entries) | `/pools/{pool.id}/entries` | `1000`
+[Upload entries](#upload-entries) | `/pools/{pool.id}/entries` | `100`
+[Create a lease](#create-a-lease) | `/pools/{pool.id}/leases` | `1000`
+[Heartbeat leases](#heartbeat-leases) | `/pools/{pool.id}/leases/heartbeat` | `100`
+[Complete attempts](#complete-attempts) | `/pools/{pool.id}/leases/complete` | `1000`
+[Release attempts](#release-attempts) | `/pools/{pool.id}/leases/release` | `1000`
+[Get pool metrics](#get-pool-metrics) | `/pools/{pool.id}/metrics` | `1000`
+{: class="responsive-table"}
+
+Pool-level headers:
+
+- `RateLimit-Pool-Scope`: Identifies the pool-specific rate-limit bucket for the operation.
+- `RateLimit-Pool-Remaining`: The remaining request capacity in the window, clamped to zero.
+- `RateLimit-Pool-Limit`: The configured maximum number of requests in a 60-second window.
+- `RateLimit-Pool-Reset`: The number of seconds until the window resets.
+
+#### Empty lease job rate limits
+
+Empty create-lease responses have an additional per-job limit of `15` responses per minute by default. An empty response consumes this limit, but a response containing a lease does not. After a job reaches the limit, later create-lease requests from that job return `429 Too Many Requests` without checking for available work until the limit resets.
+
+Per-job empty-lease headers:
+
+- `RateLimit-Job-Scope`: Identifies the job-specific rate-limit bucket for empty create-lease responses.
+- `RateLimit-Job-Remaining`: The remaining empty-response capacity in the window, clamped to zero.
+- `RateLimit-Job-Limit`: The configured maximum number of empty create-lease responses in a 60-second window.
+- `RateLimit-Job-Reset`: The number of seconds until the window resets.
+
+### Exceeding the rate limit
+
+When an enforced limit is exceeded, the API returns `429 Too Many Requests`. Wait until the corresponding `RateLimit-Reset`, `RateLimit-Pool-Reset`, or `RateLimit-Job-Reset` header indicates that capacity is available before retrying.
+
+The response body identifies the limit that rejected the request:
+
+```json
+{
+  "message": "You have exceeded your test_scheduler_get_pool_pool API rate limit. Please wait 42 seconds before making more requests.",
+  "scope": "test_scheduler_get_pool_pool",
+  "limit": 10,
+  "current": 10,
+  "reset": 42
+}
+```
+
+The `scope` field identifies the rate-limit bucket. In this example, `test_scheduler_get_pool_pool` is the per-pool limit for getting a pool. The `reset` field is the number of seconds until the window resets.
+
+When an organization or pool limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level) or `RateLimit-Pool-Warning` (per-pool) header set to `You have exceeded your API rate limit.`. When the empty-lease job limit rejects a request, the headers include a `RateLimit-Job-Warning` header with the same value. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
+
+Empty-lease rate-limit responses do not include a `Retry-After` header; use `RateLimit-Job-Reset` instead.
+
 ## Error responses
 
 Test Scheduler endpoints can return these errors:
@@ -1337,6 +1429,7 @@ Status | Description
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
 `404 Not Found` | The pool or lease does not exist or is not accessible to the token.
 `409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
+`429 Too Many Requests` | The request exceeded an organization, pool, or empty-lease job rate limit. Use the response body and scoped rate limit headers to determine when capacity becomes available.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
 {: class="responsive-table"}
 
