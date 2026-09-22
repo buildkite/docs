@@ -2,12 +2,14 @@
 
 Use these endpoints to list, inspect, create, update, and delete a cluster's [cache registries](/docs/pipelines/configure/cache#manage-cache-registries).
 
-> 📘 Limited availability
-> The cache registries API requires the [Buildkite Cache](/docs/pipelines/configure/cache) private preview feature to be enabled for your organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> 📘 Public preview
+> The cache registries API is available to all Buildkite customers in public preview.
 
-This API manages cache registry metadata and policy only. It doesn't expose cache entries, agent save and restore operations, cache store configuration, or the ability to change a cluster's default registry. Use the [Buildkite Cache](/docs/pipelines/configure/cache) web UI for those tasks. There's no GraphQL API for cache registries.
+This API manages cache registry metadata and policy only. It doesn't expose cache entries or agent save and restore operations. Use the web interface to configure a registry's cache store or change a cluster's default registry. Cache registry administration is also available through the [GraphQL API](/docs/apis/graphql/schemas/object/cacheregistry).
 
 Member endpoints (get, update, and delete) accept only the cache registry's `uuid` as the `{id}` path parameter. The `slug` returned in responses is informational and can't be used to look up or modify a cache registry.
+
+Policy documents must be JSON objects, not YAML or JSON-encoded strings. The API validates and normalizes each policy, so authored YAML comments and formatting aren't preserved. The create and update sections describe how omitted or `null` policies behave.
 
 ## Cache registry data model
 
@@ -66,7 +68,7 @@ Returns a paginated list of a cluster's cache registries, ordered by slug.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/cache-registries"
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/cache-registries?per_page=30"
 ```
 
 ```json
@@ -82,7 +84,10 @@ curl -H "Authorization: Bearer $TOKEN" \
       "policy": {
         "save": { "scopes": { "branch": true } },
         "restore": { "scopes": [{ "branch": "$current" }] },
-        "rules": [{ "effect": "allow", "action": "save" }]
+        "rules": [
+          { "effect": "allow", "action": ["save"] },
+          { "effect": "allow", "action": ["restore"] }
+        ]
       },
       "created_at": "2026-08-11T10:15:32.000Z",
       "updated_at": "2026-08-11T10:15:32.000Z",
@@ -136,7 +141,7 @@ Error responses:
     </tr>
     <tr>
       <th><code>404 Not Found</code></th>
-      <td>The feature hasn't been enabled for your organization, or the cluster doesn't exist</td>
+      <td>The cluster doesn't exist</td>
     </tr>
   </tbody>
 </table>
@@ -158,7 +163,7 @@ Required permission: permission to manage the cluster
 
 Success response: `200 OK`
 
-Error response: `404 Not Found` when the feature hasn't been enabled for your organization, or when no cache registry matches the given UUID in this cluster. Passing a slug instead of a UUID also returns `404 Not Found`.
+Error response: `404 Not Found` when the cluster doesn't exist, or when no cache registry matches the given UUID in this cluster. Passing a slug instead of a UUID also returns `404 Not Found`.
 
 ## Create a cache registry
 
@@ -176,7 +181,10 @@ curl -H "Authorization: Bearer $TOKEN" \
     "policy": {
       "save": { "scopes": { "branch": true } },
       "restore": { "scopes": [{ "branch": "$current" }] },
-      "rules": [{ "effect": "allow", "action": "save" }]
+      "rules": [
+        { "effect": "allow", "action": "save" },
+        { "effect": "allow", "action": "restore" }
+      ]
     }
   }'
 ```
@@ -213,7 +221,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     </tr>
     <tr>
       <th><code>policy</code></th>
-      <td>Cache policy that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Omit this property to use the default unrestricted policy.</td>
+      <td>Cache policy as a JSON object that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Omit this property or set it to <code>null</code> when creating a registry to use the default unrestricted policy.</td>
     </tr>
   </tbody>
 </table>
@@ -236,7 +244,7 @@ Error responses:
     </tr>
     <tr>
       <th><code>404 Not Found</code></th>
-      <td>The feature hasn't been enabled for your organization, or the cluster doesn't exist</td>
+      <td>The cluster doesn't exist</td>
     </tr>
     <tr>
       <th><code>415 Unsupported Media Type</code></th>
@@ -251,7 +259,7 @@ Error responses:
 
 ## Update a cache registry
 
-Updates a cache registry, looked up by UUID. Properties omitted from the request body are left unchanged.
+Updates a cache registry, looked up by UUID. Properties omitted from the request body are left unchanged. Supplying `policy` replaces the entire policy rather than merging its nested properties.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -261,7 +269,12 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": "Ruby gems",
     "description": "Updated description",
     "policy": {
-      "restore": { "scopes": [{ "pipeline": "$current" }] }
+      "save": { "scopes": { "pipeline": true } },
+      "restore": { "scopes": [{ "pipeline": "$current" }] },
+      "rules": [
+        { "effect": "allow", "action": "save" },
+        { "effect": "allow", "action": "restore" }
+      ]
     }
   }'
 ```
@@ -290,7 +303,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     </tr>
     <tr>
       <th><code>policy</code></th>
-      <td>Cache policy that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Set to <code>null</code> to restore the default unrestricted policy.</td>
+      <td>Cache policy as a JSON object that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Set to <code>null</code> to clear the policy, which denies saves and restores. Unlike creation, updating with <code>null</code> doesn't apply the default unrestricted policy.</td>
     </tr>
   </tbody>
 </table>
@@ -313,7 +326,7 @@ Error responses:
     </tr>
     <tr>
       <th><code>404 Not Found</code></th>
-      <td>The feature hasn't been enabled for your organization, or no cache registry matches the given UUID in this cluster</td>
+      <td>The cluster doesn't exist, or no cache registry matches the given UUID in this cluster</td>
     </tr>
     <tr>
       <th><code>415 Unsupported Media Type</code></th>
@@ -347,7 +360,7 @@ Error responses:
   <tbody>
     <tr>
       <th><code>404 Not Found</code></th>
-      <td>The feature hasn't been enabled for your organization, or no cache registry matches the given UUID in this cluster</td>
+      <td>The cluster doesn't exist, or no cache registry matches the given UUID in this cluster</td>
     </tr>
     <tr>
       <th><code>422 Unprocessable Entity</code></th>
