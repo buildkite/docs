@@ -31,7 +31,7 @@ The _sidebar_ provides a hierarchical view of all steps in your build. Here's ho
 
 Use the search input to find specific steps in your build. Type the name of the step or another relevant keyword. Matching steps appear below the search input. If the search term matches a step's label, the first matching portion of that label is underlined.
 
-<%= image "build_step_search.png", width: 1440/2, height: 990/2, alt: "Step search showing ten initial matches with underlined matching text and a Show all button" %>
+<%= image "build_step_search.png", width: 3000/2, height: 1714/2, alt: "Step search showing ten initial matches with underlined matching text and a Show all button" %>
 
 To keep the search fast, only the first ten matches are shown initially. If there are more than ten matches, select **Show all** to load the rest, scrolling down to load further matches as needed.
 
