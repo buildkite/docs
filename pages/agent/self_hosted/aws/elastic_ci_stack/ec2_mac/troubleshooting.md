@@ -48,7 +48,7 @@ su - "${user}" -c 'brew install buildkite/buildkite/buildkite-agent'
 config="$(su - ${user} -c 'brew --prefix')"/etc/buildkite-agent/buildkite-agent.cfg
 sed -i '' "s/xxx/${BuildkiteAgentToken}/g" "${config}"
 echo "tags=\"queue=${BuildkiteAgentQueue},buildkite-mac-stack=%v\"" >> "${config}"
-echo "tags-from-ec2=true" >> "${config}"
+echo "tags-from-ec2-meta-data=true" >> "${config}"
 su - "${user}" -c 'brew services start buildkite/buildkite/buildkite-agent'
 ```
 

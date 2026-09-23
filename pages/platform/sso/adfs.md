@@ -155,6 +155,12 @@ Once you've performed a test login you can enable your provider using the **Enab
 
 If you need to edit or update your ADFS provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/platform/sso#disabling-and-removing-sso) section of the SSO overview.
 
+## Use a unique issuer URL for multiple providers
+
+If your ADFS server requires a unique SAML issuer (also known as an Entity ID) for each SSO provider it manages, for example, when your ADFS server has multiple SSO providers configured across different Buildkite organizations, select **Include provider identifier in issuer URL** on your provider's **Edit Provider** page. This adds the SSO provider's unique identifier to the **Issuer (Entity ID)** value shown in the **Service Provider** section. This avoids an Entity ID clash with your other SSO providers.
+
+After enabling this setting, update the **Relying party trust identifier** configured in ADFS to match the new **Issuer (Entity ID)** value. Then [perform a test login](#step-4-perform-a-test-login) to confirm SSO still works.
+
 ## SAML user attributes
 
 <%= render_markdown partial: 'platform/sso/saml_user_attributes' %>

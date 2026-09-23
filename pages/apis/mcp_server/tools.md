@@ -139,6 +139,50 @@ These MCP tools are used to retrieve details about the [clusters](/docs/pipeline
   </tbody>
 </table>
 
+### Cluster secrets
+
+These MCP tools are used to list, retrieve, and create [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) within a cluster. Secret values are write-only and are never returned by the Buildkite API or MCP server.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "tool": "list_cluster_secrets",
+        "description": "Uses the [List secrets](/docs/apis/rest-api/clusters/secrets#list-secrets) REST API endpoint to list a cluster's secrets and their details.",
+        "scope": "read_secrets_details"
+      },
+      {
+        "tool": "get_cluster_secret",
+        "description": "Uses the [Get a secret](/docs/apis/rest-api/clusters/secrets#get-a-secret) REST API endpoint to retrieve details about a specific secret.",
+        "scope": "read_secrets_details"
+      },
+      {
+        "tool": "create_cluster_secret",
+        "description": "Uses the [Create a secret](/docs/apis/rest-api/clusters/secrets#create-a-secret) REST API endpoint to create a secret with an optional description and access policy.",
+        "scope": "write_secrets"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= render_markdown(text: field[:description]) %></p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 ### Agents
 
 These MCP tools are used to inspect [Buildkite agents](/docs/apis/rest-api/agents) in your Buildkite organization.

@@ -6,7 +6,7 @@ Plugins can be used in pipeline [command steps](/docs/pipelines/configure/step-t
 
 To add a plugin to a [command step](/docs/pipelines/configure/step-types/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
 
-When multiple plugins are listed in the same step, they will run in the [order of the hooks](/docs/agent/hooks#job-lifecycle-hooks), and within each hook, in the order they were listed in the step.
+When multiple plugins are listed in the same step, their hooks run in [job lifecycle order](/docs/agent/hooks#job-lifecycle-hooks). Within each hook, plugins run in the order they're listed in the step, except for the `post-checkout`, `post-command`, and `pre-exit` hooks, which run in reverse declaration order so cleanup can unwind setup.
 
 ```yml
 steps:
@@ -43,6 +43,28 @@ It is possible to define multiple hooks of the same type in both a
 See [job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks)
 for the overall order of hooks, and the relative order of invocation for each
 location.
+
+## Adding a single plugin
+
+If a step only needs one plugin, you may use the singular `plugin` attribute for convenience. The plural `plugins` attribute remains valid for one plugin. The `plugin` attribute accepts the same value as a single entry in a `plugins` array: a plugin source, or a map of one plugin source to its configuration.
+
+```yaml
+steps:
+  - plugin: docker-compose#v5.13.0
+```
+
+Configure the plugin the same way as you would with `plugins`:
+
+```yaml
+steps:
+  - plugin:
+      docker-compose#v5.11.0:
+        run: app
+```
+
+As with `plugins`, a step that defines a `plugin` doesn't require a `command` attribute, and is still considered a command step.
+
+The `plugin` attribute supports only one plugin. A step can't combine `plugin` with `plugins`, and `plugin` can't define more than one plugin. Use `plugins` instead when a step needs multiple plugins.
 
 ## Configuring plugins
 

@@ -95,14 +95,16 @@ pipelines:
     - "apis/rest-api"
     - "apis/rest-api/pipelines"
     - "apis/rest-api/pipeline-schedules"
+    - "apis/rest-api/pipeline-trigger-deliveries"
+    - "apis/rest-api/pipeline-triggers"
     - "apis/rest-api/builds"
     - "apis/rest-api/jobs"
+    - "apis/rest-api/step-uploads"
     - "apis/rest-api/agents"
     - "apis/rest-api/annotations"
     - "apis/rest-api/artifacts"
     - "apis/rest-api/clusters"
     - "apis/rest-api/clusters/queues"
-    - "apis/rest-api/clusters/queue-migrations"
     - "apis/rest-api/clusters/agent-tokens"
     - "apis/rest-api/clusters/maintainers"
     - "apis/rest-api/clusters/secrets"
@@ -155,6 +157,7 @@ dynamic-pipelines:
     - "pipelines/configure/writing-build-scripts"
     - "pipelines/configure/glob-pattern-syntax"
     - "agent/cli/reference/pipeline"
+    - "apis/rest-api/step-uploads"
   related_topics:
     - pipeline-configurations
     - monorepos
@@ -246,7 +249,7 @@ self-hosted-agents:
 
 hosted-agents:
   name: "Buildkite Hosted Agent Documentation"
-  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, terminal access, and desktop access."
+  description: "Buildkite documentation for Buildkite hosted agents, covering Linux, macOS, and Windows instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, terminal access, and desktop access."
   paths:
     - "agent/buildkite-hosted"
   exact_paths:
@@ -382,7 +385,7 @@ debugging:
 
 developer-experience:
   name: "Buildkite Developer Experience Documentation"
-  description: "Buildkite documentation for developer experience features, covering build annotations, structured log output, and embedding links and images in logs to reduce log digging."
+  description: "Buildkite documentation for developer experience features, covering build annotations, structured log output, embedding links and images in logs, and the Buildkite Visual Studio Code extension for managing pipelines from the editor."
   exact_paths:
     - "agent/cli/reference/annotate"
     - "agent/cli/reference/annotation"
@@ -390,6 +393,7 @@ developer-experience:
     - "pipelines/configure/managing-log-output"
     - "pipelines/configure/links-and-images-in-log-output"
     - "apis/rest-api/annotations"
+    - "platform/vscode-extension"
   related_topics:
     - debugging
     - pipeline-configurations
@@ -443,13 +447,14 @@ packages:
 
 cli-tools:
   name: "Buildkite CLI Tools Documentation"
-  description: "Buildkite documentation for CLI tools, covering the Buildkite CLI (bk) for managing pipelines, builds, and agents, and the buildkite-agent CLI reference for agent operations, artifacts, meta-data, and pipeline uploads."
+  description: "Buildkite documentation for CLI tools and editor integrations, covering the Buildkite CLI (bk) for managing pipelines, builds, and agents, the buildkite-agent CLI reference for agent operations, artifacts, meta-data, and pipeline uploads, and the Buildkite Visual Studio Code extension."
   paths:
     - "platform/cli"
     - "agent/cli"
   exact_paths:
     - "agent"
     - "apis"
+    - "platform/vscode-extension"
   related_topics:
     - buildkite-apis
     - agent

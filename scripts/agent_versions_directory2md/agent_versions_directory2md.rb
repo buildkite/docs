@@ -44,7 +44,12 @@ VERSIONS_WITH_KNOWN_ISSUES = %w[
   3.81.0
   3.82.0
   3.112.0
+  3.136.0
 ].freeze
+
+KNOWN_ISSUE_DETAILS = {
+  '3.136.0' => 'Git mirror performance regression. Fixed in the <a href="https://github.com/buildkite/agent/releases/tag/v3.136.1"><code>v3.136.1</code> changelog</a>.'
+}.freeze
 
 def fetch_all_releases
   releases = []
@@ -75,8 +80,9 @@ end
 def filter_releases(releases)
   releases
     .reject { |r| r['draft'] }
+    .reject { |r| r['prerelease'] }
     .reject { |r| r['tag_name'].match?(/beta/i) }
-    .select { |r| parse_version(r['tag_name'])&.fetch(:major) == MIN_MAJOR_VERSION }
+    .select { |r| parse_version(r['tag_name'])&.fetch(:major) >= MIN_MAJOR_VERSION }
 end
 
 def group_releases(releases)
@@ -105,6 +111,11 @@ def known_issues?(tag_name)
   VERSIONS_WITH_KNOWN_ISSUES.include?(version)
 end
 
+def known_issue_details(tag_name)
+  version = tag_name.sub(/^v/, '')
+  KNOWN_ISSUE_DETAILS[version]
+end
+
 def generate_release_table(output, releases)
   output << '<table style="width: 100%">'
   output << '  <thead>'
@@ -120,11 +131,13 @@ def generate_release_table(output, releases)
   releases.each_with_index do |release, i|
     tag = release['tag_name']
     date = format_date(release['published_at'])
+    issue_details = known_issue_details(tag)
     comma = i < releases.length - 1 ? ',' : ''
     output << '      {'
     output << "        version: \"#{tag}\","
     output << "        date: \"#{date}\","
-    output << "        known_issues: #{known_issues?(tag)}"
+    output << "        known_issues: #{known_issues?(tag)}#{issue_details ? ',' : ''}"
+    output << "        known_issue_details: #{issue_details.inspect}" if issue_details
     output << "      }#{comma}"
   end
 
@@ -132,7 +145,7 @@ def generate_release_table(output, releases)
   output << '      <tr>'
   output << '        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>'
   output << '        <td style="text-align: center"><%= release[:date] %></td>'
-  output << '        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>'
+  output << '        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>'
   output << '      </tr>'
   output << '    <% end %>'
   output << '  </tbody>'
@@ -159,7 +172,7 @@ def generate_markdown(version_groups)
   output << ''
   output << '# Agent versions directory'
   output << ''
-  output << 'The following lists of Buildkite agent versions are of stable version 3.x releases in reverse chronological order. Each version links through to its changelog on GitHub.'
+  output << 'The following lists of Buildkite agent versions are of stable version 3.x and later releases in reverse chronological order. Each version links through to its changelog on GitHub.'
   output << ''
   output << 'Agent versions with known issues are indicated in these tables.'
   output << ''

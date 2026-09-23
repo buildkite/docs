@@ -6,6 +6,9 @@ The recommended starting point is to add the [Tests Buildkite plugin](https://bu
 
 Adding the Tests Buildkite plugin is the fastest way to get a test suite reporting data to Buildkite Test Engine, because the entire setup lives in `pipeline.yml`. Use a language-specific test collector instead when you want deeper framework integration—such as RSpec annotation spans, pytest custom markers, and richer per-framework execution tags. This path requires adding a library dependency to your application code, so it takes more effort to set up than the plugin-only path.
 
+> 🚧 Use one result upload method
+> Configure only one method to upload results from each test run. If both bktec and a language-specific test collector upload the same results, Test Engine records duplicate test executions. A collector is not required to use bktec. See [Configure result uploads](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-configure-result-uploads) to choose an upload method.
+
 ## Setting up with the Tests plugin
 
 To get started with a new test suite, add the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) to the step that runs your tests. Set `test-runner` to the runner used by your project and `suite-slug` to your Test Engine suite slug:
@@ -22,7 +25,7 @@ steps:
     parallelism: 2
 ```
 
-The `test-runner` option specifies which test framework to use. Supported values include `rspec`, `jest`, `pytest`, `gotest`, and `cypress`. The `result-path` option tells the plugin where to write test results. The exact path depends on your runner.
+The `test-runner` option specifies which test framework to use. Supported values include `rspec`, `jest`, `pytest`, `gotest`, and `cypress`. The `result-path` option tells the plugin where to write test results. The exact path depends on your runner. The plugin uploads results by default. If a language-specific collector uploads the results, set `upload-results: false` to prevent duplicate test executions.
 
 To authenticate without a long-lived API token, set an [OIDC policy](/docs/pipelines/configure/tests/test-collection/oidc) on your suite to allow your pipeline to authenticate. Open your suite's settings page and add a policy like:
 

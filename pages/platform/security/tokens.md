@@ -89,3 +89,16 @@ Buildkite [portal secrets](/docs/apis/graphql/portals/ephemeral-portal-tokens#ge
 
 - Prefix: `bkps_`
 - Example: `bkps_****************************************************************`
+
+## Other Buildkite tokens
+
+Buildkite also issues short-lived tokens for specific workflows.
+
+### Job acquisition tokens
+
+Buildkite [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) allow an ephemeral agent to register and acquire one reserved job without receiving the long-lived agent token held by its stack controller.
+
+- Prefix: `bkjat_`
+- Example: `bkjat_*****************************************************`
+
+By default, job acquisition tokens expire 15 minutes after issuance. A stack can request a lifetime of up to one hour, but the token expires earlier if the job reservation expires first.

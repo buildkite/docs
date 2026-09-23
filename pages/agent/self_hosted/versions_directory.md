@@ -15,9 +15,61 @@ Run './scripts/update-agent-versions-directory.sh' from the docs repo root
 
 # Agent versions directory
 
-The following lists of Buildkite agent versions are of stable version 3.x releases in reverse chronological order. Each version links through to its changelog on GitHub.
+The following lists of Buildkite agent versions are of stable version 3.x and later releases in reverse chronological order. Each version links through to its changelog on GitHub.
 
 Agent versions with known issues are indicated in these tables.
+
+## Agent versions 4.0 to 4.9
+
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <th style="width: 25%">Release changelog</th>
+      <th style="text-align: center; width: 20%">Date of release</th>
+      <th style="text-align: center; width: 55%">Known issues</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        version: "v4.0.5",
+        date: "2026-09-22",
+        known_issues: false
+      },
+      {
+        version: "v4.0.4",
+        date: "2026-09-18",
+        known_issues: false
+      },
+      {
+        version: "v4.0.3",
+        date: "2026-09-10",
+        known_issues: false
+      },
+      {
+        version: "v4.0.2",
+        date: "2026-09-09",
+        known_issues: false
+      },
+      {
+        version: "v4.0.1",
+        date: "2026-09-02",
+        known_issues: false
+      },
+      {
+        version: "v4.0.0",
+        date: "2026-09-01",
+        known_issues: false
+      }
+    ].each do |release| %>
+      <tr>
+        <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
+        <td style="text-align: center"><%= release[:date] %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 ## Agent versions 3.130 to 3.139
 
@@ -31,6 +83,16 @@ Agent versions with known issues are indicated in these tables.
   </thead>
   <tbody>
     <% [
+      {
+        version: "v3.138.0",
+        date: "2026-09-03",
+        known_issues: false
+      },
+      {
+        version: "v3.137.2",
+        date: "2026-08-28",
+        known_issues: false
+      },
       {
         version: "v3.137.1",
         date: "2026-08-24",
@@ -59,7 +121,8 @@ Agent versions with known issues are indicated in these tables.
       {
         version: "v3.136.0",
         date: "2026-08-04",
-        known_issues: false
+        known_issues: true,
+        known_issue_details: "Git mirror performance regression. Fixed in the <a href=\"https://github.com/buildkite/agent/releases/tag/v3.136.1\"><code>v3.136.1</code> changelog</a>."
       },
       {
         version: "v3.135.0",
@@ -100,7 +163,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -207,7 +270,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -319,7 +382,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -426,7 +489,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -533,7 +596,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -625,7 +688,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -722,7 +785,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -804,7 +867,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -901,7 +964,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -983,7 +1046,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -1110,7 +1173,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -1197,7 +1260,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -1334,7 +1397,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -1471,7 +1534,7 @@ Agent versions with known issues are indicated in these tables.
       <tr>
         <td><a href="https://github.com/buildkite/agent/releases/tag/<%= release[:version] %>"><code><%= release[:version] %></code></a></td>
         <td style="text-align: center"><%= release[:date] %></td>
-        <td style="text-align: center"><%= release[:known_issues] ? "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
+        <td style="text-align: center"><%= release[:known_issues] ? release[:known_issue_details] || "Known issues, see <a href=\"https://github.com/buildkite/agent/releases/tag/#{release[:version]}\">changelog</a> for details." : "-" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -93,7 +93,7 @@ chown -R claude-user:claude-user /workdir
 echo "--- :github: Fetch PR context"
 PR_JSON=$(gh pr view "${UPSTREAM_PR_NUMBER}" \
   --repo "${UPSTREAM_REPO}" \
-  --json title,body,url,comments,reviews)
+  --json title,body,url,author,comments,reviews)
 
 PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
 
@@ -102,13 +102,32 @@ PR_TITLE=$(echo "${PR_JSON}" | jq -r '.title')
 PR_TITLE_CLEAN=$(echo "${PR_TITLE}" | sed -E 's/\[?[A-Z]{1,5}-[0-9]+\]?[[:space:]:/-]*//' | sed 's/^[[:space:]]*//')
 PR_BODY=$(echo "${PR_JSON}" | jq -r '.body // "No description provided."')
 PR_URL=$(echo "${PR_JSON}" | jq -r '.url')
+PR_AUTHOR=$(echo "${PR_JSON}" | jq -r '.author.login // empty')
+PR_AUTHOR_IS_BOT=$(echo "${PR_JSON}" | jq -r '.author.is_bot // false')
+
+# Copy the engineer's public documentation status into the generated docs PR
+# so reviewers can see it without returning to the upstream PR.
+PUBLIC_DOCUMENTATION=$(printf '%s\n' "${PR_BODY}" | awk '
+  /^###[[:space:]]+Public documentation[[:space:]]*$/ { found = 3; next }
+  /^##[[:space:]]+Public documentation[[:space:]]*$/ { found = 2; next }
+  found == 3 && /^##[#]?[[:space:]]+/ { exit }
+  found == 2 && /^##[[:space:]]+/ { exit }
+  found { print }
+')
+if [ -z "${PUBLIC_DOCUMENTATION//[[:space:]]/}" ]; then
+  PUBLIC_DOCUMENTATION="The upstream PR did not provide public documentation instructions. Confirm with the upstream author whether the documentation is safe to publish."
+fi
 PR_COMMENTS=$(echo "${PR_JSON}" | jq -r '
   [.comments[]? | "\(.author.login) wrote:\n\(.body)"] | join("\n\n---\n\n") // "No comments."')
 PR_REVIEWS=$(echo "${PR_JSON}" | jq -r '
   [.reviews[]? | "\(.author.login) (\(.state)):\n\(.body // "No body")"] | join("\n\n---\n\n") // "No reviews."')
 
-# Cap the diff size to avoid overwhelming the prompt
-PR_DIFF=$(gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" | head -n "${DIFF_MAX_LINES}")
+# Fetch the complete diff for feature-flag detection, then cap only the copy
+# included in the model prompt. Detecting against the capped prompt could miss a
+# feature file that appears after DIFF_MAX_LINES.
+PR_DIFF_FILE="/tmp/docs-draft-upstream-pr.diff"
+gh pr diff "${UPSTREAM_PR_NUMBER}" --repo "${UPSTREAM_REPO}" > "${PR_DIFF_FILE}"
+PR_DIFF=$(head -n "${DIFF_MAX_LINES}" "${PR_DIFF_FILE}")
 
 echo "PR: ${PR_TITLE}"
 echo "URL: ${PR_URL}"
@@ -116,7 +135,13 @@ echo "URL: ${PR_URL}"
 # --- Check for feature flags in the diff ---
 
 echo "--- :triangular_flag_on_post: Checking for feature flags"
-if echo "${PR_DIFF}" | grep -qE "(Feature::[A-Z][A-Z_]+|Feature\.new\b|\.active_for_(organization|user|all_users|request|current_organization)|\.active\?\(|activate_for_|deactivate_for_|Billing::Plan::Feature|lib/buildkite/feature_flags/)"; then
+# Check canonical flag files and added lines only. V2 flags use CamelCase
+# Feature::Base subclasses and may call active? with or without parentheses.
+if { grep -E '^\+\+\+ b/app/models/feature/[^/]+\.rb$' "${PR_DIFF_FILE}" \
+       | grep -Ev '/(base|base_store|caching_store|database_store|redis_store|status)\.rb$' > /dev/null; } \
+  || grep -E '^\+\+\+ b/lib/buildkite/feature_flags/[^/]+\.rb$' "${PR_DIFF_FILE}" > /dev/null \
+  || { grep -E '^\+' "${PR_DIFF_FILE}" | grep -Ev '^\+\+\+' \
+       | grep -E '(class[[:space:]]+Feature::[A-Z][[:alnum:]_]*[[:space:]]*<[[:space:]]*Feature::Base|Feature::[A-Z][[:alnum:]_]*|Feature\.new([^[:alnum:]_]|$)|\.(active\?\(|active_for_[a-z_]+\?|activate_for_[a-z_]+|deactivate_for_[a-z_]+)|Billing::Plan::Feature)' > /dev/null; }; then
   echo "Feature flag indicators detected in diff"
   FEATURE_FLAG_DETECTED="true"
   buildkite-agent annotate --style "warning" --context "feature-flag" \
@@ -264,25 +289,52 @@ EXISTING_PR=$(gh pr list \
   --json number \
   --jq '.[0].number // empty')
 
+# Build the PR body from the latest upstream public documentation selection.
+FEATURE_FLAG_STATUS=$([ "${FEATURE_FLAG_DETECTED}" = "true" ] && echo "Yes — review whether docs should note limited availability" || echo "No")
+PR_BODY_CONTENT=$(echo "${DRAFT_PR_BODY_TEMPLATE}" | sed \
+  -e "s|\${PR_URL}|${PR_URL}|g" \
+  -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g" \
+  -e "s|\${FEATURE_FLAG_STATUS}|${FEATURE_FLAG_STATUS}|g" \
+  -e "s|\${BUILD_URL}|${BUILDKITE_BUILD_URL}|g")
+PUBLIC_DOCUMENTATION_FILE="/tmp/docs-draft-public-documentation.md"
+printf '%s\n' "${PUBLIC_DOCUMENTATION}" > "${PUBLIC_DOCUMENTATION_FILE}"
+PR_BODY_CONTENT=$(printf '%s\n' "${PR_BODY_CONTENT}" | awk -v public_documentation_file="${PUBLIC_DOCUMENTATION_FILE}" '
+  $0 == "${PUBLIC_DOCUMENTATION}" {
+    while ((getline line < public_documentation_file) > 0) print line
+    close(public_documentation_file)
+    next
+  }
+  { print }
+')
+
 if [ -n "${EXISTING_PR}" ]; then
   echo "Updated existing PR #${EXISTING_PR}"
   DOCS_PR_URL="https://github.com/buildkite/docs-private/pull/${EXISTING_PR}"
+  gh pr edit "${EXISTING_PR}" \
+    --repo buildkite/docs-private \
+    --body "${PR_BODY_CONTENT}"
 else
-  # Build the PR body from template
-  FEATURE_FLAG_STATUS=$([ "${FEATURE_FLAG_DETECTED}" = "true" ] && echo "Yes — review whether docs should note limited availability" || echo "No")
-  PR_BODY_CONTENT=$(echo "${DRAFT_PR_BODY_TEMPLATE}" | sed \
-    -e "s|\${PR_URL}|${PR_URL}|g" \
-    -e "s|\${UPSTREAM_REPO}|${UPSTREAM_REPO}|g" \
-    -e "s|\${FEATURE_FLAG_STATUS}|${FEATURE_FLAG_STATUS}|g" \
-    -e "s|\${BUILD_URL}|${BUILDKITE_BUILD_URL}|g")
-
   DOCS_PR_URL=$(gh pr create \
     --repo buildkite/docs-private \
     --base main \
     --head "${BRANCH_NAME}" \
     --title "[Docs Draft] ${PR_TITLE_CLEAN}" \
-    --body "${PR_BODY_CONTENT}")
+    --body "${PR_BODY_CONTENT}" \
+    --draft)
   echo "Created new PR: ${DOCS_PR_URL}"
+fi
+
+# Ask the upstream author to verify technical accuracy and publication readiness.
+# A missing author, a bot-authored PR, or a failed review request must not prevent
+# the docs draft from being created.
+if [ -n "${PR_AUTHOR}" ] && [ "${PR_AUTHOR_IS_BOT}" != "true" ]; then
+  echo "--- :eyes: Request review from upstream author @${PR_AUTHOR}"
+  gh pr edit "${DOCS_PR_URL}" \
+    --repo buildkite/docs-private \
+    --add-reviewer "${PR_AUTHOR}" \
+    || echo "Could not request review from @${PR_AUTHOR}; continuing"
+else
+  echo "Skipping upstream author review request"
 fi
 
 # --- Annotate build and comment on upstream PR ---

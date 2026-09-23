@@ -2,6 +2,39 @@ package main
 
 import "testing"
 
+func TestParseFlagLineHandlesTypedRepeatableFlag(t *testing.T) {
+	line := "  --tags string [ --tags string ]  A comma-separated list of tags [$BUILDKITE_AGENT_TAGS]"
+
+	command, value, desc, ok := parseFlagLine(line)
+	if !ok {
+		t.Fatal("parseFlagLine() did not match")
+	}
+	if command != "tags" || value != "string" {
+		t.Fatalf("command, value = %q, %q", command, value)
+	}
+	if desc != "A comma-separated list of tags [$BUILDKITE_AGENT_TAGS]" {
+		t.Fatalf("desc = %q", desc)
+	}
+}
+
+func TestParseFlagLineHandlesLegacyValueFlag(t *testing.T) {
+	line := "  --token value  Your agent token [$BUILDKITE_AGENT_TOKEN]"
+
+	command, value, desc, ok := parseFlagLine(line)
+	if !ok || command != "token" || value != "value" || desc != "Your agent token [$BUILDKITE_AGENT_TOKEN]" {
+		t.Fatalf("parseFlagLine() = %q, %q, %q, %v", command, value, desc, ok)
+	}
+}
+
+func TestParseFlagLineHandlesLowercaseDescription(t *testing.T) {
+	line := "  --help, -h  show help"
+
+	command, value, desc, ok := parseFlagLine(line)
+	if !ok || command != "help" || value != "" || desc != "show help" {
+		t.Fatalf("parseFlagLine() = %q, %q, %q, %v", command, value, desc, ok)
+	}
+}
+
 func TestExtractEnvVarPrefersTrailingAnnotation(t *testing.T) {
 	desc := "Names must match --redacted-vars or $BUILDKITE_REDACTED_VARS. [$BUILDKITE_AGENT_REDACT_VARS_FILTER]"
 
