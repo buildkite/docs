@@ -90,7 +90,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --header "Authorization: Bearer $TOKEN"
 ```
 
-For pool and metrics requests, a missing or malformed `build_id` returns `400 Bad Request`. A missing `read_test_pool` scope returns `403 Forbidden`. An inaccessible build or suite, a build that does not match the pool, or an organization excluded by the token returns `404 Not Found` with the message `No test pool found`.
+For pool and metrics requests, a missing or malformed `build_id` returns `400 Bad Request`. A missing `read_test_pool` scope returns `403 Forbidden`. An inaccessible build or suite, a build that does not match the pool, or an organization excluded by the token returns `404 Not Found`.
 
 ## Core data model
 
