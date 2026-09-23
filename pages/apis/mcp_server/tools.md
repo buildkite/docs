@@ -4,6 +4,29 @@ _MCP tools_ form the fundamental components of an _MCP server_, and provide the 
 
 Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
+## Tool annotations and access control
+
+The Buildkite MCP server includes annotations in the tool definitions returned by the MCP `tools/list` operation. AI clients and MCP gateways can use these annotations to classify calls and apply approval policies:
+
+- `readOnlyHint`: When `true`, the tool does not change Buildkite state. The server uses this annotation to select tools for read-only mode. A missing or `false` value does not identify a read-only tool.
+- `destructiveHint`: For a tool that is not read-only, `true` indicates that it can make destructive changes to existing state. A value of `false` indicates an additive operation, not a read-only operation. This hint applies only when `readOnlyHint` is `false` or absent.
+
+For example, `create_build` has `destructiveHint: false` but still starts a build and executes pipeline commands. `retry_job` and `unblock_job` have `destructiveHint: true`. Do not use `destructiveHint: false` as an allowlist for read-only access.
+
+The following table classifies the write tools documented on this page in the [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server). These tools do not set `readOnlyHint: true`.
+
+Tools | `destructiveHint`
+--- | ---
+`create_build`, `create_pipeline`, `create_pipeline_schedule`, `create_cluster`, `create_cluster_queue`, `create_cluster_secret` | `false`
+`cancel_build`, `rebuild_build`, `retry_job`, `unblock_job`, `update_pipeline`, `update_pipeline_schedule`, `update_cluster`, `update_cluster_queue`, `pause_cluster_queue_dispatch`, `resume_cluster_queue_dispatch`, `create_annotation` | `true`
+{: class="two-column"}
+
+The other tools documented below are read-only: the user and authentication tools, list and get tools, and log search and reading tools. These set `readOnlyHint: true`; they do not need to set `destructiveHint: false`. Required API token scopes are listed with each tool below.
+
+Annotations describe behavior; they do not grant permissions or enforce a gateway's approval policy. Tool availability and annotations can vary with the server version. Gateway administrators should inspect the `tools/list` response from the connected server, check how their gateway handles missing annotations, and verify its policy for both read-only and write calls. Do not assume that a gateway requires approval merely because a tool is marked destructive.
+
+Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server) and least-privilege [API token scopes](/docs/apis/managing-api-tokens#token-scopes) to restrict access. These restrictions do not constrain an AI agent's other credentials or tools. See [Read-only access boundaries](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
+
 ## Available MCP tools
 
 The Buildkite MCP server exposes the following categories of MCP tools.
