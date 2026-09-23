@@ -41,7 +41,7 @@ Set `region` to the bucket's region. If you omit it, the agent uses `us-east-1`.
 
 Configure your storage provider to expire cache objects. For Amazon S3, add a lifecycle rule scoped to the cache object prefix (`buildkite` in the example) that expires current object versions three days after their last modification. Also configure cleanup for incomplete multipart uploads and, if bucket versioning is enabled, noncurrent object versions. Configure an equivalent expiration policy for an S3-compatible store.
 
-Buildkite expires cache registry metadata after three days but can't delete objects from your agent-managed store. Successful restores, including fallback restores, refresh an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. The storage lifecycle rule removes objects that are no longer used.
+Buildkite Cache expires cache registry metadata after three days but can't delete objects from your agent-managed store. A restore that matches the exact cache key refreshes an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. On Buildkite agent v4.0.2 or later, a fallback restore doesn't refresh `LastModified`, since the restored entry was saved under a different key than the one requested. In v3 and earlier v4 releases, fallback restores still attempt this refresh. The storage lifecycle rule removes objects that are no longer used.
 
 ## Define and use a cache
 
@@ -263,6 +263,6 @@ Buildkite Cache uses the following save and restore behavior:
 - Restore checks the exact key first, then progressively removes optional trailing key parts up to the configured fallback limit. The newest matching entry is restored.
 - A miss leaves existing target paths unchanged and exits successfully.
 - A missing, corrupted, or unrecognized stored archive is treated as a miss and isn't extracted.
-- Cache registry entries expire three days after creation or their latest exact restore. A fallback restore doesn't extend an entry's expiration. Buildkite doesn't delete stored objects when registry entries expire. For agent-managed stores, the storage provider lifecycle policy controls object deletion.
+- Cache registry entries expire three days after creation or their latest exact restore. A fallback restore doesn't extend an entry's expiration. On Buildkite agent v4.0.2 or later, it also doesn't refresh the retention of the underlying object in the cache store. In v3 and earlier v4 releases, fallback restores still attempt to refresh object retention. Buildkite Cache doesn't delete stored objects when registry entries expire. For agent-managed stores, the storage provider lifecycle policy controls object deletion.
 
 Treat caches as temporary performance optimizations. Build and test commands must continue to work after a cache miss.
