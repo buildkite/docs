@@ -38,7 +38,7 @@ GET | `/pools/{pool.id}/metrics` | [Get pool metrics](#get-pool-metrics)
 
 ## Authentication
 
-Test Scheduler API requests require an OpenID Connect (OIDC) token issued to a Buildkite job. [REST API access tokens](/docs/apis/managing-api-tokens) are only accepted on the `metrics` endpoint.
+Test Scheduler API requests accept an OpenID Connect (OIDC) token issued to a Buildkite job. [REST API access tokens](/docs/apis/managing-api-tokens) are also accepted for listing pools, getting a pool, and getting pool metrics. All other endpoints, including all writes, require OIDC authentication.
 
 ### OIDC authentication
 
@@ -79,12 +79,14 @@ The OIDC token must:
 
 ### REST API authentication
 
-The `GET /pools/{pool.id}/metrics` endpoint accepts a REST API access token with the `read_test_pool` [scope](/docs/apis/managing-api-tokens#token-scopes). The Buildkite user associated with the token must have access to the pool's test suite and build.
+The `GET /pools`, `GET /pools/{pool.id}`, and `GET /pools/{pool.id}/metrics` endpoints accept a REST API access token with the `read_test_pool` [scope](/docs/apis/managing-api-tokens#token-scopes). The token must include the organization in its organization access. The Buildkite user associated with the token must have access to both the pool's build through pipeline permissions and the pool's test suite. The token does not need additional `read_builds` or `read_suites` scopes.
 
-Provide the token in the `Authorization` header:
+To get a pool or its metrics, provide the pool's build UUID as the `build_id` query string parameter. Listing pools requires both `pipeline_id` and `build_id` UUIDs. The build must belong to that pipeline.
+
+Provide the token in the `Authorization` header. For example, to get a pool:
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics?build_id={build.id}" \
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}?build_id={build.id}" \
   --header "Authorization: Bearer $TOKEN"
 ```
 
@@ -112,6 +114,8 @@ New pools start in the `populating` state. After adding the initial entries, [up
 ## List pools
 
 Returns a cursor-paginated list of pools for a pipeline and build. Results are ordered by pool UUID in descending order.
+
+This endpoint accepts an OIDC token or a REST API access token with `read_test_pool`. Results include only pools whose test suites the user can access. The user must also have access to the build through pipeline permissions.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools?pipeline_id={pipeline.id}&build_id={build.id}&key=rspec-main" \
@@ -161,11 +165,11 @@ Required query string parameters:
 <tbody>
   <tr>
     <th><code>pipeline_id</code></th>
-    <td>The pipeline UUID. The value must match the <code>pipeline_id</code> claim in the OIDC token.</td>
+    <td>The pipeline UUID. For OIDC authentication, the value must match the <code>pipeline_id</code> claim in the token.</td>
   </tr>
   <tr>
     <th><code>build_id</code></th>
-    <td>The build UUID. The value must match the <code>build_id</code> claim in the OIDC token.</td>
+    <td>The build UUID. The build must belong to the specified pipeline. For OIDC authentication, the value must match the <code>build_id</code> claim in the token.</td>
   </tr>
 </tbody>
 </table>
@@ -201,11 +205,20 @@ Success response: `200 OK`
 
 ## Get a pool
 
-Returns a pool that belongs to the suite, pipeline, and build identified by the OIDC token.
+Returns a pool using either OIDC authentication or REST API authentication with `read_test_pool`.
+
+For OIDC authentication, the pool must belong to the suite, pipeline, and build identified by the token. The suite's OIDC policy must permit `read_test_pool`. No `build_id` query string parameter is required because the build context comes from the token claims:
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}" \
   --header "Authorization: Bearer $OIDC_TOKEN"
+```
+
+For REST API authentication, provide the pool's build UUID as `build_id`. The user must have access to both the build and suite, as described in [REST API authentication](#authentication-rest-api-authentication):
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}?build_id={build.id}" \
+  --header "Authorization: Bearer $TOKEN"
 ```
 
 ```json
@@ -1198,11 +1211,20 @@ Success response: `200 OK`
 
 ## Get pool metrics
 
-Returns aggregate progress for a pool at the time of the request. This endpoint accepts either a Buildkite job OIDC token or a REST API access token. Set `$TOKEN` to the token you want to use.
+Returns aggregate progress for a pool at the time of the request. This endpoint accepts either a Buildkite job OIDC token or a REST API access token with `read_test_pool`.
+
+For REST API authentication, provide the pool's build UUID as `build_id`. The user must have access to both the build and suite, as described in [REST API authentication](#authentication-rest-api-authentication):
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics?build_id={build.id}" \
   --header "Authorization: Bearer $TOKEN"
+```
+
+For OIDC authentication, the suite's OIDC policy must permit `read_test_pool`. The build context comes from the token claims, so no `build_id` query string parameter is required:
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/{pool.id}/metrics" \
+  --header "Authorization: Bearer $OIDC_TOKEN"
 ```
 
 ```json
@@ -1270,13 +1292,13 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
 }
 ```
 
-Required query string parameter:
+Required query string parameter for REST API authentication:
 
 <table class="responsive-table">
 <tbody>
   <tr>
     <th><code>build_id</code></th>
-    <td>The build UUID. For OIDC authentication, the value must match the <code>build_id</code> claim in the token. For REST API authentication, the build must be accessible to the user associated with the token.</td>
+    <td>The pool's build UUID. The build must be accessible to the user associated with the token. Not required for OIDC authentication.</td>
   </tr>
 </tbody>
 </table>
@@ -1424,7 +1446,7 @@ Test Scheduler endpoints can return these errors:
 
 Status | Description
 ------ | -----------
-`400 Bad Request` | The request contains malformed JSON, is not a JSON object, or omits a required query string parameter.
+`400 Bad Request` | The request contains malformed JSON, is not a JSON object, omits a required query string parameter, or provides a malformed build or pipeline UUID for REST API authentication.
 `401 Unauthorized` | Authentication is missing or invalid.
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
 `404 Not Found` | The pool or lease does not exist or is not accessible to the token.
@@ -1435,7 +1457,7 @@ Status | Description
 
 ## Breaking changes
 
-Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter. OIDC requests already include build context in the token claims. REST API access-token requests must provide `build_id` so the request can be routed using the owning build instead of searching for a pool by UUID across shards.
+Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter for REST API access-token requests. OIDC requests already include build context in the token claims and do not require this parameter.
 
 Since August 13, 2026, lease configuration is set when creating a pool. The settings apply to every lease from that pool and cannot be changed after creation.
 
