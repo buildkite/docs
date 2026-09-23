@@ -74,6 +74,12 @@
     path: apis/graphql/schemas/mutation/buildrebuild
   - name: buildRetryFailedJobs
     path: apis/graphql/schemas/mutation/buildretryfailedjobs
+  - name: cacheRegistryCreate
+    path: apis/graphql/schemas/mutation/cacheregistrycreate
+  - name: cacheRegistryDelete
+    path: apis/graphql/schemas/mutation/cacheregistrydelete
+  - name: cacheRegistryUpdate
+    path: apis/graphql/schemas/mutation/cacheregistryupdate
   - name: clusterAgentTokenCreate
     path: apis/graphql/schemas/mutation/clusteragenttokencreate
   - name: clusterAgentTokenRevoke
@@ -338,6 +344,18 @@
     path: apis/graphql/schemas/object/buildstepupload
   - name: BuildStepUploadDefinition
     path: apis/graphql/schemas/object/buildstepuploaddefinition
+  - name: CacheRegistry
+    path: apis/graphql/schemas/object/cacheregistry
+  - name: CacheRegistryConnection
+    path: apis/graphql/schemas/object/cacheregistryconnection
+  - name: CacheRegistryCreatePayload
+    path: apis/graphql/schemas/object/cacheregistrycreatepayload
+  - name: CacheRegistryDeletePayload
+    path: apis/graphql/schemas/object/cacheregistrydeletepayload
+  - name: CacheRegistryEdge
+    path: apis/graphql/schemas/object/cacheregistryedge
+  - name: CacheRegistryUpdatePayload
+    path: apis/graphql/schemas/object/cacheregistryupdatepayload
   - name: Cluster
     path: apis/graphql/schemas/object/cluster
   - name: ClusterAgentTokenConnection
@@ -1096,6 +1114,12 @@
     path: apis/graphql/schemas/input-object/buildrebuildinput
   - name: BuildRetryFailedJobsInput
     path: apis/graphql/schemas/input-object/buildretryfailedjobsinput
+  - name: CacheRegistryCreateInput
+    path: apis/graphql/schemas/input-object/cacheregistrycreateinput
+  - name: CacheRegistryDeleteInput
+    path: apis/graphql/schemas/input-object/cacheregistrydeleteinput
+  - name: CacheRegistryUpdateInput
+    path: apis/graphql/schemas/input-object/cacheregistryupdateinput
   - name: ClusterAgentTokenCreateInput
     path: apis/graphql/schemas/input-object/clusteragenttokencreateinput
   - name: ClusterAgentTokenRevokeInput

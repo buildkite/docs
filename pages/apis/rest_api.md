@@ -113,6 +113,26 @@ POST | `/v2/organizations/{org.slug}/pipelines/{slug}/unarchive` | [Unarchive a 
 POST | `/v2/organizations/{org.slug}/pipelines/{slug}/webhook` | [Add a webhook](/docs/apis/rest-api/pipelines#add-a-webhook)
 {: class="responsive-table"}
 
+### Pipeline triggers
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers` | [List pipeline triggers](/docs/apis/rest-api/pipeline-triggers#list-pipeline-triggers)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Get a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#get-a-pipeline-trigger)
+POST | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers` | [Create a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger)
+PATCH | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Update a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger)
+DELETE | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{id}` | [Delete a pipeline trigger](/docs/apis/rest-api/pipeline-triggers#delete-a-pipeline-trigger)
+{: class="responsive-table"}
+
+### Pipeline trigger deliveries
+
+Method | Endpoint | Description
+------ | -------- | -----------
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries` | [List a trigger's deliveries](/docs/apis/rest-api/pipeline-trigger-deliveries#list-a-triggers-deliveries)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries/{delivery.id}` | [Get a delivery](/docs/apis/rest-api/pipeline-trigger-deliveries#get-a-delivery)
+GET | `/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers/{trigger.id}/deliveries/{delivery.id}/request` | [Get a delivery's request](/docs/apis/rest-api/pipeline-trigger-deliveries#get-a-deliverys-request)
+{: class="responsive-table"}
+
 ### Builds
 
 Method | Endpoint | Description
@@ -367,6 +387,8 @@ The data encoding is assumed to be `application/json`. Unless explicitly stated 
 You can authenticate with the Buildkite API using access tokens, represented by the value `$TOKEN` throughout this documentation.
 
 API access tokens authenticate calls to the API and can be created from the <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access tokens</a> page. When configuring API access tokens, you can limit their access to individual organizations and permissions, and these tokens can be revoked at any time from the web interface [or the REST API](/docs/apis/rest-api/access-token#revoke-the-current-token).
+
+A token doesn't grant access to an organization with no active plan. The API omits those organizations. Organization-scoped requests return `404` with `{"message":"No organization found"}`. See [Organizations API](/docs/apis/rest-api/organizations).
 
 To authenticate an API call using an access token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
 

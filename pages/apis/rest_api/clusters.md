@@ -3,7 +3,6 @@
 The clusters API endpoint lets you create and manage [clusters](#clusters) in your organization, along with the following other aspects associated with clusters:
 
 - [Queues](/docs/apis/rest-api/clusters/queues)
-- [Queue migrations](/docs/apis/rest-api/clusters/queue-migrations)
 - [Agent tokens](/docs/apis/rest-api/clusters/agent-tokens)
 - [Cluster maintainers](/docs/apis/rest-api/clusters/maintainers)
 - [Buildkite secrets](/docs/apis/rest-api/clusters/secrets)

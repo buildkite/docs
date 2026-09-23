@@ -2,6 +2,8 @@
 
 Requests to the [Buildkite REST API](/docs/apis/rest-api) made through the [remote Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) are tracked under a separate rate limit of _50 requests per minute per user_. Unlike your Buildkite organization [REST API rate limit](/docs/apis/rest-api/rate-limits), this remote MCP server limit is scoped to each individual user.
 
+This limit applies to both the OAuth endpoint (`https://mcp.buildkite.com/mcp`) and the API token pass-through endpoint (`https://mcp.buildkite.com/direct`).
+
 Your remote Buildkite MCP server usage is independent of your Buildkite organization's standard REST API rate limit, whose quota is not affected by remote MCP server usage.
 
 ## Checking rate limit details

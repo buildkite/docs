@@ -36,6 +36,38 @@ Required scope: `read_suites`
 
 Success response: `200 OK`
 
+## List suites for a pipeline
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the Buildkite Test Engine suites that have recorded at least one run attributed to a pipeline, ordered by creation time. Each suite is returned once, even if it has recorded several runs for the pipeline.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/pipelines/{pipeline.slug}/suites"
+```
+
+```json
+[
+  {
+    "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+    "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
+    "organization_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "slug":"my_suite_slug",
+    "name":"My suite name",
+    "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
+    "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
+    "default_branch":"main",
+    "application_name": "Buildkite",
+    "color": "#FFF700",
+    "emoji": "🍋",
+    "oidc_policy": null
+  }
+]
+```
+
+Required scope: `read_suites`
+
+Success response: `200 OK`
+
 ## Get a suite
 
 ```bash

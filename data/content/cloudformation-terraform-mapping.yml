@@ -42,9 +42,8 @@ BootstrapScriptUrl:
 BuildkiteAdditionalSudoPermissions:
   variable: buildkite_additional_sudo_permissions
   type: string
-BuildkiteAgentCancelGracePeriod:
-  variable: buildkite_agent_cancel_grace_period
-  type: number
+BuildkiteAgentCancelCleanupTimeout: N/A
+BuildkiteAgentCancelSignalTimeout: N/A
 BuildkiteAgentDisconnectAfterUptime:
   variable: buildkite_agent_disconnect_after_uptime
   type: number
@@ -57,15 +56,13 @@ BuildkiteAgentEnableGracefulShutdown:
 BuildkiteAgentExperiments:
   variable: buildkite_agent_experiments
   type: string
+BuildkiteAgentOpenTelemetryTracing: N/A
 BuildkiteAgentRelease:
   variable: buildkite_agent_release
   type: string
 BuildkiteAgentScalerServerlessARN:
   variable: buildkite_agent_scaler_serverless_arn
   type: string
-BuildkiteAgentSignalGracePeriod:
-  variable: buildkite_agent_signal_grace_period
-  type: number
 BuildkiteAgentSigningKeyID:
   variable: pipeline_signing_jwks_key_id
   type: string
@@ -75,9 +72,6 @@ BuildkiteAgentSigningKeySSMParameter:
 BuildkiteAgentTags:
   variable: buildkite_agent_tags
   type: string
-BuildkiteAgentTimestampLines:
-  variable: buildkite_agent_timestamp_lines
-  type: bool
 BuildkiteAgentToken:
   variable: buildkite_agent_token
   type: string
@@ -86,9 +80,6 @@ BuildkiteAgentTokenParameterStoreKMSKey:
   type: string
 BuildkiteAgentTokenParameterStorePath:
   variable: buildkite_agent_token_parameter_store_path
-  type: string
-BuildkiteAgentTracingBackend:
-  variable: buildkite_agent_tracing_backend
   type: string
 BuildkiteAgentVerificationKeySSMParameter:
   variable: pipeline_verification_jwks_parameter_store_path
@@ -117,6 +108,7 @@ CostAllocationTagValue:
 CpuCredits:
   variable: cpu_credits
   type: string
+DanglingCheckMinimumInstanceUptime: N/A
 DisableScaleIn:
   variable: disable_scale_in
   type: bool
@@ -243,6 +235,7 @@ LogRetentionDays:
 ManagedPolicyARNs:
   variable: managed_policy_arns
   type: list(string)
+MaxDanglingInstancesToCheck: N/A
 MaxSize:
   variable: max_size
   type: number

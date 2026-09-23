@@ -14,6 +14,19 @@ In this example, _without_ bktec, the test suite build time would take as long a
 
 Since the sum of all test executions across all agents is 16 minutes, _with_ test splitting implemented, all four partitions would take approximately 4 minutes to run, such that the overall test suite build time would be approximately 4 minutes, or a 6-minute reduction.
 
+### Partition timeline
+
+The test splitting setup page shows a _partition timeline_ for each run, with a bar for each partition that reflects how its test time was distributed across assigned tests.
+
+Two breakdown views are available using the **Breakdown** dropdown:
+
+- **Actual**: sizes each test's segment using the actual execution durations recorded for that run. This is the default view. If no actual durations match the tests in a partition, this view uses their estimated durations. If actual durations match only some tests, tests without matching data have no width.
+- **Estimated**: sizes each test's segment using the estimated durations from the test plan.
+
+Each test segment's hover card shows its estimated percentage of the partition's test time. When a matching actual duration is available, the hover card also shows the actual percentage.
+
+The **Show Retries** checkbox, checked by default, controls whether retry execution segments are visible in the actual breakdown. Clear the checkbox to remove retry segments and rescale the remaining segments to fill the bar.
+
 ## Increase build reliability with test states
 
 bktec uses [test state](/docs/pipelines/glossary#test-state) data from your test suite to _mute_ or _skip_ problematic tests, which [quarantines](/docs/pipelines/glossary#quarantine) them, so that [flaky tests](/docs/pipelines/glossary#flaky-test) don't affect the result of your build. Quarantining reduces build times by ensuring passing builds, first time, without having to retry jobs with failing tests.

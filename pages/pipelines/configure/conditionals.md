@@ -328,6 +328,10 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_GITHUB_DEPLOYMENT_STATUS_STATE</code><br>
 		<code>BUILDKITE_GITHUB_EVENT</code><br>
 		<code>BUILDKITE_GITHUB_ISSUE_NUMBER</code><br>
+		<code>BUILDKITE_GITHUB_PULL_REQUEST_STACK_BASE_BRANCH</code><br>
+		<code>BUILDKITE_GITHUB_PULL_REQUEST_STACK_POSITION</code><br>
+		<code>BUILDKITE_GITHUB_PULL_REQUEST_STACK_SIZE</code><br>
+		<em>Pull request stack variables are only available in step-level <code>if</code> conditions.</em><br>
 		<code>BUILDKITE_GITHUB_RELEASE_DRAFT</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_PRERELEASE</code><br>
 		<code>BUILDKITE_GITHUB_RELEASE_TAG</code><br>

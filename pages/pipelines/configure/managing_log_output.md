@@ -25,7 +25,7 @@ echo "~~~ An unimportant section of the build"
 > 📘 Availability
 > The controls in this section are available to organizations where de-emphasized job log groups are enabled in the new build experience.
 
-In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Reveal groups** in the log toolbar to reveal all folded groups. The button changes to **Hide groups**, which folds them again.
+In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Show system groups** in the log toolbar to reveal all folded groups. The **Show system groups** tooltip shows how many groups are currently hidden. The button changes to **Hide system groups**, which folds them again.
 
 Select **Configure view** > **Show all system groups** to keep all de-emphasized groups visible. Your choice is remembered for future visits to the build page. The **Configure view** menu also lets you change the log's theme and toggle timestamps.
 
@@ -58,11 +58,13 @@ This section covers build log output grouping methods that go beyond formatting,
 
 If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
 
+To also update the previous group's title, add the new title after `^^^ +++`:
+
 ```bash
 echo "--- Bundling"
 bundle
 if [[ $? -ne 0 ]]; then
-  echo "^^^ +++"
+  echo "^^^ +++ Bundling failed"
   echo "Bundler failed, oh no!!"
 fi
 ```
@@ -117,15 +119,13 @@ On the Buildkite Pipelines build page, select **Search logs** above the build lo
 
 Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
 
-## ANSI timestamps and disabling them
+## ANSI timestamps
 
-By default, each line of log output begins with an ANSI timestamp.
-
-If you are running [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), you can prevent them for generating ANSI timestamps at the start of each line of log output, by starting these agents with the [`--no-ansi-timestamps` option](/docs/agent/cli/reference/start#no-ansi-timestamps).
+Each line of log output begins with an ANSI timestamp. Agent v3 provided options to disable ANSI timestamps or replace them with plain-text timestamps.
 
 ## Log output limits
 
-If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed the default 1,024 MiB per-job log size limit else it may fail to upload. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
+If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed the default 1,024 MiB per-job log size limit. Buildkite Pipelines cancels jobs whose logs exceed this limit. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
 If your log exceeds 2MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
 

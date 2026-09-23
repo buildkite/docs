@@ -36,6 +36,12 @@ Where possible, Test Engine will automatically ingest this data on your behalf.
       <td>Filtering and aggregating based on the step identifier.</td>
     </tr>
     <tr>
+      <td><code>ci.worker.id</code></td>
+      <td>
+        Filtering and aggregating based on the Buildkite agent that ran the test, to identify failures concentrated on a specific (broken) agent. Added automatically by the <a href="/docs/pipelines/configure/tests/test-collection/ruby-collectors">Ruby</a> (v2.15.0 or later), <a href="/docs/pipelines/configure/tests/test-collection/python-collectors">Python</a> (v1.9.0 or later), and <a href="/docs/pipelines/configure/tests/test-collection/javascript-collectors">JavaScript</a> (v1.11.0 or later) collectors, and the <a href="https://buildkite.com/resources/plugins/buildkite-plugins/test-collector-buildkite-plugin/">Test Collector plugin</a> (v1.12.0 or later). Requires the <code>BUILDKITE_AGENT_ID</code> environment variable — if your test collector runs inside a <a href="/docs/pipelines/configure/tests/test-collection/ci-environments#containers-and-test-collectors">container</a>, make sure it's forwarded through.
+      </td>
+    </tr>
+    <tr>
       <td><code>cloud.provider</code></td>
       <td>
         Filtering and aggregating based on your cloud provider to compare cloud provider performance and reliability in your test suite.<br/><em>Example:</em> <code>aws</code> vs <code>gcp</code>.
@@ -175,9 +181,9 @@ After you have assigned tags at the test collection level, start using them to f
 
 On the test page, you can open the execution drawer by selection an execution.
 
-This presents all the tags which have been applied to the test execution as a collapsible key/value tree. Tags with dot-separated keys, such as `build.id` and `build.url`, are grouped under a shared branch, for example `build`.
+This presents all the tags which have been applied to the test execution as a flat, dot-notated list. Tags with dot-separated keys, such as `build.id` and `build.url`, are each listed as their own row rather than being grouped under a shared branch.
 
-<%= image "execution-tags.png", width: 3274, height: 1838, alt: "Screenshot of test page with execution drawer open displaying execution tags available for filtering and aggregtion" %>
+<%= image "execution-tags.png", width: 2896/2, height: 1544/2, alt: "Test execution drawer displaying tags as flat, dot-notated key-value rows" %>
 
 Hover over a tag to reveal a button that copies its value, and a **More actions** menu with the following actions:
 

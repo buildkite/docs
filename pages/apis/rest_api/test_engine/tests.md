@@ -14,12 +14,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 [
   {
     "id": "01867216-8478-7fde-a55a-0300f88bb49b",
-    "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
-    "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+    "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+    "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
     "scope": "User#email",
     "name": "is correctly formatted",
     "location": "./spec/models/user_spec.rb:42",
     "file_name": "./spec/models/user_spec.rb",
+    "state": "enabled",
     "labels": ["flaky"],
     "reliability": 0.98,
     "duration_avg": 0.213,
@@ -49,6 +50,10 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>state</code></th>
+    <td>The <a href="/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine">lifecycle state</a> of the test: <code>enabled</code>, <code>muted</code>, or <code>skipped</code>. This is always <code>enabled</code> when test state management is disabled for the suite.</td>
+  </tr>
   <tr>
     <th><code>reliability</code></th>
     <td>The reliability of the test, calculated from its passed and failed executions and expressed as a decimal fraction. This is <code>null</code> when the test has no passed or failed executions in the time range.</td>
@@ -144,12 +149,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 {
   "id": "01867216-8478-7fde-a55a-0300f88bb49b",
-  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
-  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
   "scope": "User#email",
   "name": "is correctly formatted",
   "location": "./spec/models/user_spec.rb:42",
   "file_name": "./spec/models/user_spec.rb",
+  "state": "enabled",
   "labels": ["flaky"],
   "reliability": 0.98,
   "duration_avg": 0.213,
@@ -198,12 +204,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 {
   "id": "01867216-8478-7fde-a55a-0300f88bb49b",
-  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
-  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
+  "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/example-suite/tests/01867216-8478-7fde-a55a-0300f88bb49b",
   "scope": "User#email",
   "name": "is correctly formatted",
   "location": "./spec/models/user_spec.rb:42",
   "file_name": "./spec/models/user_spec.rb",
+  "state": "enabled"
 }
 ```
 
@@ -233,6 +240,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "location": "./spec/features/cool_spec.rb:232",
     "name": "one plus one",
     "scope": "A fancy feature",
+    "state": "enabled",
     "url": "https://api.buildkite.com/v2/analytics/organizations/acme-inc/suites/acme-suite/tests/ccd837ee-d484-8864-a6ee-29cfae965bd8",
     "web_url": "https://buildkite.com/organizations/acme-inc/analytics/suites/acme-suite/tests/ccd837ee-d484-8864-a6ee-29cfae965bd8"
 }

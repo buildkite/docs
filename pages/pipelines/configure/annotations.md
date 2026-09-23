@@ -121,7 +121,7 @@ where:
 
 ## Create a job-scoped annotation
 
-A build's _job-scoped_ annotations appear within the **Annotations** tab of a job's details page, rather than by default on the build page's main **Annotations** tab. This makes it easier to view contextual information directly alongside the specific job that generated the annotation. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
+A build's _job-scoped_ annotations appear alongside build annotations on the build page's main **Annotations** tab, as well as within the **Annotations** tab of the specific job's details page. Use the **Build** and **Job** scope filters on the main **Annotations** tab to narrow the list to one type. This makes it easier to view contextual information directly alongside the specific job that generated the annotation. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
 
 Use cases where job-scoped annotations are particularly useful:
 

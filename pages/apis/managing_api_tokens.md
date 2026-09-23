@@ -23,7 +23,7 @@ To create a new API access token:
 1. Enter an appropriate **Description** for your new API access token. Under **Credential Type**, select **Token** (the default) for standard bearer token authentication, or **Public Key** (preview) to register your own RSA public key. For **Public Key** setup instructions, see [Public key authentication](/docs/apis/rest-api#authentication-public-key).
 1. Ensure the appropriate Buildkite organization is selected in **Organization Access**. This organization is the one that your API access token will have access to and operate within.
 
-    **Note:** Your most recently used Buildkite organization is automatically selected from this list.
+    **Note:** Your most recently used Buildkite organization is automatically selected from this list. An organization with an ended evaluation trial and no plan selected can still appear in this list. The API omits it. Adding token scopes doesn't change that. See [Organizations API](/docs/apis/rest-api/organizations).
 1. If you selected **Token** as the credential type, select an appropriate **Token Expiry** duration.
 1. Select from the appropriate **REST API Scopes** or **GraphQL API** permission, or both. Learn more about these in [Token scopes](#token-scopes).
 1. To restrict which network addresses your new API access token can operate from, specify these addresses in the **Allowed IP Addresses** field, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).

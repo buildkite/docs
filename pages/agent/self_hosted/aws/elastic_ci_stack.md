@@ -26,7 +26,7 @@ The Buildkite Elastic CI Stack for AWS supports:
 * Docker registry push/pull
 * CloudWatch Logs for system and Buildkite agent events
 * CloudWatch metrics from the Buildkite API
-* Support for stable, beta or edge Buildkite agent releases
+* Support for stable, old stable, beta, or edge Buildkite agent releases
 * Multiple stacks in the same AWS Account
 * Rolling updates to stack instances to reduce interruption
 

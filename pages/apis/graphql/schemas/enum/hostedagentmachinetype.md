@@ -39,6 +39,6 @@ Possible machine types for the hosted agent instance
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>LINUX</code></strong></p><p>Linux</p></td></tr><tr><td><p><strong><code>MACOS</code></strong></p><p>macOS</p></td></tr>
+    <tr><td><p><strong><code>LINUX</code></strong></p><p>Linux</p></td></tr><tr><td><p><strong><code>MACOS</code></strong></p><p>macOS</p></td></tr><tr><td><p><strong><code>WINDOWS</code></strong></p><p>Windows</p></td></tr>
   </tbody>
 </table>

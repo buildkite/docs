@@ -11,7 +11,7 @@ _Pausing_ an agent is a useful alternative to _stopping_ an agent, especially wh
 - compacting or vacuuming databases
 
 > 📘 Pause timeouts
-> A paused agent continues to consume resources even while it is not running any jobs. Since it could be undesirable to do this indefinitely, each pause has a timeout specified in minutes. The default timeout is 5 minutes.
+> A paused agent continues to consume resources even while it is not running any jobs. Since it could be undesirable to do this indefinitely, each pause has a timeout specified in minutes. The default timeout is five minutes, and the maximum is 10,080 minutes (seven days).
 
 With Buildkite agent v3.93 and later, a paused ephemeral agent also remains running after it would normally exit. An _ephemeral_ agent is an agent started with any one of these flags:
 

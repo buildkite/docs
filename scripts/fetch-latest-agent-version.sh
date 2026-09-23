@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Outputs the latest stable buildkite-agent release tag (e.g. v3.121.0)
+# Outputs the latest stable buildkite-agent release tag (for example, v4.0.0)
 
 set -euo pipefail
 

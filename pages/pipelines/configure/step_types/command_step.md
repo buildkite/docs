@@ -211,7 +211,8 @@ Optional attributes:
       An array of <a href="/docs/pipelines/integrations/plugins">plugins</a> for this step.<br/>
       <em>Example:</em><br/>
       <code>- docker-compose#v1.0.0:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
+&nbsp;&nbsp;&nbsp;&nbsp;run: app</code><br/>
+      For a step that only needs one plugin, you may use the singular <a href="/docs/pipelines/integrations/plugins/using#adding-a-single-plugin"><code>plugin</code></a> attribute for convenience.
     </td>
   </tr>
   <tr id="priority">
@@ -235,7 +236,7 @@ Optional attributes:
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string (with a 70-character limit) provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br/>
+      On the modern build page, reveal skipped steps using <strong>Show skipped steps</strong>. In the <strong>Canvas</strong> view, a badge beside the eye icon on the <strong>Show skipped steps</strong> or <strong>Hide skipped steps</strong> control shows the skipped step count. Hover over a skipped step to see the reason, or select a skipped command step to see the reason in the step panel. See <a href="/docs/pipelines/build-page#core-actions-viewing-why-a-step-was-skipped">Viewing why a step was skipped</a>.<br/>
       <em>Example:</em> <code>true</code><br/>
       <em>Example:</em> <code>false</code><br/>
       <em>Example:</em> <code>"My reason"</code>
@@ -409,9 +410,9 @@ For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step'
     <td><code>commit_verification</code></td>
     <td>
       <p>Whether the agent should verify that the commit being built exists on the specified branch. For Buildkite agent v4, set the value to <code>strict</code> to fail the job when the agent determines that the commit is not on the branch. Set the value to <code>off</code> to skip verification. An empty value causes job bootstrap to fail.</p>
-      <p>For Buildkite agent v3, set the value to <code>strict</code> to fail the job, or <code>warn</code> to emit a warning without failing the job. An empty value skips verification. Do not use <code>off</code> with v3. A job-supplied <code>off</code> value uses warning behavior rather than skipping verification.</p>
-      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. Buildkite agent v4 uses <code>strict</code> by default. Buildkite agent v3 does not verify commits by default.</p>
-      <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. In each of these cases, verification is either not possible or not meaningful.</p>
+      <p>For Buildkite agent v3, use v3.136.0 or later for commit verification. In addition to <code>strict</code>, v3 accepts <code>warn</code> to emit a warning without failing the job when the commit is not on the branch. An empty value skips verification. A job-supplied <code>off</code> value uses warning behavior rather than skipping verification.</p>
+      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues, even in <code>strict</code> mode. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. In v4, this setting defaults to <code>strict</code>. Agent v3 does not verify commits by default.</p>
+      <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. These skips also apply in <code>strict</code> mode. See the <a href="/docs/pipelines/configure/git-checkout#commit-verification">commit verification limitations</a> before relying on this check to grant protected-branch privileges.</p>
       <em>Example:</em> <code>strict</code>
     </td>
   </tr>
