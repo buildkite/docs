@@ -301,7 +301,7 @@ Changing `name` regenerates the registry's slug. Set `description`, `emoji`, or 
 
 ## Delete a cache registry
 
-Delete an existing cache registry using the registry's Relay global ID:
+Delete an existing cache registry using the registry's GraphQL ID:
 
 ```graphql
 mutation deleteCacheRegistry {
