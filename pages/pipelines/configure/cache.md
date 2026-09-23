@@ -148,7 +148,7 @@ Create another registry when jobs in the cluster need a different access policy 
 
 To make a registry the cluster default, select **Settings** > **Set as default**. You can't delete the default registry until you select another default.
 
-You can also create, update, and delete cache registries using the [GraphQL API](/docs/apis/graphql/cookbooks/clusters#create-a-cache-registry). The API accepts the cache policy as a structured JSON document rather than authored YAML.
+You can also create, update, and delete cache registries using the [GraphQL API](/docs/apis/graphql/cookbooks/clusters#create-a-cache-registry). The API accepts the cache policy as a JSON-encoded string of a structured policy document, not authored YAML. Use the web interface to configure cache stores or select the default registry.
 
 > 🚧 Changing a cache store removes cache keys
 > Changing a registry's cache store removes its existing cache keys. Subsequent restores miss until jobs save new entries.
