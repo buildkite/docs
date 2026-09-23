@@ -81,7 +81,7 @@ The OIDC token must:
 
 The `GET /pools`, `GET /pools/{pool.id}`, and `GET /pools/{pool.id}/metrics` endpoints accept a REST API access token with the `read_test_pool` [scope](/docs/apis/managing-api-tokens#token-scopes). The token must include the organization in its organization access. The Buildkite user associated with the token must have access to both the pool's build through pipeline permissions and the pool's test suite. The token does not need additional `read_builds` or `read_suites` scopes.
 
-For getting a pool or its metrics, provide the pool's build UUID as the `build_id` query string parameter. This identifies the Scheduler shard containing the pool. Listing pools requires both `pipeline_id` and `build_id` UUIDs, and the build must belong to that pipeline.
+For getting a pool or its metrics, provide the pool's build UUID as the `build_id` query string parameter. Listing pools requires both `pipeline_id` and `build_id` UUIDs, and the build must belong to that pipeline.
 
 Provide the token in the `Authorization` header. For example, to get a pool:
 
@@ -1459,7 +1459,7 @@ Status | Description
 
 ## Breaking changes
 
-Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter for REST API access-token requests. OIDC requests already include build context in the token claims and do not require this parameter. REST API access-token requests must provide `build_id` so the request can be routed using the owning build instead of searching for a pool by UUID across shards.
+Since August 14, 2026, the pool metrics endpoint requires a `build_id` query string parameter for REST API access-token requests. OIDC requests already include build context in the token claims and do not require this parameter.
 
 Since August 13, 2026, lease configuration is set when creating a pool. The settings apply to every lease from that pool and cannot be changed after creation.
 
