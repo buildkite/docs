@@ -26,28 +26,30 @@ The following prompts are starting points. Replace the example organization, pip
 Ask your AI tool to follow a build while you continue working:
 
 ```text
-Use the Buildkite MCP server to watch build 123 in the example-org/example-pipeline pipeline for my pull request. Check periodically until it finishes, or tell me if it is blocked and needs input. If it fails, summarize the failed jobs and relevant errors with links. Do not retry, cancel, or unblock anything.
+Use the Buildkite MCP server to watch build 123 in the example-org/example-pipeline pipeline for my pull request. Check now, then recheck while this agent session is active, for up to eight minutes. Inspect build and job details for blocked status rather than relying on build-list filters. Stop and report if the build becomes blocked or reaches a terminal state. If the time limit is reached, report the last observed state. For later checks, use this AI agent's scheduling or event mechanism if available. If the build fails, summarize the failed jobs and relevant errors with links. Use only read-only calls. Do not retry, cancel, or unblock anything, and redact any secrets from the output.
 ```
 
-The AI tool can retrieve the build state, inspect its jobs, and read logs when something fails. Repeated checks depend on your AI tool's ability to keep running or schedule follow-up work. The MCP server provides the tools to check a build; it does not start a background watcher when you connect it.
+The AI tool can retrieve the build state, inspect its jobs, and read logs when something fails. Persistent watching depends on your AI tool's ability to keep running, schedule follow-up work, or respond to events. The MCP server provides the tools to check a build; it does not start a background watcher when you connect it.
 
 ### Investigate a failure
 
 Ask for evidence before deciding whether to change code or retry a job:
 
 ```text
-Use the Buildkite MCP server to investigate failed build 123 in example-org/example-pipeline. Find the failing jobs, search their logs for errors, and inspect build annotations. Summarize the likely cause, link to the evidence, and suggest the next debugging step. Do not make changes or retry jobs.
+Use the Buildkite MCP server to investigate failed build 123 in example-org/example-pipeline. Inspect failed or broken jobs, tail and search their logs, inspect annotations, and inspect any available Test Engine runs that you can access. Distinguish the likely cause from confirmed evidence, link to that evidence, and suggest the next debugging step. If logs, annotations, or test results are missing or inaccessible, say so rather than infer a cause from missing evidence. Use only read-only calls. Do not make changes or retry jobs, and redact any secrets found in logs, annotation HTML, or test results from the output.
 ```
 
-The AI tool can combine build and job details with log searches and annotations. If test results are available in Test Engine, ask it to inspect those too. Enable the relevant [toolsets](/docs/apis/mcp-server/tools/toolsets), such as `builds`, `logs`, `annotations`, and `tests`, if you have restricted the available tools.
+The AI tool can combine build and job details with log searches and annotations. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. Enable the relevant [toolsets](/docs/apis/mcp-server/tools/toolsets), such as `builds`, `logs`, `annotations`, and, if needed, `tests`, if you have restricted the available tools.
 
 ### Query pipeline state
 
 Ask for a summary instead of opening each pipeline's build page:
 
 ```text
-Use the Buildkite MCP server to list recent builds on the main branch of example-org/example-pipeline. Summarize which passed, failed, are still running, or are blocked, and include build links. Show the pipeline's scheduled builds too.
+Use the Buildkite MCP server to list recent builds on the main branch of example-org/example-pipeline. Summarize their states and include build links. Inspect build and job details to identify blocked builds rather than relying on build-list filters. Separately list existing builds in scheduled state on main and all configured pipeline schedules, including enabled status, cron expression, target branch, and next scheduled time where available. Use only read-only calls, and do not expose secrets or schedule environment variable values in the output.
 ```
+
+Existing builds in the `scheduled` state are build instances, not recurring schedule configurations. This prompt restricts build instances to `main` but lists schedule configurations for all target branches. Change the branch scope if you need a different view.
 
 For these queries, the AI tool can use the pipeline, build, and pipeline schedule tools. You can also request actions such as retrying a failed job or starting a build when write access is enabled. These actions change state and can run pipeline commands, including deployments. Review the proposed action before approving it, and configure your AI tool or gateway to require approval for writes. See [Tool annotations and access control](/docs/apis/mcp-server/tools#tool-annotations-and-access-control).
 
