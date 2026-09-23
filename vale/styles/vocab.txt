@@ -99,6 +99,7 @@ CLIs
 Cloudsmith
 Cognito
 Cooldown
+clonekit
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -128,6 +129,7 @@ CVE
 CVEs
 cutover
 daemonless
+DAGs
 Datadog
 Datadog's
 daemonless
@@ -232,6 +234,7 @@ httplog
 https
 IdP's
 if_changed
+inFlight
 initContainer
 inlining
 invoiceable
@@ -360,6 +363,7 @@ polyrepos
 Postgres
 PowerShell
 PR's
+PRs
 predeclare
 predeclared
 Prepends

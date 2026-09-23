@@ -42,7 +42,7 @@ Make sure your `concurrency_group` names are unique, unless they're accessing a 
 
 For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
 
-Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
+Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job if the job was dynamically uploaded. When pipeline uploads add more jobs to a build after it has started, these added jobs will inherit the creation time of the pipeline upload rather than the build.
 
 > 🚧 Troubleshooting and using `concurrency_group` with `block` / `input` steps
 > When a build is blocked by a concurrency group, you can check which jobs are in the queue and their state using the [`getConcurrency` GraphQL query](/docs/apis/graphql/cookbooks/jobs#get-all-jobs-in-a-particular-concurrency-group).

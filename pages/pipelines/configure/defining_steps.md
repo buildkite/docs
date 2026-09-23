@@ -10,7 +10,7 @@ On the **Pipelines** page, select **New pipeline** to begin creating a new pipel
 
 The required fields are **Git scope**, **Repository** and **Pipeline name**.
 
-<%= image "new-pipeline-page.png", width: 1768/2, height: 928/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
+<%= image "new-pipeline-page.png", width: 2136/2, height: 1132/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
 
 Learn more about this page from [Understanding the New Pipeline page](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page).
 
@@ -74,7 +74,7 @@ steps:
 
 To add steps using the YAML editor, select **Pipeline settings** > **Edit steps** from your pipeline.
 
-For pipelines connected using the full-access **GitHub** repository provider, this editor can also detect the repository's GitHub Actions workflows and let you add them as steps directly. See [Detect workflows automatically](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-detect-workflows-automatically) for details.
+For pipelines connected using the full-access **GitHub** repository provider, this editor can also detect the repository's GitHub Actions workflows and let you add them as steps directly. See [Detect workflows automatically](/docs/pipelines/migration/run-github-actions-workflows#use-explicit-workflows-in-an-existing-build-detect-workflows-automatically) for this supported explicit-workflow setup. For new pipelines running GitHub Actions workflows, use the recommended [GitHub Actions setup mode](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) instead.
 
 Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 

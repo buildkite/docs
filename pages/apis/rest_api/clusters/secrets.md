@@ -102,7 +102,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
-Required scope: `read_secret_details`
+Required scope: `read_secrets_details`
 
 Success response: `200 OK`
 
@@ -139,7 +139,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Required scope: `read_secret_details`
+Required scope: `read_secrets_details`
 
 Success response: `200 OK`
 

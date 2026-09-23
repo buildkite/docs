@@ -124,4 +124,3 @@ From this page, you can configure the following permissions for all users across
 
 - **Create test suites**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
 - **Delete test suites**
-- **Change test suite visibility**—Make test suites publicly available.

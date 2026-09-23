@@ -21,7 +21,7 @@ Buildkite Pipelines doesn't support rotating a pipeline trigger's endpoint crede
   </tr>
   <tr>
     <th><code>type</code></th>
-    <td>Type of pipeline trigger. One of <code>webhook</code>, <code>github</code>, or <code>linear</code>.</td>
+    <td>Type of pipeline trigger. One of <code>webhook</code>, <code>github</code>, <code>github_actions</code>, or <code>linear</code>.</td>
   </tr>
   <tr>
     <th><code>label</code></th>
@@ -33,7 +33,7 @@ Buildkite Pipelines doesn't support rotating a pipeline trigger's endpoint crede
   </tr>
   <tr>
     <th><code>build</code></th>
-    <td>Build configuration used for builds created by this pipeline trigger. Contains <code>message</code>, <code>commit</code>, <code>branch</code>, and <code>environment_variables</code>. The <code>environment_variables</code> array contains configured variable names, but not their values.</td>
+    <td>Build configuration used for builds created by this pipeline trigger. Contains <code>message</code>, <code>commit</code>, <code>branch</code>, and <code>environment_variables</code>. The <code>environment_variables</code> array contains configured variable names, but not their values. This field is <code>null</code> for <code>github_actions</code> triggers, which derive build attributes from the matched workflow event.</td>
   </tr>
   <tr>
     <th><code>filter</code></th>
@@ -245,6 +245,8 @@ Error response: `404 Not Found` when no pipeline trigger matches the given ID fo
 
 Pipeline trigger filters use [Common Expression Language (CEL)](https://cel.dev/). A filter must evaluate to `true` for an incoming webhook delivery to create a build.
 
+GitHub Actions triggers don't accept a `filter` configuration and match supported workflow `on` declarations instead. See [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events) for matching behavior and limitations.
+
 Filter configuration is available only to organizations with webhook filtering enabled. Filter expressions have the following constraints:
 
 - Expressions can contain a maximum of 256 bytes.
@@ -358,7 +360,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>type</code></th>
-    <td>Type of pipeline trigger to create. One of <code>webhook</code>, <code>github</code>, or <code>linear</code>. This value can't be changed after creation.
+    <td>Type of pipeline trigger to create. One of <code>webhook</code>, <code>github</code>, <code>github_actions</code>, or <code>linear</code>. This value can't be changed after creation.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"webhook"</code></p></td>
   </tr>
   <tr>
@@ -379,6 +381,10 @@ Optional [request body properties](/docs/api#request-body-properties):
       <p class="Docs__api-param-eg"><em>Default:</em> <code>true</code></p></td>
   </tr>
   <tr>
+    <th><code>create_webhook</code></th>
+    <td>Whether to provision the GitHub repository webhook with generated HMAC verification when creating a <code>github_actions</code> trigger. Defaults to <code>true</code>; set to <code>false</code> to provision the webhook manually. Check the response's <code>webhook_creation.status</code> even when the API returns <code>201 Created</code>. See <a href="#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger">Create a GitHub Actions pipeline trigger</a>.</td>
+  </tr>
+  <tr>
     <th><code>build</code></th>
     <td>Build configuration used when this pipeline trigger creates a build. The object supports <code>message</code>, <code>commit</code>, <code>branch</code>, and <code>environment</code>. The <code>environment</code> value is a JSON object whose values must be strings. Omitted build fields use the pipeline defaults.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "branch": "main", "environment": { "DEPLOY_ENV": "production" } }</code></p></td>
@@ -390,7 +396,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>verification</code></th>
-    <td>Webhook signature verification configuration. The object requires <code>strategy</code>, which must be <code>hmac</code>, and a non-empty <code>secret</code>. Supported for <code>github</code> and <code>linear</code> triggers. Generic <code>webhook</code> triggers don't support verification.
+    <td>Webhook signature verification configuration. The object requires <code>strategy</code>, which must be <code>hmac</code>, and a non-empty <code>secret</code>. Supported for <code>github</code>, <code>github_actions</code>, and <code>linear</code> triggers. GitHub Actions webhook provisioning generates verification automatically when no secret is supplied. Generic <code>webhook</code> triggers don't support verification.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "strategy": "hmac", "secret": "your-signing-secret" }</code></p></td>
   </tr>
 </tbody>
@@ -421,9 +427,35 @@ Error responses:
 </tbody>
 </table>
 
+### Create a GitHub Actions pipeline trigger
+
+Use a `github_actions` trigger for the recommended [server-side workflow dispatch setup](/docs/pipelines/migration/run-github-actions-workflows). The pipeline must use a GitHub.com repository connected through the full-access **GitHub** repository provider. Configure the pipeline's plugin without `workflow` or `workflows` so it runs the server-selected workflow.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/triggers" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "github_actions",
+    "label": "GitHub Actions",
+    "enabled": true,
+    "create_webhook": true
+  }'
+```
+
+The `github_actions` type doesn't accept `build` or `filter`, including an empty `build` object. The trigger derives build attributes from the matched workflow event. It creates one build per matching workflow per event, not a single build for all matched workflows.
+
+Save the returned `endpoint_url` securely before leaving the creation response. It contains a one-time plaintext credential and isn't returned by subsequent reads. Webhook provisioning returns a `webhook_creation` object with a string `status` and a `message` that is a string or `null`. The `status` is `configured` when the webhook was provisioned, `skipped` when provisioning wasn't requested, or `failed` when provisioning was unsuccessful. The `message` is `null` for `configured` and `skipped`, and describes the error for `failed`. Check the status because `201 Created` can still include `webhook_creation.status: "failed"`: the trigger itself was created successfully.
+
+If webhook provisioning fails, retain the trigger ID and endpoint URL, resolve the reported error, and repair the webhook setup for that trigger. The generated signing secret isn't retrievable. For manual recovery, [update the existing trigger](#update-a-pipeline-trigger) with a replacement HMAC verification secret, then configure the repository webhook with the saved endpoint URL and the same secret. Don't repeat the trigger creation request to retry provisioning, because that creates another trigger. Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to verify deliveries after setup.
+
+This request requires `write_pipelines` and **Full Access** to the pipeline, like other trigger creation requests.
+
 ## Update a pipeline trigger
 
 Updates a pipeline trigger. Attributes omitted from the request body are left unchanged.
+
+GitHub Actions triggers don't accept `build` or `filter` updates. Configure supported workflow `on` declarations instead.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \

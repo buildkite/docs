@@ -29,6 +29,11 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
         "tools": "get_cluster, list_clusters, create_cluster, update_cluster, get_cluster_queue, list_cluster_queues, create_cluster_queue, update_cluster_queue, pause_cluster_queue_dispatch, resume_cluster_queue_dispatch"
       },
       {
+        "toolset": "cluster_secrets",
+        "description": "[Cluster secrets](/docs/apis/mcp-server/tools#available-mcp-tools-cluster-secrets) management",
+        "tools": "get_cluster_secret, list_cluster_secrets, create_cluster_secret"
+      },
+      {
         "toolset": "agents",
         "description": "[Agents](/docs/apis/mcp-server/tools#available-mcp-tools-agents) inspection",
         "tools": "list_agents, get_agent"

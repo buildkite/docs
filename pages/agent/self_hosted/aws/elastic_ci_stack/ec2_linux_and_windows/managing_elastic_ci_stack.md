@@ -117,6 +117,8 @@ Branch releases can only be deployed to `us-east-1`.
 
 ## Updating your stack
 
+For a v6 to v7 upgrade, follow the [Elastic CI Stack v6 to v7 upgrade guide](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/v6-v7-upgrade-guide) before using the update commands below. Elastic CI Stack v7 uses Buildkite agent v4 and changes the agent configuration parameters and cancellation timing.
+
 Template URLs follow this pattern for a specific version:
 
 ```text

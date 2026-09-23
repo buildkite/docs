@@ -250,7 +250,9 @@ variables:
       The value `strict` fails the job when the agent determines that the commit is not on the branch.
       The value `off` skips verification. An empty v4 agent configuration value prevents the agent from starting. An empty value from `checkout.commit_verification` causes job bootstrap to fail when a v4 agent runs with `checkout-override-mode` set to `none`. 
       
-      Buildkite agent v3 accepts `strict`, `warn`, or an empty value. The value `strict` fails the job, `warn` emits a warning without failing the job, and an empty value skips verification. Do not use `off` with v3. The value `off` prevents a v3 agent from starting when supplied in agent configuration. When supplied by `checkout.commit_verification`, `off` uses warning behavior rather than skipping verification. If the agent cannot complete the check, it warns and continues. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec.
+      For Buildkite agent v3, use v3.136.0 or later for commit verification. It accepts `strict`, `warn`, or an empty value. When the agent determines that the commit is not on the branch, `strict` fails the job and `warn` emits a warning without failing the job. An empty value skips verification. Do not use `off` with v3. The value `off` prevents a v3 agent from starting when supplied in agent configuration. When supplied by `checkout.commit_verification`, `off` uses warning behavior rather than skipping verification.
+
+      In both versions, the agent warns and continues if it cannot complete verification, even in `strict` mode. The agent skips verification for tag builds, pull request builds, builds where the commit is `HEAD`, builds with no branch set, and builds using a custom refspec. These skips also apply in `strict` mode. See the [commit verification limitations](/docs/pipelines/configure/git-checkout#commit-verification) before relying on this check to grant protected-branch privileges.
     modifiable: false
     values:
       - strict

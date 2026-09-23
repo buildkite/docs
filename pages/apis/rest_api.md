@@ -388,6 +388,8 @@ You can authenticate with the Buildkite API using access tokens, represented by 
 
 API access tokens authenticate calls to the API and can be created from the <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access tokens</a> page. When configuring API access tokens, you can limit their access to individual organizations and permissions, and these tokens can be revoked at any time from the web interface [or the REST API](/docs/apis/rest-api/access-token#revoke-the-current-token).
 
+A token doesn't grant access to an organization with no active plan. The API omits those organizations. Organization-scoped requests return `404` with `{"message":"No organization found"}`. See [Organizations API](/docs/apis/rest-api/organizations).
+
 To authenticate an API call using an access token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
 
 ```bash

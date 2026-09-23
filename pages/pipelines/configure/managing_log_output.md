@@ -125,7 +125,7 @@ Each line of log output begins with an ANSI timestamp. Agent v3 provided options
 
 ## Log output limits
 
-If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed the default 1,024 MiB per-job log size limit else it may fail to upload. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
+If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed the default 1,024 MiB per-job log size limit. Buildkite Pipelines cancels jobs whose logs exceed this limit. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
 If your log exceeds 2MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
 
