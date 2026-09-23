@@ -115,7 +115,7 @@ New pools start in the `populating` state. After adding the initial entries, [up
 
 Returns a cursor-paginated list of pools for a pipeline and build. Results are ordered by pool UUID in descending order.
 
-This endpoint accepts an OIDC token or a REST API access token with `read_test_pool`. For REST API authentication, replace `$OIDC_TOKEN` with `$TOKEN` in the example. Results include only pools whose test suites the user can access, and the user must also have access to the build through pipeline permissions.
+This endpoint accepts an OIDC token or a REST API access token with `read_test_pool`. Results include only pools whose test suites the user can access, and the user must also have access to the build through pipeline permissions.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools?pipeline_id={pipeline.id}&build_id={build.id}&key=rspec-main" \
