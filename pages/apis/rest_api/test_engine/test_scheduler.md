@@ -81,7 +81,7 @@ The OIDC token must:
 
 The `GET /pools`, `GET /pools/{pool.id}`, and `GET /pools/{pool.id}/metrics` endpoints accept a REST API access token with the `read_test_pool` [scope](/docs/apis/managing-api-tokens#token-scopes). The token must include the organization in its organization access. The Buildkite user associated with the token must have access to both the pool's build through pipeline permissions and the pool's test suite. The token does not need additional `read_builds` or `read_suites` scopes.
 
-For getting a pool or its metrics, provide the pool's build UUID as the `build_id` query string parameter. Listing pools requires both `pipeline_id` and `build_id` UUIDs, and the build must belong to that pipeline.
+To get a pool or its metrics, provide the pool's build UUID as the `build_id` query string parameter. Listing pools requires both `pipeline_id` and `build_id` UUIDs. The build must belong to that pipeline.
 
 Provide the token in the `Authorization` header. For example, to get a pool:
 
@@ -115,7 +115,7 @@ New pools start in the `populating` state. After adding the initial entries, [up
 
 Returns a cursor-paginated list of pools for a pipeline and build. Results are ordered by pool UUID in descending order.
 
-This endpoint accepts an OIDC token or a REST API access token with `read_test_pool`. Results include only pools whose test suites the user can access, and the user must also have access to the build through pipeline permissions.
+This endpoint accepts an OIDC token or a REST API access token with `read_test_pool`. Results include only pools whose test suites the user can access. The user must also have access to the build through pipeline permissions.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools?pipeline_id={pipeline.id}&build_id={build.id}&key=rspec-main" \
