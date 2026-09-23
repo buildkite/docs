@@ -5,7 +5,7 @@ Use these endpoints to list, inspect, create, update, and delete a cluster's [ca
 > 📘 Public preview
 > The cache registries API is available to all Buildkite customers in public preview.
 
-This API manages cache registry metadata and policy only. It doesn't expose cache entries or agent save and restore operations. Use the web interface to configure a registry's cache store or change a cluster's default registry. Cache registry administration is also available through the [GraphQL API](/docs/apis/graphql/schemas/object/cacheregistry).
+This API manages cache registry metadata and policy only—cache entries and agent save and restore operations aren't exposed. Use the web interface to configure a registry's cache store or change a cluster's default registry. Cache registry administration is also available through the [GraphQL API](/docs/apis/graphql/schemas/object/cacheregistry).
 
 Member endpoints (get, update, and delete) accept only the cache registry's `uuid` as the `{id}` path parameter. The `slug` returned in responses is informational and can't be used to look up or modify a cache registry.
 
