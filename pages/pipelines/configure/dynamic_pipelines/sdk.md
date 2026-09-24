@@ -14,7 +14,7 @@ Each of the **Installing** sub-sections below assume that your local environment
 
 ## Share step definitions across pipelines
 
-Use the SDK with ordinary language modules to share individual steps without sharing an entire pipeline. For example, a shared library can define how to build and push a Docker image, while each pipeline chooses its image name, build context, and other steps. Unlike [pipeline templates](/docs/pipelines/governance/templates), these functions can accept parameters and compose steps at runtime.
+Use the SDK with ordinary language modules to share individual steps without sharing an entire pipeline. For example, a shared library can define how to build and push a Docker image. Each pipeline then chooses its image name, build context, and other steps. Unlike [pipeline templates](/docs/pipelines/governance/templates), these functions can accept parameters and compose steps at runtime.
 
 The following Python example defines a reusable command step. Use Python 3.10 or later and install the SDK as described in [Python](#python), then save this module alongside your pipeline generator:
 

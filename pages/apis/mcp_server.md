@@ -29,7 +29,15 @@ Ask your AI tool to follow a build while you continue working:
 Use the Buildkite MCP server to wait for build 123 in example-org/example-pipeline to finish. If it fails or gets blocked, summarize why with links. Use only read-only calls.
 ```
 
-The AI tool can retrieve the build state, inspect its jobs, and read logs when something fails. Persistent watching depends on your AI tool's ability to keep running, schedule follow-up work, or respond to events. The MCP server provides the tools to check a build; it does not start a background watcher when you connect it.
+If your AI tool already has the build URL in context, you can also ask:
+
+```text
+Babysit this build.
+```
+
+Use the longer prompt when you need to specify read-only calls. The shorter request alone does not restrict what the AI tool can do.
+
+The `wait_for_build` tool checks for up to 45 seconds per call and treats a blocked build as finished so the AI tool can report that it needs input. The AI tool can inspect jobs and read logs when a build fails. To keep watching beyond one call, the AI tool must call again or use its own scheduling or event mechanism. Connecting the MCP server does not start a background watcher.
 
 ### Investigate a failure
 
@@ -39,7 +47,7 @@ Ask for evidence before deciding whether to change code or retry a job:
 Use the Buildkite MCP server to investigate failed build 123 in example-org/example-pipeline. Tell me the likely cause with links to the evidence, and say if any logs or test results are missing. Use only read-only calls.
 ```
 
-The AI tool can combine build and job details with log searches and annotations. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. Enable the relevant [toolsets](/docs/apis/mcp-server/tools/toolsets), such as `builds`, `logs`, `annotations`, and, if needed, `tests`, if you have restricted the available tools.
+The `get_build_failure_summary` tool gathers problem jobs, log tails, error and warning annotations, and available failed tests in one call. Its results can be partial, so check for missing or truncated evidence before drawing conclusions. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. Enable the relevant [toolsets](/docs/apis/mcp-server/tools/toolsets), such as `builds`, `logs`, `annotations`, and, if needed, `tests`, if you have restricted the available tools.
 
 ### Query pipeline state
 
@@ -49,9 +57,7 @@ Ask for a summary instead of opening each pipeline's build page:
 Use the Buildkite MCP server to list recent builds on main in example-org/example-pipeline. Summarize their states with links, and check each build's details to flag any that are blocked. Use only read-only calls.
 ```
 
-Existing builds in the `scheduled` state are build instances, not recurring schedule configurations. This prompt restricts build instances to `main` but lists schedule configurations for all target branches. Change the branch scope if you need a different view.
-
-For these queries, the AI tool can use the pipeline, build, and pipeline schedule tools. You can also request actions such as retrying a failed job or starting a build when write access is enabled. These actions change state and can run pipeline commands, including deployments. Review the proposed action before approving it, and configure your AI tool or gateway to require approval for writes. See [Tool annotations and access control](/docs/apis/mcp-server/tools#tool-annotations-and-access-control).
+For this query, the AI tool can use the build and job tools. You can also request actions such as retrying a failed job or starting a build when write access is enabled. These actions change state and can run pipeline commands, including deployments. Review the proposed action before approving it, and configure your AI tool or gateway to require approval for writes. See [Tool annotations and access control](/docs/apis/mcp-server/tools#tool-annotations-and-access-control).
 
 ## Types of MCP servers
 
