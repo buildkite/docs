@@ -15,6 +15,50 @@ Once you have established which Buildkite MCP server to use (remote or local) an
 > 📘 Remote MCP server rate limits
 > Requests made through the remote Buildkite MCP server count against a separate rate limit from your Buildkite organization's REST API rate limit. See [Platform and organization-level limits](/docs/platform/limits#platform-and-organization-level-limits) for specific values.
 
+## What you can do with the MCP server
+
+The Buildkite MCP server lets an AI tool investigate and manage your CI work from the same conversation where you develop code. After connecting your AI tool, explicitly ask it to use Buildkite. Connecting the server alone does not make the AI tool monitor builds.
+
+The following prompts are starting points. Replace the example organization, pipeline, branch, and build number with your own values, or provide a build URL. These investigation workflows can use [read-only access](#read-only-remote-mcp-server).
+
+### Watch a pull request build
+
+Ask your AI tool to follow a build while you continue working:
+
+```text
+Use the Buildkite MCP server to wait for build 123 in example-org/example-pipeline to finish. If it fails or gets blocked, summarize why with links. Use only read-only calls.
+```
+
+If your AI tool already has the build URL in context, you can also ask:
+
+```text
+Babysit this build.
+```
+
+Use the longer prompt when you need to specify read-only calls. The shorter request alone does not restrict what the AI tool can do.
+
+The `wait_for_build` tool checks for up to 45 seconds per call and treats a blocked build as finished so the AI tool can report that it needs input. The AI tool can inspect jobs and read logs when a build fails. To keep watching beyond one call, the AI tool must call again or use its own scheduling or event mechanism. Connecting the MCP server does not start a background watcher.
+
+### Investigate a failure
+
+Ask for evidence before deciding whether to change code or retry a job:
+
+```text
+Use the Buildkite MCP server to investigate failed build 123 in example-org/example-pipeline. Tell me the likely cause with links to the evidence, and say if any logs or test results are missing. Use only read-only calls.
+```
+
+The `get_build_failure_summary` tool gathers problem jobs, log tails, error and warning annotations, and available failed tests in one call. Its results can be partial, so check for missing or truncated evidence before drawing conclusions. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. If you restrict [toolsets](/docs/apis/mcp-server/tools/toolsets), enable `investigations` for this summary. Enable `builds`, `logs`, `annotations`, or `tests` as needed for deeper follow-up calls.
+
+### Query pipeline state
+
+Ask for a summary instead of opening each pipeline's build page:
+
+```text
+Use the Buildkite MCP server to list recent builds on main in example-org/example-pipeline. Summarize their states with links, and check each build's details to flag any that are blocked. Use only read-only calls.
+```
+
+For this query, the AI tool can use the build and job tools. You can also request actions such as retrying a failed job or starting a build when write access is enabled. These actions change state and can run pipeline commands, including deployments. Review the proposed action before approving it, and configure your AI tool or gateway to require approval for writes. See [Tool annotations and access control](/docs/apis/mcp-server/tools#tool-annotations-and-access-control).
+
 ## Types of MCP servers
 
 Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server, both of which provide access to its [MCP server tools](/docs/apis/mcp-server/tools#available-mcp-tools). The remote MCP server supports OAuth authentication for interactive AI tools and [API token pass-through](#api-token-pass-through-remote-mcp-server) for headless agents.
@@ -75,6 +119,9 @@ https://mcp.buildkite.com/mcp/readonly
 ```
 
 This remote MCP server version issues a short-lived OAuth access token for your Buildkite user account, along with _read-only_ access permission scopes pre-set by the Buildkite platform. Hence, when using this remote MCP server, only [MCP tools](/docs/apis/mcp-server/tools#available-mcp-tools) whose required [token scope](/docs/apis/managing-api-tokens#token-scopes) begins with `read_` are available, as well as tools with no required scope specified.
+
+> 🚧 Read-only access is not a sandbox
+> Read-only MCP access restricts this connection, not the AI agent's other tools or credentials. An AI agent with shell access and a separately authenticated `bk` CLI can still make changes using the permissions of that CLI session. See [Read-only access boundaries](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries) for how to restrict these other access paths.
 
 > 📘
 > Read-only access can also be configured in a similar manner for [toolsets](/docs/apis/mcp-server/tools/toolsets). Learn more about this in [Configuring AI tools with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and [Remote MCP server configuration for toolsets](/docs/apis/mcp-server/tools/toolsets#configuring-the-remote-mcp-server).
