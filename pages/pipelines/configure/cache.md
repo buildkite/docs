@@ -135,7 +135,7 @@ You can't cache an entire working directory, home directory, filesystem root, dr
 
 ## Manage cache registries
 
-A cache registry holds cache entry metadata and controls which jobs can save and restore entries. Registries are scoped to a cluster. Organization administrators and cluster maintainers can manage them.
+A cache registry holds cache entry metadata and controls which jobs can save and restore entries. Registries are scoped to a cluster. Organization administrators and cluster maintainers can manage them using the Buildkite interface, or list, create, update, and delete them using the [GraphQL API](/docs/apis/graphql/cookbooks/clusters#list-cache-registries).
 
 To open the registries for a cluster, select **Agents** > the cluster > **Cache Registries**.
 
@@ -155,6 +155,8 @@ Create another registry when jobs in the cluster need a different access policy 
 > Buildkite generates the registry slug from its name. Renaming a registry can break commands that select the old slug explicitly.
 
 To make a registry the cluster default, select **Settings** > **Set as default**. You can't delete the default registry until you select another default.
+
+You can also create, update, and delete cache registries using the [GraphQL API](/docs/apis/graphql/cookbooks/clusters#create-a-cache-registry). The API accepts the cache policy as a JSON-encoded string of a structured policy document, not authored YAML. Use the web interface to configure cache stores or select the default registry.
 
 > 🚧 Changing a cache store removes cache keys
 > Changing a registry's cache store removes its existing cache keys. Subsequent restores miss until jobs save new entries.

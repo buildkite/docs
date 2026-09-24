@@ -74,6 +74,47 @@ query getAgentTokens {
 > 🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
+## List cache registries
+
+> 📘 Public preview
+> The cache registries API is available to all Buildkite customers in public preview.
+
+Get the first ten [cache registries](/docs/pipelines/configure/cache#manage-cache-registries) for a particular cluster, specifying the cluster's UUID as the `id` argument of the `cluster` query:
+
+```graphql
+query getCacheRegistries {
+  organization(slug: "organization-slug") {
+    id
+    cluster(id: "cluster-uuid") {
+      id
+      cacheRegistries(first: 10) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            id
+            uuid
+            slug
+            name
+            description
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Results are ordered by slug. If `hasNextPage` is `true`, pass `endCursor` as the `after` argument to `cacheRegistries` to fetch the next page.
+
+Listing and managing cache registries requires organization administrator or [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions. Use an API access token with the **Enable GraphQL API Access** permission selected.
+
+The query returns both Relay global IDs (`id`) and UUIDs (`uuid`). Use the organization, cluster, and registry `id` values in the mutations below, not their UUIDs or slugs. Unlike the mutations, `organization.cluster(id:)` takes the cluster UUID.
+
+This API manages registry metadata and policies, not cache entries or agent save and restore operations. Use the web interface to configure cache stores or select a cluster's default registry.
+
 ## Create agent token with an expiration date
 
 Create an agent token with an expiration date. The expiration date is displayed in the Buildkite interface and cannot be changed using another Buildkite API call.
@@ -192,6 +233,88 @@ mutation {
   }
 }
 ```
+
+## Create a cache registry
+
+Create another [cache registry](/docs/pipelines/configure/cache#manage-cache-registries) in a cluster, specifying the cluster's ID as the `clusterId` argument:
+
+```graphql
+mutation createCacheRegistry {
+  cacheRegistryCreate(input: {
+    organizationId: "organization-id",
+    clusterId: "cluster-id",
+    name: "Build cache",
+    description: "Compiler output cache"
+  }) {
+    cacheRegistry {
+      id
+      uuid
+      slug
+      name
+      description
+      cluster {
+        id
+        uuid
+      }
+    }
+  }
+}
+```
+
+New registries use agent-managed storage. The cache store can't be set through this API.
+
+Set the `policy` argument to a JSON-encoded string of the structured policy document described in [Configure a cache policy](/docs/pipelines/configure/cache#manage-cache-registries-configure-a-cache-policy). For example, add this argument to the create input to allow both saves and restores:
+
+```graphql
+policy: "{\"save\":{\"scopes\":{}},\"restore\":{\"scopes\":[{}]},\"rules\":[{\"effect\":\"allow\",\"action\":\"save\"},{\"effect\":\"allow\",\"action\":\"restore\"}]}"
+```
+
+The GraphQL `JSON` type accepts a JSON-encoded string, not an object literal or authored YAML. The API validates and normalizes the policy. The returned `policy` field is also a JSON-encoded string, with rule actions normalized to arrays.
+
+When creating a registry, omit `policy` or set it to `null` to use the default unrestricted policy.
+
+## Update a cache registry
+
+Update an existing cache registry's attributes, specifying the registry's Relay global ID as the `id` argument. Omitted attributes are left unchanged:
+
+```graphql
+mutation updateCacheRegistry {
+  cacheRegistryUpdate(input: {
+    organizationId: "organization-id",
+    id: "cache-registry-id",
+    description: "Updated compiler output cache"
+  }) {
+    cacheRegistry {
+      id
+      uuid
+      slug
+      name
+      description
+    }
+  }
+}
+```
+
+Supplying `policy` replaces the entire policy rather than merging its nested properties. Set `policy` to `null` to clear it, which denies saves and restores. Unlike creation, updating with `null` doesn't apply the default unrestricted policy.
+
+Changing `name` regenerates the registry's slug. Set `description`, `emoji`, or `color` to `null` to clear them. The registry's UUID and cache store can't be changed through this API.
+
+## Delete a cache registry
+
+Delete an existing cache registry using the registry's GraphQL ID:
+
+```graphql
+mutation deleteCacheRegistry {
+  cacheRegistryDelete(input: {
+    organizationId: "organization-id",
+    id: "cache-registry-id"
+  }) {
+    deletedCacheRegistryId
+  }
+}
+```
+
+You can't delete a cluster's default cache registry. [Select another default registry](/docs/pipelines/configure/cache#manage-cache-registries) in the web interface first.
 
 ## List jobs in a particular queue
 
