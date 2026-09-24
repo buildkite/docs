@@ -9,6 +9,7 @@ The clusters API endpoint lets you create and manage [clusters](#clusters) in yo
 - [Agent images](/docs/apis/rest-api/clusters/agent-images)
 - [Network ranges](/docs/apis/rest-api/clusters/network-ranges)
 - [Cache volumes](/docs/apis/rest-api/clusters/cache-volumes)
+- [Cache registries](/docs/apis/rest-api/clusters/cache-registries)
 
 ## Clusters
 
