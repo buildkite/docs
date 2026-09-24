@@ -47,7 +47,7 @@ Ask for evidence before deciding whether to change code or retry a job:
 Use the Buildkite MCP server to investigate failed build 123 in example-org/example-pipeline. Tell me the likely cause with links to the evidence, and say if any logs or test results are missing. Use only read-only calls.
 ```
 
-The `get_build_failure_summary` tool gathers problem jobs, log tails, error and warning annotations, and available failed tests in one call. Its results can be partial, so check for missing or truncated evidence before drawing conclusions. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. Enable the relevant [toolsets](/docs/apis/mcp-server/tools/toolsets), such as `builds`, `logs`, `annotations`, and, if needed, `tests`, if you have restricted the available tools.
+The `get_build_failure_summary` tool gathers problem jobs, log tails, error and warning annotations, and available failed tests in one call. Its results can be partial, so check for missing or truncated evidence before drawing conclusions. Test Engine investigation is optional: the build might not have uploaded results, and your AI tool might not have access to them. If you restrict [toolsets](/docs/apis/mcp-server/tools/toolsets), enable `investigations` for this summary. Enable `builds`, `logs`, `annotations`, or `tests` as needed for deeper follow-up calls.
 
 ### Query pipeline state
 
