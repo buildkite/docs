@@ -5,7 +5,7 @@ Use these endpoints to list, inspect, create, update, and delete a cluster's [ca
 > 📘 Public preview
 > The cache registries API is available to all Buildkite customers in public preview. This availability applies to registry administration only. Saving and restoring cache entries with Buildkite Cache remains in private preview and requires access as described in the [Buildkite Cache guide](/docs/pipelines/configure/cache).
 
-This API manages cache registry metadata and policy only—cache entries and agent save and restore operations aren't exposed. Use the web interface to configure a registry's cache store or change a cluster's default registry.
+This API manages cache registry metadata and policy only. The API doesn't expose cache entries or agent save and restore operations. Use the web interface to configure a registry's cache store or change a cluster's default registry.
 
 Member endpoints (get, update, and delete) accept only the cache registry's `uuid` as the `{id}` path parameter. The `slug` returned in responses is informational and can't be used to look up or modify a cache registry.
 
@@ -79,7 +79,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "slug": "ruby-gems",
       "name": "Ruby gems",
       "description": "Shared Ruby dependencies",
-      "emoji": "\:ruby\:",
+      "emoji": "\u003aruby\u003a",
       "color": "#cc342d",
       "policy": {
         "save": { "scopes": { "branch": true } },
@@ -169,6 +169,9 @@ Error response: `404 Not Found` when the cluster doesn't exist, or when no cache
 
 Creates a new cache registry in a cluster.
 
+> 🚧 Use this policy only with trusted builds
+> This example allows every job to save and restore cache entries. Use it only for registries used exclusively by trusted builds. Branch names aren't trust boundaries, and this policy can share entries across pipelines. Don't allow untrusted builds to save caches that trusted builds can restore. See [Configure a cache policy](/docs/pipelines/configure/cache#manage-cache-registries-configure-a-cache-policy) before sharing a registry with untrusted builds.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/cache-registries" \
@@ -176,7 +179,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "name": "Ruby gems",
     "description": "Shared Ruby dependencies",
-    "emoji": "\:ruby\:",
+    "emoji": "\u003aruby\u003a",
     "color": "#cc342d",
     "policy": {
       "save": { "scopes": { "branch": true } },
@@ -260,6 +263,9 @@ Error responses:
 ## Update a cache registry
 
 Updates a cache registry, looked up by UUID. Properties omitted from the request body are left unchanged. Supplying `policy` replaces the entire policy rather than merging its nested properties.
+
+> 🚧 Use this policy only with trusted builds
+> This example allows every job to save and restore cache entries within its pipeline. Use it only for registries used exclusively by trusted builds. Pipeline scoping doesn't isolate trusted and untrusted builds within the same pipeline. Don't allow untrusted builds to save caches that trusted builds can restore.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
