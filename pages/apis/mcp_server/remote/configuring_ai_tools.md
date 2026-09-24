@@ -57,7 +57,7 @@ For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP
 
 ## Read-only access boundaries
 
-Read-only access is a restriction on the MCP connection, not a sandbox for the AI agent. The `/readonly` endpoint and `X-Buildkite-Readonly: true` header restrict the tools available through that connection. The OAuth read-only endpoint also issues a token with read-only scopes. With API token pass-through, the endpoint does not change the scopes of the supplied API token or restrict its use outside that connection.
+Read-only mode limits what an AI agent can do through this MCP connection. It doesn't stop the agent from using other tools. The `/readonly` endpoint and the `X-Buildkite-Readonly: true` header both hide write tools. The OAuth read-only endpoint also gives the agent a token that can only read. With API token pass-through, the token keeps its existing scopes, so it can still make changes outside this connection.
 
 An AI agent with shell access can also use the [Buildkite CLI](/docs/platform/cli) (`bk`) or call the API directly. If those paths use separate credentials with write access, the AI agent can still make changes, even when its MCP connection is read-only. For example, after an MCP authentication failure, an AI agent might try an already authenticated CLI session and act with that session's permissions.
 
