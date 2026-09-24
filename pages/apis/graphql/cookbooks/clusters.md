@@ -109,11 +109,11 @@ query getCacheRegistries {
 
 Results are ordered by slug. If `hasNextPage` is `true`, pass `endCursor` as the `after` argument to `cacheRegistries` to fetch the next page.
 
-Listing and managing cache registries requires organization administrator or [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions. Mutations also require a token with write access to the GraphQL API.
+Listing and managing cache registries requires organization administrator or [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions. Use an API access token with the **Enable GraphQL API Access** permission selected.
 
 The query returns both Relay global IDs (`id`) and UUIDs (`uuid`). Use the organization, cluster, and registry `id` values in the mutations below, not their UUIDs or slugs. Unlike the mutations, `organization.cluster(id:)` takes the cluster UUID.
 
-See the [CacheRegistry reference](/docs/apis/graphql/schemas/object/cacheregistry) for all available fields. This API manages registry metadata and policies, not cache entries or agent save and restore operations. Use the web interface to configure cache stores or select a cluster's default registry.
+This API manages registry metadata and policies, not cache entries or agent save and restore operations. Use the web interface to configure cache stores or select a cluster's default registry.
 
 ## Create agent token with an expiration date
 
@@ -263,7 +263,7 @@ mutation createCacheRegistry {
 
 New registries use agent-managed storage. The cache store can't be set through this API.
 
-Set the `policy` argument to a JSON-encoded string of the structured policy document described in [Configure a cache policy](/docs/pipelines/configure/cache#configure-a-cache-policy). For example, add this argument to the create input to allow both saves and restores:
+Set the `policy` argument to a JSON-encoded string of the structured policy document described in [Configure a cache policy](/docs/pipelines/configure/cache#manage-cache-registries-configure-a-cache-policy). For example, add this argument to the create input to allow both saves and restores:
 
 ```graphql
 policy: "{\"save\":{\"scopes\":{}},\"restore\":{\"scopes\":[{}]},\"rules\":[{\"effect\":\"allow\",\"action\":\"save\"},{\"effect\":\"allow\",\"action\":\"restore\"}]}"

@@ -477,7 +477,7 @@
   apis/graphql/cookbooks/agents: "GraphQL recipes for listing agent tokens, searching agents, revoking tokens, and stopping agents."
   apis/graphql/cookbooks/artifacts: "GraphQL recipes for listing artifact download URLs from builds."
   apis/graphql/cookbooks/builds: "GraphQL recipes for querying builds by ID, listing builds, creating, canceling, and rebuilding."
-  apis/graphql/cookbooks/clusters: "GraphQL recipes for listing, creating, updating, and deleting clusters, their queues, and their cache registries (public preview)."
+  apis/graphql/cookbooks/clusters: "GraphQL recipes for listing, creating, updating, and deleting clusters, their queues, and their cache registries. The cache registries GraphQL API is in public preview."
   apis/graphql/cookbooks/github-rate-limits: "GraphQL recipes for checking GitHub API rate limits on repository providers."
   apis/graphql/cookbooks/hosted-agents: "GraphQL recipes for creating and managing Buildkite hosted agent queues."
   apis/graphql/cookbooks/jobs: "GraphQL recipes for querying jobs by queue, concurrency group, and other criteria."
