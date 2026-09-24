@@ -3,9 +3,9 @@
 Use these endpoints to list, inspect, create, update, and delete a cluster's [cache registries](/docs/pipelines/configure/cache#manage-cache-registries).
 
 > 📘 Public preview
-> The cache registries API is available to all Buildkite customers in public preview.
+> The cache registries API is available to all Buildkite customers in public preview. This availability applies to registry administration only. Saving and restoring cache entries with Buildkite Cache remains in private preview and requires access as described in the [Buildkite Cache guide](/docs/pipelines/configure/cache).
 
-This API manages cache registry metadata and policy only—cache entries and agent save and restore operations aren't exposed. Use the web interface to configure a registry's cache store or change a cluster's default registry. Cache registry administration is also available through the [GraphQL API](/docs/apis/graphql/schemas/object/cacheregistry).
+This API manages cache registry metadata and policy only—cache entries and agent save and restore operations aren't exposed. Use the web interface to configure a registry's cache store or change a cluster's default registry.
 
 Member endpoints (get, update, and delete) accept only the cache registry's `uuid` as the `{id}` path parameter. The `slug` returned in responses is informational and can't be used to look up or modify a cache registry.
 
@@ -41,7 +41,7 @@ Policy documents must be JSON objects, not YAML or JSON-encoded strings. The API
     </tr>
     <tr>
       <th><code>policy</code></th>
-      <td>Normalized <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">cache policy</a> that controls which jobs can save and restore entries in this registry, or <code>null</code>.</td>
+      <td>Normalized <a href="/docs/pipelines/configure/cache#manage-cache-registries-configure-a-cache-policy">cache policy</a> that controls which jobs can save and restore entries in this registry, or <code>null</code>.</td>
     </tr>
     <tr>
       <th><code>created_at</code></th>
@@ -79,7 +79,7 @@ curl -H "Authorization: Bearer $TOKEN" \
       "slug": "ruby-gems",
       "name": "Ruby gems",
       "description": "Shared Ruby dependencies",
-      "emoji": ":ruby:",
+      "emoji": "\:ruby\:",
       "color": "#cc342d",
       "policy": {
         "save": { "scopes": { "branch": true } },
@@ -176,7 +176,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{
     "name": "Ruby gems",
     "description": "Shared Ruby dependencies",
-    "emoji": ":ruby:",
+    "emoji": "\:ruby\:",
     "color": "#cc342d",
     "policy": {
       "save": { "scopes": { "branch": true } },
@@ -221,7 +221,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     </tr>
     <tr>
       <th><code>policy</code></th>
-      <td>Cache policy as a JSON object that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Omit this property or set it to <code>null</code> when creating a registry to use the default unrestricted policy.</td>
+      <td>Cache policy as a JSON object that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#manage-cache-registries-configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Omit this property or set it to <code>null</code> when creating a registry to use the default unrestricted policy.</td>
     </tr>
   </tbody>
 </table>
@@ -303,7 +303,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     </tr>
     <tr>
       <th><code>policy</code></th>
-      <td>Cache policy as a JSON object that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Set to <code>null</code> to clear the policy, which denies saves and restores. Unlike creation, updating with <code>null</code> doesn't apply the default unrestricted policy.</td>
+      <td>Cache policy as a JSON object that controls which jobs can save and restore entries. See <a href="/docs/pipelines/configure/cache#manage-cache-registries-configure-a-cache-policy">Configure a cache policy</a> for the policy structure. Set to <code>null</code> to clear the policy, which denies saves and restores. Unlike creation, updating with <code>null</code> doesn't apply the default unrestricted policy.</td>
     </tr>
   </tbody>
 </table>
@@ -341,7 +341,7 @@ Error responses:
 
 ## Delete a cache registry
 
-Deletes a cache registry, looked up by UUID. A cluster's default cache registry can't be deleted. Set another registry as the default first, using the web UI.
+Deletes a cache registry, looked up by UUID. A cluster's default cache registry can't be deleted. First, [open another registry in the web interface](/docs/pipelines/configure/cache#manage-cache-registries) and select **Settings** > **Set as default**.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
