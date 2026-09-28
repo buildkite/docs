@@ -142,6 +142,8 @@
       children:
         - name: "Overview"
           path: "agent"
+        - name: "Version support policy"
+          path: "agent/version-support-policy"
         - name: "v3 to v4 upgrade guide"
           path: "agent/v3-v4-upgrade-guide"
         - name: "Self-hosted agents"
