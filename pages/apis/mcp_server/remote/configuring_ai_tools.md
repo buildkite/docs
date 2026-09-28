@@ -55,6 +55,20 @@ You can also use the `X-Buildkite-Readonly: true` header with `/direct` to enfor
 
 For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
 
+## Read-only access boundaries
+
+Read-only mode limits what an AI agent can do through this MCP connection. It doesn't stop the agent from using other tools. The `/readonly` endpoint and the `X-Buildkite-Readonly: true` header both hide write tools. The OAuth read-only endpoint also gives the agent a token that can only read. With API token pass-through, the token keeps its existing scopes, so it can still make changes outside this connection.
+
+An AI agent with shell access can also use the [Buildkite CLI](/docs/platform/cli) (`bk`) or call the API directly. If those paths use separate credentials with write access, the AI agent can still make changes, even when its MCP connection is read-only. For example, after an MCP authentication failure, an AI agent might try an already authenticated CLI session and act with that session's permissions.
+
+To keep an AI workflow read-only:
+
+- Restrict the [API token scopes](/docs/apis/managing-api-tokens#token-scopes) and organization access of every credential available to the AI agent, including tokens used by the CLI and tokens in environment variables.
+- Remove write-capable credentials from the AI agent's environment, or use an isolated environment without access to your personal CLI configuration.
+- Configure your AI client or gateway to require approval for alternative access paths, including shell commands. A prompt telling the AI agent not to write is not an access control.
+
+See [Tool annotations and access control](/docs/apis/mcp-server/tools#tool-annotations-and-access-control) for how MCP clients and gateways can classify tool calls.
+
 ## Preselect an organization for OAuth
 
 To preselect an organization on the OAuth authorization page, add its slug to the remote MCP server URL:

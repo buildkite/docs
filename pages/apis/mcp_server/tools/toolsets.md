@@ -49,6 +49,11 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
         "tools": "list_builds, get_build, get_build_test_engine_runs, create_build, cancel_build, rebuild_build, list_jobs, get_job, unblock_job, retry_job, get_job_env"
       },
       {
+        "toolset": "investigations",
+        "description": "Build failure summaries and build comparisons",
+        "tools": "get_build_failure_summary, compare_builds"
+      },
+      {
         "toolset": "logs",
         "description": "[Logs](/docs/apis/mcp-server/tools#available-mcp-tools-logs) processing",
         "tools": "search_logs, tail_logs, read_logs"
@@ -360,9 +365,10 @@ For CD/CD management, set the following MCP server toolsets:
 
 ### Debugging and analysis
 
-For debugging and analysis of pipeline builds, set the following MCP server toolsets:
+For a one-call build failure summary, enable `investigations`. For deeper debugging and analysis of pipeline builds, set the following MCP server toolsets:
 
 - `user`
+- `investigations`
 - `builds`
 - `logs`
 - `tests`
