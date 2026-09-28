@@ -542,6 +542,22 @@ Homebrew does not support installing an arbitrary historical version of every fo
 - Using a language or tool version manager (recommended for runtimes)
 - Downloading an exact version from upstream release binaries with a pinned URL and checksum
 
+## Tracking image changes
+
+Buildkite publishes RSS feeds of changes to hosted macOS images, covering updates to the macOS version, Xcode versions, runtimes, Homebrew packages, and other installed software. Follow these feeds in a feed reader to keep track of image changes without checking this page.
+
+Channel | Feed URL
+------- | --------
+Stable  | `https://buildkite.com/hosted-agents/macos/image-changes.rss`
+Canary  | `https://buildkite.com/hosted-agents/macos/image-changes-canary.rss`
+{: class="responsive-table"}
+
+The stable feed covers the images used by standard macOS hosted queues. The canary feed covers images in the canary channel, which previews upcoming changes before they reach the stable images.
+
+Each feed entry covers a single changed image and lists only what changed for that image, starting with the macOS version, followed by Xcode versions, runtimes, Homebrew packages, and other installed software.
+
+Both feeds are public and don't require authentication.
+
 ## Security
 
 <%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_security_explanation' %>
