@@ -79,6 +79,6 @@ After the policy takes effect, job pages will show deprecation warnings during a
 
 Agent versions that implement lifecycle checks will also log warnings when deprecated or unsupported.
 
-Buildkite may update this policy from time to time and will communicate any changes.
+Buildkite may update this policy and will communicate any changes.
 
 For questions about this policy or help upgrading, contact [Buildkite support](mailto:support@buildkite.com).
