@@ -31,8 +31,6 @@ If your architecture isn't on the releases page send an email to support and we'
 
 ## Upgrade agents
 
-See the [agent version support policy](/docs/agent/version-support-policy) for support windows and how to check whether your agents need upgrading before January 1, 2027.
-
 To upgrade your agents, you can either:
 
 * Use the package manager for your operating system.
