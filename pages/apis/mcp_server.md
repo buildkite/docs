@@ -63,7 +63,7 @@ For this query, the AI tool can use the build and job tools. You can also reques
 
 Buildkite provides both a [remote](#types-of-mcp-servers-remote-mcp-server) and [local](#types-of-mcp-servers-local-mcp-server) MCP server, both of which provide access to its [MCP server tools](/docs/apis/mcp-server/tools#available-mcp-tools). The remote MCP server supports OAuth authentication for interactive AI tools and [API token pass-through](#api-token-pass-through-remote-mcp-server) for headless agents.
 
-The Buildkite MCP server is under active development. Tools or their behavior may change or be removed, including breaking changes. If you need continued access to a specific tool or behavior, [run the local server](/docs/apis/mcp-server/local/installing) with a versioned Docker image tag or a binary from a specific release. Buildkite-hosted remote endpoints update automatically and cannot be pinned to a version.
+The Buildkite MCP server is under active development. Tools or their behavior may change or be removed, including breaking changes. If you need continued access to a specific tool or behavior, [run the local server](/docs/apis/mcp-server/local/installing) with a versioned Docker image tag or a binary from a specific release. For Docker, replace `buildkite/mcp-server` with `buildkite/mcp-server:<version>` in both the run command and your AI tool configuration. Buildkite-hosted remote endpoints update automatically and cannot be pinned to a version.
 
 ### Remote MCP server
 
