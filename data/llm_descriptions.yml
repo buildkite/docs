@@ -155,7 +155,6 @@
   pipelines/integrations/other/backstage: "Installing and configuring the Buildkite plugin for Backstage developer portals with build monitoring and management."
   pipelines/announcements/database-migration: "Archived announcement about the 2024-2025 Buildkite Pipelines database migration to sharded PostgreSQL."
   agent: "Overview of the Buildkite agent, comparing self-hosted and Buildkite hosted agents, architecture, lifecycle, and CLI usage."
-  agent/version-support-policy: "Buildkite agent version support policy, effective January 1, 2027: each minor release line is supported for one year from its first stable release, deprecated for the final three months, then unsupported. Covers which release lines are affected when the policy takes effect, the end of agent v3 support, checking agent versions, upgrade paths by installation method, what support includes, and lifecycle warnings."
   agent/self-hosted: "Running agents on your own infrastructure, covering installation, configuration, starting agents, and experimental features."
   agent/self-hosted/job-acquisition-tokens: "Using short-lived job acquisition tokens to register stack-managed ephemeral agents for one reserved job without exposing long-lived agent tokens to job workloads."
   agent/self-hosted/tokens: "Creating, managing, and revoking agent tokens used by self-hosted agents and stack controllers, plus internal session and job tokens."
