@@ -73,6 +73,21 @@ The **Uploads** view in a Buildkite Test Engine test suite shows a summary of te
 
 A period picker lets you switch between a one-day and a seven-day view. One day is the default. The seven-day view displays data in 84 two-hour buckets. If the maximum time window configured for Test Engine in your organization is shorter than seven days, the **7d** option is shown as disabled and the view defaults to one day.
 
+## Test statistics
+
+> 📘 This feature is currently available in preview and must be enabled by Buildkite for your organization. Until it's enabled, the **Summary** page shows test statistics by team only, without the **Group by** dropdown. Contact [Buildkite support](mailto:support@buildkite.com) to request access.
+
+The **Summary** page of a test suite includes a **Test statistics** table that breaks down test counts and execution duration. Use the **Group by** dropdown above the table to switch between **Team** (the default) and any available [tag](/docs/pipelines/configure/tests/test-suites/tags).
+
+- Grouping by **Team** shows a row for each team assigned to the suite, based on [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership). If your organization doesn't have teams or a TESTOWNERS file set up, Buildkite Test Engine shows a prompt to set up test ownership instead of the table.
+- Grouping by tag doesn't require teams or test ownership to be configured. Search for a tag key in the **Group by** menu to group by its values.
+
+Selecting a row takes you to the suite's **Tests** page, filtered to the tests behind that row. Missing or empty tag values are labeled **No value** and aren't clickable, along with any value that can't be expressed as an exact filter (for example, a value containing a comma, colon, or asterisk).
+
+The **Tests** count in each row is the number of distinct tests. When grouped by tag, a test appears in more than one row if its executions have different values for the selected tag key. Because of this, the **Tests** counts across rows aren't guaranteed to add up to the suite total.
+
+Tag values are listed in alphabetical order, 10 per page, with pagination controls below the table. The table respects the period and filters applied elsewhere on the **Summary** page.
+
 ## Trends and analysis
 
 Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
