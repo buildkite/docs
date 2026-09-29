@@ -45,7 +45,7 @@ bk job cancel <job-id> [flags]
 
 | Argument | Description |
 | --- | --- |
-| `<job-id>` | Job ID to cancel |
+| `<job-id>` | Job UUID to cancel |
 
 ### Flags
 
@@ -87,7 +87,7 @@ bk job list [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `-p`, `--pipeline=STRING` | Filter by pipeline slug |
+| `-p`, `--pipeline=STRING` | Pipeline slug (uses the selected organization), org/pipeline, or Buildkite pipeline URL. |
 | `--build=STRING` | Filter by build number (requires a resolvable pipeline) |
 | `--debug` | Enable debug output for REST API calls |
 | `--duration=STRING` | Filter by duration (e.g. >10m, <5m, 20m) - supports >, <, >=, <= operators |
@@ -267,7 +267,7 @@ bk job reprioritize 0190046e-e199-453b-a302-a21a4d649d31 1
 Retry a job.
 
 ```bash
-bk job retry <job-id>
+bk job retry <job-id> [flags]
 ```
 
 ### Arguments
@@ -280,7 +280,11 @@ bk job retry <job-id>
 
 | Flag | Description |
 | --- | --- |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
+| `--json` | Output as JSON |
+| `--text` | Output as text |
+| `--yaml` | Output as YAML |
 
 ### Examples
 
@@ -288,6 +292,18 @@ Retry a job by UUID:
 
 ```bash
 bk job retry 0190046e-e199-453b-a302-a21a4d649d31
+```
+
+Get the new job UUID:
+
+```bash
+bk job retry 0190046e-e199-453b-a302-a21a4d649d31 --json | jq -r '.id'
+```
+
+Print a human-readable confirmation:
+
+```bash
+bk job retry 0190046e-e199-453b-a302-a21a4d649d31 --text
 ```
 
 ## Connect to a job using SSH

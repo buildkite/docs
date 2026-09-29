@@ -46,6 +46,13 @@ The API is exposed using a Unix Domain Socket. The path to the socket is not ava
 > 🛠
 > To use this feature, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
 
+### Capture error
+
+Structured job error reporting. Not supported yet; for internal development only.
+
+> 🛠
+> To use this feature, set <code>experiment="capture-error"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
+
 ### Interpolation prefers runtime env
 
 When interpolating the pipeline level environment block, a pipeline level environment variable could take precedence over environment variables depending on the ordering. This may contravene Buildkite's [documentation](https://buildkite.com/docs/pipelines/environment-variables#environment-variable-precedence) that suggests the Job runtime environment takes precedence over that defined by combining environment variables defined in a pipeline.

@@ -69,10 +69,10 @@ Login non-interactively with an API token:
 bk auth login --org my-org --token my-token
 ```
 
-Login on a headless machine or remote shell:
+Login to a specific organization on a headless machine or remote shell:
 
 ```bash
-bk auth login --device
+bk auth login --device --org my-org
 ```
 
 Login on a headless Linux host using an in-memory /dev/shm credential store:
