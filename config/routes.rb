@@ -291,6 +291,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/controlling-concurrency",                                                     to: redirect("/docs/pipelines/configure/workflows/controlling-concurrency")
   get "/docs/pipelines/defining-steps",                                                              to: redirect("/docs/pipelines/configure/defining-steps")
   get "/docs/pipelines/dependencies",                                                                to: redirect("/docs/pipelines/configure/depends-on")
+  get "/docs/pipelines/deployments/deployment-plugins",                                              to: redirect("https://buildkite.com/resources/plugins/category/deploy/")
   get "/docs/pipelines/deployments/to-heroku",                                                       to: redirect("/docs/pipelines/deployments/with-heroku")
   get "/docs/pipelines/emoji",                                                                       to: redirect("/docs/platform/emojis")
   get "/docs/pipelines/emojis",                                                                      to: redirect("/docs/platform/emojis")

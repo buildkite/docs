@@ -703,7 +703,7 @@
         - name: "Deployment visibility with Backstage"
           path: "pipelines/deployments/deployment-visibility-with-backstage"
         - name: "Deployment plugins"
-          path: "pipelines/deployments/deployment-plugins"
+          path: "https://buildkite.com/resources/plugins/category/deploy/"
     - name: "Insights"
       children:
         - name: "Waterfall view"

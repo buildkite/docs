@@ -124,7 +124,7 @@
   pipelines/deployments/with-argo-cd: "Integrating Buildkite Pipelines with Argo CD for GitOps-based Kubernetes deployments."
   pipelines/deployments/with-heroku: "Deploying Heroku applications from Buildkite pipelines using git push or Heroku's automatic deploys feature."
   pipelines/deployments/deployment-visibility-with-backstage: "Monitoring Buildkite deployment pipelines in Backstage developer portals with real-time status and build management."
-  pipelines/deployments/deployment-plugins: "Directory of Buildkite plugins for deployment automation."
+  https://buildkite.com/resources/plugins/category/deploy/: "Buildkite plugins directory filtered to deployment plugins, hosted on buildkite.com/resources (external page, no Markdown version)."
   pipelines/insights/waterfall: "Waterfall chart view for visualizing build job timing, wait times, agent assignment, and execution durations."
   pipelines/insights/clusters: "Enterprise dashboard showing real-time cluster metrics: queue wait time, agent utilization, and job pass rate."
   pipelines/insights/queue-metrics: "Queue details for current agent capacity, job demand, dispatch wait times, active job samples, and queue-level activity."
