@@ -34,6 +34,11 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
         "tools": "get_cluster_secret, list_cluster_secrets, create_cluster_secret"
       },
       {
+        "toolset": "cache_registries",
+        "description": "[Cache registries](/docs/apis/mcp-server/tools#available-mcp-tools-cache-registries) management",
+        "tools": "list_cache_registries, get_cache_registry, create_cache_registry, update_cache_registry, set_default_cache_registry, delete_cache_registry"
+      },
+      {
         "toolset": "agents",
         "description": "[Agents](/docs/apis/mcp-server/tools#available-mcp-tools-agents) inspection",
         "tools": "list_agents, get_agent"
@@ -88,6 +93,9 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
     <% end %>
   </tbody>
 </table>
+
+> 📘 Cache registries toolset availability
+> The `cache_registries` toolset isn't in Buildkite MCP server v1.24.0 or earlier. If you run the [local MCP server](/docs/apis/mcp-server/local/installing) from a release binary or Docker image, update it to the next release to enable this toolset.
 
 ## Configuring the remote MCP server
 

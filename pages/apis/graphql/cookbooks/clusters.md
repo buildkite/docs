@@ -113,7 +113,7 @@ Listing and managing cache registries requires organization administrator or [cl
 
 The query returns both Relay global IDs (`id`) and UUIDs (`uuid`). Use the organization, cluster, and registry `id` values in the mutations below, not their UUIDs or slugs. Unlike the mutations, `organization.cluster(id:)` takes the cluster UUID.
 
-This API manages registry metadata and policies, not cache entries or agent save and restore operations. Use the web interface to configure cache stores or select a cluster's default registry.
+This API manages registry metadata and policies, not cache entries or agent save and restore operations. Use the web interface to configure cache stores. To select a cluster's default registry, use the web interface or the REST API's [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster) endpoint.
 
 ## Create agent token with an expiration date
 
@@ -314,7 +314,7 @@ mutation deleteCacheRegistry {
 }
 ```
 
-You can't delete a cluster's default cache registry. [Select another default registry](/docs/pipelines/configure/cache#manage-cache-registries) in the web interface first.
+You can't delete a cluster's default cache registry. First, [select another default registry](/docs/pipelines/configure/cache#manage-cache-registries) in the web interface or with the REST API's [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster) endpoint.
 
 ## List jobs in a particular queue
 
