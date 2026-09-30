@@ -59,7 +59,7 @@ For example, suppose jobs from builds A and B share an ordered concurrency group
 
 The concurrency slot is not held continuously between attempts. When an attempt finishes, it releases its slot. Another job can acquire the slot before an automatic retry enters the queue or before a user requests a manual retry. If B has already been reserved for or assigned to an agent, or has started running, A's retry waits for B to release the slot. These rules apply to both automatic and manual retries: neither guarantees that A's retry runs immediately after A's failed attempt.
 
-Switching to the [eager method](#concurrency-and-parallelism-controlling-command-order) does not move retries to the back of the queue or guarantee that B runs before A's retry. Eager concurrency lets ready jobs bypass earlier jobs that are not ready and respects job priority. It does not provide a retry-last policy.
+Switching to the [eager method](#concurrency-and-parallelism-controlling-command-order) does not move retries to the back of the queue or guarantee that B runs before A's retry. Eager concurrency lets ready jobs bypass earlier jobs that are not ready and respects job priority. Eager concurrency does not provide a retry-last policy.
 
 ## Changing concurrency limits
 
