@@ -346,7 +346,16 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 [Request body properties](/docs/apis/rest-api#request-body-properties):
 
-The `hosted_git_mirror_enabled` and `hosted_container_cache_enabled` fields can only be set when updating a cluster. Cluster creation requests do not apply these fields.
+The `hosted_git_mirror_enabled`, `hosted_container_cache_enabled`, and `default_cache_registry_uuid` fields can only be set when updating a cluster. Cluster creation requests do not apply these fields.
+
+For example, to change the cluster's default [cache registry](/docs/apis/rest-api/clusters/cache-registries):
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{ "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d" }'
+```
 
 <table class="responsive-table">
 <tbody>
@@ -372,7 +381,7 @@ The `hosted_git_mirror_enabled` and `hosted_container_cache_enabled` fields can 
   </tr>
   <tr>
     <th><code>default_cache_registry_uuid</code></th>
-    <td>UUID of the <a href="/docs/apis/rest-api/clusters/cache-registries">cache registry</a> to set as the cluster's default. Must be the UUID of an existing cache registry in this cluster, and can't be <code>null</code>, since a cluster must always have a default cache registry.<br><em>Example:</em> <code>"b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"</code></td>
+    <td>UUID of the <a href="/docs/apis/rest-api/clusters/cache-registries">cache registry</a> to set as the cluster's default. Must be the UUID of a cache registry in this cluster. A registry slug isn't accepted. The value can't be <code>null</code>, because a cluster must always have a default cache registry. Requires permission to manage the cluster.<br><em>Example:</em> <code>"b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"</code></td>
   </tr>
   <tr>
     <th><code>hosted_git_mirror_enabled</code></th>
@@ -395,7 +404,7 @@ Error responses:
 <tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td>A hosted-agent cache field is not <code>true</code> or <code>false</code>, a changed cache field targets a non-hosted cluster, <code>default_cache_registry_uuid</code> doesn't match a cache registry in this cluster, the matching cache registry has been deleted, or another cluster validation fails.</td>
+    <td>A hosted-agent cache field is not <code>true</code> or <code>false</code>, a changed cache field targets a non-hosted cluster, <code>default_cache_registry_uuid</code> isn't the UUID of a cache registry in this cluster (for example, it's a slug, <code>null</code>, or the UUID of a deleted registry or a registry in another cluster), or another cluster validation fails.</td>
   </tr>
   <tr>
     <th><code>503 Service Unavailable</code></th>

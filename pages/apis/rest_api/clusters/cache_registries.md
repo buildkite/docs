@@ -5,7 +5,7 @@ Use these endpoints to list, inspect, create, update, and delete a cluster's [ca
 > 📘 Public preview
 > The cache registries API is available to all Buildkite customers in public preview. This availability applies to registry administration only. Saving and restoring cache entries with Buildkite Cache remains in private preview and requires access as described in the [Buildkite Cache guide](/docs/pipelines/configure/cache).
 
-This API manages cache registry metadata and policy only. The API doesn't expose cache entries or agent save and restore operations. Use the web interface to configure a registry's cache store. To change a cluster's default registry, set `default_cache_registry_uuid` on the [cluster update endpoint](/docs/apis/rest-api/clusters#update-a-cluster).
+This API manages cache registry metadata and policy only. The API doesn't expose cache entries or agent save and restore operations. Use the web interface to configure a registry's cache store. To change a cluster's default registry, set `default_cache_registry_uuid` on the [cluster update endpoint](/docs/apis/rest-api/clusters#clusters-update-a-cluster).
 
 Member endpoints (get, update, and delete) accept only the cache registry's `uuid` as the `{id}` path parameter. The `slug` returned in responses is informational and can't be used to look up or modify a cache registry.
 
@@ -45,7 +45,7 @@ Policy documents must be JSON objects, not YAML or JSON-encoded strings. The API
     </tr>
     <tr>
       <th><code>default</code></th>
-      <td>Whether this registry is the cluster's default cache registry. To change the default, set <code>default_cache_registry_uuid</code> on the <a href="/docs/apis/rest-api/clusters#update-a-cluster">cluster update endpoint</a>.</td>
+      <td>Whether this registry is the cluster's default cache registry. To change the default, set <code>default_cache_registry_uuid</code> on the <a href="/docs/apis/rest-api/clusters#clusters-update-a-cluster">cluster update endpoint</a>.</td>
     </tr>
     <tr>
       <th><code>created_at</code></th>
@@ -352,7 +352,7 @@ Error responses:
 
 ## Delete a cache registry
 
-Deletes a cache registry, looked up by UUID. A cluster's default cache registry can't be deleted. First, set another registry as the cluster's default, either in the web interface ([open the registry](/docs/pipelines/configure/cache#manage-cache-registries) and select **Settings** > **Set as default**) or by setting `default_cache_registry_uuid` on the [cluster update endpoint](/docs/apis/rest-api/clusters#update-a-cluster).
+Deletes a cache registry, looked up by UUID. A cluster's default cache registry can't be deleted. First, set another registry as the cluster's default, either in the web interface ([open the registry](/docs/pipelines/configure/cache#manage-cache-registries) and select **Settings** > **Set as default**) or by setting `default_cache_registry_uuid` on the [cluster update endpoint](/docs/apis/rest-api/clusters#clusters-update-a-cluster).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
