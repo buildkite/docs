@@ -43,7 +43,7 @@ When the estimate reaches or exceeds your threshold:
 
 If your organization has no billing contacts when the threshold is first reached, the banner still appears, but no email is sent for that billing period.
 
-Spend alerts aren't real-time, so your invoice estimate may already be higher than your threshold when an alert is sent. The estimate is based on charges accrued so far, and usage reporting can be delayed. The estimate may also differ from your final invoice.
+Spend alerts aren't real-time. Your invoice estimate may already be higher than your threshold when an alert is sent. The estimate is based on charges accrued so far. Usage reporting can be delayed. The estimate may also differ from your final invoice.
 
 ## Viewing prepaid inclusions
 
