@@ -210,6 +210,9 @@ These MCP tools are used to list, retrieve, and create [Buildkite secrets](/docs
 
 These MCP tools are used to list, retrieve, create, update, and delete a cluster's [cache registries](/docs/pipelines/configure/cache#manage-cache-registries), and to set a cluster's default cache registry. Registries are identified by UUID. Registry slugs aren't accepted. Each tool requires permission to manage the cluster.
 
+> 📘 Available from the next MCP server release
+> These tools aren't in Buildkite MCP server v1.24.0 or earlier. If you run the [local MCP server](/docs/apis/mcp-server/local/installing) from a release binary or Docker image, update it to the next release to use them.
+
 <table>
   <thead>
     <tr>

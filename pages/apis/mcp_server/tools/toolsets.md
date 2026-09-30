@@ -94,6 +94,9 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
   </tbody>
 </table>
 
+> 📘 Cache registries toolset availability
+> The `cache_registries` toolset isn't in Buildkite MCP server v1.24.0 or earlier. If you run the [local MCP server](/docs/apis/mcp-server/local/installing) from a release binary or Docker image, update it to the next release to enable this toolset.
+
 ## Configuring the remote MCP server
 
 You can configure toolset availability for the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) by adding the required [toolset names](#available-toolsets) as part of an [extension to the remote MCP server's URL](#configuring-the-remote-mcp-server-using-a-url-extension) (for a single toolset only), or alternatively, and for multiple toolsets, as part of the [header of requests](#configuring-the-remote-mcp-server-using-headers) sent to the Buildkite platform from the remote MCP server. These options work with the OAuth endpoint (`https://mcp.buildkite.com/mcp`) and the [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server) (`https://mcp.buildkite.com/direct`).

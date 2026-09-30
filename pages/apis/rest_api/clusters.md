@@ -195,7 +195,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "hosted_git_mirror_enabled": false,
   "hosted_container_cache_enabled": false,
   "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d",
-  "default_cache_registry_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
+  "default_cache_registry_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
 }
 ```
 
@@ -340,7 +340,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "hosted_git_mirror_enabled": false,
   "hosted_container_cache_enabled": false,
   "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d",
-  "default_cache_registry_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
+  "default_cache_registry_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
 }
 ```
 
