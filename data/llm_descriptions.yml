@@ -139,7 +139,7 @@
   pipelines/integrations/notifications/cc-menu: "Using the cctray.xml feed to display build status in CCMenu, CCTray, and build dashboards."
   pipelines/integrations/notifications/plugins: "Directory of Buildkite plugins for delivering notifications."
   pipelines/integrations/observability/overview: "Overview of observability integrations: Datadog, Honeycomb, OpenTelemetry, Amazon EventBridge, and community plugins."
-  pipelines/integrations/observability/datadog: "Configuring Datadog APM tracing and CI Pipeline Visibility for Buildkite Pipelines."
+  pipelines/integrations/observability/datadog: "Configuring Datadog APM tracing, OTLP job logs, and CI Pipeline Visibility for Buildkite Pipelines."
   pipelines/integrations/observability/honeycomb: "Integrating Honeycomb with Buildkite using buildevents binary, OpenTelemetry tracing, or the Markers plugin."
   pipelines/integrations/observability/opentelemetry: "Sending OpenTelemetry traces from Buildkite agents and the dashboard to your OTLP endpoint."
   pipelines/integrations/observability/amazon-eventbridge: "Streaming real-time build, job, and agent events to Amazon EventBridge with full event schema reference."
