@@ -6,13 +6,13 @@ Buildkite Pipelines provides several ways to cancel builds and jobs, either auto
 
 Sometimes you may push several commits in quick succession, leading to Buildkite Pipelines building each commit in turn. You can configure your pipeline to cancel these running builds and only build the latest commit.
 
-When a new build is created on a branch, Buildkite Pipelines cancels the earlier builds on the same branch that are running at that time. A build is running when it is in one of these states:
+When a new build is created on a branch, Buildkite Pipelines checks for earlier builds on the same branch that are running, and cancels them. A build is running when it is in one of these states:
 
 - _started_
 - _failing_
-- _blocked_, while other jobs in the build are still running
+- _blocked_, when the build is paused at a [block step](/docs/pipelines/configure/step-types/block-step) whose `blocked_state` attribute is `running`. The build is canceled even if none of its jobs are running.
 
-This check applies to all new builds, however they are created (for example, from a push, the API, the Buildkite dashboard, or a schedule). The check does not affect builds that are queued but have not started yet, or builds that have stopped at a block step with no running jobs. For information on how to skip queued builds, see [Skip intermediate builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds).
+This check applies to all new builds, however they are created (for example, from a push, the API, the Buildkite dashboard, or a schedule). The check does not affect builds that are queued but have not started yet. The check also does not affect builds paused at a block step whose `blocked_state` attribute is `passed` (the default) or `failed`. For information on how to skip queued builds, see [Skip intermediate builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds).
 
 To cancel running builds on the same branch:
 
@@ -23,8 +23,8 @@ To cancel running builds on the same branch:
 
 You can also configure these options using the [REST API](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
-> 🚧 **Cancel Intermediate Builds** checks one time, when a new build is created
-> Buildkite Pipelines checks for running builds only at the time the new build is created, not when the new build starts running. If an earlier build starts or restarts after the new build is created (for example, because the earlier build was queued, or because a job was retried), then the earlier build is not canceled. The next new build on the branch cancels the earlier build if it is still running.
+> 🚧 **Cancel Intermediate Builds** checks one time for each new build
+> Creating a new build triggers the check. The check runs a short time after the new build is created, and cancels the earlier builds that are running at that time. The check does not run again when the new build starts running. If an earlier build starts or restarts after the check has run (for example, because the earlier build was queued, or because a job was retried), then the earlier build is not canceled. The next new build on the branch cancels the earlier build if it is still running.
 > To also stop queued builds before they start, turn on [**Skip Intermediate Builds**](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds).
 
 ## Manually cancel a job
