@@ -321,6 +321,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/images-in-log-output",                                                        to: redirect("/docs/pipelines/links-and-images-in-log-output")
   get "/docs/pipelines/incoming-webhooks",                                                           to: redirect("/docs/pipelines/security/incoming-webhooks")
   get "/docs/pipelines/input-step",                                                                  to: redirect("/docs/pipelines/configure/step-types/input-step")
+  get "/docs/pipelines/integrations/observability/plugins",                                          to: redirect("https://buildkite.com/resources/plugins/category/observability/")
   get "/docs/pipelines/integrations/other/amazon-eventbridge",                                       to: redirect("/docs/pipelines/integrations/observability/amazon-eventbridge")
   get "/docs/pipelines/integrations/other/cc-menu",                                                  to: redirect("/docs/pipelines/integrations/notifications/cc-menu")
   get "/docs/pipelines/integrations/other/artifactory",                                              to: redirect("/docs/pipelines/integrations/artifacts-and-packages/artifactory")

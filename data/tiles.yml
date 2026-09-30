@@ -46,7 +46,7 @@ pipelines_integrations:
       - text: "Amazon EventBridge"
         url: "/docs/pipelines/integrations/observability/amazon-eventbridge"
       - text: "Observability plugins"
-        url: "/docs/pipelines/integrations/observability/plugins"
+        url: "https://buildkite.com/resources/plugins/category/observability/"
   - title: "Security and compliance"
     desc: "Keep your pipelines secure and compliant."
     links:

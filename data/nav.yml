@@ -754,7 +754,7 @@
             - name: "Amazon EventBridge"
               path: "pipelines/integrations/observability/amazon-eventbridge"
             - name: "Observability plugins"
-              path: "pipelines/integrations/observability/plugins"
+              path: "https://buildkite.com/resources/plugins/category/observability/"
         - name: "Security and compliance"
           children:
             - name: "Security and compliance plugins"

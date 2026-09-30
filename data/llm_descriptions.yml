@@ -143,7 +143,7 @@
   pipelines/integrations/observability/honeycomb: "Integrating Honeycomb with Buildkite using buildevents binary, OpenTelemetry tracing, or the Markers plugin."
   pipelines/integrations/observability/opentelemetry: "Sending OpenTelemetry traces from Buildkite agents and the dashboard to your OTLP endpoint."
   pipelines/integrations/observability/amazon-eventbridge: "Streaming real-time build, job, and agent events to Amazon EventBridge with full event schema reference."
-  pipelines/integrations/observability/plugins: "Directory of Buildkite plugins for observability."
+  https://buildkite.com/resources/plugins/category/observability/: "Buildkite plugins directory filtered to observability plugins, hosted on buildkite.com/resources (external page, no Markdown version)."
   pipelines/integrations/security-and-compliance/plugins: "Directory of Buildkite plugins for security, governance, and compliance."
   pipelines/integrations/security-and-compliance/sonar: "Tutorial for integrating SonarScanner CLI with Buildkite pipelines for static code analysis using SonarQube or SonarCloud."
   pipelines/integrations/secrets/plugins: "Directory of Buildkite plugins for secrets management."
