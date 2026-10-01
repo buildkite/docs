@@ -202,6 +202,7 @@ gnupg
 goroutines
 goss
 grantable
+gotest
 gotestsum
 gpg
 GPU
@@ -511,6 +512,7 @@ TOTP's
 TPUs
 TTLs
 traceparent
+treemap
 Trivy
 trixie
 typosquatted
