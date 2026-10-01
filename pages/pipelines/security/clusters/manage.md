@@ -141,7 +141,7 @@ To configure agent OpenTelemetry tracing for a cluster:
 1. In the **Agent OpenTelemetry tracing** field, select the notification service to use, or select **Disabled** to turn off automatic configuration.
 1. Save your changes.
 
-Only agents that register to the cluster after this change receive the selected notification service's exporter settings. Agents already registered to the cluster keep their existing configuration until they restart or reconnect, including when the setting is disabled or the notification service's credentials are rotated.
+Only agents that register to the cluster after this change receive the selected notification service's exporter settings. Agents already registered to the cluster keep their existing configuration until they restart or reconnect. This applies even when the setting is disabled or the notification service's credentials are rotated.
 
 > 🚧 Exporter credentials are available to jobs
 > The selected notification service's exporter credentials become available to the agent's environment, including its hooks, plugins, and job commands. Use OpenTelemetry credentials that are scoped for trace ingestion only.
