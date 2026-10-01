@@ -127,7 +127,9 @@ To clear the default cluster, select **No default** from the dropdown and select
 
 ## Automatically configure agent OpenTelemetry tracing for a cluster
 
-A cluster can automatically deliver [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) exporter settings to its capable agents when they register, using an existing [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service). This lets agents connected to the cluster export traces without needing local OTLP destination configuration on each agent.
+A cluster can automatically deliver [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) exporter settings to its agents when they register, using an existing [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service). This lets agents connected to the cluster export traces without needing local OTLP destination configuration on each agent.
+
+Agents must run Buildkite agent version 3.136.1 or later to receive these settings. Earlier agent versions register normally but don't receive tracing configuration. To check the version of a self-hosted agent, run `buildkite-agent --version`.
 
 Only enabled OpenTelemetry notification services that cover all of the organization's pipelines and branches are available for selection. Local OTLP destination settings configured directly on an agent take precedence over this automatic configuration.
 
