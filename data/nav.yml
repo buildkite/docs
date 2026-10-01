@@ -705,7 +705,7 @@
         - name: "Deployment visibility with Backstage"
           path: "pipelines/deployments/deployment-visibility-with-backstage"
         - name: "Deployment plugins"
-          path: "pipelines/deployments/deployment-plugins"
+          path: "https://buildkite.com/resources/plugins/category/deploy/"
     - name: "Insights"
       children:
         - name: "Waterfall view"
@@ -741,7 +741,7 @@
             - name: "Linear"
               path: "pipelines/integrations/notifications/linear"
             - name: "Notification plugins"
-              path: "pipelines/integrations/notifications/plugins"
+              path: "https://buildkite.com/resources/plugins/category/notify/"
         - name: "Observability"
           children:
             - name: "Overview"
@@ -756,25 +756,25 @@
             - name: "Amazon EventBridge"
               path: "pipelines/integrations/observability/amazon-eventbridge"
             - name: "Observability plugins"
-              path: "pipelines/integrations/observability/plugins"
+              path: "https://buildkite.com/resources/plugins/category/observability/"
         - name: "Security and compliance"
           children:
             - name: "Security and compliance plugins"
-              path: "pipelines/integrations/security-and-compliance/plugins"
+              path: "https://buildkite.com/resources/plugins/category/security-compliance/"
             - name: "SonarScanner CLI tutorial"
               path: "pipelines/integrations/security-and-compliance/sonar"
         - name: "Secrets"
           children:
             - name: "Secrets plugins"
-              path: "pipelines/integrations/secrets/plugins"
+              path: "https://buildkite.com/resources/plugins/category/secrets/"
         - name: "Artifacts and packages"
           children:
             - name: "Artifactory"
               path: "pipelines/integrations/artifacts-and-packages/artifactory"
             - name: "Artifact plugins"
-              path: "pipelines/integrations/artifacts-and-packages/artifact-plugins"
+              path: "https://buildkite.com/resources/plugins/category/artifacts/"
             - name: "Package plugins"
-              path: "pipelines/integrations/artifacts-and-packages/package-plugins"
+              path: "https://buildkite.com/resources/plugins/category/packages/"
         - name: "Other integrations"
           children:
             - name: "Build status badges"
