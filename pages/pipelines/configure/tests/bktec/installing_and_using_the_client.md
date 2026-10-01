@@ -644,6 +644,8 @@ To open the **Orchestration** page:
 1. Select the **Tests** tab.
 1. Select **Orchestration**.
 
+<%= image "orchestration-page.png", width: 2848/2, height: 1372/2, alt: "The Orchestration page on the build Tests tab, showing the partition timeline and a test plan panel with Test selection, Test splitting, and Test results cards" %>
+
 The **Orchestration** page is only available for the whole build, not for an individual job. The **Tests** tab is shown once the build has uploaded test results to Test Engine.
 
 ### Test plans for the build
@@ -670,6 +672,8 @@ Each panel contains the following cards:
 
 When bktec reports timing for the partitions, a **Partition timeline** appears above the test plans. Each line is one partition, positioned at its reported start time, with a length matching its duration. Partitions are colored by test plan.
 
+<%= image "partition-timeline.png", width: 2764/2, height: 380/2, alt: "The partition timeline, showing one line for each of four partitions in an RSpec test plan" %>
+
 - Use the **Sort** menu to order partitions by **Latest finish**, **Longest duration**, or **Earliest start**.
 - Select a step in the legend to show only that test plan's partitions.
 - Hover over a line to see the partition's step, number, test count, how many tests had historical durations, start offset, and duration.
@@ -685,6 +689,8 @@ The selection map is a treemap of the test files or selectors that have run in t
 - A tile's size reflects the number of tests recorded for it.
 - Tiles are grouped by directory and ordered by path, so each file keeps the same position from one build to the next.
 - Purple tiles were selected in this plan. Gray tiles are other files or selectors in the suite that weren't selected.
+
+<%= image "selection-map.png", width: 2696/2, height: 586/2, alt: "The selection map, showing the suite's spec files grouped by directory, with the selected files in purple and the other files in gray" %>
 
 Hover over a tile to see its path, its number of tests, and whether it was selected. Select **View test plan** below the map to open the full test plan.
 
