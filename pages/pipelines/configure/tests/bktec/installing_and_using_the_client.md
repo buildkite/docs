@@ -470,7 +470,7 @@ The recommended setup uses two steps. The first step generates the list of tests
 
     Keep the double quotes around the `--selection-param` value, so that the newlines between paths are preserved. The empty list check is required because Test Engine rejects a manual selection request with no paths.
 
-1. Add both steps to your `pipeline.yml` file, with the [environment variables](#using-bktec-configure-environment-variables) that bktec needs:
+1. Add both steps to your `pipeline.yml` file. Use the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) on the test step, so that the plugin installs bktec, authenticates with OIDC, and enables built-in result uploads:
 
     ```yaml
     steps:
@@ -483,12 +483,13 @@ The recommended setup uses two steps. The first step generates the list of tests
         depends_on: "select-tests"
         command: ".buildkite/run-selected-tests.sh"
         parallelism: 10
-        env:
-          BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
-          BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
-          BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
-          BUILDKITE_TEST_ENGINE_UPLOAD_RESULTS: "true"
+        plugins:
+          - tests#v1.0.0:
+              test-runner: rspec
+              result-path: tmp/rspec-result.json
     ```
+
+    The plugin doesn't have an option for manual selection, so the selection flags are passed to bktec in the script. The plugin installs the latest bktec release by default. If you set the plugin's `client-version` option, use version 3.2.0 or later. If you don't use the plugin, set the [environment variables](#using-bktec-configure-environment-variables) that bktec needs on the test step instead.
 
 When Test Engine selects fewer tests than there are parallel jobs, the remaining jobs receive no tests and exit successfully. To size the step to the selected tests instead, [use manual selection with dynamic parallelism](#manual-test-selection-use-manual-selection-with-dynamic-parallelism).
 
@@ -539,17 +540,11 @@ If none of the listed paths match, bktec prints a warning and runs no tests, rat
 
 ### Use manual selection with dynamic parallelism
 
-To size the test step to the selected tests, pass the same selection flags to `bktec plan` with the [bktec plan flags](#dynamic-parallelism-bktec-plan-flags). bktec creates the test plan, then uploads the test step with the parallelism needed to reach the target time.
+To size the test step to the selected tests, pass the same selection flags to `bktec plan`, and set a maximum parallelism and target time. bktec creates the test plan, then uploads the test step with the parallelism needed to reach the target time. Learn more in [Dynamic parallelism](#dynamic-parallelism).
 
-Set the bktec environment variables at the pipeline level, so that the planning step and the uploaded test step share them:
+In the following pipeline, the planning step sets the maximum parallelism and target time using the Tests Buildkite plugin:
 
 ```yaml
-env:
-  BUILDKITE_TEST_ENGINE_RESULT_PATH: tmp/rspec-result.json
-  BUILDKITE_TEST_ENGINE_SUITE_SLUG: my-suite
-  BUILDKITE_TEST_ENGINE_TEST_RUNNER: rspec
-  BUILDKITE_TEST_ENGINE_UPLOAD_RESULTS: "true"
-
 steps:
   - label: "Select tests"
     key: "select-tests"
@@ -560,6 +555,12 @@ steps:
     key: "plan-selected-tests"
     depends_on: "select-tests"
     command: ".buildkite/plan-selected-tests.sh"
+    plugins:
+      - tests#v1.0.0:
+          test-runner: rspec
+          result-path: tmp/rspec-result.json
+          max-parallelism: 10
+          target-time: 2m
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -579,8 +580,6 @@ fi
 bktec plan \
   --selection-strategy manual \
   --selection-param "files=$(cat tests-to-run.txt)" \
-  --max-parallelism 10 \
-  --target-time 2m \
   --pipeline-upload .buildkite/selected-tests-template.yml
 ```
 {: codeblock-file=".buildkite/plan-selected-tests.sh"}
@@ -593,8 +592,11 @@ steps:
     command: ".buildkite/run-selected-tests.sh"
     depends_on: "plan-selected-tests"
     parallelism: ${BUILDKITE_TEST_ENGINE_PARALLELISM}
-    env:
-      BUILDKITE_TEST_ENGINE_PLAN_IDENTIFIER: ${BUILDKITE_TEST_ENGINE_PLAN_IDENTIFIER}
+    plugins:
+      - tests#v1.0.0:
+          test-runner: rspec
+          result-path: tmp/rspec-result.json
+          plan-identifier: ${BUILDKITE_TEST_ENGINE_PLAN_IDENTIFIER}
 ```
 {: codeblock-file=".buildkite/selected-tests-template.yml"}
 
