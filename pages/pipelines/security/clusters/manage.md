@@ -146,7 +146,7 @@ Only agents that register to the cluster after this change receive the selected 
 > 🚧 Exporter credentials are available to jobs
 > The selected notification service's exporter credentials become available to the agent's environment, including its hooks, plugins, and job commands. Use OpenTelemetry credentials that are scoped for trace ingestion only.
 
-If the selected notification service later becomes unavailable, for example, if it's deleted, disabled, or narrowed to a subset of pipelines or branches, agents that register after that point don't receive tracing configuration until a valid replacement is selected.
+If the selected notification service later becomes unavailable—for example, if it's deleted, disabled, or narrowed to a subset of pipelines or branches—agents that register after that point don't receive tracing configuration. Select a valid replacement to resume automatic configuration.
 
 ## Connect agents to a cluster
 
