@@ -758,7 +758,7 @@
         - name: "Security and compliance"
           children:
             - name: "Security and compliance plugins"
-              path: "pipelines/integrations/security-and-compliance/plugins"
+              path: "https://buildkite.com/resources/plugins/category/security-compliance/"
             - name: "SonarScanner CLI tutorial"
               path: "pipelines/integrations/security-and-compliance/sonar"
         - name: "Secrets"
@@ -770,9 +770,9 @@
             - name: "Artifactory"
               path: "pipelines/integrations/artifacts-and-packages/artifactory"
             - name: "Artifact plugins"
-              path: "pipelines/integrations/artifacts-and-packages/artifact-plugins"
+              path: "https://buildkite.com/resources/plugins/category/artifacts/"
             - name: "Package plugins"
-              path: "pipelines/integrations/artifacts-and-packages/package-plugins"
+              path: "https://buildkite.com/resources/plugins/category/packages/"
         - name: "Other integrations"
           children:
             - name: "Build status badges"

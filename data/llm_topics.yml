@@ -133,6 +133,9 @@ pipelines:
     - "https://buildkite.com/resources/plugins/category/notify/"
     - "https://buildkite.com/resources/plugins/category/observability/"
     - "https://buildkite.com/resources/plugins/category/secrets/"
+    - "https://buildkite.com/resources/plugins/category/security-compliance/"
+    - "https://buildkite.com/resources/plugins/category/artifacts/"
+    - "https://buildkite.com/resources/plugins/category/packages/"
   related_topics:
     - pipeline-configurations
     - best-practices
@@ -289,6 +292,9 @@ integrations:
     - "https://buildkite.com/resources/plugins/category/notify/"
     - "https://buildkite.com/resources/plugins/category/observability/"
     - "https://buildkite.com/resources/plugins/category/secrets/"
+    - "https://buildkite.com/resources/plugins/category/security-compliance/"
+    - "https://buildkite.com/resources/plugins/category/artifacts/"
+    - "https://buildkite.com/resources/plugins/category/packages/"
   related_topics:
     - pipelines
     - deployments
