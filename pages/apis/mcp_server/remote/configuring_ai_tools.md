@@ -71,7 +71,7 @@ See [Tool annotations and access control](/docs/apis/mcp-server/tools#tool-annot
 
 ## Preselect an organization for OAuth
 
-By default, you choose an organization on the OAuth authorization page. To preselect an organization on this page, add its slug to the remote MCP server URL with the `organization` parameter:
+To preselect an organization on the OAuth authorization page, add its slug to the remote MCP server URL:
 
 ```url
 https://mcp.buildkite.com/mcp?organization=your-organization
