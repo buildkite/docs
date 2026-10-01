@@ -264,13 +264,13 @@ Step-level GitHub commit status notifications happen at the following [events](/
 
 ## GitHub check
 
-Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
-
-GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
-
 > 📘 Requirements
 > GitHub checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub commit status](#github-commit-status) notifications instead.
 > GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+
+Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
+
+GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
 
 > 📘 Skipped builds
 > The commit status API only supports `pending`, `success`, `failure`, and `error`. Automatic commit statuses and [`github_commit_status`](#github-commit-status) report [skipped builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds) as failed. `github_check` reports them as `neutral`. If you use `github_check` for status reporting, disable **Update commit statuses** in your pipeline's GitHub settings. Automatic updates still use the commit status API.
@@ -697,10 +697,10 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 📘
-> To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
 
-> 🚧
+To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
+
+> 📘 Notification delivery failures
 > Notification delivery can still fail if the Buildkite Builds app does not have permission to post to that destination. For private channels, a Slack admin may need to reinstall the app or add it to the channel. For direct messages (`D` prefix), the app must be explicitly invited to the conversation.
 
 ### Notify a channel in one workspace
