@@ -78,6 +78,12 @@ Older Xcode versions are removed from base images over time. If your queue has a
 > 📘
 > Three macOS Tahoe versions are available, each with a unique set of Xcode versions. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with newer Tahoe base images. [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) and [Tahoe (26.6)](#macos-tahoe-26-dot-6) include newer Xcode 26.x versions.
 
+### Docker support
+
+macOS hosted agents include the Docker CLI (through the `docker` and `docker-buildx` [Homebrew packages](#homebrew-packages)), but do not include a running Docker daemon. Therefore, commands that require a Docker daemon, such as `docker build` or `docker run`, fail with an error like `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?`, unless the job connects to a Docker daemon that you provide.
+
+To build Docker images, run these jobs on [Linux hosted agents](/docs/agent/buildkite-hosted/linux), which support Docker image builds (including [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) on the Enterprise plan), or on [self-hosted agents](/docs/agent/self-hosted), where you control the Docker installation.
+
 ## macOS Golden Gate
 
 - 27.0
