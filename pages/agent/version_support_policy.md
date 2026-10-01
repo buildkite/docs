@@ -22,34 +22,7 @@ Agent v3.138.x is the final v3 minor release line. Within its support window, it
 
 If you're still on v3, plan your move to v4 before then. See the [v3 to v4 upgrade guide](/docs/agent/v3-v4-upgrade-guide).
 
-## Check your agent versions
-
-Agents in the same fleet can run different versions, especially when they've been upgraded in place. Check every agent rather than one per setup.
-
-To see the versions of all connected agents in your organization, use the [list agents REST API endpoint](/docs/apis/rest-api/agents#list-agents), which returns a `version` field for each agent, or the [GraphQL API](/docs/apis/graphql/cookbooks/agents#search-for-unclustered-agents-in-an-organization), where the `Agent` type has a `version` field.
-
-To check a single installed agent, run this command on the agent machine:
-
-```bash
-buildkite-agent --version
-```
-
-To check the version that ran a job in the Buildkite Pipelines interface, open a recent build, select a command job that has run on an agent to open its details, and select **Agent**. The **Version** field shows the agent version.
-
-Buildkite manages updates for [Buildkite hosted agents](/docs/agent/buildkite-hosted), so you don't need to check or upgrade them yourself.
-
-If you need help identifying agents that are out of support, contact [Buildkite support](mailto:support@buildkite.com).
-
-## Upgrade your agents
-
-How you upgrade depends on how you installed the agent:
-
-- Package manager or install script: see [Upgrade agents](/docs/agent/self-hosted/install#upgrade-agents).
-- Docker: use a major-version tag such as `buildkite/agent:4` so you receive new releases automatically. If you pin an exact version tag such as `buildkite/agent:4.0.0`, you'll need to update it yourself before that line leaves support. See [Version tagging](/docs/agent/self-hosted/install/docker#version-tagging).
-- Elastic CI Stack for AWS: the agent version is set by the stack release and the `BuildkiteAgentRelease` parameter. See [Updating your stack](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#updating-your-stack).
-- Agent Stack for Kubernetes: the agent image defaults to a version matching the controller release. Upgrade the controller, or set the [`image` controller option](/docs/agent/self-hosted/agent-stack-k8s/controller-configuration) to a supported version.
-
-See the [agent releases](https://github.com/buildkite/agent/releases) for release dates and release notes.
+To find and upgrade agents that will be affected by the policy, see [Prepare your agents](#prepare-your-agents).
 
 ## How support windows work
 
@@ -89,6 +62,39 @@ Unsupported release lines don't receive bug fixes or dependency updates. Unsuppo
 Buildkite doesn't block unsupported versions solely because they're out of support. Buildkite may communicate changes affecting unsupported agents in advance, but advance notice isn't guaranteed, particularly for urgent security or reliability changes.
 
 Customers with paid support can still receive help upgrading from unsupported agent versions.
+
+## Prepare your agents
+
+If you run self-hosted agents, find any that will be deprecated or unsupported when the policy takes effect, and upgrade them before January 1, 2027.
+
+### Check your agent versions
+
+Agents in the same fleet can run different versions, especially when they've been upgraded in place. Check every agent rather than one per setup.
+
+To see the versions of all connected agents in your organization, use the [list agents REST API endpoint](/docs/apis/rest-api/agents#list-agents), which returns a `version` field for each agent, or the [GraphQL API](/docs/apis/graphql/cookbooks/agents#search-for-unclustered-agents-in-an-organization), where the `Agent` type has a `version` field.
+
+To check a single installed agent, run this command on the agent machine:
+
+```bash
+buildkite-agent --version
+```
+
+To check the version that ran a job in the Buildkite Pipelines interface, open a recent build, select a command job that has run on an agent to open its details, and select **Agent**. The **Version** field shows the agent version.
+
+Buildkite manages updates for [Buildkite hosted agents](/docs/agent/buildkite-hosted), so you don't need to check or upgrade them yourself.
+
+If you need help identifying agents that are out of support, contact [Buildkite support](mailto:support@buildkite.com).
+
+### Upgrade your agents
+
+How you upgrade depends on how you installed the agent:
+
+- Package manager or install script: see [Upgrade agents](/docs/agent/self-hosted/install#upgrade-agents).
+- Docker: use a major-version tag such as `buildkite/agent:4` so you receive new releases automatically. If you pin an exact version tag such as `buildkite/agent:4.0.0`, you'll need to update it yourself before that line leaves support. See [Version tagging](/docs/agent/self-hosted/install/docker#version-tagging).
+- Elastic CI Stack for AWS: the agent version is set by the stack release and the `BuildkiteAgentRelease` parameter. See [Updating your stack](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#updating-your-stack).
+- Agent Stack for Kubernetes: the agent image defaults to a version matching the controller release. Upgrade the controller, or set the [`image` controller option](/docs/agent/self-hosted/agent-stack-k8s/controller-configuration) to a supported version.
+
+See the [agent releases](https://github.com/buildkite/agent/releases) for release dates and release notes.
 
 ## Lifecycle warnings
 
