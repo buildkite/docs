@@ -24,7 +24,7 @@ For how artifact storage and transfer usage in Buildkite-managed artifact storag
 
 Spend alerts notify your organization when its estimated next invoice reaches a threshold you choose. Spend alerts are informational only—they don't cap spending, stop builds, or disable usage.
 
-Spend alerts are available to organizations on a monthly Pro plan that renews automatically. To set up or change a spend alert, you need billing administration permissions for your organization.
+Spend alerts are available to organizations on a monthly Pro plan that renews automatically. Legacy Buildkite Pipelines Pro plans are not supported. To set up or change a spend alert, you need billing administration permissions for your organization.
 
 To set up a spend alert:
 
