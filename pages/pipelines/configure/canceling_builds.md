@@ -51,3 +51,58 @@ buildkite-agent build cancel
 This cancels the build associated with the current job's context. You can also target a specific build using the [`--build` flag](/docs/agent/cli/reference/build#build) with the build UUID, or by setting the `$BUILDKITE_BUILD_ID` environment variable.
 
 This command is typically called from within a pipeline step script. If you are using Buildkite hosted agents, you can also run the command interactively from a [terminal session](/docs/agent/buildkite-hosted/terminal-access) open on a running job. This is a separate browser-based feature for investigating the job environment.
+
+## Cancel reasons
+
+When a build is canceled, Buildkite Pipelines records why. The reason is returned in the `cancel_reason` field of the [REST API build data model](/docs/apis/rest-api/builds#build-data-model) and in the `cancelReason` field of the [GraphQL API build object](/docs/apis/graphql/schemas/object/build). Use this value to tell builds that people canceled apart from builds that Buildkite Pipelines canceled automatically.
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th style="width:40%">Cancel reason</th>
+      <th style="width:60%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>user_canceled_via_ui</code></td>
+      <td>A user canceled the build from the Buildkite dashboard.</td>
+    </tr>
+    <tr>
+      <td><code>user_canceled_via_api</code></td>
+      <td>A user canceled the build using the <a href="/docs/apis/rest-api/builds#cancel-a-build">REST API</a> or the GraphQL API.</td>
+    </tr>
+    <tr>
+      <td><code>build_skipping</code></td>
+      <td>A newer build was created on the same branch, and the pipeline has <a href="#cancel-running-intermediate-builds"><strong>Cancel Intermediate Builds</strong></a> turned on. Despite its name, this value is not set by <strong>Skip Intermediate Builds</strong>.</td>
+    </tr>
+    <tr>
+      <td><code>branch_deleted</code></td>
+      <td>The branch was deleted from GitHub, and the pipeline has the <strong>Cancel deleted branch builds</strong> <a href="/docs/pipelines/source-control/github#running-builds-on-pull-requests">GitHub setting</a> turned on.</td>
+    </tr>
+    <tr>
+      <td><code>merge_group_destroyed</code></td>
+      <td>GitHub invalidated the build's merge group, and the pipeline has <strong>Cancel builds for destroyed merge groups</strong> turned on. Learn more in <a href="/docs/pipelines/tutorials/github-merge-queue#understanding-merge-queue-behavior-automatic-cancellation-of-redundant-builds">Automatic cancellation of redundant builds</a>.</td>
+    </tr>
+    <tr>
+      <td><code>maximum_lifetime_reached</code></td>
+      <td>The build reached its maximum lifetime before it finished. A build paused at a <a href="/docs/pipelines/configure/step-types/block-step">block step</a> is only canceled when the step's <code>blocked_state</code> attribute is <code>running</code>. Otherwise, the build finishes as <em>passed</em> or <em>failed</em>.</td>
+    </tr>
+    <tr>
+      <td><code>organization_locked</code></td>
+      <td>Buildkite canceled the build because the Buildkite organization was locked, for example, during a data migration.</td>
+    </tr>
+    <tr>
+      <td><code>by_staff</code></td>
+      <td>Buildkite staff canceled the build.</td>
+    </tr>
+    <tr>
+      <td><code>Agent canceled via job &lt;job-id&gt;</code></td>
+      <td>A job ran the <a href="#cancel-a-build-using-the-agent-cli"><code>buildkite-agent build cancel</code> command</a>. The value includes the ID of that job.</td>
+    </tr>
+    <tr>
+      <td><code>null</code></td>
+      <td>No reason was recorded for the cancellation.</td>
+    </tr>
+  </tbody>
+</table>
