@@ -159,7 +159,7 @@ A `raw` body is the stored annotation body, which can be Markdown, plain text, o
 - `artifact://` links are not converted to signed artifact URLs.
 - Emoji codes, such as `:white_check_mark:`, are not replaced with emoji.
 
-This value is the same as the `text` field of the [`AnnotationBody`](/docs/apis/graphql/schemas/object/annotationbody) object in the GraphQL API. The REST API deliberately names this format `raw` rather than `text`, since the body can contain Markdown or HTML.
+This value is the same as the `text` field of the [`AnnotationBody`](/docs/apis/graphql/schemas/object/annotationbody) object in the GraphQL API.
 
 The `body_format` parameter is supported by the [List annotations for a build](#list-annotations-for-a-build) and [List annotations for a job](#list-annotations-for-a-job) endpoints.
 
