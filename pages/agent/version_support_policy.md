@@ -37,7 +37,7 @@ Each release line moves through three phases:
 | Supported | First nine months | The release line is supported. |
 | Deprecated | Final three months | The release line remains supported and jobs run as usual. Warnings encourage you to upgrade before support ends. |
 | Unsupported | From the first anniversary | Compatibility is no longer guaranteed. The release line doesn't receive bug fixes or dependency updates. |
-{: class="responsive-table"}
+{: class="responsive-table table--no-wrap"}
 
 For example, a release line first published on January 15, 2026, becomes deprecated on October 15, 2026, and unsupported on January 15, 2027.
 
