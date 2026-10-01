@@ -616,9 +616,13 @@ Requested
 Selection summary
   Applied strategy: manual
   Selected: 3 of 412 test selectors (0.7%)
+  Estimated compute: 72.4s of 2304s (3.1%)
+  Candidate timing coverage: 96%
 ```
 
 The selected and candidate counts are _test selectors_, the units that bktec splits across jobs. These are usually test files. However, bktec can split some files into individual tests, for example, RSpec files that contain [skipped tests](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine), so the selected count can be higher than the number of listed paths.
+
+The **Estimated compute** line compares the total duration of the selected tests with the total duration of all candidates, using the mean of each test's historical durations. Candidates without timing history are estimated using the median duration of the other candidates. This estimate is the total test time across all jobs, not the build's wall-clock time. The **Candidate timing coverage** line shows the proportion of candidates that have timing history. If fewer than half of the candidates have timing history, the estimate shows `unavailable`.
 
 To save the full test plan that a job used, including the selected tests for every job, set `BUILDKITE_TEST_ENGINE_PLAN_OUT` to a file path, or pass `--plan-out` to `bktec run`.
 
@@ -649,6 +653,14 @@ A test plan is listed once a `bktec run` job using that plan finishes and report
 Each panel contains the following cards:
 
 - **Test selection:** For a plan that used a selection strategy, this card shows how many candidates were selected, for example, 3 of 412 candidates selected, and the selected percentage. Candidates are test files, individual tests, or selectors, and one candidate can produce multiple test results. The **Strategy** row shows **Manual** for manual selection. When Test Engine didn't apply the requested selection, the card shows the candidates included and a **Reason** row. Plans that didn't use a selection strategy don't show this card.
+
+    When Test Engine has timing history for at least half of the candidates, the card also shows estimates of the time that the selection saved:
+
+    * **Estimated compute saved:** The total duration of all candidates, minus the total duration of the selected tests, using the mean of each test's historical durations. This is the test time saved across all partitions.
+    * **Estimated test wall-clock time saved:** The duration of the longest partition when all candidates are split across the plan's partitions, minus the duration of the longest partition for the selected tests, using median durations. This row only appears for steps with a fixed `parallelism`, not for [dynamic parallelism](#manual-test-selection-use-manual-selection-with-dynamic-parallelism).
+    * **Timing coverage:** The proportion of candidates that have timing history. Candidates without timing history are estimated using the median duration of the other candidates.
+
+    These are estimates based on historical durations, not measurements of the build.
 - **Test splitting:** This card shows how many files, tests, or selectors were split across the partitions, how many of them had historical durations or used a median or default duration instead, the slowest reported partition, and the estimated time saved by splitting.
 - **Test results:** This card shows the number of results reported, broken down by passed, passed on retry, failed, and skipped results, as well as any [muted](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine) results.
 
@@ -724,6 +736,11 @@ bktec can print warnings such as `Could not resolve base branch for diff metadat
 - Wait for at least one `bktec run` job using the plan to finish. Test plans appear once a job reports its results.
 - Check the job log for `Using local fallback`. Test plans that bktec creates locally aren't listed.
 - If the build has more than 50 test plans, only the 50 plans with the most partitions are listed.
+
+### Time saved estimates are missing
+
+- **No time saved estimates:** If the job log shows `Estimated compute: unavailable` and the **Test selection** card has no estimated time saved rows, fewer than half of the candidates have timing history, so Test Engine can't estimate the time saved. Upload test results from full-suite builds, for example, builds of your default branch, so that Test Engine records timing history for the whole suite.
+- **No Estimated test wall-clock time saved row:** The step uses dynamic parallelism. Test Engine only estimates wall-clock time saved for steps with a fixed `parallelism`.
 
 ### The selection map isn't shown
 
