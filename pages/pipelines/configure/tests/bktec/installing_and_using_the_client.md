@@ -343,7 +343,7 @@ Usually the `parallelism` value is hard coded in the bktec pipeline step. Howeve
 
 Dynamic parallelism is supported using the `bktec plan` command. When used with the `--max-parallelism` and `--target-time` flags (see list of [bktec plan flags](#dynamic-parallelism-bktec-plan-flags) for more information), bktec generates a test plan and estimates the `parallelism` required to achieve the specified target build time. bktec then [uploads a dynamic pipeline](/docs/agent/cli/reference/pipeline) using the specified pipeline template.
 
-In the following example, the `test-selection.sh` script is assumed to generate a list of test files, one per line, relevant to the changes in a feature branch. The `--files` flag limits test discovery to these files, so Test Engine only sees the subset. To have Test Engine select the tests from the full suite and record that selection for review, use [manual test selection with dynamic parallelism](#manual-test-selection-use-manual-selection-with-dynamic-parallelism) instead.
+In the following example, the `test-selection.sh` script is assumed to generate a list of test files, one per line, relevant to the changes in a feature branch.
 
 ```
 steps:
