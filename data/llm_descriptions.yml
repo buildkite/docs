@@ -137,7 +137,7 @@
   pipelines/integrations/notifications/slack: "Legacy per-channel Slack notification service for build and job status updates. Buildkite recommends using the Slack Workspace notification service instead."
   pipelines/integrations/notifications/slack-workspace: "Recommended workspace-level Slack integration for configuring notifications using YAML notify attributes to any channel or user, with how-to recipes for failure notifications, user mentions, dynamic pipelines, and guaranteed final notifications."
   pipelines/integrations/notifications/cc-menu: "Using the cctray.xml feed to display build status in CCMenu, CCTray, and build dashboards."
-  pipelines/integrations/notifications/plugins: "Directory of Buildkite plugins for delivering notifications."
+  https://buildkite.com/resources/plugins/category/notify/: "Buildkite plugins directory filtered to notification plugins, hosted on buildkite.com/resources (external page, no Markdown version)."
   pipelines/integrations/observability/overview: "Overview of observability integrations: Datadog, Honeycomb, OpenTelemetry, Amazon EventBridge, and community plugins."
   pipelines/integrations/observability/datadog: "Configuring Datadog APM tracing and CI Pipeline Visibility for Buildkite Pipelines."
   pipelines/integrations/observability/honeycomb: "Integrating Honeycomb with Buildkite using buildevents binary, OpenTelemetry tracing, or the Markers plugin."

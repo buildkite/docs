@@ -739,7 +739,7 @@
             - name: "Linear"
               path: "pipelines/integrations/notifications/linear"
             - name: "Notification plugins"
-              path: "pipelines/integrations/notifications/plugins"
+              path: "https://buildkite.com/resources/plugins/category/notify/"
         - name: "Observability"
           children:
             - name: "Overview"

@@ -33,7 +33,7 @@ pipelines_integrations:
       - text: "Slack (legacy)"
         url: "/docs/pipelines/integrations/notifications/slack"
       - text: "Notification plugins"
-        url: "/docs/pipelines/integrations/notifications/plugins"
+        url: "https://buildkite.com/resources/plugins/category/notify/"
   - title: "Observability"
     desc: "Integrate Buildkite with monitoring and telemetry platforms."
     links:
