@@ -323,6 +323,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/input-step",                                                                  to: redirect("/docs/pipelines/configure/step-types/input-step")
   get "/docs/pipelines/integrations/notifications/plugins",                                          to: redirect("https://buildkite.com/resources/plugins/category/notify/")
   get "/docs/pipelines/integrations/observability/plugins",                                          to: redirect("https://buildkite.com/resources/plugins/category/observability/")
+  get "/docs/pipelines/integrations/secrets/plugins",                                                to: redirect("https://buildkite.com/resources/plugins/category/secrets/")
   get "/docs/pipelines/integrations/other/amazon-eventbridge",                                       to: redirect("/docs/pipelines/integrations/observability/amazon-eventbridge")
   get "/docs/pipelines/integrations/other/cc-menu",                                                  to: redirect("/docs/pipelines/integrations/notifications/cc-menu")
   get "/docs/pipelines/integrations/other/artifactory",                                              to: redirect("/docs/pipelines/integrations/artifacts-and-packages/artifactory")

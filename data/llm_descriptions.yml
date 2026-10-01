@@ -146,7 +146,7 @@
   https://buildkite.com/resources/plugins/category/observability/: "Buildkite plugins directory filtered to observability plugins, hosted on buildkite.com/resources (external page, no Markdown version)."
   pipelines/integrations/security-and-compliance/plugins: "Directory of Buildkite plugins for security, governance, and compliance."
   pipelines/integrations/security-and-compliance/sonar: "Tutorial for integrating SonarScanner CLI with Buildkite pipelines for static code analysis using SonarQube or SonarCloud."
-  pipelines/integrations/secrets/plugins: "Directory of Buildkite plugins for secrets management."
+  https://buildkite.com/resources/plugins/category/secrets/: "Buildkite plugins directory filtered to secrets management plugins, hosted on buildkite.com/resources (external page, no Markdown version)."
   pipelines/integrations/artifacts-and-packages/artifactory: "Configuring the Buildkite agent to upload and download artifacts directly from JFrog Artifactory."
   pipelines/integrations/artifacts-and-packages/artifact-plugins: "Directory of Buildkite plugins for managing or uploading build artifacts."
   pipelines/integrations/artifacts-and-packages/package-plugins: "Directory of Buildkite plugins for publishing or retrieving packages."

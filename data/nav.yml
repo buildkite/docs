@@ -764,7 +764,7 @@
         - name: "Secrets"
           children:
             - name: "Secrets plugins"
-              path: "pipelines/integrations/secrets/plugins"
+              path: "https://buildkite.com/resources/plugins/category/secrets/"
         - name: "Artifacts and packages"
           children:
             - name: "Artifactory"

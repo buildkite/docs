@@ -46,7 +46,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Leverage [Buildkite's secrets plugins](/docs/pipelines/integrations/secrets/plugins) for secrets management and the [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) feature to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
+- Leverage [Buildkite's secrets plugins](https://buildkite.com/resources/plugins/category/secrets/) for secrets management and the [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) feature to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
 - Integrate external secrets management using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io).
 - [Export secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets, rather than injecting them at build runtime. If you absolutely have to inject your secrets at runtime, avoid storing them as static environment variables.
 - Establish environment-specific [cluster](/docs/pipelines/security/clusters/manage) and [queue](/docs/agent/queues/managing) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.

@@ -129,6 +129,10 @@ pipelines:
     - "apis/webhooks/pipelines/agent-events"
     - "apis/webhooks/pipelines/ping-events"
     - "apis/webhooks/pipelines/agent-token-events"
+    - "https://buildkite.com/resources/plugins/category/deploy/"
+    - "https://buildkite.com/resources/plugins/category/notify/"
+    - "https://buildkite.com/resources/plugins/category/observability/"
+    - "https://buildkite.com/resources/plugins/category/secrets/"
   related_topics:
     - pipeline-configurations
     - best-practices
@@ -208,6 +212,7 @@ deployments:
     - "pipelines/security/oidc/aws"
     - "pipelines/security/oidc/azure"
     - "pipelines/integrations/other/backstage"
+    - "https://buildkite.com/resources/plugins/category/deploy/"
   related_topics:
     - pipelines
     - integrations
@@ -279,6 +284,11 @@ integrations:
     - "pipelines/integrations"
     - "pipelines/source-control"
     - "pipelines/deployments"
+  exact_paths:
+    - "https://buildkite.com/resources/plugins/category/deploy/"
+    - "https://buildkite.com/resources/plugins/category/notify/"
+    - "https://buildkite.com/resources/plugins/category/observability/"
+    - "https://buildkite.com/resources/plugins/category/secrets/"
   related_topics:
     - pipelines
     - deployments

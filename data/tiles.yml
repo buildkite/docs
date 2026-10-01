@@ -58,7 +58,7 @@ pipelines_integrations:
     desc: "Manage secrets passed to your builds."
     links:
       - text: "Secrets plugins"
-        url: "/docs/pipelines/integrations/secrets/plugins"
+        url: "https://buildkite.com/resources/plugins/category/secrets/"
   - title: "Other integrations"
     desc: "Additional services that work with Buildkite."
     links:
