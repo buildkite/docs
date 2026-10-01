@@ -700,7 +700,8 @@ steps:
 
 To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
 
-> 📘 Note that notification delivery can still fail if the Buildkite Builds app does not have permission to post to that destination. For private channels, a Slack admin may need to reinstall the app or add it to the channel. For direct messages (`D` prefix), the app must be explicitly invited to the conversation.
+> 📘 Notification delivery failures
+> Notification delivery can still fail if the Buildkite Builds app does not have permission to post to that destination. For private channels, a Slack admin may need to reinstall the app or add it to the channel. For direct messages (`D` prefix), the app must be explicitly invited to the conversation.
 
 ### Notify a channel in one workspace
 
