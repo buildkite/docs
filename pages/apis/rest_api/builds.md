@@ -42,7 +42,7 @@ Note that some API request types on this page, especially those involving only a
   </tr>
   <tr>
     <th><code>cancel_reason</code></th>
-    <td>Reason the build was canceled, or <code>null</code> if no reason was recorded. See <a href="/docs/pipelines/configure/canceling-builds#cancel-reasons">Cancel reasons</a> for the possible values</td>
+    <td>Reason the build was canceled, or <code>null</code> if no reason was recorded. See <a href="/docs/pipelines/configure/canceling-builds#cancel-reasons">Cancel reasons</a> for the possible values.</td>
   </tr>
   <tr>
     <th><code>message</code></th>
