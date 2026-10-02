@@ -144,6 +144,8 @@ Clone mirrors must be enabled for your Buildkite organization. To configure an e
 1. In **Git Clone Mirror**, enter the Origin repository URL in **Clone mirror repository URL**.
 1. Select **Save Clone Mirror**.
 
+When the pipeline doesn't have a clone mirror configured yet, **Git Clone Mirror** can help you find the Origin mirror. To replace an existing clone mirror, enter the new URL manually.
+
 If Origin is connected to your Buildkite organization and exactly one Origin repository mirrored from GitHub has the same name as the pipeline's GitHub repository, **Git Clone Mirror** shows **Origin mirror found**. Select **Use Origin mirror** to fill in the mirror's URL, then save the clone mirror.
 
 If Origin is not connected, organization administrators see **Clone from an Origin mirror** instead. Select **Connect Origin**, complete the connection in Origin, and then return to the pipeline's settings to finish setting up the clone mirror.
@@ -182,7 +184,7 @@ Despite the setting name, the integration uses the Origin Checks API rather than
 
 When **Update commit statuses** is enabled, Buildkite Pipelines publishes a check to Origin for each build. This setting is enabled by default.
 
-The check suite is named `Buildkite / <pipeline-name>`, and the check run is named `Build #<build-number>`.
+The check suite is named `Buildkite / <pipeline-name>`. The check run is named `Build #<build-number>`.
 
 The check shows information relevant to the build state:
 
