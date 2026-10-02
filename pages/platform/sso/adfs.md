@@ -1,9 +1,11 @@
 # Single sign-on with ADFS
 
+> 📘 Enterprise plan feature
+> ADFS capabilities for SSO are only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+
 You can use Active Directory Federation Services (ADFS) for your Buildkite organization. To complete this tutorial, you need admin privileges for both your ADFS server and Buildkite.
 
-> 📘 Enterprise plan feature and setting up with GraphQL
-> ADFS capabilities for SSO are only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+> 📘 Setting up with GraphQL
 > You can also set up SSO providers manually with GraphQL. See the [SSO setup with GraphQL guide](/docs/platform/sso/sso-setup-with-graphql) for detailed instructions and code samples.
 
 ## Step 1. Create a Buildkite SSO provider
@@ -152,6 +154,12 @@ Follow the instructions on the provider page to perform a test login. Performing
 Once you've performed a test login you can enable your provider using the **Enable** button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through ADFS before organization data can be accessed.
 
 If you need to edit or update your ADFS provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/platform/sso#disabling-and-removing-sso) section of the SSO overview.
+
+## Use a unique issuer URL for multiple providers
+
+If your ADFS server requires a unique SAML issuer (also known as an Entity ID) for each SSO provider it manages, for example, when your ADFS server has multiple SSO providers configured across different Buildkite organizations, select **Include provider identifier in issuer URL** on your provider's **Edit Provider** page. This adds the SSO provider's unique identifier to the **Issuer (Entity ID)** value shown in the **Service Provider** section. This avoids an Entity ID clash with your other SSO providers.
+
+After enabling this setting, update the **Relying party trust identifier** configured in ADFS to match the new **Issuer (Entity ID)** value. Then [perform a test login](#step-4-perform-a-test-login) to confirm SSO still works.
 
 ## SAML user attributes
 

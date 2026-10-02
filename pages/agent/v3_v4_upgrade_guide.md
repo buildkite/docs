@@ -1,17 +1,17 @@
 # Agent v3 to v4 upgrade guide
 
-> 🚧 Pre-release software
-> Version 4 of the Buildkite Agent is in beta, and this upgrade guide should not be considered final.
+> 📘 Buildkite agent v4 becomes the stable release on September 1, 2026 (AEST)
+> Until then, v4 is in beta and details in this guide may change. From September 1, installations and upgrades that follow the `latest` or `stable` release channels will move to v4. You can [test v4 in beta](/docs/agent/v3-v4-upgrade-guide#how-to-test-v4-in-beta) before then, or [stay on v3](/docs/agent/v3-v4-upgrade-guide#how-to-stay-on-v3-after-v4-is-stable) if you need more time.
 
 ## Breaking changes in v4
 
-Read the following breaking changes carefully to determine if your agent setup, pipelines, or [plugins](/docs/pipelines/integrations/plugins) need updating for v4.
+Most agent setups need no changes for v4. Read the following breaking changes carefully to determine if your agent setup, pipelines, or [plugins](/docs/pipelines/integrations/plugins) need updating.
 
 ### Changes to job handling
 
 - The [deprecated Docker integration](https://github.com/buildkite/agent/blob/497e6a42125a733d4615814faf9aab27fc9a7532/internal/job/docker.go) has been removed. The `docker` and `docker-compose` plugins remain supported. The integration used the `BUILDKITE_DOCKER` and `BUILDKITE_DOCKER_COMPOSE_CONTAINER` environment variables and had been deprecated since 2017. All current Docker usage for jobs known to Buildkite uses the `docker` and `docker-compose` plugins. If you use the deprecated Docker integration, switch to one of these plugins.
 - On Windows, the exit status of a canceled job is now `1` instead of `0`. Canceled jobs now appear as failed, consistent with jobs that run on other platforms.
-- The `--cancel-grace-period` and `--signal-grace-period-seconds` flags and configuration options (the `BUILDKITE_CANCEL_GRACE_PERIOD` and `BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS` environment variables) have been replaced with `--cancel-signal-timeout` and `--cancel-cleanup-timeout` (the `BUILDKITE_CANCEL_SIGNAL_TIMEOUT` and `BUILDKITE_CANCEL_CLEANUP_TIMEOUT` environment variables). The timeouts have increased slightly to a ten-second signal timeout and a five-second cleanup timeout. Both flags now accept non-negative durations. The maximum grace period after job cancellation is the sum of the two timeouts. Negative signal grace periods are no longer supported.
+- The `--cancel-grace-period` and `--signal-grace-period-seconds` flags and configuration options (the `BUILDKITE_CANCEL_GRACE_PERIOD` and `BUILDKITE_SIGNAL_GRACE_PERIOD_SECONDS` environment variables) have been replaced with `--cancel-signal-timeout` and `--cancel-cleanup-timeout` (the `BUILDKITE_CANCEL_SIGNAL_TIMEOUT` and `BUILDKITE_CANCEL_CLEANUP_TIMEOUT` environment variables). The timeouts have increased slightly to a ten-second signal timeout and a five-second cleanup timeout. The signal timeout is how long a canceled job's process has to handle the cancel signal before it is forcefully killed. The cleanup timeout only applies while the agent itself is stopping—it's extra time to upload logs and artifacts before the agent forcefully exits.
 
 ### Changes to job logs
 
@@ -20,7 +20,9 @@ Read the following breaking changes carefully to determine if your agent setup, 
 ### Changes to checkout
 
 - After repository checkout, the agent resolves `BUILDKITE_COMMIT` to a commit hash. This change is useful when the initial value is a refspec such as `HEAD`.
-- The OpenSSH option `StrictHostKeyChecking=accept-new` has replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. The default checkout process now requires OpenSSH version 7.6 or later unless you enable `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN`. OpenSSH 7.6 was released in 2017.
+- OpenSSH options have replaced the built-in SSH key scan and `known-hosts` file updater in the default checkout process. When the agent detects OpenSSH 7.6 or later, it sets `StrictHostKeyChecking=accept-new`. For detected earlier versions, it falls back to `StrictHostKeyChecking=no` and `UserKnownHostsFile=/dev/null`. If the agent can't determine the OpenSSH version, it assumes `accept-new` is supported. Enabling `--no-ssh-keyscan` or `BUILDKITE_NO_SSH_KEYSCAN` sets `StrictHostKeyChecking=yes` and relies on existing host-key configuration.
+- Agent v4 is incompatible with version 0.4.1 and earlier of the [Git SSH Checkout plugin](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/). These plugin versions may fail to authenticate during checkout because the agent's SSH configuration prevents the plugin-provided key from being used. If you use this plugin, update it to the latest release before upgrading to agent v4.
+- [Git commit verification](/docs/pipelines/configure/git-checkout#commit-verification) now defaults to `strict`. The agent fails a job when it determines that the requested commit is not on the specified branch. To disable verification, set the `git-commit-verification` agent configuration option or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable to `off`. Before upgrading, replace any v3 `warn` value with `strict` or `off`. Replace any empty value used to disable verification with `off`. In v4, an empty agent configuration value prevents the agent from starting. An empty value supplied by `checkout.commit_verification` causes job bootstrap to fail when the agent runs with `checkout-override-mode` set to `none`.
 
 ### Changes to agent parallelism
 
@@ -33,16 +35,18 @@ Read the following breaking changes carefully to determine if your agent setup, 
 
 - The agent no longer supports OpenTracing or direct connections to DogStatsD and no longer includes Datadog-related tracing workarounds. Use OpenTelemetry instead.
     * Enable OpenTelemetry tracing with the `--opentelemetry-tracing` flag or `BUILDKITE_OPENTELEMETRY_TRACING` environment variable.
+    * Enable OpenTelemetry metrics with the `--opentelemetry-metrics` flag or `BUILDKITE_OPENTELEMETRY_METRICS` environment variable. These metrics replace the direct DogStatsD integration.
     * `--tracing-service-name` (`BUILDKITE_TRACING_SERVICE_NAME`) has been renamed to `--telemetry-service-name` (`BUILDKITE_TELEMETRY_SERVICE_NAME`).
     * `--tracing-backend` (`BUILDKITE_TRACING_BACKEND`) has been removed. Only OpenTelemetry is supported.
     * `--tracing-propagate-traceparent` (`BUILDKITE_TRACING_PROPAGATE_TRACEPARENT`) has been removed. Its function, accepting a trace parent from the Buildkite platform, is now always enabled.
     * Configure the OpenTelemetry OTLP endpoint and protocol with the [standard `OTEL_EXPORTER_OTLP_*` environment variables](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
-- OpenTelemetry now uses a single `jobs.finished` metric instead of the `jobs.success` and `jobs.failed` counters. Use the `exit_status` tag on the metric to determine whether the job succeeded or failed.
+- OpenTelemetry now uses a single `jobs.finished` metric instead of the `jobs.success` and `jobs.failed` counters, and a single `jobs.duration` metric instead of `jobs.duration.success` and `jobs.duration.error`. Use the `exit_code` attribute on both replacement metrics to determine whether the job succeeded or failed.
 - The `buildkite_agent_jobs_started_total` and `buildkite_agent_jobs_ended_total` Prometheus metrics now have `priority` and `queue` labels. These metrics replace `buildkite_agent_jobs_started_with_labels_total` and `buildkite_agent_jobs_ended_with_labels_total`.
 
 ### Changes to pipeline uploads
 
 - By default, the agent now immediately fails a `pipeline upload` command when it detects secrets. To allow secrets in pipeline uploads, pass the `--allow-secrets` flag or set the `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` environment variable. The agent no longer supports the `--reject-secrets` flag or the `BUILDKITE_AGENT_PIPELINE_UPLOAD_REJECT_SECRETS` environment variable.
+- Secret detection during `pipeline upload` now also scans the `env` map nested inside a [trigger step](/docs/pipelines/configure/step-types/trigger-step)'s `build` attribute. Previously, only top-level and step-level `env` maps were scanned, so secret values interpolated into a trigger step's `build.env` could be uploaded undetected.
 
 ### Changes to artifacts
 
@@ -151,7 +155,7 @@ You can test Buildkite agent v4 in several ways, depending on how you installed 
 
 ### Hosted agents
 
-Buildkite hosted agents do not support Buildkite agent v4 before its stable release.
+Buildkite manages the agent version used by Buildkite-hosted agents and updates it automatically, so there is nothing to install or test. Buildkite moves hosted agents to v4 as a staged rollout before it becomes the stable release.
 
 ### Self-hosted installations
 
@@ -219,9 +223,9 @@ In an Administrator PowerShell session, set the `buildkiteAgentBeta` environment
 
 ```console
 PS> $env:buildkiteAgentToken = "xxx-yyy-zzz"
-PS> $env:buildkiteAgentBeta = true
+PS> $env:buildkiteAgentBeta = "true"
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+PS> iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
 
 #### From source
@@ -249,7 +253,7 @@ After v4 becomes stable, you can remain on Buildkite agent v3 in several ways, d
 
 ### Hosted agents
 
-You cannot choose the agent version used by Buildkite hosted agents.
+Buildkite manages the agent version used by Buildkite-hosted agents and updates it automatically, so there is nothing to configure. If the timing of the move to v4 does not suit you, contact support at [support@buildkite.com](mailto:support@buildkite.com) to discuss your options.
 
 ### Self-hosted installations
 
@@ -275,7 +279,7 @@ Elastic CI Stack for AWS version 6.69.0 and later supports `oldstable` as a valu
 The [installation script](https://github.com/buildkite/agent/blob/main/install.sh) does not choose the most recent release in the `oldstable` release channel. Set the `BUILDKITE_AGENT_VERSION` environment variable to choose a specific version:
 
 ```console
-$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BUILDKITE_AGENT_VERSION=3.132.0 bash
+$ curl https://raw.githubusercontent.com/buildkite/agent/refs/heads/main/install.sh | BUILDKITE_AGENT_VERSION=3.134.0 bash
 ```
 
 #### Ubuntu and Debian
@@ -315,9 +319,9 @@ The script does not choose the most recent release in the `oldstable` release ch
 
 ```console
 PS> $env:buildkiteAgentToken = "xxx-yyy-zzz"
-PS> $env:buildkiteAgentVersion = "3.132.0"
+PS> $env:buildkiteAgentVersion = "3.134.0"
 PS> Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
+PS> iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
 
 #### From source

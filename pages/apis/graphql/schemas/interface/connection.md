@@ -62,6 +62,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/buildmetadataconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildMetaDataConnection">
   <code>BuildMetaDataConnection</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/cacheregistryconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT CacheRegistryConnection">
+  <code>CacheRegistryConnection</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/clusteragenttokenconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenConnection">
   <code>ClusterAgentTokenConnection</code>
 </a>

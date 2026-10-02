@@ -11,11 +11,11 @@ For all configuration processes covered on this page, you can alternatively stor
 
 ## Amp
 
-You can configure your [Amp](https://ampcode.com/) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#amp-docker) or [as a binary](#amp-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+You can configure your [Amp](https://ampcode.com/) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#amp-docker) or [as a binary](#amp-binary). To do this, add the relevant configuration to your [Amp `settings.json` file](https://ampcode.com/docs/cli/settings).
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/docs/cli/settings).
 
 ```json
 {
@@ -39,7 +39,7 @@ When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-s
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/manual#configuration).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Amp `settings.json` file](https://ampcode.com/docs/cli/settings).
 
 ```json
 {

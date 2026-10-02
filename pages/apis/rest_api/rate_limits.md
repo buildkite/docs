@@ -14,8 +14,8 @@ Buildkite imposes a rate limit of 200 requests per minute for each organization.
 
 > 📘 Buildkite MCP server requests
 > Requests to the Buildkite REST API made through the [Buildkite MCP server](/docs/apis/mcp-server) are handled differently based on whether you're using the [remote](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server) or [local](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server) MCP server.
-> The remote MCP server's requests are tracked through a separate per-user rate limit, which _does not_ count towards your Buildkite organization's REST API limit. See [Remote MCP server rate limits](/docs/apis/mcp-server/remote/rate-limits) for details.
-> The local MCP server's requests, however, _do_ count towards your Buildkite organization's REST API limit.
+> The OAuth-based remote MCP server's requests are tracked through a separate per-user rate limit, which _does not_ count towards your Buildkite organization's REST API limit. See [Remote MCP server rate limits](/docs/apis/mcp-server/remote/rate-limits) for details.
+> Requests from the local MCP server and the remote MCP server's [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server), however, _do_ count towards your Buildkite organization's REST API limit.
 
 ## Per-user rate limits
 
@@ -62,7 +62,7 @@ RateLimit-Reset: 42
 
 ### Using the rate limit API
 
-You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving comprehensive rate limit information for both REST API and GraphQL API usage.
+You can also programmatically query your organization's rate limit status using the dedicated rate limit endpoint. Requests to this endpoint don't count towards your organization's REST API rate limit or your per-user rate limit. See the [rate limit endpoint documentation](/docs/apis/rest-api/organizations/rate-limits) for details on retrieving rate limit information for both REST and GraphQL API usage.
 
 ## Exceeding the rate limit
 

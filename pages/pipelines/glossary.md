@@ -124,7 +124,7 @@ To learn more, see [Hooks](/docs/agent/hooks).
 
 ## Hosted agent
 
-A hosted agent is a Buildkite [agent](#agent) that runs on infrastructure managed by Buildkite, so you do not provision, scale, or maintain the machine yourself. Hosted agents are configured per [queue](#queue) and are available with Linux and macOS images. A [self-hosted agent](/docs/agent/self-hosted), by contrast, runs on infrastructure you control.
+A hosted agent is a Buildkite [agent](#agent) that runs on infrastructure managed by Buildkite, so you do not provision, scale, or maintain the machine yourself. Hosted agents are configured per [queue](#queue) and are available with Linux, macOS, and Windows images. A [self-hosted agent](/docs/agent/self-hosted), by contrast, runs on infrastructure you control.
 
 To learn more, see the [Buildkite hosted agents overview](/docs/agent/buildkite-hosted).
 

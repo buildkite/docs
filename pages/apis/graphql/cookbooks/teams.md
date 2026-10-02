@@ -4,6 +4,20 @@ A collection of common tasks with teams using the GraphQL API.
 
 <%= render_markdown partial: 'apis/graphql/cookbooks/graphql_console_link' %>
 
+## Check whether teams are enabled
+
+Team mutations require team-based permissions to be enabled for the organization. Check the current state using the `isTeamsEnabled` field:
+
+```graphql
+query TeamStatus {
+  organization(slug: "organization-slug") {
+    isTeamsEnabled
+  }
+}
+```
+
+If `isTeamsEnabled` is `false`, an organization administrator can [enable teams using the REST API](/docs/apis/rest-api/teams#enable-teams) with an API access token that has the `write_teams` scope. The GraphQL API does not provide a mutation to enable or disable team-based permissions.
+
 ## Create a team
 
 Create a new team.

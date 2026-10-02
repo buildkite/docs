@@ -31,4 +31,3 @@ bk init [flags]
 | Flag | Description |
 | --- | --- |
 | `--debug` | Enable debug output for REST API calls |
-

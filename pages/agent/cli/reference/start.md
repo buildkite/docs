@@ -77,11 +77,11 @@ steps:
 
 ## Sourcing tags from Amazon Web Services
 
-You can load an Agent's tags from the underlying Amazon EC2 instance using `--tags-from-ec2-tags` for the instance tags and `--tags-from-ec2` to load the EC2 metadata (for example, instance name and machine type).
+You can load an agent's tags from the underlying Amazon EC2 instance using `--tags-from-ec2-tags` for the instance tags and `--tags-from-ec2-meta-data` to load the EC2 metadata (for example, instance ID and instance type).
 
 ## Sourcing tags from Google Cloud
 
-You can load an Agent's tags from the underlying Google Cloud metadata using `--tags-from-gcp`.
+You can load an agent's tags from the underlying Google Cloud metadata using `--tags-from-gcp-meta-data`.
 
 ## Run a job on the agent that uploaded it (also known as node affinity)
 

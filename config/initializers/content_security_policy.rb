@@ -19,21 +19,19 @@
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.font_src    :self, "https://www2.buildkiteassets.com/"
-  policy.object_src  "https://beacon-v2.helpscout.net"
-  policy.style_src   :self, :unsafe_inline, "https://beacon-v2.helpscout.net"
+  policy.object_src  :none
+  policy.style_src   :self, :unsafe_inline
 
   policy.img_src(
     :self,
     "https://buildkiteassets.com/",
     "https://buildkite.com/",
     ENV.fetch("BADGE_DOMAIN", "https://badge.buildkite.com"),
-    "https://beacon-v2.helpscout.net",
   )
 
   policy.script_src(
     :self,
     "https://www.googletagmanager.com/",
-    "https://beacon-v2.helpscout.net",
     "https://rum.browser-intake-datadoghq.com",
     "https://www.datadoghq-browser-agent.com",
     "https://us-assets.i.posthog.com/",
@@ -55,10 +53,6 @@ Rails.application.config.content_security_policy do |policy|
     # We have Datadog Real User Monitoring enabled
     "https://rum.browser-intake-datadoghq.com",
 
-    # helpscout beacon sends data to two places
-    "https://beacon-v2.helpscout.net",
-    "https://d3hb14vkzrxvla.cloudfront.net",
-
     #posthog
     "https://us.i.posthog.com",
 
@@ -70,10 +64,6 @@ Rails.application.config.content_security_policy do |policy|
   policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
 
   policy.frame_src(
-  )
-
-  policy.media_src(
-   "https://beacon-v2.helpscout.net"
   )
 
   # Specify URI for violation reports. We only include this in the header in some environments, mostly

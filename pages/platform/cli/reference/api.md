@@ -85,4 +85,3 @@ Run GraphQL query from file:
 ```bash
 bk api --file get_build.graphql
 ```
-

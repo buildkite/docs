@@ -20,6 +20,31 @@ Each plan has default [service quotas](/docs/platform/limits) that define usage 
 
 For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
+## Billing spend alerts
+
+Spend alerts notify your organization when its estimated next invoice reaches a threshold you choose. Spend alerts are informational only—they don't cap spending, stop builds, or disable usage.
+
+Spend alerts are available to organizations on a monthly Pro plan that renews automatically. Legacy Buildkite Pipelines Pro plans are not supported. To set up or change a spend alert, you need billing administration permissions for your organization.
+
+To set up a spend alert:
+
+1. Select **Settings** in the global navigation, then select **Billing**.
+1. In the **Spend Alert** row, select **Set spend alert**.
+1. Ensure **Enable spend alert** is selected, then enter an **Invoice threshold (USD)**.
+1. Optionally, select **Add my email to billing contacts**.
+1. Select **Save spend alert**.
+
+To change the threshold or turn off the alert, select **Manage spend alert** in the **Spend Alert** row.
+
+When the estimate reaches or exceeds your threshold:
+
+- Organization administrators see a banner across Buildkite.
+- Your organization's billing contacts receive an email, at most once per billing period.
+
+If your organization has no billing contacts when the threshold is first reached, the banner still appears, but no email is sent for that billing period.
+
+Spend alerts aren't real-time. Your invoice estimate may already be higher than your threshold when an alert is sent. The estimate is based on charges accrued so far. Usage reporting can be delayed. The estimate may also differ from your final invoice.
+
 ## Viewing prepaid inclusions
 
 Managed enterprise customers with the inclusions report enabled can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.

@@ -121,7 +121,7 @@ where:
 
 ## Create a job-scoped annotation
 
-A build's _job-scoped_ annotations appear within the **Annotations** tab of a job's details page, rather than by default on the build page's main **Annotations** tab. This makes it easier to view contextual information directly alongside the specific job that generated the annotation. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
+A build's _job-scoped_ annotations appear alongside build annotations on the build page's main **Annotations** tab, as well as within the **Annotations** tab of the specific job's details page. Use the **Build** and **Job** scope filters on the main **Annotations** tab to narrow the list to one type. This makes it easier to view contextual information directly alongside the specific job that generated the annotation. For more about navigating the build interface, see the [build page](/docs/pipelines/build-page) documentation.
 
 Use cases where job-scoped annotations are particularly useful:
 
@@ -298,11 +298,28 @@ Annotations do not support GitHub-style syntax highlighting, task lists, user me
 CommonMark supports HTML inside Markdown blocks, but will revert to Markdown parsing on newlines. For more information about how HTML is parsed and which tags CommonMark supports please refer to the [CommonMark spec](https://spec.commonmark.org).
 
 > 🚧 HTML limitations
-> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<h1>` through `<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
+> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<details>`, `<summary>`, `<h1>` through `<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
 >
-> Attributes are also restricted. The `class` attribute is allowed but only for a specific allowlist of CSS class names (see [Supported CSS classes](#formatting-annotations-supported-css-classes) below). Link `href` values are limited to `http`, `https`, `mailto`, `itms-services`, and relative URL schemes.
+> Attributes are also restricted. The `open` attribute is allowed on `<details>`. The `class` attribute is allowed but only for a specific allowlist of CSS class names (see [Supported CSS classes](#formatting-annotations-supported-css-classes) below). Link `href` values are limited to `http`, `https`, `mailto`, `itms-services`, and relative URL schemes.
 >
 > Inline styles (for example, `style="margin-top: 0;"`) are stripped. Some CSS classes may not work on certain HTML elements due to CSS specificity. Use the supported Basscss classes listed below instead.
+
+Use `<details>` and `<summary>` to collapse long content such as failure output. By default, `<details>` starts collapsed. `<details open>` starts expanded. The content of `<summary>` is the label that users select to expand or collapse the section. This native behavior doesn't require `<script>` tags or Basscss classes.
+
+For example, this command creates an annotation with collapsed failure output:
+
+```bash
+cat <<'EOF' | buildkite-agent annotate --style "error" --context "failure-details"
+<details>
+<summary>Failure details</summary>
+
+~~~text
+... long failure output ...
+~~~
+
+</details>
+EOF
+```
 
 ### Supported CSS classes
 
@@ -351,6 +368,8 @@ content-start content-end content-center content-between content-around content-
 order-0 order-1 order-2 order-3 order-last
 
 border border-top border-right border-bottom border-left border-none rounded
+border-black border-gray border-silver border-white border-aqua border-blue border-navy border-teal
+border-green border-olive border-lime border-yellow border-orange border-red border-fuchsia border-purple border-maroon
 
 h1 h2 h3 h4 h5 h6
 

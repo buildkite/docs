@@ -17,7 +17,11 @@ Learn more about:
 
 - How to use macOS hosted agents to [build iOS apps](/docs/agent/buildkite-hosted/macos/getting-started-with-ios).
 
+- How to interactively debug a running job using [terminal access](/docs/agent/buildkite-hosted/terminal-access) or browser-based [desktop access](/docs/agent/buildkite-hosted/desktop-access).
+
 - The [concurrency](#concurrency) and [security](#security) of macOS hosted agents.
+
+- The [versioned queues](#versioned-queues) pre-provisioned for new organizations, which pin a specific macOS version.
 
 ## Sizes
 
@@ -32,6 +36,22 @@ Also note the following about macOS hosted agent instances.
 - To accommodate different workloads, instances are capable of running up to 4 hours.
 
 If you have specific needs for longer running hosted agents (over 4 hours), please contact Support at support@buildkite.com.
+
+## Versioned queues
+
+New Buildkite organizations are pre-provisioned with the following macOS hosted queues, in addition to `macos-medium` and `macos-large`:
+
+Queue             | macOS version
+----------------- | ----------------
+`macos-14-medium` | [Sonoma](#macos-sonoma)
+`macos-15-medium` | [Sequoia](#macos-sequoia)
+`macos-26-medium` | [Tahoe (26.6)](#macos-tahoe-26-dot-6)
+`macos-27-medium` | [Golden Gate](#macos-golden-gate)
+{: class="responsive-table"}
+
+Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version, rather than using the default image applied to queues without a version, such as `macos-medium`. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
+
+New macOS hosted queues without an explicitly selected macOS or Xcode version default to macOS Tahoe (26.6) with Xcode 26.6. This includes queues you create and the `macos-medium` and `macos-large` queues created automatically for new Buildkite organizations. You can change this default at any time in the queue's **Base image** settings.
 
 ## Concurrency
 
@@ -57,6 +77,12 @@ Older Xcode versions are removed from base images over time. If your queue has a
 
 > 📘
 > Three macOS Tahoe versions are available, each with a unique set of Xcode versions. [Tahoe (26.3.1)](/docs/agent/buildkite-hosted/macos#macos-tahoe) includes older Xcode versions, because certain older Xcode versions are incompatible with newer Tahoe base images. [Tahoe (26.5)](/docs/agent/buildkite-hosted/macos#macos-tahoe-26-dot-5) and [Tahoe (26.6)](#macos-tahoe-26-dot-6) include newer Xcode 26.x versions.
+
+### Docker support
+
+macOS hosted agents include the Docker CLI (through the `docker` and `docker-buildx` [Homebrew packages](#homebrew-packages)), but do not include a running Docker daemon. Commands that require a Docker daemon, such as `docker build` or `docker run`, fail with an error like `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` unless the job connects to a Docker daemon that you provide.
+
+To build Docker images, run these jobs on [Linux hosted agents](/docs/agent/buildkite-hosted/linux), which support Docker image builds (including [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) on the Enterprise plan), or on [self-hosted agents](/docs/agent/self-hosted), where you control the Docker installation.
 
 ## macOS Golden Gate
 
@@ -91,6 +117,7 @@ Older Xcode versions are removed from base images over time. If your queue has a
 ### Xcode
 
 - 27-Beta
+- 26.6
 - 26.6-RC2
 - 26.5
 - 26.5-RC

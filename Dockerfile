@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.5-slim-bookworm@sha256:3c75b01d27398bbf3010b35612b957d268980e6bc3ec9419da043b22f90e5c88
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-bookworm-slim@sha256:cb4e8f7c443347358b7875e717c29e27bf9befc8f5a26cf18af3c3dec80e58c5
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.7-slim-trixie@sha256:d10bdb076bb10d2261773ea20eadf4cdbde3346fc8f8db409856608b2d01b9c9
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-trixie-slim@sha256:8ec5d7557396cfe32d21c3f9c13072355ceab22b584578ca4bb28af31120cffe
 
 FROM $BASE_IMAGE AS builder
 
@@ -49,7 +49,7 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.26-bookworm AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.27-trixie AS gobuild
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(

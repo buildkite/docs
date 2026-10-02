@@ -10,13 +10,13 @@ You can run the Buildkite agent inside a Docker container using the [official im
 Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
 
 ```shell
-docker run -d -t --name buildkite-agent buildkite/agent:3 start --token "<your-agent-token>"
+docker run -d -t --name buildkite-agent buildkite/agent:4 start --token "<your-agent-token>"
 ```
 
 A much larger Ubuntu-based image is also available:
 
 ```shell
-docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "<your-agent-token>"
+docker run -d -t --name buildkite-agent buildkite/agent:4-ubuntu start --token "<your-agent-token>"
 ```
 
 >🚧 Caveats for builds that need Docker access.
@@ -24,7 +24,7 @@ docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "
 
 ## Version tagging
 
-The default tag (`buildkite/agent:latest`) will always point to the latest stable release, but we recommend you use `buildkite/agent:3` to prevent breaking changes. If you want to use an exact version, you can use the corresponding tag, such as `buildkite/agent:3.0.1`. See [Docker Hub](https://hub.docker.com/r/buildkite/agent/tags/) for a list of all the available versions.
+The default tag (`buildkite/agent:latest`) always points to the latest stable release. We recommend using the major-version tag `buildkite/agent:4` to receive compatible v4 updates without automatically moving to the next major version. To remain on v3, use `buildkite/agent:oldstable` or `buildkite/agent:3`; see [How to stay on v3 after v4 is stable](/docs/agent/v3-v4-upgrade-guide#how-to-stay-on-v3-after-v4-is-stable). For an exact version, use its corresponding tag, such as `buildkite/agent:4.0.0`. See [Docker Hub](https://hub.docker.com/r/buildkite/agent/tags/) for all available versions.
 
 ## Default file locations
 
@@ -43,7 +43,7 @@ docker run \
   -d \
   -t \
   --name buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+  buildkite/agent:4 start --token "<your-agent-token>"
 ```
 
 ## Which user the agent runs as
@@ -62,13 +62,13 @@ docker run \
   -d \
   -t \
   --name buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+  buildkite/agent:4 start --token "<your-agent-token>"
 ```
 
 Alternatively, if you create your own image based off `buildkite/agent`, you can copy your hooks into the correct location:
 
 ```dockerfile
-FROM buildkite/agent:3
+FROM buildkite/agent:4
 
 COPY hooks /buildkite/hooks/
 ```
@@ -109,7 +109,7 @@ docker run \
   -d \
   -t \
   --name buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+  buildkite/agent:4 start --token "<your-agent-token>"
 ```
 
 >🚧 Security considerations
@@ -127,7 +127,7 @@ docker run \
   -d \
   -t \
   --name buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+  buildkite/agent:4 start --token "<your-agent-token>"
 ```
 
 If you've exposed pipeline secrets as environment variables, you can pass them through to the container using the -e option:
@@ -138,7 +138,7 @@ docker run \
   -d \
   -t \
   --name buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+  buildkite/agent:4 start --token "<your-agent-token>"
 ```
 
 ## Docker Hub rate limits

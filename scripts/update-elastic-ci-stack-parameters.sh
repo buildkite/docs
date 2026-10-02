@@ -30,6 +30,11 @@ MANUAL_PARAMETER_MAPPINGS = {
     'BuildkiteAgentSigningKeySSMParameter': 'pipeline_signing_jwks_parameter_store_path',
     'BuildkiteAgentSigningKeyID': 'pipeline_signing_jwks_key_id',
     'BuildkiteAgentVerificationKeySSMParameter': 'pipeline_verification_jwks_parameter_store_path',
+    'NestedVirtualizationEnabled': 'enable_nested_virtualization',
+    # Parameters with no Terraform equivalent that automatic matching would otherwise
+    # incorrectly fuzzy-match to unrelated variables. Map to None to force N/A.
+    'ScalerEventScheduleJitter': None,      # would match scaler_event_schedule_period
+    'ScalerManagedPolicyARNs': None,        # would match managed_policy_arns (instance role, not scaler)
 }
 
 def cloudformation_constructor(loader, tag_suffix, node):
@@ -90,6 +95,8 @@ def pascal_to_snake(name):
 def find_best_match(cf_param, terraform_vars):
     if cf_param in MANUAL_PARAMETER_MAPPINGS:
         tf_var = MANUAL_PARAMETER_MAPPINGS[cf_param]
+        if tf_var is None:
+            return None
         if tf_var in terraform_vars.keys():
             return tf_var
 

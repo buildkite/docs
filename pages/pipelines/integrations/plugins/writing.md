@@ -56,6 +56,8 @@ The `configuration` property defines the validation rules for the plugin configu
 
 Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is not the name defined in `plugin.yml` but the repository or folder name compatible with Bash environment variables (in uppercase and only letters, numbers, and underscores). In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
+The agent uppercases plugin names and configuration properties and replaces each hyphen or whitespace character with an underscore. Existing and consecutive underscores are preserved rather than collapsed. For example, a `some__setting` property for the file counter plugin becomes `BUILDKITE_PLUGIN_FILE_COUNTER_SOME__SETTING`. The agent only emits this canonical form. Agent v3 also emitted a deprecated variant with consecutive underscores collapsed, so plugin hooks shouldn't depend on that variant.
+
 > 📘 Accessing properties on plugins referenced with Git URLs
 > Note that if you <a href="/docs/pipelines/integrations/plugins/using#plugin-sources">reference a plugin</a> with a full URL ending in <code>.git</code> and that plugin's name does not end with `-buildkite-plugin`, variable names will include `_GIT` as part of the plugin name. For example, the value of the configuration <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> will be available as <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
 

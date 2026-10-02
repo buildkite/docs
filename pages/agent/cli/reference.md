@@ -42,7 +42,7 @@ Commands that can be run within a Buildkite job:
 Internal commands, not intended to be run by users:
   <a href="/docs/agent/cli/reference/bootstrap">bootstrap</a>               Harness used internally by the agent to run jobs as subprocesses
   kubernetes-bootstrap    Harness used internally by the agent to run jobs on Kubernetes
-  git-credentials-helper  Internal process used by hosted compute jobs to authenticate with Github
+  git-credentials-helper  Internal process used to authenticate with repository providers
 
 Use "buildkite-agent &lt;command&gt; --help" for more information about a command.
 </code></pre>

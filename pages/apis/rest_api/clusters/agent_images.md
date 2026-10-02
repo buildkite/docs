@@ -22,7 +22,7 @@ These endpoints require Buildkite hosted agents and access to the custom agent i
     </tr>
     <tr>
       <th><code>image_ref</code></th>
-      <td>The fully qualified image URL once the agent image has been built. <code>null</code> while the image is still building</td>
+      <td>The fully qualified image URL once the agent image has been built. <code>null</code> while the image is still building. Pass this value as the <code>agentImageRef</code> property of <code>hostedAgents</code> when <a href="/docs/apis/rest-api/clusters/queues#update-a-queue">updating a queue</a> so that the queue's agents run on this image.</td>
     </tr>
     <tr>
       <th><code>version</code></th>

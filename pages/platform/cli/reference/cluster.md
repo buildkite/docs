@@ -230,4 +230,3 @@ Delete a cluster without confirmation:
 ```bash
 bk cluster delete my-cluster-uuid --yes
 ```
-

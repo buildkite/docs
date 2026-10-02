@@ -199,6 +199,14 @@ RSpec.describe LLMTopicText do
         expect(result).to include("[Using if_changed](https://buildkite.com/docs/pipelines/configure/dynamic-pipelines/if-changed.md)")
       end
 
+      it "links external nav entries listed in exact paths directly" do
+        external_url = "https://buildkite.com/resources/plugins/category/secrets/"
+        nav_data.first["children"] << { "name" => "Secrets plugins", "path" => external_url }
+        topics["security"]["exact_paths"] << external_url
+
+        expect(result).to include("- [Secrets plugins](#{external_url})")
+      end
+
       it "includes pages matching path prefixes" do
         expect(result).to include("[Overview](https://buildkite.com/docs/agent/self-hosted/security.md)")
       end

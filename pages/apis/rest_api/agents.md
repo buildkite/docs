@@ -184,6 +184,10 @@ Optional [query string parameters](/docs/api#query-string-parameters):
     <th><code>version</code></th>
     <td>Filters the results by the given exact version number<p class="Docs__api-param-eg"><em>Example:</em> <code>?version=2.1.0</code></p></td>
   </tr>
+  <tr>
+    <th><code>cluster_queue_id</code></th>
+    <td>Filters the results to only agents registered to the given queue UUID<p class="Docs__api-param-eg"><em>Example:</em> <code>?cluster_queue_id=c109939f-3b71-4cd3-b175-8eb79d2eb38e</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -323,6 +327,21 @@ curl -H "Authorization: Bearer ${TOKEN}" \
     "timeout_in_minutes": 60
   }'
 ```
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>note</code></th>
+    <td>A short note explaining why the agent is being paused</td>
+  </tr>
+  <tr>
+    <th><code>timeout_in_minutes</code></th>
+    <td>The number of minutes after which the agent is automatically resumed<p class="Docs__api-param-eg"><em>If omitted:</em> Uses the agent's existing timeout value, which is initially <code>5</code>. <em>Maximum:</em> <code>10080</code> (seven days).</p></td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `write_agents`
 

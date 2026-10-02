@@ -6,6 +6,9 @@ The organizations API endpoint:
 
 - Forms the basis of several more Buildkite REST API endpoints, such as those for [pipelines](/docs/apis/rest-api/pipelines) and [teams](/docs/apis/rest-api/teams).
 
+> 🚧 Inactive organizations are omitted
+> The API returns only organizations with an active plan, including the Free plan. If an evaluation trial has ended and no plan is selected, the API omits that organization. Requests for it return `404` with `{"message":"No organization found"}`. Choose a plan on the organization's billing page to make the organization available to the API again.
+
 ## List organizations
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of organizations accessible by the user's access token.

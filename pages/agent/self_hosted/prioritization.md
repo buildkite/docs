@@ -62,22 +62,22 @@ Distributing jobs evenly across multiple machines can be accomplished with the `
 **Machine A:**
 
 ```bash
-buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority
+buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority=ascending
 ```
 
 **Machine B:**
 
 ```bash
-buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority
+buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority=ascending
 ```
 
 **Machine C:**
 
 ```bash
-buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority
+buildkite-agent start --tags "queue=ci-builds" --spawn 5 --spawn-with-priority=ascending
 ```
 
-This configuration will launch 5 agents on each machine (a total of 15 agents) that handle scheduled jobs in the `ci-builds` queue. Using the `--spawn-with-priority` option will launch each agent with a priority equal to their agent's index. Jobs will be equally distributed across agents running on all machines.
+This configuration launches five agents on each machine, for a total of 15 agents handling scheduled jobs in the `ci-builds` queue. The `--spawn-with-priority=ascending` option gives each agent a priority equal to its index. Use `static` to give all spawned agents the same priority or `descending` to assign priorities of `-1`, `-2`, `-3`, and so on.
 
 ### Resource-based prioritization
 

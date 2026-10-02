@@ -103,4 +103,4 @@ To do any of these actions a webhook:
 
 ## Request logs
 
-The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.
+The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.

@@ -104,7 +104,7 @@ There is also a [single query limit](/docs/apis/graphql/graphql-resource-limits#
 
 Buildkite's API has a requested complexity limit of 50,000 for each individual query. This limit is enforced prior to query execution. The intention of this limit is to prevent users from requesting an excessive number of resources in a single query.
 
-As a best practice, we recommend breaking up queries into smaller, more manageable chunks and utilizing pagination to navigate through the resulting list rather than relying on a single large query.
+As a best practice, break up queries into smaller, more manageable chunks and use [pagination](/docs/apis/graphql-api#pagination) to navigate through the resulting list rather than relying on a single large query.
 
 If the query exceeds the limit, the response will return HTTP 200 status code with the following error.
 

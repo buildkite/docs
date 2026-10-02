@@ -103,6 +103,12 @@ RSpec.describe LLMText do
       expect(step_types_line.strip).to eq("- [Step types](https://buildkite.com/docs/pipelines/configuration/step-types.md)")
     end
 
+    it "links external nav entries directly instead of as docs Markdown pages" do
+      nav_data.first["children"] << { "name" => "Deployment plugins", "path" => "https://buildkite.com/resources/plugins/category/deploy/" }
+
+      expect(result).to include("- [Deployment plugins](https://buildkite.com/resources/plugins/category/deploy/)")
+    end
+
     it "creates nested headings for sections with children" do
       expect(result).to include("### Configuration")
       expect(result).to include("[Step types](https://buildkite.com/docs/pipelines/configuration/step-types.md)")

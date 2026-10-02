@@ -66,6 +66,8 @@ Buildkite provides rich logging with colors, links, and emojis that make build o
 
 ## Migration path
 
+To run supported GitHub Actions workflows in Buildkite while you migrate incrementally, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows).
+
 You can try out the [Buildkite pipeline converter](/docs/pipelines/migration/pipeline-converter) to see how your existing GitHub Actions pipelines might look converted to Buildkite Pipelines.
 
 To start converting your GitHub Actions pipelines to Buildkite Pipelines, follow the instructions in [Migrate from GitHub Actions](/docs/pipelines/migration/from-githubactions), then migrate pipeline by pipeline. The key changes you'll need to be mindful of:

@@ -34,7 +34,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 **Controls:**
 
 - Integrate with a container scanning tool to keep track of a [software bill of materials (SBOM)](https://en.wikipedia.org/wiki/Software_supply_chain) for your packages. For example, see the following list of community-maintained [SBOM generation tools](https://github.com/cybeats/sbomgen?tab=readme-ov-file#list-of-sbom-generation-tools).
-- Use Buildkite's official [security and compliance plugins](/docs/pipelines/integrations/security-and-compliance/plugins) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
+- Use Buildkite's official [security and compliance plugins](https://buildkite.com/resources/plugins/category/security-compliance/) (or [write your own plugin](/docs/pipelines/integrations/plugins/writing)) to integrate with your existing security scanning infrastructure for source code, container testing, and vulnerability assessment.
 - Run automated dependency and malware scanning on every merge using established tools such as [GuardDog](https://github.com/DataDog/guarddog), [Snyk](https://snyk.io/), [Aqua Trivy](https://www.aquasec.com/products/trivy/) (also available as a [Trivy Buildkite plugin](https://buildkite.com/resources/plugins/equinixmetal-buildkite/trivy-buildkite-plugin/)), or cloud security services across your software supply chain.
 - Use [pipeline templates](/docs/pipelines/governance/templates) (a Buildkite [Enterprise](https://buildkite.com/pricing/) plan-only feature), [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines), and [agent hooks](/docs/agent/hooks) to ensure security scans cannot be bypassed by modifying `pipeline.yml` files. Use [pipeline templates](/docs/pipelines/governance/templates) to standardize security testing across all the pipelines in a Buildkite organization.
 - Track dependencies using [Buildkite Annotations](/docs/agent/cli/reference/annotate) to document exact package versions in each build. This creates an auditable record enabling targeted remediation when vulnerabilities are discovered.
@@ -46,13 +46,13 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 
 **Controls:**
 
-- Leverage [Buildkite's secrets plugins](/docs/pipelines/integrations/secrets/plugins) for secrets management and the [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) feature to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
+- Leverage [Buildkite's secrets plugins](https://buildkite.com/resources/plugins/category/secrets/) for secrets management and the [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) feature to ensure that secrets are only available where explicitly required. Note that Buildkite [automatically redacts secrets](/docs/pipelines/security/secrets/buildkite-secrets#redaction) in logs.
 - Integrate external secrets management using dedicated [secrets storage services](/docs/pipelines/security/secrets/managing#using-a-secrets-storage-service) such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io).
 - [Export secrets with environment hooks](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) for agent-level secrets, rather than injecting them at build runtime. If you absolutely have to inject your secrets at runtime, avoid storing them as static environment variables.
 - Establish environment-specific [cluster](/docs/pipelines/security/clusters/manage) and [queue](/docs/agent/queues/managing) segmentation of your builds to restrict access so that builds in a queue can only access the secrets they require to run.
 - Monitor how secrets are accessed within your CI/CD environment by reviewing the [Audit Log](/docs/platform/audit-log).
 - Use additional secret scanning tools such as [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of secrets to repositories before they enter the build process.
-- Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/cli/reference/pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
+- Keep the default pipeline upload guard enabled. The agent rejects pipelines containing values from the agent process environment whose variable names match the default secret-name patterns (`*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_PRIVATE_KEY`, `*_SSH_KEY`, `*_ACCESS_KEY`, `*_SECRET_KEY`, `*_CONNECTION_STRING`, and `*_API_KEY`). It also checks values assigned to matching variables in pipeline-level, step-level, and trigger-step `build` environment maps. Pure runtime substitutions and values shorter than six bytes are not treated as secrets. Don't use `--allow-secrets` or `BUILDKITE_AGENT_PIPELINE_UPLOAD_ALLOW_SECRETS` unless the upload intentionally contains a secret and you understand the risk of exposing it in the Buildkite interface. Agent v3 does not run this check by default—pass the `--reject-secrets` flag to `pipeline upload` to enable it.
 - Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/self-hosted/tokens#revoke-a-token) using the REST API for rapid containment.
 
 ## Buildkite agent security
@@ -153,7 +153,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 
 **Controls:**
 
-- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing/#premium-support) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
+- Contact support@buildkite.com immediately upon discovering any security incident. [Enterprise Premium Support](https://buildkite.com/pricing) customers can report an incident through their priority support channel. Early notification allows Buildkite to assist with immediate remediation steps.
 - Buildkite's incident response team can [audit access logs](/docs/platform/audit-log) to identify which users and IP addresses accessed builds containing leaked information. For [Enterprise](https://buildkite.com/pricing/) plan customers, older logs can be rehydrated for in-depth forensic analysis.
 
 ## Further questions

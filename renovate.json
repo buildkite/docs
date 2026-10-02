@@ -88,6 +88,11 @@
             "description": "Major updates require manual review",
             "matchUpdateTypes": ["major"],
             "automerge": false
+        },
+        {
+            "description": "Keep docsearch pinned to v4",
+            "matchPackageNames": ["@docsearch/js"],
+            "allowedVersions": "<5"
         }
     ]
 }

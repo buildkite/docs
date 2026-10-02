@@ -26,6 +26,7 @@ architecting
 Argo CD
 ARNs
 argumentless
+artifactDelete
 Artifactory
 Artifactory's
 Athena
@@ -98,12 +99,14 @@ CLIs
 Cloudsmith
 Cognito
 Cooldown
+clonekit
 Cloudsmith's
 CloudTrail
 CloudWatch
 CMake
 cmake
 cocoapods
+codebase's
 codeql
 codesign
 codesigning
@@ -126,6 +129,7 @@ CVE
 CVEs
 cutover
 daemonless
+DAGs
 Datadog
 Datadog's
 daemonless
@@ -134,6 +138,7 @@ debuild
 debounces
 declaratively
 deduper
+deduplicated
 deduplicates
 deno
 deprioritize
@@ -170,6 +175,7 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extglobs
 fastfile
 fastlane
 fastlane's
@@ -189,10 +195,12 @@ gh
 gif
 githooks
 GitLab
+glibc
 globbing
 gmp
 gnupg
 goroutines
+goss
 grantable
 gotestsum
 gpg
@@ -226,6 +234,7 @@ httplog
 https
 IdP's
 if_changed
+inFlight
 initContainer
 inlining
 invoiceable
@@ -276,6 +285,7 @@ macos
 manylinux
 matchfile
 matchers
+Makefile
 Memcache
 minitest
 misconfiguration
@@ -302,6 +312,7 @@ Nodejs
 NUnit
 nodeName
 nodeSelector
+nonblank
 Noreply
 noreply
 not_run
@@ -318,6 +329,7 @@ oldstable
 onboarding
 Okta
 OpenTelemetry
+Origin
 OTel
 opentelemetry
 onboarding
@@ -351,9 +363,11 @@ polyrepos
 Postgres
 PowerShell
 PR's
+PRs
 predeclare
 predeclared
 Prepends
+printf
 Prometheus
 promised_exit_status
 protobuf
@@ -364,6 +378,7 @@ preinstall
 prepended
 prepends
 preprovisioned
+preselecting
 proxied
 ptrace
 pty
@@ -389,6 +404,7 @@ repo
 repos
 reprioritize
 reprioritizes
+reserver
 resizable
 retryable
 rollout
@@ -397,11 +413,13 @@ retag
 retrigger
 routable
 rpmbuild
+rsyslog
 RSpec
 ruleset
 runbook
 runbooks
 runtimes
+runtime's
 rustup
 rvm
 sandboxed
@@ -425,12 +443,16 @@ shasum
 shellcheck
 shellscripting
 Shipit
+shortcode
 sigstore
 sigstore's
 signaltometrics
 skopeo
+subproject
+subprojects
 SLA
 SLAs
+SLIs
 SLO
 SLOs
 snake_case
@@ -476,6 +498,7 @@ timeframe
 tmp
 tmux
 tokenization
+tokenless
 toleration
 tolerations
 toolchain
@@ -503,6 +526,7 @@ unblocker
 unblocker's
 unbuildable
 unclustered
+unconfigured
 unencrypted
 unpatched
 unpermitted
@@ -511,11 +535,16 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
 unstarted
 untrusted
+unversioned
 unxip
 uploaders
+uppercases
 upstreams
 url
 urls

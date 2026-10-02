@@ -21,7 +21,7 @@ The **Maximum Command Step Timeout** sets the maximum timeout in minutes for all
 
 Timeout precedence in the order of priority: step-level timeout → pipeline default → organization default. This behavior is distinct from [scheduled job expiration](#scheduled-job-expiration).
 
-Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10-second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](/docs/agent/self-hosted/configure#cancel-grace-period) flag.
+Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, the agent allows ten seconds by default for the process to handle the cancel signal before forcefully killing it. You can change this period with the [`cancel-signal-timeout`](/docs/agent/self-hosted/configure#cancel-signal-timeout) agent configuration option. The agent then uploads logs and artifacts, which is not time-limited unless the agent itself is shutting down.
 
 When a job times out, the job log displays a message such as `Terminated with signal SIGTERM (because the job timed out). Exit status -1`.
 

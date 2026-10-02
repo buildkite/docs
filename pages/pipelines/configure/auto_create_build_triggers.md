@@ -1,6 +1,8 @@
 # Auto-create build triggers
 
-By default, when a user creates a pipeline from a [GitHub repository](/docs/pipelines/source-control/github) on the **New Pipeline** page, Buildkite Pipelines enables two options in the **Build Triggers** section. One option triggers builds for code pushes, and the other triggers builds for pull requests. Buildkite Pipelines also creates a webhook on the GitHub repository.
+This setting controls traditional GitHub repository build triggers. [GitHub Actions setup mode](/docs/pipelines/migration/run-github-actions-workflows) uses a separate GitHub Actions pipeline trigger with its own signed repository webhook, rather than the setup described on this page.
+
+By default, when a user creates a native pipeline from a [GitHub repository](/docs/pipelines/source-control/github) on the **New Pipeline** page, Buildkite Pipelines enables two options in the **Build Triggers** section. One option triggers builds for code pushes, and the other triggers builds for pull requests. Buildkite Pipelines also creates a webhook on the GitHub repository.
 
 Organization administrators can disable this default using the **Auto-create Build Triggers** setting. When disabled, new pipelines do not have build triggers enabled by default, and Buildkite Pipelines does not create a webhook. Users can still enable build triggers when they create a pipeline.
 

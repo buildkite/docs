@@ -8,6 +8,9 @@ A collection of common tasks with jobs using the GraphQL API.
 
 Get all jobs in a named queue, created on or after a given date. If you want to get all jobs across your Buildkite organization, you do not need to set a queue name, and you can therefore omit the `agentQueryRules` option.
 
+> 📘 Matching multiple agent query rules
+> When you pass more than one value in `agentQueryRules`, a job must match all of them. The `agentQueryRules` argument combines multiple values with AND, not OR. For example, `agentQueryRules: ["queue=test", "tag=value"]` returns only jobs whose agent query rules include both `queue=test` and `tag=value`.
+
 ```graphql
 query PipelineRecentBuildLastJobQueue {
   organization(slug: "organization-slug") {

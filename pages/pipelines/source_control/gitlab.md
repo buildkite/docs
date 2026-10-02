@@ -33,6 +33,27 @@ You can also use repositories from your own self-managed GitLab service but you'
 
 <%= render_markdown partial: 'pipelines/source_control/branch_config_settings' %>
 
+## Running builds on merge requests
+
+To run builds for GitLab merge requests, edit the GitLab settings for your Buildkite pipeline and select **Build merge requests**. When enabled, Buildkite Pipelines creates a build when a merge request is opened or new commits are pushed to its source branch.
+
+### Building merged results
+
+You can configure Buildkite Pipelines to build the _merged result_ of a merge request rather than the head commit of the source branch. This builds against GitLab's merge ref (`refs/merge-requests/<iid>/merge`), which reflects the result of merging the source branch into the target branch.
+
+To enable this, select **Build merged results commit** in your pipeline's GitLab settings.
+
+> 📘 What is a merged result build?
+> A merged result build checks the combined state of the source and target branches, catching integration issues before you merge. This is especially useful for pipelines that run tests or checks that depend on the full merged codebase.
+
+### Rebuilding when the target branch updates
+
+When **Build merged results commit** is enabled, Buildkite Pipelines can automatically rebuild open merge requests when the target branch receives new commits. This keeps your merged result builds up to date, even when the target branch moves forward.
+
+To enable this, select **Rebuild when target branch changes** in your pipeline's GitLab settings.
+
+When a push is made to a branch targeted by open merge requests, Buildkite Pipelines creates new merged results builds for up to 20 affected merge requests, prioritizing the most recently created. Merge requests that already have an active merged results build are skipped.
+
 ## Using one repository in multiple pipelines and organizations
 
 <%= render_markdown partial: 'pipelines/source_control/one_repo_multi_org' %>

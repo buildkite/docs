@@ -42,18 +42,23 @@ When you create a new pipeline in Buildkite:
 **Full Access** on a pipeline allows you to:
 
 - View and create builds or rebuilds.
+- Cancel builds, and retry, cancel, or reprioritize jobs.
+- Create or delete annotations on builds.
+- Delete job logs and artifacts.
+- Connect to running jobs on Buildkite hosted agents using [terminal access](/docs/agent/buildkite-hosted/terminal-access). This also requires [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions on the pipeline's cluster, or Buildkite organization administrator permissions.
 - Edit pipeline settings, which includes the ability to change the pipeline's visibility.
 - Archive the pipeline or delete the pipeline.
 - Provide access to other users, by adding the pipeline to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
 
 Any user with the **Full Access** permission on a pipeline can change its permission to either:
 
-- **Build & Read** (`BUILD_AND_READ`), which allows you to view and create builds or rebuilds, but _not_:
+- **Build & Read** (`BUILD_AND_READ`), which allows you to view, create, and manage builds and jobs, as listed for **Full Access**, but _not_:
     * Edit the pipeline settings.
     * Archive or delete the pipeline.
     * Provide access to other users.
 - **Read Only** (`READ_ONLY`), which allows you to view builds and manage your personal email notification preferences for the pipeline, but _not_:
     * Create builds or issue rebuilds.
+    * Manage builds and jobs, as listed for **Full Access**.
     * Edit the pipeline settings.
     * Archive or delete the pipeline.
     * Provide access to other users.
@@ -124,4 +129,3 @@ From this page, you can configure the following permissions for all users across
 
 - **Create test suites**—if the [teams feature](#manage-teams-and-permissions) is enabled, then this permission is controlled at a [team-level](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions) and therefore, this option will be unavailable on this page.
 - **Delete test suites**
-- **Change test suite visibility**—Make test suites publicly available.
