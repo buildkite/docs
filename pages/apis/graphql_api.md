@@ -115,6 +115,59 @@ query {
 
 The Buildkite GraphQL API adheres to the [Relay specification](https://relay.dev/docs/guides/graphql-server-specification/), which defines standards for querying [paginated collections](https://relay.dev/docs/guides/graphql-server-specification/#connections) ("Connections" and "Edges") and for [identifying objects](https://relay.dev/docs/guides/graphql-server-specification/#object-identification) directly from the root of a query (avoiding long nested queries).
 
+## Pagination
+
+Collections of objects in the GraphQL API, such as an organization's pipelines, are returned as connections, which use cursor-based pagination as defined in the [Relay specification](https://relay.dev/docs/guides/graphql-server-specification/#connections). To page through a connection:
+
+1. Use the `first` argument to set the number of results to return.
+1. Request the `pageInfo` object, along with its `endCursor` and `hasNextPage` fields.
+1. If `hasNextPage` is `true`, pass the value of `endCursor` to the connection's `after` argument in your next query to return the next page of results.
+1. Repeat this process until `hasNextPage` is `false`.
+
+For example, the following query returns the first 500 pipelines in an organization, along with the pagination details:
+
+```graphql
+query GetFirst500Pipelines {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          name
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+If the response's `hasNextPage` value is `true`, the following query uses the value of `organization.pipelines.pageInfo.endCursor` from the previous response to return the next 500 pipelines:
+
+```graphql
+query GetNext500Pipelines {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500, after: "value-from-organization.pipelines.pageInfo.endCursor") {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          name
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+Requesting smaller pages of results helps keep your queries within the GraphQL API's [resource limits](/docs/apis/graphql/graphql-resource-limits).
+
 ## GraphQL schema
 
 If you need the GraphQL schema, you can get it from the API using [GraphQL introspection](https://graphql.org/learn/introspection/), by running the following query against the API:
