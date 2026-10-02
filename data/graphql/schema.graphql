@@ -7009,7 +7009,8 @@ type Organization implements Node {
     before: String
 
     """
-    Filter pipelines by membership of a given cluster
+    Filter pipelines by comma-separated cluster UUIDs or GraphQL IDs (OR).
+    Include `unclustered` for pipelines without a cluster, or use `all` (also the default)
     """
     cluster: ID
 
