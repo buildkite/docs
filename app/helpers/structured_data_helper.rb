@@ -98,21 +98,26 @@ module StructuredDataHelper
     return nil unless nav.respond_to?(:breadcrumb_trail)
 
     trail = nav.breadcrumb_trail(request.path.sub("/docs/", ""))
-    return nil if trail.blank?
 
-    items = trail.each_with_index.map do |node, index|
-      element = {
-        "@type" => "ListItem",
-        "position" => index + 1,
-        "name" => node["name"].to_s.strip
-      }
-      element["item"] = "https://buildkite.com/docs/#{node['path']}" if node["path"].present?
-      element
-    end
+    # Search engines require every ListItem to have an `item` URL. Nav sections
+    # without a page of their own link to their "Overview" child instead.
+    # Sections without one are left out, as is the Overview page itself when it
+    # repeats its section's URL.
+    crumbs = trail.filter_map do |node|
+      path = node["path"].presence || section_overview_path(node)
+      [node["name"].to_s.strip, "https://buildkite.com/docs/#{path}"] if path
+    end.uniq { |_name, url| url }
+    return nil if crumbs.empty?
 
     {
       "@type" => "BreadcrumbList",
-      "itemListElement" => items
+      "itemListElement" => crumbs.each_with_index.map do |(name, url), index|
+        { "@type" => "ListItem", "position" => index + 1, "name" => name, "item" => url }
+      end
     }
+  end
+
+  def section_overview_path(node)
+    node["children"]&.find { |child| child["name"] == "Overview" }&.dig("path")
   end
 end
