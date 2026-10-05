@@ -65,8 +65,6 @@ The recommended setup uses two steps. The first step generates the list of tests
               result-path: tmp/rspec-result.json
     ```
 
-The plugin downloads the latest bktec only when bktec isn't already installed on the agent. If your agents have a version earlier than 3.2.0, bktec fails with `flag provided but not defined: -selection-strategy`. Upgrade bktec on your agents, or set the plugin's `client-version` option to a version that supports manual selection. The script runs the binary in `BUILDKITE_TEST_ENGINE_CLIENT_PATH`, which the plugin sets to the version it installs, so that it doesn't run an older bktec from the agent's `PATH`.
-
 If none of the listed paths match a test that bktec discovers, bktec runs no tests, rather than running the full suite. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
 
 ## Use manual selection with dynamic parallelism
