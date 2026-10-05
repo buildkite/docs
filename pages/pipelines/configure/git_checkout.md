@@ -506,6 +506,26 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Fetching the base branch
+
+A checkout only fetches the refs the job needs to build: the pull request ref or commit for the branch under test. It does not refresh `origin/<base-branch>` in the agent's working directory, so that ref can keep pointing at whatever an earlier build left there. Anything in the job that compares against the base branch, such as a custom script running `git merge-base HEAD origin/main`, can then read a stale ref. Because a stale base only ever makes a diff wider rather than causing a failure, this tends to go unnoticed. [`if_changed` change detection](/docs/pipelines/configure/dynamic-pipelines/if-changed#troubleshooting-steps-run-unexpectedly-after-merging-the-default-branch-into-a-feature-branch) is a common place this shows up, and has its own `--fetch-diff-base` flag that solves the problem for `buildkite-agent pipeline upload` specifically.
+
+The agent's `--git-fetch-base-branch` configuration setting fetches the base branch during checkout, so that `origin/<base-branch>` reflects its current tip before any job commands run. The base branch is the first non-empty value of `BUILDKITE_PULL_REQUEST_BASE_BRANCH` or `BUILDKITE_PIPELINE_DEFAULT_BRANCH`. The agent skips the fetch when the branch being built is the base branch itself, since there's no distinct base branch to prepare.
+
+Set the mode with the agent's `--git-fetch-base-branch` flag, or the [`BUILDKITE_GIT_FETCH_BASE_BRANCH`](/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_FETCH_BASE_BRANCH) environment variable. It accepts three values:
+
+- `off` (the default): The agent does not fetch the base branch.
+- `optimistic`: The agent fetches the base branch before the job's commands run, and warns without failing the job if the fetch fails.
+- `strict`: The agent fails the job if the fetch fails, including when no base branch can be determined for the build.
+
+> 📘 Fleet-wide setting
+> `--git-fetch-base-branch` is a protected agent configuration setting. It can't be set or overridden from pipeline YAML or a job's `env` block.
+
+```ini
+git-fetch-base-branch="optimistic"
+```
+{: codeblock-file="buildkite-agent.cfg"}
+
 ## Migrating from checkout plugins
 
 Buildkite Pipelines now supports several checkout features natively that previously required [plugins](/docs/pipelines/integrations/plugins). You can migrate to the native `checkout` options for simpler configuration and tighter integration with the agent.

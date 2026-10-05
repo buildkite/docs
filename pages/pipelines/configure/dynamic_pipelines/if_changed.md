@@ -286,6 +286,8 @@ buildkite-agent pipeline upload --fetch-diff-base
 > 📘
 > The `--fetch-diff-base` flag requires Buildkite agent version 3.117.0 or later.
 
+If other commands in the job, not just `pipeline upload`, also compare against the base branch, set the agent's [`--git-fetch-base-branch`](/docs/pipelines/configure/git-checkout#fetching-the-base-branch) configuration option instead. It refreshes `origin/<base-branch>` for the whole job during checkout, rather than only for the diff that `pipeline upload` computes.
+
 ### Pattern doesn't match expected files
 
 1. **Use the correct syntax**: The pattern uses non-bash glob or regex syntax.
