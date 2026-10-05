@@ -75,7 +75,7 @@ query getOrgActiveUsersCount {
 }
 ```
 
-This field is only available to authorized organization members, and returns `null` otherwise or when usage data isn't available. For example, the field returns `null` if you haven't completed SSO authorization for the organization, or if your API access token isn't scoped to the organization.
+This field is only available to authorized organization members, and returns `null` otherwise or when usage data isn't available. For example, the field returns `null` if you haven't completed SSO authorization for the organization. If your API access token doesn't grant access to the organization, the `organization` query returns `null` instead.
 
 For a billing parent organization, the count includes activity from its linked billing child organizations, with users active in more than one linked organization counted once per month.
 
