@@ -631,6 +631,8 @@
           children:
             - name: "Installing and using the client"
               path: "pipelines/configure/tests/bktec/installing-and-using-the-client"
+            - name: "Manual test selection"
+              path: "pipelines/configure/tests/bktec/manual-test-selection"
         - name: "Notifications"
           children:
             - name: "Email"

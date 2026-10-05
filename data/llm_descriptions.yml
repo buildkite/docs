@@ -321,6 +321,7 @@
   pipelines/configure/tests/workflows/monitors: "Monitor types for detecting test issues: transition count, passed on retry, probabilistic flakiness, new test."
   pipelines/configure/tests/workflows/actions: "Workflow actions triggered on alarm/recover: add/remove labels, change state, send webhooks, Slack, Linear."
   pipelines/configure/tests/bktec/installing-and-using-the-client: "Installation and configuration of bktec on Linux, macOS, and Docker, plus test splitting and retry settings."
+  pipelines/configure/tests/bktec/manual-test-selection: "Run only a chosen list of tests with bktec manual test selection, and review the selection on the build Orchestration page."
   pipelines/configure/tests/notifications/email: "Scheduling a weekly email summary of the flakiest tests owned by your teams."
   pipelines/integrations/notifications/linear: "Connecting Linear to Pipelines test suites for automatic issue creation from workflow actions."
   package-registries: "Overview of Package Registries for managing packages, container images, and modules across ecosystems."
