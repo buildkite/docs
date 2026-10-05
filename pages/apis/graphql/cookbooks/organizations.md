@@ -53,6 +53,30 @@ query getOrgMembersCount {
 }
 ```
 
+## Get the number of active users
+
+Get the average monthly active users for the organization's current [usage summary period](/docs/apis/rest-api/organizations/usage#usage-period), matching the number shown on the organization's **Usage > Platform** page.
+
+```graphql
+query getOrgActiveUsersCount {
+  organization(slug: "organization-slug") {
+    activeUsersCount
+  }
+}
+```
+
+```json
+{
+  "data": {
+    "organization": {
+      "activeUsersCount": 42
+    }
+  }
+}
+```
+
+This field is only available to organization members, and returns `null` for non-members. For a billing parent organization, the count includes activity from its linked billing child organizations, with users active in more than one linked organization counted once per month.
+
 ## Search for organization members
 
 Look up organization members using their email address.
