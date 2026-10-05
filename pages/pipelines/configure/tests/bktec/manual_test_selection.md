@@ -158,6 +158,6 @@ Each build page's **Tests** tab includes an **Orchestration** page, which shows 
 
 The estimated time saved rows on the **Test selection** card only appear when at least half of the candidates have timing history. **Estimated test wall-clock time saved** only appears for steps with a fixed parallelism.
 
-When the selection selected at least one test, the panel also shows a **Selection map** of the suite's test files, with the selected files in purple.
+When at least one test was selected, the panel also shows a **Selection map** of the suite's test files, with the selected files in purple. Plans that mix test files or selectors with individual tests show **Coverage map unavailable for plans with mixed test formats** instead.
 
 <%= image "selection-map.png", width: 2696/2, height: 586/2, alt: "The selection map, showing the suite's spec files grouped by directory, with the selected files in purple and the other files in gray" %>
