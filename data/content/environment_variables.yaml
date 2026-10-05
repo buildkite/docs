@@ -258,6 +258,18 @@ variables:
       - strict
       - warn
       - off
+  - name: BUILDKITE_GIT_FETCH_BASE_BRANCH
+    desc: |
+      Controls whether, and how strictly, the agent fetches the base branch during checkout, in addition to the commit being built. Set automatically from the agent's `--git-fetch-base-branch` configuration setting. The agent's own checkout only fetches the commit being built, so without this setting, `refs/remotes/origin/<base>` in a reused checkout directory can be left pointing at whatever an earlier build fetched, making later diffs against the base branch (for example, a custom pipeline generator or test selector running `git merge-base HEAD origin/main`) wider than they should be.
+
+      The base branch is the first non-empty value of `BUILDKITE_PULL_REQUEST_BASE_BRANCH` or `BUILDKITE_PIPELINE_DEFAULT_BRANCH`. Nothing is fetched when the base branch is the branch being built.
+
+      The value `off` (default) does not fetch the base branch. The value `optimistic` fetches the base branch and warns, without failing the job, if the fetch fails. The value `strict` fails the checkout if the base branch can't be fetched, if neither `BUILDKITE_PULL_REQUEST_BASE_BRANCH` nor `BUILDKITE_PIPELINE_DEFAULT_BRANCH` is set, or if `BUILDKITE_GIT_FETCH_FLAGS` contains a flag that causes `git fetch` to write no ref (`--dry-run`, `--prefetch`, or `--negotiate-only`).
+    modifiable: false
+    values:
+      - "off"
+      - optimistic
+      - strict
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.fetch` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.

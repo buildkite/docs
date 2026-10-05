@@ -29,6 +29,7 @@ Configure Git mirroring using the `--git-mirrors-path` flag on agents. This flag
 Use these agent configuration options:
 
 - [git-clone-mirror-flags](/docs/agent/self-hosted/configure#git-clone-mirror-flags)
+- [git-fetch-base-branch](/docs/agent/self-hosted/configure#git-fetch-base-branch)
 - [git-mirrors-lock-timeout](/docs/agent/self-hosted/configure#git-mirrors-lock-timeout)
 - [git-mirrors-path](/docs/agent/self-hosted/configure#git-mirrors-path)
 - [git-mirrors-skip-update](/docs/agent/self-hosted/configure#git-mirrors-skip-update)
