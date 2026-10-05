@@ -65,7 +65,7 @@ The recommended setup uses two steps. The first step generates the list of tests
               result-path: tmp/rspec-result.json
     ```
 
-If none of the listed paths match a test that bktec discovers, bktec runs no tests, rather than running the full suite. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
+If none of the listed paths match a test that bktec discovers, bktec runs no tests. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
 
 ## Use manual selection with dynamic parallelism
 
