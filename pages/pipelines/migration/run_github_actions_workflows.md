@@ -660,7 +660,7 @@ Explicit mappings also require the importer job to reach the job-scoped Agent AP
 
 ### GitHub Actions options aren't available in the legacy Pipelines UI
 
-Customers using the legacy Pipelines UI can't currently switch to the new Pipelines UI themselves to use the GitHub Actions Buildkite plugin. Contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to request access. Buildkite team members should escalate these requests in `#project-buildkite-gha`.
+Customers using the legacy Pipelines UI can't currently switch to the new Pipelines UI themselves to use the GitHub Actions Buildkite plugin. Contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to request access.
 
 ### The workflow picker shows a repository access notice
 
