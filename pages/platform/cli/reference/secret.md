@@ -29,6 +29,8 @@ The `bk secret` command allows you to manage Buildkite secrets from the command 
 | `bk secret create` | Create a new cluster secret. |
 | `bk secret update` | Update a cluster secret. |
 | `bk secret delete` | Delete a cluster secret. |
+| `bk secret migrate github-actions prepare` | Prepare a reviewed GitHub Actions migration workflow. |
+| `bk secret migrate github-actions run` | Verify and dispatch a prepared migration workflow. |
 
 ## List secrets
 
@@ -225,3 +227,39 @@ Delete a secret without confirmation:
 ```bash
 bk secret delete --cluster-uuid my-cluster-uuid --secret-id my-secret-id --yes
 ```
+
+## Prepare a GitHub Actions secret migration
+
+Prepare a reviewed GitHub Actions migration workflow.
+
+```bash
+bk secret migrate github-actions prepare [flags]
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--cluster=STRING` | Assert the destination cluster UUID. |
+| `--debug` | Enable debug output for REST API calls |
+| `--match=MATCH,...` | Glob matching GitHub Actions secret names (repeatable). |
+| `--organization=STRING` | Destination Buildkite organization slug. |
+| `--output=STRING` | Write the workflow without replacing an existing file. |
+| `--pipeline=STRING` | Destination Buildkite pipeline slug. |
+| `--policy-file=STRING` | Buildkite secret access policy YAML file. |
+| `--secret=SECRET,...` | Exact GitHub Actions secret name to migrate (repeatable). |
+
+## Run a GitHub Actions secret migration
+
+Verify and dispatch a prepared migration workflow.
+
+```bash
+bk secret migrate github-actions run --workflow=STRING
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+| `--workflow=STRING` | Prepared workflow committed to the repository default branch. |
