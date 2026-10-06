@@ -113,7 +113,7 @@ verification-jwks-file=<path to public key set>
 This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
 
 ```ini
-verification-failure-behavior=<warn>
+verification-failure-behavior=warn
 ```
 
 This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
@@ -203,7 +203,7 @@ signing-aws-kms-key=<key id or alias>
 This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
 
 ```ini
-verification-failure-behavior=<warn>
+verification-failure-behavior=warn
 ```
 
 This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
@@ -254,7 +254,7 @@ GCP KMS support for signed pipelines requires Buildkite agent version 3.121.0 or
 GCP KMS has many options when creating keys. For pipeline signing, the key must use the following settings:
 
 1. The key purpose must be asymmetric signing (`ASYMMETRIC_SIGN`).
-1. The key algorithm must be one of the supported key algorithms listed below. The `EC_SIGN_P256_SHA256` algorithm is recommended.
+1. The key algorithm must be one of the supported key algorithms listed below. The `EC_SIGN_P256_SHA256` algorithm is recommended, and is the only algorithm that works on agent versions earlier than 3.136.0.
 
 If you're using the Google Cloud CLI, the key ring and key can be created as follows:
 
@@ -303,6 +303,9 @@ GCP KMS algorithm              | JWS algorithm
 
 The agent refuses to start if the key version uses any other algorithm.
 
+> 🚧 Algorithms other than EC_SIGN_P256_SHA256 require agent version 3.136.0 or later
+> Agent versions 3.121.0 to 3.135.0 always verify GCP KMS signatures as `ES256`, regardless of the key's algorithm. On these versions, jobs signed with any key other than `EC_SIGN_P256_SHA256` fail verification and are blocked by default. If any of your agents run a version earlier than 3.136.0, use an `EC_SIGN_P256_SHA256` key.
+
 ### Step 2: Configure the agents
 
 Next, you need to configure your agents to use the KMS key version you created. On agents that upload pipelines, add the following to the agent's config file:
@@ -318,7 +321,7 @@ This ensures that whenever those agents upload steps to Buildkite, they'll gener
 The agent authenticates to GCP KMS using [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials). On Compute Engine or GKE, this is usually the service account attached to the instance or workload. Elsewhere, set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of a service account key file.
 
 ```ini
-verification-failure-behavior=<warn>
+verification-failure-behavior=warn
 ```
 
 This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
