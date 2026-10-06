@@ -368,7 +368,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>lease.max_attempts</code></th>
-    <td>The maximum number of attempts in each lease. Must be an integer from <code>1</code> through the organization's maximum attempts per lease quota, which defaults to <code>300</code>. The first affinity group is leased as a whole even when it exceeds this maximum.<br><em>Default:</em> The lower of <code>300</code> and the organization quota.</td>
+    <td>The maximum number of attempts in each lease. Accepts integers from <code>1</code> through <code>300</code> by default. The first affinity group is leased as a whole even when it exceeds this maximum.<br><em>Default:</em> <code>300</code></td>
   </tr>
 </tbody>
 </table>
