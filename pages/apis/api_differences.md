@@ -20,7 +20,6 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "META", "meta" %> [Get a list of IP addresses from which Buildkite sends webhooks](/docs/apis/rest-api/meta#get-meta-information).
 - <%= pill "ORGANIZATIONS", "organizations" %> [List custom and built-in emojis](/docs/apis/rest-api/emojis).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Prevent non-administrators from creating API access tokens](/docs/apis/rest-api/organizations/api-settings#request-fields).
-- <%= pill "ORGANIZATIONS", "organizations" %> Create, update, and delete the [organization's system banner](/docs/apis/rest-api/organizations/banner).
 - <%= pill "ORGANIZATIONS", "organizations" %> Manage [organization-level pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings), including hosted agent remote access, public pipeline creation, advanced queue metrics, and build exports.
 - <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [notification services](/docs/apis/rest-api/organizations/notification-services).
 - <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [Buildkite Package Registries](/docs/apis/rest-api/package-registries/registries), [packages](/docs/apis/rest-api/package-registries/packages), and [registry tokens](/docs/apis/rest-api/package-registries/registry-tokens).
