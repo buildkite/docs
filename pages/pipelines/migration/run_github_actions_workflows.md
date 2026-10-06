@@ -488,11 +488,13 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@v7
       - run: ./build "${{ matrix.target }}"
   publish:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v7
       - run: ./publish
 ```
 {: codeblock-file=".github/workflows/ci.yml"}
