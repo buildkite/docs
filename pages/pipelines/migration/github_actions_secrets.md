@@ -32,7 +32,7 @@ bk secret migrate github-actions prepare \
   --output .github/workflows/migrate-buildkite-secrets.yml
 ```
 
-The Buildkite CLI finds the Buildkite pipeline for your repository and creates a workflow that names each secret it will move. The CLI won't select a secret if a secret with the same name already exists in the destination cluster.
+The Buildkite CLI finds the Buildkite pipeline for your repository and creates a workflow that names each secret it will move. If any selected secret already exists in the destination cluster, the command stops without creating a workflow.
 
 To choose secrets interactively, leave out `--secret` and `--match`.
 
@@ -97,7 +97,7 @@ Created Buildkite secret AWS_SECRET_ACCESS_KEY
 Migration complete. Remove this workflow from the default branch.
 ```
 
-Each migration can only be used once. If the run fails before it creates the secrets, run `bk secret migrate github-actions run` again.
+Each migration can only be used once. If the run fails before it creates the secrets, rerun the command above with the same `--workflow` path.
 
 ## Remove the workflow
 
