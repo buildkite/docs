@@ -980,6 +980,8 @@
     path: apis/graphql/schemas/enum/buildblockedstates
   - name: BuildRetryFailedJobsStates
     path: apis/graphql/schemas/enum/buildretryfailedjobsstates
+  - name: BuildSources
+    path: apis/graphql/schemas/enum/buildsources
   - name: BuildStates
     path: apis/graphql/schemas/enum/buildstates
   - name: ClusterOrder

@@ -2119,6 +2119,36 @@ type BuildSourceWebhook implements BuildSource {
 }
 
 """
+The source that triggered a build
+"""
+enum BuildSources {
+  """
+  The build was triggered via the REST API
+  """
+  API
+
+  """
+  The build was triggered manually from the web interface
+  """
+  MANUAL
+
+  """
+  The build was triggered by a pipeline schedule
+  """
+  SCHEDULE
+
+  """
+  The build was triggered by a trigger step in another build
+  """
+  TRIGGER_JOB
+
+  """
+  The build was triggered by a webhook
+  """
+  WEBHOOK
+}
+
+"""
 All the possible states a build can be in
 """
 enum BuildStates {
@@ -6634,6 +6664,11 @@ An organization
 """
 type Organization implements Node {
   """
+  The average monthly active users for the current Usage summary period, matching the Usage page
+  """
+  activeUsersCount: Int
+
+  """
   Returns agent access tokens for an Organization. By default returns all tokens, whether revoked or non-revoked.
   """
   agentTokens(
@@ -8498,6 +8533,11 @@ type Pipeline implements Node {
     """
     last: Int
     metaData: [String!]
+
+    """
+    Filter builds by how they were triggered
+    """
+    source: [BuildSources!]
     state: [BuildStates!]
   ): BuildConnection
 
@@ -14278,7 +14318,18 @@ type User implements Node {
   """
   Returns builds that this user has created.
   """
-  builds(branch: [String!], first: Int, last: Int, metaData: [String!], state: [BuildStates!]): BuildConnection
+  builds(
+    branch: [String!]
+    first: Int
+    last: Int
+    metaData: [String!]
+
+    """
+    Filter builds by how they were triggered
+    """
+    source: [BuildSources!]
+    state: [BuildStates!]
+  ): BuildConnection
 
   """
   The primary email for the user
@@ -14338,7 +14389,18 @@ type Viewer implements Node {
     last: Int
     type: [AuthorizationType!]
   ): AuthorizationConnection
-  builds(branch: String, first: Int, last: Int, metaData: [String!], state: [BuildStates!]): BuildConnection
+  builds(
+    branch: String
+    first: Int
+    last: Int
+    metaData: [String!]
+
+    """
+    Filter builds by how they were triggered
+    """
+    source: [BuildSources!]
+    state: [BuildStates!]
+  ): BuildConnection
 
   """
   Emails associated with the current user
