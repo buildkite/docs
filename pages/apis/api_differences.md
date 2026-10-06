@@ -20,6 +20,7 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "META", "meta" %> [Get a list of IP addresses from which Buildkite sends webhooks](/docs/apis/rest-api/meta#get-meta-information).
 - <%= pill "ORGANIZATIONS", "organizations" %> [List custom and built-in emojis](/docs/apis/rest-api/emojis).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Prevent non-administrators from creating API access tokens](/docs/apis/rest-api/organizations/api-settings#request-fields).
+- <%= pill "ORGANIZATIONS", "organizations" %> Create, update, and delete the [organization's system banner](/docs/apis/rest-api/organizations/banner).
 - <%= pill "ORGANIZATIONS", "organizations" %> Manage [organization-level pipeline settings](/docs/apis/rest-api/organizations/pipeline-settings), including hosted agent remote access, public pipeline creation, advanced queue metrics, and build exports.
 - <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [notification services](/docs/apis/rest-api/organizations/notification-services).
 - <%= pill "ORGANIZATIONS", "organizations" %> Create and manage [Buildkite Package Registries](/docs/apis/rest-api/package-registries/registries), [packages](/docs/apis/rest-api/package-registries/packages), and [registry tokens](/docs/apis/rest-api/package-registries/registry-tokens).
@@ -41,7 +42,6 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "ORGANIZATIONS", "organizations" %> [Resend an organization invitation](/docs/apis/graphql/schemas/mutation/organizationinvitationresend).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Revoke a specific API access token's access to an organization](/docs/apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Set up and manage SSO](/docs/platform/sso/sso-setup-with-graphql).
-- <%= pill "ORGANIZATIONS", "organizations" %> [Create and delete system banners](/docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Enforce two-factor authentication for organization members](/docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization).
 - <%= pill "ORGANIZATIONS", "organizations" %> Assign [Buildkite Package Registries to teams](/docs/apis/graphql/schemas/mutation/teamregistrycreate) and update or remove those assignments.
 - <%= pill "PIPELINES", "pipelines" %> [Get the speed, reliability, and builds per week metrics shown on the pipeline dashboard](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).
