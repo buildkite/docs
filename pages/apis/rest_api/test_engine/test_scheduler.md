@@ -96,7 +96,7 @@ Pools contain entries, entries have attempts, and leases temporarily assign atte
 
 The Test Scheduler API uses these four resources:
 
-- **Pool:** A build-scoped collection of entries. Its attempt policy controls how many attempts the scheduler creates for each entry and when the scheduler considers the entry finished. Its lease settings control the target custom cost and maximum attempts for every lease created from the pool.
+- **Pool:** A build-scoped collection of entries. Its attempt policy controls how many attempts the scheduler creates for each entry and when the scheduler considers the entry finished. Its lease settings control the target cost and maximum attempts for every lease created from the pool.
 - **Entry:** One unit of work, identified by a selector. An entry belongs to one pool and includes scheduling data such as cost, priority, affinity group, and metadata.
 - **Attempt:** One execution of an entry. Creating an entry creates its initial attempts in the `waiting` state. When a job acquires an attempt through a lease, the attempt moves to `leased`. The job executes the work, completes the attempt, and reports its result. Releasing an unfinished attempt or allowing its lease to expire returns the attempt to `waiting`.
 - **Lease:** A time-bounded claim by one Buildkite Pipelines job over a batch of waiting attempts. The job can extend the lease, complete attempts and report their results, or release unfinished attempts back to the pool.
@@ -363,19 +363,23 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>The target maximum combined custom cost for each lease. Must be a finite, non-negative number. The first selected attempt or affinity group is leased even when its cost exceeds this target. Later work is only added while it fits.<br><em>Default:</em> <code>1</code></td>
   </tr>
   <tr>
+    <th><code>lease.costs.duration_p90_ms</code></th>
+    <td>The target maximum combined duration for each lease, in milliseconds. Must be a finite, non-negative integer. Set either this property or <code>lease.costs.custom</code>, not both. The first selected attempt or affinity group may exceed the target.</td>
+  </tr>
+  <tr>
     <th><code>lease.max_attempts</code></th>
-    <td>The maximum number of attempts in each lease. Must be an integer from <code>1</code> through <code>300</code>. The first affinity group is leased as a whole even when it exceeds this maximum.<br><em>Default:</em> <code>300</code></td>
+    <td>The maximum number of attempts in each lease. Accepts integers from <code>1</code> through <code>300</code> by default. The first affinity group is leased as a whole even when it exceeds this maximum.<br><em>Default:</em> <code>300</code></td>
   </tr>
 </tbody>
 </table>
 
 ### Create a pool with multiple attempt policies
 
-To apply different attempt policies to entries in the same pool, set `attempt_policy` to an object keyed by policy name. The object must include a `default` policy. Each policy supports the properties described in the [Attempt policy](#attempt-policy) section.
+When multiple attempt policies are enabled for the organization, set `attempt_policy` to an object keyed by policy name to apply different policies to entries in the same pool. The object must include a `default` policy. Each policy supports the properties described in the [Attempt policy](#attempt-policy) section.
 
 Policy keys must meet these requirements:
 
-- Include the exact key `default` and between one and five additional keys.
+- Include the exact key `default` and up to five additional keys.
 - Start with a letter or number, contain only letters, numbers, hyphens, underscores, periods, and colons, and contain no more than 255 characters.
 - Be unique regardless of letter case.
 
@@ -647,7 +651,7 @@ Required [request body property](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-The pool moves from `populating` to `consuming` when unfinished attempts remain. The pool moves directly to `consumed` when no attempts are waiting or leased. This transition cannot be reversed or repeated.
+The pool moves from `populating` to `consuming` when unfinished attempts remain, including completed attempts awaiting policy evaluation. The pool moves directly to `consumed` when it is drained. This transition cannot be reversed or repeated.
 
 Required scope: `write_test_pool`
 
@@ -702,6 +706,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
       },
       "priority": 5,
       "affinity_group": "database",
+      "state": "pending",
+      "result": null,
       "meta_data": {
         "team": "platform",
         "tags": ["ruby", "model"],
@@ -723,11 +729,11 @@ Required [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>entries[].selector_type</code></th>
-    <td>The selector format. The supported value is <code>custom</code>.</td>
+    <td>The selector format. Supported values are <code>custom</code> and <code>test_plan_test_case_v1</code>.</td>
   </tr>
   <tr>
     <th><code>entries[].selector</code></th>
-    <td>A non-empty JSON string, array, or object that identifies the work. The producer and worker define its structure. The default maximum encoded size is <code>1024</code> bytes.</td>
+    <td>A non-empty JSON string, array, or object that identifies the work. For <code>custom</code>, the producer and worker define its structure. For <code>test_plan_test_case_v1</code>, use the structured object described below. The default maximum encoded size is <code>1024</code> bytes.</td>
   </tr>
 </tbody>
 </table>
@@ -738,11 +744,15 @@ Optional entry properties:
 <tbody>
   <tr>
     <th><code>entries[].attempt_policy</code></th>
-    <td>The key of an attempt policy defined by the pool. Omit this property or set it to <code>default</code> to use the pool's default policy. This property is only available when the pool has multiple policies.</td>
+    <td>The case-insensitive key of an attempt policy defined by the pool. Omit this property or set it to <code>default</code> to use the pool's default policy. Unknown keys fail the entire upload.</td>
   </tr>
   <tr>
     <th><code>entries[].costs.custom</code></th>
     <td>A finite, non-negative number used when selecting work for a lease. A missing or <code>null</code> value has an effective scheduling cost of <code>0</code>.</td>
+  </tr>
+  <tr>
+    <th><code>entries[].costs.duration_p90_ms</code></th>
+    <td>A finite, non-negative integer duration in milliseconds. Omit this property when no estimate is available; <code>null</code> is not accepted. The pool's lease settings choose which cost dimension is used for scheduling.</td>
   </tr>
   <tr>
     <th><code>entries[].priority</code></th>
@@ -758,6 +768,8 @@ Optional entry properties:
   </tr>
 </tbody>
 </table>
+
+For `test_plan_test_case_v1`, the selector object requires a `format` of `file`, `selector`, or `example`. A file requires a non-empty `path`. A selector requires a non-empty `value`. An example requires non-empty `scope` and `name`, and may include non-empty `path` and `identifier`. All formats accept non-negative integer `estimated_duration` and `timing_sample_size`. Other fields are rejected.
 
 Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each set of entries. Reuse the same `Idempotency-Key` value and send the same `entries` when retrying that batch. Without this header, retries can create duplicate entries.
 
@@ -906,7 +918,7 @@ The API sorts waiting attempts by:
 
 Attempts without an affinity group are included in the lease on their own, but attempts belonging to an affinity group are expanded to include a single attempt from each entry in the group. Affinity groups with attempts locked by concurrent leases are not included.
 
-The API applies the pool's `lease.costs.custom` and `lease.max_attempts` settings to each lease:
+The API applies the pool's selected lease cost dimension (`custom` or `duration_p90_ms`) and `lease.max_attempts` settings to each lease:
 
 - The first batch is always leased, even if it exceeds the target cost. When the first batch is an affinity group, the entire group is leased even if it exceeds the attempt limit.
 - Each later batch is added only if the entire batch fits within both limits.
@@ -923,6 +935,7 @@ The API applies the pool's `lease.costs.custom` and `lease.max_attempts` setting
         "pool_id": "0192f2fb-****-****-****-4a0d6a7c1000",
         "entry_id": "0192f2fc-****-****-****-600a780fd001",
         "attempt_index": 0,
+        "initial": true,
         "selector_type": "custom",
         "selector": {
           "file": "spec/models/user_spec.rb",
@@ -1065,6 +1078,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
           "pool_id": "0192f2fb-****-****-****-4a0d6a7c1000",
           "entry_id": "0192f2fc-****-****-****-600a780fd001",
           "attempt_index": 0,
+          "initial": true,
           "selector_type": "custom",
           "selector": {
             "file": "spec/models/user_spec.rb",
@@ -1129,7 +1143,7 @@ The request is atomic for the attempts listed. If any attempt cannot be complete
 
 The response contains the pool state before attempt-policy evaluation. Policy evaluation is triggered by completing an attempt. Completing the final attempt for the last unfinished entry can therefore return a pool state of `consuming`.
 
-Repeating a completion with the same result succeeds and returns `"completion_status": "already_completed"` without changing `completed_at`, even after the pool expires or transitions to `consumed`. Repeating it with a different result returns `409 Conflict`.
+Repeating a completion with the same result succeeds and returns `"completion_status": "already_completed"` without changing `completed_at`, even after the pool transitions to `consumed`. Repeating it with a different result returns `409 Conflict`. After the pool expires, completion requests return `404 Not Found`, including retries.
 
 Required scope: `write_test_pool`
 
@@ -1211,7 +1225,7 @@ Success response: `200 OK`
 
 ## Get pool metrics
 
-Returns aggregate progress for a pool at the time of the request. This endpoint accepts either a Buildkite job OIDC token or a REST API access token with `read_test_pool`.
+Returns a point-in-time snapshot of aggregate progress for a pool. Metrics may lag recent writes. This endpoint accepts either a Buildkite job OIDC token or a REST API access token with `read_test_pool`.
 
 For REST API authentication, provide the pool's build UUID as `build_id`. The user must have access to both the build and suite, as described in [REST API authentication](#authentication-rest-api-authentication):
 
@@ -1313,7 +1327,7 @@ The response includes:
   </tr>
   <tr>
     <th><code>pool</code></th>
-    <td>The pool ID, state, expiry, and whether the pool is drained. A pool is drained when it has no waiting or leased attempts.</td>
+    <td>The pool ID, state, expiry, and whether the pool is drained. A pool is drained when it has no waiting or leased attempts and no completed attempts awaiting policy evaluation.</td>
   </tr>
   <tr>
     <th><code>entries.total</code></th>
@@ -1325,7 +1339,7 @@ The response includes:
   </tr>
   <tr>
     <th><code>attempts.states</code></th>
-    <td>Attempt counts and total custom costs grouped by <code>waiting</code>, <code>leased</code>, <code>completed</code>, and <code>canceled</code> state.</td>
+    <td>Attempt counts and total costs in the pool's selected lease cost dimension, grouped by <code>waiting</code>, <code>leased</code>, <code>completed</code>, and <code>canceled</code> state.</td>
   </tr>
   <tr>
     <th><code>attempts.results</code></th>
@@ -1342,7 +1356,7 @@ The response includes:
 </tbody>
 </table>
 
-Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. For each state in `attempts.states`, `costs.custom` is the sum of the custom costs for all attempts currently in that state. An entry contributes its custom cost once for each of its attempts in that state.
+Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. For each state in `attempts.states`, `costs` contains the sum in the pool's selected dimension: `custom` or `duration_p90_ms`. An entry contributes its selected cost once for each attempt in that state.
 
 Required scope: `read_test_pool`
 
@@ -1453,6 +1467,7 @@ Status | Description
 `409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
 `429 Too Many Requests` | The request exceeded an organization, pool, or empty-lease job rate limit. Use the response body and scoped rate limit headers to determine when capacity becomes available.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
+`503 Service Unavailable` | Test Scheduler storage or request retry tracking is temporarily unavailable. For an entry upload, retry with the same `Idempotency-Key` header and unchanged entries.
 {: class="responsive-table"}
 
 ## Breaking changes
