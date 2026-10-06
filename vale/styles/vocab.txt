@@ -471,6 +471,7 @@ sso
 stack_error
 start_time
 statefully
+stderr
 stdin
 stdout
 streamable
