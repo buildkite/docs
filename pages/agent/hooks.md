@@ -51,7 +51,7 @@ You can define hooks in the following locations:
 
     **Note:** For [Buildkite hosted agents](/docs/agent/buildkite-hosted), the agent hooks location is available on [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only, and supports job lifecycle hooks only. Agent lifecycle hooks are not available on any Buildkite hosted agents. The agent hooks location is not available on [macOS hosted agents](/docs/agent/buildkite-hosted/macos).
 
-- **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. From the first Buildkite agent release after v4.2.0, the agent looks for these hooks relative to the job's current working directory, falling back to the checkout root. Earlier agent versions only look for these hooks at the checkout root. See [Repository hooks](#hook-locations-repository-hooks) for details.
+- **Repository hooks:** These exist in your pipeline repository's `.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle hooks defined here will run for every pipeline that uses the repository. From the first Buildkite agent release after v4.2.0, the agent looks for these hooks relative to the job's current working directory, falling back to the checkout root. Agent versions v3.106.0 to v4.2.0 only look for these hooks at the checkout root. See [Repository hooks](#hook-locations-repository-hooks) for details.
 
 - **Plugin hooks:** These are provided by [plugins](/docs/pipelines/integrations/plugins) you've included in your pipeline steps and can define job lifecycle hooks. Job lifecycle hooks defined by a plugin will only run for the step that includes them. Plugins can be *vendored* (if they are already present in the repository and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the order they are run in.
 
@@ -77,7 +77,7 @@ To get started, create a shell script in `.buildkite/hooks` named `post-checkout
 
 You can define any of the [job lifecycle hooks](#job-lifecycle-hooks) whose `Order` includes *Repository*.
 
-Buildkite agent v4.2.0 and earlier versions only look for repository hooks in the `.buildkite/hooks` directory at the root of the checkout, even if an earlier hook changes the job's working directory. The rest of this section describes the behavior from the first agent release after v4.2.0.
+Buildkite agent versions v3.106.0 to v4.2.0 only look for repository hooks in the `.buildkite/hooks` directory at the root of the checkout, even if an earlier hook changes the job's working directory. Agent versions earlier than v3.106.0 only look in the `.buildkite/hooks` directory relative to the job's current working directory, with no fallback to the checkout root. The rest of this section describes the behavior from the first agent release after v4.2.0.
 
 The agent looks for a matching hook in the `.buildkite/hooks` directory relative to the job's current working directory first. If none exists there, it falls back to the `.buildkite/hooks` directory at the root of the checkout. This fallback is evaluated independently for each hook, so a subdirectory only needs to define the hooks it wants to override.
 
