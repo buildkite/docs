@@ -420,7 +420,7 @@ The `origin_check` attribute supports the following options:
 
 - `key`: A stable identifier for the logical check. This attribute is required. Use a unique key for each independent check, including across [dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines). Runs that share a key are treated as attempts of the same check, and Cursor shows only the newest run.
 
-- `name`: Display name for the check run. A build-level check defaults to `<pipeline name> #<build number>`. A step-level check defaults to the step's `label`, then its `key`, or `Step <step ID>` if neither is configured.
+- `name`: Display name for the check run. A build-level check defaults to its `key`. A step-level check defaults to the step's `label`, then its `key`, or `Step <step ID>` if neither is configured.
 
 - `output`: A map containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes), and `annotations` (an array of source or run-level annotations for step-level checks). If you don't provide output, Buildkite Pipelines generates a title and summary. Build-level output describes the build's current state. Step-level output combines the check's name and the step's current state.
 
