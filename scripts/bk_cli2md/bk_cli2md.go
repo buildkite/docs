@@ -609,6 +609,10 @@ func getSubcommandTitle(name string) string {
 		return "View " + article + " " + noun
 	case "create":
 		return "Create " + article + " " + noun
+	case "update":
+		return "Update " + article + " " + noun
+	case "delete":
+		return "Delete " + article + " " + noun
 	case "cancel":
 		return "Cancel " + article + " " + noun
 	case "download":

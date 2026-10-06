@@ -63,6 +63,8 @@ func TestGetSubcommandTitlePreservesInitialisms(t *testing.T) {
 		// Nested commands use every word before the action as the noun.
 		"cache registry list":                   "List cache registries",
 		"cache registry view":                   "View a cache registry",
+		"cache registry update":                 "Update a cache registry",
+		"cache registry delete":                 "Delete a cache registry",
 		"secret migrate github-actions prepare": "Prepare a GitHub Actions secret migration",
 		"secret migrate github-actions run":     "Run a GitHub Actions secret migration",
 	}

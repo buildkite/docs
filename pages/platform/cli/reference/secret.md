@@ -155,7 +155,7 @@ Create a secret with a description:
 bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --description "My secret description"
 ```
 
-## Update secret
+## Update a secret
 
 Update a cluster secret.
 
@@ -198,7 +198,7 @@ Update both description and value:
 bk secret update --cluster-uuid my-cluster-uuid --secret-id my-secret-id --description "New description" --update-value
 ```
 
-## Delete secret
+## Delete a secret
 
 Delete a cluster secret.
 

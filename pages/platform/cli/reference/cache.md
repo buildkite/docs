@@ -142,7 +142,7 @@ bk cache registry create my-cluster-uuid --name "Ruby gems" --policy-file policy
 cat policy.json | bk cache registry create my-cluster-uuid --name "Ruby gems" --policy-file -
 ```
 
-## Update cache registry
+## Update a cache registry
 
 Update a cluster cache registry.
 
@@ -190,7 +190,7 @@ bk cache registry update my-cluster-uuid my-registry-uuid --policy-file policy.y
 bk cache registry update my-cluster-uuid my-registry-uuid --clear-description
 ```
 
-## Delete cache registry
+## Delete a cache registry
 
 Delete a cluster cache registry.
 
