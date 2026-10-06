@@ -26,7 +26,6 @@ Method | Endpoint | Description
 GET | `/pools` | [List pools](#list-pools)
 GET | `/pools/{pool.id}` | [Get a pool](#get-a-pool)
 POST | `/pools` | [Create a pool](#create-a-pool)
-POST | `/pools/plan` | [Plan a pool](#plan-a-pool)
 PATCH | `/pools/{pool.id}` | [Update a pool](#update-a-pool)
 POST | `/pools/{pool.id}/entries` | [Upload entries](#upload-entries)
 GET | `/pools/{pool.id}/entries` | [List entries](#list-entries)
@@ -104,15 +103,13 @@ The Test Scheduler API uses these four resources:
 
 ### Pool lifecycle
 
-A manually populated pool moves through three states:
+A pool moves through three states:
 
 - `populating`: Entries can be added to the pool, and jobs can lease attempts. The pool remains in this state until the initial set of entries is marked as complete, even when no attempts are waiting or leased.
 - `consuming`: All initial entries have been added. Jobs can continue to lease, complete, and release attempts.
 - `consumed`: No attempts are waiting or leased. Lease requests return no work and identify the pool as consumed.
 
-New manually populated pools start in the `populating` state. After adding the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` if unfinished attempts remain or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` after its final attempts are completed and attempt-policy evaluation determines that no more attempts are needed.
-
-A pool created with [pool planning](#plan-a-pool) starts in the `planning` state. Planning runs asynchronously and moves the pool to `consuming` when its entries are ready, or directly to `consumed` when no work remains. If planning fails, the pool moves to `errored` and its response includes an `error` object. Clients cannot upload entries to a planned pool or close its population with `PATCH`.
+New pools start in the `populating` state. After adding the initial entries, [update the pool](#update-a-pool) with `"populating": false`. The pool moves to `consuming` if unfinished attempts remain or directly to `consumed` if it is already drained. A `consuming` pool moves to `consumed` after its final attempts are completed and attempt-policy evaluation determines that no more attempts are needed.
 
 ## List pools
 
@@ -599,41 +596,6 @@ Required scope: `write_test_pool`
 
 Success response: `201 Created`
 
-## Plan a pool
-
-Creates a pool and asynchronously plans its entries from RSpec test selectors or examples. This endpoint is available only when pool planning is enabled separately for the organization. Otherwise, the endpoint returns `404 Not Found`. Pool planning remains subject to the design-partner availability warning at the start of this page.
-
-```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/plan" \
-  --request POST \
-  --header "Authorization: Bearer $OIDC_TOKEN" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "suite": "suite-slug",
-    "pipeline": "pipeline-slug",
-    "build_id": "3456789a-****-****-****-789abcdef012",
-    "key": "rspec-planned",
-    "plan": {
-      "runner": "rspec",
-      "tests": {
-        "selectors": [
-          { "value": "spec/models/user_spec.rb" }
-        ]
-      }
-    }
-  }'
-```
-
-The request requires the same `suite`, `pipeline`, `build_id`, and `key` properties as [Create a pool](#create-a-pool), plus a `plan` object. The plan must set `runner` to `rspec` and provide `tests` containing selectors or examples, not files. The plan can also include `branch`, `location_prefix`, `selection`, `metadata`, `max_parallelism`, and `target_time`. The `max_parallelism` value must be between `1` and `1000`. The `target_time` value is in seconds, must be greater than zero and no greater than `86400`, and requires `max_parallelism`. Caller-supplied `identifier` and `parallelism` are not accepted. The optional `ttl_seconds`, `attempt_policy`, and `lease` properties use the same formats as pool creation. When `lease` is omitted, the lease cost is `duration_p90_ms` with a budget of `100000`. An explicitly empty `lease` uses the generic custom-cost defaults.
-
-The endpoint returns `202 Accepted`, a `Location` header for [Get a pool](#get-a-pool), and a new pool representation with `"state": "planning"`. Poll the location until the state changes. After planning succeeds, the pool moves to `consuming`, or directly to `consumed` when no work remains. The response includes an immutable `muted_tests` array and includes `parallelism` when sizing was requested. Generated entries use the `test_plan_test_case_v1` selector type. The pool response does not expose the planning request or generated entries; use [List entries](#list-entries) to read them.
-
-Repeating an equivalent request for the same build and case-insensitive key returns the existing pool in its current state. A different planning request or a manually created pool with the same build and key returns `409 Conflict`; use a new key. Retrying an errored planning request returns `409 Conflict` with its pool representation. Retrying an expired request returns `410 Gone`. A conflict caused by another caller still creating the pool can be retried.
-
-Required scope: `write_test_pool`
-
-Success response: `202 Accepted`
-
 ## Update a pool
 
 Marks the initial entry upload as finished. Send `"populating": false` once the producer has uploaded all initial entries.
@@ -689,7 +651,7 @@ Required [request body property](/docs/api#request-body-properties):
 </tbody>
 </table>
 
-The pool moves from `populating` to `consuming` when unfinished attempts remain, including completed attempts awaiting policy evaluation. The pool moves directly to `consumed` when it is drained. This transition cannot be reversed or repeated. Pools created by [Plan a pool](#plan-a-pool) cannot be closed through this endpoint and return `422 Unprocessable Entity`.
+The pool moves from `populating` to `consuming` when unfinished attempts remain, including completed attempts awaiting policy evaluation. The pool moves directly to `consumed` when it is drained. This transition cannot be reversed or repeated.
 
 Required scope: `write_test_pool`
 
@@ -811,7 +773,7 @@ For `test_plan_test_case_v1`, the selector object requires a `format` of `file`,
 
 Use the optional `Idempotency-Key` header to prevent duplicate entries when retrying an upload. Set `IDEMPOTENCY_KEY` to a new UUIDv7 for each set of entries. Reuse the same `Idempotency-Key` value and send the same `entries` when retrying that batch. Without this header, retries can create duplicate entries.
 
-The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state. Pools created by [Plan a pool](#plan-a-pool) reject manual uploads with `409 Conflict`.
+The request is atomic. If any entry is invalid, the API creates no entries. New entries can only be created while the pool is accepting entries, and has not transitioned to the `consuming` state.
 
 The API remembers successful requests with an `Idempotency-Key` for five minutes.  After the key expires, the API can create duplicates if the pool is still accepting entries.
 
@@ -1417,7 +1379,6 @@ Operation | Path | Organization requests per minute
 --------- | ---- | --------------------------------
 [List pools](#list-pools) | `/pools` | `10`
 [Create a pool](#create-a-pool) | `/pools` | `10`
-[Plan a pool](#plan-a-pool) | `/pools/plan` | Shares the create-pool limit of `10`
 [Get a pool](#get-a-pool) | `/pools/{pool.id}` | `100`
 [Update a pool](#update-a-pool) | `/pools/{pool.id}` | `100`
 [List entries](#list-entries) | `/pools/{pool.id}/entries` | `10000`
@@ -1504,7 +1465,6 @@ Status | Description
 `403 Forbidden` | The token lacks the required scope or claim, or a request value does not match a token claim.
 `404 Not Found` | The pool or lease does not exist or is not accessible to the token.
 `409 Conflict` | The requested operation conflicts with the current pool, lease, or attempt state. For example, the pool is expired, an entry upload targets a pool that is no longer populating, or a completion changes an already-recorded result.
-`410 Gone` | A repeated planning request identifies an expired pool. Use a new key.
 `429 Too Many Requests` | The request exceeded an organization, pool, or empty-lease job rate limit. Use the response body and scoped rate limit headers to determine when capacity becomes available.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
 `503 Service Unavailable` | Test Scheduler storage or request retry tracking is temporarily unavailable. For an entry upload, retry with the same `Idempotency-Key` header and unchanged entries.

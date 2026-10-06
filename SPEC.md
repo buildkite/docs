@@ -6,7 +6,7 @@
 
 ## Implementation status
 
-This document describes the current prototype implementation. The API remains behind the `test_scheduler_api` feature flag and may still evolve. Routes or behavior that remain design proposals are called out explicitly rather than being presented as available.
+This document describes the customer-facing prototype API. The API remains behind the `test_scheduler_api` feature flag and may still evolve. Routes or behavior that remain design proposals are called out explicitly rather than being presented as available.
 
 When the contract settles, we intend to share an OpenAPI specification and potentially a Go client library as a sub-package in [test-engine-client](https://github.com/buildkite/test-engine-client).
 
@@ -32,13 +32,12 @@ All implemented routes are JSON over HTTP beneath this organization-scoped prefi
 
 `/v2/organizations/{org-slug}/test-scheduler`
 
-OIDC requests obtain build context from token claims, except the pool index also requires matching `pipeline_id` and `build_id` query parameters. Pool creation and planning require `build_id` in the body. REST API access tokens are accepted for pool index, show, and metrics only; show and metrics require a `build_id` query parameter for these tokens.
+OIDC requests obtain build context from token claims, except the pool index also requires matching `pipeline_id` and `build_id` query parameters. Pool creation requires `build_id` in the body. REST API access tokens are accepted for pool index, show, and metrics only; show and metrics require a `build_id` query parameter for these tokens.
 
 | Method and path | Scope | Behavior |
 | :---- | :---- | :---- |
 | `GET /pools?pipeline_id=...&build_id=...&key=...` | `read_test_pool` | Lists pools for the token's suite, pipeline, and build. `key` is optional and matched case-insensitively. |
 | `POST /pools` | `write_test_pool` | Creates a pool. |
-| `POST /pools/plan` | `write_test_pool` | Asynchronously plans and populates a pool. Requires pool planning to be enabled separately. |
 | `GET /pools/{pool_id}` | `read_test_pool` | Gets one pool. |
 | `PATCH /pools/{pool_id}` | `write_test_pool` | Finishes population with `{ "populating": false }`. |
 | `POST /pools/{pool_id}/entries` | `write_test_pool` | Uploads entries and creates initial waiting attempts. |
@@ -118,12 +117,9 @@ Non-destroyed pools are unique on the combination of `organization_id`, `pipelin
 | `pipeline_id` | `UUID` | Buildkite pipeline containing the build. | false |
 | `build_id` | `UUID` | Buildkite build that owns the pool. | false |
 | `key` | `String` | Build-scoped pool key. It must start with a letter or number, be 255 characters or fewer, and otherwise may contain letters, numbers, hyphens, underscores, periods, and colons. | false |
-| `state` | `Enum` | `planning`, `populating`, `consuming`, `consumed`, or `errored`. Manual pools start in `populating`. | false |
+| `state` | `Enum` | `populating`, `consuming`, or `consumed`. Pools start in `populating`. | false |
 | `attempt_policy` | `TestPool.AttemptPolicy` or keyed object | Fully populated policy; keyed by policy name when the pool has multiple policies. | false |
 | `lease` | `Object` | Immutable lease settings: one cost dimension in `costs` and `max_attempts`. | false |
-| `error` | `Object` | Present for an errored pool, with a public `message`. | true |
-| `muted_tests` | `Array` | Immutable muted-test snapshot, present after planning produces a result. | true |
-| `parallelism` | `Integer` | Present when planning requested dynamic sizing. May be `0` when no runnable cases remain. | true |
 | `expires_at` | `Timestamp` | Fixed expiry computed when the pool is created. It is not extended by activity. | false |
 | `created_at` | `Timestamp` | Pool creation time. | false |
 
@@ -205,33 +201,6 @@ The only implemented update is:
 
 `PATCH /pools/{pool_id}` transitions a pool with active attempts to `consuming`, or an already drained pool directly to `consumed`. When present, `populating` must be the JSON boolean `false`, and the transition can only be applied once. A body that omits `populating` returns the pool unchanged.
 
-#### Plan a pool
-
-`POST /pools/plan` requires the separate `TestSchedulerPoolPlanningAPI` feature flag. When disabled, it returns `404 Not Found`. It accepts the same required `suite`, `pipeline`, `build_id`, and `key` fields as manual creation, plus a `plan` object:
-
-```json
-{
-  "suite": "example-suite",
-  "pipeline": "example-pipeline",
-  "build_id": "3456789a-****-****-****-789abcdef012",
-  "key": "rspec-planned",
-  "plan": {
-    "runner": "rspec",
-    "tests": {
-      "selectors": [
-        { "value": "spec/models/user_spec.rb" }
-      ]
-    }
-  }
-}
-```
-
-Only `rspec` is supported. `tests` accepts selectors or examples, not files. Optional plan fields are `branch`, `location_prefix`, `selection`, `metadata`, `max_parallelism`, and `target_time`. `max_parallelism` is between `1` and `1000`; `target_time` is greater than zero and at most `86400` seconds and requires `max_parallelism`. Caller-supplied `identifier` and `parallelism` are rejected. Optional `ttl_seconds`, `attempt_policy`, and `lease` use the creation formats. Omitting `lease` selects a `duration_p90_ms` budget of `100000`; an explicitly empty `lease` uses the generic custom-cost defaults.
-
-The response is `202 Accepted` with a pool and `Location` header for polling `GET /pools/{pool_id}`. A new pool starts in `planning`, then asynchronously moves to `consuming` or directly to `consumed` when no work remains. A successful planning result adds `muted_tests`, and `parallelism` when requested. Planning failures expose `state: "errored"` and `error: { "message": "Test pool failed." }`.
-
-Repeating an equivalent normalized request for the same build and case-insensitive key returns the existing pool in its current state. A changed request or collision with a manually created pool returns `409 Conflict`. Retrying an errored planning request returns `409` with its pool representation; retrying an expired one returns `410 Gone`. A creation-lock conflict is retryable. Planned pools reject manual entry uploads (`409`) and population-ending `PATCH` requests (`422`).
-
 ### TestPool.Entry
 
 A pool entry is an opaque selector plus scheduling attributes understood by the producer and worker.
@@ -251,7 +220,7 @@ A pool entry is an opaque selector plus scheduling attributes understood by the 
 
 All entries with the same non-empty affinity group must be in one upload. Reusing that group in a later upload returns `409 Conflict`.
 
-For `test_plan_test_case_v1`, `selector.format` is `file`, `selector`, or `example`. File selectors require a non-empty `path`; selector selectors require a non-empty `value`; examples require non-empty `scope` and `name` and may include non-empty `path` and `identifier`. All three formats accept non-negative integer `estimated_duration` and `timing_sample_size`; unknown fields are rejected. Planned entries use this selector type.
+For `test_plan_test_case_v1`, `selector.format` is `file`, `selector`, or `example`. File selectors require a non-empty `path`; selector selectors require a non-empty `value`; examples require non-empty `scope` and `name` and may include non-empty `path` and `identifier`. All three formats accept non-negative integer `estimated_duration` and `timing_sample_size`; unknown fields are rejected.
 
 The optional `Idempotency-Key` header must be a UUIDv7. A successful upload is remembered for five minutes: retrying with the same key and unchanged entries returns `204 No Content`; a changed payload or pending/unknown outcome returns `409 Conflict`. Without a key, or after it expires, retries may duplicate entries. Idempotency storage failures return `503 Service Unavailable`; retry with the same key.
 
@@ -737,7 +706,7 @@ Each operation has organization rate limits, and pool-specific operations also h
 Every write and the entry index requires a suite-scoped Buildkite job OIDC bearer token. Pool index, show, and metrics also accept REST API access tokens with `read_test_pool`. Those tokens must allow the organization, and their user must have access to the build and suite; additional `read_builds` and `read_suites` scopes are not required. The OIDC audience identifies the Test Engine suite, whose policy must grant:
 
 * `read_test_pool` for pool index, show, metrics, and entry index.
-* `write_test_pool` for pool creation, planning, update, entry upload, and every lease route.
+* `write_test_pool` for pool creation, update, entry upload, and every lease route.
 
 The OIDC token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Every lease endpoint, including heartbeat, additionally requires a UUID `job_id` claim. Lease mutations require job ownership. REST API access-token requests to pool show and metrics require a `build_id` query parameter; pool index requires both `pipeline_id` and `build_id`.
 
