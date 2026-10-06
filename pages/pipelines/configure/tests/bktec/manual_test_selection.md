@@ -10,7 +10,7 @@ Manual test selection requires bktec v3.2.1 or later, and works with every runne
 
 The recommended setup uses two steps. The first step generates the list of tests to run and saves it as an [artifact](/docs/pipelines/configure/artifacts). The second step downloads the list and passes it to `bktec run`, so that every parallel job uses the same list.
 
-1. Create a `.buildkite/select-tests.sh` script that writes the tests to run to `tests-to-run.txt`, one [selector](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#selector-based-test-splitting) per line. For most test runners, a selector is the test file path. The following example selects the RSpec spec files changed on the current branch. Replace the `git diff` command with your own selection logic:
+1. Create a `.buildkite/select-tests.sh` script that writes the tests to run to `tests-to-run.txt`, one [selector](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-selector-based-test-splitting) per line. For most test runners, a selector is the test file path. The following example selects the RSpec spec files changed on the current branch. Replace the `git diff` command with your own selection logic:
 
     ```bash
     #!/usr/bin/env bash
@@ -24,7 +24,7 @@ The recommended setup uses two steps. The first step generates the list of tests
       "origin/${base_branch}...HEAD" -- '*_spec.rb' > tests-to-run.txt
     ```
 
-    List each selector as bktec discovers it, or as it's listed in the file passed with `--selector-file`. Selectors are relative to the directory that bktec runs in, without a location prefix. If bktec runs in a subdirectory, such as `backend` in a monorepo, replace `--relative` with `--relative=backend`.
+    List each selector as bktec discovers it. Selectors are relative to the directory that bktec runs in, without a location prefix. If bktec runs in a subdirectory, such as `backend` in a monorepo, replace `--relative` with `--relative=backend`.
 
 1. Create a `.buildkite/run-selected-tests.sh` script that downloads the list and runs bktec with the `manual` selection strategy:
 
@@ -65,7 +65,7 @@ The recommended setup uses two steps. The first step generates the list of tests
               result-path: tmp/rspec-result.json
     ```
 
-If none of the listed selectors match a test that bktec discovers, `bktec run` and `bktec plan` fail instead of running the full test suite. To pass the job without running tests, set `--fail-on-no-tests=false` or `BUILDKITE_TEST_ENGINE_FAIL_ON_NO_TESTS=false`. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
+If none of the listed selectors match a test that bktec discovers, `bktec run` and `bktec plan` fail. To pass the job even when nothing matches, set `--fail-on-no-tests=false` or `BUILDKITE_TEST_ENGINE_FAIL_ON_NO_TESTS=false`. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
 
 ## Use manual selection with dynamic parallelism
 
