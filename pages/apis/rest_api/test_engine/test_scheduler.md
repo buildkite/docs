@@ -601,7 +601,7 @@ Success response: `201 Created`
 
 ## Plan a pool
 
-Creates a pool and asynchronously plans its entries from RSpec test selectors or examples. This endpoint is available only when pool planning is enabled separately for the organization. Otherwise, it returns `404 Not Found`. Pool planning remains subject to the design-partner availability warning at the start of this page.
+Creates a pool and asynchronously plans its entries from RSpec test selectors or examples. This endpoint is available only when pool planning is enabled separately for the organization. Otherwise, the endpoint returns `404 Not Found`. Pool planning remains subject to the design-partner availability warning at the start of this page.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools/plan" \
@@ -624,7 +624,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   }'
 ```
 
-The request requires the same `suite`, `pipeline`, `build_id`, and `key` properties as [Create a pool](#create-a-pool), plus a `plan` object. The plan must set `runner` to `rspec` and provide `tests` containing selectors or examples, not files. It can also include `branch`, `location_prefix`, `selection`, `metadata`, `max_parallelism`, and `target_time`. The `max_parallelism` value must be between `1` and `1000`. The `target_time` value is in seconds, must be greater than zero and no greater than `86400`, and requires `max_parallelism`. Caller-supplied `identifier` and `parallelism` are not accepted. The optional `ttl_seconds`, `attempt_policy`, and `lease` properties use the same formats as pool creation. When `lease` is omitted, the lease cost is `duration_p90_ms` with a budget of `100000`. An explicitly empty `lease` uses the generic custom-cost defaults.
+The request requires the same `suite`, `pipeline`, `build_id`, and `key` properties as [Create a pool](#create-a-pool), plus a `plan` object. The plan must set `runner` to `rspec` and provide `tests` containing selectors or examples, not files. The plan can also include `branch`, `location_prefix`, `selection`, `metadata`, `max_parallelism`, and `target_time`. The `max_parallelism` value must be between `1` and `1000`. The `target_time` value is in seconds, must be greater than zero and no greater than `86400`, and requires `max_parallelism`. Caller-supplied `identifier` and `parallelism` are not accepted. The optional `ttl_seconds`, `attempt_policy`, and `lease` properties use the same formats as pool creation. When `lease` is omitted, the lease cost is `duration_p90_ms` with a budget of `100000`. An explicitly empty `lease` uses the generic custom-cost defaults.
 
 The endpoint returns `202 Accepted`, a `Location` header for [Get a pool](#get-a-pool), and a new pool representation with `"state": "planning"`. Poll the location until the state changes. After planning succeeds, the pool moves to `consuming`, or directly to `consumed` when no work remains. The response includes an immutable `muted_tests` array and includes `parallelism` when sizing was requested. Generated entries use the `test_plan_test_case_v1` selector type. The pool response does not expose the planning request or generated entries; use [List entries](#list-entries) to read them.
 
@@ -1507,7 +1507,7 @@ Status | Description
 `410 Gone` | A repeated planning request identifies an expired pool. Use a new key.
 `429 Too Many Requests` | The request exceeded an organization, pool, or empty-lease job rate limit. Use the response body and scoped rate limit headers to determine when capacity becomes available.
 `422 Unprocessable Entity` | A request property, UUID, limit, or state transition is invalid.
-`503 Service Unavailable` | Test Scheduler storage or request idempotency is temporarily unavailable. For an entry upload, retry with the same idempotency key and unchanged entries.
+`503 Service Unavailable` | Test Scheduler storage or request retry tracking is temporarily unavailable. For an entry upload, retry with the same `Idempotency-Key` header and unchanged entries.
 {: class="responsive-table"}
 
 ## Breaking changes
