@@ -32,7 +32,7 @@ bk secret migrate github-actions prepare \
   --output .github/workflows/migrate-buildkite-secrets.yml
 ```
 
-The Buildkite CLI finds the Buildkite pipeline for your repository and creates a workflow that names each secret it will move. It won't select a secret if a secret with the same name already exists in the destination cluster.
+The Buildkite CLI finds the Buildkite pipeline for your repository and creates a workflow that names each secret it will move. The CLI won't select a secret if a secret with the same name already exists in the destination cluster.
 
 To choose secrets interactively, leave out `--secret` and `--match`.
 
