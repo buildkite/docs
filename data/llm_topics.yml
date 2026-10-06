@@ -196,6 +196,7 @@ best-practices:
     - "agent/queues/managing"
     - "agent/lifecycle"
     - "agent/hooks"
+    - "platform/security/hardening-checklist"
   related_topics:
     - pipeline-configurations
     - security
@@ -310,8 +311,6 @@ security:
     - "platform/sso"
     - "package-registries/security"
   exact_paths:
-    - "pipelines/best-practices/security-controls"
-    - "pipelines/best-practices/secrets-management"
     - "agent/buildkite-hosted/network-security"
     - "platform/team-management/enforce-2fa"
     - "platform/team-management/inactive-user-list"

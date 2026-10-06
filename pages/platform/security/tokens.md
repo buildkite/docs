@@ -102,3 +102,11 @@ Buildkite [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-token
 - Example: `bkjat_*****************************************************`
 
 By default, job acquisition tokens expire 15 minutes after issuance. A stack can request a lifetime of up to one hour, but the token expires earlier if the job reservation expires first.
+
+### OAuth Token Exchange tokens
+
+Buildkite [OAuth Token Exchange](/docs/apis/oauth-token-exchange) tokens are short-lived API tokens that a service obtains by exchanging a signed JSON Web Token (JWT) assertion, instead of using a long-lived API access token tied to a user.
+
+- Prefix: `bktx_`
+
+These tokens expire after the **Max Token TTL** configured on the Token Exchange App, which defaults to one hour and can be set between 30 seconds and 24 hours.

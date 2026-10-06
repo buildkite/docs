@@ -7,6 +7,8 @@ The hybrid-SaaS model used by Buildkite allows you to maintain tight control ove
 
 Buildkite implements a number of measures and mechanisms, both on the control plane and agent, to ensure that customer data remains safe.
 
+To learn how to secure your own Buildkite organization, see the [Security hardening checklist](/docs/platform/security/hardening-checklist). For an overview of all security documentation across Buildkite, see [Security](/docs/platform/security).
+
 ## Data flow
 
 Data flows through different systems when a build triggers, both in Buildkite and in environments you manage. The following diagram shows the typical flow of data when a build triggers.

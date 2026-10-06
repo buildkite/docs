@@ -224,17 +224,21 @@ The default environment variable name patterns are:
 - `*_SECRET`
 - `*_TOKEN`
 - `*_PRIVATE_KEY`
+- `*_SSH_KEY` (added in Agent v3.128.0)
 - `*_ACCESS_KEY`
 - `*_SECRET_KEY`
 - `*_CONNECTION_STRING` (added in Agent v3.53.0)
+- `*_API_KEY` (added in Agent v3.120.1)
 
 With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
 
 You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/self-hosted/configure#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
 
 ```sh
-redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_SOME_VALUE, FOO"
+redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_SSH_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_API_KEY, *_SOME_VALUE, FOO"
 ```
+
+Setting `redacted-vars` replaces the default patterns, so list every default pattern you want to keep. Since the defaults differ between agent versions, listing your patterns explicitly also ensures that the same variables are redacted on every agent in your fleet.
 
 > 📘 Setting environment variables
 > Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
