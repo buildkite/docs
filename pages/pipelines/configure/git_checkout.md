@@ -508,7 +508,10 @@ steps:
 
 ## Fetching the base branch
 
-A checkout only fetches the refs the job needs to build: the pull request ref or commit for the branch under test. It does not refresh `origin/<base-branch>` in the agent's working directory, so that ref can keep pointing at whatever an earlier build left there. Anything in the job that compares against the base branch, such as a custom script running `git merge-base HEAD origin/main`, can then read a stale ref. Because a stale base only ever makes a diff wider rather than causing a failure, this tends to go unnoticed. [`if_changed` change detection](/docs/pipelines/configure/dynamic-pipelines/if-changed#troubleshooting-steps-run-unexpectedly-after-merging-the-default-branch-into-a-feature-branch) is a common place this shows up, and has its own `--fetch-diff-base` flag that solves the problem for `buildkite-agent pipeline upload` specifically.
+> 📘 Agent version requirement
+> The `--git-fetch-base-branch` setting requires Buildkite agent v4.2.0 or newer. Older agent versions don't recognize this setting.
+
+A checkout only fetches the refs the job needs to build: the pull request ref or commit for the branch under test. The checkout does not refresh `origin/<base-branch>` in the agent's working directory, so that ref can keep pointing at whatever an earlier build left there. Anything in the job that compares against the base branch, such as a custom script running `git merge-base HEAD origin/main`, can then read a stale ref. A stale ref often makes a diff wider than expected, but it can also hide changes, for example, when the branch under test reverts a change that the stale ref predates. If the base branch's history was rewritten, for example, by a force push, the comparison can produce misleading results or fail. Because the comparison usually succeeds anyway, a stale base ref tends to go unnoticed. [`if_changed` change detection](/docs/pipelines/configure/dynamic-pipelines/if-changed#troubleshooting-steps-run-unexpectedly-after-merging-the-default-branch-into-a-feature-branch) is a common place this shows up, and has its own `--fetch-diff-base` flag that solves the problem for `buildkite-agent pipeline upload` specifically.
 
 The agent's `--git-fetch-base-branch` configuration setting fetches the base branch during checkout, so that `origin/<base-branch>` reflects its current tip before any job commands run. The base branch is the first non-empty value of `BUILDKITE_PULL_REQUEST_BASE_BRANCH` or `BUILDKITE_PIPELINE_DEFAULT_BRANCH`. The agent skips the fetch when the branch being built is the base branch itself, since there's no distinct base branch to prepare.
 
@@ -518,13 +521,27 @@ Set the mode with the agent's `--git-fetch-base-branch` flag, or the [`BUILDKITE
 - `optimistic`: The agent fetches the base branch before the job's commands run, and warns without failing the job if the fetch fails.
 - `strict`: The agent fails the job if the fetch fails, including when no base branch can be determined for the build.
 
-> 📘 Fleet-wide setting
-> `--git-fetch-base-branch` is a protected agent configuration setting. It can't be set or overridden from pipeline YAML or a job's `env` block.
+For example, in the agent configuration file:
 
 ```ini
 git-fetch-base-branch="optimistic"
 ```
 {: codeblock-file="buildkite-agent.cfg"}
+
+The agent only fetches the base branch determined from these variables. If a command compares against a different ref, such as a custom diff base for `if_changed`, fetch that ref separately.
+
+### Overriding the agent setting
+
+Whether a job can change this setting depends on the agent's [checkout-override mode](#agent-checkout-override-mode):
+
+- `from-job` (the default): When the agent sets `optimistic` or `strict`, a pipeline or step `env` can't override it, but hooks and plugins can. When the agent leaves the setting at `off`, a pipeline or step can enable the fetch by setting `BUILDKITE_GIT_FETCH_BASE_BRANCH` in its `env`.
+- `none`: Pipeline or step `env`, secrets, hooks, and plugins can override the agent's value in either direction, including setting `off` to skip a fetch that the agent enables.
+- `strict`: The agent's value always applies, including `off`, and no pipeline or step `env`, secret, hook, or plugin can change it.
+
+To guarantee the same behavior across every job on an agent, run the agent with `checkout-override-mode="strict"` as well as `git-fetch-base-branch`. Disabling command evaluation (`no-command-eval`) also forces `strict` mode.
+
+> 🚧 Buildkite hosted agents
+> Buildkite hosted agents run in `from-job` mode, and you can't change their agent configuration. To fetch the base branch on hosted agents running v4.2.0 or newer, set `BUILDKITE_GIT_FETCH_BASE_BRANCH` in your pipeline or step `env`. Alternatively, fetch the base branch in the step's command, for example, `git fetch origin main`.
 
 ## Migrating from checkout plugins
 

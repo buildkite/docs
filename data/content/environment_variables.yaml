@@ -264,8 +264,8 @@ variables:
 
       The value `optimistic` fetches the base branch before the job's commands run, and warns without failing the job if the fetch fails. The value `strict` fails the job if the fetch fails, including when no base branch can be determined. The value `off` skips the extra fetch.
 
-      Set from the agent's `--git-fetch-base-branch` [configuration option](/docs/agent/self-hosted/configure). This is a protected environment variable, so it can't be set or overridden from pipeline YAML or a job's `env` block.
-    modifiable: false
+      Set from the agent's `--git-fetch-base-branch` [configuration option](/docs/agent/self-hosted/configure#git-fetch-base-branch), which requires Buildkite agent v4.2.0 or later. Whether a job can override this value depends on the agent's `checkout-override-mode`. In `from-job` mode (the default), hooks and plugins can change the value, and a pipeline or step `env` can set it only when the agent leaves it at `off`. In `none` mode, any source can override the value, including setting `off`. In `strict` mode, the agent's value always applies. See [Fetching the base branch](/docs/pipelines/configure/git-checkout#fetching-the-base-branch) for details.
+    modifiable: true
     values:
       - "off"
       - optimistic
