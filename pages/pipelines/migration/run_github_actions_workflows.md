@@ -530,7 +530,7 @@ Buildkite Pipelines queues every waiting entry, unlike GitHub's default behavior
 
 ### Deployment environments and variables
 
-Top-level jobs can declare a literal GitHub deployment `environment`, with or without a `url`. Expression-valued environment names and environments on reusable-workflow jobs aren't supported. When a workflow declares an environment, Buildkite reads the environment's protection rules, secret names, and variables from GitHub using its own credentials, restricted to the pipeline's repository. No GitHub token or secret value reaches the importer. Environments are supported only for `github.com` repositories. If Buildkite can't resolve an environment, the workflow fails to compile rather than running without its protection rules.
+Top-level jobs can declare a literal GitHub deployment `environment`, with or without a `url`. Expression-valued environment names and environments on reusable-workflow jobs aren't supported. When a workflow declares an environment, Buildkite reads the environment's protection rules, secret names, and variables from GitHub using its own credentials, restricted to the pipeline's repository. No GitHub token or secret value reaches the importer. Environments are supported only for `github.com` repositories. The Buildkite GitHub App installation needs the **Actions: read** and **Environments: read** permissions to resolve environments, and **Variables: read** to resolve variables. If your installation predates these permissions, a GitHub organization owner must approve them. If Buildkite can't resolve an environment, the workflow fails to compile rather than running without its protection rules.
 
 Environment features map to Buildkite Pipelines as follows:
 
@@ -687,7 +687,7 @@ If the job fails with `GitHub workflow token request was rejected`, check the wo
 
 ### GitHub variables can't be resolved
 
-If the importer can't read GitHub variables, every workflow that references `vars` fails to compile with an `E_VARIABLE_RESOLUTION` diagnostic, while other workflows still upload. When the diagnostic includes a specific policy, permission, installation, or repository-access error, correct that cause. If it only reports `GitHub variables could not be resolved`, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) with the build URL.
+If the importer can't read GitHub variables, every workflow that references `vars` fails to compile with an `E_VARIABLE_RESOLUTION` diagnostic, while other workflows still upload. When the diagnostic includes a specific policy, permission, installation, or repository-access error, correct that cause. For example, confirm that the Buildkite GitHub App installation has the **Variables: read** permission. If it only reports `GitHub variables could not be resolved`, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) with the build URL.
 
 ### Validate a workflow locally
 
