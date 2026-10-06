@@ -17,14 +17,14 @@ Buildkite is designing a Test Engine capability called Test Scheduler that imple
 ## Terminology
 
 * `TestPool`: A suite- and build-scoped pool containing multiple entries. A non-destroyed pool is unique by organization, pipeline, build, and case-insensitive pool key.  
-* `TestPool.Entry`: A persisted definition of scheduleable work. Each entry has a runner-understood `selector_type` and `selector`, plus an optional custom cost, priority, affinity group, and metadata.  
-  * A selector may identify one reportable test or a broader runnable target such as a file, package, Python `node_id`, or Bazel target.  
-  * `custom` is the only currently supported selector type.  
-* `TestPool.Entry.Attempt`: A leasable invocation of an entry. Entry fields used for scheduling and execution are copied onto the attempt when the entry is uploaded.  
-* `Lease`: A time-bounded worker claim over one or more attempts. A lease is not a separately persisted record in the current implementation; the lease ID, owning job ID, and expiry are stamped onto each leased attempt.  
+* `TestPool.Entry`: A persisted definition of schedulable work. Each entry has a runner-understood `selector_type` and `selector`, plus optional costs, priority, affinity group, attempt-policy key, and metadata.
+  - A selector identifies a reportable test or a runnable target such as a file, package, Python `node_id`, or Bazel target.
+  - Selector types are `custom` and `test_plan_test_case_v1`.
+* `TestPool.Entry.Attempt`: A leasable invocation of an entry. Attempts reference the entry's selector and expose scheduling attributes and an `initial` flag.
+* `Lease`: A persisted, time-bounded worker claim over one or more attempts, with its own job ownership and timing.
 * `Worker`: The Buildkite job identified by the OIDC token's `job_id` claim.
 
-Execution policies and automatic retry-attempt creation are not implemented. Uploading an entry currently creates exactly one waiting attempt with `attempt_index: 0`.
+Attempt policies and automatic retries are implemented. Upload creates the configured initial attempts with zero-based `attempt_index` values. The default policy creates one attempt and does not retry.
 
 ## API Routes
 
@@ -32,12 +32,13 @@ All implemented routes are JSON over HTTP beneath this organization-scoped prefi
 
 `/v2/organizations/{org-slug}/test-scheduler`
 
-The pool metrics route requires a caller-supplied `build_id` query parameter. Other pool-specific routes obtain build context from the OIDC token. The pool index requires `pipeline_id` and `build_id` query parameters, and pool creation requires `build_id` in the request body.
+OIDC requests obtain build context from token claims, except the pool index also requires matching `pipeline_id` and `build_id` query parameters. Pool creation and planning require `build_id` in the body. REST API access tokens are accepted for pool index, show, and metrics only; show and metrics require a `build_id` query parameter for these tokens.
 
 | Method and path | Scope | Behavior |
 | :---- | :---- | :---- |
 | `GET /pools?pipeline_id=...&build_id=...&key=...` | `read_test_pool` | Lists pools for the token's suite, pipeline, and build. `key` is optional and matched case-insensitively. |
 | `POST /pools` | `write_test_pool` | Creates a pool. |
+| `POST /pools/plan` | `write_test_pool` | Asynchronously plans and populates a pool. Requires pool planning to be enabled separately. |
 | `GET /pools/{pool_id}` | `read_test_pool` | Gets one pool. |
 | `PATCH /pools/{pool_id}` | `write_test_pool` | Finishes population with `{ "populating": false }`. |
 | `POST /pools/{pool_id}/entries` | `write_test_pool` | Uploads entries and creates initial waiting attempts. |
@@ -46,7 +47,7 @@ The pool metrics route requires a caller-supplied `build_id` query parameter. Ot
 | `POST /pools/{pool_id}/leases/heartbeat` | `write_test_pool` | Extends active leases owned by the authenticated job. |
 | `POST /pools/{pool_id}/leases/complete` | `write_test_pool` | Completes selected attempts from one or more leases. |
 | `POST /pools/{pool_id}/leases/release` | `write_test_pool` | Releases selected attempts or all active attempts from one or more leases. |
-| `GET /pools/{pool_id}/metrics?build_id=...` | `read_test_pool` | Returns aggregate progress for a pool. |
+| `GET /pools/{pool_id}/metrics` | `read_test_pool` | Returns aggregate progress for a pool. REST API access tokens require `build_id`. |
 
 ### Example end-to-end request flow
 
@@ -70,7 +71,7 @@ Workers may instead begin leasing as soon as the pool exists, overlapping steps 
 1. A Buildkite job creates a pool with `POST /pools`.  
 2. If creation returns `409 Conflict` because the build and key already identify a pool, the client resolves it with `GET /pools`.  
 3. The producer uploads entries with `POST /pools/{pool_id}/entries` while the pool is `populating`.  
-4. Each uploaded entry atomically creates one entry and one waiting attempt.  
+4. Upload atomically creates each entry and its initial waiting attempts, according to the selected policy.
 5. The producer calls `PATCH /pools/{pool_id}` with `{ "populating": false }` when upload is complete.
 
 ### Test execution
@@ -79,25 +80,25 @@ Workers may instead begin leasing as soon as the pool exists, overlapping steps 
 * Attempts are considered in descending priority, then FIFO by `created_at`, with UUID as the final tie-breaker.  
 * An attempt without an affinity group is a batch of one. Selecting an attempt with an affinity group expands the batch to all currently visible waiting attempts in that group, excluding additional attempts for an entry already selected for the lease.  
 * During concurrent lease requests, if another request has locked any visible member of an affinity group, that group is skipped for the current request and the scheduler continues considering other work.  
-* The first batch is always leased, even if it exceeds the requested cost or attempt limit. A later batch is added only when the whole batch fits both limits. Selection stops at the first later batch that does not fit either the requested cost or attempt limit.  
-* A lease normally contains at most 300 attempts. The first affinity-group batch may exceed that limit so the group is not split.  
+* The first batch is always leased, even if it exceeds the pool's cost budget or attempt limit. Later batches are added only when the whole batch fits both limits. Selection stops at the first batch that does not fit.
+* The default lease attempt limit is 300. The first affinity-group batch may exceed the pool's configured limit so the group is not split.
 * Attempts with no custom cost have an effective custom cost of `0`.  
 * Completion and release requests are authorized against the OIDC token's `job_id`. A stale or different worker cannot mutate the attempt after it has been released and leased again.
 
-Current limitation: lease expiry is enforced by completion and release, but there is no expired-lease reclamation endpoint or worker yet. An expired attempt remains in `leased` state and is not automatically returned to `waiting` by the current implementation.
+Expired leases are reclaimed asynchronously. Their unfinished attempts return to `waiting` and can be leased again. Heartbeat, completion, and release cannot mutate expired leases. Reclamation is not immediate at the expiry timestamp.
 
 ### Drain semantics
 
-A pool is drained when it has no attempts in `waiting` or `leased` state. Drain only changes pool state after population has ended:
+A pool is drained when it has no waiting or leased attempts and no completed attempts awaiting asynchronous policy evaluation. Drain only changes pool state after population has ended:
 
 * Ending population on an already drained pool transitions it directly from `populating` to `consumed`.  
 * Ending population on a pool with active attempts transitions it from `populating` to `consuming`.  
-* Completing the final active attempt in a `consuming` pool transitions it to `consumed`.  
+* The final completion in a `consuming` pool leads to `consumed` only after policy evaluation determines that no further attempts are needed.
 * A temporarily empty `populating` pool remains `populating`.
 
 ### Retry pools
 
-Automatic retries and execution-policy evaluation are implemented. The currently implemented API does not list failed attempts, so constructing a second retry pool from scheduler API results is not yet available end-to-end. The client is responsible for creating a second pool (for baseline retries), and populating it with failed attempts from the first pool. The API will provide an endpoint to list failed attempts, and the second pool can be populated with the `/uploads` endpoint.
+Automatic retries use the pool's attempt policies. Clients that need a separate baseline retry pool can list terminal failed entries with `GET /pools/{pool_id}/entries?state=completed&result=failed`, then upload their selectors to another pool through `POST /pools/{pool_id}/entries`. There is no `/uploads` scheduler endpoint or endpoint listing individual failed attempts.
 
 ### Wire format
 
@@ -117,8 +118,12 @@ Non-destroyed pools are unique on the combination of `organization_id`, `pipelin
 | `pipeline_id` | `UUID` | Buildkite pipeline containing the build. | false |
 | `build_id` | `UUID` | Buildkite build that owns the pool. | false |
 | `key` | `String` | Build-scoped pool key. It must start with a letter or number, be 255 characters or fewer, and otherwise may contain letters, numbers, hyphens, underscores, periods, and colons. | false |
-| `state` | `Enum` | `populating`, `consuming`, or `consumed`. | false |
-| `attempt_policy` | `TestPool.AttemptPolicy` | Fully populated attempt policy. | false |
+| `state` | `Enum` | `planning`, `populating`, `consuming`, `consumed`, or `errored`. Manual pools start in `populating`. | false |
+| `attempt_policy` | `TestPool.AttemptPolicy` or keyed object | Fully populated policy; keyed by policy name when the pool has multiple policies. | false |
+| `lease` | `Object` | Immutable lease settings: one cost dimension in `costs` and `max_attempts`. | false |
+| `error` | `Object` | Present for an errored pool, with a public `message`. | true |
+| `muted_tests` | `Array` | Immutable muted-test snapshot, present after planning produces a result. | true |
+| `parallelism` | `Integer` | Present when planning requested dynamic sizing. May be `0` when no runnable cases remain. | true |
 | `expires_at` | `Timestamp` | Fixed expiry computed when the pool is created. It is not extended by activity. | false |
 | `created_at` | `Timestamp` | Pool creation time. | false |
 
@@ -132,13 +137,19 @@ Non-destroyed pools are unique on the combination of `organization_id`, `pipelin
   "pipeline": "snowfort-tests",
   "build_id": "018f5f98-6c64-4ecf-9e7a-bc4b0d7a0004",
   "key": "snowfort-main",
-  "ttl_seconds": 3600
+  "ttl_seconds": 3600,
+  "attempt_policy": {
+    "max_attempts": 2,
+    "max_failed": 2
+  }
 }
 ```
 
 `ttl_seconds` is optional. It defaults to the organization's pool-TTL quota, which is 24 hours unless lowered. Explicit values must be integers between 300 seconds and that quota. In the current implementation, 24 hours is both the default and the hard maximum; an organization quota override may only reduce it.
 
-The response is an unwrapped pool object and includes the fully populated `attempt_policy` used by the pool.
+The optional `attempt_policy` controls initial attempts and retries. The optional `lease` object fixes the lease cost budget and attempt limit for the life of the pool. `lease.costs` accepts at most one dimension: `custom` (finite, non-negative number, default `1`) or `duration_p90_ms` (finite, non-negative integer milliseconds). `lease.max_attempts` defaults to the lower of `300` and the organization quota and must be between `1` and that quota. The first selected affinity group may exceed either limit.
+
+The response is an unwrapped pool object and includes the fully populated `attempt_policy` and `lease` settings. Unknown top-level creation fields are rejected.
 
 ```json
 {
@@ -155,10 +166,17 @@ The response is an unwrapped pool object and includes the fully populated `attem
     "max_passed": 1,
     "min_attempts": 1,
     "min_passed": 1,
-    "min_failed": 0,
-    "parallel_attempts": 1
+    "min_failed": null,
+    "parallel_attempts": 1,
+    "initial_attempts": null
   },
-  "expires_at": "2026-06-11T12:00:00Z",
+  "lease": {
+    "costs": {
+      "custom": 1.0
+    },
+    "max_attempts": 300
+  },
+  "expires_at": "2026-06-10T13:00:00Z",
   "created_at": "2026-06-10T12:00:00Z"
 }
 ```
@@ -167,11 +185,11 @@ Creating a duplicate non-destroyed pool returns `409 Conflict`. Pool keys are co
 
 #### Find pools
 
-`GET /pools` requires `pipeline_id` and `build_id` query parameters that match the token claims. An optional `key` filters case-insensitively. Results are ordered by pool UUID descending and use cursor pagination with optional `after`, `before`, and `per_page` parameters. Only one cursor direction may be supplied. `per_page` defaults to 30 and accepts values from 1 through 100\.
+`GET /pools` requires `pipeline_id` and `build_id` query parameters. For OIDC they must match token claims. For REST API access tokens, the build must belong to the pipeline and be accessible to the user. An optional `key` filters case-insensitively. Results are ordered by pool UUID descending and use cursor pagination with optional `after`, `before`, and `per_page` parameters. Only one cursor direction may be supplied. `per_page` defaults to 30 and accepts values from 1 through 100\.
 
 The response wraps pools in an `items` array and includes `links.self`. It also includes `links.next` and `links.prev` cursor URLs when those directions are available.
 
-`GET /pools/{pool_id}` returns one unwrapped pool object. Both lookup routes are constrained to the token's organization, suite, pipeline, and build.
+`GET /pools/{pool_id}` returns one unwrapped pool object. OIDC lookups are constrained to the token's organization, suite, pipeline, and build. REST API access-token lookups require access to both the build and suite. Expired and destroyed pools are unavailable through these routes.
 
 #### Pool lifecycle
 
@@ -187,20 +205,55 @@ The only implemented update is:
 
 `PATCH /pools/{pool_id}` transitions a pool with active attempts to `consuming`, or an already drained pool directly to `consumed`. When present, `populating` must be the JSON boolean `false`, and the transition can only be applied once. A body that omits `populating` returns the pool unchanged.
 
+#### Plan a pool
+
+`POST /pools/plan` requires the separate `TestSchedulerPoolPlanningAPI` feature flag. When disabled, it returns `404 Not Found`. It accepts the same required `suite`, `pipeline`, `build_id`, and `key` fields as manual creation, plus a `plan` object:
+
+```json
+{
+  "suite": "example-suite",
+  "pipeline": "example-pipeline",
+  "build_id": "3456789a-****-****-****-789abcdef012",
+  "key": "rspec-planned",
+  "plan": {
+    "runner": "rspec",
+    "tests": {
+      "selectors": [
+        { "value": "spec/models/user_spec.rb" }
+      ]
+    }
+  }
+}
+```
+
+Only `rspec` is supported. `tests` accepts selectors or examples, not files. Optional plan fields are `branch`, `location_prefix`, `selection`, `metadata`, `max_parallelism`, and `target_time`. `max_parallelism` is between `1` and `1000`; `target_time` is greater than zero and at most `86400` seconds and requires `max_parallelism`. Caller-supplied `identifier` and `parallelism` are rejected. Optional `ttl_seconds`, `attempt_policy`, and `lease` use the creation formats. Omitting `lease` selects a `duration_p90_ms` budget of `100000`; an explicitly empty `lease` uses the generic custom-cost defaults.
+
+The response is `202 Accepted` with a pool and `Location` header for polling `GET /pools/{pool_id}`. A new pool starts in `planning`, then asynchronously moves to `consuming` or directly to `consumed` when no work remains. A successful planning result adds `muted_tests`, and `parallelism` when requested. Planning failures expose `state: "errored"` and `error: { "message": "Test pool failed." }`.
+
+Repeating an equivalent normalized request for the same build and case-insensitive key returns the existing pool in its current state. A changed request or collision with a manually created pool returns `409 Conflict`. Retrying an errored planning request returns `409` with its pool representation; retrying an expired one returns `410 Gone`. A creation-lock conflict is retryable. Planned pools reject manual entry uploads (`409`) and population-ending `PATCH` requests (`422`).
+
 ### TestPool.Entry
 
 A pool entry is an opaque selector plus scheduling attributes understood by the producer and worker.
 
 | Request field | Type | Required | Default | Description |
 | :---- | :---- | :---- | :---- | :---- |
-| `selector_type` | `String` | true |  | Must be `custom`. |
-| `selector` | `String`, `Array`, or `Object` | true |  | Non-empty opaque selector payload. Its JSON-encoded size is quota-controlled and defaults to 1 KiB. |
+| `selector_type` | `String` | true |  | `custom` or `test_plan_test_case_v1`. |
+| `selector` | `String`, `Array`, or `Object` | true |  | Non-empty payload. `test_plan_test_case_v1` requires the structured object below. Its JSON-encoded size is quota-controlled and defaults to 1 KiB. |
 | `costs.custom` | `Number` | false | `null` | Finite, non-negative custom scheduling cost. A null or omitted cost has effective scheduling cost `0`. |
+| `costs.duration_p90_ms` | `Integer` | false | omitted | Finite, non-negative duration in milliseconds. Explicit null is invalid. |
+| `attempt_policy` | `String` | false | `default` | Case-insensitive key of a policy defined by the pool. Unknown keys fail the whole upload. |
 | `priority` | `Integer` | false | `0` | Scheduling priority from `-10` through `10`; higher values are leased first. |
 | `affinity_group` | `String` | false | `null` | Client-defined group of at most 255 characters. Empty strings are normalized to null. |
 | `meta_data` | `Object` | false | `null` | Customer-controlled metadata. Values may be strings, integers, or arrays of strings. Defaults allow 10 keys and 1 KiB of JSON-encoded data. |
 
 `POST /pools/{pool_id}/entries` accepts a non-empty `entries` array. The default organization quota allows 100 entries per request. The whole upload is atomic.
+
+All entries with the same non-empty affinity group must be in one upload. Reusing that group in a later upload returns `409 Conflict`.
+
+For `test_plan_test_case_v1`, `selector.format` is `file`, `selector`, or `example`. File selectors require a non-empty `path`; selector selectors require a non-empty `value`; examples require non-empty `scope` and `name` and may include non-empty `path` and `identifier`. All three formats accept non-negative integer `estimated_duration` and `timing_sample_size`; unknown fields are rejected. Planned entries use this selector type.
+
+The optional `Idempotency-Key` header must be a UUIDv7. A successful upload is remembered for five minutes: retrying with the same key and unchanged entries returns `204 No Content`; a changed payload or pending/unknown outcome returns `409 Conflict`. Without a key, or after it expires, retries may duplicate entries. Idempotency storage failures return `503 Service Unavailable`; retry with the same key.
 
 ```json
 {
@@ -239,7 +292,7 @@ A pool entry is an opaque selector plus scheduling attributes understood by the 
 }
 ```
 
-The `201 Created` response contains the persisted entries. Initial attempts are created atomically but are not included in this response.
+The `201 Created` response contains the persisted entries. Initial attempts are created atomically but are not included. This response excerpt shows one of the returned entries:
 
 ```json
 {
@@ -256,6 +309,8 @@ The `201 Created` response contains the persisted entries. Initial attempts are 
       },
       "priority": 0,
       "affinity_group": "bin-a",
+      "state": "pending",
+      "result": null,
       "meta_data": {
         "team": "platform",
         "slack": "#team-platform"
@@ -266,6 +321,10 @@ The `201 Created` response contains the persisted entries. Initial attempts are 
 }
 ```
 
+Entry responses include `state` (`pending` or `completed`) and `result` (`passed`, `failed`, or null). Pools with multiple policies also include the entry's selected `attempt_policy` key.
+
+`GET /pools/{pool_id}/entries` uses descending UUID cursor pagination with the same `after`, `before`, and `per_page` rules as pool index. Each item includes `attempt_counts.states` (`waiting`, `leased`, `completed`, `canceled`) and `attempt_counts.results` (`passed`, `failed`, `errored`). Optional filters are `state=pending|completed` and `result=passed|failed`; a result cannot be combined with `state=pending`. It requires OIDC authentication and `read_test_pool`; expired pools return `404`.
+
 ### TestPool.Entry.Attempt
 
 An attempt is an invocation of a pool entry and is the smallest unit of work inside a lease. The lease response and completion response use this shape:
@@ -275,10 +334,11 @@ An attempt is an invocation of a pool entry and is the smallest unit of work ins
 | `id` | `UUIDv7` | Attempt identifier. | false |
 | `pool_id` | `UUIDv7` | Owning pool identifier. | false |
 | `entry_id` | `UUIDv7` | Owning entry identifier. | false |
-| `attempt_index` | `Integer` | Zero-based attempt index. Upload currently creates only index `0`. | false |
-| `selector_type` | `String` | Selector type copied from the entry. Currently `custom`. | false |
-| `selector` | JSON | Selector copied from the entry. | false |
-| `costs.custom` | `Number` | Custom cost copied from the entry. | true |
+| `attempt_index` | `Integer` | Zero-based attempt index across initial and retry attempts. | false |
+| `initial` | `Boolean` | Whether the attempt belongs to the initial allocation. | false |
+| `selector_type` | `String` | Entry selector type: `custom` or `test_plan_test_case_v1`. | false |
+| `selector` | JSON | Selector from the entry. | false |
+| `costs` | `Object` | The pool's selected lease cost dimension. An absent duration produces an empty object; an absent custom cost is `custom: null`. | false |
 | `priority` | `Integer` | Priority copied from the entry. | false |
 | `affinity_group` | `String` | Affinity group copied from the entry. | true |
 | `state` | `Enum` | `waiting`, `leased`, `completed`, or `canceled`. There is no public API for canceling an attempt yet. | false |
@@ -291,7 +351,7 @@ An attempt is an invocation of a pool entry and is the smallest unit of work ins
 
 ### Pool metrics
 
-`GET /pools/{pool_id}/metrics` requires a `build_id` query parameter and the `read_test_pool` scope. It returns aggregate progress for a pool.
+`GET /pools/{pool_id}/metrics` requires `read_test_pool`. REST API access tokens additionally require a `build_id` query parameter; OIDC requests use token claims. It returns an aggregate point-in-time snapshot, which may lag recent writes. Expired pools return `404`.
 
 ```json
 {
@@ -350,7 +410,7 @@ An attempt is an invocation of a pool entry and is the smallest unit of work ins
 }
 ```
 
-Entries and attempts are reported separately because execution policies may create multiple attempts for one entry. Lease counts are derived from leased attempts because leases are not persisted independently; active and expired leases are classified using `observed_at` and `lease_expires_at`.
+Entries and attempts are reported separately because attempt policies may create multiple attempts for one entry. Active and expired lease metrics use `observed_at` and lease expiry. Attempt costs use the pool's selected cost dimension.
 
 ### Acquire a lease
 
@@ -358,14 +418,11 @@ Entries and attempts are reported separately because execution policies may crea
 
 ```json
 {
-  "target_cost_limit": {
-    "custom": 25
-  },
   "lease_ttl_seconds": 120
 }
 ```
 
-`target_cost_limit.custom` defaults to `1` and must be a finite, non-negative number. `lease_ttl_seconds` defaults to `60` and must be an integer from `1` through `600`. An omitted or empty body uses both defaults.
+`lease_ttl_seconds` defaults to `60` and must be an integer from `1` through `600`, not exceeding the organization's maximum lease lifetime. An omitted or empty body uses the default. Lease size comes from the immutable pool `lease` settings; `target_cost_limit` and other request fields are rejected with `422`.
 
 A successful response contains one lease and its attempts:
 
@@ -380,6 +437,7 @@ A successful response contains one lease and its attempts:
         "pool_id": "0192f2fb-3c4d-7bd2-9f0b-4a0d6a7c1000",
         "entry_id": "0192f2fb-7b61-74c6-b893-fb8c5884879d",
         "attempt_index": 0,
+        "initial": true,
         "selector_type": "custom",
         "selector": {
           "node_id": "test/test.py::TestClass::method_a[some_parameter=True]"
@@ -400,11 +458,15 @@ A successful response contains one lease and its attempts:
         "created_at": "2026-06-10T12:01:00Z"
       }
     ]
+  },
+  "pool": {
+    "id": "0192f2fb-3c4d-7bd2-9f0b-4a0d6a7c1000",
+    "state": "consuming"
   }
 }
 ```
 
-When there is no waiting work, the response is `{"lease": null}`. Leasing is available for `populating` and `consuming` pools, but an expired or `consumed` pool returns `409 Conflict`.
+The response always includes `pool.id` and `pool.state`. When no work can be leased, `lease` is null. A `consumed` pool returns `200 OK` with a null lease, not `409`. Leasing is available for `populating` and `consuming` pools; an expired pool is unavailable (`404` on lookup, or `409` if it expires after lookup).
 
 ### Complete attempts
 
@@ -441,6 +503,7 @@ The response groups attempts by lease, preserves request order, and includes a s
           "pool_id": "0192f2fb-3c4d-7bd2-9f0b-4a0d6a7c1000",
           "entry_id": "0192f2fb-7b61-74c6-b893-fb8c5884879d",
           "attempt_index": 0,
+          "initial": true,
           "selector_type": "custom",
           "selector": {
             "node_id": "test/test.py::TestClass::method_a[some_parameter=True]"
@@ -473,7 +536,7 @@ The response groups attempts by lease, preserves request order, and includes a s
 
 The pool may transition to `consumed` after the response once asynchronous policy evaluation and draining finish. Clients should use `GET /pools/{pool_id}` to observe the latest pool state.
 
-Completion is idempotent when retried with the same result; the response uses `completion_status: "already_completed"`. Retrying with a different result returns `409 Conflict`. Same-result retries remain available after completion drains the pool or after the pool expires.
+Completion is idempotent when retried with the same result; the response uses `completion_status: "already_completed"`. Retrying with a different result returns `409 Conflict`. Same-result retries remain available after completion drains the pool, but requests after pool expiry return `404 Not Found`.
 
 ### Lease heartbeat
 
@@ -522,7 +585,7 @@ min(
 )
 ```
 
-A heartbeat therefore never shortens a lease and does not add the requested TTL to its current expiry. The expiry is capped at `leased_at` plus the organization’s maximum lease lifetime. A partially completed lease extends only its still-active entries.
+A heartbeat therefore never shortens a lease and does not add the requested TTL to its current expiry. The expiry is capped at `leased_at` plus the organization's maximum lease lifetime (default: one hour). A partially completed lease extends only its still-active attempts. At the lifetime cap, the `422` response includes `code: "MAXIMUM_LIFETIME"`.
 
 Heartbeat batches are atomic. If any requested lease is unknown, expired, released, owned by another job, or already at its maximum lifetime, no lease in the request is extended.
 
@@ -532,7 +595,7 @@ Heartbeat batches are atomic. If any requested lease is unknown, expired, releas
 | `401 Unauthorized` | Authentication is missing, invalid, or is not a Buildkite job OIDC token. |
 | `403 Forbidden` | The OIDC token does not grant `write_test_pool` or does not contain the required job identity. |
 | `404 Not Found` | The pool is unavailable to the token, or a requested lease is unknown, expired, released, or not owned by the requesting job. |
-| `409 Conflict` | The pool is expired or consumed. |
+| `409 Conflict` | The pool is consumed or expires after lookup. A pool already expired at lookup returns `404`. |
 | `422 Unprocessable Entity` | The request fields are invalid, the requested TTL exceeds a limit, or a lease has reached its maximum lifetime. |
 
 ### Release attempts
@@ -577,25 +640,31 @@ The response lists released attempt IDs by lease:
 
 ### Attempt policy
 
-A `TestPool.AttemptPolicy` will describe how the scheduler creates and manages attempts for each entry. Retry decisions will be made at the entry level: when an entry selector represents a file or another group of tests, the policy will evaluate the aggregate attempt result rather than individual test results within that selector.
+A `TestPool.AttemptPolicy` controls initial allocation and retries for each entry. When a selector represents a file or group of tests, evaluation uses the aggregate attempt result, not individual tests inside the selector.
 
-The policy is intended to be evaluated when entries are uploaded and after attempts are completed. Evaluation will consider only attempts belonging to the same entry.
+Initial attempts are allocated during upload. Policy evaluation runs asynchronously after completion and considers only attempts belonging to the same entry.
 
-* The policy may create multiple attempts for an entry and allow a configured number to run in parallel.  
-* All configured `min_` thresholds must be met before their minimum condition is terminal.  
-* Reaching any configured `max_` threshold makes the entry terminal.  
-* Once an entry is terminal, any remaining waiting attempts will be canceled.  
-* Omitted fields will use the defaults below.
+* The initial allocation is `initial_attempts`, or the lesser of `parallel_attempts` and `min_attempts` when null.
+* No additional attempts are created until all initial attempts complete, although an entry may become terminal sooner.
+* After initial attempts complete, a non-terminal entry fills available waiting/leased capacity up to `parallel_attempts`, bounded by `max_attempts` total attempts.
+* All configured minimum thresholds must be met before the minimum condition is terminal. If both result minimums are null, evaluation continues until a maximum is reached.
+* Reaching any maximum threshold makes the entry terminal. Remaining waiting attempts are canceled.
+* Omitted fields use the defaults below. All non-null values must be integers of at least `1`; `0` is invalid.
 
-| Planned field | Type | Description | Default | Nullable |
+| Field | Type | Description | Default | Nullable |
 | :---- | :---- | :---- | :---- | :---- |
-| `max_attempts` | `Integer` | Terminal after this many attempts of any result. | `1` | false |
+| `max_attempts` | `Integer` | Terminal after this many completed attempts of any result; bounded by the organization's attempts-per-entry quota. | `1` | false |
 | `max_failed` | `Integer` | Terminal after this many failed attempts. Must be less than or equal to `max_attempts`. | `1` | false |
 | `max_passed` | `Integer` | Terminal after this many passed attempts. Must be less than or equal to `max_attempts`. | `1` | false |
-| `min_attempts` | `Integer` | Minimum total attempts; terminal only when the other configured `min_` thresholds are also met. | `1` | false |
-| `min_passed` | `Integer` | Minimum passed attempts; terminal only when the other configured `min_` thresholds are also met. | 1 | (currently not-nullable, will be nullable) |
-| `min_failed` | `Integer` | Minimum failed attempts; terminal only when the other configured `min_` thresholds are also met. | `0` | (currently not-nullable, will be nullable) |
-| `parallel_attempts` | `Integer` | Maximum number of attempts for the entry that may be active in parallel. | `1` | false |
+| `min_attempts` | `Integer` | Minimum completed attempts; at most `max_attempts`. | `1` | false |
+| `min_passed` | `Integer` | Minimum passed attempts; null disables it; at most `max_passed`. | `1` | true |
+| `min_failed` | `Integer` | Minimum failed attempts; null disables it; at most `max_failed`. | `null` | true |
+| `parallel_attempts` | `Integer` | Maximum waiting and leased attempts for the entry; at most `max_attempts`. | `1` | false |
+| `initial_attempts` | `Integer` | Explicit initial allocation; at most `parallel_attempts`. | `null` | true |
+
+When both `min_passed` and `min_failed` are set, their sum must be less than `max_attempts`.
+
+The `TestSchedulerMultipleAttemptPolicies` feature flag permits a keyed `attempt_policy` object containing the exact key `default` and up to five additional policies. Keys use the pool-key format and are unique case-insensitively. Policy keys and definition fields cannot be mixed. Multiple-policy pool responses use a keyed object; a pool with only the default policy uses a flat definition. Entries select keys case-insensitively and default to `default`.
 
 A simple single-retry, non-parallel policy:
 
@@ -607,7 +676,7 @@ A simple single-retry, non-parallel policy:
     "max_passed": 1,
     "min_attempts": 1,
     "min_passed": 1,
-    "min_failed": 0,
+    "min_failed": null,
     "parallel_attempts": 1
   }
 }
@@ -623,20 +692,19 @@ An example allowing three attempts to run in parallel:
     "max_passed": 1,
     "min_attempts": 1,
     "min_passed": 1,
-    "min_failed": 0,
-    "parallel_attempts": 3
+    "min_failed": null,
+    "parallel_attempts": 3,
+    "initial_attempts": 3
   }
 }
 ```
 
-We intend to make min\_passed and min\_failed nullable, and not evaluated when unset. Currently they will not be considered when set to 0\.
-
 Evaluation uses this order:
 
-* max\_passed reached → passed  
-* max\_failed reached → failed  
-* max\_attempts reached → passed only if a positive min\_passed was reached; otherwise failed  
-* All minimum thresholds reached → passed when min\_passed \> 0; otherwise failed when min\_failed \> 0\.
+* `max_passed` reached: passed.
+* `max_failed` reached: failed.
+* `max_attempts` reached: passed only if a configured `min_passed` was reached; otherwise failed.
+* All configured minimum thresholds reached: passed when `min_passed` is configured; otherwise failed when `min_failed` is configured.
 
 ## Service quotas and limits
 
@@ -650,24 +718,28 @@ Evaluation uses this order:
 | Metadata size per entry | Default organization quota: 1 KiB of JSON-encoded data |
 | Pool TTL | Minimum: 5 minutes; default and hard maximum: 24 hours; an organization override may lower the maximum |
 | Lease TTL | Default: 60 seconds; request range: 1–600 seconds |
-| Attempts per lease | Normally 300; the first affinity group may exceed this limit |
+| Maximum lease lifetime | Default organization quota: one hour; hard maximum: 24 hours |
+| Attempts per lease | Immutable pool setting; default and default organization quota: 300; the first affinity group may exceed this limit |
 | Attempts per completion request | 5,000 |
+| Leases per heartbeat request | 100 |
 | Leases per release request | 100 |
 | Explicit attempt IDs per release request | 50 |
 | Pool key length | 255 characters |
 | Affinity group length | 255 characters |
-| Attempts per entry | 10 |
+| Attempts per entry | Default organization quota: 10 |
 
-There is currently no implemented limit for total entries per pool, pools per build, or active leases per pool/build. Attempts per entry is currently fixed by behavior at one initial attempt rather than controlled by a quota, but will be 10 attempts per entry.
+There is currently no implemented limit for total entries per pool, pools per build, or active leases per pool/build. Attempts per entry are bounded by the policy's `max_attempts` and the organization quota.
+
+Each operation has organization rate limits, and pool-specific operations also have pool limits. Exceeding either returns `429` with scoped `RateLimit-*` headers. Empty lease responses have an additional default limit of 15 per job per minute; clients must wait for `RateLimit-Job-Reset`, even if work becomes available before the window resets. The public reference page lists the operation-specific defaults. Scheduler storage unavailability returns `503 Service Unavailable`.
 
 ## Authentication
 
-Every Test Scheduler route currently requires a suite-scoped Buildkite job OIDC bearer token, except the pool metrics route, which also accepts a REST API access token. The token audience identifies the Test Engine suite, whose OIDC policy must grant:
+Every write and the entry index requires a suite-scoped Buildkite job OIDC bearer token. Pool index, show, and metrics also accept REST API access tokens with `read_test_pool`. Those tokens must allow the organization, and their user must have access to the build and suite; additional `read_builds` and `read_suites` scopes are not required. The OIDC audience identifies the Test Engine suite, whose policy must grant:
 
-* `read_test_pool` for pool index and show routes.  
-* `write_test_pool` for pool creation/update, entry upload, and every lease route.
+* `read_test_pool` for pool index, show, metrics, and entry index.
+* `write_test_pool` for pool creation, planning, update, entry upload, and every lease route.
 
-The OIDC token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Lease acquisition, completion, and release additionally require a UUID `job_id` claim. Completion and release only mutate active leases owned by that job. REST API access-token requests to pool metrics must provide the build UUID in the required `build_id` query parameter.
+The OIDC token must include `organization_id`, `pipeline_id`, and `build_id` claims matching the route and pool. Every lease endpoint, including heartbeat, additionally requires a UUID `job_id` claim. Lease mutations require job ownership. REST API access-token requests to pool show and metrics require a `build_id` query parameter; pool index requires both `pipeline_id` and `build_id`.
 
 ```shell
 buildkite-agent oidc request-token \
