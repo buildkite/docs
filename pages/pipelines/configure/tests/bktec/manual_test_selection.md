@@ -4,7 +4,7 @@ Manual test selection runs only the tests you list, instead of the full test sui
 
 bktec still discovers the full suite and sends it to Test Engine as the set of _candidates_. Test Engine keeps the candidates that match your list, then splits the selected tests across your parallel jobs using historical timing data. You can [review the selection on the build's Orchestration page](#review-selection-in-orchestration).
 
-Manual test selection requires bktec v3.2.0 or later, and works with every runner that bktec supports.
+Manual test selection requires bktec v3.2.1 or later, and works with every runner that bktec supports.
 
 ## Set up manual test selection
 
@@ -65,7 +65,7 @@ The recommended setup uses two steps. The first step generates the list of tests
               result-path: tmp/rspec-result.json
     ```
 
-If none of the listed selectors match a test that bktec discovers, bktec runs no tests. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
+If none of the listed selectors match a test that bktec discovers, `bktec run` and `bktec plan` fail instead of running the full test suite. To pass the job without running tests, set `--fail-on-no-tests=false` or `BUILDKITE_TEST_ENGINE_FAIL_ON_NO_TESTS=false`. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
 
 ## Use manual selection with dynamic parallelism
 
