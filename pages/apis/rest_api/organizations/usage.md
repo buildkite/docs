@@ -1,6 +1,6 @@
 # Organization usage API
 
-The organization usage API returns the billable active-user count shown on a Buildkite organization's [**Usage > Platform**](https://buildkite.com/organizations/~/usage) page. Use this endpoint to monitor active-user counts programmatically, for example, to track usage against a contracted user allowance.
+The organization usage API returns the **Average monthly active users** figure shown on a Buildkite organization's [**Usage > Platform**](https://buildkite.com/organizations/~/usage) page. Use this endpoint to monitor active-user counts programmatically, for example, to track usage against a contracted user allowance.
 
 Any organization member can use this endpoint. The [API access token](/docs/apis/managing-api-tokens) must include the `read_organizations` scope and grant access to the requested organization.
 
@@ -25,17 +25,17 @@ Success response: `200 OK`
 
 Field | Type | Description
 ----- | ---- | -----------
-`active_users_count` | integer | Number of distinct billable users active during the current usage summary period.
+`active_users_count` | integer | Average monthly active users for the current usage summary period, matching the organization's **Usage** page.
 {: class="responsive-table"}
 
-For a billing parent organization, the count includes activity from its linked billing child organizations. A user active in more than one linked organization is counted once.
+For a billing parent organization, the count includes activity from its linked billing child organizations. A user active in more than one linked organization is counted once per month.
 
 ## Usage period
 
 The usage summary period matches the period shown on the organization's **Usage** page:
 
-- **Monthly subscriptions**: The current billing period.
-- **Annual subscriptions**: The current calendar month and the previous six calendar months, rather than the full annual billing period.
+- **Monthly subscriptions**: The current billing period. The count is the number of distinct users active in that period.
+- **Annual subscriptions**: The current calendar month and the previous six calendar months, rather than the full annual billing period. The count is the average of each calendar month's distinct active users, rounded down.
 
 ## Error responses
 

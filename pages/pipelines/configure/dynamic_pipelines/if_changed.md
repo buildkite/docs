@@ -286,7 +286,7 @@ buildkite-agent pipeline upload --fetch-diff-base
 > 📘
 > The `--fetch-diff-base` flag requires Buildkite agent version 3.117.0 or later.
 
-`--fetch-diff-base` only refreshes the base branch ref for `pipeline upload`'s own diff. If other commands in the same job also compare against the base branch (for example, a custom pipeline generator, a test selector, or a script running `git merge-base HEAD origin/main`), use the agent's [`git-fetch-base-branch`](/docs/agent/self-hosted/configure#git-fetch-base-branch) configuration setting instead. It fetches the base branch during checkout, before any step command runs, so every command in the job sees its current tip.
+If other commands in the job, not just `pipeline upload`, also compare against the base branch, you can use the agent's [`--git-fetch-base-branch`](/docs/pipelines/configure/git-checkout#fetching-the-base-branch) configuration option instead, which requires Buildkite agent v4.2.0 or later. This option refreshes `origin/<base-branch>` for the whole job during checkout, rather than only for the diff that `pipeline upload` computes. However, `--git-fetch-base-branch` only fetches the pull request's base branch or the pipeline's default branch. If you set a custom diff base with `--git-diff-base` or `BUILDKITE_GIT_DIFF_BASE`, such as `origin/develop`, keep using `--fetch-diff-base` so that the agent refreshes that ref too.
 
 ### Pattern doesn't match expected files
 

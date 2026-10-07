@@ -11,18 +11,18 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: AuthorizationType – Enums – GraphQL API
+title: BuildSources – Enums – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  AuthorizationType
+  BuildSources
   <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-The type of the authorization
+The source that triggered a build
 
 
 
@@ -39,6 +39,6 @@ The type of the authorization
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>AMP</code></strong></p><p>Amp Authorization</p></td></tr><tr><td><p><strong><code>BITBUCKET</code></strong></p><p>Bitbucket Authorization</p></td></tr><tr><td><p><strong><code>GITHUB</code></strong></p><p>GitHub Authorization</p></td></tr><tr><td><p><strong><code>GITHUB_ENTERPRISE</code></strong></p><p>GitHub Enterprise Authorization</p></td></tr>
+    <tr><td><p><strong><code>API</code></strong></p><p>The build was triggered via the REST API</p></td></tr><tr><td><p><strong><code>MANUAL</code></strong></p><p>The build was triggered manually from the web interface</p></td></tr><tr><td><p><strong><code>SCHEDULE</code></strong></p><p>The build was triggered by a pipeline schedule</p></td></tr><tr><td><p><strong><code>TRIGGER_JOB</code></strong></p><p>The build was triggered by a trigger step in another build</p></td></tr><tr><td><p><strong><code>WEBHOOK</code></strong></p><p>The build was triggered by a webhook</p></td></tr>
   </tbody>
 </table>

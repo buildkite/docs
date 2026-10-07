@@ -83,6 +83,8 @@
         - name: "Run GitHub Actions workflows"
           path: "pipelines/migration/run-github-actions-workflows"
           pill: "preview"
+        - name: "Migrate GitHub Actions secrets"
+          path: "pipelines/migration/github-actions-secrets"
         - name: "From CircleCI"
           path: "pipelines/migration/from-circleci"
         - name: "From Jenkins"
@@ -631,6 +633,8 @@
           children:
             - name: "Installing and using the client"
               path: "pipelines/configure/tests/bktec/installing-and-using-the-client"
+            - name: "Manual test selection"
+              path: "pipelines/configure/tests/bktec/manual-test-selection"
         - name: "Notifications"
           children:
             - name: "Email"
@@ -935,6 +939,8 @@
               path: "platform/cli/reference/browse"
             - name: "build"
               path: "platform/cli/reference/build"
+            - name: "cache"
+              path: "platform/cli/reference/cache"
             - name: "cluster"
               path: "platform/cli/reference/cluster"
             - name: "config"

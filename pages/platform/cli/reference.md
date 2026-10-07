@@ -15,6 +15,7 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`auth`](/docs/platform/cli/reference/auth)
 - [`browse`](/docs/platform/cli/reference/browse)
 - [`build`](/docs/platform/cli/reference/build)
+- [`cache`](/docs/platform/cli/reference/cache)
 - [`cluster`](/docs/platform/cli/reference/cluster)
 - [`config`](/docs/platform/cli/reference/config)
 - [`configure`](/docs/platform/cli/reference/configure)
