@@ -1067,6 +1067,8 @@
               path: "apis/rest-api/organizations"
             - name: "API settings"
               path: "apis/rest-api/organizations/api-settings"
+            - name: "Banner"
+              path: "apis/rest-api/organizations/banner"
             - name: "Audit log"
               path: "apis/rest-api/organizations/audit-events"
             - name: "Invitations"
