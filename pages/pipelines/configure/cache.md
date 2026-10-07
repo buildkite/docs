@@ -94,7 +94,25 @@ When `buildkite-agent cache save` processes more than one cache, it saves them c
 
 ### Skip a command using its cached result
 
-`buildkite-agent cache exec` combines restore and save into a single command that also skips running the command when its cached result is already available:
+`buildkite-agent cache exec` requires Buildkite agent v4.2.1 or later. The command combines restore and save and skips running the wrapped command when its cached result is already available.
+
+The following cache definition uses the checksum of the source files, lockfile, and Vite configuration to identify the build output in `dist`:
+
+```yaml
+caches:
+  - name: "frontend_build"
+    cache_key:
+      - "frontend_build"
+      - checksum:
+          - "src/**"
+          - "package-lock.json"
+          - "vite.config.ts"
+    target_paths:
+      - "dist"
+```
+{: codeblock-file=".buildkite/cache.yml"}
+
+With this definition, the following step skips `vite build` whenever the sources, lockfile, and Vite configuration are unchanged:
 
 ```yaml
 steps:

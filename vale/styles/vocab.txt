@@ -560,6 +560,7 @@ vendored
 vfs
 virtualenv
 virtualized
+Vite
 Vitest
 VMs
 VPC's
