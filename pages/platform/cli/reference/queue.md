@@ -170,7 +170,7 @@ Create a queue and output as JSON:
 bk queue create my-cluster-uuid --key my-queue -o json
 ```
 
-## Update queue
+## Update a queue
 
 Update a cluster queue.
 
@@ -223,7 +223,7 @@ Output the updated queue as JSON:
 bk queue update my-cluster-uuid my-queue-uuid --description "New description" -o json
 ```
 
-## Delete queue
+## Delete a queue
 
 Delete a cluster queue.
 

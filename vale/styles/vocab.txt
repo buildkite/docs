@@ -471,6 +471,7 @@ sso
 stack_error
 start_time
 statefully
+stderr
 stdin
 stdout
 streamable
@@ -559,6 +560,7 @@ vendored
 vfs
 virtualenv
 virtualized
+Vite
 Vitest
 VMs
 VPC's

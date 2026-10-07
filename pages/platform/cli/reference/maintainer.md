@@ -106,7 +106,7 @@ Create a team maintainer assignment:
 bk maintainer create my-cluster-uuid --team team-uuid
 ```
 
-## Delete maintainer
+## Delete a maintainer
 
 Delete a cluster maintainer.
 

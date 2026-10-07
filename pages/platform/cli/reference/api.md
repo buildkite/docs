@@ -36,7 +36,7 @@ bk api [<endpoint>] [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-d`, `--data=STRING` | Data to send in the request body |
+| `-d`, `--data=STRING` | Data to send in the request body; use - to read from stdin |
 | `-f`, `--file=STRING` | File containing GraphQL query |
 | `-H`, `--headers=HEADERS,...` | Headers to include in the request |
 | `-X`, `--method=STRING` | HTTP method to use |
@@ -62,6 +62,12 @@ bk api --method POST /pipelines --data '
 "configuration": "steps:\n - command: env"
 }
 '
+```
+
+To create a pipeline with a body from stdin:
+
+```bash
+cat pipeline.json | bk api /pipelines --data -
 ```
 
 To update a cluster:
