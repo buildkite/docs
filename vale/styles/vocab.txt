@@ -24,11 +24,13 @@ applesimutils
 Aqua
 architecting
 Argo CD
+args
 ARNs
 argumentless
 artifactDelete
 Artifactory
 Artifactory's
+askpass
 Athena
 Atlassian
 auditability
@@ -47,10 +49,12 @@ aws
 awscli
 azcopy
 backoff
+backports
 Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+BOMs
 Bottlerocket
 Bayesian
 Bazel
@@ -78,7 +82,11 @@ Buildx
 buildx
 Bundler
 bursty
+callee
+Callee
+callee's
 cancelation
+canonicalizes
 carthage
 Cachew
 CCMenu
@@ -97,7 +105,9 @@ cli
 CLI
 CLIs
 Cloudsmith
+codeload
 Cognito
+Compilable
 Cooldown
 clonekit
 Cloudsmith's
@@ -140,6 +150,7 @@ declaratively
 deduper
 deduplicated
 deduplicates
+Deduplication
 deno
 deprioritize
 deprovisioning
@@ -175,7 +186,9 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extensionless
 extglobs
+falsy
 fastfile
 fastlane
 fastlane's
@@ -188,6 +201,8 @@ Firehose
 Firewalled
 firewalled
 Flexbox
+forkee
+forkee's
 fpm
 Fugit
 gcloud
@@ -216,10 +231,12 @@ Graviton
 GRC
 GuardDog
 gz
+gzip
 gzipped
 hard-code
 hard-coded
 hard-coding
+hardlinks
 Hashicorp
 Homebrew
 heredoc
@@ -281,6 +298,8 @@ lockfile
 lockfiles
 lockfile‑keyed
 lookback
+lookups
+loopback
 macOS
 macos
 manylinux
@@ -288,6 +307,7 @@ matchfile
 matchers
 Makefile
 Memcache
+metacharacters
 minitest
 misconfiguration
 misconfigurations
@@ -344,6 +364,7 @@ Palo
 parsable
 parallelization
 parameterization
+passwordless
 pbuilder
 pbuilder's
 perl
@@ -364,6 +385,7 @@ polyrepos
 Postgres
 PowerShell
 PR's
+prevalidates
 PRs
 predeclare
 predeclared
@@ -394,6 +416,7 @@ readme
 readmes
 rearchitect
 rebalancing
+recompiles
 refetch
 refspec
 rehydrate
@@ -449,6 +472,8 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+snapshotted
+subprocesses
 subproject
 subprojects
 SLA
@@ -518,6 +543,7 @@ Trivy
 trixie
 typosquatted
 udp
+uncached
 unmanaged
 untracked
 UserData
@@ -556,6 +582,8 @@ util
 uuid
 UUIDs
 uv
+validator
+validators
 vendored
 vfs
 virtualenv

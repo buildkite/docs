@@ -141,3 +141,5 @@ steps:
 - Each secret value must not be blank and must be smaller than 32 KiB.
 - You can't migrate `GITHUB_TOKEN`.
 - The migration never overwrites an existing Buildkite secret.
+
+The `buildkite-gha` CLI provides an equivalent `migrate-secrets` command. See [Migrate GitHub Actions secrets](/docs/pipelines/migration/run-github-actions-workflows/cli#migrate-github-actions-secrets) in the `buildkite-gha` CLI reference for its options, and the [OIDC secrets migration security model](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-oidc-secrets-migration) for the trust boundaries of the migration grant.
