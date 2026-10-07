@@ -29,6 +29,7 @@ const TOUCH_KEYS = [
 
 let postHogRetryCount = 0;
 let postHogRetryTimer;
+let pendingIncomingTouch = new URLSearchParams();
 
 function sanitize(value, lowerCase = false) {
   if (typeof value !== "string") return "";
@@ -85,6 +86,7 @@ function clearAttribution() {
   deleteCookie(LAST_TOUCH_COOKIE);
   deleteCookie(MARKETING_ID_COOKIE);
   deleteCookie(TRACKING_ALLOWED_COOKIE);
+  pendingIncomingTouch = new URLSearchParams();
 }
 
 function touchFromCurrentPage() {
@@ -143,9 +145,14 @@ function rewriteSignupLinks(touch) {
     const rawHref = anchor.getAttribute("href");
     if (!rawHref) return;
 
+    const baseHref = anchor.dataset.bkAttributionBaseHref || rawHref;
+    if (!anchor.dataset.bkAttributionBaseHref) {
+      anchor.dataset.bkAttributionBaseHref = rawHref;
+    }
+
     let url;
     try {
-      url = new URL(rawHref, window.location.origin);
+      url = new URL(baseHref, window.location.origin);
     } catch {
       return;
     }
@@ -176,6 +183,11 @@ function retryWhenPostHogIsReady() {
 }
 
 export function initMarketingAttribution() {
+  const currentPageTouch = touchFromCurrentPage();
+  if (hasAttribution(currentPageTouch)) {
+    pendingIncomingTouch = currentPageTouch;
+  }
+
   if (!postHogIsReady()) {
     retryWhenPostHogIsReady();
     return;
@@ -192,7 +204,9 @@ export function initMarketingAttribution() {
   const distinctId = sanitize(window.posthog.get_distinct_id());
   if (!distinctId) return;
 
-  const incomingTouch = touchFromCurrentPage();
+  const incomingTouch = hasAttribution(currentPageTouch)
+    ? currentPageTouch
+    : pendingIncomingTouch;
   persistTouch(incomingTouch);
 
   const passthrough = hasAttribution(incomingTouch)
@@ -202,4 +216,5 @@ export function initMarketingAttribution() {
   writeCookie(MARKETING_ID_COOKIE, distinctId);
   writeCookie(TRACKING_ALLOWED_COOKIE, "1");
   rewriteSignupLinks(passthrough);
+  pendingIncomingTouch = new URLSearchParams();
 }
