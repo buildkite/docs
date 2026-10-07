@@ -40,7 +40,7 @@ Rotate every secret that the compromised user, token, or agent could access, sta
 
 ### Stop unwanted builds
 
-To stop source control events from triggering builds in a pipeline, use the **Disable Incoming GitHub Webhook Processing** option described in [Disabling incoming GitHub webhook processing](/docs/pipelines/source-control/github#disabling-incoming-github-webhook-processing).
+To stop native GitHub webhook-triggered builds in a pipeline, use the **Disable Incoming GitHub Webhook Processing** option described in [Disabling incoming GitHub webhook processing](/docs/pipelines/source-control/github#disabling-incoming-github-webhook-processing). This does not disable GitHub Actions pipeline triggers. [Disable those separately](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger) by setting `enabled` to `false`.
 
 A pipeline's webhook URL contains its secret. If a webhook URL has been compromised, contact Buildkite support to reissue it. Learn more in [Incoming webhooks](/docs/pipelines/security/incoming-webhooks#can-i-re-issue-a-webhook-secret-using-the-buildkite-ui).
 
