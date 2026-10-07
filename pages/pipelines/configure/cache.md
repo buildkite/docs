@@ -92,6 +92,64 @@ By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.y
 
 When `buildkite-agent cache save` processes more than one cache, it saves them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
 
+### Skip a command using its cached result
+
+`buildkite-agent cache exec` requires Buildkite agent v4.2.1 or later. The command combines restore and save and skips running the wrapped command when its cached result is already available.
+
+The following cache definition uses the checksum of the source files, `index.html`, static assets in `public`, lockfile, and Vite configuration to identify the build output in `dist`:
+
+```yaml
+caches:
+  - name: "frontend_build"
+    cache_key:
+      - "frontend_build"
+      - checksum:
+          - "src/**"
+          - "index.html"
+          - "public/**"
+          - "package-lock.json"
+          - "vite.config.ts"
+    target_paths:
+      - "dist"
+```
+{: codeblock-file=".buildkite/cache.yml"}
+
+With this definition, the following step skips `vite build` whenever none of these inputs have changed:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "buildkite-agent cache exec --name frontend_build -- vite build"
+```
+{: codeblock-file="pipeline.yml"}
+
+This replaces the following three-step pattern:
+
+```yaml
+steps:
+  - label: "Build"
+    command:
+      - "buildkite-agent cache restore --name frontend_build"
+      - "vite build"
+      - "buildkite-agent cache save --name frontend_build"
+```
+{: codeblock-file="pipeline.yml"}
+
+On a cache hit, `vite build` doesn't run. Instead, `buildkite-agent cache exec`:
+
+- Restores `target_paths`, replacing their existing contents, the same way `buildkite-agent cache restore` does.
+- Replays the command's previous combined stdout and stderr to the build log, in a group whose title shows how much time the replay saved and makes clear the command wasn't run.
+
+On a cache miss, `buildkite-agent cache exec` runs the command. If the command exits successfully, `target_paths` and its combined output are saved together as one cache entry, under the cache key resolved before the command ran. If the command exits with a non-zero status, nothing is saved, and `buildkite-agent cache exec` returns the same exit status.
+
+Only an exact cache key match counts as a hit. If a key part in your cache configuration has `fallback_limit` set, `buildkite-agent cache exec` ignores it when deciding whether to run the command, since replaying a fallback entry's output would misrepresent what actually ran.
+
+An entry created by `buildkite-agent cache exec` has its own address in the cache registry, separate from entries that `buildkite-agent cache save` creates for the same `name`, `cache_key`, and `target_paths`. The two commands don't restore each other's entries.
+
+`buildkite-agent cache exec` only takes one `--name`, and accepts the same `--registry` and `--cache-config-file` options as `buildkite-agent cache save` and `buildkite-agent cache restore`. Cache errors, including a missing cache configuration or an unknown `--name`, don't fail the build: the command runs without caching unless you pass `--cache-fail-on-error`. The exception is a restore that fails after it has started cleaning or extracting into `target_paths`. Since the target paths may then be only partially restored, `buildkite-agent cache exec` fails without running the command, even without `--cache-fail-on-error`.
+
+Because the replayed output is written to stdout, use `buildkite-agent cache exec` only for commands whose output belongs in the build log. Don't capture or pipe its output, for example using `$(buildkite-agent cache exec ...)`, since a cache hit replays the command's stderr output on stdout as well. Saved output is capped at 10 MiB; larger output isn't saved, though the build still continues. The command's output is also redacted the same way the rest of the job's log is, including secrets retrieved with [`secret get`](/docs/agent/cli/reference/secret) or registered with [`redactor add`](/docs/agent/cli/reference/redactor) while the command ran.
+
 ### Configure caches in a monorepo
 
 In a [monorepo](/docs/pipelines/best-practices/working-with-monorepos), give each subproject its own `subproject/.buildkite/cache.yml` instead of a single top-level `cache.yml` for the whole repository. This keeps cache definitions independently configurable for each subproject, and lets Buildkite Cache discover them automatically without selecting entries out of a larger shared file.
