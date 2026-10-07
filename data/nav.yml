@@ -939,6 +939,8 @@
               path: "platform/cli/reference/browse"
             - name: "build"
               path: "platform/cli/reference/build"
+            - name: "cache"
+              path: "platform/cli/reference/cache"
             - name: "cluster"
               path: "platform/cli/reference/cluster"
             - name: "config"
