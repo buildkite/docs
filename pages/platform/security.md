@@ -1,14 +1,22 @@
 # Security
 
-Securing a Buildkite organization is a shared responsibility. Buildkite secures the control plane that schedules your builds and stores your build data. You secure the agents that run your builds, the credentials those builds use, and the access your users and tokens have to your Buildkite organization. Learn more about how Buildkite protects your data, and how data flows between Buildkite and your infrastructure, in the [Pipelines security overview](/docs/pipelines/security).
-
-This page brings together the security documentation for the Buildkite platform, [Buildkite Pipelines](/docs/pipelines), and [Buildkite Package Registries](/docs/package-registries).
+Use this section to secure your Buildkite organization, review its security controls, or respond to a suspected compromise. It brings together guidance for the Buildkite platform, [Buildkite Pipelines](/docs/pipelines), and [Buildkite Package Registries](/docs/package-registries), with links to configuration instructions in each product's documentation.
 
 ## Where to start
 
-- [Security hardening checklist](/docs/platform/security/hardening-checklist): The security controls available across Buildkite, grouped by area and ordered into baseline, recommended, and advanced tiers.
-- [Incident response](/docs/platform/security/incident-response): How to prepare for, contain, and investigate a security incident in your Buildkite organization.
-- [Token security](/docs/platform/security/tokens): The types of tokens that Buildkite issues, how to identify them by their prefix, and what happens when a token is leaked.
+- **Secure a new organization:** Start with the [baseline authentication and access controls](/docs/platform/security/hardening-checklist#authentication-and-access-control-baseline). Then isolate builds with different levels of trust and restrict their access to secrets before connecting production systems.
+- **Review an existing setup:** Work through the [Security hardening checklist](/docs/platform/security/hardening-checklist), starting with the baseline controls in each area. Record gaps, assign an owner to each action, and then review the recommended and advanced controls that apply to your setup.
+- **Respond to a suspected compromise:** Follow [Incident response](/docs/platform/security/incident-response) to contain compromised access, rotate exposed secrets, investigate activity, and recover.
+
+## Shared responsibility
+
+Buildkite and your organization share responsibility for security:
+
+- **Buildkite:** Secures the control plane that schedules builds and stores build data. For [Buildkite hosted agents](/docs/agent/buildkite-hosted), Buildkite also manages the underlying infrastructure and agent updates.
+- **Your organization:** Controls user and token access, the code your builds run, and the credentials and systems those builds can access, regardless of where your agents run.
+- **Your organization with self-hosted agents:** Also provisions, secures, and maintains the [agent infrastructure](/docs/agent/self-hosted/security), including agent updates and network boundaries.
+
+Learn how Buildkite protects your data, and how data flows between Buildkite and your infrastructure, in the [Pipelines security overview](/docs/pipelines/security).
 
 ## Identity and access
 
@@ -19,6 +27,7 @@ Control who can access your Buildkite organization and what they can do:
 - [User and team permissions](/docs/platform/team-management/permissions) across the Buildkite platform.
 - [Pipeline permissions](/docs/pipelines/security/permissions) and [registry permissions](/docs/package-registries/security/permissions).
 - [Inactive user list](/docs/platform/team-management/inactive-user-list) for finding and removing users who no longer need access.
+- [Token security](/docs/platform/security/tokens) for token lifecycle guidance, identifying token types, and detecting leaked tokens.
 - [Managing API access tokens](/docs/apis/managing-api-tokens), including token scopes, auditing, and IP address restrictions.
 - [OAuth Token Exchange](/docs/apis/oauth-token-exchange) for issuing short-lived API tokens to services.
 

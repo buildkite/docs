@@ -105,6 +105,31 @@ RSpec.feature "reading pages" do
   end
 
   describe "old URLs" do
+    it "preserves security control section links at their replacement sections" do
+      visit "/docs/pipelines/best-practices/security-controls"
+
+      expect(page.current_path).to eq("/docs/platform/security/hardening-checklist")
+
+      {
+        "authentication-and-session-security-in-the-buildkite-interface-apis-and-cli" => "Authentication and access control",
+        "source-code-security-and-version-control-integrity" => "Pipeline and supply chain integrity",
+        "dependencies-and-package-management" => "Pipeline and supply chain integrity",
+        "api-access-token-compromise" => "Authentication and access control",
+        "network-and-transport-security" => "Network and data exposure",
+        "artifact-storage-and-integrity" => "Network and data exposure",
+        "consistent-pipeline-as-code-approach" => "Governance and configuration management",
+        "monitoring-anomaly-detection-logging" => "Monitoring and detection",
+        "incident-response-and-recovery" => "Incident readiness"
+      }.each do |anchor, heading|
+        target = page.find("a[id='#{anchor}']", visible: :all)
+        expect(target.find(:xpath, "following::h2[1]").text).to eq(heading)
+      end
+
+      %w[secrets-management buildkite-agent-security further-questions].each do |anchor|
+        expect(page).to have_css("h2[id='#{anchor}']")
+      end
+    end
+
     old_paths = %w{
       /docs/agent/agent-meta-data
       /docs/agent/artifacts

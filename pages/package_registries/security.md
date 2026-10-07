@@ -6,6 +6,8 @@ toc: false
 
 Customer security is paramount to Buildkite. Buildkite Package Registries provides mechanisms to restrict access to your registries from Buildkite agents and their pipeline's jobs, as well as other third-party systems that can issue [Open ID Connect (OIDC)](https://openid.net/developers/how-connect-works/) tokens.
 
+For security controls across your Buildkite organization, see the [Security overview](/docs/platform/security). If registry access or credentials may be compromised, follow [Incident response](/docs/platform/security/incident-response).
+
 This section contains the following topics:
 
 - [OIDC with Buildkite Package Registries](/docs/package-registries/security/oidc) and how to restrict access to registries through OIDC policies.

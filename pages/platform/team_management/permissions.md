@@ -2,6 +2,8 @@
 
 Customers on any [Buildkite plan](https://buildkite.com/pricing) can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
 
+For related authentication, token, and infrastructure controls, see the [Security overview](/docs/platform/security).
+
 ## Manage teams and permissions
 
 The _teams_ feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each pipeline, test suite, registry, or any combination of these, throughout your organization.
@@ -184,6 +186,8 @@ mutation RemoveOrganizationMember {
 ## Removing users during a security incident
 
 If you believe that a user account has been compromised, the recommended incident response is to remove such a user from your Buildkite organization immediately. This will entirely remove their ability to impact your organization and protect you from any further actions that the user could take.
+
+For the wider response, including token revocation, secret rotation, investigation, and recovery, follow [Incident response](/docs/platform/security/incident-response).
 
 You can remove a user in your organization's **Settings** in the Buildkite interface.
 

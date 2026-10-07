@@ -8,7 +8,9 @@ Use this checklist when you set up a new Buildkite organization, review an exist
 
 A CI/CD environment holds credentials for the systems it builds and deploys to, and runs code from every commit pushed to the repositories it builds. Hardening a Buildkite organization means working in two directions: restricting what a job can reach, and restricting who can change what a job does.
 
-The controls on this page are grouped by area. Within each area, the controls are split into three tiers, which you can work through in order:
+For a new Buildkite organization, start with [baseline authentication and access controls](#authentication-and-access-control-baseline), then [isolate your build environments](#buildkite-agent-security-baseline) and [protect your secrets](#secrets-management-baseline) before connecting production systems.
+
+For an existing setup, review the baseline controls in every area first. Record which controls are configured, which don't apply to your setup, and which need action. Assign an owner to each gap before proceeding to the recommended and advanced controls:
 
 - **Baseline:** Low-friction controls that any Buildkite organization handling production credentials should apply first.
 - **Recommended:** The target state for teams running production deployments from Buildkite Pipelines.
@@ -22,9 +24,14 @@ Some controls carry a label in parentheses:
 > 📘 Choosing between self-hosted and Buildkite hosted agents
 > For small teams with limited experience in hosting and hardening infrastructure, Buildkite hosted agents provide a secure, fully managed solution that reduces operational overhead. Organizations with stringent governance, risk, and compliance (GRC) requirements should consider running their most sensitive workloads on self-hosted agents, as this approach offers greater control over security configurations, network boundaries, and compliance controls. Learn more in [Buildkite hosted agents network security](/docs/agent/buildkite-hosted/network-security#considerations-build-infrastructure-segmentation-best-practices).
 
+<a id="authentication-and-session-security-in-the-buildkite-interface-apis-and-cli"></a>
+<a id="api-access-token-compromise"></a>
+
 ## Authentication and access control
 
 These controls govern who can sign in to your Buildkite organization, what they can change, and how much a compromised credential can reach.
+
+If an API access token may already be compromised, follow the [token revocation steps](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) before reviewing these preventive controls.
 
 ### Baseline
 
@@ -82,6 +89,9 @@ These controls harden the infrastructure that runs your builds. The agent contro
 - **Validate jobs with a pre-bootstrap hook:** Use a [pre-bootstrap hook](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) to reject jobs with unexpected repositories, commands, or environment variables before any code is checked out (self-hosted agents only).
 - **Customize the bootstrap:** When the agent settings aren't enough, [replace the bootstrap](/docs/agent/self-hosted/security#customize-the-bootstrap) with your own script to control every phase of a job (self-hosted agents only).
 
+<a id="source-code-security-and-version-control-integrity"></a>
+<a id="dependencies-and-package-management"></a>
+
 ## Pipeline and supply chain integrity
 
 These controls protect the integrity of what your pipelines run: the steps, the plugins and dependencies, the commit being built, and the artifacts produced. Apply the build trigger controls first, as they determine whether the other controls protect you from users with commit access, or from anyone who can open a pull request or an issue.
@@ -135,6 +145,9 @@ Buildkite Pipelines supports several ways of providing secrets to a build. In or
 - **Choose the OIDC subject claim deliberately:** Use a [custom subject claim](/docs/agent/cli/reference/oidc#custom-subject-claims) to set the scope of each trust relationship, and inspect a token's `sub` claim before writing a trust policy that matches it exactly.
 - **Compensate for single-claim matching in Azure:** Azure federated identity credentials match only on the subject, so any build that produces a matching token can authenticate. Apply the mitigations in [OIDC with Azure known limitations](/docs/pipelines/security/oidc/azure#known-limitations), such as enabling OIDC only on deployment pipelines whose triggers you control.
 
+<a id="network-and-transport-security"></a>
+<a id="artifact-storage-and-integrity"></a>
+
 ## Network and data exposure
 
 These controls cover the boundaries between your build infrastructure and everything outside it: which connections your agents make, which requests Buildkite accepts on your behalf, where your build data is stored, and which resources can be accessed by anyone who has a URL. Buildkite encrypts all platform communications with TLS by default.
@@ -165,6 +178,8 @@ These controls cover the boundaries between your build infrastructure and everyt
 - **Keep workflow-scoped GitHub access tokens disabled:** Only enable [workflow-scoped GitHub access tokens](/docs/pipelines/source-control/github#workflow-scoped-github-access-tokens) if you trust everyone who can create a build at an arbitrary commit, as the token permissions are read from the workflow file at that commit.
 - **Keep build data in storage you control:** Configure [build exports](/docs/apis/rest-api/organizations/pipeline-settings#configure-build-export) and [job log archiving](/docs/pipelines/governance/job-log-archiving) to your own storage (Enterprise plan only).
 
+<a id="monitoring-anomaly-detection-logging"></a>
+
 ## Monitoring and detection
 
 Preventive controls can fail or be misconfigured. These controls determine whether you detect that, and how quickly.
@@ -180,6 +195,8 @@ Preventive controls can fail or be misconfigured. These controls determine wheth
 - **Remove inactive users:** Review the [inactive user list](/docs/platform/team-management/inactive-user-list) regularly, and remove users who no longer need access (Enterprise plan only).
 - **Export metrics to your observability platform:** Send Buildkite Pipelines metrics to your monitoring platform, for example, using [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry), to maintain visibility across pipeline activity.
 
+<a id="consistent-pipeline-as-code-approach"></a>
+
 ## Governance and configuration management
 
 These controls keep security configuration consistent across teams, so that gaps in one team's setup don't go unnoticed.
@@ -194,9 +211,11 @@ These controls keep security configuration consistent across teams, so that gaps
 
 - **Enforce agent configuration:** Use [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), or configuration management tools such as [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/), to keep agent configuration consistent and prevent drift on persistent hosts.
 
+<a id="incident-response-and-recovery"></a>
+
 ## Incident readiness
 
-Several incident response actions are not self-service, so prepare them before you need them.
+Several incident response actions are not self-service, so prepare them before you need them. If you suspect an active compromise, follow [Incident response](/docs/platform/security/incident-response) for containment, investigation, and recovery steps.
 
 ### Baseline
 

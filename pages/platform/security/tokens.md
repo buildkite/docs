@@ -1,5 +1,21 @@
 # Token security
 
+Use this page to manage token access, identify Buildkite token types by their prefixes, and understand how leaked tokens are detected. For controls beyond tokens, see the [Security overview](/docs/platform/security).
+
+If a token may have been exposed, follow [Incident response](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) immediately. Don't wait for a secret scanning notification.
+
+## Manage the token lifecycle
+
+Choose the token type your workflow needs, grant only the required access, and plan how to replace or revoke it:
+
+- **Create and scope API access tokens:** Follow [Creating and editing API access tokens](/docs/apis/managing-api-tokens#creating-and-editing-api-access-tokens), and select only the [token scopes](/docs/apis/managing-api-tokens#token-scopes) the workflow requires.
+- **Set expiry and rotate credentials:** Set a **Token Expiry** when creating an API access token with the **Token** credential type, and follow the [rotation guidance](/docs/apis/managing-api-tokens#api-token-security-rotation). For agent tokens, use the API to [set an expiration date](/docs/agent/self-hosted/tokens#agent-token-lifetime); tokens created in the Buildkite interface don't expire.
+- **Manage agent tokens:** [Create a token](/docs/agent/self-hosted/tokens#create-a-token) in the cluster that needs it, review its [scope of access](/docs/agent/self-hosted/tokens#scope-of-access), and [revoke it](/docs/agent/self-hosted/tokens#revoke-a-token) when no longer needed. Revocation prevents new connections but doesn't disconnect existing agents.
+- **Review and remove API token access:** [Audit tokens](/docs/apis/managing-api-tokens#auditing-tokens) regularly. Organization administrators can [remove their organization from a token](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token); token owners can [revoke the token entirely](/docs/apis/managing-api-tokens#faqs-can-i-delete-a-token).
+- **Prefer short-lived credentials where supported:** Use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) for services or [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) for ephemeral agents, rather than distributing long-lived tokens to them.
+
+## Detect leaked tokens
+
 Buildkite is a member of the [GitHub secret scanning program
 ](https://docs.github.com/en/code-security/secret-scanning/secret-scanning-partnership-program/secret-scanning-partner-program).
 
