@@ -1447,6 +1447,16 @@ interface Authorization {
 }
 
 """
+An Amp account authorized with a Buildkite account
+"""
+type AuthorizationAmp implements Authorization & Node {
+  """
+  ID of the object.
+  """
+  id: ID!
+}
+
+"""
 A Bitbucket account authorized with a Buildkite account
 """
 type AuthorizationBitbucket implements Authorization & Node {
@@ -1521,6 +1531,11 @@ type AuthorizationSAML implements Authorization & Node {
 The type of the authorization
 """
 enum AuthorizationType {
+  """
+  Amp Authorization
+  """
+  AMP
+
   """
   Bitbucket Authorization
   """
@@ -3993,6 +4008,11 @@ type JobEventActor {
   The node corresponding to this actor if available
   """
   node: JobEventActorNodeUnion
+
+  """
+  The key of the stack if this actor is a stack and the stack still exists
+  """
+  stackKey: String
 
   """
   The type of this actor
@@ -13208,6 +13228,12 @@ type Team implements Node {
   membersCanDestroyRegistries: Boolean!
 
   """
+  Whether this team has been granted pipeline template management permission.
+  Only effective when pipeline template team permissions are enabled for the organization
+  """
+  membersCanManagePipelineTemplates: Boolean!
+
+  """
   The name of the team
   """
   name: String!
@@ -13346,6 +13372,12 @@ input TeamCreateInput {
   If members in this team can delete registries assigned to it
   """
   membersCanDestroyRegistries: Boolean = false
+
+  """
+  Whether this team can manage pipeline templates. Only organization admins can
+  set this, and it is ignored when pipeline template team permissions are disabled
+  """
+  membersCanManagePipelineTemplates: Boolean
   name: String!
   organizationID: ID!
 
@@ -14268,6 +14300,12 @@ input TeamUpdateInput {
   If members in this team can delete registries assigned to it
   """
   membersCanDestroyRegistries: Boolean
+
+  """
+  Whether this team can manage pipeline templates. Only organization admins can
+  change this, and it is ignored when pipeline template team permissions are disabled
+  """
+  membersCanManagePipelineTemplates: Boolean
   name: String!
 
   """

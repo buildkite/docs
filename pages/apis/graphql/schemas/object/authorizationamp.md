@@ -11,34 +11,40 @@
 #  replace the content in data/schema.graphql
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: AuthorizationType – Enums – GraphQL API
+title: AuthorizationAmp – Objects – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills">
-  AuthorizationType
-  <span data-algolia-exclude><span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span></span>
+  AuthorizationAmp
+  <span data-algolia-exclude><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></span>
 </h1>
 <!-- vale on -->
 
 
-The type of the authorization
-
-
-
-
-
-
-
-
+An Amp account authorized with a Buildkite account
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
     <th>
-      <h2 data-algolia-exclude>ENUM Values</h2>
+      <h2 data-algolia-exclude>Fields</h2>
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>AMP</code></strong></p><p>Amp Authorization</p></td></tr><tr><td><p><strong><code>BITBUCKET</code></strong></p><p>Bitbucket Authorization</p></td></tr><tr><td><p><strong><code>GITHUB</code></strong></p><p>GitHub Authorization</p></td></tr><tr><td><p><strong><code>GITHUB_ENTERPRISE</code></strong></p><p>GitHub Enterprise Authorization</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>ID of the object.</p></td></tr>
   </tbody>
 </table>
+
+
+
+
+<h2 data-algolia-exclude>Interfaces</h2>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/authorization" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Authorization">
+  <code>Authorization</code>
+</a>
+<a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node">
+  <code>Node</code>
+</a>
+
+</div>

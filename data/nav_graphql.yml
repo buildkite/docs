@@ -290,6 +290,8 @@
     path: apis/graphql/schemas/object/auditsubject
   - name: AuditWebContext
     path: apis/graphql/schemas/object/auditwebcontext
+  - name: AuthorizationAmp
+    path: apis/graphql/schemas/object/authorizationamp
   - name: AuthorizationBitbucket
     path: apis/graphql/schemas/object/authorizationbitbucket
   - name: AuthorizationConnection
