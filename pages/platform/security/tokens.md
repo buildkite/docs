@@ -125,4 +125,4 @@ Buildkite [OAuth Token Exchange](/docs/apis/oauth-token-exchange) tokens are sho
 
 - Prefix: `bktx_`
 
-These tokens expire after the **Max Token TTL** configured on the Token Exchange App, which defaults to one hour and can be set between 30 seconds and 24 hours.
+These tokens expire no later than the **Max Token TTL** configured on the Token Exchange App, which defaults to one hour and can be set between 30 seconds and 24 hours.
