@@ -35,7 +35,7 @@ Common use cases include:
 
 ## Setup
 
-Creating a Token Exchange application requires organization administrator permissions, and your Buildkite organization must be on an [Enterprise](https://buildkite.com/pricing) plan with OAuth Token Exchange enabled. If **Token Exchange Apps** doesn't appear in your organization's settings, contact support@buildkite.com.
+Creating a Token Exchange application requires organization administrator permissions. Your Buildkite organization must also be on an [Enterprise](https://buildkite.com/pricing) plan with OAuth Token Exchange enabled. If **Token Exchange Apps** doesn't appear in your organization's settings, contact support@buildkite.com.
 
 To create a Token Exchange application:
 
