@@ -42,6 +42,9 @@ On the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack),
 
 By default, a Git mirror caches only Git objects. When [Git LFS](/docs/pipelines/configure/git-checkout#git-lfs) is enabled for a checkout, each checkout downloads its own LFS objects from the LFS server, even when it shares a mirror with other jobs on the same host.
 
+> 📘 Agent version requirement
+> The `git-mirrors-lfs-cache` setting requires Buildkite agent v4.3.0 or newer. Older agent versions don't recognize this setting.
+
 Set the `git-mirrors-lfs-cache` agent configuration option to `true` to also cache LFS objects in the mirror. While the agent holds the mirror's update lock, it fetches the job's LFS objects into the mirror. Each checkout then reuses those objects from the mirror instead of downloading them from the LFS server again. If an object is missing from the mirror or the prefetch fails, the checkout falls back to downloading it from the LFS server as normal.
 
 This option is off by default, because whether it helps depends on the host:
@@ -50,7 +53,7 @@ This option is off by default, because whether it helps depends on the host:
 - The LFS prefetch runs while the mirror's update lock is held, so other jobs that need the same mirror wait longer. A slow LFS download can cause the lock wait to exceed `git-mirrors-lock-timeout`.
 - Mirrors are often stored on network or shared volumes, where reading a cached object isn't always faster than downloading it from the LFS server.
 
-`git-mirrors-lfs-cache` requires `git-mirrors-path` to be set, and like the other `git-mirrors-*` options, it can only be set as agent configuration. It can't be set from pipeline environment variables, hooks, or plugins.
+`git-mirrors-lfs-cache` requires `git-mirrors-path` to be set, and like the other `git-mirrors-*` options, it can only be set as agent configuration—not from pipeline environment variables, hooks, or plugins.
 
 ## Git submodules
 
