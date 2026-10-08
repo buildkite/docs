@@ -2,6 +2,9 @@
 
 [OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived [Buildkite API access tokens](/docs/apis/managing-api-tokens) associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite [REST](/docs/apis/rest-api) or [GraphQL](/docs/apis/graphql-api) API on behalf of a user.
 
+> 📘 Enterprise plan feature
+> OAuth Token Exchange is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans, and must be enabled for your Buildkite organization by Buildkite. If you're on an Enterprise plan and don't see **Token Exchange Apps** in your organization's settings, contact support@buildkite.com to have this feature enabled.
+
 OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead.
 
 Common use cases include:
@@ -295,6 +298,7 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 
 | `error` | `error_description` | Fix |
 |---------|---------------------|-----|
+| `access_denied` | "Your current plan does not include OAuth Token Exchange" | OAuth Token Exchange is only available on [Enterprise](https://buildkite.com/pricing) plans |
 | `invalid_client` | "Invalid client assertion signature" | Check that the public key in your JWKS matches the private key used to sign the JWT |
 | `invalid_client` | "JWT `aud` claim is invalid" | Set the JWT `aud` claim to `https://buildkite.com/oauth/token` |
 | `invalid_client` | "JWT `exp` claim must be in the future" | Check your system clock for skew |
@@ -303,6 +307,6 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_request` | "Subject user must be an active member of the organization" | Verify the email address or user UUID belongs to an active member of the target organization |
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
 | `invalid_target` | "Invalid audience organization" | Use the organization slug (from the URL, not the display name) or the organization UUID |
-| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization |
+| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization. Contact support@buildkite.com |
 
 <!-- vale Buildkite.existence = YES -->
