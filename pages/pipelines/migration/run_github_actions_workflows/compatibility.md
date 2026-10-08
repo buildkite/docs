@@ -1674,7 +1674,7 @@ Artifacts must come from verified direct `needs` producers. Exact-name lookup mu
 
 When artifacts contain the same exact member path, the later artifact by name wins. All matched archives are validated and staged before the destination changes. Artifact ID, all-artifact, cross-run, cross-repository, raw, REST, and non-merged pattern modes are unsupported.
 
-Only ZIPs produced by the supported upload adapter are accepted. Digest or ZIP validation failure is fatal. The `download-path` output is supported.
+Only ZIP archives produced by the supported upload adapter are accepted. Digest or ZIP validation failure is fatal. The `download-path` output is supported.
 
 ### Cache action
 
