@@ -160,6 +160,9 @@ echo "--- :file_folder: Cache templates"
 PROMPT_TEMPLATE=$(cat "${TEMPLATES_DIR}/docs-draft-prompt.md")
 SYSTEM_PROMPT_FILE="/tmp/docs-draft-system.md"
 cp "${SCRIPT_DIR}/../prompts/docs-draft-system.md" "${SYSTEM_PROMPT_FILE}"
+DISCARD_GENERATED_GRAPHQL_CHANGES_SCRIPT="/tmp/docs-draft-discard-generated-graphql-changes.sh"
+cp "${SCRIPT_DIR}/discard-generated-graphql-changes.sh" "${DISCARD_GENERATED_GRAPHQL_CHANGES_SCRIPT}"
+chmod +x "${DISCARD_GENERATED_GRAPHQL_CHANGES_SCRIPT}"
 COMMENT_DOCS_CREATED_TEMPLATE=$(cat "${TEMPLATES_DIR}/comment-docs-created.md")
 DRAFT_PR_BODY_TEMPLATE=$(cat "${TEMPLATES_DIR}/draft-pr-body.md")
 
@@ -260,13 +263,33 @@ su claude-user -c "
 # reset them back to working-tree changes so the status check detects them.
 git reset origin/main --quiet 2>/dev/null || true
 
+# The GraphQL reference is generated from the production schema by a separate
+# scheduled pipeline. Discard any generated reference changes the agent made.
+DISCARDED_GENERATED_GRAPHQL_MARKER="/tmp/docs-draft-discarded-generated-graphql"
+rm -f "${DISCARDED_GENERATED_GRAPHQL_MARKER}"
+DISCARDED_GENERATED_GRAPHQL_MARKER="${DISCARDED_GENERATED_GRAPHQL_MARKER}" \
+  "${DISCARD_GENERATED_GRAPHQL_CHANGES_SCRIPT}" origin/main
+
 echo "--- :git: Check for changes"
 if [[ -z "$(git status --porcelain)" ]]; then
-  echo "No documentation changes were made."
-  buildkite-agent annotate --style "info" --context "docs-result" \
-    ":white_check_mark: Claude reviewed **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** and determined no documentation changes were needed." \
-    || true
+  if [ -f "${DISCARDED_GENERATED_GRAPHQL_MARKER}" ]; then
+    echo "Only generated GraphQL reference changes were discarded; no draft PR is needed."
+    buildkite-agent annotate --style "info" --context "docs-result" \
+      ":white_check_mark: No docs draft was created for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** because its only documentation changes belong to the generated GraphQL reference." \
+      || true
+  else
+    echo "No documentation changes were made."
+    buildkite-agent annotate --style "info" --context "docs-result" \
+      ":white_check_mark: Claude reviewed **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** and determined no documentation changes were needed." \
+      || true
+  fi
   exit 0
+fi
+
+if [ -f "${DISCARDED_GENERATED_GRAPHQL_MARKER}" ]; then
+  buildkite-agent annotate --style "warning" --context "generated-graphql-discarded" \
+    ":warning: Generated GraphQL reference changes were discarded. The remaining hand-authored documentation changes will be included in the draft PR." \
+    || true
 fi
 
 # --- Commit and push ---
