@@ -47,7 +47,7 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
       },
       {
         topic: "[Security](/docs/platform/security)",
-        description: "Security-related topics relevant to the entire Buildkite platform, including a security hardening checklist, incident response guidance, and token security."
+        description: "Security-related topics relevant to the entire Buildkite platform, including security best practices, incident response guidance, and token security."
       },
       {
         topic: "[Integrations](/docs/pipelines/integrations/notifications/slack-workspace)",

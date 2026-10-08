@@ -2,12 +2,6 @@
 
 Use this section to secure your Buildkite organization, review its security controls, or respond to a suspected compromise. It brings together guidance for the Buildkite platform, [Buildkite Pipelines](/docs/pipelines), and [Buildkite Package Registries](/docs/package-registries), with links to configuration instructions in each product's documentation.
 
-## Where to start
-
-- **Secure a new organization:** Start with the [baseline authentication and access controls](/docs/platform/security/hardening-checklist#authentication-and-access-control-baseline). Then isolate builds with different levels of trust and restrict their access to secrets before connecting production systems.
-- **Review an existing setup:** Work through the [Security hardening checklist](/docs/platform/security/hardening-checklist), starting with the baseline controls in each area. Record gaps, assign an owner to each action, and then review the recommended and advanced controls that apply to your setup.
-- **Respond to a suspected compromise:** Follow [Incident response](/docs/platform/security/incident-response) to contain compromised access, rotate exposed secrets, investigate activity, and recover.
-
 ## Shared responsibility
 
 Buildkite and your organization share responsibility for security:
@@ -16,7 +10,17 @@ Buildkite and your organization share responsibility for security:
 - **Your organization:** Controls user and token access, the code your builds run, and the credentials and systems those builds can access, regardless of where your agents run.
 - **Your organization with self-hosted agents:** Also provisions, secures, and maintains the [agent infrastructure](/docs/agent/self-hosted/security), including agent updates and network boundaries.
 
+The controls your organization is responsible for are listed in [Security best practices](/docs/platform/security/best-practices). Apply at least the baseline controls in each area before connecting production systems.
+
 Learn how Buildkite protects your data, and how data flows between Buildkite and your infrastructure, in the [Pipelines security overview](/docs/pipelines/security).
+
+## Where to start
+
+Cover all of the following areas before you connect production systems. If you're reviewing or auditing an existing Buildkite organization, use them to find the controls to check:
+
+- **Secure your organization setup:** Configure [authentication and access control](/docs/platform/security/best-practices#authentication-and-access-control), including SSO or 2FA, teams, permissions, and API access tokens.
+- **Secure your agents, pipelines, secrets, and network:** Apply the controls for [Buildkite agent security](/docs/platform/security/best-practices#buildkite-agent-security), [pipeline and supply chain integrity](/docs/platform/security/best-practices#pipeline-and-supply-chain-integrity), [secrets management](/docs/platform/security/best-practices#secrets-management), and [network and data exposure](/docs/platform/security/best-practices#network-and-data-exposure).
+- **Prepare your organization for incidents:** Set up [monitoring and detection](/docs/platform/security/best-practices#monitoring-and-detection), and write a runbook based on [Incident response](/docs/platform/security/incident-response) so that you can contain compromised access, rotate exposed secrets, investigate activity, and recover.
 
 ## Identity and access
 

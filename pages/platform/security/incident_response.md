@@ -56,4 +56,4 @@ The Buildkite incident response team can audit access logs to identify which use
 
 ## Recover and harden
 
-After you've contained the incident, review your Buildkite organization against the [Security hardening checklist](/docs/platform/security/hardening-checklist) to reduce the impact of a future incident. For example, set expiry dates on agent tokens and API access tokens, and replace static cloud credentials with [OIDC](/docs/pipelines/security/oidc).
+After you've contained the incident, review your Buildkite organization against the [Security best practices](/docs/platform/security/best-practices) to reduce the impact of a future incident. For example, set expiry dates on agent tokens and API access tokens, and replace static cloud credentials with [OIDC](/docs/pipelines/security/oidc).

@@ -1,8 +1,28 @@
 # Token security
 
-Use this page to manage token access, identify Buildkite token types by their prefixes, and understand how leaked tokens are detected. For controls beyond tokens, see the [Security overview](/docs/platform/security).
+Use this page to compare Buildkite token types, manage token access, identify tokens by their prefixes, and understand how leaked tokens are detected. For controls beyond tokens, see the [Security overview](/docs/platform/security).
 
 If a token may have been exposed, follow [Incident response](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) immediately. Don't wait for a secret scanning notification.
+
+## Token reference
+
+The following table summarizes how each Buildkite token is used, what it can access, and how long it remains valid. Tokens marked as internal are generated and managed by the Buildkite agent, and you don't create them yourself.
+
+| Token | Prefix | How it's used | Scope | Lifetime |
+| ----- | ------ | ------------- | ----- | -------- |
+| [API access token](/docs/apis/managing-api-tokens) | `bkua_` | Users and scripts call the REST and GraphQL APIs with a bearer token. | The selected [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) and optional GraphQL access, for the selected Buildkite organizations. GraphQL access is not further scoped. | The **Token Expiry** selected at creation, which defaults to seven days. Tokens with the **Public Key** credential type don't expire. |
+| [OAuth Token Exchange token](/docs/apis/oauth-token-exchange) | `bktx_` | Services exchange a signed JWT assertion for a token, and call the APIs on behalf of a user. | The requested scopes, limited to the Token Exchange App's grantable scopes. | Up to the app's **Max Token TTL**, which defaults to one hour and can be set between 30 seconds and 24 hours. |
+| [Agent token](/docs/agent/self-hosted/tokens) | `bkct_` | Self-hosted agents register with a cluster using `BUILDKITE_AGENT_TOKEN`. | Any queue in one cluster. | No expiry when created in the Buildkite interface. An optional expiry, at least 10 minutes in the future, can be set when created using the API. |
+| [Unclustered agent token](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens) | `bkar_` | Agents register with unclustered queues. | Any unclustered queue in the Buildkite organization. | No expiry. Revoke manually. |
+| [Job acquisition token](/docs/agent/self-hosted/job-acquisition-tokens) | `bkjat_` | A stack controller issues the token to an ephemeral agent, which registers and acquires one reserved job. | One reserved job. | 15 minutes by default, up to one hour, or until the job reservation expires, whichever is first. |
+| [Agent session token](/docs/agent/self-hosted/tokens#additional-agent-tokens-session-tokens) (internal) | `bkaa_` | Issued to an agent when it registers, and used to poll for and start jobs. | The registered agent's connection. | Until the agent disconnects. |
+| [Agent job token](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens) (internal) | `bkaj_` | Exposed to each job as `BUILDKITE_AGENT_ACCESS_TOKEN`, and used by agent CLI commands such as `annotate`, `artifact`, and `meta-data`. | The job, plus metadata, annotations, and artifacts of other jobs in the same cluster. | Until the job finishes. |
+| [Registry token](/docs/package-registries/registries/manage#configure-registry-tokens) | `bkpt_` | Package managers download and install packages from a private registry. | Read-only access to one registry. | No expiry. Delete manually. |
+| Package Registries temporary token | `bkpt_` | Included in the publish and install commands shown on a registry's pages. | Publishing to, or installing from, one registry. | A few minutes. |
+| [Portal long-lived service token](/docs/apis/graphql/portals) | `bkpat_` | Services call a portal's endpoint with a bearer token. | The portal's GraphQL operations, run with administrator-level permissions. | No expiry. Replace it from the portal's **Security** page. |
+| [Ephemeral portal token](/docs/apis/graphql/portals/ephemeral-portal-tokens) | `bkpat_` | Services exchange a portal secret for a token. | The portal's GraphQL operations, run with administrator-level permissions. | Up to one hour, or shorter if requested. |
+| [User-invoked portal token](/docs/apis/graphql/portals/user-invoked-portals) | `bkpat_` | A user authorizes a token code to generate the token. | The portal's GraphQL operations, limited to the user's own permissions. | 12 hours by default, or shorter if requested. |
+| [Portal secret](/docs/apis/graphql/portals/ephemeral-portal-tokens#generating-a-secret) | `bkps_` | Services use the secret to request ephemeral portal tokens. | One portal. | No expiry. Each portal can have two secrets, so that you can rotate them. |
 
 ## Manage the token lifecycle
 

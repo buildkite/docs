@@ -1,18 +1,18 @@
-# Security hardening checklist
+# Security best practices
 
-This checklist brings together the security controls available across the Buildkite platform, [Buildkite Pipelines](/docs/pipelines), and [Buildkite Package Registries](/docs/package-registries) into a single reference. Each item describes what to configure and why, and links to the page that documents the control in detail.
+This page brings together the security controls available across the Buildkite platform, [Buildkite Pipelines](/docs/pipelines), and [Buildkite Package Registries](/docs/package-registries) into a single reference. Each item describes what to configure and why, and links to the page that documents the control in detail.
 
-Use this checklist when you set up a new Buildkite organization, review an existing Buildkite organization against a security baseline, or prepare for a security audit. To prepare a response plan for a suspected compromise, see [Incident response](/docs/platform/security/incident-response).
+Under the [shared responsibility model](/docs/platform/security#shared-responsibility), these are the controls that your organization is responsible for configuring. Use this page when you set up a new Buildkite organization, review an existing Buildkite organization against a security baseline, or prepare for a security audit. To prepare a response plan for a suspected compromise, see [Incident response](/docs/platform/security/incident-response).
 
-## How to use this checklist
+## How to use this page
 
-A CI/CD environment holds credentials for the systems it builds and deploys to, and runs code from every commit pushed to the repositories it builds. Hardening a Buildkite organization means working in two directions: restricting what a job can reach, and restricting who can change what a job does.
+A CI/CD environment holds credentials for the systems it builds and deploys to, and runs code from every commit pushed to the repositories it builds. Securing a Buildkite organization means working in two directions: restricting what a job can reach, and restricting who can change what a job does.
 
 For a new Buildkite organization, start with [baseline authentication and access controls](#authentication-and-access-control-baseline), then [isolate your build environments](#buildkite-agent-security-baseline) and [protect your secrets](#secrets-management-baseline) before connecting production systems.
 
 For an existing setup, review the baseline controls in every area first. Record which controls are configured, which don't apply to your setup, and which need action. Assign an owner to each gap before proceeding to the recommended and advanced controls:
 
-- **Baseline:** Low-friction controls that any Buildkite organization handling production credentials should apply first.
+- **Baseline:** Controls that every Buildkite organization handling production credentials should apply. Treat these as required, not optional.
 - **Recommended:** The target state for teams running production deployments from Buildkite Pipelines.
 - **Advanced:** Controls for organizations that treat their build system as part of their trusted computing base.
 
@@ -22,7 +22,7 @@ Some controls carry a label in parentheses:
 - **(self-hosted agents only)**: The control applies to [self-hosted agents](/docs/agent/self-hosted) and is not available on [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
 > 📘 Choosing between self-hosted and Buildkite hosted agents
-> For small teams with limited experience in hosting and hardening infrastructure, Buildkite hosted agents provide a secure, fully managed solution that reduces operational overhead. Organizations with stringent governance, risk, and compliance (GRC) requirements should consider running their most sensitive workloads on self-hosted agents, as this approach offers greater control over security configurations, network boundaries, and compliance controls. Learn more in [Buildkite hosted agents network security](/docs/agent/buildkite-hosted/network-security#considerations-build-infrastructure-segmentation-best-practices).
+> For small teams with limited experience in hosting and securing infrastructure, Buildkite hosted agents provide a secure, fully managed solution that reduces operational overhead. Organizations with stringent governance, risk, and compliance (GRC) requirements should consider running their most sensitive workloads on self-hosted agents, as this approach offers greater control over security configurations, network boundaries, and compliance controls. Learn more in [Buildkite hosted agents network security](/docs/agent/buildkite-hosted/network-security#considerations-build-infrastructure-segmentation-best-practices).
 
 <a id="authentication-and-session-security-in-the-buildkite-interface-apis-and-cli"></a>
 <a id="api-access-token-compromise"></a>

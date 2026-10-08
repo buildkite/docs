@@ -1014,8 +1014,8 @@
       children:
         - name: "Overview"
           path: "platform/security"
-        - name: "Hardening checklist"
-          path: "platform/security/hardening-checklist"
+        - name: "Best practices"
+          path: "platform/security/best-practices"
         - name: "Token security"
           path: "platform/security/tokens"
         - name: "Incident response"

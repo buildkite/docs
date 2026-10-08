@@ -196,7 +196,7 @@ best-practices:
     - "agent/queues/managing"
     - "agent/lifecycle"
     - "agent/hooks"
-    - "platform/security/hardening-checklist"
+    - "platform/security/best-practices"
   related_topics:
     - pipeline-configurations
     - security

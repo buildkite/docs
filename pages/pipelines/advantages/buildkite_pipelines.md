@@ -133,7 +133,7 @@ Use pipeline templates to enforce consistent build patterns, reduce duplication,
 
 Buildkite Pipelines separates the control plane from the execution environment. The control plane handles orchestration and receives only build metadata — job status, logs, and timing data. Source code, secrets, and build artifacts remain on infrastructure you control.
 
-For a full security overview, see [Pipelines security](/docs/pipelines/security) and [Security hardening checklist](/docs/platform/security/hardening-checklist).
+For a full security overview, see [Pipelines security](/docs/pipelines/security) and [Security best practices](/docs/platform/security/best-practices).
 
 ### Clusters
 
