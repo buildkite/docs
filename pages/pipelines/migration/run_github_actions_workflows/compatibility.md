@@ -807,7 +807,7 @@ Imports using explicit mappings require job-scoped Agent API credentials and a s
 
 Explicit mappings can also attach one [Buildkite hosted cache volume](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-configure-generated-job-cache-volumes) to generated jobs. This configuration is outside the GitHub workflow and does not change workflow syntax or action inputs.
 
-Offline `validate` and `compile` do not check queues against the cluster. `validate --profile hosted` has no job-scoped API and admits only the local `macos-latest` preset.
+Offline `validate` and `compile` do not check queues against the cluster. `validate --profile hosted` has no job-scoped API and admits only the local `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, and `macos-latest` presets.
 
 ### Runners from job outputs
 
