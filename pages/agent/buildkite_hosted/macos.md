@@ -73,7 +73,7 @@ While you currently cannot provide custom base images for macOS hosted agents (a
 
 Updated Xcode versions will be available one week after Apple offers them for download. This includes Beta, Release Candidate (RC), and official release versions.
 
-Older Xcode versions are removed from base images over time. Some older Xcode versions are only available on earlier macOS point releases, because they are incompatible with newer base images. Use the [image explorer](https://buildkite.com/platform/pipelines/hosting-options/mac-hosted-agents/images/) to find the macOS base image that includes the Xcode version you need.
+Older Xcode versions are removed from base images over time. Some older Xcode versions are only available on earlier macOS point releases. They are incompatible with newer base images. Use the [image explorer](https://buildkite.com/platform/pipelines/hosting-options/mac-hosted-agents/images/) to find the macOS base image that includes the Xcode version you need.
 
 If your queue has an Xcode version pinned that is no longer available, a warning is displayed on the queue list and queue settings pages: "Xcode {version} is no longer available for this macOS version. Your agents may fail to start until you update the base image of your queue." To resolve the warning, navigate to the queue's **Base image** settings and select an available Xcode version.
 
