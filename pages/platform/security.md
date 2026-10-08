@@ -30,7 +30,8 @@ Control who can access your Buildkite organization and what they can do:
 - [Enforcing two-factor authentication (2FA)](/docs/platform/team-management/enforce-2fa) for all users.
 - [User and team permissions](/docs/platform/team-management/permissions) across the Buildkite platform.
 - [Pipeline permissions](/docs/pipelines/security/permissions) and [registry permissions](/docs/package-registries/security/permissions).
-- [Inactive user list](/docs/platform/team-management/inactive-user-list) for finding and removing users who no longer need access.
+- [Inactive user list](/docs/platform/team-management/inactive-user-list) for periodically reviewing and removing users who no longer need access.
+- SCIM provisioning for [Okta](/docs/platform/sso/okta#using-scim-to-provision-and-manage-users) or [Microsoft Entra ID](/docs/platform/sso/azure-ad#using-scim-to-provision-and-manage-users) for automated deprovisioning, which removes a user's access to Buildkite as soon as they're removed from your identity provider.
 - [Token security](/docs/platform/security/tokens) for token lifecycle guidance, identifying token types, and detecting leaked tokens.
 - [Managing API access tokens](/docs/apis/managing-api-tokens), including token scopes, auditing, and IP address restrictions.
 - [OAuth Token Exchange](/docs/apis/oauth-token-exchange) for issuing short-lived API tokens to services.

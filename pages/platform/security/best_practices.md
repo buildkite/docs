@@ -192,7 +192,7 @@ Preventive controls can fail or be misconfigured. These controls determine wheth
 
 - **Stream audit events to your SIEM:** Use [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to send audit log events to your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system.
 - **Alert on security-relevant events:** Create alerts for the [logged events](/docs/platform/audit-log#logged-events) that matter most, such as agent token and API access token changes, SSO provider changes, secret access, pipeline visibility changes, and terminal sessions. Also alert on unusual IP addresses, secret access patterns, and spikes in build frequency.
-- **Remove inactive users:** Review the [inactive user list](/docs/platform/team-management/inactive-user-list) regularly, and remove users who no longer need access (Enterprise plan only).
+- **Remove inactive users:** Review the [inactive user list](/docs/platform/team-management/inactive-user-list) regularly, and remove users who no longer need access (Enterprise plan only). To remove access as soon as a user is removed from your identity provider, [automate deprovisioning with SCIM](#authentication-and-access-control-recommended).
 - **Export metrics to your observability platform:** Send Buildkite Pipelines metrics to your monitoring platform, for example, using [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry), to maintain visibility across pipeline activity.
 
 <a id="consistent-pipeline-as-code-approach"></a>
