@@ -260,13 +260,42 @@ su claude-user -c "
 # reset them back to working-tree changes so the status check detects them.
 git reset origin/main --quiet 2>/dev/null || true
 
+# The GraphQL reference is generated from the production schema by a separate
+# scheduled pipeline. Discard any generated reference changes the agent made.
+GENERATED_GRAPHQL_PATHS=(
+  "data/graphql/schema.graphql"
+  "data/nav_graphql.yml"
+  "pages/apis/graphql/schemas"
+)
+GENERATED_GRAPHQL_CHANGES=$(git status --porcelain --untracked-files=all -- "${GENERATED_GRAPHQL_PATHS[@]}")
+
+if [ -n "${GENERATED_GRAPHQL_CHANGES}" ]; then
+  echo "Discarding changes to generated GraphQL reference files:"
+  echo "${GENERATED_GRAPHQL_CHANGES}"
+  git restore --source=origin/main --staged --worktree -- "${GENERATED_GRAPHQL_PATHS[@]}"
+  git clean -fd -- "${GENERATED_GRAPHQL_PATHS[@]}"
+fi
+
 echo "--- :git: Check for changes"
 if [[ -z "$(git status --porcelain)" ]]; then
-  echo "No documentation changes were made."
-  buildkite-agent annotate --style "info" --context "docs-result" \
-    ":white_check_mark: Claude reviewed **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** and determined no documentation changes were needed." \
-    || true
+  if [ -n "${GENERATED_GRAPHQL_CHANGES}" ]; then
+    echo "Only generated GraphQL reference changes were discarded; no draft PR is needed."
+    buildkite-agent annotate --style "info" --context "docs-result" \
+      ":white_check_mark: No docs draft was created for **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** because its only documentation changes belong to the generated GraphQL reference." \
+      || true
+  else
+    echo "No documentation changes were made."
+    buildkite-agent annotate --style "info" --context "docs-result" \
+      ":white_check_mark: Claude reviewed **${UPSTREAM_REPO}#${UPSTREAM_PR_NUMBER}** and determined no documentation changes were needed." \
+      || true
+  fi
   exit 0
+fi
+
+if [ -n "${GENERATED_GRAPHQL_CHANGES}" ]; then
+  buildkite-agent annotate --style "warning" --context "generated-graphql-discarded" \
+    ":warning: Generated GraphQL reference changes were discarded. The remaining hand-authored documentation changes will be included in the draft PR." \
+    || true
 fi
 
 # --- Commit and push ---
