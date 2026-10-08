@@ -167,7 +167,7 @@ Important limits:
 - Omitted permissions mean exactly `contents: read`. GitHub repository and organization defaults aren't inherited.
 - Write access requires an explicit top-level map.
 - `read-all` expands to the 13 supported repository scopes with read access. It doesn't include `id-token` or unsupported aliases.
-- `write-all` is rejected and creates no token.
+- The compiler accepts `write-all` and requests every supported write scope, but Buildkite Pipelines rejects the request when issuing the token, so no token is created.
 - An empty map, or a map containing only `none`, creates no token.
 - Job-level and called-workflow repository maps don't narrow or expand the token. Reusable jobs use the top-level requesting workflow's permissions.
 - Pull requests have a `contents: read` ceiling. Merge queues are denied.
