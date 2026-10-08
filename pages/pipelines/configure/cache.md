@@ -76,7 +76,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-A normal cache miss exits successfully, so the job continues to `npm ci`. Configuration, storage, and extraction errors are logged and skipped, so they don't fail the job, unless you pass `--cache-fail-on-error`. In the example, the save command doesn't overwrite an entry that already exists at the same address.
+A normal cache miss exits successfully, so the job continues to `npm ci`. Configuration, storage, and extraction errors are logged and skipped by default. To fail the job on these errors, pass `--cache-fail-on-error`. In the example, the save command doesn't overwrite an entry that already exists at the same address.
 
 To save updated cache contents without changing the cache key, add `--force`. This option requires Buildkite agent v4.0.2 or later and is not available in v3:
 
