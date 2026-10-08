@@ -603,6 +603,8 @@ For example, the Buildkite statement can use these conditions. The `sts:TagSessi
 }
 ```
 
+This `sub` pattern matches the default compound subject. If the plugin's `oidc` configuration sets `subject-claim`, such as `subject-claim: "pipeline_id"` in the previous section, the `sub` claim contains only that identifier, for example, the pipeline UUID. In that case, match it with a `StringEquals` condition on `agent.buildkite.com:sub` instead of this pattern.
+
 Host JavaScript and composite actions, including `aws-actions/configure-aws-credentials`, can use the token endpoint. Use the plugin's `oidc` configuration, shown in the previous section, to add claims and AWS session tags, or to replace the default compound subject for every token minted by imported jobs. Each workflow job must still declare `permissions: id-token: write` to receive the endpoint.
 
 See [OIDC with AWS](/docs/pipelines/security/oidc/aws) for the complete IAM configuration, and the [OIDC claims reference](/docs/agent/cli/reference/oidc#claims) for the full subject format and available claims.
