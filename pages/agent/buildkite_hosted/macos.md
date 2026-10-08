@@ -49,7 +49,7 @@ Queue             | macOS version
 `macos-27-medium` | Golden Gate (27)
 {: class="responsive-table"}
 
-Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version (see the [image explorer](https://buildkite.com/platform/pipelines/hosting-options/mac-hosted-agents/images/) for the software included in each version), rather than using the default image applied to queues without a version, such as `macos-medium`. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
+Each of these queues uses the `MACOS_ARM64_M4_6X28` (Medium) [instance shape](#sizes) and pins its base image to the listed macOS version. This is different from queues without an explicit version, such as `macos-medium`, which use a default image. See the [image explorer](https://buildkite.com/platform/pipelines/hosting-options/mac-hosted-agents/images/) for the software included in each version. GitHub Actions-style `macos-<version>` runner labels map to these queues. Route a job to the macOS version it expects by [targeting the matching queue](/docs/agent/queues#targeting-a-queue-from-a-pipeline) in your pipeline.
 
 New macOS hosted queues without an explicitly selected macOS or Xcode version default to macOS Tahoe (26.6) with Xcode 26.6. This includes queues you create and the `macos-medium` and `macos-large` queues created automatically for new Buildkite organizations. You can change this default at any time in the queue's **Base image** settings.
 
