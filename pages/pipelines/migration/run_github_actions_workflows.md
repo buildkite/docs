@@ -580,7 +580,7 @@ Imported workflows receive Buildkite-issued OIDC tokens, not GitHub-issued token
 1. Match `agent.buildkite.com:aud` and `agent.buildkite.com:sub` instead of the equivalent `token.actions.githubusercontent.com` condition keys. Scope the Buildkite subject to the intended organization and pipeline.
 1. Keep the existing GitHub provider statement while workflows run in both systems. Remove it only when nothing still uses GitHub-issued tokens.
 
-For example, the Buildkite statement can use these conditions:
+For example, the Buildkite statement can use these conditions. The `sts:TagSession` action is required when the plugin's `oidc` configuration sets `aws-session-tags`:
 
 ```json
 {
@@ -588,7 +588,10 @@ For example, the Buildkite statement can use these conditions:
   "Principal": {
     "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/agent.buildkite.com"
   },
-  "Action": "sts:AssumeRoleWithWebIdentity",
+  "Action": [
+    "sts:AssumeRoleWithWebIdentity",
+    "sts:TagSession"
+  ],
   "Condition": {
     "StringEquals": {
       "agent.buildkite.com:aud": "sts.amazonaws.com"

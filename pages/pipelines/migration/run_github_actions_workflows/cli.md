@@ -627,6 +627,7 @@ During the transition, set the plugin field to `false` to run as the agent's ori
 ```yaml
 steps:
   - label: "\:github\: CI"
+    key: github-actions
     plugins:
       - github-actions#latest:
           workflow: .github/workflows/ci.yml
