@@ -393,6 +393,14 @@ attributes:
     required: false
     desc: |
       Skip updating the Git mirror
+  - name: "git-mirrors-lfs-cache"
+    env_var: |
+      $BUILDKITE_GIT_MIRRORS_LFS_CACHE
+    default_value: |
+      false
+    required: false
+    desc: |
+      Cache Git LFS objects in the Git mirror when Git LFS is enabled for the checkout. The job's LFS objects are fetched into the mirror while its update lock is held, and each checkout reuses them instead of downloading from the LFS server again. Opt-in because it grows the mirror on disk without pruning, extends the time the mirror lock is held, and may not be faster than downloading from the LFS server when the mirror is on a slow or shared network volume. Requires --git-mirrors-path
   - name: "git-checkout-timeout"
     env_var: |
       $BUILDKITE_GIT_CHECKOUT_TIMEOUT
