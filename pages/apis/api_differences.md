@@ -41,7 +41,6 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "ORGANIZATIONS", "organizations" %> [Resend an organization invitation](/docs/apis/graphql/schemas/mutation/organizationinvitationresend).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Revoke a specific API access token's access to an organization](/docs/apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Set up and manage SSO](/docs/platform/sso/sso-setup-with-graphql).
-- <%= pill "ORGANIZATIONS", "organizations" %> [Create and delete system banners](/docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Enforce two-factor authentication for organization members](/docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization).
 - <%= pill "ORGANIZATIONS", "organizations" %> Assign [Buildkite Package Registries to teams](/docs/apis/graphql/schemas/mutation/teamregistrycreate) and update or remove those assignments.
 - <%= pill "PIPELINES", "pipelines" %> [Get the speed, reliability, and builds per week metrics shown on the pipeline dashboard](/docs/apis/graphql/cookbooks/pipelines#get-pipeline-metrics).

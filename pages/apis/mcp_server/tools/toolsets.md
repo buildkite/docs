@@ -34,6 +34,11 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
         "tools": "get_cluster_secret, list_cluster_secrets, create_cluster_secret"
       },
       {
+        "toolset": "cache_registries",
+        "description": "[Cache registries](/docs/apis/mcp-server/tools#available-mcp-tools-cache-registries) management",
+        "tools": "list_cache_registries, get_cache_registry, create_cache_registry, update_cache_registry, set_default_cache_registry, delete_cache_registry"
+      },
+      {
         "toolset": "agents",
         "description": "[Agents](/docs/apis/mcp-server/tools#available-mcp-tools-agents) inspection",
         "tools": "list_agents, get_agent"
@@ -47,6 +52,11 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
         "toolset": "builds",
         "description": "[Builds](/docs/apis/mcp-server/tools#available-mcp-tools-builds) operations",
         "tools": "list_builds, get_build, get_build_test_engine_runs, create_build, cancel_build, rebuild_build, list_jobs, get_job, unblock_job, retry_job, get_job_env"
+      },
+      {
+        "toolset": "investigations",
+        "description": "Build failure summaries and build comparisons",
+        "tools": "get_build_failure_summary, compare_builds"
       },
       {
         "toolset": "logs",
@@ -83,6 +93,9 @@ Also, see [Recommended toolset configurations](#recommended-toolset-configuratio
     <% end %>
   </tbody>
 </table>
+
+> 📘 Cache registries toolset availability
+> The `cache_registries` toolset isn't in Buildkite MCP server v1.24.0 or earlier. If you run the [local MCP server](/docs/apis/mcp-server/local/installing) from a release binary or Docker image, update it to the next release to enable this toolset.
 
 ## Configuring the remote MCP server
 
@@ -360,9 +373,10 @@ For CD/CD management, set the following MCP server toolsets:
 
 ### Debugging and analysis
 
-For debugging and analysis of pipeline builds, set the following MCP server toolsets:
+For a one-call build failure summary, enable `investigations`. For deeper debugging and analysis of pipeline builds, set the following MCP server toolsets:
 
 - `user`
+- `investigations`
 - `builds`
 - `logs`
 - `tests`

@@ -311,6 +311,12 @@ The Buildkite agent automatically propagates the trace through to agent-emitted 
 
 See [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing).
 
+### Automatic configuration through a cluster
+
+Buildkite agents version 3.136.1 or later can automatically receive OpenTelemetry exporter settings from an OpenTelemetry notification service, without setting the flags and environment variables described below. Earlier agent versions don't receive these settings. To use this, associate the notification service with the [cluster](/docs/pipelines/security/clusters) the agents connect to. Learn more in [Automatically configure agent OpenTelemetry tracing for a cluster](/docs/pipelines/security/clusters/manage#automatically-configure-agent-opentelemetry-tracing-for-a-cluster).
+
+Local OTLP destination settings, such as `OTEL_EXPORTER_OTLP_ENDPOINT`, take precedence over exporter settings received this way.
+
 ### Required agent flags / environment variables
 
 To propagate traces from the Buildkite control plane through to the agent running the job, enable OpenTelemetry tracing and set the appropriate environment variables for your OpenTelemetry Collector.

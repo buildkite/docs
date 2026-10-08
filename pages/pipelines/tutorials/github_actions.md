@@ -1,5 +1,7 @@
 # GitHub Actions
 
+For a comparison of Buildkite Pipelines and GitHub Actions, see [Buildkite vs. GitHub Actions](https://buildkite.com/resources/comparison/buildkite-vs-github-actions).
+
 ## Migrating from GitHub Actions to Buildkite
 
 Buildkite Pipelines now supports many of the same GitHub webhook events that GitHub Actions uses as workflow triggers, making incremental migration easier.

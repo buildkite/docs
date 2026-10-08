@@ -49,7 +49,7 @@ bk artifacts download [<artifact-id>] [flags]
 | `-j`, `--job-uuid=STRING` | The job UUID containing the artifact. |
 | `-p`, `--pipeline=STRING` | The pipeline containing the artifact. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
-| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--path=PATH` | Filter artifacts by path. Supports exact matches and * wildcards. Repeat to match any of multiple paths. |
 | `--state=STRING` | Filter artifacts to download by state. Must be one of: new, finished, error, deleted, expired. |
 
 ### Examples
@@ -94,6 +94,12 @@ bk artifacts download --build 429 --path "log/rspec*.json"
 bk artifacts download --build 429 --state finished
 ```
 
+Download artifacts matching either path (each artifact is downloaded once):
+
+```bash
+bk artifacts download --build 429 --path "log/rspec*.json" --path "log/minitest.log"
+```
+
 ## List artifacts
 
 List artifacts for a build or a job in a build.
@@ -117,7 +123,7 @@ bk artifacts list [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
 | `--json` | Output as JSON |
-| `--path=STRING` | Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path "log/rspec*.json"`. |
+| `--path=PATH` | Filter artifacts by path. Supports exact matches and * wildcards. Repeat to match any of multiple paths. |
 | `--state=STRING` | Filter artifacts by state. Must be one of: new, finished, error, deleted, expired. |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -156,4 +162,10 @@ bk artifacts list 429 --path "log/rspec*.json"
 
 ```bash
 bk artifacts list 429 --state finished
+```
+
+List artifacts matching either path (each artifact is listed once):
+
+```bash
+bk artifacts list 429 --path "log/rspec*.json" --path "log/minitest.log"
 ```

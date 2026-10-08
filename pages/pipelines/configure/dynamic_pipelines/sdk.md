@@ -12,6 +12,73 @@ Currently, the Buildkite SDK supports the following languages:
 
 Each of the **Installing** sub-sections below assume that your local environment already has the required language tools installed.
 
+## Share step definitions across pipelines
+
+Use the SDK with ordinary language modules to share individual steps without sharing an entire pipeline. For example, a shared library can define how to build and push a Docker image. Each pipeline then chooses its image name, build context, and other steps. Unlike [pipeline templates](/docs/pipelines/governance/templates), these functions can accept parameters and compose steps at runtime.
+
+The following Python example defines a reusable command step. Use Python 3.10 or later and install the SDK as described in [Python](#python), then save this module alongside your pipeline generator:
+
+```python
+from shlex import quote
+
+
+def docker_image_step(*, key, image, context):
+    return {
+        "label": f"Build and push {image}",
+        "key": key,
+        "command": (
+            f"docker build --tag {quote(image)} {quote(context)}"
+            f" && docker push {quote(image)}"
+        ),
+    }
+```
+{: codeblock-file=".buildkite/shared_steps.py"}
+
+Import the function into a pipeline generator and combine the shared step with pipeline-specific steps:
+
+```python
+from buildkite_sdk import Pipeline
+from shared_steps import docker_image_step
+
+pipeline = Pipeline()
+pipeline.add_step(docker_image_step(
+    key="api-image",
+    image="registry.example.com/api:example-tag",
+    context="services/api",
+))
+pipeline.add_step({"label": "Test API", "command": "./scripts/test-api"})
+print(pipeline.to_yaml())
+```
+{: codeblock-file=".buildkite/api_pipeline.py"}
+
+A second pipeline can import the same function with different parameters:
+
+```python
+from buildkite_sdk import Pipeline
+from shared_steps import docker_image_step
+
+pipeline = Pipeline()
+pipeline.add_step(docker_image_step(
+    key="worker-image",
+    image="registry.example.com/worker:example-tag",
+    context="services/worker",
+))
+print(pipeline.to_yaml())
+```
+{: codeblock-file=".buildkite/worker_pipeline.py"}
+
+Upload each generator's output from its respective pipeline. For example, the API pipeline's upload step is:
+
+```yaml
+steps:
+  - label: "Upload API pipeline"
+    command: "python3 .buildkite/api_pipeline.py | buildkite-agent pipeline upload"
+```
+
+Replace the example registry, image tags, paths, and test command with values for your project. The agents running the generated image steps need Docker and permission to push to the registry. For Amazon ECR, configure ECR authentication on those agents before the step runs; do not put registry credentials in the generated YAML. The image and test steps run independently. Add [step dependencies](/docs/pipelines/configure/depends-on) if a step needs the image first, and use a unique step key for each call within a build.
+
+For pipelines in the same repository, keep the shared module in that repository. To share definitions across repositories, distribute the module as a versioned internal Python package and install a pinned version in each pipeline's generation environment. The same pattern works with Ruby gems, JavaScript packages, or modules in the other supported SDK languages. Test the generated YAML when updating the shared library so consuming pipelines can adopt changes deliberately.
+
 ## JavaScript and TypeScript (Node.js)
 
 This section explains how to install and use the Buildkite SDK for JavaScript and TypeScript ([Node.js](https://nodejs.org/en)-based) projects.

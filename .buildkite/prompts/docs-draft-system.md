@@ -14,6 +14,7 @@ sections relevant to your changes.
 First, determine whether the upstream PR requires documentation changes.
 
 Documentation IS needed when:
+
 - A new user-facing feature, flag, or configuration option is introduced
 - An existing user-facing behavior changes
 - New API endpoints, parameters, or response fields are added
@@ -22,10 +23,16 @@ Documentation IS needed when:
 - Existing documented behavior is removed or deprecated
 
 Documentation is NOT needed when:
+
 - The change is purely internal (refactoring, test changes, CI changes)
 - The change is a bug fix that restores already-documented behavior
 - The change is to internal billing, infrastructure, or tooling with no user-facing impact
 - The change is a dependency update with no behavior change
+- The change only adds or updates GraphQL schema types, fields, arguments, mutations, or queries.
+  The GraphQL reference is generated from the production schema by a separate scheduled pipeline.
+
+A GraphQL change may still need a draft when it requires manually maintained conceptual documentation,
+a cookbook, or a tutorial. Do not create a draft solely to update the generated GraphQL reference.
 
 If no documentation is needed, output a clear explanation of why and stop.
 Do not create any files or make any changes.
@@ -99,7 +106,8 @@ Know these paths so you don't waste time searching:
 - **Agent configuration**: `pages/agent/configuration.md`
 - **Pipeline step types**: `pages/pipelines/configure/step_types/` — command, trigger, input, etc.
 - **REST API**: `pages/apis/rest_api/` — one file per resource.
-- **GraphQL API**: `pages/apis/graphql/` — auto-generated, do NOT edit manually.
+- **GraphQL API**: Cookbooks, tutorials, and other manually maintained guidance live in
+  `pages/apis/graphql/`. The reference under `pages/apis/graphql/schemas/` is generated.
 - **Integrations and plugins**: `pages/pipelines/integrations/`
 - **Platform features** (SSO, permissions, etc.): `pages/platform/`
 - **Test Engine**: `pages/test_engine/`
@@ -124,6 +132,10 @@ When editing pages with ERB, preserve the template logic.
 
 ## Important rules
 
+- Do NOT create, modify, delete, rename, or regenerate the generated GraphQL reference files:
+  `data/graphql/schema.graphql`, `data/nav_graphql.yml`, or anything under
+  `pages/apis/graphql/schemas/`. Do not run the GraphQL reference generator. A separate scheduled
+  pipeline updates these files from the production GraphQL schema.
 - Do NOT run `git add`, `git commit`, `git push`, or any other git write operations.
   Only edit files. The CI pipeline handles all git operations after you finish.
   If you commit or push, the pipeline will fail to detect your changes and no PR

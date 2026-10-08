@@ -5,7 +5,7 @@ description: "Configure the Buildkite Cache public preview to save and restore k
 # Buildkite Cache
 
 > 📘 Public preview feature
-> Buildkite Cache is available in public preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> Buildkite Cache is available in public preview and is enabled for all Buildkite organizations.
 
 Buildkite Cache saves files and directories from Buildkite Pipelines jobs, then restores them in later jobs and builds. Each cache entry has an ordered cache key. A cache store holds the archived data, while a cache registry associated with a [cluster](/docs/pipelines/security/clusters) tracks entries and controls access.
 
@@ -13,7 +13,7 @@ Use Buildkite Cache for data that can be regenerated, such as package manager do
 
 ## Set up Buildkite Cache
 
-When Buildkite Cache is enabled, each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
+Each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
 
 Your jobs must run on clustered agents with Buildkite agent version 3.136.3 or later.
 
@@ -41,7 +41,7 @@ Set `region` to the bucket's region. If you omit it, the agent uses `us-east-1`.
 
 Configure your storage provider to expire cache objects. For Amazon S3, add a lifecycle rule scoped to the cache object prefix (`buildkite` in the example) that expires current object versions three days after their last modification. Also configure cleanup for incomplete multipart uploads and, if bucket versioning is enabled, noncurrent object versions. Configure an equivalent expiration policy for an S3-compatible store.
 
-Buildkite expires cache registry metadata after three days but can't delete objects from your agent-managed store. Successful restores, including fallback restores, refresh an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. The storage lifecycle rule removes objects that are no longer used.
+Buildkite Cache expires cache registry metadata after three days but can't delete objects from your agent-managed store. A restore that matches the exact cache key refreshes an Amazon S3 object's `LastModified` value at most once every 12 hours on a best-effort basis. On Buildkite agent v4.0.2 or later, a fallback restore doesn't refresh `LastModified`, since the restored entry was saved under a different key than the one requested. In v3 and earlier v4 releases, fallback restores still attempt this refresh. The storage lifecycle rule removes objects that are no longer used.
 
 ## Define and use a cache
 
@@ -92,6 +92,64 @@ By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.y
 
 When `buildkite-agent cache save` processes more than one cache, it saves them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
 
+### Skip a command using its cached result
+
+`buildkite-agent cache exec` requires Buildkite agent v4.2.1 or later. The command combines restore and save and skips running the wrapped command when its cached result is already available.
+
+The following cache definition uses the checksum of the source files, `index.html`, static assets in `public`, lockfile, and Vite configuration to identify the build output in `dist`:
+
+```yaml
+caches:
+  - name: "frontend_build"
+    cache_key:
+      - "frontend_build"
+      - checksum:
+          - "src/**"
+          - "index.html"
+          - "public/**"
+          - "package-lock.json"
+          - "vite.config.ts"
+    target_paths:
+      - "dist"
+```
+{: codeblock-file=".buildkite/cache.yml"}
+
+With this definition, the following step skips `vite build` whenever none of these inputs have changed:
+
+```yaml
+steps:
+  - label: "Build"
+    command: "buildkite-agent cache exec --name frontend_build -- vite build"
+```
+{: codeblock-file="pipeline.yml"}
+
+This replaces the following three-step pattern:
+
+```yaml
+steps:
+  - label: "Build"
+    command:
+      - "buildkite-agent cache restore --name frontend_build"
+      - "vite build"
+      - "buildkite-agent cache save --name frontend_build"
+```
+{: codeblock-file="pipeline.yml"}
+
+On a cache hit, `vite build` doesn't run. Instead, `buildkite-agent cache exec`:
+
+- Restores `target_paths`, replacing their existing contents, the same way `buildkite-agent cache restore` does.
+- Replays the command's previous combined stdout and stderr to the build log, in a group whose title shows how much time the replay saved and makes clear the command wasn't run.
+
+On a cache miss, `buildkite-agent cache exec` runs the command. If the command exits successfully, `target_paths` and its combined output are saved together as one cache entry, under the cache key resolved before the command ran. If the command exits with a non-zero status, nothing is saved, and `buildkite-agent cache exec` returns the same exit status.
+
+Only an exact cache key match counts as a hit. If a key part in your cache configuration has `fallback_limit` set, `buildkite-agent cache exec` ignores it when deciding whether to run the command, since replaying a fallback entry's output would misrepresent what actually ran.
+
+An entry created by `buildkite-agent cache exec` has its own address in the cache registry, separate from entries that `buildkite-agent cache save` creates for the same `name`, `cache_key`, and `target_paths`. The two commands don't restore each other's entries.
+
+`buildkite-agent cache exec` only takes one `--name`, and accepts the same `--registry` and `--cache-config-file` options as `buildkite-agent cache save` and `buildkite-agent cache restore`. Cache errors, including a missing cache configuration or an unknown `--name`, don't fail the build: the command runs without caching unless you pass `--cache-fail-on-error`. The exception is a restore that fails after it has started cleaning or extracting into `target_paths`. Since the target paths may then be only partially restored, `buildkite-agent cache exec` fails without running the command, even without `--cache-fail-on-error`.
+
+Because the replayed output is written to stdout, use `buildkite-agent cache exec` only for commands whose output belongs in the build log. Don't capture or pipe its output, for example using `$(buildkite-agent cache exec ...)`, since a cache hit replays the command's stderr output on stdout as well. Saved output is capped at 10 MiB; larger output isn't saved, though the build still continues. The command's output is also redacted the same way the rest of the job's log is, including secrets retrieved with [`secret get`](/docs/agent/cli/reference/secret) or registered with [`redactor add`](/docs/agent/cli/reference/redactor) while the command ran.
+
 ### Configure caches in a monorepo
 
 In a [monorepo](/docs/pipelines/best-practices/working-with-monorepos), give each subproject its own `subproject/.buildkite/cache.yml` instead of a single top-level `cache.yml` for the whole repository. This keeps cache definitions independently configurable for each subproject, and lets Buildkite Cache discover them automatically without selecting entries out of a larger shared file.
@@ -135,7 +193,7 @@ You can't cache an entire working directory, home directory, filesystem root, dr
 
 ## Manage cache registries
 
-A cache registry holds cache entry metadata and controls which jobs can save and restore entries. Registries are scoped to a cluster. Organization administrators and cluster maintainers can manage them.
+A cache registry holds cache entry metadata and controls which jobs can save and restore entries. Registries are scoped to a cluster. Organization administrators and cluster maintainers can manage them using the Buildkite interface, or list, create, update, and delete them using the [GraphQL API](/docs/apis/graphql/cookbooks/clusters#list-cache-registries).
 
 To open the registries for a cluster, select **Agents** > the cluster > **Cache Registries**.
 
@@ -154,7 +212,9 @@ Create another registry when jobs in the cluster need a different access policy 
 > 🚧 Renaming a registry changes its slug
 > Buildkite generates the registry slug from its name. Renaming a registry can break commands that select the old slug explicitly.
 
-To make a registry the cluster default, select **Settings** > **Set as default**. You can't delete the default registry until you select another default.
+To make a registry the cluster default, select **Settings** > **Set as default**, or set `default_cache_registry_uuid` using the REST API's [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster) endpoint. You can't delete the default registry until you select another default.
+
+You can also create, update, and delete cache registries using the [REST API](/docs/apis/rest-api/clusters/cache-registries) or the [GraphQL API](/docs/apis/graphql/cookbooks/clusters#create-a-cache-registry). The REST API accepts the cache policy as a JSON object, and the GraphQL API accepts it as a JSON-encoded string of a structured policy document. Neither API accepts authored YAML. Use the web interface to configure cache stores.
 
 > 🚧 Changing a cache store removes cache keys
 > Changing a registry's cache store removes its existing cache keys. Subsequent restores miss until jobs save new entries.
@@ -263,6 +323,6 @@ Buildkite Cache uses the following save and restore behavior:
 - Restore checks the exact key first, then progressively removes optional trailing key parts up to the configured fallback limit. The newest matching entry is restored.
 - A miss leaves existing target paths unchanged and exits successfully.
 - A missing, corrupted, or unrecognized stored archive is treated as a miss and isn't extracted.
-- Cache registry entries expire three days after creation or their latest exact restore. A fallback restore doesn't extend an entry's expiration. Buildkite doesn't delete stored objects when registry entries expire. For agent-managed stores, the storage provider lifecycle policy controls object deletion.
+- Cache registry entries expire three days after creation or their latest exact restore. A fallback restore doesn't extend an entry's expiration. On Buildkite agent v4.0.2 or later, it also doesn't refresh the retention of the underlying object in the cache store. In v3 and earlier v4 releases, fallback restores still attempt to refresh object retention. Buildkite Cache doesn't delete stored objects when registry entries expire. For agent-managed stores, the storage provider lifecycle policy controls object deletion.
 
 Treat caches as temporary performance optimizations. Build and test commands must continue to work after a cache miss.

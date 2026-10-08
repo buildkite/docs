@@ -77,6 +77,12 @@ Older Xcode versions are removed from base images over time. Some older Xcode ve
 
 If your queue has an Xcode version pinned that is no longer available, a warning is displayed on the queue list and queue settings pages: "Xcode {version} is no longer available for this macOS version. Your agents may fail to start until you update the base image of your queue." To resolve the warning, navigate to the queue's **Base image** settings and select an available Xcode version.
 
+### Docker support
+
+macOS hosted agents include the Docker CLI (through the `docker` and `docker-buildx` [Homebrew packages](#homebrew-packages)), but do not include a running Docker daemon. Commands that require a Docker daemon, such as `docker build` or `docker run`, fail with an error like `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` unless the job connects to a Docker daemon that you provide.
+
+To build Docker images, run these jobs on [Linux hosted agents](/docs/agent/buildkite-hosted/linux), which support Docker image builds (including [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) on the Enterprise plan), or on [self-hosted agents](/docs/agent/self-hosted), where you control the Docker installation.
+
 ## Homebrew packages
 
 Each macOS base image comes with a set of Homebrew packages pre-installed, such as `git`, `jq`, `fastlane`, `cocoapods`, and `xcbeautify`. The packages and their versions vary by macOS version. For the full list of packages and versions in each base image, see the [Mac hosted agent image explorer](https://buildkite.com/platform/pipelines/hosting-options/mac-hosted-agents/images/).

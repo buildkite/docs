@@ -1,1 +1,1 @@
-FROM jdkato/vale:v3.22.0
+FROM jdkato/vale:v3.24.0
