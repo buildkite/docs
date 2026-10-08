@@ -71,6 +71,7 @@ boolean
 Boomper
 bottlenecked
 Brewfile
+Bugsnag
 Buildbox
 buildevents
 Buildah

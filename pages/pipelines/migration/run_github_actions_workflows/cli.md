@@ -232,7 +232,7 @@ Validation may use the public network to resolve actions. It doesn't install Nod
 
 ## Migrate GitHub Actions secrets
 
-For the step-by-step workflow using the `bk secret migrate github-actions` command of the Buildkite CLI, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). This section describes the equivalent `buildkite-gha migrate-secrets` command.
+For the step-by-step workflow using the `bk secret migrate github-actions` command of the Buildkite CLI, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). This section describes the equivalent `buildkite-gha migrate-secrets` command. Prefer the Buildkite CLI command for new migrations. The two commands generate compatible workflows, so either CLI can run a migration workflow that the other prepared.
 
 The GitHub API lists repository secret names but can't export their values. The `migrate-secrets` command uses `gh` and `bk` to generate and run a reviewable, one-use workflow without storing a Buildkite API token in GitHub.
 
@@ -394,9 +394,9 @@ The hidden, zero-argument `buildkite-gha plugin` entry point reads plugin config
 
 Unknown fields fail.
 
-### Private-preview pipeline trigger selection
+### Pipeline trigger selection
 
-Server-selected workflow imports are available only in private-preview GitHub Actions pipeline trigger builds. To set up a GitHub Actions pipeline trigger, see [Trigger builds from workflow events](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events).
+Server-selected workflow imports run in builds created by a GitHub Actions pipeline trigger. To set up a GitHub Actions pipeline trigger, see [Trigger builds from workflow events](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events).
 
 Without an explicit selector, `BUILDKITE_GITHUB_WORKFLOW_PATH` marks a GitHub Actions pipeline trigger selection. The server also supplies:
 
@@ -551,9 +551,9 @@ Linux arm64 mappings always require an explicit queue and never fall back to an 
 
 The hosted preset accepts runner labels case-insensitively, so aliases such as `macOS-latest` and `Ubuntu-Latest` are equivalent to their lowercase forms. Local presets use Noble for `ubuntu-latest` and `ubuntu-24.04`, and Jammy for `ubuntu-22.04`. Backend resolution can instead select a native Linux environment through agent tags. Use `--runner-image` with an immutable digest to override the preset for a configured profile; backend tags never replace that explicit image. An explicit mapping declares its selector's platform from the known Linux, macOS, and Windows labels. The importer validates its queue and hosted platform through the job-scoped Agent API before upload, preserving the configured image and cache. An import using explicit mappings stops if that validation is unavailable. The Agent API owns compatibility and returns the complete target for every other selector. The importer publishes returned warnings as annotations. See [Compatibility](/docs/pipelines/migration/run-github-actions-workflows/compatibility#job-syntax-job-configuration) for runner behavior. Runtime distribution paths must be absolute executables. The importer's platform defaults to its running executable; other platforms have no direct-upload default. `BUILDKITE_GHA_TARGET_QUEUE` and `BUILDKITE_GHA_RUNTIME_IMAGE` are no longer supported.
 
-Without Agent API resolution, unmapped supported Linux labels retain default agent targeting with the preset image, `macos-latest` falls back to the hosted `macos-medium` queue, and `macos-14` and `macos-15` accept explicit fallback queues. Experimental `windows-latest` and `windows-2022` jobs require explicit queues or enabled Agent API resolution; they have no local preset.
+Without Agent API resolution, unmapped supported Linux labels retain default agent targeting with the preset image, `macos-latest` falls back to the hosted `macos-medium` queue, and `macos-14` and `macos-15` accept explicit fallback queues. The `windows-latest` and `windows-2022` jobs require explicit queues or enabled Agent API resolution; they have no local preset.
 
-For [experimental Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#experimental-windows-jobs), map the workflow's label to an existing compatible Windows queue. For example, this plugin configuration imports a workflow using `runs-on: windows-2022`:
+For [Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs), map the workflow's label to an existing compatible Windows queue. For example, this plugin configuration imports a workflow using `runs-on: windows-2022`:
 
 ```yaml
 steps:
@@ -569,7 +569,7 @@ steps:
               queue: my-windows-queue
 ```
 
-Replace both queue names with queues in your pipeline's cluster. The importer runs on Linux or macOS, not Windows. If the workflow uses `windows-latest`, use that label in the mapping instead. For automatic routing, omit the Windows `runners` entry only after checking the [access and queue requirements](/docs/pipelines/migration/run-github-actions-workflows/compatibility#experimental-windows-jobs-configure-a-windows-runner).
+Replace both queue names with queues in your pipeline's cluster. The importer runs on Linux or macOS, not Windows. If the workflow uses `windows-latest`, use that label in the mapping instead. For automatic routing, omit the Windows `runners` entry only after checking the [access and queue requirements](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs-configure-a-windows-runner).
 
 For direct CLI upload from a Buildkite job, also supply the Windows x86-64 runtime executable from the same release, at an absolute path on the importer:
 
@@ -650,3 +650,26 @@ Buildkite adds organization, pipeline, build, and job identifiers on the server.
 Diagnostic messages and error output can include details already printed in the job log, such as workflow paths, action references, expressions, or invalid configuration values. Avoid putting secrets in error messages. Disable telemetry when this diagnostic context must stay inside the job.
 
 Set `BUILDKITE_GHA_TELEMETRY_DISABLED=true` to disable telemetry. A missing Agent endpoint, job ID, or job token also disables it. Telemetry failures don't change command results.
+
+### Bugsnag error reports
+
+In `buildkite-gha` releases later than v0.100.0, when a Bugsnag ingestion key is configured, the client sends best-effort error reports directly to `https://notify.bugsnag.com`, independently of the Agent API. Tagged `buildkite-gha` releases embed the key at build time. The `BUGSNAG_API_KEY` environment variable overrides the embedded key. Without a valid key, no reports are sent. Setting `BUILDKITE_GHA_TELEMETRY_DISABLED=true` disables both Bugsnag reporting and completion telemetry.
+
+Reports cover unexpected runtime errors, runtime integrity and token-acquisition failures, final artifact and pipeline uploads during the initial workflow import, and authoritative result-publication failures. Deferred-stage and skipped-job uploads aren't instrumented.
+
+The following are excluded from reports:
+
+- Ordinary workflow process exits, including tolerated failures.
+- Unsupported features and import validation errors.
+- Classified runtime file-command and output validation errors.
+- Secret-availability errors.
+- Caller cancellation.
+- Workflow-owned job and step timeouts.
+
+Agent HTTP client timeouts and cleanup deadlines remain reportable. Excluded branches of joined errors don't suppress independent unexpected failures. Warnings and unhandled panics aren't reported. Container termination failures remain reportable even when the job tolerates the step failure. Reporting doesn't change `continue-on-error` behavior.
+
+Reports contain the CLI version, error type, stack locations, command, failure phase and code, valid Buildkite build and job IDs, and the applicable Agent API status. Development versions use the `development` release stage, and other versions use `production`. Standard Go errors have a stack at the reporting boundary, not the original failure site. Wrapped and joined errors retain the first captured stack in depth-first order when available. Command, phase, and failure code are part of the error class, so different categories don't share a group only because they reach the same reporting boundary.
+
+Reports omit raw error messages and causes, job output, diagnostics, workflow and event contents, other environment values, and the hostname. Detailed error text remains in the job log. Automatic session tracking and the process-forking panic handler of the SDK aren't enabled.
+
+Delivery is synchronous, with a 1.5-second network timeout per report, no retries, and no redirects. Reporting failures are silent and don't change command results.

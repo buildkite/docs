@@ -79,7 +79,7 @@ Prebuilt Docker action metadata can name a public `docker://` image. The action 
 
 Action locks record a sorted, unique `executable_paths` list alongside the source digest. Paths are relative to the local action directory for workspace actions, and to the entire repository for GitHub actions, including substituted `actions/cache` releases. The plan digest binds this metadata. An absent list uses filesystem modes. An explicit empty list records no executable files. The compiler and plan validator limit the sum of executable path lengths to 1 MiB per action graph or job plan, counting each distinct lock's list. Reusing one lock doesn't consume the budget again.
 
-Linux and macOS verification always reads executable bits from the filesystem, so declared paths can't hide mode changes. On [experimental Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#experimental-windows-jobs), where Unix modes aren't preserved, the source verifier uses the recorded paths instead. Content, additions, removals, and special files remain checked. Cache manifests keep their existing format and must match the verified tree. Stale or mismatched manifests fail rather than being rewritten from provenance.
+Linux and macOS verification always reads executable bits from the filesystem, so declared paths can't hide mode changes. On [Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs), where Unix modes aren't preserved, the source verifier uses the recorded paths instead. Content, additions, removals, and special files remain checked. Cache manifests keep their existing format and must match the verified tree. Stale or mismatched manifests fail rather than being rewritten from provenance.
 
 Plans without `executable_paths` remain readable. New plans require the matching runtime: `run-job` still rejects a compiler and runtime version mismatch. This optional field doesn't make plans portable between CLI versions.
 
@@ -160,13 +160,14 @@ Anyone who can change and run the default-branch workflow can read the selected 
 
 ### GitHub token
 
-Token issuance requires a Buildkite organization feature and a default-off pipeline setting. Buildkite Pipelines reads only the top-level workflow permission policy from the pipeline repository at the build's immutable commit.
+Token issuance requires the pipeline's **Allow workflow-authorized GitHub access tokens** setting, which is off by default for existing pipelines. Buildkite Pipelines issues tokens only to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted). Buildkite Pipelines reads only the top-level workflow permission policy from the pipeline repository at the build's immutable commit.
 
 Important limits:
 
 - Omitted permissions mean exactly `contents: read`. GitHub repository and organization defaults aren't inherited.
 - Write access requires an explicit top-level map.
-- `read-all` and `write-all` expand to the 13 supported repository scopes. They don't include `id-token` or unsupported aliases.
+- `read-all` expands to the 13 supported repository scopes with read access. It doesn't include `id-token` or unsupported aliases.
+- `write-all` is rejected and creates no token.
 - An empty map, or a map containing only `none`, creates no token.
 - Job-level and called-workflow repository maps don't narrow or expand the token. Reusable jobs use the top-level requesting workflow's permissions.
 - Pull requests have a `contents: read` ceiling. Merge queues are denied.
@@ -219,6 +220,10 @@ Checkout paths are relative to the workspace. Traversal, `.git` path segments, a
 Git owns submodule parsing and recursion, so keep Git current and prefer a pinned job image.
 
 Command scoping limits accidental spread. It doesn't stop a hostile concurrent process under the same job identity from reaching the agent or credential helper. Use a separate UID, sandbox, or pre-job credential broker for that boundary.
+
+## Error-reporting boundary
+
+Configured clients send [Bugsnag error reports](/docs/pipelines/migration/run-github-actions-workflows/cli#disable-telemetry-bugsnag-error-reports) directly to Bugsnag, not through the job-authenticated Agent API. Job-log redaction doesn't protect HTTP payloads, so reports omit raw messages and causes rather than relying on log masks. An embedded ingestion key is public to anyone who receives the binary, and build outputs such as release binaries can contain it.
 
 ## Operator checklist
 
