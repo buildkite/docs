@@ -76,9 +76,6 @@ query getAgentTokens {
 
 ## List cache registries
 
-> 📘 Public preview
-> The cache registries API is available to all Buildkite customers in public preview.
-
 Get the first ten [cache registries](/docs/pipelines/configure/cache#manage-cache-registries) for a particular cluster, specifying the cluster's UUID as the `id` argument of the `cluster` query:
 
 ```graphql
