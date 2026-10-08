@@ -15,7 +15,7 @@ Use Buildkite Cache for data that can be regenerated, such as package manager do
 
 Each cluster has a cache registry named **Default**. Jobs use this registry unless you [select another registry](#manage-cache-registries-select-a-cache-registry).
 
-Your jobs must run on clustered agents with Buildkite agent version 3.136.3 or later.
+Your jobs must run on clustered agents with Buildkite agent version 4.0.3 or later.
 
 ### Buildkite hosted agents
 
@@ -76,7 +76,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-A normal cache miss exits successfully, so the job continues to `npm ci`. Configuration, storage, and extraction errors cause the cache command to fail. In the example, the save command doesn't overwrite an entry that already exists at the same address.
+A normal cache miss exits successfully, so the job continues to `npm ci`. Configuration, storage, and extraction errors are logged and skipped, so they don't fail the job, unless you pass `--cache-fail-on-error`. In the example, the save command doesn't overwrite an entry that already exists at the same address.
 
 To save updated cache contents without changing the cache key, add `--force`. This option requires Buildkite agent v4.0.2 or later and is not available in v3:
 
