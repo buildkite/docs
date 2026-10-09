@@ -1650,6 +1650,36 @@ type Build implements Node {
   The time when the build finished
   """
   finishedAt: DateTime
+
+  """
+  Name from the selected workflow source, or its path when unnamed.
+  """
+  githubWorkflowName: String
+
+  """
+  Path of the workflow source fetched and selected by the server.
+  """
+  githubWorkflowPath: String
+
+  """
+  Ref context at workflow selection. Does not prove SHA membership or authenticate the event.
+  """
+  githubWorkflowRef: String
+
+  """
+  Repository name at workflow selection (owner/name), not the current pipeline repository.
+  """
+  githubWorkflowRepository: String
+
+  """
+  Stable GitHub repository ID of the server-selected workflow source. Null for unverified historical builds.
+  """
+  githubWorkflowRepositoryId: ID
+
+  """
+  Immutable commit SHA of the selected workflow source, independent of the checkout commit. Does not attest executed code.
+  """
+  githubWorkflowSha: String
   id: ID!
   jobs(
     """
