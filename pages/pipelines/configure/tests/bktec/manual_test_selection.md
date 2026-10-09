@@ -44,7 +44,7 @@ The Tests Buildkite plugin runs a selection command that you provide before the 
 
     Setting `manual-selection-command` sets the selection strategy to `manual`, so the step doesn't need any selection flags.
 
-Each parallel job runs the selection command, and the jobs in a step share one test plan, so the command must print the same list in every job. If the command fails, the job fails. If the command prints no tests, the jobs pass without running any tests.
+Each parallel job runs the selection command. The jobs in a step share one test plan, so the command must print the same list in every job. If the command fails, the job fails. If the command prints no tests, the jobs pass without running any tests.
 
 If none of the listed selectors match a test that bktec discovers, `bktec run` and `bktec plan` fail. To pass the job even when nothing matches, set `fail-on-no-tests: false` in the plugin configuration. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
 
@@ -113,12 +113,13 @@ steps:
 
 ## Use manual selection without the plugin
 
-If you don't use the Tests Buildkite plugin, pass the selection to bktec yourself. Set the selection strategy with `--selection-strategy manual` or `BUILDKITE_TEST_ENGINE_SELECTION_STRATEGY=manual`, and pass the newline-separated selectors with `--selection-param "selectors=..."` or, from bktec v3.3.0, the `BUILDKITE_TEST_ENGINE_SELECTION_SELECTORS` environment variable. For example:
+If you don't use the Tests Buildkite plugin, pass the selection to bktec yourself. Set the selection strategy with `--selection-strategy manual` or `BUILDKITE_TEST_ENGINE_SELECTION_STRATEGY=manual`. Pass the newline-separated selectors with `--selection-param "selectors=..."` or, from bktec v3.3.0, the `BUILDKITE_TEST_ENGINE_SELECTION_SELECTORS` environment variable. For example:
 
 ```bash
+selectors="$(.buildkite/select-tests.sh)" || exit "$?"
 bktec run \
   --selection-strategy manual \
-  --selection-param "selectors=$(.buildkite/select-tests.sh)"
+  --selection-param "selectors=$selectors"
 ```
 
 Keep the double quotes around the `--selection-param` value, so that the newlines between selectors are preserved. Passing selectors with `--selection-param` requires bktec v3.2.1 or later.
