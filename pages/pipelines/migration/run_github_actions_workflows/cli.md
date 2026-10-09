@@ -4,7 +4,7 @@ description: "Use the buildkite-gha CLI to validate GitHub Actions workflows, co
 
 # Use the buildkite-gha CLI
 
-The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/) is the easiest way to run `buildkite-gha`. Use the CLI directly when you need to validate a workflow, inspect generated output, or build a custom importer.
+The [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) is the easiest way to run `buildkite-gha`. Use the CLI directly when you need to validate a workflow, inspect generated output, or build a custom importer.
 
 | Command | Use it to |
 | --- | --- |
