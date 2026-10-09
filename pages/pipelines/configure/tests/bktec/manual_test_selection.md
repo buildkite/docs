@@ -4,128 +4,112 @@ Manual test selection runs only the tests you list, instead of the full test sui
 
 bktec still discovers the full suite and sends it to Test Engine as the set of _candidates_. Test Engine keeps the candidates that match your list, then splits the selected tests across your parallel jobs using historical timing data. You can [review the selection on the build's Orchestration page](#review-selection-in-orchestration).
 
-Manual test selection requires bktec v3.2.1 or later, and works with every runner that bktec supports.
+Manual test selection works with every runner that bktec supports. The setup on this page uses the `manual-selection-command` option of the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/), which requires version 1.1.0 or later of the plugin and bktec v3.3.0 or later.
 
 ## Set up manual test selection
 
-The recommended setup uses two steps. The first step generates the list of tests to run and saves it as an [artifact](/docs/pipelines/configure/artifacts). The second step downloads the list and passes it to `bktec run`, so that every parallel job uses the same list.
+The Tests Buildkite plugin runs a selection command that you provide before the step's command, and passes the tests that the command prints to bktec.
 
-1. Create a `.buildkite/select-tests.sh` script that writes the tests to run to `tests-to-run.txt`, one [selector](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-selector-based-test-splitting) per line. For most test runners, a selector is the test file path. The following example selects the RSpec spec files changed on the current branch. Replace the `git diff` command with your own selection logic:
+1. Create a `.buildkite/select-tests.sh` script that prints the tests to run, one [selector](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#using-bktec-selector-based-test-splitting) per line. For most test runners, a selector is the test file path. The following example prints the RSpec spec files changed on the current branch. Replace the `git diff` command with your own selection logic:
 
     ```bash
     #!/usr/bin/env bash
     set -euo pipefail
 
     base_branch="${BUILDKITE_PULL_REQUEST_BASE_BRANCH:-main}"
-    git fetch origin "${base_branch}"
+    git fetch origin "${base_branch}" >&2
 
-    # Select the spec files that were added or changed on this branch
+    # Print the spec files that were added or changed on this branch
     git diff --name-only --diff-filter=d --relative \
-      "origin/${base_branch}...HEAD" -- '*_spec.rb' > tests-to-run.txt
+      "origin/${base_branch}...HEAD" -- '*_spec.rb'
     ```
+
+    The plugin treats each line that the command prints to standard output as a selector, so send any other output to standard error. Make the script executable with `chmod +x .buildkite/select-tests.sh`.
 
     List each selector as bktec discovers it. Selectors are relative to the directory that bktec runs in, without a location prefix. If bktec runs in a subdirectory, such as `backend` in a monorepo, replace `--relative` with `--relative=backend`.
 
-1. Create a `.buildkite/run-selected-tests.sh` script that downloads the list and runs bktec with the `manual` selection strategy:
-
-    ```bash
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    buildkite-agent artifact download tests-to-run.txt .
-
-    if ! grep -q '[^[:space:]]' tests-to-run.txt; then
-      echo "No tests selected for this build"
-      exit 0
-    fi
-
-    "${BUILDKITE_TEST_ENGINE_CLIENT_PATH:-bktec}" run \
-      --selection-strategy manual \
-      --selection-param "selectors=$(cat tests-to-run.txt)"
-    ```
-
-    Keep the double quotes around the `--selection-param` value, so that the newlines between selectors are preserved.
-
-1. Add both steps to your `pipeline.yml` file. Use the [Tests Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/tests-buildkite-plugin/) on the test step to install bktec, authenticate with OIDC, and upload results:
+1. Add a step to your `pipeline.yml` file that runs `bktec run` with the Tests Buildkite plugin, and set `manual-selection-command` to the script:
 
     ```yaml
     steps:
-      - label: "Select tests"
-        key: "select-tests"
-        command: ".buildkite/select-tests.sh"
-        artifact_paths: "tests-to-run.txt"
-
       - label: "Run selected tests"
-        depends_on: "select-tests"
-        command: ".buildkite/run-selected-tests.sh"
+        command: "bktec run"
         parallelism: 10
         plugins:
-          - tests#v1.0.0:
+          - tests#v1.1.0:
               test-runner: rspec
               result-path: tmp/rspec-result.json
+              manual-selection-command: ".buildkite/select-tests.sh"
     ```
 
-If none of the listed selectors match a test that bktec discovers, `bktec run` and `bktec plan` fail. To pass the job even when nothing matches, set `--fail-on-no-tests=false` or `BUILDKITE_TEST_ENGINE_FAIL_ON_NO_TESTS=false`. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
+    Setting `manual-selection-command` sets the selection strategy to `manual`, so the step doesn't need any selection flags.
+
+Each parallel job runs the selection command. The jobs in a step share one test plan, so the command must print the same list in every job. If the command fails, the job fails. If the command prints no tests, the jobs pass without running any tests.
+
+If none of the listed selectors match a test that bktec discovers, `bktec run` and `bktec plan` fail. To pass the job even when nothing matches, set `fail-on-no-tests: false` in the plugin configuration. When fewer tests are selected than there are parallel jobs, the remaining jobs exit without running tests. To size the step to the selected tests, [use dynamic parallelism](#use-manual-selection-with-dynamic-parallelism).
 
 ## Use manual selection with dynamic parallelism
 
-To size the test step to the selected tests, pass the same selection flags to `bktec plan`, and set a maximum parallelism and target time. bktec creates the test plan, then uploads the test step with the parallelism needed to reach the target time. Learn more in [Dynamic parallelism](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#dynamic-parallelism).
+To size the test step to the selected tests, run the selection command on a planning step that runs `bktec plan`, and set a maximum parallelism and target time. bktec creates the test plan, then uploads the test step with the parallelism needed to reach the target time. The selection command only runs once, on the planning step. Learn more in [Dynamic parallelism](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#dynamic-parallelism).
 
 ```yaml
 steps:
-  - label: "Select tests"
-    key: "select-tests"
-    command: ".buildkite/select-tests.sh"
-    artifact_paths: "tests-to-run.txt"
-
   - label: "Plan selected tests"
     key: "plan-selected-tests"
-    depends_on: "select-tests"
-    command: ".buildkite/plan-selected-tests.sh"
+    command: "bktec plan --pipeline-upload .buildkite/selected-tests-template.yml"
     plugins:
-      - tests#v1.0.0:
+      - tests#v1.1.0:
           test-runner: rspec
           result-path: tmp/rspec-result.json
           max-parallelism: 10
           target-time: 2m
+          manual-selection-command: ".buildkite/select-tests.sh"
 ```
 {: codeblock-file="pipeline.yml"}
 
-The planning script runs `bktec plan` with the selected tests:
-
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-buildkite-agent artifact download tests-to-run.txt .
-
-if ! grep -q '[^[:space:]]' tests-to-run.txt; then
-  echo "No tests selected for this build"
-  exit 0
-fi
-
-"${BUILDKITE_TEST_ENGINE_CLIENT_PATH:-bktec}" plan \
-  --selection-strategy manual \
-  --selection-param "selectors=$(cat tests-to-run.txt)" \
-  --pipeline-upload .buildkite/selected-tests-template.yml
-```
-{: codeblock-file=".buildkite/plan-selected-tests.sh"}
-
-The pipeline template runs the `.buildkite/run-selected-tests.sh` script from the [setup steps](#set-up-manual-test-selection) with the plan that `bktec plan` created:
+The pipeline template runs the plan that `bktec plan` created. The test step doesn't need `manual-selection-command`, because the plan already contains the selected tests:
 
 ```yaml
 steps:
   - label: "Run selected tests"
-    command: ".buildkite/run-selected-tests.sh"
+    command: "bktec run"
     depends_on: "plan-selected-tests"
     parallelism: ${BUILDKITE_TEST_ENGINE_PARALLELISM}
     plugins:
-      - tests#v1.0.0:
+      - tests#v1.1.0:
           test-runner: rspec
           result-path: tmp/rspec-result.json
           plan-identifier: ${BUILDKITE_TEST_ENGINE_PLAN_IDENTIFIER}
 ```
 {: codeblock-file=".buildkite/selected-tests-template.yml"}
+
+If the selection command prints no tests, `bktec plan` doesn't upload the test step.
+
+## Run selected tests in Docker
+
+The plugin runs the selection command on the agent before the step's command, and passes the selected tests to bktec in the `BUILDKITE_TEST_ENGINE_SELECTION_SELECTORS` environment variable. When bktec runs inside a container using the [Docker plugin](https://buildkite.com/resources/plugins/buildkite-plugins/docker-buildkite-plugin/), add this variable to the Docker plugin's `environment` attribute. The Docker plugin's `propagate-environment` option doesn't pass it to the container. Without this variable, bktec sends no selectors and the job fails.
+
+```yaml
+steps:
+  - label: "Run selected tests"
+    command: "bktec run"
+    parallelism: 10
+    plugins:
+      - tests#v1.1.0:
+          test-runner: rspec
+          result-path: tmp/rspec-result.json
+          client-os: linux
+          manual-selection-command: ".buildkite/select-tests.sh"
+      - docker#v5.13.0:
+          image: "ruby:3.4"
+          expand-volume-vars: true
+          volumes:
+            - "$$BUILDKITE_TEST_ENGINE_CLIENT_PATH:/usr/local/bin/bktec"
+          propagate-environment: true
+          environment:
+            - BUILDKITE_TEST_ENGINE_SELECTION_SELECTORS
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Check the selection in the job log
 
