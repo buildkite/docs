@@ -55,11 +55,11 @@ After completing all the relevant [Before you start](#before-you-start) steps ab
    # Start the app on port 3000
    foreman start
 
-   # Alternatively, to start the app on a port other than 3000 (e.g. 3010)
+   # Alternatively, to start the app on a port other than 3000, such as 3010
    WEB_PORT=3010 foreman start
    ```
 
-   **Note:** After stopping the non-containerized server, simply run your `foreman start` command again to re-start the server again. If, however, the `foreman start` command fails to run successfully, try re-running the `bin/setup` command again to update any dependencies before running your `foreman start` command again.
+   **Note:** After stopping the non-containerized server, run your `foreman start` command to restart it. If the `foreman start` command fails, try re-running `bin/setup` to update any dependencies before starting the server again.
 
    For containerized development, run the following:
 

@@ -70,7 +70,7 @@ When you cache with [Buildkite Cache](/docs/pipelines/configure/cache), most of 
 
 - Order key parts from coarse to fine. A restore drops optional parts from the end of the key, so put stable values such as the cache name, operating system, and architecture first, and the most specific value, such as a lockfile checksum, last.
 - Mark the part immediately before your lockfile checksum with `fallback_limit: true`. A lockfile change then still restores the previous set of dependencies, and the install command reconciles the difference instead of starting from nothing.
-- Restore before the command that needs the data, and save after that command has populated the target path. A cache miss exits successfully, so the build carries on either way.
+- Restore before the command that needs the data, and save after that command has populated the target path. A cache miss exits successfully, so the build carries on either way. For a command whose result you can skip entirely on a cache hit, use [`buildkite-agent cache exec`](/docs/pipelines/configure/cache#define-and-use-a-cache-skip-a-command-using-its-cached-result) instead of separate restore and save steps.
 - Change a literal part of the key, such as bumping `v1` to `v2`, when you need to invalidate a cache. An entry is written once per address, so saving again won't refresh an entry that already exists.
 - Keep target paths narrow. A restore deletes each target before extracting into it, so cache a dependency directory rather than a whole working directory.
 - Expect misses in pipelines that build infrequently. Entries expire three days after they're created or last restored by an exact key match, and a fallback restore doesn't extend that.

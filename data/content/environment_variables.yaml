@@ -258,6 +258,19 @@ variables:
       - strict
       - warn
       - off
+  - name: BUILDKITE_GIT_FETCH_BASE_BRANCH
+    desc: |
+      Controls whether the agent fetches the base branch during checkout, so that commands in the job can diff against its current tip instead of a ref left over from an earlier build. The base branch is the first non-empty value of [`BUILDKITE_PULL_REQUEST_BASE_BRANCH`](#BUILDKITE_PULL_REQUEST_BASE_BRANCH) or [`BUILDKITE_PIPELINE_DEFAULT_BRANCH`](#BUILDKITE_PIPELINE_DEFAULT_BRANCH). The agent skips the fetch when the branch being built is the base branch itself.
+
+      The value `optimistic` fetches the base branch before the job's commands run, and warns without failing the job if the fetch fails. The value `strict` fails the job if the fetch fails, including when no base branch can be determined. The value `off` skips the extra fetch.
+
+      Set from the agent's `--git-fetch-base-branch` [configuration option](/docs/agent/self-hosted/configure#git-fetch-base-branch), which requires Buildkite agent v4.2.0 or later. Whether a job can override this value depends on the agent's `checkout-override-mode`. In `from-job` mode (the default), hooks and plugins can change the value, and a pipeline or step `env` can set it only when the agent leaves it at `off`. In `none` mode, any source can override the value, including setting `off`. In `strict` mode, the agent's value always applies. See [Fetching the base branch](/docs/pipelines/configure/git-checkout#fetching-the-base-branch) for details.
+    modifiable: true
+    values:
+      - "off"
+      - optimistic
+      - strict
+    default_value: "off"
   - name: BUILDKITE_GIT_FETCH_FLAGS
     desc: |
       The value of the `git-fetch-flags` [agent configuration option](/docs/agent/self-hosted/configure). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks. Setting this variable or the `checkout.flags.fetch` key in pipeline YAML requires the agent to run with `checkout-override-mode` set to `none`.
