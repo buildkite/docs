@@ -46,7 +46,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If your organization has more than one Slack Workspace integration, prefix Slack IDs with the workspace slug (`workspace-slug@ID`, `workspace-slug#channel-name`). You can find the slug on the Slack Workspace integration's settings page.
+If your organization has more than one Slack Workspace integration, prefix Slack IDs in build-level notifications with the workspace slug (`workspace-slug@ID`, `workspace-slug#channel-name`). You can find the slug on the Slack Workspace integration's settings page.
 
 ### Mentions in build notifications
 
