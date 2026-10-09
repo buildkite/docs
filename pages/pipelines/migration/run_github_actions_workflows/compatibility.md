@@ -709,7 +709,7 @@ A workflow with workflow-level `concurrency` cannot hold a matrix from `fromJSON
 
 When workflow-level `cancel-in-progress` is `true`, Pipelines warns and leaves superseded builds running. The same behavior applies when an expression resolves to `true` and when a called workflow sets it. Job-level `cancel-in-progress` is unsupported.
 
-To cancel earlier running builds on the same branch, turn on [Cancel Intermediate Builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) under pipeline **Settings** > **Builds**. This setting works by branch, not by concurrency group.
+In an explicit-workflow pipeline, to cancel earlier running builds on the same branch, turn on [Cancel Intermediate Builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) under pipeline **Settings** > **Builds**. This setting works by branch, not by concurrency group. Leave it disabled for server-side dispatch, where it can cancel sibling workflow builds from the same event.
 
 Cancel the whole Buildkite build rather than one job when a workflow-level concurrency gate is active.
 
