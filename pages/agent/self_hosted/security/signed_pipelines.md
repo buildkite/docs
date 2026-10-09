@@ -42,10 +42,11 @@ The following fields are included in the signature for each step:
 
 You'll need to configure your agents and update pipeline definitions to enable signed pipelines.
 
-Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatracker.ietf.org/doc/html/rfc7797) to generate signatures. There are two options for creation of keys used with JWS, these are:
+Behind the scenes, signed pipelines use [JSON Web Signing (JWS)](https://datatracker.ietf.org/doc/html/rfc7797) to generate signatures. There are three options for creation of keys used with JWS, these are:
 
-- Self managed key pairs
-- AWS KMS managed keys
+- [Self-managed key pairs](#self-managed-key-creation)
+- [AWS KMS managed keys](#aws-kms-managed-key-setup)
+- [GCP KMS managed keys](#gcp-kms-managed-key-setup)
 
 ## Self-managed key creation
 
@@ -112,7 +113,7 @@ verification-jwks-file=<path to public key set>
 This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
 
 ```ini
-verification-failure-behavior=<warn>
+verification-failure-behavior=warn
 ```
 
 This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
@@ -202,7 +203,7 @@ signing-aws-kms-key=<key id or alias>
 This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key you generated earlier. It also ensures that those agents verify the signatures of any steps they run, using the public key.
 
 ```ini
-verification-failure-behavior=<warn>
+verification-failure-behavior=warn
 ```
 
 This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
@@ -223,7 +224,6 @@ buildkite-agent tool sign \
 Replacing the following:
 
 - `<token>` with a Buildkite GraphQL token that has the `write_pipelines` scope.
-- `<path to signing jwks>` with the path to the private key set you generated earlier.
 - `<key id or alias>` with the AWS KMS key ID or alias created earlier.
 - `<org slug>` with the slug of the organization the pipeline is in.
 - `<pipeline slug>` with the slug of the pipeline you want to sign.
@@ -242,3 +242,147 @@ For agents which only verify pipelines the following IAM Actions are required.
 
 - kms:Verify
 - kms:GetPublicKey
+
+## GCP KMS managed key setup
+
+Google Cloud Key Management Service (GCP KMS) securely protects cryptographic keys. When using this service with signed pipelines, the agent never has access to the private key used to sign pipelines. Signing requests are sent to the GCP KMS API, and the agent downloads only the public key to verify signatures locally.
+
+GCP KMS support for signed pipelines requires Buildkite agent version 3.121.0 or later.
+
+### Step 1: Create a KMS key
+
+GCP KMS has many options when creating keys. For pipeline signing, the key must use the following settings:
+
+1. The key purpose must be asymmetric signing (`ASYMMETRIC_SIGN`).
+1. The key algorithm must be one of the supported key algorithms listed below. The `EC_SIGN_P256_SHA256` algorithm is recommended, and is the only algorithm that works on agent versions earlier than 3.136.0.
+
+If you're using the Google Cloud CLI, the key ring and key can be created as follows:
+
+```bash
+gcloud kms keyrings create example-keyring --location global
+
+gcloud kms keys create example-signing-key \
+  --keyring example-keyring \
+  --location global \
+  --purpose asymmetric-signing \
+  --default-algorithm ec-sign-p256-sha256
+```
+
+Unlike AWS KMS, the agent identifies a GCP KMS key by the full resource name of a specific _key version_, in the format:
+
+```text
+projects/<project>/locations/<location>/keyRings/<key ring>/cryptoKeys/<key>/cryptoKeyVersions/<version>
+```
+
+For example, the first version of the key created above has the resource name `projects/example-project/locations/global/keyRings/example-keyring/cryptoKeys/example-signing-key/cryptoKeyVersions/1`. To list the versions of a key and their resource names, run:
+
+```bash
+gcloud kms keys versions list \
+  --key example-signing-key \
+  --keyring example-keyring \
+  --location global
+```
+
+#### Supported key algorithms
+
+The agent reads the algorithm from the key version and selects the matching JWS algorithm for signatures. The following GCP KMS algorithms are supported:
+
+GCP KMS algorithm              | JWS algorithm
+------------------------------ | -------------
+`EC_SIGN_P256_SHA256`          | `ES256`
+`EC_SIGN_P384_SHA384`          | `ES384`
+`RSA_SIGN_PSS_2048_SHA256`     | `PS256`
+`RSA_SIGN_PSS_3072_SHA256`     | `PS256`
+`RSA_SIGN_PSS_4096_SHA256`     | `PS256`
+`RSA_SIGN_PSS_4096_SHA512`     | `PS512`
+`RSA_SIGN_PKCS1_2048_SHA256`   | `RS256`
+`RSA_SIGN_PKCS1_3072_SHA256`   | `RS256`
+`RSA_SIGN_PKCS1_4096_SHA256`   | `RS256`
+`RSA_SIGN_PKCS1_4096_SHA512`   | `RS512`
+{: class="two-column"}
+
+The agent refuses to start if the key version uses any other algorithm.
+
+> 🚧 Algorithms other than EC_SIGN_P256_SHA256 require agent version 3.136.0 or later
+> Agent versions 3.121.0 to 3.135.0 always verify GCP KMS signatures as `ES256`, regardless of the key's algorithm. On these versions, jobs signed with any key other than `EC_SIGN_P256_SHA256` fail verification and are blocked by default. If any of your agents run a version earlier than 3.136.0, use an `EC_SIGN_P256_SHA256` key.
+
+### Step 2: Configure the agents
+
+Next, you need to configure your agents to use the KMS key version you created. On agents that upload pipelines, add the following to the agent's config file:
+
+```ini
+signing-gcp-kms-key=<key version resource name>
+```
+
+Replace `<key version resource name>` with the full resource name of the key version from the previous step. You can also set this value using the `BUILDKITE_AGENT_SIGNING_GCP_KMS_KEY` environment variable or the `--signing-gcp-kms-key` flag on `buildkite-agent start`.
+
+This ensures that whenever those agents upload steps to Buildkite, they'll generate signatures using the private key held in GCP KMS. It also ensures that those agents verify the signatures of any steps they run, using the public key of the same key version.
+
+The agent authenticates to GCP KMS using [Application Default Credentials](https://cloud.google.com/docs/authentication/application-default-credentials). On Compute Engine or GKE, this is usually the service account attached to the instance or workload. Elsewhere, set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of a service account key file.
+
+```ini
+verification-failure-behavior=warn
+```
+
+This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs. The agent will warn about missing or invalid signatures, but will still proceed to execute the job. If not explicitly specified, the default behavior is `block`, which prevents any job without a valid signature from running, ensuring a secure pipeline environment by default.
+
+On agents that only verify jobs, add the same `signing-gcp-kms-key` setting. These agents only need permission to read the public key, as described in [Step 4](#gcp-kms-managed-key-setup-step-4-assign-iam-permissions-to-your-agents).
+
+### Step 3: Sign all steps
+
+To sign steps configured in the Pipeline Settings page, you need to add static signatures to the YAML. To do this, run:
+
+```sh
+buildkite-agent tool sign \
+  --graphql-token <token> \
+  --signing-gcp-kms-key <key version resource name> \
+  --organization-slug <org slug> \
+  --pipeline-slug <pipeline slug> \
+  --update
+```
+
+Replacing the following:
+
+- `<token>` with a Buildkite GraphQL token that has the `write_pipelines` scope.
+- `<key version resource name>` with the full resource name of the GCP KMS key version created earlier.
+- `<org slug>` with the slug of the organization the pipeline is in.
+- `<pipeline slug>` with the slug of the pipeline you want to sign.
+
+The `buildkite-agent tool sign` and `buildkite-agent pipeline upload` commands also read the key version resource name from the `BUILDKITE_AGENT_GCP_KMS_KEY` environment variable.
+
+### Step 4: Assign IAM permissions to your agents
+
+There are two common roles for agents when using signed pipelines, these being those that sign and upload pipelines, and those that verify steps. To follow least privilege best practice, grant each group of agents only the IAM permissions it needs on the KMS key.
+
+For agents which sign and verify pipelines, the following permissions are required:
+
+- `cloudkms.cryptoKeyVersions.useToSign`
+- `cloudkms.cryptoKeyVersions.viewPublicKey`
+
+The predefined `roles/cloudkms.signerVerifier` role includes both permissions. The `roles/cloudkms.signer` role alone is not enough, because the agent fetches the public key when it starts.
+
+For agents which only verify pipelines, the following permission is required:
+
+- `cloudkms.cryptoKeyVersions.viewPublicKey`
+
+The predefined `roles/cloudkms.publicKeyViewer` role includes this permission. Verification happens locally on the agent using the public key, so verifying agents don't call the GCP KMS sign or verify operations.
+
+For example, to grant a service account permission to sign and verify using the key created earlier, run:
+
+```bash
+gcloud kms keys add-iam-policy-binding example-signing-key \
+  --keyring example-keyring \
+  --location global \
+  --member serviceAccount:buildkite-uploader@example-project.iam.gserviceaccount.com \
+  --role roles/cloudkms.signerVerifier
+```
+
+### Rotating GCP KMS keys
+
+Because the agent is configured with a specific key version, creating a new key version in GCP KMS does not change which key the agents use. To rotate to a new key version:
+
+1. Create a new key version in GCP KMS.
+1. Update `signing-gcp-kms-key` on your signing and verifying agents to the new key version resource name, and restart them.
+1. Re-sign any static steps configured in the Pipeline Settings page using the new key version, as described in [Step 3](#gcp-kms-managed-key-setup-step-3-sign-all-steps).
+
+Each agent trusts only the public key of the key version it is configured with. Until every agent has been updated, jobs signed with one key version are rejected by agents configured with the other. To avoid failed jobs, rotate keys during a maintenance window, or temporarily set `verification-failure-behavior=warn` on verifying agents while the rollout completes.
