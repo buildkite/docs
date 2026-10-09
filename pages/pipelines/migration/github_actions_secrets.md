@@ -9,7 +9,8 @@ GitHub doesn't let you read a secret's value after you save it. To move GitHub A
 GitHub Actions sends the selected values directly to Buildkite. The values don't pass through your machine.
 
 > 📘 Private preview
-> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization. Until it's enabled, `bk secret migrate github-actions run` can't start a migration.
+> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+> Until it's enabled, `bk secret migrate github-actions run` can't start a migration.
 
 > 📘 Buildkite CLI version
 > Use Buildkite CLI version 3.59.1 or later. Check your version with `bk version`.
