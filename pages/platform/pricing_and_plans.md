@@ -32,7 +32,7 @@ The **Overview** tab shows:
 
 Select a feature card to go to that feature.
 
-Organizations without an active trial continue to land on the **Platform** tab when they select **Usage**.
+Organizations without an active trial are taken to the **Platform** tab when they select **Usage**.
 
 ## Billing spend alerts
 
