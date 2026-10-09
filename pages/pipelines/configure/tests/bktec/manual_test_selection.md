@@ -111,19 +111,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Use manual selection without the plugin
-
-If you don't use the Tests Buildkite plugin, pass the selection to bktec yourself. Set the selection strategy with `--selection-strategy manual` or `BUILDKITE_TEST_ENGINE_SELECTION_STRATEGY=manual`. Pass the newline-separated selectors with `--selection-param "selectors=..."` or, from bktec v3.3.0, the `BUILDKITE_TEST_ENGINE_SELECTION_SELECTORS` environment variable. For example:
-
-```bash
-selectors="$(.buildkite/select-tests.sh)" || exit "$?"
-bktec run \
-  --selection-strategy manual \
-  --selection-param "selectors=$selectors"
-```
-
-Keep the double quotes around the `--selection-param` value, so that the newlines between selectors are preserved. Passing selectors with `--selection-param` requires bktec v3.2.1 or later.
-
 ## Check the selection in the job log
 
 bktec prints a planning summary at the start of each job, showing the selection this job requested and the selection that Test Engine applied:
