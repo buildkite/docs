@@ -8,6 +8,10 @@ GitHub doesn't let you read a secret's value after you save it. To move GitHub A
 
 GitHub Actions sends the selected values directly to Buildkite. The values don't pass through your machine.
 
+> 📘 Private preview
+> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+> Until it's enabled, `bk secret migrate github-actions run` can't start a migration.
+
 > 📘 Buildkite CLI version
 > Use Buildkite CLI version 3.59.1 or later. Check your version with `bk version`.
 
@@ -17,9 +21,9 @@ You need:
 
 - A local checkout of a `github.com` repository that has GitHub Actions repository secrets.
 - The [GitHub CLI](https://cli.github.com/) signed in to an account that can read the repository's Actions secrets.
-- The Buildkite CLI signed in to the Buildkite organization that will receive the secrets.
+- The Buildkite CLI signed in to the Buildkite organization that will receive the secrets, with an API access token that has the `read_pipelines`, `read_secrets_details`, and `write_secrets` scopes.
 - A Buildkite pipeline for the repository.
-- Permission to [create Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets#create-a-secret) in that pipeline's cluster.
+- [Cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) access to that pipeline's cluster, or Buildkite organization administrator access.
 
 ## Create the migration workflow
 
