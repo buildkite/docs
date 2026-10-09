@@ -27,7 +27,7 @@ Organizations with an active All Access Trial see an **Overview** tab on the [**
 The **Overview** tab shows:
 
 - The current usage period.
-- A trial countdown during the final seven days of your trial.
+- The days remaining in the trial once the countdown period begins.
 - Feature cards grouped into explored and unexplored sections, with a utilization indicator showing how many available features your organization has tried.
 
 Select a feature card to go to that feature.
