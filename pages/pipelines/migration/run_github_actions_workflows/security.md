@@ -134,9 +134,9 @@ An action that receives a credential can use or exfiltrate it. The action can al
 
 ### OIDC secrets migration
 
-The `buildkite-gha migrate-secrets` command generates a reviewed GitHub Actions workflow with a static secret allowlist. To run a migration, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets).
+The `bk secret migrate github-actions` command of the Buildkite CLI generates a reviewed GitHub Actions workflow with a static secret allowlist. To run a migration, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). `buildkite-gha` v0.102.0 removed its equivalent `migrate-secrets` command. Workflows that `buildkite-gha migrate-secrets` prepared have the same trust boundaries.
 
-After the workflow is committed to the default branch, the CLI creates a short-lived Buildkite migration grant bound to:
+After the workflow is committed to the default branch, the Buildkite CLI creates a short-lived Buildkite migration grant bound to:
 
 - The immutable GitHub repository and owner IDs
 - The exact workflow path and commit
@@ -144,11 +144,11 @@ After the workflow is committed to the default branch, the CLI creates a short-l
 - `workflow_dispatch` as the only accepted event
 - The destination cluster
 - The secret names
-- A non-empty access policy for every destination secret
+- An access policy for every destination secret. The policy must contain at least one rule, and every rule must include at least one condition, such as `pipeline_id`. Buildkite rejects a policy that would let every job in the cluster read the secrets, such as `- {}`, or no job at all, such as `[]`.
 
 The workflow proves its identity with a GitHub-signed OIDC token and consumes the grant once. The grant expires after a short time and can't be reused. Buildkite doesn't authorize the request from mutable repository names or the customizable `sub` claim alone.
 
-GitHub OIDC authenticates the workflow. It doesn't choose the workflow's Buildkite authority. The authenticated Buildkite user fixes that authority when creating the grant. The workflow receives no Buildkite API token and can't change the destination, policy, or allowlist. No Buildkite API token or other long-lived bootstrap credential is stored in GitHub.
+GitHub OIDC authenticates the workflow. It doesn't choose the workflow's Buildkite authority. The authenticated Buildkite user fixes that authority when creating the grant. When the workflow uses the grant, Buildkite checks again that this user can still manage the destination cluster. If the user has left the organization or lost that permission, or the cluster has been deleted, the migration fails without writing secrets or consuming the grant. The workflow receives no Buildkite API token and can't change the destination, policy, or allowlist. No Buildkite API token or other long-lived bootstrap credential is stored in GitHub.
 
 The generated workflow requests only the `id-token: write` permission and no repository write permission. The workflow contains one static `${{ secrets.NAME }}` reference for each selected secret, and no dynamic secret-name input, secret enumeration, `secrets: inherit`, artifact, or output containing secret values. The workflow sends values only in one in-memory HTTPS request. It disables shell tracing, rejects redirects, and doesn't print Buildkite response bodies. Buildkite errors and audit data must never include the values.
 
@@ -175,6 +175,8 @@ Important limits:
 - Native release builds need the GitHub Code Access App for server-side commit provenance.
 
 The exact step call `toJSON(github)` also requests a token because the retained context includes `token`. Before evaluating an authorized step context, the runtime registers the token with both Buildkite agent [redaction](/docs/pipelines/security/secrets/buildkite-secrets#redaction) and local redaction.
+
+[Bounded workflow-token retries](/docs/pipelines/migration/run-github-actions-workflows/compatibility#repositories-credentials-and-github-services-github-token) keep the requested scope, but they don't make token issuance idempotent. A failed response can leave an additional token with the same scope valid until it expires. The runtime doesn't cache tokens across jobs or retry ambiguous transport failures.
 
 The serialized context contains only the fields listed in the [compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-runtime-interpolation). A runtime job also loads the verified event artifact when it requires `github.event`.
 

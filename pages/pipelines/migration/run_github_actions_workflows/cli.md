@@ -1,5 +1,5 @@
 ---
-description: "Use the buildkite-gha CLI to validate GitHub Actions workflows, compile pipelines, migrate secrets, and upload workflows from a custom importer."
+description: "Use the buildkite-gha CLI to validate GitHub Actions workflows, compile pipelines, and upload workflows from a custom importer."
 ---
 
 # Use the buildkite-gha CLI
@@ -12,7 +12,6 @@ The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/bu
 | `validate-batch` | Check a large workflow corpus. |
 | `compile` | Render pipeline YAML or compiler IR without uploading it. |
 | `upload` | Upload workflows from a custom importer. |
-| `migrate-secrets` | Copy GitHub Actions repository secrets into Buildkite secrets. |
 | `help <command>` | Print the usage and description of one command. Run `buildkite-gha help` without a command, or `buildkite-gha --help`, to list all commands. |
 | `--version` | Print the installed `buildkite-gha` version. |
 {: class="responsive-table"}
@@ -232,58 +231,9 @@ Validation may use the public network to resolve actions. It doesn't install Nod
 
 ## Migrate GitHub Actions secrets
 
-For the step-by-step workflow using the `bk secret migrate github-actions` command of the Buildkite CLI, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). This section describes the equivalent `buildkite-gha migrate-secrets` command. Prefer the Buildkite CLI command for new migrations. The two commands generate compatible workflows, so either CLI can run a migration workflow that the other prepared.
+`buildkite-gha` v0.102.0 removed the `migrate-secrets` command, and `buildkite-gha migrate-secrets` now fails with `unknown command "migrate-secrets"`. To copy GitHub Actions repository secrets into Buildkite secrets, use the `bk secret migrate github-actions` command of the Buildkite CLI instead. See [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets).
 
-The GitHub API lists repository secret names but can't export their values. The `migrate-secrets` command uses `gh` and `bk` to generate and run a reviewable, one-use workflow without storing a Buildkite API token in GitHub.
-
-Authenticate both CLIs, then prepare the workflow from the GitHub repository:
-
-```bash
-gh auth login
-bk auth login
-
-buildkite-gha migrate-secrets prepare \
-  --match 'DEPLOY_*' \
-  --secret API_KEY \
-  --output .github/workflows/migrate-buildkite-secrets.yml
-```
-
-The Buildkite API token used by `bk` needs the `read_pipelines`, `read_secrets_details`, and `write_secrets` scopes. Its user also needs `manage_cluster` permission for the destination cluster. Large custom policies require a `bk` release that supports `api --data -` (reading request data from stdin). Until that release is installed, use a smaller policy; ordinary grants still work with existing `bk` versions.
-
-Without `--secret` or `--match`, the command lists the repository's Actions secret names and prompts for a selection. It selects a Buildkite pipeline associated with the repository, uses that pipeline's cluster, and creates a pipeline-scoped secret access policy. Use `--organization`, `--pipeline`, and `--cluster` to make selection explicit. Use `--policy-file` for a different non-empty [Buildkite secret access policy](/docs/pipelines/security/secrets/buildkite-secrets/access-policies).
-
-Each workflow can migrate up to 40 secrets. Use multiple workflows for larger sets.
-
-The command checks destination names before writing the workflow and refuses to replace an existing workflow file. Review the generated static secret allowlist and policy, then commit and merge it into the repository's default branch. The command never commits or pushes it.
-
-Run the committed workflow:
-
-```bash
-buildkite-gha migrate-secrets run \
-  --workflow .github/workflows/migrate-buildkite-secrets.yml
-```
-
-The `run` subcommand verifies that the local file matches the workflow at a resolved default-branch commit, allowing the Git CRLF checkout conversion on Windows. It creates a short-lived, one-use Buildkite migration grant bound to that commit, then dispatches the default branch through `gh`. The workflow obtains a GitHub-signed OIDC identity and sends all selected values to Buildkite in one in-memory HTTPS request. Values never enter local CLI output, workflow inputs, files, artifacts, or command arguments.
-
-The grant fixes the organization, cluster, access policy, names, immutable GitHub repository IDs, workflow path and commit, default branch, and `workflow_dispatch` event. Existing destination keys are never overwritten. Buildkite prevalidates the exact batch and atomically creates all visible secret records while consuming the grant. A rolled-back request can leave unreachable encrypted objects for normal storage lifecycle cleanup, but no usable partial keys. After a successful run, remove the workflow from the default branch.
-
-`GITHUB_TOKEN` can't be migrated. `buildkite-gha` obtains it through its separate short-lived, permission-scoped workflow-token path.
-
-#### Secrets migration options
-
-| Subcommand | Option | Description |
-| --- | --- | --- |
-| `prepare` | `--organization <slug>` | The lowercase Buildkite organization slug. |
-| `prepare` | `--cluster <id>` | The Buildkite cluster UUID. |
-| `prepare` | `--pipeline <slug>` | The lowercase Buildkite pipeline slug. |
-| `prepare` | `--policy-file <path>` | A non-empty secret access policy to use instead of the generated pipeline-scoped policy. |
-| `prepare` | `--secret <name>` | Repeatable. A secret name to migrate. |
-| `prepare` | `--match <glob>` | Repeatable. A glob that selects secret names. |
-| `prepare` | `--output <path>` | The path of the generated workflow file. |
-| `run` | `--workflow <path>` | Required. The committed migration workflow to dispatch. |
-{: class="responsive-table"}
-
-The `prepare` subcommand discovers secret names through `gh` and destinations through `bk`, then writes reviewable workflow YAML. Neither subcommand commits, pushes, merges, or deletes repository files.
+If you already prepared a migration workflow with `buildkite-gha migrate-secrets` v0.90.0 or later, you don't need to regenerate or recommit it. Run it with `bk secret migrate github-actions run --workflow <path>`.
 
 ## Provide an event snapshot
 
@@ -654,7 +604,7 @@ Set `BUILDKITE_GHA_TELEMETRY_DISABLED=true` to disable telemetry. A missing Agen
 
 ### Bugsnag error reports
 
-In `buildkite-gha` releases later than v0.100.0, when a Bugsnag ingestion key is configured, the client sends best-effort error reports directly to `https://notify.bugsnag.com`, independently of the Agent API. Tagged `buildkite-gha` releases embed the key at build time. The `BUGSNAG_API_KEY` environment variable overrides the embedded key. Without a valid key, no reports are sent. Setting `BUILDKITE_GHA_TELEMETRY_DISABLED=true` disables both Bugsnag reporting and completion telemetry.
+In `buildkite-gha` v0.101.0 and later, when a Bugsnag ingestion key is configured, the client sends best-effort error reports directly to `https://notify.bugsnag.com`, independently of the Agent API. Tagged `buildkite-gha` releases embed the key at build time. The `BUGSNAG_API_KEY` environment variable overrides the embedded key. Without a valid key, no reports are sent. Setting `BUILDKITE_GHA_TELEMETRY_DISABLED=true` disables both Bugsnag reporting and completion telemetry.
 
 Reports cover unexpected runtime errors, runtime integrity and token-acquisition failures, final artifact and pipeline uploads during the initial workflow import, and authoritative result-publication failures. Deferred-stage and skipped-job uploads aren't instrumented.
 
@@ -669,8 +619,8 @@ The following are excluded from reports:
 
 Agent HTTP client timeouts and cleanup deadlines remain reportable. Excluded branches of joined errors don't suppress independent unexpected failures. Warnings and unhandled panics aren't reported. Container termination failures remain reportable even when the job tolerates the step failure. Reporting doesn't change `continue-on-error` behavior.
 
-Reports contain the CLI version, error type, stack locations, command, failure phase and code, valid Buildkite build and job IDs, and the applicable Agent API status. Development versions use the `development` release stage, and other versions use `production`. Standard Go errors have a stack at the reporting boundary, not the original failure site. Wrapped and joined errors retain the first captured stack in depth-first order when available. Command, phase, and failure code are part of the error class, so different categories don't share a group only because they reach the same reporting boundary.
+Reports contain the CLI version, error type, stack methods and line numbers, command, failure phase and code, and the applicable Agent API status. Stack filenames are replaced with `[REDACTED]` to omit checkout and build paths. Development versions use the `development` release stage, and other versions use `production`. Standard Go errors have a stack at the reporting boundary, not the original failure site. Wrapped and joined errors retain the first captured stack in depth-first order when available. Command, phase, and failure code are part of the error class, so different categories don't share a group only because they reach the same reporting boundary.
 
-Reports omit raw error messages and causes, job output, diagnostics, workflow and event contents, other environment values, and the hostname. Detailed error text remains in the job log. Automatic session tracking and the process-forking panic handler of the SDK aren't enabled.
+Reports omit raw error messages and causes, job output, diagnostics, workflow and event contents, Buildkite build and job IDs, environment values, and the hostname. Releases before v0.101.1 also included valid Buildkite build and job IDs and full stack filenames. Detailed error text remains in the job log. Automatic session tracking and the process-forking panic handler of the SDK aren't enabled.
 
 Delivery is synchronous, with a 1.5-second network timeout per report, no retries, and no redirects. Reporting failures are silent and don't change command results.

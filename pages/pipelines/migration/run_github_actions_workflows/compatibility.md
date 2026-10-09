@@ -4,7 +4,7 @@ description: "Reference for the GitHub Actions workflow syntax, triggers, action
 
 # GitHub Actions compatibility reference
 
-This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.100.0. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
+This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
 
 `buildkite-gha` requires Buildkite agent v3.129 or newer.
 
@@ -1756,7 +1756,7 @@ This section describes which repositories jobs can access, and how GitHub tokens
 
 ### GitHub token
 
-**🟡 Supported subset.** A job requests one short-lived `GITHUB_TOKEN` for the event repository when the job:
+**🟡 Supported subset.** A job requests a short-lived `GITHUB_TOKEN` for the event repository when the job:
 
 - Statically references `secrets.GITHUB_TOKEN` or `github.token`.
 - Uses an action whose effective input default can reach `github.token` for the event provider.
@@ -1764,6 +1764,10 @@ This section describes which repositories jobs can access, and how GitHub tokens
 A `github.server_url == 'https://github.com'` guard skips the token branch for an Origin repository. Native adapters ignore upstream input defaults, so `actions/checkout` alone doesn't request a token.
 
 The `permissions` of the top-level workflow set the scope. Token issuance needs the pipeline's **Allow workflow-authorized GitHub access tokens** setting, which is off by default for existing pipelines and on for pipelines created with GitHub Actions setup mode. Tokens are issued only to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) in `github.com` pipelines that use the full-access **GitHub** repository provider. If the setting is off, the runtime links to the pipeline repository setting. If an enabled request is rejected, the runtime instead asks you to check the top-level permissions and the access of the Buildkite GitHub App to the event repository. If those checks don't find the cause, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) and include the build URL shown in the error.
+
+In `buildkite-gha` v0.102.1 and later, workflow-token acquisition retries temporary failures: Agent API `503 Service Unavailable` responses, and `429 Too Many Requests` responses with a valid `Retry-After` header. Acquisition makes at most three attempts within 45 seconds, bounded by job cancellation and the job deadline. Each attempt has a 15-second limit. Retry delays use 1-second and 2-second bases, plus random jitter up to the base. A valid `Retry-After` value, in seconds or as an HTTP date, sets the minimum delay before jitter. If the delay would exhaust the remaining time, acquisition fails without waiting.
+
+Other statuses, transport errors, and invalid successful responses aren't retried. This includes `400 Bad Request` responses. Action-source token requests and checkout don't retry. Each retry uses the same repository, workflow, and permissions. Buildkite Pipelines checks authorization and the [per-job request limit](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc) for every attempt.
 
 Buildkite Pipelines reads that policy from the pipeline repository at the immutable build commit. The workflow must be a simple `.yml` or `.yaml` file directly under `.github/workflows/`.
 
