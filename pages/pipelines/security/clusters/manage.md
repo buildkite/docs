@@ -33,7 +33,7 @@ To create a new cluster using the Buildkite interface:
 1. Enter an optional **Emoji** and **Color** using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select **Create Cluster**.
 
-    The new cluster's **Queues** page will appear, displaying the cluster's name and its default queue, named **queue**. The cluster will also automatically create a default [cache registry](/docs/pipelines/configure/cache#manage-cache-registries) named **Default**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
+    The new cluster's **Queues** page will appear, displaying the cluster's name and its default queue, named **default**. The cluster will also automatically create a default [cache registry](/docs/pipelines/configure/cache#manage-cache-registries) named **Default**. From this page, you can set up one or more additional [queues](/docs/agent/queues/managing) within this cluster.
 
 ### Using the REST API
 
@@ -124,6 +124,31 @@ To clear the default cluster, select **No default** from the dropdown and select
 
 > 🚧 Deleting the default cluster
 > A cluster set as the organization's default for new pipelines cannot be deleted. To delete it, first assign a different default or clear the default on the **Pipeline settings** page.
+
+## Automatically configure agent OpenTelemetry tracing for a cluster
+
+A cluster can automatically deliver [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) exporter settings to its agents when they register, using an existing [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service). This lets agents connected to the cluster export traces without needing local OTLP destination configuration on each agent.
+
+Agents must run Buildkite agent version 3.136.1 or later to receive these settings. Earlier agent versions register normally but don't receive tracing configuration. To check the version of a self-hosted agent, run `buildkite-agent --version`.
+
+Only enabled OpenTelemetry notification services that cover all of the organization's pipelines and branches are available for selection. Local OTLP destination settings configured directly on an agent take precedence over this automatic configuration.
+
+Changing this setting requires both [cluster maintainer](#manage-maintainers-on-a-cluster) (or organization administrator) access to the cluster, and the [**Manage Notification Services**](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines) permission.
+
+To configure agent OpenTelemetry tracing for a cluster:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster to configure.
+1. Select **Settings**.
+1. In the **Agent OpenTelemetry tracing** field, select the notification service to use, or select **Disabled** to turn off automatic configuration.
+1. Save your changes.
+
+Only agents that register to the cluster after this change receive the selected notification service's exporter settings. Agents already registered to the cluster keep their existing configuration until they restart or reconnect. This applies even when the setting is disabled or the notification service's credentials are rotated.
+
+> 🚧 Exporter credentials are available to jobs
+> The selected notification service's exporter credentials become available to the agent's environment, including its hooks, plugins, and job commands. Use OpenTelemetry credentials that are scoped for trace ingestion only.
+
+If the selected notification service later becomes unavailable—for example, if it's deleted, disabled, or narrowed to a subset of pipelines or branches—agents that register after that point don't receive tracing configuration. Select a valid replacement to resume automatic configuration.
 
 ## Connect agents to a cluster
 

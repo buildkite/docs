@@ -230,6 +230,7 @@ exceptions:
   - OpenTelemetry
   - Open Container Initiative
   - Open Policy Agent
+  - Orchestration
   - Origin
   - OS X
   - Package Registries

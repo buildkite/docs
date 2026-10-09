@@ -124,7 +124,7 @@ query {
 ```
 
 > 📘 Cursor pagination
-> Replace `<endCursor-value-from-previous-response>` with the actual `endCursor` string returned from your previous query.
+> Replace `value-from-organization.pipelines.pageInfo.endCursor` with the actual `endCursor` string returned from your previous query. Learn more about [pagination](/docs/apis/graphql-api#pagination) in the GraphQL API.
 
 ## Get number of builds between two dates
 

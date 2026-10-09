@@ -53,6 +53,10 @@ Required attributes:
   </tr>
 </table>
 
+> 📘 Triggering a non-existent pipeline
+> Buildkite Pipelines validates the `trigger` attribute's pipeline slug when the trigger step runs, not when the pipeline is uploaded. Uploading a pipeline with a trigger step that references a non-existent pipeline slug doesn't fail the upload. The other steps in the pipeline still upload and run normally.
+> If the target pipeline doesn't exist when the trigger step runs, the trigger step fails, and the build fails as a result. The `async` value doesn't change this behavior. `async` only controls whether the step waits for the triggered build to complete, not whether the triggered pipeline exists. Set `soft_fail: true` on the trigger step to prevent this failure from failing the build.
+
 Optional attributes:
 
 <table data-attributes>

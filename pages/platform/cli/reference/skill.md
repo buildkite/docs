@@ -78,7 +78,7 @@ Install into a custom skills directory, such as Amp or Pi:
 bk skill add buildkite-api --path ~/.amp/skills
 ```
 
-## Update skill
+## Update a skill
 
 Update an installed Buildkite skill.
 
@@ -119,7 +119,7 @@ bk skill update buildkite-api --agent claude --global
 bk skill update --path ~/.amp/skills
 ```
 
-## Delete skill
+## Delete a skill
 
 Delete an installed Buildkite skill.
 

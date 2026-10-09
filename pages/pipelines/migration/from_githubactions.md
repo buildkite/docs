@@ -42,6 +42,8 @@ While Buildkite Pipelines provides its own secrets management capabilities, you 
 
 See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) to learn more.
 
+To move GitHub Actions repository secrets into Buildkite secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets).
+
 ### Pipeline configuration concepts
 
 Like GitHub Actions, Buildkite Pipelines lets you define pipelines in the web interface or in files checked into a repository. The equivalent of `.github/workflows/*.yml` is a `pipeline.yml` (typically in `.buildkite/`). See [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) for details.
@@ -441,7 +443,7 @@ This table provides quick mappings between common GitHub Actions concepts and th
 | `jobs.<id>.timeout-minutes` | `timeout_in_minutes` |
 | `needs` | `depends_on` |
 | `continue-on-error: true` | `soft_fail: true` |
-| `${{ secrets.NAME }}` | `${NAME}` (configured on agent) |
+| `${{ secrets.NAME }}` | `secrets` on the step. To move existing secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). |
 | `working-directory: ./dir` | Prepend `cd dir &&` to commands |
 | `actions/upload-artifact` | `artifact_paths` on the step |
 | `actions/download-artifact` | `buildkite-agent artifact download` command |
@@ -686,6 +688,7 @@ Be aware of common pipeline-translation mistakes, which might include:
 Explore these resources to enhance your migrated pipelines:
 
 - [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
+- [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets)
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
 - [Buildkite agent overview](/docs/agent)
 - [Plugins directory](https://buildkite.com/resources/plugins/)

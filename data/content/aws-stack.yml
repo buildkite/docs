@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.71.3"
+Description: "Buildkite stack v7.0.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -51,13 +51,12 @@ Metadata:
         Parameters:
         - BuildkiteAgentRelease
         - BuildkiteAgentTags
-        - BuildkiteAgentTimestampLines
         - BuildkiteAgentExperiments
         - BuildkiteAgentEnableGitMirrors
         - GitMirrorSeedBucket
-        - BuildkiteAgentTracingBackend
-        - BuildkiteAgentCancelGracePeriod
-        - BuildkiteAgentSignalGracePeriod
+        - BuildkiteAgentOpenTelemetryTracing
+        - BuildkiteAgentCancelSignalTimeout
+        - BuildkiteAgentCancelCleanupTimeout
         - BuildkiteTerminateInstanceAfterJob
         - BuildkiteAgentDisconnectAfterUptime
         - BuildkiteTerminateInstanceOnDiskFull
@@ -203,13 +202,12 @@ Parameters:
 
   BuildkiteAgentRelease:
     Description: >
-        Buildkite agent release channel to install.
-        'stable' = production-ready (recommended), 'oldstable' = most recent release from the major version branch prior to stable, 'beta' = pre-release with latest features, 'edge' = bleeding-edge development builds.
+        Buildkite Agent v4 release channel to install.
+        'stable' = production-ready (recommended), 'beta' = pre-release with latest features, 'edge' = bleeding-edge development builds.
         Use 'stable' unless specific new features are required.
     Type: String
     AllowedValues:
       - stable
-      - oldstable
       - beta
       - edge
     Default: "stable"
@@ -254,14 +252,6 @@ Parameters:
       Use these tags in pipeline steps with 'agents: { environment: production }'.
     Type: String
     Default: ""
-
-  BuildkiteAgentTimestampLines:
-    Description: Set to true to prepend timestamps to every line of output.
-    Type: String
-    AllowedValues:
-      - "true"
-      - "false"
-    Default: "false"
 
   BuildkiteAgentExperiments:
     Description: >
@@ -394,14 +384,13 @@ Parameters:
       - "false"
     Default: "false"
 
-  BuildkiteAgentTracingBackend:
-    Description: Optional - The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing.
+  BuildkiteAgentOpenTelemetryTracing:
+    Description: Enable OpenTelemetry tracing for the Buildkite Agent. See https://buildkite.com/docs/agent/v3/tracing.
     Type: String
     AllowedValues:
-      - ""
-      - "datadog"
-      - "opentelemetry"
-    Default: ""
+      - "true"
+      - "false"
+    Default: "false"
 
   BuildkiteAgentSigningKeySSMParameter:
     Description: Existing SSM Parameter Store path to a JSON Web Key Set (JWKS) containing a key to sign jobs with.
@@ -422,19 +411,23 @@ Parameters:
     AllowedPattern: "^$|^/[a-zA-Z0-9_.\\-/]+$"
     ConstraintDescription: "Expects a leading forward slash"
 
-  BuildkiteAgentCancelGracePeriod:
-    Description: The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
-    Type: Number
-    Default: 60
-    MinValue: 1
-
-  BuildkiteAgentSignalGracePeriod:
+  BuildkiteAgentCancelSignalTimeout:
     Description: >
-        The number of seconds given to a subprocess to handle being sent `cancel-signal`.
-        After this period has elapsed, SIGKILL will be sent.
-    Type: Number
-    Default: -1
-    MinValue: -1
+        How long a subprocess has to handle the cancel signal before the Buildkite Agent sends SIGKILL.
+        Accepts duration strings such as '30s' and '1m30s'.
+    Type: String
+    Default: "10s"
+    AllowedPattern: "^(0|([0-9]+(\\.[0-9]+)?(ns|us|ms|s|m|h))+)$"
+    ConstraintDescription: "Must be a non-negative duration such as '30s' or '1m30s'."
+
+  BuildkiteAgentCancelCleanupTimeout:
+    Description: >
+        Extra time for a stopping Buildkite Agent to upload logs and artifacts after the job process exits or is killed.
+        Accepts duration strings such as '5s' and '1m30s'.
+    Type: String
+    Default: "5s"
+    AllowedPattern: "^(0|([0-9]+(\\.[0-9]+)?(ns|us|ms|s|m|h))+)$"
+    ConstraintDescription: "Must be a non-negative duration such as '5s' or '1m30s'."
 
   BuildkiteTerminateInstanceAfterJob:
     Description: Set to 'true' to terminate the instance after a job has completed.
@@ -630,6 +623,8 @@ Parameters:
         Supported URI schemes: S3 object URI (s3://bucket/key), SSM parameter path (ssm:/path/to/param),
         HTTPS URL (https://example.com/script.sh), or local file path (file:///path/to/script).
         These variables configure agent behavior like proxy settings or debugging options.
+        Before upgrading to stack v7, review this file for Agent v3 options that Agent v4 removed or renamed.
+        See https://buildkite.com/docs/agent/v3-v4-upgrade-guide.
         For build environment variables, use pipeline 'env' configuration instead.
     Type: String
     Default: ""
@@ -1601,6 +1596,8 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8gb" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r8gn" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r9g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r9gd" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
@@ -1659,25 +1656,25 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0a501457519f0797c, linuxarm64: ami-0e8a3f4eab5eed80d, windows: ami-081cbdbbd7d824e3d, ubuntu2404amd64: ami-02a7ba8ce51c0b886, ubuntu2404arm64: ami-03d9fe9a95630d20e }
-    us-east-2 : { linuxamd64: ami-0497f607a363b413d, linuxarm64: ami-092891d04f1882353, windows: ami-013a2cddb94dc74db, ubuntu2404amd64: ami-0727328cecd422426, ubuntu2404arm64: ami-00fcc5e2bcb3220d5 }
-    us-west-1 : { linuxamd64: ami-033dfaf38fd18afc9, linuxarm64: ami-0cc3c5f7a6cefb103, windows: ami-090637e2baccbf454, ubuntu2404amd64: ami-0e2adfb0493d9eb74, ubuntu2404arm64: ami-0a28eb85df69efe7a }
-    us-west-2 : { linuxamd64: ami-05e1c2676974f1c7f, linuxarm64: ami-0579990ccf3e2f957, windows: ami-0551227c0466c4fc2, ubuntu2404amd64: ami-0aea25a976c05ac49, ubuntu2404arm64: ami-09faaab6da2afe751 }
-    af-south-1 : { linuxamd64: ami-03efbce7093b5f363, linuxarm64: ami-099485e32443382ad, windows: ami-09a699c4188c067ec, ubuntu2404amd64: ami-02af6cf580299cdd2, ubuntu2404arm64: ami-061099a4ff1ebcec3 }
-    ap-east-1 : { linuxamd64: ami-032ef720801c4bf3a, linuxarm64: ami-0ec49140171f0eda8, windows: ami-01f971d70ec2d6c60, ubuntu2404amd64: ami-0450e4c0c3699e113, ubuntu2404arm64: ami-0296ff1a921a733fa }
-    ap-south-1 : { linuxamd64: ami-0953797818cf5cdc8, linuxarm64: ami-0c5118f82a17e2b73, windows: ami-03ea11e1ba7bda54f, ubuntu2404amd64: ami-02406eeb43dc6661a, ubuntu2404arm64: ami-0610ba6e877c87fe0 }
-    ap-northeast-2 : { linuxamd64: ami-00991d592ff859df1, linuxarm64: ami-0caa78fc86ee9c46e, windows: ami-00e38664bc4d4cbe1, ubuntu2404amd64: ami-00722537430b3ad57, ubuntu2404arm64: ami-00a3f30f5578704c5 }
-    ap-northeast-1 : { linuxamd64: ami-00d1485fef553b1d8, linuxarm64: ami-0776cb62ae6b8abd7, windows: ami-0d4639af239abdf3b, ubuntu2404amd64: ami-03e57ffdf4026b0d5, ubuntu2404arm64: ami-0f4a1dc6c27421534 }
-    ap-southeast-2 : { linuxamd64: ami-05866fb1704780614, linuxarm64: ami-0897dc56c2683c463, windows: ami-0a03a8696925123fa, ubuntu2404amd64: ami-0ef47170a0d277e2b, ubuntu2404arm64: ami-0b8011a8f9a41f7e0 }
-    ap-southeast-1 : { linuxamd64: ami-0da0ce74c39855dff, linuxarm64: ami-005a2b8520e03e6ae, windows: ami-0b5a7242731c55a1d, ubuntu2404amd64: ami-0b6b19deb061b6d14, ubuntu2404arm64: ami-018afbc8d21a9fb5b }
-    ca-central-1 : { linuxamd64: ami-0cc68ae0637a59967, linuxarm64: ami-0c56d58e60e7efcbf, windows: ami-0cf9984743908bade, ubuntu2404amd64: ami-03fc21431bbe332f4, ubuntu2404arm64: ami-0f287f1a9dac3099b }
-    eu-central-1 : { linuxamd64: ami-026b9f2271241f4b7, linuxarm64: ami-077c2a965d60721e3, windows: ami-0b783dc6f845260f1, ubuntu2404amd64: ami-04745bc55e73add9c, ubuntu2404arm64: ami-01090b15f2e804ed5 }
-    eu-west-1 : { linuxamd64: ami-0ad4b7c4873f59e39, linuxarm64: ami-0b0b178bf4b9cbb56, windows: ami-0af72ea01f4ed37f1, ubuntu2404amd64: ami-03b6c9fa4bd06f4cb, ubuntu2404arm64: ami-0105fa592e66e1634 }
-    eu-west-2 : { linuxamd64: ami-0caa181a14558e8a8, linuxarm64: ami-03dddd414d43d2a55, windows: ami-02e562b8f21a98af6, ubuntu2404amd64: ami-030d5ca8f09ad96bb, ubuntu2404arm64: ami-01ae0a0351b7accd7 }
-    eu-south-1 : { linuxamd64: ami-06ddb4679ef7f291a, linuxarm64: ami-06f95eaf7fc5d0b09, windows: ami-0c308b64a829ad49a, ubuntu2404amd64: ami-0f2cbe127d14399a9, ubuntu2404arm64: ami-0b1e0a42ad07db443 }
-    eu-west-3 : { linuxamd64: ami-07c976e0ca344d7cf, linuxarm64: ami-019785a36720e44a6, windows: ami-09afafa43a7b2f3f0, ubuntu2404amd64: ami-0c9195bbad6a269c4, ubuntu2404arm64: ami-0dc8febdb5286b69a }
-    eu-north-1 : { linuxamd64: ami-0468815fd2217c300, linuxarm64: ami-0591837bf3d20c243, windows: ami-0bb470f9455f7b9e2, ubuntu2404amd64: ami-0b803d02bfe39bf2e, ubuntu2404arm64: ami-037fa17aabeefcfd6 }
-    sa-east-1 : { linuxamd64: ami-063d1e52f5412e66f, linuxarm64: ami-0af8d9ece2f2a799a, windows: ami-0d7decfeb691d4d46, ubuntu2404amd64: ami-080d348b657aa6eb1, ubuntu2404arm64: ami-08bbdb51667704dd6 }
+    us-east-1 : { linuxamd64: ami-09904f7841e0bc4f5, linuxarm64: ami-0a21da0842f6230d1, windows: ami-0c86c66600b76ed91, ubuntu2404amd64: ami-0706409f016596802, ubuntu2404arm64: ami-07507da6b2609fd12 }
+    us-east-2 : { linuxamd64: ami-0c9f81539c3058bbd, linuxarm64: ami-03cf6ceb5a853eace, windows: ami-044711db01186d4c2, ubuntu2404amd64: ami-005191f0d2a4bd1c6, ubuntu2404arm64: ami-0fbd00440cfbf8657 }
+    us-west-1 : { linuxamd64: ami-0c6083b367dfd1df9, linuxarm64: ami-0f8fa5a9d3d7f438a, windows: ami-00eb2130eab760980, ubuntu2404amd64: ami-09e54998d375e9b84, ubuntu2404arm64: ami-0efb52d5e25996357 }
+    us-west-2 : { linuxamd64: ami-0e8dc0c35086ad51f, linuxarm64: ami-0f43baacbe960e3dc, windows: ami-01f8b3bb79f665837, ubuntu2404amd64: ami-0c5800c371b0ba833, ubuntu2404arm64: ami-087a9512f82c9a5ea }
+    af-south-1 : { linuxamd64: ami-0fbbe1c2c4bf9bd6f, linuxarm64: ami-0f4bd3bf9cc242343, windows: ami-08c7d591ea43e7457, ubuntu2404amd64: ami-0f4b7fc275c305ba9, ubuntu2404arm64: ami-0a47b8cdc747e9b6d }
+    ap-east-1 : { linuxamd64: ami-042d2eb1f63033759, linuxarm64: ami-0f32ef9bd7b12a682, windows: ami-04ca75aa7e27e7113, ubuntu2404amd64: ami-0f163a9fa0d6ff822, ubuntu2404arm64: ami-03d832ee9a63e78c9 }
+    ap-south-1 : { linuxamd64: ami-0e196b725ca05b2fa, linuxarm64: ami-0f614982581d26586, windows: ami-0911e98838fa8d266, ubuntu2404amd64: ami-0d2832658a81b7fde, ubuntu2404arm64: ami-07cd6657d34aa95bb }
+    ap-northeast-2 : { linuxamd64: ami-041cfa1e25a93cfef, linuxarm64: ami-09448f1ac86596f40, windows: ami-0a165e61453817970, ubuntu2404amd64: ami-01754ef97b4723b72, ubuntu2404arm64: ami-0f81bbc8266a15fbc }
+    ap-northeast-1 : { linuxamd64: ami-0de7ef040c683adfa, linuxarm64: ami-0f4a176e0e7b9dafe, windows: ami-029b0c4e1df75546c, ubuntu2404amd64: ami-0714117b8715c8551, ubuntu2404arm64: ami-0a3d51e91f250e56c }
+    ap-southeast-2 : { linuxamd64: ami-0e4831bee8b773f3f, linuxarm64: ami-0829d4625637b1ed2, windows: ami-02891f6932a79c6c5, ubuntu2404amd64: ami-03387f07bb3e909c9, ubuntu2404arm64: ami-0152e5185202f27a7 }
+    ap-southeast-1 : { linuxamd64: ami-0cbf00766ffdcaff3, linuxarm64: ami-0221880af4968d0a5, windows: ami-02775e26fd80eabeb, ubuntu2404amd64: ami-0ffc269ae898c628d, ubuntu2404arm64: ami-05d7ba6b906835866 }
+    ca-central-1 : { linuxamd64: ami-0eb0f49fd92f56309, linuxarm64: ami-0b46868dc2212b225, windows: ami-009c7a380118799b1, ubuntu2404amd64: ami-0774bbd07ca314f88, ubuntu2404arm64: ami-0bd7c52d9e5fd6797 }
+    eu-central-1 : { linuxamd64: ami-06ec3a99597637d0f, linuxarm64: ami-01b33aae47725e467, windows: ami-05462f17d7646ea4a, ubuntu2404amd64: ami-06476eed80fa2ffd5, ubuntu2404arm64: ami-04ddd7794513dd5b4 }
+    eu-west-1 : { linuxamd64: ami-045692a6a9dfb73a1, linuxarm64: ami-0942ae0be0018f771, windows: ami-0c509366da433fe8e, ubuntu2404amd64: ami-0bf08279993a58e01, ubuntu2404arm64: ami-041a60b212147c0ef }
+    eu-west-2 : { linuxamd64: ami-0925acc54cf31cef3, linuxarm64: ami-0eca10ff06b90e4b2, windows: ami-01508d4c7fca255a6, ubuntu2404amd64: ami-036670f94e2f0d5f5, ubuntu2404arm64: ami-08d8f729fca19484a }
+    eu-south-1 : { linuxamd64: ami-01608651fdf071839, linuxarm64: ami-010dfd1fd5576e61e, windows: ami-0706dbe0ff0c752e1, ubuntu2404amd64: ami-00446f7bc6be8d38f, ubuntu2404arm64: ami-0a51816cb99ebe658 }
+    eu-west-3 : { linuxamd64: ami-00f3f2cae55041271, linuxarm64: ami-0df3d7398fd9b6570, windows: ami-08300d2e7a18f2bdf, ubuntu2404amd64: ami-0ec7658a2f7b74fd1, ubuntu2404arm64: ami-0cd6dd81da51cbdd4 }
+    eu-north-1 : { linuxamd64: ami-03f5e022aa7e5a46a, linuxarm64: ami-0a72ca5796a24c326, windows: ami-06c27dd19f93ac94a, ubuntu2404amd64: ami-0b3d524288cf1acf2, ubuntu2404arm64: ami-0b3fb7995faf5c12b }
+    sa-east-1 : { linuxamd64: ami-0c24e2b3665f34742, linuxarm64: ami-05bfd24809a7ff25b, windows: ami-0aa897eae9d28ff47, ubuntu2404amd64: ami-0815effe5fe3e9b6c, ubuntu2404arm64: ami-05227f3b5787c4be5 }
 
 Resources:
   Vpc:
@@ -2436,7 +2433,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.71.3"
+                  $Env:BUILDKITE_STACK_VERSION="v7.0.0"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
@@ -2449,9 +2446,10 @@ Resources:
                   $Env:BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}"
                   $Env:BUILDKITE_AGENT_ENDPOINT="${AgentEndpoint}"
                   $Env:BUILDKITE_AGENT_TAGS="${BuildkiteAgentTags}"
-                  $Env:BUILDKITE_AGENT_TIMESTAMP_LINES="${BuildkiteAgentTimestampLines}"
                   $Env:BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}"
-                  $Env:BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}"
+                  $Env:BUILDKITE_AGENT_OPENTELEMETRY_TRACING="${BuildkiteAgentOpenTelemetryTracing}"
+                  $Env:BUILDKITE_AGENT_CANCEL_SIGNAL_TIMEOUT="${BuildkiteAgentCancelSignalTimeout}"
+                  $Env:BUILDKITE_AGENT_CANCEL_CLEANUP_TIMEOUT="${BuildkiteAgentCancelCleanupTimeout}"
                   $Env:BUILDKITE_AGENT_SIGNING_KEY_PATH="${BuildkiteAgentSigningKeySSMParameter}"
                   $Env:BUILDKITE_AGENT_SIGNING_KEY_ID="${BuildkiteAgentSigningKeyID}"
                   $Env:BUILDKITE_AGENT_VERIFICATION_KEY_PATH="${BuildkiteAgentVerificationKeySSMParameter}"
@@ -2538,7 +2536,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.71.3" \
+                  BUILDKITE_STACK_VERSION="v7.0.0" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
@@ -2551,15 +2549,14 @@ Resources:
                   BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}" \
                   BUILDKITE_AGENT_ENDPOINT="${AgentEndpoint}" \
                   BUILDKITE_AGENT_TAGS="${BuildkiteAgentTags}" \
-                  BUILDKITE_AGENT_TIMESTAMP_LINES="${BuildkiteAgentTimestampLines}" \
                   BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}" \
-                  BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}" \
+                  BUILDKITE_AGENT_OPENTELEMETRY_TRACING="${BuildkiteAgentOpenTelemetryTracing}" \
+                  BUILDKITE_AGENT_CANCEL_SIGNAL_TIMEOUT="${BuildkiteAgentCancelSignalTimeout}" \
+                  BUILDKITE_AGENT_CANCEL_CLEANUP_TIMEOUT="${BuildkiteAgentCancelCleanupTimeout}" \
                   BUILDKITE_AGENT_SIGNING_KEY_PATH="${BuildkiteAgentSigningKeySSMParameter}" \
                   BUILDKITE_AGENT_SIGNING_KEY_ID="${BuildkiteAgentSigningKeyID}" \
                   BUILDKITE_AGENT_VERIFICATION_KEY_PATH="${BuildkiteAgentVerificationKeySSMParameter}" \
                   BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}" \
-                  BUILDKITE_AGENT_CANCEL_GRACE_PERIOD="${BuildkiteAgentCancelGracePeriod}" \
-                  BUILDKITE_AGENT_SIGNAL_GRACE_PERIOD_SECONDS="${BuildkiteAgentSignalGracePeriod}" \
                   BUILDKITE_AGENT_SIGNING_KMS_KEY="${PipelineSigningKMSKey}" \
                   BUILDKITE_AGENT_JOB_VERIFICATION_NO_SIGNATURE_BEHAVIOR="${PipelineSigningVerificationFailureBehavior}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \

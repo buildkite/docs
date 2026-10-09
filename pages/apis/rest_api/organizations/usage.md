@@ -1,8 +1,8 @@
 # Organization usage API
 
-The organization usage API returns the billable active-user count shown on the organization's **Usage > Platform** page.
+The organization usage API returns the **Average monthly active users** figure shown on a Buildkite organization's [**Usage > Platform**](https://buildkite.com/organizations/~/usage) page. Use this endpoint to monitor active-user counts programmatically, for example, to track usage against a contracted user allowance.
 
-Any organization member can use this endpoint. The API access token must include the `read_organizations` scope and grant access to the requested organization.
+Any organization member can use this endpoint. The [API access token](/docs/apis/managing-api-tokens) must include the `read_organizations` scope and grant access to the requested organization.
 
 ## Get organization usage
 
@@ -13,7 +13,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ```json
 {
-  "active_users_count": 1842
+  "active_users_count": 42
 }
 ```
 
@@ -21,16 +21,21 @@ Required scope: `read_organizations`
 
 Success response: `200 OK`
 
-The `active_users_count` value is the number of distinct billable users active during the current Usage summary period. This is the same period displayed on the Usage page. For organizations with annual subscriptions, the summary period includes the current calendar month and the previous six calendar months, rather than the full annual billing period.
-
-For a billing parent organization, the count includes activity from its linked billing child organizations. A user active in more than one linked organization is counted once.
-
 ## Response fields
 
 Field | Type | Description
 ----- | ---- | -----------
-`active_users_count` | integer | Number of distinct billable users active during the current Usage summary period.
-{: class="table table--no-wrap"}
+`active_users_count` | integer | Average monthly active users for the current usage summary period, matching the organization's **Usage** page.
+{: class="responsive-table"}
+
+For a billing parent organization, the count includes activity from its linked billing child organizations. A user active in more than one linked organization is counted once per month.
+
+## Usage period
+
+The usage summary period matches the period shown on the organization's **Usage** page:
+
+- **Monthly subscriptions**: The current billing period. The count is the number of distinct users active in that period.
+- **Annual subscriptions**: The current calendar month and the previous six calendar months, rather than the full annual billing period. The count is the average of each calendar month's distinct active users, rounded down.
 
 ## Error responses
 

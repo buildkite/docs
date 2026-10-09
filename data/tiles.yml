@@ -18,9 +18,9 @@ pipelines_integrations:
       - text: "Artifactory"
         url: "/docs/pipelines/integrations/artifacts-and-packages/artifactory"
       - text: "Artifact plugins"
-        url: "/docs/pipelines/integrations/artifacts-and-packages/artifact-plugins"
+        url: "https://buildkite.com/resources/plugins/category/artifacts/"
       - text: "Package plugins"
-        url: "/docs/pipelines/integrations/artifacts-and-packages/package-plugins"
+        url: "https://buildkite.com/resources/plugins/category/packages/"
   - title: "Notifications"
     desc: "Send build events and updates to chat, incident management, or status boards."
     links:
@@ -33,7 +33,7 @@ pipelines_integrations:
       - text: "Slack (legacy)"
         url: "/docs/pipelines/integrations/notifications/slack"
       - text: "Notification plugins"
-        url: "/docs/pipelines/integrations/notifications/plugins"
+        url: "https://buildkite.com/resources/plugins/category/notify/"
   - title: "Observability"
     desc: "Integrate Buildkite with monitoring and telemetry platforms."
     links:
@@ -46,19 +46,19 @@ pipelines_integrations:
       - text: "Amazon EventBridge"
         url: "/docs/pipelines/integrations/observability/amazon-eventbridge"
       - text: "Observability plugins"
-        url: "/docs/pipelines/integrations/observability/plugins"
+        url: "https://buildkite.com/resources/plugins/category/observability/"
   - title: "Security and compliance"
     desc: "Keep your pipelines secure and compliant."
     links:
       - text: "Security and compliance plugins"
-        url: "/docs/pipelines/integrations/security-and-compliance/plugins"
+        url: "https://buildkite.com/resources/plugins/category/security-compliance/"
       - text: "SonarScanner"
         url: "/docs/pipelines/integrations/security-and-compliance/sonar"
   - title: "Secrets"
     desc: "Manage secrets passed to your builds."
     links:
       - text: "Secrets plugins"
-        url: "/docs/pipelines/integrations/secrets/plugins"
+        url: "https://buildkite.com/resources/plugins/category/secrets/"
   - title: "Other integrations"
     desc: "Additional services that work with Buildkite."
     links:

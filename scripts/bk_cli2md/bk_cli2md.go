@@ -188,12 +188,9 @@ func parseCommandGroup(binary, groupName string) (*Command, error) {
 
 	// Parse each subcommand for full details
 	for i, sub := range cmd.Subcommands {
-		subParts := strings.Fields(sub.Name)
-		subName := subParts[len(subParts)-1] // Get the last part (e.g., "list" from "job list")
-
-		subHelp, err := getHelp(binary, groupName, subName)
+		subHelp, err := getHelp(binary, strings.Fields(sub.Name)...)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "  Warning: couldn't get help for %s %s: %v\n", groupName, subName, err)
+			fmt.Fprintf(os.Stderr, "  Warning: couldn't get help for %s: %v\n", sub.Name, err)
 			continue
 		}
 
@@ -580,17 +577,19 @@ func getSubcommandTitle(name string) string {
 	}
 
 	action := parts[len(parts)-1]
-	noun := parts[0]
+	noun := strings.Join(parts[:len(parts)-1], " ")
 
 	// Handle special cases for specific command combinations
 	specialTitles := map[string]string{
-		"configure add":      "Add a new organization",
-		"artifacts download": "Download an artifact",
-		"artifacts list":     "List artifacts",
-		"job ssh":            "Connect to a job using SSH",
-		"job vnc":            "Connect to a job using VNC",
-		"team update":        "Update a team",
-		"team delete":        "Delete a team",
+		"configure add":                         "Add a new organization",
+		"artifacts download":                    "Download an artifact",
+		"artifacts list":                        "List artifacts",
+		"job ssh":                               "Connect to a job using SSH",
+		"job vnc":                               "Connect to a job using VNC",
+		"secret migrate github-actions prepare": "Prepare a GitHub Actions secret migration",
+		"secret migrate github-actions run":     "Run a GitHub Actions secret migration",
+		"team update":                           "Update a team",
+		"team delete":                           "Delete a team",
 	}
 	if title, ok := specialTitles[name]; ok {
 		return title
@@ -610,6 +609,10 @@ func getSubcommandTitle(name string) string {
 		return "View " + article + " " + noun
 	case "create":
 		return "Create " + article + " " + noun
+	case "update":
+		return "Update " + article + " " + noun
+	case "delete":
+		return "Delete " + article + " " + noun
 	case "cancel":
 		return "Cancel " + article + " " + noun
 	case "download":

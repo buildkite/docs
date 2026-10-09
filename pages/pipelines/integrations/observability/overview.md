@@ -10,4 +10,4 @@ To help you decide which approaches to combine, see the [monitoring and observab
 - [Honeycomb](/docs/pipelines/integrations/observability/honeycomb)
 - [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry)
 - [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge)
-- [Observability plugins](/docs/pipelines/integrations/observability/plugins)
+- [Observability plugins](https://buildkite.com/resources/plugins/category/observability/)

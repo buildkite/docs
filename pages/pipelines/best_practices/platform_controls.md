@@ -191,7 +191,7 @@ steps:
 
 Block steps work particularly well for production deployments, infrastructure changes, or any operation where you want a human in the loop. Learn more in [Block step](/docs/pipelines/configure/step-types/block-step).
 
-For more sophisticated deployment patterns, implement canary releases and staged rollouts directly in your pipelines. This lets you gradually increase traffic to new versions while monitoring for issues. See [Deployments](/docs/pipelines/deployments) for implementation details, or use the [Buildkite deployment plugins](https://buildkite.com/docs/pipelines/deployments/deployment-plugins) to standardize these patterns across your organization.
+For more sophisticated deployment patterns, implement canary releases and staged rollouts directly in your pipelines. This lets you gradually increase traffic to new versions while monitoring for issues. See [Deployments](/docs/pipelines/deployments) for implementation details, or use the [Buildkite deployment plugins](https://buildkite.com/resources/plugins/category/deploy/) to standardize these patterns across your organization.
 
 ### Reliability and resilience practices
 

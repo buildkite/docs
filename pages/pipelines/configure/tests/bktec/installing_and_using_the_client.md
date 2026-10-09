@@ -424,3 +424,7 @@ The `bktec plan` command generates the following additional environment variable
     </tr>
   </tbody>
 </table>
+
+## Manual test selection
+
+To run only a list of tests that you choose, instead of the full suite, use manual test selection. bktec passes the list to Test Engine, which splits only the selected tests across your parallel jobs. Learn more in [Manual test selection](/docs/pipelines/configure/tests/bktec/manual-test-selection).

@@ -4,6 +4,29 @@ _MCP tools_ form the fundamental components of an _MCP server_, and provide the 
 
 Learn more about MCP tools in the [Core Server Features](https://modelcontextprotocol.io/docs/learn/server-concepts#core-server-features) and [Tools](https://modelcontextprotocol.io/docs/learn/server-concepts#tools) sections of the [Understanding MCP servers](https://modelcontextprotocol.io/docs/learn/server-concepts) page in the [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro) docs.
 
+## Tool annotations and access control
+
+The Buildkite MCP server labels each tool with the standard [MCP tool annotations](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations). AI clients and MCP gateways can use these labels to decide which calls to allow or send for approval:
+
+- `readOnlyHint`: `true` means the tool only reads data and never changes anything in Buildkite. Read-only mode includes only these tools. If `readOnlyHint` is `false` or not set, the tool can make changes.
+- `destructiveHint`: Applies only to tools that can make changes. `true` means the tool can change something that already exists, such as cancelling a build. `false` means the tool creates something new, such as a build or a pipeline.
+
+For example, `create_build` has `destructiveHint: false` but still starts a build and executes pipeline commands. `retry_job` and `unblock_job` have `destructiveHint: true`. Do not use `destructiveHint: false` as an allowlist for read-only access.
+
+The following table lists the write tools in the [open-source MCP server](https://github.com/buildkite/buildkite-mcp-server).
+
+Tools | `destructiveHint`
+--- | ---
+`create_build`, `create_pipeline`, `create_pipeline_schedule`, `create_cluster`, `create_cluster_queue`, `create_cluster_secret`, `create_cache_registry` | `false`
+`cancel_build`, `rebuild_build`, `retry_job`, `unblock_job`, `update_pipeline`, `update_pipeline_schedule`, `update_cluster`, `update_cluster_queue`, `pause_cluster_queue_dispatch`, `resume_cluster_queue_dispatch`, `create_annotation`, `update_cache_registry`, `set_default_cache_registry`, `delete_cache_registry` | `true`
+{: class="two-column"}
+
+All other tools on this page are read-only and set `readOnlyHint: true`. Each tool lists its required API token scopes below.
+
+Annotations are hints. They don't grant permissions or enforce anything. Check the `tools/list` response from your server version, and test how your gateway handles read-only calls, write calls, and tools with no annotations. Do not assume that a gateway requires approval for a tool marked destructive.
+
+Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server) and least-privilege [API token scopes](/docs/apis/managing-api-tokens#token-scopes) to restrict access. These restrictions do not constrain an AI agent's other credentials or tools. See [Read-only access boundaries](/docs/apis/mcp-server/remote/configuring-ai-tools#read-only-access-boundaries).
+
 ## Available MCP tools
 
 The Buildkite MCP server exposes the following categories of MCP tools.
@@ -166,6 +189,68 @@ These MCP tools are used to list, retrieve, and create [Buildkite secrets](/docs
         "tool": "create_cluster_secret",
         "description": "Uses the [Create a secret](/docs/apis/rest-api/clusters/secrets#create-a-secret) REST API endpoint to create a secret with an optional description and access policy.",
         "scope": "write_secrets"
+      }
+    ].select { |field| field[:tool] }.each do |field| %>
+      <tr>
+        <td>
+          <code><%= field[:tool] %></code>
+         </td>
+        <td>
+          <p><%= render_markdown(text: field[:description]) %></p>
+          <% if field[:scope] %>
+            <p>Required <a href="/docs/apis/managing-api-tokens#token-scopes">token scope</a>: <code><%= field[:scope] %></code>.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+### Cache registries
+
+These MCP tools are used to list, retrieve, create, update, and delete a cluster's [cache registries](/docs/pipelines/configure/cache#manage-cache-registries), and to set a cluster's default cache registry. Registries are identified by UUID. Registry slugs aren't accepted. Each tool requires permission to manage the cluster.
+
+> 📘 Available from the next MCP server release
+> These tools aren't in Buildkite MCP server v1.24.0 or earlier. If you run the [local MCP server](/docs/apis/mcp-server/local/installing) from a release binary or Docker image, update it to the next release to use them.
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:20%">Tool</th>
+      <th style="width:80%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        "tool": "list_cache_registries",
+        "description": "Uses the [List cache registries](/docs/apis/rest-api/clusters/cache-registries#list-cache-registries) REST API endpoint to list a cluster's cache registries, ordered by slug, with cursor pagination links.",
+        "scope": "read_clusters"
+      },
+      {
+        "tool": "get_cache_registry",
+        "description": "Uses the [Get a cache registry](/docs/apis/rest-api/clusters/cache-registries#get-a-cache-registry) REST API endpoint to retrieve a cache registry, including its policy and whether it's the cluster's default.",
+        "scope": "read_clusters"
+      },
+      {
+        "tool": "create_cache_registry",
+        "description": "Uses the [Create a cache registry](/docs/apis/rest-api/clusters/cache-registries#create-a-cache-registry) REST API endpoint to create a cache registry in a cluster, with optional metadata and policy.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "update_cache_registry",
+        "description": "Uses the [Update a cache registry](/docs/apis/rest-api/clusters/cache-registries#update-a-cache-registry) REST API endpoint to update a cache registry's name, description, emoji, color, or policy.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "set_default_cache_registry",
+        "description": "Uses the [Update a cluster](/docs/apis/rest-api/clusters#clusters-update-a-cluster) REST API endpoint to set another cache registry in the same cluster as the cluster's default. A cluster always has a default cache registry, so this tool can't clear it.",
+        "scope": "write_clusters"
+      },
+      {
+        "tool": "delete_cache_registry",
+        "description": "Uses the [Delete a cache registry](/docs/apis/rest-api/clusters/cache-registries#delete-a-cache-registry) REST API endpoint to delete a cache registry and its cache metadata. A cluster's default cache registry can't be deleted.",
+        "scope": "write_clusters"
       }
     ].select { |field| field[:tool] }.each do |field| %>
       <tr>

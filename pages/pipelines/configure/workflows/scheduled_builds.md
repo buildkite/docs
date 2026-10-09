@@ -8,6 +8,19 @@ You can create and manage schedules in the **Schedules** section of your pipelin
 
 You can also create and manage schedules using the [pipeline schedules REST API](/docs/apis/rest-api/pipeline-schedules) or the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
+## Run a schedule once
+
+You can run a schedule once without waiting for its next scheduled run. From your pipeline, select **Settings** > **Schedules**, then select the schedule.
+
+Choose the action that matches the build you need:
+
+- **Run now**: Run one build using the schedule's saved message, commit, branch, and [environment variables](/docs/pipelines/configure/environment-variables). Select **Run build now** in the confirmation dialog. The build has source `schedule`, is associated with the schedule, and appears in its **Recent Builds**. The build identifies you as its creator.
+- **Run with edits**: Open the pre-filled **New Build** form to customize a one-off build, such as changing environment variables for a test run. Edit the available fields, then submit the form. The build has source `ui` and is not associated with the schedule. Changes apply only to this build, not to the saved schedule.
+
+Neither action changes the saved schedule or its next scheduled run. You can also run a disabled schedule once without enabling it.
+
+Use **Run now** to test [conditionals](/docs/pipelines/configure/conditionals#example-expressions) or [secret access policies](/docs/pipelines/security/secrets/buildkite-secrets/access-policies#policy-schema-first-party-claims) that check for source `schedule`. You can check a build's source using [`BUILDKITE_SOURCE`](/docs/pipelines/configure/environment-variables#BUILDKITE_SOURCE).
+
 ## Cron job permission consideration
 
 When setting up a cron job in your parent pipeline, it's important to ensure that the same team has been assigned to the corresponding child pipeline. Failure to match the team between the parent and child pipelines may result in an error with the following message:
@@ -20,7 +33,7 @@ This error is indicative of a mismatch in team assignments and highlights the im
 
 ## Invalid notification configuration
 
-If a scheduled build's build-level `notify` configuration is invalid, Buildkite Pipelines disables the schedule and stores the validation error, rather than silently skipping the build. For example, a Slack ID for a channel, conversation, or user is ambiguous when your organization has more than one [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration enabled. This configuration fails with an error like the following:
+If the build-level `notify` configuration is invalid when a schedule runs automatically, Buildkite Pipelines disables the schedule and stores the validation error, rather than silently skipping the build. For example, a Slack ID for a channel, conversation, or user is ambiguous when your organization has more than one [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) integration enabled. This configuration fails with an error like the following:
 
 > 🚧 Validation error
 > The `slack` notification is invalid: Channel `U12345678` must specify a team (for example, `team-name#channel`) when multiple Slack workspaces are configured

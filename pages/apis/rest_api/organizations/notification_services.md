@@ -102,7 +102,8 @@ For example:
     "token": "xxx-yyy-zzz",
     "token_mode": "token",
     "events": ["build.finished"],
-    "tls_verify": true
+    "tls_verify": true,
+    "cluster_queue_ids": []
   },
   "created_at": "2026-07-01T10:00:00.000Z",
   "created_by": {
@@ -290,7 +291,9 @@ The following providers can be created using the REST API:
 <tbody>
   <tr>
     <th><code>webhook</code></th>
-    <td>Settings: <code>url</code> (required), <code>token</code>, <code>token_mode</code> (<code>token</code> or <code>signature</code>), <code>version</code>, <code>events</code>, and <code>tls_verify</code>.</td>
+    <td>Settings: <code>url</code> (required), <code>token</code>, <code>token_mode</code> (<code>token</code> or <code>signature</code>), <code>version</code>, <code>events</code>, <code>tls_verify</code>, and <code>cluster_queue_ids</code>.
+      <p><code>cluster_queue_ids</code> limits job events (<code>job.scheduled</code>, <code>job.started</code>, <code>job.finished</code>, <code>job.activated</code>, and <code>job.promised_exit_status</code>) to jobs whose queue ID is in the list. An empty list, the default, delivers job events for all queues. Other event types aren't filtered by queue. Each ID must belong to a queue in the organization, though a queue that has since been deleted is still accepted, so a get-update round trip of an existing filter doesn't fail. Queue IDs from another organization are rejected with a <code>422</code> error.</p>
+    </td>
   </tr>
   <tr>
     <th><code>slack</code></th>

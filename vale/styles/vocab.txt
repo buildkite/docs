@@ -129,6 +129,7 @@ CVE
 CVEs
 cutover
 daemonless
+DAGs
 Datadog
 Datadog's
 daemonless
@@ -201,6 +202,7 @@ gnupg
 goroutines
 goss
 grantable
+gotest
 gotestsum
 gpg
 GPU
@@ -233,6 +235,7 @@ httplog
 https
 IdP's
 if_changed
+inFlight
 initContainer
 inlining
 invoiceable
@@ -361,6 +364,7 @@ polyrepos
 Postgres
 PowerShell
 PR's
+PRs
 predeclare
 predeclared
 Prepends
@@ -467,6 +471,7 @@ sso
 stack_error
 start_time
 statefully
+stderr
 stdin
 stdout
 streamable
@@ -508,6 +513,7 @@ TOTP's
 TPUs
 TTLs
 traceparent
+treemap
 Trivy
 trixie
 typosquatted
@@ -523,6 +529,7 @@ unblocker
 unblocker's
 unbuildable
 unclustered
+unconfigured
 unencrypted
 unpatched
 unpermitted
@@ -553,6 +560,7 @@ vendored
 vfs
 virtualenv
 virtualized
+Vite
 Vitest
 VMs
 VPC's

@@ -1432,7 +1432,9 @@ Error responses:
 
 ## GitHub webhook processing
 
-These endpoints let you get, enable, or disable incoming GitHub webhook processing for a pipeline. They are only available for GitHub and GitHub Enterprise pipelines. Your organization must be enrolled in the expanded webhook triggers feature.
+These endpoints let you get, enable, or disable native incoming GitHub webhook processing for a pipeline. They are only available for GitHub and GitHub Enterprise pipelines. Your organization must be enrolled in the expanded webhook triggers feature.
+
+These controls don't affect [GitHub Actions pipeline triggers](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger), which process their own deliveries. When [migrating to server-side workflow dispatch](/docs/pipelines/migration/run-github-actions-workflows#migrate-to-server-side-dispatch), disable native webhook processing to avoid duplicate builds without deleting repository webhooks used by other pipelines.
 
 > 📘 Feature availability
 > These endpoints return `404 Not Found` if your organization is not enrolled in the expanded webhook triggers feature, or if the pipeline is not connected to a GitHub or GitHub Enterprise repository.

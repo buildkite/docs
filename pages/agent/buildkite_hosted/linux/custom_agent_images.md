@@ -101,6 +101,14 @@ You can use an agent image in the following ways:
 - [Specify a custom image for a queue](#use-an-agent-image-specify-a-custom-image-for-a-queue) using the Buildkite interface or API.
 - [Specify the image in your pipeline YAML](#use-an-agent-image-specify-an-image-in-your-pipeline-yaml), which allows different steps to use different images within the same queue.
 
+When more than one of these is set, a job uses the first image available in the following order:
+
+1. The `image` attribute on the job's command step.
+1. The `image` attribute at the pipeline root.
+1. The queue's **Image URL** (`agentImageRef`).
+1. The queue's **Agent image** dropdown selection.
+1. The default Buildkite hosted agent image.
+
 ### Set the default image for a queue
 
 Once you have [created an agent image](#create-an-agent-image), you can set it as the default for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) based on Linux architecture. Any agents in the queue will use this image in new jobs, unless overridden in the pipeline YAML.
@@ -113,7 +121,7 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 1. Select the **Base image** tab to open its settings.
 1. In the **Agent image** dropdown, select your agent image.
 
-    **Note:** If you see an **Image URL** field, see [Specify a custom image for a queue](#use-an-agent-image-specify-a-custom-image-for-a-queue) for details on how to use this feature.
+    **Note:** If the **Image URL** field contains a value, that URL takes precedence and the queue does not use the image selected in this dropdown. To use the dropdown selection, clear the **Image URL** field. Learn more in [Specify a custom image for a queue](#use-an-agent-image-specify-a-custom-image-for-a-queue).
 
 1. Select **Save settings** to save this update.
 
@@ -121,7 +129,10 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 
 ### Specify a custom image for a queue
 
-You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). When configured, this URL overrides the [agent image selected from the **Agent image** dropdown](#use-an-agent-image-set-the-default-image-for-a-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry). Specifying a custom image requires access to the custom agent images feature.
+You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry). Specifying a custom image requires access to the custom agent images feature.
+
+> 📘 Image URL takes precedence over the Agent image dropdown
+> A queue can have both an **Image URL** and an [**Agent image** dropdown selection](#use-an-agent-image-set-the-default-image-for-a-queue) saved at the same time. Setting one does not clear the other. When both are set, the queue uses the **Image URL**, and ignores the dropdown selection. To use the dropdown selection instead, clear the **Image URL** field, or set `agentImageRef` to `null` through the API. An `image` attribute in your [pipeline YAML](#use-an-agent-image-specify-an-image-in-your-pipeline-yaml) overrides both queue settings.
 
 To set a custom image URL through the Buildkite interface:
 
@@ -130,7 +141,6 @@ To set a custom image URL through the Buildkite interface:
 1. On the **Queues** page, select the Buildkite hosted queue.
 1. Select the **Base image** tab to open its settings.
 1. In the **Image URL** field, enter the custom image URL.
-1. Enter the **Image URL** for a custom image.
 
     The format for this URL follows the standard container image reference syntax of `registry.url/image-name:tag`. For example:
     * **Docker Hub:** `docker.io/node:latest`.

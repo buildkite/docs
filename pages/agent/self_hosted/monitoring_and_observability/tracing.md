@@ -113,6 +113,20 @@ export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
 buildkite-agent start
 ```
 
+### Sending job logs to Datadog
+
+Configure the Buildkite agent to export job logs directly to the Datadog OTLP logs intake endpoint:
+
+```bash
+export BUILDKITE_JOB_LOGS_OTLP=true
+export OTEL_EXPORTER_OTLP_LOGS_PROTOCOL="http/protobuf"
+export OTEL_EXPORTER_OTLP_LOGS_ENDPOINT="<DATADOG_OTLP_LOGS_ENDPOINT>"
+export OTEL_EXPORTER_OTLP_LOGS_HEADERS="dd-api-key=<DATADOG_API_KEY>"
+buildkite-agent start
+```
+
+Use the [Datadog OTLP Logs Intake Endpoint documentation](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/logs/) to find the endpoint for your Datadog site and review the authentication details. Logs sent this way are available in [Datadog Log Management](https://docs.datadoghq.com/logs/). To correlate the logs with pipeline and job executions in Datadog CI Pipeline Visibility, also configure the [Datadog Pipeline Visibility notification service](/docs/pipelines/integrations/observability/datadog#configuring-the-datadog-integration-in-buildkite).
+
 ### What each record contains
 
 Each record carries a line of job output as its body, with the same `[REDACTED]` markers as the Buildkite job log. Records are built from the already-redacted job log stream, so they inherit the [job log redaction](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) automatically, including secrets split across separate writes and secrets added mid-job through the [Job API](/docs/agent/self-hosted/configure/experiments#promoted-experiments-job-api). Lines longer than the maximum record size of 64 KiB are split across multiple records. Both child-process output and the bootstrap control output, such as section headers, prompts, comments, and warnings, are exported, so the records match the downloadable Buildkite job log.

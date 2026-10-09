@@ -65,6 +65,9 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/auditevent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuditEvent">
   <code>AuditEvent</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/authorizationamp" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationAmp">
+  <code>AuthorizationAmp</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/authorizationbitbucket" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationBitbucket">
   <code>AuthorizationBitbucket</code>
 </a>
@@ -85,6 +88,9 @@ An object with an ID.
 </a>
 <a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build">
   <code>Build</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/cacheregistry" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT CacheRegistry">
+  <code>CacheRegistry</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/cluster" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Cluster">
   <code>Cluster</code>

@@ -111,6 +111,7 @@ pipelines:
     - "apis/rest-api/clusters/agent-images"
     - "apis/rest-api/clusters/network-ranges"
     - "apis/rest-api/clusters/cache-volumes"
+    - "apis/rest-api/clusters/cache-registries"
     - "apis/rest-api/rules"
     - "apis/rest-api/pipeline-templates"
     - "apis/graphql-api"
@@ -128,6 +129,13 @@ pipelines:
     - "apis/webhooks/pipelines/agent-events"
     - "apis/webhooks/pipelines/ping-events"
     - "apis/webhooks/pipelines/agent-token-events"
+    - "https://buildkite.com/resources/plugins/category/deploy/"
+    - "https://buildkite.com/resources/plugins/category/notify/"
+    - "https://buildkite.com/resources/plugins/category/observability/"
+    - "https://buildkite.com/resources/plugins/category/secrets/"
+    - "https://buildkite.com/resources/plugins/category/security-compliance/"
+    - "https://buildkite.com/resources/plugins/category/artifacts/"
+    - "https://buildkite.com/resources/plugins/category/packages/"
   related_topics:
     - pipeline-configurations
     - best-practices
@@ -207,6 +215,7 @@ deployments:
     - "pipelines/security/oidc/aws"
     - "pipelines/security/oidc/azure"
     - "pipelines/integrations/other/backstage"
+    - "https://buildkite.com/resources/plugins/category/deploy/"
   related_topics:
     - pipelines
     - integrations
@@ -278,6 +287,14 @@ integrations:
     - "pipelines/integrations"
     - "pipelines/source-control"
     - "pipelines/deployments"
+  exact_paths:
+    - "https://buildkite.com/resources/plugins/category/deploy/"
+    - "https://buildkite.com/resources/plugins/category/notify/"
+    - "https://buildkite.com/resources/plugins/category/observability/"
+    - "https://buildkite.com/resources/plugins/category/secrets/"
+    - "https://buildkite.com/resources/plugins/category/security-compliance/"
+    - "https://buildkite.com/resources/plugins/category/artifacts/"
+    - "https://buildkite.com/resources/plugins/category/packages/"
   related_topics:
     - pipelines
     - deployments
