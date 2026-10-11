@@ -310,6 +310,20 @@ The `github_check` attribute supports the following options:
 
 - `output`: An object containing detailed output information: `title` (a short title for the check output), `summary` (a summary of the check results), `text` (detailed information about the check results, supports Markdown), and `annotations` (an array of annotation objects for inline code comments).
 
+### Blocked build conclusion
+
+When a build pauses at a [block step](/docs/pipelines/configure/step-types/block-step#block-step-attributes), a build-level `github_check` notification reports the check run's conclusion based on the block step's `blocked_state` attribute:
+
+`blocked_state` | Conclusion | Summary
+--- | --- | ---
+`passed` | `success` | Passed and blocked
+`failed` | `failure` | Failed and blocked
+`running` | `action_required` | Blocked
+Not set | `action_required` | Blocked
+{: class="responsive-table"}
+
+This behavior only applies to build-level `github_check` notifications. Step-level `github_check` notifications and [GitHub commit status](#github-commit-status) notifications are unaffected.
+
 ### GitHub check annotations
 
 For step-level notifications, you can include annotations that appear as inline comments on specific lines of code in pull requests:

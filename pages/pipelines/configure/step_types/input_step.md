@@ -99,7 +99,7 @@ Optional attributes:
    <tr>
      <td><code>blocked_state</code></td>
      <td>
-       The state that the build is set to when the build is blocked by this block step. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis.<br/>
+       The state that the build is set to when the build is blocked by this block step. If you're using GitHub, you can also <a href="/docs/pipelines/source-control/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipeline basis. Build-level <a href="/docs/pipelines/configure/notify#github-check-blocked-build-conclusion">GitHub check notifications</a> also reflect this value.<br/>
        <em>Default:</em> <code>passed</code><br/>
        <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
      </td>
