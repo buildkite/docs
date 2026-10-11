@@ -319,7 +319,7 @@ When a build pauses at a [block step](/docs/pipelines/configure/step-types/block
 `passed` | `success` | Passed and blocked
 `failed` | `failure` | Failed and blocked
 `running` | `action_required` | Blocked
-Not set | `action_required` | Blocked
+`(not set)` | `action_required` | Blocked
 {: class="responsive-table"}
 
 ### GitHub check annotations
