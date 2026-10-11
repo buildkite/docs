@@ -314,7 +314,7 @@ The `github_check` attribute supports the following options:
 
 When a build pauses at a [block step](/docs/pipelines/configure/step-types/block-step#block-step-attributes), a build-level `github_check` notification reports the check run's conclusion based on the block step's `blocked_state` attribute:
 
-`blocked_state` | Github Check's conclusion | Summary
+`blocked_state` | GitHub check conclusion | Summary
 --- | --- | ---
 `passed` | `success` | Passed and blocked
 `failed` | `failure` | Failed and blocked
