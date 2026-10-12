@@ -318,6 +318,110 @@ Error responses:
 </tbody>
 </table>
 
+## Cancel a job
+
+Cancels a command job that is `scheduled`, `assigned`, `accepted`, or `running`. A job that hasn't started running moves straight to `canceled`. A running job moves to `canceling` while its agent stops the job, and then moves to `canceled`.
+
+Canceling a job can cause its build to fail. Learn more in [Manually cancel a job](/docs/pipelines/configure/canceling-builds#manually-cancel-a-job).
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/cancel"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/cancel"
+```
+
+This endpoint doesn't use a request body. The response contains the canceled job. The following example shows a job that was running when it was canceled:
+
+```json
+{
+  "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+  "type": "script",
+  "name": ":package: Build",
+  "step_key": "build",
+  "step": { "id": "...", "signature": null },
+  "priority": { "number": 0 },
+  "agent_query_rules": [],
+  "state": "canceling",
+  "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+  "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/artifacts",
+  "command": "scripts/build.sh",
+  "soft_failed": false,
+  "exit_status": null,
+  "signal": null,
+  "signal_reason": null,
+  "broken_reason": null,
+  "artifact_paths": null,
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "runnable_at": "2015-05-09T21:06:00.000Z",
+  "concurrency_wait_time_ms": null,
+  "started_at": "2015-05-09T21:06:05.000Z",
+  "finished_at": null,
+  "expired_at": null,
+  "retried": false,
+  "retried_in_job_id": null,
+  "retries_count": null,
+  "retry_source": null,
+  "retry_type": null,
+  "parallel_group_index": null,
+  "parallel_group_total": null,
+  "matrix": null,
+  "agent": null,
+  "retried_by": null,
+  "cluster_id": null,
+  "cluster_url": null,
+  "cluster_queue_id": null,
+  "cluster_queue_url": null
+}
+```
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to cancel the job.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to cancel the job: <code>{ "message": "You’re not allowed to cancel this job" }</code></td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The organization, pipeline, build, or job does not exist, or the job does not belong to the build.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "You can only cancel jobs that have started" }</code><br>The job is not in a state that can be canceled. For example, the job is waiting, blocked, finished, or already canceled.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job is already being canceled" }</code><br>The job is already <code>canceling</code>.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Only `command` jobs can be canceled" }</code><br>The job is not a command job.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job can't be canceled anymore" }</code><br>The job changed state while the cancellation was being processed.</td>
+  </tr>
+</tbody>
+</table>
+
 ## Retry a job
 
 Retries a `failed` OR `timed_out` OR a job whose step has the [manual retry after passing attribute set to true](/docs/pipelines/configure/retry#retry-attributes-manual-retry-attributes) (that is, `permit_on_passed: true`). You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.

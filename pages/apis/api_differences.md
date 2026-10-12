@@ -37,7 +37,6 @@ The following lists cover public capabilities without an equivalent operation in
 - <%= pill "BUILDS", "builds" %> [Get build information directly by UUID](/docs/apis/graphql/cookbooks/builds#get-build-info-by-id).
 - <%= pill "JOBS", "jobs" %> [Search jobs across an organization by queue, cluster, creation or finish date, or concurrency group](/docs/apis/graphql/schemas/object/organization).
 - <%= pill "JOBS", "jobs" %> [List job events](/docs/apis/graphql/schemas/object/jobtypecommand).
-- <%= pill "JOBS", "jobs" %> [Cancel a job](/docs/apis/graphql/schemas/mutation/jobtypecommandcancel).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Resend an organization invitation](/docs/apis/graphql/schemas/mutation/organizationinvitationresend).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Revoke a specific API access token's access to an organization](/docs/apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke).
 - <%= pill "ORGANIZATIONS", "organizations" %> [Set up and manage SSO](/docs/platform/sso/sso-setup-with-graphql).
