@@ -105,6 +105,7 @@ enum APIAccessTokenScopes {
   READ_TEST_PLAN
   READ_TEST_POOL
   READ_USER
+  RETRY_BUILDS
   WRITE_AGENTS
   WRITE_ARTIFACTS
   WRITE_BUILDS
@@ -836,7 +837,8 @@ A file uploaded from the agent whilst running a job
 type Artifact implements Node {
   """
   The download URL for the artifact. Unless you've used your own artifact
-  storage, the URL will be valid for only 10 minutes.
+  storage, the URL will be valid for only 10 minutes. Once the artifact has
+  expired, a URL that responds with 410 Gone.
   """
   downloadURL: String!
 
