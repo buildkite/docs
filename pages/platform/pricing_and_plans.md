@@ -20,6 +20,20 @@ Each plan has default [service quotas](/docs/platform/limits) that define usage 
 
 For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
+## Usage overview during your trial
+
+Organizations with an active All Access Trial see an **Overview** tab on the [**Usage** page](https://buildkite.com/organizations/~/usage). This tab summarizes how your organization has explored Buildkite so far, and what else is available on your plan.
+
+The **Overview** tab shows:
+
+- The current usage period.
+- The days remaining in the trial once the countdown period begins.
+- Feature cards grouped into explored and unexplored sections, with a utilization indicator showing how many available features your organization has tried.
+
+Select a feature card to go to that feature.
+
+Organizations without an active trial are taken to the **Platform** tab when they select **Usage**.
+
 ## Billing spend alerts
 
 Spend alerts notify your organization when its estimated next invoice reaches a threshold you choose. Spend alerts are informational only—they don't cap spending, stop builds, or disable usage.
