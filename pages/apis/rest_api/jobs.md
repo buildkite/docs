@@ -320,7 +320,7 @@ Error responses:
 
 ## Cancel a job
 
-Cancels a command job that is `scheduled`, `assigned`, `accepted`, or `running`. A job that hasn't started running moves straight to `canceled`. A running job moves to `canceling` while its agent stops the job, and then moves to `canceled`.
+Cancels a command job that is `scheduled`, `reserved`, `assigned`, `accepted`, or `running`. A job that hasn't started running moves straight to `canceled`. A running job moves to `canceling` while its agent stops the job, and then moves to `canceled`.
 
 Canceling a job can cause its build to fail. Learn more in [Manually cancel a job](/docs/pipelines/configure/canceling-builds#manually-cancel-a-job).
 
