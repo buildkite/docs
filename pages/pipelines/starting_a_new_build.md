@@ -31,7 +31,7 @@ To start a build by pushing code:
 
 1. In Buildkite, select **Pipelines** in the global navigation, and then select your pipeline. A new build for your commit appears at the top of the builds list, and uses your commit message as its build message.
 
-You can also start builds from pull request and other repository events. For GitHub, see [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests).
+You can also start builds from pull requests and other repository events. For GitHub, see [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests).
 
 ## Start a build from the Buildkite interface
 
