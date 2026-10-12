@@ -11,6 +11,7 @@ import {
   searchTrackingItems,
   searchTrackingNavigator,
 } from "../components/searchTracking";
+import { initMarketingAttribution } from "../components/marketingAttribution";
 
 Turbo.start();
 
@@ -55,6 +56,8 @@ const relatedSections = {
 };
 
 function render() {
+  initMarketingAttribution();
+
   const section = getCurrentSection();
   const optionalFilters = [];
   if (section) {
