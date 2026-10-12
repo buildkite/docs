@@ -44,7 +44,7 @@ To choose secrets interactively, leave out `--secret` and `--match`.
 
 Review the workflow like any other code change. Check which secrets it moves, where they go, and which pipeline can use them.
 
-By default, only the matched pipeline can use the migrated secrets. To use a different [access policy](/docs/pipelines/security/secrets/buildkite-secrets/access-policies), pass `--policy-file` when you create the workflow.
+By default, only the matched pipeline can use the migrated secrets. To use a different [access policy](/docs/pipelines/security/secrets/buildkite-secrets/access-policies), pass `--policy-file` when you create the workflow. The policy must contain at least one rule, and every rule must include at least one condition, such as `pipeline_id`. Buildkite rejects policies that would let every job in the cluster read the secrets.
 
 The Buildkite CLI doesn't commit or push files. Commit the workflow without changing it:
 
@@ -103,6 +103,8 @@ Migration complete. Remove this workflow from the default branch.
 
 Each migration can only be used once. If the run fails before it creates the secrets, rerun the command above with the same `--workflow` path.
 
+The migration runs with the Buildkite permissions of the user who ran the command. If that user leaves the organization or loses permission to manage the destination cluster before the GitHub Actions run sends the secrets, the run fails without creating any secrets.
+
 ## Remove the workflow
 
 After the migration succeeds, remove the workflow:
@@ -145,3 +147,9 @@ steps:
 - Each secret value must not be blank and must be smaller than 32 KiB.
 - You can't migrate `GITHUB_TOKEN`.
 - The migration never overwrites an existing Buildkite secret.
+
+## Workflows prepared by buildkite-gha
+
+`buildkite-gha` v0.102.0 removed the `buildkite-gha migrate-secrets` command. If you prepared a migration workflow with `buildkite-gha migrate-secrets` v0.90.0 or later, you don't need to regenerate or recommit it. Run it with `bk secret migrate github-actions run --workflow <path>`.
+
+For the trust boundaries of the migration grant, see the [secrets migration security model](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-oidc-secrets-migration).
