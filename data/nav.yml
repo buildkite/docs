@@ -1036,6 +1036,8 @@
           path: "platform/limits"
         - name: "Pricing and plans"
           path: "platform/pricing-and-plans"
+        - name: "Spend alerts"
+          path: "platform/spend-alerts"
     - name: "Service level agreement"
       path: "platform/service-level-agreement"
     - name: "Legal and policies"
