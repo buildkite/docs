@@ -6,7 +6,9 @@ The repository connections API endpoint lets you list repositories available to 
 
 Returns the repositories available to the specified repository connection, in provider order.
 
-This endpoint is supported for GitHub, GitHub Limited Access, GitHub Restricted, GitHub Enterprise Server (GHES), and Origin connections. For Bitbucket Server, GitLab Self-Managed, and GHES Legacy connections, the endpoint returns `422 Unprocessable Entity`.
+This endpoint is supported for GitHub, GitHub Limited Access, GitHub Restricted, GitHub Enterprise Server (GHES), Origin, and Entire connections. For Bitbucket Server, GitLab Self-Managed, and GHES Legacy connections, the endpoint returns `422 Unprocessable Entity`.
+
+For [Entire connections](/docs/pipelines/source-control/entire), `clone_url` is the native `entire://` URL and `default_branch` is an empty string. Select the repository in the Buildkite pipeline editor to associate it with the connection. Supplying its URL through the pipelines REST API does not establish that association.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -44,11 +46,11 @@ curl -H "Authorization: Bearer $TOKEN" \
     </tr>
     <tr>
       <th><code>clone_url</code></th>
-      <td>HTTPS clone URL for the repository</td>
+      <td>Clone URL for the repository. HTTPS for most providers, or the native <code>entire://</code> URL for Entire.</td>
     </tr>
     <tr>
       <th><code>default_branch</code></th>
-      <td>Default branch of the repository</td>
+      <td>Default branch of the repository. An empty string for Entire.</td>
     </tr>
   </tbody>
 </table>

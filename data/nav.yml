@@ -73,6 +73,8 @@
         - name: "Code Storage"
           path: "pipelines/source-control/code-storage"
           pill: "preview"
+        - name: "Entire"
+          path: "pipelines/source-control/entire"
         - name: "Phabricator"
           path: "pipelines/source-control/phabricator"
         - name: "Other Git servers"

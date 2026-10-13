@@ -15,6 +15,7 @@ Buildkite Pipelines integrates with source control providers to create builds fr
 - [Bitbucket Server](/docs/pipelines/source-control/bitbucket-server)
 - [Origin](/docs/pipelines/source-control/origin)
 - [Code Storage](/docs/pipelines/source-control/code-storage)
+- [Entire](/docs/pipelines/source-control/entire)
 - [Phabricator](/docs/pipelines/source-control/phabricator)
 - [Other Git servers](/docs/pipelines/source-control/git)
 
@@ -23,6 +24,7 @@ Buildkite Pipelines integrates with source control providers to create builds fr
 Choose a repository authentication method based on where your agents run and which provider connection you use:
 
 - **Buildkite hosted agents with GitHub, Origin, or Code Storage:** Repository access is included when you connect the full-access GitHub App, an Origin repository, or a Code Storage repository. See [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+- **Buildkite hosted agents with Entire:** Connect an Entire project, select a repository, and configure the Entire checkout plugin. See [Entire hosted-agent checkout](/docs/pipelines/source-control/entire#check-out-repositories-on-hosted-agents).
 - **SSH key stored in Buildkite Secrets:** This is the recommended option for self-hosted agents, the Limited Access GitHub App, and providers without native repository access. Follow the instructions for [self-hosted agents](/docs/agent/self-hosted/code-access#using-buildkite-secrets-recommended) or [Buildkite hosted agents](/docs/agent/buildkite-hosted/code-access#private-repositories-with-other-providers).
 - **SSH key stored on an agent machine:** Self-hosted agents can use keys in the agent user's `~/.ssh` directory. See [Managing SSH keys on agent machines](/docs/agent/self-hosted/code-access#managing-ssh-keys-on-agent-machines).
 - **GitHub App installation access token:** As an alternative to SSH keys, self-hosted agents can generate a short-lived token in a `pre-checkout` hook. See [Using GitHub App installation access tokens](/docs/pipelines/source-control/github#using-github-app-installation-access-tokens).
