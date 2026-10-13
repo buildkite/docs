@@ -35,6 +35,8 @@ Creating new or updating existing IAM roles is conducted through your AWS accoun
 
 Learn more about how to do this in the [Creating a role using custom trust policies (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-custom.html) page of the AWS IAM User Guide.
 
+The trust policy in this step restricts access using Buildkite OIDC claims directly as AWS condition keys, such as `agent.buildkite.com:organization_id` and `agent.buildkite.com:pipeline_id`. It also includes the matching `organization_slug` and `pipeline_slug` conditions. These aren't required when you use the IDs, but they make the policy easier to read. Learn more about the available condition keys and how to choose between them in [Restricting access with Buildkite OIDC claims](#restricting-access-with-buildkite-oidc-claims).
+
 As part of this process:
 
 1. Choose the **Custom trust policy** role type.
@@ -50,19 +52,17 @@ As part of this process:
                 "Principal": {
                     "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
                 },
-                "Action": [
-                    "sts:TagSession",
-                    "sts:AssumeRoleWithWebIdentity"
-                ],
+                "Action": "sts:AssumeRoleWithWebIdentity",
                 "Condition": {
                     "StringLike": {
                         "agent.buildkite.com:sub": "organization\:ORGANIZATION_SLUG\:pipeline:PIPELINE_SLUG\:ref\:REF\:commit\:BUILD_COMMIT\:step\:STEP_KEY"
                     },
                     "StringEquals": {
                         "agent.buildkite.com:aud": "sts.amazonaws.com",
-                        "aws:RequestTag/organization_slug": "ORGANIZATION_SLUG",
-                        "aws:RequestTag/organization_id": "ORGANIZATION_ID",
-                        "aws:RequestTag/pipeline_slug": "PIPELINE_SLUG"
+                        "agent.buildkite.com:organization_slug": "ORGANIZATION_SLUG",
+                        "agent.buildkite.com:organization_id": "ORGANIZATION_ID",
+                        "agent.buildkite.com:pipeline_slug": "PIPELINE_SLUG",
+                        "agent.buildkite.com:pipeline_id": "PIPELINE_ID"
                     },
                     "IpAddress": {
                         "aws:SourceIp": [
@@ -83,9 +83,9 @@ As part of this process:
     1. Change `AWS_ACCOUNT_ID` to your actual AWS account ID.
 
 1. Modify the `Condition` section of the code snippet accordingly:
-    1. Ensure the `StringLike` subsection's `agent.buildkite.com:sub` field name has at least one value that matches the format:  `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`. You can choose to wildcard sections of this string to make your trust policy more permissive, for example, `organization:acme-inc:*` will match for any invocation of pipeline in Buildkite organization "acme-inc". Buildkite recommends that the subject claim is used to narrow the trust policy scope to a Buildkite organization, and `aws:RequestTag` style claims to be used to further narrow the trust policy scope for example, to a pipeline. `aws:RequestTag` style claims allow you to specify immutable UUIDs in your trust policy. Note that [AWS requires the `agent.buildkite.com:sub` claim](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_secure-by-default.html) to be specified in the trust policies associated with IAM roles using a Buildkite OIDC provider federated principal.
-    1. Ensure the `StringEquals` subsection's _audience_ field name has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`). The _audience_ field name is your provider URL appended by `:aud`—`agent.buildkite.com:aud`.
-    1. Ensure the `StringEquals` subsection's `RequestTag` fields have values match the Buildkite pipeline that will use this role. Buildkite strongly recommends using the immutable UUIDs in your trust policy. When formulating such values, the following constituent field's value:
+    1. Ensure the `StringLike` subsection's `agent.buildkite.com:sub` condition matches the token's subject. [AWS requires a condition on `agent.buildkite.com:sub`](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_secure-by-default.html) in every trust policy for a Buildkite OIDC provider. The default subject has the format `organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY`. You can wildcard sections of this string, for example, `organization:example-org:*` matches any pipeline job in the `example-org` organization. Use the direct `organization_id` and `pipeline_id` conditions below to restrict access to immutable identities. If you use a [custom subject claim](/docs/agent/cli/reference/oidc#custom-subject-claims), match that value instead of the default subject format.
+    1. Ensure the `StringEquals` subsection's _audience_ field has a value that matches the **Audience** you [configured above](#step-1-set-up-an-oidc-provider-in-your-aws-account) (that is, `sts.amazonaws.com`). The _audience_ field name is your provider URL appended by `:aud`—`agent.buildkite.com:aud`.
+    1. Set the `StringEquals` subsection's `agent.buildkite.com:organization_id` and `agent.buildkite.com:pipeline_id` values to the immutable UUIDs of the organization and pipeline that will use this role, and set the `agent.buildkite.com:organization_slug` and `agent.buildkite.com:pipeline_slug` values to their slugs. Obtain the placeholder values as follows:
         - `ORGANIZATION_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite.
@@ -103,7 +103,7 @@ As part of this process:
             * By running the same [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query used to obtain `ORGANIZATION_SLUG`.
 
             * From the `BUILDKITE_ORGANIZATION_ID` value displayed on the `Environment` tab of any job that ran in the organization.
-        - `PIPELINE_SLUG` (optional) can be obtained:
+        - `PIPELINE_SLUG` can be obtained:
 
             * From the end of your Buildkite URL, after accessing **Pipelines** in the global navigation of your organization in Buildkite, then accessing the specific pipeline to be specified in the custom trust policy.
 
@@ -113,14 +113,17 @@ As part of this process:
                 curl -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
                   -H "Authorization: Bearer $TOKEN"
                 ```
-1. If you have dedicated/static public IP addresses and wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with a list of your agent's IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range or block.
+        - `PIPELINE_ID` is a UUID and can be obtained from `id` in the same **List pipelines** REST API response, or from the `BUILDKITE_PIPELINE_ID` value on the **Environment** tab of a job that ran in the pipeline.
+1. If your agents' requests reach AWS STS from dedicated/static public IP addresses and you wish to implement defense in depth against an attacker stealing an OIDC token to access your cloud environment, retain the `Condition` section's `IpAddress` subsection, and modify its values (`AGENT_PUBLIC_IP_ONE` and `AGENT_PUBLIC_IP_TWO`) with the IP addresses or [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) ranges that AWS sees these requests coming from. Depending on your network, these could be your agents' own public IP addresses, or those of a NAT gateway or proxy that your agents use to reach the internet.
 
-    Only OIDC token exchange requests (for IAM roles) from Buildkite agents with these IP addresses will be permitted.
+    Only OIDC token exchange requests (for IAM roles) from these IP addresses will be permitted.
+
+    If your agents reach AWS STS through a VPC endpoint, the `aws:SourceIp` condition key isn't available, and this condition denies all role assumption. Use the [`aws:VpcSourceIp`](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-vpcsourceip) condition key instead.
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
-    * The Buildkite organization is `example-org`, with an ID of `ab3883b1-9596-4312-a09c-4527ae997ba7`.
-    * The Buildkite pipeline is `example-pipeline`.
-    * On Buildkite agents whose IP addresses are either `192.0.2.0` or `198.51.100.0`.
+    * The Buildkite organization is `example-org`, with an ID matching `ORGANIZATION_ID`.
+    * The Buildkite pipeline is `example-pipeline`, with an ID matching `PIPELINE_ID`.
+    * The request comes from either `192.0.2.0` or `198.51.100.0`.
 
     ```json
     {
@@ -131,20 +134,18 @@ As part of this process:
                 "Principal": {
                     "Federated": "arn\:aws\:iam:\:AWS_ACCOUNT_ID\:oidc-provider/agent.buildkite.com"
                 },
-                "Action": [
-                    "sts:TagSession",
-                    "sts:AssumeRoleWithWebIdentity"
-                ],
+                "Action": "sts:AssumeRoleWithWebIdentity",
                 "Condition": {
                     "StringLike": {
                         "agent.buildkite.com:sub": "organization\:example-org\:*"
                     },
                     "StringEquals": {
                         "agent.buildkite.com:aud": "sts.amazonaws.com",
-                        "aws:RequestTag/organization_slug": "example-org",
-                        "aws:RequestTag/organization_id": "b3883b1-9596-4312-a09c-4527ae997ba7",
-                        "aws:RequestTag/pipeline_slug": "example-pipeline"
-                    }
+                        "agent.buildkite.com:organization_slug": "example-org",
+                        "agent.buildkite.com:organization_id": "ORGANIZATION_ID",
+                        "agent.buildkite.com:pipeline_slug": "example-pipeline",
+                        "agent.buildkite.com:pipeline_id": "PIPELINE_ID"
+                    },
                     "IpAddress": {
                         "aws:SourceIp": [
                             "192.0.2.0",
@@ -157,7 +158,7 @@ As part of this process:
     }
     ```
 
-    **Note:** AWS requires that the `sub` claim is matched for all trust policies used with OIDC in Buildkite Pipelines. Therefore, it is recommended that you use the `sub` claim to match your Buildkite organization, and then use `aws:RequestTag` conditions for more granular trust policy restrictions, as demonstrated in the example above.
+    **Note:** Replace `ORGANIZATION_ID` and `PIPELINE_ID` with your actual UUIDs
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
@@ -207,12 +208,8 @@ steps:
       AWS_DEFAULT_REGION: us-east-1
       AWS_REGION: us-east-1
     plugins:
-      - aws-assume-role-with-web-identity#v1.2.0:
+      - aws-assume-role-with-web-identity#v1.8.0:
           role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
-          session-tags:
-            - organization_slug
-            - organization_id
-            - pipeline_slug
       - aws-ssm#v1.0.0:
           parameters:
             EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
@@ -221,9 +218,85 @@ steps:
 > 📘
 > The backslash (`\`) before `$EXAMPLE_DEPLOY_KEY` in the example above prevents this environment variable from being interpolated during the pipeline's upload to Buildkite Pipelines. You could alternatively use a `$` symbol for this purpose (resulting in `$$EXAMPLE_DEPLOY_KEY`).
 
-## AWS CloudTrail
+## Restricting access with Buildkite OIDC claims
 
-A Buildkite job that successfully assumes an AWS IAM Role using this pattern will leave a record in AWS CloudTrail. That record will include details like the IP address of the agent that ran the job, plus the values for any of the `session-tags` that were listed in the `pipeline.yml`.
+AWS supports the following Buildkite OIDC claims directly as condition keys in role trust policies. Each key uses the `agent.buildkite.com:` prefix and supports [string operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html).
+
+AWS STS condition key | OIDC token claim | Available in session
+--------------------- | ---------------- | --------------------
+`agent.buildkite.com:organization_slug` | `organization_slug` | No
+`agent.buildkite.com:organization_id` | `organization_id` | No
+`agent.buildkite.com:pipeline_slug` | `pipeline_slug` | No
+`agent.buildkite.com:pipeline_id` | `pipeline_id` | No
+`agent.buildkite.com:cluster_name` | `cluster_name` | No
+`agent.buildkite.com:cluster_id` | `cluster_id` | No
+`agent.buildkite.com:build_branch` | `build_branch` | No
+{: class="responsive-table"}
+
+These keys are available when AWS authenticates the initial `AssumeRoleWithWebIdentity` request, but not in the resulting role session for authorizing access to AWS resources. You do not need [session tags](#using-aws-session-tags) to use these keys in a trust policy. See the **Buildkite** tab in [Available keys for AWS OIDC federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#condition-keys-wif) and the [Buildkite OIDC claims reference](/docs/agent/cli/reference/oidc#claims) for details.
+
+To restrict access using one of these claims, add its condition key to the `Condition` section of your trust policy, as the [Step 2](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines) examples do for the organization and pipeline. These conditions add to the [required `agent.buildkite.com:sub` condition](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_secure-by-default.html), and don't replace it.
+
+> 🚧 Use immutable identifiers instead of slugs.
+> Deleted organization and pipeline slugs can be reused by different organizations or pipelines. A policy that relies only on slugs could grant access to an unintended identity. Use immutable `organization_id` and `pipeline_id` values to restrict access. For cluster restrictions, use `cluster_id` instead of `cluster_name`.
+
+You can include `organization_slug` and `pipeline_slug` conditions alongside the immutable UUID conditions, as the Step 2 examples do. UUIDs alone are difficult to identify when reading an IAM policy, and the matching slugs make it clear which organization and pipeline the policy applies to. Since all conditions must match, update the slug conditions if you rename the organization or pipeline.
+
+The `cluster_id` and `cluster_name` claims are [optional claims](/docs/agent/cli/reference/oidc#claims-optional-claims), which are only included in the OIDC token when requested with the `--claim` option of the `buildkite-agent oidc request-token` command.
+
+## Including the build branch in your custom trust policy
+
+When [creating a custom trust policy for your IAM role](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines), you can include the build branch within this policy. However, be aware that doing so comes with potential risks, since this doesn't necessarily guarantee that the entire build will be run from the branch defined in the policy. For instance, the policy might allow a build to commence off the `main` branch. However, the next step of the pipeline might check out a different branch and run the remainder of the pipeline's build from that branch.
+
+Nevertheless, being aware of these risks, if you do wish to include the build branch in your custom trust policy, add the `agent.buildkite.com:build_branch` entry to your `Condition` section's `StringEquals` subsection when [defining your trust policy in the code editor](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines):
+
+```json
+...
+"Condition": {
+    "StringEquals": {
+        ...
+        "agent.buildkite.com:build_branch": "BRANCH_NAME"
+    }
+...
+```
+
+where `BRANCH_NAME` is usually replaced with `main` to initially restrict the IAM role's access to the `main` branch. If neither this condition nor the `sub` condition restricts the branch, the role can initially be assumed by a build on any branch.
+
+## Using AWS session tags
+
+Session tags are optional, and are not needed to restrict which pipelines can assume a role. Use them when you need Buildkite claim values after the role has been assumed:
+
+- **Permissions within the role session:** the [direct claim condition keys](#restricting-access-with-buildkite-oidc-claims) are only evaluated when the role is assumed. To use claim values in the role's permission policies, for example, in `aws:PrincipalTag/pipeline_slug` conditions for [attribute-based access control (ABAC)](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html), pass these values as session tags.
+- **Auditing:** session tag values are recorded in the [AWS CloudTrail](#using-aws-session-tags-aws-cloudtrail) event for the role assumption.
+
+To use session tags:
+
+1. Add `sts:TagSession` to the `Action` section of your [trust policy](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines). If session tags are passed and the trust policy doesn't allow this action, [AWS denies the role assumption](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html#id_session-tags_permissions-required).
+
+    ```json
+    "Action": [
+        "sts:AssumeRoleWithWebIdentity",
+        "sts:TagSession"
+    ],
+    ```
+
+1. Add the claims to pass as session tags to the [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin's `session-tags` configuration:
+
+    ```yaml
+    plugins:
+      - aws-assume-role-with-web-identity#v1.8.0:
+          role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+    ```
+
+    Any [Buildkite OIDC claim](/docs/agent/cli/reference/oidc#claims) can be passed as a session tag, including `build_branch`. Learn more in [AWS session tags](/docs/agent/cli/reference/oidc#aws-session-tags).
+
+### AWS CloudTrail
+
+A Buildkite job that successfully assumes an AWS IAM role leaves a record in AWS CloudTrail. That record includes details like the IP address of the agent that ran the job, plus the values of any session tags listed in the plugin's `session-tags` configuration.
 
 Here is a fragment of an AWS CloudTrail event with the relevant tags:
 
@@ -250,55 +323,6 @@ Here is a fragment of an AWS CloudTrail event with the relevant tags:
         },
         "roleArn": "arn\:aws\:iam::AWS_ACCOUNT_ID:role/example-pipeline-oidc-for-ssm",
         "roleSessionName": "buildkite-job-01951944-87df-428f-ad92-90709ee78a59"
-    },
-    ...
-}
-```
-
-## Including the build branch in your custom trust policy
-
-When [creating a custom trust policy for your IAM role](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines), you can include the build branch within this policy. However, be aware that doing so comes with potential risks, since this doesn't necessarily guarantee that the entire build will be run from the branch defined in the policy. For instance, the policy might allow a build to commence off the `main` branch. However, the next step of the pipeline might check out a different branch and run the remainder of the pipeline's build from that branch.
-
-Nevertheless, being aware of these risks, if you do wish to include the build branch in your custom trust policy, you can do so by making the following modifications to the steps above.
-
-1. When [defining your trust policy in the code editor](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines), add the `RequestTag/build_branch` entry to your `Condition` section's `StringEquals` subsection:
-
-    ```json
-    ...
-    "Condition": {
-        "StringEquals": {
-            ...
-            "aws:RequestTag/build_branch": "BRANCH_NAME"
-        }
-    ...
-    ```
-
-    where `BRANCH_NAME` is usually replaced with `main` to initially restrict the IAM role's access to the `main` branch. If this `RequestTag` condition is omitted, the role can initially be assumed by a build on any branch.
-
-1. When [configuring your pipeline to use the IAM role](#step-4-configure-your-pipeline-to-assume-the-role), ensure `build_branch` is included in the [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) `plugins` attribute's `session-tags` value, for example:
-
-    ```yaml
-    steps:
-      - ...
-        plugins:
-        - aws-assume-role-with-web-identity#v1.2.0:
-            role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
-            session-tags:
-                - ...
-                - build_branch
-    ```
-
-Note also that the `build_branch` property and value is also included in [AWS CloudTrail events](#aws-cloudtrail):
-
-```json
-{
-    ...
-    "requestParameters": {
-        "principalTags": {
-            ...
-            "build_branch": "main"
-        },
-        ...
     },
     ...
 }
