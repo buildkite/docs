@@ -2,6 +2,9 @@
 
 [Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch pushes, check out repositories on hosted agents, and report build status as checks. An organization administrator connects an Entire project, then pipelines in that Buildkite organization can select repositories from the connection.
 
+> 📘 Preview
+> The Entire integration is in preview. Share feedback or report issues at [support@buildkite.com](mailto:support@buildkite.com?subject=Entire%20Feedback).
+
 ## Connect an Entire project
 
 Connecting an Entire project requires [Buildkite organization administrator](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) access.
@@ -45,9 +48,14 @@ steps:
 
 Add the plugin to each command step in the uploaded pipeline that needs checkout.
 
-Use [Buildkite hosted Linux agents](/docs/agent/buildkite-hosted/linux) on amd64 or arm64 with Buildkite agent version 4.3.0 or later. Command jobs receive a short-lived, read-only credential scoped to the pipeline's repository with `contents:read` permission. You don't need a personal Entire login or an `ENTIRE_TOKEN` environment variable.
+Use [Buildkite hosted Linux agents](/docs/agent/buildkite-hosted/linux) on amd64 or arm64 with Buildkite agent version 4.3.0 or later. Command jobs receive a short-lived, read-only credential scoped to the pipeline's repository with `contents:read` permission.
 
-This managed checkout is not available on self-hosted agents. Installing the plugin on a self-hosted agent does not enable it.
+On hosted agents, the plugin acquires the credential once and exports it as `ENTIRE_TOKEN` for the job, replacing any existing value. You don't need an Entire login or a user-supplied token. The job fails if the plugin cannot acquire credentials.
+
+> 🚧 Job credentials
+> The token is available to processes running in the job. Do not print `ENTIRE_TOKEN` or dump the job's environment. The plugin does not refresh the token, so it can expire during a long job.
+
+Buildkite-managed credentials are not available on self-hosted agents. Installing the plugin on a self-hosted agent does not enable managed authentication.
 
 ## Report build status
 
