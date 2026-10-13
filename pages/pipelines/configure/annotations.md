@@ -488,7 +488,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Once an artifact [expires](/docs/platform/artifact-storage-and-transfer-billing#artifact-retention), `artifact://` images and links that reference it no longer load.
+Once an artifact is older than your plan's [artifact retention](/docs/platform/limits) period, `artifact://` images and links that reference it no longer load.
 
 ## List annotations for a build
 

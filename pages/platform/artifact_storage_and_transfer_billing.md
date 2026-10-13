@@ -66,15 +66,7 @@ Downloads are charged on total gigabytes downloaded across the billing period. F
 
 ## Artifact retention
 
-Artifacts are retained for a limited period that depends on your plan. After the retention period, artifacts expire. Expired artifacts can't be downloaded and no longer count towards storage. Buildkite deletes their files from storage later.
-
-When you try to download an expired artifact:
-
-- From the Buildkite interface, you're returned to the job with a message that the artifact has expired.
-- From the [REST API](/docs/apis/rest-api/artifacts#download-an-artifact), the response is `410 Gone`.
-- From the [GraphQL API](/docs/apis/graphql/cookbooks/artifacts), the artifact's `state` is `expired` and its `downloadURL` responds with `410 Gone`.
-
-For the retention period that applies to your organization, and other limits across the Buildkite platform, see [Limits](/docs/platform/limits).
+Artifacts are retained for a limited period that depends on your plan. After the retention period, artifacts are deleted and no longer count towards storage. For the retention period that applies to your organization, and other limits across the Buildkite platform, see [Limits](/docs/platform/limits).
 
 ## Viewing your usage
 

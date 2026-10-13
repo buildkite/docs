@@ -256,7 +256,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>410 Gone</code></th>
-    <td><code>{ "message": "Artifact has expired" }</code> The artifact is stored by Buildkite and is older than your organization's <a href="/docs/platform/artifact-storage-and-transfer-billing#artifact-retention">artifact retention</a> period. Its <code>state</code> is <code>expired</code>.</td>
+    <td><code>{ "message": "Artifact has expired" }</code> The artifact is stored by Buildkite and is older than your plan's <a href="/docs/platform/limits">artifact retention</a> period. Its <code>state</code> is <code>expired</code>.</td>
   </tr>
 </tbody>
 </table>
