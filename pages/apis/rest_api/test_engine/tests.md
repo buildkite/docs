@@ -190,10 +190,10 @@ The metrics are calculated over the time range set by the `period`, `min_timesta
     <td>
       The test's highest score across the suite's active <a href="/docs/pipelines/configure/tests/workflows/monitors#transition-count">transition count monitors</a>, made up of the following fields:
       <ul>
-        <li><code>score</code>: a decimal fraction between <code>0.0</code> and <code>1.0</code>. A higher score means the test's results are transitioning between passed and failed more frequently.</li>
-        <li><code>transition_count</code>: the number of passed/failed transitions within the monitor's window.</li>
-        <li><code>result_count</code>: the number of results within the monitor's window.</li>
-        <li><code>window_size</code>: the maximum number of recent results the monitor scores.</li>
+        <li><code>score</code>: A decimal fraction between <code>0.0</code> and <code>1.0</code>. A higher score means the test's results are transitioning between passed and failed more frequently.</li>
+        <li><code>transition_count</code>: The number of transitions between passed and failed within the monitor's window.</li>
+        <li><code>result_count</code>: The number of results within the monitor's window.</li>
+        <li><code>window_size</code>: The maximum number of recent results the monitor scores.</li>
       </ul>
       This is <code>null</code> when the suite has no active transition count monitor, or the monitor hasn't scored the test yet. This score always reflects the test's most recent results, and isn't affected by the <code>period</code>, <code>min_timestamp</code>, or <code>max_timestamp</code> query string parameters.
     </td>
@@ -201,7 +201,7 @@ The metrics are calculated over the time range set by the `period`, `min_timesta
   <tr>
     <th><code>probabilistic_flakiness_score</code></th>
     <td>
-      The test's <a href="/docs/pipelines/configure/tests/workflows/monitors#probabilistic-flakiness">probabilistic flakiness score</a> (PFS), made up of a single <code>score</code> field: a decimal fraction between <code>0.0</code> and <code>1.0</code>, where a higher score means the test is more likely to be flaky. This is <code>null</code> when the suite has no probabilistic flakiness monitor, or the test hasn't been scored yet. This score always reflects the test's latest result, and isn't affected by the <code>period</code>, <code>min_timestamp</code>, or <code>max_timestamp</code> query string parameters.
+      The test's <a href="/docs/pipelines/configure/tests/workflows/monitors#probabilistic-flakiness">probabilistic flakiness score</a>, made up of a single <code>score</code> field: a decimal fraction between <code>0.0</code> and <code>1.0</code>, where a higher score means the test is more likely to be flaky. This is <code>null</code> when the suite has no probabilistic flakiness monitor, or Test Engine hasn't scored the test yet. This score always reflects the test's latest result, and isn't affected by the <code>period</code>, <code>min_timestamp</code>, or <code>max_timestamp</code> query string parameters.
     </td>
   </tr>
 </tbody>
