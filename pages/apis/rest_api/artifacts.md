@@ -252,11 +252,11 @@ Error responses:
 <tbody>
   <tr>
     <th><code>410 Gone</code></th>
-    <td><code>{ "message": "Artifact has been deleted" }</code> The artifact was deleted.</td>
+    <td><code>{ "message": "Artifact has been deleted" }</code></td>
   </tr>
   <tr>
     <th><code>410 Gone</code></th>
-    <td><code>{ "message": "Artifact has expired" }</code> The artifact is stored by Buildkite and is older than your plan's <a href="/docs/platform/limits">artifact retention</a> period. Its <code>state</code> is <code>expired</code>.</td>
+    <td><code>{ "message": "Artifact has expired" }</code></td>
   </tr>
 </tbody>
 </table>
