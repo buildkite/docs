@@ -1555,10 +1555,10 @@ Properties available for all providers:
 </tbody>
 </table>
 
-Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, and Origin all have optional `provider_settings`.
+Bitbucket Cloud, Bitbucket Server, GitLab, GitLab Self-Managed, GitHub, GitHub Enterprise, Origin, and Code Storage all have optional `provider_settings`.
 
-> 📘 Origin provider settings
-> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation.
+> 📘 Origin and Code Storage provider settings
+> Origin provider settings require the pipeline to use a repository selected from a connected Origin installation. Code Storage provider settings require a Code Storage HTTPS repository URL. Connect the [Code Storage organization](/docs/pipelines/source-control/code-storage) to enable push builds, hosted-agent checkout, and Git notes delivery. The Code Storage integration is in public preview.
 
 Properties available for Bitbucket Server:
 
@@ -1720,6 +1720,33 @@ Properties available for Origin:
     </tr>
   </tbody>
 </table>
+
+Properties available for Code Storage:
+
+<table class="responsive-table responsive-table--wrap-th-codeblocks">
+  <tbody>
+    <tr>
+      <th><code>build_branches</code></th>
+      <td>Whether to create builds when branches are pushed. Defaults to <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_tags</code></th>
+      <td>Whether to create builds when tags are pushed. Defaults to <code>false</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>publish_git_notes</code></th>
+      <td>Whether to publish build status to Code Storage as <a href="/docs/pipelines/source-control/code-storage#publish-build-status-as-git-notes">Git notes</a>. Defaults to <code>true</code>. Setting this to <code>false</code> stops future notes but does not remove existing notes.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Code Storage does not support `build_pull_requests` or `publish_commit_status`. It reports build status using Git notes. Code Storage triggers builds through an organization-level webhook, so there is no per-pipeline webhook URL.
 
 Additional properties available for GitHub and GitHub Enterprise:
 

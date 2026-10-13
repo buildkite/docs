@@ -99,6 +99,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Code Storage
   - Codebase Settings
   - Cognito
   - completion_watcher
