@@ -14,6 +14,9 @@ Connecting an Entire project requires [Buildkite organization administrator](/do
 1. In Entire, select a project and choose whether to grant access to all repositories or selected repositories.
 1. Approve the connection. Entire returns you to the connection page in Buildkite.
 
+> 🚧 Retry a failed connection
+> If the connection fails after approval, return to **Settings** > **Repository Providers** and select **Entire** again. Restart the installation rather than reusing the previous return URL.
+
 ## Create a pipeline
 
 After connecting Entire, create a pipeline from a repository that the connection can access:
