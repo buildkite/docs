@@ -248,7 +248,7 @@ Success response: `302 Found`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>410 Gone</code></th>
