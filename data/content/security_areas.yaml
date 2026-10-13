@@ -1,0 +1,76 @@
+# The canonical security areas, rendered on pages/platform/security.md (overview and related documentation)
+# and pages/platform/security/best_practices.md (section headings and introductions).
+# The anchor must match the heading generated from the name.
+areas:
+  - name: Authentication and access control
+    anchor: authentication-and-access-control
+    summary: Control who can sign in to your Buildkite organization, what they can change, and how much a compromised credential can reach.
+    docs:
+      - "[Single sign-on (SSO)](/docs/platform/sso) and its supported providers."
+      - "[Enforcing two-factor authentication (2FA)](/docs/platform/team-management/enforce-2fa) for all users."
+      - "[User and team permissions](/docs/platform/team-management/permissions) across the Buildkite platform."
+      - "[Pipeline permissions](/docs/pipelines/security/permissions) and [registry permissions](/docs/package-registries/security/permissions)."
+      - "SCIM provisioning for [Okta](/docs/platform/sso/okta#using-scim-to-provision-and-manage-users) or [Microsoft Entra ID](/docs/platform/sso/azure-ad#using-scim-to-provision-and-manage-users), which removes a user's access to Buildkite as soon as they're removed from your identity provider."
+      - "[Token security](/docs/platform/security/tokens) for token lifecycle guidance, identifying token types, and detecting leaked tokens."
+      - "[Managing API access tokens](/docs/apis/managing-api-tokens), including token scopes, auditing, and IP address restrictions."
+      - "[OAuth Token Exchange](/docs/apis/oauth-token-exchange) for issuing short-lived API tokens to services."
+  - name: Buildkite agent security
+    anchor: buildkite-agent-security
+    summary: Harden the infrastructure that runs your builds.
+    docs:
+      - "[Clusters](/docs/pipelines/security/clusters) for isolating pipelines and agents, and [cluster rules](/docs/pipelines/security/clusters/rules) for granting access between them."
+      - "[Agent tokens](/docs/agent/self-hosted/tokens) and [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens)."
+      - "[Buildkite agent security](/docs/agent/self-hosted/security) settings for self-hosted agents."
+      - "[Code access](/docs/agent/self-hosted/code-access) for self-hosted agents, and [code access](/docs/agent/buildkite-hosted/code-access) for Buildkite hosted agents."
+      - "Security guidance for the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security), [securing agents on AWS](/docs/agent/self-hosted/aws/architecture/securing-your-setup), and [securing the Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s/securing-the-stack)."
+  - name: Pipeline and supply chain integrity
+    anchor: pipeline-and-supply-chain-integrity
+    summary: "Protect the integrity of what your pipelines run: the steps, the plugins and dependencies, the commit being built, and the artifacts produced."
+    docs:
+      - "[Signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) for verifying that steps haven't been modified after upload."
+      - "[Commit verification](/docs/pipelines/configure/git-checkout#commit-verification) and the [agent checkout-override mode](/docs/pipelines/configure/git-checkout#agent-checkout-override-mode)."
+      - "[Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests), including builds from third-party forks."
+      - "[Pinning plugin versions](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions)."
+      - "[SLSA provenance](/docs/package-registries/security/slsa-provenance) for packages published to Buildkite Package Registries."
+  - name: Secrets management
+    anchor: secrets-management
+    summary: Provide credentials to your builds without exposing them.
+    docs:
+      - "[Secrets overview](/docs/pipelines/security/secrets) and [managing secrets](/docs/pipelines/security/secrets/managing)."
+      - "[Risk considerations](/docs/pipelines/security/secrets/risk-considerations) for where not to store secrets."
+      - "[Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and their [access policies](/docs/pipelines/security/secrets/buildkite-secrets/access-policies)."
+      - "[Redacted environment variables](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) in job logs."
+      - "[OIDC in Buildkite Pipelines](/docs/pipelines/security/oidc), including [OIDC with AWS](/docs/pipelines/security/oidc/aws) and [OIDC with Azure](/docs/pipelines/security/oidc/azure)."
+      - "[OIDC in Buildkite Package Registries](/docs/package-registries/security/oidc)."
+  - name: Network and data exposure
+    anchor: network-and-data-exposure
+    summary: "Control the boundaries between your build infrastructure and everything outside it: which connections your agents make, which requests Buildkite accepts on your behalf, where your build data is stored, and which resources anyone with a URL can access."
+    docs:
+      - "[Network requirements](/docs/agent/self-hosted/security/network-requirements) for self-hosted agents."
+      - "[Network security](/docs/agent/buildkite-hosted/network-security) for Buildkite hosted agents."
+      - "[Incoming webhooks](/docs/pipelines/security/incoming-webhooks) security, and [webhook signatures](/docs/apis/webhooks/pipelines#webhook-signature) for outgoing webhooks."
+      - "[Public pipelines](/docs/pipelines/configure/public-pipelines) and [build status badges](/docs/pipelines/integrations/other/build-status-badges), which are visible without authentication."
+      - "[Artifact storage in your own cloud storage](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket)."
+  - name: Monitoring and detection
+    anchor: monitoring-and-detection
+    summary: Detect suspicious activity and failed or misconfigured controls in your Buildkite organization, and investigate them.
+    docs:
+      - "[Audit log](/docs/platform/audit-log) and its [logged events](/docs/platform/audit-log#logged-events)."
+      - "[Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) for streaming events to your SIEM system."
+      - "[Inactive user list](/docs/platform/team-management/inactive-user-list) for periodically reviewing and removing users who no longer need access."
+      - "[Job log archiving](/docs/pipelines/governance/job-log-archiving) to your own storage."
+  - name: Governance and configuration management
+    anchor: governance-and-configuration-management
+    summary: Keep security configuration consistent across teams, so that gaps in one team's setup don't go unnoticed.
+    docs:
+      - "[Defining pipeline steps in a pipeline.yml file](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file), so that changes go through code review."
+      - "[Pipeline templates](/docs/pipelines/governance/templates) for standardizing steps across pipelines."
+      - "[Buildkite Terraform provider](/docs/platform/terraform-provider) for managing configuration as code."
+      - "[Agent hooks](/docs/agent/hooks) for enforcing policies on every job."
+  - name: Incident readiness
+    anchor: incident-readiness
+    summary: Prepare the response actions that aren't self-service before you need them.
+    docs:
+      - "[Incident response](/docs/platform/security/incident-response) for containing, investigating, and recovering from a suspected compromise."
+      - "[Removing users during a security incident](/docs/platform/team-management/permissions#removing-users-during-a-security-incident)."
+      - "[Detecting leaked tokens](/docs/platform/security/tokens#detect-leaked-tokens) through the GitHub secret scanning program."

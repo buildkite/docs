@@ -220,15 +220,7 @@ If the environment variable's value is shorter than the minimum length of 6 byte
 
 The default environment variable name patterns are:
 
-- `*_PASSWORD`
-- `*_SECRET`
-- `*_TOKEN`
-- `*_PRIVATE_KEY`
-- `*_SSH_KEY` (added in Agent v3.128.0)
-- `*_ACCESS_KEY`
-- `*_SECRET_KEY`
-- `*_CONNECTION_STRING` (added in Agent v3.53.0)
-- `*_API_KEY` (added in Agent v3.120.1)
+<%= render_markdown partial: 'pipelines/configure/default_redacted_vars' %>
 
 With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
 

@@ -8,21 +8,15 @@ If a token may have been exposed, follow [Incident response](/docs/platform/secu
 
 The following table summarizes how each Buildkite token is used, what it can access, and how long it remains valid. Tokens marked as internal are generated and managed by the Buildkite agent, and you don't create them yourself.
 
-| Token | Prefix | How it's used | Scope | Lifetime |
-| ----- | ------ | ------------- | ----- | -------- |
-| [API access token](/docs/apis/managing-api-tokens) | `bkua_` | Users and scripts call the REST and GraphQL APIs with a bearer token. | The selected [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) and optional GraphQL access, for the selected Buildkite organizations. GraphQL access is not further scoped. | The **Token Expiry** selected at creation, which defaults to seven days. Tokens with the **Public Key** credential type don't expire. |
-| [OAuth Token Exchange token](/docs/apis/oauth-token-exchange) | `bktx_` | Services exchange a signed JWT assertion for a token, and call the APIs on behalf of a user. | The requested scopes, limited to the Token Exchange App's grantable scopes. | Up to the app's **Max Token TTL**, which defaults to one hour and can be set between 30 seconds and 24 hours. |
-| [Agent token](/docs/agent/self-hosted/tokens) | `bkct_` | Self-hosted agents register with a cluster using `BUILDKITE_AGENT_TOKEN`. | Any queue in one cluster. | No expiry when created in the Buildkite interface. An optional expiry, at least 10 minutes in the future, can be set when created using the API. |
-| [Unclustered agent token](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens) | `bkar_` | Agents register with unclustered queues. | Any unclustered queue in the Buildkite organization. | No expiry. Revoke manually. |
-| [Job acquisition token](/docs/agent/self-hosted/job-acquisition-tokens) | `bkjat_` | A stack controller issues the token to an ephemeral agent, which registers and acquires one reserved job. | One reserved job. | 15 minutes by default, up to one hour, or until the job reservation expires, whichever is first. |
-| [Agent session token](/docs/agent/self-hosted/tokens#additional-agent-tokens-session-tokens) (internal) | `bkaa_` | Issued to an agent when it registers, and used to poll for and start jobs. | The registered agent's connection. | Until the agent disconnects. |
-| [Agent job token](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens) (internal) | `bkaj_` | Exposed to each job as `BUILDKITE_AGENT_ACCESS_TOKEN`, and used by agent CLI commands such as `annotate`, `artifact`, and `meta-data`. | The job, plus metadata, annotations, and artifacts of other jobs in the same cluster. | Until the job finishes. |
-| [Registry token](/docs/package-registries/registries/manage#configure-registry-tokens) | `bkpt_` | Package managers download and install packages from a private registry. | Read-only access to one registry. | No expiry. Delete manually. |
-| Package Registries temporary token | `bkpt_` | Included in the publish and install commands shown on a registry's pages. | Publishing to, or installing from, one registry. | A few minutes. |
-| [Portal long-lived service token](/docs/apis/graphql/portals) | `bkpat_` | Services call a portal's endpoint with a bearer token. | The portal's GraphQL operations, run with administrator-level permissions. | No expiry. Replace it from the portal's **Security** page. |
-| [Ephemeral portal token](/docs/apis/graphql/portals/ephemeral-portal-tokens) | `bkpat_` | Services exchange a portal secret for a token. | The portal's GraphQL operations, run with administrator-level permissions. | Up to one hour, or shorter if requested. |
-| [User-invoked portal token](/docs/apis/graphql/portals/user-invoked-portals) | `bkpat_` | A user authorizes a token code to generate the token. | The portal's GraphQL operations, limited to the user's own permissions. | 12 hours by default, or shorter if requested. |
-| [Portal secret](/docs/apis/graphql/portals/ephemeral-portal-tokens#generating-a-secret) | `bkps_` | Services use the secret to request ephemeral portal tokens. | One portal. | No expiry. Each portal can have two secrets, so that you can rotate them. |
+<!-- Token facts in this table and in the prefix and lifetime lists below are stored in data/content/buildkite_tokens.yaml. -->
+
+<% token = ->(key) { BUILDKITE_TOKENS['tokens'].find { |t| t['key'] == key } } -%>
+| Token and prefix | How it's used | Scope | Lifetime |
+| ---------------- | ------------- | ----- | -------- |
+<% BUILDKITE_TOKENS['tokens'].each do |t| -%>
+| <%= t['url'] ? "[#{t['name']}](#{t['url']})" : t['name'] %><%= ' (internal)' if t['internal'] %> `<%= t['prefix'] %>` | <%= t['usage'] %> | <%= t['scope'] %> | <%= t['lifetime'] %> |
+<% end -%>
+{: class="responsive-table"}
 
 ## Manage the token lifecycle
 
@@ -53,8 +47,8 @@ The following Buildkite tokens are supported by this program.
 
 Buildkite [API access tokens](/docs/apis/managing-api-tokens) are also known as _Buildkite user access_ tokens, whose acronym forms the prefix for these types of tokens.
 
-- Prefix: `bkua_`
-- Example: `bkua_*****************************************************`
+- Prefix: `<%= token.('api_access_token')['prefix'] %>`
+- Example: `<%= token.('api_access_token')['prefix'] %>*****************************************************`
 
 _Applies to API access tokens created after:  March, 2023_
 
@@ -62,8 +56,8 @@ _Applies to API access tokens created after:  March, 2023_
 
 Buildkite agent [session tokens](/docs/agent/self-hosted/tokens#additional-agent-tokens-session-tokens) are also known as _Buildkite agent access_ tokens, whose acronym forms the prefix for these types of tokens.
 
-- Prefix: `bkaa_`
-- Example: `bkaa_***************************************************************************`
+- Prefix: `<%= token.('agent_session_token')['prefix'] %>`
+- Example: `<%= token.('agent_session_token')['prefix'] %>***************************************************************************`
 
 _Applies to agent session tokens created after: January, 2025_
 
@@ -71,15 +65,15 @@ _Applies to agent session tokens created after: January, 2025_
 
 Buildkite agent [job tokens](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens) form the acronym for the prefix of their values.
 
-- Prefix: `bkaj_`
-- Example: `bkaj_*********************************************************************************************************************************************************************************************************************************************************************************************************************************************`
+- Prefix: `<%= token.('agent_job_token')['prefix'] %>`
+- Example: `<%= token.('agent_job_token')['prefix'] %>*********************************************************************************************************************************************************************************************************************************************************************************************************************************************`
 
 ### Unclustered agent tokens
 
 Buildkite [unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens) are also known as _Buildkite agent registration_ tokens, whose acronym forms the prefix for these types of tokens.
 
-- Prefix: `bkar_`
-- Example: `bkar_*************************************************************************`
+- Prefix: `<%= token.('unclustered_agent_token')['prefix'] %>`
+- Example: `<%= token.('unclustered_agent_token')['prefix'] %>*************************************************************************`
 
 _Applies to unclustered agent tokens created after: April, 2025_
 
@@ -87,8 +81,8 @@ _Applies to unclustered agent tokens created after: April, 2025_
 
 Buildkite [agent tokens](/docs/agent/self-hosted/tokens) are also known as _Buildkite cluster tokens_, whose acronym forms the prefix for these types of tokens.
 
-- Prefix: `bkct_`
-- Example: `bkct_*************************************************************************`
+- Prefix: `<%= token.('agent_token')['prefix'] %>`
+- Example: `<%= token.('agent_token')['prefix'] %>*************************************************************************`
 
 _Applies to agent tokens created after: April, 2025_
 
@@ -96,15 +90,15 @@ _Applies to agent tokens created after: April, 2025_
 
 Buildkite [registry tokens](/docs/package-registries/registries/manage#configure-registry-tokens), are a type of Buildkite Package (Registries) token, whose acronym forms the prefix for these tokens.
 
-- Prefix: `bkpt_`
-- Example: `bkpt_*******************************************************************************************************************************************************************************************************`
+- Prefix: `<%= token.('registry_token')['prefix'] %>`
+- Example: `<%= token.('registry_token')['prefix'] %>*******************************************************************************************************************************************************************************************************`
 
 ### Package Registries temporary tokens
 
 Buildkite Package Registries temporary tokens, which are presented on a registry's pages for either publishing packages to the registry or installing specific packages from them. See the relevant [Package ecosystem](/docs/package-registries/ecosystems) pages to learn more about these types of tokens, which are a type of Buildkite Package (Registries) token, whose acronym forms the prefix for these tokens.
 
-- Prefix: `bkpt_`
-- Example: `bkpt_*******************************************************************************************************************************************************************************************************`
+- Prefix: `<%= token.('package_registries_temporary_token')['prefix'] %>`
+- Example: `<%= token.('package_registries_temporary_token')['prefix'] %>*******************************************************************************************************************************************************************************************************`
 
 ### Portal tokens
 
@@ -116,15 +110,15 @@ Buildkite portal tokens cover the following types of tokens:
 
 These types of tokens are also known as _Buildkite portal access tokens_, whose acronym forms the prefix for these types of tokens.
 
-- Prefix: `bkpat_`
-- Example: `bkpat_******************************************************`
+- Prefix: `<%= token.('portal_long_lived_service_token')['prefix'] %>`
+- Example: `<%= token.('portal_long_lived_service_token')['prefix'] %>******************************************************`
 
 ### Portal secrets
 
 Buildkite [portal secrets](/docs/apis/graphql/portals/ephemeral-portal-tokens#generating-a-secret), whose acronym forms the prefix to their values, are used to generate [ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token), which are a type of [portal token](#supported-buildkite-tokens-portal-tokens).
 
-- Prefix: `bkps_`
-- Example: `bkps_****************************************************************`
+- Prefix: `<%= token.('portal_secret')['prefix'] %>`
+- Example: `<%= token.('portal_secret')['prefix'] %>****************************************************************`
 
 ## Other Buildkite tokens
 
@@ -134,15 +128,13 @@ Buildkite also issues short-lived tokens for specific workflows.
 
 Buildkite [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) allow an ephemeral agent to register and acquire one reserved job without receiving the long-lived agent token held by its stack controller.
 
-- Prefix: `bkjat_`
-- Example: `bkjat_*****************************************************`
-
-By default, job acquisition tokens expire 15 minutes after issuance. A stack can request a lifetime of up to one hour, but the token expires earlier if the job reservation expires first.
+- Prefix: `<%= token.('job_acquisition_token')['prefix'] %>`
+- Example: `<%= token.('job_acquisition_token')['prefix'] %>*****************************************************`
+- Lifetime: <%= token.('job_acquisition_token')['lifetime'] %>
 
 ### OAuth Token Exchange tokens
 
 Buildkite [OAuth Token Exchange](/docs/apis/oauth-token-exchange) tokens are short-lived API tokens that a service obtains by exchanging a signed JSON Web Token (JWT) assertion, instead of using a long-lived API access token tied to a user.
 
-- Prefix: `bktx_`
-
-These tokens expire no later than the **Max Token TTL** configured on the Token Exchange App, which defaults to one hour and can be set between 30 seconds and 24 hours.
+- Prefix: `<%= token.('oauth_token_exchange_token')['prefix'] %>`
+- Lifetime: <%= token.('oauth_token_exchange_token')['lifetime'] %>

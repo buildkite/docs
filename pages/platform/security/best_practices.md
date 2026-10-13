@@ -4,13 +4,76 @@ This page brings together the security controls available across the Buildkite p
 
 Under the [shared responsibility model](/docs/platform/security#shared-responsibility), these are the controls that your organization is responsible for configuring. Use this page when you set up a new Buildkite organization, review an existing Buildkite organization against a security baseline, or prepare for a security audit. To prepare a response plan for a suspected compromise, see [Incident response](/docs/platform/security/incident-response).
 
+## Secure your first production pipeline
+
+Follow these steps to secure one production pipeline with the smallest supported configuration. Each step ends with a check that confirms the control works. The steps apply to every Buildkite plan, unless a step names a plan-specific option and its alternative.
+
+1. **Require SSO or 2FA:** On the Pro and Enterprise plans, configure [single sign-on (SSO)](/docs/platform/sso) with your identity provider. On other plans, or if you don't use SSO, select **Settings** > **Security**, select **Enforce Two-factor authentication**, and then select **Update Access Control**. Learn more in [Enforce two-factor authentication](/docs/platform/team-management/enforce-2fa).
+
+    To verify, log in as a member of your Buildkite organization in a private browser window, and confirm that you're asked to sign in through your identity provider or enter a 2FA code.
+
+1. **Give the pipeline its own team:** [Enable teams](/docs/platform/team-management/permissions#manage-teams-and-permissions), create a team for the people who maintain the pipeline, and give that team **Full Access** to the pipeline. Remove the pipeline from the **Everyone** team, and give any other team that needs the pipeline **Build & Read** or **Read Only** access.
+
+    To verify, log in as a user who isn't a member of the new team, and confirm that they can't edit the pipeline's settings.
+
+1. **Run the pipeline in its own cluster:** Create a [cluster](/docs/pipelines/security/clusters/manage) and a queue for production workloads, and move the pipeline to that cluster. For self-hosted agents, create the agent token with an expiration date using the [REST API](/docs/agent/self-hosted/tokens#create-a-token-using-the-rest-api), and store it in your secrets manager:
+
+    ```bash
+    curl -H "Authorization: Bearer $TOKEN" \
+      -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "description": "Production agents",
+        "expires_at": "2027-01-01T00:00:00Z"
+      }'
+    ```
+
+    Buildkite hosted agents don't use agent tokens, so for these agents, create a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) in the cluster instead.
+
+    To verify, open the cluster's agents list, and confirm that only your production agents are connected to it. For self-hosted agents, also confirm that the cluster's **Agent Tokens** page shows the token's expiration date.
+
+1. **Keep the pipeline steps in your repository:** Replace the steps in the pipeline's YAML steps editor with a single upload step, and define the rest of the steps in a `.buildkite/pipeline.yml` file, which is protected by branch protection rules in your source control system. Learn more in [Defining your pipeline steps](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file).
+
+    ```yaml
+    steps:
+      - label: "\:pipeline\: Pipeline upload"
+        command: buildkite-agent pipeline upload
+    ```
+
+    To verify, open a pull request that changes `.buildkite/pipeline.yml`, and confirm that it can't be merged without a review.
+
+1. **Provide secrets at runtime:** Create each secret as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) in the pipeline's cluster, and load it only in the step that needs it. Buildkite secrets are [redacted](/docs/pipelines/security/secrets/buildkite-secrets#redaction) from job logs automatically. Also set a [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) on the step to limit how long it can run:
+
+    ```yaml
+    steps:
+      - label: "Deploy"
+        command: scripts/deploy.sh
+        timeout_in_minutes: 30
+        secrets:
+          - DEPLOY_API_TOKEN
+        agents:
+          queue: production
+    ```
+
+    To verify, search the pipeline's settings and `pipeline.yml` file for the secret's value, and confirm that it doesn't appear. After the step runs, confirm that the value doesn't appear in the job log, or appears only as `[REDACTED]`.
+
+1. **Block builds from untrusted sources:** In the pipeline's GitHub settings, keep **Allow builds from third-party forked repositories** cleared, so that a fork can't run modified steps with access to your secrets. Learn more in [Running builds on pull requests](/docs/pipelines/source-control/github#running-builds-on-pull-requests).
+
+    To verify, confirm that the option is cleared, and that no build in the pipeline's history was created from a third-party fork.
+
+1. **Write and test a response runbook:** Record how to revoke the pipeline's agent token, remove a compromised user, and rotate `DEPLOY_API_TOKEN`, and who to contact at Buildkite. Learn more in [Incident response](/docs/platform/security/incident-response).
+
+    To verify, follow only the runbook to create a replacement agent token, move your agents to it, and revoke the old token. Confirm that the agents reconnect and that builds still pass.
+
+After you complete these steps, apply the remaining baseline controls in each area on this page.
+
 ## How to use this page
 
 A CI/CD environment holds credentials for the systems it builds and deploys to, and runs code from every commit pushed to the repositories it builds. Securing a Buildkite organization means working in two directions: restricting what a job can reach, and restricting who can change what a job does.
 
-For a new Buildkite organization, start with [baseline authentication and access controls](#authentication-and-access-control-baseline), then [isolate your build environments](#buildkite-agent-security-baseline) and [protect your secrets](#secrets-management-baseline) before connecting production systems.
+For a new Buildkite organization, complete [Secure your first production pipeline](#secure-your-first-production-pipeline), and then apply the baseline controls in every area before connecting more production systems.
 
-For an existing setup, review the baseline controls in every area first. Record which controls are configured, which don't apply to your setup, and which need action. Assign an owner to each gap before proceeding to the recommended and advanced controls:
+For an existing setup, review the baseline controls in every area first. Each baseline ends with a description of its done state, which you can use to confirm that the area is complete. Where a baseline control depends on a Buildkite plan or agent type, the control names an alternative for other plans or agent types. Record which controls are configured, which don't apply to your setup, and which need action. Assign an owner to each gap before proceeding to the recommended and advanced controls:
 
 - **Baseline:** Controls that every Buildkite organization handling production credentials should apply. Treat these as required, not optional.
 - **Recommended:** The target state for teams running production deployments from Buildkite Pipelines.
@@ -18,18 +81,21 @@ For an existing setup, review the baseline controls in every area first. Record 
 
 Some controls carry a label in parentheses:
 
-- **(Enterprise plan only)** or **(Pro and Enterprise plans)**: The control requires that [Buildkite plan](https://buildkite.com/pricing).
+- **(Enterprise plan only)** or **(Pro and Enterprise plans)**: The control requires one of those [Buildkite plans](https://buildkite.com/pricing).
 - **(self-hosted agents only)**: The control applies to [self-hosted agents](/docs/agent/self-hosted) and is not available on [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
 > 📘 Choosing between self-hosted and Buildkite hosted agents
 > For small teams with limited experience in hosting and securing infrastructure, Buildkite hosted agents provide a secure, fully managed solution that reduces operational overhead. Organizations with stringent governance, risk, and compliance (GRC) requirements should consider running their most sensitive workloads on self-hosted agents, as this approach offers greater control over security configurations, network boundaries, and compliance controls. Learn more in [Buildkite hosted agents network security](/docs/agent/buildkite-hosted/network-security#considerations-build-infrastructure-segmentation-best-practices).
 
+<!-- Area names and introductions are stored in data/content/security_areas.yaml, and are also rendered on the Security overview page. -->
+
+<% security_area = ->(anchor) { SECURITY_AREAS['areas'].find { |a| a['anchor'] == anchor } } -%>
 <a id="authentication-and-session-security-in-the-buildkite-interface-apis-and-cli"></a>
 <a id="api-access-token-compromise"></a>
 
-## Authentication and access control
+## <%= security_area.('authentication-and-access-control')['name'] %>
 
-These controls govern who can sign in to your Buildkite organization, what they can change, and how much a compromised credential can reach.
+<%= security_area.('authentication-and-access-control')['summary'] %>
 
 If an API access token may already be compromised, follow the [token revocation steps](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) before reviewing these preventive controls.
 
@@ -41,6 +107,8 @@ If an API access token may already be compromised, follow the [token revocation 
 - **Scope and expire API access tokens:** Grant each [API access token](/docs/apis/managing-api-tokens) only the [scopes](/docs/apis/managing-api-tokens#token-scopes) it needs, and set a short **Token Expiry**. Tokens using the **Public Key** credential type don't expire, so track them separately in your [rotation](/docs/apis/managing-api-tokens#api-token-security-rotation) process.
 - **Audit API access tokens regularly:** Review every token with access to your Buildkite organization on the [API access audit](/docs/apis/managing-api-tokens#auditing-tokens) page, and [remove your organization](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) from tokens that are stale or over-scoped.
 
+This baseline is complete when every member signs in with SSO or 2FA, no pipeline is in the **Everyone** team unless you've decided it should be, and every token on the API access audit page has an owner, only the scopes it needs, and an expiry or a rotation date.
+
 ### Recommended
 
 - **Limit SSO session duration:** Set an [SSO session duration](/docs/platform/sso#sso-session-duration) so that sessions don't stay valid indefinitely.
@@ -48,7 +116,7 @@ If an API access token may already be compromised, follow the [token revocation 
 - **Restrict organization-wide actions:** Use the **Security** page to control who can delete pipelines, change pipeline visibility, manage notification services, manage agent tokens, and stop agents, across all users of your Buildkite organization (Enterprise plan only). Learn more in [Manage organization security for pipelines](/docs/pipelines/security/permissions#manage-organization-security-for-pipelines).
 - **Revoke inactive API access tokens automatically:** Configure [inactive API token revocation](/docs/apis/managing-api-tokens#inactive-api-tokens-revocation) so that forgotten tokens are revoked after a set period (Enterprise plan only).
 - **Restrict who can create API access tokens:** Set `restrict_user_api_token_creation` using the [API settings](/docs/apis/rest-api/organizations/api-settings) endpoint, so that only Buildkite organization administrators can create new API access tokens.
-- **Check who can trigger builds:** Map Buildkite users to their source control identities with [team-based permissions](/docs/platform/team-management/permissions#manage-teams-and-permissions-team-level-permissions), and use [agent hooks](/docs/agent/hooks) with [programmatic team management](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams) to check that a commit author is allowed to trigger a build before it runs. See the [agent hooks example](https://buildkite.com/resources/examples/buildkite/agent-hooks-example/) for a working implementation.
+- **Authorize sensitive builds by a verified creator:** Use an [agent hook](/docs/agent/hooks) to check that the build creator belongs to a team that's allowed to run the job, using `BUILDKITE_BUILD_CREATOR_TEAMS`, as shown in [Programmatically managing teams](/docs/platform/team-management/permissions#manage-teams-and-permissions-programmatically-managing-teams). Only trust this value when Buildkite authenticated the creator, that is, when `BUILDKITE_SOURCE` is `ui` or `api`. For builds created by a GitHub webhook, the creator is taken from the unverified commit author, which anyone who can push an unsigned commit can set to another user's identity, so don't treat it as authentication. To authorize a webhook-triggered deployment, add a [block step](/docs/pipelines/configure/step-types/block-step) before it, and check `BUILDKITE_UNBLOCKER_TEAMS`, which lists the teams of the authenticated user who unblocked the build.
 - **Limit GraphQL access with portals:** API access tokens with GraphQL access can run any GraphQL query. Use [portals](/docs/apis/graphql/portals) to expose only the specific GraphQL operations that an integration needs.
 - **Use the remote MCP server:** When using the [Buildkite MCP server](/docs/apis/mcp-server), prefer the [remote MCP server](/docs/apis/mcp-server#types-of-mcp-servers-remote-mcp-server), which issues short-lived OAuth access tokens, over a local MCP server configured with a long-lived API access token.
 
@@ -58,18 +126,20 @@ If an API access token may already be compromised, follow the [token revocation 
 - **Restrict API access by IP address:** Set an organization-wide [IP address allowlist](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address) for the REST and GraphQL APIs (Enterprise plan only). The allowlist takes effect immediately, so confirm that it includes your own IP addresses before you save it.
 - **Use OAuth Token Exchange for services:** Instead of giving a service a long-lived API access token tied to a user, use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) to issue short-lived tokens with a limited lifetime and scope.
 
-## Buildkite agent security
+## <%= security_area.('buildkite-agent-security')['name'] %>
 
-These controls harden the infrastructure that runs your builds. The agent controls in this section protect your infrastructure if the Buildkite control plane is compromised. To protect against users with commit access to your repositories, see also [Pipeline and supply chain integrity](#pipeline-and-supply-chain-integrity).
+<%= security_area.('buildkite-agent-security')['summary'] %> The agent controls in this section protect your infrastructure if the Buildkite control plane is compromised. To protect against users with commit access to your repositories, see also [Pipeline and supply chain integrity](#pipeline-and-supply-chain-integrity).
 
 ### Baseline
 
 - **Run every pipeline and agent in a cluster:** [Clusters](/docs/pipelines/security/clusters) isolate pipelines and agents from each other. Run pipelines with sensitive builds on dedicated agents in their own cluster, so that a compromise of a less trusted environment, such as an open source repository, cannot reach them. Limit who can manage a cluster's agent tokens by assigning [cluster maintainers](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster).
 - **Give agent tokens an expiry and a rotation plan:** [Create agent tokens using the API](/docs/agent/self-hosted/tokens#agent-token-lifetime) with an expiration date, so that you can automate rotation. Agent tokens created in the Buildkite interface don't expire. Store agent tokens in a secrets manager, and [revoke](/docs/agent/self-hosted/tokens#revoke-a-token) tokens you no longer use.
-- **Restrict or disable plugins:** Use the agent's [plugin allowlist](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) to restrict which plugin sources can run, or [disable plugins](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-plugins) if you don't use them (self-hosted agents only). Anchor and escape your regular expressions, and apply the same configuration to every agent, as the allowlist is enforced by each agent individually.
+- **Restrict or disable plugins:** Use the agent's [plugin allowlist](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) to restrict which plugin sources can run, or [disable plugins](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-plugins) if you don't use them (self-hosted agents only). Anchor and escape your regular expressions, and apply the same configuration to every agent, as the allowlist is enforced by each agent individually. On Buildkite hosted agents, [pin plugin versions](#pipeline-and-supply-chain-integrity-baseline) instead.
 - **Force clean checkouts for untrusted builds:** Set `BUILDKITE_CLEAN_CHECKOUT` on steps that build untrusted code, such as third-party pull requests, so that files from a previous checkout don't persist. Learn more in [Force clean checkouts](/docs/agent/self-hosted/security#force-clean-checkouts).
 - **Set command timeouts:** Use [command timeouts](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit how long malicious code can run on a compromised agent.
-- **Upgrade your agents regularly:** [Upgrade your Buildkite agents](/docs/agent/self-hosted/install#upgrade-agents) to receive security fixes and new security controls.
+- **Upgrade your agents regularly:** [Upgrade your Buildkite agents](/docs/agent/self-hosted/install#upgrade-agents) to receive security fixes and new security controls (self-hosted agents only). Buildkite upgrades Buildkite hosted agents for you.
+
+This baseline is complete when every pipeline runs in a cluster, every agent token has an owner and an expiry or rotation date, plugin sources are restricted or pinned, untrusted builds use clean checkouts, every command step has a timeout, and your self-hosted agents run a current agent version.
 
 ### Recommended
 
@@ -92,9 +162,9 @@ These controls harden the infrastructure that runs your builds. The agent contro
 <a id="source-code-security-and-version-control-integrity"></a>
 <a id="dependencies-and-package-management"></a>
 
-## Pipeline and supply chain integrity
+## <%= security_area.('pipeline-and-supply-chain-integrity')['name'] %>
 
-These controls protect the integrity of what your pipelines run: the steps, the plugins and dependencies, the commit being built, and the artifacts produced. Apply the build trigger controls first, as they determine whether the other controls protect you from users with commit access, or from anyone who can open a pull request or an issue.
+<%= security_area.('pipeline-and-supply-chain-integrity')['summary'] %> Apply the build trigger controls first, as they determine whether the other controls protect you from users with commit access, or from anyone who can open a pull request or an issue.
 
 ### Baseline
 
@@ -103,6 +173,8 @@ These controls protect the integrity of what your pipelines run: the steps, the 
 - **Keep the agent authoritative over Git flags:** Keep the [agent checkout-override mode](/docs/pipelines/configure/git-checkout#agent-checkout-override-mode) at `from-job` (the default) or `strict`. Only use `none` if you trust everyone who can change your pipeline YAML, as this mode lets the pipeline pass arbitrary Git flags to the agent.
 - **Pin plugin versions:** [Pin plugins](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) to the commit SHA of a tag rather than the tag itself, so that the plugin's contents cannot change after you review it. Prefer [private plugins](/docs/pipelines/integrations/plugins/using#plugin-sources) for sensitive pipelines.
 - **Connect source control using the Buildkite GitHub App:** Use the [Buildkite GitHub App integration](/docs/pipelines/source-control/github#connecting-buildkite-and-github) for repository connections, and enforce branch protection rules on [GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) or [GitLab](https://docs.gitlab.com/user/project/repository/branches/protected/).
+
+This baseline is complete when every pipeline with secrets rejects fork builds or gates them with a block step, issue-triggered builds treat issue content as untrusted, the checkout-override mode is `from-job` or `strict` on every agent, every plugin is pinned to a commit SHA, and your default branches are protected.
 
 ### Recommended
 
@@ -118,9 +190,9 @@ These controls protect the integrity of what your pipelines run: the steps, the 
 - **Sign your pipelines:** Use [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) so that agents refuse to run steps that were modified after upload (self-hosted agents only). Keep `verification-failure-behavior` at its default of `block`, sign and verify on separate agents so that the agents that run jobs only hold the verification key, and store signing keys in [AWS KMS](/docs/agent/self-hosted/security/signed-pipelines#aws-kms-managed-key-setup). Signed steps cannot be used with pipeline templates.
 - **Publish packages with SLSA provenance:** Generate and publish [SLSA provenance](/docs/package-registries/security/slsa-provenance) attestations with packages in Buildkite Package Registries (Enterprise plan only), or sign artifacts using tools such as [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and verify them before deployment.
 
-## Secrets management
+## <%= security_area.('secrets-management')['name'] %>
 
-Buildkite Pipelines supports several ways of providing secrets to a build. In order of preference: use [OIDC](/docs/pipelines/security/oidc) to federate with the target system so that no long-lived credential is stored at all, use an external secrets storage service, or use [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets). Never store secret values in your pipeline configuration.
+<%= security_area.('secrets-management')['summary'] %> Buildkite Pipelines supports several ways of providing secrets to a build. In order of preference: use [OIDC](/docs/pipelines/security/oidc) to federate with the target system so that no long-lived credential is stored at all, use an external secrets storage service, or use [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets). Never store secret values in your pipeline configuration.
 
 ### Baseline
 
@@ -130,6 +202,8 @@ Buildkite Pipelines supports several ways of providing secrets to a build. In or
 - **Check that your secrets are redacted:** The agent [redacts](/docs/pipelines/configure/managing-log-output#redacted-environment-variables) values of environment variables whose names match a set of patterns. Make sure your variable names match these patterns, or set `redacted-vars` to include them. Values shorter than six bytes are never redacted.
 - **Never skip redaction:** Don't use the [`--skip-redaction`](/docs/agent/cli/reference/secret#skip-redaction) option of `buildkite-agent secret get`, which prints the secret to the job log when called directly.
 - **Scan repositories for committed secrets:** Use secret scanning tools, such as [git-secrets](https://github.com/awslabs/git-secrets), to prevent secrets from being committed to your repositories before they enter the build process.
+
+This baseline is complete when no secret value appears in pipeline settings, `pipeline.yml` files, step commands, or build meta-data, every secret comes from a secrets store and is redacted from job logs, and secret scanning runs on every repository that Buildkite Pipelines builds.
 
 ### Recommended
 
@@ -148,17 +222,19 @@ Buildkite Pipelines supports several ways of providing secrets to a build. In or
 <a id="network-and-transport-security"></a>
 <a id="artifact-storage-and-integrity"></a>
 
-## Network and data exposure
+## <%= security_area.('network-and-data-exposure')['name'] %>
 
-These controls cover the boundaries between your build infrastructure and everything outside it: which connections your agents make, which requests Buildkite accepts on your behalf, where your build data is stored, and which resources can be accessed by anyone who has a URL. Buildkite encrypts all platform communications with TLS by default.
+<%= security_area.('network-and-data-exposure')['summary'] %> Buildkite encrypts all platform communications with TLS by default.
 
 ### Baseline
 
 - **Allow only outbound connections from self-hosted agents:** Self-hosted agents only make outbound HTTPS connections. Run them in private networks, and allow only the [hosts they require](/docs/agent/self-hosted/security/network-requirements) (self-hosted agents only).
 - **Limit access to cloud instance metadata:** Build jobs can reach [cloud instance metadata endpoints](/docs/agent/self-hosted/security/network-requirements#optional-hosts-cloud-instance-metadata) and act with the instance's IAM permissions. [Restrict this access](/docs/agent/self-hosted/aws/architecture/securing-your-setup) and grant your agent instances only the permissions they need.
 - **Verify outbound webhooks with signatures:** Configure webhook notifications to send a [webhook signature](/docs/apis/webhooks/pipelines#webhook-signature) rather than a plain token, verify the HMAC signature in your receiver, and reject stale timestamps to [defend against replay attacks](/docs/apis/webhooks/pipelines#webhook-signature-defending-against-replay-attacks).
-- **Keep public pipelines disabled:** A [public pipeline](/docs/pipelines/configure/public-pipelines) gives anyone read access to its builds, logs, and artifacts. Keep public pipeline creation disabled unless your project is open source, and restrict who can change pipeline visibility (Enterprise plan only).
+- **Keep public pipelines disabled:** A [public pipeline](/docs/pipelines/configure/public-pipelines) gives anyone read access to its builds, logs, and artifacts. Keep public pipeline creation disabled unless your project is open source, and restrict who can change pipeline visibility (Enterprise plan only). On other plans, check pipeline visibility as part of your [regular access review](#monitoring-and-detection-baseline).
 - **Make artifacts in your own S3 bucket private:** When the agent uploads artifacts to [your own Amazon S3 bucket](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket), it uses the `public-read` ACL by default. Set `BUILDKITE_S3_ACL` to `private` and enable server-side encryption. Learn more in [Access control](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket-access-control).
+
+This baseline is complete when your self-hosted agents can only connect to the hosts they require, builds can't use instance permissions beyond what they need, every webhook receiver verifies signatures, every public pipeline is intentionally public, and artifacts in your own buckets are private.
 
 ### Recommended
 
@@ -180,13 +256,16 @@ These controls cover the boundaries between your build infrastructure and everyt
 
 <a id="monitoring-anomaly-detection-logging"></a>
 
-## Monitoring and detection
+## <%= security_area.('monitoring-and-detection')['name'] %>
 
-Preventive controls can fail or be misconfigured. These controls determine whether you detect that, and how quickly.
+<%= security_area.('monitoring-and-detection')['summary'] %> The controls in this section determine whether you detect these problems, and how quickly.
 
 ### Baseline
 
-- **Review the audit log:** Use the [audit log](/docs/platform/audit-log) to review changes to tokens, users, SSO settings, pipelines, and secrets in your Buildkite organization (Enterprise plan only).
+- **Review access on a schedule:** At least monthly, review the [API access audit](/docs/apis/managing-api-tokens#auditing-tokens) page, the members and administrators of your Buildkite organization, the visibility of your pipelines, and the agents connected to each cluster. These reviews are available on every plan.
+- **Review the audit log:** Use the [audit log](/docs/platform/audit-log) to review changes to tokens, users, SSO settings, pipelines, and secrets in your Buildkite organization (Enterprise plan only). On other plans, stream **Agent Connected** and **Agent Blocked** events to your monitoring system using [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) or [agent webhooks](/docs/apis/webhooks/pipelines/agent-events), so that you detect unexpected agents between reviews.
+
+This baseline is complete when a named person runs the access review on a fixed schedule and records what they checked, and either reviews the audit log or receives agent events.
 
 ### Recommended
 
@@ -197,9 +276,16 @@ Preventive controls can fail or be misconfigured. These controls determine wheth
 
 <a id="consistent-pipeline-as-code-approach"></a>
 
-## Governance and configuration management
+## <%= security_area.('governance-and-configuration-management')['name'] %>
 
-These controls keep security configuration consistent across teams, so that gaps in one team's setup don't go unnoticed.
+<%= security_area.('governance-and-configuration-management')['summary'] %>
+
+### Baseline
+
+- **Keep pipeline steps in version control:** Keep only the `buildkite-agent pipeline upload` step in each pipeline's YAML steps editor, and define the remaining steps in a [`pipeline.yml` file](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file) in the repository, so that pipeline changes go through code review and branch protection.
+- **Assign an owner to each area:** Name an owner for each area on this page, who decides which controls apply and tracks the gaps.
+
+This baseline is complete when the steps of every production pipeline come from a reviewed `pipeline.yml` file, and every area on this page has a named owner.
 
 ### Recommended
 
@@ -213,13 +299,15 @@ These controls keep security configuration consistent across teams, so that gaps
 
 <a id="incident-response-and-recovery"></a>
 
-## Incident readiness
+## <%= security_area.('incident-readiness')['name'] %>
 
-Several incident response actions are not self-service, so prepare them before you need them. If you suspect an active compromise, follow [Incident response](/docs/platform/security/incident-response) for containment, investigation, and recovery steps.
+<%= security_area.('incident-readiness')['summary'] %> Several incident response actions require help from Buildkite support. If you suspect an active compromise, follow [Incident response](/docs/platform/security/incident-response) for containment, investigation, and recovery steps.
 
 ### Baseline
 
 - **Write an incident response runbook:** Document how to remove a compromised user from Buildkite and your identity provider, how to revoke agent tokens and API access tokens, and who to contact at Buildkite. Learn more in [Incident response](/docs/platform/security/incident-response).
+
+This baseline is complete when the runbook has an owner, is stored where your incident responders can reach it, and has been tested at least once.
 
 ## Further questions
 

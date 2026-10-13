@@ -1,0 +1,95 @@
+# Facts about each Buildkite token type, rendered on pages/platform/security/tokens.md.
+# Update a token's prefix, scope, or lifetime here, rather than on the page itself.
+tokens:
+  - key: api_access_token
+    name: API access token
+    url: /docs/apis/managing-api-tokens
+    prefix: bkua_
+    usage: Users and scripts call the REST and GraphQL APIs with a bearer token.
+    scope: The selected [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) and optional GraphQL access, for the selected Buildkite organizations. GraphQL access is not further scoped.
+    lifetime: The **Token Expiry** selected at creation, which defaults to seven days. Tokens with the **Public Key** credential type don't expire.
+  - key: oauth_token_exchange_token
+    name: OAuth Token Exchange token
+    url: /docs/apis/oauth-token-exchange
+    prefix: bktx_
+    usage: Services exchange a signed JWT assertion for a token, and call the APIs on behalf of a user.
+    scope: The requested scopes, limited to the Token Exchange App's grantable scopes.
+    lifetime: Up to the app's **Max Token TTL**, which defaults to one hour and can be set between 30 seconds and 24 hours.
+  - key: agent_token
+    name: Agent token
+    url: /docs/agent/self-hosted/tokens
+    prefix: bkct_
+    usage: Self-hosted agents register with a cluster using `BUILDKITE_AGENT_TOKEN`.
+    scope: Any queue in one cluster.
+    lifetime: No expiry when created in the Buildkite interface. An optional expiry, at least 10 minutes in the future, can be set when created using the API.
+  - key: unclustered_agent_token
+    name: Unclustered agent token
+    url: /docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens
+    prefix: bkar_
+    usage: Agents register with unclustered queues.
+    scope: Any unclustered queue in the Buildkite organization.
+    lifetime: No expiry. Revoke manually.
+  - key: job_acquisition_token
+    name: Job acquisition token
+    url: /docs/agent/self-hosted/job-acquisition-tokens
+    prefix: bkjat_
+    usage: A stack controller issues the token to an ephemeral agent, which registers and acquires one reserved job.
+    scope: One reserved job.
+    lifetime: 15 minutes by default, up to one hour, or until the job reservation expires, whichever is first.
+  - key: agent_session_token
+    name: Agent session token
+    url: /docs/agent/self-hosted/tokens#additional-agent-tokens-session-tokens
+    internal: true
+    prefix: bkaa_
+    usage: Issued to an agent when it registers, and used to poll for and start jobs.
+    scope: The registered agent's connection.
+    lifetime: Until the agent disconnects.
+  - key: agent_job_token
+    name: Agent job token
+    url: /docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens
+    internal: true
+    prefix: bkaj_
+    usage: Exposed to each job as `BUILDKITE_AGENT_ACCESS_TOKEN`, and used by agent CLI commands such as `annotate`, `artifact`, and `meta-data`.
+    scope: The job, plus metadata, annotations, and artifacts of other jobs in the same cluster.
+    lifetime: Until the job finishes.
+  - key: registry_token
+    name: Registry token
+    url: /docs/package-registries/registries/manage#configure-registry-tokens
+    prefix: bkpt_
+    usage: Package managers download and install packages from a private registry.
+    scope: Read-only access to one registry.
+    lifetime: No expiry. Delete manually.
+  - key: package_registries_temporary_token
+    name: Package Registries temporary token
+    prefix: bkpt_
+    usage: Included in the publish and install commands shown on a registry's pages.
+    scope: Publishing to, or installing from, one registry.
+    lifetime: A few minutes.
+  - key: portal_long_lived_service_token
+    name: Portal long-lived service token
+    url: /docs/apis/graphql/portals
+    prefix: bkpat_
+    usage: Services call a portal's endpoint with a bearer token.
+    scope: The portal's GraphQL operations, run with administrator-level permissions.
+    lifetime: No expiry. Replace it from the portal's **Security** page.
+  - key: ephemeral_portal_token
+    name: Ephemeral portal token
+    url: /docs/apis/graphql/portals/ephemeral-portal-tokens
+    prefix: bkpat_
+    usage: Services exchange a portal secret for a token.
+    scope: The portal's GraphQL operations, run with administrator-level permissions.
+    lifetime: Up to one hour, or shorter if requested.
+  - key: user_invoked_portal_token
+    name: User-invoked portal token
+    url: /docs/apis/graphql/portals/user-invoked-portals
+    prefix: bkpat_
+    usage: A user authorizes a token code to generate the token.
+    scope: The portal's GraphQL operations, limited to the user's own permissions.
+    lifetime: 12 hours by default, or shorter if requested.
+  - key: portal_secret
+    name: Portal secret
+    url: /docs/apis/graphql/portals/ephemeral-portal-tokens#generating-a-secret
+    prefix: bkps_
+    usage: Services use the secret to request ephemeral portal tokens.
+    scope: One portal.
+    lifetime: No expiry. Each portal can have two secrets, so that you can rotate them.

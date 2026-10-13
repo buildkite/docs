@@ -11,9 +11,9 @@ To learn how to secure your own Buildkite organization, see the [Security best p
 
 ## Data flow
 
-Data flows through different systems when a build triggers, both in Buildkite and in environments you manage. The following diagram shows the typical flow of data when a build triggers.
+Data flows through different systems when a build triggers, both in Buildkite and in environments you manage. The following diagram shows the typical flow of data when a build triggers. The label above each system shows who is responsible for securing it, as described in [Shared responsibility](/docs/platform/security#shared-responsibility).
 
-<%= image "data-flow.png", alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
+<%= image "data-flow.png", alt: "Diagram of the data flow between your source control system, Buildkite, the agent, your source code, and the artifact store when a build runs, with each system labeled as customer controlled, Buildkite managed, or dependent on your hosting model or storage choice", class: "no-decoration" %>
 
 The diagram shows that:
 
