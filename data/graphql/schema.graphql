@@ -2884,6 +2884,12 @@ type ClusterQueue implements Node {
   stackHealth: String
 
   """
+  Whether jobs on this self-hosted queue check out GitHub repositories with a
+  Buildkite-issued GitHub App token, as on hosted queues
+  """
+  useGithubAppToken: Boolean!
+
+  """
   The public UUID for this cluster queue
   """
   uuid: ID!
@@ -2932,6 +2938,11 @@ input ClusterQueueCreateInput {
   Dispatch behavior for retry jobs. Must be one of `prefer-warmest` or `prefer-different`
   """
   retryAgentAffinity: String
+
+  """
+  Whether jobs on this self-hosted queue check out GitHub repositories with a Buildkite-issued GitHub App token
+  """
+  useGithubAppToken: Boolean
 }
 
 """
@@ -3137,6 +3148,11 @@ input ClusterQueueUpdateInput {
   Retry agent affinity
   """
   retryAgentAffinity: String
+
+  """
+  Whether jobs on this self-hosted queue check out GitHub repositories with a Buildkite-issued GitHub App token
+  """
+  useGithubAppToken: Boolean
 }
 
 """
@@ -4749,6 +4765,11 @@ enum JobEventType {
   The Job was finished by an agent
   """
   FINISHED
+
+  """
+  The Job was canceled because the organization reached its hosted agent minutes limit
+  """
+  HOSTED_MINUTES_LIMIT_REACHED
 
   """
   The Job is limited by a concurrency group
