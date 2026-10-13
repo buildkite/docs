@@ -488,6 +488,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+Once an artifact [expires](/docs/platform/artifact-storage-and-transfer-billing#artifact-retention), `artifact://` images and links that reference it no longer load.
+
 ## List annotations for a build
 
 All build and job-scoped annotations for a build can be retrieved using the [REST API](#list-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-annotations-for-a-build-using-the-graphql-api).
