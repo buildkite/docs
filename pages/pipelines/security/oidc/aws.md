@@ -118,7 +118,7 @@ As part of this process:
 
     Only OIDC token exchange requests (for IAM roles) from these IP addresses will be permitted.
 
-    If your agents reach AWS STS through a VPC endpoint, the `aws:SourceIp` condition key isn't available, and this condition denies all role assumption. Use the [`aws:VpcSourceIp`](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-vpcsourceip) condition key instead.
+    If your agents reach AWS STS through a VPC endpoint, the `aws:SourceIp` condition key isn't available, and this condition denies all role assumption. Use the [`aws:VpcSourceIp`](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html#condition-keys-vpcsourceip) condition key instead, together with an `aws:SourceVpc` or `aws:SourceVpce` condition. Private IP ranges aren't unique, so without a VPC or VPC endpoint condition, a request from another VPC using the same IP range would also match.
 
 1. Verify that your custom trust policy is complete. The following example trust policy (noting that `AWS_ACCOUNT_ID` has not been specified) will only allow the exchange of an agent's OIDC tokens with IAM roles when:
     * The Buildkite organization is `example-org`, with an ID matching `ORGANIZATION_ID`.
