@@ -22,7 +22,7 @@ For how artifact storage and transfer usage in Buildkite-managed artifact storag
 
 To get notified when your estimated next invoice reaches a threshold you choose, set up a [spend alert](/docs/platform/spend-alerts).
 
-## Usage overview during your trial
+## Usage overview
 
 Organizations with an active All Access Trial see an **Overview** tab on the [**Usage** page](https://buildkite.com/organizations/~/usage). This tab summarizes how your organization has explored Buildkite so far, and what else is available on your plan.
 
@@ -34,7 +34,15 @@ The **Overview** tab shows:
 
 Select a feature card to go to that feature.
 
-Organizations without an active trial are taken to the **Platform** tab when they select **Usage**.
+### Plan limits for Free plan organizations
+
+Organizations on the Free plan without an active trial can see an **Overview** tab showing their usage against the limits included in their plan, grouped by product, for the current usage period.
+
+- Limits with measurable usage show a progress indicator and how much usage remains before the limit is reached.
+- Limits that can't be measured against usage, such as concurrent job limits, show the limit only.
+- A **Need More?** prompt links to **Billing** to choose a different plan.
+
+Pro and Enterprise organizations, and organizations without this view available, are taken to the **Platform** tab when they select **Usage**.
 
 ## Viewing prepaid inclusions
 
