@@ -96,6 +96,14 @@ The Summary and Test pages are able to be filtered by branch, result (for exampl
 
 <%= image "test-stats.png", width: 2570, height: 902, alt: "Screenshot of test trend page showing test trend information over the last day, including test reliability and test execution durations" %>
 
+### Chart widgets
+
+Charts on the **Summary** page are shown in widgets, each with a title and a key metric, so you can see the headline value without opening the chart. On wider screens, widgets are arranged in a responsive grid, so related charts (for example, the run and test duration distributions) can appear side by side.
+
+Each widget's chart adapts to the widget's width: narrow widgets show a compact, chrome-free version of the chart, and wider widgets show the full chart with axes, a legend, and tooltips. Select the **Maximise** icon on a widget to open a larger, detailed view of its chart in a dialog.
+
+If a widget's chart doesn't reflect every filter currently applied on the **Summary** page, a warning icon appears next to its title. Select the icon to see which filters the widget doesn't support.
+
 Select any individual test execution to see more trend and deep-dive information.
 
 <%= image "test-execution-stats.png", width: 2930, height: 1812, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
