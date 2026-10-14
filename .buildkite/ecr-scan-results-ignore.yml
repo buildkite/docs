@@ -46,6 +46,24 @@ ignores:
       Needs `ungetwc()` on a wide-character FILE stream in an encoding whose single-byte and multi-byte forms overlap.
 
       Exactly one object in the image imports `ungetwc`: libstdc++. The serving process never loads it — libruby lists only libc.so.6 as NEEDED, and neither the ruby binary nor nokogiri.so links libstdc++. The app is UTF-8 throughout.
+  - id: CVE-2026-19499 # glibc 2.41-12+deb13u4
+    reason: |
+      Needs a caller that passes `strfmon` or `strfmon_l` a right-justified width into a buffer big enough for the padding but too small for the internal memmove.
+
+      Checking the dynamic symbol table of every ELF file in the image (base image, node, node_modules and all gem extensions) finds `strfmon`, `strfmon_l` and `__strfmon_l` defined in libc.so.6 and imported by nothing. No gem extension source references either function.
+
+      A call made at runtime through dlsym or Fiddle would escape this check, and the app makes none. Debian rates this <no-dsa> (Minor issue) in Trixie and upstream notes no known network-facing impact.
+
+      https://sourceware.org/git/?p=glibc.git;a=blob;f=advisories/GLIBC-SA-2026-0017
+  - id: CVE-2026-5435 # glibc 2.41-12+deb13u4
+    reason: |
+      Needs a call to the deprecated resolver debugging printers (`ns_sprintrr`, `ns_sprintrrf` or `fp_nquery`) on a TSIG record.
+
+      In this glibc those are exported only by libresolv.so.2, as `ns_sprintrr`, `ns_sprintrrf` and `__fp_nquery`. No ELF file in the image imports any of them. The only objects that link libresolv at all are libnss_hesiod (not loaded: /etc/nsswitch.conf uses only `files` and `dns`) and sharp's libvips in node_modules (build tooling, not the serving process, and it does not import them either).
+
+      Debian rates this <no-dsa> (Minor issue, debugging functions) in Trixie.
+
+      https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=advisories/GLIBC-SA-2026-0011
 
   # --- sqlite3 (present only because liblastlog2 links it; the app has no database) ---
   - id: CVE-2026-11822 # sqlite3 3.46.1-7+deb13u1
