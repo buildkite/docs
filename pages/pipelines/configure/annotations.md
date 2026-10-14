@@ -488,7 +488,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Once an artifact is older than your plan's [artifact retention](/docs/platform/limits) period, `artifact://` images and links that reference it no longer load.
+For artifacts in Buildkite-managed storage, `artifact://` images and links no longer load once the artifact passes your organization's retention period. See [Limits](/docs/platform/limits) for the plan defaults.
 
 ## List annotations for a build
 
