@@ -31,7 +31,7 @@ Buildkite Pipelines keeps the repository's native `entire://` URL. Select the re
 
 ## Build from branch pushes
 
-Buildkite Pipelines creates builds when branches are updated in a connected repository. You don't need to configure a webhook in Entire or Buildkite.
+Buildkite Pipelines creates builds when you push commits to a new or existing branch in a connected repository. You don't need to configure a webhook in Entire or Buildkite.
 
 Use a [branch filter](/docs/pipelines/configure/workflows/branch-configuration) or [conditional expression](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) to limit which pushes create builds. Tag events and branch deletions don't create builds.
 
