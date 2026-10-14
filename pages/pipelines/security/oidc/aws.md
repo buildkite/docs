@@ -307,6 +307,8 @@ To use session tags:
 
     Any [Buildkite OIDC claim](/docs/agent/cli/reference/oidc#claims) can be passed as a session tag, including `build_branch`. Learn more in [AWS session tags](/docs/agent/cli/reference/oidc#aws-session-tags).
 
+<a id="aws-cloudtrail"></a>
+
 ### AWS CloudTrail
 
 A Buildkite job that successfully assumes an AWS IAM role leaves a record in AWS CloudTrail. That record includes details like the IP address of the agent that ran the job, plus the values of any session tags listed in the plugin's `session-tags` configuration.
