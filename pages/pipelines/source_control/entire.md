@@ -73,6 +73,8 @@ Install the [Entire CLI](https://docs.entire.io/installation) for the agent user
 
 Buildkite Pipelines automatically reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported. Each rebuild creates a new check attempt, retaining the previous attempt as history rather than replacing it.
 
+Canceling a rebuild does not undo an earlier passing check for the same pipeline and commit in Entire.
+
 Builds created with a full commit SHA can report status from creation, including manual builds. For unresolved references such as `HEAD`, a branch name, or a short SHA, reporting starts after an agent resolves the commit.
 
 Build state | Entire status | Entire conclusion
@@ -91,12 +93,16 @@ Check reporting uses a separate `checks:write` credential that stays within Buil
 
 ### Required checks
 
-To require the build check in Entire, use `<account>/<suite key>`:
+Connecting Buildkite does not enable the checks gate in Entire. With the gate off, check results are informational. Enable the gate in Entire to require checks before merging.
+
+To require the Buildkite build check, name it as `<account>/<suite key>`:
 
 - `account`: `ins-` followed by the Entire installation ULID in lowercase.
 - `suite key`: `<Buildkite organization slug>/<pipeline slug>`.
 
-The suite contains one run named `Build #<number>`.
+The suite contains one run named `Build #<number>`. Entire derives the suite's result from this build-level run.
+
+With named required checks, only those suites must report and pass. If you enable the gate without naming required checks, every configured CI integration must report on the head commit and every reported suite must pass. An integration that has not reported keeps the gate pending.
 
 Renaming the Buildkite organization or pipeline slug changes the suite key. Update the required check in Entire after a rename, or it continues waiting for the old key.
 
