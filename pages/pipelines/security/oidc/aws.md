@@ -158,7 +158,7 @@ As part of this process:
     }
     ```
 
-    **Note:** Replace `ORGANIZATION_ID` and `PIPELINE_ID` with your actual UUIDs
+    **Note:** Replace `ORGANIZATION_ID` and `PIPELINE_ID` with your actual UUIDs.
 
 1. In the **Custom trust policy** section, copy your modified custom trust policy, paste it into your IAM role, and complete the next few steps up to specifying the **Role name**.
 
