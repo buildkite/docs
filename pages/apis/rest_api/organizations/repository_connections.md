@@ -1,8 +1,10 @@
 # Repository connections API
 
-The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a consistent representation across GitHub, GitHub Enterprise Server, Bitbucket Server, GitLab Self-Managed, and Origin connection types.
+The repository connections API lets organization administrators list and inspect connected source control integrations. Repository connections provide a consistent representation across GitHub, GitHub Enterprise Server, Bitbucket Server, GitLab Self-Managed, Origin, and Code Storage connection types.
 
 These endpoints are read-only and do not return credentials or other secret values. The endpoints require the `read_organization_repository_connections` [OAuth scope](/docs/apis/managing-api-tokens#token-scopes) and organization administrator access.
+
+The [Code Storage integration](/docs/pipelines/source-control/code-storage) is in public preview. You can list and inspect Code Storage connections, but the [repository listing endpoint](/docs/apis/rest-api/repository-connections) does not support them.
 
 ## Repository connection data model
 
@@ -16,7 +18,7 @@ List responses contain the following fields:
   </tr>
   <tr>
     <th><code>type</code></th>
-    <td>Connection type: <code>github_app</code>, <code>github_code_access_app</code>, <code>github_enterprise_app</code>, <code>github_restricted_app</code>, <code>github_enterprise</code>, <code>bitbucket_server</code>, <code>gitlab_self_managed</code>, or <code>cursor_origin_app</code></td>
+    <td>Connection type: <code>github_app</code>, <code>github_code_access_app</code>, <code>github_enterprise_app</code>, <code>github_restricted_app</code>, <code>github_enterprise</code>, <code>bitbucket_server</code>, <code>gitlab_self_managed</code>, <code>cursor_origin_app</code>, or <code>code_storage</code></td>
   </tr>
   <tr>
     <th><code>display_name</code></th>

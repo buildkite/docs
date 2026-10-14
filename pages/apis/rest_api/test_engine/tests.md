@@ -138,7 +138,7 @@ Success response: `200 OK`
 
 ## Get a test
 
-Returns a test with aggregated duration, reliability, and execution metrics over a time range.
+Returns a test with aggregated duration, reliability, and execution metrics over a time range, along with its flakiness scores (`transition_count_score` and `probabilistic_flakiness_score`). These scores aren't available from [List tests](#list-tests).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -166,13 +166,46 @@ curl -H "Authorization: Bearer $TOKEN" \
   "executions_count_by_result": {
     "passed": 110,
     "failed": 2
+  },
+  "transition_count_score": {
+    "score": 0.4,
+    "transition_count": 2,
+    "result_count": 5,
+    "window_size": 5
+  },
+  "probabilistic_flakiness_score": {
+    "score": 0.216
   }
 }
 ```
 
-The `Buildkite-Version` request header opts in to the versioned response shown above, which includes the aggregated metrics described in [List tests](#list-tests). Requests made without this header receive a response which contains only the test attributes `id` through `labels`.
+The `Buildkite-Version` request header opts in to the versioned response shown above, which includes the aggregated metrics described in [List tests](#list-tests). Requests made without this header receive a response which still includes `transition_count_score` and `probabilistic_flakiness_score`, but otherwise contains only the test attributes `id` through `labels`.
 
 The metrics are calculated over the time range set by the `period`, `min_timestamp`, and `max_timestamp` query string parameters. A test without executions during the requested time range is still returned. Its duration and reliability values are `null`, its `executions_count` is `0`, and its `passed` and `failed` execution counts are `0`.
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>transition_count_score</code></th>
+    <td>
+      The test's highest score across the suite's active <a href="/docs/pipelines/configure/tests/workflows/monitors#transition-count">transition count monitors</a>, made up of the following fields:
+      <ul>
+        <li><code>score</code>: A decimal fraction between <code>0.0</code> and <code>1.0</code>. A higher score means the test's results are transitioning between passed and failed more frequently.</li>
+        <li><code>transition_count</code>: The number of transitions between passed and failed within the monitor's window.</li>
+        <li><code>result_count</code>: The number of results within the monitor's window.</li>
+        <li><code>window_size</code>: The maximum number of recent results the monitor scores.</li>
+      </ul>
+      This is <code>null</code> when the suite has no active transition count monitor, or the monitor hasn't scored the test yet. This score always reflects the test's most recent results, and isn't affected by the <code>period</code>, <code>min_timestamp</code>, or <code>max_timestamp</code> query string parameters.
+    </td>
+  </tr>
+  <tr>
+    <th><code>probabilistic_flakiness_score</code></th>
+    <td>
+      The test's <a href="/docs/pipelines/configure/tests/workflows/monitors#probabilistic-flakiness">probabilistic flakiness score</a>, made up of a single <code>score</code> field: a decimal fraction between <code>0.0</code> and <code>1.0</code>, where a higher score means the test is more likely to be flaky. This is <code>null</code> when the suite has no probabilistic flakiness monitor, or Test Engine hasn't scored the test yet. This score always reflects the test's latest result, and isn't affected by the <code>period</code>, <code>min_timestamp</code>, or <code>max_timestamp</code> query string parameters.
+    </td>
+  </tr>
+</tbody>
+</table>
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
