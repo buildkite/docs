@@ -280,7 +280,7 @@ To use session tags:
     ],
     ```
 
-1. Add the claims to pass as session tags to the [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin's `session-tags` configuration:
+1. Add the claims to pass as session tags to the [AWS assume-role-with-web-identity](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin's `session-tags` configuration:
 
     ```yaml
     plugins:
