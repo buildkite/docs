@@ -4,9 +4,26 @@ This page brings together the security controls available across the Buildkite p
 
 Under the [shared responsibility model](/docs/platform/security#shared-responsibility), these are the controls that your organization is responsible for configuring. Use this page when you set up a new Buildkite organization, review an existing Buildkite organization against a security baseline, or prepare for a security audit. To prepare a response plan for a suspected compromise, see [Incident response](/docs/platform/security/incident-response).
 
+## Choose controls for your risk profile
+
+Start with [what you need to protect](/docs/platform/security#start-with-what-you-need-to-protect), then choose the closest profile for each workload. Consider both the likelihood of compromise and its impact on confidentiality, integrity, and availability. For example, a pipeline that runs untrusted pull requests needs strong isolation even if it doesn't deploy to production.
+
+The following profiles are starting points, not security ratings, compliance certifications, or a formal Buildkite security standard. Your organization's security and compliance requirements determine which controls apply.
+
+Workload profile | Example workload and impact | Start here
+--- | --- | ---
+Limited impact | Tests that use non-sensitive data, have no production access, and don't publish artifacts consumed by production. A failed or compromised build has a contained impact. | Review the baseline controls in every area. Prioritize account protection, isolation from sensitive workloads, and restricted credentials. Mark deployment-specific controls as not applicable only after checking that the workload has no path to production.
+Production delivery | Builds that publish packages or deploy services. Compromise could alter a release, expose credentials, or interrupt a service. | Complete [Secure your first production pipeline](#secure-your-first-production-pipeline), then apply the relevant baseline and recommended controls. Prioritize [secrets management](#secrets-management), [pipeline and supply chain integrity](#pipeline-and-supply-chain-integrity), and [monitoring and detection](#monitoring-and-detection).
+High consequence | Workloads that access regulated or highly sensitive data, sign releases, or deploy critical services. Compromise could cause widespread or lasting harm. | Start with the production delivery controls, then assess advanced controls with your security team. Prioritize [agent isolation](#buildkite-agent-security), independent verification of releases, restricted network access, and tested [incident response](/docs/platform/security/incident-response).
+{: class="responsive-table"}
+
+One Buildkite organization can contain workloads with different profiles. Assess shared agents, credentials, artifact stores, and network access against the most sensitive workload they can reach. A test pipeline that can modify a release artifact isn't a limited-impact workload just because it doesn't deploy it.
+
+Reassess the profile when a workload gains access to new data, credentials, networks, or deployment targets. Selecting a profile doesn't remove a risk: record any remaining risk, the person authorized to accept it, and a review date.
+
 ## Secure your first production pipeline
 
-Follow these steps to secure one production pipeline with the smallest supported configuration. Each step ends with a check that confirms the control works. The steps apply to every Buildkite plan, unless a step names a plan-specific option and its alternative.
+Use these steps as a starting configuration for one production pipeline, then add controls for its risk profile. This example isn't a complete security assessment. Each step ends with a check that confirms the control works. The steps apply to every Buildkite plan, unless a step names a plan-specific option and its alternative.
 
 1. **Require SSO or 2FA:** On the Pro and Enterprise plans, configure [single sign-on (SSO)](/docs/platform/sso) with your identity provider. On other plans, or if you don't use SSO, select **Settings** > **Security**, select **Enforce Two-factor authentication**, and then select **Update Access Control**. Learn more in [Enforce two-factor authentication](/docs/platform/team-management/enforce-2fa).
 
@@ -61,23 +78,27 @@ Follow these steps to secure one production pipeline with the smallest supported
 
     To verify, confirm that the option is cleared, and that no build in the pipeline's history was created from a third-party fork.
 
-1. **Write and test a response runbook:** Record how to revoke the pipeline's agent token, remove a compromised user, and rotate `DEPLOY_API_TOKEN`, and who to contact at Buildkite. Learn more in [Incident response](/docs/platform/security/incident-response).
+1. **Write and test a response runbook:** Record how to remove a compromised user, rotate `DEPLOY_API_TOKEN`, and revoke agent tokens if you use self-hosted agents, and who to contact at Buildkite. Learn more in [Incident response](/docs/platform/security/incident-response).
 
-    To verify, follow only the runbook to create a replacement agent token, move your agents to it, and revoke the old token. Confirm that the agents reconnect and that builds still pass.
+    To verify, rehearse credential rotation in a test environment using only the runbook, and confirm that builds still pass and the old credential no longer works. For self-hosted agents, also rehearse replacing an agent token and revoking the old token, and confirm that the agents reconnect.
 
-After you complete these steps, apply the remaining baseline controls in each area on this page.
+After you complete these steps, review the remaining baseline controls in each area on this page and apply those relevant to your workload.
 
 ## How to use this page
 
 A CI/CD environment holds credentials for the systems it builds and deploys to, and runs code from every commit pushed to the repositories it builds. Securing a Buildkite organization means working in two directions: restricting what a job can reach, and restricting who can change what a job does.
 
-For a new Buildkite organization, complete [Secure your first production pipeline](#secure-your-first-production-pipeline), and then apply the baseline controls in every area before connecting more production systems.
+For a new Buildkite organization, choose a workload risk profile. If you're connecting production systems, complete [Secure your first production pipeline](#secure-your-first-production-pipeline), and then apply the relevant baseline controls in every area before connecting more production systems.
 
-For an existing setup, review the baseline controls in every area first. Each baseline ends with a description of its done state, which you can use to confirm that the area is complete. Where a baseline control depends on a Buildkite plan or agent type, the control names an alternative for other plans or agent types. Record which controls are configured, which don't apply to your setup, and which need action. Assign an owner to each gap before proceeding to the recommended and advanced controls:
+For an existing setup, review the baseline controls in every area first. Each baseline ends with a description of its done state, which you can use to check the controls that apply to your setup. Where a baseline control depends on a Buildkite plan or agent type, the control names an alternative for other plans or agent types. Record which controls are configured, which don't apply and why, and which need action. Assign an owner to each gap, and use your risk profile to select recommended and advanced controls.
 
-- **Baseline:** Controls that every Buildkite organization handling production credentials should apply. Treat these as required, not optional.
-- **Recommended:** The target state for teams running production deployments from Buildkite Pipelines.
-- **Advanced:** Controls for organizations that treat their build system as part of their trusted computing base.
+The tiers organize the controls; they aren't a score or a requirement to enable every feature:
+
+- **Baseline:** Foundational protections to review for every workload. Apply the controls relevant to your setup before handling production credentials.
+- **Recommended:** Additional protections to assess for production delivery, based on what a compromised build could access or change.
+- **Advanced:** More specialized protections for higher-consequence workloads or specific threats. These aren't required for every organization, and some are alternatives to other controls.
+
+Track implementation separately from risk: identify the applicable controls and their owners, configure and verify them, then maintain them with repeatable checks and incident exercises. A high-consequence workload needs stronger assurance, not just more enabled features. For security questionnaires, keep evidence of your configuration and verification results, along with exceptions, accepted risks, and review dates. A checked item on this page alone isn't evidence of compliance.
 
 Some controls carry a label in parentheses:
 

@@ -14,11 +14,28 @@ The following diagram shows the systems that data flows through when a build run
 
 <%= image_tag vite_asset_path("images/pipelines/security/data-flow.png"), alt: "Diagram of the data flow between your source control system, Buildkite, the agent, your source code, and the artifact store when a build runs, with each system labeled as customer controlled, Buildkite managed, or dependent on your hosting model or storage choice", class: "no-decoration" %>
 
-The controls your organization is responsible for are listed in [Security best practices](/docs/platform/security/best-practices). Apply at least the baseline controls in each area before connecting production systems.
+The controls your organization can configure are listed in [Security best practices](/docs/platform/security/best-practices). Select controls for the risks in your workloads, and apply the relevant baseline controls before connecting production systems. You don't need to enable every security feature to use Buildkite securely.
+
+## Start with what you need to protect
+
+CI/CD jobs run code and can hold credentials for publishing packages or deploying to production. A compromised job can affect systems beyond the build itself. Assess each workload by the code it accepts, the data and credentials it can access, the systems it can change, and the impact of losing those capabilities.
+
+Use the following outcomes to identify the controls to review first:
+
+What you want to prevent | Controls to review
+--- | ---
+An attacker using a stolen account or token to change builds or access private data | [Authentication and access control](/docs/platform/security/best-practices#authentication-and-access-control)
+Untrusted build code reaching production credentials or other workloads | [Buildkite agent security](/docs/platform/security/best-practices#buildkite-agent-security) and [secrets management](/docs/platform/security/best-practices#secrets-management)
+Modified dependencies, pipeline steps, or packages reaching a release | [Pipeline and supply chain integrity](/docs/platform/security/best-practices#pipeline-and-supply-chain-integrity)
+Private source code, logs, artifacts, or credentials becoming public | [Network and data exposure](/docs/platform/security/best-practices#network-and-data-exposure)
+An intrusion going unnoticed or disrupting builds and deployments for longer than your organization can tolerate | [Monitoring and detection](/docs/platform/security/best-practices#monitoring-and-detection) and [incident readiness](/docs/platform/security/best-practices#incident-readiness)
+{: class="two-column"}
+
+Choose a [workload risk profile](/docs/platform/security/best-practices#choose-controls-for-your-risk-profile) to prioritize these controls. Record the risks your organization accepts and who owns those decisions, then use [governance and configuration management](/docs/platform/security/best-practices#governance-and-configuration-management) to keep the selected controls consistent.
 
 ## Where to start
 
-Cover all of the following areas before you connect production systems. If you're reviewing or auditing an existing Buildkite organization, use them to find the controls to check:
+Review all of the following areas before you connect production systems, and apply the controls relevant to your workload's risk profile. If you're reviewing or auditing an existing Buildkite organization, use them to find the controls to check:
 
 - **Secure your organization setup:** Configure [authentication and access control](/docs/platform/security/best-practices#authentication-and-access-control), including SSO or 2FA, teams, permissions, and API access tokens. Then keep that configuration consistent with [governance and configuration management](/docs/platform/security/best-practices#governance-and-configuration-management).
 - **Secure your agents, pipelines, secrets, and network:** Apply the controls for [Buildkite agent security](/docs/platform/security/best-practices#buildkite-agent-security), [pipeline and supply chain integrity](/docs/platform/security/best-practices#pipeline-and-supply-chain-integrity), [secrets management](/docs/platform/security/best-practices#secrets-management), and [network and data exposure](/docs/platform/security/best-practices#network-and-data-exposure).
