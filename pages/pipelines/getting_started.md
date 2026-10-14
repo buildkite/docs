@@ -146,7 +146,9 @@ Next, create a new pipeline that uploads the pipeline definition from your repos
 1. Select **Create pipeline**.
 1. On the next page, select **New Build**. In the dialog, enter a short **Message** (for example, **My first build**) and select **Create Build**. The build page opens and the build begins.
 
-If you've configured webhooks, your pipeline triggers when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger it. To learn about other ways to start a build, and what to check if a build doesn't start, see [Starting a new build](/docs/pipelines/starting-a-new-build). To add more functionality, edit your steps and repeat. If you have trouble, reach out to support at support@buildkite.com.
+If you've configured webhooks, your pipeline triggers when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger it. To add more functionality, edit your steps and repeat.
+
+For other ways to start a build and help with builds that don't start, see [Starting a new build](/docs/pipelines/starting-a-new-build). If you still have trouble, contact support at support@buildkite.com.
 
 > 📘 Pipeline slugs and names
 > A pipeline's _slug_ (part of its URL) is [derived from the pipeline's **Name**](#create-your-own-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name). Changing the **Name** also changes the slug, but previous slugs automatically redirect to the current one.
