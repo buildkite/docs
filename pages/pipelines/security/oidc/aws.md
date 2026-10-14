@@ -8,8 +8,8 @@ The [Buildkite agent's `oidc` command](/docs/agent/cli/reference/oidc) allows yo
 
 This process uses the following Buildkite plugins to implement OIDC with AWS and your Buildkite pipelines:
 
-- [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
-- [AWS SSM Buildkite Plugin](https://github.com/buildkite-plugins/aws-ssm-buildkite-plugin)
+- [AWS assume-role-with-web-identity](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
+- [AWS SSM Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-ssm-buildkite-plugin)
 
 Learn more about:
 
@@ -191,8 +191,8 @@ In the following example, we'll allow access to read an SSM Parameter Store key 
 
 Finally, use the two Buildkite plugins to use the IAM role and to pull in the SSM parameter (added above):
 
-- [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
-- [AWS SSM Buildkite Plugin](https://github.com/buildkite-plugins/aws-ssm-buildkite-plugin)
+- [AWS assume-role-with-web-identity](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)
+- [AWS SSM Buildkite Plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-ssm-buildkite-plugin)
 
 Incorporate the following into your pipeline (modifying as required):
 
@@ -237,12 +237,25 @@ These keys are available when AWS authenticates the initial `AssumeRoleWithWebId
 
 To restrict access using one of these claims, add its condition key to the `Condition` section of your trust policy, as the [Step 2](#step-2-create-a-new-or-update-an-existing-iam-role-to-use-with-your-pipelines) examples do for the organization and pipeline. These conditions add to the [required `agent.buildkite.com:sub` condition](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_secure-by-default.html), and don't replace it.
 
-> 🚧 Use immutable identifiers instead of slugs.
+> 🚧 Use immutable identifiers instead of slugs
 > Deleted organization and pipeline slugs can be reused by different organizations or pipelines. A policy that relies only on slugs could grant access to an unintended identity. Use immutable `organization_id` and `pipeline_id` values to restrict access. For cluster restrictions, use `cluster_id` instead of `cluster_name`.
 
 You can include `organization_slug` and `pipeline_slug` conditions alongside the immutable UUID conditions, as the Step 2 examples do. UUIDs alone are difficult to identify when reading an IAM policy, and the matching slugs make it clear which organization and pipeline the policy applies to. Since all conditions must match, update the slug conditions if you rename the organization or pipeline.
 
 The `cluster_id` and `cluster_name` claims are [optional claims](/docs/agent/cli/reference/oidc#claims-optional-claims), which are only included in the OIDC token when requested with the `--claim` option of the `buildkite-agent oidc request-token` command.
+
+The [AWS assume-role-with-web-identity](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin doesn't request optional claims itself. To include them in the plugin's OIDC token, set the `BUILDKITE_OIDC_TOKEN_CLAIMS` environment variable, which the `--claim` option reads, in your step's `env`. Separate multiple claims with commas. For example:
+
+```yaml
+steps:
+  - label: "\:aws\: Deploy to Production"
+    command: echo "Deploying"
+    env:
+      BUILDKITE_OIDC_TOKEN_CLAIMS: cluster_id
+    plugins:
+      - aws-assume-role-with-web-identity#v1.8.0:
+          role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
+```
 
 ## Including the build branch in your custom trust policy
 
