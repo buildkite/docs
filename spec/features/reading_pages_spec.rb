@@ -105,10 +105,18 @@ RSpec.feature "reading pages" do
   end
 
   describe "old URLs" do
+    it "preserves the data flow explanation when retiring the Pipelines security overview" do
+      visit "/docs/pipelines/security#data-flow"
+
+      expect(page.current_path).to eq("/docs/platform/security")
+      expect(page).to have_css("h2#data-flow", text: "Data flow")
+      expect(page).to have_link("Security at Buildkite", href: "https://buildkite.com/about/security/")
+    end
+
     it "preserves security control section links at their replacement sections" do
       visit "/docs/pipelines/best-practices/security-controls"
 
-      expect(page.current_path).to eq("/docs/platform/security/best-practices")
+      expect(page.current_path).to eq("/docs/platform/security")
 
       {
         "authentication-and-session-security-in-the-buildkite-interface-apis-and-cli" => "Authentication and access control",
@@ -190,6 +198,8 @@ RSpec.feature "reading pages" do
       /docs/pipelines/best-practices/security-controls
       /docs/pipelines/emoji
       /docs/pipelines/pipelines
+      /docs/pipelines/security
+      /docs/platform/security/best-practices
       /docs/pipelines/security/enforcing-security-controls
       /docs/pipelines/tutorials/docker-containerized-builds
       /docs/pipelines/tutorials/parallel-builds

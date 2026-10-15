@@ -10,4 +10,4 @@ Implementing these practices and guidelines will help you get up to speed, help 
 
 These guidelines assume familiarity with Pipelines [terminology](/docs/pipelines/glossary) and an understanding of [Pipelines architecture](/docs/pipelines/architecture).
 
-For security best practices, including secrets management, see the [Security best practices](/docs/platform/security/best-practices).
+For security best practices, including secrets management, see the [Security checklist](/docs/platform/security).

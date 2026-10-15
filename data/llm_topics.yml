@@ -196,7 +196,7 @@ best-practices:
     - "agent/queues/managing"
     - "agent/lifecycle"
     - "agent/hooks"
-    - "platform/security/best-practices"
+    - "platform/security"
   related_topics:
     - pipeline-configurations
     - security

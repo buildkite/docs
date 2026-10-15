@@ -982,16 +982,12 @@
 - name: "Security"
   path: "platform/security"
   children:
-    - name: "Overview"
+    - name: "Security checklist"
       path: "platform/security"
-    - name: "Best practices"
-      path: "platform/security/best-practices"
     - name: "Token security"
       path: "platform/security/tokens"
     - name: "Incident response"
       path: "platform/security/incident-response"
-    - name: "Pipelines security"
-      path: "pipelines/security"
     - name: "Secrets"
       children:
         - name: "Overview"

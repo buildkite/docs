@@ -2,7 +2,7 @@
 
 When deploying a Buildkite agent into a sensitive environment, you can adjust a few default settings and apply some techniques to harden it.
 
-For security controls across your Buildkite organization, see the [Security overview](/docs/platform/security). If an agent or its credentials may be compromised, follow [Incident response](/docs/platform/security/incident-response).
+For security controls across your Buildkite organization, see the [Security checklist](/docs/platform/security). If an agent or its credentials may be compromised, follow [Incident response](/docs/platform/security/incident-response).
 
 ## Securely storing secrets
 

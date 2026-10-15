@@ -86,4 +86,4 @@ Proceed to recovery when every access path created or changed during the inciden
 
 ## Recover and harden
 
-After you've contained the incident, review your Buildkite organization against the [Security best practices](/docs/platform/security/best-practices) to reduce the impact of a future incident. For example, set expiry dates on agent tokens and API access tokens, and replace static cloud credentials with [OIDC](/docs/pipelines/security/oidc).
+After you've contained the incident, review your Buildkite organization against the [Security checklist](/docs/platform/security) to reduce the impact of a future incident. For example, set expiry dates on agent tokens and API access tokens, and replace static cloud credentials with [OIDC](/docs/pipelines/security/oidc).

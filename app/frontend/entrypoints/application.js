@@ -4,6 +4,7 @@ import { initToc } from "../components/toc";
 import { attachCopyToClipboardButton } from "../components/copyToClipboardButton";
 import { themeToggle } from "../components/themeToggle";
 import { initPageCopyDropdown } from "../components/pageCopyDropdown";
+import { initSecurityChecklist } from "../components/securityChecklist";
 import docsearch from "@docsearch/js";
 import {
   initSearchTracking,
@@ -78,6 +79,8 @@ function render() {
 
   bindToggles();
   preserveScroll();
+  const checklistCleanup = initSecurityChecklist();
+  if (checklistCleanup) cleanupFunctions.push(checklistCleanup);
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();

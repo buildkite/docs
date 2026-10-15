@@ -112,8 +112,8 @@ Opt for building out your agent architecture in such a way that a single host or
 
 Build security into agent infrastructure from the start. Follow least privilege principles and integrate proper secret management. It's recommended that you:
 
-- Store secrets in hooks or cloud secret stores. You can find more on proper secrets management in Buildkite Pipelines in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and [Secrets management](/docs/platform/security/best-practices#secrets-management)
+- Store secrets in hooks or cloud secret stores. You can find more on proper secrets management in Buildkite Pipelines in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and [Secrets management](/docs/platform/security#secrets-management)
 - Use short-lived tokens and [ephemeral agents](/docs/agent/buildkite-hosted/linux#agent-images)
 - Enforce infrastructure-as-code ([Terraform](/docs/package-registries/ecosystems/terraform), CloudFormation)
 
-For more information on agent security, see [Buildkite agent security](/docs/platform/security/best-practices#buildkite-agent-security).
+For more information on agent security, see [Buildkite agent security](/docs/platform/security#buildkite-agent-security).
