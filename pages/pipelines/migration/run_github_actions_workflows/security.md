@@ -4,7 +4,7 @@ description: "Understand the trust and authorization boundaries that apply when 
 
 # GitHub Actions Compatibility security model
 
-GitHub Actions normally combines workflow execution and GitHub-managed credentials behind a runner. GitHub Actions Compatibility uses the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/) and `buildkite-gha` runtime to keep the workflow syntax, but run each supported job as a native Buildkite Pipelines job. The runtime doesn't create a GitHub Actions run or a GitHub-hosted runner, so the Buildkite agent, the [queue](/docs/agent/queues), and Buildkite policies provide the security boundary.
+GitHub Actions Compatibility uses the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/) and `buildkite-gha` runtime to keep the workflow syntax, but runs each supported job as a native Buildkite Pipelines job. The runtime doesn't create a GitHub Actions run or a GitHub-hosted runner, so the Buildkite agent, the [queue](/docs/agent/queues), and Buildkite policies provide the security boundary.
 
 Treat workflow steps and third-party actions as you would on a self-hosted GitHub Actions runner: code can use anything available to its job. Workflow syntax can request permissions, but it doesn't make code trusted or grant access by itself.
 
