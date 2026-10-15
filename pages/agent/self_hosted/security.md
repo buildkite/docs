@@ -129,9 +129,9 @@ This requires Buildkite agent version 4.5.0 or later, and is disabled by default
 
 To protect your own list of environment variable names (or prefixes ending in `*`) from being set by a job, use the [`protected-environment-variables`](/docs/agent/self-hosted/configure#protected-environment-variables) setting:
 
-- Environment variable: `BUILDKITE_PROTECTED_ENVIRONMENT_VARIABLES="GIT_SSH_COMMAND,LD_*"`
-- Command line flag: `--protected-environment-variables "GIT_SSH_COMMAND,LD_*"`
-- Configuration setting: `protected-environment-variables="GIT_SSH_COMMAND,LD_*"`
+- Environment variable: `BUILDKITE_PROTECTED_ENVIRONMENT_VARIABLES="BASH_ENV,LD_*"`
+- Command line flag: `--protected-environment-variables "BASH_ENV,LD_*"`
+- Configuration setting: `protected-environment-variables="BASH_ENV,LD_*"`
 
 To protect the agent's own maintained list of risky Git configuration and command-execution environment variables without enumerating them yourself, use the [`protect-dangerous-git-environment-variables`](/docs/agent/self-hosted/configure#protect-dangerous-git-environment-variables) setting:
 
