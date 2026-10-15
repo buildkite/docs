@@ -1,6 +1,6 @@
 # Entire
 
-[Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch pushes, check out repositories on hosted agents, and report build status as checks. An organization administrator connects an Entire project, then pipelines in that Buildkite organization can select repositories from the connection.
+[Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch and tag pushes, check out repositories on hosted agents, and report build status as checks. An organization administrator connects an Entire project, then pipelines in that Buildkite organization can select repositories from the connection.
 
 > 📘 Preview
 > The Entire integration is in preview. Share feedback or report issues at [support@buildkite.com](mailto:support@buildkite.com?subject=Entire%20Feedback).
@@ -29,11 +29,16 @@ After connecting Entire, create a pipeline from a repository that the connection
 
 Buildkite Pipelines keeps the repository's native `entire://` URL. Select the repository from the connection rather than entering a remote URL manually, so the pipeline is associated with the correct Entire project and repository.
 
-## Build from branch pushes
+## Build from branch and tag pushes
 
-Buildkite Pipelines creates builds when you push commits to a new or existing branch in a connected repository. You don't need to configure a webhook in Entire or Buildkite.
+Buildkite Pipelines creates builds when you push to a connected repository. You don't need to configure a webhook in Entire or Buildkite.
 
-Use a [branch filter](/docs/pipelines/configure/workflows/branch-configuration) or [conditional expression](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) to limit which pushes create builds. Tag events and branch deletions don't create builds.
+Select **Pipelines** > your pipeline > **Settings** > **Repository**. In **Entire Settings**, choose which pushes create builds, then select **Save Entire Settings**:
+
+- **Build branches**: Creates builds when commits are pushed to new or existing branches. This setting is enabled by default.
+- **Build tags**: Creates builds when tags are created or updated. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
+
+The pipeline's [branch filter](/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering), in **Branch Limiting** on the same page, applies to both branch and tag names. For example, with **Build tags** enabled, `v* !v*-rc*` builds `v1.0` but not `v1.0-rc1`. Deleted branches and tags don't create builds.
 
 ## Configure the checkout plugin
 
@@ -71,9 +76,9 @@ Install the [Entire CLI](https://docs.entire.io/installation) for the agent user
 
 ## Report build status
 
-Buildkite Pipelines automatically reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported. Each rebuild creates a new check attempt, retaining the previous attempt as history rather than replacing it.
+Buildkite Pipelines reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported. Each rebuild starts a new attempt of the same check. Entire shows the latest attempt's result and keeps earlier attempts as history.
 
-Canceling a rebuild does not undo an earlier passing check for the same pipeline and commit in Entire.
+**Publish build status as checks**, in the pipeline's **Entire Settings**, is enabled by default. When you turn it off, Buildkite Pipelines stops sending check updates for the pipeline, including updates already queued. Checks already in Entire keep their last reported status.
 
 Builds created with a full commit SHA can report status from creation, including manual builds. For unresolved references such as `HEAD`, a branch name, or a short SHA, reporting starts after an agent resolves the commit.
 
@@ -100,9 +105,9 @@ To require the Buildkite build check, name it as `<account>/<suite key>`:
 - `account`: `ins-` followed by the Entire installation ULID in lowercase.
 - `suite key`: `<Buildkite organization slug>/<pipeline slug>`.
 
-The suite contains one run named `Build #<number>`. Entire derives the suite's result from this build-level run.
+Buildkite reports the overall build state directly on this suite, without job-level check runs.
 
-With named required checks, only those suites must report and pass. If you enable the gate without naming required checks, every configured CI integration must report on the head commit and every reported suite must pass. An integration that has not reported keeps the gate pending.
+With named required checks, only those suites must report and pass. If you enable the gate without naming required checks, every integration that has reported on the repository must report on the head commit and every reported suite must pass. An integration that has not reported keeps the gate pending. This includes earlier installations that reported on the repository.
 
 Renaming the Buildkite organization or pipeline slug changes the suite key. Update the required check in Entire after a rename, or it continues waiting for the old key.
 
