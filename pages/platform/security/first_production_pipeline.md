@@ -20,8 +20,9 @@ Decide whether to use Buildkite hosted or self-hosted agents. Review the [shared
 
 1. **Run the pipeline in its own cluster:** Create a [cluster](/docs/pipelines/security/clusters/manage), create a queue with the key `production`, and move the pipeline to that cluster. Choose the queue type for your hosting model:
 
-    * For Buildkite hosted agents, create a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) with the key `production`. Buildkite manages the agent credentials; you don't create an agent token.
-    * For self-hosted agents, create a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) with the key `production`, and [configure your agents](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue) to connect to it. Create the agent token with an expiration date using the [REST API](/docs/agent/self-hosted/tokens#create-a-token-using-the-rest-api), and store it in your secrets manager:
+    For Buildkite hosted agents, create a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue) with the key `production`. Buildkite manages the agent credentials; you don't create an agent token.
+
+    For self-hosted agents, create a [self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue) with the key `production`, and [configure your agents](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue) to connect to it. Create the agent token with an expiration date using the [REST API](/docs/agent/self-hosted/tokens#create-a-token-using-the-rest-api), and store it in your secrets manager:
 
     ```bash
     curl -H "Authorization: Bearer $TOKEN" \
