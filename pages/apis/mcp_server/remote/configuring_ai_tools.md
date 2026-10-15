@@ -55,6 +55,58 @@ You can also use the `X-Buildkite-Readonly: true` header with `/direct` to enfor
 
 For interactive AI tools that can complete OAuth, use the OAuth-based remote MCP server at `https://mcp.buildkite.com/mcp`.
 
+### Using token exchange with an MCP gateway
+
+Use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) with an MCP gateway when you want clients to access Buildkite without receiving their own Buildkite API tokens. The gateway authenticates clients separately from the credentials it uses to call Buildkite:
+
+1. The MCP client authenticates to your gateway using a credential issued for the gateway, not a Buildkite API token.
+1. The gateway maps the authenticated client to an authorized Buildkite user and exchanges a signed assertion for a short-lived token. The gateway caches and reuses that token.
+1. The gateway replaces the client's credential with the Buildkite token in the upstream `Authorization` header and forwards the request to `https://mcp.buildkite.com/direct/readonly`.
+
+The [single-user MCP gateway example](https://github.com/buildkite/tokenexchange/tree/main/examples/mcp_gateway) includes application setup, scopes, a separate `GATEWAY_TOKEN` demo secret, and instructions for connecting a Streamable HTTP MCP client. Keep the signing key and minted Buildkite tokens in the gateway. Do not send them to clients or forward the gateway credential to Buildkite.
+
+> 🚧 Local demonstration only
+> The example listens only on loopback and uses a shared demo secret. Anyone with that secret acts as the one configured Buildkite user. The example does not implement corporate identity authentication or multi-user access control.
+
+When using the [Go token exchange library](/docs/apis/oauth-token-exchange#example-client), explicitly allow the MCP origin when constructing the upstream client with a cached token source:
+
+```go
+client := tokenexchange.NewClient(source, "https://mcp.buildkite.com")
+```
+
+The MCP origin is not one of the library's default authenticated origins. Supplying custom origins replaces those defaults. Follow the [example's run instructions](https://github.com/buildkite/tokenexchange/tree/main/examples/mcp_gateway#run) for a working local configuration.
+
+#### Implementing a multi-user gateway
+
+Extend the example into a centrally managed service with these changes:
+
+1. Replace the shared demo secret with workplace authentication supported by your MCP clients, such as signed OAuth access tokens issued for your gateway. Validate the token's signature, issuer, audience, and expiry. Token exchange does not authenticate employees to the gateway.
+1. Maintain an administrator-controlled mapping from a stable workplace identity, such as the verified issuer and subject, to an authorized Buildkite user UUID, organization, and read scopes. Check the current mapping on every request and reject unmapped or disabled identities. Do not accept caller-supplied Buildkite subjects.
+1. Create an exchanger and cached token source for each Buildkite user, organization, and scope configuration. Reuse both across requests without changing the configured Buildkite user. Keep the upstream route fixed to `/direct/readonly` and preserve the example's removal of caller credentials, cookies, query parameters, and routing headers.
+
+The following sketch describes the request handler, not runnable code or additional library APIs:
+
+```text
+identity = authenticate_gateway_request(request)
+binding = authorize_current_mapping(identity.issuer, identity.subject)
+if binding is missing or disabled:
+    reject request before any token exchange or upstream call
+
+key = (binding.user_uuid, binding.organization, binding.read_scopes)
+source = get_or_create_cached_source(key)
+forward_with_buildkite_token(request, source, fixed_readonly_route)
+```
+
+Before making the service available to employees:
+
+- Serve it over HTTPS, protect and rotate the signing key, and exclude credentials from logs.
+- Limit cache size, remove idle entries, and discard affected entries when access is revoked.
+- Preserve MCP streaming and session headers, but bind any gateway-managed sessions to the authenticated identity.
+- Configure proxy timeouts for the supported session length and account for [remote MCP rate limits](/docs/apis/mcp-server/remote/rate-limits).
+- Test with two users to confirm that tokens and sessions cannot cross identities. Verify that rejected users never reach the token endpoint or upstream MCP server, and that caller routing overrides cannot enable write tools.
+
+Read-only routing does not remove write scopes from a token. See [Read-only access boundaries](#read-only-access-boundaries).
+
 ## Read-only access boundaries
 
 Read-only mode limits what an AI agent can do through this MCP connection. It doesn't stop the agent from using other tools. The `/readonly` endpoint and the `X-Buildkite-Readonly: true` header both hide write tools. The OAuth read-only endpoint also gives the agent a token that can only read. With API token pass-through, the token keeps its existing scopes, so it can still make changes outside this connection.
