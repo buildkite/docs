@@ -46,6 +46,7 @@ Avoid adding Kubernetes, multiple queues, or custom hooks before the workload re
 - Use [Buildkite hosted agents](/docs/agent/buildkite-hosted) when you want Buildkite to manage the agent infrastructure. If you self-host, begin with a single VM or a small auto-scaling group of one to four general-purpose agents. The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) provides a starting point on AWS.
 - Use a single default [queue](/docs/agent/queues). Do not segment queues at this stage, since the added complexity outweighs the benefit.
 - Store secrets as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) or in a lightweight cloud secret store.
+- If dependency installs slow your builds, use the caching built into Buildkite rather than running your own cache infrastructure. Buildkite hosted agents support [cache volumes](/docs/agent/buildkite-hosted/cache-volumes), and [Buildkite Cache](/docs/pipelines/configure/cache) works on both hosted and self-hosted agents.
 
 ### When to move beyond the Starter pattern
 
@@ -64,9 +65,9 @@ The Growth pattern suits multiple teams that need more capacity or clearer workl
 
 - Deploy auto-scaling as a first-class concern, so agents start in response to queue depth and terminate after an idle period rather than running always-on. The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) provides this out of the box, or you can use an equivalent module for another cloud.
 - Introduce two to three named [queues](/docs/agent/queues). Separate test jobs from deploy jobs at minimum, so a broken test run cannot block deploys.
-- Do not rely on queues alone to protect production credentials. A queue routes jobs, but any pipeline in the same [Buildkite cluster](/docs/pipelines/security/clusters) can target it. Run deploy agents in a separate cluster that contains only trusted deployment pipelines, or use [OIDC](/docs/pipelines/security/oidc) with a trust policy that only accepts tokens from your deployment pipelines.
+- Do not rely on queues alone to protect production credentials. A queue routes jobs, but any pipeline in the same [Buildkite cluster](/docs/pipelines/security/clusters) can target it. Jobs in the same cluster can also, by default, use their [job tokens](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens) to read and write each other's metadata, annotations, and artifacts. Run deploy agents in a separate cluster that contains only trusted deployment pipelines, or use [OIDC](/docs/pipelines/security/oidc) with a trust policy that only accepts tokens from your deployment pipelines.
 - Scale on queue depth using the [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) tool to drive your scaler. Target a p95 queue wait time under 60 seconds.
-- Cache dependencies and build outputs in object storage. See [Caching best practices](/docs/pipelines/best-practices/caching) for patterns.
+- Cache dependencies with [Buildkite Cache](/docs/pipelines/configure/cache), which is in public preview, requires Buildkite agent v4.0.3 or later, and stores entries in an Amazon S3 or S3-compatible bucket that you provide for self-hosted agents. Use [build artifacts](/docs/pipelines/configure/artifacts) for build outputs that later jobs need. See [Choosing a caching approach](/docs/pipelines/best-practices/caching#choosing-a-caching-approach) to compare the options.
 - Standardize on a base agent image with shared tooling, so agents do not install dependencies on every boot.
 - Use [agent hooks](/docs/agent/hooks) to inject secrets, configure the environment, and enforce policy.
 
@@ -130,7 +131,7 @@ The Enterprise pattern suits large or regulated organizations that operate multi
 
 ### Recommended setup
 
-- Deploy the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) into each cluster. Rather than running long-lived agents that poll for jobs, the stack runs a dedicated pod per job and tears it down on completion. This delivers per-job isolation and integrates with Kubernetes RBAC, network policies, and service accounts.
+- Deploy the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) into each cluster. Rather than running long-lived agents that poll for jobs, the stack runs a dedicated pod per job and tears it down on completion. This delivers per-job isolation and integrates with Kubernetes RBAC, network policies, and service accounts. The stack also uses [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) by default, so job pods receive a short-lived, single-job registration credential instead of the long-lived agent token.
 - Right-size nodes for actual [job resource requests](/docs/agent/self-hosted/agent-stack-k8s/container-resource-limits) using a node provisioner such as Karpenter or the Cluster Autoscaler. Avoid over-provisioning for theoretical worst-case job sizes.
 - Run spot or preemptible instances for stateless test workloads, which are typically 70–85% of build volume. Reserve on-demand capacity for deploy agents and jobs with strict SLAs. Configure [automatic retries](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) so jobs survive instance interruptions. See the [agent lifecycle](/docs/agent/lifecycle) for graceful termination.
 - Apply Kubernetes network policies to isolate job namespaces. Run security-sensitive jobs, such as credential rotation and production deployments, in dedicated namespaces with restricted egress.
@@ -162,5 +163,7 @@ Use these questions to check the fit:
 - Do mobile, web, machine learning, or security workloads need different compute, and does a platform team manage the fleet? Evaluate the Scale pattern.
 - Do Kubernetes, multi-region availability, per-job isolation, or compliance requirements shape the infrastructure? Evaluate the Enterprise pattern.
 - Do several answers apply? Combine the relevant components, and keep queue ownership and security boundaries explicit.
+
+Whichever pattern you choose, plan regular agent upgrades so your fleet stays on a supported release line. See the [Buildkite agent version support policy](/docs/agent/version-support-policy) for support windows.
 
 For guidance that applies across all four patterns, see [Agent management best practices](/docs/pipelines/best-practices/agent-management).
