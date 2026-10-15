@@ -1,6 +1,6 @@
 # Entire
 
-[Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch and tag pushes, check out repositories on hosted agents, and report build status as checks. An organization administrator connects an Entire project, then pipelines in that Buildkite organization can select repositories from the connection.
+[Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch and tag pushes, check out repositories, and report build status as checks. An organization administrator connects an Entire project, then pipelines in that Buildkite organization can select repositories from the connection.
 
 > 📘 Preview
 > The Entire integration is in preview. Share feedback or report issues at [support@buildkite.com](mailto:support@buildkite.com?subject=Entire%20Feedback).
@@ -44,7 +44,7 @@ The pipeline's [branch filter](/docs/pipelines/configure/workflows/branch-config
 
 The Entire Buildkite [plugin](/docs/pipelines/integrations/plugins) installs the native Entire Git helper. By default, Buildkite Pipelines adds the unversioned `entire` plugin first on each command job using the connection, including pipeline-upload jobs. If a step already lists the plugin, its declaration is preserved without adding another copy.
 
-An organization administrator can turn this off in **Settings** > **Repository Providers** > the Entire connection. In **Entire plugin**, clear **Add the Entire plugin to every job**, then select **Save Entire Settings**.
+An organization administrator can turn this off in **Settings** > **Repository Providers** > the Entire connection. In the connection's **Settings** panel, clear **Add the Entire plugin to every job**, then select **Save Entire Settings**.
 
 > 🚧 Pipeline signing
 > Automatic plugin setup does not modify [signed steps](/docs/agent/self-hosted/security/signed-pipelines). List the Entire plugin in those steps before signing.
@@ -61,16 +61,22 @@ steps:
 
 ## Check out repositories on hosted agents
 
-Use [Buildkite hosted Linux agents](/docs/agent/buildkite-hosted/linux) on amd64 or arm64. Command jobs receive a short-lived, read-only credential scoped to the pipeline's repository with `contents:read` permission.
+Use [Buildkite hosted Linux agents](/docs/agent/buildkite-hosted/linux) on amd64 or arm64. Command jobs can obtain a short-lived, read-only credential scoped to the pipeline's repository with `contents:read` permission.
 
-On hosted agents, the plugin acquires the credential once and exports it as `ENTIRE_TOKEN` for the job, replacing any existing value. You don't need an Entire login or a user-supplied token. The job fails if the plugin cannot acquire credentials.
+The plugin requests the credential once and exports it as `ENTIRE_TOKEN` for the job. You don't need an Entire login or a user-supplied token. If the job already has a non-empty `ENTIRE_TOKEN`, the plugin uses it instead and does not request a credential. If the plugin cannot obtain a credential, it continues without a token.
 
 > 🚧 Job credentials
 > The token is available to processes running in the job. Do not print `ENTIRE_TOKEN` or dump the job's environment. The plugin does not refresh the token, so it can expire during a long job.
 
 ## Check out repositories on self-hosted agents
 
-Buildkite-managed credentials are not available on self-hosted agents. Export your own `ENTIRE_TOKEN` in an agent [environment hook](/docs/agent/hooks#job-lifecycle-hooks). The Entire plugin preserves this token on self-hosted agents.
+By default, Buildkite does not issue checkout credentials to self-hosted agents. Export your own `ENTIRE_TOKEN` in an agent [environment hook](/docs/agent/hooks#job-lifecycle-hooks). The plugin uses a non-empty `ENTIRE_TOKEN` and does not request a credential from Buildkite.
+
+An organization administrator can check for a Buildkite-issued alternative in **Settings** > **Repository Providers** > the Entire connection. If the connection's **Settings** panel shows **Allow self-hosted agents to use checkout credentials**, select it, then select **Save Entire Settings**. If the setting is not shown, use your own `ENTIRE_TOKEN`.
+
+With this setting on, command jobs on self-hosted agents without a non-empty `ENTIRE_TOKEN` can obtain the same short-lived, read-only credential as hosted agents. The plugin requests it in the same way, which requires Buildkite agent v4.3.0 or later. The credential is available to processes running in the job, and the plugin does not refresh it.
+
+If no token is available, the Entire Git helper can use a saved Entire login for the agent user. To prevent this, set `ENTIRE_GIT_NO_LOGIN_FALLBACK=true` on the agent. The plugin then fails the job when no token is available.
 
 Install the [Entire CLI](https://docs.entire.io/installation) for the agent user and ensure `git-remote-entire` is on `PATH`. Do not print the token or dump the job's environment.
 

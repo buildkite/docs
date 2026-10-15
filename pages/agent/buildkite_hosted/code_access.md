@@ -37,11 +37,11 @@ The credential is valid for five minutes and grants `git:read` access to the exa
 
 ## Entire private repositories
 
-When a pipeline selects a repository from a connected Entire project, command jobs running on Buildkite hosted agents receive a short-lived `contents:read` credential scoped to that repository.
+When a pipeline selects a repository from a connected Entire project, command jobs running on Buildkite hosted agents can obtain a short-lived `contents:read` credential scoped to that repository.
 
 Use hosted Linux agents on amd64 or arm64. The connection adds the Entire Buildkite plugin to command jobs by default, including pipeline uploads. If you turn off automatic plugin setup, add the plugin to each command step that needs checkout. Signed steps are left unchanged: add the plugin before signing. See [Entire checkout plugin settings](/docs/pipelines/source-control/entire#configure-the-checkout-plugin).
 
-The plugin exports the credential as `ENTIRE_TOKEN` for the job, replacing any existing value. No Entire login or user-supplied token is required.
+If the job does not already have a non-empty `ENTIRE_TOKEN`, the plugin exports the credential as `ENTIRE_TOKEN` for the job. No Entire login or user-supplied token is required.
 
 Do not print the token or dump the job's environment. The plugin does not refresh the token, so it can expire during a long job. See [Entire checkout requirements](/docs/pipelines/source-control/entire#check-out-repositories-on-hosted-agents).
 
