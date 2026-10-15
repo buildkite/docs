@@ -33,10 +33,10 @@ Buildkite Pipelines keeps the repository's native `entire://` URL. Select the re
 
 Buildkite Pipelines creates builds when you push to a connected repository. You don't need to configure a webhook in Entire or Buildkite.
 
-Select **Pipelines** > your pipeline > **Settings** > **Repository**. In **Entire Settings**, choose which pushes create builds, then select **Save Entire Settings**:
+Select **Pipelines** > your pipeline > **Settings** > **Entire**. In **Entire Settings**, choose which pushes create builds, then select **Save Entire Settings**:
 
 - **Build branches**: Creates builds when commits are pushed to new or existing branches. This setting is enabled by default.
-- **Build tags**: Creates builds when tags are created or updated. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
+- **Build tags**: Creates builds when tags are created or updated. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name. For an annotated tag, `BUILDKITE_COMMIT` is the tag object ID, and checkout resolves it to the tagged commit.
 
 The pipeline's [branch filter](/docs/pipelines/configure/workflows/branch-configuration#pipeline-level-branch-filtering), in **Branch Limiting** on the same page, applies to both branch and tag names. For example, with **Build tags** enabled, `v* !v*-rc*` builds `v1.0` but not `v1.0-rc1`. Deleted branches and tags don't create builds.
 
@@ -76,7 +76,7 @@ Install the [Entire CLI](https://docs.entire.io/installation) for the agent user
 
 ## Report build status
 
-Buildkite Pipelines reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported. Each rebuild starts a new attempt of the same check. Entire shows the latest attempt's result and keeps earlier attempts as history.
+Buildkite Pipelines reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported. Each rebuild starts a new attempt of the same check. When a rebuild reports, its result replaces the previous attempt's displayed result, and Entire keeps earlier attempts as history.
 
 **Publish build status as checks**, in the pipeline's **Entire Settings**, is enabled by default. When you turn it off, Buildkite Pipelines stops sending check updates for the pipeline, including updates already queued. Checks already in Entire keep their last reported status.
 
@@ -107,7 +107,9 @@ To require the Buildkite build check, name it as `<account>/<suite key>`:
 
 Buildkite reports the overall build state directly on this suite, without job-level check runs.
 
-With named required checks, only those suites must report and pass. If you enable the gate without naming required checks, every integration that has reported on the repository must report on the head commit and every reported suite must pass. An integration that has not reported keeps the gate pending. This includes earlier installations that reported on the repository.
+With named required checks, only those suites must report and pass. If you enable the gate without naming required checks, every integration that has reported on the repository must report on the head commit and every reported suite must pass. An expected integration that has not reported on the head commit keeps the gate pending. This includes earlier installations that reported on the repository.
+
+If **Publish build status as checks** is off, new commits receive no report from this pipeline, so a required check for it stays pending. Checks it already reported keep their status.
 
 Renaming the Buildkite organization or pipeline slug changes the suite key. Update the required check in Entire after a rename, or it continues waiting for the old key.
 
