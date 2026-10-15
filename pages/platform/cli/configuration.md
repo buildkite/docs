@@ -1,10 +1,12 @@
 # Buildkite CLI configuration
 
-The Buildkite CLI uses both the [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs to interact with Buildkite, and therefore, requires the configuration of an API access token.
+The Buildkite CLI uses both the [REST](/docs/apis/rest-api) and [GraphQL](/docs/apis/graphql-api) APIs to interact with Buildkite. You can authenticate using OAuth or configure an API access token.
 
 ## Authenticate using OAuth
 
 You can authenticate the Buildkite CLI using OAuth with the [`bk auth login`](/docs/platform/cli/reference/auth#login-auth) command, which opens your browser to complete the authentication flow.
+
+For how authorization, token refresh, revocation, and audit events work, see [OAuth for remote MCP and the Buildkite CLI](/docs/platform/security/oauth).
 
 > 🚧 Logging in fails when the organization has no active plan
 > After you authorize the CLI, `bk auth login` looks up organizations through the REST API. The API omits an organization whose evaluation trial has ended and no plan is selected. The CLI then reports `no organizations found for this token`, even if you selected the organization in the browser.

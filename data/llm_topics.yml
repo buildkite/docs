@@ -14,6 +14,7 @@ ai-tools-and-mcp:
   exact_paths:
     - "pipelines/getting-started-with-coding-agents"
     - "platform/ai-agents"
+    - "platform/security/oauth"
     - "apis/graphql/portals"
     - "apis/graphql/portals/limits"
     - "apis/graphql/portals/ephemeral-portal-tokens"
@@ -474,6 +475,7 @@ cli-tools:
     - "agent"
     - "apis"
     - "platform/vscode-extension"
+    - "platform/security/oauth"
   related_topics:
     - buildkite-apis
     - agent
