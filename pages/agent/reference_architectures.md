@@ -63,7 +63,8 @@ The Growth pattern suits multiple teams that need more capacity or clearer workl
 ### Recommended setup
 
 - Deploy auto-scaling as a first-class concern, so agents start in response to queue depth and terminate after an idle period rather than running always-on. The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) provides this out of the box, or you can use an equivalent module for another cloud.
-- Introduce two to three named [queues](/docs/agent/queues). Separate test jobs from deploy jobs at minimum. This isolates production credential access to a specific agent pool and prevents a broken test run from blocking deploys.
+- Introduce two to three named [queues](/docs/agent/queues). Separate test jobs from deploy jobs at minimum, so a broken test run cannot block deploys.
+- Do not rely on queues alone to protect production credentials. A queue routes jobs, but any pipeline in the same [Buildkite cluster](/docs/pipelines/security/clusters) can target it. Run deploy agents in a separate cluster that contains only trusted deployment pipelines, or use [OIDC](/docs/pipelines/security/oidc) with a trust policy that only accepts tokens from your deployment pipelines.
 - Scale on queue depth using the [buildkite-agent-metrics](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli) tool to drive your scaler. Target a p95 queue wait time under 60 seconds.
 - Cache dependencies and build outputs in object storage. See [Caching best practices](/docs/pipelines/best-practices/caching) for patterns.
 - Standardize on a base agent image with shared tooling, so agents do not install dependencies on every boot.
@@ -75,7 +76,7 @@ The following example queue layout separates workloads by compute profile and cr
 | ----- | --------- | ----------- |
 | `test` | Unit tests, integration tests, linting | Auto-scaled, no production credentials |
 | `build` | Container image builds, artifact compilation | Auto-scaled, access to your registry |
-| `deploy` | Staging and production deployments | Small pool, production role attached |
+| `deploy` | Staging and production deployments | Small pool, production credentials scoped to trusted deployment pipelines |
 {: class="responsive-table"}
 
 ### When to move beyond the Growth pattern
@@ -98,7 +99,7 @@ The Scale pattern suits organizations with diverse workloads, stronger complianc
 - Run agents on demand through a container scheduler, such as Amazon ECS, Nomad, or a managed Kubernetes cluster. Map each job type to a specific task definition or container spec.
 - Design queues around job characteristics, not team ownership. Team-specific queues fragment the pool and reduce utilization, so own the queue taxonomy at the platform level.
 - Run a dedicated cache layer. At this volume, object storage round-trips add up, so combine a shared network file system mount for workspace-local caches with object storage for broader artifacts.
-- Use a [secrets manager](/docs/pipelines/security/secrets/managing) with separate IAM roles or service accounts for each workload-specific agent pool. This limits credentials to the jobs that need them.
+- Use a [secrets manager](/docs/pipelines/security/secrets/managing) with separate IAM roles or service accounts for each workload-specific agent pool. Because any pipeline in a Buildkite cluster can target any of its queues, also scope each role's trust policy to the pipelines that need it, for example with [OIDC](/docs/pipelines/security/oidc) claims, or place pools with privileged credentials in a separate cluster.
 - Use [agent tags](/docs/agent/queues) to route jobs to specific capabilities, such as a queue, architecture, or GPU requirement. This gives pipeline authors a declarative interface without knowing the underlying infrastructure.
 - Introduce [pipeline templates](/docs/pipelines/governance/templates) or step libraries to prevent a proliferation of per-team agent configurations.
 - Export structured build metrics. At this scale, identifying systemic slowdowns requires data you cannot eyeball. See [Monitoring and observability best practices](/docs/pipelines/best-practices/monitoring-and-observability).
@@ -133,9 +134,9 @@ The Enterprise pattern suits large or regulated organizations that operate multi
 - Right-size nodes for actual [job resource requests](/docs/agent/self-hosted/agent-stack-k8s/container-resource-limits) using a node provisioner such as Karpenter or the Cluster Autoscaler. Avoid over-provisioning for theoretical worst-case job sizes.
 - Run spot or preemptible instances for stateless test workloads, which are typically 70–85% of build volume. Reserve on-demand capacity for deploy agents and jobs with strict SLAs. Configure [automatic retries](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) so jobs survive instance interruptions. See the [agent lifecycle](/docs/agent/lifecycle) for graceful termination.
 - Apply Kubernetes network policies to isolate job namespaces. Run security-sensitive jobs, such as credential rotation and production deployments, in dedicated namespaces with restricted egress.
-- Bind cloud credentials to specific job service accounts using workload identity, such as IRSA on Amazon EKS or Workload Identity on Google GKE. Static credential injection is not acceptable at this tier.
+- Bind cloud credentials to specific job service accounts using workload identity, such as IRSA on Amazon EKS or Workload Identity on Google GKE. Static credential injection is not acceptable at this tier. By default, a pipeline's `kubernetes` plugin can override the controller's pod spec, including `serviceAccountName`, so enable [`prohibit-kubernetes-plugin`](/docs/agent/self-hosted/agent-stack-k8s/securing-the-stack) or an admission policy that allowlists service accounts on any stack that exposes privileged identities.
 - Use [persistent volume mounts](/docs/agent/self-hosted/agent-stack-k8s/volume-mounts) for workspace-local caches and object storage for build artifacts. Add a shared cache service when cache volume or latency requires it.
-- Deploy across multiple clusters in at least two regions, and define a primary queue and a fallback queue for regional redundancy.
+- Deploy across multiple clusters in at least two regions. Jobs target a single queue, and automatic retries keep that queue, so a separately named fallback queue does not pick up jobs when the primary region fails. Instead, run a controller in each region that polls the same critical queue, and give each controller installation a [distinct, stable controller ID](https://github.com/buildkite/agent-stack-k8s#multiple-independent-controllers-serving-the-same-queue).
 - Run a build observability stack that exports agent metrics, such as queue depth, job duration, agent utilization, and cache misses, and define SLOs on build latency. Use the [waterfall view](/docs/pipelines/insights/waterfall) to investigate slow jobs and [Test Engine](/docs/pipelines/configure/tests) to identify slow or flaky tests that consume fleet capacity.
 - Provide a self-service catalog of approved agent configurations, base images, and resource presets that teams select from. This prevents configuration sprawl while giving teams flexibility.
 
@@ -146,7 +147,7 @@ The main cost controls at this scale are:
 - Run spot or preemptible instances for stateless jobs, which typically reduce cost by 60–80% versus on-demand for test workloads.
 - Right-size pod resource requests against historical job metrics, since bin-packing efficiency degrades when requests are over-specified.
 - Cache aggressively. At 20,000+ daily builds, even a 10-minute average reduction in job duration compounds to hundreds of compute-hours per day.
-- Attribute cost per team using Kubernetes labels and cloud cost allocation tags. See [Attributing AWS agent costs](/docs/pipelines/tutorials/attributing-aws-agent-costs) for an example implementation. Teams that see their build cost tend to optimize it.
+- Attribute cost per team using Kubernetes labels and cloud cost allocation tags. Teams that see their build cost tend to optimize it. If you also run EC2-based agents with the Elastic CI Stack for AWS, see [Attributing AWS agent costs](/docs/pipelines/tutorials/attributing-aws-agent-costs) for a separate approach that correlates agent events with hourly instance pricing.
 
 ## How should you apply these patterns
 
