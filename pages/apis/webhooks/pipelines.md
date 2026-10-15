@@ -26,9 +26,12 @@ To add a webhook for your pipeline event:
     * [Ping](/docs/apis/webhooks/pipelines/ping-events) and [agent token](/docs/apis/webhooks/pipelines/agent-token-events) events
     * Other events associated with [third-party application integrations](/docs/apis/webhooks/pipelines/integrations).
 
+1. **Optional:** in the **Queues** section, select the [queues](/docs/agent/queues) that this webhook's job events should be limited to, using the searchable dropdown for each cluster. Leave every cluster's dropdown empty to send job events for all queues. This filter only applies to job events ([`job.scheduled`](/docs/apis/webhooks/pipelines/job-events), `job.started`, `job.finished`, `job.activated`, and `job.promised_exit_status`). Build, agent, ping, and other event types aren't filtered by queue.
+
 1. Select the **Pipelines** that this webhook will trigger:
     * **All Pipelines**.
     * **Only Some pipelines**, where you can select specific pipelines in your Buildkite organization.
+    * **Exclude Pipelines...**, where you can select specific pipelines in your Buildkite organization to exclude, triggering the webhook for all other pipelines. This option is currently in private preview. For agent events, excluding a pipeline also excludes events from every agent in that pipeline's cluster. Events from agents not associated with a cluster are still delivered.
     * **Pipelines in Teams**, where you can select pipelines accessible to specific teams configured in your Buildkite organization.
     * **Pipelines in Clusters**, where you can select pipelines associated with specific Buildkite clusters.
 

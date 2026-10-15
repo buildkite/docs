@@ -21,6 +21,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "name": "is correctly formatted",
     "location": "./spec/models/user_spec.rb:42",
     "file_name": "./spec/models/user_spec.rb",
+    "state": "enabled",
     "labels": ["flaky"],
     "reliability": 0.98,
     "duration_avg": 0.213,
@@ -41,6 +42,10 @@ The aggregation window starts when the build is created, unless the organization
 
 <table class="responsive-table">
 <tbody>
+  <tr>
+    <th><code>state</code></th>
+    <td>The <a href="/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine">lifecycle state</a> of the test: <code>enabled</code>, <code>muted</code>, or <code>skipped</code>. This is always <code>enabled</code> when test state management is disabled for the suite.</td>
+  </tr>
   <tr>
     <th><code>reliability</code></th>
     <td>The reliability of the test, calculated from its passed and failed executions and expressed as a decimal fraction. This is <code>null</code> when the test has no passed or failed executions in the build.</td>

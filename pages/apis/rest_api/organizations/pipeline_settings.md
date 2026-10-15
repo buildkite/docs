@@ -159,7 +159,7 @@ Error responses:
 
 ## Enable hosted agents remote access
 
-Enables remote access for hosted agents in the organization. SSH access applies to all hosted agents. VNC access applies only to supported macOS hosted jobs. Records who enabled remote access and when.
+Enables remote access for hosted agents in the organization. SSH access applies to Linux and macOS hosted agents. VNC access applies only to supported macOS hosted jobs. Windows hosted agents don't support SSH or VNC access. Records who enabled remote access and when.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -185,7 +185,7 @@ Error responses:
 
 ## Disable hosted agents remote access
 
-Disables remote access for hosted agents in the organization. This action removes SSH access from all hosted agents and VNC access from supported macOS hosted jobs.
+Disables remote access for hosted agents in the organization. This action removes SSH access from Linux and macOS hosted agents and VNC access from supported macOS hosted jobs.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -394,7 +394,7 @@ Error responses:
   <tr>
     <th><code>hosted_agents_terminal_access</code></th>
     <td>
-      Remote access setting for hosted agents. When enabled, this setting makes SSH access available for all hosted agents and VNC access available for supported macOS hosted jobs. Contains:
+      Remote access setting for hosted agents. When enabled, this setting makes SSH access available for Linux and macOS hosted agents and VNC access available for supported macOS hosted jobs. Windows hosted agents don't support SSH or VNC access. Contains:
       <ul>
         <li><code>enabled</code> — whether remote access is currently enabled.</li>
         <li><code>enabled_at</code> — ISO 8601 timestamp when it was enabled, or <code>null</code>.</li>

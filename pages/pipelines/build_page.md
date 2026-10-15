@@ -19,7 +19,7 @@ The build page consists of three main components:
 The _sidebar_ provides a hierarchical view of all steps in your build. Here's how to use it:
 
 - Expand/collapse groups by selecting their arrow icons.
-- By default, steps are displayed in pipeline order. Switch to grouping by state instead to see important steps (such as blocked or failed) at the top. Buildkite Pipelines remembers your choice for future builds.
+- By default, steps are displayed in pipeline order. Switch to grouping by state instead to see important steps (such as those waiting for input or failed) at the top. Buildkite Pipelines remembers your choice for future builds.
 - Select any step to view its details.
 - Use the action button (with the curved arrow) or press the `f` key to cycle through failures.
 - Use keyword search to quickly open or focus a step.
@@ -29,9 +29,13 @@ The _sidebar_ provides a hierarchical view of all steps in your build. Here's ho
 
 ### Searching for steps
 
-Use the search input to find specific steps in your build. Type the name of the step or any relevant keywords, and the sidebar will filter the list to show only steps that match what you've typed.
+Use the search input to find specific steps in your build. Type the name of the step or another relevant keyword. Matching steps appear below the search input. If the search term matches a step's label, the first matching portion of that label is underlined.
 
-<%= image "build_step_search.png", alt: "Screenshot showing the search bar" %>
+<%= image "build_step_search.png", width: 3000/2, height: 1714/2, alt: "Step search showing ten initial matches with underlined matching text and a Show all button" %>
+
+To keep the search fast, only the first ten matches are shown initially. If there are more than ten matches, select **Show all** to load the rest, scrolling down to load further matches as needed.
+
+Press `Escape` to dismiss the search results without clearing your search term or losing focus on the search input.
 
 ### Viewing step details
 
@@ -43,6 +47,14 @@ When you select a step, its details appear in a resizable step panel. You can:
 - Dock the panel on the right, bottom, or center using the layout toggle.
 
 <%= image "build_page_drawer.png", alt: "Screenshot showing the drawer and positioning buttons" %>
+
+### Viewing why a step was skipped
+
+Skipped steps show their reason without you needing to open a log.
+
+- Reveal skipped steps using the **Show skipped steps** toggle.
+- Hover over a skipped step in the **List** or **Canvas** view to see the reason in a tooltip.
+- Select a skipped command or trigger step to view the reason in the step panel. Skipped wait and block steps don't open the step panel, because they have no further details to show.
 
 ### Managing retries
 
@@ -118,7 +130,7 @@ For builds with many steps:
 
 ## Best practices
 
-- For large builds, group the sidebar by state and collapse lower-priority states such as **Waiting** and **Passed**.
+- For large builds, group the sidebar by state and collapse lower-priority states such as **Waiting** and **Passed**. Steps grouped under **Waiting for input** need your action, so they're kept near the top instead.
 - If the build is in progress, use the `j` key to follow the build. Follow mode will automatically focus you on active steps. You can also enable the music mode.
 - Use appropriate views for different tasks:
 

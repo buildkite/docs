@@ -21,7 +21,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "scope":"Flaky test",
   "name":"passes only on the second try on BK CI",
   "location":"./spec/flaky_spec.rb:6",
-  "file_name":"./spec/flaky_spec.rb"
+  "file_name":"./spec/flaky_spec.rb",
+  "state":"skipped"
 }
 ```
 
@@ -44,7 +45,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "scope":"Flaky test",
   "name":"passes only on the second try on BK CI",
   "location":"./spec/flaky_spec.rb:6",
-  "file_name":"./spec/flaky_spec.rb"
+  "file_name":"./spec/flaky_spec.rb",
+  "state":"muted"
 }
 ```
 
@@ -67,7 +69,8 @@ curl -H "Authorization: Bearer $TOKEN" \
   "scope":"Flaky test",
   "name":"passes only on the second try on BK CI",
   "location":"./spec/flaky_spec.rb:6",
-  "file_name":"./spec/flaky_spec.rb"
+  "file_name":"./spec/flaky_spec.rb",
+  "state":"enabled"
 }
 ```
 
@@ -94,7 +97,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "scope":"Flaky test",
     "name":"passes only on the second try on BK CI",
     "location":"flaky.spec.js:1",
-    "file_name":"flaky.spec.js"
+    "file_name":"flaky.spec.js",
+    "state":"muted"
   }
 ]
 ```
@@ -119,7 +123,8 @@ curl -H "Authorization: Bearer $TOKEN" \
     "scope":"Flaky test",
     "name":"passes only on the second try on BK CI",
     "location":"flaky.spec.js:1",
-    "file_name":"flaky.spec.js"
+    "file_name":"flaky.spec.js",
+    "state":"skipped"
   }
 ]
 ```

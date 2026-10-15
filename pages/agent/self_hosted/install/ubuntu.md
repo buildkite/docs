@@ -4,13 +4,14 @@ The Buildkite agent is supported on Ubuntu versions 18.04 and above using our si
 
 ## Installation
 
-First, add our signed apt repository. Buildkite agent versions come in three release channels:
+First, add our signed apt repository. Buildkite agent versions come in four release channels:
 
+- **Old stable** (`oldstable`): The previous major version, for users who need more time before upgrading. With v4 stable, this channel tracks v3.
 - **Stable**: Thoroughly tested, production-ready releases recommended for most users.
 - **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.
 - **Experimental**: Built directly from the `main` branch, may be incomplete or have unresolved issues.
 
-The default version of the agent is `stable`. You can get the beta version by using `unstable` instead of `stable` or the experimental version by using `experimental` instead of `stable` in the installation commands that follow.
+The default version of the agent is `stable`. To remain on the previous major version, use `oldstable` instead of `stable`. You can get the beta version by using `unstable`, or the experimental version by using `experimental`, in the installation commands that follow.
 
 Start by downloading the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 

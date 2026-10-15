@@ -65,7 +65,8 @@ class LLMText
 
       if child["path"]
         # This is a leaf node with a path - add it as a link
-        url = "https://buildkite.com/docs/#{child['path']}.md"
+        # External nav entries (full URLs) have no Markdown version, so link them as-is
+        url = child["path"].start_with?("https://") ? child["path"] : "https://buildkite.com/docs/#{child['path']}.md"
         description = descriptions[child["path"]]
         if description
           content << "- [#{child['name']}](#{url}): #{description}"

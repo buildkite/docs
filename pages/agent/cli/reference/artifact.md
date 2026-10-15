@@ -63,7 +63,7 @@ buildkite-agent artifact upload "hello\?\?.html"
 
 Glob path patterns are used throughout Buildkite for specifying artifact uploads.
 
-The source path you supply to the upload command will be replicated exactly at the destination. If you run:
+The source path you supply to the upload command will be replicated at the destination. On Windows, the agent normalizes backslashes (`\`) in the source path to forward slashes (`/`) before storing the artifact. If you run:
 
 ```bash
 buildkite-agent artifact upload log/test.log

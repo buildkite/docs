@@ -8,7 +8,7 @@ A running command job can also declare an expected failure before it finishes by
 
 When you need to find failed jobs in a large build, query jobs directly rather than fetching a build with all nested jobs. Failed-job filtering can include terminally failed jobs and running jobs that have declared a promised failure.
 
-A command job's `concurrency_wait_time_ms` field reports how long the job waited for a [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups) slot, in milliseconds. It's `0` when the job passed through the concurrency group without waiting. It's `null` when the job didn't use a concurrency group, when the job hasn't finished waiting yet, or when the wait time can't be separated from a [platform limit](/docs/pipelines/configure/defining-steps#platform-limits) wait.
+A command job's `concurrency_wait_time_ms` field reports how long the job waited for a [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups) slot, in milliseconds. It's `0` when the job passed through the concurrency group without waiting. It's `null` when the job didn't use a concurrency group, when the job hasn't finished waiting yet, or when the wait time can't be separated from a [platform limit](/docs/pipelines/configure/defining-steps#job-states-platform-limits) wait.
 
 ## List jobs
 
@@ -261,7 +261,7 @@ Error responses:
 
 ## Create an SSH session
 
-Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to open an interactive SSH session with the job.
+Creates connection details for a running command job on a macOS or Linux hosted agent. The response includes a short-lived access token. Use this endpoint to open an interactive SSH session with the job.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -276,10 +276,13 @@ curl -H "Authorization: Bearer $TOKEN" \
   "transport": "namespace_ingress",
   "ssh": {
     "username": "<username>",
-    "private_key": "<private-key>"
+    "private_key": "<private-key>",
+    "host_keys": []
   }
 }
 ```
+
+For a Linux hosted job, `transport` is `tcp`, and `ssh.host_keys` contains one or more SSH host public keys. Verify the job's host against these keys before completing the SSH handshake. For a macOS hosted job, `transport` remains `namespace_ingress` and `ssh.host_keys` is always an empty array. Host verification happens as part of the ingress connection.
 
 The response includes the `Cache-Control: no-store` header.
 
@@ -306,11 +309,115 @@ Error responses:
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td>The job is not a running command job on a supported macOS hosted agent.</td>
+    <td>The job is not a running command job on a supported macOS or Linux hosted agent.</td>
   </tr>
   <tr>
     <th><code>503 Service Unavailable</code></th>
-    <td>The hosted agent provider could not create the SSH session.</td>
+    <td>The hosted agent provider could not create the SSH session, or could not supply valid SSH host keys for a Linux hosted job.</td>
+  </tr>
+</tbody>
+</table>
+
+## Cancel a job
+
+Cancels a command job that is `scheduled`, `reserved`, `assigned`, `accepted`, or `running`. A job that hasn't started running moves straight to `canceled`. A running job moves to `canceling` while its agent stops the job, and then moves to `canceled`.
+
+Canceling a job can cause its build to fail. Learn more in [Manually cancel a job](/docs/pipelines/configure/canceling-builds#manually-cancel-a-job).
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/cancel"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/cancel"
+```
+
+This endpoint doesn't use a request body. The response contains the canceled job. The following example shows a job that was running when it was canceled:
+
+```json
+{
+  "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+  "type": "script",
+  "name": ":package: Build",
+  "step_key": "build",
+  "step": { "id": "...", "signature": null },
+  "priority": { "number": 0 },
+  "agent_query_rules": [],
+  "state": "canceling",
+  "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+  "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/artifacts",
+  "command": "scripts/build.sh",
+  "soft_failed": false,
+  "exit_status": null,
+  "signal": null,
+  "signal_reason": null,
+  "broken_reason": null,
+  "artifact_paths": null,
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "runnable_at": "2015-05-09T21:06:00.000Z",
+  "concurrency_wait_time_ms": null,
+  "started_at": "2015-05-09T21:06:05.000Z",
+  "finished_at": null,
+  "expired_at": null,
+  "retried": false,
+  "retried_in_job_id": null,
+  "retries_count": null,
+  "retry_source": null,
+  "retry_type": null,
+  "parallel_group_index": null,
+  "parallel_group_total": null,
+  "matrix": null,
+  "agent": null,
+  "retried_by": null,
+  "cluster_id": null,
+  "cluster_url": null,
+  "cluster_queue_id": null,
+  "cluster_queue_url": null
+}
+```
+
+Required scope: `write_builds`
+
+The authenticated user must have permission to cancel the job.
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td>The token does not have the <code>write_builds</code> scope, or the authenticated user does not have permission to cancel the job: <code>{ "message": "You’re not allowed to cancel this job" }</code></td>
+  </tr>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td>The organization, pipeline, build, or job does not exist, or the job does not belong to the build.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "You can only cancel jobs that have started" }</code><br>The job is not in a state that can be canceled. For example, the job is waiting, blocked, finished, or already canceled.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job is already being canceled" }</code><br>The job is already <code>canceling</code>.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "Only `command` jobs can be canceled" }</code><br>The job is not a command job.</td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "This job can't be canceled anymore" }</code><br>The job changed state while the cancellation was being processed.</td>
   </tr>
 </tbody>
 </table>

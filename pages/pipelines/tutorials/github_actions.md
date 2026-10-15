@@ -1,5 +1,7 @@
 # GitHub Actions
 
+For a comparison of Buildkite Pipelines and GitHub Actions, see [Buildkite vs. GitHub Actions](https://buildkite.com/resources/comparison/buildkite-vs-github-actions).
+
 ## Migrating from GitHub Actions to Buildkite
 
 Buildkite Pipelines now supports many of the same GitHub webhook events that GitHub Actions uses as workflow triggers, making incremental migration easier.
@@ -15,6 +17,7 @@ The following GitHub webhook events can trigger Buildkite Pipelines builds:
 - Check runs (`check_run`)
 - Releases (`release`)
 - Issue comments (`issue_comment`)
+- Issue activity (`issues`, private preview)
 - Deployment statuses (`deployment_status`)
 - Branch/tag creation (`create`)
 

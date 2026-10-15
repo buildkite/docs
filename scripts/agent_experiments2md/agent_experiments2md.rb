@@ -24,7 +24,7 @@ EXPERIMENTS_MD_URL = 'https://raw.githubusercontent.com/buildkite/agent/main/EXP
 # Use the formatted heading name as it appears in the docs (output of format_experiment_name)
 PROMOTED_EXPERIMENT_LINKS = {
   'ANSI timestamps' => [
-    ['ANSI timestamps and disabling them', '/docs/pipelines/configure/managing-log-output#ansi-timestamps-and-disabling-them']
+    ['ANSI timestamps', '/docs/pipelines/configure/managing-log-output#ansi-timestamps']
   ],
   'Flock file locks' => [
     ['Flock file locks', '/docs/agent/cli/reference/lock#flock-file-locks']

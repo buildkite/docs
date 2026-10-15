@@ -11,9 +11,15 @@ The methods by which agents receive jobs differs, depending on whether you are u
 
 ## Signal handling
 
-When a build's job is canceled, the agent will send that job process a `SIGTERM` signal to allow it to exit gracefully.
+When a build's job is canceled, the agent sends that job process the configured [`cancel-signal`](/docs/agent/self-hosted/configure#cancel-signal), which is `SIGTERM` by default, to allow it to exit gracefully.
 
-If the process does not exit within the 10s grace period it will be forcefully terminated with a `SIGKILL` signal. If you require a longer grace period, it can be customized on [self-hosted agents](/docs/agent/self-hosted) using the [cancel-grace-period](/docs/agent/self-hosted/configure#configuration-settings) agent configuration option.
+If the process does not exit within the [`cancel-signal-timeout`](/docs/agent/self-hosted/configure#cancel-signal-timeout) (ten seconds by default), the agent forcefully terminates it with `SIGKILL`.
+
+The same timeout also covers the [`post-command` hooks](/docs/agent/hooks#job-lifecycle-hooks), [artifact](/docs/pipelines/configure/artifacts) uploads, and `pre-exit` hooks that run after the command stops. If the timeout expires first, a `pre-exit` hook might not run or finish. If a `pre-exit` hook must run on canceled jobs, keep it fast and safe to rerun, and set `cancel-signal-timeout` long enough for it to finish. The agent log shows the timeout in use, for example, `Canceling job ... with a signal grace period of 10s`.
+
+During a forced agent shutdown, the agent waits up to an additional [`cancel-cleanup-timeout`](/docs/agent/self-hosted/configure#cancel-cleanup-timeout) (five seconds by default) to finish uploading the job log before exiting.
+
+A canceled or timed-out job whose process exits with status `0` is reported with exit status `1` on all platforms. This mainly affects Windows, where signaled processes exit with status `0`. Agent v3 reported these jobs with exit status `0` unless the [`override-zero-exit-on-cancel` experiment](/docs/agent/self-hosted/configure/experiments#promoted-experiments-override-zero-exit-on-cancel) was enabled.
 
 The agent also accepts the following two signals directly:
 
@@ -79,4 +85,4 @@ If the agents run on the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/
 
 ### Timeouts
 
-Occasionally, a job may time out if it exceeds the maximum allowed [command step timeout](/docs/pipelines/configure/build-timeouts). Depending on the `cancel-grace-period` set on the agent, the job may not complete gracefully, resulting in an unexpected exit code (`-1`).
+Occasionally, a job may time out if it exceeds the maximum allowed [command step timeout](/docs/pipelines/configure/build-timeouts). Depending on the `cancel-signal-timeout` set on the agent, the job may not complete gracefully, resulting in an unexpected exit code (`-1`).

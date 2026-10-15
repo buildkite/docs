@@ -12,21 +12,25 @@ Learn more about other secrets management approaches in Buildkite on the [Secret
 
 For secure and automated agent token lifecycle management, you can use the Buildkite APIs to set the expiration date for agent tokens. Learn more about this feature in [Agent token lifetime](/docs/agent/self-hosted/tokens#agent-token-lifetime). This feature allows for automated token rotation for long-lived tokens. Once set, an agent token's expiration date cannot be changed.
 
-## Disable automatic ssh-keyscan
+## Require strict SSH host-key checking
 
-By default, the agent automatically accepts the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:
+By default, the agent configures SSH host-key checking through `GIT_SSH_COMMAND` when it checks out a Git repository. With OpenSSH 7.6 or later, it passes:
 
 ```bash
-ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
+StrictHostKeyChecking=accept-new
 ```
 
-If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+This option automatically adds new host keys to the user's `known_hosts` file while rejecting changed host keys. If the agent detects an older OpenSSH version, it instead uses `StrictHostKeyChecking=no` with `UserKnownHostsFile=/dev/null`. If version detection fails, the agent assumes that `accept-new` is supported.
 
-To disable automatic ssh-keyscan, set [`no-ssh-keyscan`](/docs/agent/self-hosted/configure#no-ssh-keyscan):
+To require strict host-key checking using your existing SSH configuration, set [`no-ssh-keyscan`](/docs/agent/self-hosted/configure#no-ssh-keyscan). This setting passes `StrictHostKeyChecking=yes`. Despite the configuration option's legacy name, the agent does not run the `ssh-keyscan` command:
 
 - Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
 - Command line flag: `--no-ssh-keyscan`
 - Configuration setting: `no-ssh-keyscan=true`
+
+If `GIT_SSH` is set, the agent leaves SSH host-key configuration unchanged because it cannot add command-line options to the configured binary.
+
+Agent v3 instead runs the `ssh-keyscan` command before checkout and appends the repository host's keys to the `known_hosts` file. Setting `no-ssh-keyscan` on a v3 agent disables that, leaving host-key verification to your existing SSH configuration.
 
 ## Restrict access by the Buildkite agent controller
 
@@ -35,6 +39,7 @@ To safeguard your organization's infrastructure if Buildkite infrastructure is e
 - Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins) or [disabling plugins](#restrict-access-by-the-buildkite-agent-controller-disable-plugins) entirely
 - [Disable command evaluation](#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation)
 - [Disable local hooks](#restrict-access-by-the-buildkite-agent-controller-disable-local-hooks)
+- [Protect environment variables from job overrides](#restrict-access-by-the-buildkite-agent-controller-protect-environment-variables-from-job-overrides)
 - [Enable strict validation](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook)
 
 With these settings applied, your Buildkite agent refuses to run anything that is not a single argumentless invocation of a script that exists locally after the `git clone` step of the setup, unless you explicitly allow it. Since the [agent](https://github.com/buildkite/agent) is open-source, you can verify that assertion to whatever degree of certainty you require.
@@ -97,7 +102,7 @@ To disable command line evaluation, set [`no-command-eval`](/docs/agent/self-hos
 Command evaluation is also not the only way that arbitrary commands can run during a job.
 
 > 🚧 Environment variable injection
-> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands using environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Strict checks using a pre-bootstrap hook](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) and [`enable-environment-variable-allowlist`](/docs/agent/cli/reference/start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
+> Using `no-command-eval` only prevents command evaluation by the agent itself. Other programs such as build or test tools that run during the job could be influenced into executing arbitrary commands using environment variables (for example, `BASH_ENV` or `GIT_SSH_COMMAND`). See [Protect environment variables from job overrides](#restrict-access-by-the-buildkite-agent-controller-protect-environment-variables-from-job-overrides), [Strict checks using a pre-bootstrap hook](#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook), and [`enable-environment-variable-allowlist`](/docs/agent/cli/reference/start#enable-environment-variable-allowlist) for possible approaches to filtering environment variables.
 
 ### Disable local hooks
 
@@ -115,6 +120,26 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 
 > 🚧 Building untrusted commits
 > If you build untrusted commits, be careful to contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, and so on, as is appropriate for your needs.
+
+### Protect environment variables from job overrides
+
+You can stop a job from setting chosen environment variables, so that a compromised or malicious pipeline can't use them to hook into agent processes. For example, a job could set `GIT_SSH_COMMAND` to run arbitrary code whenever the agent uses SSH for Git operations.
+
+This requires Buildkite agent version 4.5.0 or later, and is disabled by default.
+
+To protect your own list of environment variable names (or prefixes ending in `*`) from being set by a job, use the [`protected-environment-variables`](/docs/agent/self-hosted/configure#protected-environment-variables) setting:
+
+- Environment variable: `BUILDKITE_PROTECTED_ENVIRONMENT_VARIABLES="BASH_ENV,LD_*"`
+- Command line flag: `--protected-environment-variables "BASH_ENV,LD_*"`
+- Configuration setting: `protected-environment-variables="BASH_ENV,LD_*"`
+
+To protect the agent's own maintained list of risky Git configuration and command-execution environment variables without enumerating them yourself, use the [`protect-dangerous-git-environment-variables`](/docs/agent/self-hosted/configure#protect-dangerous-git-environment-variables) setting:
+
+- Environment variable: `BUILDKITE_PROTECT_DANGEROUS_GIT_ENVIRONMENT_VARIABLES=true`
+- Command line flag: `--protect-dangerous-git-environment-variables`
+- Configuration setting: `protect-dangerous-git-environment-variables=true`
+
+A protected environment variable sent by Buildkite as part of a job is ignored, but a value already present in the agent's own environment remains available to the job. A pipeline [secret](/docs/pipelines/security/secrets) mapped to a protected variable name causes the job to fail, instead of being silently ignored. Hooks and plugins running on the agent can still set these variables, so treat this as one layer of defense rather than complete protection against all environment variable injection.
 
 ### Strict checks using a pre-bootstrap hook
 
@@ -148,6 +173,8 @@ done
 ```
 
 You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of the file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set.
+
+Agent configuration variables can appear in this file as bare variable names without an equals sign or value. Parse only the assignments you need, as in the previous example, rather than assuming every line uses the `NAME=value` format.
 
 Alternatively, you can use `$BUILDKITE_ENV_JSON_FILE`, which points to the same environment data in JSON format. This can be more convenient when you want to inspect values using tools such as `jq`.
 

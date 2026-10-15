@@ -20,11 +20,22 @@ RSpec.describe StructuredDataHelper do
         allow(nav).to receive(:breadcrumb_trail).with("pipelines/advantages/faq").and_return(
           [
             { "name" => "Pipelines", "path" => "pipelines" },
-            { "name" => "Advantages", "path" => nil },
+            { "name" => "Introduction", "children" => [{ "name" => "Background", "path" => "pipelines/background" }] },
+            {
+              "name" => "Advantages",
+              "children" => [
+                { "name" => "Overview", "path" => "pipelines/advantages" },
+                { "name" => "FAQ", "path" => "pipelines/advantages/faq" }
+              ]
+            },
             { "name" => "FAQ", "path" => "pipelines/advantages/faq" }
           ]
         )
       end
+    end
+
+    def breadcrumb_items(data)
+      data.fetch("@graph").find { |node| node["@type"] == "BreadcrumbList" }["itemListElement"]
     end
 
     context "for a regular page" do
@@ -39,18 +50,37 @@ RSpec.describe StructuredDataHelper do
         expect(graph_types(data)).not_to include("FAQPage")
       end
 
-      it "includes a BreadcrumbList built from the nav trail" do
-        data = helper.docs_page_structured_data(page, nav)
+      it "includes a BreadcrumbList where every item has a URL" do
+        items = breadcrumb_items(helper.docs_page_structured_data(page, nav))
 
-        breadcrumb = data.fetch("@graph").find { |node| node["@type"] == "BreadcrumbList" }
-        expect(breadcrumb).to be_present
+        # Sections link to their Overview page; sections without one are skipped.
+        expect(items).to eq(
+          [
+            { "@type" => "ListItem", "position" => 1, "name" => "Pipelines", "item" => "https://buildkite.com/docs/pipelines" },
+            { "@type" => "ListItem", "position" => 2, "name" => "Advantages", "item" => "https://buildkite.com/docs/pipelines/advantages" },
+            { "@type" => "ListItem", "position" => 3, "name" => "FAQ", "item" => "https://buildkite.com/docs/pipelines/advantages/faq" }
+          ]
+        )
+      end
 
-        items = breadcrumb["itemListElement"]
-        expect(items.map { |item| item["name"] }).to eq(["Pipelines", "Advantages", "FAQ"])
-        expect(items.map { |item| item["position"] }).to eq([1, 2, 3])
-        # Nodes without a path are listed but not linked.
-        expect(items[1]).not_to have_key("item")
-        expect(items[2]["item"]).to eq("https://buildkite.com/docs/pipelines/advantages/faq")
+      it "doesn't repeat a section's URL for its Overview page" do
+        allow(request_double).to receive(:path).and_return("/docs/pipelines/advantages")
+        allow(nav).to receive(:breadcrumb_trail).with("pipelines/advantages").and_return(
+          [
+            { "name" => "Pipelines", "path" => "pipelines" },
+            { "name" => "Advantages", "children" => [{ "name" => "Overview", "path" => "pipelines/advantages" }] },
+            { "name" => "Overview", "path" => "pipelines/advantages" }
+          ]
+        )
+
+        items = breadcrumb_items(helper.docs_page_structured_data(page, nav))
+
+        expect(items.map { |item| [item["name"], item["item"]] }).to eq(
+          [
+            ["Pipelines", "https://buildkite.com/docs/pipelines"],
+            ["Advantages", "https://buildkite.com/docs/pipelines/advantages"]
+          ]
+        )
       end
     end
   end

@@ -22,7 +22,7 @@ const (
 var (
 	headingRE                          = regexp.MustCompile(`^(\w*):$`) // Headings end in `:`
 	codeBlockRE                        = regexp.MustCompile(`^\s{4}`)
-	flagRE                             = regexp.MustCompile(`\s{2}(-{2}[a-z0-9\- ]*)([A-Z].*)$`)
+	flagRE                             = regexp.MustCompile(`^  (--.*?)\s{2,}(\S.*)$`)
 	bkEnvVarRE                         = regexp.MustCompile(`\$BUILDKITE[A-Z0-9_]*`)
 	envAnnotationRE                    = regexp.MustCompile(`\s+\[((?:\$BUILDKITE[A-Z0-9_]+)(?:,\s*\$BUILDKITE[A-Z0-9_]+)*)\]\s*$`)
 	artifactUploadConcurrencyDefaultRE = regexp.MustCompile(`^Number of concurrent artifact upload operations \(default: \d+\)$`)
@@ -82,18 +82,14 @@ func main() {
 
 		// Lists of parameters
 		//  --config value             Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
-		if m := flagRE.FindStringSubmatch(line); m != nil {
+		if command, value, desc, ok := parseFlagLine(line); ok {
+			if command == "help" {
+				continue
+			}
+
 			if state != stateTable {
 				fmt.Println("<!-- vale off -->\n\n" + `<table class="Docs__attribute__table">`)
 			}
-
-			commandAndValue := strings.Fields(m[1])
-			command := commandAndValue[0][2:]
-			value := ""
-			if len(commandAndValue) > 1 {
-				value = commandAndValue[1]
-			}
-			desc := m[2]
 
 			// Extract $BUILDKITE_* env and remove from desc
 			envVar, desc := extractEnvVar(desc)
@@ -145,6 +141,26 @@ func main() {
 	case stateCode:
 		fmt.Println("```")
 	}
+}
+
+func parseFlagLine(line string) (string, string, string, bool) {
+	m := flagRE.FindStringSubmatch(line)
+	if m == nil {
+		return "", "", "", false
+	}
+
+	fields := strings.Fields(m[1])
+	if len(fields) == 0 {
+		return "", "", "", false
+	}
+
+	command := strings.TrimSuffix(strings.TrimPrefix(fields[0], "--"), ",")
+	value := ""
+	if len(fields) > 1 && !strings.HasPrefix(fields[1], "-") && fields[1] != "[" {
+		value = fields[1]
+	}
+
+	return command, value, m[2], true
 }
 
 func extractEnvVar(desc string) (string, string) {

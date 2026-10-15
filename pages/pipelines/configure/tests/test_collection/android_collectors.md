@@ -4,7 +4,7 @@ toc: false
 
 # Android collectors
 
-To use Buildkite Test Engine with your Android projects, use the :github: [`test-collector-android`](https://github.com/buildkite/test-collector-android) package.
+To use Buildkite Test Engine with your Android projects, use the :github: [`test-collector-android`](https://github.com/buildkite/bktest/tree/main/test-collector-android) package.
 
 <%= render_markdown partial: 'pipelines/configure/tests/test_collection/tests_plugin_recommendation' %>
 
@@ -103,4 +103,4 @@ If you don't see branch names, build numbers, or commit hashes in Test Engine, t
 
 To enable debugging output, create and set `BUILDKITE_ANALYTICS_DEBUG_ENABLED` environment variable to `true` on your test environment (CI server or local machine).
 
-For instrumented tests debugging, access the variable using `buildConfigField` and pass it through your `MyTestCollector` class. Refer the [example project](https://github.com/buildkite/test-collector-android/tree/main/example) for implementation.
+For instrumented tests debugging, access the variable using `buildConfigField` and pass it through your `MyTestCollector` class. Refer the [example project](https://github.com/buildkite/bktest/tree/main/test-collector-android/example) for implementation.

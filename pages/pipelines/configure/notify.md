@@ -21,6 +21,7 @@ Available notification types:
 - [Email](#email): Send an email to the specified email address.
 - [GitHub commit status](#github-commit-status): Create a GitHub commit status.
 - [GitHub check](#github-check): Create a GitHub check status.
+- [Origin check](#origin-check): Create an Origin check.
 - [PagerDuty](#pagerduty-change-events)
 - [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack channel. Requires the [Slack Workspace](/docs/pipelines/integrations/notifications/slack-workspace) notification service (recommended) or one or more legacy Slack notification services to be configured for your Buildkite organization.
 - [Webhooks](#webhooks): Send a notification to the specified webhook URL.
@@ -47,6 +48,10 @@ These types of notifications are available at the following levels.
   <tr>
     <td>GitHub check</td>
     <td>GitHub check</td>
+  </tr>
+  <tr>
+    <td>Origin check</td>
+    <td>Origin check</td>
   </tr>
   <tr>
     <td>PagerDuty</td>
@@ -259,13 +264,13 @@ Step-level GitHub commit status notifications happen at the following [events](/
 
 ## GitHub check
 
-Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
-
-GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
-
 > 📘 Requirements
 > GitHub checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub commit status](#github-commit-status) notifications instead.
 > GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
+
+Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
+
+GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
 
 > 📘 Skipped builds
 > The commit status API only supports `pending`, `success`, `failure`, and `error`. Automatic commit statuses and [`github_commit_status`](#github-commit-status) report [skipped builds](/docs/pipelines/configure/skipping#skip-queued-intermediate-builds) as failed. `github_check` reports them as `neutral`. If you use `github_check` for status reporting, disable **Update commit statuses** in your pipeline's GitHub settings. Automatic updates still use the commit status API.
@@ -304,6 +309,18 @@ The `github_check` attribute supports the following options:
 - `name`: The name of the check. Defaults to the pipeline name for build-level notifications, or auto-generated based on the step label/key for step-level notifications.
 
 - `output`: An object containing detailed output information: `title` (a short title for the check output), `summary` (a summary of the check results), `text` (detailed information about the check results, supports Markdown), and `annotations` (an array of annotation objects for inline code comments).
+
+### Blocked build conclusion
+
+When a build pauses at a [block step](/docs/pipelines/configure/step-types/block-step#block-step-attributes), a build-level `github_check` notification reports the check run's conclusion based on the block step's `blocked_state` attribute:
+
+`blocked_state` | GitHub check conclusion | Summary
+--- | --- | ---
+`passed` | `success` | Passed and blocked
+`failed` | `failure` | Failed and blocked
+`running` | `action_required` | Blocked
+`(not set)` | `action_required` | Blocked
+{: class="responsive-table"}
 
 ### GitHub check annotations
 
@@ -366,6 +383,140 @@ Step-level GitHub check notifications happen at the following [events](/docs/api
 
 - `step.failing`
 - `step.finished`
+
+## Origin check
+
+Create a check on [Origin](/docs/pipelines/source-control/origin) to provide live status updates and rich output for builds and steps. This requires the pipeline's repository to be hosted on Origin.
+
+> 📘 Requirements
+> Origin check notifications are being rolled out to Buildkite organizations. If they're not yet available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+> Origin check notifications require a full 40-character commit SHA. For build-level notifications, Buildkite Pipelines defers events when the commit is `HEAD` and replays them after resolving the commit SHA. Build-level events with a short commit SHA do not trigger notifications and are not replayed.
+> For step-level notifications, events that occur while the commit is `HEAD` or a short SHA do not trigger notifications and are not replayed. Only events that occur after Buildkite Pipelines resolves the full commit SHA trigger notifications.
+> Annotations are supported only in step-level Origin check notifications. A build-level `origin_check` notification rejects the `annotations` attribute.
+
+Add an Origin check notification to the `notify` array using the `origin_check` attribute:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - origin_check:
+      key: "build"
+```
+{: codeblock-file="pipeline.yml"}
+
+> 📘 Automatic build checks
+> Buildkite Pipelines publishes an automatic build check to Origin by default. A build-level `origin_check` notification adds another check. To avoid creating two build checks, disable **Update commit statuses** in the pipeline's Origin settings.
+
+You can also add Origin check notifications at the step level:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "bin/rspec"
+    notify:
+      - key: "tests-notification"
+        origin_check:
+          key: "tests"
+          name: "Tests"
+          output:
+            title: "Test results"
+            summary: "Run the test suite"
+```
+{: codeblock-file="pipeline.yml"}
+
+### Origin check attributes
+
+The `origin_check` attribute supports the following options:
+
+- `key`: A stable identifier for the logical check. This attribute is required. Use a unique key for each independent check, including across [dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines). Runs that share a key are treated as attempts of the same check, and Cursor shows only the newest run.
+
+- `name`: Display name for the check run. A build-level check defaults to its `key`. A step-level check defaults to the step's `label`, then its `key`, or `Step <step ID>` if neither is configured.
+
+- `output`: A map containing detailed output information: `title` (a short result headline, up to 255 characters), `summary` (a primary result summary in Markdown, up to 65,535 UTF-8 bytes), `text` (extended result details in Markdown, up to 65,535 UTF-8 bytes), and `annotations` (an array of source or run-level annotations for step-level checks). If you don't provide output, Buildkite Pipelines generates a title and summary. Build-level output describes the build's current state. Step-level output combines the check's name and the step's current state.
+
+### Origin check annotations
+
+For step-level Origin check notifications, add an `annotations` array to `output` to highlight a line or range in a file, or to add a run-level note with no file location:
+
+```yaml
+steps:
+  - label: "Tests"
+    command: "bin/rspec"
+    notify:
+      - key: "tests-notification"
+        origin_check:
+          key: "tests"
+          name: "Tests"
+          output:
+            title: "Test results"
+            summary: "Run the test suite"
+            annotations:
+              - annotation_level: "warning"
+                message: "One test was skipped"
+              - annotation_level: "failure"
+                message: "Use the inclusive range"
+                title: "Invalid range"
+                path: "lib/range.rb"
+                start_line: 12
+                end_line: 12
+                start_column: 4
+                end_column: 15
+```
+{: codeblock-file="pipeline.yml"}
+
+Each annotation is a map with the following attributes:
+
+- `annotation_level`: The severity of the annotation. This attribute is required. One of `notice`, `warning`, or `failure`.
+
+- `message`: The annotation's non-empty message, up to 65,535 UTF-8 bytes. This attribute is required.
+
+- `title`: A short title for the annotation, up to 255 characters.
+
+- `raw_details`: Extended details for the annotation, up to 65,535 UTF-8 bytes.
+
+- `path`: The canonical path to the file, relative to the repository root and up to 4,096 UTF-8 bytes. The path can't be absolute or include empty, `.`, or `..` segments. Provide `path` together with `start_line` and `end_line`.
+
+- `start_line` and `end_line`: The range of lines the annotation applies to, as positive integers. `end_line` must be at or after `start_line`. Provide both together with `path`.
+
+- `start_column` and `end_column`: The range of columns the annotation applies to, as positive integers. `end_column` must be at or after `start_column`. Provide both together with `path`, `start_line`, and `end_line`, and only when `start_line` and `end_line` are the same.
+
+Omit all location attributes to create a run-level annotation. Origin accepts up to 100 annotations per check run. For more information, see Cursor's [Create Check Run Annotations API documentation](https://cursor.com/docs/api/origin#create-check-run-annotations).
+
+### Dynamic Origin check updates
+
+For step-level Origin check notifications, you can dynamically update the check output before the step finishes using the `buildkite-agent step update` command. If the step has multiple Origin check notifications, use the notification's outer `key` in brackets to select the check. You can omit the brackets when the step has only one Origin check notification. The outer key differs from the nested `origin_check.key`, which identifies the logical check in Origin.
+
+```bash
+# Update the check title
+buildkite-agent step update "notify.origin_check[tests-notification].output.title" "Updated title"
+
+# Update the check summary
+buildkite-agent step update "notify.origin_check[tests-notification].output.summary" "Build completed successfully"
+
+# Update the check text with detailed results
+buildkite-agent step update "notify.origin_check[tests-notification].output.text" "## Test results\n\n✅ All tests passed"
+
+# Append an annotation
+buildkite-agent step update "notify.origin_check[tests-notification].output.annotations" '{"annotation_level":"warning","message":"Avoid this call","path":"src/main.js","start_line":10,"end_line":10}' --append
+```
+{: codeblock-file=".buildkite/hooks/post-command"}
+
+The annotation value can be one annotation map or an array of annotation maps, using the same [attributes and validation](#origin-check-origin-check-annotations) as configured annotations. The `--append` flag is required. Replacing `output.annotations` returns an error.
+
+Only the `origin_check.output.title`, `origin_check.output.summary`, and `origin_check.output.text` attributes can otherwise be updated this way. The nested `origin_check.key` and `origin_check.name` attributes can't be changed after the step starts. Changing `origin_check.key` would create a new check and leave the previous one unfinished.
+
+> 📘 Availability
+> Appending annotations to Origin checks is being rolled out to Buildkite organizations. If appends are rejected for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+
+### Origin check status and retries
+
+Origin checks track a step's status throughout its lifecycle. For example, a check appears as queued while the step waits to start, in progress while it runs, and completed with a conclusion of `success`, `failure`, `cancelled`, `skipped`, or `neutral` once it finishes.
+
+If a step automatically retries, Cursor continues to update the same check run. A manual retry gets its own run identity, job link, and start time, but keeps the same logical check. Cursor shows only the newest run under the check's `key`.
+
+Annotations remain associated with their check run, so dynamically appended annotations from an earlier attempt don't appear on a later manual retry.
 
 ## PagerDuty change events
 
@@ -558,10 +709,10 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 📘
-> To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
 
-> 🚧
+To find a channel's Slack ID, right-click the channel name in Slack and select **View channel details**. The ID is displayed at the bottom of the panel.
+
+> 📘 Notification delivery failures
 > Notification delivery can still fail if the Buildkite Builds app does not have permission to post to that destination. For private channels, a Slack admin may need to reinstall the app or add it to the channel. For direct messages (`D` prefix), the app must be explicitly invited to the conversation.
 
 ### Notify a channel in one workspace
@@ -591,6 +742,9 @@ steps:
       - slack: "buildkite-community#general"
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 🚧 Replace Slack IDs in build-level notifications when using multiple workspaces
+> If your organization has more than one Slack Workspace integration enabled, an unqualified Slack ID for a channel, conversation, or user can't identify a workspace in a build-level notification. Prefix the ID with the workspace slug and `@`, for example, `buildkite-community@U12345678`. An unqualified channel name such as `#general` remains supported. This validation does not apply to step-level notifications. For a [scheduled build](/docs/pipelines/configure/workflows/scheduled-builds#invalid-notification-configuration), an invalid build-level notification disables the schedule until you correct the `notify` configuration.
 
 ### Notify multiple teams and channels
 
@@ -840,10 +994,13 @@ notify:
 
 Webhook notifications happen at the following [events](/docs/apis/webhooks/pipelines#events), unless you restrict them using [conditionals](/docs/pipelines/configure/notify#conditional-notifications):
 
-- `build created`
-- `build started`
-- `build blocked`
-- `build finished`
+- `build.scheduled`: A build has been scheduled.
+- `build.running`: A build has started running.
+- `build.failing`: A build is failing.
+- `build.finished`: A build has finished.
+- `build.skipped`: A build has been skipped.
+
+Each webhook request includes the event identifier in the `X-Buildkite-Event` header and the `event` field of the JSON request body. Use these identifiers to distinguish events in your webhook handler.
 
 ## Build states
 

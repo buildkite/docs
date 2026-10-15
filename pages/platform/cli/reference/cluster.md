@@ -142,7 +142,7 @@ Create a cluster and output as JSON:
 bk cluster create --name "My Cluster" -o json
 ```
 
-## Update cluster
+## Update a cluster
 
 Update a cluster.
 
@@ -197,7 +197,7 @@ Output the updated cluster as JSON:
 bk cluster update my-cluster-uuid --name "New Name" -o json
 ```
 
-## Delete cluster
+## Delete a cluster
 
 Delete a cluster.
 

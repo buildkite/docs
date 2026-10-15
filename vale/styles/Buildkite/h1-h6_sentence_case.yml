@@ -68,6 +68,7 @@ exceptions:
   - Bottlerocket
   - Bottlerocket OS
   - Buildkite
+  - Buildkite Cache
   - Buildkite Package Registries
   - Buildkite Pipelines
   - Buildkite SDK
@@ -78,6 +79,7 @@ exceptions:
   - C\+\+
   - CCMenu
   - CCTray
+  - CEL
   - CentOS
   - Chainguard
   - Chainguard's
@@ -97,6 +99,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Code Storage
   - Codebase Settings
   - Cognito
   - completion_watcher
@@ -139,6 +142,7 @@ exceptions:
   - GitHub Copilot
   - GitHub Enterprise
   - GitHub Enterprise Server
+  - GitHub Pages
   - GitLab
   - GitLab SCM
   - GitLab Self-Managed
@@ -228,6 +232,7 @@ exceptions:
   - OpenTelemetry
   - Open Container Initiative
   - Open Policy Agent
+  - Orchestration
   - Origin
   - OS X
   - Package Registries

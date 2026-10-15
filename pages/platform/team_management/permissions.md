@@ -82,6 +82,8 @@ A user who is a _team maintainer_ on an existing team can:
 
             **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries within the team.
 
+            **Note:** **Create test suites** only appears for organizations that have Test Engine available on their plan. If Test Engine is not available, this permission is hidden, and any previously configured setting for it is kept and restored if Test Engine becomes available again.
+
         - Delete the team, using the **Delete** button.
 
 As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team (that is, no team management capabilities) than a **Team Maintainer**.

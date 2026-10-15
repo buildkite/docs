@@ -60,6 +60,13 @@ func TestGetSubcommandTitlePreservesInitialisms(t *testing.T) {
 		"job vnc":     "Connect to a job using VNC",
 		"team update": "Update a team",
 		"team delete": "Delete a team",
+		// Nested commands use every word before the action as the noun.
+		"cache registry list":                   "List cache registries",
+		"cache registry view":                   "View a cache registry",
+		"cache registry update":                 "Update a cache registry",
+		"cache registry delete":                 "Delete a cache registry",
+		"secret migrate github-actions prepare": "Prepare a GitHub Actions secret migration",
+		"secret migrate github-actions run":     "Run a GitHub Actions secret migration",
 	}
 
 	for name, want := range tests {
@@ -83,6 +90,15 @@ func TestNormalizeMarkdownUsesOneTrailingNewline(t *testing.T) {
 func TestFormatDescriptionFormatsCommandLineExamples(t *testing.T) {
 	got := formatDescription(`Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --path "log/rspec*.json".`)
 	want := "Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path \"log/rspec*.json\"`."
+
+	if got != want {
+		t.Fatalf("formatDescription() = %q, want %q", got, want)
+	}
+}
+
+func TestFormatDescriptionFormatsStdinMarker(t *testing.T) {
+	got := formatDescription("Read the secret value from a file, or from stdin with -. Content is preserved exactly.")
+	want := "Read the secret value from a file, or from stdin with `-`. Content is preserved exactly."
 
 	if got != want {
 		t.Fatalf("formatDescription() = %q, want %q", got, want)

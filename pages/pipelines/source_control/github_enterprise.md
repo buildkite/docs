@@ -1,6 +1,6 @@
 # GitHub Enterprise Server
 
-Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Status API](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests. This guide describes the setup for self-hosted GitHub Enterprise Server. GitHub Enterprise Cloud users should refer to [GitHub](/docs/pipelines/source-control/github).
+Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Status API](https://docs.github.com/en/rest/commits/statuses) to update the status of commits in pull requests. This guide describes the setup for self-hosted GitHub Enterprise Server. If your GitHub Enterprise Cloud organization is hosted on github.com, use the [GitHub](/docs/pipelines/source-control/github) integration instead. If your enterprise uses GitHub Enterprise Cloud with data residency, where your enterprise is hosted at `<subdomain>.ghe.com`, use the [GitHub App](#github-app) integration on this page and follow [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency).
 
 > 📘 Buildkite plan availability and GitHub Enterprise version
 > GitHub Enterprise is only available to Buildkite customers on [Pro or Enterprise](https://buildkite.com/pricing) plans.
@@ -78,9 +78,9 @@ To correctly transfer the OAuth ownership over your GitHub Enterprise Organizati
 ## GitHub App
 
 > 📘 Private preview feature
-> The GitHub App integration for GitHub Enterprise Server is currently in private preview. To enable it for your Buildkite organization, contact support@buildkite.com.
+> The GitHub App integration for GitHub Enterprise Server is currently in private preview. This integration is also used to connect GitHub Enterprise Cloud with data residency (GHE.com). To enable it for your Buildkite organization, contact support@buildkite.com.
 
-With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents can clone private repositories.
+With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server or GHE.com enterprise that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents can clone private repositories.
 
 ### Set up the GitHub App
 
@@ -90,10 +90,27 @@ With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.g
     - **URL**: the URL of the GitHub Enterprise Server to connect, for example `https://github.example.com`.
     - **GitHub Enterprise Organization**: the organization on GitHub Enterprise Server to create the app in. For example, to create the app in `https://github.example.com/acme`, enter `acme`.
     - **Code read access**: select this to grant the app read-only repository contents permission. This is required if using hosted agents to clone private repositories, and for the branch, tag, and release webhook events.
-    - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration.
+    - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration. For GHE.com, set the **Public API URL** to your enterprise's API host instead. See [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency).
 1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
 1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.
 1. The provider isn't functional until the app is installed on your GitHub Enterprise Server. On the Buildkite provider settings page, select **Install GitHub App** to return to your GitHub Enterprise Server, then choose the organizations and repositories the app can access and install it. Your GitHub Enterprise Server returns you to Buildkite, which confirms the installation. Install the app in each GitHub organization you want to use with Buildkite.
+
+### GitHub Enterprise Cloud with data residency
+
+> 📘 GHE.com works through GitHub's GHES-compatible API
+> Buildkite Pipelines connects to GHE.com using the same GitHub Enterprise Server (GHES) API paths it uses for GitHub Enterprise Server. Buildkite sends GHES-style `/api/v3` requests to your enterprise's API host, and GitHub routes them to the GHE.com REST API.
+
+GitHub Enterprise Cloud with data residency serves the web interface and Git repositories from `https://<subdomain>.ghe.com`, and the REST API from a separate host, `https://api.<subdomain>.ghe.com`. Learn more in [API access](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/about-github-enterprise-cloud-with-data-residency#api-access) of the GitHub docs.
+
+When you [set up the GitHub App](#github-app-set-up-the-github-app) for GHE.com, enter these settings:
+
+* **URL**: `https://<subdomain>.ghe.com`. This must be the same host as your pipeline repository URLs, for example `https://<subdomain>.ghe.com/acme/app.git` or `<subdomain>@<subdomain>.ghe.com:acme/app.git`.
+* **GitHub Enterprise Organization**: your organization on GHE.com.
+* **Public API URL** (under **Advanced API settings**): `https://api.<subdomain>.ghe.com`.
+
+After the app is created, check **URL** in the Buildkite provider settings. If it shows `https://api.<subdomain>.ghe.com`, change it to `https://<subdomain>.ghe.com` and select **Save Settings**. Leave **Public API URL** set to `https://api.<subdomain>.ghe.com`.
+
+If your GHE.com enterprise uses an [IP allow list](https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/managing-allowed-ip-addresses-for-your-organization), allow the Buildkite IP addresses returned by the [Meta API endpoint](/docs/apis/rest-api/meta#get-meta-information). If you restrict **Allowed IP Addresses** in the provider's **Network Settings**, include the GHE.com webhook source addresses listed in [Network details for GHE.com](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/network-details-for-ghecom).
 
 ### Refreshing the repository list
 

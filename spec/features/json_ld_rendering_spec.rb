@@ -41,13 +41,18 @@ RSpec.feature "JSON-LD structured data rendering" do
     end
 
     it "builds a BreadcrumbList from the page's navigation trail" do
-      visit "/docs/pipelines/getting-started"
+      visit "/docs/pipelines/configure/depends-on"
 
       breadcrumb = json_ld_graph.find { |node| node["@type"] == "BreadcrumbList" }
       items = breadcrumb["itemListElement"]
 
-      expect(items.map { |item| item["position"] }).to eq((1..items.length).to_a)
-      expect(items.last["name"]).to be_present
+      expect(items.map { |item| [item["position"], item["name"], item["item"]] }).to eq(
+        [
+          [1, "Pipelines", "https://buildkite.com/docs/pipelines"],
+          [2, "Configure pipelines", "https://buildkite.com/docs/pipelines/configure"],
+          [3, "Depends on", "https://buildkite.com/docs/pipelines/configure/depends-on"]
+        ]
+      )
     end
   end
 end

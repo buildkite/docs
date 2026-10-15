@@ -31,12 +31,12 @@ A [_pipeline_](/docs/pipelines/glossary#pipeline) is what represents a CI/CD wor
 
 If you signed up:
 
-- With GitHub, the **New Pipeline** page's **Git scope** is set to your GitHub account, with its most recently updated repository selected in the **Repository** field. To explore example pipelines instead, select **Or try an example**. If your GitHub account has no repositories, the **Starter pipeline** of the **Buildkite Examples** is selected automatically.
+- With GitHub, the **New Pipeline** page's **Git scope** is set to your GitHub account, with its most recently updated repository selected in the **Repository** field. To explore example pipelines instead, select **try an example** in the page header. If your GitHub account has no repositories, the **Starter pipeline** of the **Buildkite Examples** is selected automatically.
 - By email, the **New Pipeline** page presents the **Starter pipeline** of the **Buildkite Examples**.
 
 ### Understanding the New Pipeline page
 
-<%= image "new-pipeline-page.png", alt: "New Pipeline page" %>
+<%= image "new-pipeline-page.png", width: 2136/2, height: 1132/2, alt: "New Pipeline page with the 'try an example' link in the header" %>
 
 The **New Pipeline** page has the following fields:
 
@@ -146,7 +146,9 @@ Next, create a new pipeline that uploads the pipeline definition from your repos
 1. Select **Create pipeline**.
 1. On the next page, select **New Build**. In the dialog, enter a short **Message** (for example, **My first build**) and select **Create Build**. The build page opens and the build begins.
 
-If you've configured webhooks, your pipeline triggers when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger it. To add more functionality, edit your steps and repeat. If you have trouble, reach out to support at support@buildkite.com.
+If you've configured webhooks, your pipeline triggers when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger it. To add more functionality, edit your steps and repeat.
+
+For other ways to start a build and help with builds that don't start, see [Starting a new build](/docs/pipelines/starting-a-new-build). If you still have trouble, contact support at support@buildkite.com.
 
 > 📘 Pipeline slugs and names
 > A pipeline's _slug_ (part of its URL) is [derived from the pipeline's **Name**](#create-your-own-pipeline-deriving-a-pipeline-slug-from-the-pipelines-name). Changing the **Name** also changes the slug, but previous slugs automatically redirect to the current one.

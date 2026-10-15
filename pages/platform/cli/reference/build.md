@@ -218,7 +218,7 @@ bk build list [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
+| `-p`, `--pipeline=STRING` | Pipeline slug (uses the selected organization), org/pipeline, or Buildkite pipeline URL. |
 | `--branch=BRANCH,...` | Filter by branch name |
 | `--commit=STRING` | Filter by commit SHA |
 | `--creator=STRING` | Filter by creator (email address or user ID) |
@@ -474,6 +474,7 @@ bk build watch [<build-number>] [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `--debug` | Enable debug output for REST API calls |
 | `--interval=1` | Polling interval in seconds |
+| `--timeout=0` | Maximum time to resolve and watch the build (e.g. 30s, 20m). 0 means no timeout. Timing out does not cancel the build. |
 
 ### Examples
 
@@ -505,4 +506,10 @@ Set a custom polling interval (in seconds):
 
 ```bash
 bk build watch --interval 5 --pipeline my-pipeline
+```
+
+Stop watching after 20 minutes without canceling the build:
+
+```bash
+bk build watch 429 --pipeline my-pipeline --timeout 20m
 ```

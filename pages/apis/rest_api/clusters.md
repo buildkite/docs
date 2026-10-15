@@ -9,6 +9,7 @@ The clusters API endpoint lets you create and manage [clusters](#clusters) in yo
 - [Agent images](/docs/apis/rest-api/clusters/agent-images)
 - [Network ranges](/docs/apis/rest-api/clusters/network-ranges)
 - [Cache volumes](/docs/apis/rest-api/clusters/cache-volumes)
+- [Cache registries](/docs/apis/rest-api/clusters/cache-registries)
 
 ## Clusters
 
@@ -81,6 +82,14 @@ A [Buildkite cluster](/docs/pipelines/security/clusters) is an isolated set of a
   <tr>
     <th><code>hosted_container_cache_enabled</code></th>
     <td>Whether the hosted-agent container cache is enabled for the cluster. Only included in responses for callers with <strong>manage cluster</strong> permission. Only applicable to clusters running <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>.</td>
+  </tr>
+  <tr>
+    <th><code>default_cache_registry_uuid</code></th>
+    <td>UUID of the cluster's default <a href="/docs/apis/rest-api/clusters/cache-registries">cache registry</a>. Only included in responses for callers with <strong>manage cluster</strong> permission.</td>
+  </tr>
+  <tr>
+    <th><code>default_cache_registry_url</code></th>
+    <td>API URL of the cluster's default cache registry. Only included in responses for callers with <strong>manage cluster</strong> permission.</td>
   </tr>
 </tbody>
 </table>
@@ -184,7 +193,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2013-08-29T10:10:03.000Z"
   },
   "hosted_git_mirror_enabled": false,
-  "hosted_container_cache_enabled": false
+  "hosted_container_cache_enabled": false,
+  "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d",
+  "default_cache_registry_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
 }
 ```
 
@@ -327,13 +338,24 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2013-08-29T10:10:03.000Z"
   },
   "hosted_git_mirror_enabled": false,
-  "hosted_container_cache_enabled": false
+  "hosted_container_cache_enabled": false,
+  "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d",
+  "default_cache_registry_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
 }
 ```
 
 [Request body properties](/docs/apis/rest-api#request-body-properties):
 
-The `hosted_git_mirror_enabled` and `hosted_container_cache_enabled` fields can only be set when updating a cluster. Cluster creation requests do not apply these fields.
+The `hosted_git_mirror_enabled`, `hosted_container_cache_enabled`, and `default_cache_registry_uuid` fields can only be set when updating a cluster. Cluster creation requests do not apply these fields.
+
+For example, to change the cluster's default [cache registry](/docs/apis/rest-api/clusters/cache-registries):
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{ "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d" }'
+```
 
 <table class="responsive-table">
 <tbody>
@@ -358,6 +380,10 @@ The `hosted_git_mirror_enabled` and `hosted_container_cache_enabled` fields can 
     <td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code></td>
   </tr>
   <tr>
+    <th><code>default_cache_registry_uuid</code></th>
+    <td>UUID of the <a href="/docs/apis/rest-api/clusters/cache-registries">cache registry</a> to set as the cluster's default. Must be the UUID of a cache registry in this cluster. A registry slug isn't accepted. The value can't be <code>null</code>, because a cluster must always have a default cache registry. Requires permission to manage the cluster.<br><em>Example:</em> <code>"b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"</code></td>
+  </tr>
+  <tr>
     <th><code>hosted_git_mirror_enabled</code></th>
     <td>Enable or disable the hosted-agent git mirror cache for the cluster. Must be <code>true</code> or <code>false</code>. Only applicable to clusters running <a href="/docs/pipelines/hosted-agents">Buildkite hosted agents</a>.<br><em>Example:</em> <code>true</code></td>
   </tr>
@@ -378,7 +404,7 @@ Error responses:
 <tbody>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td>A hosted-agent cache field is not <code>true</code> or <code>false</code>, a changed cache field targets a non-hosted cluster, or another cluster validation fails.</td>
+    <td>A hosted-agent cache field is not <code>true</code> or <code>false</code>, a changed cache field targets a non-hosted cluster, <code>default_cache_registry_uuid</code> isn't the UUID of a cache registry in this cluster (for example, it's a slug, <code>null</code>, or the UUID of a deleted registry or a registry in another cluster), or another cluster validation fails.</td>
   </tr>
   <tr>
     <th><code>503 Service Unavailable</code></th>

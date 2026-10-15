@@ -18,7 +18,7 @@ You can disable this in individual pipelines by setting `AWS_ECR_LOGIN=false`.
 
 If you want to log in to an ECR server on another AWS account, you can set `AWS_ECR_LOGIN_REGISTRY_IDS="id1,id2,id3"`.
 
-The AWS ECR options are powered by an embedded version of the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin), so if you require options that aren't listed here, you can disable the embedded version as above and call the plugin directly. See [its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for more examples (requires Agent v3.x).
+The AWS ECR options are powered by an embedded version of the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin), so if you require options that aren't listed here, you can disable the embedded version as above and call the plugin directly. See [its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for more examples (requires Agent v3 or v4).
 
 ## Optimizing for slow Docker builds
 
@@ -116,6 +116,8 @@ GitHub branches are also automatically published to a per-branch URL
 Branch releases can only be deployed to `us-east-1`.
 
 ## Updating your stack
+
+For a v6 to v7 upgrade, follow the [Elastic CI Stack v6 to v7 upgrade guide](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/v6-v7-upgrade-guide) before using the update commands below. Elastic CI Stack v7 uses Buildkite agent v4 and changes the agent configuration parameters and cancellation timing.
 
 Template URLs follow this pattern for a specific version:
 

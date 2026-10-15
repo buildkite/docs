@@ -2,6 +2,9 @@
 
 [OAuth Token Exchange](https://datatracker.ietf.org/doc/html/rfc8693) lets you mint short-lived [Buildkite API access tokens](/docs/apis/managing-api-tokens) associated with a user in your organization programmatically, without interactive login flows. Your application signs a JWT assertion with its private key, exchanges it at the token endpoint for a scoped API token, and uses that token to call the Buildkite [REST](/docs/apis/rest-api) or [GraphQL](/docs/apis/graphql-api) API on behalf of a user.
 
+> 📘 Enterprise plan feature
+> OAuth Token Exchange is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans, and must be enabled for your Buildkite organization by Buildkite. If you're on an Enterprise plan and don't see **Token Exchange Apps** in your organization's settings, contact support@buildkite.com to have this feature enabled.
+
 OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead.
 
 Common use cases include:
@@ -32,7 +35,7 @@ Common use cases include:
 
 ## Setup
 
-Creating a Token Exchange application requires organization administrator permissions.
+Creating a Token Exchange application requires organization administrator permissions. Your Buildkite organization must also be on an [Enterprise](https://buildkite.com/pricing) plan with OAuth Token Exchange enabled. If **Token Exchange Apps** doesn't appear in your organization's settings, contact support@buildkite.com.
 
 To create a Token Exchange application:
 
@@ -149,7 +152,7 @@ grant_type=urn:ietf:params:oauth:grant-type:token-exchange
 | `client_assertion` | Yes | A signed JWT assertion (see [JWT assertion claims](#jwt-assertion-claims)) |
 | `subject_token` | Yes | The Buildkite user to act as, identified by either their email address or their user UUID (matching `subject_token_type`) |
 | `subject_token_type` | Yes | The type of `subject_token`. One of `urn:buildkite:params:oauth:token-type:user-email` (email address) or `urn:buildkite:params:oauth:token-type:user-uuid` (user UUID) |
-| `audience` | Yes | The Buildkite organization slug (from the URL, not the display name) |
+| `audience` | Yes | The Buildkite organization, identified by either its slug (from the URL, not the display name) or its UUID (see [`id`](/docs/apis/rest-api/organizations#get-an-organization) in the REST API). The UUID is stable across organization renames. |
 | `scope` | No | Space-delimited list of [scopes](/docs/apis/managing-api-tokens#token-scopes). If omitted, the app's default scopes are used. If the app has no default scopes, omitting this parameter returns an error. |
 | `expires_in` | No | Requested token TTL in seconds. Capped by the app's maximum TTL. Defaults to the app's maximum TTL if omitted. |
 
@@ -157,7 +160,7 @@ The subject user must be an active member of the target organization. When ident
 
 > 📘
 > The request `audience` parameter and the JWT `aud` claim are different values:
-> - `audience` (form parameter) is the Buildkite **organization slug** (for example, `my-org`)
+> - `audience` (form parameter) is the Buildkite **organization slug or UUID** (for example, `my-org` or `01234567-89ab-cdef-0123-456789abcdef`)
 > - `aud` (JWT claim) is the **token endpoint URL** (`https://buildkite.com/oauth/token`)
 
 ### Response
@@ -295,6 +298,7 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 
 | `error` | `error_description` | Fix |
 |---------|---------------------|-----|
+| `access_denied` | "Your current plan does not include OAuth Token Exchange" | OAuth Token Exchange is only available on [Enterprise](https://buildkite.com/pricing) plans |
 | `invalid_client` | "Invalid client assertion signature" | Check that the public key in your JWKS matches the private key used to sign the JWT |
 | `invalid_client` | "JWT `aud` claim is invalid" | Set the JWT `aud` claim to `https://buildkite.com/oauth/token` |
 | `invalid_client` | "JWT `exp` claim must be in the future" | Check your system clock for skew |
@@ -302,7 +306,7 @@ The token endpoint returns [RFC 6749 §5.2](https://datatracker.ietf.org/doc/htm
 | `invalid_client` | "JWT must contain a \`jti\` claim" | Your organization requires a `jti` claim. Add a unique `jti` (for example, a UUID) to your JWT payload |
 | `invalid_request` | "Subject user must be an active member of the organization" | Verify the email address or user UUID belongs to an active member of the target organization |
 | `invalid_scope` | "Requested scopes exceed grantable scopes" | Only request scopes that are in the app's configured grantable scopes |
-| `invalid_target` | "Invalid audience organization" | Use the organization slug from the URL, not the display name |
-| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization |
+| `invalid_target` | "Invalid audience organization" | Use the organization slug (from the URL, not the display name) or the organization UUID |
+| `unsupported_grant_type` | "Token exchange is not enabled for this organization" | OAuth Token Exchange must be enabled for the organization. Contact support@buildkite.com |
 
 <!-- vale Buildkite.existence = YES -->

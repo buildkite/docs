@@ -42,6 +42,8 @@ While Buildkite Pipelines provides its own secrets management capabilities, you 
 
 See the [Security](/docs/pipelines/security) and [Secrets](/docs/pipelines/security/secrets) to learn more.
 
+To move GitHub Actions repository secrets into Buildkite secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets).
+
 ### Pipeline configuration concepts
 
 Like GitHub Actions, Buildkite Pipelines lets you define pipelines in the web interface or in files checked into a repository. The equivalent of `.github/workflows/*.yml` is a `pipeline.yml` (typically in `.buildkite/`). See [Files and syntax](#pipeline-translation-fundamentals-files-and-syntax) for details.
@@ -441,7 +443,7 @@ This table provides quick mappings between common GitHub Actions concepts and th
 | `jobs.<id>.timeout-minutes` | `timeout_in_minutes` |
 | `needs` | `depends_on` |
 | `continue-on-error: true` | `soft_fail: true` |
-| `${{ secrets.NAME }}` | `${NAME}` (configured on agent) |
+| `${{ secrets.NAME }}` | `secrets` on the step. To move existing secrets, see [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets). |
 | `working-directory: ./dir` | Prepend `cd dir &&` to commands |
 | `actions/upload-artifact` | `artifact_paths` on the step |
 | `actions/download-artifact` | `buildkite-agent artifact download` command |
@@ -460,6 +462,7 @@ Buildkite Pipelines natively supports:
 - `push` (branches)
 - `pull_request`
 - `issue_comment` (comments on pull requests)
+- `issues` (issue activity, private preview)
 - `tag` (using "Build tags" setting)
 - `schedule` (cron)
 
@@ -470,13 +473,16 @@ These are configured in the Buildkite UI under Pipeline Settings, not in the YAM
 | `push` | UI → Pipeline Settings → GitHub |
 | `pull_request` | UI → Pipeline Settings → GitHub |
 | `issue_comment` | UI → Pipeline Settings → GitHub → Additional Webhooks |
+| `issues` | UI → Pipeline Settings → GitHub → Additional Webhooks |
 | `schedule` | UI → Pipeline Settings → Schedules |
 | `workflow_dispatch` | `input` step + "New Build" button/API |
 | `release` / `create` (tags) | UI → Build tags setting |
 
 For `issue_comment` setup requirements, see [Running builds on additional GitHub events](/docs/pipelines/source-control/github#running-builds-on-additional-github-events).
 
-For triggers not natively supported by Buildkite Pipelines (`issues`, `workflow_run`, etc.), you can:
+For `issues` setup requirements, see [Running builds on issue activity](/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity).
+
+For triggers not natively supported by Buildkite Pipelines, such as `workflow_run` and `discussion`, you can:
 
 1. **Keep in GitHub Actions:** Best for GitHub-specific automation.
 2. **Configure webhook:** Set up an endpoint to call the Buildkite API.
@@ -682,6 +688,7 @@ Be aware of common pipeline-translation mistakes, which might include:
 Explore these resources to enhance your migrated pipelines:
 
 - [Run supported GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows)
+- [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets)
 - [Defining your pipeline steps](/docs/pipelines/defining-steps)
 - [Buildkite agent overview](/docs/agent)
 - [Plugins directory](https://buildkite.com/resources/plugins/)

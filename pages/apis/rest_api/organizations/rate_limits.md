@@ -6,6 +6,8 @@ The organization rate limits API endpoint allows you to obtain a Buildkite organ
 
 Returns the current [REST API](/docs/apis/rest-api) and [GraphQL API](/docs/apis/graphql-api) rate limits for a Buildkite organization.
 
+Requests to this endpoint don't count towards your organization's REST API rate limit or your per-user rate limit.
+
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   https://api.buildkite.com/v2/organizations/{organization.slug}/rate_limit

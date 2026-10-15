@@ -29,6 +29,8 @@ The `bk secret` command allows you to manage Buildkite secrets from the command 
 | `bk secret create` | Create a new cluster secret. |
 | `bk secret update` | Update a cluster secret. |
 | `bk secret delete` | Delete a cluster secret. |
+| `bk secret migrate github-actions prepare` | Prepare a reviewed GitHub Actions migration workflow. |
+| `bk secret migrate github-actions run` | Verify and dispatch a prepared migration workflow. |
 
 ## List secrets
 
@@ -117,7 +119,8 @@ bk secret create --cluster-uuid=STRING --key=STRING [flags]
 | `--key=STRING` | The key name for the secret (e.g. MY_SECRET) |
 | `--policy=STRING` | The access policy for the secret (YAML format) |
 | `--text` | Output as text |
-| `--value=STRING` | The secret value. If not provided, you will be prompted to enter it. |
+| `--value=STRING` | The secret value. If neither value source is provided, you will be prompted to enter it. |
+| `--value-file=STRING` | Read the secret value from a file, or from stdin with `-`. Content is preserved exactly. |
 | `--yaml` | Output as YAML |
 
 ### Examples
@@ -134,13 +137,25 @@ Create a secret with the value provided inline:
 bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --value "s3cr3t"
 ```
 
+Create a secret from a file, preserving its content exactly:
+
+```bash
+bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --value-file ./secret.txt
+```
+
+Create a secret from stdin (including the trailing newline from printf):
+
+```bash
+printf 'line one\nline two\n' | bk secret create --no-input --cluster-uuid my-cluster-uuid --key MY_SECRET --value-file -
+```
+
 Create a secret with a description:
 
 ```bash
 bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --description "My secret description"
 ```
 
-## Update secret
+## Update a secret
 
 Update a cluster secret.
 
@@ -183,7 +198,7 @@ Update both description and value:
 bk secret update --cluster-uuid my-cluster-uuid --secret-id my-secret-id --description "New description" --update-value
 ```
 
-## Delete secret
+## Delete a secret
 
 Delete a cluster secret.
 
@@ -212,3 +227,39 @@ Delete a secret without confirmation:
 ```bash
 bk secret delete --cluster-uuid my-cluster-uuid --secret-id my-secret-id --yes
 ```
+
+## Prepare a GitHub Actions secret migration
+
+Prepare a reviewed GitHub Actions migration workflow.
+
+```bash
+bk secret migrate github-actions prepare [flags]
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--cluster=STRING` | Assert the destination cluster UUID. |
+| `--debug` | Enable debug output for REST API calls |
+| `--match=MATCH,...` | Glob matching GitHub Actions secret names (repeatable). |
+| `--organization=STRING` | Destination Buildkite organization slug. |
+| `--output=STRING` | Write the workflow without replacing an existing file. |
+| `--pipeline=STRING` | Destination Buildkite pipeline slug. |
+| `--policy-file=STRING` | Buildkite secret access policy YAML file. |
+| `--secret=SECRET,...` | Exact GitHub Actions secret name to migrate (repeatable). |
+
+## Run a GitHub Actions secret migration
+
+Verify and dispatch a prepared migration workflow.
+
+```bash
+bk secret migrate github-actions run --workflow=STRING
+```
+
+### Flags
+
+| Flag | Description |
+| --- | --- |
+| `--debug` | Enable debug output for REST API calls |
+| `--workflow=STRING` | Prepared workflow committed to the repository default branch. |

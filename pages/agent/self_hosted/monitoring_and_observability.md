@@ -62,8 +62,9 @@ Prometheus metrics were added to the health-checking service in Buildkite agent 
 
 Metric | Type | Description
 --- | --- | ---
-`buildkite_agent_jobs_ended_total` | Counter | Count of jobs that ended in any way for any reason
-`buildkite_agent_jobs_started_total` | Counter | Count of jobs started
+`buildkite_agent_jobs_ended_total` | Counter | Count of jobs that ended in any way for any reason, labeled by `priority` and `queue`
+`buildkite_agent_jobs_running` | Gauge | Number of jobs currently running, labeled by `priority` and `queue`
+`buildkite_agent_jobs_started_total` | Counter | Count of jobs started, labeled by `priority` and `queue`
 `buildkite_agent_logs_bytes_uploaded_total` | Counter | Count of log bytes uploaded
 `buildkite_agent_logs_bytes_uploads_errored_total` | Counter | Count of log bytes that were not uploaded due to an error
 `buildkite_agent_logs_chunk_uploads_errored_total` | Counter | Count of log chunks that were not uploaded due to an error
@@ -93,10 +94,10 @@ A count of currently-running agent workers can be found by subtracting `ended_to
 sum(buildkite_agent_workers_started_total - buildkite_agent_workers_ended_total)
 ```
 
-Similarly, a count of currently-running jobs using the same method:
+The number of currently-running jobs is available directly from the jobs gauge:
 
 ```promql
-sum(buildkite_agent_jobs_started_total - buildkite_agent_jobs_ended_total)
+sum(buildkite_agent_jobs_running)
 ```
 
 As all counter and histogram metrics are cumulative, information such as job or log throughput can be found using functions such as `rate`:
@@ -109,34 +110,27 @@ sum(rate(buildkite_agent_jobs_started_total[5m]))
 sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
 ```
 
-## Datadog metrics
+## OpenTelemetry metrics
 
-The Buildkite agent supports sending job duration metrics directly to Datadog through [DogStatsD](https://docs.datadoghq.com/extend/dogstatsd/). These metrics track job success counts and timing and are separate from the [Prometheus metrics](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page-prometheus-metrics-reference) exposed on the `/metrics` endpoint. To send Prometheus metrics such as `buildkite_agent_workers_started_total` to Datadog, use the [OpenMetrics integration approach described above](/docs/agent/self-hosted/monitoring-and-observability#health-checking-metrics-and-status-page-prometheus-metrics-reference).
-
-To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file. The agent sends metrics to a DogStatsD server, which is bundled with the [Datadog Agent](https://docs.datadoghq.com/extend/dogstatsd/).
+The Buildkite agent can export job metrics using the [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/). Enable the exporter with the `--opentelemetry-metrics` flag or the `BUILDKITE_OPENTELEMETRY_METRICS` environment variable:
 
 ```shell
-buildkite-agent start --metrics-datadog
+buildkite-agent start --opentelemetry-metrics
 ```
 
-Additional configuration options:
+Configure the destination using the standard `OTEL_EXPORTER_OTLP_METRICS_*` or `OTEL_EXPORTER_OTLP_*` environment variables. The default protocol is `grpc`; set `OTEL_EXPORTER_OTLP_METRICS_PROTOCOL` or `OTEL_EXPORTER_OTLP_PROTOCOL` to `http/protobuf` to use HTTP instead. To change the default `buildkite-agent` service name, use `--telemetry-service-name` or `BUILDKITE_TELEMETRY_SERVICE_NAME`.
 
-Option                              | Description
------------------------------------ | -----------
-`--metrics-datadog-host`           | The DogStatsD instance to send metrics to using UDP.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_HOST`<br>_Default:_ `127.0.0.1:8125`
-`--metrics-datadog-distributions`  | Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is recommended when running multiple agents to prevent metrics from multiple agents from being rolled up and appearing to have the same value.<br>_Environment variable:_ `BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS`<br>_Default:_ `false`
-{: class="responsive-table"}
+The agent exports these metrics, with durations measured in milliseconds:
 
-Once enabled, the agent will generate the following metrics (duration measured in milliseconds):
+Metric | Type | Description
+--- | --- | ---
+`jobs.duration` | Histogram | Duration of each finished job
+`jobs.finished` | Counter | Count of finished jobs
+`queue.duration` | Histogram | Time between a job becoming runnable and the agent starting it
 
-- `buildkite.jobs.success`
-- `buildkite.jobs.duration.success.avg`
-- `buildkite.jobs.duration.success.max`
-- `buildkite.jobs.duration.success.count`
-- `buildkite.jobs.duration.success.median`
-- `buildkite.jobs.duration.success.95percentile`
+The metrics include the `pipeline`, `org`, `branch`, `source`, and `queue` attributes. `jobs.duration` and `jobs.finished` also include the job's `exit_code`, which you can use to separate successful and failed jobs.
 
-For organization-level queue and agent metrics in Datadog (such as scheduled jobs count, idle agents, and busy agent percentage), use the [buildkite-agent-metrics CLI](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli-sending-metrics-to-datadog) with the StatsD backend.
+To send these metrics to Datadog or another observability platform, configure your OpenTelemetry Collector or OTLP-compatible backend to forward them to that platform. For organization-level queue and agent metrics in Datadog, such as scheduled jobs count, idle agents, and busy agent percentage, use the [buildkite-agent-metrics CLI](/docs/agent/self-hosted/monitoring-and-observability#buildkite-agent-metrics-cli-sending-metrics-to-datadog) with the StatsD backend.
 
 ## Buildkite agent metrics CLI
 
@@ -264,7 +258,7 @@ For more details on configuration options, AWS Lambda deployment, and backend-sp
 
 ## Tracing
 
-For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing).
+For OpenTelemetry tracing, see [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing).
 
 [systemd]: https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html
 [launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html

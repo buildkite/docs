@@ -24,11 +24,13 @@ applesimutils
 Aqua
 architecting
 Argo CD
+args
 ARNs
 argumentless
 artifactDelete
 Artifactory
 Artifactory's
+askpass
 Athena
 Atlassian
 auditability
@@ -47,10 +49,12 @@ aws
 awscli
 azcopy
 backoff
+backports
 Backstage
 Backstage Software Catalog
 Basecamp
 Basscss
+BOMs
 Bottlerocket
 Bayesian
 Bazel
@@ -67,6 +71,7 @@ boolean
 Boomper
 bottlenecked
 Brewfile
+Bugsnag
 Buildbox
 buildevents
 Buildah
@@ -78,7 +83,11 @@ Buildx
 buildx
 Bundler
 bursty
+callee
+Callee
+callee's
 cancelation
+canonicalizes
 carthage
 Cachew
 CCMenu
@@ -97,8 +106,11 @@ cli
 CLI
 CLIs
 Cloudsmith
+codeload
 Cognito
+Compilable
 Cooldown
+clonekit
 Cloudsmith's
 CloudTrail
 CloudWatch
@@ -128,6 +140,7 @@ CVE
 CVEs
 cutover
 daemonless
+DAGs
 Datadog
 Datadog's
 daemonless
@@ -138,6 +151,7 @@ declaratively
 deduper
 deduplicated
 deduplicates
+Deduplication
 deno
 deprioritize
 deprovisioning
@@ -173,7 +187,9 @@ exfiltrate
 exfiltrated
 exfiltration
 explainshell
+extensionless
 extglobs
+falsy
 fastfile
 fastlane
 fastlane's
@@ -186,6 +202,8 @@ Firehose
 Firewalled
 firewalled
 Flexbox
+forkee
+forkee's
 fpm
 Fugit
 gcloud
@@ -200,6 +218,7 @@ gnupg
 goroutines
 goss
 grantable
+gotest
 gotestsum
 gpg
 GPU
@@ -213,10 +232,12 @@ Graviton
 GRC
 GuardDog
 gz
+gzip
 gzipped
 hard-code
 hard-coded
 hard-coding
+hardlinks
 Hashicorp
 Homebrew
 heredoc
@@ -232,6 +253,7 @@ httplog
 https
 IdP's
 if_changed
+inFlight
 initContainer
 inlining
 invoiceable
@@ -278,6 +300,8 @@ lockfile
 lockfiles
 lockfile‑keyed
 lookback
+lookups
+loopback
 macOS
 macos
 manylinux
@@ -285,6 +309,7 @@ matchfile
 matchers
 Makefile
 Memcache
+metacharacters
 minitest
 misconfiguration
 misconfigurations
@@ -341,6 +366,7 @@ Palo
 parsable
 parallelization
 parameterization
+passwordless
 pbuilder
 pbuilder's
 perl
@@ -361,9 +387,12 @@ polyrepos
 Postgres
 PowerShell
 PR's
+prevalidates
+PRs
 predeclare
 predeclared
 Prepends
+printf
 Prometheus
 promised_exit_status
 protobuf
@@ -374,6 +403,7 @@ preinstall
 prepended
 prepends
 preprovisioned
+preselecting
 proxied
 ptrace
 pty
@@ -388,6 +418,7 @@ readme
 readmes
 rearchitect
 rebalancing
+recompiles
 refetch
 refspec
 rehydrate
@@ -443,6 +474,10 @@ sigstore
 sigstore's
 signaltometrics
 skopeo
+snapshotted
+subprocesses
+subproject
+subprojects
 SLA
 SLAs
 SLIs
@@ -463,6 +498,7 @@ sso
 stack_error
 start_time
 statefully
+stderr
 stdin
 stdout
 streamable
@@ -504,10 +540,12 @@ TOTP's
 TPUs
 TTLs
 traceparent
+treemap
 Trivy
 trixie
 typosquatted
 udp
+uncached
 unmanaged
 untracked
 UserData
@@ -519,6 +557,7 @@ unblocker
 unblocker's
 unbuildable
 unclustered
+unconfigured
 unencrypted
 unpatched
 unpermitted
@@ -527,12 +566,16 @@ unscoped
 unset
 unsets
 unsetting
+unsuspend
+unsuspending
+unsuspends
 unstaged
 unstarted
 untrusted
 unversioned
 unxip
 uploaders
+uppercases
 upstreams
 url
 urls
@@ -541,10 +584,13 @@ util
 uuid
 UUIDs
 uv
+validator
+validators
 vendored
 vfs
 virtualenv
 virtualized
+Vite
 Vitest
 VMs
 VPC's

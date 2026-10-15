@@ -22,6 +22,8 @@ steps:
 
 If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. For automatic retries, the number of possible retries can be set with a [`limit` attribute](/docs/pipelines/configure/retry#retry-attributes-automatic-retry-attributes) on the job's step. When a limit is not specified, the default limit is two.
 
+For jobs in a concurrency group, both automatic and manual retries retain the original job's scheduling timestamp, but do not hold a concurrency slot between attempts. See [Retries and concurrency groups](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups-retries-and-concurrency-groups) for queue ordering and an example.
+
 <%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
 
 You can also see when a job has been retried and whether it was retried automatically or by a user. Such jobs are hidden by default—you can expand and view all the hidden retried jobs.

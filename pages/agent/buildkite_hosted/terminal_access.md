@@ -22,6 +22,8 @@ As a pipeline is being built, expand the relevant step and as its job is being b
 
 <%= image "terminal-button-on-job.png", alt: "Accessing the SSH button through the Buildkite UI" %>
 
+The **Open Terminal** button only appears for jobs running on Linux or macOS hosted agents. Windows hosted agents don't support terminal access.
+
 To extend the terminal session time, it is recommended that you include a `sleep` [command](/docs/pipelines/configure/step-types/command-step) within your job steps. This can help maintain an active terminal connection and prevent the session from timing out too quickly, allowing you to debug your job or investigate the environment the job is running in.
 
 In the example below, the job will pause for 10 minutes before continuing. Adjust the sleep duration according to your specific needs.
@@ -38,9 +40,9 @@ steps:
 ## Use terminal access from the Buildkite CLI
 
 > 📘 Limited availability
-> SSH access from the Buildkite CLI for hosted macOS jobs is being rolled out to Buildkite organizations. If the `bk job ssh` command described below isn't available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
+> SSH access from the Buildkite CLI for Linux and macOS hosted jobs is being rolled out to Buildkite organizations. If the `bk job ssh` command described below isn't available for your organization, contact Buildkite Support at [support@buildkite.com](mailto:support@buildkite.com).
 
-Buildkite CLI version 3.55.0 and later provides the `bk job ssh` command for running macOS hosted jobs:
+To use the `bk job ssh` command, install [Buildkite CLI version 3.55.1](https://github.com/buildkite/cli/releases/tag/v3.55.1) or later. You can connect to running Linux or macOS hosted jobs:
 
 ```bash
 bk job ssh 0190046e-e199-453b-a302-a21a4d649d31
@@ -52,14 +54,14 @@ Before running the command:
 
 - [Configure the Buildkite CLI](/docs/platform/cli/configuration) with your Buildkite organization and an API access token that has the `write_builds` scope.
 - Confirm that [remote access is active](#deactivate-and-reactivate-remote-access-on-hosted-agents) for your Buildkite organization.
-- Find the UUID of a running command job on a macOS hosted agent.
+- Find the UUID of a running command job on a Linux or macOS hosted agent.
 - Confirm that you have permission to manage hosted agents for the job.
 
-The `bk job ssh` command does not support Linux hosted jobs or self-hosted jobs. Use the **Open Terminal** button in the Buildkite interface to access supported Linux hosted jobs.
+The `bk job ssh` command does not support Windows hosted jobs or self-hosted jobs.
 
 ## Deactivate and reactivate remote access on hosted agents
 
-The same organization-wide setting controls remote access across all clusters. When active, the setting enables SSH access to all Buildkite hosted agents and VNC access to supported macOS hosted jobs. By default, remote access is active.
+The same organization-wide setting controls remote access across all clusters. When active, the setting enables SSH access to Linux and macOS hosted agents, and VNC access to supported macOS hosted jobs. Windows hosted agents don't support SSH or VNC access. By default, remote access is active.
 
 Reactivating or deactivating remote access requires Buildkite organization administrator permissions.
 
@@ -71,7 +73,7 @@ To deactivate or reactivate remote access for hosted agents:
     * _Deactivate this feature_, select the **Disable Remote Access** button, followed by **Disable Hosted Agents Remote Access** in the confirmation message.
     * _Reactivate this feature_, select the **Enable Remote Access** button, followed by **Enable Hosted Agents Remote Access** in the confirmation message.
 
-Deactivating the setting removes SSH access from all Buildkite hosted agents across all clusters in your Buildkite organization. Reactivating it makes SSH access available again. These actions also remove or make VNC access available for supported macOS hosted jobs.
+Deactivating the setting removes SSH access from Linux and macOS hosted agents across all clusters in your Buildkite organization. Reactivating it makes SSH access available again. These actions also remove or make VNC access available for supported macOS hosted jobs.
 
 When this feature is active, be aware that users require either:
 

@@ -31,9 +31,11 @@ If your architecture isn't on the releases page send an email to support and we'
 
 ## Upgrade agents
 
+See the [agent version support policy](/docs/agent/version-support-policy) for support windows and how to check whether your agents need upgrading before January 1, 2027.
+
 To upgrade your agents, you can either:
 
 * Use the package manager for your operating system.
 * Re-run the installation script.
 
-As long as you're using Agent v3 or later, no configuration changes are necessary.
+Upgrades within the same major agent version generally don't require configuration changes, but review the release notes before upgrading. Before moving from Agent v3 to v4, read the [Agent v3 to v4 upgrade guide](/docs/agent/v3-v4-upgrade-guide) for breaking changes and migration instructions.
