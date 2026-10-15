@@ -94,7 +94,7 @@ Once your test suite is set up, you'll have many types of information automatica
 
 The Summary and Test pages are able to be filtered by branch, result (for example, pass, fail), state (for example, enabled, disabled), owner (for example, core-team, platform-team), label (for example, flaky, slow, feature-test) and [tag](/docs/pipelines/configure/tests/test-suites/tags). This allows greater flexibility and deeper analysis into the performance of your test suite.
 
-<%= image "test-stats.png", width: 2570, height: 783, alt: "Screenshot of a test suite's Summary page showing metric chart widgets above the Test statistics and Recent runs widgets" %>
+<%= image "suite-widgets.png", width: 2570, height: 1558, alt: "Screenshot of a test suite's Summary page showing metric charts above the Suite duration distribution and Runs with known flaky failures widgets" %>
 
 Select any individual test execution to see more trend and deep-dive information.
 
@@ -133,6 +133,8 @@ The **Widgets** menu only lists widgets that can show data for the suite:
 
 - **Flaky tests added and resolved** and **Runs with known flaky failures** are listed only when the suite has tests labeled as flaky.
 - **Workflow activity** is listed only when the suite has an active [workflow](/docs/pipelines/configure/tests/workflows).
+
+<%= image "summary-widgets-menu.png", width: 2570, height: 1428, alt: "Screenshot of a test suite's Summary page in edit mode, with the Widgets menu open" %>
 
 To change the layout:
 
