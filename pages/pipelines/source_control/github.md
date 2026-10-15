@@ -74,7 +74,7 @@ The **GitHub** (full access) option additionally requests read access to code, w
 
 ## Set up a new pipeline for a GitHub repository
 
-To run GitHub Actions workflows, use the recommended [GitHub Actions pipeline setup](/docs/pipelines/migration/run-github-actions-workflows). It creates a GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below.
+To run GitHub Actions workflows, use the recommended [GitHub Actions Compatibility setup](/docs/pipelines/migration/run-github-actions-workflows). It creates a GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below.
 
 For a native Buildkite pipeline:
 

@@ -1,10 +1,10 @@
 ---
-description: "Reference for the GitHub Actions workflow syntax, triggers, actions, and runtime behavior that the buildkite-gha compatibility runtime supports in Buildkite Pipelines."
+description: "Reference for the GitHub Actions workflow syntax, triggers, actions, and runtime behavior supported by GitHub Actions Compatibility in Buildkite Pipelines."
 ---
 
-# GitHub Actions compatibility reference
+# GitHub Actions Compatibility reference
 
-This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
+This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows).
 
 `buildkite-gha` requires Buildkite agent v3.129 or newer.
 

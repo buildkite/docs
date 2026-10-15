@@ -1,14 +1,14 @@
 ---
-description: "Run supported GitHub Actions workflows as Buildkite Pipelines jobs in this public preview of the GitHub Actions Buildkite plugin and buildkite-gha compatibility runtime."
+description: "Use GitHub Actions Compatibility to run supported GitHub Actions workflows as Buildkite Pipelines jobs. This product is in public preview."
 ---
 
-# Run GitHub Actions workflows in Buildkite
+# GitHub Actions Compatibility
 
 > 📘 Public preview
-> Running GitHub Actions workflows in Buildkite is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
-> The plugin and runtime are under active development. Review the [GitHub Actions compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility), which describes `buildkite-gha` v0.102.1, before adding a workflow.
+> GitHub Actions Compatibility is currently in public preview. To report issues with the preview, [open an issue in the `buildkite-gha` repository](https://github.com/buildkite/buildkite-gha/issues). For help migrating to native Buildkite Pipelines steps, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> The plugin and runtime are under active development. Review the [GitHub Actions Compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility), which describes `buildkite-gha` v0.102.1, before adding a workflow.
 
-Buildkite Pipelines can match GitHub events against your workflows and create one build per matching workflow for each event. This server-side workflow dispatch is the recommended way to run GitHub Actions workflows. The GitHub Actions Buildkite plugin runs the selected workflow as Pipelines jobs, so you can migrate with minimal changes, then replace imported jobs with [native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) over time.
+GitHub Actions Compatibility lets you run supported GitHub Actions workflows as Buildkite Pipelines jobs. It matches GitHub events against your workflows and creates one build per matching workflow for each event. This server-side workflow dispatch is the recommended way to run GitHub Actions workflows. The GitHub Actions Buildkite plugin runs the selected workflow as Pipelines jobs, so you can migrate with minimal changes, then replace imported jobs with [native Buildkite Pipelines steps](/docs/pipelines/migration/from-githubactions) over time.
 
 During the preview, start with a simple workflow in a public `github.com` repository that targets Linux x86-64. Private repository checkout, private reusable workflows, statically named Buildkite secrets, GitHub deployment environments and variables, temporary GitHub tokens, and OIDC require additional setup. Review the [supported functionality and limitations](#supported-functionality-and-limitations) before you begin.
 
@@ -455,7 +455,7 @@ You may need to update a workflow before you can run it during the preview:
 
 - **Check the `actions/upload-artifact` revision and inputs:** The native adapter supports known revisions from v1 through v7. An unknown lowercase, full 40-character commit uses the v7.0.1 contract with a warning. Known unsupported revisions, including v3.2.2, remain rejected. The v1 adapter accepts one literal file or directory. Later adapters accept up to 32 clean literal paths or bounded file globs using `*`, `?`, character classes, and recursive `**`. Jobs that run directly on the host can use workspace-relative or absolute paths, including Windows drive paths such as `C:\build\dist\*.zip`. An absolute glob archives files relative to its literal search root. Jobs that use a job container require workspace-relative paths. Exclusions, braces, extglobs, leading glob comments, traversing paths, symlinks, and special files aren't supported. Hidden-file behavior and accepted inputs depend on the action revision. The runtime accepts `retention-days` where the action declares it, but treats the value as advisory because Buildkite controls artifact retention. Each upload can contain up to 10,000 files, 1 GiB of source data, and a 1 GiB ZIP archive.
 
-See the [GitHub Actions compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility) for the complete supported functionality and limitations of `buildkite-gha` v0.102.1. If a feature isn't listed in the reference, treat it as unsupported.
+See the [GitHub Actions Compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility) for the complete supported functionality and limitations of `buildkite-gha` v0.102.1. If a feature isn't listed in the reference, treat it as unsupported.
 
 > 🚧 Treat workflow code as build code
 > All steps in an imported job share a workspace, environment changes, processes, and action lifecycle. Docker actions and containers provide packaging, not a security boundary. Run imported jobs on a queue that provides whole-job isolation, no ambient protected credentials, a clean machine for each untrusted job, and host-level resource limits. Review the [security model](/docs/pipelines/migration/run-github-actions-workflows/security) for the complete trust boundaries.
@@ -766,7 +766,7 @@ As with the plugin, generated jobs manage their own `mise` setup only when their
 
 - Learn how to [migrate from GitHub Actions](/docs/pipelines/migration/from-githubactions).
 - [Migrate GitHub Actions secrets](/docs/pipelines/migration/github-actions-secrets) to Buildkite secrets.
-- Check every supported workflow feature in the [GitHub Actions compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility).
+- Check every supported workflow feature in the [GitHub Actions Compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility).
 - Validate, compile, and upload workflows with the [buildkite-gha CLI](/docs/pipelines/migration/run-github-actions-workflows/cli).
 - Review the [security model](/docs/pipelines/migration/run-github-actions-workflows/security) before enabling private access, write tokens, or caching.
 - [Translate a GitHub Actions workflow](/docs/pipelines/converter/github-actions) to native Buildkite Pipelines configuration.

@@ -20,7 +20,7 @@ Plugins can be also be *vendored* (if they are already present in the repository
 
 Add plugins to [command steps](/docs/pipelines/configure/step-types/command-step) in your YAML pipeline to add functionality to Buildkite. Plugins can do things like execute steps in Docker containers, read values from a credential store, or add test summary annotations to builds.
 
-The [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) can also run supported GitHub Actions workflows as Buildkite Pipelines jobs during an incremental migration.
+The GitHub Actions Buildkite plugin, part of [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows), can also run supported GitHub Actions workflows as Buildkite Pipelines jobs during an incremental migration.
 
 <%= image "plugins-overview.png", width: 537, height: 209, alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
 

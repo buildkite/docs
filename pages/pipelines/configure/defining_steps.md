@@ -74,7 +74,7 @@ steps:
 
 To add steps using the YAML editor, select **Pipeline settings** > **Edit steps** from your pipeline.
 
-To run GitHub Actions workflows in an existing pipeline, add the GitHub Actions Buildkite plugin to your steps as described in [Configure the plugin manually](/docs/pipelines/migration/run-github-actions-workflows#use-explicit-workflows-in-an-existing-build-configure-the-plugin-manually). For new pipelines running GitHub Actions workflows, use the recommended [GitHub Actions setup mode](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) instead.
+To run GitHub Actions workflows in an existing pipeline, add the GitHub Actions Buildkite plugin to your steps as described in [Configure the plugin manually](/docs/pipelines/migration/run-github-actions-workflows#use-explicit-workflows-in-an-existing-build-configure-the-plugin-manually). For new pipelines running GitHub Actions workflows, use the recommended [GitHub Actions Compatibility setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) instead.
 
 Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 

@@ -1,10 +1,10 @@
 ---
-description: "Use the buildkite-gha CLI to validate GitHub Actions workflows, compile pipelines, and upload workflows from a custom importer."
+description: "Use the buildkite-gha CLI for GitHub Actions Compatibility to validate GitHub Actions workflows, compile pipelines, and upload workflows from a custom importer."
 ---
 
 # Use the buildkite-gha CLI
 
-The [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) is the easiest way to run `buildkite-gha`. Use the CLI directly when you need to validate a workflow, inspect generated output, or build a custom importer.
+The GitHub Actions Buildkite plugin, part of [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows), is the easiest way to run `buildkite-gha`. Use the CLI directly when you need to validate a workflow, inspect generated output, or build a custom importer.
 
 | Command | Use it to |
 | --- | --- |
