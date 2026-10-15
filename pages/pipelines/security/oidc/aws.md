@@ -242,7 +242,17 @@ To restrict access using one of these claims, add its condition key to the `Cond
 
 You can include `organization_slug` and `pipeline_slug` conditions alongside the immutable UUID conditions, as the Step 2 examples do. UUIDs alone are difficult to identify when reading an IAM policy, and the matching slugs make it clear which organization and pipeline the policy applies to. Since all conditions must match, update the slug conditions if you rename the organization or pipeline.
 
-The `cluster_id` and `cluster_name` claims are [optional claims](/docs/agent/cli/reference/oidc#claims-optional-claims), which are only included in the OIDC token when requested with the `--claim` option of the `buildkite-agent oidc request-token` command.
+The `cluster_id` and `cluster_name` claims are [optional claims](/docs/agent/cli/reference/oidc#claims-optional-claims), which are only included in the OIDC token when requested with the `--claim` option of the `buildkite-agent oidc request-token` command. If you use the [AWS assume-role-with-web-identity](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin, request optional claims by setting the `BUILDKITE_OIDC_TOKEN_CLAIMS` environment variable on the step, for example:
+
+```yaml
+steps:
+  - label: "\:aws\: Deploy to Production"
+    env:
+      BUILDKITE_OIDC_TOKEN_CLAIMS: cluster_id
+    plugins:
+      - aws-assume-role-with-web-identity#v1.8.0:
+          role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
+```
 
 The [AWS assume-role-with-web-identity](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin doesn't request optional claims itself. To include them in the plugin's OIDC token, set the `BUILDKITE_OIDC_TOKEN_CLAIMS` environment variable, which the `--claim` option reads, in your step's `env`. Separate multiple claims with commas. For example:
 
