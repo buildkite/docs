@@ -197,6 +197,9 @@ best-practices:
     - "agent/lifecycle"
     - "agent/hooks"
     - "platform/security"
+    - "platform/security/risk-profiles"
+    - "platform/security/first-production-pipeline"
+    - "platform/security/checklist"
   related_topics:
     - pipeline-configurations
     - security

@@ -78,6 +78,12 @@ class LLMFullText
     parsed = ::FrontMatterParser::Parser.parse_file(filepath)
     content = parsed.content
 
+    # These templates only use content data, without view helpers. Render their
+    # loops and lookups before resolve_erb strips unsupported helper calls.
+    if %w[platform/security/checklist platform/security/tokens].include?(path)
+      content = ERB.new(content, trim_mode: "-").result
+    end
+
     # Resolve ERB helpers that we can handle without a view context
     content = resolve_erb(content)
 

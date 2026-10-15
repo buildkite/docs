@@ -116,7 +116,7 @@ RSpec.feature "reading pages" do
     it "preserves security control section links at their replacement sections" do
       visit "/docs/pipelines/best-practices/security-controls"
 
-      expect(page.current_path).to eq("/docs/platform/security")
+      expect(page.current_path).to eq("/docs/platform/security/checklist")
 
       {
         "authentication-and-session-security-in-the-buildkite-interface-apis-and-cli" => "Authentication and access control",

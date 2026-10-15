@@ -62,6 +62,39 @@ RSpec.describe LLMFullText do
       allow(File).to receive(:exist?).and_call_original
     end
 
+    context "with data-backed security pages" do
+      let(:nav_data) do
+        [{
+          "name" => "Security",
+          "children" => [
+            { "name" => "Checklist", "path" => "platform/security/checklist" },
+            { "name" => "Tokens", "path" => "platform/security/tokens" }
+          ]
+        }]
+      end
+
+      it "preserves token facts and all eight security area headings" do
+        result = llm_full_text.generate
+
+        expect(result).to include("`bkua_`", "`bkct_`", "`bkaj_`")
+        expect(result.scan(/^- Prefix: `[^`]+`$/).length).to eq(11)
+        expect(result).to include("| [API access token]", "| [Agent token]")
+        [
+          "Authentication and access control",
+          "Buildkite agent security",
+          "Pipeline and supply chain integrity",
+          "Secrets management",
+          "Network and data exposure",
+          "Monitoring and detection",
+          "Governance and configuration management",
+          "Incident readiness"
+        ].each do |heading|
+          expect(result).to include("##### #{heading}\n")
+        end
+        expect(result).not_to include("<%", "Prefix: ``")
+      end
+    end
+
     context "when page files exist" do
       let(:nav_data) do
         [

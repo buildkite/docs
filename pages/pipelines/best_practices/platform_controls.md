@@ -3,7 +3,7 @@
 This guide covers how platform (infrastructure) teams can maintain centralized control while giving developer (engineering) teams the flexibility they need to run and observe pipelines in your Buildkite organization.
 
 > 📘
-> If you're looking for in-depth information on security controls, see the [Security checklist](/docs/platform/security).
+> If you're looking for in-depth information on security controls, see the [Security checklist](/docs/platform/security/checklist).
 
 ## Concept of platform management
 
@@ -216,6 +216,6 @@ By embedding these contextual links directly in build output, you reduce the tim
 
 The following are the key areas we recommend you to focus on next:
 
-- [Security checklist](/docs/platform/security)
+- [Security checklist](/docs/platform/security/checklist)
 - [Monitoring and observability](/docs/pipelines/best-practices/monitoring-and-observability) strategies
 - [Integration](/docs/pipelines/integrations) with your existing infrastructure
