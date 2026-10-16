@@ -39,6 +39,8 @@ Exit code           | Description
 255                 | The agent was gracefully terminated
 -1                  | Buildkite lost contact with the agent or it stopped reporting to us
 
+Buildkite Pipelines stores exit codes as signed 64-bit integers, so an exit code can be any value from `-9223372036854775808` to `9223372036854775807`. This range covers negative exit codes, such as `-1`, and large Windows exit codes, such as `3221225786`.
+
 > 📘 Jobs terminated by signals
 > When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.
 
