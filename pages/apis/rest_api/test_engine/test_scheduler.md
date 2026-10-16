@@ -917,7 +917,7 @@ Optional request headers:
 <tbody>
   <tr>
     <th><code>Idempotency-Key</code></th>
-    <td>A UUIDv7 that identifies this lease acquisition and makes it safe to retry. See <a href="#idempotent-lease-acquisition">Idempotent lease acquisition</a>.</td>
+    <td>A UUIDv7 that identifies this lease acquisition and makes it safe to retry. See <a href="#create-a-lease-idempotent-lease-acquisition">Idempotent lease acquisition</a>.</td>
   </tr>
 </tbody>
 </table>
