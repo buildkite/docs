@@ -144,7 +144,7 @@ To change the layout:
     * To move a widget, drag its handle, or focus the handle and use the arrow keys.
     * To move a whole row, drag the handle at the start of the row, or focus that handle and use the Up and Down arrow keys.
     * To resize a widget, drag the divider next to it, or focus the divider and use the Left and Right arrow keys. You can also focus the handle of the widget and press Shift with the Left or Right arrow key. Each row is four units wide. Some widgets, such as **Recent runs**, always use the full width.
-    * To switch a chart between bar and line styles, select the bar chart or line chart icon at the top of the widget.
+    * To switch a chart between bar and line styles, select the bar chart or line chart icon at the top of the widget. For a narrow widget, open its detailed chart first.
 1. Select **Save layout** to save your changes for everyone, or select **Cancel** to discard them.
 
 To go back to the default widgets, order, and widths, select **Widgets** > **Reset layout** while editing, then select **Save layout**. Resetting keeps each chart's style.
