@@ -393,6 +393,14 @@ Entries and attempts are reported separately because attempt policies may create
 
 `lease_ttl_seconds` defaults to `60` and must be an integer from `1` through `600`, not exceeding the organization's maximum lease lifetime. An omitted or empty body uses the default. Lease size comes from the immutable pool `lease` settings; `target_cost_limit` and other request fields are rejected with `422`.
 
+The optional `Idempotency-Key` request header makes acquisition safe to retry after a timeout, dropped connection, or 5xx response: the server may have committed a lease even though the client never received the response. The key must be a UUIDv7; any other value returns `400` with the message `Idempotency-Key must be a UUIDv7`. A lease created by a keyed request uses the key as its `id`. Each key identifies one acquisition by one job in one pool.
+
+Retrying with the same key, job, pool, and `lease_ttl_seconds` returns the original lease: the same `id`, the same attempts in the same order, and its original `expires_at` (leased time plus `lease_ttl_seconds`), even if heartbeats have since extended the lease. A retry never leases more entries. This holds for concurrent duplicate requests and when the pool has no work left. An empty response (`"lease": null`) leases nothing and does not use up the key; every new acquisition, including the same job's next lease, needs a new key.
+
+If the key can't be replayed, the endpoint returns `409 Conflict` with `{"message": "...", "code": "LEASE_NOT_REPLAYABLE"}` and leases nothing. The client should not retry that key; it should start a new acquisition with a new key. The API ties each key to the details of its original request, so this happens when the key is used by another job or with a different `lease_ttl_seconds`, or when the lease is no longer active and unchanged: its original deadline or current expiry has passed, one of its attempts was completed or released, or the pool is no longer leasing. Other `409 Conflict` responses, such as an unavailable pool, have no `code`.
+
+There is no separate key store. A key lasts as long as its lease and can only replay until the lease's original deadline. Without the header the endpoint behaves exactly as before, and clients should not retry ambiguous failures.
+
 A successful response contains one lease and its attempts:
 
 ```json
