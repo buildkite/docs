@@ -1,10 +1,10 @@
 * @buildkite/docs
 
 # Deploy and infrastructure config. Everything on main is pushed to the
-# public buildkite/docs repo, so ask the deploy pipeline owners to check
+# public buildkite/docs repo, so ask Pipelines or Design Engineers to check
 # these changes.
-/.buildkite/pipeline.deploy.yml @buildkite/design-engineers
-/.buildkite/docker-compose.helm-deploy.yml @buildkite/design-engineers
-/.buildkite/push-image.sh @buildkite/design-engineers
-/deploy/ @buildkite/design-engineers
-/scripts/deploy-* @buildkite/design-engineers
+/.buildkite/pipeline.deploy.yml @buildkite/pipelines @buildkite/design-engineers
+/.buildkite/docker-compose.helm-deploy.yml @buildkite/pipelines @buildkite/design-engineers
+/.buildkite/push-image.sh @buildkite/pipelines @buildkite/design-engineers
+/deploy/ @buildkite/pipelines @buildkite/design-engineers
+/scripts/deploy-* @buildkite/pipelines @buildkite/design-engineers

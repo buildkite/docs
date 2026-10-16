@@ -8,7 +8,7 @@ For known external contributors, use `buildkite/docs` instead.
 
 Verify the push destination and pull request base repository before publishing. If the required destination is unavailable, ask for guidance rather than switching repositories.
 
-Everything merged to `main` is pushed to the public `buildkite/docs` repo, including deploy and infrastructure config. Don't commit credentials, client IDs, or internal infrastructure names. Keep those in the pipeline settings in `buildkite/saas-iac` instead. Changes to deploy files request a review from `@buildkite/design-engineers`, who own the deploy pipeline, through `.github/CODEOWNERS`.
+Everything merged to `main` is pushed to the public `buildkite/docs` repo, including deploy and infrastructure config. Don't commit credentials, client IDs, or internal infrastructure names. Keep those in the pipeline settings in `buildkite/saas-iac` instead. Changes to deploy files request a review from `@buildkite/pipelines` or `@buildkite/design-engineers` through `.github/CODEOWNERS`.
 
 ## Buildkite documentation repository and pipeline
 
