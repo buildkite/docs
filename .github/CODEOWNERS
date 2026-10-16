@@ -1,1 +1,9 @@
 * @buildkite/docs
+
+# Deploy and infrastructure config. Everything on main is pushed to the
+# public buildkite/docs repo, so ask Platform to check these changes.
+/.buildkite/pipeline.deploy.yml @buildkite/platform
+/.buildkite/docker-compose.helm-deploy.yml @buildkite/platform
+/.buildkite/push-image.sh @buildkite/platform
+/deploy/ @buildkite/platform
+/scripts/deploy-* @buildkite/platform
