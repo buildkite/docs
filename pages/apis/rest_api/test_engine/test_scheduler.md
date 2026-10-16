@@ -892,6 +892,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
   --request POST \
   --header "Authorization: Bearer $OIDC_TOKEN" \
   --header "Content-Type: application/json" \
+  --header "Idempotency-Key: $IDEMPOTENCY_KEY" \
   --data '{
     "lease_ttl_seconds": 120
   }'
@@ -906,6 +907,17 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>lease_ttl_seconds</code></th>
     <td>How long the lease is valid, in seconds. Must be an integer from <code>1</code> through <code>600</code> and cannot exceed the organization's maximum lease lifetime.<br><em>Default:</em> <code>60</code></td>
+  </tr>
+</tbody>
+</table>
+
+Optional request headers:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>Idempotency-Key</code></th>
+    <td>A UUIDv7 that identifies this lease acquisition and makes it safe to retry. See <a href="#idempotent-lease-acquisition">Idempotent lease acquisition</a>.</td>
   </tr>
 </tbody>
 </table>
@@ -980,6 +992,32 @@ Every successful response includes the pool ID and state. When no attempts are w
 ```
 
 A consumed pool also returns `200 OK` with `"lease": null` and `"pool.state": "consumed"`. Clients can use this state to stop polling. Expired and destroyed pools return `409 Conflict`.
+
+### Idempotent lease acquisition
+
+Use the optional `Idempotency-Key` header to make lease acquisition safe to retry. When a request times out, the connection drops, or the API returns a 5xx response, the server may have already committed a lease even though the client never received it. Retrying with the same key returns the original lease instead of leasing more work.
+
+The key must be a UUIDv7. Any other value returns `400 Bad Request` with the message `Idempotency-Key must be a UUIDv7`. A lease created by a keyed request uses the key as its `id`. Each key identifies one acquisition by one job in one pool.
+
+Retrying with the same key, job, pool, and `lease_ttl_seconds` returns the original lease: the same `id`, the same attempts in the same order, and its original `expires_at` (the lease's leased time plus `lease_ttl_seconds`), even if the lease has since been heartbeated. A retry never leases more attempts. This also applies to concurrent duplicate requests and to retries when the pool has no work left. An empty response (`"lease": null`) leases nothing and does not use up the key. Every new acquisition, including the same job's next lease, requires a new key.
+
+If the key can't be replayed, the API returns `409 Conflict` with the following response body and leases nothing:
+
+```json
+{
+  "message": "Lease can no longer be replayed",
+  "code": "LEASE_NOT_REPLAYABLE"
+}
+```
+
+Do not retry the request with that key. Start a new acquisition with a new key. The API returns this error when:
+
+- The key was used by another job, or with a different `lease_ttl_seconds`.
+- The lease is no longer active and unchanged: its original deadline or current expiry has passed, one of its attempts was completed or released, or the pool is no longer leasing.
+
+Other `409 Conflict` responses, such as for an expired or destroyed pool, have no `code`. There is no separate key store: a key lasts as long as its lease and can only replay until the lease's original deadline.
+
+Without the header, the API cannot recognize a retry. Clients that omit the header must not repeat a request whose outcome is unknown, such as one that timed out or lost its connection, because the server may have leased work the client never received.
 
 Required scope: `write_test_pool`
 
