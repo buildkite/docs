@@ -56,6 +56,7 @@ steps:
     if: "!(build.creator.teams includes 'deploy') && build.branch == 'main'"
 
   - label: ":docker::rocket:"
+    key: "deploy-ecs"
     branches: main
     depends_on:
       - "deploy-check-wait"
@@ -73,3 +74,43 @@ steps:
             - organization_id
             - pipeline_slug
             - build_branch
+
+  # EKS migration (PB-3918). Runs after the ECS deploy so both backends serve
+  # the same image while traffic is split between them.
+  - label: ":kubernetes::rocket: Deploy to EKS"
+    key: "deploy-eks"
+    branches: main
+    depends_on: "deploy-ecs"
+    # ECS serves all traffic until the ALB rules move, so an EKS failure must not
+    # turn main red. Remove before shifting any real traffic to EKS, otherwise a
+    # failed deploy would leave the two backends on different images unnoticed.
+    soft_fail: true
+    concurrency: 1
+    concurrency_group: docs-deploy-eks
+    agents:
+      queue: deploy
+    command: scripts/deploy-eks
+    env:
+      # Pin the same helm-deploy build as buildkite/buildkite.
+      HELM_DEPLOY_IMAGE: "${ECR_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/helm-deploy:246"
+      # TAILSCALE_CLIENT_ID, TAILSCALE_TAGS and TAILSCALE_VERIFY_PEER_TAG come
+      # from the pipeline env in buildkite/saas-iac, so they aren't mirrored to
+      # the public docs repo.
+    plugins:
+      - aws-assume-role-with-web-identity#v1.6.0:
+          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
+          session-tags:
+            - organization_slug
+            - organization_id
+            - pipeline_slug
+            - build_branch
+      - ecr#v2.12.0:
+          login: true
+          account-ids: ${ECR_ACCOUNT_ID}
+      - docker-compose#v5.13.0:
+          run: helm-deploy
+          config: .buildkite/docker-compose.helm-deploy.yml
+          mount-checkout: true
+          mount-buildkite-agent: true
+          propagate-environment: true
+          propagate-aws-auth-tokens: true

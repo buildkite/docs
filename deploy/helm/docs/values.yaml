@@ -1,0 +1,34 @@
+# Set by scripts/deploy-eks from the build that pushed the image.
+image:
+  repository: 032379705303.dkr.ecr.us-east-1.amazonaws.com/docs
+  tag: ""
+
+# Matches the ECS service: three tasks at 1 vCPU / 2 GiB each.
+replicas: 3
+resources:
+  requests:
+    cpu: "1"
+    memory: 2Gi
+  limits:
+    memory: 2Gi
+
+# Non-secret settings carried over from deploy/task-definition-template.json.
+env:
+  RAILS_LOG_TO_STDOUT: "true"
+  RAILS_SERVE_STATIC_FILES: "true"
+  BADGE_DOMAIN: https://badge.buildkite.com
+  CSP_REPORT_URI: https://buildkite.uriports.com/reports/report
+
+# Platform-owned ExternalSecret that maps /ecs/docs/* from SSM into this Secret.
+secretName: docs-env
+
+host: buildkite.com
+
+gateway:
+  name: main
+  namespace: prod-use1
+  sectionName: http
+
+# Temporary marker so header-routed testing can confirm the response came from
+# EKS. Set to "" to drop it once the migration is complete.
+backendMarker: eks

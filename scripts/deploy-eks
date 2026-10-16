@@ -1,0 +1,34 @@
+#!/bin/bash
+# Deploys the image pushed by this build to the docs namespace on prod-use1.
+# Runs inside the helm-deploy container (.buildkite/docker-compose.helm-deploy.yml),
+# which has already joined the tailnet so the private EKS API is reachable.
+set -euo pipefail
+
+export AWS_REGION=us-east-1
+export AWS_PAGER=""
+
+cluster="prod-use1"
+namespace="docs"
+release="docs"
+chart="$(dirname "$0")/../deploy/helm/docs"
+tag="${BUILDKITE_BUILD_NUMBER:?BUILDKITE_BUILD_NUMBER must be set}"
+
+echo "--- :kubernetes: Configuring kubectl for ${cluster}"
+aws eks update-kubeconfig --name "${cluster}" --region "${AWS_REGION}"
+
+echo "--- :helm: Rendering ${release}"
+helm template "${release}" "${chart}" --namespace "${namespace}" --set image.tag="${tag}" > "${release}.yaml"
+buildkite-agent artifact upload "${release}.yaml"
+
+echo "+++ :helm: Deploying docs:${tag} to ${namespace}"
+helm upgrade "${release}" "${chart}" \
+  --install \
+  --namespace "${namespace}" \
+  --set image.tag="${tag}" \
+  --rollback-on-failure \
+  --wait=legacy \
+  --timeout 10m
+
+kubectl --namespace "${namespace}" get deployment,pods,httproute -l app=docs -o wide || true
+kubectl --namespace "${namespace}" get httproute docs \
+  -o jsonpath='{range .status.parents[*].conditions[*]}{.type}={.status} {end}{"\n"}'

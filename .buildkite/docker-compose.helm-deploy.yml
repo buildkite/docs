@@ -1,0 +1,11 @@
+services:
+  helm-deploy:
+    # Prebuilt in buildkite/docker-ops (helm-deploy/), pinned in pipeline.deploy.yml.
+    image: ${HELM_DEPLOY_IMAGE:?set HELM_DEPLOY_IMAGE to the prebuilt helm-deploy ECR image ref}
+    # Joins the tailnet using Buildkite OIDC before running the command, so the
+    # private prod-use1 EKS API is reachable.
+    entrypoint: with-tailscale
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
