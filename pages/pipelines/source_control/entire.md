@@ -80,7 +80,7 @@ If no token is available, the Entire Git helper can use a saved Entire login for
 Install the [Entire CLI](https://docs.entire.io/installation) for the agent user and ensure `git-remote-entire` is on `PATH`. Do not print the token or dump the job's environment.
 
 > 🚧 Checkout fails authentication on a self-hosted agent
-> If the job log shows `Entire: Buildkite did not issue checkout credentials`, turn on **Allow self-hosted agents to use checkout credentials** and check that the agent runs Buildkite agent v4.3.0 or later, or supply your own `ENTIRE_TOKEN`.
+> Turn on **Allow self-hosted agents to use checkout credentials** and check that the agent runs Buildkite agent v4.3.0 or later, or supply your own `ENTIRE_TOKEN`.
 
 ## Report build status
 
