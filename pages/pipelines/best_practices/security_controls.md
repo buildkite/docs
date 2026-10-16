@@ -68,7 +68,7 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Isolate pipelines with sensitive builds to run on dedicated agent pools within their own [cluster](/docs/pipelines/security/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments—for example, open-source repositories with unverified code.
 - Enable [pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) and verification mechanisms.
 - Set appropriate [job time limits](/docs/pipelines/configure/build-timeouts#command-timeouts) to limit the potential duration of malicious code execution on compromised agents.
-- Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
+- Use [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, restricting access in your cloud provider's trust policies with immutable claims such as `organization_id` and `pipeline_id`.
 - [Disable command evaluation](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
 - Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/cli/reference/start#no-plugins) to prevent the agent from loading any plugins.
 - Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite agent](/docs/agent/self-hosted/security).
