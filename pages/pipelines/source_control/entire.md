@@ -72,7 +72,7 @@ The plugin requests the credential once and exports it as `ENTIRE_TOKEN` for the
 
 Self-hosted agents don't receive checkout credentials automatically. Use one of these options:
 
-- **Buildkite-issued credentials:** An organization administrator selects [**Settings** > **Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > the Entire connection. In the connection's **Settings** panel, select **Allow self-hosted agents to use checkout credentials**, then select **Save Entire Settings**. Command jobs on self-hosted agents running Buildkite agent v4.3.0 or later then receive the same short-lived, read-only credential as hosted agents. The credential is available to processes running in the job, and the plugin does not refresh it.
+- **Buildkite-issued credentials:** An organization administrator selects [**Settings** > **Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > the Entire connection. In the connection's **Settings** panel, select **Allow self-hosted agents to use checkout credentials**, then select **Save Entire Settings**. Command jobs on self-hosted agents then receive the same short-lived, read-only credential as hosted agents. The credential is available to processes running in the job, and the plugin does not refresh it.
 - **Your own token:** Export `ENTIRE_TOKEN` in an agent [environment hook](/docs/agent/hooks#job-lifecycle-hooks). The plugin uses a non-empty `ENTIRE_TOKEN` and does not request a credential from Buildkite, even when the setting is on.
 
 If no token is available, the Entire Git helper can use a saved Entire login for the agent user. To prevent this, set `ENTIRE_GIT_NO_LOGIN_FALLBACK=true` on the agent. The plugin then fails the job when no token is available.
@@ -80,7 +80,7 @@ If no token is available, the Entire Git helper can use a saved Entire login for
 Install the [Entire CLI](https://docs.entire.io/installation) for the agent user and ensure `git-remote-entire` is on `PATH`. Do not print the token or dump the job's environment.
 
 > 🚧 Checkout fails authentication on a self-hosted agent
-> Turn on **Allow self-hosted agents to use checkout credentials** and check that the agent runs Buildkite agent v4.3.0 or later, or supply your own `ENTIRE_TOKEN`.
+> Turn on **Allow self-hosted agents to use checkout credentials**, or supply your own `ENTIRE_TOKEN`.
 
 ## Report build status
 
