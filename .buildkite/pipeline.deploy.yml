@@ -93,6 +93,8 @@ steps:
     env:
       # Pin the same helm-deploy build as buildkite/buildkite.
       HELM_DEPLOY_IMAGE: "${ECR_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/helm-deploy:246"
+      # The commit of buildkite/internal-charts to deploy charts/docs from.
+      INTERNAL_CHARTS_REF: "a9d1ac1c1c0954cc9775773a39d80c1bf1487230"
       # TAILSCALE_CLIENT_ID, TAILSCALE_TAGS and TAILSCALE_VERIFY_PEER_TAG come
       # from the pipeline env in buildkite/saas-iac, so they aren't mirrored to
       # the public docs repo.
@@ -104,6 +106,17 @@ steps:
             - organization_id
             - pipeline_slug
             - build_branch
+      # Supplies GH_TOKEN from Exchange, using the role assumed above. This
+      # pipeline's Exchange policy in buildkite/ops limits it to reading
+      # buildkite/internal-charts.
+      - buildkite/just-works#2c901aa9ccbaa5046b5660a9f279438c91adced9:
+          assume-role: false
+          ecr:
+            enabled: false
+          ssm:
+            enabled: false
+          github:
+            changes-enabled: true
       - ecr#v2.12.0:
           login: true
           account-ids: ${ECR_ACCOUNT_ID}
@@ -114,3 +127,5 @@ steps:
           mount-buildkite-agent: true
           propagate-environment: true
           propagate-aws-auth-tokens: true
+          environment:
+            - GH_TOKEN

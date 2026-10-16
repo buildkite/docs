@@ -1,5 +1,0 @@
-apiVersion: v2
-name: docs
-description: buildkite.com/docs on the prod-use1 EKS cluster
-type: application
-version: 0.1.0

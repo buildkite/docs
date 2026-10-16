@@ -10,8 +10,16 @@ export AWS_PAGER=""
 cluster="prod-use1"
 namespace="docs"
 release="docs"
-chart="$(dirname "$0")/../deploy/helm/docs"
 tag="${BUILDKITE_BUILD_NUMBER:?BUILDKITE_BUILD_NUMBER must be set}"
+charts_ref="${INTERNAL_CHARTS_REF:?INTERNAL_CHARTS_REF must be set}"
+
+echo "--- :github: Fetching the docs chart from buildkite/internal-charts@${charts_ref}"
+charts="$(mktemp -d)"
+git init --quiet "${charts}"
+git -C "${charts}" fetch --quiet --depth 1 \
+  "https://x-access-token:${GH_TOKEN:?GH_TOKEN must be set}@github.com/buildkite/internal-charts.git" "${charts_ref}"
+git -C "${charts}" checkout --quiet FETCH_HEAD
+chart="${charts}/charts/docs"
 
 echo "--- :kubernetes: Configuring kubectl for ${cluster}"
 aws eks update-kubeconfig --name "${cluster}" --region "${AWS_REGION}"
