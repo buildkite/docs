@@ -61,7 +61,7 @@ Use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) with an MCP gateway 
 
 1. The MCP client authenticates to your gateway using a credential issued for the gateway, not a Buildkite API token.
 1. The gateway maps the authenticated client to an authorized Buildkite user and exchanges a signed assertion for a short-lived token. The gateway caches and reuses that token.
-1. The gateway replaces the client's credential with the Buildkite token in the upstream `Authorization` header and forwards the request to `https://mcp.buildkite.com/direct/readonly`.
+1. The gateway replaces the client's credential with the Buildkite token in the upstream `Authorization` header and forwards the request to a fixed remote MCP endpoint, such as `https://mcp.buildkite.com/direct/readonly`.
 
 The [single-user MCP gateway example](https://github.com/buildkite/tokenexchange/tree/main/examples/mcp_gateway) includes application setup, scopes, a separate `GATEWAY_TOKEN` demo secret, and instructions for connecting a Streamable HTTP MCP client. Keep the signing key and minted Buildkite tokens in the gateway. Do not send them to clients or forward the gateway credential to Buildkite.
 
@@ -81,8 +81,10 @@ The MCP origin is not one of the library's default authenticated origins. Supply
 Extend the example into a centrally managed service with these changes:
 
 1. Replace the shared demo secret with workplace authentication supported by your MCP clients, such as signed OAuth access tokens issued for your gateway. Validate the token's signature, issuer, audience, and expiry. Token exchange does not authenticate employees to the gateway.
-1. Maintain an administrator-controlled mapping from a stable workplace identity, such as the verified issuer and subject, to an authorized Buildkite user UUID, organization, and read scopes. Check the current mapping on every request and reject unmapped or disabled identities. Do not accept caller-supplied Buildkite subjects.
-1. Create an exchanger and cached token source for each Buildkite user, organization, and scope configuration. Reuse both across requests without changing the configured Buildkite user. Keep the upstream route fixed to `/direct/readonly` and preserve the example's removal of caller credentials, cookies, query parameters, and routing headers.
+1. Maintain an administrator-controlled mapping from a stable workplace identity, such as the verified issuer and subject, to an authorized Buildkite user UUID, organization, and scopes. Buildkite doesn't store this mapping, and users don't need to authorize the token exchange application individually. You can populate the mapping in advance or sync it from your identity provider. Each mapped user must already be an active member of the Buildkite organization, because token exchange doesn't create users. Check the current mapping on every request, so that removed or disabled identities are rejected immediately. Do not accept caller-supplied Buildkite subjects.
+1. Create an exchanger and cached token source for each Buildkite user, organization, and scope configuration. Reuse both across requests without changing the configured Buildkite user. Have the gateway, not its callers, choose the upstream route, and preserve the example's removal of caller credentials, cookies, query parameters, and routing headers.
+
+This guide uses `/direct/readonly` with read scopes as a least-privilege default. Token exchange also supports write scopes. To let clients use write tools, grant only the write scopes they need, and fix the upstream route to `/direct` or `/direct/x/{toolset}` instead. Clients then act with the mapped user's Buildkite permissions.
 
 The following sketch describes the request handler, not runnable code or additional library APIs:
 
@@ -92,9 +94,9 @@ binding = authorize_current_mapping(identity.issuer, identity.subject)
 if binding is missing or disabled:
     reject request before any token exchange or upstream call
 
-key = (binding.user_uuid, binding.organization, binding.read_scopes)
+key = (binding.user_uuid, binding.organization, binding.scopes)
 source = get_or_create_cached_source(key)
-forward_with_buildkite_token(request, source, fixed_readonly_route)
+forward_with_buildkite_token(request, source, fixed_upstream_route)
 ```
 
 Before making the service available to employees:
@@ -103,7 +105,7 @@ Before making the service available to employees:
 - Limit cache size, remove idle entries, and discard affected entries when access is revoked.
 - Preserve MCP streaming and session headers, but bind any gateway-managed sessions to the authenticated identity.
 - Configure proxy timeouts for the supported session length and account for [remote MCP rate limits](/docs/apis/mcp-server/remote/rate-limits).
-- Test with two users to confirm that tokens and sessions cannot cross identities. Verify that rejected users never reach the token endpoint or upstream MCP server, and that caller routing overrides cannot enable write tools.
+- Test with two users to confirm that tokens and sessions cannot cross identities. Verify that rejected users never reach the token endpoint or upstream MCP server, and that callers cannot override the configured route or toolsets.
 
 Read-only routing does not remove write scopes from a token. See [Read-only access boundaries](#read-only-access-boundaries).
 
