@@ -999,7 +999,7 @@ Use the optional `Idempotency-Key` header to make lease acquisition safe to retr
 
 The key must be a UUIDv7. Any other value returns `400 Bad Request` with the message `Idempotency-Key must be a UUIDv7`. A lease created by a keyed request uses the key as its `id`. Each key identifies one acquisition by one job in one pool.
 
-Retrying with the same key, job, pool, and `lease_ttl_seconds` returns the original lease: the same `id`, the same attempts in the same order, and its original `expires_at` (the lease's leased time plus `lease_ttl_seconds`), even if the lease has since been heartbeated. A retry never leases more attempts. This also applies to concurrent duplicate requests and to retries when the pool has no work left. An empty response (`"lease": null`) leases nothing and does not use up the key. Every new acquisition, including the same job's next lease, requires a new key.
+Retrying with the same key, job, pool, and `lease_ttl_seconds` returns the original lease: the same `id`, the same attempts in the same order, and its original `expires_at` (the lease's leased time plus `lease_ttl_seconds`), even if heartbeats have since extended the lease. A retry never leases more attempts. This also applies to concurrent duplicate requests and to retries when the pool has no work left. An empty response (`"lease": null`) leases nothing and does not use up the key. Every new acquisition, including the same job's next lease, requires a new key.
 
 If the key can't be replayed, the API returns `409 Conflict` with the following response body and leases nothing:
 
