@@ -1010,7 +1010,7 @@ If the key can't be replayed, the API returns `409 Conflict` with the following 
 }
 ```
 
-Do not retry the request with that key. Start a new acquisition with a new key. The API returns this error when:
+Do not retry the request with that key. Start a new acquisition with a new key. The API ties each key to the details of its original request, so it returns this error when:
 
 - The key was used by another job, or with a different `lease_ttl_seconds`.
 - The lease is no longer active and unchanged: its original deadline or current expiry has passed, one of its attempts was completed or released, or the pool is no longer leasing.
