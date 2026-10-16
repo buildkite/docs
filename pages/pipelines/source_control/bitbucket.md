@@ -4,6 +4,9 @@ Buildkite integrates with [Bitbucket](https://bitbucket.org/) to provide automat
 
 This guide shows you how to set up your Bitbucket builds with Buildkite.
 
+> 📘 Bitbucket Cloud SSH hostname migration
+> Atlassian is [migrating Bitbucket Cloud's SSH hostname](https://community.atlassian.com/forums/discussion/3234032/upcoming-change-to-bitbucket-cloud-ssh-access-move-from-bitbucket-org-to-ssh-bitbucket-org) from `bitbucket.org` to `ssh.bitbucket.org`, effective November 12, 2026. Buildkite recognizes both hostnames as Bitbucket Cloud repository URLs, so updating your repository's SSH URL doesn't affect your pipeline's webhooks, pull request builds, or commit statuses.
+
 > 📘 Accessing private repositories
 > Connecting Bitbucket to Buildkite configures webhooks and commit statuses. To give your agents access to clone private repositories, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
 
