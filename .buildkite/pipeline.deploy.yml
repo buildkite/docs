@@ -99,27 +99,19 @@ steps:
       # from the pipeline env in buildkite/saas-iac, so they aren't mirrored to
       # the public docs repo.
     plugins:
-      - aws-assume-role-with-web-identity#v1.6.0:
-          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
-          session-tags:
-            - organization_slug
-            - organization_id
-            - pipeline_slug
-            - build_branch
-      # Supplies GH_TOKEN from Exchange, using the role assumed above. This
-      # pipeline's Exchange policy in buildkite/ops limits it to reading
+      # Assumes pipeline-buildkite-docs-private with the default session tags,
+      # logs in to ECR, and supplies GH_TOKEN from Exchange. This pipeline's
+      # Exchange policy in buildkite/ops limits the token to reading
       # buildkite/internal-charts.
       - buildkite/just-works#2c901aa9ccbaa5046b5660a9f279438c91adced9:
-          assume-role: false
+          account-id: "${ECR_ACCOUNT_ID}"
           ecr:
-            enabled: false
+            accounts: ["${ECR_ACCOUNT_ID}"]
+            region: us-east-1
           ssm:
             enabled: false
           github:
             changes-enabled: true
-      - ecr#v2.12.0:
-          login: true
-          account-ids: ${ECR_ACCOUNT_ID}
       - docker-compose#v5.13.0:
           run: helm-deploy
           config: .buildkite/docker-compose.helm-deploy.yml
