@@ -76,7 +76,7 @@ The remote MCP [API token pass-through endpoint](/docs/apis/mcp-server#api-token
 
 ## Security testing
 
-The remote Buildkite MCP server is included in the Buildkite SOC 2 Type II scope and undergoes external penetration testing every six months.
+The remote Buildkite MCP server is included in the Buildkite SOC 2 Type II scope and undergoes external penetration testing every 12 months (or more frequently).
 
 For security assurance documents, including SOC 2 and penetration-test reports, visit the [Buildkite Trust Center](https://trust.buildkite.com/). Access to reports may require approval or a non-disclosure agreement.
 
