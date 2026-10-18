@@ -4,24 +4,210 @@ areas:
   - name: Authentication and access control
     anchor: authentication-and-access-control
     summary: Control who can sign in to your Buildkite organization, what they can change, and how much a compromised credential can reach.
+    audit:
+      api: |
+        Inspect the [current API access token](/docs/apis/rest-api/access-token#get-the-current-token). This endpoint requires no additional token scope.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          https://api.buildkite.com/v2/access-token |
+          jq '{user, scopes, expires_at}'
+        ```
+      cli: |
+        Inspect the token used by the [Buildkite CLI](/docs/platform/cli). The `bk api` command only supports organization-scoped REST endpoints, so use `bk auth token` with `curl` for this endpoint.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $(bk auth token)" \
+          https://api.buildkite.com/v2/access-token |
+          jq '{user, scopes, expires_at}'
+        ```
+      mcp: |
+        Ask about the token used by your MCP connection, not a token pasted into the conversation:
+
+        ```text
+        Use read-only Buildkite MCP tools to inspect the current access token.
+        Report its scopes and any expiry information returned by the tool.
+        Identify fields the tool does not expose. Do not change anything.
+        ```
+      limits: "These checks inspect one token, not every token with access to your organization. Review SSO, 2FA, team membership, and the [API access audit](/docs/apis/managing-api-tokens#auditing-tokens) separately in the Buildkite interface. For an exposed token, follow [token identification and revocation](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens); don't paste it into an AI conversation."
   - name: Buildkite agent security
     anchor: buildkite-agent-security
     summary: Harden the infrastructure that runs your builds, with separate controls for hosted and self-hosted agents.
+    audit:
+      api: |
+        List [connected and stopping agents](/docs/apis/rest-api/agents#list-agents), then compare their versions and queues with your approved inventory. Requires `read_agents`.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/agents?per_page=100&page=1" |
+          jq '.[] | {id, name, version, queue, connection_state}'
+        ```
+      cli: |
+        ```bash
+        bk --org "$ORG_SLUG" api '/agents?per_page=100&page=1' |
+          jq '.[] | {id, name, version, queue, connection_state}'
+        ```
+      mcp: |
+        ```text
+        Use read-only Buildkite MCP tools to list all connected agents and
+        cluster queues in acme-inc. Report agent versions and queue assignments,
+        and flag unexpected agents for review. Follow pagination and state any
+        fields you cannot inspect. Do not change anything.
+        ```
+      limits: "The agents endpoint excludes disconnected agents. API inventory doesn't prove that self-hosted agent hooks, plugin restrictions, host patches, or network rules are configured. Inspect those controls on the hosts, and review hosted queue image settings separately."
   - name: Pipeline and supply chain integrity
     anchor: pipeline-and-supply-chain-integrity
     summary: "Protect the integrity of what your pipelines run: steps, plugins, dependencies, source code, and artifacts."
+    audit:
+      api: |
+        Read a [pipeline's configuration](/docs/apis/rest-api/pipelines#get-a-pipeline), including its provider settings and initial steps. Requires `read_pipelines`.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/pipelines/$PIPELINE_SLUG" |
+          jq '{slug, repository, provider, steps}'
+        ```
+      cli: |
+        ```bash
+        bk --org "$ORG_SLUG" api "/pipelines/$PIPELINE_SLUG" |
+          jq '{slug, repository, provider, steps}'
+        ```
+      mcp: |
+        ```text
+        Use read-only Buildkite MCP tools to inspect example-pipeline in
+        acme-inc. Report the repository, provider settings, and initial steps
+        that the tools expose. Flag fork-build settings and unpinned plugins
+        where visible. Do not infer missing settings or change anything.
+        ```
+      limits: "Initial pipeline steps don't include every dynamically uploaded step. Review repository pipeline definitions and build-specific steps too. Verify branch protection, required reviews, dependency scans, and artifact signatures in the systems that enforce them."
   - name: Secrets management
     anchor: secrets-management
     summary: Provide credentials to your builds without exposing them.
+    audit:
+      api: |
+        List [Buildkite secret metadata and access policies](/docs/apis/rest-api/clusters/secrets#list-secrets) in each cluster. Requires `read_secrets_details`, not permission to read secret values.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/clusters/$CLUSTER_ID/secrets?per_page=100&page=1" |
+          jq '.[] | {key, policy}'
+        ```
+      cli: |
+        ```bash
+        bk --org "$ORG_SLUG" api \
+          "/clusters/$CLUSTER_ID/secrets?per_page=100&page=1" |
+          jq '.[] | {key, policy}'
+        ```
+      mcp: |
+        ```text
+        Use read-only Buildkite MCP tools to list secret metadata in each
+        cluster in acme-inc. Follow pagination. Report access policies only
+        if the tools expose them, and identify policies needing human review.
+        Do not fetch secret values, print credentials, or change anything.
+        ```
+      limits: "Also review external secrets stores and cloud trust policies. Metadata alone doesn't prove that redaction works. Test redaction with a non-sensitive test value, and restrict OIDC trust using immutable claims such as `organization_id` and `pipeline_id`."
   - name: Network and data exposure
     anchor: network-and-data-exposure
     summary: Control the boundaries between your build infrastructure and everything outside it.
+    audit:
+      api: |
+        List [pipelines](/docs/apis/rest-api/pipelines#list-pipelines) and review which are public. Requires `read_pipelines`.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/pipelines?per_page=100&page=1" |
+          jq '.[] | {slug, visibility}'
+        ```
+      cli: |
+        ```bash
+        bk --org "$ORG_SLUG" api '/pipelines?per_page=100&page=1' |
+          jq '.[] | {slug, visibility}'
+        ```
+      mcp: |
+        ```text
+        Use read-only Buildkite MCP tools to list all pipelines in acme-inc.
+        Follow pagination and report public pipelines where visibility is
+        available. State which visibility settings you cannot inspect.
+        Do not change anything.
+        ```
+      limits: "A token only sees pipelines it can access. Check firewall rules, private networking, artifact bucket policies, encryption, and webhook signature verification in your infrastructure; these checks don't establish those protections."
   - name: Monitoring and detection
     anchor: monitoring-and-detection
     summary: Detect suspicious activity and failed or misconfigured controls in your Buildkite organization, and investigate them.
+    audit:
+      api: |
+        Read [audit events](/docs/apis/rest-api/organizations/audit-events). Requires the Enterprise plan, an administrator's token, and `read_audit_events`.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/audit_events?per_page=100"
+        ```
+      cli: |
+        ```bash
+        bk --org "$ORG_SLUG" api '/audit_events?per_page=100'
+        ```
+      mcp: |
+        The available [MCP tools](/docs/apis/mcp-server/tools) don't include an audit log query. Use the API or CLI example, or review the audit log in the Buildkite interface. Do not substitute build activity for an audit log review.
+      limits: "Audit events are returned newest first. Follow `links.next` until you cover your review window, and use `occurred_at` to select events within it. Events alone don't prove that alerts reach responders. Test your alert delivery separately. On other plans, review access manually and verify delivery of agent events to your monitoring system."
   - name: Governance and configuration management
     anchor: governance-and-configuration-management
     summary: Keep security configuration consistent across teams, so that gaps in one team's setup don't go unnoticed.
+    audit:
+      api: |
+        Read each [pipeline's configuration](/docs/apis/rest-api/pipelines#get-a-pipeline) and compare it with the approved configuration in version control. Requires `read_pipelines`.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/pipelines/$PIPELINE_SLUG" |
+          jq '{slug, repository, cluster_id, steps}'
+        ```
+      cli: |
+        ```bash
+        bk --org "$ORG_SLUG" api "/pipelines/$PIPELINE_SLUG" |
+          jq '{slug, repository, cluster_id, steps}'
+        ```
+      mcp: |
+        ```text
+        Use read-only Buildkite MCP tools to inventory pipelines and their
+        cluster assignments in acme-inc. Follow pagination. Report the initial
+        steps where available and identify configurations requiring comparison
+        with version control. Do not claim to have checked repository rules
+        or Terraform state, and do not change anything.
+        ```
+      limits: "Compare API results with your configuration repository and Terraform plan. Review team permissions, approval rules, control owners, and emergency change records separately. An inventory doesn't establish that configuration changes require review."
   - name: Incident readiness
     anchor: incident-readiness
     summary: Prepare and test your response before you need it, including actions that require Buildkite support.
+    audit:
+      api: |
+        Check that a responder can [identify their API access token](/docs/apis/rest-api/access-token#get-the-current-token) without changing production resources. Compare its scopes with the actions assigned to that responder in your runbook.
+
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          https://api.buildkite.com/v2/access-token |
+          jq '{user, scopes, expires_at}'
+        ```
+      cli: |
+        ```bash
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $(bk auth token)" \
+          https://api.buildkite.com/v2/access-token |
+          jq '{user, scopes, expires_at}'
+        ```
+      mcp: |
+        ```text
+        Use read-only Buildkite MCP tools to inspect the current token's
+        scopes and identify information available to a responder. State what
+        cannot be verified. Do not revoke tokens, stop agents, cancel builds,
+        or make any other changes.
+        ```
+      limits: "A successful read doesn't prove that a responder can contain an incident. Rehearse revocation, rotation, agent shutdown, and account recovery in a test environment using your [incident response runbook](/docs/platform/security/incident-response#prepare-before-an-incident). Record the outcome and review date."

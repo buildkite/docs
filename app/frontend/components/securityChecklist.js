@@ -76,6 +76,79 @@ export function initSecurityChecklist() {
     area.replaceChildren(details);
   }
 
+  for (const heading of document.querySelectorAll(
+    '.SecurityChecklist h3[id$="-audit-this-area"]',
+  )) {
+    const section = heading.closest("section");
+    if (section.querySelector('[role="tablist"]')) continue;
+    section.classList.add("SecurityAudit");
+    const tabs = document.createElement("div");
+    tabs.className = "SecurityAudit__tabs";
+    tabs.setAttribute("role", "tablist");
+    tabs.setAttribute("aria-labelledby", heading.id);
+    const panels = [];
+    for (const [index, label] of [
+      ...section.querySelectorAll("h4"),
+    ].entries()) {
+      const panel = document.createElement("div");
+      let current = label;
+      do {
+        const next = current.nextElementSibling;
+        panel.append(current);
+        current = next;
+      } while (current && !current.matches("h4"));
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.textContent = label.textContent;
+      label.id = `${heading.id}-${label.textContent.toLowerCase().replaceAll(" ", "-")}`;
+      tab.id = `${heading.id}-tab-${index}`;
+      panel.id = `${heading.id}-panel-${index}`;
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-controls", panel.id);
+      tab.setAttribute("aria-selected", String(index === 0));
+      tab.tabIndex = index === 0 ? 0 : -1;
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", tab.id);
+      panel.tabIndex = 0;
+      panel.hidden = index !== 0;
+      label.hidden = true;
+      tabs.append(tab);
+      panels.push(panel);
+    }
+    heading.after(tabs);
+    tabs.after(...panels);
+  }
+
+  const selectTab = (tab) => {
+    for (const sibling of tab.parentElement.children) {
+      const selected = sibling === tab;
+      sibling.setAttribute("aria-selected", String(selected));
+      sibling.tabIndex = selected ? 0 : -1;
+      document.getElementById(sibling.getAttribute("aria-controls")).hidden =
+        !selected;
+    }
+  };
+  const clickTab = (event) => {
+    const tab = event.target.closest('.SecurityAudit [role="tab"]');
+    if (tab) selectTab(tab);
+  };
+  const navigateTabs = (event) => {
+    const tab = event.target.closest('.SecurityAudit [role="tab"]');
+    if (!tab) return;
+    const tabs = [...tab.parentElement.children];
+    const index = tabs.indexOf(tab);
+    const target = {
+      ArrowRight: tabs[(index + 1) % tabs.length],
+      ArrowLeft: tabs[(index + tabs.length - 1) % tabs.length],
+      Home: tabs[0],
+      End: tabs[tabs.length - 1],
+    }[event.key];
+    if (!target) return;
+    event.preventDefault();
+    selectTab(target);
+    target.focus();
+  };
+
   const updateCount = (area) => {
     const inputs = [...area.querySelectorAll("input[data-security-key]")];
     const checked = inputs.filter((input) => input.checked).length;
@@ -114,14 +187,24 @@ export function initSecurityChecklist() {
     const details = target?.closest("details.SecurityChecklist");
     if (details) {
       details.open = true;
-      target.scrollIntoView();
+      const panel = target.closest('[role="tabpanel"]');
+      if (panel) {
+        selectTab(
+          document.getElementById(panel.getAttribute("aria-labelledby")),
+        );
+      }
+      (target.hidden ? panel : target).scrollIntoView();
     }
   };
   document.addEventListener("change", change);
+  document.addEventListener("click", clickTab);
+  document.addEventListener("keydown", navigateTabs);
   window.addEventListener("hashchange", revealFragment);
   revealFragment();
   return () => {
     document.removeEventListener("change", change);
+    document.removeEventListener("click", clickTab);
+    document.removeEventListener("keydown", navigateTabs);
     window.removeEventListener("hashchange", revealFragment);
   };
 }

@@ -14,6 +14,7 @@ If you suspect an active compromise, go directly to [Incident response](/docs/pl
 - **Plan your controls:** [Choose controls for your risk profile](/docs/platform/security/risk-profiles) to prioritize protections based on the code, data, and systems each workload can reach.
 - **Configure a new pipeline:** Follow [Secure your first production pipeline](/docs/platform/security/first-production-pipeline) for a starting configuration with a verification check after each step.
 - **Review an existing setup:** Work through the [Security checklist](/docs/platform/security/checklist), starting with baseline controls across eight security areas. It includes separate hosted and self-hosted agent controls.
+- **Make controls mandatory:** Use [Enforcing security controls](/docs/platform/security/enforcing-security-controls) to place restrictions outside repository-controlled pipeline definitions and test that they cannot be bypassed.
 - **Manage credentials:** Use [Token security](/docs/platform/security/tokens) to identify token types, limit their access, and plan expiry and revocation. Use [Secrets management](/docs/pipelines/security/secrets/managing) to provide credentials to builds.
 - **Prepare for an incident:** Use [Incident response](/docs/platform/security/incident-response) to assign responders, prepare a runbook, and rehearse recovery.
 

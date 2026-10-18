@@ -67,7 +67,40 @@
   display: none;
 }
 
+.SecurityAudit [hidden] {
+  display: none;
+}
+
+.SecurityAudit__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  border-bottom: 1px solid $navy-200;
+  margin-bottom: 20px;
+
+  button {
+    background: none;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px 0;
+
+    &[aria-selected="true"] {
+      border-bottom-color: currentColor;
+      font-weight: 600;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+}
+
 html.dark .Article .SecurityChecklist,
-html.dark .Article .SecurityChecklist__control {
+html.dark .Article .SecurityChecklist__control,
+html.dark .SecurityAudit__tabs {
   border-color: $navy-700;
 }

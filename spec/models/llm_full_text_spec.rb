@@ -91,6 +91,8 @@ RSpec.describe LLMFullText do
         ].each do |heading|
           expect(result).to include("##### #{heading}\n")
         end
+        expect(result.scan(/^###### Audit this area$/).length).to eq(8)
+        expect(result).to include("curl --fail-with-body", "bk --org", "Use read-only Buildkite MCP tools")
         expect(result).not_to include("<%", "Prefix: ``")
       end
     end

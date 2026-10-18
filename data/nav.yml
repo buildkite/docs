@@ -1005,6 +1005,8 @@
       path: "platform/security/first-production-pipeline"
     - name: "Security checklist"
       path: "platform/security/checklist"
+    - name: "Enforcing security controls"
+      path: "platform/security/enforcing-security-controls"
     - name: "Token security"
       path: "platform/security/tokens"
     - name: "Incident response"

@@ -20,6 +20,10 @@ If you suspect an active compromise, follow [Incident response](/docs/platform/s
 
 For the responsibilities Buildkite and your organization share, see the [Security overview](/docs/platform/security#shared-responsibility).
 
+Each area ends with _Audit this area_, with API and CLI examples, MCP prompts, and checks that require a manual review. Use a token with the documented read scopes and access to the resources under review. Set `ORG_SLUG`, `PIPELINE_SLUG`, and `CLUSTER_ID` to your own values where used. The CLI examples require an authenticated [Buildkite CLI](/docs/platform/cli) installation; commands that filter JSON also require `jq`.
+
+List examples show the first page only. Follow [pagination](/docs/apis/rest-api#pagination) before treating an inventory as complete. Audit events use cursor pagination: follow the response's `links.next` URL. Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server), replace the example organization and pipeline names in prompts, and verify the results. A prompt is not an access control.
+
 ## Security areas
 
 Review the baseline in each area, then use its completion criteria to verify your setup. Open an area to see its controls. Counts include alternatives and controls for different plans and hosting models, so completing every item isn't the goal.
@@ -33,6 +37,13 @@ Review the baseline in each area, then use its completion criteria to verify you
 <!-- Area names and card summaries are stored in data/content/security_areas.yaml. -->
 
 <% security_area = ->(anchor) { SECURITY_AREAS['areas'].find { |a| a['anchor'] == anchor } } -%>
+<% audit_area = ->(anchor) {
+  audit = security_area.(anchor)['audit']
+  "### Audit this area\n\n#{audit['limits']}\n\n" +
+    { 'api' => 'API', 'cli' => 'CLI', 'mcp' => 'Ask the Buildkite MCP' }.map { |key, label|
+      "#### #{label}\n\n#{audit[key]}"
+    }.join("\n")
+} -%>
 <a id="authentication-and-session-security-in-the-buildkite-interface-apis-and-cli"></a>
 <a id="api-access-token-compromise"></a>
 
@@ -68,6 +79,8 @@ This baseline is complete when every member signs in with SSO or 2FA, no pipelin
 - **Pin SSO sessions to IP addresses:** Enable [SSO session IP address pinning](/docs/platform/sso#sso-session-ip-address-pinning) so that users must re-authenticate when their IP address changes (Enterprise plan only).
 - **Restrict API access by IP address:** Set an organization-wide [IP address allowlist](/docs/apis/managing-api-tokens#restricting-api-access-by-ip-address) for the REST and GraphQL APIs (Enterprise plan only). The allowlist takes effect immediately, so confirm that it includes your own IP addresses before you save it.
 - **Use OAuth Token Exchange for services:** Instead of giving a service a long-lived API access token tied to a user, use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) to issue short-lived tokens with a limited lifetime and scope.
+
+<%= audit_area.('authentication-and-access-control') %>
 
 ## <%= security_area.('buildkite-agent-security')['name'] %>
 
@@ -132,6 +145,8 @@ This baseline is complete when every pipeline runs in a cluster, every agent tok
 - **Validate jobs with a pre-bootstrap hook:** Use a [pre-bootstrap hook](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) to reject jobs with unexpected repositories, commands, or environment variables before any code is checked out (self-hosted agents only).
 - **Customize the bootstrap:** When the agent settings aren't enough, [replace the bootstrap](/docs/agent/self-hosted/security#customize-the-bootstrap) with your own script to control every phase of a job (self-hosted agents only).
 
+<%= audit_area.('buildkite-agent-security') %>
+
 <a id="source-code-security-and-version-control-integrity"></a>
 <a id="dependencies-and-package-management"></a>
 
@@ -163,6 +178,8 @@ This baseline is complete when every pipeline with secrets rejects fork builds o
 - **Sign your pipelines:** Use [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines) so that agents refuse to run steps that were modified after upload (self-hosted agents only). Keep `verification-failure-behavior` at its default of `block`, sign and verify on separate agents so that the agents that run jobs only hold the verification key, and store signing keys in [AWS KMS](/docs/agent/self-hosted/security/signed-pipelines#aws-kms-managed-key-setup). Signed steps cannot be used with pipeline templates.
 - **Publish packages with SLSA provenance:** Generate and publish [SLSA provenance](/docs/package-registries/security/slsa-provenance) attestations with packages in Buildkite Package Registries (Enterprise plan only), or sign artifacts using tools such as [in-toto](https://in-toto.io/) or [cosign](https://github.com/sigstore/cosign), and verify them before deployment.
 
+<%= audit_area.('pipeline-and-supply-chain-integrity') %>
+
 ## <%= security_area.('secrets-management')['name'] %>
 
 <%= security_area.('secrets-management')['summary'] %> Buildkite Pipelines supports several ways of providing secrets to a build. In order of preference: use [OIDC](/docs/pipelines/security/oidc) to federate with the target system so that no long-lived credential is stored at all, use an external secrets storage service, or use [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets). Never store secret values in your pipeline configuration.
@@ -192,6 +209,8 @@ This baseline is complete when no secret value appears in pipeline settings, `pi
 
 - **Choose the OIDC subject claim deliberately:** Use a [custom subject claim](/docs/agent/cli/reference/oidc#custom-subject-claims) to set the scope of each trust relationship, and inspect a token's `sub` claim before writing a trust policy that matches it exactly.
 - **Compensate for single-claim matching in Azure:** Azure federated identity credentials match only on the subject, so any build that produces a matching token can authenticate. Apply the mitigations in [OIDC with Azure known limitations](/docs/pipelines/security/oidc/azure#known-limitations), such as enabling OIDC only on deployment pipelines whose triggers you control.
+
+<%= audit_area.('secrets-management') %>
 
 <a id="network-and-transport-security"></a>
 <a id="artifact-storage-and-integrity"></a>
@@ -228,6 +247,8 @@ This baseline is complete when your self-hosted agents can only connect to the h
 - **Keep workflow-scoped GitHub access tokens disabled:** Only enable [workflow-scoped GitHub access tokens](/docs/pipelines/source-control/github#workflow-scoped-github-access-tokens) if you trust everyone who can create a build at an arbitrary commit, as the token permissions are read from the workflow file at that commit.
 - **Keep build data in storage you control:** Configure [build exports](/docs/apis/rest-api/organizations/pipeline-settings#configure-build-export) and [job log archiving](/docs/pipelines/governance/job-log-archiving) to your own storage (Enterprise plan only).
 
+<%= audit_area.('network-and-data-exposure') %>
+
 <a id="monitoring-anomaly-detection-logging"></a>
 
 ## <%= security_area.('monitoring-and-detection')['name'] %>
@@ -247,6 +268,8 @@ This baseline is complete when a named person runs the access review on a fixed 
 - **Alert on security-relevant events:** Create alerts for the [logged events](/docs/platform/audit-log#logged-events) that matter most, such as agent token and API access token changes, SSO provider changes, secret access, pipeline visibility changes, and terminal sessions. Also alert on unusual IP addresses, secret access patterns, and spikes in build frequency.
 - **Remove inactive users:** Review the [inactive user list](/docs/platform/team-management/inactive-user-list) regularly, and remove users who no longer need access (Enterprise plan only). To remove access as soon as a user is removed from your identity provider, [automate deprovisioning with SCIM](#authentication-and-access-control-recommended).
 - **Export metrics to your observability platform:** Send Buildkite Pipelines metrics to your monitoring platform, for example, using [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry), to maintain visibility across pipeline activity.
+
+<%= audit_area.('monitoring-and-detection') %>
 
 <a id="consistent-pipeline-as-code-approach"></a>
 
@@ -271,6 +294,8 @@ This baseline is complete when the steps of every production pipeline come from 
 
 - **Enforce agent configuration:** Use [ephemeral agents](/docs/pipelines/glossary#ephemeral-agent), or configuration management tools such as [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/), to keep agent configuration consistent and prevent drift on persistent hosts.
 
+<%= audit_area.('governance-and-configuration-management') %>
+
 <a id="incident-response-and-recovery"></a>
 
 ## <%= security_area.('incident-readiness')['name'] %>
@@ -285,6 +310,8 @@ This baseline is complete when the steps of every production pipeline come from 
 - **Test emergency account recovery:** If you use SSO, validate the dedicated break-glass account and its [authentication, storage, and monitoring controls](/docs/platform/security/incident-response#prepare-before-an-incident). For other setups, verify that responders can access the administrator account and its 2FA recovery codes through your approved recovery process.
 
 This baseline is complete when responders can reach the runbook and support contacts, know who can revoke each kind of access, and have successfully rehearsed credential rotation and account recovery.
+
+<%= audit_area.('incident-readiness') %>
 
 ## Further questions
 
