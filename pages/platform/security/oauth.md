@@ -86,6 +86,6 @@ Successful browser-based OAuth authorization for remote MCP and the CLI creates 
 
 Organization administrators on the Enterprise plan can view these events in the [**Audit Log**](/docs/platform/audit-log). Select **Settings** > **Audit** > **Audit Log**, then search the **Events** tab for `type:OAUTH_APPLICATION_AUTHORIZED`.
 
-The event identifies the authorizing user, application, organization, and granted scopes. It also includes the IP address and user agent captured during authorization.
+The event identifies the authorizing user, application, organization, and granted scopes, and also includes the IP address and user agent captured during authorization.
 
 This event records who granted access, not ongoing usage. Device login, token refresh, and API-token authentication do not create this event. It is not a record of every CLI command or MCP tool call, or a list of active sessions. The absence of an authorization event does not establish that nobody is using MCP or the CLI.
