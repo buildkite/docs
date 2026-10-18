@@ -118,6 +118,11 @@ RSpec.feature "reading pages" do
 
       expect(page.current_path).to eq("/docs/platform/security/checklist")
 
+      within(".Toc") do
+        expect(page).to have_link("Authentication and access control", href: "#authentication-and-access-control")
+        expect(page).to have_link("Incident readiness", href: "#incident-readiness")
+      end
+
       {
         "authentication-and-session-security-in-the-buildkite-interface-apis-and-cli" => "Authentication and access control",
         "source-code-security-and-version-control-integrity" => "Pipeline and supply chain integrity",

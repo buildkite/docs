@@ -9,9 +9,9 @@ export function initSecurityChecklist() {
       "Browser storage is unavailable. Selections will not be saved after you leave this page.";
   };
 
-  // Move aliases before moving any sections, while their document order is intact.
+  // Keep legacy anchors with their sections, outside the preceding audit tabs.
   for (const area of areas) {
-    if (area.querySelector("details")) continue;
+    if (area.classList.contains("SecurityChecklist")) continue;
     const section = document
       .querySelector(`h2[id="${area.dataset.securityArea}"]`)
       .closest("section");
@@ -27,53 +27,55 @@ export function initSecurityChecklist() {
     }
   }
 
-  for (const area of areas) {
-    if (area.querySelector("details")) continue;
+  for (const [index, area] of areas.entries()) {
+    if (area.classList.contains("SecurityChecklist")) continue;
     const heading = document.querySelector(
       `h2[id="${area.dataset.securityArea}"]`,
     );
     const section = heading.closest("section");
-    const details = document.createElement("details");
-    details.className = "SecurityChecklist";
-    const summary = document.createElement("summary");
-    const title = document.createElement("span");
-    title.className = "SecurityChecklist__title";
-    title.textContent = heading.textContent;
-    const description = document.createElement("span");
-    description.className = "SecurityChecklist__description";
-    description.textContent = area.dataset.securitySummary;
+    const group = document.createElement("div");
+    group.className = "SecurityChecklist";
+    group.dataset.securityArea = area.dataset.securityArea;
+    section.before(group);
+    const progress = document.createElement("p");
+    progress.className = "SecurityChecklist__progress";
     const count = document.createElement("span");
     count.className = "SecurityChecklist__count";
     count.setAttribute("aria-live", "polite");
-    summary.append(title, description, count);
-    details.append(summary);
+    const auditLink = document.createElement("a");
+    auditLink.href = `#${area.dataset.securityArea}-audit-this-area`;
+    auditLink.dataset.turbo = "false";
+    auditLink.textContent = "Audit this area";
+    progress.append(count, " · ", auditLink);
+    heading.after(progress);
 
     let current = section;
     do {
       const next = current.nextElementSibling;
-      details.append(current);
+      group.append(current);
       current = next;
     } while (current && !current.querySelector(":scope > h2"));
 
     let tier;
-    let group;
-    for (const element of details.querySelectorAll("h3, h4, ul > li")) {
+    let controlGroup;
+    for (const element of group.querySelectorAll("h3, h4, ul > li")) {
       if (element.matches("h3, h4")) {
         tier = element.textContent.trim();
-        if (element.matches("h3")) group = element.id;
+        if (element.matches("h3")) controlGroup = element.id;
         continue;
       }
       const label = element.querySelector(":scope > strong");
       if (!label) continue;
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
-      checkbox.dataset.securityKey = `${group}:${label.textContent}`;
+      checkbox.dataset.securityKey = `${controlGroup}:${label.textContent}`;
       checkbox.dataset.baseline = String(tier === "Baseline");
       checkbox.setAttribute("aria-label", label.textContent.replace(/:$/, ""));
       element.classList.add("SecurityChecklist__control");
       element.prepend(checkbox);
     }
-    area.replaceChildren(details);
+    area.remove();
+    areas[index] = group;
   }
 
   for (const heading of document.querySelectorAll(
@@ -184,17 +186,11 @@ export function initSecurityChecklist() {
   };
   const revealFragment = () => {
     const target = document.getElementById(location.hash.slice(1));
-    const details = target?.closest("details.SecurityChecklist");
-    if (details) {
-      details.open = true;
-      const panel = target.closest('[role="tabpanel"]');
-      if (panel) {
-        selectTab(
-          document.getElementById(panel.getAttribute("aria-labelledby")),
-        );
-      }
-      (target.hidden ? panel : target).scrollIntoView();
+    const panel = target?.closest('[role="tabpanel"]');
+    if (panel) {
+      selectTab(document.getElementById(panel.getAttribute("aria-labelledby")));
     }
+    (target?.hidden ? panel : target)?.scrollIntoView();
   };
   document.addEventListener("change", change);
   document.addEventListener("click", clickTab);

@@ -1,5 +1,5 @@
 ---
-toc: false
+toc_include_h3: false
 ---
 
 # Security checklist
@@ -20,21 +20,21 @@ If you suspect an active compromise, follow [Incident response](/docs/platform/s
 
 For the responsibilities Buildkite and your organization share, see the [Security overview](/docs/platform/security#shared-responsibility).
 
-Each area ends with _Audit this area_, with API and CLI examples, MCP prompts, and checks that require a manual review. Use a token with the documented read scopes and access to the resources under review. Set `ORG_SLUG`, `PIPELINE_SLUG`, and `CLUSTER_ID` to your own values where used. The CLI examples require an authenticated [Buildkite CLI](/docs/platform/cli) installation; commands that filter JSON also require `jq`.
+Each area ends with _Audit this area_, with API and CLI examples, MCP prompts, and checks that require a manual review. Start with the [authentication and access audit](#authentication-and-access-control-audit-this-area), or choose an area from the table of contents. Use a token with the documented read scopes and access to the resources under review. Set `ORG_SLUG`, `PIPELINE_SLUG`, and `CLUSTER_ID` to your own values where used. The CLI examples require an authenticated [Buildkite CLI](/docs/platform/cli) installation; commands that filter JSON also require `jq`.
 
 List examples show the first page only. Follow [pagination](/docs/apis/rest-api#pagination) before treating an inventory as complete. Audit events use cursor pagination: follow the response's `links.next` URL. Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server), replace the example organization and pipeline names in prompts, and verify the results. A prompt is not an access control.
 
-## Security areas
+<a id="security-areas"></a>
 
-Review the baseline in each area, then use its completion criteria to verify your setup. Open an area to see its controls. Counts include alternatives and controls for different plans and hosting models, so completing every item isn't the goal.
+Review the baseline in each area, then use its completion criteria to verify your setup. Counts include alternatives and controls for different plans and hosting models, so completing every item isn't the goal.
 
 <p class="SecurityChecklist__storage" data-security-storage role="status"></p>
 
 <% SECURITY_AREAS['areas'].each do |area| -%>
-<div data-security-area="<%= area['anchor'] %>" data-security-summary="<%= CGI.escapeHTML(area['summary']) %>"><a href="#<%= area['anchor'] %>"><%= area['name'] %></a></div>
+<span hidden data-security-area="<%= area['anchor'] %>"></span>
 <% end -%>
 
-<!-- Area names and card summaries are stored in data/content/security_areas.yaml. -->
+<!-- Area names, summaries, and audit examples are stored in data/content/security_areas.yaml. -->
 
 <% security_area = ->(anchor) { SECURITY_AREAS['areas'].find { |a| a['anchor'] == anchor } } -%>
 <% audit_area = ->(anchor) {
