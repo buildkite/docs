@@ -68,7 +68,7 @@ If an AI tool appears connected but Buildkite tool calls fail, its Buildkite aut
 
 To revoke an OAuth application's access, open [**Connected Apps**](https://buildkite.com/user/connected-apps) in your personal settings and revoke the connection. This invalidates the associated Buildkite access and refresh tokens.
 
-Running `bk auth logout` removes locally stored CLI credentials. It does not revoke the authorization in Buildkite. Use **Connected Apps** when you need to revoke access rather than only remove credentials from one machine.
+Running `bk auth logout` removes locally stored CLI credentials but does not revoke the authorization in Buildkite. Use **Connected Apps** when you need to revoke access rather than only remove credentials from one machine.
 
 ## API token authentication
 
