@@ -20,30 +20,21 @@ Each plan has default [service quotas](/docs/platform/limits) that define usage 
 
 For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
-## Billing spend alerts
+To get notified when your estimated next invoice reaches a threshold you choose, set up a [spend alert](/docs/platform/spend-alerts).
 
-Spend alerts notify your organization when its estimated next invoice reaches a threshold you choose. Spend alerts are informational only—they don't cap spending, stop builds, or disable usage.
+## Usage overview during your trial
 
-Spend alerts are available to organizations on a monthly Pro plan that renews automatically. Legacy Buildkite Pipelines Pro plans are not supported. To set up or change a spend alert, you need billing administration permissions for your organization.
+Organizations with an active All Access Trial see an **Overview** tab on the [**Usage** page](https://buildkite.com/organizations/~/usage). This tab summarizes how your organization has explored Buildkite so far, and what else is available on your plan.
 
-To set up a spend alert:
+The **Overview** tab shows:
 
-1. Select **Settings** in the global navigation, then select **Billing**.
-1. In the **Spend Alert** row, select **Set spend alert**.
-1. Ensure **Enable spend alert** is selected, then enter an **Invoice threshold (USD)**.
-1. Optionally, select **Add my email to billing contacts**.
-1. Select **Save spend alert**.
+- The current usage period.
+- The days remaining in the trial once the countdown period begins.
+- Feature cards grouped into explored and unexplored sections, with a utilization indicator showing how many available features your organization has tried.
 
-To change the threshold or turn off the alert, select **Manage spend alert** in the **Spend Alert** row.
+Select a feature card to go to that feature.
 
-When the estimate reaches or exceeds your threshold:
-
-- Organization administrators see a banner across Buildkite.
-- Your organization's billing contacts receive an email, at most once per billing period.
-
-If your organization has no billing contacts when the threshold is first reached, the banner still appears, but no email is sent for that billing period.
-
-Spend alerts aren't real-time. Your invoice estimate may already be higher than your threshold when an alert is sent. The estimate is based on charges accrued so far. Usage reporting can be delayed. The estimate may also differ from your final invoice.
+Organizations without an active trial are taken to the **Platform** tab when they select **Usage**.
 
 ## Viewing prepaid inclusions
 

@@ -488,6 +488,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+For artifacts in Buildkite-managed storage, `artifact://` images and links no longer load once the artifact passes your organization's retention period. See [Limits](/docs/platform/limits) for the plan defaults.
+
 ## List annotations for a build
 
 All build and job-scoped annotations for a build can be retrieved using the [REST API](#list-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-annotations-for-a-build-using-the-graphql-api).

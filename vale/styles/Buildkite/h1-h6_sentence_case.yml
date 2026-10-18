@@ -100,6 +100,7 @@ exceptions:
   - CloudWatch
   - CloudWatch Logs
   - CocoaPods
+  - Code Storage
   - Codebase Settings
   - Cognito
   - completion_watcher
@@ -142,6 +143,7 @@ exceptions:
   - GitHub Copilot
   - GitHub Enterprise
   - GitHub Enterprise Server
+  - GitHub Pages
   - GitLab
   - GitLab SCM
   - GitLab Self-Managed

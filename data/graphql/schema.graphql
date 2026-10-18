@@ -105,6 +105,7 @@ enum APIAccessTokenScopes {
   READ_TEST_PLAN
   READ_TEST_POOL
   READ_USER
+  RETRY_BUILDS
   WRITE_AGENTS
   WRITE_ARTIFACTS
   WRITE_BUILDS
@@ -836,7 +837,8 @@ A file uploaded from the agent whilst running a job
 type Artifact implements Node {
   """
   The download URL for the artifact. Unless you've used your own artifact
-  storage, the URL will be valid for only 10 minutes.
+  storage, the URL will be valid for only 10 minutes. Once the artifact has
+  expired, a URL that responds with 410 Gone.
   """
   downloadURL: String!
 
@@ -1161,6 +1163,7 @@ enum AuditEventType {
   CLUSTER_UPDATED
   COMPOSITE_REGISTRY_UPSTREAM_ADDED
   COMPOSITE_REGISTRY_UPSTREAM_REMOVED
+  CONCURRENCY_GROUP_MIGRATION_STARTED
   CREDIT_CARD_ADDED
   CREDIT_CARD_REMOVED
   GITHUB_ACTIONS_SECRET_MIGRATION_GRANT_CREATED
@@ -1650,6 +1653,36 @@ type Build implements Node {
   The time when the build finished
   """
   finishedAt: DateTime
+
+  """
+  Name from the selected workflow source, or its path when unnamed.
+  """
+  githubWorkflowName: String
+
+  """
+  Path of the workflow source fetched and selected by the server.
+  """
+  githubWorkflowPath: String
+
+  """
+  Ref context at workflow selection. Does not prove SHA membership or authenticate the event.
+  """
+  githubWorkflowRef: String
+
+  """
+  Repository name at workflow selection (owner/name), not the current pipeline repository.
+  """
+  githubWorkflowRepository: String
+
+  """
+  Stable GitHub repository ID of the server-selected workflow source. Null for unverified historical builds.
+  """
+  githubWorkflowRepositoryId: ID
+
+  """
+  Immutable commit SHA of the selected workflow source, independent of the checkout commit. Does not attest executed code.
+  """
+  githubWorkflowSha: String
   id: ID!
   jobs(
     """
@@ -2852,6 +2885,12 @@ type ClusterQueue implements Node {
   stackHealth: String
 
   """
+  Whether jobs on this self-hosted queue check out GitHub repositories with a
+  Buildkite-issued GitHub App token, as on hosted queues
+  """
+  useGithubAppToken: Boolean!
+
+  """
   The public UUID for this cluster queue
   """
   uuid: ID!
@@ -2900,6 +2939,11 @@ input ClusterQueueCreateInput {
   Dispatch behavior for retry jobs. Must be one of `prefer-warmest` or `prefer-different`
   """
   retryAgentAffinity: String
+
+  """
+  Whether jobs on this self-hosted queue check out GitHub repositories with a Buildkite-issued GitHub App token
+  """
+  useGithubAppToken: Boolean
 }
 
 """
@@ -3105,6 +3149,11 @@ input ClusterQueueUpdateInput {
   Retry agent affinity
   """
   retryAgentAffinity: String
+
+  """
+  Whether jobs on this self-hosted queue check out GitHub repositories with a Buildkite-issued GitHub App token
+  """
+  useGithubAppToken: Boolean
 }
 
 """
@@ -4717,6 +4766,11 @@ enum JobEventType {
   The Job was finished by an agent
   """
   FINISHED
+
+  """
+  The Job was canceled because the organization reached its hosted agent minutes limit
+  """
+  HOSTED_MINUTES_LIMIT_REACHED
 
   """
   The Job is limited by a concurrency group

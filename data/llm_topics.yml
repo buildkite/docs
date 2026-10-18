@@ -26,13 +26,14 @@ ai-tools-and-mcp:
 
 getting-started:
   name: "Getting Started with Buildkite Pipelines"
-  description: "Buildkite documentation for getting started with Buildkite Pipelines, covering first pipeline creation, architecture, dashboard walkthrough, build page, pipeline converter, glossary, and connecting source control."
+  description: "Buildkite documentation for getting started with Buildkite Pipelines, covering first pipeline creation, starting builds, architecture, dashboard walkthrough, build page, pipeline converter, glossary, and connecting source control."
   paths:
     - "pipelines/converter"
     - "pipelines/source-control"
   exact_paths:
     - "pipelines"
     - "pipelines/getting-started"
+    - "pipelines/starting-a-new-build"
     - "pipelines/getting-started-with-coding-agents"
     - "pipelines/architecture"
     - "pipelines/dashboard-walkthrough"
@@ -392,6 +393,7 @@ debugging:
     - "agent/buildkite-hosted/terminal-access"
     - "agent/buildkite-hosted/desktop-access"
     - "agent/lifecycle"
+    - "pipelines/starting-a-new-build"
     - "agent/cli/reference/annotate"
     - "agent/cli/reference/annotation"
     - "pipelines/configure/managing-log-output"

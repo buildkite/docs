@@ -246,6 +246,21 @@ Required scope: `read_artifacts`
 
 Success response: `302 Found`
 
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>410 Gone</code></th>
+    <td><code>{ "message": "Artifact has been deleted" }</code></td>
+  </tr>
+  <tr>
+    <th><code>410 Gone</code></th>
+    <td><code>{ "message": "Artifact has expired", "expired_at": "2026-02-09T12:00:00.000Z" }</code> <code>expired_at</code> is when the artifact's retention period ran out.</td>
+  </tr>
+</tbody>
+</table>
+
 ## Delete an artifact
 
 The artifact record is marked as deleted in the Buildkite database, and the artifact itself is removed from the Buildkite AWS S3 bucket. It will no longer be displayed in the job or build artifact lists, and it will not be returned by the artifact APIs.

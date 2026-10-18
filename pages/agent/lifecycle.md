@@ -15,7 +15,9 @@ When a build's job is canceled, the agent sends that job process the configured 
 
 If the process does not exit within the [`cancel-signal-timeout`](/docs/agent/self-hosted/configure#cancel-signal-timeout) (ten seconds by default), the agent forcefully terminates it with `SIGKILL`.
 
-When the agent itself is shutting down, it reserves an additional [`cancel-cleanup-timeout`](/docs/agent/self-hosted/configure#cancel-cleanup-timeout) (five seconds by default) after the job process exits or is killed to upload logs and artifacts before forcefully exiting. During normal operation, uploads after a cancellation are not time-limited.
+The same timeout also covers the [`post-command` hooks](/docs/agent/hooks#job-lifecycle-hooks), [artifact](/docs/pipelines/configure/artifacts) uploads, and `pre-exit` hooks that run after the command stops. If the timeout expires first, a `pre-exit` hook might not run or finish. If a `pre-exit` hook must run on canceled jobs, keep it fast and safe to rerun, and set `cancel-signal-timeout` long enough for it to finish. The agent log shows the timeout in use, for example, `Canceling job ... with a signal grace period of 10s`.
+
+During a forced agent shutdown, the agent waits up to an additional [`cancel-cleanup-timeout`](/docs/agent/self-hosted/configure#cancel-cleanup-timeout) (five seconds by default) to finish uploading the job log before exiting.
 
 A canceled or timed-out job whose process exits with status `0` is reported with exit status `1` on all platforms. This mainly affects Windows, where signaled processes exit with status `0`. Agent v3 reported these jobs with exit status `0` unless the [`override-zero-exit-on-cancel` experiment](/docs/agent/self-hosted/configure/experiments#promoted-experiments-override-zero-exit-on-cancel) was enabled.
 
@@ -36,6 +38,8 @@ Exit code           | Description
 128 + signal number | The job was terminated by a signal (see note below)
 255                 | The agent was gracefully terminated
 -1                  | Buildkite lost contact with the agent or it stopped reporting to us
+
+Buildkite Pipelines stores exit codes as signed 64-bit integers. An exit code can be any value from `-9223372036854775808` to `9223372036854775807`, which covers negative exit codes such as `-1`.
 
 > 📘 Jobs terminated by signals
 > When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.

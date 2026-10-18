@@ -17,6 +17,8 @@ Learn more about:
 
 - The [concurrency](#concurrency), [security](#security), and [current limitations](#current-limitations) of Windows hosted agents.
 
+- Running [GitHub Actions workflows](/docs/pipelines/migration/run-github-actions-workflows#requirements-run-windows-jobs) on Windows hosted agents.
+
 ## Sizes
 
 Windows hosted agents support the AMD64 architecture in four instance shapes:
@@ -55,4 +57,3 @@ Windows hosted agents don't currently support:
 - Windows Server 2025
 - Selecting a Windows shell in the queue settings
 - Selecting or managing the Buildkite agent version
-- Windows jobs through the [GitHub Actions compatibility feature](/docs/pipelines/migration/run-github-actions-workflows)
