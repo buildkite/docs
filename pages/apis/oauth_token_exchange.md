@@ -281,7 +281,13 @@ Prefer shorter token lifetimes to limit the blast radius if a token is compromis
 
 ## Example client
 
-The [buildkite-token-exchange-example](https://github.com/buildkite/buildkite-token-exchange-example) repository contains a complete Go client that demonstrates the full token exchange flow, including JWT signing, token caching, and API calls.
+The [Go token exchange library](https://github.com/buildkite/tokenexchange) handles JWT signing, token exchange, caching, and authenticated HTTP requests. Its examples demonstrate how to:
+
+- [Convert a PEM key into a JWKS](https://github.com/buildkite/tokenexchange/tree/main/examples/jwks) for registering your application.
+- [Mint a token and make authenticated REST requests](https://github.com/buildkite/tokenexchange/tree/main/examples/mint).
+- [Run a single-user MCP gateway](https://github.com/buildkite/tokenexchange/tree/main/examples/mcp_gateway) that keeps short-lived Buildkite tokens in the gateway rather than distributing them to clients.
+
+See [Using token exchange with an MCP gateway](/docs/apis/mcp-server/remote/configuring-ai-tools#api-token-pass-through-for-headless-agents-using-token-exchange-with-an-mcp-gateway) for the authentication flow and production considerations. The gateway example is a local demonstration, not a production authentication service.
 
 ## Troubleshooting
 
