@@ -33,8 +33,9 @@ export function initSecurityChecklist() {
       `h2[id="${area.dataset.securityArea}"]`,
     );
     const section = heading.closest("section");
-    const group = document.createElement("div");
+    const group = document.createElement("details");
     group.className = "SecurityChecklist";
+    group.open = true;
     group.dataset.securityArea = area.dataset.securityArea;
     section.before(group);
     const progress = document.createElement("p");
@@ -46,7 +47,7 @@ export function initSecurityChecklist() {
     auditLink.href = `#${area.dataset.securityArea}-audit-this-area`;
     auditLink.dataset.turbo = "false";
     auditLink.textContent = "Audit this area";
-    progress.append(count, " · ", auditLink);
+    progress.append(auditLink);
     heading.after(progress);
 
     let current = section;
@@ -55,6 +56,15 @@ export function initSecurityChecklist() {
       group.append(current);
       current = next;
     } while (current && !current.querySelector(":scope > h2"));
+
+    const summary = document.createElement("summary");
+    // The summary toggles the card; its heading must not navigate to itself.
+    heading.textContent = heading.textContent;
+    const description = document.createElement("span");
+    description.className = "SecurityChecklist__description";
+    description.textContent = area.dataset.securitySummary;
+    summary.append(heading, description, count);
+    group.prepend(summary);
 
     let tier;
     let controlGroup;
@@ -87,7 +97,7 @@ export function initSecurityChecklist() {
     const tabs = document.createElement("div");
     tabs.className = "SecurityAudit__tabs";
     tabs.setAttribute("role", "tablist");
-    tabs.setAttribute("aria-labelledby", heading.id);
+    tabs.setAttribute("aria-label", heading.textContent);
     const panels = [];
     for (const [index, label] of [
       ...section.querySelectorAll("h4"),
@@ -99,6 +109,9 @@ export function initSecurityChecklist() {
         panel.append(current);
         current = next;
       } while (current && !current.matches("h4"));
+      // Match the audit layout: example first, explanatory text below it.
+      const example = panel.querySelector(":scope > .highlight");
+      if (example) label.after(example);
       const tab = document.createElement("button");
       tab.type = "button";
       tab.textContent = label.textContent;
@@ -186,6 +199,8 @@ export function initSecurityChecklist() {
   };
   const revealFragment = () => {
     const target = document.getElementById(location.hash.slice(1));
+    const group = target?.closest("details.SecurityChecklist");
+    if (group) group.open = true;
     const panel = target?.closest('[role="tabpanel"]');
     if (panel) {
       selectTab(document.getElementById(panel.getAttribute("aria-labelledby")));

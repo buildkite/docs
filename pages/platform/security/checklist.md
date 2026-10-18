@@ -31,7 +31,7 @@ Review the baseline in each area, then use its completion criteria to verify you
 <p class="SecurityChecklist__storage" data-security-storage role="status"></p>
 
 <% SECURITY_AREAS['areas'].each do |area| -%>
-<span hidden data-security-area="<%= area['anchor'] %>"></span>
+<span hidden data-security-area="<%= area['anchor'] %>" data-security-summary="<%= ERB::Util.html_escape(area['summary']) %>"></span>
 <% end -%>
 
 <!-- Area names, summaries, and audit examples are stored in data/content/security_areas.yaml. -->

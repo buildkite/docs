@@ -1,5 +1,42 @@
 .Article .SecurityChecklist {
+  display: block;
+  // Long audit examples scroll inside the card instead of widening the page.
+  contain: inline-size;
+  border: 1px solid $navy-200;
+  border-radius: 8px;
+  margin: 16px 0;
+  padding: 0 20px;
+
+  &[open] {
+    background: $base-0;
+  }
+
+  summary {
+    cursor: pointer;
+    padding: 20px 0;
+
+    h2 {
+      display: inline;
+      position: static;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+    }
+  }
+
   &__progress {
+    font-size: 0.9rem;
+    margin-top: 0;
+  }
+
+  &__description,
+  &__count {
+    display: block;
+    margin-top: 8px;
     font-size: 0.9rem;
   }
 
@@ -10,12 +47,13 @@
   li.SecurityChecklist__control {
     list-style: none;
     position: relative;
-    padding: 8px 0;
+    padding: 12px 0;
+    border-bottom: 1px solid $navy-200;
 
     input {
       position: absolute;
       left: -28px;
-      top: 13px;
+      top: 17px;
       width: 18px;
       height: 18px;
       cursor: pointer;
@@ -27,29 +65,71 @@
   display: none;
 }
 
-.SecurityAudit [hidden] {
-  display: none;
+.Article .SecurityAudit {
+  margin-bottom: 24px;
+
+  [hidden] {
+    display: none;
+  }
+
+  p {
+    color: $navy-500;
+  }
+
+  pre {
+    background: #f9f9f9;
+    color: #404040;
+    padding: 16px 44px 16px 16px;
+    overflow: auto;
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+
+    code,
+    code span {
+      color: inherit;
+      font-weight: normal;
+      font-style: normal;
+      overflow-wrap: normal;
+    }
+
+    @media (max-width: $screen-sm) {
+      padding-top: 44px;
+    }
+  }
+
+  .CopyToClipboardButton {
+    opacity: 1;
+    box-shadow: none;
+    border: 1px solid $navy-200;
+
+    svg {
+      color: $navy-500;
+    }
+  }
 }
 
 .SecurityAudit__tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
+  gap: 20px;
+  overflow-x: auto;
   border-bottom: 1px solid $navy-200;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 
   button {
     background: none;
     border: 0;
-    border-bottom: 3px solid transparent;
-    color: inherit;
+    border-bottom: 2px solid transparent;
+    color: $navy-500;
     cursor: pointer;
     font: inherit;
-    padding: 10px 0;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 10px 12px 10px 0;
 
     &[aria-selected="true"] {
+      color: $purple-600;
       border-bottom-color: currentColor;
-      font-weight: 600;
     }
 
     &:focus-visible {
@@ -59,6 +139,37 @@
   }
 }
 
-html.dark .SecurityAudit__tabs {
-  border-color: $navy-700;
+html.dark {
+  .Article .SecurityChecklist[open] {
+    background: #0f172a;
+  }
+
+  .Article .SecurityChecklist,
+  .Article .SecurityChecklist__control,
+  .SecurityAudit__tabs {
+    border-color: $navy-700;
+  }
+
+  .Article .SecurityAudit {
+    p,
+    pre {
+      color: $navy-300;
+    }
+
+    pre {
+      background: $navy-950;
+
+      code span {
+        color: inherit;
+      }
+    }
+  }
+
+  .SecurityAudit__tabs button {
+    color: $navy-300;
+
+    &[aria-selected="true"] {
+      color: $purple-300;
+    }
+  }
 }
