@@ -4,13 +4,13 @@ description: "Reference for the GitHub Actions workflow syntax, triggers, action
 
 # GitHub Actions Compatibility reference
 
-This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows).
+This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1, the runtime used by GitHub Actions Compatibility. It also describes server-side workflow selection and distinguishes advanced runtime capabilities from native setup defaults. If a feature isn't listed on this page, treat it as unsupported. To create a pipeline without configuring a plugin or installing the runtime, see [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows).
 
 `buildkite-gha` requires Buildkite agent v3.129 or newer.
 
-Generated jobs run on Linux x86-64, Linux arm64, native macOS arm64, and [Windows Server 2022 x86-64](#windows-jobs). Linux arm64 jobs require an explicit queue. Windows jobs require a [compatible Windows queue](#windows-jobs-configure-a-windows-runner). The plugin's importer runs on Linux x86-64 or macOS arm64. A [custom importer](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer) can also run on Linux arm64. Runner labels select a platform. They don't promise GitHub image, toolchain, or Xcode parity. The runtime sets the matching `runner.os` and `runner.arch` values, and sets `runner.environment` to `self-hosted` on every platform.
+Generated jobs run on Linux x86-64, Linux arm64, native macOS arm64, and [Windows Server 2022 x86-64](#windows-jobs). Linux arm64 jobs require an explicit queue mapping; contact the Buildkite Support team for native pipeline setup. Windows jobs require a [compatible Windows queue](#windows-jobs-configure-a-windows-runner). Buildkite Pipelines manages workflow preparation on Linux x86-64 or macOS arm64. Runner labels select a platform. They don't promise GitHub image, toolchain, or Xcode parity. The runtime sets the matching `runner.os` and `runner.arch` values, and sets `runner.environment` to `self-hosted` on every platform.
 
-Generated Linux jobs use a dedicated `runner` user and need `buildkite-gha` v0.13.7 or newer. Use `experimental-runner-user: false` temporarily if an image can't support the [privileged bootstrap](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-run-linux-jobs-as-a-non-root-user).
+Generated Linux jobs use a dedicated `runner` user. See the [runtime bootstrap requirements](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-run-linux-jobs-as-a-non-root-user) if you manage a custom execution environment.
 
 The GitHub [workflow syntax reference](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) describes the original syntax. This page describes the subset that runs on Buildkite Pipelines.
 
@@ -29,7 +29,7 @@ This page keeps the following distinctions explicit:
 
 | Status | Meaning |
 | --- | --- |
-| ✅ **Supported** | Available through the production plugin path. |
+| ✅ **Supported** | Available through GitHub Actions Compatibility. |
 | 🟡 **Supported subset** | Available within the limits shown here. |
 | ➖ **Accepted, no effect** | Validation accepts the syntax, but it doesn't change the build. |
 | 🚧 **Not available in production** | The compiler or runtime supports it, but production upload blocks it. |
@@ -41,7 +41,7 @@ Looking for something else? [Browse open compatibility issues](https://github.co
 | Area | Status | Initial release boundary |
 | --- | --- | --- |
 | [Workflow and job names](#workflow-names-and-triggers) | 🟡 Supported subset | `name`, explicit `run-name`, and job names are retained. `run-name` supports expressions over `github`, `inputs`, and `vars`. |
-| [Triggers and filters under `on`](#workflow-names-and-triggers) | 🟡 Supported subset | Buildkite Pipelines creates builds. Upload selects aggregate workflow groups for one effective event. `workflow_call` is supported for composition. |
+| [Triggers and filters under `on`](#workflow-names-and-triggers) | 🟡 Supported subset | Buildkite Pipelines matches supported events and creates one build per matching workflow. Manual runs select `workflow_dispatch` or a matching `push` declaration. `workflow_call` is supported for composition. |
 | [Platforms](#job-syntax-job-configuration) | 🟡 Supported subset | Linux x86-64 labels have local presets. Explicit mappings can select a user-provided Linux arm64 or Windows x86-64 queue. The Agent API can map compatible selectors to Linux, native macOS arm64, or, when Windows routing is enabled, Windows x86-64 targets. Labels don't provide GitHub image, toolchain, or Xcode parity. |
 | [Jobs and dependencies](#job-syntax-job-configuration) | ✅ Supported | Static dependencies, matrix fan-out and fan-in, results, and bounded outputs. |
 | [Matrix strategies](#job-syntax-matrix-strategies) | 🟡 Supported subset | Static matrices, `include`, `exclude`, and literal `max-parallel`. Needs-derived matrices can also read their producer's parallel limit. Maximum 256 instances per job. `fail-fast` has no effect. |
@@ -71,16 +71,15 @@ Use a Windows Server 2022 queue with Buildkite agent v3.129 or newer, PowerShell
 
 ### Configure a Windows runner
 
-Choose one route with your pipeline administrator:
+For a native GitHub Actions pipeline, ask the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to confirm your organization's hosted Windows Medium access and automatic routing availability. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify, even if its name matches.
 
-- **Explicit mapping:** Map the workflow's `windows-latest` or `windows-2022` label to an existing Windows Server 2022 x86-64 queue in the importing job's cluster. The Agent API must validate that the queue exists and, for a hosted queue, matches `windows/amd64`. See the [plugin and CLI examples](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes).
-- **Automatic routing:** Ask the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to confirm your organization's hosted Windows Medium access and Agent API routing availability. The importing job's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify, even if its name matches.
+Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes). These aren't part of native pipeline setup. The Agent API validates that the queue exists in the importing job's cluster and, for a hosted queue, matches `windows/amd64`.
 
-Neither route creates queues, grants hosted Windows access, or changes trust policy. Keep generated-job queues isolated from protected credentials and earlier jobs, including when using a self-hosted queue. An explicit mapping isn't a way to bypass queue validation. Don't change a Windows-only job to Linux to get past runner admission.
+Runner resolution doesn't create queues, grant hosted Windows access, or change trust policy. Keep generated-job queues isolated from protected credentials and earlier jobs, including when using a self-hosted queue. An explicit mapping isn't a way to bypass queue validation. Don't change a Windows-only job to Linux to get past runner admission.
 
 | Diagnostic | Action |
 | --- | --- |
-| No Windows runner target is configured | Configure one of the routes in the previous list. Offline validation has no Windows preset. This failure alone doesn't establish runtime incompatibility. |
+| No Windows runner target is configured | Check hosted Windows access and routing with the Buildkite Support team. Offline validation has no Windows preset. This failure alone doesn't establish runtime incompatibility. |
 | No hosted Windows queue (`missing_queue`) | Ask an administrator to check the importing job's cluster and all automatic-routing queue requirements, or explicitly map a compatible existing queue. |
 | Job doesn't belong to a cluster (`no_cluster`) | Ask an administrator to move the pipeline to a cluster containing compatible queues. |
 | Queue not found or platform mismatch | Correct the mapping to an active Windows queue in the importing job's cluster. A Linux queue can't run the Windows runtime. |
@@ -98,12 +97,12 @@ Windows environment overlays replace names case-insensitively but preserve the w
 
 ## How workflows run on Buildkite Pipelines
 
-GitHub Actions combines run creation and workload definition in one file. Buildkite Pipelines keeps them separate.
+Buildkite Pipelines reads the workflow's event declarations and creates a build for each matching workflow. Workflow files remain in `.github/workflows/`; the server manages workflow selection and preparation.
 
 | GitHub Actions concept | Buildkite Pipelines behavior |
 | --- | --- |
-| Workflow trigger | Buildkite integration, schedule, manual build, or API request |
-| Workflow run | Existing Buildkite build |
+| Workflow trigger | Server-side matching of supported GitHub events, or a manual workflow selection |
+| Workflow run | One Buildkite build per selected workflow |
 | Job | Buildkite command job |
 | Matrix entry | Buildkite command job |
 | `needs` | `depends_on` with verified result transport |
@@ -116,7 +115,9 @@ Steps remain inside one job because they share a workspace, environment files, a
 
 ### Aggregate workflow upload
 
-The plugin accepts either one `workflow` path or a non-empty `workflows` array. GitHub Actions pipeline trigger builds can instead use an empty plugin configuration and the single workflow selected by Buildkite Pipelines. `BUILDKITE_GITHUB_WORKFLOW_PATH` marks the selection. When present, the plugin prefers the repository, path, and event ref from `GITHUB_WORKFLOW_REF`, the workflow name or fallback path from `GITHUB_WORKFLOW`, the event from `GITHUB_EVENT_NAME`, and the commit from `GITHUB_WORKFLOW_SHA`. These values must match the repository and checked-out workflow. The Buildkite-prefixed path and event remain compatibility fallbacks, while `BUILDKITE_GITHUB_ACTION` supplies the event activity. Explicit plugin selection takes precedence over server workflow selection. Without either selection, the plugin fails. The server-selected importer doesn't need a step key. The plugin uploads its artifacts before the dynamic pipeline and scopes retrieval to the importer job ID without using that UUID as a dependency key. Explicit-selector importers still require a step key, and their generated groups depend on it.
+Native GitHub Actions pipelines run one server-selected workflow per build. The server supplies workflow identity and event metadata, which the runtime checks against the repository and checkout. Customers don't configure these values. A missing or untracked server-selected workflow fails preparation rather than silently succeeding.
+
+The remaining aggregate-upload behavior describes advanced custom importers and older explicit-workflow pipelines, not native pipeline setup. A custom importer can pass explicit workflow paths to the [CLI upload command](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer). Explicit-selector importers require a step key, and their generated groups depend on it.
 
 Missing or untracked explicitly configured paths warn and are skipped, so removing a workflow doesn't require a simultaneous pipeline configuration change. If every configured path is missing or untracked, the importer succeeds without uploading a pipeline. A missing or untracked pipeline trigger-selected path fails because the server claimed that exact workflow selected the build. Every present path must be a regular, tracked `.yml` or `.yaml` file inside the repository. Directories, tracked files missing from the checkout, outside paths, symlinks, and globs fail. A custom importer may upload one explicit regular workflow from outside the repository, or an untracked one, unless it holds a [matrix from a job output](#job-syntax-matrices-from-job-outputs).
 
@@ -185,7 +186,7 @@ Absent properties in a known input set are empty, so expressions such as `${{ in
 
 `run-name` uses [repository and organization variables](#job-syntax-repository-and-organization-variables), never environment-scoped variables. Upload resolves those scopes before evaluating applicable workflow names, even when `run-name` is the workflow's only `vars` reference, such as `run-name: Deploy ${{ vars.TARGET }}`.
 
-Buildkite Pipelines controls when a build starts. The trigger declaration controls whether and under which condition the workflow group participates in that existing build:
+Buildkite Pipelines matches a workflow's trigger declaration before creating a build. For example, this declaration selects pushes to `main`:
 
 ```yaml
 on:
@@ -194,7 +195,9 @@ on:
       - main
 ```
 
-Upload selects one effective event, in this order:
+For native manual runs, Buildkite Pipelines selects `workflow_dispatch` when declared, otherwise a matching `push` declaration. The interface doesn't collect dispatch inputs; defaults and typed zero values apply. See [Run a workflow manually](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
+
+At runtime, upload selects one effective event, in this order:
 
 1. The event in an explicit `--event-path` snapshot.
 1. The GitHub event name accompanying the reserved Buildkite linked-webhook metadata.
@@ -218,7 +221,7 @@ Pipeline trigger deployment events require the original linked payload and compl
 
 Pipeline trigger merge groups require the original linked payload and complete workflow ref and SHA identity too. Repository, action, speculative head ref and SHA, and base branch and SHA must agree with the build. Rebuilds without the payload fail explicitly. These builds support tokenless workflows. Hosted merge-queue workflow-token requests remain denied. Declared permissions alone don't cause the compiler to request a token.
 
-With the GitHub Code Access App, Buildkite Pipelines resolves a release tag to its peeled commit before creating the build. Without it, the plugin resolves the symbolic `HEAD` that Pipelines provides from the checkout as a compatibility fallback. The fallback can't infer a merge group, release, issues, or issue-comment event without linked-webhook data.
+With the GitHub Code Access App, Buildkite Pipelines resolves a release tag to its peeled commit before creating the build. Without it, the runtime resolves the symbolic `HEAD` that Pipelines provides from the checkout as a compatibility fallback. The fallback can't infer a merge group, release, issues, or issue-comment event without linked-webhook data.
 
 The selected event then controls applicability, event-dependent compilation, the group condition, and the provider-check suffix.
 
@@ -488,7 +491,7 @@ Self-repository calls such as `$/.github/workflows/ci.yml` select the repository
 
 Verified self calls in the root workflow's repository support `secrets: inherit` and explicit secret mappings. Nested `$/` and `./` calls retain this forwarding scope. An explicit `owner/repository/...@ref` call leaves the scope, even if it names the same repository and commit; its nested self or local calls cannot restore it. Every forwarding edge still needs its own `secrets` declaration.
 
-Private references work for the pipeline repository and cross-repository sources available to the importer's existing Git credentials. Enable them with the plugin's default-off `private-reusable-workflows` field or the matching `upload` flag. When the Buildkite agent repository-provider credential helper supplies access, Buildkite approves each requested repository. Git access is also used when GitHub's anonymous API quota is exhausted, so a rate limit does not fail an otherwise authorized call. Missing and denied repositories, refs, and paths produce the same error.
+Private references require separate source access, which is disabled by default in native GitHub Actions pipelines. Contact the Buildkite Support team before relying on private reusable workflows. When enabled, access covers the pipeline repository and cross-repository sources available to the importer's existing Git credentials. The Buildkite agent repository-provider credential helper requests approval for each repository. Git access is also used when GitHub's anonymous API quota is exhausted, so a rate limit does not fail an otherwise authorized call. Missing and denied repositories, refs, and paths produce the same error.
 
 **✅ Supported:**
 
@@ -709,7 +712,7 @@ A workflow with workflow-level `concurrency` cannot hold a matrix from `fromJSON
 
 When workflow-level `cancel-in-progress` is `true`, Pipelines warns and leaves superseded builds running. The same behavior applies when an expression resolves to `true` and when a called workflow sets it. Job-level `cancel-in-progress` is unsupported.
 
-In an explicit-workflow pipeline, to cancel earlier running builds on the same branch, turn on [Cancel Intermediate Builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) under pipeline **Settings** > **Builds**. This setting works by branch, not by concurrency group. Leave it disabled for server-side dispatch, where it can cancel sibling workflow builds from the same event.
+Leave [Cancel Intermediate Builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) and **Skip Intermediate Builds** disabled for server-side dispatch. These settings work by branch, not workflow concurrency group, and can cancel or skip sibling workflow builds from the same event.
 
 Cancel the whole Buildkite build rather than one job when a workflow-level concurrency gate is active.
 
@@ -805,7 +808,7 @@ Windows rejections preserve the server's reason and add setup or variant guidanc
 
 Imports using explicit mappings require job-scoped Agent API credentials and a server that acknowledges configured-target validation. If validation is unavailable, the import stops before uploading jobs rather than trusting an unchecked mapping. Imports without explicit mappings still warn and fall back to built-in presets when the Agent API cannot be reached.
 
-Explicit mappings can also attach one [Buildkite hosted cache volume](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-configure-generated-job-cache-volumes) to generated jobs. This configuration is outside the GitHub workflow and does not change workflow syntax or action inputs.
+Native pipeline setup doesn't expose custom runner mappings or generated-job cache volume configuration. Contact the Buildkite Support team if automatic runner resolution doesn't meet your requirements. Workflow-level `actions/cache` support is described under [Actions](#actions).
 
 Offline `validate` and `compile` do not check queues against the cluster. `validate --profile hosted` has no job-scoped API and admits only the local `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, and `macos-latest` presets.
 
@@ -1827,24 +1830,7 @@ Jobs with `id-token: write` expose the GitHub Actions `getIDToken()` contract to
 
 `id-token: read`, `id-token: none`, and omitted permissions don't expose the endpoint.
 
-The plugin can apply additional Buildkite OIDC settings to every mint:
-
-```yaml
-plugins:
-  - github-actions#latest:
-      workflow: .github/workflows/deploy.yml
-      oidc:
-        claims:
-          - organization_id
-        aws-session-tags:
-          - organization_slug
-          - pipeline_id
-        subject-claim: pipeline_id
-```
-
-`claims` and `aws-session-tags` accept non-empty lists. `subject-claim` accepts one non-empty immutable claim name. The Agent API owns the claim vocabulary and rejects unsupported names when the job mints a token.
-
-Plugin OIDC configuration doesn't grant `id-token: write`. A job without that permission receives no endpoint.
+Tokens use the default Buildkite claims and subject without plugin configuration. Native pipeline setup doesn't expose custom claims, AWS session tags, or subject overrides. Contact the Buildkite Support team for custom OIDC requirements. A job without `id-token: write` receives no endpoint.
 
 The endpoint variables are scoped to each host action lifecycle invocation. Shell steps, Docker container actions, and actions running in job containers don't receive them. Container actions that call `getIDToken()` fail with its missing endpoint variable diagnostic.
 
