@@ -5,6 +5,15 @@ services:
     # Joins the tailnet using Buildkite OIDC before running the command, so the
     # private prod-use1 EKS API is reachable.
     entrypoint: with-tailscale
+    # Runtime exporter settings are not in BUILDKITE_ENV_FILE.
+    # Forward names so credentials stay out of pipeline uploads.
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_PROTOCOL
+      - OTEL_EXPORTER_OTLP_HEADERS
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+      - OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
+      - OTEL_EXPORTER_OTLP_TRACES_HEADERS
     cap_add:
       - NET_ADMIN
     devices:
