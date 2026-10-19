@@ -23,7 +23,7 @@ From the **Start building for free** page, do either of the following:
     1. Follow the instructions on the **Verify your email** page and select the verification link in the email sent to that address.
     1. On the **Create organization** page, enter a name for your Buildkite organization.
 
-Either path takes you to the **New Pipeline** page, where you can begin [creating your new pipeline](#create-a-new-pipeline).
+Either path takes you to the **New Pipeline** page, where you can begin [creating a new pipeline](#create-a-new-pipeline).
 
 ## Create a new pipeline
 
