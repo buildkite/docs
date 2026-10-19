@@ -2,6 +2,11 @@
 
 Use the workflows API to create and manage [workflows](/docs/pipelines/configure/tests/workflows) for a Buildkite Test Engine [test suite](/docs/pipelines/configure/tests/test-suites). Each workflow has one monitor, optional execution tag filters, and actions to run when a test alarms or recovers.
 
+In every endpoint, `{org.slug}` is the organization slug, `{suite.slug}` accepts a suite slug or UUID, and `{workflow.id}` is a workflow UUID.
+
+> 📘
+> These endpoints require an [API access token](/docs/apis/managing-api-tokens). OIDC tokens are not accepted.
+
 ## Create a workflow
 
 This example creates a transition count workflow that adds the `flaky` label when a test alarms and removes it when the test recovers:
@@ -55,10 +60,6 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Required scope: `write_suites`
-
-Success response: `201 Created`
-
 Required [request body properties](/docs/apis/rest-api#request-body-properties):
 
 Property | Description
@@ -75,22 +76,18 @@ Property | Description
 `recover_actions` | An array of up to seven actions to run when a test recovers. Defaults to `[]`. Must be empty for a `new_test` monitor.
 {: class="responsive-table"}
 
+Required scope: `write_suites`
+
+Success response: `201 Created`
+
 ## List workflows
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a suite's workflows, newest first. Each item has the [workflow response](#workflow-response) fields.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a suite's workflows, newest first. Each item has the [workflow data model](#workflow-data-model) fields.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows"
 ```
-
-Optional [query string parameters](/docs/apis/rest-api#query-string-parameters):
-
-Parameter | Description
---------- | -----------
-`page` | The page number, starting at `1`. Defaults to `1`.
-`per_page` | The number of workflows per page, from `1` to `100`. Defaults to `30`.
-{: class="responsive-table"}
 
 Required scope: `read_suites`
 
@@ -98,11 +95,11 @@ Success response: `200 OK`
 
 ## Get a workflow
 
-Returns a single workflow with the [workflow response](#workflow-response) fields.
+Returns a single workflow with the [workflow data model](#workflow-data-model) fields.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows/{id}"
+  -X GET "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows/{workflow.id}"
 ```
 
 Required scope: `read_suites`
@@ -115,7 +112,7 @@ Updates the supplied fields and returns the updated workflow. All request body p
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X PATCH "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows/{id}" \
+  -X PATCH "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows/{workflow.id}" \
   -H "Content-Type: application/json" \
   -d '{
     "monitor": {
@@ -139,20 +136,12 @@ Deletes the workflow. A subsequent request for the deleted workflow returns `404
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
-  -X DELETE "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows/{id}"
+  -X DELETE "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows/{workflow.id}"
 ```
 
 Required scope: `write_suites`
 
 Success response: `204 No Content`
-
-## Authentication and permissions
-
-Use an [API access token](/docs/apis/managing-api-tokens) with the scope required by the operation. OIDC tokens are not accepted. Reading workflows requires permission to view the suite. Creating, updating, and deleting workflows requires permission to edit the suite.
-
-Creating and updating workflows requires a plan that includes workflows. Creating a workflow requires access to its monitor type and actions. Deleting workflows does not require a plan that includes workflows.
-
-In every endpoint, `{org.slug}` is the organization slug, `{suite.slug}` accepts a suite slug or UUID, and `{id}` is a workflow UUID.
 
 ## Monitor configuration
 
@@ -204,7 +193,7 @@ Each action list accepts up to seven entries. The `new_test` monitor accepts ala
 
 The workflow actions available to you depend on your billing plan.
 
-## Workflow response
+## Workflow data model
 
 Create, get, and update operations return a workflow object. List operations return an array of these objects. The [create example](#create-a-workflow) shows the response shape.
 
