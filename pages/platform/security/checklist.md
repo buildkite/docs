@@ -51,6 +51,8 @@ Review the baseline in each area, then use its completion criteria to verify you
 
 <%= security_area.('authentication-and-access-control')['summary'] %>
 
+For token types, prefixes, scopes, and lifetimes, see the [Token reference](/docs/platform/security/tokens#token-reference).
+
 If an API access token may already be compromised, follow the [token revocation steps](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) before reviewing these preventive controls.
 
 ### Baseline
