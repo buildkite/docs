@@ -1,7 +1,8 @@
 // Enhance the Markdown catalogue without maintaining a second set of controls.
 export function initSecurityChecklist() {
   const areas = [...document.querySelectorAll("[data-security-area]")];
-  if (!areas.length) return;
+  if (!areas.length && !document.querySelector('h2[id="audit-this-area"]'))
+    return;
 
   const storageNotice = document.querySelector("[data-security-storage]");
   const storageUnavailable = () => {
@@ -89,10 +90,18 @@ export function initSecurityChecklist() {
   }
 
   for (const heading of document.querySelectorAll(
-    '.SecurityChecklist h3[id$="-audit-this-area"]',
+    '.SecurityChecklist h3[id$="-audit-this-area"], .Article h2[id="audit-this-area"]',
   )) {
     const section = heading.closest("section");
     if (section.querySelector('[role="tablist"]')) continue;
+    // Standalone audits have H3 sections beside their H2; keep them together.
+    if (heading.matches("h2")) {
+      let next = section.nextElementSibling;
+      while (next && !next.querySelector(":scope > h2")) {
+        section.append(next);
+        next = section.nextElementSibling;
+      }
+    }
     section.classList.add("SecurityAudit");
     const tabs = document.createElement("div");
     tabs.className = "SecurityAudit__tabs";
@@ -100,15 +109,19 @@ export function initSecurityChecklist() {
     tabs.setAttribute("aria-label", heading.textContent);
     const panels = [];
     for (const [index, label] of [
-      ...section.querySelectorAll("h4"),
+      ...section.querySelectorAll(heading.matches("h2") ? "h3" : "h4"),
     ].entries()) {
-      const panel = document.createElement("div");
-      let current = label;
-      do {
-        const next = current.nextElementSibling;
-        panel.append(current);
-        current = next;
-      } while (current && !current.matches("h4"));
+      const panel = label.matches("h3")
+        ? label.closest("section")
+        : document.createElement("div");
+      if (label.matches("h4")) {
+        let current = label;
+        do {
+          const next = current.nextElementSibling;
+          panel.append(current);
+          current = next;
+        } while (current && !current.matches("h4"));
+      }
       // Match the audit layout: example first, explanatory text below it.
       const example = panel.querySelector(":scope > .highlight");
       if (example) label.after(example);

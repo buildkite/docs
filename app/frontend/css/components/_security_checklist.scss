@@ -66,6 +66,8 @@
 }
 
 .Article .SecurityAudit {
+  // Standalone audits also keep long examples inside the article width.
+  contain: inline-size;
   margin-bottom: 24px;
 
   [hidden] {

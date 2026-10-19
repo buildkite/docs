@@ -27,6 +27,73 @@ Choose the token type your workflow needs, grant only the required access, and p
 - **Manage agent tokens:** [Create a token](/docs/agent/self-hosted/tokens#create-a-token) in the cluster that needs it, review its [scope of access](/docs/agent/self-hosted/tokens#scope-of-access), and [revoke it](/docs/agent/self-hosted/tokens#revoke-a-token) when no longer needed. Revocation prevents new connections but doesn't disconnect existing agents.
 - **Review and remove API token access:** [Audit tokens](/docs/apis/managing-api-tokens#auditing-tokens) regularly. Organization administrators can [remove their organization from a token](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token); token owners can [revoke the token entirely](/docs/apis/managing-api-tokens#faqs-can-i-delete-a-token).
 - **Prefer short-lived credentials where supported:** Use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) for services or [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) for ephemeral agents, rather than distributing long-lived tokens to them.
+- **Manage OAuth access:** Review [OAuth for remote MCP and the Buildkite CLI](/docs/platform/security/oauth) for refresh behavior, **Connected Apps** revocation, and authorization audit events. Running `bk auth logout` removes local credentials but doesn't revoke the authorization in Buildkite.
+
+## Audit this area
+
+SSO and 2FA enforcement, team membership and the API access audit can't be read through the MCP server today. It also can't look up a token you've found, so use the API tab to identify a leaked one.
+
+The [current token API](/docs/apis/rest-api/access-token#get-the-current-token) requires no additional token scope. The team query requires [GraphQL API access](/docs/apis/managing-api-tokens#token-scopes); replace `acme-inc` with your organization slug. Results only include teams and pipelines visible to the token. Follow [GraphQL pagination](/docs/apis/graphql#pagination) for both connections when `hasNextPage` is `true`. Run these commands locally with `jq` installed. Never paste tokens into an AI conversation or save them in logs.
+
+### API
+
+```bash
+# Scopes and expiry of the token you're using
+curl --fail-with-body -sS \
+  -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+  https://api.buildkite.com/v2/access-token | jq '{scopes, expires_at}'
+
+# Teams, pipelines, and access levels visible to this token (GraphQL)
+curl --fail-with-body -sS \
+  -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  https://graphql.buildkite.com/v1 \
+  --data '{"query":"{ organization(slug: \"acme-inc\") { teams(first: 100) { pageInfo { hasNextPage endCursor } edges { node { name pipelines(first: 100) { pageInfo { hasNextPage endCursor } edges { node { accessLevel pipeline { slug } } } } } } } } }"}' | jq
+
+# Identify an exposed bkua_ token: owner, scopes, and expiry
+curl --fail-with-body -sS \
+  -H "Authorization: Bearer $LEAKED_TOKEN" \
+  https://api.buildkite.com/v2/access-token | jq '{user, scopes, expires_at}'
+
+# Only after confirming the exposed token: permanently revoke it
+curl --fail-with-body -sS -X DELETE \
+  -H "Authorization: Bearer $LEAKED_TOKEN" \
+  https://api.buildkite.com/v2/access-token
+```
+
+The final API command [revokes the exposed token](/docs/apis/rest-api/access-token#revoke-the-current-token), not just its access to one organization. Don't run it against a credential you still need. Use a separate token for the team query, rather than an exposed token.
+
+### CLI
+
+```bash
+# Inspect the token configured for the Buildkite CLI
+curl --fail-with-body -sS \
+  -H "Authorization: Bearer $(bk auth token)" \
+  https://api.buildkite.com/v2/access-token | jq '{scopes, expires_at}'
+
+# Find files containing possible Buildkite tokens in this directory
+# Print filenames only, not the token values
+grep -rlE --exclude-dir=.git \
+  'bk(ua|tx|ct|ar|aa|aj|jat|pt|pat|ps)_[A-Za-z0-9]+' .
+```
+
+The [Buildkite CLI](/docs/platform/cli) must be authenticated. `bk api` uses organization-scoped REST endpoints, so use `bk auth token` with `curl` for the root `/access-token` endpoint. The file search checks the working directory and saved logs, not Git history or remote build logs. Matches are candidates, not proof that a token is valid; review them locally and revoke exposed credentials.
+
+Review [SSO enforcement](/docs/platform/sso), [2FA enforcement](/docs/platform/team-management/enforce-2fa), and the [API access audit](/docs/apis/managing-api-tokens#auditing-tokens) in the Buildkite interface.
+
+### Ask the Buildkite MCP
+
+```text
+What scopes does my Buildkite token have, and when does it expire?
+Which Buildkite organization am I connected to?
+
+Use only the read-only access_token and user_token_organization tools.
+Inspect the MCP connection's token, not a token pasted into this chat.
+Report missing expiry information rather than inferring a lifetime.
+Do not change anything.
+```
+
+Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server) with the [user toolset](/docs/apis/mcp-server/tools#available-mcp-tools-user-authentication-and-buildkite-organization) enabled and the `read_user` and `read_organizations` scopes. The returned metadata describes the credential used by the MCP server to call the Buildkite API. With OAuth, it doesn't establish the MCP client's session or refresh-token expiry. See [OAuth token lifetime and refresh](/docs/platform/security/oauth#token-lifetime-and-refresh).
 
 ## Detect leaked tokens
 

@@ -105,11 +105,15 @@ RSpec.feature "reading pages" do
   end
 
   describe "old URLs" do
-    it "preserves the data flow explanation when retiring the Pipelines security overview" do
+    it "keeps old data flow links with the shared responsibility diagram" do
       visit "/docs/pipelines/security#data-flow"
 
       expect(page.current_path).to eq("/docs/platform/security")
-      expect(page).to have_css("h2#data-flow", text: "Data flow")
+      within("section#shared-responsibility") do
+        expect(page).to have_css("h2", text: "Shared responsibility")
+        expect(page).to have_css("a#data-flow", visible: :all)
+        expect(page).to have_css("img")
+      end
       expect(page).to have_link("Security at Buildkite", href: "https://buildkite.com/about/security/")
     end
 

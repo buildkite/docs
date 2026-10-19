@@ -22,6 +22,22 @@ If you suspect an active compromise, go directly to [Incident response](/docs/pl
 
 Buildkite secures the control plane that schedules builds and stores build data. Your organization controls user and token access, source repositories, pipeline definitions, plugins, and the credentials and systems your builds can access. These responsibilities apply to both hosting models.
 
+<a id="data-flow"></a>
+
+The following diagram shows who is responsible for securing each system involved in a build. Agent infrastructure responsibilities depend on the hosting model, and artifact storage responsibilities depend on your storage choice.
+
+<%= image_tag vite_asset_path("images/pipelines/security/data-flow.png"), alt: "Shared responsibility for a build: your organization controls source control and source code, Buildkite manages the control plane, and responsibility for agents and artifact storage depends on hosting and storage choices", class: "no-decoration" %>
+
+During a build:
+
+1. Buildkite Pipelines receives a webhook from your source control system when code changes.
+1. An agent, hosted by Buildkite or by your organization, receives and accepts a job.
+1. The agent checks out source code and runs the job with the access you've configured.
+1. The agent sends job logs to Buildkite and uploads artifacts to Buildkite-managed storage or your configured artifact store.
+1. The agent reports the result, and Buildkite Pipelines posts a status update to your source control system.
+
+Use the [Security checklist](/docs/platform/security/checklist) to review the controls your organization manages in each hosting model.
+
 ### Buildkite hosted agents
 
 Buildkite manages the underlying infrastructure, job isolation, and installation and updates of the Buildkite agent. On Linux, Buildkite supplies the agent through the hosted agents Docker layer. Your organization selects and maintains its [agent images](/docs/agent/buildkite-hosted/linux#agent-images), including installed packages, dependencies, and security updates in custom images.
@@ -43,17 +59,3 @@ Your organization provisions, secures, and maintains the [agent infrastructure](
 <a id="penetration-testing"></a>
 
 For Buildkite infrastructure security, encryption, security testing, and assurance reports, see [Security at Buildkite](https://buildkite.com/about/security/).
-
-## Data flow
-
-<%= image_tag vite_asset_path("images/pipelines/security/data-flow.png"), alt: "Build data flows between customer-controlled source control and source code, the Buildkite-managed control plane, agents whose responsibility depends on hosting, and an artifact store whose responsibility depends on storage choice", class: "no-decoration" %>
-
-The diagram shows the systems involved in a typical build:
-
-1. Buildkite Pipelines receives a webhook from your source control system when code changes.
-1. An agent, hosted by Buildkite or by your organization, receives and accepts a job.
-1. The agent checks out source code and runs the job with the access you've configured.
-1. The agent sends job logs to Buildkite and uploads artifacts to Buildkite-managed storage or your configured artifact store.
-1. The agent reports the result, and Buildkite Pipelines posts a status update to your source control system.
-
-Your choice of agent hosting and artifact storage determines which infrastructure you manage. Use the [Security checklist](/docs/platform/security/checklist) to review controls at each point in this flow.
