@@ -287,27 +287,68 @@ areas:
     summary: Control the boundaries between your build infrastructure and everything outside it.
     audit:
       api: |
-        List [pipelines](/docs/apis/rest-api/pipelines#list-pipelines) and review which are public. Requires `read_pipelines`.
+        List public pipelines visible to your token and get current platform IP ranges from the Meta API. Listing pipelines requires `read_pipelines`; the Meta API requires no authentication. Follow pagination before treating the pipeline inventory as complete.
 
         ```bash
+        # Public pipelines visible to this token (first page)
         curl --fail-with-body -sS \
           -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
           "https://api.buildkite.com/v2/organizations/$ORG_SLUG/pipelines?per_page=100&page=1" |
-          jq '.[] | {slug, visibility}'
+          jq -r '.[] | select(.visibility == "public") | .slug'
+
+        # Current Buildkite platform egress ranges; no token required
+        curl --fail-with-body -sS https://api.buildkite.com/v2/meta |
+          jq '{webhook_ips}'
         ```
+
+        These ranges cover platform traffic, such as webhooks and commit statuses, not agent job traffic. Hosted agent job ranges appear on the cluster's **Networking** page. IP ranges can change. Hosted ranges can be shared between customers, so they don't identify your jobs.
       cli: |
+        Review pipeline visibility with the Buildkite CLI. Run the filename search on self-hosted agent hosts and in your checkout, then inspect matching files locally. Check `BUILDKITE_S3_ACL` in the job environment that uploads artifacts to your own S3 bucket, not only in your interactive shell.
+
         ```bash
         bk --org "$ORG_SLUG" api '/pipelines?per_page=100&page=1' |
-          jq '.[] | {slug, visibility}'
+          jq -r '.[] | select(.visibility == "public") | .slug'
+
+        # Files declaring custom S3 artifact ACL settings, not file contents
+        grep -rl -- 'BUILDKITE_S3_ACL' /etc/buildkite-agent/ .buildkite/
+
+        # In the artifact-uploading job
+        printf 'BUILDKITE_S3_ACL=%s\n' "${BUILDKITE_S3_ACL:-<unset>}"
         ```
+
+        For custom S3 uploads, the agent's default ACL is `public-read`; the Elastic CI Stack for AWS defaults to `private`. An ACL value alone doesn't establish effective access. Review object ownership, bucket policies, and S3 Block Public Access too. ACL-disabled buckets use policies rather than ACLs to determine access.
+
+        On EC2-backed self-hosted agents, run these probes inside the same container or virtual machine as the job under review. They print HTTP status codes, not response bodies or credentials, and bypass configured proxies to test direct access.
+
+        ```bash
+        # IMDSv1: request the metadata root without a token
+        curl -sS --noproxy '*' --connect-timeout 2 --max-time 2 \
+          -o /dev/null -w 'IMDSv1 HTTP %{http_code}\n' \
+          http://169.254.169.254/latest/meta-data/
+
+        # IMDSv2: test token issuance, discarding the token
+        curl -sS --noproxy '*' --connect-timeout 2 --max-time 2 \
+          -X PUT -H 'X-aws-ec2-metadata-token-ttl-seconds: 60' \
+          -o /dev/null -w 'IMDSv2 token HTTP %{http_code}\n' \
+          http://169.254.169.254/latest/api/token
+        ```
+
+        An IMDSv1 `200` means the metadata root is reachable without a token. A `401` means the endpoint is reachable but requires a valid token; it doesn't prove isolation. An IMDSv2 token `200` means the job can obtain a session token, not that every metadata path or instance credential is accessible. A timeout or `000` is inconclusive. Review metadata options, network isolation, and the instance role's permissions; check enabled IPv6 and container credential endpoints separately. Don't retrieve instance credentials for this audit.
       mcp: |
         ```text
-        Use read-only Buildkite MCP tools to list all pipelines in acme-inc.
-        Follow pagination and report public pipelines where visibility is
-        available. State which visibility settings you cannot inspect.
-        Do not change anything.
+        Use read-only list_pipelines with detail_level="summary" to audit
+        pipeline visibility in acme-inc. Follow pagination and report slugs
+        whose visibility is public. Treat missing visibility as unknown,
+        not private, and report missing permissions or inaccessible pages.
+
+        Don't request full pipeline configuration or logs for this check.
+        Don't infer firewall, proxy, instance metadata, or bucket settings
+        from pipeline visibility. Do not change anything.
         ```
-      limits: "A token only sees pipelines it can access. Check firewall rules, private networking, artifact bucket policies, encryption, and webhook signature verification in your infrastructure; these checks don't establish those protections."
+      limits: |
+        A token only sees pipelines it can access. An empty result doesn't establish that every pipeline in the organization is private, especially if pages or visibility fields are unavailable.
+
+        Egress rules, proxies, metadata isolation, and bucket settings live in your cloud account or agent hosts, not in pipeline visibility metadata. Review firewall rules, private networking, artifact storage access and encryption, and webhook signature verification in the systems that enforce them. Some agent functions legitimately use metadata; assess job access against the permissions each workload needs.
   - name: Monitoring and detection
     anchor: monitoring-and-detection
     summary: Detect suspicious activity and failed or misconfigured controls in your Buildkite organization, and investigate them.
