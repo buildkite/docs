@@ -361,13 +361,63 @@ areas:
           -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
           "https://api.buildkite.com/v2/organizations/$ORG_SLUG/audit_events?per_page=100"
         ```
+
+        Alternatively, query the latest 50 events with the GraphQL API. This also requires Enterprise plan administrator access, but uses a token with GraphQL access, not just `read_audit_events`. GraphQL access isn't restricted to read-only operations, so prefer the scoped REST API when it meets your needs.
+
+        ```bash
+        jq -n --arg org "$ORG_SLUG" '{
+          query: "query Audit($org: ID!, $after: String) {
+            organization(slug: $org) {
+              auditEvents(first: 50, after: $after) {
+                edges {
+                  node { type occurredAt actor { name } subject { type name } }
+                }
+                pageInfo { hasNextPage endCursor }
+              }
+            }
+          }",
+          variables: {org: $org, after: null}
+        }' |
+          curl --fail-with-body -sS \
+            -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+            -H 'Content-Type: application/json' \
+            --data-binary @- https://graphql.buildkite.com/v1
+        ```
+
+        Both examples show one page, newest first. For REST, follow `links.next`; for GraphQL, use `pageInfo.endCursor` as the next `after` variable while `hasNextPage` is true. Continue until you cover the review window. Check GraphQL responses for `errors` or null data even when HTTP returns `200`; neither means an empty audit log.
       cli: |
+        Review audit events with the CLI, then compare agents with your approved inventory or autoscaling records. Listing agents requires `read_agents` and returns connected and stopping agents, not connection history. Follow pagination before treating either inventory as complete.
+
         ```bash
         bk --org "$ORG_SLUG" api '/audit_events?per_page=100'
+
+        # Agent ID, name, hostname, and connection state (first page)
+        bk --org "$ORG_SLUG" api '/agents?per_page=100&page=1' |
+          jq -r '.[] | [.id, .name, .hostname, .connection_state] | @tsv'
         ```
+
+        For a manual review, select **Settings** > **Audit** > **Audit Log** > **Events**. Search with `type:`, `pipeline:`, `actor:`, or `subject:`; prefix a term with `-` to exclude it. For example, `type:PIPELINE_UPDATED pipeline:example-pipeline` finds changes to that pipeline. An `actor:` term matches user actors, not agents or API applications.
+
+        UI searches accept at most three unique terms and 250 characters, and return events from the last 90 days. These are search limits, not retention limits. Use the GraphQL API for older history.
       mcp: |
-        The available [MCP tools](/docs/apis/mcp-server/tools) don't include an audit log query. Use the API or CLI example, or review the audit log in the Buildkite interface. Do not substitute build activity for an audit log review.
-      limits: "Audit events are returned newest first. Follow `links.next` until you cover your review window, and use `occurred_at` to select events within it. Events alone don't prove that alerts reach responders. Test your alert delivery separately. On other plans, review access manually and verify delivery of agent events to your monitoring system."
+        ```text
+        Use read-only list_agents with detail_level="summary" to list agents
+        in acme-inc. Follow pagination and report each agent's id, name,
+        hostname, and connection_state where available.
+
+        Compare with the expected inventory or autoscaling rules I supply.
+        If I haven't supplied a baseline, ask for one; don't guess which
+        agents are unexpected. Report agents outside the baseline and
+        expected entries not observed. Mark missing fields or permissions
+        as incomplete coverage, not a clean audit.
+
+        Treat this as a current snapshot, not connection history. Don't
+        fetch job details, logs, or full agent responses. Do not change anything.
+        ```
+      limits: |
+        The Buildkite MCP server doesn't currently expose tools to read audit events, organization members, administrators, or inactive users. Review the audit log and membership separately in the Buildkite interface or using the relevant APIs. Agent hostnames alone don't establish trust, and a current inventory doesn't show agents that connected and disconnected between reviews.
+
+        Events alone don't prove that alerts reach responders. Test your alert delivery separately. On other plans, review access manually and verify delivery of agent events to your monitoring system.
   - name: Governance and configuration management
     anchor: governance-and-configuration-management
     summary: Keep security configuration consistent across teams, so that gaps in one team's setup don't go unnoticed.
