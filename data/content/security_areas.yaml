@@ -37,27 +37,80 @@ areas:
     summary: Harden the infrastructure that runs your builds, with separate controls for hosted and self-hosted agents.
     audit:
       api: |
-        List [connected and stopping agents](/docs/apis/rest-api/agents#list-agents), then compare their versions and queues with your approved inventory. Requires `read_agents`.
+        Check [pipeline cluster assignments](/docs/apis/rest-api/pipelines#list-pipelines), [agent token expiry](/docs/apis/rest-api/clusters/agent-tokens#list-tokens), and [connected and stopping agents](/docs/apis/rest-api/agents#list-agents). Requires `read_pipelines`, `read_clusters`, and `read_agents`. These examples show the first page only; follow pagination for pipelines, clusters, each cluster's tokens, and agents.
 
         ```bash
+        # Pipelines without a cluster
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/pipelines?per_page=100&page=1" |
+          jq -r '.[] | select(.cluster_id == null) | .slug'
+
+        # Agent tokens without expiry, grouped by cluster
+        curl --fail-with-body -sS \
+          -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+          "https://api.buildkite.com/v2/organizations/$ORG_SLUG/clusters?per_page=100&page=1" |
+          jq -r '.[].id' |
+          while IFS= read -r cluster_id; do
+            curl --fail-with-body -sS \
+              -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+              "https://api.buildkite.com/v2/organizations/$ORG_SLUG/clusters/$cluster_id/tokens?per_page=100&page=1" |
+              jq --arg cluster_id "$cluster_id" \
+                '.[] | select(.expires_at == null) |
+                 {cluster_id: $cluster_id, id, description, expires_at}'
+          done
+
+        # Agent versions and queues; Buildkite manages hosted agent updates
         curl --fail-with-body -sS \
           -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
           "https://api.buildkite.com/v2/organizations/$ORG_SLUG/agents?per_page=100&page=1" |
           jq '.[] | {id, name, version, queue, connection_state}'
         ```
       cli: |
+        Run the version and configuration checks on each self-hosted agent host. Set `AGENT_CONFIG` to the configuration file the running service uses. Run the pipeline check in your repository with the [Go implementation of `yq`](https://mikefarah.gitbook.io/yq/) installed.
+
         ```bash
-        bk --org "$ORG_SLUG" api '/agents?per_page=100&page=1' |
-          jq '.[] | {id, name, version, queue, connection_state}'
+        # On each self-hosted agent host
+        buildkite-agent --version
+        AGENT_CONFIG=/etc/buildkite-agent/buildkite-agent.cfg
+        grep -E '^[[:space:]]*(no-command-eval|no-plugins|no-local-hooks|allowed-repositories|allowed-plugins)[[:space:]]*=' \
+          "$AGENT_CONFIG"
+
+        # Command steps without an explicit timeout, including grouped steps
+        yq 'explode(.) | .steps[] | select(tag == "!!map") |
+          (.steps // [.])[] |
+          select(has("command") or has("commands") or has("plugins")) |
+          select(.timeout_in_minutes == null and .timeout == null) |
+          .label // .key // "(unlabeled command step)"' .buildkite/pipeline.yml
         ```
+
+        The YAML check reports command maps without an explicit timeout, not jobs proven to run indefinitely. Check [pipeline and organization defaults and maximums](/docs/pipelines/configure/build-timeouts#command-timeouts) before deciding whether a timeout is missing. Review other pipeline files and generated steps separately.
       mcp: |
+        Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server) with the agent, cluster, and pipeline tools enabled and the `read_agents`, `read_clusters`, and `read_pipelines` scopes:
+
         ```text
-        Use read-only Buildkite MCP tools to list all connected agents and
-        cluster queues in acme-inc. Report agent versions and queue assignments,
-        and flag unexpected agents for review. Follow pagination and state any
-        fields you cannot inspect. Do not change anything.
+        Use read-only Buildkite MCP tools to audit acme-inc:
+
+        Which visible pipelines have no cluster? Use list_pipelines with
+        detail_level="detailed"; summary results omit cluster assignments.
+
+        List my clusters, their queues, and the pipelines in each cluster.
+        Use list_clusters and list_cluster_queues.
+
+        Which agents are connected, and what versions and queues do they use?
+        Use list_agents with detail_level="detailed". Queue keys can repeat
+        across clusters, so filter by cluster_queue_id when mapping agents.
+
+        Do any saved command steps lack an explicit timeout? Use get_pipeline
+        with detail_level="full" to inspect saved configuration or steps.
+        Check grouped steps and the timeout alias. Report available pipeline
+        defaults and maximums; don't infer unlimited execution from an absent
+        step timeout, or infer uploaded steps from an upload command.
+
+        Follow pagination. Report missing permissions or unavailable fields.
+        Do not print credentials or change anything.
         ```
-      limits: "The agents endpoint excludes disconnected agents. API inventory doesn't prove that self-hosted agent hooks, plugin restrictions, host patches, or network rules are configured. Inspect those controls on the hosts, and review hosted queue image settings separately."
+      limits: "The agents endpoint excludes disconnected agents. These MCP calls inspect settings saved in Buildkite, not repository pipeline files or runtime uploads. The MCP server can't list agent token expiry or read self-hosted agent configuration files. Inspect startup flags, environment overrides, hooks, host updates, and network rules on the hosts; a configuration-file search alone doesn't establish the effective settings. Review hosted queue image settings separately in the Buildkite interface."
   - name: Pipeline and supply chain integrity
     anchor: pipeline-and-supply-chain-integrity
     summary: "Protect the integrity of what your pipelines run: steps, plugins, dependencies, source code, and artifacts."
