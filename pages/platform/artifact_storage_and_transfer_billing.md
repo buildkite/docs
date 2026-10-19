@@ -66,7 +66,9 @@ Downloads are charged on total gigabytes downloaded across the billing period. F
 
 ## Artifact retention
 
-Artifacts are retained for a limited period that depends on your plan. After the retention period, artifacts are deleted and no longer count towards storage. For the retention period that applies to your organization, and other limits across the Buildkite platform, see [Limits](/docs/platform/limits).
+Artifacts expire after your organization's retention period. Expired artifacts can't be downloaded and no longer count toward storage usage. See [Limits](/docs/platform/limits) for your plan's maximum retention period.
+
+Where retention settings are available, organization administrators can choose a shorter period. See [Artifact retention](/docs/pipelines/configure/artifact-retention) for availability and instructions.
 
 ## Viewing your usage
 
