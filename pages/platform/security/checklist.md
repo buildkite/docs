@@ -306,12 +306,24 @@ This baseline is complete when the steps of every production pipeline come from 
 
 ### Baseline
 
-- **Assign responders and record support contacts:** Give your incident runbook an owner and store it where responders can reach it. Record support@buildkite.com and security@buildkite.com, plus any emergency support contact available under your plan. Learn more in [Prepare before an incident](/docs/platform/security/incident-response#prepare-before-an-incident).
-- **Document how to revoke access:** Record who can remove users from Buildkite and your identity provider, revoke tokens, and stop unwanted builds. For self-hosted agents, include stopping connected agents: revoking an agent token alone doesn't disconnect them. Follow the procedures in [Contain the incident](/docs/platform/security/incident-response#contain-the-incident).
+- **Write and test an incident response runbook:** Give the runbook a named owner and store it where responders can reach it during an outage. Document containment actions and who can authorize them. Rehearse the runbook at least once in a test environment, and record the outcome.
+- **Assign responders and record support contacts:** Name an incident lead and backup. Record support@buildkite.com, security@buildkite.com, and any emergency support contact available under your plan. Notify Buildkite support immediately when you discover an incident, and the security team for exposed secrets. Learn more in [Prepare before an incident](/docs/platform/security/incident-response#prepare-before-an-incident).
+- **Document how to revoke access:** Rehearse [removing a compromised user](/docs/platform/security/incident-response#contain-the-incident-remove-a-compromised-user) from your Buildkite organization and disabling their identity provider account, so they can't rejoin using SSO. Include [removing organization access from compromised API tokens](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens). Ask Buildkite support to end platform-wide user sessions when needed.
+- **Prepare agent token revocation and agent shutdown:** Record the cluster and token IDs and the [agent token revocation request](/docs/apis/rest-api/clusters/agent-tokens#revoke-a-token) in your runbook. Revoking a token stops new registrations, not connected agents. Rehearse stopping or replacing affected self-hosted agents and canceling unwanted jobs; draining alone lets a running job finish.
 - **Rehearse secret rotation:** In a test environment, replace a credential, update the secrets store, and verify that the new credential works and the old one is rejected. Include credentials for downstream systems, not just Buildkite tokens. Use [Rotate exposed secrets](/docs/platform/security/incident-response#contain-the-incident-rotate-exposed-secrets) as the response procedure.
 - **Test emergency account recovery:** If you use SSO, validate the dedicated break-glass account and its [authentication, storage, and monitoring controls](/docs/platform/security/incident-response#prepare-before-an-incident). For other setups, verify that responders can access the administrator account and its 2FA recovery codes through your approved recovery process.
 
-This baseline is complete when responders can reach the runbook and support contacts, know who can revoke each kind of access, and have successfully rehearsed credential rotation and account recovery.
+This baseline is complete when responders can reach the tested runbook and escalation contacts, remove user and token access, stop affected agents and jobs, rotate credentials, and recover administrator access. Record the test dates and any gaps that still need an owner.
+
+### Recommended
+
+- **Prepare to stop unwanted builds:** Document the [incoming GitHub webhook control, separate trigger controls, and build cancellation steps](/docs/platform/security/incident-response#contain-the-incident-stop-unwanted-builds) for each affected pipeline. Disabling webhook processing doesn't block every trigger or cancel existing builds. Rehearse containment in a test pipeline, and confirm unwanted jobs have stopped before resuming builds.
+- **Plan support-assisted investigation:** Record how to request an [access-log investigation](/docs/platform/security/incident-response#investigate-the-incident) into who accessed exposed builds. Include the incident window and affected build IDs. Ask about restoring older access logs if you have the Enterprise plan, and confirm availability before relying on them.
+
+### Advanced
+
+- **Rehearse SSO reauthorization safely:** In a test organization, rehearse [disabling and re-enabling SSO](/docs/platform/team-management/permissions#removing-users-during-a-security-incident-disabling-and-re-enabling-sso) with a dedicated optional-SSO administrator account ready. Disabling SSO rescinds every active SSO authorization, including the administrator's. API access tokens are unaffected, so this doesn't replace user and token revocation.
+- **Automate tested revocation and rotation:** Automate the revocation and rotation procedures you've already rehearsed. Test target selection, approvals, failure handling, and rejection of old credentials in a test environment. Keep a manual fallback if the automation or its credentials are unavailable.
 
 <%= audit_area.('incident-readiness') %>
 
