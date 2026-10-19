@@ -5,6 +5,10 @@ services:
     # Joins the tailnet using Buildkite OIDC before running the command, so the
     # private prod-use1 EKS API is reachable.
     entrypoint: with-tailscale
+    environment:
+      - TAILSCALE_CLIENT_ID
+      - TAILSCALE_TAGS
+      - TAILSCALE_VERIFY_PEER_TAG
     # Runtime exporter settings are not in BUILDKITE_ENV_FILE.
     # Forward names so credentials stay out of pipeline uploads.
     environment:
