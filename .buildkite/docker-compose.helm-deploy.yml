@@ -9,9 +9,7 @@ services:
       - TAILSCALE_CLIENT_ID
       - TAILSCALE_TAGS
       - TAILSCALE_VERIFY_PEER_TAG
-    # Runtime exporter settings are not in BUILDKITE_ENV_FILE.
-    # Forward names so credentials stay out of pipeline uploads.
-    environment:
+      # Pass OTel runtime exporter settings so buildkite-agent can use them.
       - OTEL_EXPORTER_OTLP_ENDPOINT
       - OTEL_EXPORTER_OTLP_PROTOCOL
       - OTEL_EXPORTER_OTLP_HEADERS
