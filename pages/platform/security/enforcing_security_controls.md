@@ -26,9 +26,11 @@ In a test pipeline, try removing a required scan and changing the repository pip
 
 Apply [agent-controller restrictions](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller) to every self-hosted agent that can receive the protected jobs. Restrict repositories and plugins, or disable command evaluation where builds should only run checked-in scripts. Disabling command evaluation also disables plugins.
 
+Disabling command evaluation doesn't protect against malicious checked-in scripts and doesn't constrain a custom `command` hook. Review both repository access and the hooks that actually execute commands.
+
 Use a [pre-bootstrap hook](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-strict-checks-using-a-pre-bootstrap-hook) to reject unexpected commands, repositories, or environment variables before checkout. Protect the agent configuration and hook files from modification by build jobs.
 
-For [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines), keep verification failures set to `block` and separate signing agents from agents that only verify and execute steps. Keep signing keys in [AWS KMS](/docs/agent/self-hosted/security/signed-pipelines#aws-kms-managed-key-setup). Signed steps cannot be used with pipeline templates.
+For [signed pipelines](/docs/agent/self-hosted/security/signed-pipelines), keep verification failures set to `block` and separate signing agents from agents that only verify and execute steps. Keep signing keys in [AWS KMS](/docs/agent/self-hosted/security/signed-pipelines#aws-kms-managed-key-setup). Verify-only agents must not have `kms:Sign` permission. Signed steps cannot be used with pipeline templates.
 
 Test a disallowed repository, plugin, or command on every relevant agent pool. A restriction on the pipeline-upload agent does not establish that the agents executing later jobs enforce the same policy.
 

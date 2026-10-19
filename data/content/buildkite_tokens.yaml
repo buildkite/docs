@@ -93,3 +93,10 @@ tokens:
     usage: Services use the secret to request ephemeral portal tokens.
     scope: One portal.
     lifetime: No expiry. Each portal can have two secrets, so that you can rotate them.
+  - key: oidc_token
+    name: OIDC token
+    url: /docs/agent/cli/reference/oidc
+    prefix: "—"
+    usage: Jobs present a signed JWT to cloud providers or Buildkite Package Registries, not to the Buildkite REST or GraphQL APIs. No Buildkite token prefix.
+    scope: The intended audience, token claims, and receiving system's trust policy.
+    lifetime: Five minutes by default for agent-issued tokens, configurable with `--lifetime`. [Buildkite Package Registries](/docs/package-registries/security/oidc) accepts tokens valid for no more than five minutes.
