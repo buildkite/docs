@@ -38,7 +38,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "id": "01234567-89ab-4cde-8fab-0123456789ab",
   "url": "https://api.buildkite.com/v2/analytics/organizations/example-org/suites/example-suite/workflows/01234567-89ab-4cde-8fab-0123456789ab",
-  "web_url": "https://buildkite.com/organizations/example-org/analytics/suites/example-suite/workflows/01234567-89ab-4cde-8fab-0123456789ab",
+  "web_url": "https://buildkite.com/organizations/example-org/analytics/suites/example-suite/workflows/01234567-89ab-4cde-8fab-0123456789ab/events",
   "monitor": {
     "type": "transition_count",
     "window_size": 100,
@@ -201,7 +201,7 @@ Field | Description
 ----- | -----------
 `id` | Workflow UUID. Read-only.
 `url` | Canonical API URL. Read-only.
-`web_url` | Workflow URL in the Buildkite interface. Read-only.
+`web_url` | Workflow events URL in the Buildkite interface. Read-only.
 `monitor` | Monitor type and configuration.
 `filters` | Array of tag filters.
 `alarm_actions` | Array of alarm actions.
