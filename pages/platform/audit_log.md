@@ -96,6 +96,14 @@ AUTHORIZATION_CREATED
 AUTHORIZATION_DELETED
 ```
 
+### OAuth applications
+
+```text
+OAUTH_APPLICATION_AUTHORIZED
+```
+
+Records a successful OAuth authorization-code exchange, including browser-based authorization for remote MCP and the Buildkite CLI. Device login and token refresh do not create this event. See [OAuth audit visibility](/docs/platform/security/oauth#audit-visibility) for event details and coverage.
+
 ### User account management
 
 ```

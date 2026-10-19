@@ -1009,6 +1009,8 @@
       path: "platform/security/enforcing-security-controls"
     - name: "Token security"
       path: "platform/security/tokens"
+    - name: "OAuth for MCP and CLI"
+      path: "platform/security/oauth"
     - name: "Incident response"
       path: "platform/security/incident-response"
     - name: "Secrets"
