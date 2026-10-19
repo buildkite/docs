@@ -103,7 +103,7 @@ steps:
       # logs in to ECR, and supplies GH_TOKEN from Exchange. This pipeline's
       # Exchange policy in buildkite/ops limits the token to reading
       # buildkite/internal-charts.
-      - buildkite/just-works#2c901aa9ccbaa5046b5660a9f279438c91adced9:
+      - buildkite/just-works#v0.1.0:
           account-id: "${ECR_ACCOUNT_ID}"
           ecr:
             accounts: ["${ECR_ACCOUNT_ID}"]
