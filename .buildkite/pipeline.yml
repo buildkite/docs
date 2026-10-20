@@ -59,7 +59,7 @@ steps:
   - label: ":bell: Assign PR reviewer"
     if: build.branch != "main" && !build.pull_request.labels includes "Reviewer-assigned"
     soft_fail: true
-    command: bin/assign-reviewer
+    command: sh scripts/with-ca-trust.sh bin/assign-reviewer
     retry:
       manual:
         permit_on_passed: true
@@ -114,40 +114,40 @@ steps:
           fail_message: "The GraphQL reference docs in this repository may have been edited manually. These docs are generated from '/data/graphql/schema.graphql', and a check to update this schema from the live Buildkite GraphQL API is run once each day, which will create a PR to update the GraphQL reference docs if necessary. If you need to implement changes manually to the '/data/graphql/schema.graphql' file, run `bundle exec rake graphql:generate` and commit the changes."
 
   - label: ":go: Check generated agent CLI docs"
-    command: ./scripts/update-agent-help.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-help.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27"
+          image: "golang:1.27.3"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated agent configuration docs"
-    command: ./scripts/update-agent-configuration.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-configuration.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27"
+          image: "golang:1.27.3"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
   - label: ":go: Check generated BK CLI docs"
-    command: ./scripts/update-bkcli-help.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-bkcli-help.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27"
+          image: "golang:1.27.3"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
 
   - label: ":test_tube: Check generated agent experiments docs"
-    command: ./scripts/update-agent-experiments.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-experiments.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -158,7 +158,7 @@ steps:
           fail_message: "The generated agent experiments page is out of date, or you edited its content in this repository. Run `scripts/update-agent-experiments.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent` (the `EXPERIMENTS.md` file)."
 
   - label: ":test_tube: Check generated agent versions directory docs"
-    command: ./scripts/update-agent-versions-directory.sh
+    command: sh scripts/with-ca-trust.sh ./scripts/update-agent-versions-directory.sh
     soft_fail: true
     agents:
       queue: "${AGENT_QUEUE:-hosted-m}"
@@ -173,8 +173,8 @@ steps:
     steps:
       - label: ":prettier: Lint assets"
         commands:
-          - yarn
-          - npm run prettier-check
+          - sh scripts/with-ca-trust.sh yarn
+          - sh scripts/with-ca-trust.sh npm run prettier-check
         agents:
           queue: hosted
         plugins:
@@ -199,7 +199,7 @@ steps:
               config: ./vale/docker-compose.yml
 
       - label: ":lint-roller: Linting for insensitive words"
-        command: npm run lint -y
+        command: sh scripts/with-ca-trust.sh npm run lint -y
         agents:
           queue: hosted
         plugins:
@@ -220,8 +220,8 @@ steps:
 
       - label: "Validate YAML"
         command:
-          - npm run -y validate-agent-attributes-yaml
-          - npm run -y validate-environment-variables-yaml
+          - sh scripts/with-ca-trust.sh npm run -y validate-agent-attributes-yaml
+          - sh scripts/with-ca-trust.sh npm run -y validate-environment-variables-yaml
         agents:
           queue: hosted
         plugins:
@@ -238,7 +238,7 @@ steps:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
-        command: npm run -y mdlint
+        command: sh scripts/with-ca-trust.sh npm run -y mdlint
         agents:
           queue: hosted
         plugins:
@@ -255,7 +255,7 @@ steps:
               image: "public.ecr.aws/docker/library/node:24-alpine"
 
       - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint@2.1.0
+        command: sh scripts/with-ca-trust.sh npx -y @ls-lint/ls-lint@2.1.0
         agents:
           queue: hosted
         plugins:
@@ -362,7 +362,7 @@ steps:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
       - docker#v5.14.0:
-          image: "golang:1.27-bookworm"
+          image: "golang:1.27.3-bookworm"
           propagate-environment: true
           environment:
             - "BUILDKITE_AGENT_ACCESS_TOKEN"
@@ -372,6 +372,7 @@ steps:
             - "GH_TOKEN=${GITHUB_TOKEN}"
           mount-buildkite-agent: true
     command: |
+      sh scripts/with-ca-trust.sh true
       curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 2>/dev/null
       chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
       echo "deb [arch=$$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
