@@ -47,7 +47,9 @@ Don't copy `GITHUB_TOKEN` into a Buildkite secret. Buildkite Pipelines issues th
 
 ### Run a workflow manually
 
-To run a workflow without waiting for a GitHub event:
+Manual runs currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
+
+To run a matching workflow without waiting for a GitHub event:
 
 1. Open the pipeline and select **New Build** to open **Run a workflow**.
 1. Select **Branch** and, optionally, a **Commit**. Leave the commit as `HEAD` to use the selected branch's latest commit.
@@ -55,9 +57,13 @@ To run a workflow without waiting for a GitHub event:
 1. Optionally, expand **Options** to set **Environment Variables** or use **Clean checkout**.
 1. Select **Run workflow**.
 
-Buildkite Pipelines discovers workflows at the selected commit. A workflow that declares `workflow_dispatch` runs with that event, even if it also declares `push`. Otherwise, a workflow is eligible if its `push` declaration matches the selected branch or tag filters. Unsupported or ineligible workflows can't be selected.
+Buildkite Pipelines discovers workflows at the selected commit. For a tag run, enter `refs/tags/<tag>` in **Branch** and provide a full commit SHA in **Commit** instead of `HEAD`.
 
-The interface doesn't collect `workflow_dispatch` inputs. The runtime uses declared defaults. Inputs without defaults use `false`, `0`, or an empty string, according to their type. **Environment Variables** aren't dispatch inputs.
+> 🚧 Manual dispatch limitation
+> With the released `buildkite-gha` v0.105.3 runtime, native manual runs that select `workflow_dispatch` fail during workflow preparation. The server selects this event whenever the workflow declares it, even if it also declares `push`. A matching GitHub push can still run the workflow as a `push` event.
+> The interface doesn't collect dispatch inputs. **Environment Variables** aren't dispatch inputs.
+
+Manual branch runs don't provide the linked webhook evidence required for `paths` or `paths-ignore`. Run those workflows from a matching GitHub event.
 
 ### Trigger builds from workflow events
 
@@ -233,7 +239,7 @@ Start with **Recent Deliveries** for events that don't create builds. For a buil
 
 ### No workflow jobs appear
 
-Check that the workflow exists at the event's commit and declares a supported event with matching filters. A workflow containing only `workflow_call` doesn't run independently. For manual runs, check that it declares `workflow_dispatch` or matches the selected push ref.
+Check that the workflow exists at the event's commit and declares a supported event with matching filters. A workflow containing only `workflow_call` doesn't run independently. For manual runs, check the [manual-run requirements and dispatch limitation](#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
 
 A push or pull request build can be created before path matching finishes. If no changed path matches, the workflow is skipped. Missing or uncertain diff evidence fails preparation rather than running the workflow more broadly. Manual builds don't provide the linked webhook evidence needed for path filters.
 

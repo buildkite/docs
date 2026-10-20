@@ -41,7 +41,7 @@ Looking for something else? [Browse open compatibility issues](https://github.co
 | Area | Status | Initial release boundary |
 | --- | --- | --- |
 | [Workflow and job names](#workflow-names-and-triggers) | 🟡 Supported subset | `name`, explicit `run-name`, and job names are retained. `run-name` supports expressions over `github`, `inputs`, and `vars`. |
-| [Triggers and filters under `on`](#workflow-names-and-triggers) | 🟡 Supported subset | Buildkite Pipelines matches supported events and creates one build per matching workflow. Manual runs select `workflow_dispatch` or a matching `push` declaration. `workflow_call` is supported for composition. |
+| [Triggers and filters under `on`](#workflow-names-and-triggers) | 🟡 Supported subset | Buildkite Pipelines matches supported events and creates one build per matching workflow. Native manual runs currently require a matching `push` declaration without `workflow_dispatch`. `workflow_call` is supported for composition. |
 | [Platforms](#job-syntax-job-configuration) | 🟡 Supported subset | Linux x86-64 labels have local presets. Explicit mappings can select a user-provided Linux arm64 or Windows x86-64 queue. The Agent API can map compatible selectors to Linux, native macOS arm64, or, when Windows routing is enabled, Windows x86-64 targets. Labels don't provide GitHub image, toolchain, or Xcode parity. |
 | [Jobs and dependencies](#job-syntax-job-configuration) | ✅ Supported | Static dependencies, matrix fan-out and fan-in, results, and bounded outputs. |
 | [Matrix strategies](#job-syntax-matrix-strategies) | 🟡 Supported subset | Static matrices, `include`, `exclude`, and literal `max-parallel`. Needs-derived matrices can also read their producer's parallel limit. Maximum 256 instances per job. `fail-fast` has no effect. |
@@ -195,7 +195,7 @@ on:
       - main
 ```
 
-For native manual runs, Buildkite Pipelines selects `workflow_dispatch` when declared, otherwise a matching `push` declaration. The interface doesn't collect dispatch inputs; defaults and typed zero values apply. See [Run a workflow manually](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
+Native manual runs currently require a `push` workflow without a `workflow_dispatch` declaration. If `workflow_dispatch` is declared, the server selects it, but the released runtime rejects it during preparation. See [Run a workflow manually](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually) for the release boundary and supported alternatives. Compiler support for dispatch inputs doesn't establish native manual-run support.
 
 At runtime, upload selects one effective event, in this order:
 
@@ -247,7 +247,7 @@ The selected event then controls applicability, event-dependent compilation, the
 | `issue_comment` | Omitted `types`, `types: null`, or `types: []` accepts `created`, `edited`, and `deleted`. Nonempty `types` may contain those activities. Both issue and pull request conversation comments are supported. Branch, tag, and path filters are ignored. Unknown types and workflow filters are rejected. GitHub Actions pipeline trigger builds select workflows and the checkout from the latest verified default-branch SHA and don't inherit native command-word, trusted-commenter, pull-request-only, branch, or path gating. |
 | `pull_request_review` | Pipeline triggers support `submitted`, `edited`, and `dismissed`, all by default. Nonempty `types` selects activities, not review states. Use `if: github.event.review.state == 'approved'` on a job or step for approval-only execution. |
 | `pull_request_review_comment` | Pipeline triggers support inline diff-comment `created`, `edited`, and `deleted` activities, all by default. These are distinct from submitted reviews and `issue_comment` conversation comments. |
-| `workflow_dispatch` | Selected only by an explicit snapshot or authoritative `GITHUB_EVENT_NAME` or `BUILDKITE_GITHUB_EVENT` value. Webhook-style branch, tag, type, and workflow filters are unsupported. |
+| `workflow_dispatch` | Custom importers can select this event from an explicit snapshot or authoritative `GITHUB_EVENT_NAME` or `BUILDKITE_GITHUB_EVENT` value. Native manual runs currently fail during workflow preparation. Webhook-style branch, tag, type, and workflow filters are unsupported. |
 | `schedule` | Selected for Buildkite scheduled builds. Buildkite Pipelines owns cron configuration and doesn't expose which schedule started a build, so every `on.schedule` workflow is eligible for every Buildkite scheduled build. |
 | `workflow_call` | Defines a reusable-workflow interface. A reusable-only local file is available to callers but doesn't become a top-level group. |
 | `pull_request_target` | Intentionally unsupported for security reasons. Use `pull_request` with careful [checkout and ref handling](#actions-checkout-action) instead. Changing the event alone doesn't make untrusted code safe. |
