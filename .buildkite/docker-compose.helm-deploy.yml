@@ -1,0 +1,22 @@
+services:
+  helm-deploy:
+    # Prebuilt in buildkite/docker-ops (helm-deploy/), pinned in pipeline.deploy.yml.
+    image: ${HELM_DEPLOY_IMAGE:?set HELM_DEPLOY_IMAGE to the prebuilt helm-deploy ECR image ref}
+    # Joins the tailnet using Buildkite OIDC before running the command, so the
+    # private prod-use1 EKS API is reachable.
+    entrypoint: with-tailscale
+    environment:
+      - TAILSCALE_CLIENT_ID
+      - TAILSCALE_TAGS
+      - TAILSCALE_VERIFY_PEER_TAG
+      # Pass OTel runtime exporter settings so buildkite-agent can use them.
+      - OTEL_EXPORTER_OTLP_ENDPOINT
+      - OTEL_EXPORTER_OTLP_PROTOCOL
+      - OTEL_EXPORTER_OTLP_HEADERS
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+      - OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
+      - OTEL_EXPORTER_OTLP_TRACES_HEADERS
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun

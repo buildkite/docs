@@ -1,0 +1,42 @@
+#!/bin/bash
+# Deploys the image pushed by this build to the docs namespace on prod-use1.
+# Runs inside the helm-deploy container (.buildkite/docker-compose.helm-deploy.yml),
+# which has already joined the tailnet so the private EKS API is reachable.
+set -euo pipefail
+
+export AWS_REGION=us-east-1
+export AWS_PAGER=""
+
+cluster="prod-use1"
+namespace="docs"
+release="docs"
+tag="${BUILDKITE_BUILD_NUMBER:?BUILDKITE_BUILD_NUMBER must be set}"
+charts_ref="${INTERNAL_CHARTS_REF:?INTERNAL_CHARTS_REF must be set}"
+
+echo "--- :github: Fetching the docs chart from buildkite/internal-charts@${charts_ref}"
+charts="$(mktemp -d)"
+git init --quiet "${charts}"
+git -C "${charts}" fetch --quiet --depth 1 \
+  "https://x-access-token:${GH_TOKEN:?GH_TOKEN must be set}@github.com/buildkite/internal-charts.git" "${charts_ref}"
+git -C "${charts}" checkout --quiet FETCH_HEAD
+chart="${charts}/charts/docs"
+
+echo "--- :kubernetes: Configuring kubectl for ${cluster}"
+aws eks update-kubeconfig --name "${cluster}" --region "${AWS_REGION}"
+
+echo "--- :helm: Rendering ${release}"
+helm template "${release}" "${chart}" --namespace "${namespace}" --set image.tag="${tag}" > "${release}.yaml"
+buildkite-agent artifact upload "${release}.yaml"
+
+echo "+++ :helm: Deploying docs:${tag} to ${namespace}"
+helm upgrade "${release}" "${chart}" \
+  --install \
+  --namespace "${namespace}" \
+  --set image.tag="${tag}" \
+  --rollback-on-failure \
+  --wait=legacy \
+  --timeout 10m
+
+kubectl --namespace "${namespace}" get deployment,pods,httproute -l app=docs -o wide || true
+kubectl --namespace "${namespace}" get httproute docs \
+  -o jsonpath='{range .status.parents[*].conditions[*]}{.type}={.status} {end}{"\n"}'
