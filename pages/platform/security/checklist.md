@@ -13,12 +13,9 @@ If you suspect an active compromise, follow [Incident response](/docs/platform/s
 
 ## How to use this page
 
-1. For a new setup, follow [Secure your first production pipeline](/docs/platform/security/first-production-pipeline) for configuration examples and verification checks. For an existing setup, start with the baseline controls in each security area below.
-1. Choose the [hosted or self-hosted agent controls](#buildkite-agent-security) that apply to your queues. If you use both, review both sections. Plan-specific controls name their requirements or alternatives.
-1. Check an item after you configure and verify it. Record controls that don't apply, outstanding work, owners, and review dates in your own tracking system. Checklist selections are saved only in this browser, not in your Buildkite organization. They aren't evidence of compliance or a security score.
-1. Use your [workload risk profile](/docs/platform/security/risk-profiles) to select additional controls. _Baseline_ covers foundational protections, _Recommended_ adds protections for production delivery, and _Advanced_ covers specialized threats and higher-consequence workloads.
+Start with each area's baseline, then use your [workload risk profile](/docs/platform/security/risk-profiles) to select additional controls. For a new setup, follow [Secure your first production pipeline](/docs/platform/security/first-production-pipeline) for configuration and verification examples.
 
-For the responsibilities Buildkite and your organization share, see the [Security overview](/docs/platform/security#shared-responsibility). To make controls mandatory, use [Enforcing security controls](/docs/platform/security/enforcing-security-controls) to choose an enforcement point and test for bypasses.
+Check items after configuring and verifying them. Selections stay in this browser; they aren't evidence of compliance or a security score.
 
 <a id="security-areas"></a>
 
@@ -325,7 +322,7 @@ This baseline is complete when responders can reach the tested runbook and escal
 
 <%= security_area.('security-controls')['summary'] %>
 
-For enforcement locations, configuration details, and bypass tests, see [Enforcing security controls](/docs/platform/security/enforcing-security-controls).
+For more information, see [Enforcing security controls](/docs/platform/security/enforcing-security-controls).
 
 ### Baseline
 
@@ -349,11 +346,19 @@ This baseline is complete when every mandatory control has an owner, a protected
 
 ## Audit guidance
 
+Choose the [hosted or self-hosted agent controls](#buildkite-agent-security) that apply to your queues. If you use both, review both sections. Plan-specific controls name their requirements or alternatives.
+
+_Baseline_ covers foundational protections, _Recommended_ adds protections for production delivery, and _Advanced_ covers specialized threats and higher-consequence workloads.
+
+Record controls that don't apply, outstanding work, owners, and review dates in your own tracking system. Checklist selections aren't saved in your Buildkite organization.
+
 Each area ends with _Audit this area_, with API and CLI examples, MCP prompts, and checks that require a manual review. Start with the [authentication and access audit](#authentication-and-access-control-audit-this-area), or choose an area from the table of contents. Use a token with the documented read scopes and access to the resources under review. Set `ORG_SLUG`, `PIPELINE_SLUG`, and `CLUSTER_ID` to your own values where used. Examples that use `bk` require an authenticated [Buildkite CLI](/docs/platform/cli) installation; commands that filter JSON also require `jq`.
 
 List examples show the first page only. Follow [pagination](/docs/apis/rest-api#pagination) before treating an inventory as complete. Audit events use cursor pagination: follow the response's `links.next` URL. Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server), replace the example organization and pipeline names in prompts, and verify the results. A prompt is not an access control.
 
 Review the baseline in each area, then use its completion criteria to verify your setup. Counts include alternatives and controls for different plans and hosting models, so completing every item isn't the goal.
+
+For the responsibilities Buildkite and your organization share, see the [Security overview](/docs/platform/security#shared-responsibility). For more information about making controls mandatory, see [Enforcing security controls](/docs/platform/security/enforcing-security-controls).
 
 ## Further questions
 
