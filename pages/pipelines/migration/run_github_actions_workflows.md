@@ -383,7 +383,7 @@ Repository unavailable | Ask a GitHub installation administrator to check that t
 Requested permissions exceed the workflow policy, or the policy is invalid | Ask the workflow maintainer to remove unused requests or declare the required permissions in a supported top-level `permissions` map. Job-level permissions can't widen the policy. App grants and pull request restrictions still apply.
 Pull request permission ceiling | Pull request builds and their triggered or rebuilt descendants can request only `contents: read`. Remove extra permissions only if unused. Operations requiring more access need a separately trusted workflow that doesn't execute untrusted pull request code. App or pull request approval doesn't remove this restriction.
 Invalid build source or ancestry, or unsupported merge queue | Contact the Buildkite Support team with the build URL. Changing App permissions doesn't resolve these failures.
-{: class="two-column"}
+{: class="responsive-table"}
 
 If GitHub rejects token permissions, the response alone doesn't distinguish an App registration limit from an installation grant problem. Ask the GitHub App administrator to compare the App's registered permissions with the installation's approved permissions. An installation administrator can approve an update only if the App already requests those permissions. Approving or reinstalling the App can't add permissions absent from its registration. Contact the Buildkite Support team about supported options; remove requested permissions only if the workflow doesn't need them.
 

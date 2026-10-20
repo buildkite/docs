@@ -255,7 +255,7 @@ The selected event then controls applicability, event-dependent compilation, the
 | `workflow_run` | Not supported yet. Running an imported workflow doesn't create a GitHub Actions run or emit its workflow-run events. Consider Buildkite trigger steps when migrating cross-pipeline orchestration. |
 | `check_run`, `check_suite` | Not supported yet by GitHub Actions pipeline triggers. Native Buildkite builds on completed check runs are a separate integration. |
 | Any other event | No Buildkite build source exists, so the trigger can never start a build. It's ignored with a `W_TRIGGER_EVENT_UNSUPPORTED` warning when the workflow also declares a supported event. A workflow declaring only unsupported events fails event-independent validation and is a skipped step in an uploaded pipeline. |
-{: class="responsive-table"}
+{: class="responsive-table table--no-wrap responsive-table--single-column-rows"}
 
 Supported `pull_request` activity types are `assigned`, `unassigned`, `labeled`, `unlabeled`, `opened`, `edited`, `closed`, `reopened`, `synchronize`, `converted_to_draft`, `locked`, `unlocked`, `enqueued`, `dequeued`, `milestoned`, `demilestoned`, `ready_for_review`, `review_requested`, `review_request_removed`, `auto_merge_enabled`, and `auto_merge_disabled`.
 
