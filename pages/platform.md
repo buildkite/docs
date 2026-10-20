@@ -46,8 +46,8 @@ The Buildkite platform documentation contains docs for _common_ features of Buil
         description: "Guidelines on how to protect access to your Buildkite organization using a supported third-party SSO provider."
       },
       {
-        topic: "[Security](/docs/platform/security/tokens)",
-        description: "Security-related topics relevant to the entire Buildkite platform."
+        topic: "[Security](/docs/platform/security)",
+        description: "A security checklist for the entire Buildkite platform, with hosted and self-hosted agent controls, incident response guidance, and token security."
       },
       {
         topic: "[Integrations](/docs/pipelines/integrations/notifications/slack-workspace)",
