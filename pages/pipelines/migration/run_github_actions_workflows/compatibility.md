@@ -59,7 +59,7 @@ Looking for something else? [Browse open compatibility issues](https://github.co
 | [Windows jobs](#windows-jobs) | 🟡 Supported subset | Windows Server 2022 x86-64 through an explicit queue mapping or enabled automatic routing. No local Windows preset. |
 | [Other platforms](#job-syntax-job-configuration) and [providers](#repositories-credentials-and-github-services-repositories) | ❌ Unsupported | Windows arm64, Windows Server 2025, macOS x86-64, GitHub Enterprise Server, and unlisted providers. |
 | [Other GitHub services](#repositories-credentials-and-github-services-github-services) | ❌ Unsupported | No general emulation for Releases, Packages, Checks, deployments, or GitHub artifact APIs. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 ## Windows jobs
 
@@ -165,7 +165,7 @@ Text and JSON reports, Buildkite annotations, and generated failure artifacts pr
 | `name` | ✅ Supported | Available as `github.workflow` and used to name generated work. |
 | `run-name` | 🟡 Supported subset | An explicit non-empty value is appended to the workflow group label, when grouped. Compile-time `github`, `inputs`, and `vars` expressions are supported. The importer label, Buildkite build message, and provider-check names don't change. |
 | `on` | 🟡 Supported subset | Doesn't create a Buildkite build. Selects and filters workflows for the effective event as described in this section. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 A workflow name is retained in generated work:
 
@@ -614,7 +614,7 @@ To grant repository access, list each required permission at the top level, such
 | `env` | 🟡 Supported subset | Workflow, job, and step maps use normal precedence; the most specific value wins. Individual values may use supported interpolation. An entire map cannot be expression-valued. |
 | `defaults.run.shell` | 🟡 Supported subset | Supported at workflow and job level, subject to [shell and platform limits](#step-syntax-commands-and-actions). Windows defaults to `pwsh`, other host jobs to `bash`, and job containers to `sh`. |
 | `defaults.run.working-directory` | 🟡 Supported subset | Supported at workflow and job level for workspace-relative paths. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 A job-level value overrides the same workflow-level environment variable:
 
@@ -732,7 +732,7 @@ Cancel the whole Buildkite build rather than one job when a workflow-level concu
 | `continue-on-error` | ✅ Supported | Accepts literal Boolean values or expressions that produce a Boolean. A tolerated failure remains visible as a Buildkite Pipelines soft failure and reports `success` through downstream `needs`. |
 | `environment` | 🟡 Supported subset | Requires GitHub environment access at compile time. See [Deployment environments](#job-syntax-deployment-environments). |
 | `snapshot` | ➖ Accepted, no effect | Custom image creation is not implemented. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 Job names can interpolate matrix values:
 
@@ -906,7 +906,7 @@ Values are plain configuration, not secrets: they are stored in the build's job 
 | `include`, `exclude` | 🟡 Supported subset | Literal combinations or expressions that resolve to arrays of objects during compilation. A whole `include` list can be `fromJSON(needs.<job>.outputs.<name>)`. |
 | `max-parallel` | 🟡 Supported subset | Literal value on ordinary job matrices, or [a limit from the matrix producer's output](#job-syntax-scheduling-from-matrix-producer-outputs). Reusable-workflow call matrices with more than one instance are rejected because flattening cannot preserve invocation-level parallelism. |
 | `fail-fast` | ➖ Accepted, no effect | A failed matrix entry does not cancel its siblings. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 Each expanded job retains four scalar `strategy` values, including jobs in called workflows and matrices expanded from job outputs:
 
@@ -1122,7 +1122,7 @@ This section describes how workflow step keys, commands, actions, and workflow c
 | `env` | 🟡 Supported subset | Values override job and workflow values and may use supported expressions, including fallbacks. |
 | `continue-on-error` | ✅ Supported | Accepts Boolean literals or expressions that produce a Boolean. A failure records `outcome: failure` and `conclusion: success`, then the job continues. |
 | `timeout-minutes` | 🟡 Supported subset | Accepts literal numbers or expressions that produce a number greater than 0 and at most 360. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 Tolerated step failures, including expression failures before a process starts, produce masked warnings in the job log and the workflow warning annotation. This also applies to composite child steps and JavaScript `pre` hooks. The warning doesn't change the step's conclusion. If a composite action's `main` step is skipped, its tolerated `pre` hook warnings appear before result publication.
 
@@ -1247,7 +1247,7 @@ Outputs, environment changes, and failures become visible at the covering wait. 
 | `group`, `endgroup` | ✅ Supported | Creates linear log sections. |
 | Debug and matcher commands | ➖ Accepted, no effect | Consumed without presentation behavior. |
 | `notice`, command echo control, other legacy commands | ❌ Unsupported | Not implemented. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 The total job summary is limited to 1 MiB.
 
@@ -1465,7 +1465,7 @@ This section describes which action sources and runtimes are supported, and how 
 | Docker action | 🟡 Supported subset | Verified local or public Dockerfile or prebuilt-image action on Linux with optional bounded `runs.args`. Rejected on macOS and Windows, including through a composite action. |
 | Direct workflow `uses: docker://...` action | ❌ Unsupported | Rejected during validation. |
 | Top-level action metadata `env` | ➖ Accepted, no effect | Any valid YAML value is discarded. The value isn't evaluated, injected, retained in plans, or used to request secrets or tokens. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 Mutable public refs are resolved during upload, then locked to a commit. The importer lazily requests one Buildkite action-source token and reuses it across all workflow roots and nested composite actions. This token authenticates only public metadata requests for repositories other than the credential repository. The credential repository and codeload requests remain anonymous. If token issuance is unavailable during rollout, resolution safely falls back to anonymous GitHub API access. Exact lowercase commit SHAs need no GitHub API lookup. Complete source trees are verified again at runtime.
 
@@ -1781,7 +1781,7 @@ This section describes which repositories jobs can access, and how GitHub tokens
 | Private reusable workflow | 🟡 Supported subset | Same-repository or explicitly approved cross-repository source. Resolved by the importer only. |
 | Private action | ❌ Unsupported | No private action source access. |
 | GitHub Enterprise Server or an unlisted provider | ❌ Unsupported | Not available. |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--with-status"}
 
 ### GitHub token
 

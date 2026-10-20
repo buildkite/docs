@@ -63,6 +63,10 @@ To run a matching workflow without waiting for a GitHub event:
 1. Optionally, expand **Options** to set **Environment Variables** or use **Clean checkout**.
 1. Select **Run workflow**.
 
+Before the pipeline's first build, you can also select a workflow and use **Run workflow** directly from the pipeline page. The selector shows each workflow's name and file path:
+
+<%= image "workflow-picker.png", width: 1250/2, height: 500/2, alt: "First-build workflow selector listing Docs Lint, iOS Build and Test, and SwiftLint with their file paths beside the Run workflow button" %>
+
 Buildkite Pipelines discovers workflows at the selected commit. For a tag run, enter `refs/tags/<tag>` in **Branch** and provide a full commit SHA in **Commit** instead of `HEAD`.
 
 > 🚧 Manual dispatch limitation
@@ -213,6 +217,10 @@ In the recommended setup, Buildkite Pipelines selects the workflow and commit be
 | Deployment environment with required reviewers | A block step before the affected jobs |
 {: class="responsive-table"}
 
+This iOS workflow has a preparation step on Linux and a generated job on macOS. Select a job to inspect its log:
+
+<%= image "workflow-jobs.png", width: 1644/2, height: 364/2, alt: "Passed workflow preparation step on the linux-small queue and a passed Build and Test iOS Project job on the macos-medium queue" %>
+
 This process doesn't create a corresponding workflow run or runner in GitHub Actions. The workflow runs on Buildkite agents, with Buildkite Pipelines providing scheduling, logs, retries, cancellation, and status.
 
 ## Requirements
@@ -239,6 +247,8 @@ For iOS workflows, choose a queue base image that includes the required macOS, X
 1. Select **Base image**.
 1. Choose a compatible image and **Xcode version**.
 1. Select **Save base image**.
+
+<%= image "xcode-version.png", width: 2230/2, height: 960/2, alt: "Queue Base image tab with macOS version set to Tahoe, Xcode version set to 27, and the Save base image button" %>
 
 See the [macOS hosted agent images and software](/docs/agent/buildkite-hosted/macos#macos-instance-software-support) for available versions. If a workflow needs custom labels or queue mappings, contact the Buildkite Support team rather than editing the generated jobs or adding plugin configuration.
 
