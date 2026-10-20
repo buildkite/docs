@@ -302,7 +302,9 @@ For general pipeline monitoring, see [Monitoring and observability best practice
 
 ## Security considerations for dynamic pipelines
 
-Any running job can call `pipeline upload` to add steps to the current build. If a forked repository modifies `.buildkite/` scripts, those scripts run on your agents and can upload arbitrary steps. The [Security checklist](/docs/platform/security/checklist) recommends [disabling fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for pipelines with secrets. For pipelines that need to accept fork builds, gate them with a `block` step, either using a static `if` conditional (`if: build.pull_request_repo != "" && build.pull_request_repo != build.repository`) or a pipeline generator script for more complex logic such as checking an allowlist of trusted forks.
+Any running job can call `pipeline upload` to add steps to the current build. If a forked repository modifies `.buildkite/` scripts, those scripts run on your agents and can upload arbitrary steps. The [Security checklist](/docs/platform/security/checklist) recommends [disabling fork builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests) for pipelines with secrets.
+
+For native GitHub pipelines that accept fork builds, place any approval [block step](/docs/pipelines/configure/step-types/block-step) in pipeline settings before jobs that check out or run repository code. Use `if: build.pull_request.repository.fork == true` to identify fork pull requests. Don't generate the gate in a repository-controlled pipeline generator script: its job has already checked out fork code, and repository hooks can run before the script. Approval doesn't restrict secret access or make fork code trusted. GitHub Actions pipeline triggers [reject fork pull requests before creating a build](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests), so a block step can't enable them.
 
 The Buildkite agent rejects pipeline uploads that contain values from the agent process environment whose variable names match the default secret-name patterns:
 
