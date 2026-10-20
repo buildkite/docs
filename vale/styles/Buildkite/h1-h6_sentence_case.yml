@@ -19,6 +19,7 @@ exceptions:
   - OAuth
   - OAuth App
   - OAuth Device Authorization
+  - OAuth Token Exchange
   - 1Password
   - 2FA
   - ADFS

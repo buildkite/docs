@@ -77,7 +77,7 @@ A period picker lets you switch between a one-day and a seven-day view. One day 
 
 > 📘 This feature is currently available in preview and must be enabled by Buildkite for your organization. Until it's enabled, the **Summary** page shows test statistics by team only, without the **Group by** dropdown. Contact [Buildkite support](mailto:support@buildkite.com) to request access.
 
-The **Summary** page of a test suite includes a **Test statistics** table that breaks down test counts and execution duration. Use the **Group by** dropdown above the table to switch between **Team** (the default) and any available [tag](/docs/pipelines/configure/tests/test-suites/tags).
+The **Summary** page of a test suite includes a **Test statistics** widget that breaks down test counts and execution duration. Use the **Group by** dropdown at the top of the widget to switch between **Team** (the default) and any available [tag](/docs/pipelines/configure/tests/test-suites/tags). The widget is shown by default, and users with **Full Access** to the suite can move or hide it. Learn more in [Customize the Summary layout](#trends-and-analysis-customize-the-summary-layout).
 
 - Grouping by **Team** shows a row for each team assigned to the suite, based on [test ownership](/docs/pipelines/configure/tests/test-suites/test-ownership). If your organization doesn't have teams or a TESTOWNERS file set up, Buildkite Test Engine shows a prompt to set up test ownership instead of the table.
 - Grouping by tag doesn't require teams or test ownership to be configured. Search for a tag key in the **Group by** menu to group by its values.
@@ -94,7 +94,7 @@ Once your test suite is set up, you'll have many types of information automatica
 
 The Summary and Test pages are able to be filtered by branch, result (for example, pass, fail), state (for example, enabled, disabled), owner (for example, core-team, platform-team), label (for example, flaky, slow, feature-test) and [tag](/docs/pipelines/configure/tests/test-suites/tags). This allows greater flexibility and deeper analysis into the performance of your test suite.
 
-<%= image "test-stats.png", width: 2570, height: 902, alt: "Screenshot of test trend page showing test trend information over the last day, including test reliability and test execution durations" %>
+<%= image "suite-widgets.png", width: 2570, height: 1558, alt: "Screenshot of a test suite's Summary page showing metric charts above the Suite duration distribution and Runs with known flaky failures widgets" %>
 
 Select any individual test execution to see more trend and deep-dive information.
 
@@ -103,3 +103,50 @@ Select any individual test execution to see more trend and deep-dive information
 You can also annotate span information to help investigate problems, and see detailed log information inside Test Engine for any failed test or run.
 
 <%= image "span-timeline.png", width: 1868, height: 1430, alt: "Screenshot of span timeline with user-defined annotation" %>
+
+### Summary widgets
+
+> 📘 Summary widgets and layout editing are currently available in preview and must be enabled by Buildkite for your organization. Until they're enabled, the **Summary** page shows its existing charts and tables, without the **Edit layout** button. Contact [Buildkite support](mailto:support@buildkite.com) to request access.
+
+The **Summary** page shows your suite's charts and tables in widgets. Chart widgets show a key metric above the chart, so you can see the headline value at a glance. On wider screens, widgets sit side by side in a grid. On narrower screens, they stack.
+
+Each chart adapts to the width of its widget. Wide widgets show the full chart, with axes, a legend, and a tooltip when you hover over the chart. Narrow widgets show a simplified chart with a shorter title. Select a narrow widget to open its detailed chart. On wider chart widgets, select the **Maximise** icon to open the detailed chart in a dialog.
+
+If a widget doesn't apply every filter you've set on the **Summary** page, a warning icon appears next to its title. Select the icon to see which filters it ignores and why.
+
+### Customize the Summary layout
+
+Users with [**Full Access**](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) to a test suite can change the layout of its **Summary** page. Users with **Read Only** access see the saved layout without editing controls.
+
+Each suite has one saved layout, and everyone who views the suite sees the same widgets, in the same order and at the same widths. If two users edit the layout at the same time, the last one to save replaces the other's changes. The layout doesn't change when you switch between [saved views](/docs/pipelines/configure/tests/test-suites/saved-views).
+
+By default, the **Summary** page shows the suite's metric charts, **Test statistics**, and **Recent runs**. These other widgets start hidden:
+
+- **Suite duration distribution**
+- **Test duration distribution**
+- **Flaky tests added and resolved**
+- **Runs with known flaky failures**
+- **Workflow activity**
+- **Slowest tests**
+
+The **Widgets** menu only lists widgets that can show data for the suite:
+
+- **Flaky tests added and resolved** and **Runs with known flaky failures** are listed only when the suite has tests labeled as flaky.
+- **Workflow activity** is listed only when the suite has an active [workflow](/docs/pipelines/configure/tests/workflows).
+
+<%= image "summary-widgets-menu.png", width: 2570, height: 1428, alt: "Screenshot of a test suite's Summary page in edit mode, with the Widgets menu open" %>
+
+To change the layout:
+
+1. On the test suite's **Summary** page, select **Edit layout**.
+1. Make your changes:
+    * To show or hide a widget, select **Widgets**, then select or clear the widget. A widget you show is added in a new row at the bottom.
+    * To move a widget, drag its handle, or focus the handle and use the arrow keys.
+    * To move a whole row, drag the handle at the start of the row, or focus that handle and use the Up and Down arrow keys.
+    * To resize a widget, drag the divider next to it, or focus the divider and use the Left and Right arrow keys. You can also focus the handle of the widget and press Shift with the Left or Right arrow key. Each row is four units wide. Some widgets, such as **Recent runs**, always use the full width.
+    * To switch a chart between bar and line styles, select the bar chart or line chart icon at the top of the widget. For a narrow widget, open its detailed chart first.
+1. Select **Save layout** to save your changes for everyone, or select **Cancel** to discard them.
+
+To go back to the default widgets, order, and widths, select **Widgets** > **Reset layout** while editing, then select **Save layout**. Resetting keeps each chart's style.
+
+If you try to leave the page with unsaved changes, including with your browser's back button, a dialog asks you to confirm. Select **Keep editing** to stay, or **Discard changes** to leave without saving. Changing the grouping or page of the **Test statistics** table doesn't discard your changes.

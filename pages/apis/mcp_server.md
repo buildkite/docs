@@ -84,7 +84,7 @@ The OAuth-based remote MCP server is suitable for personal usage with an AI tool
     Instead, you only require your Buildkite user account, and the Buildkite platform issues a short-lived OAuth access token, representing your user account for authentication, along with both _read_ and _write_ access permission scopes which are pre-set by the Buildkite platform to provide the authorization. This OAuth token auth process takes place after [configuring your AI tool with the remote MCP server](/docs/apis/mcp-server/remote/configuring-ai-tools) and connecting to it.
 
     **Notes:**
-    * OAuth access tokens are valid for 12 hours, and the refresh tokens are valid for seven days.
+    * MCP access tokens last up to one hour, and refresh tokens last up to 30 days. Clients that support refresh can renew credentials without another interactive login. See [OAuth for remote MCP and the Buildkite CLI](/docs/platform/security/oauth) for token lifetimes, security testing, and audit visibility.
     * These OAuth access tokens provide both read and write access to the remote MCP server. If you'd prefer to restrict your access to read-only, a [read-only version of the MCP server](#read-only-remote-mcp-server) is also available.
 
 - There is no need to install or upgrade any software. Since the remote MCP server undergoes frequent updates, you get access to new features and fixes automatically.

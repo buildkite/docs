@@ -255,7 +255,27 @@ If the page offers **Try again**, retry the scan after correcting repository acc
 
 ### Private checkout or a GitHub token is unavailable
 
-Private checkout and workflow access tokens use separate settings. Check repository-provider access for checkout failures. For token failures, check **Allow workflow-authorized GitHub access tokens**, the workflow's top-level `permissions`, the GitHub App's repository access, and whether the job runs on a Buildkite hosted agent.
+Private checkout and workflow access tokens use separate settings, and both require the generated job to run on a Buildkite hosted agent. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials, secrets, and OIDC](#supported-functionality-and-limitations-credentials-secrets-and-oidc) restrictions before enabling write permissions.
+
+Workflow token request failures with an HTTP response appear in the job log and a **GitHub workflow token unavailable** annotation. Use the reported cause to identify who can act:
+
+Cause | Action
+----- | ------
+Tokens disabled for this pipeline | Ask a pipeline administrator to enable **Allow workflow-authorized GitHub access tokens** in the pipeline's repository settings, if intended. This doesn't approve additional GitHub App permissions.
+No active matching code-access connection | Ask a Buildkite organization administrator to review **Repository Providers**, including account matching and suspension. **Buildkite (Limited Access)** can't issue workflow tokens. If a new installation is needed, a GitHub installation administrator must review its permissions and selected repositories.
+Repository unavailable | Ask a GitHub installation administrator to check that the repository exists and is selected for the App installation. This error doesn't prove which condition failed.
+Requested permissions exceed the workflow policy, or the policy is invalid | Ask the workflow maintainer to remove unused requests or declare the required permissions in a supported top-level `permissions` map. Job-level permissions can't widen the policy. App grants and pull request restrictions still apply.
+Pull request permission ceiling | Pull request builds and their triggered or rebuilt descendants can request only `contents: read`. Remove extra permissions only if unused. Operations requiring more access need a separately trusted workflow that doesn't execute untrusted pull request code. App or pull request approval doesn't remove this restriction.
+Invalid build source or ancestry, or unsupported merge queue | Contact the Buildkite Support team with the build URL. Changing App permissions doesn't resolve these failures.
+{: class="two-column"}
+
+If GitHub rejects token permissions, the response alone doesn't distinguish an App registration limit from an installation grant problem. Ask the GitHub App administrator to compare the App's registered permissions with the installation's approved permissions. An installation administrator can approve an update only if the App already requests those permissions. Approving or reinstalling the App can't add permissions absent from its registration. Contact the Buildkite Support team about supported options; remove requested permissions only if the workflow doesn't need them.
+
+Older versions may report only `GitHub workflow token request was rejected` or `GitHub workflow access tokens are not enabled for this organization or pipeline`. These messages don't establish a specific cause. Check the pipeline setting, hosted-agent requirement, top-level permissions, and matching repository connection. If unresolved, contact the Buildkite Support team with the build URL. Temporary failures and rate limits retain their bounded retries; don't change App permissions to resolve them.
+
+### GitHub variables can't be resolved
+
+If the importer can't read GitHub variables, every workflow that references `vars` fails to compile with an `E_VARIABLE_RESOLUTION` diagnostic, while other workflows still upload. When the diagnostic includes a specific policy, permission, installation, or repository-access error, correct that cause. For example, confirm that the Buildkite GitHub App installation has the **Variables: read** permission. If it only reports `GitHub variables could not be resolved`, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) with the build URL.
 
 ### Validate a workflow locally
 

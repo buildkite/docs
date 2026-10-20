@@ -14,6 +14,7 @@ ai-tools-and-mcp:
   exact_paths:
     - "pipelines/getting-started-with-coding-agents"
     - "platform/ai-agents"
+    - "platform/security/oauth"
     - "apis/graphql/portals"
     - "apis/graphql/portals/limits"
     - "apis/graphql/portals/ephemeral-portal-tokens"
@@ -197,6 +198,11 @@ best-practices:
     - "agent/queues/managing"
     - "agent/lifecycle"
     - "agent/hooks"
+    - "platform/security"
+    - "platform/security/risk-profiles"
+    - "platform/security/first-production-pipeline"
+    - "platform/security/checklist"
+    - "platform/security/enforcing-security-controls"
   related_topics:
     - pipeline-configurations
     - security
@@ -311,8 +317,6 @@ security:
     - "platform/sso"
     - "package-registries/security"
   exact_paths:
-    - "pipelines/best-practices/security-controls"
-    - "pipelines/best-practices/secrets-management"
     - "agent/buildkite-hosted/network-security"
     - "platform/team-management/enforce-2fa"
     - "platform/team-management/inactive-user-list"
@@ -474,6 +478,7 @@ cli-tools:
     - "agent"
     - "apis"
     - "platform/vscode-extension"
+    - "platform/security/oauth"
   related_topics:
     - buildkite-apis
     - agent

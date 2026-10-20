@@ -256,7 +256,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>410 Gone</code></th>
-    <td><code>{ "message": "Artifact has expired" }</code></td>
+    <td><code>{ "message": "Artifact has expired", "expired_at": "2026-02-09T12:00:00.000Z" }</code> <code>expired_at</code> is when the artifact's retention period ran out.</td>
   </tr>
 </tbody>
 </table>
