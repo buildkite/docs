@@ -32,6 +32,10 @@ A [Buildkite cluster](/docs/pipelines/security/clusters) is an isolated set of a
     <td>ID of the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.</td>
   </tr>
   <tr>
+    <th><code>agent_tracing_service_uuid</code></th>
+    <td>UUID of the OpenTelemetry notification service used to <a href="/docs/pipelines/security/clusters/manage#automatically-configure-agent-opentelemetry-tracing-for-a-cluster">automatically configure agent tracing</a>, or <code>null</code> when none is selected. Only included in responses for callers with <strong>manage cluster</strong> permission.</td>
+  </tr>
+  <tr>
     <th><code>name</code></th>
     <td>Name of the cluster</td>
   </tr>
@@ -194,6 +198,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   },
   "hosted_git_mirror_enabled": false,
   "hosted_container_cache_enabled": false,
+  "agent_tracing_service_uuid": null,
   "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d",
   "default_cache_registry_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
 }
@@ -277,6 +282,10 @@ Optional [request body properties](/docs/api#request-body-properties):
       <em>Example:</em> <code>"#FFE0F1"</code></td>
   </tr>
   <tr>
+    <th><code>agent_tracing_service_uuid</code></th>
+    <td>UUID of an enabled OpenTelemetry notification service in the same organization, scoped to all pipelines with no branch filter. Use the service's UUID, not its GraphQL ID. Omit this property or set it to <code>null</code> to leave automatic agent tracing unconfigured. Agents need version 3.136.1 or later.<br><em>Example:</em> <code>"00000000-0000-4000-8000-000000000001"</code></td>
+  </tr>
+  <tr>
     <th><code>maintainers</code></th>
     <td>An array of one or more hashes of representing users or teams to grant maintainer permissions to for this cluster.<br/>
       <em>Example:</em>
@@ -339,6 +348,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   },
   "hosted_git_mirror_enabled": false,
   "hosted_container_cache_enabled": false,
+  "agent_tracing_service_uuid": null,
   "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d",
   "default_cache_registry_url": "https://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/cache-registries/b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d"
 }
@@ -356,6 +366,17 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{ "default_cache_registry_uuid": "b3a1e9f2-7c4d-4f1a-9e6c-2d8a5f7b1c3d" }'
 ```
+
+To configure automatic agent tracing, set `agent_tracing_service_uuid` to an eligible [OpenTelemetry notification service](/docs/pipelines/integrations/observability/opentelemetry#opentelemetry-tracing-notification-service) UUID:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{ "agent_tracing_service_uuid": "00000000-0000-4000-8000-000000000001" }'
+```
+
+Omit this property to keep the current selection, or set it to `null` to disable automatic configuration. Only newly registered agents receive changes. Already registered agents keep their configuration until they restart or reconnect, including after automatic configuration is disabled. Local OTLP destination settings take precedence. See [Automatically configure agent OpenTelemetry tracing for a cluster](/docs/pipelines/security/clusters/manage#automatically-configure-agent-opentelemetry-tracing-for-a-cluster) for setup and credential security guidance.
 
 <table class="responsive-table">
 <tbody>
@@ -378,6 +399,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>default_queue_id</code></th>
     <td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code></td>
+  </tr>
+  <tr>
+    <th><code>agent_tracing_service_uuid</code></th>
+    <td>UUID of an enabled OpenTelemetry notification service in the same organization, scoped to all pipelines with no branch filter. Use the service's UUID, not its GraphQL ID. Omit this property to keep the current selection, or set it to <code>null</code> to disable automatic agent tracing. Requires permission to manage the cluster.<br><em>Example:</em> <code>"00000000-0000-4000-8000-000000000001"</code></td>
   </tr>
   <tr>
     <th><code>default_cache_registry_uuid</code></th>
