@@ -21,16 +21,22 @@ Connect your repository using the full-access [**GitHub** repository provider](/
 
 1. From the Buildkite dashboard, select **New Pipeline**.
 1. Under **Git scope**, select your GitHub account or organization. Then select your repository.
-1. When Buildkite Pipelines detects your workflows, review **Run GitHub Actions workflows on Buildkite** and the detected workflows.
-1. Review the pipeline name, description, default branch, and [cluster](/docs/pipelines/security/clusters). The cluster must contain compatible [queues](/docs/agent/queues) for your workflows' `runs-on` labels.
+1. When Buildkite Pipelines detects your workflows, it selects **Run GitHub Actions workflows on Buildkite** automatically. Expand the workflow count to review workflow names, paths, and triggers. If you previously switched to regular setup, select **Use workflows**.
+1. Review **Pipeline name**, **Description**, **Default Branch**, **Teams** (if shown), and [**Cluster**](/docs/pipelines/security/clusters). The cluster must contain compatible [queues](/docs/agent/queues) for your workflows' `runs-on` labels.
 1. Select **Create GitHub Actions pipeline**.
 
-Buildkite Pipelines creates a **GitHub Actions** pipeline trigger and configures a signed repository webhook. The server selects workflows from each event's commit; you don't maintain a list of workflow paths in the pipeline configuration. Don't add a traditional GitHub repository webhook for the same pipeline, because it can create duplicate builds.
+<%= image "github-actions-setup.png", width: 1480/2, height: 1630/2, alt: "GitHub Actions setup with three detected workflows expanded, the Configure Buildkite pipeline alternative, and the Create GitHub Actions pipeline button" %>
+
+GitHub Actions setup stays alongside the pipeline settings, even when the repository also contains Buildkite pipeline configuration. Select **Configure Buildkite pipeline** to use regular setup instead. Switching between modes preserves your entered YAML. **Checkout using** and **Build Triggers** appear only in regular setup.
+
+Buildkite Pipelines creates the pipeline and one enabled **GitHub Actions** [pipeline trigger](/docs/apis/webhooks/incoming/pipeline-triggers) together, then provisions a dedicated signed repository webhook. This path skips traditional GitHub webhook setup. The server selects workflows from each event's commit; you don't maintain a list of workflow paths in the pipeline configuration. Don't add a traditional GitHub repository webhook for the same pipeline, because it can create duplicate builds.
+
+If trigger validation fails, no pipeline is created. Correct the displayed error and retry. If webhook provisioning fails after creation, the pipeline and trigger remain. Select **Review GitHub connection** to recover the existing connection rather than creating another pipeline or trigger.
 
 The pipeline enables **Allow workflow-authorized GitHub access tokens** and disables pipeline-level commit status publishing. Review [token permissions and trust boundaries](#supported-functionality-and-limitations-credentials-secrets-and-oidc), and disable workflow access tokens in the pipeline's GitHub settings if your workflows don't need them.
 
 > 📘 Setup availability
-> GitHub Actions setup isn't available to organizations that require [pipeline templates](/docs/pipelines/governance/templates), or that use the legacy new pipeline page. Contact the Buildkite Support team for setup help rather than adding a plugin manually.
+> GitHub Actions setup isn't available to organizations that require [pipeline templates](/docs/pipelines/governance/templates), or that use the legacy new pipeline page. Use the [equivalent manual setup](#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually), respecting your organization's template requirements.
 
 ### Add secrets
 
@@ -83,7 +89,69 @@ For push and pull request workflows, the server accepts `paths` and `paths-ignor
 
 Workflow matching decides which builds to create. Traditional GitHub provider build filters and duplicate-commit settings don't restrict these builds. Configure supported filters in your workflow files instead. Leave **Cancel Intermediate Builds** and **Skip Intermediate Builds** disabled: these branch-wide settings can cancel or skip sibling workflow builds from the same event.
 
-To manage trigger configuration programmatically, use the [pipeline triggers REST API](/docs/apis/rest-api/pipeline-triggers). A trigger alone doesn't configure a new pipeline for GitHub Actions Compatibility; use the pipeline creation flow above for initial setup.
+### Configure an equivalent pipeline manually
+
+Use the interface for new pipelines unless you need CLI, API, or agent-based automation. Programmatic setup requires two requests: create the pipeline with the settings below, then create its GitHub Actions pipeline trigger. Uploading YAML alone doesn't provision either resource or its repository webhook.
+
+Use an API access token with the `write_pipelines` [scope](/docs/apis/managing-api-tokens#token-scopes), permission to create pipelines, and **Full Access** to manage the pipeline's triggers. The repository must use the full-access **GitHub** repository provider, with GitHub App access to read workflows and manage repository webhooks.
+
+1. Save the following request body as `github-actions-pipeline.json`. Replace `YOUR_CLUSTER_ID`, the repository URL, and `main` with your cluster, repository, and default branch. Add team permissions if your organization requires them.
+
+    ```json
+    {
+      "name": "GitHub Actions",
+      "repository": "https://github.com/acme-inc/example.git",
+      "cluster_id": "YOUR_CLUSTER_ID",
+      "default_branch": "main",
+      "configuration": "steps:\n  - label: \":github: Prepare workflow · ${GITHUB_WORKFLOW}\"\n    plugin: github-actions\n",
+      "branch_configuration": null,
+      "skip_queued_branch_builds": false,
+      "cancel_running_branch_builds": false,
+      "provider_settings": {
+        "github_workflow_access_tokens_enabled": true,
+        "publish_commit_status": false,
+        "build_branches": true,
+        "build_pull_requests": true,
+        "build_tags": true,
+        "filter_enabled": false,
+        "filter_condition": null,
+        "pull_request_branch_filter_enabled": false,
+        "pull_request_branch_filter_configuration": null,
+        "ignore_default_branch_pull_requests": false,
+        "skip_builds_for_closed_pull_requests": false,
+        "skip_builds_for_existing_commits": false,
+        "skip_pull_request_builds_for_existing_commits": false,
+        "trigger_mode": "none"
+      }
+    }
+    ```
+
+    The configuration has no `workflow` or `workflows` selector. Setting `trigger_mode` to `none` disables traditional GitHub triggering without disabling GitHub Actions pipeline triggers. The other settings match the behavior of in-product setup. `github_actions_mode` is interface presentation metadata, not an API provisioning switch.
+
+    If your organization requires pipeline templates, use an approved template containing this selector-free configuration. Replace `configuration` with its `pipeline_template_uuid`; don't send both fields. Keep the provider settings and create the trigger separately.
+
+1. [Create a YAML pipeline](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) using the saved request body:
+
+    ```bash
+    curl -H "Authorization: Bearer $TOKEN" \
+      -H "Content-Type: application/json" \
+      -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+      --data-binary @github-actions-pipeline.json
+    ```
+
+1. Using the returned pipeline slug, [create a GitHub Actions pipeline trigger](/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger) with `type: "github_actions"`, `label: "GitHub Actions"`, `enabled: true`, and `create_webhook: true`. Don't send `build` or `filter`, or create a traditional repository webhook.
+1. Save the trigger's returned `endpoint_url` securely and check `webhook_creation.status`. `201 Created` confirms trigger creation, not successful webhook provisioning. If provisioning fails, inspect GitHub for an existing webhook and repair the same trigger's connection as described in the API reference. Don't repeat the creation request.
+1. Send a supported GitHub event. Inspect **Recent Deliveries** and confirm one build per matching workflow, without extra builds from traditional triggering.
+
+With the [Buildkite CLI](/docs/platform/cli), select the intended organization and use `bk api` for the same two requests:
+
+```bash
+bk api --method POST /pipelines --data - < github-actions-pipeline.json
+bk api --method POST /pipelines/{pipeline.slug}/triggers \
+  --data '{"type":"github_actions","label":"GitHub Actions","enabled":true,"create_webhook":true}'
+```
+
+Agent-based automation can run the same REST requests with an API access token stored securely. An agent token isn't an API access token. Neither `buildkite-agent pipeline upload` nor `buildkite-gha upload` creates a pipeline or trigger; both upload jobs into an existing build. These two API requests are separate, unlike the combined pipeline-and-trigger transaction in the interface.
 
 ## Migrate to server-side dispatch
 
@@ -97,11 +165,40 @@ If an older pipeline runs GitHub Actions workflows through a manually configured
 
 If the old pipeline uses custom runner mappings, private reusable-workflow access, OIDC options, scheduled builds, or a mixture of native steps and imported workflows, contact the Buildkite Support team before replacing it. Don't assume that plugin-specific configuration transfers to the new pipeline.
 
+To retain the existing pipeline instead:
+
+1. Update required GitHub checks to use workflow checks before disabling pipeline-level commit status publishing.
+1. Disable the pipeline's [traditional GitHub webhook processing](/docs/apis/rest-api/pipelines#github-webhook-processing-disable-github-webhook-processing). If that control isn't available, disable only the repository webhook dedicated to this pipeline.
+1. Apply the [manual setup settings](#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually) using [Update a pipeline](/docs/apis/rest-api/pipelines#update-a-pipeline). Replace explicit workflow selectors with selector-free configuration, preserving required custom options.
+1. Create the dedicated GitHub Actions pipeline trigger and verify that matching events don't create duplicate builds.
+
+In mixed pipelines, native steps now run once per matched workflow build, rather than once per event.
+
 You can continue migrating individual workflows to [native Buildkite Pipelines configuration](/docs/pipelines/migration/from-githubactions) over time. The [Buildkite pipeline converter](/docs/pipelines/converter/github-actions) helps translate workflow files when you're ready to change their configuration format.
+
+## Use explicit workflows in an existing build
+
+The previous plugin setup remains supported as an advanced alternative. Prefer GitHub Actions setup for new pipelines. Use explicit workflow selection when you need a separately configured manual or scheduled build, or an existing pipeline that imports selected workflows.
+
+Add this step to your [pipeline configuration](/docs/pipelines/configure/defining-steps). The [GitHub Actions plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/) selects the workflow inside an existing build rather than creating a build for each matching workflow event:
+
+```yaml
+steps:
+  - label: "\:github\: GitHub Actions"
+    key: github-actions
+    plugins:
+      - github-actions:
+          workflow: .github/workflows/ci.yml
+```
+{: codeblock-file=".buildkite/pipeline.yml"}
+
+Give each explicit-workflow importer a unique `key`. To select multiple workflows, replace `workflow` with `workflows` and an array of explicit `.yml` or `.yaml` file paths. Don't use both selectors. Either selector overrides trigger-based workflow selection, so don't add them to the recommended GitHub Actions pipeline configuration.
+
+Configure [traditional GitHub triggers](/docs/pipelines/source-control/github#set-up-a-new-pipeline-for-a-github-repository), Buildkite schedules, or manual builds separately. The plugin doesn't create triggers from the workflow's `on` declaration; it uses that declaration to determine eligibility within the existing build. Manual builds without authoritative GitHub event metadata fall back to `push`. See [Select the effective event](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-select-the-effective-event) for custom event handling, and the [runtime requirements](/docs/pipelines/migration/run-github-actions-workflows/compatibility) before configuring self-hosted importers.
 
 ## How workflows run
 
-Buildkite Pipelines selects the workflow and commit before creating a build. A preparation step uses the `buildkite-gha` runtime to check compatibility and create the workflow's jobs. The reference pages call this preparation step the _importer_ and its jobs the _generated jobs_. Buildkite Pipelines manages this implementation; you don't configure its plugin or runtime installation.
+In the recommended setup, Buildkite Pipelines selects the workflow and commit before creating a build. A preparation step uses the `buildkite-gha` runtime to check compatibility and create the workflow's jobs. The reference pages call this preparation step the _importer_ and its jobs the _generated jobs_. Buildkite Pipelines manages this implementation; you don't configure its plugin or runtime installation.
 
 | GitHub Actions concept | Buildkite Pipelines behavior |
 | --- | --- |
@@ -255,9 +352,11 @@ Don't edit generated jobs or add a plugin mapping to bypass runner validation. C
 
 The legacy new pipeline page and organizations requiring pipeline templates don't offer GitHub Actions setup. Contact the Buildkite Support team for help.
 
-If the new pipeline page can't scan your repository, check that it is connected through the full-access **GitHub** repository provider and that the GitHub App installation can read the repository. **GitHub (Limited Access)** can't provide workflow discovery. Select **GitHub settings** in the repository picker to add a missing repository to an existing installation.
+If the new pipeline page can't scan your repository, check that it is connected through the full-access **GitHub** repository provider and that the GitHub App installation can read the repository. **GitHub (Limited Access)** can't provide workflow discovery. If shown, select **Manage GitHub access** to review the installation's repository access.
 
 If the page offers **Try again**, retry the scan after correcting repository access.
+
+Repository discovery temporarily blocks the editor and submission controls. If discovery times out or fails, the regular editor becomes available so you can continue with native Buildkite Pipelines steps. Select **Try again** to retry workflow discovery instead. Your setup choice and entered YAML are preserved after validation errors.
 
 ### Private checkout or a GitHub token is unavailable
 

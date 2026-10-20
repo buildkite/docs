@@ -74,15 +74,16 @@ The **GitHub** (full access) option additionally requests read access to code, w
 
 ## Set up a new pipeline for a GitHub repository
 
-To run GitHub Actions workflows, use the recommended [GitHub Actions Compatibility setup](/docs/pipelines/migration/run-github-actions-workflows). It creates a GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below.
+To run GitHub Actions workflows, use the recommended [GitHub Actions Compatibility setup](/docs/pipelines/migration/run-github-actions-workflows). When workflows are detected, the **New Pipeline** page selects **Run GitHub Actions workflows on Buildkite**. Review the detected workflows and pipeline settings, then select **Create GitHub Actions pipeline**. This creates an enabled GitHub Actions pipeline trigger with its own signed repository webhook and skips the traditional webhook setup below. Matching workflow events create one build per matching workflow.
 
-For a native Buildkite pipeline:
+For native Buildkite Pipelines steps, use regular setup:
 
 1. Select **Pipelines** > **New pipeline**.
 1. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
     <%= image "new-pipeline-page.png", width: 2136/2, height: 1132/2, alt: "Screenshot of adding a new pipeline" %>
 
+1. If GitHub Actions setup is selected, select **Configure Buildkite pipeline** to use the regular editor.
 1. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/configure/defining-steps#adding-steps) for more information.
 1. Select **Create Pipeline**.
 1. Follow the onscreen instructions to set up a webhook:

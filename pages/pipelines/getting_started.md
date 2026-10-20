@@ -49,8 +49,8 @@ The **New Pipeline** page has the following fields:
 
 - **Repository**: Select the Git repository available to your selected **Git scope**. Upon selection:
 
-    * The **Checkout using** option appears, where you can select **SSH** or **HTTPS**.
-    * For non-**Buildkite Examples** repositories, the [**Build Triggers** section](/docs/pipelines/configure/auto-create-build-triggers) may appear, showing the actions that trigger a build. Clear the **Trigger builds when** checkbox to disable triggering.
+    * In regular setup, the **Checkout using** option appears, where you can select **SSH** or **HTTPS**.
+    * In regular setup for non-**Buildkite Examples** repositories, the [**Build Triggers** section](/docs/pipelines/configure/auto-create-build-triggers) may appear, showing the actions that trigger a build. Clear the **Trigger builds when** checkbox to disable triggering.
 
 - **Pipeline name**: Auto-generated from your repository's name; change it here if needed.
 - **Description** ( _optional_ ): A description shown under the pipeline name on the main **Pipelines** page.
@@ -67,10 +67,10 @@ The **New Pipeline** page has the following fields:
         - **Pipeline upload**: Uploads a Buildkite pipeline stored in your repository.
     * **Example templates**: Pipelines used to build example projects available from the **Repository** field when **Git scope** is set to **Buildkite Examples**.
 
-    If Buildkite Pipelines discovers GitHub Actions workflows in a repository connected through the full-access **GitHub** repository provider, it offers **Run GitHub Actions workflows on Buildkite** separately from the **Template** dropdown. Select **Create GitHub Actions pipeline** to use this setup. See [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) for setup and availability during the public preview.
+    If Buildkite Pipelines discovers GitHub Actions workflows in a repository connected through the full-access **GitHub** repository provider, it selects **Run GitHub Actions workflows on Buildkite** instead of the editor, including when Buildkite configuration also exists. Pipeline settings remain available alongside it. Select **Create GitHub Actions pipeline** to create a dedicated GitHub Actions pipeline trigger and signed webhook, skipping traditional webhook setup. Select **Configure Buildkite pipeline** to return to the editor, or **Use workflows** to switch back without losing entered YAML. See [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) for setup and availability during the public preview.
 
 > 📘
-> If you've already created a pipeline definition at `.buildkite/pipeline.yml` in your selected **Repository**, select the **Pipeline upload** option from the **Template** dropdown of the **YAML Steps editor**. This generates a step that uploads and runs the rest of your pipeline from that file. For repositories connected through GitHub with code access or Origin, Buildkite Pipelines automatically detects existing pipeline configuration files and pre-selects **Pipeline upload**. Learn more in [Create your own pipeline](#create-your-own-pipeline).
+> If you've already created a pipeline definition at `.buildkite/pipeline.yml` in your selected **Repository**, select the **Pipeline upload** option from the **Template** dropdown of the **YAML Steps editor**. This generates a step that uploads and runs the rest of your pipeline from that file. For repositories connected through GitHub with code access or Origin, Buildkite Pipelines automatically detects existing pipeline configuration files and pre-selects **Pipeline upload** for regular setup. If GitHub Actions setup is selected, choose **Configure Buildkite pipeline** to use that configuration. Learn more in [Create your own pipeline](#create-your-own-pipeline).
 
 ### Example pipelines
 

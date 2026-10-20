@@ -16,11 +16,13 @@ Learn more about this page from [Understanding the New Pipeline page](/docs/pipe
 
 Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](/docs/apis/graphql-api) for details and examples.
 
+For repositories with GitHub Actions workflows, use [GitHub Actions Compatibility setup](/docs/pipelines/migration/run-github-actions-workflows) instead of writing Buildkite pipeline steps. The **New Pipeline** page selects this mode when workflows are detected. It creates a dedicated GitHub Actions pipeline trigger and signed webhook. For CLI, API, or agent-based automation, follow the [equivalent manual setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually); uploading steps alone doesn't create these resources.
+
 ### Webhooks for GitHub
 
-For a GitHub account's repositories, webhooks are automatically created for any of these repositories when a Buildkite pipeline is created for that repository. This functionality is implemented automatically once your GitHub account is connected to Buildkite using the GitHub App.
+For regular pipeline setup, the [Auto-create Build Triggers setting](/docs/pipelines/configure/auto-create-build-triggers) controls automatic GitHub webhook creation in the interface. GitHub Actions setup uses its dedicated pipeline trigger instead.
 
-This GitHub App connection is established as part of [signing up with GitHub](/docs/pipelines/getting-started#before-you-start) (see [Getting started with Pipelines](/docs/pipelines/getting-started) page for details), or if you select the [**Git scope** > **Connect GitHub account** option](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) on the **New Pipeline** page.
+Connect your GitHub account using the GitHub App as part of [signing up with GitHub](/docs/pipelines/getting-started#before-you-start), or select [**Git scope** > **Connect GitHub account**](/docs/pipelines/getting-started#create-a-new-pipeline-understanding-the-new-pipeline-page) on the **New Pipeline** page.
 
 Learn more about configuring the GitHub App from the [GitHub page of Connect source control](/docs/pipelines/source-control/github).
 
