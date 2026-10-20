@@ -103,11 +103,12 @@ Use an API access token with the `write_pipelines` [scope](/docs/apis/managing-a
       "repository": "https://github.com/acme-inc/example.git",
       "cluster_id": "YOUR_CLUSTER_ID",
       "default_branch": "main",
-      "configuration": "steps:\n  - label: \":github: Prepare workflow · ${GITHUB_WORKFLOW}\"\n    plugin: github-actions\n",
+      "configuration": "steps:\n  - label: \"\:github\: Prepare workflow · ${GITHUB_WORKFLOW}\"\n    plugin: github-actions\n",
       "branch_configuration": null,
       "skip_queued_branch_builds": false,
       "cancel_running_branch_builds": false,
       "provider_settings": {
+        "github_actions_mode": true,
         "github_workflow_access_tokens_enabled": true,
         "publish_commit_status": false,
         "build_branches": true,
@@ -126,7 +127,7 @@ Use an API access token with the `write_pipelines` [scope](/docs/apis/managing-a
     }
     ```
 
-    The configuration has no `workflow` or `workflows` selector. Setting `trigger_mode` to `none` disables traditional GitHub triggering without disabling GitHub Actions pipeline triggers. The other settings match the behavior of in-product setup. `github_actions_mode` is interface presentation metadata, not an API provisioning switch.
+    The configuration has no `workflow` or `workflows` selector. Setting `trigger_mode` to `none` disables traditional GitHub triggering without disabling GitHub Actions pipeline triggers. The other settings match the behavior of in-product setup. Set `github_actions_mode` to `true` to enable the **Run a workflow** interface and workflow selection for manual builds. This setting doesn't provision the pipeline trigger or its webhook; create those separately below.
 
     If your organization requires pipeline templates, use an approved template containing this selector-free configuration. Replace `configuration` with its `pipeline_template_uuid`; don't send both fields. Keep the provider settings and create the trigger separately.
 
