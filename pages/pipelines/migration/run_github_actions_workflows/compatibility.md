@@ -1308,7 +1308,7 @@ if: inputs.disable-nix-access-token == 'false' && github.server_url == 'https://
 
 The guard selects the step only when the input is `'false'` and the provider URL is `https://github.com`. The implicit success guard still applies. Accepting this condition doesn't grant [GitHub token authority](#repositories-credentials-and-github-services-github-token) to the composite's run body.
 
-The pinned GitHub runner source [admits `github` and `inputs` in composite conditions](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/action_yaml.json#L237-L253) and [passes both contexts to child steps](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/Handlers/CompositeActionHandler.cs#L138-L161). This is source evidence, not a hosted execution or whole-action success claim.
+The pinned GitHub runner source [admits `github` and `inputs` in composite conditions](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/action_yaml.json#L237-L253). It also [passes both contexts to child steps](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/Handlers/CompositeActionHandler.cs#L138-L161). This is source evidence, not a hosted execution or whole-action success claim.
 
 Before runtime validation, the compiler reduces event-backed conditions from the immutable snapshot. Resolvable `github.event` expressions become literals. For whole or runtime-selected event access, the plan retains a marker and digest for the build's shared event payload artifact.
 
