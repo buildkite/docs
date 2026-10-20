@@ -4,7 +4,7 @@ toc_include_h3: false
 
 # Security checklist
 
-Use this checklist to secure your Buildkite organization, or to review an existing one before a security audit. Start with the baseline controls in each area, then add the controls that match the risks in your workloads. You don't need to enable every security feature to use Buildkite securely.
+Use this checklist to secure your Buildkite organization, or to review an existing one before a security audit. Start with the baseline controls in each area, then add the controls that match the risks in your workloads. You don't need to enable every security feature to use Buildkite securely. Buildkite and your organization [share responsibility for security](/docs/platform/security#shared-responsibility).
 
 If you suspect an active compromise, follow [Incident response](/docs/platform/security/incident-response) before working through this checklist.
 
