@@ -1195,6 +1195,8 @@
               path: "apis/rest-api/test-engine/suites"
             - name: "Tests"
               path: "apis/rest-api/test-engine/tests"
+            - name: "Workflows"
+              path: "apis/rest-api/test-engine/workflows"
     - name: "GraphQL"
       children:
         - name: Overview
