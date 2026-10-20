@@ -174,9 +174,45 @@ Deleted branches and tags do not create builds.
 
 Pull request builds ignore pipeline-level branch filters. When pull request builds are disabled, a push to the same branch can still create a branch build if **Build branches** is enabled.
 
+With **Build when pull request is opened or updated** enabled, you can enable additional triggers. Each is disabled by default:
+
+- **Build when pull request becomes ready for review**: Creates a build when a draft pull request is marked ready for review. The build treats the pull request as no longer a draft, so a conditional filter that excludes drafts can allow it.
+- **Build when pull request is reopened**: Creates a build when a closed pull request is reopened.
+- **Build when pull request target branch changes**: Creates a build when a pull request changes target branch, such as from `main` to `release`. Pushing commits to the target branch does not trigger this event.
+- **Build when pull request title, description or target branch changes**: Creates a build when any of these values changes. Either this setting or **Build when pull request target branch changes** enables builds when the target branch changes. Enabling both still creates only one build per qualifying event.
+
+These builds use the head commit and target branch from the event, even if the pull request has changed before the event is processed. Other conditional filters still apply.
+
+**Skip when pull request has existing build for commit and branch** is enabled by default. It skips a pull request build when an earlier webhook build exists for the same commit and branch. For example, opening a pull request after its branch build does not create another build unless you disable this setting.
+
+Ready-for-review builds respect this skip setting. Enabled reopen, edit, and target-branch-change events can rebuild the same commit regardless of the skip setting. Retrying the same webhook delivery does not create another build. Matching push and pull request head notifications do not create duplicate pull request builds.
+
 ### Conditional filtering
 
 Use a [conditional expression](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) to filter incoming Origin events before the other build trigger settings apply.
+
+[`BUILDKITE_ORIGIN_EVENT`](/docs/pipelines/configure/environment-variables#BUILDKITE_ORIGIN_EVENT) contains the full `event.type` of the Origin webhook that created the build:
+
+Origin event | Build trigger
+------------ | -------------
+`repository.pushed` | Branch or tag push, including a push that creates a pull request build
+`pull_request.created` | Pull request opened
+`pull_request.head_ref.pushed` | Pull request head branch pushed
+`pull_request.published` | Pull request marked ready for review
+`pull_request.reopened` | Pull request reopened
+`pull_request.metadata.updated` | Pull request title or description edited
+`pull_request.base_ref.updated` | Pull request target branch changed
+{: class="two-column"}
+
+For example, this condition accepts builds created by pull request creation events:
+
+```text
+build.env("BUILDKITE_ORIGIN_EVENT") == "pull_request.created"
+```
+
+The variable is also available in [pipeline variable interpolation](/docs/pipelines/configure/environment-variables#variable-interpolation) and job scripts. A duplicate or retried webhook does not replace the event on an existing build. Fresh manual builds do not receive an inferred event; rebuilds copy the original build's environment.
+
+Origin events do not set `BUILDKITE_GITHUB_EVENT` or `BUILDKITE_GITHUB_ACTION`. Use `build.env("BUILDKITE_ORIGIN_EVENT")` for Origin event conditions; `build.source_event` is unchanged.
 
 ## Publish checks to Origin
 

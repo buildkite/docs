@@ -305,6 +305,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_PIPELINE_NAME</code><br>
 		<code>BUILDKITE_PIPELINE_ID</code><br>
 		<code>BUILDKITE_ORGANIZATION_SLUG</code><br>
+		<code>BUILDKITE_ORIGIN_EVENT</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
