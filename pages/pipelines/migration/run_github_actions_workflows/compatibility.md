@@ -1284,6 +1284,7 @@ Conditions support computed object indexes, numeric array indexes, whole `matrix
 | Context | Job `if` | Step `if` |
 | --- | --- | --- |
 | `github.actor`, `github.base_ref`, `github.event_name`, `github.head_ref`, `github.ref`, `github.ref_name`, `github.ref_type`, `github.repository`, `github.repository_owner`, `github.sha`, `github.workflow_ref`, `github.workflow_sha` | ✅ Yes | ✅ Yes |
+| `github.server_url` | ❌ No | 🚧 Composite action steps only; not yet released |
 | `runner.os`, `runner.arch`, `runner.environment` | ✅ Yes | ✅ Yes |
 | `runner.temp` | ❌ No | ✅ Yes |
 | `runner.debug` | ❌ No | ✅ Yes, always absent |
@@ -1298,6 +1299,16 @@ Conditions support computed object indexes, numeric array indexes, whole `matrix
 | `github.event`, including direct, projected, and dynamically indexed properties | ✅ Yes | ✅ Yes |
 | `secrets` and other contexts | ❌ No | ❌ No |
 {: class="responsive-table"}
+
+Composite step conditions can read the [provider-specific `github.server_url`](#expressions-and-contexts-runtime-interpolation) in the unreleased change [buildkite-gha#607](https://github.com/buildkite/buildkite-gha/pull/607). Workflow job, workflow step, reusable-workflow call, and JavaScript lifecycle conditions don't gain this property. For example, the pinned [`jetify-com/devbox-install-action`](https://github.com/jetify-com/devbox-install-action/blob/8c6a66ed6273138b1915457069de78cb52fe3bd7/action.yml#L131-L136) uses:
+
+```yaml
+if: inputs.disable-nix-access-token == 'false' && github.server_url == 'https://github.com'
+```
+
+The guard selects the step only when the input is `'false'` and the provider URL is `https://github.com`. The implicit success guard still applies. Accepting this condition doesn't grant [GitHub token authority](#repositories-credentials-and-github-services-github-token) to the composite's run body.
+
+The pinned GitHub runner source [admits `github` and `inputs` in composite conditions](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/action_yaml.json#L237-L253) and [passes both contexts to child steps](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/Handlers/CompositeActionHandler.cs#L138-L161). This is source evidence, not a hosted execution or whole-action success claim.
 
 Before runtime validation, the compiler reduces event-backed conditions from the immutable snapshot. Resolvable `github.event` expressions become literals. For whole or runtime-selected event access, the plan retains a marker and digest for the build's shared event payload artifact.
 
