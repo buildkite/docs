@@ -36,7 +36,6 @@ export function initSecurityChecklist() {
     const section = heading.closest("section");
     const group = document.createElement("details");
     group.className = "SecurityChecklist";
-    group.open = true;
     group.dataset.securityArea = area.dataset.securityArea;
     section.before(group);
     const progress = document.createElement("p");

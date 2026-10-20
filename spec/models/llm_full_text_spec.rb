@@ -73,7 +73,7 @@ RSpec.describe LLMFullText do
         }]
       end
 
-      it "preserves token facts and all eight security area headings" do
+      it "preserves token facts and all nine security area headings" do
         result = llm_full_text.generate
 
         expect(result).to include("`bkua_`", "`bkct_`", "`bkaj_`")
@@ -87,11 +87,12 @@ RSpec.describe LLMFullText do
           "Network and data exposure",
           "Monitoring and detection",
           "Governance and configuration management",
-          "Incident readiness"
+          "Incident readiness",
+          "Security controls"
         ].each do |heading|
           expect(result).to include("##### #{heading}\n")
         end
-        expect(result.scan(/^###### Audit this area$/).length).to eq(8)
+        expect(result.scan(/^###### Audit this area$/).length).to eq(9)
         expect(result).to include("##### Audit this area\n", "It also can't look up a token you've found")
         expect(result).to include("curl --fail-with-body", "bk --org", "Use read-only Buildkite MCP tools")
         expect(result).not_to include("<%", "Prefix: ``")

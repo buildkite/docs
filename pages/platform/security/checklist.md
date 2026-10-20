@@ -20,13 +20,7 @@ If you suspect an active compromise, follow [Incident response](/docs/platform/s
 
 For the responsibilities Buildkite and your organization share, see the [Security overview](/docs/platform/security#shared-responsibility). To make controls mandatory, use [Enforcing security controls](/docs/platform/security/enforcing-security-controls) to choose an enforcement point and test for bypasses.
 
-Each area ends with _Audit this area_, with API and CLI examples, MCP prompts, and checks that require a manual review. Start with the [authentication and access audit](#authentication-and-access-control-audit-this-area), or choose an area from the table of contents. Use a token with the documented read scopes and access to the resources under review. Set `ORG_SLUG`, `PIPELINE_SLUG`, and `CLUSTER_ID` to your own values where used. Examples that use `bk` require an authenticated [Buildkite CLI](/docs/platform/cli) installation; commands that filter JSON also require `jq`.
-
-List examples show the first page only. Follow [pagination](/docs/apis/rest-api#pagination) before treating an inventory as complete. Audit events use cursor pagination: follow the response's `links.next` URL. Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server), replace the example organization and pipeline names in prompts, and verify the results. A prompt is not an access control.
-
 <a id="security-areas"></a>
-
-Review the baseline in each area, then use its completion criteria to verify your setup. Counts include alternatives and controls for different plans and hosting models, so completing every item isn't the goal.
 
 <p class="SecurityChecklist__storage" data-security-storage role="status"></p>
 
@@ -326,6 +320,40 @@ This baseline is complete when responders can reach the tested runbook and escal
 - **Automate tested revocation and rotation:** Automate the revocation and rotation procedures you've already rehearsed. Test target selection, approvals, failure handling, and rejection of old credentials in a test environment. Keep a manual fallback if the automation or its credentials are unavailable.
 
 <%= audit_area.('incident-readiness') %>
+
+## <%= security_area.('security-controls')['name'] %>
+
+<%= security_area.('security-controls')['summary'] %>
+
+For enforcement locations, configuration details, and bypass tests, see [Enforcing security controls](/docs/platform/security/enforcing-security-controls).
+
+### Baseline
+
+- **Choose enforcement points outside repository control:** Enforce permissions, required checks, and credential access where build authors cannot change them. Use organization permissions, protected self-hosted agent hooks, secret access policies, or cloud trust policies as appropriate.
+- **Restrict changes to controls:** Limit who can edit security policies, agent configuration, hooks, and pipeline or template settings. Protect configuration changes with required reviews. Use **Build & Read** or **Read Only** instead of **Full Access** for teams that don't need to change pipelines.
+- **Test allowed and denied actions:** Use a non-administrator test account and non-production build resources. Confirm that intended work succeeds, prohibited changes and access are rejected, and removing a required check from a repository cannot skip it. Repeat for each build source you allow.
+
+This baseline is complete when every mandatory control has an owner, a protected enforcement location, and recorded results showing that allowed actions succeed and denied actions fail.
+
+### Recommended
+
+- **Enforce restrictions on every receiving agent:** Test restrictions on every self-hosted agent pool that can receive protected jobs, not just the pipeline-upload agent. Protect configuration and hooks from build jobs. Disabling command evaluation doesn't protect against malicious checked-in scripts or constrain a custom `command` hook. For hosted workloads, use permissions, protected definitions, clusters, and credential policies instead.
+- **Verify workload and credential boundaries:** Use separate clusters for production and untrusted workloads, not just separate queues. Test secret and cloud access with both an allowed build and a build from a different pipeline, branch, or cluster that should be denied. Cloud trust policies must check the claims and any session tags they rely on.
+- **Enforce the pipeline upload secret check:** For agent v3, use `buildkite-agent pipeline upload --reject-secrets`. Protect the upload process outside the repository when this check must be mandatory. Verify rejection with a non-sensitive test value longer than six bytes in a matching secret variable, as described in [Keep secrets out of uploaded pipelines](/docs/platform/security/enforcing-security-controls#keep-secrets-out-of-uploaded-pipelines).
+
+### Advanced
+
+- **Verify signed-step enforcement:** For signed pipelines, keep verification failures set to `block`, separate signing agents from verify-only agents, and ensure verify-only agents have no `kms:Sign` permission. Test that an invalid signature is rejected. Signed steps cannot be used with pipeline templates.
+
+<%= audit_area.('security-controls') %>
+
+## Audit guidance
+
+Each area ends with _Audit this area_, with API and CLI examples, MCP prompts, and checks that require a manual review. Start with the [authentication and access audit](#authentication-and-access-control-audit-this-area), or choose an area from the table of contents. Use a token with the documented read scopes and access to the resources under review. Set `ORG_SLUG`, `PIPELINE_SLUG`, and `CLUSTER_ID` to your own values where used. Examples that use `bk` require an authenticated [Buildkite CLI](/docs/platform/cli) installation; commands that filter JSON also require `jq`.
+
+List examples show the first page only. Follow [pagination](/docs/apis/rest-api#pagination) before treating an inventory as complete. Audit events use cursor pagination: follow the response's `links.next` URL. Use [read-only MCP access](/docs/apis/mcp-server#read-only-remote-mcp-server), replace the example organization and pipeline names in prompts, and verify the results. A prompt is not an access control.
+
+Review the baseline in each area, then use its completion criteria to verify your setup. Counts include alternatives and controls for different plans and hosting models, so completing every item isn't the goal.
 
 ## Further questions
 
