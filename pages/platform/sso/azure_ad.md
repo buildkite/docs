@@ -107,4 +107,51 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 
 ## SAML user attributes
 
-<%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
+<!-- <%= render_markdown partial: 'platform/sso/saml_user_attributes' %> -->
+
+
+Buildkite accepts a subset of the SAML attributes from identity providers. The accepted attributes are:
+
+<table>
+<tbody>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>admin</code></td>
+    <td>A boolean value that describes whether the user should be provisioned with admin permissions<br><em>Example:</em> true</td>
+  </tr>
+  <tr>
+    <td><code>email</code></td>
+    <td>A string of the user's email address<br><em>Example:</em> "person@company.com"</td>
+  </tr>
+  <tr>
+    <td><code>name</code></td>
+    <td>A string of the user's full name<br><em>Example:</em> "Han Solo"</td>
+  </tr>
+  <tr>
+    <td><code>teams</code></td>
+
+    <td>Buildkite Team UUIDs, supplied as either a comma separated string or multiple values in the same SAML attribute. A team's UUID can be found on the <em>Team Settings</em> page in Buildkite.<br><em>Example - single comma-separated value:</em> <br><code>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee</code><br><br>
+    <em>Example - multi-valued SAML attribute:</em>
+    <pre><code>
+      &lt;Attribute Name="teams"&gt;
+        &lt;AttributeValue&gt;a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa&lt;/AttributeValue&gt;
+        &lt;AttributeValue&gt;b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee&lt;/AttributeValue&gt;
+      &lt;/Attribute Name="teams"&gt;
+    </code></pre>
+
+  </tr>
+</tbody>
+</table>
+
+When using the `teams` attribute, you can also specify roles. The `maintainer` or `member` role can be appended to the team UUID.
+
+For example, the following code will specify the member role for the first team and the maintainer role for the second team:
+
+```
+teams="b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee/member, a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa/maintainer"
+```
+
+
