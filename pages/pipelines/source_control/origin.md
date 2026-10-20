@@ -67,6 +67,23 @@ Complete the connection in Origin:
 
 The app requests read access to repository contents and pull requests. It also requests read and write access to checks so Buildkite Pipelines can publish build results.
 
+### Update app permissions
+
+Existing Origin installations keep their approved permissions when the app requests additional permissions. If the stored grants lack currently requested permissions, the connected Origin provider settings show an **Update permissions** notice. Fully granted installations do not show the notice.
+
+The update requests read access to submitted pull request reviews (`repository:pull_requests:reviews:read`) and repository labels (`repository:labels:read`) together. Review-triggered builds require review access. Repository-label access reads label definitions. The update adds no write permissions and retains existing grants using `include_granted_scopes=true`.
+
+To approve the additional permissions, you need Buildkite organization administrator access and Origin namespace administrator access:
+
+1. In Buildkite, select **Organization Settings** > **Repository Providers** > the connected **Origin** provider.
+1. Select **Update permissions** to open the consent screen in Origin.
+1. In Origin, select the same existing installation and keep its current repository selection. Review **New Permissions** and **Granted Permissions**, then select **Reinstall**.
+1. Return to Buildkite. Buildkite confirms the installation's grants before clearing the notice. If approval is incomplete, the notice remains.
+
+The update uses the existing connection flow with signed state and installation receipt validation. Buildkite rejects returns for a different installation rather than replacing the connection.
+
+Canceling the update preserves current access, including push and pull request events, checkout, and check reporting. Approval does not enable build triggers or unsuspend the installation. Configure [build triggers](#configure-build-triggers) separately.
+
 ### Manage repository access
 
 The Origin provider settings show whether the installation can access all repositories or selected repositories. To change this access, select **manage your installation settings in Origin**.
