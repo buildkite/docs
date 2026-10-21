@@ -255,7 +255,56 @@ build.env("BUILDKITE_ORIGIN_EVENT") == "pull_request.created"
 
 The variable is also available in [pipeline variable interpolation](/docs/pipelines/configure/environment-variables#variable-interpolation) and job scripts. A duplicate or retried webhook does not replace the event on an existing build. Fresh manual builds do not receive an inferred event; rebuilds copy the original build's environment.
 
-Use `BUILDKITE_ORIGIN_EVENT`, not `build.source_event`, to match Origin event types.
+#### Event and action conditions
+
+For Origin webhook builds, `build.source_event` and `build.source_action` expose mapped event and action names in pipeline filters and step conditions. Use `BUILDKITE_ORIGIN_EVENT` for the full native event name:
+
+Origin event | `build.source_event` | `build.source_action`
+------------ | -------------------- | ---------------------
+`repository.pushed` | `push` | `null`
+`pull_request.created` | `pull_request` | `opened`
+`pull_request.head_ref.pushed` | `pull_request` | `synchronize`
+`pull_request.published` | `pull_request` | `ready_for_review`
+`pull_request.reopened` | `pull_request` | `reopened`
+`pull_request.metadata.updated` | `pull_request` | `edited`
+`pull_request.base_ref.updated` | `pull_request` | `edited`
+`pull_request.label.added` | `pull_request` | `labeled`
+`pull_request.label.removed` | `pull_request` | `unlabeled`
+`pull_request.review.submitted` | `pull_request_review` | `submitted`
+{: class="responsive-table"}
+
+Conditions resolve these values from the recorded native event, including on existing webhook builds. Unmapped events and non-webhook builds, including manual builds and rebuilds, have `null` event and action values. A push-triggered build remains `push` with a `null` action even if it includes pull request context.
+
+`build.pull_request.label` contains the label added or removed in the triggering webhook, not the current label collection. A removed label remains available through this condition. If the webhook or changed label is unavailable, the value is `null`.
+
+For example, run a step when the `test-gpu` label is removed:
+
+```yaml
+steps:
+  - command: "echo 'GPU test label removed'"
+    if: >-
+      build.source_event == "pull_request" &&
+      build.source_action == "unlabeled" &&
+      build.pull_request.label == "test-gpu"
+```
+
+These mappings do not enable additional build triggers or change which events create builds.
+
+#### Review metadata conditions
+
+Submitted-review builds expose `BUILDKITE_ORIGIN_REVIEW_ID` and `BUILDKITE_ORIGIN_REVIEW_VERDICT` during pipeline filtering, **YAML Steps editor** interpolation, and step conditions. Both values describe the triggering review, not the current pull request lookup.
+
+The review ID is an opaque string and is also available in jobs. The verdict is available only in conditions and interpolation, not in the job environment. Its values are `approve`, `request_changes`, and `comment`.
+
+For example, run a step only for an approval:
+
+```yaml
+steps:
+  - command: "echo 'Review approved'"
+    if: build.env("BUILDKITE_ORIGIN_REVIEW_VERDICT") == "approve"
+```
+
+Unrelated events and fresh manual builds do not infer review metadata. Rebuilds retain the original values. Review metadata does not change which commit is built or how duplicate deliveries are handled. Receiving submitted-review events requires review access for the Origin installation.
 
 ## Publish checks to Origin
 
