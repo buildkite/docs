@@ -136,9 +136,9 @@ You can also configure these **Pull request webhook options** (these options may
 
 Even when **Skip when pull request source is default branch** is disabled, Buildkite Pipelines skips pull request builds whose source branch is the default branch if **Build when pull request is opened or updated** is also disabled.
 
-To distinguish fork branches from branches in your repository, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**. For example, the `main` branch from `some-user` becomes `some-user:main`. Prefixing prevents that fork branch from matching a secret access policy condition such as `build_branch: main`. Other policy rules can still grant access, so review the entire policy.
+To distinguish fork branches from branches in your repository, go to the GitHub settings for the pipeline and select **Prefix third-party fork branch names**. For example, the `main` branch from `some-user` becomes `some-user:main`. Prefixing prevents that fork branch from matching a secret access policy condition such as `build_branch: main`. Other policy rules can still grant access. Review the entire policy.
 
-If you enforce fork restrictions with hooks, use [agent hooks](/docs/agent/hooks#hook-locations-agent-hooks), not repository hooks controlled by the fork. On self-hosted agents, [disable local hooks](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-local-hooks) so repository hooks can't override the agent hooks. A `pre-command` hook runs after checkout and isn't a pre-execution approval boundary.
+If you enforce fork restrictions with hooks, use [agent hooks](/docs/agent/hooks#hook-locations-agent-hooks), not repository hooks controlled by the fork. On self-hosted agents, [disable local hooks](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-local-hooks). This prevents repository hooks from overriding the agent hooks. A `pre-command` hook runs after checkout and isn't a pre-execution approval boundary.
 
 If you want to run builds only on pull requests, set the **Branch Filter Pattern** in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the **Branch Filter Pattern**, and all pushes to other branches that don't match the pattern are ignored.
 
