@@ -106,19 +106,21 @@ To define the steps:
     ```yaml
     steps:
       - label: "\:hammer\: Build"
-        command: "scripts/build.sh"
+        command: "echo 'This step builds your code.'"
         key: build
 
       - label: "\:test_tube\: Test"
-        command: "scripts/test.sh"
+        command: "echo 'This step tests your code.'"
         key: test
         depends_on: build
 
       - label: "\:rocket\: Deploy"
-        command: "scripts/deploy.sh"
+        command: "echo 'This step deploys your code.'"
         key: deploy
         depends_on: test
-      ```
+    ```
+
+    These steps print messages without building, testing, or deploying your code. Once the pipeline runs successfully, replace the `echo` commands with your project's build, test, and deploy commands or scripts.
 
     See [Defining steps](/docs/pipelines/configure/defining-steps) for customization options.
 
