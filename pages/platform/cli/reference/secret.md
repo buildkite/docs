@@ -46,8 +46,9 @@ bk secret list --cluster-uuid=STRING [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--cluster-uuid=STRING` | The UUID of the cluster to list secrets for |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -69,6 +70,8 @@ bk secret list --cluster-uuid my-cluster-uuid -o json
 
 View a cluster secret.
 
+View details of a cluster secret.
+
 ```bash
 bk secret get --cluster-uuid=STRING --secret-id=STRING [flags]
 ```
@@ -79,8 +82,9 @@ bk secret get --cluster-uuid=STRING --secret-id=STRING [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--cluster-uuid=STRING` | The UUID of the cluster |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--secret-id=STRING` | The UUID of the secret to view |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -103,6 +107,15 @@ bk secret get --cluster-uuid my-cluster-uuid --secret-id my-secret-id -o json
 
 Create a new cluster secret.
 
+Create a new secret in a cluster.
+
+Use --value-file to read the value exactly as stored, including multiline
+content and any trailing LF or CRLF. Use --value-file - to read the value from
+stdin. File and stdin values must be non-empty valid UTF-8.
+
+If neither --value nor --value-file is provided, you will be prompted to enter
+the secret value interactively (input will be masked).
+
 ```bash
 bk secret create --cluster-uuid=STRING --key=STRING [flags]
 ```
@@ -113,10 +126,11 @@ bk secret create --cluster-uuid=STRING --key=STRING [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--cluster-uuid=STRING` | The UUID of the cluster |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=STRING` | A description of the secret |
 | `--json` | Output as JSON |
-| `--key=STRING` | The key name for the secret (e.g. MY_SECRET) |
+| `--key=STRING` | The key name for the secret (e.g. `MY_SECRET`) |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--policy=STRING` | The access policy for the secret (YAML format) |
 | `--text` | Output as text |
 | `--value=STRING` | The secret value. If neither value source is provided, you will be prompted to enter it. |
@@ -159,6 +173,10 @@ bk secret create --cluster-uuid my-cluster-uuid --key MY_SECRET --description "M
 
 Update a cluster secret.
 
+Update a cluster secret's description, policy, or value.
+
+Use --update-value to be prompted for a new secret value (input will be masked).
+
 ```bash
 bk secret update --cluster-uuid=STRING --secret-id=STRING [flags]
 ```
@@ -169,9 +187,10 @@ bk secret update --cluster-uuid=STRING --secret-id=STRING [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--cluster-uuid=STRING` | The UUID of the cluster |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=STRING` | Update the description of the secret |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--policy=STRING` | Update the access policy for the secret (YAML format) |
 | `--secret-id=STRING` | The UUID of the secret to update |
 | `--text` | Output as text |
@@ -202,6 +221,10 @@ bk secret update --cluster-uuid my-cluster-uuid --secret-id my-secret-id --descr
 
 Delete a cluster secret.
 
+Delete a secret from a cluster.
+
+You will be prompted to confirm deletion unless --yes is set.
+
 ```bash
 bk secret delete --cluster-uuid=STRING --secret-id=STRING
 ```
@@ -211,7 +234,8 @@ bk secret delete --cluster-uuid=STRING --secret-id=STRING
 | Flag | Description |
 | --- | --- |
 | `--cluster-uuid=STRING` | The UUID of the cluster |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--secret-id=STRING` | The UUID of the secret to delete |
 
 ### Examples
@@ -241,8 +265,9 @@ bk secret migrate github-actions prepare [flags]
 | Flag | Description |
 | --- | --- |
 | `--cluster=STRING` | Assert the destination cluster UUID. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--match=MATCH,...` | Glob matching GitHub Actions secret names (repeatable). |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--organization=STRING` | Destination Buildkite organization slug. |
 | `--output=STRING` | Write the workflow without replacing an existing file. |
 | `--pipeline=STRING` | Destination Buildkite pipeline slug. |
@@ -261,5 +286,6 @@ bk secret migrate github-actions run --workflow=STRING
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--workflow=STRING` | Prepared workflow committed to the repository default branch. |

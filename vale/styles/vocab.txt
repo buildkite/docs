@@ -83,6 +83,7 @@ Buildx
 buildx
 Bundler
 bursty
+cache_key
 callee
 Callee
 callee's
@@ -189,6 +190,7 @@ exfiltration
 explainshell
 extensionless
 extglobs
+fallback_limit
 falsy
 fastfile
 fastlane
@@ -519,6 +521,7 @@ swiftlint
 syntaxes
 systemd
 Tailscale
+target_paths
 teardown
 templated
 tgz
@@ -589,6 +592,7 @@ vendored
 vfs
 virtualenv
 virtualized
+vite
 Vite
 Vitest
 VMs
@@ -737,3 +741,7 @@ base_ref
 head_sha
 head_ref
 if_changed
+backtraces
+multiline
+pipenv
+unkeyed
