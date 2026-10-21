@@ -20,7 +20,9 @@ To update this file:
 
 The `bk api` command allows you to interact with the Buildkite API from the command line.
 
-Interact with the Buildkite API Interact with either the REST or GraphQL Buildkite APIs.
+Interact with the Buildkite API
+
+Interact with either the REST or GraphQL Buildkite APIs.
 
 ```bash
 bk api [<endpoint>] [flags]
@@ -38,11 +40,11 @@ bk api [<endpoint>] [flags]
 | --- | --- |
 | `-d`, `--data=STRING` | Data to send in the request body; use - to read from stdin |
 | `-f`, `--file=STRING` | File containing GraphQL query |
-| `-H`, `--headers=HEADERS,...` | Headers to include in the request |
+| `-H`, `--headers=HEADERS` | Headers to include in the request |
 | `-X`, `--method=STRING` | HTTP method to use |
 | `--analytics` | Use the Test Analytics endpoint |
-| `--debug` | Enable debug output for REST API calls |
-| `--verbose` | Enable verbose output (currently only provides information about rate limit exceeded retries) |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ## Examples
 

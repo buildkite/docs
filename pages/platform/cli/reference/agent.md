@@ -36,6 +36,9 @@ The `bk agent` command allows you to manage Buildkite agents from the command li
 
 Install the buildkite-agent binary locally.
 
+By default, this also creates an agent token on the Default cluster and writes a
+minimal config file so the agent is ready to start.
+
 ```bash
 bk agent install [flags]
 ```
@@ -46,9 +49,10 @@ bk agent install [flags]
 | --- | --- |
 | `--cluster-uuid=STRING` | Cluster UUID to create the agent token on (default: the "Default" cluster) |
 | `--config-path=STRING` | Path to write the agent config file |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--dest=STRING` | Destination directory for the binary |
 | `--no-token` | Skip creating an agent token and config file |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--version="latest"` | Specify an agent version to install |
 
 ### Examples
@@ -81,6 +85,9 @@ bk agent install --no-token
 
 Run an ephemeral buildkite-agent locally.
 
+Downloads the agent binary, creates a cluster token, and starts the agent.
+All temporary files are cleaned up when the agent is stopped with Ctrl+C.
+
 ```bash
 bk agent run [flags]
 ```
@@ -90,7 +97,8 @@ bk agent run [flags]
 | Flag | Description |
 | --- | --- |
 | `--cluster-uuid=STRING` | Cluster UUID to create the agent token on (default: the "Default" cluster) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--queue="default"` | Queue for the agent to listen on |
 | `--version="latest"` | Specify an agent version to run |
 
@@ -124,6 +132,14 @@ bk agent run --queue "deploy"
 
 Pause a Buildkite agent.
 
+When an agent is paused, it will stop accepting new jobs but will continue
+running any jobs it has already started. You can optionally provide a note
+explaining why the agent is being paused and set a timeout for automatic
+resumption.
+
+The timeout must be between 1 and 1440 minutes (24 hours). If no timeout is
+specified, the agent will pause for 5 minutes by default.
+
 ```bash
 bk agent pause <agent-id> [flags]
 ```
@@ -138,8 +154,9 @@ bk agent pause <agent-id> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--note=STRING` | A descriptive note to record why the agent is paused |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--timeout-in-minutes=5` | Timeout after which the agent is automatically resumed, in minutes |
 
 ### Examples
@@ -172,6 +189,9 @@ bk agent pause 0198d108-a532-4a62-9bd7-b2e744bf5c45 --note "Deploy in progress" 
 
 List agents.
 
+By default, shows up to 100 agents. Use filters to narrow results, or increase
+the number of agents displayed with --limit.
+
 ```bash
 bk agent list [flags]
 ```
@@ -181,11 +201,12 @@ bk agent list [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--hostname=STRING` | Filter agents by their hostname |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of agents to return |
 | `--name=STRING` | Filter agents by their name |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--per-page=30` | Number of agents per page |
 | `--state=STRING` | Filter agents by state (running, idle, paused) |
 | `--tags=TAGS,...` | Filter agents by tags |
@@ -259,6 +280,10 @@ bk agent list --state running --version 3.107.2 --output json
 
 Resume a Buildkite agent.
 
+Resume a paused Buildkite agent.
+
+When an agent is resumed, it will start accepting new jobs again.
+
 ```bash
 bk agent resume <agent-id>
 ```
@@ -273,7 +298,8 @@ bk agent resume <agent-id>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -287,6 +313,15 @@ bk agent resume 0198d108-a532-4a62-9bd7-b2e744bf5c45
 
 Stop Buildkite agents.
 
+Instruct one or more agents to stop accepting new build jobs and shut itself
+down. Agents can be supplied as positional arguments or from STDIN, one per
+line.
+
+If the "`ORGANIZATION_SLUG`/" portion of the "`ORGANIZATION_SLUG`/UUID" agent
+argument is omitted, it uses the currently selected organization.
+
+The --force flag applies to all agents that are stopped.
+
 ```bash
 bk agent stop [<agents> ...] [flags]
 ```
@@ -296,8 +331,9 @@ bk agent stop [<agents> ...] [flags]
 | Flag | Description |
 | --- | --- |
 | `-l`, `--limit=5` | Limit parallel API requests |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--force` | Force stop the agent. Terminating any jobs in progress |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -329,6 +365,9 @@ cat agent-ids.txt | bk agent stop
 
 View details of an agent.
 
+If the "`ORGANIZATION_SLUG`/" portion of the "`ORGANIZATION_SLUG`/UUID" agent
+argument is omitted, it uses the currently selected organization.
+
 ```bash
 bk agent view <agent> [flags]
 ```
@@ -345,8 +384,9 @@ bk agent view <agent> [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-w`, `--web` | Open agent in a browser |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 

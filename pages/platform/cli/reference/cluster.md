@@ -34,6 +34,8 @@ The `bk cluster` command allows you to manage Buildkite organization clusters fr
 
 List clusters.
 
+List the clusters for an organization.
+
 ```bash
 bk cluster list [flags]
 ```
@@ -43,8 +45,9 @@ bk cluster list [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -66,6 +69,8 @@ bk cluster list -o json
 
 View cluster information.
 
+It accepts cluster UUID.
+
 ```bash
 bk cluster view <cluster-uuid> [flags]
 ```
@@ -81,8 +86,9 @@ bk cluster view <cluster-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -104,6 +110,8 @@ bk cluster view my-cluster-uuid -o json
 
 Create a new cluster.
 
+Create a new cluster in the organization.
+
 ```bash
 bk cluster create --name=STRING [flags]
 ```
@@ -114,11 +122,12 @@ bk cluster create --name=STRING [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--color=STRING` | A color hex code for the cluster (e.g. #FF0000) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=STRING` | A description of the cluster |
 | `--emoji=STRING` | An emoji for the cluster (e.g. :rocket:) |
 | `--json` | Output as JSON |
 | `--name=STRING` | The name of the cluster |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -146,6 +155,11 @@ bk cluster create --name "My Cluster" -o json
 
 Update a cluster.
 
+Update a cluster's settings.
+
+At least one of --name, --description, --emoji, --color, or --default-queue-id
+must be provided.
+
 ```bash
 bk cluster update <cluster-uuid> [flags]
 ```
@@ -162,12 +176,13 @@ bk cluster update <cluster-uuid> [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--color=STRING` | New color hex code for the cluster (e.g. #FF0000) |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--default-queue-id=STRING` | UUID of the queue to set as the default |
 | `--description=STRING` | New description for the cluster |
 | `--emoji=STRING` | New emoji for the cluster (e.g. :rocket:) |
 | `--json` | Output as JSON |
 | `--name=STRING` | New name for the cluster |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -201,6 +216,10 @@ bk cluster update my-cluster-uuid --name "New Name" -o json
 
 Delete a cluster.
 
+Delete a cluster from the organization.
+
+You will be prompted to confirm deletion unless --yes is set.
+
 ```bash
 bk cluster delete <cluster-uuid>
 ```
@@ -215,7 +234,8 @@ bk cluster delete <cluster-uuid>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

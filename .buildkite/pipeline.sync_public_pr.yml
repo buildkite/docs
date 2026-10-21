@@ -9,7 +9,7 @@ steps:
   #       hint: "Find the PR number on https://github.com/buildkite/docs/pulls"
 
   - label: ":git: Sync Public PR to Private Repo"
-    command: "bin/sync-public-pr"
+    command: "sh scripts/with-ca-trust.sh bin/sync-public-pr"
     plugins:
       - aws-assume-role-with-web-identity#v1.8.0:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
