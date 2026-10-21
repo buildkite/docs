@@ -2610,6 +2610,13 @@ input ClusterAgentTokenCreateInput {
   """
   expiresAt: DateTime
   organizationId: ID!
+
+  """
+  Agent API permission allow list. Omit to grant all permissions. Explicit lists
+  always include permissions whose enforcement is pending; an empty list grants
+  only pending permissions. Requires scoped token management to be enabled.
+  """
+  permissions: [String!]
 }
 
 """
@@ -2675,6 +2682,14 @@ input ClusterAgentTokenUpdateInput {
   description: String!
   id: ID!
   organizationId: ID!
+
+  """
+  Replacement Agent API permission allow list. Omit to preserve the stored
+  scope. Explicit lists always include permissions whose enforcement is pending;
+  an empty list grants only pending permissions. Requires scoped token
+  management to be enabled.
+  """
+  permissions: [String!]
 }
 
 """
@@ -3214,6 +3229,11 @@ type ClusterToken implements Node {
   """
   expiresAt: DateTime
   id: ID!
+
+  """
+  The stored Agent API permission allow list. Returns null when scoped token management is not enabled for the organization.
+  """
+  permissions: [String!]
 
   """
   The token value used to register a new agent to this tokens cluster. This will
