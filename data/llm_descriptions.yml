@@ -84,6 +84,7 @@
   pipelines/configure/build-timeouts: "Configuring command step timeouts and scheduled job expiration at step, pipeline, and organization levels."
   pipelines/configure/tags: "Tagging pipelines with emoji and text labels for filtering and searching on the dashboard."
   pipelines/configure/build-retention: "Build data retention periods by plan tier and the lifecycle of build data removal."
+  pipelines/configure/artifact-retention: "Configuring organization artifact retention, when changes take effect, and how expiry affects storage usage."
   pipelines/configure/public-pipelines: "Making pipelines publicly visible for open-source projects, providing read-only access to builds and logs."
   pipelines/configure/auto-create-build-triggers: "Configuring whether new pipelines created from GitHub repositories automatically enable build triggers and create repository webhooks."
   pipelines/configure/build-meta-data: "Storing and retrieving key-value metadata across build steps using the buildkite-agent meta-data command."

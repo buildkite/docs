@@ -542,6 +542,8 @@
           path: "pipelines/configure/tags"
         - name: "Build retention"
           path: "pipelines/configure/build-retention"
+        - name: "Artifact retention"
+          path: "pipelines/configure/artifact-retention"
         - name: "Public pipelines"
           path: "pipelines/configure/public-pipelines"
         - name: "Auto-create build triggers"

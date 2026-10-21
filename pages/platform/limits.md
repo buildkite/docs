@@ -228,7 +228,7 @@ The following table lists the default service limits for [Pipelines](/docs/pipel
       {
         title: "Artifact retention",
         description: "The maximum number of days artifacts are stored. See <a href=\"/docs/platform/artifact-storage-and-transfer-billing#artifact-retention\">Artifacts billing</a> for how retention relates to storage usage.",
-        default_value: "30 days on the Free and Pro plans, 90 days on the Enterprise plan, and the duration of the All Access Trial"
+        default_value: "30 days on the Free, Personal, and Pro plans, 90 days on the Enterprise plan and during trials, and 180 days on earlier paid plans, such as Pro and Enterprise plans from before 2026"
       },
       {
         title: "Log size per job",
