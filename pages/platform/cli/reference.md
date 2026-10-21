@@ -1,10 +1,8 @@
----
-toc: false
----
-
 # Command-line reference overview
 
 The [Buildkite CLI](/docs/platform/cli) (`bk`) allows you to interact with the Buildkite platform through the command line. The comprehensive set of `bk` commands, along with categories of sub-commands, lets you manage Buildkite agents and their configuration, work with a Buildkite pipeline's builds, control job execution, and manipulate its artifacts. These command sets can be essential for managing your build infrastructure, automating tasks, and troubleshooting issues.
+
+## Commands
 
 The following pages describe how to use the `bk` command, organized by its command category:
 
@@ -27,6 +25,7 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`pipeline`](/docs/platform/cli/reference/pipeline)
 - [`preflight`](/docs/platform/cli/reference/preflight)
 - [`queue`](/docs/platform/cli/reference/queue)
+- [`repository-connection`](/docs/platform/cli/reference/repository-connection)
 - [`secret`](/docs/platform/cli/reference/secret)
 - [`skill`](/docs/platform/cli/reference/skill)
 - [`team`](/docs/platform/cli/reference/team)
@@ -34,3 +33,23 @@ The following pages describe how to use the `bk` command, organized by its comma
 - [`user`](/docs/platform/cli/reference/user)
 - [`version`](/docs/platform/cli/reference/version)
 <!-- END auto-generated command list -->
+
+## Global flags
+
+These flags are available across commands:
+
+| Flag | Behavior |
+| --- | --- |
+| `-h`, `--help` | Show help for the selected command. |
+| `--org SLUG` | Select the organization for this invocation without changing configuration files. |
+| `-y`, `--yes` | Skip confirmation prompts. This does not supply missing arguments or other interactive selections. |
+| `--no-input` | Disable interactive prompts. Provide required selections explicitly. |
+| `-q`, `--quiet` | Suppress progress output. |
+| `--no-pager` | Disable the pager for text output. |
+| `--debug`, `--verbose` | Log HTTP API traffic to stderr. Bodies can contain sensitive data. |
+{: class="responsive-table"}
+
+For scripts, use `--no-input` and an explicit output format when the command supports it. Mutations that require confirmation also need `--yes`. See [configuration](/docs/platform/cli/configuration) for environment variables, output preferences, and organization selection.
+
+> 🚧 Review debug logs before sharing
+> Debug logging redacts common credential headers and selected token, password, and private-key body fields. It omits query strings, fragments, URL user information, and cluster-secret create/update request bodies. Arbitrary bodies, URL paths, and other headers can still contain sensitive data. Review logs before sharing or retaining them.

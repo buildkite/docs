@@ -105,6 +105,48 @@ RSpec.feature "reading pages" do
   end
 
   describe "old URLs" do
+    it "keeps old data flow links with the shared responsibility diagram" do
+      visit "/docs/pipelines/security#data-flow"
+
+      expect(page.current_path).to eq("/docs/platform/security")
+      within("section#shared-responsibility") do
+        expect(page).to have_css("h2", text: "Shared responsibility")
+        expect(page).to have_css("a#data-flow", visible: :all)
+        expect(page).to have_css("img")
+      end
+      expect(page).to have_link("Security at Buildkite", href: "https://buildkite.com/about/security/")
+    end
+
+    it "preserves security control section links at their replacement sections" do
+      visit "/docs/pipelines/best-practices/security-controls"
+
+      expect(page.current_path).to eq("/docs/platform/security/checklist")
+
+      within(".Toc") do
+        expect(page).to have_link("Authentication and access control", href: "#authentication-and-access-control")
+        expect(page).to have_link("Incident readiness", href: "#incident-readiness")
+      end
+
+      {
+        "authentication-and-session-security-in-the-buildkite-interface-apis-and-cli" => "Authentication and access control",
+        "source-code-security-and-version-control-integrity" => "Pipeline and supply chain integrity",
+        "dependencies-and-package-management" => "Pipeline and supply chain integrity",
+        "api-access-token-compromise" => "Authentication and access control",
+        "network-and-transport-security" => "Network and data exposure",
+        "artifact-storage-and-integrity" => "Network and data exposure",
+        "consistent-pipeline-as-code-approach" => "Governance and configuration management",
+        "monitoring-anomaly-detection-logging" => "Monitoring and detection",
+        "incident-response-and-recovery" => "Incident readiness"
+      }.each do |anchor, heading|
+        target = page.find("a[id='#{anchor}']", visible: :all)
+        expect(target.find(:xpath, "following::h2[1]").text).to eq(heading)
+      end
+
+      %w[secrets-management buildkite-agent-security further-questions].each do |anchor|
+        expect(page).to have_css("h2[id='#{anchor}']")
+      end
+    end
+
     old_paths = %w{
       /docs/agent/agent-meta-data
       /docs/agent/artifacts
@@ -161,8 +203,12 @@ RSpec.feature "reading pages" do
       /docs/how-tos/github-enterprise
       /docs/how-tos/gitlab
       /docs/how-tos/migrating-from-bamboo
+      /docs/pipelines/best-practices/secrets-management
+      /docs/pipelines/best-practices/security-controls
       /docs/pipelines/emoji
       /docs/pipelines/pipelines
+      /docs/pipelines/security
+      /docs/platform/security/best-practices
       /docs/pipelines/security/enforcing-security-controls
       /docs/pipelines/tutorials/docker-containerized-builds
       /docs/pipelines/tutorials/parallel-builds

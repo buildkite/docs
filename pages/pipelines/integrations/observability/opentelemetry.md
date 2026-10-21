@@ -317,9 +317,9 @@ Buildkite agents version 3.136.1 or later can automatically receive OpenTelemetr
 
 Local OTLP destination settings, such as `OTEL_EXPORTER_OTLP_ENDPOINT`, take precedence over exporter settings received this way.
 
-### Required agent flags / environment variables
+### Manual configuration with agent flags and environment variables
 
-To propagate traces from the Buildkite control plane through to the agent running the job, enable OpenTelemetry tracing and set the appropriate environment variables for your OpenTelemetry Collector.
+If you aren't using automatic configuration through a cluster, enable OpenTelemetry tracing and set the appropriate environment variables for your OpenTelemetry Collector. This propagates traces from the Buildkite Pipelines control plane through to the agent running the job.
 
 | Flag                       | Environment variable               | Value                                  |
 | -------------------------- | ---------------------------------- | -------------------------------------- |
@@ -384,7 +384,11 @@ Trace contexts are propagated automatically from a Buildkite agent to all its ch
 
 ### Buildkite hosted agents
 
-To export OpenTelemetry traces from hosted agents, use a custom agent image with the following environment variables set. You can create custom images in Cluster settings. Custom images are currently supported for Linux only.
+To export OpenTelemetry traces from Buildkite hosted agents, select an OpenTelemetry notification service in the cluster's **Settings**. Agents running version 3.136.1 or later receive the exporter settings when they register, without a custom image or local OTLP configuration. See [Automatically configure agent OpenTelemetry tracing for a cluster](/docs/pipelines/security/clusters/manage#automatically-configure-agent-opentelemetry-tracing-for-a-cluster) for setup instructions and credential security guidance.
+
+Already registered agents keep their current configuration until they restart or reconnect. Local OTLP destination settings, including `OTEL_EXPORTER_OTLP_ENDPOINT` or `OTEL_EXPORTER_OTLP_HEADERS`, take precedence over the cluster configuration.
+
+For manual configuration, you can instead use a custom Linux agent image with the following environment variables set. Create custom images in the cluster's **Settings**.
 
 ```dockerfile
 # this is the same as --opentelemetry-tracing

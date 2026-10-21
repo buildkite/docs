@@ -8,6 +8,8 @@ For known external contributors, use `buildkite/docs` instead.
 
 Verify the push destination and pull request base repository before publishing. If the required destination is unavailable, ask for guidance rather than switching repositories.
 
+Everything merged to `main` is pushed to the public `buildkite/docs` repo, including deploy and infrastructure config. Don't commit credentials, client IDs, or internal infrastructure names. Keep those in the pipeline settings in `buildkite/saas-iac` instead. Changes to deploy files request a review from `@buildkite/pipelines` or `@buildkite/design-engineers` through `.github/CODEOWNERS`.
+
 ## Buildkite documentation repository and pipeline
 
 This repository generates the Buildkite documentation website:
@@ -70,7 +72,7 @@ For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 - **Hooks and plugins**: Hooks provide platform-level guardrails, and plugins provide reusable customization. Read `pages/agent/hooks.md` for hooks and `pages/pipelines/integrations/plugins.md` for plugins. Browse available plugins at https://buildkite.com/resources/plugins/ and pipeline examples at https://buildkite.com/resources/examples/
 - **Developer experience**: Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/pipelines/configure/annotations.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content. Bundled content: https://buildkite.com/docs/llms-developer-experience.txt
 - **Creating pipelines**: For pipeline configuration and setup, read `pages/pipelines/configure/`. Bundled content: https://buildkite.com/docs/llms-pipeline-configurations.txt
-- **Security**: Read `pages/pipelines/security/` for pipeline security, `pages/pipelines/best_practices/security_controls.md` for security best practices, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (https://buildkite.com/resources/plugins/category/secrets/) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`). Bundled content: https://buildkite.com/docs/llms-security.txt
+- **Security**: Read `pages/pipelines/security/` for pipeline security, `pages/platform/security/checklist.md` for the security checklist covering the whole Buildkite platform, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (https://buildkite.com/resources/plugins/category/secrets/) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`). Bundled content: https://buildkite.com/docs/llms-security.txt
 - **Migration**: Guides for moving from Jenkins, GitHub Actions, and Bamboo. Read `pages/pipelines/migration/`. Bundled content: https://buildkite.com/docs/llms-migrating-to-buildkite.txt
 - **Best practices**: Patterns for pipeline design, agent management, Docker builds, parallelism, monorepos, caching, and more. Read `pages/pipelines/best_practices/`. Bundled content: https://buildkite.com/docs/llms-best-practices.txt
 - **Deployments**: Deploying to AWS Lambda, Kubernetes, Argo CD, and Heroku. Read `pages/pipelines/deployments/`. Bundled content: https://buildkite.com/docs/llms-deployments.txt
@@ -98,7 +100,7 @@ Common capabilities across products like organizations, users, permissions, and 
 
 - **User and team management**: Permissions, SSO, 2FA, audit log. Bundled content: https://buildkite.com/docs/llms-user-management.txt
 - **CLI tools**: The `bk` CLI and `buildkite-agent` CLI reference. Bundled content: https://buildkite.com/docs/llms-cli-tools.txt
-- **Security**: Read `pages/platform/team_management/enforce-2fa.md` for enforcing 2FA across the Buildkite platform, `pages/platform/sso.md` for implementing SSO across the Buildkite platform, and `pages/platform/security/tokens.md` for details on Buildkite token types. Bundled content: https://buildkite.com/docs/llms-security.txt
+- **Security**: Start with `pages/platform/security.md` for an overview and hosted and self-hosted responsibilities. Use `pages/platform/security/risk_profiles.md` to prioritize controls, `pages/platform/security/first_production_pipeline.md` for a starting configuration with verification checks, and `pages/platform/security/checklist.md` to review an existing setup. Read `pages/platform/team_management/enforce-2fa.md` for enforcing 2FA, `pages/platform/sso.md` for SSO, `pages/platform/security/tokens.md` for token types, and `pages/platform/security/incident_response.md` for incident response. Bundled content: https://buildkite.com/docs/llms-security.txt
 
 ### APIs
 

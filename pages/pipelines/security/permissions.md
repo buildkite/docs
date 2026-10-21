@@ -84,6 +84,7 @@ When you create a new test suite in Buildkite:
 - Provide access to other users, by adding the test suite to other teams that you are a [team maintainer](#manage-teams-and-permissions-team-level-permissions) on.
 - Configure test splitting.
 - Create and edit workflows.
+- Customize the widget layout of the test suite's **Summary** page.
 
 Any user with **Full Access** permission to a test suite can change its permission to **Read Only**, which allows you to view test runs only, but _not_:
 

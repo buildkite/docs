@@ -34,6 +34,21 @@ The `bk auth` command allows you to manage authorization from the command line.
 
 Login to Buildkite using OAuth or an API token
 
+Authenticate with Buildkite using OAuth instead of manually creating an API
+token.
+
+By default, the CLI requests all available scopes and Buildkite grants only
+those your account has permission for. Use --scopes to request a specific subset
+instead.
+
+Scope groups can be used as shorthand for common permission sets:
+
+`read_only`    All read_* scopes (read-only access)
+
+Groups can be mixed with individual scopes:
+
+--scopes "`read_only` `write_builds`"
+
 ```bash
 bk auth login [flags]
 ```
@@ -43,9 +58,9 @@ bk auth login [flags]
 | Flag | Description |
 | --- | --- |
 | `--credential-store="auto"` | Credential store for tokens: auto, keyring, or shm |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--device` | Authenticate using OAuth device authorization instead of opening a browser callback |
-| `--org=STRING` | Organization slug or UUID to request access for |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--scopes=""` | OAuth scopes to request |
 | `--token=STRING` | API token to store (non-OAuth login, requires --org) |
 
@@ -122,12 +137,14 @@ bk auth logout [flags]
 | Flag | Description |
 | --- | --- |
 | `--all` | Log out of all organizations |
-| `--debug` | Enable debug output for REST API calls |
-| `--org=STRING` | Organization slug (defaults to currently selected organization) |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ## Status auth
 
 Print the current user auth status
+
+It returns information on the current session.
 
 ```bash
 bk auth status [flags]
@@ -138,8 +155,9 @@ bk auth status [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -155,6 +173,8 @@ bk auth status
 
 Switch to a different organization
 
+Select a configured organization.
+
 ```bash
 bk auth switch [<organization-slug>]
 ```
@@ -169,7 +189,8 @@ bk auth switch [<organization-slug>]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -189,6 +210,12 @@ bk auth switch
 
 Print the stored API token for the current organization
 
+Prints the stored API token for the currently selected organization to stdout.
+
+The token is retrieved from the configured credential store (or the
+`BUILDKITE_API_TOKEN` environment variable if set). This is useful for passing the
+token to other tools, for example:
+
 ```bash
 bk auth token
 ```
@@ -197,7 +224,8 @@ bk auth token
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

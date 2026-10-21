@@ -4,7 +4,7 @@ description: "Reference for the GitHub Actions workflow syntax, triggers, action
 
 # GitHub Actions compatibility reference
 
-This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
+This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1, except where a later minimum version is noted. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
 
 `buildkite-gha` requires Buildkite agent v3.129 or newer.
 
@@ -1072,7 +1072,14 @@ Job containers support `image`, `env`, `ports`, `volumes`, and `options`. Servic
 - Service `env` also accepts job environment values and named secrets, including `${{ format('{0}-{1}', env.DATABASE, needs.build.outputs.suffix) }}` and `${{ needs.build.outputs.password || secrets.DB_PASSWORD }}`. It evaluates after job `env` and prerequisite outputs, before standard step environment variables are added. Entries read the job environment, not sibling service entries. Named secrets remain required and redacted even in an unused fallback. Dynamic secret access, direct `github.token`, `runner`, `job`, step outputs, and `hashFiles()` remain unsupported here; this does not broaden other service fields.
 - Service `env` resolves `vars` at runtime with the job's [variable scopes](#job-syntax-repository-and-organization-variables). Direct references, separate expression regions such as `${{ env.NAME }}-${{ vars.VALUE }}`, and mixed expressions such as `${{ format('{0}-{1}-{2}', env.NAME, needs.build.outputs.name, vars.VALUE) }}` all use the same snapshot. Other service fields except credentials retain compile-time `vars` values.
 - A complete non-credential service map can use `${{ fromJSON(needs.build.outputs.services || '{}') }}`. The argument supports needs-output expressions and pure functions. Declare credentials statically so the compiler can prove their secret authority.
-- Credentials accept values and expressions using `github`, `vars`, `secrets`, `env`, `needs`, known `matrix` values, or scalar `strategy` properties, including `${{ needs.auth.outputs.password || secrets.REGISTRY_PASSWORD }}`. Matrix values resolve per expanded job, including deferred matrices and reusable jobs. Both `${{ format('{0}:{1}', matrix.user, secrets.REGISTRY_PASSWORD) }}` and `${{ matrix.user }}:${{ secrets.REGISTRY_PASSWORD }}` work; `vars` retains its runtime scope. Prerequisite results and outputs resolve before service setup. Ordinary secrets remain in the job's required inventory even in an unused fallback. Dynamic secret names and unsupported contexts fail even in unreachable branches; this does not add workflow-input support. Passwords pass to `docker login` through standard input. Authentication uses a private per-job Docker configuration and never reads ambient Docker credentials.
+- Credentials accept values and expressions using `github`, `vars`, `secrets`, `env`, `needs`, known `matrix` values, or scalar `strategy` properties, including `${{ needs.auth.outputs.password || secrets.REGISTRY_PASSWORD }}`. Matrix values resolve per expanded job, including deferred matrices and reusable jobs. Both `${{ format('{0}:{1}', matrix.user, secrets.REGISTRY_PASSWORD) }}` and `${{ matrix.user }}:${{ secrets.REGISTRY_PASSWORD }}` work; `vars` retains its runtime scope. Prerequisite results and outputs resolve before service setup. Ordinary secrets remain in the job's required inventory even in an unused fallback. Dynamic secret names and unsupported contexts fail even in unreachable branches. Passwords pass to `docker login` through standard input. Authentication uses a private per-job Docker configuration and never reads ambient Docker credentials.
+- Unreleased builds also accept named `inputs.name` and `inputs['name']` references in credentials when the value is known during compilation: typed `workflow_dispatch` values/defaults and static reusable-workflow caller inputs. For example, `${{ format('{0}:{1}', inputs.user, secrets.REGISTRY_PASSWORD) }}` retains the named secret. Caller inputs derived from `vars` keep their compile-time snapshot; credential `vars` references keep their runtime scope. Undeclared, computed, whole-context, and deferred input references fail before lazy reduction, including `${{ true || inputs.unknown }}`. These builds validate authored secret names before input substitution: `${{ secrets[inputs.name] }}` is unsupported even when the input is known. These are Buildkite Pipelines compatibility limits, not a claim that GitHub rejects computed input or secret names. Needs-derived reusable inputs remain available through job `env`, such as credential `password: ${{ env.PASSWORD }}` with the job environment below; direct credential use of those inputs is unsupported.
+
+    ```yaml
+    env:
+      PASSWORD: ${{ inputs.password }}
+    ```
+
 - Job container volumes accept `DESTINATION` for an anonymous volume or `SOURCE:DESTINATION[:ro|rw]` for a named volume or bind mount. `DESTINATION` must be absolute. `SOURCE` must be a Docker volume name or absolute host path. A job can define 128 unique declarations. Expressions are unsupported.
 - Job container options pass through to `docker create`, except `--network`, `--net`, and `--entrypoint`, including their `--flag=value` forms. Options split into arguments without a shell. Double quotes group arguments; single quotes are ordinary characters. Expressions, line breaks, NUL bytes, and values over 65,536 bytes are unsupported.
 - Service Docker options pass through except `--network` and its `--net` aliases, which GitHub Actions does not support. Options can grant privileges, mount host paths, publish ports, and change resource settings.
@@ -1082,6 +1089,8 @@ Job containers support `image`, `env`, `ports`, `volumes`, and `options`. Servic
 Service `env` admission follows the [GitHub context table](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability). On 2026-09-30, source inspection confirmed that the GitHub runner [evaluates services after job env with the same expression context](https://github.com/actions/runner/blob/2009b20729fdf49c50a88e0ca368906c16a3129c/src/Runner.Worker/JobExtension.cs#L235-L259), populated from [server-supplied contexts](https://github.com/actions/runner/blob/2009b20729fdf49c50a88e0ca368906c16a3129c/src/Runner.Worker/ExecutionContext.cs#L1000-L1048). See the [variable-scope evidence and limits](#job-syntax-repository-and-organization-variables). Startup `runner` and `job` contexts remain unimplemented despite their documented GitHub admission.
 
 Matrix credential admission follows the same context table, checked on 2026-09-30. Credential compilation rejects direct `github.token`; use `secrets.GITHUB_TOKEN` under the existing [token authorization](#repositories-credentials-and-github-services-github-token) rules.
+
+Credential input syntax is admitted by the pinned [language-services schema](https://github.com/actions/languageservices/blob/4043eda158e16579cc5fb1b0b07a4bce2a76f0b5/workflow-parser/src/workflow-v1.0.json#L2500-L2532) and [runner WorkflowParser schema](https://github.com/actions/runner/blob/5b3c03247427231abb553a8914910c3b4437e7b4/src/Sdk/WorkflowParser/workflow-v1.0.json#L2657-L2700). The runner's older `DTPipelines` schema omits `inputs`, but its [evaluation context retains supplied inputs](https://github.com/actions/runner/blob/5b3c03247427231abb553a8914910c3b4437e7b4/src/Sdk/DTPipelines/Pipelines/ObjectTemplating/PipelineTemplateEvaluator.cs#L427-L496) for already-parsed expressions. Source inspection doesn't establish which input classes GitHub's server supplies at service startup. Local full-plan and simulated Docker tests verify the supported subset above, not native GitHub or hosted parity.
 
 Implicit GHCR authentication is unsupported; provide explicit credentials. Mutable tags resolve at job start. Use a digest when image immutability matters. Job container images must provide `sh` and run the mounted self-contained Linux runtime executable.
 
@@ -1275,6 +1284,7 @@ Conditions support computed object indexes, numeric array indexes, whole `matrix
 | Context | Job `if` | Step `if` |
 | --- | --- | --- |
 | `github.actor`, `github.base_ref`, `github.event_name`, `github.head_ref`, `github.ref`, `github.ref_name`, `github.ref_type`, `github.repository`, `github.repository_owner`, `github.sha`, `github.workflow_ref`, `github.workflow_sha` | ✅ Yes | ✅ Yes |
+| `github.server_url` | ❌ No | 🚧 Composite action steps only; not yet released |
 | `runner.os`, `runner.arch`, `runner.environment` | ✅ Yes | ✅ Yes |
 | `runner.temp` | ❌ No | ✅ Yes |
 | `runner.debug` | ❌ No | ✅ Yes, always absent |
@@ -1285,10 +1295,21 @@ Conditions support computed object indexes, numeric array indexes, whole `matrix
 | `inputs.<name>` and computed input indexes | ✅ Yes | ✅ Yes |
 | `steps.<id>.outcome`, `steps.<id>.conclusion`, `steps.<id>.outputs.<name>` | ❌ No | ✅ Yes |
 | `env.<name>` | ❌ No | ✅ Yes |
+| `job.status` | ❌ No | ✅ Yes |
 | [`job.services` IDs, networks, and ports](#job-syntax-containers-and-services), including bracket-indexed service IDs | ❌ No | ✅ Yes |
 | `github.event`, including direct, projected, and dynamically indexed properties | ✅ Yes | ✅ Yes |
 | `secrets` and other contexts | ❌ No | ❌ No |
 {: class="responsive-table"}
+
+Composite step conditions can read the [provider-specific `github.server_url`](#expressions-and-contexts-runtime-interpolation) in the unreleased change [buildkite-gha#607](https://github.com/buildkite/buildkite-gha/pull/607). Workflow job, workflow step, reusable-workflow call, and JavaScript lifecycle conditions don't gain this property. For example, the pinned [`jetify-com/devbox-install-action`](https://github.com/jetify-com/devbox-install-action/blob/8c6a66ed6273138b1915457069de78cb52fe3bd7/action.yml#L131-L136) uses:
+
+```yaml
+if: inputs.disable-nix-access-token == 'false' && github.server_url == 'https://github.com'
+```
+
+The guard selects the step only when the input is `'false'` and the provider URL is `https://github.com`. The implicit success guard still applies. Accepting this condition doesn't grant [GitHub token authority](#repositories-credentials-and-github-services-github-token) to the composite's run body.
+
+The pinned GitHub runner source [admits `github` and `inputs` in composite conditions](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/action_yaml.json#L237-L253). It also [passes both contexts to child steps](https://github.com/actions/runner/blob/7ce71e54a9affe1daae918a3e2350c1543dfa240/src/Runner.Worker/Handlers/CompositeActionHandler.cs#L138-L161). This is source evidence, not a hosted execution or whole-action success claim.
 
 Before runtime validation, the compiler reduces event-backed conditions from the immutable snapshot. Resolvable `github.event` expressions become literals. For whole or runtime-selected event access, the plan retains a marker and digest for the build's shared event payload artifact.
 
@@ -1330,7 +1351,21 @@ The listed workflow step fields and job fields accept the four [scalar `strategy
 
 Admission follows the [GitHub context table](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability), checked against the [runner schema](https://github.com/actions/runner/blob/15231bede4aacecb6686f4b7de25c62398607993/src/Sdk/DTPipelines/workflow-v1.0.json) and [language-services schema](https://github.com/actions/languageservices/blob/4043eda158e16579cc5fb1b0b07a4bce2a76f0b5/workflow-parser/src/workflow-v1.0.json). The GitHub documentation and language-services schema disagree on caller `with` admission. That field is unchanged.
 
-Job outputs support service IDs, networks, and published ports through `job.services`, such as `${{ job.services.redis.ports[6379] }}`. Other `job` fields remain unsupported. The listed job-level fields also support `toJSON(needs)`, with the same direct-dependency scope and access restrictions as step fields.
+Job outputs support `job.status` and service IDs, networks, and published ports through `job.services`, such as `${{ job.services.redis.ports[6379] }}`. Other `job` fields remain unsupported. The listed job-level fields also support `toJSON(needs)`, with the same direct-dependency scope and access restrictions as step fields.
+
+In `buildkite-gha` [v0.103.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.103.0) and later, workflow and composite step fields, action lifecycle conditions, and job outputs can read `job.status` as `success`, `failure`, or `cancelled`. Job outputs read the final status after post actions. Job and reusable-call conditions, job env, run defaults, containers, service configuration, and Docker action `args` can't read it. Action input defaults retain their existing restriction to one direct `${{ job.status }}` expression.
+
+`job.status` isn't a status function. Use `always()` or another status function when a step must run after failure:
+
+```yaml
+steps:
+  - if: always()
+    env:
+      STATUS: ${{ job.status }}
+    run: echo "Job status is $STATUS"
+```
+
+Inside a composite action, `job.status` retains the enclosing job's status until the composite finishes. A child failure can make `failure()` true while `job.status` is still `success`. A step timeout doesn't set `job.status` to `cancelled`. Whole-job cancellation sets `job.status` to `cancelled`. This follows the runner's [composite result handling](https://github.com/actions/runner/blob/5f0b3ddcc6ee9fe9441e00d55e85b94ea4aad798/src/Runner.Worker/Handlers/CompositeActionHandler.cs#L235-L248) and [job status updates](https://github.com/actions/runner/blob/5f0b3ddcc6ee9fe9441e00d55e85b94ea4aad798/src/Runner.Worker/StepsRunner.cs#L273-L285). These boundaries have local compiled-workflow tests and runner-source evidence, not native GitHub execution evidence.
 
 Expression-valued `continue-on-error` must produce a Boolean. Expression-valued `timeout-minutes` must produce a number greater than 0 and at most 360.
 
@@ -1495,7 +1530,7 @@ Action metadata parsing remains strict for every other unknown top-level field a
 
 The `pre`, `main`, and `post` phases, inputs, outputs, state, and LIFO post ordering are supported. Other Node declarations are rejected.
 
-JavaScript action `pre-if` and `post-if` metadata uses the condition operators, status functions, pure functions, and `hashFiles()` described in [Conditions](#expressions-and-contexts-conditions). Lifecycle conditions can read direct properties from workflow `inputs`, `env`, `github`, `job.services`, `matrix`, `runner`, and `steps`, and direct or dynamic `github.event` properties. Other contexts and dynamic or whole-context access return an error. An empty lifecycle condition always runs and doesn't receive an implicit `success()` guard.
+JavaScript action `pre-if` and `post-if` metadata uses the condition operators, status functions, pure functions, and `hashFiles()` described in [Conditions](#expressions-and-contexts-conditions). Lifecycle conditions can read `job.status`, direct properties from workflow `inputs`, `env`, `github`, `job.services`, `matrix`, `runner`, and `steps`, and direct or dynamic `github.event` properties. Other contexts and dynamic or whole-context access return an error. An empty lifecycle condition always runs and doesn't receive an implicit `success()` guard.
 
 The `pre-if` conditions use the status and action-scoped environment available when preparation reaches the action. The `post-if` conditions run during job teardown and use the final job status and environment, including `GITHUB_ENV` changes from main. Root action posts also see final workflow step state. Nested composite actions retain their isolated step context. Cancellation remains distinct from failure, and posts keep LIFO order.
 
@@ -1722,7 +1757,13 @@ The audited [upstream commit `3edfce9`](https://github.com/actions/cache/commit/
 
 The v3 releases use managed Node 16 and emit its standard deprecation warning. Node 20 declarations run with managed Node 24. Every admitted bundle selects cache v2 from `ACTIONS_CACHE_SERVICE_V2`, uses `ACTIONS_RESULTS_URL` and a job-scoped runtime token, and preserves the root restore and post-save lifecycle and separate entry points. A non-routable `ACTIONS_CACHE_URL` satisfies the legacy availability gate. Cache traffic still uses `ACTIONS_RESULTS_URL`. Their tar with zstd-or-gzip archive versioning is compatible across releases.
 
-On [Windows jobs](#windows-jobs), cache actions use a restricted tool path: `Git\usr\bin` and `zstd` under the Windows Program Files directory, then Windows System32. Install Git for Windows and zstd there for GNU tar with zstd compression. Without zstd, the upstream client uses gzip. Without the tar provided by Git, the client can use Windows System32 tar. Cross-OS archives require GNU tar and zstd. The runtime obtains installation paths from Windows, replaces tool-selection environment variables case-insensitively, and excludes workflow `PATH` and `GITHUB_PATH` additions. Keep these installation directories outside workflow write access. This doesn't enable Buildkite cache volumes.
+On [Windows jobs](#windows-jobs), cache actions use a restricted tool path: `Git\usr\bin` and `zstd` under the Windows Program Files directory, then Windows System32. Install Git for Windows and zstd there for GNU tar with zstd compression.
+
+From [buildkite-gha v0.105.3](https://github.com/buildkite/buildkite-gha/releases/tag/v0.105.3), the runtime also checks `tools\zstd\zstd.exe` on the Windows system volume. It admits the official [zstd 1.5.7 Windows x64 executable](https://github.com/facebook/zstd/releases/tag/v1.5.7) only when its SHA-256 matches `8076aae03feac7c66b319579e82172eed168deed2a3f25e5e2d3c60f55e84111`. Each cache action lifecycle invocation gets a temporary copy of those verified bytes, before System32 on `PATH`. The writable installation directory, sibling executables, and libraries never enter that path. Missing, unreadable, or different builds don't add a tool directory. No package is downloaded or installed.
+
+Without an admitted zstd, the upstream client uses gzip. Without the tar provided by Git, the client can use Windows System32 tar. Cross-OS archives require GNU tar and zstd. Compression participates in the cache version. Switching from gzip to zstd can cause a one-time cache miss for an existing key. The runtime obtains installation roots from Windows, replaces tool-selection environment variables case-insensitively, and excludes workflow `PATH`, `GITHUB_PATH` additions, and package-manager shims. Keep Program Files installation directories outside workflow write access. Tool isolation isn't a sandbox against administrator workflows or other processes sharing the runner account. This doesn't enable Buildkite cache volumes.
+
+On October 20, 2026, a [native Windows 2022 run](https://github.com/sj26-testier/gha-e2e-onboarding-r-7bc4559a378d/actions/runs/39385464624) of [this fixture](https://github.com/sj26-testier/gha-e2e-onboarding-r-7bc4559a378d/commit/c1e64e911eeeff025be76afc69af775e33a457fe) used pinned `actions/cache/save` and `actions/cache/restore` v4.3.0 with `enableCrossOsArchive: true`, GNU tar, and zstd 1.5.7. Two save/delete/restore cycles used `cache.tzst` with `zstd -T0` and `zstd -d`, then passed exact-key and independently fixed SHA-256 assertions. This proves Windows-only, same-worker archive round trips. It doesn't prove cross-OS or cross-worker persistence.
 
 The snapshot admits a commit only when every bundle it runs selects cache v2 and embeds one `@actions/cache` client version of 4.0.0 or later. Commits before v3.4.0 and v4.2.0 bundle cache-v1 clients and are absent. v3.4.1 is snapshotted but excluded because [its upstream release warns that it was published with an incorrect SHA](https://github.com/actions/cache/releases/tag/v3.4.1).
 
@@ -1865,6 +1906,10 @@ The runtime sets `GITHUB_WORKFLOW` to the top-level `name` of the workflow. If t
 ### Runner tools
 
 Linux tools come from the [selected host environment](#job-syntax-job-configuration). macOS and Windows agents must provide tools used by shell steps. Runner labels don't guarantee GitHub image parity. The runtime sets `RUNNER_OS` and `RUNNER_ARCH` to `Linux`/`X64`, `Linux`/`ARM64`, `macOS`/`ARM64`, or `Windows`/`X64`, and `RUNNER_ENVIRONMENT` to `self-hosted`. Workflow and step environment entries can't override these values.
+
+From [buildkite-gha v0.105.2](https://github.com/buildkite/buildkite-gha/releases/tag/v0.105.2), native shell steps, JavaScript actions, and composite action steps inherit the host's `JAVA_HOME` when set. Earlier runtimes don't inherit it. Workflow, job, and step environment entries and `GITHUB_ENV` updates take precedence, including empty values. Inheritance doesn't add `JAVA_HOME` to the `env` expression context or forward it into job containers or Docker actions. The runtime doesn't select or install Java, inherit version-specific Java variables, or inherit Java option variables such as `JAVA_TOOL_OPTIONS`.
+
+On October 20, 2026, a synthetic [`windows-2022` workflow](https://github.com/sj26-testier/gha-e2e-onboarding-r-b3363f8bae11/blob/bb1108a5c4c42e47cb2426fabd8f4692a4aaf674/.github/workflows/windows-probe.yml) triggered by `push` confirmed that native GitHub Actions exposes a working `JAVA_HOME`. Its PowerShell consumer ran `& "$env:JAVA_HOME\bin\java.exe" -version` successfully in the [native control](https://github.com/sj26-testier/gha-e2e-onboarding-r-b3363f8bae11/actions/runs/39368874267). The probe doesn't establish complete JDK functionality or image parity.
 
 On Linux, `RUNNER_TOOL_CACHE` is job-private unless the backend requests the hosted tool cache. An explicit `tool_cache: true` selects `/opt/hostedtoolcache` and requires it to exist. `false` uses the job-private cache without changing the preinstalled tools of the host. Native Namespace targets currently return `false`. When the field is absent, immutable image targets retain their existing `/opt/hostedtoolcache` behavior, including local hosted-toolchains presets and explicitly configured images.
 

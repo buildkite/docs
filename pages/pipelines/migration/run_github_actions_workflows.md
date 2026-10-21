@@ -705,9 +705,21 @@ Other scan failures show a `Buildkite couldn't scan this repository` notice with
 
 Private checkout and workflow access tokens use separate settings, and both require the generated job to run on a Buildkite hosted agent. For private checkout, enable Buildkite repository-provider Git credentials for the job and authorize the repository URL. For a temporary GitHub token, enable the pipeline's workflow access token setting. Then make sure the workflow uses a supported static token reference. Review the [credentials, secrets, and OIDC](#supported-functionality-and-limitations-credentials-secrets-and-oidc) restrictions before enabling write permissions.
 
-If a generated job fails with `GitHub workflow access tokens are not enabled for this organization or pipeline`, the pipeline's **Allow workflow-authorized GitHub access tokens** setting is turned off. The error links to the pipeline's repository settings, where you can turn the setting on.
+Workflow token request failures with an HTTP response appear in the job log and a **GitHub workflow token unavailable** annotation. Use the reported cause to identify who can act:
 
-If the job fails with `GitHub workflow token request was rejected`, confirm that the job runs on a Buildkite hosted agent, check the workflow's top-level `permissions` (for example, `write-all` is rejected), and confirm that the Buildkite GitHub App can access the repository that triggered the build. If both are correct, contact the Buildkite Support team with the build URL shown in the error.
+Cause | Action
+----- | ------
+Tokens disabled for this pipeline | Ask a pipeline administrator to enable **Allow workflow-authorized GitHub access tokens** in the pipeline's repository settings, if intended. This doesn't approve additional GitHub App permissions.
+No active matching code-access connection | Ask a Buildkite organization administrator to review **Repository Providers**, including account matching and suspension. **Buildkite (Limited Access)** can't issue workflow tokens. If a new installation is needed, a GitHub installation administrator must review its permissions and selected repositories.
+Repository unavailable | Ask a GitHub installation administrator to check that the repository exists and is selected for the App installation. This error doesn't prove which condition failed.
+Requested permissions exceed the workflow policy, or the policy is invalid | Ask the workflow maintainer to remove unused requests or declare the required permissions in a supported top-level `permissions` map. Job-level permissions can't widen the policy. App grants and pull request restrictions still apply.
+Pull request permission ceiling | Pull request builds and their triggered or rebuilt descendants can request only `contents: read`. Remove extra permissions only if unused. Operations requiring more access need a separately trusted workflow that doesn't execute untrusted pull request code. App or pull request approval doesn't remove this restriction.
+Invalid build source or ancestry, or unsupported merge queue | Contact the Buildkite Support team with the build URL. Changing App permissions doesn't resolve these failures.
+{: class="two-column"}
+
+If GitHub rejects token permissions, the response alone doesn't distinguish an App registration limit from an installation grant problem. Ask the GitHub App administrator to compare the App's registered permissions with the installation's approved permissions. An installation administrator can approve an update only if the App already requests those permissions. Approving or reinstalling the App can't add permissions absent from its registration. Contact the Buildkite Support team about supported options; remove requested permissions only if the workflow doesn't need them.
+
+Older versions may report only `GitHub workflow token request was rejected` or `GitHub workflow access tokens are not enabled for this organization or pipeline`. These messages don't establish a specific cause. Check the pipeline setting, hosted-agent requirement, top-level permissions, and matching repository connection. If unresolved, contact the Buildkite Support team with the build URL. Temporary failures and rate limits retain their bounded retries; don't change App permissions to resolve them.
 
 ### GitHub variables can't be resolved
 

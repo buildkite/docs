@@ -1,6 +1,93 @@
 package main
 
-import "testing"
+import (
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+)
+
+func TestGeneratedSubcommandRetainsGuidanceAndRepeatableFlags(t *testing.T) {
+	binary := filepath.Join(t.TempDir(), "bk")
+	help := `Usage: bk build list [flags]
+
+List builds.
+
+Filters apply to the selected pipeline.
+Specify --pipeline when selection is ambiguous.
+
+Flags:
+      --message=STRING                 Filter by message
+      --meta-data=KEY=VALUE;...         Filter by build meta-data
+      --limit=50                       Maximum number of builds
+
+Examples:
+  $ bk build view -b feature-y
+  $ bk build cancel 123 -pipeline my-pipeline --web
+  $ bk pipeline list --repo my-repo
+  $ bk pipeline list --name pipeline | xargs -I {} bk build list --pipeline {} --since 48h --duration 1h
+`
+	if err := os.WriteFile(binary, []byte("#!/bin/sh\ncat <<'EOF'\n"+help+"EOF\n"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	originalArgs := os.Args
+	os.Args = []string{"bk_cli2md", binary}
+	t.Cleanup(func() { os.Args = originalArgs })
+
+	markdown := generateMarkdown(&Command{
+		Name:        "build",
+		Subcommands: []Subcommand{{Name: "build list", Description: "List builds."}},
+	})
+	for _, want := range []string{
+		"List builds.\n\nFilters apply to the selected pipeline.\nSpecify --pipeline when selection is ambiguous.",
+		"| `--message=STRING` | Filter by message |",
+		"| `--meta-data=KEY=VALUE;...` | Filter by build meta-data |",
+		"| `--limit=50` | Maximum number of builds |",
+		"bk build view -b feature-x",
+		"bk build cancel 123 --pipeline my-pipeline --web",
+		"bk pipeline list --repository my-repo",
+		"bk pipeline list --name pipeline --json | jq -r '.[].slug' | xargs -I {} bk build list --pipeline {} --since 48h --duration '>1h'",
+	} {
+		if !strings.Contains(markdown, want) {
+			t.Errorf("generated Markdown is missing %q", want)
+		}
+	}
+}
+
+func TestGeneratedCleanupQualifiesPipelineScope(t *testing.T) {
+	binary := filepath.Join(t.TempDir(), "bk")
+	help := `Usage: bk preflight cleanup [flags]
+
+Clean up completed preflight branches (experimental)
+
+Deletes remote bk/preflight/* branches whose builds have completed (passed,
+failed, canceled). Branches with in-progress builds are left untouched to avoid
+interrupting concurrent preflight runs. Pass --preflight-uuid to target a single
+preflight branch.
+`
+	if err := os.WriteFile(binary, []byte("#!/bin/sh\ncat <<'EOF'\n"+help+"EOF\n"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	originalArgs := os.Args
+	os.Args = []string{"bk_cli2md", binary}
+	t.Cleanup(func() { os.Args = originalArgs })
+
+	markdown := generateMarkdown(&Command{
+		Name:        "preflight",
+		Subcommands: []Subcommand{{Name: "preflight cleanup"}},
+	})
+	for _, want := range []string{
+		"all `bk/preflight/*` branches on `origin` are candidates",
+		"in-progress builds found in the selected pipeline",
+		"no build found are eligible for deletion",
+		"matching --pipeline and inspect --dry-run",
+		"does not independently verify which pipeline owns the branch",
+	} {
+		if !strings.Contains(markdown, want) {
+			t.Errorf("generated cleanup guidance is missing %q", want)
+		}
+	}
+}
 
 func TestCombinedDescriptionRemovesRepeatedFirstSentence(t *testing.T) {
 	cmd := &Command{
@@ -23,7 +110,7 @@ func TestCombinedDescriptionKeepsDistinctDescription(t *testing.T) {
 	}
 
 	got := combinedDescription(cmd)
-	want := "Open Buildkite resources in a web browser Without arguments, the pipeline for the current project is resolved and opened."
+	want := "Open Buildkite resources in a web browser\n\nWithout arguments, the pipeline for the current project is resolved and opened."
 
 	if got != want {
 		t.Fatalf("combinedDescription() = %q, want %q", got, want)
@@ -56,10 +143,12 @@ Flags:
 
 func TestGetSubcommandTitlePreservesInitialisms(t *testing.T) {
 	tests := map[string]string{
-		"job ssh":     "Connect to a job using SSH",
-		"job vnc":     "Connect to a job using VNC",
-		"team update": "Update a team",
-		"team delete": "Delete a team",
+		"job ssh":                 "Connect to a job using SSH",
+		"job vnc":                 "Connect to a job using VNC",
+		"team update":             "Update a team",
+		"team delete":             "Delete a team",
+		"build retry-failed-jobs": "Retry failed jobs",
+		"build step-uploads":      "List dynamic step uploads",
 		// Nested commands use every word before the action as the noun.
 		"cache registry list":                   "List cache registries",
 		"cache registry view":                   "View a cache registry",
@@ -88,8 +177,8 @@ func TestNormalizeMarkdownUsesOneTrailingNewline(t *testing.T) {
 }
 
 func TestFormatDescriptionFormatsCommandLineExamples(t *testing.T) {
-	got := formatDescription(`Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, e.g. --path "log/rspec*.json".`)
-	want := "Filter artifacts by path. Supports exact matches and glob patterns using * as a wildcard, for example `--path \"log/rspec*.json\"`."
+	got := formatDescription("Filter artifacts by path, e.g. --path \"log/test_report*.json\". Requires read_builds and `read_artifacts`.")
+	want := "Filter artifacts by path, for example `--path \"log/test_report*.json\"`. Requires `read_builds` and `read_artifacts`."
 
 	if got != want {
 		t.Fatalf("formatDescription() = %q, want %q", got, want)

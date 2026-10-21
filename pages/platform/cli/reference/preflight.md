@@ -31,6 +31,13 @@ The `bk preflight` command allows you to run a build against a snapshot of the l
 
 Run a build against a snapshot of the local working tree (experimental)
 
+Preflight is an experimental preview and subject to change without notice.
+
+Snapshots your working tree (staged, unstaged, and untracked files) to a
+temporary commit on a bk/preflight/<id> branch, triggers a build on the selected
+pipeline, monitors failures, exits as soon as the build starts failing,
+and cleans up the temporary branch when finished.
+
 ```bash
 bk preflight run [flags]
 ```
@@ -42,16 +49,21 @@ bk preflight run [flags]
 | `-p`, `--pipeline=STRING` | The pipeline to build. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `--[no-]watch` | Watch the build until completion. |
 | `--await-test-results` | After the build finishes, wait for test results to be processed by Test Engine. Provide a duration like 10s, or omit the value to wait 30s. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--exit-on=EXIT-ON,...` | Exit when a condition is met. Options: build-failing (default, exits when a build enters the failing state), build-terminal (exits when the build reaches a terminal state). |
 | `--interval=2` | Polling interval in seconds when watching. |
 | `--json` | Emit one JSON object per event (JSONL). |
 | `--no-cleanup` | Skip cleanup after completion or early exit. The preflight branch remains and the build keeps running if exiting early. |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Use plain text output instead of interactive terminal UI. |
 
 ## Cleanup preflight
 
-Clean up completed preflight branches (experimental)
+Clean up remote Preflight branches (experimental).
+
+Without --preflight-uuid, all `bk/preflight/*` branches on `origin` are candidates. Cleanup preserves branches with in-progress builds found in the selected pipeline. Branches with completed builds or no build found are eligible for deletion, including branches used by other pipelines.
+
+In shared repositories, use --preflight-uuid with the matching --pipeline and inspect --dry-run output before deleting. The UUID limits branch selection; it does not independently verify which pipeline owns the branch.
 
 ```bash
 bk preflight cleanup [flags]
@@ -62,8 +74,9 @@ bk preflight cleanup [flags]
 | Flag | Description |
 | --- | --- |
 | `-p`, `--pipeline=STRING` | The pipeline to check builds against. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--dry-run` | Show which branches would be deleted without actually deleting them. |
 | `--json` | Emit one JSON object per event (JSONL). |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--preflight-uuid=STRING` | Target a single preflight branch by its UUID (bk/preflight/<uuid>). |
 | `--text` | Use plain text output instead of interactive terminal UI. |
