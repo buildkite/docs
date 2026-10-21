@@ -638,6 +638,17 @@ defaults:
 
 **🟡 Supported subset with different queue behavior.** A static group becomes a repository-scoped, case-insensitive Buildkite Pipelines concurrency group. Groups may use supported `github` fields, static reusable-workflow inputs, and concrete `matrix` and `strategy` values at job level. Core operators, `fromJSON`, and the case-insensitive string functions `startsWith`, `contains`, and `endsWith` are supported when the whole expression resolves during compilation. A needs-derived matrix consumer can also read its producer's outputs for its job group; see [Scheduling from matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs). Other runtime `needs` values remain unsupported.
 
+Workflow-level groups can use `github.run_id` in the unreleased change [buildkite-gha#613](https://github.com/buildkite/buildkite-gha/pull/613). Hosted upload uses the owning Buildkite Pipelines build ID, including in called workflows. Repeated imports in one build retain the same group; different builds get different groups:
+
+```yaml
+concurrency:
+  group: codeql-${{ github.run_id }}
+```
+
+Offline `validate` and `compile` don't invent a run ID and report that build identity is required. To serialize builds on the same branch instead, use `${{ github.workflow }}-${{ github.ref }}`. This change doesn't add `github.run_id` to job-level groups or other compile-time fields, or add `github.run_number` or `github.run_attempt` to workflow groups.
+
+On October 21, 2026, a [`workflow_dispatch` run on GitHub-hosted Ubuntu](https://github.com/buildkite/buildkite-gha/actions/runs/39537495716) passed with workflow-level `group: expression-oracle-${{ github.run_id }}` in the [pinned fixture](https://github.com/buildkite/buildkite-gha/blob/c458fb42044c69ab07b7d3c0fa77cb6fdc5a5918/.github/workflows/expression-oracle.yml). Two step-environment evaluations both produced `expression-oracle-39537495716`, matching `GITHUB_RUN_ID`. This confirms native acceptance at workflow concurrency and consistent run identity. It doesn't establish cancellation, queue ordering, or rerun behavior.
+
 A workflow can set a group and cancellation expression while a job uses a matrix-derived group:
 
 ```yaml
@@ -1443,6 +1454,8 @@ Event retention follows the [event payload security boundary](/docs/pipelines/mi
 Matrices, runner labels, names, concurrency groups, retained runtime templates, and event-backed conditions can use statically known `github`, `event`, and matrix values.
 
 Compile-time `github` fields are `actor`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_owner`, `sha`, and `workflow`. Expressions can use computed indexes, numeric array indexes, and `.*` projections when the complete result resolves during compilation.
+
+Workflow-level concurrency has a separate [build-identity exception](#workflow-syntax-concurrency) for `github.run_id`.
 
 Whole or dynamic `github` access remains unsupported unless it's rooted at `github.event`. Event-backed runtime expressions can combine reducible event parts with values supported by their runtime surface. Action references in `uses` must remain static and can't use `github.event`.
 
