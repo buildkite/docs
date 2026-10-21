@@ -92,6 +92,60 @@ As a consequence, each test is assigned a new identity per run within Test Engin
 
 To mitigate this issue and ensure the reliability of Test Engine, it's advisable to provide explicit and stable descriptions for each test case within your RSpec test suite. By doing so, you can maintain consistency in test identification across multiple runs, enabling better tracking and analysis of test performance over time.
 
+## Collecting RSpec tests with OpenTelemetry
+
+The Ruby collector can send RSpec results to Buildkite Test Engine as [OpenTelemetry](https://opentelemetry.io/) spans. Each test execution becomes a root span, and optional instrumentation adds child spans for operations such as database queries and HTTP requests.
+
+> 🚧 Experimental RSpec support
+> OpenTelemetry collection is experimental and disabled by default. It supports RSpec only, not minitest. Use Ruby 3.3 or later. Suites that already configure OpenTelemetry are not yet supported by this experimental integration.
+
+1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Store its suite API token [securely](/docs/pipelines/security/secrets/managing) as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs RSpec.
+
+1. Add the collector and its optional OpenTelemetry dependencies to your `Gemfile`. Use collector version 2.16.0 or later and OTLP exporter version 0.29 or later:
+
+    ```ruby
+    group :test do
+      gem "buildkite-test_collector", "~> 2.16"
+      gem "opentelemetry-sdk", "~> 1.13", require: false
+      gem "opentelemetry-exporter-otlp", "~> 0.34", require: false
+    end
+    ```
+
+1. Install the gems:
+
+    ```bash
+    bundle install
+    ```
+
+1. Enable OpenTelemetry in `spec/spec_helper.rb`. If you already configure the collector, add `otel_enabled: true` to that call instead of configuring it a second time:
+
+    ```ruby
+    require "buildkite/test_collector"
+
+    Buildkite::TestCollector.configure(
+      hook: :rspec,
+      otel_enabled: true,
+    )
+    ```
+
+1. Run your suite with its token and [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) available:
+
+    ```bash
+    bundle exec rspec
+    ```
+
+1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
+
+The collector exports to `https://tests-otlp.buildkite.com/v1/traces` and detects run metadata from your CI environment. On Buildkite Pipelines, it uses `BUILDKITE_BUILD_ID` as the run key. Outside CI, it generates a run key; set `BUILDKITE_ANALYTICS_KEY` to share a run across multiple processes. The collector manages the endpoint and authorization headers itself, so you do not need to set `OTEL_EXPORTER_OTLP_*` variables. Those variables do not redirect the collector's exports.
+
+When OpenTelemetry setup succeeds, spans replace the collector's JSON uploads. No JSON artifact is written, even if `artifact_path` is configured. Do not also upload the same executions using bktec or another upload method. If setup fails, for example because the optional gems are missing, the collector warns and falls back to JSON using `BUILDKITE_ANALYTICS_TOKEN`. Export failures after setup do not trigger a JSON fallback, so check warnings about rejected or dropped spans.
+
+### Add instrumentation
+
+To include operations inside each test, add the relevant OpenTelemetry instrumentation gem to your bundle and require it before configuring the collector. For example, to trace PostgreSQL queries, add `gem "opentelemetry-instrumentation-pg", require: false` to the test group in your `Gemfile`, run `bundle install`, and add `require "opentelemetry-instrumentation-pg"` before `require "buildkite/test_collector"`.
+
+The collector installs registered instrumentation when the RSpec suite starts. Without instrumentation gems, it still exports test execution spans. See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-ruby/docs/opentelemetry.md) for child span filtering, batching options, and troubleshooting.
+
 ## minitest collector
 
 [minitest](https://github.com/minitest/minitest) provides a complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking.
