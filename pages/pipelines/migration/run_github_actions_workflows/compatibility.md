@@ -4,7 +4,7 @@ description: "Reference for the GitHub Actions workflow syntax, triggers, action
 
 # GitHub Actions compatibility reference
 
-This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
+This page describes the GitHub Actions functionality supported by `buildkite-gha` v0.102.1, except where a later minimum version is noted. It's the production contract for the `hosted` profile used by `upload` and the [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/). If a feature isn't listed on this page, treat it as unsupported. To set up a pipeline that runs GitHub Actions workflows, see [Run GitHub Actions workflows in Buildkite](/docs/pipelines/migration/run-github-actions-workflows).
 
 `buildkite-gha` requires Buildkite agent v3.129 or newer.
 
@@ -1295,6 +1295,7 @@ Conditions support computed object indexes, numeric array indexes, whole `matrix
 | `inputs.<name>` and computed input indexes | ✅ Yes | ✅ Yes |
 | `steps.<id>.outcome`, `steps.<id>.conclusion`, `steps.<id>.outputs.<name>` | ❌ No | ✅ Yes |
 | `env.<name>` | ❌ No | ✅ Yes |
+| `job.status` | ❌ No | ✅ Yes |
 | [`job.services` IDs, networks, and ports](#job-syntax-containers-and-services), including bracket-indexed service IDs | ❌ No | ✅ Yes |
 | `github.event`, including direct, projected, and dynamically indexed properties | ✅ Yes | ✅ Yes |
 | `secrets` and other contexts | ❌ No | ❌ No |
@@ -1350,7 +1351,21 @@ The listed workflow step fields and job fields accept the four [scalar `strategy
 
 Admission follows the [GitHub context table](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability), checked against the [runner schema](https://github.com/actions/runner/blob/15231bede4aacecb6686f4b7de25c62398607993/src/Sdk/DTPipelines/workflow-v1.0.json) and [language-services schema](https://github.com/actions/languageservices/blob/4043eda158e16579cc5fb1b0b07a4bce2a76f0b5/workflow-parser/src/workflow-v1.0.json). The GitHub documentation and language-services schema disagree on caller `with` admission. That field is unchanged.
 
-Job outputs support service IDs, networks, and published ports through `job.services`, such as `${{ job.services.redis.ports[6379] }}`. Other `job` fields remain unsupported. The listed job-level fields also support `toJSON(needs)`, with the same direct-dependency scope and access restrictions as step fields.
+Job outputs support `job.status` and service IDs, networks, and published ports through `job.services`, such as `${{ job.services.redis.ports[6379] }}`. Other `job` fields remain unsupported. The listed job-level fields also support `toJSON(needs)`, with the same direct-dependency scope and access restrictions as step fields.
+
+In `buildkite-gha` [v0.103.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.103.0) and later, workflow and composite step fields, action lifecycle conditions, and job outputs can read `job.status` as `success`, `failure`, or `cancelled`. Job outputs read the final status after post actions. Job and reusable-call conditions, job env, run defaults, containers, service configuration, and Docker action `args` can't read it. Action input defaults retain their existing restriction to one direct `${{ job.status }}` expression.
+
+`job.status` isn't a status function. Use `always()` or another status function when a step must run after failure:
+
+```yaml
+steps:
+  - if: always()
+    env:
+      STATUS: ${{ job.status }}
+    run: echo "Job status is $STATUS"
+```
+
+Inside a composite action, `job.status` retains the enclosing job's status until the composite finishes. A child failure can make `failure()` true while `job.status` is still `success`. A step timeout doesn't set `job.status` to `cancelled`. Whole-job cancellation sets `job.status` to `cancelled`. This follows the runner's [composite result handling](https://github.com/actions/runner/blob/5f0b3ddcc6ee9fe9441e00d55e85b94ea4aad798/src/Runner.Worker/Handlers/CompositeActionHandler.cs#L235-L248) and [job status updates](https://github.com/actions/runner/blob/5f0b3ddcc6ee9fe9441e00d55e85b94ea4aad798/src/Runner.Worker/StepsRunner.cs#L273-L285). These boundaries have local compiled-workflow tests and runner-source evidence, not native GitHub execution evidence.
 
 Expression-valued `continue-on-error` must produce a Boolean. Expression-valued `timeout-minutes` must produce a number greater than 0 and at most 360.
 
@@ -1515,7 +1530,7 @@ Action metadata parsing remains strict for every other unknown top-level field a
 
 The `pre`, `main`, and `post` phases, inputs, outputs, state, and LIFO post ordering are supported. Other Node declarations are rejected.
 
-JavaScript action `pre-if` and `post-if` metadata uses the condition operators, status functions, pure functions, and `hashFiles()` described in [Conditions](#expressions-and-contexts-conditions). Lifecycle conditions can read direct properties from workflow `inputs`, `env`, `github`, `job.services`, `matrix`, `runner`, and `steps`, and direct or dynamic `github.event` properties. Other contexts and dynamic or whole-context access return an error. An empty lifecycle condition always runs and doesn't receive an implicit `success()` guard.
+JavaScript action `pre-if` and `post-if` metadata uses the condition operators, status functions, pure functions, and `hashFiles()` described in [Conditions](#expressions-and-contexts-conditions). Lifecycle conditions can read `job.status`, direct properties from workflow `inputs`, `env`, `github`, `job.services`, `matrix`, `runner`, and `steps`, and direct or dynamic `github.event` properties. Other contexts and dynamic or whole-context access return an error. An empty lifecycle condition always runs and doesn't receive an implicit `success()` guard.
 
 The `pre-if` conditions use the status and action-scoped environment available when preparation reaches the action. The `post-if` conditions run during job teardown and use the final job status and environment, including `GITHUB_ENV` changes from main. Root action posts also see final workflow step state. Nested composite actions retain their isolated step context. Cancellation remains distinct from failure, and posts keep LIFO order.
 
