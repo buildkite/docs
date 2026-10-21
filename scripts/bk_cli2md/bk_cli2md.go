@@ -46,13 +46,15 @@ var (
 	// Matches: "  -s, --long=TYPE  Description" or "  --long=TYPE  Description" or "  -s, --long  Description"
 	// Also handles default values like --output="json", repeatable flags like --env=ENV,...,
 	// and negatable flags like --[no-]members-can-create-pipelines.
-	flagRE = regexp.MustCompile(`^\s{2,}(-([a-zA-Z]),\s+)?--((?:\[no-\])?[a-zA-Z0-9-]+)(=("[^"]*"|[A-Z0-9-=;]+(?:,\.\.\.)?|\.\.\.))?(\s{2,}(.+))?$`)
+	flagRE = regexp.MustCompile(`^\s{2,}(-([a-zA-Z]),\s+)?--((?:\[no-\])?[a-zA-Z0-9-]+)(=("[^"]*"|[A-Z0-9-=;]+(?:[,;]\.\.\.)?|\.\.\.))?(\s{2,}(.+))?$`)
 	// Matches subcommand lines: "  command subcommand [args] [flags]"
 	subcommandRE = regexp.MustCompile(`^\s{2}(\S+(?:\s+\S+)?)\s+(\[.+\])?\s*$`)
 	// Matches argument lines: "  [<arg>]  Description" or "  <arg>  Description"
 	argumentRE = regexp.MustCompile(`^\s{2,}(\[?<([^>]+)>\]?)\s{2,}(.+)$`)
 	// Matches command-line examples in descriptions, for example: --path "log/*.json"
 	commandLineExampleRE = regexp.MustCompile(`\be\.g\. (--[a-zA-Z0-9-]+(?: "[^"]*")?)`)
+	identifierRE         = regexp.MustCompile(`\b[a-zA-Z][a-zA-Z0-9]*_[a-zA-Z0-9_]+\b`)
+	literalListItemRE    = regexp.MustCompile(`(?m)^- ([a-z][a-z0-9-]*)( \()`)
 )
 
 func main() {
@@ -101,7 +103,7 @@ func main() {
 		}
 
 		md := normalizeMarkdown(generateMarkdown(cmd))
-		outputPath := filepath.Join(outputDir, groupName+".md")
+		outputPath := filepath.Join(outputDir, strings.ReplaceAll(groupName, "-", "_")+".md")
 
 		if err := os.WriteFile(outputPath, []byte(md), 0644); err != nil {
 			fmt.Fprintf(os.Stderr, "Error writing %s: %v\n", outputPath, err)
@@ -355,19 +357,9 @@ func parseHelp(helpText, cmdName string) *Command {
 
 	flushFlag()
 
-	// Set description - filter out empty lines
-	var nonEmptyDesc []string
-	for _, d := range descLines {
-		if d != "" {
-			nonEmptyDesc = append(nonEmptyDesc, d)
-		}
-	}
-	if len(nonEmptyDesc) > 0 {
-		cmd.Description = nonEmptyDesc[0]
-		if len(nonEmptyDesc) > 1 {
-			// LongDesc is the full description (all lines after the first)
-			cmd.LongDesc = strings.Join(nonEmptyDesc[1:], " ")
-		}
+	if len(descLines) > 0 {
+		cmd.Description = descLines[0]
+		cmd.LongDesc = strings.TrimSpace(strings.Join(descLines[1:], "\n"))
 	}
 
 	return cmd
@@ -393,7 +385,7 @@ func generateMarkdown(cmd *Command) string {
 
 		// Description
 		if desc := combinedDescription(cmd); desc != "" {
-			fmt.Fprintf(&b, "%s\n\n", desc)
+			fmt.Fprintf(&b, "%s\n\n", formatDescription(desc))
 		}
 
 		// Usage
@@ -458,8 +450,8 @@ func generateMarkdown(cmd *Command) string {
 		fmt.Fprintf(&b, "## %s\n\n", title)
 
 		// Description
-		if subCmd.Description != "" {
-			fmt.Fprintf(&b, "%s\n\n", subCmd.Description)
+		if desc := combinedDescription(subCmd); desc != "" {
+			fmt.Fprintf(&b, "%s\n\n", formatDescription(desc))
 		}
 
 		// Usage (subCmd.Usage already includes "bk")
@@ -544,7 +536,7 @@ func combinedDescription(cmd *Command) string {
 		return cmd.LongDesc
 	}
 
-	return cmd.Description + " " + cmd.LongDesc
+	return cmd.Description + "\n\n" + cmd.LongDesc
 }
 
 func isRedundantDescription(short, longFirstSentence string) bool {
@@ -584,8 +576,16 @@ func getSubcommandTitle(name string) string {
 		"configure add":                         "Add a new organization",
 		"artifacts download":                    "Download an artifact",
 		"artifacts list":                        "List artifacts",
+		"build compare":                         "Compare builds",
+		"build annotations":                     "List build annotations",
+		"build failed-tests":                    "List failed tests",
+		"build retry-failed-jobs":               "Retry failed jobs",
+		"build step-uploads":                    "List dynamic step uploads",
+		"job flaky-tests":                       "List flaky test failures",
 		"job ssh":                               "Connect to a job using SSH",
 		"job vnc":                               "Connect to a job using VNC",
+		"repository-connection list":            "List repository connections",
+		"repository-connection view":            "View a repository connection",
 		"secret migrate github-actions prepare": "Prepare a GitHub Actions secret migration",
 		"secret migrate github-actions run":     "Run a GitHub Actions secret migration",
 		"team update":                           "Update a team",
@@ -720,7 +720,14 @@ func formatFlag(f Flag) string {
 
 func formatDescription(description string) string {
 	description = commandLineExampleRE.ReplaceAllString(description, "for example `$1`")
-	return strings.ReplaceAll(description, "stdin with -", "stdin with `-`")
+	description = strings.ReplaceAll(description, "stdin with -", "stdin with `-`")
+	// Help is plain text. Format identifiers as code without nesting existing spans.
+	parts := strings.Split(description, "`")
+	for i := 0; i < len(parts); i += 2 {
+		parts[i] = identifierRE.ReplaceAllString(parts[i], "`$0`")
+		parts[i] = literalListItemRE.ReplaceAllString(parts[i], "- `$1`$2")
+	}
+	return strings.Join(parts, "`")
 }
 
 func writeExamples(b *strings.Builder, examples []string) {
@@ -732,6 +739,18 @@ func writeExamples(b *strings.Builder, examples []string) {
 		} else if strings.HasPrefix(ex, "$") {
 			// It's a command
 			cmd := strings.TrimPrefix(ex, "$ ")
+			// Correct known examples in the pinned CLI help. Keep these until
+			// the upstream help is corrected and the CLI pin is advanced.
+			switch cmd {
+			case "bk build view -b feature-y":
+				cmd = "bk build view -b feature-x"
+			case "bk build cancel 123 -pipeline my-pipeline --web":
+				cmd = "bk build cancel 123 --pipeline my-pipeline --web"
+			case "bk pipeline list --repo my-repo":
+				cmd = "bk pipeline list --repository my-repo"
+			case "bk pipeline list --name pipeline | xargs -I {} bk build list --pipeline {} --since 48h --duration 1h":
+				cmd = "bk pipeline list --name pipeline --json | jq -r '.[].slug' | xargs -I {} bk build list --pipeline {} --since 48h --duration '>1h'"
+			}
 			if comment != "" {
 				fmt.Fprintf(b, "%s:\n\n", comment)
 				comment = ""

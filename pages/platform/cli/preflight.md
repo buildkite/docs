@@ -60,6 +60,8 @@ bk preflight --pipeline my-org/my-pipeline --watch
 
 The `--pipeline` flag accepts either `{org-slug}/{pipeline-slug}` or just `{pipeline-slug}` if your Buildkite organization is already set in your `bk` config.
 
+You can omit `--pipeline` when configuration or repository discovery resolves the pipeline. Pass it explicitly in automation to avoid ambiguous selection. Watching is enabled by default; `--no-watch` starts the build and exits without waiting or automatically cleaning up its branch.
+
 In `--watch` mode, Preflight exits with code `0` if all jobs pass, `10` when the build first enters the failing state (the default), or `9` if the build completes with failures. See [exit codes](/docs/platform/cli/preflight#exit-codes) for the full list.
 
 Preflight works well with [promise job failure](/docs/pipelines/configure/promise-job-failure). If a running job declares a promised hard failure, Buildkite Pipelines can move the build to `failing` before the job exits, and Preflight can start reporting the failure earlier while the job continues uploading logs and test results. Reading promised failures from running jobs requires Buildkite CLI version `3.50.0` or later.
@@ -82,12 +84,28 @@ bk preflight --pipeline my-org/my-pipeline --watch --json
 # Wait up to 30s for Test Engine results after build completion
 bk preflight --pipeline my-org/my-pipeline --watch --await-test-results
 
+# Set a custom wait for Test Engine results
+bk preflight --pipeline my-org/my-pipeline --watch --await-test-results=10s
+
 # Don't cancel the build or remove the branch on exit
 bk preflight --pipeline my-org/my-pipeline --watch --no-cleanup
 
 # Wait for the build to reach a terminal state instead of exiting on the failing state
 bk preflight --pipeline my-org/my-pipeline --watch --exit-on build-terminal
 ```
+
+Unless you pass `--no-cleanup`, an early exit while watching can cancel the build before deleting the remote branch. Use `--no-cleanup` when you want the build to continue after Preflight exits.
+
+### Clean up retained branches
+
+For branches left by `--no-watch`, `--no-cleanup`, or an interrupted run, preview cleanup before deleting them:
+
+```bash
+bk preflight cleanup --pipeline my-org/my-pipeline --dry-run
+bk preflight cleanup --pipeline my-org/my-pipeline
+```
+
+Cleanup leaves branches with in-progress builds untouched. Use `--preflight-uuid UUID` to target one preflight branch. See the [Preflight command reference](/docs/platform/cli/reference/preflight#cleanup-preflight) for available flags.
 
 ## Build summary
 
@@ -135,7 +153,7 @@ steps:
 
 | Exit code | Meaning |
 |-----------|---------|
-| `0` | All jobs passed |
+| `0` | Watched build passed, or the build was created successfully with `--no-watch` |
 | `1` | Generic error |
 | `9` | Build completed with failures |
 | `10` | Build incomplete — failures already detected |
@@ -147,15 +165,15 @@ steps:
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--pipeline`, `-p` | — | Pipeline slug (`{slug}` or `{org}/{slug}`) — required |
-| `--watch` / `--no-watch` | — | Watch the build until completion |
+| `--pipeline`, `-p` | Inferred | Pipeline slug (`{slug}` or `{org}/{slug}`); specify explicitly when inference is ambiguous |
+| `--watch` / `--no-watch` | `true` | Watch the build until completion or the selected exit condition |
 | `--interval` | `2` | Polling interval in seconds |
 | `--exit-on` | `build-failing` | Condition that triggers exit. `build-failing` exits when the build enters the failing state; `build-terminal` exits when the build reaches a terminal state. |
-| `--no-cleanup` | `false` | Keep the remote preflight branch after the build |
-| `--await-test-results` | — | Wait for Test Engine summaries after build completion |
+| `--no-cleanup` | `false` | Keep the remote preflight branch and leave the build running on early exit |
+| `--await-test-results[=DURATION]` | Disabled | Wait for Test Engine summaries after build completion; without a duration, wait up to 30 seconds |
 | `--text` | `false` | Use plain text output |
 | `--json` | `false` | Emit one JSON object per event (JSONL) |
 | `--yes`, `-y` | `false` | Skip confirmation prompts |
 | `--no-input` | `false` | Disable all interactive prompts |
 | `--quiet`, `-q` | `false` | Suppress progress output |
-| `--debug` | `false` | Enable debug output for API calls |
+| `--debug` | `false` | Log HTTP API traffic to stderr; bodies can contain sensitive data |

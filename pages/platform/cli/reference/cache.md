@@ -49,9 +49,10 @@ bk cache registry list <cluster-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of cache registries to return |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--per-page=30` | Number of cache registries per page |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -90,14 +91,22 @@ bk cache registry view <cluster-uuid> <registry-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
 ## Create a cache registry
 
 Create a new cluster cache registry.
+
+The policy file may contain YAML or JSON and must have an object at its root.
+Use --policy-file - to read from stdin. Policies are normalized by the API,
+so YAML comments and formatting are not preserved.
+
+Omitting --policy-file creates the registry with the default unrestricted
+policy. Only use an unrestricted registry with builds you trust.
 
 ```bash
 bk cache registry create --name=STRING <cluster-uuid> [flags]
@@ -115,11 +124,12 @@ bk cache registry create --name=STRING <cluster-uuid> [flags]
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `--color=COLOR` | Color for the cache registry |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=DESCRIPTION` | Description for the cache registry |
 | `--emoji=EMOJI` | Emoji for the cache registry |
 | `--json` | Output as JSON |
 | `--name=STRING` | Name for the cache registry |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--policy-file=STRING` | Read the policy from a YAML or JSON file, or from stdin with `-` |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -146,6 +156,17 @@ cat policy.json | bk cache registry create my-cluster-uuid --name "Ruby gems" --
 
 Update a cluster cache registry.
 
+At least one setter or clear flag must be provided. A metadata setter cannot be
+combined with its corresponding clear flag. The policy file may contain YAML or
+JSON and must have an object at its root. Policies are normalized by the API,
+so YAML comments and formatting are not preserved.
+
+Clearing the policy sets it to null, which denies all cache saves and restores;
+it does not reset the registry to the unrestricted default policy.
+
+Changing the name regenerates the registry slug. Jobs that explicitly select the
+old slug must be updated to use the new one.
+
 ```bash
 bk cache registry update <cluster-uuid> <registry-uuid> [flags]
 ```
@@ -167,11 +188,12 @@ bk cache registry update <cluster-uuid> <registry-uuid> [flags]
 | `--clear-emoji` | Clear the cache registry emoji |
 | `--clear-policy` | Clear the policy, denying all cache saves and restores |
 | `--color=COLOR` | New color for the cache registry |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=DESCRIPTION` | New description for the cache registry |
 | `--emoji=EMOJI` | New emoji for the cache registry |
 | `--json` | Output as JSON |
 | `--name=NAME` | New name for the cache registry (regenerates its slug) |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--policy-file=STRING` | Read the new policy from a YAML or JSON file, or from stdin with `-` |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -194,6 +216,8 @@ bk cache registry update my-cluster-uuid my-registry-uuid --clear-description
 
 Delete a cluster cache registry.
 
+You will be prompted to confirm deletion unless --yes is set.
+
 ```bash
 bk cache registry delete <cluster-uuid> <registry-uuid>
 ```
@@ -209,7 +233,8 @@ bk cache registry delete <cluster-uuid> <registry-uuid>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

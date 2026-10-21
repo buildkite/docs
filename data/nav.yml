@@ -929,6 +929,8 @@
               path: "platform/cli/reference/preflight"
             - name: "queue"
               path: "platform/cli/reference/queue"
+            - name: "repository-connection"
+              path: "platform/cli/reference/repository-connection"
             - name: "secret"
               path: "platform/cli/reference/secret"
             - name: "skill"
