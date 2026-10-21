@@ -451,6 +451,8 @@
               path: "agent/cli/reference/bootstrap"
             - name: "build"
               path: "agent/cli/reference/build"
+            - name: "cache"
+              path: "agent/cli/reference/cache"
             - name: "env"
               path: "agent/cli/reference/env"
             - name: "job"
