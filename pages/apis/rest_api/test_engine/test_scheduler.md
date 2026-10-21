@@ -364,7 +364,11 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>lease.costs.duration_p90_ms</code></th>
-    <td>The target maximum combined duration for each lease, in milliseconds. Must be a finite, non-negative integer. Set either this property or <code>lease.costs.custom</code>, not both. The first selected attempt or affinity group may exceed the target.</td>
+    <td>The target maximum combined 90th-percentile estimated duration for each lease, in milliseconds. Must be a finite, non-negative integer. The first selected attempt or affinity group may exceed the target.</td>
+  </tr>
+  <tr>
+    <th><code>lease.costs.duration_p50_ms</code></th>
+    <td>The target maximum combined 50th-percentile (median) estimated duration for each lease, in milliseconds. Must be a finite, non-negative integer. The first selected attempt or affinity group may exceed the target.</td>
   </tr>
   <tr>
     <th><code>lease.max_attempts</code></th>
@@ -372,6 +376,21 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
 </tbody>
 </table>
+
+Set at most one cost dimension in `lease.costs`: `custom`, `duration_p90_ms`, or `duration_p50_ms`. Omitting `lease.costs` or providing an empty object uses `custom` with a target of `1`. To budget leases by estimated median duration, set the following `lease` object when creating the pool:
+
+```json
+{
+  "lease": {
+    "costs": {
+      "duration_p50_ms": 60000
+    },
+    "max_attempts": 100
+  }
+}
+```
+
+This configuration targets a combined median estimated duration of 60,000 milliseconds per lease. To use 90th-percentile estimates instead, replace `duration_p50_ms` with `duration_p90_ms`.
 
 ### Create a pool with multiple attempt policies
 
@@ -676,7 +695,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
           "line": 42
         },
         "costs": {
-          "custom": 12.5
+          "custom": 12.5,
+          "duration_p90_ms": 1500,
+          "duration_p50_ms": 900
         },
         "priority": 5,
         "affinity_group": "database",
@@ -702,7 +723,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/test-scheduler/pools
         "line": 42
       },
       "costs": {
-        "custom": 12.5
+        "custom": 12.5,
+        "duration_p90_ms": 1500,
+        "duration_p50_ms": 900
       },
       "priority": 5,
       "affinity_group": "database",
@@ -752,7 +775,11 @@ Optional entry properties:
   </tr>
   <tr>
     <th><code>entries[].costs.duration_p90_ms</code></th>
-    <td>A finite, non-negative integer duration in milliseconds. Omit this property when no estimate is available; <code>null</code> is not accepted. The pool's lease settings choose which cost dimension is used for scheduling.</td>
+    <td>The entry's 90th-percentile estimated duration in milliseconds, supplied by the producer. Must be a finite, non-negative integer. Omit this property when no estimate is available; <code>null</code> is not accepted.</td>
+  </tr>
+  <tr>
+    <th><code>entries[].costs.duration_p50_ms</code></th>
+    <td>The entry's 50th-percentile (median) estimated duration in milliseconds, supplied by the producer. Must be a finite, non-negative integer. Omit this property when no estimate is available; <code>null</code> is not accepted.</td>
   </tr>
   <tr>
     <th><code>entries[].priority</code></th>
@@ -768,6 +795,8 @@ Optional entry properties:
   </tr>
 </tbody>
 </table>
+
+An entry can include multiple cost dimensions. The pool's `lease.costs` setting selects which dimension is used for scheduling. If an entry omits the selected dimension, its effective scheduling cost is `0`; the scheduler does not substitute another dimension.
 
 For `test_plan_test_case_v1`, the selector object requires a `format` of `file`, `selector`, or `example`. A file requires a non-empty `path`. A selector requires a non-empty `value`. An example requires non-empty `scope` and `name`, and may include non-empty `path` and `identifier`. All formats accept non-negative integer `estimated_duration` and `timing_sample_size`. Other fields are rejected.
 
@@ -930,7 +959,7 @@ The API sorts waiting attempts by:
 
 Attempts without an affinity group are included in the lease on their own, but attempts belonging to an affinity group are expanded to include a single attempt from each entry in the group. Affinity groups with attempts locked by concurrent leases are not included.
 
-The API applies the pool's selected lease cost dimension (`custom` or `duration_p90_ms`) and `lease.max_attempts` settings to each lease:
+The API applies the pool's selected lease cost dimension (`custom`, `duration_p90_ms`, or `duration_p50_ms`) and `lease.max_attempts` settings to each lease:
 
 - The first batch is always leased, even if it exceeds the target cost. When the first batch is an affinity group, the entire group is leased even if it exceeds the attempt limit.
 - Each later batch is added only if the entire batch fits within both limits.
@@ -1394,7 +1423,7 @@ The response includes:
 </tbody>
 </table>
 
-Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. For each state in `attempts.states`, `costs` contains the sum in the pool's selected dimension: `custom` or `duration_p90_ms`. An entry contributes its selected cost once for each attempt in that state.
+Entries and attempts are reported separately because an attempt policy can create multiple attempts for one entry. For each state in `attempts.states`, `costs` contains the sum in the pool's selected dimension: `custom`, `duration_p90_ms`, or `duration_p50_ms`. An entry contributes its selected cost once for each attempt in that state.
 
 Required scope: `read_test_pool`
 
