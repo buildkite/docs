@@ -54,6 +54,41 @@ Examples:
 	}
 }
 
+func TestGeneratedCleanupQualifiesPipelineScope(t *testing.T) {
+	binary := filepath.Join(t.TempDir(), "bk")
+	help := `Usage: bk preflight cleanup [flags]
+
+Clean up completed preflight branches (experimental)
+
+Deletes remote bk/preflight/* branches whose builds have completed (passed,
+failed, canceled). Branches with in-progress builds are left untouched to avoid
+interrupting concurrent preflight runs. Pass --preflight-uuid to target a single
+preflight branch.
+`
+	if err := os.WriteFile(binary, []byte("#!/bin/sh\ncat <<'EOF'\n"+help+"EOF\n"), 0755); err != nil {
+		t.Fatal(err)
+	}
+	originalArgs := os.Args
+	os.Args = []string{"bk_cli2md", binary}
+	t.Cleanup(func() { os.Args = originalArgs })
+
+	markdown := generateMarkdown(&Command{
+		Name:        "preflight",
+		Subcommands: []Subcommand{{Name: "preflight cleanup"}},
+	})
+	for _, want := range []string{
+		"all `bk/preflight/*` branches on `origin` are candidates",
+		"in-progress builds found in the selected pipeline",
+		"no build found are eligible for deletion",
+		"matching --pipeline and inspect --dry-run",
+		"does not independently verify which pipeline owns the branch",
+	} {
+		if !strings.Contains(markdown, want) {
+			t.Errorf("generated cleanup guidance is missing %q", want)
+		}
+	}
+}
+
 func TestCombinedDescriptionRemovesRepeatedFirstSentence(t *testing.T) {
 	cmd := &Command{
 		Description: "Open Buildkite resources in a web browser",

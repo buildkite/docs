@@ -101,11 +101,13 @@ Unless you pass `--no-cleanup`, an early exit while watching can cancel the buil
 For branches left by `--no-watch`, `--no-cleanup`, or an interrupted run, preview cleanup before deleting them:
 
 ```bash
-bk preflight cleanup --pipeline my-org/my-pipeline --dry-run
-bk preflight cleanup --pipeline my-org/my-pipeline
+bk preflight cleanup --pipeline my-org/my-pipeline --preflight-uuid UUID --dry-run
+bk preflight cleanup --pipeline my-org/my-pipeline --preflight-uuid UUID
 ```
 
-Cleanup leaves branches with in-progress builds untouched. Use `--preflight-uuid UUID` to target one preflight branch. See the [Preflight command reference](/docs/platform/cli/reference/preflight#cleanup-preflight) for available flags.
+Cleanup checks build status only in the selected pipeline. It leaves branches with in-progress builds found in that pipeline untouched, but branches with no build found are eligible for deletion. Without `--preflight-uuid`, all `bk/preflight/*` branches on `origin` are candidates, including branches used by other pipelines.
+
+In repositories shared by multiple pipelines, use `--preflight-uuid UUID` with the matching `--pipeline` and inspect `--dry-run` output before deleting. The UUID limits branch selection; it does not independently verify which pipeline owns the branch. See the [Preflight command reference](/docs/platform/cli/reference/preflight#cleanup-preflight) for available flags.
 
 ## Build summary
 

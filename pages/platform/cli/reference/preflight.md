@@ -59,12 +59,11 @@ bk preflight run [flags]
 
 ## Cleanup preflight
 
-Clean up completed preflight branches (experimental)
+Clean up remote Preflight branches (experimental).
 
-Deletes remote bk/preflight/* branches whose builds have completed (passed,
-failed, canceled). Branches with in-progress builds are left untouched to avoid
-interrupting concurrent preflight runs. Pass --preflight-uuid to target a single
-preflight branch.
+Without --preflight-uuid, all `bk/preflight/*` branches on `origin` are candidates. Cleanup preserves branches with in-progress builds found in the selected pipeline. Branches with completed builds or no build found are eligible for deletion, including branches used by other pipelines.
+
+In shared repositories, use --preflight-uuid with the matching --pipeline and inspect --dry-run output before deleting. The UUID limits branch selection; it does not independently verify which pipeline owns the branch.
 
 ```bash
 bk preflight cleanup [flags]

@@ -525,6 +525,16 @@ func getGroupDescription(name string) string {
 }
 
 func combinedDescription(cmd *Command) string {
+	// The pinned cleanup help overstates protection across pipelines. Keep the
+	// correction here until upstream help describes the pipeline-scoped check.
+	if cmd.Name == "preflight cleanup" {
+		return "Clean up remote Preflight branches (experimental).\n\n" +
+			"Without --preflight-uuid, all `bk/preflight/*` branches on `origin` are candidates. " +
+			"Cleanup preserves branches with in-progress builds found in the selected pipeline. " +
+			"Branches with completed builds or no build found are eligible for deletion, including branches used by other pipelines.\n\n" +
+			"In shared repositories, use --preflight-uuid with the matching --pipeline and inspect --dry-run output before deleting. " +
+			"The UUID limits branch selection; it does not independently verify which pipeline owns the branch."
+	}
 	if cmd.Description == "" {
 		return ""
 	}
