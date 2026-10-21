@@ -65,7 +65,7 @@ Complete the connection in Origin:
 1. Install the app. Origin returns you to Buildkite.
 1. If you started from **Repository Providers**, [create a pipeline](#create-a-pipeline) for an accessible repository.
 
-The app requests read access to repository contents and pull requests. It also requests read and write access to checks so Buildkite Pipelines can publish build results.
+The app requests read access to repository contents, pull requests, pull request reviews, and repository labels. It also requests read and write access to checks so Buildkite Pipelines can publish build results.
 
 ### Update app permissions
 
@@ -204,6 +204,31 @@ These builds use the head commit and target branch from the event, even if the p
 
 Ready-for-review builds respect this skip setting. Enabled reopen, edit, and target-branch-change events can rebuild the same commit regardless of the skip setting. Retrying the same webhook delivery does not create another build. Matching push and pull request head notifications do not create duplicate pull request builds.
 
+#### Pull request labels
+
+Pull request labels support must be enabled for your Buildkite organization. When enabled, pull request builds include labels before [conditional filtering](#configure-build-triggers-conditional-filtering). A push can also create a build with pull request context and labels when pull request builds are enabled and an open pull request matches the pushed branch and commit. Ordinary branch builds without pull request context do not include labels.
+
+Use [`build.pull_request.labels`](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) in build or step conditions, or read the comma-separated [`BUILDKITE_PULL_REQUEST_LABELS`](/docs/pipelines/configure/environment-variables#BUILDKITE_PULL_REQUEST_LABELS) in jobs. A pull request can have up to 100 labels. Buildkite Pipelines uses labels from the event when provided, or retrieves them from Origin during processing. Labels on an existing build do not change afterward.
+
+> 🚧 Label lookup errors
+> If Buildkite Pipelines can't retrieve a pull request's labels, it retries instead of creating the affected build without them. An extended outage can delay or prevent affected pull request builds.
+
+**Build when pull request labels change** creates a build when a label is added to or removed from a pull request. This setting is disabled by default. It requires label support for your organization and **Build when pull request is opened or updated** to be enabled.
+
+Only open pull requests that have not been merged qualify. For label-change events, Buildkite Pipelines retrieves the current head commit, base branch, draft state, and labels. A delayed event can therefore build a newer head commit than the one present when the label changed.
+
+Label-triggered builds respect **Skip when pull request has existing build for commit and branch**, including an earlier pull request build for that commit and branch. Disabling this setting allows a separate build for each distinct label change on the same commit. Retried deliveries of the same label event still create at most one build.
+
+#### Submitted reviews
+
+**Build when pull request review is submitted** creates a build when a submitted review approves, requests changes, or comments on a pull request. This setting is disabled by default and works independently of **Build when pull request is opened or updated**. Review-triggered builds require [review access](#connect-origin-update-app-permissions).
+
+The build uses the reviewed commit, even if the pull request has advanced to a newer commit. The remaining pull request context uses the current head branch, base branch, draft state, and labels when label support is enabled. If the reviewed commit is no longer available, Buildkite Pipelines skips the build instead of substituting the current head commit. Review dismissals and reviews on closed or merged pull requests do not create builds.
+
+Distinct submitted reviews can build the same commit regardless of **Skip when pull request has existing build for commit and branch**. Retried deliveries of the same review event do not create another build. Other conditional filters still apply.
+
+A review of a superseded commit does not skip queued builds or cancel running builds. A review of the current head commit follows the pipeline's [**Skip Intermediate Builds**](/docs/pipelines/configure/skipping) and [**Cancel Intermediate Builds**](/docs/pipelines/configure/canceling-builds) settings.
+
 ### Conditional filtering
 
 Use a [conditional expression](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) to filter incoming Origin events before the other build trigger settings apply.
@@ -219,6 +244,9 @@ Origin event | Build trigger
 `pull_request.reopened` | Pull request reopened
 `pull_request.metadata.updated` | Pull request title or description edited
 `pull_request.base_ref.updated` | Pull request target branch changed
+`pull_request.label.added` | Label added to a pull request
+`pull_request.label.removed` | Label removed from a pull request
+`pull_request.review.submitted` | Pull request review submitted
 {: class="two-column"}
 
 For example, this condition accepts builds created by pull request creation events:
@@ -313,7 +341,7 @@ Confirm that the pipeline repository was selected from a connected Origin instal
 
 ### Builds are not created
 
-Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, and any conditional filter under the pipeline's **Origin** settings. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
+Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, the additional pull request triggers, **Build when pull request review is submitted**, and any conditional filter under the pipeline's **Origin** settings. Label-triggered builds also require label support for your organization. Review-triggered builds require the installation's review access. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
 
 If the pipeline's repository settings show **The Origin installation for this pipeline is suspended.**, see [Suspended installations](#connect-origin-suspended-installations).
 
