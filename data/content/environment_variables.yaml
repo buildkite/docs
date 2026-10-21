@@ -441,7 +441,7 @@ variables:
     example: "acme-inc"
   - name: BUILDKITE_ORIGIN_EVENT
     desc: |
-      The full Origin webhook `event.type` that created the build, such as `repository.pushed`, `pull_request.created`, or `pull_request.head_ref.pushed`. Use this variable in pipeline conditions, variable interpolation, and job scripts. Fresh manual builds do not receive an inferred value; rebuilds retain the original build's value. Origin events do not set `BUILDKITE_GITHUB_EVENT` or `BUILDKITE_GITHUB_ACTION`.
+      The full Origin webhook `event.type` that created the build, such as `repository.pushed`, `pull_request.created`, or `pull_request.head_ref.pushed`. Use this variable in pipeline conditions, variable interpolation, and job scripts. Fresh manual builds do not receive an inferred value; rebuilds retain the original build's value.
     modifiable: false
     example: "pull_request.head_ref.pushed"
   - name: BUILDKITE_PARALLEL_JOB

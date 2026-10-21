@@ -71,7 +71,7 @@ The app requests read access to repository contents, pull requests, pull request
 
 Existing Origin installations keep their approved permissions when the app requests additional permissions. If the stored grants lack currently requested permissions, the connected Origin provider settings show an **Update permissions** notice. Fully granted installations do not show the notice.
 
-The update requests read access to submitted pull request reviews (`repository:pull_requests:reviews:read`) and repository labels (`repository:labels:read`) together. Review-triggered builds require review access. Repository-label access reads label definitions. The update adds no write permissions and retains existing grants using `include_granted_scopes=true`.
+The update requests read access to submitted pull request reviews (`repository:pull_requests:reviews:read`) and repository labels (`repository:labels:read`) together. Review-triggered builds require review access. Repository-label access reads label definitions. The update adds no write permissions and preserves existing permissions.
 
 To approve the additional permissions, you need Buildkite organization administrator access and Origin namespace administrator access:
 
@@ -79,8 +79,6 @@ To approve the additional permissions, you need Buildkite organization administr
 1. Select **Update permissions** to open the consent screen in Origin.
 1. In Origin, select the same existing installation and keep its current repository selection. Review **New Permissions** and **Granted Permissions**, then select **Reinstall**.
 1. Return to Buildkite. Buildkite confirms the installation's grants before clearing the notice. If approval is incomplete, the notice remains.
-
-The update uses the existing connection flow with signed state and installation receipt validation. Buildkite rejects returns for a different installation rather than replacing the connection.
 
 Canceling the update preserves current access, including push and pull request events, checkout, and check reporting. Approval does not enable build triggers or unsuspend the installation. Configure [build triggers](#configure-build-triggers) separately.
 
@@ -257,7 +255,7 @@ build.env("BUILDKITE_ORIGIN_EVENT") == "pull_request.created"
 
 The variable is also available in [pipeline variable interpolation](/docs/pipelines/configure/environment-variables#variable-interpolation) and job scripts. A duplicate or retried webhook does not replace the event on an existing build. Fresh manual builds do not receive an inferred event; rebuilds copy the original build's environment.
 
-Origin events do not set `BUILDKITE_GITHUB_EVENT` or `BUILDKITE_GITHUB_ACTION`. Use `build.env("BUILDKITE_ORIGIN_EVENT")` for Origin event conditions; `build.source_event` is unchanged.
+Use `BUILDKITE_ORIGIN_EVENT`, not `build.source_event`, to match Origin event types.
 
 ## Publish checks to Origin
 
