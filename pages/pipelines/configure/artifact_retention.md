@@ -33,7 +33,7 @@ On October 19, you change retention from 30 days to 7 days. The change takes eff
 - **Artifact A**, uploaded on October 10, is older than 7 days. It expires when the change takes effect and can no longer be downloaded.
 - **Artifact B**, uploaded on October 18, is less than 7 days old. It remains available under the new 7-day retention period.
 
-Expired artifacts no longer count toward storage usage or charges. Physical deletion from storage may happen later. See [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing) for usage calculations.
+Expired artifacts no longer count toward storage usage or charges. Deletions based on artifact retention are irreversible. Move any artifacts you want to retain to your own storage before they expire. See [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing) for usage calculations.
 
 ## Retaining artifacts for longer
 
