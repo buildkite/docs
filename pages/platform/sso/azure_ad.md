@@ -108,3 +108,16 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 ## SAML user attributes
 
 <%= render_markdown partial: 'platform/sso/saml_user_attributes' %>
+
+### Multi-valued teams attribute
+
+Microsoft Entra ID can also supply team UUIDs as multiple values in the same `teams` SAML attribute, instead of a single comma-separated string. Put each team UUID in a separate `AttributeValue` element.
+
+You can append `/member` or `/maintainer` to each team UUID in either format. The following multi-valued example assigns the member role for the first team and the maintainer role for the second team:
+
+```xml
+<Attribute Name="teams">
+  <AttributeValue>b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee/member</AttributeValue>
+  <AttributeValue>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa/maintainer</AttributeValue>
+</Attribute>
+```
