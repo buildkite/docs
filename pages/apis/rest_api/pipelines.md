@@ -1707,6 +1707,48 @@ Properties available for Origin:
       </td>
     </tr>
     <tr>
+      <th><code>build_pull_request_ready_for_review</code></th>
+      <td>Whether to create a build when a draft pull request is marked ready for review. Respects <code>skip_pull_request_builds_for_existing_commits</code>. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_reopened</code></th>
+      <td>Whether to create a build when a pull request is reopened, even if its commit and branch already built. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_base_branch_changed</code></th>
+      <td>Whether to create a build when a pull request changes target branch, even if its commit and branch already built. Does not create a build when the target branch receives new commits. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_edited</code></th>
+      <td>Whether to create a build when a pull request title, description, or target branch changes, even if its commit and branch already built. Either this setting or <code>build_pull_request_base_branch_changed</code> enables target-branch-change builds. Requires <code>build_pull_requests</code> to be <code>true</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_labels_changed</code></th>
+      <td>Whether to create builds when labels are added to or removed from a pull request. Respects <code>skip_pull_request_builds_for_existing_commits</code>. Requires <code>build_pull_requests</code> to be <code>true</code> and pull request labels support enabled for your Buildkite organization.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_review_submitted</code></th>
+      <td>Whether to create a build of the reviewed commit when a submitted review approves, requests changes, or comments on a pull request. Works independently of <code>build_pull_requests</code> and ignores <code>skip_pull_request_builds_for_existing_commits</code>. Requires review access for the Origin installation. Review dismissals and reviews on closed or merged pull requests do not create builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>skip_pull_request_builds_for_existing_commits</code></th>
+      <td>Whether to skip a pull request build when an earlier webhook build exists for the same commit and branch. Enabled reopen, edit, target-branch-change, and submitted-review events can rebuild the same commit regardless of this setting. Webhook retries and matching push and pull request head notifications do not create duplicate pull request builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>true</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>build_tags</code></th>
       <td>Whether to create builds when tags are pushed.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>

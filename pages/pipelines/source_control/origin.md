@@ -65,7 +65,22 @@ Complete the connection in Origin:
 1. Install the app. Origin returns you to Buildkite.
 1. If you started from **Repository Providers**, [create a pipeline](#create-a-pipeline) for an accessible repository.
 
-The app requests read access to repository contents and pull requests. It also requests read and write access to checks so Buildkite Pipelines can publish build results.
+The app requests read access to repository contents, pull requests, pull request reviews, and repository labels. It also requests read and write access to checks so Buildkite Pipelines can publish build results.
+
+### Update app permissions
+
+Existing Origin installations keep their approved permissions when the app requests additional permissions. If the stored grants lack currently requested permissions, the connected Origin provider settings show an **Update permissions** notice. Fully granted installations do not show the notice.
+
+The update requests read access to submitted pull request reviews (`repository:pull_requests:reviews:read`) and repository labels (`repository:labels:read`) together. Review-triggered builds require review access. Reading labels assigned to a pull request requires `repository:pull_requests:read`. The separate `repository:labels:read` permission reads repository label definitions. The update adds no write permissions and preserves existing permissions.
+
+To approve the additional permissions, you need Buildkite organization administrator access and Origin namespace administrator access:
+
+1. In Buildkite, select **Organization Settings** > **Repository Providers** > the connected **Origin** provider.
+1. Select **Update permissions** to open the consent screen in Origin.
+1. In Origin, select the same existing installation and keep its current repository selection. Review **New Permissions** and **Granted Permissions**, then select **Reinstall**.
+1. Return to Buildkite. Buildkite confirms the installation's grants before clearing the notice. If approval is incomplete, the notice remains.
+
+Canceling the update preserves current access, including push and pull request events, checkout, and check reporting. Approval does not enable build triggers or unsuspend the installation. Configure [build triggers](#configure-build-triggers) separately.
 
 ### Manage repository access
 
@@ -174,9 +189,122 @@ Deleted branches and tags do not create builds.
 
 Pull request builds ignore pipeline-level branch filters. When pull request builds are disabled, a push to the same branch can still create a branch build if **Build branches** is enabled.
 
+With **Build when pull request is opened or updated** enabled, you can enable additional triggers. Each is disabled by default:
+
+- **Build when pull request becomes ready for review**: Creates a build when a draft pull request is marked ready for review. The build treats the pull request as no longer a draft, so a conditional filter that excludes drafts can allow it.
+- **Build when pull request is reopened**: Creates a build when a closed pull request is reopened.
+- **Build when pull request target branch changes**: Creates a build when a pull request changes target branch, such as from `main` to `release`. Pushing commits to the target branch does not trigger this event.
+- **Build when pull request title, description or target branch changes**: Creates a build when any of these values changes. Either this setting or **Build when pull request target branch changes** enables builds when the target branch changes. Enabling both still creates only one build per qualifying event.
+
+These builds use the head commit and target branch from the event, even if the pull request has changed before the event is processed. Other conditional filters still apply.
+
+**Skip when pull request has existing build for commit and branch** is enabled by default. It skips a pull request build when an earlier webhook build exists for the same commit and branch. For example, opening a pull request after its branch build does not create another build unless you disable this setting.
+
+Ready-for-review builds respect this skip setting. Enabled reopen, edit, and target-branch-change events can rebuild the same commit regardless of the skip setting. Retrying the same webhook delivery does not create another build. Matching push and pull request head notifications do not create duplicate pull request builds.
+
+#### Pull request labels
+
+Pull request labels support must be enabled for your Buildkite organization. When enabled, pull request builds include labels before [conditional filtering](#configure-build-triggers-conditional-filtering). A push can also create a build with pull request context and labels when pull request builds are enabled and an open pull request matches the pushed branch and commit. Ordinary branch builds without pull request context do not include labels.
+
+Use [`build.pull_request.labels`](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) in build or step conditions, or read the comma-separated [`BUILDKITE_PULL_REQUEST_LABELS`](/docs/pipelines/configure/environment-variables#BUILDKITE_PULL_REQUEST_LABELS) in jobs. A pull request can have up to 100 labels. Buildkite Pipelines uses labels from the event when provided, or retrieves them from Origin during processing. Labels on an existing build do not change afterward.
+
+> 🚧 Label lookup errors
+> If Buildkite Pipelines can't retrieve a pull request's labels, it retries instead of creating the affected build without them. An extended outage can delay or prevent affected pull request builds.
+
+**Build when pull request labels change** creates a build when a label is added to or removed from a pull request. This setting is disabled by default. It requires label support for your organization and **Build when pull request is opened or updated** to be enabled.
+
+Only open pull requests that have not been merged qualify. For label-change events, Buildkite Pipelines retrieves the current head commit, base branch, draft state, and labels. A delayed event can therefore build a newer head commit than the one present when the label changed.
+
+Label-triggered builds respect **Skip when pull request has existing build for commit and branch**, including an earlier pull request build for that commit and branch. Disabling this setting allows a separate build for each distinct label change on the same commit. Retried deliveries of the same label event still create at most one build.
+
+#### Submitted reviews
+
+**Build when pull request review is submitted** creates a build when a submitted review approves, requests changes, or comments on a pull request. This setting is disabled by default and works independently of **Build when pull request is opened or updated**. Review-triggered builds require [review access](#connect-origin-update-app-permissions).
+
+The build uses the reviewed commit, even if the pull request has advanced to a newer commit. The remaining pull request context uses the current head branch, base branch, draft state, and labels when label support is enabled. If the reviewed commit is no longer available, Buildkite Pipelines skips the build instead of substituting the current head commit. Review dismissals and reviews on closed or merged pull requests do not create builds.
+
+Distinct submitted reviews can build the same commit regardless of **Skip when pull request has existing build for commit and branch**. Retried deliveries of the same review event do not create another build. Other conditional filters still apply.
+
+A review of a superseded commit does not skip queued builds or cancel running builds. A review of the current head commit follows the pipeline's [**Skip Intermediate Builds**](/docs/pipelines/configure/skipping) and [**Cancel Intermediate Builds**](/docs/pipelines/configure/canceling-builds) settings.
+
 ### Conditional filtering
 
 Use a [conditional expression](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) to filter incoming Origin events before the other build trigger settings apply.
+
+[`BUILDKITE_ORIGIN_EVENT`](/docs/pipelines/configure/environment-variables#BUILDKITE_ORIGIN_EVENT) contains the full `event.type` of the Origin webhook that created the build:
+
+Origin event | Build trigger
+------------ | -------------
+`repository.pushed` | Branch or tag push, including a push that creates a pull request build
+`pull_request.created` | Pull request opened
+`pull_request.head_ref.pushed` | Pull request head branch pushed
+`pull_request.published` | Pull request marked ready for review
+`pull_request.reopened` | Pull request reopened
+`pull_request.metadata.updated` | Pull request title or description edited
+`pull_request.base_ref.updated` | Pull request target branch changed
+`pull_request.label.added` | Label added to a pull request
+`pull_request.label.removed` | Label removed from a pull request
+`pull_request.review.submitted` | Pull request review submitted
+{: class="two-column"}
+
+For example, this condition accepts builds created by pull request creation events:
+
+```text
+build.env("BUILDKITE_ORIGIN_EVENT") == "pull_request.created"
+```
+
+The variable is also available in [pipeline variable interpolation](/docs/pipelines/configure/environment-variables#variable-interpolation) and job scripts. A duplicate or retried webhook does not replace the event on an existing build. Fresh manual builds do not receive an inferred event; rebuilds copy the original build's environment.
+
+#### Event and action conditions
+
+For Origin webhook builds, `build.source_event` and `build.source_action` expose mapped event and action names in pipeline filters and step conditions. Use `BUILDKITE_ORIGIN_EVENT` for the full native event name:
+
+Origin event | `build.source_event` | `build.source_action`
+------------ | -------------------- | ---------------------
+`repository.pushed` | `push` | `null`
+`pull_request.created` | `pull_request` | `opened`
+`pull_request.head_ref.pushed` | `pull_request` | `synchronize`
+`pull_request.published` | `pull_request` | `ready_for_review`
+`pull_request.reopened` | `pull_request` | `reopened`
+`pull_request.metadata.updated` | `pull_request` | `edited`
+`pull_request.base_ref.updated` | `pull_request` | `edited`
+`pull_request.label.added` | `pull_request` | `labeled`
+`pull_request.label.removed` | `pull_request` | `unlabeled`
+`pull_request.review.submitted` | `pull_request_review` | `submitted`
+{: class="responsive-table"}
+
+Conditions resolve these values from the recorded native event, including on existing webhook builds. Unmapped events and non-webhook builds, including manual builds and rebuilds, have `null` event and action values. A push-triggered build remains `push` with a `null` action even if it includes pull request context.
+
+`build.pull_request.label` contains the label added or removed in the triggering webhook, not the current label collection. A removed label remains available through this condition. If the webhook or changed label is unavailable, the value is `null`.
+
+For example, run a step when the `test-gpu` label is removed:
+
+```yaml
+steps:
+  - command: "echo 'GPU test label removed'"
+    if: >-
+      build.source_event == "pull_request" &&
+      build.source_action == "unlabeled" &&
+      build.pull_request.label == "test-gpu"
+```
+
+These mappings do not enable additional build triggers or change which events create builds.
+
+#### Review metadata conditions
+
+Submitted-review builds expose `BUILDKITE_ORIGIN_REVIEW_ID` and `BUILDKITE_ORIGIN_REVIEW_VERDICT` during pipeline filtering, **YAML Steps editor** interpolation, and step conditions. Both values describe the triggering review, not the current pull request lookup.
+
+The review ID is an opaque string and is also available in jobs. The verdict is available only in conditions and interpolation, not in the job environment. Its values are `approve`, `request_changes`, and `comment`.
+
+For example, run a step only for an approval:
+
+```yaml
+steps:
+  - command: "echo 'Review approved'"
+    if: build.env("BUILDKITE_ORIGIN_REVIEW_VERDICT") == "approve"
+```
+
+Unrelated events and fresh manual builds do not infer review metadata. Rebuilds retain the original values. Review metadata does not change which commit is built or how duplicate deliveries are handled. Receiving submitted-review events requires review access for the Origin installation.
 
 ## Publish checks to Origin
 
@@ -260,7 +388,9 @@ Confirm that the pipeline repository was selected from a connected Origin instal
 
 ### Builds are not created
 
-Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, and any conditional filter under the pipeline's **Origin** settings. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
+Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, the additional pull request triggers, **Build when pull request review is submitted**, and any conditional filter under the pipeline's **Origin** settings. Label-triggered builds also require label support for your organization. Review-triggered builds require the installation's review access. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
+
+If the pipeline's **Origin** settings show **Additional Origin permissions required**, select **Review Origin permissions** to open the connection settings, then [update app permissions](#connect-origin-update-app-permissions). If you cannot manage repository providers, ask a Buildkite organization administrator.
 
 If the pipeline's repository settings show **The Origin installation for this pipeline is suspended.**, see [Suspended installations](#connect-origin-suspended-installations).
 

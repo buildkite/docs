@@ -439,6 +439,16 @@ variables:
       The organization name on Buildkite as used in URLs.
     modifiable: false
     example: "acme-inc"
+  - name: BUILDKITE_ORIGIN_EVENT
+    desc: |
+      The full Origin webhook `event.type` that created the build, such as `repository.pushed`, `pull_request.created`, or `pull_request.head_ref.pushed`. Use this variable in pipeline conditions, variable interpolation, and job scripts. Fresh manual builds do not receive an inferred value; rebuilds retain the original build's value.
+    modifiable: false
+    example: "pull_request.head_ref.pushed"
+  - name: BUILDKITE_ORIGIN_REVIEW_ID
+    desc: |
+      The opaque ID of the submitted Origin review that triggered the build. Available during pipeline filtering, **YAML Steps editor** interpolation, step conditions, and jobs. Fresh manual builds do not infer a review ID; rebuilds retain the original value.
+    modifiable: false
+    example: "rev_example"
   - name: BUILDKITE_PARALLEL_JOB
     desc: |
       The index of each parallel job created from a parallel build step, starting from 0. For a build step with `parallelism: 5`, the value would be 0, 1, 2, 3, and 4 respectively.

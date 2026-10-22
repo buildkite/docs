@@ -131,13 +131,21 @@ If you're using the **YAML Steps editor** to define your pipeline, only the foll
 - `BUILDKITE_PIPELINE_NAME`
 - `BUILDKITE_PIPELINE_ID`
 - `BUILDKITE_ORGANIZATION_SLUG`
+- `BUILDKITE_ORIGIN_EVENT`
+- `BUILDKITE_ORIGIN_REVIEW_ID`
+- `BUILDKITE_ORIGIN_REVIEW_VERDICT`
 - `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
 - `BUILDKITE_REPO`
 - `BUILDKITE_PULL_REQUEST`
 - `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+- `BUILDKITE_PULL_REQUEST_LABELS`
 - `BUILDKITE_PULL_REQUEST_REPO`
 - `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
 - `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
+
+The Origin review variables describe the triggering [submitted review](/docs/pipelines/source-control/origin#configure-build-triggers-conditional-filtering). The review ID is also available in jobs. The verdict (`approve`, `request_changes`, or `comment`) is available only in conditions and interpolation, not in job environments.
+
+For GitHub and Origin builds, `BUILDKITE_PULL_REQUEST_LABELS` uses the build's recorded labels as a comma-separated string during conditions and **YAML Steps editor** interpolation. In these contexts, recorded labels override a supplied environment value, and missing or empty labels resolve to an empty string. Literal `env("BUILDKITE_PULL_REQUEST_LABELS")` and `build.env("BUILDKITE_PULL_REQUEST_LABELS")` conditions are supported. Use `build.pull_request.labels` for an array of labels.
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the **YAML Steps editor** as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
