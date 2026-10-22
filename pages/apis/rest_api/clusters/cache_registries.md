@@ -2,9 +2,6 @@
 
 Use these endpoints to list, inspect, create, update, and delete a cluster's [cache registries](/docs/pipelines/configure/cache#manage-cache-registries).
 
-> 📘 Public preview
-> The cache registries API and [Buildkite Cache](/docs/pipelines/configure/cache) are available in public preview and are enabled for all Buildkite organizations.
-
 This API manages cache registry metadata and policy only. The API doesn't expose cache entries or agent save and restore operations. Use the web interface to configure a registry's cache store. To change a cluster's default registry, set `default_cache_registry_uuid` on the [cluster update endpoint](/docs/apis/rest-api/clusters#clusters-update-a-cluster).
 
 Member endpoints (get, update, and delete) accept only the cache registry's `uuid` as the `{id}` path parameter. The `slug` returned in responses is informational and can't be used to look up or modify a cache registry.
