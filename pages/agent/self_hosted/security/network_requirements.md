@@ -16,6 +16,8 @@ Host | Purpose
 > 📘
 > All agent-to-Buildkite communication uses TLS encryption. The agent connects to its configured endpoint on port 443 using HTTPS. There is no need to open any inbound ports on your firewall or security groups. For more detail on how the agent communicates with Buildkite, see [Buildkite architectures](/docs/pipelines/architecture).
 
+For agent binaries built with [Go 1.27 or later](https://go.dev/doc/go1.27#cryptox509pkgcryptox509), setting `SSL_CERT_FILE` or `SSL_CERT_DIR` on macOS or Windows loads certificate roots from disk and uses Go's certificate verifier instead of the operating system's verifier. Earlier Go versions ignored these variables on those platforms. Leave both variables unset to keep using the operating system's certificate store. This toolchain upgrade is on the agent's `main` branch but has not yet shipped in a tagged agent release.
+
 ## Optional hosts
 
 Depending on your agent configuration, agents may also need to access the following hosts.
