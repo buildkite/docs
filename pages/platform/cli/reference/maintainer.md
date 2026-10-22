@@ -47,8 +47,9 @@ bk maintainer list <cluster-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -70,6 +71,8 @@ bk maintainer list my-cluster-uuid -o json
 
 Create a cluster maintainer.
 
+Either --user or --team must be specified.
+
 ```bash
 bk maintainer create <cluster-uuid> [flags]
 ```
@@ -85,8 +88,9 @@ bk maintainer create <cluster-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--team=STRING` | Team UUID to add as maintainer |
 | `--text` | Output as text |
 | `--user=STRING` | User UUID to add as maintainer |
@@ -110,6 +114,8 @@ bk maintainer create my-cluster-uuid --team team-uuid
 
 Delete a cluster maintainer.
 
+You will be prompted to confirm deletion unless --yes is set.
+
 ```bash
 bk maintainer delete <cluster-uuid> <maintainer-id>
 ```
@@ -125,7 +131,8 @@ bk maintainer delete <cluster-uuid> <maintainer-id>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

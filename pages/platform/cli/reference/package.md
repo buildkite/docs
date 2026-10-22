@@ -28,7 +28,10 @@ The `bk package` command allows you to manage packages from the command line.
 
 ## Push package
 
-Push a new package to a Buildkite registry
+Push a new package to a Buildkite registry. The package can be passed as a
+path to a file with the --file-path flag, or via stdin. If passed via stdin,
+the filename must be provided with the --stdin-file-name flag, as a Buildkite
+registry requires a filename for the package.
 
 ```bash
 bk package push <registry-slug> [<std-in-arg>] [flags]
@@ -46,8 +49,9 @@ bk package push <registry-slug> [<std-in-arg>] [flags]
 | Flag | Description |
 | --- | --- |
 | `-w`, `--web` | Open the pipeline in a web browser. |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--file-path=STRING` | Path to the package file to push |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--stdin-file-name=STRING` | The filename to use when reading the package from stdin |
 
 ### Examples

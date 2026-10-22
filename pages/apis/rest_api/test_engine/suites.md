@@ -179,6 +179,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>oidc_policy</code></th>
     <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
   </tr>
+  <tr>
+    <th><code>flaky_detection</code></th>
+    <td>Set to <code>false</code> if you don't want to create the <code>flaky</code> label and the default flaky test detection workflow. The default workflow is created only when your plan includes workflows. This option applies only when creating a suite.<br><em>Default value:</em> <code>true</code>.</td>
+  </tr>
 </tbody>
 </table>
 

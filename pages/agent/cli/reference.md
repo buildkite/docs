@@ -26,6 +26,7 @@ Commands that can be run within a Buildkite job:
   <a href="/docs/agent/cli/reference/artifact">artifact</a>    Upload/download artifacts from Buildkite jobs
   <a href="/docs/agent/cli/reference/build">build</a>       Interact with a Buildkite build
   <a href="/docs/agent/cli/reference/job">job</a>         Interact with a Buildkite job
+  <a href="/docs/agent/cli/reference/cache">cache</a>       Manage build caches
   <a href="/docs/agent/cli/reference/env">env</a>         Interact with the environment of the currently running build
   <a href="/docs/agent/cli/reference/lock">lock</a>        Lock or unlock resources for the currently running build
   <a href="/docs/agent/cli/reference/redactor">redactor</a>    Redact sensitive information from logs

@@ -30,4 +30,5 @@ bk version [flags]
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |

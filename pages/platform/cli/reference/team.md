@@ -34,6 +34,8 @@ The `bk team` command allows you to manage organization teams from the command l
 
 List teams.
 
+List the teams for an organization. By default, shows up to 100 teams.
+
 ```bash
 bk team list [flags]
 ```
@@ -43,9 +45,10 @@ bk team list [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of teams to return |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--per-page=30` | Number of teams per page |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -74,6 +77,8 @@ bk team list --limit 200
 
 View team information.
 
+It accepts a team UUID.
+
 ```bash
 bk team view <team-uuid> [flags]
 ```
@@ -89,8 +94,9 @@ bk team view <team-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -112,6 +118,8 @@ bk team view my-team-uuid -o json
 
 Create a new team.
 
+Create a new team in the organization.
+
 ```bash
 bk team create <name> [flags]
 ```
@@ -132,11 +140,12 @@ bk team create <name> [flags]
 | `--[no-]members-can-create-suites` | Whether members can create test suites |
 | `--[no-]members-can-destroy-packages` | Whether members can destroy packages |
 | `--[no-]members-can-destroy-registries` | Whether members can destroy registries |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--default` | Whether this is the default team for new members |
 | `--default-member-role="member"` | Default role for new members: member or maintainer |
 | `--description=STRING` | Description of the team |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--privacy="visible"` | Privacy setting for the team: visible or secret |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -165,6 +174,8 @@ bk team create my-team --no-members-can-create-pipelines
 
 Update a team.
 
+Update an existing team's settings.
+
 ```bash
 bk team update <team-uuid> [flags]
 ```
@@ -185,12 +196,13 @@ bk team update <team-uuid> [flags]
 | `--[no-]members-can-create-suites` | Whether members can create test suites |
 | `--[no-]members-can-destroy-packages` | Whether members can destroy packages |
 | `--[no-]members-can-destroy-registries` | Whether members can destroy registries |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--default` | Whether this is the default team for new members |
 | `--default-member-role=STRING` | Default role for new members: member or maintainer |
 | `--description=DESCRIPTION` | New description for the team |
 | `--json` | Output as JSON |
 | `--name=STRING` | New name for the team |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--privacy=STRING` | Privacy setting: visible or secret |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -219,6 +231,10 @@ bk team update my-team-uuid --description "Updated description" --default-member
 
 Delete a team.
 
+Delete a team from the organization.
+
+You will be prompted to confirm deletion unless --yes is set.
+
 ```bash
 bk team delete <team-uuid>
 ```
@@ -233,7 +249,8 @@ bk team delete <team-uuid>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 

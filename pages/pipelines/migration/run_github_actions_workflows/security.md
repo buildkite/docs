@@ -1,10 +1,10 @@
 ---
-description: "Understand the trust and authorization boundaries that apply when Buildkite Pipelines runs GitHub Actions workflows with the GitHub Actions Buildkite plugin and buildkite-gha runtime."
+description: "Understand the trust and authorization boundaries that apply when GitHub Actions Compatibility runs GitHub Actions workflows as Buildkite Pipelines jobs."
 ---
 
-# Security model for GitHub Actions workflows
+# GitHub Actions Compatibility security model
 
-GitHub Actions normally combines workflow execution and GitHub-managed credentials behind a runner. The [GitHub Actions Buildkite plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/) and `buildkite-gha` runtime keep the workflow syntax, but run each supported job as a native Buildkite Pipelines job. The runtime doesn't create a GitHub Actions run or a GitHub-hosted runner, so the Buildkite agent, the [queue](/docs/agent/queues), and Buildkite policies provide the security boundary.
+GitHub Actions Compatibility runs supported workflows as native Buildkite Pipelines jobs. Buildkite Pipelines selects workflows server-side and manages the `buildkite-gha` runtime. The runtime doesn't create a GitHub Actions run or a GitHub-hosted runner, so the Buildkite agent, the [queue](/docs/agent/queues), and Buildkite policies provide the security boundary.
 
 Treat workflow steps and third-party actions as you would on a self-hosted GitHub Actions runner: code can use anything available to its job. Workflow syntax can request permissions, but it doesn't make code trusted or grant access by itself.
 
@@ -62,7 +62,9 @@ On a persistent [self-hosted agent](/docs/agent/self-hosted), workflow code can 
 
 Treat workflow files, action metadata, event snapshots, and job plans as untrusted input. They can describe work and request permissions. Buildkite Pipelines configuration and server-side policy choose the queue and decide which credentials the job can receive.
 
-[Private reusable workflows](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-private-reusable-workflows) use the separate, default-off `private-reusable-workflows` importer setting. After anonymous access fails, including when the shared anonymous GitHub API quota is exhausted, the importer passes Git a canonical credential-free `https://github.com/` URL for the called repository. The importer passes the requested ref as one literal ref name. Refspec syntax, including a leading `+`, is rejected before Git runs.
+[Private reusable workflow source access](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-private-reusable-workflows) is separate from workflow-token permission and is disabled by default. Contact the Buildkite Support team before relying on it in a native GitHub Actions pipeline. The following boundaries apply when private source access is enabled.
+
+After anonymous access fails, including when the shared anonymous GitHub API quota is exhausted, the importer passes Git a canonical credential-free `https://github.com/` URL for the called repository. The importer passes the requested ref as one literal ref name. Refspec syntax, including a leading `+`, is rejected before Git runs.
 
 Git inherits the importer's credential helpers, configuration, and environment. Credentials come only from credential helpers:
 
@@ -216,7 +218,7 @@ A value used in a compile-time field, such as a job name, matrix value, or runne
 
 Jobs with `id-token: write` expose the `getIDToken()` wire contract to each host JavaScript action invocation. The endpoint is loopback-only and protected by a single-purpose bearer token. The runtime mints a Buildkite token for the action's requested audience, then registers it with both redactors before use.
 
-Cloud providers must trust the Buildkite issuer and claims. GitHub-shaped claims and the GitHub issuer aren't emulated. Plugin OIDC configuration can add Buildkite claims without granting `id-token: write`. To configure a cloud provider, see [Use OIDC with AWS](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-use-oidc-with-aws).
+Cloud providers must trust the Buildkite issuer and claims. GitHub-shaped claims and the GitHub issuer aren't emulated. No plugin configuration is required for the default Buildkite claims. To configure a cloud provider, see [Use OIDC with AWS](/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-use-oidc-with-aws).
 
 ## Checkout and submodules
 
@@ -239,12 +241,12 @@ Configured clients send [Bugsnag error reports](/docs/pipelines/migration/run-gi
 
 ## Operator checklist
 
-1. Leave the plugin `version` unset for the latest stable release, or pin an exact stable release from `0.9.0` onward for a controlled rollout.
+1. Create pipelines using [GitHub Actions setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline), which manages workflow preparation and runtime installation.
 1. Run imported jobs on an isolated queue with no ambient credentials.
 1. Treat public actions as third-party code and prefer immutable commit pins.
 1. Restrict managed repository access, secrets, and write tokens with Buildkite policy.
 1. Keep Git and the job image patched.
-1. Validate before upload:
+1. Optionally, [validate locally](/docs/pipelines/migration/run-github-actions-workflows/cli#validate-a-workflow) before running a workflow:
 
     ```bash
     buildkite-gha validate \

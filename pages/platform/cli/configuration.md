@@ -39,90 +39,98 @@ To create a new API access token:
 
 1. Specify a **Description** and the **Organization Access** (that is, the specific Buildkite organization) for this token.
 
-1. Once you have selected the required **REST API Scopes** and **Enable GraphQL API access** for the token, retain a copy of your API access token's value in a secure location.
+1. Select the **REST API Scopes** required by your commands. Select **Enable GraphQL API access** only if your commands need GraphQL. Create the token and retain its value in a secure location.
 
-**Note:** You can also use the following **New API Access Token** page links with pre-set fields to create these API access tokens:
+You can also use the following **New API Access Token** page links with pre-set fields to create these API access tokens:
 
 - [New API access token with description](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI)—pre-sets the **Description** field with `Buildkite CLI`.
 
--  [New API access token with description and API scopes](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI&scopes%5B%5D=read_agents&scopes%5B%5D=write_agents&scopes%5B%5D=read_clusters&scopes%5B%5D=write_clusters&scopes%5B%5D=read_teams&scopes%5B%5D=write_teams&scopes%5B%5D=read_artifacts&scopes%5B%5D=write_artifacts&scopes%5B%5D=read_builds&scopes%5B%5D=write_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_organizations&scopes%5B%5D=read_pipelines&scopes%5B%5D=write_pipelines&scopes%5B%5D=read_user&scopes%5B%5D=read_suites&scopes%5B%5D=write_suites&scopes%5B%5D=read_registries&scopes%5B%5D=write_registries&scopes%5B%5D=delete_registries&scopes%5B%5D=read_packages&scopes%5B%5D=write_packages&scopes%5B%5D=delete_packages&scopes%5B%5D=graphql)—pre-sets the **Description** field with `Buildkite CLI`, along with all the required **REST API Scopes** and **Enable GraphQL API access** options already selected.
+- [New API access token with description and API scopes](https://buildkite.com/user/api-access-tokens/new?description=Buildkite%20CLI&scopes%5B%5D=read_agents&scopes%5B%5D=write_agents&scopes%5B%5D=read_clusters&scopes%5B%5D=write_clusters&scopes%5B%5D=read_teams&scopes%5B%5D=write_teams&scopes%5B%5D=read_artifacts&scopes%5B%5D=write_artifacts&scopes%5B%5D=read_builds&scopes%5B%5D=write_builds&scopes%5B%5D=read_build_logs&scopes%5B%5D=read_organizations&scopes%5B%5D=read_pipelines&scopes%5B%5D=write_pipelines&scopes%5B%5D=read_user&scopes%5B%5D=read_suites&scopes%5B%5D=write_suites&scopes%5B%5D=read_registries&scopes%5B%5D=write_registries&scopes%5B%5D=delete_registries&scopes%5B%5D=read_packages&scopes%5B%5D=write_packages&scopes%5B%5D=delete_packages&scopes%5B%5D=graphql)—pre-sets the **Description** field with `Buildkite CLI`, along with REST API scopes and GraphQL access. Review these permissions and select only the scopes your commands require.
 
 If you use one of these links, you must still specify the Buildkite organization (in **Organization Access**) for this API access token.
 
 ## Configure the Buildkite CLI with your API access token
 
-Once you have [created your API access token](#create-an-api-access-token-for-the-buildkite-cli), you'll need to configure the Buildkite CLI with this token.
-
-To do this:
-
-1. Run the following command:
-
-    ```bash
-    bk configure
-    ```
-
-1. When prompted for `Organization slug`, specify the slug for your Buildkite organization.
-
-1. When prompted for `API Token`, specify the value for your configured API access token.
-
-    **Note:** Upon successfully running this command for the first time, a new file is created at `$HOME/.config/bk.yaml`, which stores the configured Buildkite organization for your local Buildkite CLI. The API access token is stored securely in your operating system's credential store (for example, the macOS Keychain), rather than in `bk.yaml`.
-
-### Using command flags
-
-You can also run the `bk configure` command with the command flags, `--org` and `--token`, each of which can take either a literal or environment variable for the Buildkite organization slug and API access token, respectively.
-
-For example:
+After you have [created your API access token](#create-an-api-access-token-for-the-buildkite-cli), store it for an organization using `bk auth login`. For example, with the token supplied through an environment variable:
 
 ```bash
-bk configure --org my-buildkite-organization --token $BUILDKITE_API_TOKEN
+bk auth login --org my-org --token "$BUILDKITE_API_TOKEN"
 ```
 
-### Command behavior and configuration files
+The token is stored in the configured credential store, keyed by organization. Login registers the organization and saves it as the user-level default. It does not create a repository-local `.bk.yaml` file. An existing local organization selection still takes precedence over this default.
 
-The `bk configure` command is directory-specific, and running this command also creates a file called `.bk.yaml` in your current directory, which records the current Buildkite organization that your `bk` command is configured to work with from this current directory.
+The legacy `bk configure` and `bk configure add` commands remain available for interactive API token entry. `bk configure` rejects an already configured token for the target organization unless you pass `--force`; the presence of `.bk.yaml` alone does not prevent configuration.
 
-Attempting to run this command again in the same directory results in an error (due to the presence of a `.bk.yaml` file). Instead:
+### Credential storage
 
-- You can [configure your Buildkite CLI tool to work with other Buildkite organizations](#configure-the-buildkite-cli-with-multiple-organizations).
-- If your Buildkite CLI is already configured with multiple organizations, you can [choose a different Buildkite organization](#select-a-configured-organization) for it to work with.
+By default, the CLI uses the operating system's credential store, such as the macOS Keychain. Tokens are not written to `bk.yaml`. Legacy plaintext tokens in configuration files can still be read, but produce a deprecation warning. Run `bk auth login` to store credentials in the configured credential store instead.
 
-If you run this command in a new directory (without a `.bk.yaml` file), and you specify a different API access token value for a Buildkite organization which has already been configured in `$HOME/.config/bk.yaml`, then this new API access token replaces the existing one configured in this file for that Buildkite organization.
+On headless Linux hosts, you can select the in-memory `/dev/shm` credential store:
+
+```bash
+bk config set credential_store shm
+bk auth login --device
+```
+
+The `shm` store is intended for Linux and is not persistent across reboots. OAuth login requires an available credential store for access and refresh tokens. If no store is available, API-token login registers the organization but does not save the token; supply `BUILDKITE_API_TOKEN` at runtime instead.
+
+### Automation and token precedence
+
+For automation, supply a token and organization through environment variables without running login:
+
+```bash
+export BUILDKITE_ORGANIZATION_SLUG=my-org
+# Supply BUILDKITE_API_TOKEN through your secret manager or CI environment.
+bk build list --no-input --json
+```
+
+`BUILDKITE_API_TOKEN` overrides stored credentials, including OAuth credentials. The CLI does not replace an invalid environment token with a stored OAuth token after an authentication failure. Unset the variable to use stored credentials again.
 
 ## Configure the Buildkite CLI with multiple organizations
 
-Some users may have access to Buildkite organizations—one for their company, and others for open-source work, personal work, etc.
+Run `bk auth login --org my-other-org` for each organization you need. Stored credentials are selected per organization. The CLI does not fall back to another organization's stored credentials when the target organization has no token.
 
-The Buildkite CLI tool allows you to work with such multiple Buildkite organizations.
-
-To configure the Buildkite CLI tool with another Buildkite organization:
-
-1. Ensure you have [created individual API access tokens](#create-an-api-access-token-for-the-buildkite-cli) for each Buildkite organization to configure in the Buildkite CLI tool.
-
-1. Run the following command:
-
-    ```bash
-    bk configure add
-    ```
-
-1. When prompted for `Organization slug`, specify the slug for the new Buildkite organization to add to the Buildkite CLI.
-
-1. When prompted for `API Token`, specify the value for your configured API access token for this organization.
-
-    **Note:** Upon success, a new Buildkite organization and corresponding API access token entry is added to your `$HOME/.config/bk.yaml`. This file stores all currently configured Buildkite organizations and their respective API access tokens for your local Buildkite CLI.
+For API tokens, repeat `bk auth login --org my-other-org --token "$BUILDKITE_API_TOKEN"` with the appropriate token. A token supplied through `BUILDKITE_API_TOKEN` can access multiple organizations if its permissions allow it.
 
 ## Select a configured organization
 
-If your Buildkite CLI tool has been [configured with multiple Buildkite organizations](#configure-the-buildkite-cli-with-multiple-organizations), you can switch from your current/active Buildkite organization to another. To do this:
+Use `bk auth switch` to select a configured organization interactively, or provide its slug:
 
-1. Run the following command:
+```bash
+bk auth switch my-other-org
+```
 
-    ```bash
-    bk auth switch
-    ```
+Inside a Git repository, switching saves the selection in the repository-local `.bk.yaml`. Outside a repository, it updates the user-level default. `bk auth switch` replaces the deprecated `bk use` command.
 
-1. Use the cursor to select another configured Buildkite organization and make it the current/active one. All subsequent `bk` commands will operate with the new active organization.
+To select an organization for one invocation without changing either file, use the global `--org` flag:
 
-    **Notes:**
-    * If you already know the slug of the other Buildkite organization you're switching to, you can specify this value immediately after the `bk auth switch` command, for example, `bk auth switch my-other-organization`.
-    * Upon success, the `.bk.yaml` file in your current directory is updated with your current/active Buildkite organization.
-    * The [`bk auth switch`](/docs/platform/cli/reference/auth#switch-auth) command replaces the previous `bk use` command, which is now deprecated.
+```bash
+bk --org my-other-org build list
+bk --org my-other-org job log JOB_UUID
+```
+
+Organization selection uses this precedence: `--org`, `BUILDKITE_ORGANIZATION_SLUG`, local `.bk.yaml`, then user configuration. For UUID-based job commands, choose the organization that owns the job; `--org` selects credentials, not a different job.
+
+A qualified pipeline or build target also selects its organization and stored credentials for that invocation:
+
+```bash
+bk build list --pipeline my-other-org/my-pipeline
+bk build view https://buildkite.com/my-other-org/my-pipeline/builds/123
+```
+
+If `--org` and a qualified target name different organizations, the command fails before execution. Targets naming different organizations also conflict. `bk browse` is an exception: it builds a URL without requiring credentials for the target organization. For `bk pipeline copy`, a qualified source does not change the selected destination organization; use `--target org/name` to select a destination explicitly. An explicit `--org` must agree with the source organization.
+
+## Configuration files and preferences
+
+User configuration is stored in `$XDG_CONFIG_HOME/bk.yaml` when `XDG_CONFIG_HOME` is set. Otherwise, Windows uses `%AppData%\Buildkite CLI\bk.yaml`, and Linux and macOS use `$HOME/.config/bk.yaml`. Repository-local preferences are stored in `.bk.yaml`.
+
+Use [`bk config`](/docs/platform/cli/reference/config) to inspect and change preferences:
+
+```bash
+bk config list
+bk config set output_format text
+bk config set output_format yaml --local
+bk config set no_pager true
+```
+
+Commands that support structured output default to JSON unless configured otherwise. Explicit format flags take precedence over `BUILDKITE_OUTPUT_FORMAT`, local preferences, and user preferences. Guided pipeline creation defaults to concise text when no format preference is set. The Preflight command uses `--json` for JSONL events rather than a single JSON document.

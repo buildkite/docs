@@ -51,7 +51,7 @@ Rotate every secret that the compromised user, token, or agent could access, sta
 
 ### Stop unwanted builds
 
-To stop native GitHub webhook-triggered builds in a pipeline, use the **Disable Incoming GitHub Webhook Processing** option described in [Disabling incoming GitHub webhook processing](/docs/pipelines/source-control/github#disabling-incoming-github-webhook-processing). This does not disable GitHub Actions pipeline triggers. [Disable those separately](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger) by setting `enabled` to `false`.
+To stop native GitHub webhook-triggered builds in a pipeline, use the **Disable Incoming GitHub Webhook Processing** option described in [Disabling incoming GitHub webhook processing](/docs/pipelines/source-control/github#disabling-incoming-github-webhook-processing). This does not disable pipeline triggers used by [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows). [Disable those separately](/docs/apis/rest-api/pipeline-triggers#update-a-pipeline-trigger) by setting `enabled` to `false`.
 
 [Cancel unwanted builds](/docs/apis/rest-api/builds#cancel-a-build) that are already scheduled, running, or failing in the affected pipelines. Disabling triggers doesn't cancel existing builds. Confirm that the affected jobs have stopped before resuming builds.
 

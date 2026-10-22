@@ -51,9 +51,10 @@ bk queue list <cluster-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
 | `--limit=100` | Maximum number of queues to return |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--per-page=30` | Number of queues per page |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -98,8 +99,9 @@ bk queue view <cluster-uuid> <queue-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -136,10 +138,11 @@ bk queue create --key=STRING <cluster-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=STRING` | A description of the queue |
 | `--json` | Output as JSON |
 | `--key=STRING` | A unique key for the queue |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--retry-agent-affinity=STRING` | Retry agent affinity setting (prefer-warmest or prefer-different) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -174,6 +177,8 @@ bk queue create my-cluster-uuid --key my-queue -o json
 
 Update a cluster queue.
 
+At least one of --description or --retry-agent-affinity must be provided.
+
 ```bash
 bk queue update <cluster-uuid> <queue-uuid> [flags]
 ```
@@ -190,9 +195,10 @@ bk queue update <cluster-uuid> <queue-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--description=STRING` | New description for the queue |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--retry-agent-affinity=STRING` | Retry agent affinity (prefer-warmest or prefer-different) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
@@ -227,6 +233,8 @@ bk queue update my-cluster-uuid my-queue-uuid --description "New description" -o
 
 Delete a cluster queue.
 
+You will be prompted to confirm deletion unless --yes is set.
+
 ```bash
 bk queue delete <cluster-uuid> <queue-uuid>
 ```
@@ -242,7 +250,8 @@ bk queue delete <cluster-uuid> <queue-uuid>
 
 | Flag | Description |
 | --- | --- |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 
 ### Examples
 
@@ -262,6 +271,8 @@ bk queue delete my-cluster-uuid my-queue-uuid --yes
 
 Pause dispatch for a cluster queue.
 
+The queue remains paused until it is resumed with "bk queue resume".
+
 ```bash
 bk queue pause <cluster-uuid> <queue-uuid> [flags]
 ```
@@ -278,9 +289,10 @@ bk queue pause <cluster-uuid> <queue-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
 | `--note=STRING` | Optional note explaining why the queue is being paused |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 
@@ -308,6 +320,8 @@ bk queue pause my-cluster-uuid my-queue-uuid --note "Maintenance" -o json
 
 Resume dispatch for a cluster queue.
 
+Resumes dispatch for a paused cluster queue.
+
 ```bash
 bk queue resume <cluster-uuid> <queue-uuid> [flags]
 ```
@@ -324,8 +338,9 @@ bk queue resume <cluster-uuid> <queue-uuid> [flags]
 | Flag | Description |
 | --- | --- |
 | `-o`, `--output=""` | Output format. One of: json, yaml, text |
-| `--debug` | Enable debug output for REST API calls |
+| `--debug` | Log HTTP API traffic to stderr; bodies may contain sensitive data |
 | `--json` | Output as JSON |
+| `--org=STRING` | Organization slug for this invocation (overrides environment and configuration) |
 | `--text` | Output as text |
 | `--yaml` | Output as YAML |
 

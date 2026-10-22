@@ -1,7 +1,13 @@
 ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.7-slim-trixie@sha256:ba6a00593739f9cb66de80ad2e395a93a52a13635867ee32918ba0ec083b1ff6
 ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-trixie-slim@sha256:7f486cabe892bff8fef04c0f7da8dba84a560be3e4e2740b7a86afc57ebec315
 
-FROM $BASE_IMAGE AS builder
+FROM $BASE_IMAGE AS trusted-ruby
+
+COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
+RUN sh /usr/local/bin/with-ca-trust true
+ENV NODE_OPTIONS="--use-openssl-ca"
+
+FROM trusted-ruby AS builder
 
 WORKDIR /app
 
@@ -21,6 +27,7 @@ RUN echo "--- :package: Installing system deps" \
     && apt-get install -y gh jq build-essential python3 \
     ## Pull down security updates
     && apt-get upgrade -y \
+    && sh /usr/local/bin/with-ca-trust true \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
@@ -44,12 +51,19 @@ RUN echo "--- :bundler: Installing ruby gems" \
 
 FROM $NODE_IMAGE AS node-deps
 
+COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
+RUN sh /usr/local/bin/with-ca-trust true
+ENV NODE_OPTIONS="--use-openssl-ca"
+
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.27-trixie AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.27.3-trixie AS gobuild
+
+COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
+RUN sh /usr/local/bin/with-ca-trust true
 
 # This was previously installed from gobinaries.com within
 # the deploy-preview step, but gobinaries.com keeps being unavailable :(
@@ -74,10 +88,11 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 
 # ------------------------------------------------------------------
 
-FROM $BASE_IMAGE AS runtime
+FROM trusted-ruby AS runtime
 
 RUN apt-get update \
     && apt-get upgrade -y \
+    && sh /usr/local/bin/with-ca-trust true \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -118,7 +133,8 @@ FROM runtime AS deploy-preview
 # bin/deploy-preview has a couple of dependencies
 RUN apt-get update && \
     apt-get install -y curl jq && \
-    apt purge --assume-yes linux-libc-dev
+    apt purge --assume-yes linux-libc-dev && \
+    sh /usr/local/bin/with-ca-trust true
 
 COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 
@@ -131,11 +147,12 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 #
 
 FROM raviqqe/muffet:2.11.6 AS muffet-scratch
-FROM ${BASE_IMAGE} AS muffet
+FROM trusted-ruby AS muffet
 
 RUN apt-get update && \
     apt-get install -y curl jq wget && \
-    apt purge --assume-yes linux-libc-dev
+    apt purge --assume-yes linux-libc-dev && \
+    sh /usr/local/bin/with-ca-trust true
 
 COPY --from=muffet-scratch /muffet /muffet
 

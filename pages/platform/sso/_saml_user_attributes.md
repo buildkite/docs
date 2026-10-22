@@ -12,7 +12,7 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
   </tr>
   <tr>
     <td><code>email</code></td>
-    <td>A string of the user's email address<br><em>Example:</em> "person@company.com"</td>
+    <td>A string of the user's email address<br><em>Example:</em> "user@example.com"</td>
   </tr>
   <tr>
     <td><code>name</code></td>
@@ -20,7 +20,7 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
   </tr>
   <tr>
     <td><code>teams</code></td>
-    <td>A comma separated list of team UUIDs. A team's UUID can be found on the <em>Team Settings</em> page in Buildkite.<br><em>Example:</em> <code>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee</code></td>
+    <td>A comma-separated list of team UUIDs. A team's UUID can be found on the <strong>Team Settings</strong> page in Buildkite.<br><em>Example:</em> <code>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee</code></td>
   </tr>
 </tbody>
 </table>
@@ -29,6 +29,6 @@ When using the `teams` attribute, you can also specify roles. The `maintainer` o
 
 For example, the following code will specify the member role for the first team and the maintainer role for the second team:
 
-```
+```text
 teams="b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee/member, a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa/maintainer"
 ```

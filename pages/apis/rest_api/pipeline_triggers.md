@@ -429,7 +429,9 @@ Error responses:
 
 ### Create a GitHub Actions pipeline trigger
 
-Use a `github_actions` trigger for the recommended [server-side workflow dispatch setup](/docs/pipelines/migration/run-github-actions-workflows). The pipeline must use a GitHub.com repository connected through the full-access **GitHub** repository provider. Configure the pipeline's plugin without `workflow` or `workflows` so it runs the server-selected workflow.
+For a new pipeline, use the recommended [GitHub Actions setup in the Buildkite interface](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline). It creates the pipeline and enabled trigger together, then provisions a dedicated signed repository webhook instead of traditional GitHub webhook setup.
+
+For CLI, API, or agent-based automation, first [configure the equivalent pipeline and provider settings](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually), then create its `github_actions` trigger below. The pipeline must use a GitHub.com repository connected through the full-access **GitHub** repository provider. Its configuration must omit `workflow` and `workflows` so the runtime runs the workflow selected by the trigger. Creating this trigger alone doesn't configure the pipeline.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -447,7 +449,7 @@ The `github_actions` type doesn't accept `build` or `filter`, including an empty
 
 Save the returned `endpoint_url` securely before leaving the creation response. It contains a one-time plaintext credential and isn't returned by subsequent reads. Webhook provisioning returns a `webhook_creation` object with a string `status` and a `message` that is a string or `null`. The `status` is `configured` when the webhook was provisioned, `skipped` when provisioning wasn't requested, or `failed` when provisioning was unsuccessful. The `message` is `null` for `configured` and `skipped`, and describes the error for `failed`. Check the status because `201 Created` can still include `webhook_creation.status: "failed"`: the trigger itself was created successfully.
 
-If webhook provisioning fails, retain the trigger ID and endpoint URL, resolve the reported error, and repair the webhook setup for that trigger. The generated signing secret isn't retrievable. For manual recovery, [update the existing trigger](#update-a-pipeline-trigger) with a replacement HMAC verification secret, then configure the repository webhook with the saved endpoint URL and the same secret. Don't repeat the trigger creation request to retry provisioning, because that creates another trigger. Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to verify deliveries after setup.
+If webhook provisioning fails, retain the trigger ID and endpoint URL, resolve the reported error, and repair the webhook setup for that trigger. Inspect GitHub first: the webhook might exist even if its creation couldn't be confirmed. The generated signing secret isn't retrievable. For manual recovery, [update the existing trigger](#update-a-pipeline-trigger) with a replacement HMAC verification secret, then configure the repository webhook with the saved endpoint URL and the same secret. Don't repeat the trigger creation request to retry provisioning, because that creates another trigger. Use the [pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) to verify deliveries after setup.
 
 This request requires `write_pipelines` and **Full Access** to the pipeline, like other trigger creation requests.
 

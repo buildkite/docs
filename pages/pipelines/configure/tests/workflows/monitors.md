@@ -16,6 +16,9 @@ You can alter and reduce the amount of test executions that a monitor receives u
 
 A transition is a change from passing to failing, or failing to passing, in a sequence of results for a test over time.
 
+> 📘
+> This monitor is created by default for new test suites.
+
 <%= image "transition-count-light.png", class: 'light-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing tests with multiple results, and the transitions counts (pass -> fail, or fail -> pass) for each test" %>
 
 <%= image "transition-count-dark.png", class: 'dark-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing tests with multiple results, and the transitions counts (pass -> fail, or fail -> pass) for each test" %>
@@ -45,9 +48,6 @@ _Passed on retry_ refers to a test that both passes and fails on the same git co
 Because this monitor relies on inconsistent results on the same commit SHA, you'll need to set up automatic retries on your test pipeline. You can do this with Buildkite Pipelines [retry jobs](/docs/pipelines/configure/retry) or by setting the [retry count environment variable](/docs/pipelines/configure/tests/bktec/installing-and-using-the-client#BUILDKITE_TEST_ENGINE_RETRY_COUNT) in Buildkite Test Engine Client.
 
 The order and number of pass and fail results don't change the reportage of the passed on retry event, as long as there is at least one of each pass and fail. Other test results (for example, null, skipped, pending) are ignored in the detection of passed on retry events.
-
-> 📘
-> This monitor is created by default for all test suites.
 
 ## Probabilistic flakiness
 
