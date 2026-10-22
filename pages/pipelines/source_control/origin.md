@@ -71,7 +71,7 @@ The app requests read access to repository contents, pull requests, pull request
 
 Existing Origin installations keep their approved permissions when the app requests additional permissions. If the stored grants lack currently requested permissions, the connected Origin provider settings show an **Update permissions** notice. Fully granted installations do not show the notice.
 
-The update requests read access to submitted pull request reviews (`repository:pull_requests:reviews:read`) and repository labels (`repository:labels:read`) together. Review-triggered builds require review access. Repository-label access reads label definitions. The update adds no write permissions and preserves existing permissions.
+The update requests read access to submitted pull request reviews (`repository:pull_requests:reviews:read`) and repository labels (`repository:labels:read`) together. Review-triggered builds require review access. Reading labels assigned to a pull request requires `repository:pull_requests:read`. The separate `repository:labels:read` permission reads repository label definitions. The update adds no write permissions and preserves existing permissions.
 
 To approve the additional permissions, you need Buildkite organization administrator access and Origin namespace administrator access:
 
@@ -389,6 +389,8 @@ Confirm that the pipeline repository was selected from a connected Origin instal
 ### Builds are not created
 
 Check **Build branches**, **Build tags**, **Build when pull request is opened or updated**, the additional pull request triggers, **Build when pull request review is submitted**, and any conditional filter under the pipeline's **Origin** settings. Label-triggered builds also require label support for your organization. Review-triggered builds require the installation's review access. Origin uses the app installation to send events, so there is no pipeline webhook to configure.
+
+If the pipeline's **Origin** settings show **Additional Origin permissions required**, select **Review Origin permissions** to open the connection settings, then [update app permissions](#connect-origin-update-app-permissions). If you cannot manage repository providers, ask a Buildkite organization administrator.
 
 If the pipeline's repository settings show **The Origin installation for this pipeline is suspended.**, see [Suspended installations](#connect-origin-suspended-installations).
 
