@@ -3754,6 +3754,11 @@ enum HostedAgentMacOSVersion {
   GOLDEN_GATE
 
   """
+  macOS Golden Gate (27.0) — edge
+  """
+  GOLDEN_GATE_EDGE
+
+  """
   macOS Sequoia (15.7.5)
   """
   SEQUOIA

@@ -81,10 +81,6 @@ steps:
     key: "deploy-eks"
     branches: main
     depends_on: "deploy-ecs"
-    # ECS serves all traffic until the ALB rules move, so an EKS failure must not
-    # turn main red. Remove before shifting any real traffic to EKS, otherwise a
-    # failed deploy would leave the two backends on different images unnoticed.
-    soft_fail: true
     concurrency: 1
     concurrency_group: docs-deploy-eks
     agents:

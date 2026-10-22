@@ -39,7 +39,7 @@ To get started, choose the guide that corresponds to the CI/CD tool you are migr
 - [Migrate from Bitbucket Pipelines](/docs/pipelines/migration/from-bitbucket-pipelines)
 - [Migrate from Bamboo](/docs/pipelines/migration/from-bamboo)
 
-To migrate from GitHub Actions incrementally, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) to run supported workflows as jobs in a Buildkite Pipelines build. You can replace the imported jobs with native Buildkite Pipelines steps over time.
+To migrate from GitHub Actions incrementally, use [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows) to run supported workflows as jobs in a Buildkite Pipelines build. You can replace the imported jobs with native Buildkite Pipelines steps over time.
 
 ## Plan your migration
 

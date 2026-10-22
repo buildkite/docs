@@ -305,6 +305,9 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_PIPELINE_NAME</code><br>
 		<code>BUILDKITE_PIPELINE_ID</code><br>
 		<code>BUILDKITE_ORGANIZATION_SLUG</code><br>
+		<code>BUILDKITE_ORIGIN_EVENT</code><br>
+		<code>BUILDKITE_ORIGIN_REVIEW_ID</code><br>
+		<code>BUILDKITE_ORIGIN_REVIEW_VERDICT</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
@@ -313,6 +316,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_REPO</code><br>
 		<code>BUILDKITE_PULL_REQUEST</code><br>
 		<code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code><br>
+		<code>BUILDKITE_PULL_REQUEST_LABELS</code><br>
 		<code>BUILDKITE_PULL_REQUEST_REPO</code><br>
 		<code>BUILDKITE_MERGE_QUEUE_BASE_BRANCH</code><br>
 		<code>BUILDKITE_MERGE_QUEUE_BASE_COMMIT</code><br>
@@ -377,7 +381,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.pull_request.label</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The name of the specific label that was added or removed in a <code>labeled</code> or <code>unlabeled</code> pull request event, otherwise <code>null</code></td>
+		<td>The name of the specific label that was added or removed in a GitHub or Origin <code>labeled</code> or <code>unlabeled</code> pull request event, otherwise <code>null</code>. This is the changed label from the webhook, not the current label collection</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository</code></td>
@@ -407,12 +411,12 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.source_event</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The GitHub webhook event type that triggered the build (for example, <code>push</code>, <code>pull_request</code>, <code>release</code>). <code>null</code> for non-webhook builds</td>
+		<td>The GitHub webhook event type or <a href="/docs/pipelines/source-control/origin#configure-build-triggers-conditional-filtering">mapped Origin event type</a> that triggered the build (for example, <code>push</code>, <code>pull_request</code>, <code>release</code>). <code>null</code> for non-webhook builds</td>
 	</tr>
 	<tr>
 		<td><code>build.source_action</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The GitHub webhook event action (for example, <code>opened</code>, <code>labeled</code>, <code>submitted</code>). <code>null</code> for non-webhook builds or events without an action</td>
+		<td>The GitHub webhook action or mapped Origin action (for example, <code>opened</code>, <code>labeled</code>, <code>submitted</code>). <code>null</code> for non-webhook builds or events without an action</td>
 	</tr>
 	<tr>
 		<td><code>build.state</code></td>

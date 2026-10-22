@@ -13,6 +13,8 @@ Making a pipeline public provides read-only public/anonymous access to:
 - Pipeline build environment config
 - Agent version and name
 
+Public visibility doesn't determine whether untrusted code can run. Before enabling [fork pull request builds](/docs/pipelines/source-control/github#running-builds-on-pull-requests), restrict credentials and isolate jobs that run fork code. GitHub Actions pipeline triggers [reject fork pull requests before creating a build](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests); making the pipeline public doesn't change this restriction.
+
 ## Make a pipeline public using the UI
 
 Make a pipeline public in the pipeline's **Settings** > **General** page:
