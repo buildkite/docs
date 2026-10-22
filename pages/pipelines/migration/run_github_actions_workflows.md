@@ -89,6 +89,8 @@ The `pull_request_target` event is intentionally unsupported because its privile
 
 The trigger supports branch and tag pushes, plus same-repository pull requests. Supported filters include `branches`, `branches-ignore`, `tags`, and `tags-ignore`. Without an explicit `types` filter, a pull request workflow triggers on `opened`, `reopened`, and `synchronize`. Pull request builds use the head branch and commit. Fork pull requests, unsupported activity types, and unsupported filter patterns fail closed and appear in **Recent Deliveries**.
 
+Fork pull requests are rejected before a build exists. There is no build to approve or unblock. See [Fork pull requests](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests) for the approval limitation and security boundaries.
+
 For push and pull request workflows, the server accepts `paths` and `paths-ignore` but evaluates path matching during workflow preparation. A candidate build can exist before the runtime determines that the workflow should be skipped. Path matching requires a verified linked webhook and matching diff evidence from the checkout. See [Workflow names and triggers](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-names-and-triggers) for event-specific limits.
 
 Workflow matching decides which builds to create. Traditional GitHub provider build filters and duplicate-commit settings don't restrict these builds. Configure supported filters in your workflow files instead. Leave **Cancel Intermediate Builds** and **Skip Intermediate Builds** disabled: these branch-wide settings can cancel or skip sibling workflow builds from the same event.
