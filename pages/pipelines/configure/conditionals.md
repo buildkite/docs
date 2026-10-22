@@ -205,6 +205,18 @@ The following expressions are supported by the `if` attribute.
 > 🚧 Formatting regular expressions
 > When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
 
+> 🚧 Unsupported regular expression syntax
+> Regular expressions in conditionals use [RE2](https://github.com/google/re2/wiki/Syntax) syntax, so a pattern that uses any of the following is rejected:
+>
+> * Lookahead (`(?=...)` and `(?!...)`) and lookbehind. To exclude a value, use a separate `!~` check joined with `&&`, such as `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
+> * Backreferences, such as `\1`.
+> * Atomic groups and possessive quantifiers.
+> * Character class intersection (`[a-z&&[^aeiou]]`) and nested character classes (`[a[bc]]`).
+> * Comments (`(?#...)`), `\Q...\E`, `\Z` (use `\z`, or `\n?\z` to allow a trailing newline), and control or byte escapes (such as `\cA` or `\xC3`).
+> * `{n}?` (use `(?:a{n})?`), and repetition counts above 1000.
+>
+> Patterns that compile to a very large program are also rejected, and `\b` only treats ASCII letters and digits as word characters.
+
 ### Variables
 
 The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/configure/build-meta-data) in conditional expressions.
