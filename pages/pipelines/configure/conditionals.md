@@ -308,7 +308,6 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<code>BUILDKITE_ORIGIN_EVENT</code><br>
 		<code>BUILDKITE_ORIGIN_REVIEW_ID</code><br>
 		<code>BUILDKITE_ORIGIN_REVIEW_VERDICT</code><br>
-		<em>Origin review variables are available during pipeline filtering and step conditions. The verdict is <code>approve</code>, <code>request_changes</code>, or <code>comment</code>; it is not available in job environments.</em><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
 		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
