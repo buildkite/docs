@@ -327,6 +327,8 @@ Success response: `200 OK`
 
 YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to the YAML you want in your pipeline.
 
+For GitHub Actions Compatibility, prefer [GitHub Actions setup in the Buildkite interface](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline). To provision the equivalent using this API, [create the pipeline with the GitHub Actions provider settings, then create its dedicated pipeline trigger](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually). This endpoint doesn't create the trigger or its signed repository webhook automatically.
+
 For example, to create a pipeline called `"My Pipeline"` containing the following command step
 
 ```yaml
@@ -2019,7 +2021,7 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>code</code> creates builds when code is pushed to GitHub.</li>
           <li><code>deployment</code> creates builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>.</li>
           <li><code>fork</code> creates builds when the GitHub repository is forked.</li>
-          <li><code>none</code> will not create any builds based on GitHub activity.</li>
+          <li><code>none</code> disables traditional GitHub build triggering. It doesn't disable <a href="/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger">GitHub Actions pipeline triggers</a>, which process their own deliveries.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p>
       </td>

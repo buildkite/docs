@@ -17,7 +17,7 @@ Learn more about:
 
 - The [concurrency](#concurrency), [security](#security), and [current limitations](#current-limitations) of Windows hosted agents.
 
-- Running [GitHub Actions workflows](/docs/pipelines/migration/run-github-actions-workflows#requirements-run-windows-jobs) on Windows hosted agents.
+- Running GitHub Actions workflows on Windows hosted agents using [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows#requirements-run-windows-jobs).
 
 ## Sizes
 

@@ -112,6 +112,21 @@
     vertical-align: top;
   }
 
+  &--with-status {
+    @media (min-width: $screen-md) {
+      table-layout: fixed;
+
+      thead th {
+        white-space: normal;
+        width: 25%;
+
+        &:last-child {
+          width: 50%;
+        }
+      }
+    }
+  }
+
   &--single-column-rows {
     tbody {
       tr {
