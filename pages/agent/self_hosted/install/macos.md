@@ -1,6 +1,10 @@
 # Installing Buildkite agent on macOS
 
-The Buildkite agent is supported on macOS 11 (Big Sur) or newer using Homebrew or the Buildkite installer script, and supports pre-release versions of both macOS and Xcode.
+You can install the Buildkite agent using Homebrew or the Buildkite installer script. The agent supports pre-release versions of both macOS and Xcode.
+
+Buildkite agent v4.8.0 and later requires macOS 13 (Ventura) or newer on both Intel and Apple silicon, following the [Go 1.27 requirements](https://go.dev/doc/go1.27#darwin). The last v4 release compatible with macOS 12 (Monterey) is [v4.7.0](https://github.com/buildkite/agent/releases/tag/v4.7.0), built with Go 1.26.10.
+
+For older macOS versions, select a compatible agent release from the [macOS compatibility table](https://github.com/buildkite/agent/blob/main/docs/macos.md) rather than installing the latest version. The v3 release line uses a separate toolchain and is not affected by the v4.8.0 toolchain upgrade.
 
 ## Installation
 
