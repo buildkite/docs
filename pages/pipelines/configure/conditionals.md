@@ -206,7 +206,7 @@ The following expressions are supported by the `if` attribute.
 > When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
 
 > 🚧 Unsupported regular expression syntax
-> Regular expressions in conditionals use [RE2](https://github.com/google/re2/wiki/Syntax) syntax, so a pattern that uses any of the following is rejected:
+> A regular expression in a conditional that uses any of the following is rejected:
 >
 > * Lookahead (`(?=...)` and `(?!...)`) and lookbehind. To exclude a value, use a separate `!~` check joined with `&&`, such as `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
 > * Backreferences, such as `\1`.
