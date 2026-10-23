@@ -19,7 +19,7 @@ const source = readFileSync(
     "\nwindow.__readMarketingAttribution = typeof readAttribution === 'function' ? readAttribution : undefined;",
   );
 
-const linkedInClickId = "dc3b1af5-4e13-430c-b94d-84286eafcc3c";
+const linkedInClickId = "00000000-0000-4000-8000-000000000001";
 
 function createAnchor(href, analyticsLocation = "") {
   const attributes = new Map([["href", href]]);
@@ -132,8 +132,8 @@ function runAttribution({
     },
     init(_token, config, name) {
       marketingInitCalls.push({ config, name, token: _token });
-      this[name] = marketing;
       config.loaded?.(marketing);
+      this[name] = marketing;
       return marketing;
     },
   };
@@ -278,6 +278,23 @@ test("retains a LinkedIn first touch through a later direct visit", () => {
   const attribution = result.readAttribution();
   assert.equal(attribution.first_touch_li_fat_id, linkedInClickId);
   assert.equal(attribution.last_touch_li_fat_id, linkedInClickId);
+});
+
+test("adds the LinkedIn cookie ID to a tagged landing without a URL ID", () => {
+  const cookieJar = new Map([
+    ["li_fat_id", encodeURIComponent(linkedInClickId)],
+  ]);
+  const anchor = createAnchor("/signup?iaid=pricing-free");
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin&utm_campaign=docs_launch",
+    cookieJar,
+    anchors: [anchor],
+  });
+
+  const attribution = result.readAttribution();
+  const destination = new URL(anchor.getAttribute("href"));
+  assert.equal(attribution.last_touch_li_fat_id, linkedInClickId);
+  assert.equal(destination.searchParams.get("li_fat_id"), linkedInClickId);
 });
 
 test("recovers safely from malformed attribution cookies", () => {

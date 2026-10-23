@@ -298,8 +298,7 @@ function readAttribution() {
   };
 }
 
-function syncPostHogProperties() {
-  const client = marketingPostHog();
+function syncPostHogProperties(client) {
   if (!client) return;
 
   if (typeof client.unregister === "function") {
@@ -368,8 +367,7 @@ function passthroughTouch(incomingTouch) {
     : parseTouch(readCookie(LAST_TOUCH_COOKIE));
 }
 
-function capturePageview() {
-  const client = marketingPostHog();
+function capturePageview(client) {
   if (!client || !trackingAllowed() || typeof client.capture !== "function") {
     return;
   }
@@ -435,15 +433,20 @@ function enableTracking(client) {
   );
   if (!canonicalMarketingId) return;
 
+  const currentPageTouch = touchFromCurrentPage(true);
   const incomingTouch = hasAttribution(pendingIncomingTouch)
-    ? pendingIncomingTouch
-    : touchFromCurrentPage(true);
+    ? new URLSearchParams(pendingIncomingTouch)
+    : currentPageTouch;
+  const linkedInClickId = currentPageTouch.get("li_fat_id");
+  if (!incomingTouch.has("li_fat_id") && linkedInClickId) {
+    incomingTouch.set("li_fat_id", linkedInClickId);
+  }
   persistTouch(incomingTouch);
   writeCookie(TRACKING_ALLOWED_COOKIE, "1");
-  syncPostHogProperties();
+  syncPostHogProperties(client);
   rewriteSignupLinks(passthroughTouch(incomingTouch));
   initializeClickTracking();
-  capturePageview();
+  capturePageview(client);
   pendingIncomingTouch = new URLSearchParams();
 }
 
@@ -520,12 +523,4 @@ export function initMarketingAttribution() {
   }
 
   initializeMarketingPostHog();
-}
-
-if (typeof window !== "undefined") {
-  window.bkMarketingAttribution = {
-    clearAttribution,
-    readAttribution,
-    capturePageview,
-  };
 }
