@@ -411,12 +411,12 @@ function initializeClickTracking() {
     const locationElement = anchor.closest("[data-analytics-location]");
     const ctaLocation = locationElement
       ? sanitize(locationElement.getAttribute("data-analytics-location") || "")
-      : "unlabeled";
+      : "inline_content";
 
     client.capture("signup_cta_click", {
       analytics_surface: "docs",
       attribution_version: ATTRIBUTION_VERSION,
-      cta_location: ctaLocation || "unlabeled",
+      cta_location: ctaLocation || "inline_content",
       destination_path: url.pathname,
       screen_name: window.location.pathname,
       ...readAttribution(),

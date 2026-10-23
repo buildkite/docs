@@ -227,6 +227,76 @@ test("exposes version 2 first-touch and last-touch attribution", () => {
   assert.equal(attribution.marketing_attribution_id, "marketing-anonymous-id");
 });
 
+test("captures and forwards the standard campaign parameters", () => {
+  const anchor = createAnchor("/signup?iaid=pricing-free");
+  const result = runAttribution({
+    url: `https://buildkite.com/docs?utm_source=linkedin&utm_medium=paid_social&utm_campaign=docs_launch&utm_content=video_v1&utm_term=high_intent&utm_id=campaign_123&li_fat_id=${linkedInClickId}`,
+    anchors: [anchor],
+  });
+
+  const destination = new URL(anchor.getAttribute("href"));
+  assert.equal(destination.searchParams.get("utm_source"), "linkedin");
+  assert.equal(destination.searchParams.get("utm_medium"), "paid_social");
+  assert.equal(destination.searchParams.get("utm_campaign"), "docs_launch");
+  assert.equal(destination.searchParams.get("utm_content"), "video_v1");
+  assert.equal(destination.searchParams.get("utm_term"), "high_intent");
+  assert.equal(destination.searchParams.get("utm_id"), "campaign_123");
+  assert.equal(destination.searchParams.get("li_fat_id"), linkedInClickId);
+  assert.equal(destination.searchParams.get("iaid"), "pricing-free");
+  assert.ok(result.decodedCookie("bk_last_touch"));
+});
+
+test("preserves first touch while a later campaign updates last touch", () => {
+  const cookieJar = new Map();
+  runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin&utm_campaign=first_campaign",
+    cookieJar,
+  });
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=google&utm_campaign=later_campaign",
+    cookieJar,
+  });
+
+  const attribution = result.readAttribution();
+  assert.equal(attribution.first_touch_utm_source, "linkedin");
+  assert.equal(attribution.first_touch_utm_campaign, "first_campaign");
+  assert.equal(attribution.last_touch_utm_source, "google");
+  assert.equal(attribution.last_touch_utm_campaign, "later_campaign");
+});
+
+test("retains a LinkedIn first touch through a later direct visit", () => {
+  const cookieJar = new Map();
+  runAttribution({
+    url: `https://buildkite.com/docs?utm_source=linkedin&li_fat_id=${linkedInClickId}`,
+    cookieJar,
+  });
+  const result = runAttribution({
+    url: "https://buildkite.com/docs/pipelines",
+    cookieJar,
+  });
+
+  const attribution = result.readAttribution();
+  assert.equal(attribution.first_touch_li_fat_id, linkedInClickId);
+  assert.equal(attribution.last_touch_li_fat_id, linkedInClickId);
+});
+
+test("recovers safely from malformed attribution cookies", () => {
+  const cookieJar = new Map([
+    ["bk_first_touch", "%"],
+    ["bk_last_touch", "%"],
+    ["bk_marketing_id", "%"],
+  ]);
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin",
+    cookieJar,
+  });
+
+  const attribution = result.readAttribution();
+  assert.equal(attribution.first_touch_utm_source, "linkedin");
+  assert.equal(attribution.last_touch_utm_source, "linkedin");
+  assert.equal(attribution.marketing_attribution_id, "marketing-anonymous-id");
+});
+
 test("captures one Docs pageview in the marketing project", () => {
   const result = runAttribution({
     url: `https://buildkite.com/docs?utm_source=linkedin&li_fat_id=${linkedInClickId}`,
@@ -318,6 +388,42 @@ test("captures signup CTA clicks with Docs attribution", () => {
   );
 });
 
+test("classifies an unlabeled signup CTA as inline content", () => {
+  const anchor = createAnchor("/signup?iaid=pricing-free");
+  const result = runAttribution({
+    url: "https://buildkite.com/docs/pipelines/getting-started",
+    anchors: [anchor],
+  });
+
+  result.dispatchClick(anchor);
+
+  assert.equal(
+    result.marketingCaptures[1].properties.cta_location,
+    "inline_content",
+  );
+  assert.equal(
+    result.marketingCaptures[1].properties.screen_name,
+    "/docs/pipelines/getting-started",
+  );
+});
+
+test("does not rewrite non-signup links", () => {
+  const docsLink = createAnchor("/docs/pipelines");
+  const externalLink = createAnchor("https://example.com/signup");
+  const mailLink = createAnchor("mailto:user@example.com");
+  const fragmentLink = createAnchor("#overview");
+
+  runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin",
+    anchors: [docsLink, externalLink, mailLink, fragmentLink],
+  });
+
+  assert.equal(docsLink.getAttribute("href"), "/docs/pipelines");
+  assert.equal(externalLink.getAttribute("href"), "https://example.com/signup");
+  assert.equal(mailLink.getAttribute("href"), "mailto:user@example.com");
+  assert.equal(fragmentLink.getAttribute("href"), "#overview");
+});
+
 test("forwards the persisted campaign from Docs to signup", () => {
   const cookieJar = new Map();
   runAttribution({
@@ -339,6 +445,15 @@ test("forwards the persisted campaign from Docs to signup", () => {
   assert.equal(destination.searchParams.get("utm_medium"), "paid_social");
   assert.equal(destination.searchParams.get("utm_campaign"), "docs_launch");
   assert.equal(destination.searchParams.get("li_fat_id"), linkedInClickId);
+});
+
+test("marks every marketing event as Docs attribution version 2", () => {
+  const result = runAttribution({ url: "https://buildkite.com/docs" });
+  const beforeSend = result.marketingInitCalls[0].config.before_send;
+  const event = beforeSend({ properties: {} });
+
+  assert.equal(event.properties.analytics_surface, "docs");
+  assert.equal(event.properties.attribution_version, "2");
 });
 
 test("clears attribution and does not initialize marketing tracking after opt-out", () => {
