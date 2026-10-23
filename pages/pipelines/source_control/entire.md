@@ -1,6 +1,6 @@
 # Entire
 
-[Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch and tag pushes, check out repositories, and report build status as checks. An organization administrator connects an Entire project, then pipelines in that Buildkite organization can select repositories from the connection.
+[Entire](https://entire.io) is a Git repository hosting service. Buildkite Pipelines integrates with Entire to create builds from branch and tag pushes, check out repositories, and report build status as checks. An organization administrator connects an Entire project. Pipelines in that Buildkite organization can then select repositories from the connection.
 
 > 📘 Preview
 > The Entire integration is in preview. Share feedback or report issues at [support@buildkite.com](mailto:support@buildkite.com?subject=Entire%20Feedback).
@@ -9,7 +9,7 @@
 
 Connecting an Entire project requires [Buildkite organization administrator](/docs/platform/team-management/permissions#manage-teams-and-permissions-organization-level-permissions) access.
 
-1. Select **Settings** in the global navigation, then select [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
+1. Select [**Settings** > **Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
 1. In **Add Provider**, select **Entire**. Buildkite redirects you to Entire.
 1. In Entire, select a project and choose **All repositories** or **Only selected repositories**. The default, **All repositories**, includes repositories added later. For selected repositories, select at least one repository.
 1. Select **Install**. Entire returns you to the new connection's page in Buildkite.
@@ -42,9 +42,13 @@ The pipeline's [branch filter](/docs/pipelines/configure/workflows/branch-config
 
 ## Configure the checkout plugin
 
-The Entire Buildkite [plugin](/docs/pipelines/integrations/plugins) installs the native Entire Git helper. By default, Buildkite Pipelines adds the unversioned `entire` plugin first on each command job using the connection, including pipeline-upload jobs. If a step already lists the plugin, its declaration is preserved without adding another copy.
+The Entire [plugin](/docs/pipelines/integrations/plugins) installs the Git remote helper, `git-remote-entire`, that Git uses to check out `entire://` repositories. By default, Buildkite Pipelines adds the unversioned `entire` plugin as the first plugin for each command job using the connection, including jobs that upload pipelines. The unversioned plugin follows its default branch rather than a pinned release or commit. If a step already lists the plugin, Buildkite Pipelines preserves that declaration without adding another copy.
 
-An organization administrator can turn this off in **Settings** > **Repository Providers** > the Entire connection. In the connection's **Settings** panel, clear **Add the Entire plugin to every job**, then select **Save Entire Settings**.
+To turn off automatic plugin setup, an organization administrator must:
+
+1. Select **Settings** > **Repository Providers** > the Entire connection.
+1. In the connection's **Settings** panel, clear **Add the Entire plugin to every job**.
+1. Select **Save Entire Settings**.
 
 > 🚧 Pipeline signing
 > Automatic plugin setup does not modify [signed steps](/docs/agent/self-hosted/security/signed-pipelines). List the Entire plugin in those steps before signing.
@@ -56,7 +60,7 @@ steps:
   - label: "Upload pipeline"
     command: "buildkite-agent pipeline upload"
     plugins:
-    - entire
+      - entire
 ```
 
 ## Check out repositories on hosted agents
@@ -72,19 +76,23 @@ The plugin requests the credential once and exports it as `ENTIRE_TOKEN` for the
 
 Self-hosted agents don't receive checkout credentials automatically. Use one of these options:
 
-- **Buildkite-issued credentials:** An organization administrator selects [**Settings** > **Repository Providers**](https://buildkite.com/organizations/~/repository-providers) > the Entire connection. In the connection's **Settings** panel, select **Allow self-hosted agents to use checkout credentials**, then select **Save Entire Settings**. Command jobs on self-hosted agents then receive the same short-lived, read-only credential as hosted agents. The credential is available to processes running in the job, and the plugin does not refresh it.
-- **Your own token:** Export `ENTIRE_TOKEN` in an agent [environment hook](/docs/agent/hooks#job-lifecycle-hooks). The plugin uses a non-empty `ENTIRE_TOKEN` and does not request a credential from Buildkite, even when the setting is on.
+- **Buildkite-issued credentials**: As an organization administrator, select **Settings** > **Repository Providers** > the Entire connection. In the connection's **Settings** panel, select **Allow self-hosted agents to use checkout credentials**, then select **Save Entire Settings**. Command jobs on self-hosted agents can then obtain the same short-lived, read-only credential as hosted agents. The credential is available to processes running in the job, and the plugin does not refresh it.
+- **Your own token**: Export `ENTIRE_TOKEN` in an agent [environment hook](/docs/agent/hooks#job-lifecycle-hooks). The plugin uses a non-empty `ENTIRE_TOKEN` and does not request a credential from Buildkite, even when the setting is on.
 
 If no token is available, the Entire Git helper can use a saved Entire login for the agent user. To prevent this, set `ENTIRE_GIT_NO_LOGIN_FALLBACK=true` on the agent. The plugin then fails the job when no token is available.
 
-Install the [Entire CLI](https://docs.entire.io/installation) for the agent user and ensure `git-remote-entire` is on `PATH`. Do not print the token or dump the job's environment.
+On Linux amd64 and arm64, the plugin installs or upgrades `git-remote-entire` automatically. The agent needs Bash, curl, Git, GNU `coreutils`, gzip, sed, and tar. On other platforms, install `git-remote-entire` v0.11.5 or later for the agent user and ensure it is on `PATH`. The helper is included with the [Entire CLI](https://docs.entire.io/installation).
+
+Do not print `ENTIRE_TOKEN` or dump the job's environment.
 
 > 🚧 Checkout fails authentication on a self-hosted agent
 > Turn on **Allow self-hosted agents to use checkout credentials**, or supply your own `ENTIRE_TOKEN`.
 
 ## Report build status
 
-Buildkite Pipelines reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported. Each rebuild starts a new attempt of the same check. When a rebuild reports, its result replaces the previous attempt's displayed result, and Entire keeps earlier attempts as history.
+Buildkite Pipelines reports one check per pipeline and commit in Entire. The check represents the overall build and links to its Buildkite build page. Individual jobs are not reported.
+
+Each rebuild starts a new attempt of the same check. Entire shows the attempt with the most recent status update and keeps earlier attempts as history. A canceled rebuild does not replace an earlier passing attempt.
 
 **Publish build status as checks**, in the pipeline's **Entire Settings**, is enabled by default. When you turn it off, Buildkite Pipelines stops sending check updates for the pipeline, including updates already queued. Checks already in Entire keep their last reported status.
 
@@ -110,8 +118,8 @@ Connecting Buildkite does not enable the checks gate in Entire. With the gate of
 
 To require the Buildkite build check, name it as `<account>/<suite key>`:
 
-- `account`: `ins-` followed by the Entire installation ULID in lowercase.
-- `suite key`: `<Buildkite organization slug>/<pipeline slug>`.
+- `account`: `ins-` followed by the Entire installation ID in lowercase
+- `suite key`: `<Buildkite organization slug>/<pipeline slug>`
 
 Buildkite reports the overall build state directly on this suite, without job-level check runs.
 
