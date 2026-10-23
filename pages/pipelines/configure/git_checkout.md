@@ -476,7 +476,7 @@ The `checkout.commit_verification` key tells the Buildkite agent to verify that 
 For Buildkite agent v4, set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set it to `off` to skip commit verification. An empty value causes job bootstrap to fail.
 
 > 🚧 Strict mode does not require successful verification
-> In both v3 and v4, `strict` warns and continues if the agent cannot complete verification. Commit verification in `strict` mode does not guarantee that every executed commit belongs to the specified branch. Do not rely on `strict` mode alone to grant protected-branch privileges or access to secrets. For stronger guarantees, use [fail-closed mode](#fail-closed-mode).
+> In both v3 and v4, `strict` warns and continues if the agent cannot complete verification. Commit verification in `strict` mode does not guarantee that every executed commit belongs to the specified branch. Do not rely on `strict` mode alone to grant protected-branch privileges or access to secrets. For stronger guarantees, use [fail-closed mode](#commit-verification-fail-closed-mode).
 
 For Buildkite agent v3, use v3.136.0 or later for commit verification. In addition to `strict`, v3 accepts `warn` to emit a warning without failing the job when the commit is not on the branch. An empty value skips commit verification. A job-supplied `off` value uses warning behavior rather than skipping verification.
 
@@ -487,9 +487,9 @@ Agent v3 does not verify commits by default. Leave its configuration value empty
 > 📘 Requires none mode
 > The `checkout.commit_verification` key only takes effect when the agent runs with `--checkout-override-mode=none`. Under the default `from-job` mode, the agent uses its own `--git-commit-verification` setting and ignores the pipeline value. See [Agent checkout-override mode](#agent-checkout-override-mode).
 
-Verification may be unable to complete if fetching the branch or deepening a shallow clone fails. In `strict` mode and in v3, this isn't a definitive failure: the agent warns and continues. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook also bypasses the built-in check in these modes. Secrets, hooks, and plugins can execute before verification runs.
+Verification may be unable to complete if fetching the branch or deepening a shallow clone fails. In `strict` mode and in v3, this isn't a definitive failure: the agent warns and continues. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook also bypasses the built-in check in these modes. Secrets can be available before verification runs. Hooks and plugins can also execute before verification runs.
 
-The agent skips verification in the following cases, including in `strict` mode:
+In `strict` mode and in v3, the agent skips verification in the following cases:
 
 - Tag builds
 - Pull request builds
@@ -509,7 +509,7 @@ steps:
 ### Fail-closed mode
 
 > 📘 Agent configuration only
-> `fail-closed` is available in Buildkite agent v4 as the agent's `--git-commit-verification` configuration setting or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable. The `checkout.commit_verification` pipeline YAML key doesn't accept `fail-closed`.
+> `fail-closed` is available in Buildkite agent v4.7.0 or later as the agent's `--git-commit-verification` configuration setting or `BUILDKITE_GIT_COMMIT_VERIFICATION` environment variable. The `checkout.commit_verification` pipeline YAML key doesn't accept `fail-closed`.
 
 Set `--git-commit-verification` to `fail-closed` to require successful branch ancestry verification before the job's commands run. Unlike `strict`, `fail-closed` fails checkout instead of warning and continuing when verification can't complete, for example, when fetching the branch fails.
 
@@ -523,7 +523,7 @@ Set `--git-commit-verification` to `fail-closed` to require successful branch an
 - A skipped checkout (`BUILDKITE_SKIP_CHECKOUT`)
 - An agent or plugin `checkout` hook that replaces the default checkout
 
-Verification must succeed within the same bootstrap invocation that runs the job's commands. If a hook sets `BUILDKITE_GIT_COMMIT_VERIFICATION` to `fail-closed` after the checkout phase, for example, in a pre-command hook, the agent rejects the command instead of running it without verification.
+Verification must succeed within the same bootstrap invocation that runs the job's commands. If a hook sets `BUILDKITE_GIT_COMMIT_VERIFICATION` to `fail-closed` after the checkout phase, for example, in a pre-command hook, the agent rejects the command unless verification has already succeeded in that invocation.
 
 `fail-closed` is a checkout safeguard, not a secrets-release boundary. Environment and pre-checkout hooks can still run before verification completes. To prevent jobs, hooks, and plugins from changing the verification setting, run the agent with `checkout-override-mode="strict"` alongside `git-commit-verification="fail-closed"`.
 
