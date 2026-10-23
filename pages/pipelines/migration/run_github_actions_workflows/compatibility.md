@@ -261,7 +261,7 @@ The repository events in the following sections require a compatible pipeline tr
 
 ### Repository star events
 
-`watch` selects stars (`started`), not notification subscriptions. Unstars don't trigger workflows. The payload remains available through `github.event`.
+`watch` selects stars (`started`), not notification subscriptions. Removing a star doesn't trigger workflows. The payload remains available through `github.event`.
 
 <a id="workflow-names-and-triggers-milestone-lifecycle-events"></a>
 
@@ -424,7 +424,7 @@ Local actions must exist when compiled, not be created by an earlier checkout, d
 
 Managed Node 16.20.2 runs `node16` with an end-of-job deprecation warning. `node20` and `node24` both run managed Node 24.18.0. Other declarations are rejected.
 
-JavaScript `pre-if` and `post-if` accept listed condition functions, including `hashFiles()`, direct workflow inputs, environment, GitHub fields, service context, matrix, runner, steps, and event-rooted dynamic access. `job.status` requires v0.103.0. Other whole/dynamic contexts are errors. Empty lifecycle conditions always run without an implicit success guard. Pre hooks use preparation-time status/environment; posts use final status/environment, including `GITHUB_ENV`, and root posts see final workflow step state. Nested composites retain isolated steps. Posts run LIFO, and cancellation stays distinct from failure.
+JavaScript `pre-if` and `post-if` accept listed condition functions, including `hashFiles()`, direct workflow inputs, environment, GitHub fields, service context, matrix, runner, steps, and event-rooted dynamic access. `job.status` requires v0.103.0. Other whole/dynamic contexts are errors. Empty lifecycle conditions always run without an implicit success guard. Preparation hooks use preparation-time status/environment; posts use final status/environment, including `GITHUB_ENV`, and root posts see final workflow step state. Nested composites retain isolated steps. Posts run LIFO, and cancellation stays distinct from failure.
 
 Prebuilt images are declared in action metadata:
 
@@ -1046,7 +1046,7 @@ Independent components expand separately. Components with shared downstream jobs
 The following limits apply to every stage:
 
 - The producer has exactly one instance and a declared output. It must run on Linux or macOS because its queue also runs the deferred importer. Expanded jobs may use enabled Windows targets.
-- Matrix JSON is at most 64 KiB from v0.102.3. Each nonempty row has at most 64 properties containing strings, finite numbers, or Booleans. Strings are at most 1 KiB. Null, nested arrays/objects, ambiguous keys, duplicate instances, zero rows, malformed JSON, and missing outputs fail the deferred step.
+- Matrix JSON is at most 64 KiB from v0.102.3. Each nonempty row has at most 64 properties containing strings, finite numbers, or booleans. Strings are at most 1 KiB. Null, nested arrays/objects, ambiguous keys, duplicate instances, zero rows, malformed JSON, and missing outputs fail the deferred step.
 - The 256-instance and 1,024-expanded-job limits still apply. Deferred components share the remaining workflow budget equally after upfront jobs; chained stages consume that same component budget. Exceeding a share fails before upload, even if another component hasn't used its share.
 - The workflow must be tracked inside the repository and match the build commit. Outside, untracked, staged-only, or modified workflow source can't use deferred expansion.
 - Deferred execution uses the original event, variable snapshot, runner mappings, OIDC settings, workflow source, reusable source commits, and locked action revisions. Changed sources or incompatible graph changes fail with instructions to retry the build. Outputs never become workflow source or credential authority.
