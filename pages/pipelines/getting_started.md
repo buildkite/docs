@@ -210,7 +210,31 @@ To create a new test suite:
     git push
     ```
 
-1. Run your test runner from the command line, passing `BUILDKITE_ANALYTICS_TOKEN=<your-test-suites-api-token-value>` as an environment variable. After it completes, check your test suite page to see the collected results.
+1. Open a terminal in your project's root directory and run your project's test command with the `BUILDKITE_ANALYTICS_TOKEN` environment variable set. The test runner executes your tests. The collector you configured sends the results to Buildkite Test Engine, so you don't need to run the collector separately.
+
+    For example, use one of the following commands in Bash, depending on your test framework. Replace `YOUR_TEST_SUITE_API_TOKEN` with the **Test Suite API Token** from the **Complete test suite setup** page. These examples assume you've installed and configured the matching collector in the previous steps.
+
+    For RSpec:
+
+    ```bash
+    BUILDKITE_ANALYTICS_TOKEN='YOUR_TEST_SUITE_API_TOKEN' bundle exec rspec
+    ```
+
+    For Jest:
+
+    ```bash
+    BUILDKITE_ANALYTICS_TOKEN='YOUR_TEST_SUITE_API_TOKEN' npx jest
+    ```
+
+    For pytest:
+
+    ```bash
+    BUILDKITE_ANALYTICS_TOKEN='YOUR_TEST_SUITE_API_TOKEN' pytest
+    ```
+
+    If your project uses a different test command, use that command after the environment variable assignment instead.
+
+1. After the test command completes, open your test suite in Buildkite Test Engine and check that the collected results appear.
 
 ### Automate the test runner with Buildkite Pipelines
 
