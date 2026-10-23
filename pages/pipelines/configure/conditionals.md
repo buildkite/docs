@@ -213,7 +213,7 @@ The following expressions are supported by the `if` attribute.
 > * Atomic groups and possessive quantifiers.
 > * Character class intersection (`[a-z&&[^aeiou]]`) and nested character classes (`[a[bc]]`).
 > * Comments (`(?#...)`), `\Q...\E`, `\Z` (use `\z`, or `\n?\z` to allow a trailing newline), and control or byte escapes (such as `\cA` or `\xC3`).
-> * `{n}?` (use `(?:a{n})?`), and repetition counts above 1000.
+> * `{n}?` (use `(?:a{n})?`), repetition counts above 100, and patterns longer than 4096 characters.
 >
 > Patterns that compile to a very large program are also rejected, and `\b` only treats ASCII letters and digits as word characters.
 
