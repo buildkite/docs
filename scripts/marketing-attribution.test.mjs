@@ -297,6 +297,24 @@ test("adds the LinkedIn cookie ID to a tagged landing without a URL ID", () => {
   assert.equal(destination.searchParams.get("li_fat_id"), linkedInClickId);
 });
 
+test("preserves the campaign after Turbo navigation with a LinkedIn referrer", () => {
+  const cookieJar = new Map([
+    ["li_fat_id", encodeURIComponent(linkedInClickId)],
+  ]);
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin&utm_campaign=docs_launch",
+    cookieJar,
+    referrer: "https://www.linkedin.com/feed/",
+  });
+
+  result.reinitialize("https://buildkite.com/docs/pipelines");
+
+  const attribution = result.readAttribution();
+  assert.equal(attribution.last_touch_utm_source, "linkedin");
+  assert.equal(attribution.last_touch_utm_campaign, "docs_launch");
+  assert.equal(attribution.last_touch_li_fat_id, linkedInClickId);
+});
+
 test("recovers safely from malformed attribution cookies", () => {
   const cookieJar = new Map([
     ["bk_first_touch", "%"],

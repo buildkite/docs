@@ -204,8 +204,9 @@ function touchFromCurrentPage(includeCookieIdentifiers = false) {
 
   const referringDomain = safeReferringDomain();
   const isLinkedInLanding =
-    /(^|\.)linkedin\.com$/i.test(referringDomain) ||
-    LINKEDIN_UTM_SOURCES.includes(touch.get("utm_source") || "");
+    LINKEDIN_UTM_SOURCES.includes(touch.get("utm_source") || "") ||
+    (lastCapturedPageview === "" &&
+      /(^|\.)linkedin\.com$/i.test(referringDomain));
 
   if (
     includeCookieIdentifiers &&
