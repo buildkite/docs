@@ -210,7 +210,7 @@ The following expressions are supported by the `if` attribute.
 >
 > * Lookahead (`(?=...)` and `(?!...)`) and lookbehind. To exclude a value, use a separate `!~` check joined with `&&`, such as `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
 > * Backreferences, such as `\1`.
-> * Atomic groups and possessive quantifiers.
+> * Atomic groups, possessive quantifiers, named groups (use `(...)`) and conditionals.
 > * Character class intersection (`[a-z&&[^aeiou]]`) and nested character classes (`[a[bc]]`).
 > * Comments (`(?#...)`), `\Q...\E`, `\Z` (use `\z`, or `\n?\z` to allow a trailing newline), and control or byte escapes (such as `\cA` or `\xC3`).
 > * `{n}?` (use `(?:a{n})?`), repetition counts above 100, and patterns longer than 4096 characters.
