@@ -11,7 +11,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.8.0:
+      - aws-assume-role-with-web-identity#v1.8.1:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -30,7 +30,7 @@ steps:
       queue: hosted
     depends_on: "ecr-push"
     plugins:
-      - aws-assume-role-with-web-identity#v1.8.0:
+      - aws-assume-role-with-web-identity#v1.8.1:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -67,7 +67,7 @@ steps:
       queue: hosted
     command: scripts/deploy-ecs
     plugins:
-      - aws-assume-role-with-web-identity#v1.8.0:
+      - aws-assume-role-with-web-identity#v1.8.1:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -99,7 +99,7 @@ steps:
       # logs in to ECR, and supplies GH_TOKEN from Exchange. This pipeline's
       # Exchange policy in buildkite/ops limits the token to reading
       # buildkite/internal-charts.
-      - buildkite/just-works#v0.1.0:
+      - buildkite/just-works#v0.2.0:
           account-id: "${ECR_ACCOUNT_ID}"
           ecr:
             accounts: ["${ECR_ACCOUNT_ID}"]
@@ -108,7 +108,7 @@ steps:
             enabled: false
           github:
             changes-enabled: true
-      - docker-compose#v5.13.0:
+      - docker-compose#v5.16.0:
           run: helm-deploy
           config: .buildkite/docker-compose.helm-deploy.yml
           mount-checkout: true

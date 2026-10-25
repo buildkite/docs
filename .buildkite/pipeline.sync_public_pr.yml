@@ -11,7 +11,7 @@ steps:
   - label: ":git: Sync Public PR to Private Repo"
     command: "sh scripts/with-ca-trust.sh bin/sync-public-pr"
     plugins:
-      - aws-assume-role-with-web-identity#v1.8.0:
+      - aws-assume-role-with-web-identity#v1.8.1:
           role-arn: arn:aws:iam::445615400570:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
