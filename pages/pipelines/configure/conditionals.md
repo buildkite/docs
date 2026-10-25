@@ -206,16 +206,11 @@ The following expressions are supported by the `if` attribute.
 > When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
 
 > 🚧 Unsupported regular expression syntax
-> A regular expression in a conditional that uses any of the following is rejected:
+> Regular expressions in conditionals do not support lookahead, lookbehind, or backreferences such as `\1`.
 >
-> * Lookahead (`(?=...)` and `(?!...)`) and lookbehind. To exclude a value, use a separate `!~` check joined with `&&`, such as `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
-> * Backreferences, such as `\1`.
-> * Atomic groups, possessive quantifiers, named groups (use `(...)`) and conditionals.
-> * Character class intersection (`[a-z&&[^aeiou]]`) and nested character classes (`[a[bc]]`).
-> * Comments (`(?#...)`), `\Q...\E`, `\Z` (use `\z`, or `\n?\z` to allow a trailing newline), and control or byte escapes (such as `\cA` or `\xC3`).
-> * `{n}?` (use `(?:a{n})?`), repetition counts above 100, and patterns longer than 4096 characters.
+> To exclude a value, combine a match with a separate `!~` check: `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
 >
-> Patterns that compile to a very large program are also rejected, and `\b` only treats ASCII letters and digits as word characters.
+> Patterns are limited to 4096 characters and repetition counts of 100 or fewer. Other unsupported constructs include atomic groups, possessive quantifiers, named groups (use `(...)` instead), and conditional expressions within a pattern.
 
 ### Variables
 

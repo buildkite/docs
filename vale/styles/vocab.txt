@@ -50,6 +50,7 @@ awscli
 azcopy
 backoff
 backports
+backreferences
 Backstage
 Backstage Software Catalog
 Basecamp
@@ -300,7 +301,9 @@ llvm
 lockfile
 lockfiles
 lockfile‑keyed
+lookahead
 lookback
+lookbehind
 lookups
 loopback
 macOS
