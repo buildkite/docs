@@ -74,7 +74,7 @@ why-buildkite-pipelines:
 
 migrating-to-buildkite:
   name: "Migrating to Buildkite Pipelines"
-  description: "Buildkite documentation for migrating to Buildkite Pipelines from other CI/CD tools, covering migration guides, running supported GitHub Actions workflows in Buildkite, and the AI-powered pipeline converter for translating CI configurations."
+  description: "Buildkite documentation for migrating to Buildkite Pipelines from other CI/CD tools, covering migration guides, GitHub Actions Compatibility for running supported GitHub Actions workflows, and the AI-powered pipeline converter for translating CI configurations."
   paths:
     - "pipelines/migration"
     - "pipelines/converter"

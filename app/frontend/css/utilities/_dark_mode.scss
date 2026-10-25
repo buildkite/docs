@@ -3,6 +3,7 @@
 }
 
 html.dark {
+  color-scheme: dark;
   background: #020617;
 
   --docsearch-text-color: rgb(245, 246, 247);
@@ -479,6 +480,17 @@ html.dark {
 
     &__item[data-action="open-chatgpt"] svg path {
       fill: white !important;
+    }
+  }
+
+  .PageRating__textarea,
+  .PageRating__input {
+    background-color: #0f172a;
+    border-color: $navy-500;
+    color: $navy-300;
+
+    &::placeholder {
+      color: $navy-400;
     }
   }
 }

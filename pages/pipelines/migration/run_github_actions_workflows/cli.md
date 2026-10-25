@@ -1,17 +1,17 @@
 ---
-description: "Use the buildkite-gha CLI to validate GitHub Actions workflows, compile pipelines, and upload workflows from a custom importer."
+description: "Use the buildkite-gha CLI for GitHub Actions Compatibility to validate GitHub Actions workflows, compile pipelines, and upload workflows from a custom importer."
 ---
 
 # Use the buildkite-gha CLI
 
-The [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) is the easiest way to run `buildkite-gha`. Use the CLI directly when you need to validate a workflow, inspect generated output, or build a custom importer.
+To run GitHub Actions workflows with [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows), [create a GitHub Actions pipeline](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) in the Buildkite interface. Normal setup doesn't require installing `buildkite-gha`. The `buildkite-gha` CLI is optional. Use it for diagnostics, such as validating a workflow or inspecting generated output, or for advanced custom tooling.
 
 | Command | Use it to |
 | --- | --- |
 | `validate` | Check one workflow and, optionally, production policy. |
 | `validate-batch` | Check a large workflow corpus. |
 | `compile` | Render pipeline YAML or compiler IR without uploading it. |
-| `upload` | Upload workflows from a custom importer. |
+| `upload` | Upload workflows from a custom importer. Not part of normal setup. |
 | `help <command>` | Print the usage and description of one command. Run `buildkite-gha help` without a command, or `buildkite-gha --help`, to list all commands. |
 | `--version` | Print the installed `buildkite-gha` version. |
 {: class="responsive-table"}
@@ -20,7 +20,7 @@ The `run-job` command and the `upload --stage-digest` form are internal commands
 
 ## Before you begin
 
-Install `buildkite-gha` with `mise` 2026.5.12 or newer:
+You only need to install `buildkite-gha` to run the CLI yourself. To install it, use `mise` 2026.5.12 or newer:
 
 ```bash
 mise use -g --minimum-release-age 0s github:buildkite/buildkite-gha
@@ -299,13 +299,13 @@ The IR lists the deferred step and its jobs under `continuations`.
 
 ## Upload from a custom importer
 
-The `upload` command is the public in-build command for custom importers:
+The `upload` command is the public in-build command for advanced custom importers. A GitHub Actions pipeline created in the Buildkite interface doesn't need it:
 
 ```bash
 buildkite-gha upload .github/workflows/ci.yml
 ```
 
-The importer must run on Linux/amd64, Linux/arm64, or Darwin/arm64 with Buildkite agent v3.129 or newer, `BUILDKITE=true`, and `BUILDKITE_STEP_KEY`. The plugin wrapper starts the importer only on Linux/amd64 or Darwin/arm64.
+The importer must run on Linux/amd64, Linux/arm64, or Darwin/arm64 with Buildkite agent v3.129 or newer, `BUILDKITE=true`, and `BUILDKITE_STEP_KEY`.
 
 #### Upload options
 
@@ -317,36 +317,16 @@ The importer must run on Linux/amd64, Linux/arm64, or Darwin/arm64 with Buildkit
 | `--runtime-distribution <platform>=<absolute-path>` | Repeatable. Binds `linux/amd64`, `linux/arm64`, `darwin/arm64`, or `windows/amd64` to a verified executable. |
 | `--private-reusable-workflows` | Enables importer-only Git fallback for private reusable workflows with the job's existing Git credentials. It doesn't enable private actions. |
 | `--experimental-runner-user=<boolean>` | Set to `false` to temporarily disable the non-root `runner` identity for generated Linux jobs. See [Run Linux jobs as a non-root user](#upload-from-a-custom-importer-run-linux-jobs-as-a-non-root-user). |
-| `--runtime-queue hosted` | Deprecated. Accepted for plugin compatibility, but doesn't select a queue. |
+| `--runtime-queue hosted` | Deprecated. Accepted as a no-op for compatibility with older callers, but doesn't select a queue. |
 | `--private-checkout` | Deprecated. Accepted as a no-op. Verified checkout jobs automatically use Buildkite repository-provider Git credentials when the job enables them. |
 | `--` | Ends option parsing. See [Select workflows](#upload-from-a-custom-importer-select-workflows). |
 {: class="responsive-table"}
 
-#### Plugin entry point
-
-The hidden, zero-argument `buildkite-gha plugin` entry point reads plugin configuration from `BUILDKITE_PLUGIN_CONFIGURATION`. It accepts:
-
-- either one `workflow` path or a non-empty `workflows` array
-- `runners` and `oidc`
-- plugin-owned `version`, `source-ref`, and `minimum-release-age` fields
-- the Boolean `experimental-runner-user` and `private-reusable-workflows` fields
-
-| Field | Description |
-| --- | --- |
-| `workflow` | One non-empty workflow path. Mutually exclusive with `workflows`. |
-| `workflows` | A non-empty array of non-empty workflow paths. Mutually exclusive with `workflow`. |
-| `runners` | A non-empty array of runner mappings. Each mapping requires `runs-on` and `queue` strings, and accepts an optional `image` (an immutable registry `sha256` reference) and an optional [`cache`](#upload-from-a-custom-importer-configure-generated-job-cache-volumes) object. Each runner label can be configured only once. Windows mappings reject `cache`. |
-| `oidc` | An object that accepts non-empty `claims` and `aws-session-tags` arrays of non-empty strings, and a non-empty `subject-claim` string. |
-| `experimental-runner-user` | A Boolean. Defaults to `true`. |
-| `private-reusable-workflows` | A Boolean. Defaults to `false`. |
-| `version`, `source-ref`, `minimum-release-age` | Plugin-owned fields. |
-{: class="responsive-table"}
-
-Unknown fields fail.
-
 ### Pipeline trigger selection
 
 Server-selected workflow imports run in builds created by a GitHub Actions pipeline trigger. To set up a GitHub Actions pipeline trigger, see [Trigger builds from workflow events](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-trigger-builds-from-workflow-events).
+
+This section describes the read-only metadata that Buildkite Pipelines supplies to these builds, for diagnosing workflow selection. It isn't user-authored configuration. Don't set these variables yourself, and don't configure workflow paths for a GitHub Actions pipeline. The server selects the workflow for each event.
 
 Without an explicit selector, `BUILDKITE_GITHUB_WORKFLOW_PATH` marks a GitHub Actions pipeline trigger selection. The server also supplies:
 
@@ -357,7 +337,7 @@ Without an explicit selector, `BUILDKITE_GITHUB_WORKFLOW_PATH` marks a GitHub Ac
 - `BUILDKITE_GITHUB_EVENT`: A compatibility duplicate of `GITHUB_EVENT_NAME`.
 - `BUILDKITE_GITHUB_ACTION`: The event activity. Push and deployment events, plus `create`, `delete`, `fork`, `public`, `gollum`, and `page_build`, omit it.
 
-The `GITHUB_*` values take precedence when present. The plugin derives the selected path from `GITHUB_WORKFLOW_REF`, checks `GITHUB_WORKFLOW` against the checked-out file, and requires `GITHUB_WORKFLOW_SHA` to match the checkout commit. A malformed preferred value fails instead of falling back.
+The `GITHUB_*` values take precedence when present. The runtime derives the selected path from `GITHUB_WORKFLOW_REF`, checks `GITHUB_WORKFLOW` against the checked-out file, and requires `GITHUB_WORKFLOW_SHA` to match the checkout commit. A malformed preferred value fails instead of falling back.
 
 For pull requests, `GITHUB_WORKFLOW_REF` and imported jobs' `GITHUB_REF` retain `refs/pull/<number>/merge`, while `GITHUB_WORKFLOW_SHA`, `GITHUB_SHA`, and the Buildkite checkout use the pull request head commit. Review and inline review-comment events use the same PR-head contract. They require both workflow identity fields and the original `buildkite:webhook` payload. The PR number, head SHA, head and base branches, activity, and all three repository identities must agree with the build. Missing payloads (including rebuilds without retained webhook data) fail closed, not as synthetic PR events.
 
@@ -369,59 +349,20 @@ Deployment events require both workflow identity fields and the original linked 
 
 For `merge_group`, both workflow identity fields and the original linked payload are required. The selected ref and SHA identify the speculative head; the distinct base branch and SHA must match the Buildkite merge-queue metadata. `BUILDKITE_GITHUB_ACTION` must match the payload's actual `checks_requested` or `destroyed` action. Only tokenless workflows are supported. See [merge-group compatibility](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-names-and-triggers) and the [destruction rollout boundary](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-names-and-triggers-merge-group-destruction).
 
-`BUILDKITE_GITHUB_WORKFLOW_PATH` remains the path fallback because GitHub has no `GITHUB_WORKFLOW_PATH`. `BUILDKITE_GITHUB_ACTION` remains the action source because the GitHub `GITHUB_ACTION` variable has a different meaning. An explicit `workflow` or `workflows` value takes precedence over server workflow selection.
+`BUILDKITE_GITHUB_WORKFLOW_PATH` remains the path fallback because GitHub has no `GITHUB_WORKFLOW_PATH`. `BUILDKITE_GITHUB_ACTION` remains the action source because the GitHub `GITHUB_ACTION` variable has a different meaning. Workflow paths passed explicitly to a custom `upload` command take precedence over server workflow selection.
 
-The plugin also validates these values before upload:
+The runtime also validates these values before upload:
 
 - `BUILDKITE_GITHUB_WORKFLOW_PATH` must be a non-empty path without surrounding whitespace. If any of `GITHUB_EVENT_NAME`, `GITHUB_WORKFLOW`, `GITHUB_WORKFLOW_REF`, or `GITHUB_WORKFLOW_SHA` is set without it, the import fails.
 - `GITHUB_EVENT_NAME` or `BUILDKITE_GITHUB_EVENT` is required.
 - `GITHUB_WORKFLOW_REF` must name the same repository as a `github.com` `BUILDKITE_REPO`, and its event ref must match the event: `refs/heads/` or `refs/tags/` for `push` and `create`; `refs/pull/<number>/merge` for pull request and review events; `refs/tags/` for `release`; `refs/heads/` for the other events. Deployment events also accept a full commit SHA.
 - `GITHUB_WORKFLOW_SHA` must be a full lowercase 40-character hexadecimal commit. Every event other than `push` and `pull_request` requires both `GITHUB_WORKFLOW_REF` and `GITHUB_WORKFLOW_SHA`.
 
-Use the plugin shorthand to request server selection:
+Server-selected imports don't require the importer step to have a `key`. The runtime uploads the event, runtime, and plan artifacts before uploading the dynamic pipeline, and scopes artifact reads to the importer job. It doesn't use the job ID as a dependency key. A custom importer that passes explicit workflow paths to `upload` still requires a step `key`, and generated workflow groups depend on it.
 
-```yaml
-steps:
-  - label: "\:github\:"
-    plugin: github-actions
-```
-
-This server-selected form doesn't require the importer step to have a `key`. The plugin uploads the event, runtime, and plan artifacts before uploading the dynamic pipeline, and scopes artifact reads to the importer job. It doesn't use the job ID as a dependency key. Explicit-selector importers still require a step `key`, and generated workflow groups depend on it.
-
-Missing or untracked explicitly configured workflow paths warn and are skipped. If every configured path is missing or untracked, the plugin succeeds without uploading a pipeline. A missing or untracked server-selected path fails. Every present path must be a regular, tracked `.yml` or `.yaml` file inside the repository. Directories, tracked files missing from the checkout, symlinks, and globs are rejected. The optional `oidc` object accepts non-empty `claims`, `aws-session-tags`, and `subject-claim` values. Unknown fields and invalid values fail before upload.
-
-The plugin resolves relative workflow paths from `BUILDKITE_BUILD_CHECKOUT_PATH`, not the command hook's working directory.
+A missing or untracked server-selected workflow path fails. The selected path must be a regular, tracked `.yml` or `.yaml` file inside the repository. Directories, tracked files missing from the checkout, symlinks, and globs are rejected. The runtime resolves the selected path from `BUILDKITE_BUILD_CHECKOUT_PATH`, not the command hook's working directory.
 
 The importer reuses its verified executable for jobs on the same platform. It downloads the other platform's distribution from the same release only when a workflow needs it. Runner mappings apply to generated jobs, not the importer.
-
-### Configure generated-job cache volumes
-
-An explicit runner mapping can attach one Buildkite hosted agents cache volume to each generated job using that mapping:
-
-```yaml
-plugins:
-  - github-actions#latest:
-      workflow: .github/workflows/ci.yml
-      runners:
-        - runs-on: ubuntu-latest
-          queue: hosted
-          cache:
-            paths:
-              - /home/runner/.gradle/caches
-              - /home/runner/.gradle/wrapper
-            name: gradle-dependencies
-            size: 40g
-```
-
-The `cache.paths` field is a required, non-empty list of unique absolute paths. The `name` and `size` fields are optional. Names follow the Buildkite 100-character letters-numbers-hyphens format and may contain `${BUILDKITE_*}` variables. Sizes use `Ng` and must be at least `20g`. Without a name or size, Buildkite uses its pipeline-scoped name and 20 GB defaults.
-
-Each Buildkite Pipelines step supports one cache volume. When a job also needs the internally managed `mise` cache, `buildkite-gha` adds the `mise` path to the same volume. A configured name and size apply to that combined volume; otherwise, the managed `mise` name and the Buildkite default size remain unchanged. Jobs with neither configuration emit no `cache` attribute.
-
-Runner cache volumes aren't supported for workflow jobs that set `container`.
-
-Generated Linux jobs run as `runner`. Configured cache paths are made writable by that user after the bootstrap verifies that they target the Buildkite cache volume. Prefer narrowly scoped paths. For example, caching an entire Gradle User Home also persists `init.d` scripts and other executable configuration, increasing the impact of cache poisoning. Caching only `caches` and `wrapper` reduces that exposure, but a cache-volume miss doesn't provide the `setup-gradle` archive-cache fallback once the mounted `caches` directory exists.
-
-Cache volumes are best-effort accelerators, scoped to the Buildkite pipeline and cluster. They commit after successful jobs and are abandoned after failed jobs. Don't use them as durable or trusted storage. See [Cache volumes](/docs/agent/buildkite-hosted/cache-volumes).
 
 ### Select workflows
 
@@ -445,7 +386,7 @@ An explicit non-empty workflow `run-name` appends ` — <run-name>` to its group
 
 See [Aggregate workflow upload](/docs/pipelines/migration/run-github-actions-workflows/compatibility#how-workflows-run-on-buildkite-pipelines-aggregate-workflow-upload) for workflow grouping, labels, provider checks, and failure behavior.
 
-Private reusable workflows are off by default. Set the plugin's `private-reusable-workflows: true` field, or pass `upload --private-reusable-workflows` from a custom importer. See [Reusable workflows](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-syntax-reusable-workflows) for the access boundary and [Security](/docs/pipelines/migration/run-github-actions-workflows/security#repository-data-does-not-grant-authority) for the credential boundary.
+Private reusable workflows are off by default. The `upload --private-reusable-workflows` option is an advanced setting for custom importers that enables the importer-only Git fallback. See [Reusable workflows](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-syntax-reusable-workflows) for the access boundary and [Security](/docs/pipelines/migration/run-github-actions-workflows/security#repository-data-does-not-grant-authority) for the credential boundary.
 
 A parse, compilation, or trigger-translation error in an aggregate upload replaces only that workflow with a failing top-level step. Compilation continues for later workflows. Single-workflow parse errors and event-input, admission, artifact, and upload failures abort the complete transaction; no partial pipeline is uploaded.
 
@@ -497,31 +438,13 @@ buildkite-gha upload \
   .github/workflows/ci.yml
 ```
 
-Linux arm64 mappings always require an explicit queue and never fall back to an amd64 image or emulation. The release plugin acquires and verifies `buildkite-gha_Linux_arm64.tar.gz` when a selected workflow needs that runtime. This artifact doesn't enable a Buildkite hosted agents Linux ARM64 queue.
+Linux arm64 mappings always require an explicit queue and never fall back to an amd64 image or emulation. When a selected workflow needs that runtime, a custom importer must supply the executable from the verified `buildkite-gha_Linux_arm64.tar.gz` release archive with `--runtime-distribution linux/arm64=<absolute-path>`. This artifact doesn't enable a Buildkite hosted agents Linux ARM64 queue.
 
-The hosted preset accepts runner labels case-insensitively, so aliases such as `macOS-latest` and `Ubuntu-Latest` are equivalent to their lowercase forms. Local presets use Noble for `ubuntu-latest` and `ubuntu-24.04`, and Jammy for `ubuntu-22.04`. Backend resolution can instead select a native Linux environment through agent tags. Use `--runner-image` with an immutable digest to override the preset for a configured profile; backend tags never replace that explicit image. An explicit mapping declares its selector's platform from the known Linux, macOS, and Windows labels. The importer validates its queue and hosted platform through the job-scoped Agent API before upload, preserving the configured image and cache. An import using explicit mappings stops if that validation is unavailable. The Agent API owns compatibility and returns the complete target for every other selector. The importer publishes returned warnings as annotations. See [Compatibility](/docs/pipelines/migration/run-github-actions-workflows/compatibility#job-syntax-job-configuration) for runner behavior. Runtime distribution paths must be absolute executables. The importer's platform defaults to its running executable; other platforms have no direct-upload default. `BUILDKITE_GHA_TARGET_QUEUE` and `BUILDKITE_GHA_RUNTIME_IMAGE` are no longer supported.
+The hosted preset accepts runner labels case-insensitively, so aliases such as `macOS-latest` and `Ubuntu-Latest` are equivalent to their lowercase forms. Local presets use Noble for `ubuntu-latest` and `ubuntu-24.04`, and Jammy for `ubuntu-22.04`. Backend resolution can instead select a native Linux environment through agent tags. Use `--runner-image` with an immutable digest to override the preset for a configured profile; backend tags never replace that explicit image. An explicit mapping declares its selector's platform from the known Linux, macOS, and Windows labels. The importer validates its queue and hosted platform through the job-scoped Agent API before upload, preserving the configured image. An import using explicit mappings stops if that validation is unavailable. The Agent API owns compatibility and returns the complete target for every other selector. The importer publishes returned warnings as annotations. See [Compatibility](/docs/pipelines/migration/run-github-actions-workflows/compatibility#job-syntax-job-configuration) for runner behavior. Runtime distribution paths must be absolute executables. The importer's platform defaults to its running executable; other platforms have no direct-upload default. `BUILDKITE_GHA_TARGET_QUEUE` and `BUILDKITE_GHA_RUNTIME_IMAGE` are no longer supported.
 
 Without Agent API resolution, unmapped supported Linux labels retain default agent targeting with the preset image, `macos-latest` falls back to the hosted `macos-medium` queue, and `macos-14` and `macos-15` accept explicit fallback queues. The `windows-latest` and `windows-2022` jobs require explicit queues or enabled Agent API resolution; they have no local preset.
 
-For [Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs), map the workflow's label to an existing compatible Windows queue. For example, this plugin configuration imports a workflow using `runs-on: windows-2022`:
-
-```yaml
-steps:
-  - label: Import Windows workflow
-    key: import-windows-workflow
-    agents:
-      queue: my-linux-importer-queue
-    plugins:
-      - github-actions#latest:
-          workflow: .github/workflows/ci.yml
-          runners:
-            - runs-on: windows-2022
-              queue: my-windows-queue
-```
-
-Replace both queue names with queues in your pipeline's cluster. The importer runs on Linux or macOS, not Windows. If the workflow uses `windows-latest`, use that label in the mapping instead. For automatic routing, omit the Windows `runners` entry only after checking the [access and queue requirements](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs-configure-a-windows-runner).
-
-For direct CLI upload from a Buildkite job, also supply the Windows x86-64 runtime executable from the same release, at an absolute path on the importer:
+For [Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs), map the workflow's label to an existing compatible Windows queue with `--runner-queue`, and supply the Windows x86-64 runtime executable from the same release at an absolute path on the importer. For example, this command imports a workflow using `runs-on: windows-2022`:
 
 ```bash
 buildkite-gha upload \
@@ -531,9 +454,11 @@ buildkite-gha upload \
   .github/workflows/ci.yml
 ```
 
-The plugin acquires the Windows runtime from the same release only when a selected workflow requires it and verifies the release checksums. Direct CLI users must verify the Windows release archive against that release's checksum file before extracting `buildkite-gha.exe`. Development plugin runs use `BUILDKITE_GHA_PLUGIN_DEV_WINDOWS_RUNTIME` as an absolute path to a locally built Windows executable. Windows targets reject `--runner-image` and cache volumes. These mappings don't create queues or grant hosted Windows access.
+Replace the queue name with a queue in your pipeline's cluster. The importer runs on Linux or macOS, not Windows. If the workflow uses `windows-latest`, use that label in the mapping instead. For automatic routing, omit the Windows `--runner-queue` mapping only after checking the [access and queue requirements](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs-configure-a-windows-runner).
 
-The deprecated `--runtime-queue hosted` argument is accepted as a no-op for compatibility with plugin releases that pass it. Other values are rejected.
+Verify the Windows release archive against that release's checksum file before extracting `buildkite-gha.exe`. Windows targets reject `--runner-image`. These mappings don't create queues or grant hosted Windows access.
+
+The deprecated `--runtime-queue hosted` argument is accepted as a no-op for compatibility with older callers that pass it. Other values are rejected.
 
 ### Expand a matrix inside the build
 
@@ -572,19 +497,7 @@ Retry the whole build to select this runner again. If the producer job was retri
 
 Generated Linux jobs use a dedicated `runner` user by default. This behavior requires `buildkite-gha` v0.13.7 or newer. Jobs can start as root or as an existing `runner` user with home `/home/runner` and passwordless `sudo`. For a non-root start, the bootstrap uses `sudo -n` for privileged setup. It creates the `runner` user when needed, grants passwordless `sudo` and Docker socket access when the socket exists, prepares the runner home, temp, `mise`, and tool-cache paths, then runs `buildkite-gha run-job` as `runner`. The verified executable and compiled plan remain root-owned and read-only to `runner`. Generated jobs skip the Buildkite checkout. When a workflow uses `actions/checkout`, the native adapter clones as `runner`, so the runtime doesn't recursively change workspace ownership. This behavior doesn't depend on a queue name and doesn't affect macOS or Windows jobs.
 
-During the transition, set the plugin field to `false` to run as the agent's original user without this bootstrap:
-
-```yaml
-steps:
-  - label: "\:github\: CI"
-    key: github-actions
-    plugins:
-      - github-actions#latest:
-          workflow: .github/workflows/ci.yml
-          experimental-runner-user: false
-```
-
-For a custom importer, pass `upload --experimental-runner-user=false`. The bare `--experimental-runner-user` form and a plugin value of `true` remain accepted. The plugin value must be a YAML boolean, not a quoted string.
+During the transition, a custom importer can pass `upload --experimental-runner-user=false` to run generated Linux jobs as the agent's original user without this bootstrap. The bare `--experimental-runner-user` form and `--experimental-runner-user=true` keep the default `runner` identity.
 
 ## Disable telemetry
 
