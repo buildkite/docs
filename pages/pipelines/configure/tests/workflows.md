@@ -12,7 +12,7 @@ You can also create and manage workflows using the [Workflows REST API](/docs/ap
 
 ## Plan availability and limits
 
-Your [billing plan](https://buildkite.com/pricing/feature-comparison) determines whether you can create and edit workflows, which monitors and actions you can configure, and how many workflows each test suite can have.
+Workflow availability depends on your [plan](https://buildkite.com/pricing/feature-comparison):
 
 Plan | Workflows per test suite | Monitors | Actions
 ---- | ------------------------ | -------- | -------
@@ -21,14 +21,9 @@ Pro | One | Transition count | **Add label** and **Remove label**
 Enterprise | Three by default, with a configurable quota | All documented monitors | All documented actions
 {: class="responsive-table"}
 
-The all-access trial includes three workflows per test suite and advanced workflows. Advanced workflows let you configure passed-on-retry, new-test, and duration-threshold monitors, and notification and state-change actions. Probabilistic flakiness requires a separate entitlement and is not included in the standard all-access trial.
+The all-access trial includes three workflows per suite with advanced monitors and actions, except probabilistic flakiness. The default transition count workflow counts toward your suite's limit.
 
-The default transition count workflow counts toward your suite's limit. Enterprise customers can contact support@buildkite.com to ask about increasing their workflow quota.
-
-> 📘 Legacy plans
-> If your organization is on a legacy plan, its workflow availability and limits may differ. Contact support@buildkite.com to confirm what your plan includes.
-
-Test state management and workflow state-change actions have different plan requirements. Pro includes test state management, but configuring a **Change state** workflow action requires advanced workflows. See [Test state and quarantine](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine) for details.
+Legacy plan availability may differ. Contact support@buildkite.com to confirm your entitlements or request a higher Enterprise workflow quota.
 
 ## How they work
 
