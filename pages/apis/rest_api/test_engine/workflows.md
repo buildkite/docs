@@ -193,7 +193,7 @@ Type | Configuration fields
 
 Each action list accepts up to seven entries. The `new_test` monitor accepts alarm actions only.
 
-On the current Pro plan, you can configure only `add_label` and `remove_label` actions. All other action types require advanced workflows. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
+On the current Pro plan, you can configure only `add_label` and `remove_label` actions. All other action types require an Enterprise plan. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
 
 ## Workflow data model
 

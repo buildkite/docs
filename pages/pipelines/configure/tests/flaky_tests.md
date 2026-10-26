@@ -4,7 +4,7 @@ Flaky tests produce inconsistent results when run against the same code and envi
 
 Test Engine uses [workflows](/docs/pipelines/configure/tests/workflows) to detect flaky tests, quarantine them so they stop blocking builds, notify the relevant teams, and track when the tests become reliable again.
 
-The workflows you can configure depend on your plan. The current Pro plan supports transition count monitoring and label actions. Workflow actions that quarantine tests or notify teams require advanced workflows. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
+The workflows you can configure depend on your plan. The current Pro plan supports transition count monitoring and label actions. Workflow actions that quarantine tests or notify teams require an Enterprise plan. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
 
 ## Detect flaky tests
 
@@ -18,7 +18,7 @@ Configure the workflow's alarm action to add the **flaky** label to tests that m
 
 ## Quarantine flaky tests
 
-If [test state](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine) is enabled for the test suite, quarantine a flaky test by changing its state to **muted** or **skipped**. You can change its state manually in Test Engine or using the Test Engine API. If your plan includes advanced workflows, you can also configure a **Change state** workflow action to quarantine the test automatically.
+If [test state](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine) is enabled for the test suite, quarantine a flaky test by changing its state to **muted** or **skipped**. You can change its state manually in Test Engine or using the Test Engine API. On an Enterprise plan, you can also configure a **Change state** workflow action to quarantine the test automatically.
 
 Prefer **muted** over **skipped**. Muted tests continue running without affecting the build result, so Test Engine can collect execution data and detect when they become reliable. Use **skipped** only when the test must not run. Skipped tests do not produce the execution data that Test Engine needs to detect recovery.
 
