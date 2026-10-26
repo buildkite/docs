@@ -238,7 +238,7 @@ Buildkite Pipelines resolves `runs-on` labels to compatible queues. Common mappi
 | `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04` | `linux-medium`, with the corresponding Ubuntu environment |
 | `macos-latest` | `macos-medium` |
 | `macos-14`, `macos-15`, `macos-26`, or `macos-27` | Matching `macos-<version>-medium` queue, falling back to `macos-medium` |
-| `windows-latest` or `windows-2022` | `windows-medium`, when hosted Windows access and routing are enabled |
+| `windows-latest` or `windows-2022` | `windows-medium`, when your plan includes Windows hosted agents |
 {: class="responsive-table"}
 
 Queues must exist in the pipeline's cluster. A versioned macOS label that falls back to `macos-medium` doesn't guarantee that macOS version. All supported macOS jobs run on Apple silicon.

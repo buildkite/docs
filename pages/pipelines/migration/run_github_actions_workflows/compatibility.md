@@ -79,11 +79,11 @@ Runner resolution doesn't create queues, grant hosted Windows access, or change 
 
 | Diagnostic | Action |
 | --- | --- |
-| No Windows runner target is configured | Check hosted Windows access and routing with the Buildkite Support team. Offline validation has no Windows preset. This failure alone doesn't establish runtime incompatibility. |
+| No Windows runner target is configured | Check that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue. Offline validation has no Windows preset. This failure alone doesn't establish runtime incompatibility. |
 | No hosted Windows queue (`missing_queue`) | Ask an administrator to check the importing job's cluster and all automatic-routing queue requirements, or explicitly map a compatible existing queue. |
 | Job doesn't belong to a cluster (`no_cluster`) | Ask an administrator to move the pipeline to a cluster containing compatible queues. |
 | Queue not found or platform mismatch | Correct the mapping to an active Windows queue in the importing job's cluster. A Linux queue can't run the Windows runtime. |
-| Incompatible labels | Check the variant and use a single supported Windows label. For `windows-latest` or `windows-2022`, this can also mean hosted Windows access is unavailable. Ask the Buildkite Support team to check eligibility and routing rather than assuming Windows is wholly unsupported. |
+| Incompatible labels | Check the variant and use a single supported Windows label. For `windows-latest` or `windows-2022`, this can also mean hosted Windows access is unavailable. Check that your plan includes Windows hosted agents rather than assuming Windows is wholly unsupported. |
 | Windows variant has no local mapping | Use `windows-latest` or `windows-2022` only if the job can run on Server 2022 x86-64. The documented Windows 2025 aliases require Agent API resolution and preserve neither Server 2025 nor provider hardware. Native Windows arm64 remains unsupported. |
 {: class="responsive-table"}
 

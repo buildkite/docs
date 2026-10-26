@@ -576,6 +576,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 ## Instance shape values for Windows
 
-Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Buildkite must allocate Windows access and capacity to your organization before you can use these values.
+Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
