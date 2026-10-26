@@ -101,26 +101,24 @@ To define the steps:
     **Note:** If you have a pipeline defined in another CI/CD platform (GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines), use the [Pipeline converter](/docs/pipelines/converter) to convert its syntax.
 
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
-1. In `pipeline.yml`, define your pipeline steps. Here's an example:
+1. In `pipeline.yml`, define your pipeline steps. You can use this example placeholder pipeline to verify that your repository checkout, pipeline upload, and step dependencies work. The commands print messages without building, testing, or deploying your code:
 
     ```yaml
     steps:
       - label: "\:hammer\: Build"
-        command: "echo 'This step builds your code.'"
+        command: "echo 'Build placeholder'"
         key: build
 
       - label: "\:test_tube\: Test"
-        command: "echo 'This step tests your code.'"
+        command: "echo 'Test placeholder'"
         key: test
         depends_on: build
 
       - label: "\:rocket\: Deploy"
-        command: "echo 'This step deploys your code.'"
+        command: "echo 'Deploy placeholder'"
         key: deploy
         depends_on: test
     ```
-
-    These steps print messages without building, testing, or deploying your code. Once the pipeline runs successfully, replace the `echo` commands with your project's build, test, and deploy commands or scripts.
 
     See [Defining steps](/docs/pipelines/configure/defining-steps) for customization options.
 
@@ -147,6 +145,17 @@ Next, create a new pipeline that uploads the pipeline definition from your repos
 
 1. Select **Create pipeline**.
 1. On the next page, select **New Build**. In the dialog, enter a short **Message** (for example, **My first build**) and select **Create Build**. The build page opens and the build begins.
+
+Once the build passes, replace each `echo` command in `.buildkite/pipeline.yml` with the corresponding command for your project. For a repository with build, test, and deploy scripts, the replacements might be:
+
+Step   | Example replacement
+------ | --------------------------------
+Build  | `command: "scripts/build.sh"`
+Test   | `command: "scripts/test.sh"`
+Deploy | `command: "scripts/deploy.sh"`
+{: class="two-column"}
+
+These paths are examples, not scripts provided by Buildkite Pipelines. Commit your scripts to the repository before referencing them, or use your project's commands directly. Keep the `key` and `depends_on` attributes unchanged to preserve the step order. Commit and push the updated pipeline definition to run your project's commands in the next build.
 
 If you've configured webhooks, your pipeline triggers when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger it. To add more functionality, edit your steps and repeat.
 
