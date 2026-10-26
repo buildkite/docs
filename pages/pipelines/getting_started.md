@@ -146,16 +146,7 @@ Next, create a new pipeline that uploads the pipeline definition from your repos
 1. Select **Create pipeline**.
 1. On the next page, select **New Build**. In the dialog, enter a short **Message** (for example, **My first build**) and select **Create Build**. The build page opens and the build begins.
 
-Once the build passes, replace each `echo` command in `.buildkite/pipeline.yml` with the corresponding command for your project. For a repository with build, test, and deploy scripts, the replacements might be:
-
-Step   | Example replacement
------- | --------------------------------
-Build  | `command: "scripts/build.sh"`
-Test   | `command: "scripts/test.sh"`
-Deploy | `command: "scripts/deploy.sh"`
-{: class="two-column"}
-
-These paths are examples, not scripts provided by Buildkite Pipelines. Commit your scripts to the repository before referencing them, or use your project's commands directly. Keep the `key` and `depends_on` attributes unchanged to preserve the step order. Commit and push the updated pipeline definition to run your project's commands in the next build.
+Once the build passes, replace each `echo` command in `.buildkite/pipeline.yml` with the corresponding command for your project.
 
 If you've configured webhooks, your pipeline triggers when you push updates to the repository. Otherwise, select **New Build** in the Buildkite dashboard to trigger it. To add more functionality, edit your steps and repeat.
 
