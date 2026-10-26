@@ -6,8 +6,8 @@ Windows hosted agents are:
 
 - Configured as part of a _Buildkite hosted queue_, where the machine type is Windows, with a particular [size](#sizes) to efficiently manage jobs with varying requirements.
 
-> 📘 Private preview feature
-> Windows hosted agents are currently in private preview and must be enabled for your Buildkite organization. To request access, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> 📘 Public preview feature
+> Windows hosted agents are currently in public preview. Review the [current limitations](#current-limitations) before you move workloads to them. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 Learn more about:
 
@@ -54,6 +54,9 @@ Windows hosted agents don't currently support:
 - [Terminal access](/docs/agent/buildkite-hosted/terminal-access) using SSH
 - [Desktop access](/docs/agent/buildkite-hosted/desktop-access) using VNC or Remote Desktop
 - ARM64 architecture
+- Nested virtualization, which Hyper-V isolated containers, WSL2, and Docker Desktop require
 - Windows Server 2025
 - Selecting a Windows shell in the queue settings
 - Selecting or managing the Buildkite agent version
+
+Docker Engine is installed on the Windows base image, and runs Windows containers using [process isolation](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container). Hyper-V isolation isn't available because it requires nested virtualization.
