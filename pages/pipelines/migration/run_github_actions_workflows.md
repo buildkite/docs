@@ -260,7 +260,7 @@ The runtime supports Linux arm64 jobs, but Linux arm64 labels don't have automat
 
 ### Run Windows jobs
 
-[Buildkite hosted Windows agents](/docs/agent/buildkite-hosted/windows) are in private preview. Contact the Buildkite Support team to confirm access and routing. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`.
+[Buildkite hosted Windows agents](/docs/agent/buildkite-hosted/windows) are in public preview and available on Trial, Pro, and Enterprise plans. Contact the Buildkite Support team to confirm automatic routing is available for your organization. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`.
 
 Windows jobs run on Windows Server 2022 x86-64 and default to the `pwsh` shell. Containers, services, Docker actions, and the `cmd` shell aren't supported. See the [Windows jobs reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs) for the complete requirements and limitations.
 

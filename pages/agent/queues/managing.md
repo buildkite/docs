@@ -136,9 +136,6 @@ Buildkite hosted queues use [Buildkite hosted agent infrastructure](/docs/agent/
 
 When you create a Buildkite hosted queue, you can choose the machine type (Linux, macOS, or [Windows](/docs/agent/buildkite-hosted/windows)) and the capacity (small, medium, large, or extra large), known as the _instance shape_, of the Buildkite hosted agents that will run your builds.
 
-> 📘 Windows availability
-> Windows has no automatic or included allowance. If Buildkite hasn't allocated Windows access and capacity to your organization, selecting **Windows** causes a message to appear directing you to contact [Buildkite Support](mailto:support@buildkite.com).
-
 Only one instance shape can be configured on a Buildkite hosted queue. However, depending on your pipeline's requirements, multiple Buildkite hosted agents of the queue's configured instance shape can be spawned automatically by Buildkite.
 
 ### Using the Buildkite interface

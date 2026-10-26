@@ -21,11 +21,11 @@ Buildkite offers a selection of Linux instance types (each based on a different 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 
 > 📘 ARM64 availability
-> ARM64 instance shapes are only available to customers on the [Enterprise plan](https://buildkite.com/pricing/). To gain access, contact [Buildkite Support](mailto:support@buildkite.com).
+> ARM64 instance shapes are available to customers on [Trial, Pro, and Enterprise](https://buildkite.com/pricing/) plans. They aren't available on the Free plan.
 
 Note the following about Linux hosted agent instances.
 
-- The [Free plan](https://buildkite.com/pricing/) only provides access to small-sized instance shapes.
+- The [Free plan](https://buildkite.com/pricing/) only provides access to the small-sized AMD64 instance shape.
 
 - The Extra Large (XL), Extra Extra Large (XXL), and 3XL instance shapes are available on Enterprise plans. These shapes are hidden in the queue creation UI for organizations that don't have access. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
 

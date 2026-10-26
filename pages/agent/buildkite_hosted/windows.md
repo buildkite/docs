@@ -7,7 +7,7 @@ Windows hosted agents are:
 - Configured as part of a _Buildkite hosted queue_, where the machine type is Windows, with a particular [size](#sizes) to efficiently manage jobs with varying requirements.
 
 > 📘 Public preview feature
-> Windows hosted agents are currently in public preview. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> Windows hosted agents are currently in public preview and available on [Trial, Pro, and Enterprise](https://buildkite.com/pricing) plans. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 Learn more about:
 
@@ -25,6 +25,8 @@ Windows hosted agents support the AMD64 architecture in four instance shapes:
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
 
+The Extra Large instance shape is available on Enterprise plans. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
+
 ## Base image
 
 Windows hosted agents use a fixed, Buildkite-managed Windows Server 2022 base image. Windows hosted queues don't support the base image configuration available for [Linux](/docs/agent/buildkite-hosted/linux#agent-images) and [macOS](/docs/agent/buildkite-hosted/macos#macos-instance-software-support) hosted queues. A Windows hosted queue's settings page doesn't display a **Base Image** tab.
@@ -37,9 +39,11 @@ Windows hosted agents can operate concurrently when running your Buildkite pipel
 
 <%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
-The number of Windows hosted agents that can process jobs concurrently depends on the Windows vCPU concurrency allocated to your organization and the [instance shape](#sizes) configured for the queue.
+The number of Windows hosted agents (of a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Windows Concurrency** that applies to your plan.
 
-When a job would exceed the allocated concurrency, it remains queued until sufficient capacity is available.
+For example, if your Buildkite plan provides you with a maximum combined vCPU value of up to 64, and you've configured a Buildkite hosted queue with the `WINDOWS_AMD64_4X16` (Medium) [instance shape](#sizes), whose vCPU value is 4, then the number of concurrent hosted agents that can run jobs on this queue is 16 (that is, 64 / 4 = 16).
+
+When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
 
 ## Security
 
