@@ -71,7 +71,7 @@ Use a Windows Server 2022 queue with Buildkite agent v3.129 or newer, PowerShell
 
 ### Configure a Windows runner
 
-For a native GitHub Actions pipeline, ask the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com) to confirm automatic routing is available for your organization. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify, even if its name matches.
+For a native GitHub Actions pipeline, your organization's plan must include [Windows hosted agents](/docs/agent/buildkite-hosted/windows), and the pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify, even if its name matches.
 
 Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes). These aren't part of native pipeline setup. The Agent API validates that the queue exists in the importing job's cluster and, for a hosted queue, matches `windows/amd64`.
 

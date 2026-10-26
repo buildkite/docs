@@ -25,7 +25,7 @@ Windows hosted agents support the AMD64 architecture in four instance shapes:
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
 
-The Extra Large instance shape is available on Enterprise plans. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
+Larger instance shapes are available on Enterprise plans. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
 
 ## Base image
 
