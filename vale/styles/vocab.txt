@@ -69,6 +69,7 @@ bktec's
 bktx
 blobless
 boolean
+booleans
 Boomper
 bottlenecked
 Brewfile
@@ -212,6 +213,7 @@ Fugit
 gcloud
 gh
 gif
+Git's
 githooks
 GitLab
 glibc
@@ -340,6 +342,10 @@ NUnit
 nodeName
 nodeSelector
 nonblank
+noninteractive
+nonmatch
+nonmatching
+nonnested
 Noreply
 noreply
 not_run
@@ -428,6 +434,7 @@ refspec
 rehydrate
 rehydrated
 reimagined
+reinclude
 remediation
 remediations
 repo
