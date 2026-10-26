@@ -153,13 +153,15 @@ Alternatively, you can also access the rest of the Buildkite [environment variab
 
 ## Runtime variable interpolation
 
-When using environment variables that will be evaluated at run-time, make sure you escape the `$` character using `$$` or `\$`. For example:
+When defining commands in pipeline YAML, escape references to variables that the shell should evaluate at runtime using `$$` or `\$`. This includes environment variables and shell variables assigned within the command. For example:
 
 ```yml
 - command: "deploy.sh $$SERVER"
   env:
     SERVER: "server-a"
 ```
+
+Buildkite Pipelines converts `$$SERVER` to `$SERVER` before the step runs, leaving the shell to expand the variable. These escapes apply to pipeline YAML, not to separate shell script files.
 
 Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/cli/reference/pipeline#environment-variable-substitution) CLI guide.
 

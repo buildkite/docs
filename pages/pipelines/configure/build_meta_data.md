@@ -136,9 +136,11 @@ The special `buildkite:webhook` meta-data key can be used to get the body of the
 steps:
   - command: |
       WEBHOOK="$(buildkite-agent meta-data get buildkite:webhook)"
-      STARGAZERS="$(jq .repository.stargazers_count <<< "$WEBHOOK")"
-      echo "The current repository has $STARGAZERS stargazers 💫"
+      STARGAZERS="$(jq .repository.stargazers_count <<< "$$WEBHOOK")"
+      echo "The current repository has $$STARGAZERS stargazers 💫"
 ```
+
+The `$$` escapes preserve the shell variable references until the step runs. Without escaping, Buildkite Pipelines substitutes these references before the shell assigns their values. See [Runtime variable interpolation](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation) for details.
 
 This value will only be available for builds triggered by a webhook, and only as long as the full webhook body remains cached — typically for 7 days.
 
