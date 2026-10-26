@@ -192,7 +192,7 @@ where:
     }
     ```
 
-    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows access and capacity must be allocated to your organization before the request can succeed.
+    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <!--
     or for an example using a custom agent image:
@@ -269,7 +269,7 @@ where:
     }
     ```
 
-    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows access and capacity must be allocated to your organization before the mutation can succeed.
+    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <!--
     or for an example using a custom agent image:
