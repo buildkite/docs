@@ -101,7 +101,7 @@ To define the steps:
     **Note:** If you have a pipeline defined in another CI/CD platform (GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines), use the [Pipeline converter](/docs/pipelines/converter) to convert its syntax.
 
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
-1. In `pipeline.yml`, define your pipeline steps. You can use this example placeholder pipeline to verify that your repository checkout, pipeline upload, and step dependencies work. The commands print messages without building, testing, or deploying your code:
+1. In `pipeline.yml`, define your pipeline steps. You can use the following example pipeline to verify that your repository checkout, pipeline upload, and step dependencies work. The commands print messages without building, testing, or deploying your code:
 
     ```yaml
     steps:
