@@ -10,6 +10,8 @@ Test Engine supports the following types of monitors:
 - [New test](#new-test)
 - [Duration threshold](#duration-threshold)
 
+The current Pro plan includes the transition count monitor. Passed-on-retry, new-test, and duration-threshold monitors require advanced workflows. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
+
 You can alter and reduce the amount of test executions that a monitor receives using [tag filters](#tag-filters).
 
 ## Transition count

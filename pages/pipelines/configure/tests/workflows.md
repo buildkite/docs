@@ -10,6 +10,26 @@ Workflows are composed of a single [monitor](/docs/pipelines/configure/tests/wor
 
 You can also create and manage workflows using the [Workflows REST API](/docs/apis/rest-api/test-engine/workflows).
 
+## Plan availability and limits
+
+Your [billing plan](https://buildkite.com/pricing/feature-comparison) determines whether you can create and edit workflows, which monitors and actions you can configure, and how many workflows each test suite can have.
+
+Plan | Workflows per test suite | Monitors | Actions
+---- | ------------------------ | -------- | -------
+Free | Not available | Not available | Not available
+Pro | One | Transition count | **Add label** and **Remove label**
+Enterprise | Three by default, with a configurable quota | All documented monitors | All documented actions
+{: class="responsive-table"}
+
+The all-access trial includes three workflows per test suite and advanced workflows. Advanced workflows let you configure passed-on-retry, new-test, and duration-threshold monitors, and notification and state-change actions. Probabilistic flakiness requires a separate entitlement and is not included in the standard all-access trial.
+
+The default transition count workflow counts toward your suite's limit. Enterprise customers can contact support@buildkite.com to ask about increasing their workflow quota.
+
+> 📘 Legacy plans
+> If your organization is on a legacy plan, its workflow availability and limits may differ. Contact support@buildkite.com to confirm what your plan includes.
+
+Test state management and workflow state-change actions have different plan requirements. Pro includes test state management, but configuring a **Change state** workflow action requires advanced workflows. See [Test state and quarantine](/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine) for details.
+
 ## How they work
 
 A single monitor watches over all the tests in your test suite (except for those excluded by filters) and generates individual _alarm_ and _recover_ events for each test, which then trigger the associated [alarm and recover actions](/docs/pipelines/configure/tests/workflows/actions).

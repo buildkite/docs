@@ -2,6 +2,8 @@
 
 Use the workflows API to create and manage [workflows](/docs/pipelines/configure/tests/workflows) for a Buildkite Test Engine [test suite](/docs/pipelines/configure/tests/test-suites). Each workflow has one monitor, optional execution tag filters, and actions to run when a test alarms or recovers.
 
+The API enforces the same [plan availability and per-suite limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) as the workflow interface. The current Pro plan allows one transition count workflow per suite with add-label and remove-label actions. Other monitor and action types require the corresponding plan entitlements.
+
 In every endpoint, `{org.slug}` is the organization slug, `{suite.slug}` accepts a suite slug or UUID, and `{workflow.id}` is a workflow UUID.
 
 > 📘
@@ -191,7 +193,7 @@ Type | Configuration fields
 
 Each action list accepts up to seven entries. The `new_test` monitor accepts alarm actions only.
 
-The workflow actions available to you depend on your billing plan.
+On the current Pro plan, you can configure only `add_label` and `remove_label` actions. All other action types require advanced workflows. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
 
 ## Workflow data model
 
@@ -236,8 +238,8 @@ Status | Description
 ------ | -----------
 `400 Bad Request` | The request is malformed or pagination values are invalid.
 `401 Unauthorized` | Authentication failed.
-`403 Forbidden` | The token lacks the required scope, the caller lacks suite permissions, or the plan does not include the requested feature.
+`403 Forbidden` | The token lacks the required scope, the caller lacks suite permissions, or the plan does not include workflows.
 `404 Not Found` | The organization, suite, or workflow was not found.
-`422 Unprocessable Entity` | Validation failed, or the suite has reached its workflow limit.
+`422 Unprocessable Entity` | Validation failed, the plan does not include a requested monitor or action type, or the suite has reached its workflow limit.
 `503 Service Unavailable` | Linear could not be reached while validating a new Linear action. Retry the request later.
 {: class="responsive-table"}
