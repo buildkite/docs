@@ -15,7 +15,8 @@ You can alter and reduce the amount of test executions that a monitor receives u
 ## Transition count
 
 > 📘
-> This monitor is available on Pro and Enterprise plans and during the all-access trial. It is created by default for new test suites.
+> Available on [Pro and Enterprise](https://buildkite.com/pricing) plans.
+> This monitor is created by default for new test suites.
 
 A transition is a change from passing to failing, or failing to passing, in a sequence of results for a test over time.
 
@@ -40,7 +41,7 @@ If you're unsure what the most suitable monitor is for your test suite, use this
 ## Passed on retry
 
 > 📘
-> This monitor is available on Enterprise plans and during the all-access trial.
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
 
 _Passed on retry_ refers to a test that both passes and fails on the same git commit SHA. When this occurs, the _alarm_ [action(s)](/docs/pipelines/configure/tests/workflows/actions) are triggered. If the monitor then does not encounter passed on retry events over the next seven days or 100 executions of the given test (whichever is reached first), then the _recover_ actions for your workflow will be triggered.
 
@@ -55,7 +56,7 @@ The order and number of pass and fail results don't change the reportage of the 
 ## Probabilistic flakiness
 
 > 📘
-> The probabilistic flakiness monitor is only available on [Enterprise](https://buildkite.com/pricing) plans.
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
 
 This monitor tracks the [probabilistic flakiness score](https://engineering.fb.com/2020/12/10/developer-tools/probabilistic-flakiness/) (PFS) of each test. The PFS was developed by [Meta](https://www.meta.com/), and uses a Bayesian statistical model to derive the probability that a test will become flaky on its next execution. The PFS model takes into account the current result of the test, and the historical results of the test execution.
 
@@ -64,8 +65,8 @@ The probabilistic flakiness monitor is best suited to large and complex test sui
 ## New test
 
 > 📘
-> This monitor is available on Enterprise plans and during the all-access trial.
-> The new test monitor is in beta. The _recover_ actions are not yet available.
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
+> This monitor is in beta. The _recover_ actions are not yet available.
 
 The new test monitor triggers when a test executes for the first time and becomes a [managed test](/docs/pipelines/glossary#managed-test). A test is considered new only if the combination of its scope and name is unique and has not previously existed. If a test executes for the first time but its scope and name match an existing managed test, the monitor does not trigger.
 
@@ -74,7 +75,7 @@ You can configure the new test monitor to trigger actions that help track and ma
 ## Duration threshold
 
 > 📘
-> This monitor is available on Enterprise plans and during the all-access trial.
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
 
 The duration threshold monitor tracks how long individual tests take to run. The monitor triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
 

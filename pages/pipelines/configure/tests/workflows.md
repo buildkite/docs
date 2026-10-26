@@ -21,7 +21,7 @@ Pro | One | Transition count | **Add label** and **Remove label**
 Enterprise | Three by default, with a configurable quota | All documented monitors | All documented actions
 {: class="responsive-table"}
 
-The all-access trial includes three workflows per suite with advanced monitors and actions, except probabilistic flakiness. The default transition count workflow counts toward your suite's limit.
+The default transition count workflow counts toward your suite's limit.
 
 Legacy plan availability may differ. Contact support@buildkite.com to confirm your entitlements or request a higher Enterprise workflow quota.
 
