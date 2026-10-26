@@ -131,7 +131,15 @@ function restoreRewrittenLinks() {
     });
 }
 
-function clearAttribution() {
+function optOutMarketingPostHog() {
+  const client = marketingPostHog();
+  if (client && typeof client.opt_out_capturing === "function") {
+    client.opt_out_capturing();
+  }
+}
+
+function clearAttribution({ optOutMarketing = false } = {}) {
+  if (optOutMarketing) optOutMarketingPostHog();
   deleteCookie(FIRST_TOUCH_COOKIE);
   deleteCookie(LAST_TOUCH_COOKIE);
   deleteCookie(MARKETING_ID_COOKIE);
@@ -152,7 +160,16 @@ function marketingPostHog() {
   return window.posthog?.marketing;
 }
 
-function postHogOptedOut() {
+function clientOptedOut(client) {
+  if (!client || Array.isArray(client)) return false;
+
+  return Boolean(
+    typeof client.has_opted_out_capturing === "function" &&
+    client.has_opted_out_capturing(),
+  );
+}
+
+function docsPostHogOptedOut() {
   return Boolean(
     window.posthog &&
     typeof window.posthog.has_opted_out_capturing === "function" &&
@@ -161,8 +178,9 @@ function postHogOptedOut() {
 }
 
 function trackingAllowed() {
-  if (postHogOptedOut()) {
-    clearAttribution();
+  const docsOptedOut = docsPostHogOptedOut();
+  if (docsOptedOut || clientOptedOut(marketingPostHog())) {
+    clearAttribution({ optOutMarketing: docsOptedOut });
     return false;
   }
 
@@ -258,6 +276,9 @@ function persistTouch(touch) {
   if (!hasAttribution(firstTouch)) {
     writeCookie(FIRST_TOUCH_COOKIE, touch.toString());
   }
+  // "Last touch" intentionally means the last campaign-tagged touch. Referral-
+  // only visits remain available on their pageviews without replacing campaign
+  // attribution forwarded to signup.
   if (hasCampaignAttribution(touch)) {
     writeCookie(LAST_TOUCH_COOKIE, touch.toString());
   }
@@ -424,8 +445,9 @@ function initializeClickTracking() {
 }
 
 function enableTracking(client) {
-  if (postHogOptedOut()) {
-    clearAttribution();
+  const docsOptedOut = docsPostHogOptedOut();
+  if (docsOptedOut || clientOptedOut(client)) {
+    clearAttribution({ optOutMarketing: docsOptedOut });
     return;
   }
 
@@ -487,6 +509,9 @@ function initializeMarketingPostHog() {
       enableTracking(client);
     },
     before_send(event) {
+      if (docsPostHogOptedOut() || clientOptedOut(marketingPostHog())) {
+        return null;
+      }
       event.properties ||= {};
       event.properties.analytics_surface = "docs";
       event.properties.attribution_version = ATTRIBUTION_VERSION;
@@ -510,7 +535,10 @@ function retryWhenPostHogIsReady() {
 export function initMarketingAttribution() {
   const currentPageTouch = touchFromCurrentPage(false);
   if (hasAttribution(currentPageTouch)) {
-    pendingIncomingTouch = currentPageTouch;
+    const pendingHasCampaign = hasCampaignAttribution(pendingIncomingTouch);
+    if (!pendingHasCampaign || hasCampaignAttribution(currentPageTouch)) {
+      pendingIncomingTouch = currentPageTouch;
+    }
   }
 
   if (!docsPostHogIsReady()) {
@@ -518,8 +546,8 @@ export function initMarketingAttribution() {
     return;
   }
 
-  if (postHogOptedOut()) {
-    clearAttribution();
+  if (docsPostHogOptedOut()) {
+    clearAttribution({ optOutMarketing: true });
     return;
   }
 

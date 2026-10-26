@@ -64,13 +64,20 @@ function runAttribution({
   anchors = [],
   docsDistinctId = "docs-anonymous-id",
   marketingDistinctId = "marketing-anonymous-id",
+  docsReady = true,
+  marketingOptedOut = false,
   optedOut = false,
   referrer = "",
 } = {}) {
   const listeners = new Map();
   const marketingCaptures = [];
   const marketingInitCalls = [];
+  const marketingOptOutCalls = [];
+  const timers = [];
   const location = new URL(url);
+  let docsIsReady = docsReady;
+  let docsIsOptedOut = optedOut;
+  let marketingIsOptedOut = marketingOptedOut || optedOut;
 
   const document = {
     body: {},
@@ -111,24 +118,28 @@ function runAttribution({
 
   const marketing = {
     capture(name, properties) {
-      marketingCaptures.push({ name, properties });
+      if (!marketingIsOptedOut) marketingCaptures.push({ name, properties });
     },
     get_distinct_id() {
       return marketingDistinctId;
     },
     has_opted_out_capturing() {
-      return optedOut;
+      return marketingIsOptedOut;
+    },
+    opt_out_capturing() {
+      marketingIsOptedOut = true;
+      marketingOptOutCalls.push(true);
     },
     register() {},
     unregister() {},
   };
 
-  const posthog = {
+  const posthogMethods = {
     get_distinct_id() {
       return docsDistinctId;
     },
     has_opted_out_capturing() {
-      return optedOut;
+      return docsIsOptedOut;
     },
     init(_token, config, name) {
       marketingInitCalls.push({ config, name, token: _token });
@@ -137,6 +148,7 @@ function runAttribution({
       return marketing;
     },
   };
+  const posthog = docsIsReady ? { ...posthogMethods } : {};
 
   const window = {
     addEventListener(name, listener) {
@@ -144,6 +156,11 @@ function runAttribution({
     },
     location,
     posthog,
+    setTimeout(callback) {
+      if (docsIsReady) callback();
+      else timers.push(callback);
+      return timers.length;
+    },
   };
 
   vm.runInNewContext(source, {
@@ -152,10 +169,7 @@ function runAttribution({
     URL,
     URLSearchParams,
     document,
-    setTimeout(callback) {
-      callback();
-      return 1;
-    },
+    setTimeout: window.setTimeout,
     window,
   });
 
@@ -172,9 +186,19 @@ function runAttribution({
     },
     marketingCaptures,
     marketingInitCalls,
+    marketingOptOutCalls,
+    makeDocsPostHogReady() {
+      docsIsReady = true;
+      Object.assign(posthog, posthogMethods);
+      while (timers.length) timers.shift()();
+    },
     readAttribution: window.__readMarketingAttribution,
     reinitialize(nextUrl) {
       if (nextUrl) window.location = new URL(nextUrl);
+      window.__initMarketingAttribution();
+    },
+    withdrawDocsConsent() {
+      docsIsOptedOut = true;
       window.__initMarketingAttribution();
     },
   };
@@ -313,6 +337,31 @@ test("preserves the campaign after Turbo navigation with a LinkedIn referrer", (
   assert.equal(attribution.last_touch_utm_source, "linkedin");
   assert.equal(attribution.last_touch_utm_campaign, "docs_launch");
   assert.equal(attribution.last_touch_li_fat_id, linkedInClickId);
+});
+
+test("preserves a pending landing campaign when Turbo navigates before PostHog loads", () => {
+  const signup = createAnchor("/signup?iaid=docs-header");
+  const result = runAttribution({
+    url: `https://buildkite.com/docs?utm_source=linkedin&utm_medium=paid_social&utm_campaign=docs_launch&li_fat_id=${linkedInClickId}`,
+    anchors: [signup],
+    docsReady: false,
+    referrer: "https://www.linkedin.com/feed/",
+  });
+
+  result.reinitialize("https://buildkite.com/docs/pipelines");
+  result.makeDocsPostHogReady();
+  result.reinitialize();
+
+  const attribution = result.readAttribution();
+  const destination = new URL(
+    signup.getAttribute("href"),
+    "https://buildkite.com",
+  );
+  assert.equal(attribution.last_touch_utm_source, "linkedin");
+  assert.equal(attribution.last_touch_utm_campaign, "docs_launch");
+  assert.equal(attribution.last_touch_li_fat_id, linkedInClickId);
+  assert.equal(destination.searchParams.get("utm_campaign"), "docs_launch");
+  assert.equal(destination.searchParams.get("li_fat_id"), linkedInClickId);
 });
 
 test("recovers safely from malformed attribution cookies", () => {
@@ -510,4 +559,48 @@ test("clears attribution and does not initialize marketing tracking after opt-ou
   assert.equal(result.decodedCookie("bk_last_touch"), "");
   assert.equal(result.decodedCookie("bk_marketing_id"), "");
   assert.equal(result.decodedCookie("bk_marketing_tracking_allowed"), "");
+});
+
+test("does not persist or forward attribution when Marketing PostHog is opted out", () => {
+  const signup = createAnchor("/signup?iaid=docs-header");
+  const result = runAttribution({
+    url: `https://buildkite.com/docs?utm_source=linkedin&utm_campaign=docs_launch&li_fat_id=${linkedInClickId}`,
+    anchors: [signup],
+    marketingOptedOut: true,
+  });
+
+  assert.equal(result.marketingCaptures.length, 0);
+  assert.equal(result.decodedCookie("bk_first_touch"), "");
+  assert.equal(result.decodedCookie("bk_last_touch"), "");
+  assert.equal(result.decodedCookie("bk_marketing_id"), "");
+  assert.equal(result.decodedCookie("bk_marketing_tracking_allowed"), "");
+  assert.equal(signup.getAttribute("href"), "/signup?iaid=docs-header");
+});
+
+test("withdrawing Docs consent opts out Marketing PostHog and removes attribution", () => {
+  const signup = createAnchor("/signup?iaid=docs-header");
+  const result = runAttribution({
+    url: `https://buildkite.com/docs?utm_source=linkedin&utm_campaign=docs_launch&li_fat_id=${linkedInClickId}`,
+    anchors: [signup],
+  });
+
+  result.withdrawDocsConsent();
+
+  assert.equal(result.marketingOptOutCalls.length, 1);
+  assert.equal(result.decodedCookie("bk_first_touch"), "");
+  assert.equal(result.decodedCookie("bk_last_touch"), "");
+  assert.equal(result.decodedCookie("bk_marketing_id"), "");
+  assert.equal(result.decodedCookie("bk_marketing_tracking_allowed"), "");
+  assert.equal(signup.getAttribute("href"), "/signup?iaid=docs-header");
+});
+
+test("drops Marketing events processed after Docs consent is withdrawn", () => {
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin",
+  });
+  const beforeSend = result.marketingInitCalls[0].config.before_send;
+
+  result.withdrawDocsConsent();
+
+  assert.equal(beforeSend({ properties: {} }), null);
 });
