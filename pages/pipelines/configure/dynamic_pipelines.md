@@ -1,8 +1,27 @@
+---
+description: "Generate pipeline steps at build time in Buildkite Pipelines. Start with a Bash example, validate uploads, and choose SDK or monorepo patterns."
+---
+
 # Dynamic pipelines
 
-When your source code projects are built with Buildkite Pipelines, you can write scripts that generate new pipeline steps at build time, in either YAML or JSON, and upload them to the same pipeline using the [pipeline upload step](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps are added to the same build and appear as their own steps. Each generated step is scheduled as its own job and runs on any [agent](/docs/agent) that matches its [`agents`](/docs/agent/cli/reference/start#agent-targeting) query or [queue](/docs/agent/queues), so different steps in the same build can run on different agents. This gives you the flexibility to structure pipelines however you require and to route work to the most appropriate agents.
+Dynamic pipelines generate and upload new steps while a Buildkite Pipelines build is running. Use them when the work depends on changed files, results from earlier steps, or other information available at build time.
 
-A pipeline generator script can be written in any language that produces YAML or JSON on stdout — the commonly used ones are Bash, Python, Ruby, Node.js, Go, C#, and PHP. For type-safe, unit-testable pipeline definitions in JavaScript/TypeScript, Python, Go, and Ruby, see the [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk).
+A generator script outputs YAML or JSON, which the [`buildkite-agent pipeline upload` command](/docs/agent/cli/reference/pipeline#uploading-pipelines) adds to the current build. Generated command steps run as jobs on matching [agents](/docs/agent) in the targeted [queues](/docs/agent/queues). Your generator can use any programming language that writes to standard output.
+
+## When to use dynamic pipelines
+
+Buildkite Pipelines supports both static configuration and dynamic step generation. Choose the simplest approach that meets your needs:
+
+Your situation | Approach | Where to start
+-------------- | -------- | --------------
+You run the same steps every time | Static YAML | [Pipelines getting started](/docs/pipelines/getting-started)
+You want to skip steps when specific files haven't changed | File-change conditions | [Using if_changed](/docs/pipelines/configure/dynamic-pipelines/if-changed)
+Your monorepo has separate pipelines per service | Change detection and pipeline triggers | [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos)
+You calculate steps, dependencies, or matrix combinations at build time | A pipeline generator script | [Your first dynamic pipeline](#your-first-dynamic-pipeline)
+You want typed, testable step definitions in your preferred language | Dynamic generation with the SDK | [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
+Your steps depend on earlier results, external APIs, or feature flags | Multi-stage generation | [Advanced patterns](#advanced-patterns)
+You need to retry work on different infrastructure | A generated fallback step | [Retrying on different infrastructure](#advanced-patterns-retrying-on-different-infrastructure)
+{: class="responsive-table"}
 
 ## Your first dynamic pipeline
 
@@ -15,11 +34,13 @@ The `.buildkite/pipeline.yml` file contains a single step that runs the pipeline
 ```yaml
 steps:
   - label: "\:pipeline\: Generate pipeline"
-    command: ".buildkite/generate-pipeline.sh | buildkite-agent pipeline upload"
+    command: |
+      set -euo pipefail
+      .buildkite/generate-pipeline.sh | buildkite-agent pipeline upload
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-The generated steps are inserted into the running build immediately after the bootstrap step.
+Configure your pipeline to [load this file from your repository](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps are inserted into the running build immediately after the bootstrap step. The shell options ensure that a failed generator or upload fails the bootstrap step.
 
 ### An example pipeline generator script
 
@@ -35,6 +56,7 @@ for test_dir in tests/*/; do
   suite=$(basename "$test_dir")
   cat <<YAML
   - label: "\:test_tube\: Test ${suite}"
+    key: "test-${suite}"
     command: "make test SUITE=${suite}"
     agents:
       queue: "default"
@@ -43,11 +65,26 @@ done
 ```
 {: codeblock-file=".buildkite/generate-pipeline.sh"}
 
-Save this script to the `.buildkite/` directory and ensure it is executable. With `tests/unit/`, `tests/integration/`, and `tests/e2e/` in the repository, the build gets three test steps, and adding a new test directory requires no pipeline YAML changes. For a working implementation, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
+Save this script as `.buildkite/generate-pipeline.sh` and make it executable with `chmod +x .buildkite/generate-pipeline.sh`. The example assumes your repository has test subdirectories, a `make test` target that accepts `SUITE`, and an agent queue named `default`. Adapt those values to your project.
+
+### Validate the generated steps
+
+<a id="testing-dynamic-pipelines-local-validation-with-dry-run"></a>
+
+With the Buildkite agent CLI installed locally, preview the generated pipeline without uploading or running any steps:
+
+```bash
+set -euo pipefail
+.buildkite/generate-pipeline.sh | buildkite-agent pipeline upload --dry-run
+```
+
+The `--dry-run` flag parses and interpolates the pipeline, then prints it to standard output. With `tests/unit/`, `tests/integration/`, and `tests/e2e/`, check that the output contains three test steps with keys `test-unit`, `test-integration`, and `test-e2e`. Start a build to run them. Adding a test directory requires no changes to the pipeline definition.
+
+For additional validation, save the generated output to a file and use [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline). For a runnable project to adapt, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
 
 ### Step insertion order
 
-`pipeline upload` inserts new steps immediately after the step that called it. If a single command step calls `pipeline upload` more than once, each batch of uploaded steps appears in reverse order in the Buildkite interface. To control ordering, define each upload step in reverse order—the steps to run first should be defined last—or set explicit dependencies with `depends_on`. See [Insertion order](/docs/agent/cli/reference/pipeline#insertion-order) in the `pipeline upload` CLI reference for details.
+`pipeline upload` inserts new steps immediately after the step that called it. If one command step uploads more than once, the batches appear in reverse upload order in the Buildkite Pipelines interface. Upload the batches in reverse order to control their display order. Use [explicit dependencies with `depends_on`](/docs/pipelines/configure/depends-on) to control execution order. See [Insertion order](/docs/agent/cli/reference/pipeline#insertion-order) for details.
 
 ### Environment variable interpolation
 
@@ -57,24 +94,11 @@ The Buildkite agent interpolates environment variables in the uploaded YAML at u
 
 Pipeline uploads are subject to default service quotas of 500 jobs per upload, 500 uploads per build, and 4,000 jobs per build. If a script produces more jobs than the per-upload quota allows, see [Upload performance at scale](#upload-performance-at-scale). For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
 
-## When to use dynamic pipelines
-
-Buildkite Pipelines supports several approaches to varying what runs in a build, ranging from fully static configuration to fully dynamic step generation. Use the following guide to find the right starting point:
-
-| Your situation | Approach | Where to start |
-|----------------|----------|----------------|
-| Your pipeline runs the same steps every time | Static YAML | [Pipelines getting started](/docs/pipelines/getting-started) |
-| You want to skip steps when specific files haven't changed | `if_changed` | [Using if_changed](/docs/pipelines/configure/dynamic-pipelines/if-changed) |
-| Your monorepo has separate pipelines per service | monorepo-diff plugin | [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos) |
-| You need consistent configuration, transitive dependency analysis, or matrix combinations calculated at runtime | Dynamic generation | [Your first dynamic pipeline](#your-first-dynamic-pipeline) |
-| You need to retry on different infrastructure or recover from failures | Dynamic generation | [Retrying on different infrastructure](#advanced-patterns-retrying-on-different-infrastructure) |
-| Your pipeline YAML has outgrown what the team can maintain | Dynamic generation (SDK) | [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk) |
-| Your steps depend on output from previous steps, external APIs, or feature flags mid-build | Multi-stage dynamic pipeline | [Advanced patterns](#advanced-patterns) |
-| A webhook handler needs to decide at runtime which steps to add | Dynamic generation | [Your first dynamic pipeline](#your-first-dynamic-pipeline) |
-
 ## Combining file-change and branch conditions with if_changed
 
-The [`if_changed`](/docs/pipelines/configure/dynamic-pipelines/if-changed) attribute skips or includes steps based on which files changed, without requiring a pipeline generator script. A single step definition combines `if` and `if_changed` with AND logic—both conditions must be true for the step to run. To express OR logic (for example, "run on `main` OR when certain files changed"), define two steps that share the same `command` and `key` prefix: one guarded by `if`, the other by `if_changed` (with an `if` clause that excludes the branch already covered by the first step, so the work does not run twice).
+The `if_changed` attribute skips or includes steps based on which files changed, without a generator script. A step that combines `if` and `if_changed` runs only when both conditions are true.
+
+To express OR logic, define two steps with the same command and distinct keys. The following example runs on `main` or when files in `deploy/` change. The second step excludes `main` so the work does not run twice:
 
 ```yaml
 steps:
@@ -128,6 +152,8 @@ steps:
 
 Each team defines their steps in `team-steps.yml`. The templating logic in `enforce-rules.sh` can add steps to the YAML, require certain dependency or plugin versions, or implement any other logic. You can also source `enforce-rules.sh` from an external catalog instead of committing it to the team repository.
 
+For centrally assigned, static configurations, compare this approach with [pipeline templates](/docs/pipelines/governance/templates), an Enterprise plan feature. Static templates can include a generator step when later steps need to vary at runtime.
+
 See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](https://hasura.io/blog/what-we-learnt-by-migrating-from-circleci-to-buildkite/#dynamic-pipelines) to replace their YAML configuration with Go and shell scripts.
 
 ## Advanced patterns
@@ -179,17 +205,19 @@ fi | buildkite-agent pipeline upload
 
 ### Retrying on different infrastructure
 
-The built-in `retry: automatic` attribute retries on the same queue. For failures caused by resource constraints (out-of-memory, disk exhaustion, spot preemption), a [`pre-exit` hook](/docs/agent/hooks) can detect the failure and use `pipeline upload` to add a step that targets a bigger or more stable queue:
+The built-in `retry: automatic` attribute retries on the same queue. A [`pre-exit` hook](/docs/agent/hooks) can instead upload a fallback step on another queue. For example, the following hook responds to exit status `137` by adding a step on a larger queue. This status can indicate an out-of-memory kill, but confirm the cause before choosing a fallback policy.
 
 ```bash
-if [[ "$BUILDKITE_COMMAND_EXIT_STATUS" == "137" ]]; then
-  echo "OOM detected. Retrying on memory-optimized agent."
+if [[ "$BUILDKITE_COMMAND_EXIT_STATUS" == "137" && "${FALLBACK_RETRY:-false}" != "true" ]]; then
+  echo "Job exited with status 137. Adding a fallback on the memory-optimized queue."
   buildkite-agent pipeline upload <<YAML
 steps:
   - label: "\:repeat\: Retry ${BUILDKITE_LABEL} (memory-optimized)"
     command: "${BUILDKITE_COMMAND}"
     agents:
       queue: "memory-optimized"
+    env:
+      FALLBACK_RETRY: "true"
     retry:
       automatic:
         - exit_status: 137
@@ -199,21 +227,11 @@ fi
 ```
 {: codeblock-file=".buildkite/hooks/pre-exit"}
 
-The `limit: 1` value prevents an infinite retry loop. For high-volume pipelines, keep retry caps low to avoid retry storms during fleet-wide infrastructure issues.
+The `FALLBACK_RETRY` flag prevents the fallback job and its automatic retry from uploading another fallback. The `limit: 1` value caps automatic retries of that step; it does not limit new steps created by uploads. The original job remains failed, so adding a successful fallback does not by itself make the build pass.
 
 ## Testing dynamic pipelines
 
-With a static pipeline, the YAML lives in the repository and can be reviewed before it runs. With a dynamic pipeline, the output only exists at runtime, so validate it both during development and on every build.
-
-### Local validation with dry-run
-
-The [`--dry-run`](/docs/agent/cli/reference/pipeline#uploading-pipelines) flag parses and interpolates the pipeline definition, then prints the result to stdout instead of uploading it. Use it during development to catch YAML syntax and step validation errors before committing:
-
-```bash
-.buildkite/generate-pipeline.sh | buildkite-agent pipeline upload --dry-run
-```
-
-For complex scripts where the parse error message does not pinpoint the exact line, redirect the output to a file and run it through a YAML linter or [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline).
+With a static pipeline, the YAML lives in the repository and can be reviewed before it runs. With a dynamic pipeline, the output only exists at runtime. Start with [local validation](#your-first-dynamic-pipeline-validate-the-generated-steps), then capture the generated definition on every build so you can inspect it later.
 
 ### Production validation with artifact capture
 
@@ -315,3 +333,9 @@ The agent also checks values assigned to matching variables in pipeline-level, s
 [Pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) prevents unsigned steps from being injected using `pipeline upload`. For dynamic pipelines, both the pipeline generator script and the steps it produces must be signed.
 
 In Kubernetes environments, `pipeline upload` can inject steps that run with higher-privilege service accounts, creating a privilege escalation path. Audit which steps can call `pipeline upload` and what service accounts those steps run under.
+
+## Next steps
+
+- **Build and test a monorepo**: Follow [Creating dynamic pipelines and build annotations using Bazel](/docs/pipelines/tutorials/dynamic-pipelines-and-annotations-using-bazel) for a complete example that resolves dependencies and generates steps.
+- **Organize generated steps**: Use [group steps](/docs/pipelines/configure/step-types/group-step) to keep related jobs together on the build page.
+- **Protect a production pipeline**: Follow [Secure your first production pipeline](/docs/platform/security/first-production-pipeline) to configure and verify access controls.
