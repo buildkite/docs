@@ -32,7 +32,7 @@ experiment="experiment1,experiment2"
 If an experiment doesn't exist, no error will be raised.
 
 > 🚧
-> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.
+> Please note that there is a likely chance that these experiments will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.
 
 ## Available experiments
 
@@ -41,7 +41,7 @@ If an experiment doesn't exist, no error will be raised.
 This exposes a local API for interacting with the agent process.
 ...with primitives that can be used to solve local concurrency problems (such as multiple agents handling some shared local resource).
 
-The API is exposed using a Unix Domain Socket. The path to the socket is not available using a environment variable - rather, there is a single (configurable) path on the system.
+The API is exposed using a Unix Domain Socket. The path to the socket is not available using an environment variable - rather, there is a single (configurable) path on the system.
 
 > 🛠
 > To use this feature, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.

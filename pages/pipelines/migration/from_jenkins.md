@@ -146,7 +146,7 @@ Buildkite's YAML-based pipeline syntax and definitions, along with its flat stru
 
 ### Step execution
 
-By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite runs steps simultaneously (that is, in parallel) on any available agents that can run them. However, you can achieve the opposite of these default behaviors in each products' pipelines.
+By default, Jenkins runs its pipeline steps in sequence, whereas Buildkite runs steps simultaneously (that is, in parallel) on any available agents that can run them. However, you can achieve the opposite of these default behaviors in each product's pipelines.
 
 To make a Jenkins pipeline run its steps in parallel, the [`parallel` directive](https://www.jenkins.io/doc/book/pipeline/syntax/#parallel) is used explicitly in the Jenkins pipeline. For instance, in the following Jenkins pipeline snippet, the `Lint` and `Unit Tests` steps are run simultaneously.
 
@@ -205,7 +205,7 @@ steps:
     command: npm test # Fails because node_modules won't be there
 ```
 
-However, there are have several options for sharing state between steps:
+However, there are several options for sharing state between steps:
 
 - **Reinstall per step**: Simple for fast-installing dependencies like `npm ci` (instead of `npm install`). For instance, from the example above:
 
@@ -252,7 +252,7 @@ The declarative Jenkins pipeline example can be found in the [jenkins-to-buildki
 
 Make a copy or fork this repository (within your own GitHub account) to examine it further. This repository has its own containerized version of Jenkins, which you can run locally to see how it builds the Jenkins pipeline and app included within this repository.
 
-In your Buildkite organization, which you would have created or began working with when [trying out Buildkite](#understand-the-differences-try-out-buildkite), [create a new pipeline](/docs/pipelines/getting-started#create-your-own-pipeline-create-a-pipeline) for this jenkins-to-buildkite repository, so that you can see and compare the same Node.js project being built in both Jenkins and Buildkite.
+In your Buildkite organization, which you would have created or begun working with when [trying out Buildkite](#understand-the-differences-try-out-buildkite), [create a new pipeline](/docs/pipelines/getting-started#create-your-own-pipeline-create-a-pipeline) for this jenkins-to-buildkite repository, so that you can see and compare the same Node.js project being built in both Jenkins and Buildkite.
 
 ### Step 2: Examine the Jenkins pipeline
 
@@ -330,7 +330,7 @@ Without this [`depends_on` attribute](/docs/pipelines/configure/depends-on#defin
 
 ### Step 6: Install Node.js and dependencies
 
-Now replace the [three placeholder commands you began with earlier](#translate-an-example-jenkins-pipeline-step-4-create-a-basic-buildkite-pipeline-structure) with real commands that install Node.js and its dependencies. Since each step begins with a fresh workspace when it dispatch as a job to run on a Buildkite agent, Node.js and its dependencies must be installed on every step:
+Now replace the [three placeholder commands you began with earlier](#translate-an-example-jenkins-pipeline-step-4-create-a-basic-buildkite-pipeline-structure) with real commands that install Node.js and its dependencies. Since each step begins with a fresh workspace when it is dispatched as a job to run on a Buildkite agent, Node.js and its dependencies must be installed on every step:
 
 ```yaml
   - label: "\:eslint\: Lint"

@@ -44,7 +44,7 @@ For AWS ECR, the Elastic CI Stack for AWS agents can use IAM roles for authentic
 
 ### Resource allocation
 
-Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Elastic CI Stack for AWS agent instance types and other required resources accordingly. Without appropriate resources, builds may fail with Out of Memory (OOM) errors or timeouts
+Building container images can be resource-intensive, especially for large applications or when building multiple services. Configure your Elastic CI Stack for AWS agent instance types and other required resources accordingly. Without appropriate resources, builds may fail with Out of Memory (OOM) errors or timeouts.
 
 ## Configuration approaches with the Docker Compose plugin
 
@@ -491,7 +491,7 @@ Builds may fail due to agent startup problems or scaling limitations:
 
 ## Debugging builds
 
-When builds fail or behave in unexpected manner, you need to enable verbose output and disable caching to diagnose the issue.
+When builds fail or behave in an unexpected manner, you need to enable verbose output and disable caching to diagnose the issue.
 
 ### Enable verbose output
 

@@ -287,7 +287,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>maintainers</code></th>
-    <td>An array of one or more hashes of representing users or teams to grant maintainer permissions to for this cluster.<br/>
+    <td>An array of one or more hashes representing users or teams to grant maintainer permissions to for this cluster.<br/>
       <em>Example:</em>
       <code>
       [{ "user": "282a043f-4d4f-4db5-ac9a-58673ae02caf" }, { "team": "0da645b7-9840-428f-bd80-0b92ee274480" }]

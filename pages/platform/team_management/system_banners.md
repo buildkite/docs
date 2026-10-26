@@ -24,7 +24,7 @@ You can use Markdown to format your message and link to other URLs or pages for 
 
 You can create a system banner programmatically using the [REST API](/docs/apis/rest-api/organizations/banner) or the GraphQL API.
 
-Please review the GraphQL [cookbook] on instructions on how to create
+Please review the GraphQL [cookbook] for instructions on how to create
 a banner using the API.
 
 [cookbook]: </docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners>

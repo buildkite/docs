@@ -1,6 +1,6 @@
 # Importing JSON
 
-If a test collector is not available for your test framework, you can upload tests results directly to the Test Engine API or [write your own test collector](/docs/pipelines/configure/tests/test-collection/your-own-collectors).
+If a test collector is not available for your test framework, you can upload test results directly to the Test Engine API or [write your own test collector](/docs/pipelines/configure/tests/test-collection/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml).
 
 ## Supported upload formats
@@ -422,7 +422,7 @@ It represents, for example, the duration of an individual database query within 
 
 ### Detail objects
 
-Detail objects contains additional information about the span.
+Detail objects contain additional information about the span.
 
 <table class="responsive-table">
   <thead>

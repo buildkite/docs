@@ -373,7 +373,7 @@ steps:
 
 ### bktec plan flags
 
-The `bktec plan` command supports the following flags, which controls the behavior of the dynamic parallelism test plan. Each flag's value alternatively can be supplied using an environment variable.
+The `bktec plan` command supports the following flags, which control the behavior of the dynamic parallelism test plan. Each flag's value alternatively can be supplied using an environment variable.
 
 <table class="responsive-table">
   <tbody>
