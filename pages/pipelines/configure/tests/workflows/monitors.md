@@ -10,8 +10,6 @@ Test Engine supports the following types of monitors:
 - [New test](#new-test)
 - [Duration threshold](#duration-threshold)
 
-The current Pro plan includes the transition count monitor. Passed-on-retry, new-test, and duration-threshold monitors require advanced workflows. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
-
 You can alter and reduce the amount of test executions that a monitor receives using [tag filters](#tag-filters).
 
 ## Transition count
@@ -19,7 +17,7 @@ You can alter and reduce the amount of test executions that a monitor receives u
 A transition is a change from passing to failing, or failing to passing, in a sequence of results for a test over time.
 
 > 📘
-> This monitor is created by default for new test suites.
+> This monitor is available on Pro and Enterprise plans and during the all-access trial. It is created by default for new test suites.
 
 <%= image "transition-count-light.png", class: 'light-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing tests with multiple results, and the transitions counts (pass -> fail, or fail -> pass) for each test" %>
 
@@ -43,6 +41,9 @@ If you're unsure what the most suitable monitor is for your test suite, use this
 
 _Passed on retry_ refers to a test that both passes and fails on the same git commit SHA. When this occurs, the _alarm_ [action(s)](/docs/pipelines/configure/tests/workflows/actions) are triggered. If the monitor then does not encounter passed on retry events over the next seven days or 100 executions of the given test (whichever is reached first), then the _recover_ actions for your workflow will be triggered.
 
+> 📘
+> This monitor is available on Enterprise plans and during the all-access trial.
+
 <%= image "passed-on-retry-light.png", class: 'light-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing multiple test results on one commit, and that a commit with a pass and a fail on the same commit is considered flaky" %>
 
 <%= image "passed-on-retry-dark.png", class: 'dark-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing multiple test results on one commit, and that a commit with a pass and a fail on the same commit is considered flaky" %>
@@ -63,6 +64,7 @@ The probabilistic flakiness monitor is best suited to large and complex test sui
 ## New test
 
 > 📘
+> This monitor is available on Enterprise plans and during the all-access trial.
 > The new test monitor is in beta. The _recover_ actions are not yet available.
 
 The new test monitor triggers when a test executes for the first time and becomes a [managed test](/docs/pipelines/glossary#managed-test). A test is considered new only if the combination of its scope and name is unique and has not previously existed. If a test executes for the first time but its scope and name match an existing managed test, the monitor does not trigger.
@@ -72,6 +74,9 @@ You can configure the new test monitor to trigger actions that help track and ma
 ## Duration threshold
 
 The duration threshold monitor tracks how long individual tests take to run. The monitor triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
+
+> 📘
+> This monitor is available on Enterprise plans and during the all-access trial.
 
 The monitor maintains a rolling window of recent [execution](/docs/pipelines/glossary#execution) durations for each test. The monitor calculates the aggregated duration across the window and compares it to the configured thresholds:
 
