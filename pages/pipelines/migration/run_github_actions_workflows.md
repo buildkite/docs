@@ -357,7 +357,7 @@ If a supported event doesn't appear in **Recent Deliveries**, check the reposito
 
 ### A runner is unavailable
 
-Check the diagnostic at the job's `runs-on` value and confirm that the pipeline's cluster contains a compatible queue. For macOS, confirm that the selected queue exists, has available capacity, and uses a suitable base image. For Windows, confirm hosted access and routing with the Buildkite Support team.
+Check the diagnostic at the job's `runs-on` value and confirm that the pipeline's cluster contains a compatible queue. For macOS, confirm that the selected queue exists, has available capacity, and uses a suitable base image. For Windows, confirm that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue.
 
 Don't edit generated jobs or add a plugin mapping to bypass runner validation. Contact support with the build URL, workflow path, requested `runs-on` label, and complete diagnostic if automatic resolution doesn't meet your requirements.
 
