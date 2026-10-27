@@ -4,7 +4,7 @@ Flaky tests produce inconsistent results when run against the same code and envi
 
 Test Engine uses [workflows](/docs/pipelines/configure/tests/workflows) to detect flaky tests, quarantine them so they stop blocking builds, notify the relevant teams, and track when the tests become reliable again.
 
-The workflows you can configure depend on your plan. The current Pro plan supports transition count monitoring and label actions. Workflow actions that quarantine tests or notify teams require an Enterprise plan. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
+The workflows you can configure depend on your plan. The current Pro plan supports flaky test identification and labeling using transition count monitoring and label actions. Workflow actions that quarantine tests or notify teams require an Enterprise plan. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
 
 ## Detect flaky tests
 
