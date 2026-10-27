@@ -82,47 +82,6 @@ Required scope: `write_suites`
 
 Success response: `201 Created`
 
-### Create a quarantine workflow
-
-On an Enterprise plan, you can create a workflow that mutes unreliable tests and enables them again when they recover.
-
-First, [update the suite](/docs/apis/rest-api/test-engine/suites#update-a-suite) to allow muting:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X PATCH "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "test_state_management": true,
-    "allowed_test_states": ["muted"]
-  }'
-```
-
-After the update succeeds, create the workflow:
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "monitor": {
-      "type": "transition_count",
-      "window_size": 100,
-      "alarm_threshold": 0.1,
-      "recover_threshold": 0.05
-    },
-    "filters": [
-      { "key": "scm.branch", "operator": "is", "value": "main" }
-    ],
-    "alarm_actions": [
-      { "type": "change_state", "state": "muted" }
-    ],
-    "recover_actions": [
-      { "type": "change_state", "state": "enabled" }
-    ]
-  }'
-```
-
 ## List workflows
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a suite's workflows, newest first. Each item has the [workflow data model](#workflow-data-model) fields.
@@ -190,9 +149,6 @@ Success response: `204 No Content`
 
 The `monitor.type` selects the [monitor](/docs/pipelines/configure/tests/workflows/monitors) and its configuration fields. All fields listed for a type are required on creation. Thresholds must be JSON numbers, not strings. Recovery thresholds must be strictly lower than alarm thresholds.
 
-> 📘
-> The probabilistic flakiness monitor is only available on [Enterprise](https://buildkite.com/pricing) plans.
-
 Type | Configuration fields
 ---- | --------------------
 `transition_count` | `window_size`: integer from `2` to `1000`. `alarm_threshold` and `recover_threshold`: numbers from `0` to `1`, with up to three decimal places. Requires a nonempty `scm.branch` filter.
@@ -204,6 +160,8 @@ Type | Configuration fields
 
 > 📘 Duration units
 > The REST API uses milliseconds for duration thresholds. The workflow interface uses seconds.
+
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the monitors available.
 
 ## Filter configuration
 
