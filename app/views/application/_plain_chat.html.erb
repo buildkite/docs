@@ -1,0 +1,82 @@
+<% plain_chat_app_id = ENV.fetch("PLAIN_CHAT_APP_ID", nil) %>
+<% if plain_chat_app_id.present? %>
+<%= javascript_tag nonce: true do -%>
+  (function(d, script) {
+    script = d.createElement('script');
+    script.async = false;
+    script.onload = function(){
+      // Read the docs site's stored theme so the widget opens already
+      // matching it. Without this, Plain always starts at 'auto' and only
+      // gets corrected by the next theme-change event, which can leave a
+      // mismatch (e.g. a saved "light" preference with a dark OS setting
+      // opens a dark widget) until the visitor touches the theme selector.
+      var docsTheme = localStorage.getItem('docs-theme') || 'system';
+      var plainTheme = docsTheme === 'system' ? 'auto' : docsTheme;
+
+      Plain.init({
+        appId: "<%= plain_chat_app_id %>",
+        // Optional. Hides the 'Powered by Plain' branding
+        hideBranding: true,
+
+        // Optional. Hides the launcher, you can manually show it by calling `Plain.open()` (default: false)
+        hideLauncher: false,
+
+        // Optional. The color scheme of the Chat, is either 'auto', 'light', or 'dark'
+        // 'auto' uses the user's browser preference to decide between light and dark mode (default: 'auto')
+        theme: plainTheme,
+
+        // Optional. Various styling options.
+        // launcherBackgroundColor/launcherIconColor are set explicitly per theme here because
+        // Plain.update({ theme }) does not repaint the launcher icon color on its own, which left
+        // it stuck at its initial color (invisible against the background) after a theme switch.
+        style: {
+          launcherBackgroundColor: { light: '#000000', dark: '#FFFFFF' },
+          launcherIconColor: { light: '#FFFFFF', dark: '#000000' },
+        },
+
+        // Optional. Logo which is shown in the header of the chat intro screen.
+        // If you have uploaded a logo in your chat settings, this setting will take priority over that.
+        logo: {
+        // url to get the logo from
+        url: '<%= image_path('logo.svg') %>',
+        // Optional. Alt text which is displayed on hover of the logo
+        alt: 'Buildkite',
+        },
+
+        // Optional. A collection of links shown on the Welcome screen
+        links: [
+            {
+              // Optional, supported icons are:
+              //   'bell',
+              //   'book',
+              //   'bug',
+              //   'bulb',
+              //   'chat',
+              //   'integration',
+              //   'discord',
+              //   'discord_muted',
+              //   'email',
+              //   'slack',
+              //   'slack_muted',
+              //   'link',
+              //   'pencil',
+              //   'send',
+              //   'support',
+              //   'error'
+              icon: 'chat',
+              text: 'Visit our forum',
+              url: 'https://forum.buildkite.community/',
+            },
+            {
+              icon: 'send',
+              text: 'Email support',
+              url: 'mailto:support@buildkite.com',
+            },
+          ],
+      });
+    };
+    script.src = 'https://chat.cdn-plain.com/index.js';
+    d.getElementsByTagName('head')[0].appendChild(script);
+  }(document));
+<% end %>
+<% end %>

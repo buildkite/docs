@@ -89,6 +89,9 @@ button {
 }
 
 .Button--link {
+  appearance: none;
+  background: none;
+  cursor: pointer;
   gap: 4px;
   margin: 0;
   padding: 0;
