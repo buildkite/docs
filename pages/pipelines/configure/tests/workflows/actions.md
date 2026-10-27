@@ -2,6 +2,8 @@
 
 When conditions from a [monitor](/docs/pipelines/configure/tests/workflows/monitors) in your test suite's [workflow](/docs/pipelines/configure/tests/workflows) triggers an [_alarm_ or _recover_ action event](/docs/pipelines/configure/tests/workflows#how-they-work), there are several automatic actions that Test Engine can perform. Workflows are subject to a rate limit. This limit only affects the **Send webhook notification**, **Send Slack notification**, and **Create Linear issue** actions. The **Add label**, **Remove label**, and **Change state** actions always run. See [Rate limit](/docs/pipelines/configure/tests/workflows#rate-limit) for more information.
 
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the actions available.
+
 ## Add or remove label
 
 The **Add label** or **Remove label** action lets you respectively add a label to or remove a label from a test. These two actions are often set as a pair, for example, an alarm action will label a test **flaky**, and the corresponding recover action will remove the **flaky** label.
@@ -13,6 +15,8 @@ The **Change state** action lets you [change the state](/docs/pipelines/configur
 ## Send webhook notification
 
 The **Send webhook notification** action lets you send JSON payloads through HTTP requests to specific URL endpoints of third-party applications, which let these applications react to activities on your Test Engine workflows as they happen. The content of the payloads differ depending on the workflow monitor configured.
+
+Every webhook payload contains `subject`, `workflow_id`, `workflow_url`, `suite_slug`, `suite_url`, `event`, `workflow_event`, and `workflow_actions` fields. The `workflow_event` object contains the monitor-specific data. The transition count example below is an abbreviated payload. The passed-on-retry and probabilistic flakiness examples show only the `workflow_event` object, not the full payload.
 
 ### Transition count
 
