@@ -82,6 +82,47 @@ Required scope: `write_suites`
 
 Success response: `201 Created`
 
+### Create a quarantine workflow
+
+On an Enterprise plan, you can create a workflow that mutes unreliable tests and enables them again when they recover.
+
+First, [update the suite](/docs/apis/rest-api/test-engine/suites#update-a-suite) to allow muting:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "test_state_management": true,
+    "allowed_test_states": ["muted"]
+  }'
+```
+
+After the update succeeds, create the workflow:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/workflows" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "monitor": {
+      "type": "transition_count",
+      "window_size": 100,
+      "alarm_threshold": 0.1,
+      "recover_threshold": 0.05
+    },
+    "filters": [
+      { "key": "scm.branch", "operator": "is", "value": "main" }
+    ],
+    "alarm_actions": [
+      { "type": "change_state", "state": "muted" }
+    ],
+    "recover_actions": [
+      { "type": "change_state", "state": "enabled" }
+    ]
+  }'
+```
+
 ## List workflows
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a suite's workflows, newest first. Each item has the [workflow data model](#workflow-data-model) fields.

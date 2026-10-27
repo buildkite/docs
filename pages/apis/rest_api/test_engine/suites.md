@@ -23,7 +23,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "application_name": "Buildkite",
     "color": "#FFF700",
     "emoji": "🍋",
-    "oidc_policy": null
+    "oidc_policy": null,
+    "test_state_management": false,
+    "allowed_test_states": []
   }
 ]
 ```
@@ -59,7 +61,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "application_name": "Buildkite",
     "color": "#FFF700",
     "emoji": "🍋",
-    "oidc_policy": null
+    "oidc_policy": null,
+    "test_state_management": false,
+    "allowed_test_states": []
   }
 ]
 ```
@@ -88,7 +92,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "application_name": "Buildkite",
   "color": "#FFF700",
   "emoji": "🍋",
-  "oidc_policy": null
+  "oidc_policy": null,
+  "test_state_management": false,
+  "allowed_test_states": []
 }
 ```
 
@@ -131,7 +137,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "color": "#FFF700",
   "emoji": "🍋",
   "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA",
-  "oidc_policy": null
+  "oidc_policy": null,
+  "test_state_management": false,
+  "allowed_test_states": []
 }
 ```
 
@@ -183,6 +191,14 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>flaky_detection</code></th>
     <td>Set to <code>false</code> if you don't want to create the <code>flaky</code> label and the default flaky test detection workflow. The default workflow is created only when your plan includes workflows. This option applies only when creating a suite.<br><em>Default value:</em> <code>true</code>.</td>
   </tr>
+  <tr>
+    <th><code>test_state_management</code></th>
+    <td>Enable <a href="/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine">test state management</a> for the suite. Requires a Pro or Enterprise plan.<br><em>Default value:</em> <code>false</code>.</td>
+  </tr>
+  <tr>
+    <th><code>allowed_test_states</code></th>
+    <td>An array of allowed quarantine states: <code>"muted"</code>, <code>"skipped"</code>, or both. Requires <code>test_state_management</code> to be enabled to use these states. Do not include <code>"enabled"</code>, which is always available.<br><em>Default value:</em> <code>[]</code>.<br><em>Example:</em> <code>["muted", "skipped"]</code>.</td>
+  </tr>
 </tbody>
 </table>
 
@@ -215,7 +231,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "application_name": "Buildkite",
   "color": "#FFF700",
   "emoji": "🍋",
-  "oidc_policy": null
+  "oidc_policy": null,
+  "test_state_management": false,
+  "allowed_test_states": []
 }
 ```
 
@@ -250,6 +268,14 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>oidc_policy</code></th>
     <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
+  </tr>
+  <tr>
+    <th><code>test_state_management</code></th>
+    <td>Enable or disable test state management for the suite. Requires a Pro or Enterprise plan. Disabling permanently resets all muted and skipped tests to enabled. Re-enabling does not restore their previous states.</td>
+  </tr>
+  <tr>
+    <th><code>allowed_test_states</code></th>
+    <td>Replace the allowed quarantine states with an array containing <code>"muted"</code>, <code>"skipped"</code>, or both. Do not include <code>"enabled"</code>, which is always available. A state cannot be removed while tests use it or it is the automatic-quarantine default. Pass <code>[]</code> to allow only enabled tests.<br><em>Example:</em> <code>["muted", "skipped"]</code>.</td>
   </tr>
 </tbody>
 </table>
