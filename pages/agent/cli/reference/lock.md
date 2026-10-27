@@ -81,7 +81,7 @@ When running parallel jobs on the same host that need a shared setup, [`do`](#st
 
 #### One-time locks example
 
-In the following example, they key `test-env-setup` ensures that the test environment setup happens only once across multiple parallel jobs on the same host.
+In the following example, the key `test-env-setup` ensures that the test environment setup happens only once across multiple parallel jobs on the same host.
 
 ```yml
 steps:

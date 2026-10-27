@@ -2,7 +2,7 @@
 
 The [Buildkite provider for Terraform](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs) lets you manage your Buildkite organization's resources using [Terraform](https://www.terraform.io/) infrastructure-as-code workflows. With this provider, you can define and version-control your pipelines, teams, clusters, and other Buildkite resources alongside your application infrastructure.
 
-The [Buildkite Terraform Provider](https://github.com/buildkite/terraform-provider-buildkite) is open source repository available on GitHub, is listed on the [Terraform Registry](https://registry.terraform.io/providers/buildkite/buildkite/latest), and supports Terraform 1.0 and later.
+The [Buildkite Terraform Provider](https://github.com/buildkite/terraform-provider-buildkite) is an open source repository available on GitHub, is listed on the [Terraform Registry](https://registry.terraform.io/providers/buildkite/buildkite/latest), and supports Terraform 1.0 and later.
 
 ## Managed resources
 

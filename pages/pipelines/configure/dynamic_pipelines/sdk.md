@@ -10,7 +10,7 @@ Currently, the Buildkite SDK supports the following languages:
 - [Ruby](#ruby)
 - [C#](#c-sharp)
 
-Each of the **Installing** sub-sections below assume that your local environment already has the required language tools installed.
+Each of the **Installing** sub-sections below assumes that your local environment already has the required language tools installed.
 
 ## Share step definitions across pipelines
 
@@ -138,7 +138,7 @@ uv add buildkite-sdk
 
 ### Using
 
-The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
+The following code example demonstrates how to import the Buildkite SDK into a simple Python script, which then generates a Buildkite Pipelines step for a simple [command step](/docs/pipelines/configure/step-types/command-step) that runs `echo 'Hello, world!'`, and then outputs this step to either JSON or YAML format:
 
 ```python
 from buildkite_sdk import Pipeline

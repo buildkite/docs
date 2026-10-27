@@ -81,7 +81,7 @@ See more in [Monitoring and observability](/docs/pipelines/best-practices/monito
 
 ## Setting up notifications for platform teams
 
-Timely [notifications](/docs/pipelines/configure/notify) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notifications types:
+Timely [notifications](/docs/pipelines/configure/notify) help platform teams keep builds healthy without manually watching dashboards. In Buildkite Pipelines, you can enable the following notification types:
 
 - [Basecamp](/docs/pipelines/configure/notify#basecamp-campfire-message)
 - [Email](/docs/pipelines/configure/notify#email)

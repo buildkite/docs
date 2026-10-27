@@ -210,7 +210,7 @@ CMD ["node","app.js"]
 
 #### Package configuration
 
-This package.json file defines the Node.js project metadata, including with the package name, version, and a start script that runs the application.
+This package.json file defines the Node.js project metadata, including the package name, version, and a start script that runs the application.
 
 ```json
 {

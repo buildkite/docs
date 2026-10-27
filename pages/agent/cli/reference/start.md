@@ -22,7 +22,7 @@ or with the `--tags` command line flag:
 buildkite-agent start --tags "docker=true" --tags "ruby2=true"
 ```
 
-or with the `BUILDKITE_AGENT_TAGS` an environment variable:
+or with the `BUILDKITE_AGENT_TAGS` environment variable:
 
 ```
 env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start

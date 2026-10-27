@@ -209,7 +209,7 @@ def generate_markdown(experiments_data, descriptions)
   output << 'If an experiment doesn\'t exist, no error will be raised.'
   output << ''
   output << '> 🚧'
-  output << '> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.'
+  output << '> Please note that there is a likely chance that these experiments will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.'
   output << ''
   output << '## Available experiments'
   output << ''

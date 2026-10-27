@@ -24,7 +24,7 @@ If you're using Docker with Docker images hosted on Docker Hub, note that as of 
 
 For most projects we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define its own `docker-compose.yml` with dependent containers and environment variables to be passed through.
 
-Here's a example of a `docker-compose.yml` file for a Ruby on Rails application that depends on Postgres, Redis and Memcache:
+Here's an example of a `docker-compose.yml` file for a Ruby on Rails application that depends on Postgres, Redis and Memcache:
 
 ```yml
 version: '2'

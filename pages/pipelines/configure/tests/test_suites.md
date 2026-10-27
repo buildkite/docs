@@ -58,7 +58,7 @@ To configure your branches, go to suite settings. In most cases, branch name is 
 
 Test Engine calculates reliability of both your entire test suite and individual tests as a measure of pass/fail rate over time.
 
-_Reliability_ is defined as percentage calculated by:
+_Reliability_ is defined as a percentage calculated by:
 
 - Test suite reliability = `passed_runs / (passed_runs + failed_runs) * 100`
 - Individual test reliability = `passed_test_executions / (passed_test_executions + failed_test_executions) * 100`

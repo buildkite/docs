@@ -17,7 +17,7 @@ See a more detailed overview of each architecture type for Buildkite agents to c
 
 ### Cloud compute
 
-Run multiple agents per an instance to maximize cost efficiency and enable heavy caching.
+Run multiple agents per instance to maximize cost efficiency and enable heavy caching.
 
 **Pros:**
 
