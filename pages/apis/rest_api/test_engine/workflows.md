@@ -2,7 +2,7 @@
 
 Use the workflows API to create and manage [workflows](/docs/pipelines/configure/tests/workflows) for a Buildkite Test Engine [test suite](/docs/pipelines/configure/tests/test-suites). Each workflow has one monitor, optional execution tag filters, and actions to run when a test alarms or recovers.
 
-The API enforces the same [plan availability and per-suite limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) as the workflow interface. The current Pro plan allows one transition count workflow per suite with add-label and remove-label actions. Other monitor and action types require the corresponding plan entitlements.
+The API enforces the same [plan availability and per-suite limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) as the workflow interface.
 
 In every endpoint, `{org.slug}` is the organization slug, `{suite.slug}` accepts a suite slug or UUID, and `{workflow.id}` is a workflow UUID.
 
@@ -193,7 +193,7 @@ Type | Configuration fields
 
 Each action list accepts up to seven entries. The `new_test` monitor accepts alarm actions only.
 
-On the current Pro plan, you can configure only `add_label` and `remove_label` actions. All other action types require an Enterprise plan. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the actions avaliable.
 
 ## Workflow data model
 
