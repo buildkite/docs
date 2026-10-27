@@ -23,7 +23,7 @@ Enterprise | Three by default, with a configurable quota | All documented monito
 
 The default transition count workflow counts toward your suite's limit.
 
-Legacy plan availability may differ. Contact support@buildkite.com to confirm your entitlements or request a higher Enterprise workflow quota.
+See [Limits](/docs/platform/limits#viewing-your-organizations-service-quotas) to view your organization's quotas or request an increase. Legacy plan availability may differ. Contact support@buildkite.com to confirm your entitlements.
 
 ## How they work
 
