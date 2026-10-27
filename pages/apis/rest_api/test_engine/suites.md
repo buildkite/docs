@@ -167,13 +167,17 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>Return the suite's API token in the response.<br><em>Default value:</em> <code>false</code>.</td>
   </tr>
   <tr>
-    <th><code>teams_ids</code></th>
+    <th><code>team_ids</code></th>
     <td><p>An array of team UUIDs to add this suite to. You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the Settings page for a team. This property is only available if your organization has enabled Teams, in which case it is a required field.</p>
         <em>Example:</em> <code>"team_ids": ["3f4aa5ee-671b-41b0-9b44-b94831db6cc8"]</code></td>
   </tr>
   <tr>
     <th><code>application_name</code></th>
     <td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td>
+  </tr>
+  <tr>
+    <th><code>repo_url</code></th>
+    <td>HTTPS URL of the repository for the suite.<br><em>Example:</em> <code>"https://example.com/acme/app"</code>.</td>
   </tr>
   <tr>
     <th><code>color</code></th>
@@ -243,7 +247,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>name</code></th>
-    <td>Name of the suite.<br><em>Example:</em> <code>"Jasmine"</code>.</td>
+    <td>Name of the suite. Changing the name regenerates the suite's <code>slug</code>. Use the returned <code>slug</code> or <code>url</code> for subsequent requests.<br><em>Example:</em> <code>"Jasmine"</code>.</td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
@@ -252,6 +256,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>application_name</code></th>
     <td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td>
+  </tr>
+  <tr>
+    <th><code>repo_url</code></th>
+    <td>HTTPS URL of the repository for the suite.<br><em>Example:</em> <code>"https://example.com/acme/app"</code>.</td>
   </tr>
   <tr>
     <th><code>color</code></th>
