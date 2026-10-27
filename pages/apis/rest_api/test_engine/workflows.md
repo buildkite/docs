@@ -193,7 +193,7 @@ Type | Configuration fields
 
 Each action list accepts up to seven entries. The `new_test` monitor accepts alarm actions only.
 
-See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the actions avaliable.
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the actions available.
 
 ## Workflow data model
 
