@@ -94,7 +94,7 @@ config:
 ...
 ```
 
-The `nodeName` field can also be defined in under `podSpecPatch` using the `kubernetes` plugin. It will apply only to this job and will override `nodeName` in the controller's configuration:
+The `nodeName` field can also be defined under `podSpecPatch` using the `kubernetes` plugin. It will apply only to this job and will override `nodeName` in the controller's configuration:
 
 ```yaml
 # pipeline.yaml

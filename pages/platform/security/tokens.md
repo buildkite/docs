@@ -172,7 +172,7 @@ Buildkite Package Registries temporary tokens, which are presented on a registry
 Buildkite portal tokens cover the following types of tokens:
 
 - _Long-lived service tokens_, generated when a [new portal is created](/docs/apis/graphql/portals#creating-a-portal), as well as [through the portal's **Security** page](/docs/apis/graphql/portals#authentication).
-- [Ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens), which requires a [portal secret](#supported-buildkite-tokens-portal-secrets) to be [generated](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token).
+- [Ephemeral portal tokens](/docs/apis/graphql/portals/ephemeral-portal-tokens), which require a [portal secret](#supported-buildkite-tokens-portal-secrets) to be [generated](/docs/apis/graphql/portals/ephemeral-portal-tokens#requesting-an-ephemeral-portal-token).
 - [Portal tokens](/docs/apis/graphql/portals/user-invoked-portals#short-lived-portal-token-generating-a-portal-token) that are [user-invoked and scoped](/docs/apis/graphql/portals/user-invoked-portals).
 
 These types of tokens are also known as _Buildkite portal access tokens_, whose acronym forms the prefix for these types of tokens.

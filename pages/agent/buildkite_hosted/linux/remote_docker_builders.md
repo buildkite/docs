@@ -11,7 +11,7 @@ When using the remote Docker builders feature, Docker image builds within your p
 
 The remote builder service also maintains a [cache](https://docs.docker.com/build/cache/) of its built image layers (stored in the builder service's local file system, and in your [container cache volumes](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes)). Images already stored in this local file system usually don't need to be re-built upon a subsequent build, and any images in your container cache volumes can be pulled to jobs requesting them, which in turn, speeds up your overall pipeline builds, since your Buildkite hosted agents running these pipelines are free to build the rest of your pipeline and conduct other work.
 
-When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required layers and their images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
+When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required layers and their images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
 
 ## Step-by-step remote Docker builder process
 
@@ -31,7 +31,7 @@ This section provides more details about the benefits provided by [remote Docker
 
 Remote Docker builders run on remote dedicated machines, which have been optimized for [BuildKit](https://docs.docker.com/build/concepts/overview/#buildkit). Therefore, CPU-bound stages are completed much more rapidly.
 
-Your [container cache volumes](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes) is both shared and persistent, ensuring your job will start and run as quickly as possible. Incremental builds also reliably skip unchanged image layers as they're kept on the dedicated remote Docker builder's local file system, often yielding 2-40 times build speed increases.
+Your [container cache volumes](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes) are both shared and persistent, ensuring your job will start and run as quickly as possible. Incremental builds also reliably skip unchanged image layers as they're kept on the dedicated remote Docker builder's local file system, often yielding 2-40 times build speed increases.
 
 Using remote Docker builders with the container cache volumes alongside [Git mirror volumes](/docs/agent/buildkite-hosted/cache-volumes#git-mirror-volumes) can provide drastic reductions in job runtimes.
 

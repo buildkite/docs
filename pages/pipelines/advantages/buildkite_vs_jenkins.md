@@ -8,7 +8,7 @@ Jenkins has served the CI/CD community for over 20 years, but the architecture t
 
 By default, Jenkins is primarily self-hosted. You need to deploy, scale, secure, and upgrade your controllers yourself. When a controller is slow or down, developers are blocked.
 
-Buildkite Pipelines separates orchestration from execution: a managed SaaS control plane with agents running on your infrastructure. In Buildkite Pipelines, can choose between self-hosted and [hosted agents](/docs/agent/buildkite-hosted).
+Buildkite Pipelines separates orchestration from execution: a managed SaaS control plane with agents running on your infrastructure. In Buildkite Pipelines, you can choose between self-hosted and [hosted agents](/docs/agent/buildkite-hosted).
 
 ## Buildkite agents
 
@@ -44,4 +44,4 @@ You can try out the [Buildkite pipeline converter](/docs/pipelines/migration/pip
 
 To start converting your Jenkins pipelines to Buildkite Pipelines, follow the instructions in [Migrate from Jenkins](/docs/pipelines/migration/from-jenkins), then migrate pipeline by pipeline. The main challenge you might face in the migration is cultural: shifting from sequential execution and shared workspaces to Buildkite's parallel-by-default, fresh-workspace model.
 
-For help migrating migrating from Jenkins to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).
+For help migrating from Jenkins to Buildkite Pipelines, please reach out to the Buildkite Support Team at [support@buildkite.com](mailto:support@buildkite.com).

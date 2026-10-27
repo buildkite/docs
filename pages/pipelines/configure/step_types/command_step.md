@@ -37,7 +37,7 @@ When running multiple commands, either defined in a single line (`npm install &&
 The results of running the commands defined in separate command steps are not guaranteed to be available to the subsequent command steps as those steps could be running on a different machine in the [cluster queue](/docs/agent/queues/managing#setting-up-queues).
 
 > 📘 Commands and `PATH`
-> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, preference using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
+> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, prefer using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
 
 ## Command step attributes
 
@@ -456,7 +456,7 @@ steps:
   <tr>
     <td><code>adjustments</code></td>
     <td>
-      A array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
+      An array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
       Currently, only <code>soft_fail</code> and <code>skip</code> can be modified.
     </td>
   </tr>
