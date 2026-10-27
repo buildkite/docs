@@ -24,5 +24,11 @@
         </div>
       </div>
     </main>
+
+    <%# Plain mounts its chat widget as a plain child of <body>, which Turbo
+        would otherwise destroy on every navigation. plainChat.js moves it
+        into this permanent container the moment it appears, so it survives
+        page changes instead of being rebuilt (and briefly breaking) each time. %>
+    <div id="plain-chat-turbo-wrapper" data-turbo-permanent></div>
   </body>
 </html>

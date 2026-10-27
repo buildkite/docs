@@ -14,10 +14,11 @@ You can alter and reduce the amount of test executions that a monitor receives u
 
 ## Transition count
 
-A transition is a change from passing to failing, or failing to passing, in a sequence of results for a test over time.
-
 > 📘
+> Available on [Pro and Enterprise](https://buildkite.com/pricing) plans.
 > This monitor is created by default for new test suites.
+
+A transition is a change from passing to failing, or failing to passing, in a sequence of results for a test over time.
 
 <%= image "transition-count-light.png", class: 'light-only', width: 1424 / 2, height: 368 / 2, alt: "Image showing tests with multiple results, and the transitions counts (pass -> fail, or fail -> pass) for each test" %>
 
@@ -33,11 +34,14 @@ The transition count monitor keeps track of how many times the result changes, o
 
 In addition to the window, the transition counts that cause the [_alarm_ and _recover_ actions](/docs/pipelines/configure/tests/workflows/actions) to be triggered are configurable.
 
-A branch must be configured for the transition count monitor, and therefore, it is recommended setting this to the value of the main branch (for example, `main`, `master`, `trunk`). Configuring a branch is necessary so that transitions from feature branches are ignored in the accumulation of the transition count, as failures and passes on feature branches are a byproduct of a standard development workflow, and do not indicate test instability.
+A branch must be configured for the transition count monitor, and therefore, it is recommended to set this to the value of the main branch (for example, `main`, `master`, `trunk`). Configuring a branch is necessary so that transitions from feature branches are ignored in the accumulation of the transition count, as failures and passes on feature branches are a byproduct of a standard development workflow, and do not indicate test instability.
 
-If you're unsure what the most suitable monitor is for your test suite, use this the transition count monitor on your test suite's default branch. This monitor will likely work without any pipeline configuration changes (for example, setting up job retries), and has more resiliency to "real world" events (for example, infrastructure-related events) which affect test results.
+If you're unsure what the most suitable monitor is for your test suite, use the transition count monitor on your test suite's default branch. This monitor will likely work without any pipeline configuration changes (for example, setting up job retries), and has more resiliency to "real world" events (for example, infrastructure-related events) which affect test results.
 
 ## Passed on retry
+
+> 📘
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
 
 _Passed on retry_ refers to a test that both passes and fails on the same git commit SHA. When this occurs, the _alarm_ [action(s)](/docs/pipelines/configure/tests/workflows/actions) are triggered. If the monitor then does not encounter passed on retry events over the next seven days or 100 executions of the given test (whichever is reached first), then the _recover_ actions for your workflow will be triggered.
 
@@ -51,23 +55,27 @@ The order and number of pass and fail results don't change the reportage of the 
 
 ## Probabilistic flakiness
 
-This monitor tracks the [probabilistic flakiness score](https://engineering.fb.com/2020/12/10/developer-tools/probabilistic-flakiness/) (PFS) of each test. The PFS was developed by [Meta](https://www.meta.com/), and uses a Bayesian statistical model to derive the probability that a test will become flaky on its next execution. The PFS model takes into account the current result of the test, and the historical results of the test execution.
-
 > 📘
-> The probabilistic flakiness monitor is only available on [Enterprise](https://buildkite.com/pricing) plans.
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
+
+This monitor tracks the [probabilistic flakiness score](https://engineering.fb.com/2020/12/10/developer-tools/probabilistic-flakiness/) (PFS) of each test. The PFS was developed by [Meta](https://www.meta.com/), and uses a Bayesian statistical model to derive the probability that a test will become flaky on its next execution. The PFS model takes into account the current result of the test, and the historical results of the test execution.
 
 The probabilistic flakiness monitor is best suited to large and complex test suites, where the volume and noise of test data prevents a simpler flaky test monitor from being successful. As the PFS is a continuous metric, these scores provide a smarter prioritization metric for larger organizations.
 
 ## New test
 
 > 📘
-> The new test monitor is in beta. The _recover_ actions are not yet available.
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
+> This monitor is in beta. The _recover_ actions are not yet available.
 
 The new test monitor triggers when a test executes for the first time and becomes a [managed test](/docs/pipelines/glossary#managed-test). A test is considered new only if the combination of its scope and name is unique and has not previously existed. If a test executes for the first time but its scope and name match an existing managed test, the monitor does not trigger.
 
 You can configure the new test monitor to trigger actions that help track and manage the performance and reliability of new tests to prevent flaky tests from being introduced to your test suite.
 
 ## Duration threshold
+
+> 📘
+> Available on [Enterprise](https://buildkite.com/pricing) plans.
 
 The duration threshold monitor tracks how long individual tests take to run. The monitor triggers when the aggregated duration over a sliding window crosses a configured threshold. Use this monitor to identify tests that exceed an acceptable runtime.
 

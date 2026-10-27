@@ -71,7 +71,7 @@ steps:
   <tr>
     <td><code>paths</code></td>
     <td>
-      A list of paths to volume. Paths are relative to the working directory of the step.<br/>
+      A list of paths to volumes. Paths are relative to the working directory of the step.<br/>
       Absolute references can be provided in the <code>cache</code> paths configuration relative to the root of the instance.<br/>
       <em>Example:</em><br/>
       <code>- ".volume"</code><br/>

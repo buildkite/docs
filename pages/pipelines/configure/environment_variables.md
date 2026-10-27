@@ -3,7 +3,7 @@
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/configure/defining-steps) and
 [job lifecycle hooks](/docs/agent/hooks#job-lifecycle-hooks).
 
-Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key=value` pairs, or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be shared size limit across all such environment variables and `argv`, whereas others impose size limits per item (such as an environment variable's size limit).
+Environment variable size limits are dependent on the operating systems the agents are run on. When a program or process is started, it can typically accept inputs as either one or more environment variables in the form of `key=value` pairs, or a list (array) of command line arguments (referred to as a vector of arguments or `argv`). Depending on the operating system, these limits could be a shared size limit across all such environment variables and `argv`, whereas others impose size limits per item (such as an environment variable's size limit).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/security/secrets/managing) guide.
 
@@ -153,13 +153,15 @@ Alternatively, you can also access the rest of the Buildkite [environment variab
 
 ## Runtime variable interpolation
 
-When using environment variables that will be evaluated at run-time, make sure you escape the `$` character using `$$` or `\$`. For example:
+When defining commands in pipeline YAML, escape references to variables that the shell should evaluate at runtime using `$$` or `\$`. This includes environment variables and shell variables assigned within the command. For example:
 
 ```yml
 - command: "deploy.sh $$SERVER"
   env:
     SERVER: "server-a"
 ```
+
+Buildkite Pipelines converts `$$SERVER` to `$SERVER` before the step runs, leaving the shell to expand the variable. These escapes apply to pipeline YAML, not to separate shell script files.
 
 Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/cli/reference/pipeline#environment-variable-substitution) CLI guide.
 

@@ -1,4 +1,4 @@
 [tools]
-ruby = "4.0.7"
+ruby = "4.0.9"
 node = "24"
 yarn = "1.22"

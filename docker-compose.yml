@@ -11,6 +11,7 @@ services:
     environment:
       VITE_RUBY_HOST: vite
       RAILS_LOG_TO_STDOUT: yes
+      PLAIN_CHAT_APP_ID: ${PLAIN_CHAT_APP_ID:-}
     ports:
       - "3000:3000"
     volumes:

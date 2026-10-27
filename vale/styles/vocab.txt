@@ -50,6 +50,7 @@ awscli
 azcopy
 backoff
 backports
+backreferences
 Backstage
 Backstage Software Catalog
 Basecamp
@@ -68,6 +69,7 @@ bktec's
 bktx
 blobless
 boolean
+booleans
 Boomper
 bottlenecked
 Brewfile
@@ -211,6 +213,7 @@ Fugit
 gcloud
 gh
 gif
+Git's
 githooks
 GitLab
 glibc
@@ -300,7 +303,9 @@ llvm
 lockfile
 lockfiles
 lockfile‑keyed
+lookahead
 lookback
+lookbehind
 lookups
 loopback
 macOS
@@ -337,6 +342,10 @@ NUnit
 nodeName
 nodeSelector
 nonblank
+noninteractive
+nonmatch
+nonmatching
+nonnested
 Noreply
 noreply
 not_run
@@ -425,6 +434,7 @@ refspec
 rehydrate
 rehydrated
 reimagined
+reinclude
 remediation
 remediations
 repo

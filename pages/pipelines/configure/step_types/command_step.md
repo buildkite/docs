@@ -37,7 +37,7 @@ When running multiple commands, either defined in a single line (`npm install &&
 The results of running the commands defined in separate command steps are not guaranteed to be available to the subsequent command steps as those steps could be running on a different machine in the [cluster queue](/docs/agent/queues/managing#setting-up-queues).
 
 > 📘 Commands and `PATH`
-> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, preference using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
+> The shell command(s) provided for execution must be resolvable through the directories defined within the `PATH` environment variable. When referencing scripts for execution, prefer using a relative path (for example, `./scripts/build.sh`, or `scripts/bin/build-prod`).
 
 ## Command step attributes
 
@@ -411,8 +411,8 @@ For `flags`, `commit_verification`, and `sparse`, an explicit entry in the step'
     <td>
       <p>Whether the agent should verify that the commit being built exists on the specified branch. For Buildkite agent v4, set the value to <code>strict</code> to fail the job when the agent determines that the commit is not on the branch. Set the value to <code>off</code> to skip verification. An empty value causes job bootstrap to fail.</p>
       <p>For Buildkite agent v3, use v3.136.0 or later for commit verification. In addition to <code>strict</code>, v3 accepts <code>warn</code> to emit a warning without failing the job when the commit is not on the branch. An empty value skips verification. A job-supplied <code>off</code> value uses warning behavior rather than skipping verification.</p>
-      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues, even in <code>strict</code> mode. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. In v4, this setting defaults to <code>strict</code>. Agent v3 does not verify commits by default.</p>
-      <p>The agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. These skips also apply in <code>strict</code> mode. See the <a href="/docs/pipelines/configure/git-checkout#commit-verification">commit verification limitations</a> before relying on this check to grant protected-branch privileges.</p>
+      <p>If the agent cannot complete the check (for example, due to a shallow clone that cannot be deepened), it warns and continues, even in <code>strict</code> mode. The value is emitted as <a href="/docs/pipelines/configure/environment-variables#BUILDKITE_GIT_COMMIT_VERIFICATION"><code>BUILDKITE_GIT_COMMIT_VERIFICATION</code></a>. When omitted, the agent falls back to its own <code>--git-commit-verification</code> <a href="/docs/agent/self-hosted/configure#configuration-settings">configuration setting</a>. In v4, this setting defaults to <code>strict</code>. Agent v3 does not verify commits by default. In Buildkite agent v4.7.0 or later, the agent configuration setting also accepts <code>fail-closed</code>, which requires verification to succeed. This value isn't available through <code>commit_verification</code>. See <a href="/docs/pipelines/configure/git-checkout#commit-verification-fail-closed-mode">fail-closed mode</a>.</p>
+      <p>In <code>strict</code> mode and in v3, the agent skips verification for tag builds, pull request builds, builds where the commit is <code>HEAD</code>, builds with no branch set, and builds using a custom refspec. See the <a href="/docs/pipelines/configure/git-checkout#commit-verification">commit verification limitations</a> before relying on <code>strict</code> mode alone to grant protected-branch privileges.</p>
       <em>Example:</em> <code>strict</code>
     </td>
   </tr>
@@ -456,7 +456,7 @@ steps:
   <tr>
     <td><code>adjustments</code></td>
     <td>
-      A array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
+      An array of <code>with</code> keys, each mapping an element to each dimension listed in the <code>array.setup</code>, as well as the attribute to modify for that combination.<br/>
       Currently, only <code>soft_fail</code> and <code>skip</code> can be modified.
     </td>
   </tr>

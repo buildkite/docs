@@ -241,7 +241,7 @@ If you need more assistance with this process, follow Anthropic's guidelines for
 
 To enable [toolsets](/docs/apis/mcp-server/tools/toolsets) or [configure read-only access](/docs/apis/mcp-server#read-only-remote-mcp-server), or both, for the remote MCP server with [Claude Desktop](#claude-desktop), follow this [create custom connector procedure](#claude-desktop) by implementing the [URL extension approach](/docs/apis/mcp-server/tools/toolsets#configuring-the-remote-mcp-server-using-a-url-extension) when enabling the toolset, with the following updates:
 
-- For the **Name** field, specify a name that better describes the customer connector. For example, **Buildkite - pipelines toolset** for the `pipelines` toolset.
+- For the **Name** field, specify a name that better describes the custom connector. For example, **Buildkite - pipelines toolset** for the `pipelines` toolset.
 - For the **Remote MCP server URL** field, specify the enabled toolset for the remote MCP server. For example, `https://mcp.buildkite.com/mcp/x/pipelines`.
 
     **Note:** If you also want to enforce read-only access for the tools in this toolset, append `/readonly` to this URL, for example, `https://mcp.buildkite.com/mcp/x/pipelines/readonly`.

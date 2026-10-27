@@ -148,9 +148,9 @@ export function searchTrackingClient(searchClient) {
           result.hits?.sort((a, b) => sectionPriority(a) - sectionPriority(b));
         });
 
-        const query = Array.isArray(queries)
-          ? queries[0]?.query || queries[0]?.params?.query || ""
-          : "";
+        const requests = Array.isArray(queries) ? queries : queries?.requests;
+        const query =
+          requests?.[0]?.query || requests?.[0]?.params?.query || "";
 
         lastQuery = query;
         lastResultCount = 0;

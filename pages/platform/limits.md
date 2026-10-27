@@ -360,7 +360,7 @@ The following table lists the default service limits for [Test Engine](/docs/pip
       {
         title: "Test Engine workflows per suite",
         description: "The maximum number of Test Engine workflows per suite.",
-        default_value: "Not available on the Free plan, 3 workflows on the Pro and Enterprise plans"
+        default_value: "Not available on the Free plan, 1 workflow on the Pro plan, 3 workflows on the Enterprise plan"
       },
       {
         title: "Test Engine workflow events per minute",

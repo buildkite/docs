@@ -1,6 +1,6 @@
 # Migrating to Buildkite Package Registries
 
-This section of the documentation provides a comprehensive guidance to help you export your packages, images and other files from an existing registry or repository provider, and import them to Buildkite Package Registries.
+This section of the documentation provides comprehensive guidance to help you export your packages, images and other files from an existing registry or repository provider, and import them to Buildkite Package Registries.
 
 ## Before you start
 

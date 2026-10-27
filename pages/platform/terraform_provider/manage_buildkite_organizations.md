@@ -39,7 +39,7 @@ A system banner (also known as organization banner) is not typically managed in 
 
 If you do want to manage a system banner in Terraform, define a resource for the system banner, within your organization resources HCL file (for example, `organization.tf`).
 
-The `buildkite_organization_banner` resource to create and manage a system banner, whose `message` argument contains the Markdown content for this banner.
+The `buildkite_organization_banner` resource is used to create and manage a system banner, whose `message` argument contains the Markdown content for this banner.
 
 In the following example, a maintenance notification banner will be created with `terraform plan` and `terraform apply`.
 

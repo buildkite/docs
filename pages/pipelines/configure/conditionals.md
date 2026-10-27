@@ -100,7 +100,7 @@ Note that conditional expressions on the build state are only available at the p
 
 ## Conditionally running plugins with group steps
 
-To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugin from executing entirely:
+To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugins from executing entirely:
 
 ```yaml
 steps:
@@ -204,6 +204,13 @@ The following expressions are supported by the `if` attribute.
 
 > 🚧 Formatting regular expressions
 > When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the `$` anchor symbol must be escaped to avoid [environment variable substitution](/docs/agent/cli/reference/pipeline#environment-variable-substitution). For example, to match branches ending in `"/feature"` the conditional statement would be `build.branch =~ /\/feature$$/`.
+
+> 🚧 Unsupported regular expression syntax
+> Regular expressions in conditionals do not support lookahead, lookbehind, or backreferences such as `\1`.
+>
+> To exclude a value, combine a match with a separate `!~` check: `build.branch =~ /^release/ && build.branch !~ /-rc$$/`.
+>
+> Patterns are limited to 4096 characters and repetition counts of 100 or fewer. Other unsupported constructs include atomic groups, possessive quantifiers, named groups (use `(...)` instead), and conditional expressions within a pattern.
 
 ### Variables
 
