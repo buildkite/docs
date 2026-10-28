@@ -12,6 +12,8 @@ If you're new to Buildkite Pipelines, run through the [Getting started with Pipe
 
 The following table lists key feature differences between [self-hosted](/docs/agent/self-hosted) and [Buildkite hosted](/docs/agent/buildkite-hosted) agents. If you are looking to establish, expand or modify your Buildkite agent infrastructure, this table should help you choose which path or paths to take.
 
+For examples of how to combine compute, queues, caching, and isolation to fit your workload, see [Buildkite agent reference architectures](/docs/agent/reference-architectures).
+
 In summary though:
 
 - _Self-hosted agents_ are suitable when your organization has any of the following requirements:

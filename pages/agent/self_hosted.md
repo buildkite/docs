@@ -4,6 +4,8 @@ Buildkite's self-hosted agents are [Buildkite agents](/docs/agent) that you run 
 
 With self-hosted agents, you have control over managing infrastructure tasks, such as provisioning, scaling, security, and maintaining the servers that run your agents.
 
+For guidance on choosing compute, organizing queues, and scaling your fleet, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns also explain when to use persistent agents and how to combine self-hosted and hosted agents.
+
 The following diagram provides an overview of how Buildkite Pipelines, which is a software-as-as-service (SaaS) platform known as the Buildkite platform, interacts with Buildkite agents in your own self-hosted infrastructure.
 
 <%= image "buildkite-hybrid-architecture.png", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
