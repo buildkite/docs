@@ -7022,12 +7022,12 @@ type Organization implements Node {
     concurrency: JobConcurrencySearch
 
     """
-    Filter jobs by created at from, ISO8601 format
+    Filter jobs created at or after this timestamp (inclusive), in ISO-8601 format
     """
     createdAtFrom: DateTime
 
     """
-    Filter jobs by created at to, ISO8601 format
+    Filter jobs created before this timestamp (exclusive), in ISO-8601 format
     """
     createdAtTo: DateTime
 
