@@ -24,6 +24,8 @@ RateLimit-Reset: 28
 RateLimit-Scope: mcp
 ```
 
+You can also inspect your current remote MCP server rate limit status without making an MCP request, and without consuming any quota, using the `mcp` scope of the [organization rate limits endpoint](/docs/apis/rest-api/organizations/rate-limits#response-fields-caller-mcp).
+
 ## Exceeding the rate limit
 
 Once your Buildkite MCP server rate limit is exceeded, API requests made by the MCP server on your behalf fail with a `429` HTTP status code until the rate limit window is reset. The window resets after every 60 seconds, from which requests will work again.

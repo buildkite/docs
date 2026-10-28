@@ -26,7 +26,7 @@ The [JFrog CLI](https://jfrog.com/help/r/jfrog-applications-and-cli-documentatio
 
 The following JFrog CLI download command examples can be used to get you started.
 
-To download all packages from a particular JFrog Artifactory repository, use the `--flat` option download all of these packages into the same folder.
+To download all packages from a particular JFrog Artifactory repository, use the `--flat` option to download all of these packages into the same folder.
 
 ```bash
 jfrog rt dl {repo-name} --flat

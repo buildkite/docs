@@ -100,9 +100,18 @@ buildkite-gha validate \
   .github/workflows/ci.yml
 ```
 
-The `--action-cache-dir` option is available only with `--profile hosted`. It stores verified action source by immutable commit.
+The `--action-cache-dir` option is available only with `--profile hosted`. It stores verified action source by immutable commit, separately from the ref-resolution cache that avoids repeated GitHub API requests.
 
-Mutable ref resolutions are cached for one hour under `$XDG_CACHE_HOME/buildkite-gha/action-ref-resolutions/v1`, or the platform's user cache directory. Concurrent validators can share this cache, so a moved tag or branch may use its previous commit for up to one hour. Uploads with `private-reusable-workflows` enabled skip this cache for called repositories and resolve their refs once per operation. Don't share either writable cache between untrusted validation jobs.
+Mutable ref resolutions are cached for one hour under `$XDG_CACHE_HOME/buildkite-gha/action-ref-resolutions/v1`, or the platform's user cache directory. Concurrent importers can share this cache, so a moved tag or branch may use its previous commit for up to one hour. Uploads with `private-reusable-workflows` enabled skip this cache for called repositories and resolve their refs once per operation. Don't share either writable cache between untrusted jobs.
+
+On ephemeral Linux agents, mount a persistent directory writable only by trusted importers. Keep its host path outside writable mounts available to imported jobs. With that directory mounted at `/cache/importer`, set `XDG_CACHE_HOME` for the importer command:
+
+```bash
+XDG_CACHE_HOME="${XDG_CACHE_HOME:-/cache/importer}" \
+  buildkite-gha upload --event-path event.json .github/workflows/ci.yml
+```
+
+This uses existing cache behavior and preserves an explicit `XDG_CACHE_HOME` override. Later invocations can reuse fresh ref resolutions. Persisting only `--action-cache-dir` doesn't preserve the ref-resolution cache. Full commit SHA references need no resolution request.
 
 #### Validate options
 

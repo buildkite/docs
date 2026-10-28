@@ -47,7 +47,7 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 
 You can define hooks in the following locations:
 
-- **Agent hooks:** These exist in a pre-configured directory on the agent file system. For [self-hosted agents](/docs/agent/self-hosted), this directory created by your agent installer, and can be configured by the [`hooks-path`](/docs/agent/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle hooks (self-hosted agents only) and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
+- **Agent hooks:** These exist in a pre-configured directory on the agent file system. For [self-hosted agents](/docs/agent/self-hosted), this directory is created by your agent installer, and can be configured by the [`hooks-path`](/docs/agent/self-hosted/configure#hooks-path) setting. You can define both agent lifecycle hooks (self-hosted agents only) and job lifecycle hooks in the agent hooks location. Job lifecycle hooks defined here will run for every job the agent receives from any pipeline.
 
     **Note:** For [Buildkite hosted agents](/docs/agent/buildkite-hosted), the agent hooks location is available on [Linux hosted agents](/docs/agent/buildkite-hosted/linux/custom-base-images#create-an-agent-image-using-agent-hooks) only, and supports job lifecycle hooks only. Agent lifecycle hooks are not available on any Buildkite hosted agents. The agent hooks location is not available on [macOS hosted agents](/docs/agent/buildkite-hosted/macos).
 
@@ -248,7 +248,7 @@ export DEPLOY_TARGET="production"
 
 ## Job hooks on Windows
 
-Jook hooks on Windows are only available to [self-hosted agents](/docs/agent/self-hosted), and not [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+Job hooks on Windows are only available to [self-hosted agents](/docs/agent/self-hosted), and not [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
 Buildkite defaults to using the Batch shell on Windows. Buildkite agents running on Windows require that either:
 

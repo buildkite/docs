@@ -42,7 +42,7 @@ You can also configure these files yourself (modifying the snippets as required)
     ```
 
     where:
-    * `current-image-name:tag` is the existing `image-name:tag` combination of your container image name and its current tag to published to your OCI source registry. The `:tag` component can be optional. This component of this command also supports the other tag syntax references mentioned in the [`docker tag` documentation](https://docs.docker.com/reference/cli/docker/image/tag/).
+    * `current-image-name:tag` is the existing `image-name:tag` combination of your container image name and its current tag to be published to your OCI source registry. The `:tag` component can be optional. This component of this command also supports the other tag syntax references mentioned in the [`docker tag` documentation](https://docs.docker.com/reference/cli/docker/image/tag/).
     * `image-name:tag` is the image name and tag to provide to this image when it is published to your source OCI registry, where the `:tag` part of this command is optional.
 
 1. Copy the following `docker push` command, paste it into your terminal, and modify as required before running to push your container image:

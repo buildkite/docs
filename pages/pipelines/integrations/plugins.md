@@ -14,7 +14,7 @@ The following diagram shows how a plugin might hook into the job lifecycle:
 
 Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/pipelines/integrations/plugins/using#plugin-sources).
 
-Plugins can be also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/hooks#job-lifecycle-hooks) they are run in.
+Plugins can also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/hooks#job-lifecycle-hooks) they are run in.
 
 ## How to use plugins
 

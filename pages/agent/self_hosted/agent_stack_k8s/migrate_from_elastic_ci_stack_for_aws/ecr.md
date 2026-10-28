@@ -15,7 +15,7 @@ When migrating to Agent Stack for Kubernetes, you need to explicitly configure t
 
 The `ecr` plugin requires AWS credentials to be available in your job Pods. You can provide these credentials using IAM Roles for Service Accounts (recommended for EKS clusters), AWS credentials stored as Kubernetes Secrets, or the [`aws-assume-role-with-web-identity` plugin](https://buildkite.com/resources/plugins/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin/) with [Buildkite OIDC](/docs/pipelines/security/oidc) tokens.
 
-Learn more about all available configuration options for the `ecr` plugin, see the plugin's [Options section of its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin#options).
+To learn more about all available configuration options for the `ecr` plugin, see the plugin's [Options section of its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin#options).
 
 #### Using IRSA
 

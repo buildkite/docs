@@ -160,7 +160,7 @@ Buildkite secrets are designed, with the following controls in place:
 
 - Secrets are encrypted in transit using TLS.
 - Secrets are always stored encrypted at rest.
-- All access to the secrets are logged.
+- All access to the secrets is logged.
 - Employee access to secrets is strictly limited and audited.
 
 ## Manage secrets using the REST API

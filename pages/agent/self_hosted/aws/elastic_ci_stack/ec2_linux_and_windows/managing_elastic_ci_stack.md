@@ -54,7 +54,7 @@ steps:
 
 ## Multiple instances
 
-If you need different instances sizes and scaling characteristics for different pipelines, you can create multiple stacks. Each can run on a different [Agent queue](/docs/agent/queues), with its own configuration, or even in a different AWS account.
+If you need different instance sizes and scaling characteristics for different pipelines, you can create multiple stacks. Each can run on a different [Agent queue](/docs/agent/queues), with its own configuration, or even in a different AWS account.
 
 Examples:
 
@@ -74,7 +74,7 @@ Metrics are collected with a Lambda function, polling every 10 seconds based on 
 
 You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance to terminate after it completes a job. Setting this value to `true` tells the stack to enable `disconnect-after-job` in the `buildkite-agent.cfg` file.
 
-It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
+It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all of which can be found [here](https://buildkite.com/plugins).
 
 ## Elastic CI Stack for AWS releases
 
@@ -309,7 +309,7 @@ For the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Build
 
 ### IAM policy requirements
 
-As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite agents need an access to:
+As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite agents need access to:
 
 * SSM for agent tokens and instance management
 * Auto Scaling for instance lifecycle management
@@ -711,7 +711,7 @@ You can customize your stack's instances by using the `BootstrapScriptUrl` stack
 The stack parameter accepts a URI that specifies the location and retrieval method for your bootstrap script. Supported URI schemes include:
 
 * S3 object URI (for example, `s3://my-bucket-name/my-bootstrap.sh`) retrieves the script from an S3 bucket using the AWS S3 API. The instance's IAM role must have `s3:GetObject` permission for the specified object.
-* HTTPS URL (for example, `https://www.example.com/config/bootstrap.sh`) downloads the script using `curl`command on Linux or `Invoke-WebRequest` on Windows. The URL must be publicly accessible.
+* HTTPS URL (for example, `https://www.example.com/config/bootstrap.sh`) downloads the script using `curl` command on Linux or `Invoke-WebRequest` on Windows. The URL must be publicly accessible.
 * Local file path (for example, `file:///usr/local/bin/my-bootstrap.sh`) references a script already present on the instance's filesystem. This is particularly useful when customizing the AMI to include bootstrap scripts.
 
 For private S3 objects, you need to create an IAM policy to allow the instances to read the file. The policy should include:

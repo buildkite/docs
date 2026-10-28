@@ -33,7 +33,7 @@ To install the agent using Homebrew:
 
 ## SSH key configuration
 
-SSH keys should be copied to (or generated into) the `.ssh` directory in the users' home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
+SSH keys should be copied to (or generated into) the `.ssh` directory in the user's home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
 
 ```bash
 $ mkdir -p ~/.ssh && cd ~/.ssh

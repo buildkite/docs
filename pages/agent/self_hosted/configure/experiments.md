@@ -32,7 +32,7 @@ experiment="experiment1,experiment2"
 If an experiment doesn't exist, no error will be raised.
 
 > 🚧
-> Please note that there is a likely chance that these experiments we will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.
+> Please note that there is a likely chance that these experiments will be removed or changed. Therefore, using them should be at your own risk, and without the expectation that these experiments will work in future.
 
 ## Available experiments
 
@@ -141,6 +141,31 @@ already-created mirrors remain usable.
 
 > 🛠
 > To use this feature, set <code>experiment="origin-clonekit"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
+
+### Program status
+
+Shows [OSC 7501 program status](https://www.superlogical.com/rex/docs/build/program-status) reports in the job log. Programs send these escape sequences to say whether they're working, blocked, done or failed. The Buildkite log viewer hides escape sequences it doesn't recognise, so with this experiment the agent writes a line after each report, such as:
+
+```
+# Program status: state=working id=build progress=40 app=cargo msg="Compiling"
+```
+
+The report itself stays in the log unchanged. Reports that repeat the previous report for the same `id`, or only change its `progress`, don't add a line. Messages and titles are decoded before secret redaction, so redacted values are removed from them.
+
+The experiment also sets `BUILDKITE_PROGRAM_STATUS=true` in the job environment, unless the job already sets it. Tools such as the Buildkite CLI (`bk`) only send reports in a Buildkite job when it's `true`. Set it to `false` in the job to turn them off.
+
+`buildkite-agent pipeline upload` and `buildkite-agent artifact upload` send their own reports, with `app=buildkite-agent`, following the same `BUILDKITE_PROGRAM_STATUS` rules as `bk`. `artifact upload` reports its progress as the percentage of files uploaded.
+
+The agent also reports the job's own progress, on records with these ids, so they don't overwrite reports from programs the job runs:
+
+- `checkout`, `command` and `artifacts` for those parts of the job.
+- `hook/agent/<hook>` and `hook/repository/<hook>` for agent and repository hooks, such as `hook/agent/pre-command`.
+- `hook/plugin/<plugin>/<hook>` for plugin hooks, such as `hook/plugin/docker/pre-command`.
+
+These reports don't add a line to the log, because the log already has a header for each of them. When the job ends, the agent clears the records that finished successfully, except `command`.
+
+> 🛠
+> To use this feature, set <code>experiment="program-status"</code> in your <a href="/docs/agent/self-hosted/configure#experiment">agent configuration</a>.
 
 ### PTY raw
 

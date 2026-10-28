@@ -179,7 +179,7 @@ After you have assigned tags at the test collection level, start using them to f
 
 ### Test execution drawer
 
-On the test page, you can open the execution drawer by selection an execution.
+On the test page, you can open the execution drawer by selecting an execution.
 
 This presents all the tags which have been applied to the test execution as a flat, dot-notated list. Tags with dot-separated keys, such as `build.id` and `build.url`, are each listed as their own row rather than being grouped under a shared branch.
 

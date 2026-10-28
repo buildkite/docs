@@ -20,13 +20,25 @@ Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.font_src    :self, "https://www2.buildkiteassets.com/"
   policy.object_src  :none
-  policy.style_src   :self, :unsafe_inline
+
+  policy.style_src(
+    :self,
+    :unsafe_inline,
+
+    # Plain chat
+    "https://fonts.googleapis.com",
+  )
 
   policy.img_src(
     :self,
     "https://buildkiteassets.com/",
     "https://buildkite.com/",
     ENV.fetch("BADGE_DOMAIN", "https://badge.buildkite.com"),
+
+    # Plain chat: workspace logo, attachment files, and Gravatar (agent profile pictures)
+    "https://prod-uk-services-workspac-workspacefilespublicbuck-vs4gjqpqjkh6.s3.amazonaws.com",
+    "https://prod-uk-services-attachm-attachmentsbucket28b3ccf-uwfssb4vt2us.s3.eu-west-2.amazonaws.com",
+    "https://i0.wp.com",
   )
 
   policy.script_src(
@@ -36,6 +48,7 @@ Rails.application.config.content_security_policy do |policy|
     "https://www.datadoghq-browser-agent.com",
     "https://us-assets.i.posthog.com/",
     "https://static.reo.dev",
+    "https://chat.cdn-plain.com",
   )
 
   # Allow @vite/client to hot reload javascript changes in development
@@ -58,6 +71,10 @@ Rails.application.config.content_security_policy do |policy|
 
     # Reo.dev product analytics
     "https://api.reo.dev",
+
+    # Plain chat: message API and attachment uploads
+    "https://chat.uk.plain.com",
+    "https://prod-uk-services-attachm-attachmentsuploadbucket2-1l2e4906o2asm.s3.eu-west-2.amazonaws.com",
   )
 
   # Allow @vite/client to hot reload changes in development

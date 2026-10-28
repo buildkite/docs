@@ -10,7 +10,7 @@ The **Publish Instructions** tab of your JavaScript source registry includes com
 
 1. Select **Package Registries** in the global navigation to access the **Registries** page.
 1. Select your JavaScript source registry on this page.
-1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy the its snippet and paste it into your command line tool or the appropriate file.
+1. Select the **Publish Instructions** tab and on the resulting page, use the copy icon at the top-right of each respective code box to copy its snippet and paste it into your command line tool or the appropriate file.
 
     These file configurations contain the following:
     * `~/.npmrc`: the URL for your specific JavaScript source registry in Buildkite and a temporary API access token required to publish the package to this registry.

@@ -1,4 +1,4 @@
-A build state can be one of of the following values:
+A build state can be one of the following values:
 
 `creating`, `scheduled`, `running`, `passed`, `failing`, `failed`, `blocked`, `canceling`, `canceled`, `skipped`, `not_run`.
 

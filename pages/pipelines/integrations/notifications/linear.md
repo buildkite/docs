@@ -8,7 +8,7 @@ The Linear integration lets you synchronize issues between [Linear](https://line
 > 📘
 > Setting up a Workspace requires Buildkite organization administrator permissions.
 
-When adding a Linear integration through the [**Add Linear Notification** page](https://buildkite.com/organizations/-/services/linear/new), access for your entire Linear workspace will be authorized, along with all the teams contained within this workspace. You only need to set up this integration once per Linear workspace, after which, you can then configure action for any Linear team.
+When adding a Linear integration through the [**Add Linear Notification** page](https://buildkite.com/organizations/-/services/linear/new), access for your entire Linear workspace will be authorized, along with all the teams contained within this workspace. You only need to set up this integration once per Linear workspace, after which, you can then configure actions for any Linear team.
 
 ## Connect Linear
 

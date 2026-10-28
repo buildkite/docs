@@ -4,7 +4,7 @@ The Buildkite agent goes through several stages during its operation: starting u
 
 ## Receiving jobs
 
-The methods by which agents receive jobs differs, depending on whether you are using [self-hosted](/docs/agent/self-hosted) or [Buildkite hosted](/docs/agent/buildkite-hosted) agents:
+The methods by which agents receive jobs differ, depending on whether you are using [self-hosted](/docs/agent/self-hosted) or [Buildkite hosted](/docs/agent/buildkite-hosted) agents:
 
 - For self-hosted agents, agents receive jobs either by polling Buildkite Pipelines (the Buildkite platform) for jobs, or by having jobs pushed to them from Buildkite Pipelines (through the _streaming job dispatch_ feature). See [Job dispatch](/docs/agent/self-hosted/configure/job-dispatch).
 - For Buildkite hosted agents, Buildkite handles the job dispatch processes internally.

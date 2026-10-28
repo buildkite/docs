@@ -58,7 +58,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In your `environment` hook, you can export the deployment token only when when the job is the deployment step in a specific pipeline:
+In your `environment` hook, you can export the deployment token only when the job is the deployment step in a specific pipeline:
 
 ```bash
 #!/bin/bash

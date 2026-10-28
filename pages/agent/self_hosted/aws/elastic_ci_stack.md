@@ -114,7 +114,7 @@ The Elastic CI Stack for AWS deploys several billable Amazon services that do no
       },
       {
         "service_name": "S3",
-        "purpose": "Charging based on storage and transfers in/and out of the secrets bucket (on by default)",
+        "purpose": "Charging based on storage and transfers in and out of the secrets bucket (on by default)",
         "required": "❌"
       }
     ].select { |field| field[:service_name] }.each do |field| %>

@@ -633,7 +633,7 @@ Error responses:
 
 <%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
-Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name results in an error.
 
 ## Create a visual step pipeline
 
@@ -1401,7 +1401,7 @@ Success response: `204 No Content`
 
 ## Add a webhook
 
-Create an GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
+Create a GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -2010,7 +2010,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     <tr>
       <th><code>prevent_custom_statuses_from_using_buildkite_prefix</code></th>
       <td>Whether to prevent custom commit statuses configured using <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from setting <code>context:</code> to a value that starts with <code>buildkite/</code>. When enabled, custom commit statuses must specify a <code>context:</code>. Effective enforcement also requires this feature to be enabled for your organization. When the feature is inactive, the setting is stored but not enforced.
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -2037,7 +2037,7 @@ Additional properties available for GitHub:
       <th><code>github_workflow_access_tokens_enabled</code></th>
       <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
         <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc">credentials, secrets, and OIDC</a> for requirements and limitations.</p>
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -2045,7 +2045,7 @@ Additional properties available for GitHub:
       <th><code>build_issues</code></th>
       <td>Whether to create builds for GitHub issue activity, such as an issue being opened, edited, labeled, or closed. This setting is not supported for GitHub Enterprise Server pipelines.
         <p>Only available for GitHub.com pipelines that use the full-access <strong>GitHub</strong> App. Builds run the repository's default branch at the exact commit resolved when Buildkite Pipelines processes the webhook delivery. Public issue authors can trigger these builds without a trusted-author check. See <a href="/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity">running builds on issue activity</a> for details.</p>
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>

@@ -29,7 +29,7 @@ The following diagram shows how your private storage link interfaces between the
 Abbreviations:
 
 - CDN—content delivery network
-- API/CLI—is application programming interface/command line interface
+- API/CLI—application programming interface/command line interface
 - SSO & RBAC—single sign-on & role-based access control
 
 ## Link your private storage to Buildkite Package Registries
