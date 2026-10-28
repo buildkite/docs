@@ -89,7 +89,7 @@ The following example queue layout separates workloads by compute profile and cr
 | `test` | Unit tests, integration tests, linting | Auto-scaled, no production credentials |
 | `build` | Container image builds, artifact compilation | Auto-scaled, access to your registry |
 | `deploy` | Staging and production deployments | Small pool, production credentials scoped to trusted deployment pipelines |
-{: class="responsive-table"}
+{: class="responsive-table responsive-table--nowrap-first-column"}
 
 ### When to move beyond the Growth pattern
 
