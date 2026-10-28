@@ -68,11 +68,13 @@ function runAttribution({
   marketingOptedOut = false,
   optedOut = false,
   referrer = "",
+  beaconAvailable = true,
 } = {}) {
   const listeners = new Map();
   const marketingCaptures = [];
   const marketingInitCalls = [];
   const marketingOptOutCalls = [];
+  const docsOptOutCalls = [];
   const timers = [];
   const location = new URL(url);
   let docsIsReady = docsReady;
@@ -135,6 +137,11 @@ function runAttribution({
   };
 
   const posthogMethods = {
+    opt_out_capturing(...args) {
+      docsIsOptedOut = true;
+      docsOptOutCalls.push({ receiver: this, args });
+      return "docs-opted-out";
+    },
     get_distinct_id() {
       return docsDistinctId;
     },
@@ -155,6 +162,7 @@ function runAttribution({
       listeners.set(name, listener);
     },
     location,
+    navigator: { sendBeacon: beaconAvailable ? () => true : undefined },
     posthog,
     setTimeout(callback) {
       if (docsIsReady) callback();
@@ -187,6 +195,7 @@ function runAttribution({
     marketingCaptures,
     marketingInitCalls,
     marketingOptOutCalls,
+    docsOptOutCalls,
     makeDocsPostHogReady() {
       docsIsReady = true;
       Object.assign(posthog, posthogMethods);
@@ -197,9 +206,8 @@ function runAttribution({
       if (nextUrl) window.location = new URL(nextUrl);
       window.__initMarketingAttribution();
     },
-    withdrawDocsConsent() {
-      docsIsOptedOut = true;
-      window.__initMarketingAttribution();
+    withdrawDocsConsent(...args) {
+      return posthog.opt_out_capturing(...args);
     },
   };
 }
@@ -409,6 +417,8 @@ test("bootstraps the named marketing instance with an existing canonical ID", ()
   assert.equal(result.marketingInitCalls.length, 1);
   assert.equal(result.marketingInitCalls[0].name, "marketing");
   assert.equal(result.marketingInitCalls[0].config.persistence, "memory");
+  assert.equal(result.marketingInitCalls[0].config.request_batching, false);
+  assert.equal(result.marketingInitCalls[0].config.api_transport, "sendBeacon");
   assert.equal(result.marketingInitCalls[0].config.capture_pageview, false);
   assert.deepEqual(
     JSON.parse(JSON.stringify(result.marketingInitCalls[0].config.bootstrap)),
@@ -603,4 +613,47 @@ test("drops Marketing events processed after Docs consent is withdrawn", () => {
   result.withdrawDocsConsent();
 
   assert.equal(beforeSend({ properties: {} }), null);
+});
+
+test("idle consent withdrawal restores signup links without navigation or reinitialization", () => {
+  const signup = createAnchor("/signup?iaid=docs-header");
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin&utm_medium=paid_social&utm_campaign=docs_launch",
+    anchors: [signup],
+  });
+  assert.equal(result.decodedCookie("bk_marketing_tracking_allowed"), "1");
+  result.withdrawDocsConsent();
+  assert.equal(result.marketingOptOutCalls.length, 1);
+  for (const name of [
+    "bk_marketing_tracking_allowed",
+    "bk_marketing_id",
+    "bk_first_touch",
+    "bk_last_touch",
+  ]) {
+    assert.equal(result.decodedCookie(name), "");
+  }
+  assert.equal(signup.getAttribute("href"), "/signup?iaid=docs-header");
+});
+
+test("consent observation preserves SDK arguments and return values across Turbo initialization", () => {
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin",
+  });
+  result.reinitialize();
+  result.reinitialize();
+  const options = { clear_persistence: true };
+  assert.equal(result.withdrawDocsConsent(options), "docs-opted-out");
+  assert.equal(result.docsOptOutCalls.length, 1);
+  assert.equal(result.docsOptOutCalls[0].args[0], options);
+  assert.equal(result.marketingOptOutCalls.length, 1);
+});
+
+test("does not fall back to a retrying transport when beacons are unavailable", () => {
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin&utm_campaign=docs-test",
+    beaconAvailable: false,
+  });
+  assert.equal(result.marketingInitCalls.length, 0);
+  assert.equal(result.marketingCaptures.length, 0);
+  assert.equal(result.cookieJar.size, 0);
 });

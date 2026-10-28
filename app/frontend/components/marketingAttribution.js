@@ -64,6 +64,7 @@ let marketingPostHogInitializing = false;
 let pendingIncomingTouch = new URLSearchParams();
 let lastCapturedPageview = "";
 let clickTrackingInitialized = false;
+let docsConsentClient;
 
 function sanitize(value, lowerCase = false) {
   if (typeof value !== "string") return "";
@@ -136,6 +137,26 @@ function optOutMarketingPostHog() {
   if (client && typeof client.opt_out_capturing === "function") {
     client.opt_out_capturing();
   }
+}
+
+function observeDocsConsentWithdrawal() {
+  const client = window.posthog;
+  if (
+    client === docsConsentClient ||
+    typeof client.opt_out_capturing !== "function"
+  ) {
+    return;
+  }
+
+  const optOut = client.opt_out_capturing;
+  client.opt_out_capturing = function (...args) {
+    try {
+      return optOut.apply(this, args);
+    } finally {
+      clearAttribution({ optOutMarketing: true });
+    }
+  };
+  docsConsentClient = client;
 }
 
 function clearAttribution({ optOutMarketing = false } = {}) {
@@ -479,6 +500,8 @@ function initializeMarketingPostHog() {
     return;
   }
   if (marketingPostHogInitializing) return;
+  // Do not let the SDK fall back to a transport that retries after withdrawal.
+  if (typeof window.navigator?.sendBeacon !== "function") return;
 
   marketingPostHogInitializing = true;
   const existingMarketingId = sanitize(readCookie(MARKETING_ID_COOKIE));
@@ -487,6 +510,9 @@ function initializeMarketingPostHog() {
     defaults: "2026-01-30",
     person_profiles: "identified_only",
     persistence: "memory",
+    // Send while consent is current, without SDK batches or failed-request retries.
+    request_batching: false,
+    api_transport: "sendBeacon",
     capture_pageview: false,
     capture_pageleave: false,
     autocapture: false,
@@ -545,6 +571,8 @@ export function initMarketingAttribution() {
     retryWhenPostHogIsReady();
     return;
   }
+
+  observeDocsConsentWithdrawal();
 
   if (docsPostHogOptedOut()) {
     clearAttribution({ optOutMarketing: true });
