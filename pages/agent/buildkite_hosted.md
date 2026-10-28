@@ -4,6 +4,8 @@ Buildkite hosted agents provides a fully-managed platform on which you can run y
 
 With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
+To see how hosted agents fit into small setups and larger mixed fleets, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns cover queue layout, caching, and when workloads need persistent self-hosted agents instead.
+
 ## Why use Buildkite hosted agents
 
 Buildkite hosted agents provides numerous benefits over similar hosted machine and runner features of other CI/CD providers.

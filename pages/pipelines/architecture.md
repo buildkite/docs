@@ -2,6 +2,8 @@
 
 Buildkite Pipelines provides both a [_self-hosted_](#self-hosted-hybrid-architecture) and [_hosted_](#buildkite-hosted-architecture) architecture for its build environments.
 
+To choose an agent setup for your workload, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns cover hosted, self-hosted, and combined setups, including scaling, caching, and isolation considerations.
+
 ## Self-hosted (hybrid) architecture
 
 A self-hosted architecture (also known as a _hybrid_ architecture) separates the following aspects of Buildkite Pipelines' core functionality:

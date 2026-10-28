@@ -112,6 +112,12 @@
     vertical-align: top;
   }
 
+  &--nowrap-first-column {
+    tbody td:first-of-type {
+      white-space: nowrap;
+    }
+  }
+
   &--with-status {
     @media (min-width: $screen-md) {
       table-layout: fixed;

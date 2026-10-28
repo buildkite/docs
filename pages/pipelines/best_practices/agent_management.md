@@ -6,6 +6,8 @@ This page covers best practices for effective management of [Buildkite agents](/
 
 Buildkite agents can run on local machines, cloud compute, container schedulers, and serverless infrastructure. Choose based on your workload characteristics, cost constraints, and operational maturity. Many teams adopt a hybrid approach, combining different stacks for different workload types.
 
+For example setups and signals that your current design needs to change, see [Buildkite agent reference architectures](/docs/agent/reference-architectures).
+
 | Stack | Best for | Key benefits |
 | ----- | -------- | ------------ |
 | **Cloud compute** | High utilization, disk-heavy jobs | Bin-pack multiple agents, warm images, large cache support |
