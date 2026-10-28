@@ -15,6 +15,9 @@ Users with the [**Full Access** permission to a test suite](/docs/pipelines/secu
 
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
 
+> 🚧 Disabling test state management resets test states
+> Disabling test state management permanently resets all muted and skipped tests in the suite to enabled. Re-enabling test state management does not restore their previous states.
+
 ### Mute (recommended)
 
 Prefer muting over skipping. Muted tests continue running, but their failures do not affect the build result. Test Engine continues collecting execution data from muted tests, so it can detect when they become reliable.

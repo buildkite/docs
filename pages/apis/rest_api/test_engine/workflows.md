@@ -149,9 +149,6 @@ Success response: `204 No Content`
 
 The `monitor.type` selects the [monitor](/docs/pipelines/configure/tests/workflows/monitors) and its configuration fields. All fields listed for a type are required on creation. Thresholds must be JSON numbers, not strings. Recovery thresholds must be strictly lower than alarm thresholds.
 
-> 📘
-> The probabilistic flakiness monitor is only available on [Enterprise](https://buildkite.com/pricing) plans.
-
 Type | Configuration fields
 ---- | --------------------
 `transition_count` | `window_size`: integer from `2` to `1000`. `alarm_threshold` and `recover_threshold`: numbers from `0` to `1`, with up to three decimal places. Requires a nonempty `scm.branch` filter.
@@ -163,6 +160,8 @@ Type | Configuration fields
 
 > 📘 Duration units
 > The REST API uses milliseconds for duration thresholds. The workflow interface uses seconds.
+
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the monitors available.
 
 ## Filter configuration
 
