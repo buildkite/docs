@@ -18,7 +18,7 @@ Before you start, make sure your tests run with access to [CI environment variab
 
 1. [Securely](/docs/pipelines/security/secrets/managing) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from the previous step.
 
-    This will need to be on your CI server, if running the BuildKite collector using CI, or otherwise on your local machine.
+    This will need to be on your CI server, if running the Buildkite collector using CI, or otherwise on your local machine.
 
 1. **Unit Test Collector.** In your top-level build.gradle.kts file, add the following to your classpath:
 
@@ -103,4 +103,4 @@ If you don't see branch names, build numbers, or commit hashes in Test Engine, t
 
 To enable debugging output, create and set `BUILDKITE_ANALYTICS_DEBUG_ENABLED` environment variable to `true` on your test environment (CI server or local machine).
 
-For instrumented tests debugging, access the variable using `buildConfigField` and pass it through your `MyTestCollector` class. Refer the [example project](https://github.com/buildkite/bktest/tree/main/test-collector-android/example) for implementation.
+For instrumented tests debugging, access the variable using `buildConfigField` and pass it through your `MyTestCollector` class. Refer to the [example project](https://github.com/buildkite/bktest/tree/main/test-collector-android/example) for implementation.

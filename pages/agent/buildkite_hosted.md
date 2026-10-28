@@ -4,6 +4,8 @@ Buildkite hosted agents provides a fully-managed platform on which you can run y
 
 With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
+To see how hosted agents fit into small setups and larger mixed fleets, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns cover queue layout, caching, and when workloads need persistent self-hosted agents instead.
+
 ## Why use Buildkite hosted agents
 
 Buildkite hosted agents provides numerous benefits over similar hosted machine and runner features of other CI/CD providers.
@@ -24,7 +26,7 @@ The following cost benefits deliver enhanced value through accelerated build tim
 
 - **An internal container registry**: Speed up your pipeline build times by managing your jobs' container images through your [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), which provides deterministic storage for Open Container Initiative (OCI) images.
 
-- **Consistently rapid queue times**: Job are dispatched to hosted agents within a matter of seconds, providing consistently low queue times.
+- **Consistently rapid queue times**: Jobs are dispatched to hosted agents within a matter of seconds, providing consistently low queue times.
 
 Buildkite hosted agents also provides the following assurances:
 
@@ -56,7 +58,7 @@ Once started, the Buildkite agent running in the virtualized environment acquire
 > 📘 Cluster isolation
 > Every Buildkite hosted queue and its agents are configured within a [Buildkite cluster](/docs/pipelines/security/clusters), which benefits from hypervisor-level isolation, ensuring robust separation between each instance. Each cluster also has its own [cache volumes](/docs/agent/buildkite-hosted/cache-volumes), [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) and [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), as well as [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets), which are not available to any other cluster.
 
-The ephemeral nature of Buildkite hosted agents' virtualized environments also offer the following benefits:
+The ephemeral nature of Buildkite hosted agents' virtualized environments also offers the following benefits:
 
 - Each Buildkite hosted agent begins with a clean state, with no residual data from previous builds that could introduce vulnerabilities or cross-contamination between projects. Job dependencies are also pulled cleanly each time.
 

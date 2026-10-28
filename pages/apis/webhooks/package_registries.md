@@ -14,7 +14,7 @@ To add a webhook for your package creation event:
 
 1. Select the **Add** button on **Webhook**.
 
-1. Specifying your webhook's **Description** and **Webhook URL**.
+1. Specify your webhook's **Description** and **Webhook URL**.
 
 1. If you are using self-signed certificates for your webhooks, clear the **Verify TLS Certificates** checkbox.
 
@@ -91,7 +91,7 @@ The following HTTP headers are present in every webhook request, which allow you
 
 ## Edit, disable, re-enable or delete a webhook
 
-To do any of these actions a webhook:
+To do any of these actions on a webhook:
 
 1. Select **Package Registries** in the global navigation > your registry with your configured webhooks.
 1. Select **Settings** tab > **Notification Services** to open its page.
@@ -103,4 +103,4 @@ To do any of these actions a webhook:
 
 ## Request logs
 
-The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.
+The last 20 webhook requests and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page. Select **Load recent requests** to view the log.

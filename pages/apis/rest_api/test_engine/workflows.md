@@ -2,6 +2,8 @@
 
 Use the workflows API to create and manage [workflows](/docs/pipelines/configure/tests/workflows) for a Buildkite Test Engine [test suite](/docs/pipelines/configure/tests/test-suites). Each workflow has one monitor, optional execution tag filters, and actions to run when a test alarms or recovers.
 
+The API enforces the same [plan availability and per-suite limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) as the workflow interface.
+
 In every endpoint, `{org.slug}` is the organization slug, `{suite.slug}` accepts a suite slug or UUID, and `{workflow.id}` is a workflow UUID.
 
 > 📘
@@ -147,9 +149,6 @@ Success response: `204 No Content`
 
 The `monitor.type` selects the [monitor](/docs/pipelines/configure/tests/workflows/monitors) and its configuration fields. All fields listed for a type are required on creation. Thresholds must be JSON numbers, not strings. Recovery thresholds must be strictly lower than alarm thresholds.
 
-> 📘
-> The probabilistic flakiness monitor is only available on [Enterprise](https://buildkite.com/pricing) plans.
-
 Type | Configuration fields
 ---- | --------------------
 `transition_count` | `window_size`: integer from `2` to `1000`. `alarm_threshold` and `recover_threshold`: numbers from `0` to `1`, with up to three decimal places. Requires a nonempty `scm.branch` filter.
@@ -161,6 +160,8 @@ Type | Configuration fields
 
 > 📘 Duration units
 > The REST API uses milliseconds for duration thresholds. The workflow interface uses seconds.
+
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the monitors available.
 
 ## Filter configuration
 
@@ -191,7 +192,7 @@ Type | Configuration fields
 
 Each action list accepts up to seven entries. The `new_test` monitor accepts alarm actions only.
 
-The workflow actions available to you depend on your billing plan.
+See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details on the actions available.
 
 ## Workflow data model
 
@@ -236,8 +237,8 @@ Status | Description
 ------ | -----------
 `400 Bad Request` | The request is malformed or pagination values are invalid.
 `401 Unauthorized` | Authentication failed.
-`403 Forbidden` | The token lacks the required scope, the caller lacks suite permissions, or the plan does not include the requested feature.
+`403 Forbidden` | The token lacks the required scope, the caller lacks suite permissions, or the plan does not include workflows.
 `404 Not Found` | The organization, suite, or workflow was not found.
-`422 Unprocessable Entity` | Validation failed, or the suite has reached its workflow limit.
+`422 Unprocessable Entity` | Validation failed, the plan does not include a requested monitor or action type, or the suite has reached its workflow limit.
 `503 Service Unavailable` | Linear could not be reached while validating a new Linear action. Retry the request later.
 {: class="responsive-table"}

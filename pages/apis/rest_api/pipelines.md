@@ -327,6 +327,8 @@ Success response: `200 OK`
 
 YAML pipelines are the recommended way to [manage your pipelines](/docs/pipelines/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to the YAML you want in your pipeline.
 
+For GitHub Actions Compatibility, prefer [GitHub Actions setup in the Buildkite interface](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline). To provision the equivalent using this API, [create the pipeline with the GitHub Actions provider settings, then create its dedicated pipeline trigger](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually). This endpoint doesn't create the trigger or its signed repository webhook automatically.
+
 For example, to create a pipeline called `"My Pipeline"` containing the following command step
 
 ```yaml
@@ -631,7 +633,7 @@ Error responses:
 
 <%= render_markdown partial: 'platform/deriving_a_pipeline_slug_from_the_pipelines_name' %>
 
-Any attempt to create a new pipeline with a name that matches an existing pipeline's name, results in an error.
+Any attempt to create a new pipeline with a name that matches an existing pipeline's name results in an error.
 
 ## Create a visual step pipeline
 
@@ -1399,7 +1401,7 @@ Success response: `204 No Content`
 
 ## Add a webhook
 
-Create an GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
+Create a GitHub webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -2008,7 +2010,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     <tr>
       <th><code>prevent_custom_statuses_from_using_buildkite_prefix</code></th>
       <td>Whether to prevent custom commit statuses configured using <a href="/docs/pipelines/source-control/github#customizing-commit-statuses"><code>notify:</code></a> from setting <code>context:</code> to a value that starts with <code>buildkite/</code>. When enabled, custom commit statuses must specify a <code>context:</code>. Effective enforcement also requires this feature to be enabled for your organization. When the feature is inactive, the setting is stored but not enforced.
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -2019,7 +2021,7 @@ Additional properties available for GitHub and GitHub Enterprise:
           <li><code>code</code> creates builds when code is pushed to GitHub.</li>
           <li><code>deployment</code> creates builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>.</li>
           <li><code>fork</code> creates builds when the GitHub repository is forked.</li>
-          <li><code>none</code> will not create any builds based on GitHub activity.</li>
+          <li><code>none</code> disables traditional GitHub build triggering. It doesn't disable <a href="/docs/apis/rest-api/pipeline-triggers#create-a-pipeline-trigger-create-a-github-actions-pipeline-trigger">GitHub Actions pipeline triggers</a>, which process their own deliveries.</li>
         </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p>
       </td>
@@ -2035,7 +2037,7 @@ Additional properties available for GitHub:
       <th><code>github_workflow_access_tokens_enabled</code></th>
       <td>Whether jobs can request GitHub access tokens bounded by workflow permissions. This setting is not supported for GitHub Enterprise Server pipelines.
         <p>The organization feature and this pipeline setting must both be enabled. See <a href="/docs/pipelines/migration/run-github-actions-workflows#supported-functionality-and-limitations-credentials-secrets-and-oidc">credentials, secrets, and OIDC</a> for requirements and limitations.</p>
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>
@@ -2043,7 +2045,7 @@ Additional properties available for GitHub:
       <th><code>build_issues</code></th>
       <td>Whether to create builds for GitHub issue activity, such as an issue being opened, edited, labeled, or closed. This setting is not supported for GitHub Enterprise Server pipelines.
         <p>Only available for GitHub.com pipelines that use the full-access <strong>GitHub</strong> App. Builds run the repository's default branch at the exact commit resolved when Buildkite Pipelines processes the webhook delivery. Public issue authors can trigger these builds without a trusted-author check. See <a href="/docs/pipelines/source-control/github#running-builds-on-additional-github-events-running-builds-on-issue-activity">running builds on issue activity</a> for details.</p>
-        <p>This feature is currently in private preview. Contact <a href="https://buildkite.com/support">Buildkite support</a> to enable it for your organization.</p>
+        <p>This feature is currently in private preview. Contact <a href="mailto:support@buildkite.com">Buildkite support</a> to enable it for your organization.</p>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
       </td>
     </tr>

@@ -328,7 +328,7 @@ attributes:
       "strict"
     required: false
     desc: |
-      Verify that the commit being built exists on the specified branch; one of strict or off
+      Verify that the commit being built exists on the specified branch; one of strict, fail-closed or off. Strict blocks a confirmed mismatch; fail-closed also blocks unavailable or skipped verification and requires the default checkout in the same bootstrap invocation
   - name: "git-fetch-flags"
     env_var: |
       $BUILDKITE_GIT_FETCH_FLAGS
@@ -601,7 +601,7 @@ attributes:
 
     required: false
     desc: |
-      Add the agent's maintained list of Git configuration and command-execution environment variables to protected-environment-variables. Disabled by default.
+      Add the agent's maintained preset to protected-environment-variables to protect against job-supplied overrides. The preset covers Git environment variables that can select executables, inject Git configuration or enable command-running transports: GIT_CONFIG, GIT_CONFIG_*, GIT_ASKPASS, SSH_ASKPASS, GIT_SSH, GIT_SSH_COMMAND, GIT_EXEC_PATH, GIT_EXTERNAL_DIFF, GIT_PROXY_COMMAND, GIT_TEMPLATE_DIR, GIT_PAGER, PAGER, GIT_EDITOR, GIT_SEQUENCE_EDITOR, EDITOR, VISUAL, GIT_ALLOW_PROTOCOL. This preset is not exhaustive; use protected-environment-variables to protect additional names or trailing-* prefixes. Disabled by default.
   - name: "allowed-environment-variables"
     env_var: |
       $BUILDKITE_ALLOWED_ENVIRONMENT_VARIABLES
@@ -673,7 +673,7 @@ attributes:
       5s
     required: false
     desc: |
-      Extra time for a stopping agent to upload logs and artifacts after a job process exits or is killed, before the agent forcefully exits
+      How much longer than ′--cancel-signal-timeout′ a force-stopped agent waits to finish uploading the job log before it exits
   - name: "opentelemetry-tracing"
     env_var: |
       $BUILDKITE_OPENTELEMETRY_TRACING

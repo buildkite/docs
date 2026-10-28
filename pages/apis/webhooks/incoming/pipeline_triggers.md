@@ -19,7 +19,7 @@ Buildkite's pipeline triggers feature supports the following types of incoming w
 
 - **Webhook**: A generic webhook from any service that can send HTTP POST requests.
 - **GitHub**: A [GitHub webhook](https://docs.github.com/en/webhooks) trigger with [signature verification support](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries). This is supplementary to Buildkite's [GitHub repository provider](/docs/pipelines/source-control/github) integration.
-- **GitHub Actions**: Matches supported workflow events and creates one Buildkite Pipelines build per matching workflow per event. This is the recommended setup for [running GitHub Actions workflows](/docs/pipelines/migration/run-github-actions-workflows). This trigger is separate from the generic **GitHub** trigger and the native repository webhook.
+- **GitHub Actions**: Matches supported workflow events and creates one Buildkite Pipelines build per matching workflow per event. This is the recommended setup for [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows). This trigger is separate from the generic **GitHub** trigger and the native repository webhook.
 - **Linear**: A [Linear webhook](https://linear.app/developers/webhooks) trigger with [signature verification support](https://linear.app/developers/webhooks#securing-webhooks).
 
 ## Create a new pipeline trigger
@@ -73,7 +73,7 @@ To create a **Webhook**, **GitHub**, or **Linear** pipeline trigger using the Bu
       </tbody>
     </table>
 
-1. If you had chosen either **GitHub** or **Linear** as your incoming webhook for this pipeline trigger, you can optionally choose validate the authenticity of these webhook payloads. Learn more about this feature in [Webhook verification](#webhook-verification). To do this:
+1. If you had chosen either **GitHub** or **Linear** as your incoming webhook for this pipeline trigger, you can optionally choose to validate the authenticity of these webhook payloads. Learn more about this feature in [Webhook verification](#webhook-verification). To do this:
 
     1. Expand the **Security** section and select **Validate/Verify webhook deliveries**.
     1. In the **Secret/Signing secret** field, enter the webhook secret/token that you configured in your GitHub or Linear webhook settings.
@@ -126,7 +126,7 @@ When [creating](#create-a-new-pipeline-trigger) or editing your Buildkite pipeli
 
 If you want to validate the authenticity of these incoming webhook types, ensure you have configured their respective secret/token, which you'll need for your Buildkite pipeline trigger configuration.
 
-Learn more about to configure these secrets/tokens in the following relevant documentation:
+Learn more about how to configure these secrets/tokens in the following relevant documentation:
 
 - [GitHub webhook signature verification](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries)
 
@@ -231,7 +231,7 @@ Be aware that pipeline triggers have the following limitations:
 
 ## Next steps
 
-Learn more about how pipeline triggers integrate with other aspects of Buildkite Pipelines from the follow topic sections:
+Learn more about how pipeline triggers integrate with other aspects of Buildkite Pipelines from the following topic sections:
 
 - [Special meta-data](/docs/pipelines/configure/build-meta-data#special-meta-data)—covers details on how to retrieve meta-data from a Buildkite pipeline.
 - [`buildkite-agent meta-data` CLI command](/docs/agent/cli/reference/meta-data)—covers details on this actual meta-data retrieval command of the [Buildkite agent](/docs/agent) and all of its options.

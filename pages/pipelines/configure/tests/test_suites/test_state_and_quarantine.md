@@ -7,13 +7,16 @@ Test Engine's **Test state** management feature provides the [test state](/docs/
 Quarantining [flaky tests](/docs/pipelines/configure/tests/flaky-tests) and then using [bktec](/docs/pipelines/speed-up-builds-with-bktec#increase-build-reliability-with-test-states) on pipeline's builds allows the pipeline to be built more rapidly, and run with a higher success rate.
 
 > 📘 Pro and Enterprise plan features
-> The _test state_ management and _automatic quarantining_ features are only available to customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan.
+> Test state management is available on the [Pro and Enterprise](https://buildkite.com/pricing) plans. Configuring automatic quarantine using a **Change state** workflow action requires an Enterprise plan. See [Plan availability and limits](/docs/pipelines/configure/tests/workflows#plan-availability-and-limits) for details.
 
 ## Lifecycle states
 
 Users with the [**Full Access** permission to a test suite](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) can enable a **Test state** in a test suite's **Settings**, by selecting the appropriate test states that quarantining can be based upon.
 
 <%= image "lifecycle-management.png", alt: "The UI for test state lifecycle management" %>
+
+> 🚧 Disabling test state management resets test states
+> Disabling test state management permanently resets all muted and skipped tests in the suite to enabled. Re-enabling test state management does not restore their previous states.
 
 ### Mute (recommended)
 
@@ -25,7 +28,9 @@ Use skipping only when a test must not run. Skipped tests do not produce executi
 
 ## Automatic quarantine
 
-You can automatically quarantine tests using [workflows](/docs/pipelines/configure/tests/flaky-tests#quarantine-flaky-tests). To do this, use the [workflow change state action](/docs/pipelines/configure/tests/workflows/actions#change-state), to automatically transition tests into different states.
+On an Enterprise plan, you can automatically quarantine tests using the [**Change state** action](/docs/pipelines/configure/tests/workflows/actions#change-state) in a [workflow](/docs/pipelines/configure/tests/workflows). Set the alarm action to **muted** or **skipped**, and the recover action to **enabled**. Test state management must be enabled for the suite, with the requested states allowed.
+
+The current Pro plan includes test state management but does not allow you to configure **Change state** workflow actions. You can still [quarantine tests manually](#manual-quarantine) or change their state using the [Test Engine REST API](/docs/apis/rest-api/test-engine/quarantine#update-test-state).
 
 <%= image "automatic-quarantine.png", width: 1364/2, height: 318/2, alt: "Screenshot showing Slack workflow action configuration", align: :center %>
 

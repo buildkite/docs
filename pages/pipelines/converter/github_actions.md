@@ -7,7 +7,7 @@ Because GitHub Actions workflows can include complex combinations of jobs, steps
 
 The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in GitHub Actions would function in Buildkite Pipelines. In cases where GitHub Actions features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions.
 
-If you want to run supported GitHub Actions workflows in Buildkite before converting them, use the [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) for an incremental migration.
+If you want to run supported GitHub Actions workflows in Buildkite before converting them, use [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows) for an incremental migration.
 
 ## Using the Buildkite pipeline converter with GitHub Actions
 

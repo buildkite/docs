@@ -114,7 +114,7 @@ See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting i
 
 Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cron job fixes it or terminates them.
 
-An instance with a full disk can be causing jobs to fail. If such instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
+An instance with a full disk can be causing jobs to fail. If such an instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
 
 ## Permission errors when running Docker images with volume mounts
 

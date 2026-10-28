@@ -27,7 +27,7 @@ To link your private Amazon S3 bucket to Package Registries:
 
 1. In the **Packages** section, select **Private Storage Link** to open its page.
 
-1. Select **Add private storage link** start the private storage configuration process.
+1. Select **Add private storage link** to start the private storage configuration process.
 
 1. On the **Provide your storage's details** (page) > **Step 1: Select your storage provider**, select **AWS**.
 
@@ -39,7 +39,7 @@ To link your private Amazon S3 bucket to Package Registries:
 
 1. On the next **Authorize Buildkite in AWS** page, select **Launch Stack** to open the **Quick create stack** page in the AWS CloudFormation interface.
 
-1. Ensure the the following fields are populated with the correct information:
+1. Ensure the following fields are populated with the correct information:
     * **Template URL**—should be based on:<br/>`https://packages-public-assets.s3.amazonaws.com/cf-templates/byo-storage-bucket-policy-yyyymmdd.yml`
     * **Stack name**—`buildkitePackagesProvisioning` by default, but can be changed if another CloudFormation stack of the same name exists in your AWS account.
     * **BucketName**—the name of your Amazon S3 bucket (specified on the previous **Provide your bucket's details** page in Buildkite).

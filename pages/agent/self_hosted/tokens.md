@@ -304,7 +304,7 @@ where:
 
 ## Scope of access
 
-An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
+An agent token is specific to the cluster it was associated with when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
 
 ## Agent token lifetime
 
@@ -387,7 +387,7 @@ When an agent starts, it follows the token exchange process:
 ## Working with unclustered agent tokens
 
 > 🚧 This section documents a deprecated Buildkite feature
-> _It is not be possible to create and work with unclustered agents for any Buildkite organizations created after the official release of clusters on February 26, 2024._ Therefore, unclustered agent tokens are not relevant to these organizations, including this section of the Agent tokens page.
+> _It is not possible to create and work with unclustered agents for any Buildkite organizations created after the official release of clusters on February 26, 2024._ Therefore, unclustered agent tokens are not relevant to these organizations, including this section of the Agent tokens page.
 > Previously, agents only connected directly to Buildkite using a token which was created and managed by the processes described in this page section. These tokens are now a deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines to a [cluster](/docs/pipelines/security/clusters).
 > _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Learn more about how to manage agent tokens for clusters from the top of this main [Agent tokens](/docs/agent/self-hosted/tokens) page and how to [migrate your unclustered agents across to a cluster](/docs/pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents).
 
@@ -430,7 +430,7 @@ mutation {
 > As soon as the unclustered agent token's value is displayed, copy its value and save it in a secure location.
 > If you forget to do this, you'll need to create a new token to obtain its value.
 
-You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
+You can find your `organization-id` in your Buildkite organization settings page, or by running the following GraphQL query:
 
 ```graphql
 query GetOrgID {

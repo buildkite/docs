@@ -110,7 +110,7 @@ See [Supported variables](/docs/pipelines/configure/conditionals#variable-and-sy
 
 ## Basecamp Campfire message
 
-To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to setup your chatbot.
+To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to set up your chatbot.
 
 > 🚧
 > Campfire messages can only be sent using Basecamp 3.
@@ -268,7 +268,7 @@ Step-level GitHub commit status notifications happen at the following [events](/
 > GitHub checks require the GitHub App integration. If you're using OAuth-based GitHub integration, use [GitHub commit status](#github-commit-status) notifications instead.
 > GitHub notifications require a full 40-character commit SHA. Builds with short commit SHA values or `HEAD` references will not trigger notifications until the commit SHA is resolved.
 
-Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
+Create a [GitHub check](https://docs.github.com/en/rest/checks) to provide detailed feedback on builds and steps with rich formatting, annotations, and summaries. This requires that the pipeline is configured to use [a GitHub repository](/docs/pipelines/source-control/github) with the GitHub App integration.
 
 GitHub checks provide richer status information than commit statuses, including the ability to display detailed output, annotations, and custom formatting. Unlike commit statuses, GitHub checks can show step-by-step progress, include formatted text and links, and provide inline code annotations.
 
@@ -531,7 +531,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Email notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
+PagerDuty notifications happen at the following [event](/docs/apis/webhooks/pipelines#events):
 
 - `build finished`
 

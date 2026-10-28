@@ -14,13 +14,11 @@ The following diagram shows how a plugin might hook into the job lifecycle:
 
 Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/pipelines/integrations/plugins/using#plugin-sources).
 
-Plugins can be also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/hooks#job-lifecycle-hooks) they are run in.
+Plugins can also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/hooks#job-lifecycle-hooks) they are run in.
 
 ## How to use plugins
 
 Add plugins to [command steps](/docs/pipelines/configure/step-types/command-step) in your YAML pipeline to add functionality to Buildkite. Plugins can do things like execute steps in Docker containers, read values from a credential store, or add test summary annotations to builds.
-
-The [GitHub Actions Buildkite plugin](/docs/pipelines/migration/run-github-actions-workflows) can also run supported GitHub Actions workflows as Buildkite Pipelines jobs during an incremental migration.
 
 <%= image "plugins-overview.png", width: 537, height: 209, alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
 

@@ -48,7 +48,7 @@ For self-hosted agents, the following order applies only to jobs that are runnab
 1. Job priority in descending order, highest number to lowest (`priority`)
 1. Date and time scheduled in ascending order, oldest to most recent (`scheduled_at`). Note that jobs inherit `scheduled_at` from pipeline upload jobs, meaning jobs that are uploaded by a pipeline in an older build will be dispatched before builds created after that, and the value of `scheduled_at` cannot be modified.
 1. Upload order in pipeline, first to last.
-1. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
+1. Internal id in ascending order, used as a tie breaker if all other values are the same, meaning older jobs will be dispatched first.
 
 For hosted agents, Buildkite Pipelines prefers higher-priority jobs on a best-effort basis. Available capacity can affect job start order. This prevents a high-priority job that requires a large instance from blocking smaller, lower-priority jobs that fit the available capacity. The self-hosted dispatch ordering above does not describe how hosted agents order jobs with the same priority.
 

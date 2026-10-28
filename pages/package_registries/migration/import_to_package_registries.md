@@ -10,7 +10,7 @@ Ensure that:
 
 - You have [installed the Buildkite CLI tool](/docs/platform/cli/installation), and have configured your organization name and token (using the `bk configure` command).
 
-- You have set up a registry whose [supported package ecosystem](/docs/package-registries/ecosystems) matches the package, images, or other files. You downloaded from your existing registry or repository provider.
+- You have set up a registry whose [supported package ecosystem](/docs/package-registries/ecosystems) matches the package, images, or other files you downloaded from your existing registry or repository provider.
 
 To push a package to your registry using the Buildkite CLI, run the command `bk package push`. Learn more about how to [use this command](/docs/platform/cli#usage) by running the command option `bk package push --help`.
 
