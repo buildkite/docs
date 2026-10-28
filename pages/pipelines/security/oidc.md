@@ -1,6 +1,5 @@
 ---
 keywords: oidc, authentication, IAM, roles
-toc: false
 ---
 
 # OIDC in Buildkite Pipelines
@@ -18,4 +17,20 @@ The [Buildkite agent's `oidc` command](/docs/agent/cli/reference/oidc) allows yo
 
 By default, the token's `sub` (subject) claim identifies the pipeline. You can use the `--subject-claim` flag to set it to a different immutable identifier, such as a cluster UUID or organization UUID, giving you control over how broadly or narrowly trust is scoped. See [Custom subject claims](/docs/agent/cli/reference/oidc#custom-subject-claims) for details.
 
-This section of the Buildkite Docs covers Buildkite's OIDC implementation with other federated systems, such as [AWS](/docs/pipelines/security/oidc/aws) and [Azure](/docs/pipelines/security/oidc/azure).
+## Restrict access with OIDC policies
+
+Configure the receiving service's OIDC trust policy to accept tokens only from the Buildkite organizations and workloads that need access. Buildkite issues signed tokens containing claims about a job. Your receiving service is responsible for checking those claims before granting access.
+
+> 🚧 The issuer does not identify your organization
+> The issuer `https://agent.buildkite.com` is shared across Buildkite organizations. Verifying this issuer alone does not restrict access to your organization. A policy without organization or workload restrictions could accept tokens from another customer's organization.
+
+When configuring or reviewing a trust policy:
+
+- **Restrict the organization and workload**: Use immutable identifiers, such as `organization_id` and `pipeline_id`, where the provider supports them. Alternatively, match an immutable identifier in the `sub` claim. A pipeline slug alone does not identify an organization, and deleted organization and pipeline slugs can be reused.
+- **Enforce claim values**: Mapping a claim to a provider attribute does not restrict which values are accepted. Add conditions or identity bindings that enforce the intended values. Check every rule that can grant access so that a broader rule does not bypass these restrictions.
+- **Validate the audience**: Configure the receiving service to require the intended `aud` (audience) value, and request a token with the matching audience. Audience validation does not replace organization and workload restrictions.
+- **Control what code can authenticate**: Restrict who can trigger or change pipelines with privileged access, including whether they run untrusted pull requests. A branch condition alone does not guarantee that the job executes only trusted code.
+
+Limit the permissions granted after authentication separately from the trust policy. Grant only the actions and resources the workload needs. For example, an integration that only creates builds should not also have permission to create pipelines. Short-lived tokens reduce the time a leaked token can be used, but do not compensate for overly broad trust or permissions.
+
+For provider-specific configuration, see [Restricting access with Buildkite OIDC claims in AWS](/docs/pipelines/security/oidc/aws#restricting-access-with-buildkite-oidc-claims), [Adding a federated identity credential in Azure](/docs/pipelines/security/oidc/azure#step-2-add-a-federated-identity-credential), and [Azure access control limitations](/docs/pipelines/security/oidc/azure#known-limitations).
