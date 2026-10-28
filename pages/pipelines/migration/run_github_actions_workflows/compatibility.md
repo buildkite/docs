@@ -1349,7 +1349,7 @@ With a linked webhook or explicit snapshot, `GITHUB_EVENT_PATH` contains the com
 > 📘 Unreleased expression support
 > `github.event_path` expression support is not yet released. Released runtimes expose only `GITHUB_EVENT_PATH`.
 
-`github.event_path` resolves at runtime to the host file path or the mounted path in a job container. It is available in runtime environment values, step expressions and conditions, action input defaults, JavaScript lifecycle conditions, and composite and job outputs. Without an event file, it returns an empty string. It is unavailable in graph-time fields such as `runs-on` and concurrency, or job and reusable-call conditions evaluated before setup.
+`github.event_path` resolves at runtime to the host file path or the mounted path in a job container. The expression is available in runtime environment values, step expressions and conditions, action input defaults, JavaScript lifecycle conditions, and composite and job outputs. Without an event file, `github.event_path` returns an empty string. The expression is unavailable in graph-time fields such as `runs-on` and concurrency, or job and reusable-call conditions evaluated before setup.
 
 ```yaml
 steps:
