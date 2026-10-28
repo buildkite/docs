@@ -17,6 +17,11 @@ curl -H "Authorization: Bearer $TOKEN" \
     "commit_sha": "1c3214fcceb2c14579a2c3c50cd78f1442fd8936",
     "state": "finished",
     "result": "passed",
+    "executions_count": 112,
+    "executions_count_by_result": {
+      "passed": 110,
+      "failed": 2
+    },
     "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
     "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
     "build_id": "89c02425-7712-4ee5-a694-c94b56b4d54c",
@@ -28,6 +33,19 @@ curl -H "Authorization: Bearer $TOKEN" \
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown partial: 'apis/rest_api/test_engine/runs_list_query_strings' %>
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>executions_count</code></th>
+    <td>The number of executions in the run. This is <code>0</code> when the run has no executions.</td>
+  </tr>
+  <tr>
+    <th><code>executions_count_by_result</code></th>
+    <td>The number of executions in the run, broken down by result. The <code>passed</code> and <code>failed</code> counts are always present. The <code>skipped</code>, <code>pending</code>, and <code>unknown</code> counts are only present when they're non-zero.</td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `read_suites`
 
@@ -47,12 +65,19 @@ curl -H "Authorization: Bearer $TOKEN" \
   "commit_sha": "1c3214fcceb2c14579a2c3c50cd78f1442fd8936",
   "state": "finished",
   "result": "passed",
+  "executions_count": 112,
+  "executions_count_by_result": {
+    "passed": 110,
+    "failed": 2
+  },
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
   "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug/runs/64374307-12ab-4b13-a3f3-6a408f644ea2",
   "build_id": "89c02425-7712-4ee5-a694-c94b56b4d54c",
   "created_at": "2023-06-25T05:32:53.228Z"
 }
 ```
+
+`executions_count` and `executions_count_by_result` behave the same as in the [list all runs](#list-all-runs) response above.
 
 Required scope: `read_suites`
 
