@@ -48,7 +48,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Required scope: `read_accounts`
+Required scope: `read_organizations`
 
 Success response: `200 OK`
 
