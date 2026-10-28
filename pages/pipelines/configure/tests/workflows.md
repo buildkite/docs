@@ -10,6 +10,21 @@ Workflows are composed of a single [monitor](/docs/pipelines/configure/tests/wor
 
 You can also create and manage workflows using the [Workflows REST API](/docs/apis/rest-api/test-engine/workflows).
 
+## Plan availability and limits
+
+Workflow availability depends on your [plan](https://buildkite.com/pricing/feature-comparison):
+
+Plan | Workflows per test suite | Monitors | Actions
+---- | ------------------------ | -------- | -------
+Free | Not available | Not available | Not available
+Pro | One | Transition count | **Add label** and **Remove label**
+Enterprise | Three by default, with a configurable quota | All documented monitors | All documented actions
+{: class="responsive-table"}
+
+The default transition count workflow counts toward your suite's limit.
+
+See [Limits](/docs/platform/limits#viewing-your-organizations-service-quotas) to view your organization's quotas or request an increase. Legacy plan availability may differ. Contact support@buildkite.com to confirm your entitlements.
+
 ## How they work
 
 A single monitor watches over all the tests in your test suite (except for those excluded by filters) and generates individual _alarm_ and _recover_ events for each test, which then trigger the associated [alarm and recover actions](/docs/pipelines/configure/tests/workflows/actions).

@@ -176,7 +176,7 @@ AWS KMS has a myriad of options when creating keys, for pipeline signing we requ
 1. The key type must be Asymmetric and have a usage type of `SIGN_VERIFY`.
 2. The key spec must be `ECC_NIST_P256`.
 
-If your using the AWS CLI the key can be created as follows:
+If you're using the AWS CLI the key can be created as follows:
 
 ```bash
 aws kms create-key --key-spec ECC_NIST_P256 --key-usage SIGN_VERIFY
@@ -230,7 +230,7 @@ Replacing the following:
 
 ### Step 4: Assign IAM permissions to your agents
 
-There are two common roles for agents when using signed pipelines, these being those that sign and upload pipelines, and those that verify steps. To follow least privilege best practice you should access to the KMS key using IAM to specific actions as seen below.
+There are two common roles for agents when using signed pipelines, these being those that sign and upload pipelines, and those that verify steps. To follow least privilege best practice you should restrict access to the KMS key using IAM to specific actions as seen below.
 
 For agents which will sign and verify pipelines the following IAM Actions are required.
 

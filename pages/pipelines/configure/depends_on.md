@@ -135,7 +135,7 @@ In JSON:
 ```
 {: codeblock-file="pipeline.yml"}
 
-While the second command step in these examples is defined after a wait step, its empty dependency directs this command to not depend on the `wait` step, so that both commands steps are available to run immediately at the start of the build.
+While the second command step in these examples is defined after a wait step, its empty dependency directs this command to not depend on the `wait` step, so that both command steps are available to run immediately at the start of the build.
 
 Explicit dependencies on block steps can be added without setting additional input values. You can use this to define a **Deploy** button, for example.
 
@@ -237,7 +237,7 @@ steps:
 
 Setting [`soft_fail`](/docs/pipelines/configure/soft-fail) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/configure/depends-on#allowing-dependency-failures) is set on the subsequent step.
 
-In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
+In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to fail with a different exit code, `step-b` would not run.
 
 ```yml
 steps:

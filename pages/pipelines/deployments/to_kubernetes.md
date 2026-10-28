@@ -4,7 +4,7 @@ This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
 The tutorial uses one pipeline for tests and another for deploys.
-The test pipeline runs tests and push a Docker image to a registry. The deploy pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from the `main` branch.
+The test pipeline runs tests and pushes a Docker image to a registry. The deploy pipeline uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) using `kubectl`. Then, you'll see how to link them together to automate deploys from the `main` branch.
 
 First up, you need to add a step to your existing test pipeline that pushes a
 Docker image. Also check your agents have `kubectl` access to your target
@@ -44,7 +44,7 @@ The next step is writing a deploy script that generates a [Kubernetes deployment
 manifest](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) from the `DOCKER_IMAGE` environment variable.
 
 Let's start with manifest file. This sample file creates a Deployment with
-three replicas (horizontal scale in Kubernetes lingo) each listening port
+three replicas (horizontal scale in Kubernetes lingo) each listening on port
 `3000`. Change the `containerPort` to fit your application.
 
 > 📘
@@ -169,7 +169,7 @@ This `trigger` step creates a build with the same message, commit, and branch.
 correct values are replaced when the pipeline starts. The `env` setting passes
 along the `DOCKER_IMAGE` environment variable.
 
-Lastly, the `branches` options indicates to only build on `main`. This
+Lastly, the `branches` option indicates to only build on `main`. This
 prevents deploying unexpected topic branches.
 
 It's magic time. Push some code. :tada: Continuous deployment! If something

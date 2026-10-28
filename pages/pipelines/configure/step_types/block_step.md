@@ -348,7 +348,7 @@ Each select option has the following _required_ attributes:
 
 To unblock a block step, a user must either have write access to the pipeline, or where the [`allowed_teams` attribute](#block-step-attributes) is specified, the user must belong to one of the allowed teams. When `allowed_teams` is specified, a user who has write access to the pipeline but is not a member of any of the allowed teams will not be permitted to unblock the step.
 
-The `allowed_teams` attribute serves as a useful way to restrict unblock permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting unblock permissions to users _without_ also granting the ability create builds.
+The `allowed_teams` attribute serves as a useful way to restrict unblock permissions to a subset of users without restricting the ability to create builds. Conversely, this attribute is also useful for granting unblock permissions to users _without_ also granting the ability to create builds.
 
 ```yml
 - block: "Release"

@@ -119,7 +119,7 @@ To confirm that your Node.js package was successfully published to your Buildkit
         - The package's license, obtained from the `license` field value.
     * **Download**: select this to download the package locally.
 
-To return to the your JavaScript registry details page (listing all packages published to this registry), select the registry's name at the top of the page.
+To return to your JavaScript registry details page (listing all packages published to this registry), select the registry's name at the top of the page.
 
 ### Publish a new version
 

@@ -20,7 +20,7 @@ The team suites API endpoint allows users to review, create, update, and delete 
   </tr>
   <tr>
     <th><code>access_level</code></th>
-    <td>The access levels that user has to the associated suite - <code>edit</code>, <code>read</code></td>
+    <td>The access levels that the user has to the associated suite - <code>edit</code>, <code>read</code></td>
   </tr>
 </tbody>
 </table>

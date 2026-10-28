@@ -101,7 +101,7 @@ Consider the following factors that might increase the complexity of moving your
 
 - **Shared infrastructure or configuration between different teams or environments**: When different environments share infrastructure or configurations, sharing these resources across separate clusters adds complexity to the entire agent migration process.
     * Shared resources like caches, artifacts, or Docker images may need reconfiguring.
-    * Teams might need to coordinate the timing their individual agent migrations to avoid disruption.
+    * Teams might need to coordinate the timing of their individual agent migrations to avoid disruption.
     * You may need to rethink how shared infrastructure is accessed across cluster boundaries.
 
 - **Custom scripts or automation that interacts with the Buildkite API**: Any custom scripts, integrations, or automations that interact with the Buildkite API might need updates to work with the cluster model.
@@ -140,7 +140,7 @@ This migration strategy is best for Buildkite organizations that have their CI/C
 #### Advantages
 
 - Inherently has lower risk, as changes affect only one team at a time.
-- Teams can migration to clustered agents at their own pace.
+- Teams can migrate to clustered agents at their own pace.
 - Easier to troubleshoot issues if they arise.
 
 #### Considerations

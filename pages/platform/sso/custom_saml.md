@@ -1,6 +1,6 @@
 # Single sign-on with a SAML provider
 
-You can use any identify provider that supports SAML 2.0 to authorize access to your Buildkite organization. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
+You can use any identity provider that supports SAML 2.0 to authorize access to your Buildkite organization. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
 
 > 📘 Enterprise plan feature
 > Custom SAML capabilities for SSO are only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans.
@@ -24,7 +24,7 @@ Choose the **Provide IdP Metadata Later** option when configuring your Custom SA
 
 <%= image "service-provider-urls.png", width: 1768/2, height: 412/2, alt: "Screenshot of the Service Provider section in the Custom SAML SSO Provider details page" %>
 
-If you IdP supports meta-data URL setup, you can find your unique Buildkite organization meta-data URL below the ACS URL.
+If your IdP supports meta-data URL setup, you can find your unique Buildkite organization meta-data URL below the ACS URL.
 
 ### Update your Buildkite SAML provider
 

@@ -1,6 +1,6 @@
 # buildkite-agent tool
 
-The Buildkite agent's `tool` subcommands are used for performing tasks that are expected to be called by a human as part of setting up a pipeline, rather than during the execution of a job. Any and all of these subcommand may be removed in the future into a separate CLI tool, so they should all be considered experimental.
+The Buildkite agent's `tool` subcommands are used for performing tasks that are expected to be called by a human as part of setting up a pipeline, rather than during the execution of a job. Any and all of these subcommands may be removed in the future into a separate CLI tool, so they should all be considered experimental.
 
 > 🛠 Experimental feature
 > The `tool` subcommand may be removed from the Buildkite agent in the future.

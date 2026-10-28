@@ -20,7 +20,7 @@ In summary though:
 
     * You need full control over your agent infrastructure.
     * Your agents need a lot of customization.
-    * You operate under strict security conditions that requires your source code and CI/CD build runners (the agents) to be managed on premises or in your own cloud-based infrastructure.
+    * You operate under strict security conditions that require your source code and CI/CD build runners (the agents) to be managed on premises or in your own cloud-based infrastructure.
 
 - _Buildkite hosted agents_ is a fully-managed platform that offers fast and specialized CI/CD build runners, which work well under default conditions. This option lets you get up and running rapidly to build your projects.
 

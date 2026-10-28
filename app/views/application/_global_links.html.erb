@@ -1,16 +1,20 @@
 <ul class="GlobalLinks">
   <li>
-    <div class="Dropdown">
-      <span class="Button Button--link Button--small Button--dropdown">Help</span>
-      <ul class="Dropdown__menu">
-        <li>
-          <a class="Dropdown__menu-link" href="mailto:support@buildkite.com">Email support</a>
-        </li>
-        <li>
-          <a class="Dropdown__menu-link" href="https://forum.buildkite.community/" target="_blank">Forum</a>
-        </li>
-      </ul>
-    </div>
+    <% if ENV['PLAIN_CHAT_APP_ID'].present? %>
+      <button type="button" id="plain-chat-button" class="Button Button--link Button--small" data-plain-configured="<%= ENV['PLAIN_CHAT_APP_ID'].present? %>">Help</button>
+    <% else %>
+      <div class="Dropdown">
+        <span class="Button Button--link Button--small Button--dropdown">Help</span>
+        <ul class="Dropdown__menu">
+          <li>
+            <a class="Dropdown__menu-link" href="mailto:support@buildkite.com">Email support</a>
+          </li>
+          <li>
+            <a class="Dropdown__menu-link" href="https://forum.buildkite.community/" target="_blank">Forum</a>
+          </li>
+        </ul>
+      </div>
+    <% end %>
   </li>
   <li>
     <label for="theme-select" class="theme-ui">

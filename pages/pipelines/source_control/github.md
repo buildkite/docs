@@ -156,7 +156,7 @@ By default, Buildkite Pipelines runs pull request builds against the head commit
 This is useful when you want builds to reflect the post-merge state of the code, rather than the pull request branch in isolation.
 
 > 📘 Private preview
-> This feature is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+> This feature is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
 To use this feature, three things need to be in place:
 
@@ -272,7 +272,7 @@ Beyond pushes, pull requests, and tags, Buildkite Pipelines can trigger builds f
 ### Running builds on issue activity
 
 > 📘 Private preview
-> Running builds on issue activity is in private preview. Contact [Buildkite support](https://buildkite.com/support) to have it enabled for your organization.
+> Running builds on issue activity is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
 
 To enable issue activity builds, select **Pipelines** > your pipeline > **Settings** > **GitHub**. In **Additional Webhooks**, expand **Issue activity**, then select **Build on GitHub issue activity**. This option is only available for GitHub.com pipelines that use the full-access **GitHub** App. It isn't available for GitHub Enterprise Server pipelines.
 
