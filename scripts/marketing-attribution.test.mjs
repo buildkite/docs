@@ -69,6 +69,8 @@ function runAttribution({
   optedOut = false,
   referrer = "",
   beaconAvailable = true,
+  fetchAvailable = true,
+  abortControllerAvailable = true,
 } = {}) {
   const listeners = new Map();
   const marketingCaptures = [];
@@ -163,6 +165,8 @@ function runAttribution({
     },
     location,
     navigator: { sendBeacon: beaconAvailable ? () => true : undefined },
+    fetch: fetchAvailable ? () => Promise.resolve() : undefined,
+    AbortController: abortControllerAvailable ? AbortController : undefined,
     posthog,
     setTimeout(callback) {
       if (docsIsReady) callback();
@@ -418,7 +422,7 @@ test("bootstraps the named marketing instance with an existing canonical ID", ()
   assert.equal(result.marketingInitCalls[0].name, "marketing");
   assert.equal(result.marketingInitCalls[0].config.persistence, "memory");
   assert.equal(result.marketingInitCalls[0].config.request_batching, false);
-  assert.equal(result.marketingInitCalls[0].config.api_transport, "sendBeacon");
+  assert.equal(result.marketingInitCalls[0].config.api_transport, "fetch");
   assert.equal(result.marketingInitCalls[0].config.capture_pageview, false);
   assert.deepEqual(
     JSON.parse(JSON.stringify(result.marketingInitCalls[0].config.bootstrap)),
@@ -648,12 +652,46 @@ test("consent observation preserves SDK arguments and return values across Turbo
   assert.equal(result.marketingOptOutCalls.length, 1);
 });
 
-test("does not fall back to a retrying transport when beacons are unavailable", () => {
+test("uses cancellable fetch when beacons are unavailable", () => {
   const result = runAttribution({
     url: "https://buildkite.com/docs?utm_source=linkedin&utm_campaign=docs-test",
     beaconAvailable: false,
   });
-  assert.equal(result.marketingInitCalls.length, 0);
-  assert.equal(result.marketingCaptures.length, 0);
-  assert.equal(result.cookieJar.size, 0);
+  assert.equal(result.marketingInitCalls.length, 1);
+  assert.equal(result.marketingInitCalls[0].config.disable_beacon, true);
 });
+
+test("withdrawal cancels the Marketing connection used by delayed retries", () => {
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin",
+  });
+  const config = result.marketingInitCalls[0].config;
+  const signal = config.fetch_options?.signal;
+  assert.ok(signal, "Marketing requests must carry a cancellable signal");
+  assert.equal(signal.aborted, false);
+  result.withdrawDocsConsent();
+  assert.equal(signal.aborted, true);
+  result.reinitialize("https://buildkite.com/docs/pipelines");
+  assert.equal(signal.aborted, true);
+});
+
+test("rejected beacons cannot select a non-cancellable Marketing fallback", () => {
+  const result = runAttribution({
+    url: "https://buildkite.com/docs",
+    beaconAvailable: true,
+  });
+  const config = result.marketingInitCalls[0].config;
+  assert.equal(config.api_transport, "fetch");
+  assert.equal(config.disable_beacon, true);
+  assert.equal(config.request_batching, false);
+});
+
+for (const unavailable of ["fetchAvailable", "abortControllerAvailable"]) {
+  test(`does not initialize Marketing when ${unavailable} is false`, () => {
+    const result = runAttribution({
+      url: "https://buildkite.com/docs",
+      [unavailable]: false,
+    });
+    assert.equal(result.marketingInitCalls.length, 0);
+  });
+}

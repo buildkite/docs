@@ -65,6 +65,7 @@ let pendingIncomingTouch = new URLSearchParams();
 let lastCapturedPageview = "";
 let clickTrackingInitialized = false;
 let docsConsentClient;
+let marketingRequestController;
 
 function sanitize(value, lowerCase = false) {
   if (typeof value !== "string") return "";
@@ -160,6 +161,7 @@ function observeDocsConsentWithdrawal() {
 }
 
 function clearAttribution({ optOutMarketing = false } = {}) {
+  marketingRequestController?.abort();
   if (optOutMarketing) optOutMarketingPostHog();
   deleteCookie(FIRST_TOUCH_COOKIE);
   deleteCookie(LAST_TOUCH_COOKIE);
@@ -500,19 +502,26 @@ function initializeMarketingPostHog() {
     return;
   }
   if (marketingPostHogInitializing) return;
-  // Do not let the SDK fall back to a transport that retries after withdrawal.
-  if (typeof window.navigator?.sendBeacon !== "function") return;
+  if (
+    typeof window.fetch !== "function" ||
+    typeof window.AbortController !== "function"
+  ) {
+    return;
+  }
 
   marketingPostHogInitializing = true;
+  marketingRequestController = new window.AbortController();
   const existingMarketingId = sanitize(readCookie(MARKETING_ID_COOKIE));
   const config = {
     api_host: "https://us.i.posthog.com",
     defaults: "2026-01-30",
     person_profiles: "identified_only",
     persistence: "memory",
-    // Send while consent is current, without SDK batches or failed-request retries.
+    // Retries and unload sends must use the same cancellable transport.
     request_batching: false,
-    api_transport: "sendBeacon",
+    api_transport: "fetch",
+    disable_beacon: true,
+    fetch_options: { signal: marketingRequestController.signal },
     capture_pageview: false,
     capture_pageleave: false,
     autocapture: false,
