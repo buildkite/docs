@@ -1757,6 +1757,12 @@ Properties available for Origin:
       </td>
     </tr>
     <tr>
+      <th><code>cancel_deleted_branch_builds</code></th>
+      <td>Whether to cancel a branch's active builds when the branch is deleted. Cancellation applies regardless of <code>build_branches</code> or any conditional filter, and does not cancel a build for a tag with the same name.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
+      </td>
+    </tr>
+    <tr>
       <th><code>publish_commit_status</code></th>
       <td>Whether to publish build results to Origin using the Checks API. The property name is retained for API compatibility.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>

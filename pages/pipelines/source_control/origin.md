@@ -177,8 +177,9 @@ Buildkite Pipelines receives signed events through the installed Origin app. You
 
 - **Build branches**: Creates builds when commits are pushed to branches. This setting is enabled by default.
 - **Build tags**: Creates builds when tags are pushed. This setting is disabled by default. For tag builds, `BUILDKITE_TAG` and `BUILDKITE_BRANCH` contain the tag name.
+- **Cancel deleted branch builds**: Cancels a branch's active builds when the branch is deleted. This setting is disabled by default. It cancels builds that are queued or running, but not builds paused at a block step. Cancellation applies regardless of **Build branches** or any [conditional filter](#configure-build-triggers-conditional-filtering), and does not cancel a build for a tag with the same name. Canceled builds show `branch_deleted` as the [cancel reason](/docs/pipelines/configure/canceling-builds#cancel-reasons).
 
-Deleted branches and tags do not create builds.
+Deleted branches and tags do not create builds. With **Cancel deleted branch builds** enabled, deleting a branch can still cancel its existing builds.
 
 > 📘 Branch and tag limit per push
 > A single push event creates builds for up to 1,000 distinct branch and tag names. If a push affects more names than that, Buildkite Pipelines builds the first 1,000 names in payload order and skips the rest. The push does not fail or retry because of the limit.
