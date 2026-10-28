@@ -9,6 +9,7 @@ Organize Buildkite Pipelines logs to find failures faster. Save complete command
 - [Organize output](#grouping-log-output) into collapsible groups.
 - [Manage large logs](#log-output-limits) without losing the original command output.
 - [Protect sensitive values](#redacted-environment-variables) with log redaction.
+- [Summarize failures with a build annotation](/docs/pipelines/configure/annotations#create-a-build-annotation-from-within-a-builds-job) so readers don't need to search the full log.
 
 ## Grouping log output
 
@@ -157,6 +158,8 @@ Select **Match case sensitivity** (**Aa**) to require an exact-case match.
 
 Search includes text inside folded de-emphasized groups. Matching groups appear for the duration of the search. Closing search folds them again unless they were already visible.
 
+If the same tests fail intermittently, [collect their results in Test Engine](/docs/pipelines/configure/tests/test-collection) to track failures across builds instead of comparing individual logs.
+
 ## ANSI timestamps
 
 Buildkite agent v4 always emits ANSI timestamp codes in job logs. The v3 options to disable them or use plain-text timestamps were removed. See [Changes to job logs](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-logs). To change timestamp visibility on the build page, use **Configure view**.
@@ -290,5 +293,5 @@ For setup instructions, including bucket requirements and the required bucket po
 
 ## Next steps
 
-- **Summarize failures**: [Create a build annotation](/docs/pipelines/configure/annotations#create-a-build-annotation-from-within-a-builds-job) to show key results without searching the log.
+- **Investigate slow builds**: Use the [waterfall view](/docs/pipelines/insights/waterfall) to distinguish time waiting for an agent from time running commands.
 - **Open diagnostics directly**: [Add clickable links to log output](/docs/pipelines/configure/links-and-images-in-log-output#links) for reports and other saved artifacts.

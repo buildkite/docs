@@ -18,6 +18,8 @@ Typical use case | You need control over machine configuration or access to your
 Setup | [Install a self-hosted agent](/docs/agent/self-hosted/install) | [Create a Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)
 {: class="responsive-table"}
 
+To choose an agent setup for your workload, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns cover hosted, self-hosted, and combined setups, including scaling, caching, and isolation considerations.
+
 For platform support, scaling options, and configuration differences, see [Self-hosted and Buildkite hosted agents compared](/docs/agent#self-hosted-and-buildkite-hosted-agents-compared).
 
 ## How a build runs

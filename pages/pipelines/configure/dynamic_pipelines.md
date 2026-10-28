@@ -82,6 +82,8 @@ The `--dry-run` flag parses and interpolates the pipeline, then prints it to sta
 
 For additional validation, save the generated output to a file and use [`bk pipeline validate`](/docs/platform/cli/reference/pipeline#validate-a-pipeline). For a runnable project to adapt, see the [`dynamic-pipeline-example`](https://github.com/buildkite/dynamic-pipeline-example) repository.
 
+Once the generated test steps run, [collect their results in Test Engine](/docs/pipelines/configure/tests/test-collection) to track slow or flaky tests across builds.
+
 ### Step insertion order
 
 `pipeline upload` inserts new steps immediately after the step that called it. If one command step uploads more than once, the batches appear in reverse upload order in the Buildkite Pipelines interface. Upload the batches in reverse order to control their display order. Use [explicit dependencies with `depends_on`](/docs/pipelines/configure/depends-on) to control execution order. See [Insertion order](/docs/agent/cli/reference/pipeline#insertion-order) for details.
@@ -202,6 +204,8 @@ else
   cat .buildkite/feature-steps.yml
 fi | buildkite-agent pipeline upload
 ```
+
+To choose the agent pools, queues, and caching behind these routes, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns explain when to separate workloads and how to combine hosted and self-hosted agents.
 
 ### Retrying on different infrastructure
 
