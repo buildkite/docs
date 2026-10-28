@@ -1,12 +1,12 @@
 # Pricing and plans
 
-Buildkite offers a range of plans designed to suit teams of all sizes, from individual developers to large enterprises.
+Buildkite offers Free, Pro, and Enterprise plans. Plans differ in available features, usage limits, and support.
 
 ## Available plans
 
 Buildkite offers the following plans:
 
-- **Personal**: For individual developers exploring the Buildkite platform.
+- **Free**: For individual developers and small teams.
 - **Pro**: For growing teams that need more capacity and features.
 - **Enterprise**: For organizations that require advanced security, compliance, and dedicated support.
 

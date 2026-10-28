@@ -1,13 +1,8 @@
 # Limits
 
-This page outlines usage limits designed to protect your builds from unintentional resource issues and ensure reliable service for all customers. Limits vary across plans and the All Access Trial:
+Buildkite service quotas limit resource usage across your organization. Limits vary by plan and during the All Access Trial.
 
-- Free plan
-- Pro plan
-- Enterprise plan
-- All Access Trial
-
-You can find out more about the available plans and what is included in them in [Pricing](https://buildkite.com/pricing/).
+This page lists default limits. To check your organization's current limits, see [Viewing your organization's service quotas](#viewing-your-organizations-service-quotas). For available plans and their features, see [Pricing](https://buildkite.com/pricing/).
 
 The [**Usage** page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows a breakdown of usage metrics across the Buildkite platform and all products for your Buildkite organization.
 

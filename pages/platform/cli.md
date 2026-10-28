@@ -1,8 +1,8 @@
 # The Buildkite CLI
 
-The Buildkite CLI is a command-line interface (CLI) tool for interacting directly with the Buildkite platform itself. This tool provides command line/terminal access to work with a subset of the Buildkite platform's features, as you normally would through its web interface.
+The Buildkite command-line interface (CLI) lets you manage pipelines, builds, jobs, agents, and artifacts from your terminal.
 
-Using the Buildkite CLI, you can manage Buildkite agents and their configuration, work with a Buildkite pipeline's builds, control job execution, and manipulate its artifacts, along with several other actions.
+Run the CLI as `bk`. The [Buildkite agent CLI](/docs/agent/cli/reference), `buildkite-agent`, is a separate tool for running agents and working with jobs on agent machines.
 
 ## Installation
 

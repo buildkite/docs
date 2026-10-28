@@ -1,14 +1,23 @@
 # User and team permissions
 
-Customers on any [Buildkite plan](https://buildkite.com/pricing) can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
+Teams control access to pipelines, test suites, and registries in your Buildkite organization. Teams are available on every [Buildkite plan](https://buildkite.com/pricing).
+
+To enable teams and assign permissions, follow [Manage teams and permissions](#manage-teams-and-permissions).
 
 For related authentication, token, and infrastructure controls, see the [Security overview](/docs/platform/security).
 
 ## Manage teams and permissions
 
-The _teams_ feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each pipeline, test suite, registry, or any combination of these, throughout your organization.
+Use _teams_ to assign permissions to groups of users. Each team can have access to pipelines, test suites, registries, or a combination of these resources.
 
-To manage teams across Buildkite's applications, a _Buildkite organization administrator_ first needs to enable this feature across their organization.
+A _Buildkite organization administrator_ must enable teams before you can manage team access. The following roles determine who can manage permissions:
+
+Role | Access management
+--- | ---
+Organization administrator | Manage all teams and resource permissions throughout the organization.
+Team maintainer | Manage their team's members and settings. Changing a resource's permissions requires [**Full Access**](#manage-teams-and-permissions-team-level-permissions) to that resource.
+Team member | Use resources at the access level assigned to their team. Team members cannot manage the team.
+{: class="two-column"}
 
 To access or enable the teams feature for your organization, or both:
 

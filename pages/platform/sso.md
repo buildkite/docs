@@ -4,12 +4,12 @@ toc_include_h3: false
 
 # Single sign-on support
 
-You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
+Single sign-on (SSO) protects access to your organization's data in Buildkite. You can configure multiple SSO providers for one organization.
 
 > 📘 Pro and Enterprise plan feature
 > SSO capabilities are only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan. Which providers you can configure depends on your plan. See [Supported providers](/docs/platform/sso#supported-providers) for the plan each provider requires.
 
-You can enforce SSO authentication for your entire Buildkite organization by ensuring that [2FA authentication](/docs/platform/team-management/enforce-2fa) has been disabled for your Buildkite organization. Doing so ensures that all users must log in using SSO when accessing your Buildkite organization.
+With SSO configured, organization-wide enforcement requires [two-factor authentication (2FA) enforcement](/docs/platform/team-management/enforce-2fa) to be disabled. Review each member's SSO requirement in the [organization's user settings](https://buildkite.com/organizations/~/users). Members whose SSO setting is optional can still log in with their email and password.
 
 For related access controls, see the [Security checklist](/docs/platform/security/checklist). To prepare for compromised accounts or a loss of trusted SSO access, see [Incident response](/docs/platform/security/incident-response).
 
@@ -34,7 +34,7 @@ Many of the SSO providers can be configured by an organization admin using [Orga
 
 You can also [configure SSO manually using the GraphQL API](/docs/platform/sso/sso-setup-with-graphql).
 
-Once configured, all access to organization data requires signing into your SSO provider:
+Once SSO is configured, members who are required to use SSO must sign in through your provider to access organization data:
 
 <%= image "sso-enabled.png", width: 1580/2, height: 834/2, alt: "Screenshot of the SSO protecting access to data" %>
 
@@ -99,7 +99,8 @@ To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graph
 ## Frequently asked questions
 
 ### Can some people in the organization use SSO and others not?
-Yes, organization admins can select whether a user is 'required' to use SSO or whether it is 'optional'. You can find this setting in the [organization's user settings](https://buildkite.com/organizations/~/users).
+
+Yes. Organization administrators can make SSO required or optional for each member in the [organization's user settings](https://buildkite.com/organizations/~/users). Members with optional SSO can use either SSO or their email and password.
 
 ### Do you support JIT provisioning?
 Yes, we do. Just-in-time user provisioning (JIT provisioning) creates accounts only when needed. You can grant a user access to Buildkite through your SSO provider, but their account won't be created until it's required—typically upon their first login attempt. For billing purposes, the user doesn't exist until their account is created.
@@ -117,7 +118,7 @@ Yes, by adding multiple SSO providers. You can enable as many different identity
 
 <!--alex ignore easy-->
 
-No, SSO must be verified before being enabled, and can easily be switched off if required. Once enabled, users will see a new "SSO" badge on the organization and will be required to authorise with your SSO provider to access organization data.
+No. Verify your provider before enabling SSO. You can disable SSO if needed. Once enabled, users see an SSO badge on the organization. Members whose SSO setting is required must authorize with your provider to access organization data.
 
 ### Will enabling SSO affect builds, agents or pipelines?
 No, all of your builds, agents, and pipelines will continue to run as normal.

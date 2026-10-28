@@ -1,10 +1,18 @@
 # Audit log
 
-The **Audit Log** is an interactive track record of all organization activity.
+The **Audit Log** records changes and activity in your Buildkite organization. Use it to review and export logged events.
 
 > 📘 Enterprise plan feature and storage period
-> The audit/activity log feature is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan, and is only accessible to Buildkite organization administrators.
-> **Audit Log** events are stored indefinitely and can be accessed in the [Buildkite Pipelines](/docs/pipelines) web interface for up to 12 months. After 12 months, **Audit Log** events can be accessed using [GraphQL](/docs/apis/graphql-api).
+> Only Buildkite organization administrators on the [Enterprise](https://buildkite.com/pricing) plan can access the audit log. Events are stored indefinitely.
+
+The available history depends on how you access events:
+
+Access method | Available history
+--- | ---
+Browse in the [Buildkite Pipelines](/docs/pipelines) web interface | Up to 12 months
+[Search events](#search-events) in the **Events** tab | Last 90 days
+Query using [GraphQL](/docs/apis/graphql-api) | All stored events, including events older than 12 months
+{: class="two-column"}
 
 You can also retrieve audit log events programmatically using the [REST API](/docs/apis/rest-api/organizations/audit-events), or query them using the [GraphQL API](/docs/apis/graphql-api).
 
@@ -30,7 +38,7 @@ The following GraphQL `Audit Event` types are available and you can find more de
 
 ## Search events
 
-The **Events** tab has a search bar to filter events by type, pipeline, actor, and subject. The search supports the following syntax:
+The **Events** tab searches events from the last 90 days. Use the search bar to filter by type, pipeline, actor, and subject. The search supports the following syntax:
 
 - Use `type:EVENT_TYPE` to include events of a specific type. For example: `type:PIPELINE_CREATED`. Event type values are matched case-insensitively.
 - Use `-type:EVENT_TYPE` to exclude events of a specific type. For example: `-type:SECRET_READ`.
