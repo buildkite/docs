@@ -16,7 +16,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "branch": "main",
     "commit_sha": "1c3214fcceb2c14579a2c3c50cd78f1442fd8936",
     "state": "finished",
-    "result": "passed",
+    "result": "failed",
     "executions_count": 112,
     "executions_count_by_result": {
       "passed": 110,
