@@ -12,6 +12,9 @@ When adding a Linear integration through the [**Add Linear Notification** page](
 
 ## Connect Linear
 
+> 📘 Plan availability
+> On the 2026 plans, the Linear integration is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to connect new Linear workspaces.
+
 1. Select **Settings** in the global navigation and select **Notification Services** in the left sidebar.
 
 1. Select the **Add** button on **Linear**.
