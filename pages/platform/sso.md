@@ -9,7 +9,7 @@ Single sign-on (SSO) protects access to your organization's data in Buildkite. Y
 > 📘 Pro and Enterprise plan feature
 > SSO capabilities are only available to Buildkite customers on the [Pro or Enterprise](https://buildkite.com/pricing) plan. Which providers you can configure depends on your plan. See [Supported providers](/docs/platform/sso#supported-providers) for the plan each provider requires.
 
-With SSO configured, organization-wide enforcement requires [two-factor authentication (2FA) enforcement](/docs/platform/team-management/enforce-2fa) to be disabled. Review each member's SSO requirement in the [organization's user settings](https://buildkite.com/organizations/~/users). Members whose SSO setting is optional can still log in with their email and password.
+To require all members to use SSO, disable [two-factor authentication (2FA) enforcement](/docs/platform/team-management/enforce-2fa) for your organization. Review each member's SSO requirement in the [organization's user settings](https://buildkite.com/organizations/~/users). Members whose SSO setting is optional can still log in with their email and password.
 
 For related access controls, see the [Security checklist](/docs/platform/security/checklist). To prepare for compromised accounts or a loss of trusted SSO access, see [Incident response](/docs/platform/security/incident-response).
 
