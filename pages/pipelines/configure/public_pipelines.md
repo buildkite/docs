@@ -2,6 +2,8 @@
 
 If you're working on an open source project, and want anyone to be able to see your builds, you can make your pipeline public.
 
+For real-world examples of how projects such as Bazel, Elastic, and Rails use Buildkite Pipelines, browse the [featured public pipelines](https://buildkite.com/platform/pipelines/public/).
+
 > 📘 Prerequisites
 > Before a pipeline can be made public, a Buildkite organization administrator must enable public pipeline creation in the **Organization Settings**. To do so, go to the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page, select **Pipelines** > **Settings**, scroll down to the **Public Pipelines** section, and select **Enable Public Pipeline Creation**.
 

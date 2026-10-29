@@ -279,6 +279,7 @@ From here:
 
 - Learn to [create more complex pipelines](/docs/pipelines/configure/defining-steps) with dynamic definitions, conditionals, and concurrency.
 - Browse the [pipeline templates](https://buildkite.com/pipelines/templates) for examples across different technology stacks and use cases.
+- Explore the [featured public pipelines](https://buildkite.com/platform/pipelines/public/) to see how projects such as Bazel, Elastic, and Rails use Buildkite Pipelines.
 - Browse the [Test Engine overview](/docs/pipelines/configure/tests) for the full set of test-suite features, including [workflows](/docs/pipelines/configure/tests/workflows) for flaky test detection and [bktec](/docs/pipelines/speed-up-builds-with-bktec) for test splitting.
 - Review the [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) that collectors auto-detect.
 - If you've configured self-hosted queues with agents, customize your [agent configuration](/docs/agent/self-hosted/configure).
