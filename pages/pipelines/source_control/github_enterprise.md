@@ -7,9 +7,9 @@ Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Statu
 > This guide is based on GitHub Enterprise version 2.16.3. Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
 
 > 📘 Accessing private repositories
-> Connecting your GitHub Enterprise Server to Buildkite configures webhooks and commit statuses. If you use the GitHub App integration with code access enabled and [Buildkite-hosted agents](/docs/agent/buildkite-hosted), code access is included automatically. Otherwise, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. For full setup instructions, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
+> Connecting your GitHub Enterprise Server to Buildkite configures webhooks and commit statuses. With the GitHub App integration and code access enabled, checkout credentials are included automatically for [Buildkite hosted agents](/docs/agent/buildkite-hosted). For self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the queue to use temporary, read-only credentials. If you use the OAuth App integration or need SSH-based checkout, store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML.
 
-You can connect a GitHub Enterprise Server installation using either an OAuth App or a GitHub App. This guide covers the OAuth App integration first, which Buildkite shows as **GitHub Enterprise Server (legacy)**. The GitHub App integration is newer and currently in private preview. With it, Buildkite creates and manages the app for you and supports optional code access for hosted agents. For proxy and firewall setups, see [Firewalled installs](#firewalled-installs).
+You can connect a GitHub Enterprise Server installation using either an OAuth App or a GitHub App. This guide covers the OAuth App integration first, which Buildkite shows as **GitHub Enterprise Server (legacy)**. The GitHub App integration is newer and currently in private preview. With it, Buildkite creates and manages the app for you and supports optional code access for hosted agents and self-hosted queues with token checkout enabled. For proxy and firewall setups, see [Firewalled installs](#firewalled-installs).
 
 ## OAuth App
 
@@ -80,7 +80,7 @@ To correctly transfer the OAuth ownership over your GitHub Enterprise Organizati
 > 📘 Private preview feature
 > The GitHub App integration for GitHub Enterprise Server is currently in private preview. This integration is also used to connect GitHub Enterprise Cloud with data residency (GHE.com). To enable it for your Buildkite organization, contact support@buildkite.com.
 
-With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server or GHE.com enterprise that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents can clone private repositories.
+With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server or GHE.com enterprise that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents and [self-hosted queues with token checkout enabled](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) can clone private repositories.
 
 ### Set up the GitHub App
 
@@ -89,7 +89,7 @@ With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.g
 1. Enter your settings:
     - **URL**: the URL of the GitHub Enterprise Server to connect, for example `https://github.example.com`.
     - **GitHub Enterprise Organization**: the organization on GitHub Enterprise Server to create the app in. For example, to create the app in `https://github.example.com/acme`, enter `acme`.
-    - **Code read access**: select this to grant the app read-only repository contents permission. This is required if using hosted agents to clone private repositories, and for the branch, tag, and release webhook events.
+    - **Code read access**: select this to grant the app read-only repository contents permission. This is required for hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories, and for the branch, tag, and release webhook events.
     - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration. For GHE.com, set the **Public API URL** to your enterprise's API host instead. See [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency).
 1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
 1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.
