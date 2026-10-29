@@ -14,7 +14,7 @@ Enable GitHub App token checkout on a self-hosted queue to let Buildkite Pipelin
 
 ### Enable token checkout
 
-GitHub App token checkout requires Buildkite agent v3.63.0 or later. Upgrade older agents before enabling the setting or removing existing checkout credentials.
+GitHub App token checkout requires Buildkite agent v3.63.1 or later. Upgrade older agents before enabling the setting or removing existing checkout credentials.
 
 Your Buildkite organization must have the full-access [GitHub App integration](/docs/pipelines/source-control/github#connect-your-buildkite-account-to-github-using-the-github-app) installed with access to the repositories you want to clone. The **GitHub (Limited Access)** integration does not provide code access. For GitHub Enterprise Server, use the [GitHub App integration](/docs/pipelines/source-control/github-enterprise#github-app) with **Code read access** enabled.
 
