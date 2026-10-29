@@ -1,26 +1,26 @@
 ---
-description: "Compare self-hosted and Buildkite hosted agents, understand how jobs run, and choose setup and security guides for Buildkite Pipelines."
+description: "Compare self-hosted and Buildkite-hosted agents, understand how jobs run, and choose setup and security guides for Buildkite Pipelines."
 ---
 
 # Buildkite Pipelines architecture
 
-Buildkite Pipelines schedules your builds through a hosted _control plane_. Your jobs run on [agents](/docs/agent), either on infrastructure you manage or on Buildkite hosted infrastructure. Choose the build environment that fits your infrastructure, customization, and security requirements.
+Buildkite Pipelines schedules your builds through a hosted _control plane_. Your jobs run on [agents](/docs/agent), either on infrastructure you manage or on Buildkite-hosted infrastructure. Choose the build environment that fits your infrastructure, customization, and security requirements.
 
 ## Choose your build environment
 
 Both models use the same Buildkite Pipelines interface to configure pipelines and view results. The difference is who manages the infrastructure that runs your jobs.
 
-Requirement | Self-hosted agents | Buildkite hosted agents
+Requirement | Self-hosted agents | Buildkite-hosted agents
 ----------- | ------------------ | -----------------------
 Infrastructure management | You provision, scale, and maintain the build machines | Buildkite provisions, scales, and maintains the build machines
 Build environment | Your own cloud or on-premises infrastructure | Buildkite-managed infrastructure
 Typical use case | You need control over machine configuration or access to your private network | You want to run builds without managing agent infrastructure
-Setup | [Install a self-hosted agent](/docs/agent/self-hosted/install) | [Create a Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)
+Setup | [Install a self-hosted agent](/docs/agent/self-hosted/install) | [Create a Buildkite-hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)
 {: class="responsive-table"}
 
 To choose an agent setup for your workload, see [Buildkite agent reference architectures](/docs/agent/reference-architectures). The patterns cover hosted, self-hosted, and combined setups, including scaling, caching, and isolation considerations.
 
-For platform support, scaling options, and configuration differences, see [Self-hosted and Buildkite hosted agents compared](/docs/agent#self-hosted-and-buildkite-hosted-agents-compared).
+For platform support, scaling options, and configuration differences, see [Self-hosted and Buildkite-hosted agents compared](/docs/agent#self-hosted-and-buildkite-hosted-agents-compared).
 
 ## How a build runs
 
@@ -45,9 +45,9 @@ Your agents check out and execute source code in your environment. Agents send j
 
 Unlike a fully self-hosted CI/CD system, you do not need to operate or update the control plane. You remain responsible for provisioning, securing, and maintaining your agent infrastructure.
 
-## Buildkite hosted architecture
+## Buildkite-hosted architecture
 
-With [Buildkite hosted agents](/docs/agent/buildkite-hosted), Buildkite Pipelines provides both the control plane and the infrastructure that runs your jobs. Buildkite provisions and scales the build machines, then destroys each job's environment after the job finishes.
+With [Buildkite-hosted agents](/docs/agent/buildkite-hosted), Buildkite Pipelines provides both the control plane and the infrastructure that runs your jobs. Buildkite provisions and scales the build machines, then destroys each job's environment after the job finishes.
 
 Your organization still configures its pipelines, agent images, source-code access, secrets, and network access. Hosted infrastructure reduces machine maintenance; it does not remove responsibility for the code your jobs run or the systems they can access.
 

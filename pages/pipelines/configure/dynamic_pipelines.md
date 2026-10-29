@@ -8,6 +8,13 @@ Dynamic pipelines generate and upload new steps while a Buildkite Pipelines buil
 
 A generator script outputs YAML or JSON, which the [`buildkite-agent pipeline upload` command](/docs/agent/cli/reference/pipeline#uploading-pipelines) adds to the current build. Generated command steps run as jobs on matching [agents](/docs/agent) in the targeted [queues](/docs/agent/queues). Your generator can use any programming language that writes to standard output.
 
+<figure>
+  <video src="<%= image_path('dynamic-pipeline.webm') %>" controls muted playsinline preload="none" width="960" height="400" style="display: block; max-width: 100%; height: auto; aspect-ratio: 12 / 5; object-fit: contain; object-position: top; background: #0d0820;" aria-label="Dynamic pipeline upload animation" aria-describedby="dynamic-pipeline-animation-description" poster="<%= image_path('dynamic-pipeline.png') %>">
+    <%= image "dynamic-pipeline.png", width: 1920/2, height: 468/2, alt: "A generator uploads three test steps into the same running build, then matching agents run the jobs" %>
+  </video>
+  <figcaption id="dynamic-pipeline-animation-description">A generator uploads new test steps into the running build. Matching agents then run the generated jobs.</figcaption>
+</figure>
+
 ## When to use dynamic pipelines
 
 Buildkite Pipelines supports both static configuration and dynamic step generation. Choose the simplest approach that meets your needs:
@@ -20,12 +27,12 @@ Your monorepo has separate pipelines per service | Change detection and pipeline
 You calculate steps, dependencies, or matrix combinations at build time | A pipeline generator script | [Your first dynamic pipeline](#your-first-dynamic-pipeline)
 You want typed, testable step definitions in your preferred language | Dynamic generation with the SDK | [Buildkite SDK](/docs/pipelines/configure/dynamic-pipelines/sdk)
 Your steps depend on earlier results, external APIs, or feature flags | Multi-stage generation | [Advanced patterns](#advanced-patterns)
-You need to retry work on different infrastructure | A generated fallback step | [Retrying on different infrastructure](#advanced-patterns-retrying-on-different-infrastructure)
+You need to investigate a failure on different infrastructure | A generated diagnostic step | [Retrying on different infrastructure](#advanced-patterns-retrying-on-different-infrastructure)
 {: class="responsive-table"}
 
 ## Your first dynamic pipeline
 
-The most common dynamic pipeline pattern is _bootstrap to generate_: a single bootstrap step runs a pipeline generator script that produces the full pipeline in one upload.
+Start with one step that runs a script to generate and upload the rest of your pipeline.
 
 ### The bootstrap pipeline
 
@@ -54,6 +61,10 @@ echo "steps:"
 
 for test_dir in tests/*/; do
   suite=$(basename "$test_dir")
+  if [[ ! "$suite" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+    printf 'Unsupported test suite directory: %s\n' "$test_dir" >&2
+    exit 1
+  fi
   cat <<YAML
   - label: "\:test_tube\: Test ${suite}"
     key: "test-${suite}"
@@ -65,7 +76,7 @@ done
 ```
 {: codeblock-file=".buildkite/generate-pipeline.sh"}
 
-Save this script as `.buildkite/generate-pipeline.sh` and make it executable with `chmod +x .buildkite/generate-pipeline.sh`. The example assumes your repository has test subdirectories, a `make test` target that accepts `SUITE`, and an agent queue named `default`. Adapt those values to your project.
+Save this script as `.buildkite/generate-pipeline.sh` and make it executable with `chmod +x .buildkite/generate-pipeline.sh`. The example assumes your repository has test subdirectories, a `make test` target that accepts `SUITE`, and an agent queue named `default`. Suite directory names must contain only ASCII letters, digits, dashes, or underscores so they produce valid step keys and command arguments. The script rejects other names, including `unit.v2`, rather than uploading an invalid step. Adapt these values to your project.
 
 ### Validate the generated steps
 
@@ -160,7 +171,7 @@ See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](ht
 
 ## Advanced patterns
 
-The patterns in this section build on the bootstrap pattern in [Your first dynamic pipeline](#your-first-dynamic-pipeline) to solve specific problems: replacing the remaining pending steps in a build with a freshly generated set, varying entire pipeline definitions per branch, and recovering from infrastructure failures by retrying on a different queue. Each pattern is independent—pick the ones that match the problems you face.
+The patterns in this section build on the bootstrap pattern in [Your first dynamic pipeline](#your-first-dynamic-pipeline) to solve specific problems: replacing the remaining pending steps in a build with a freshly generated set, varying entire pipeline definitions per branch, and investigating infrastructure failures by rerunning work on a different queue. Each pattern is independent—pick the ones that match the problems you face.
 
 ### Replacing pending steps with --replace
 
@@ -209,14 +220,14 @@ To choose the agent pools, queues, and caching behind these routes, see [Buildki
 
 ### Retrying on different infrastructure
 
-The built-in `retry: automatic` attribute retries on the same queue. A [`pre-exit` hook](/docs/agent/hooks) can instead upload a fallback step on another queue. For example, the following hook responds to exit status `137` by adding a step on a larger queue. This status can indicate an out-of-memory kill, but confirm the cause before choosing a fallback policy.
+The built-in `retry: automatic` attribute retries on the same queue. To investigate a failure on another queue, a [`pre-exit` hook](/docs/agent/hooks) can upload a diagnostic rerun. The following hook responds to exit status `137` by adding a step on a larger queue. This status can indicate an out-of-memory kill, but confirm the cause before choosing a different queue. This example does not recover the build: the original job remains failed even if the diagnostic rerun succeeds.
 
 ```bash
 if [[ "$BUILDKITE_COMMAND_EXIT_STATUS" == "137" && "${FALLBACK_RETRY:-false}" != "true" ]]; then
-  echo "Job exited with status 137. Adding a fallback on the memory-optimized queue."
+  echo "Job exited with status 137. Adding a diagnostic rerun on the memory-optimized queue."
   buildkite-agent pipeline upload <<YAML
 steps:
-  - label: "\:repeat\: Retry ${BUILDKITE_LABEL} (memory-optimized)"
+  - label: "\:repeat\: Diagnostic rerun ${BUILDKITE_LABEL} (memory-optimized)"
     command: "${BUILDKITE_COMMAND}"
     agents:
       queue: "memory-optimized"
@@ -231,7 +242,7 @@ fi
 ```
 {: codeblock-file=".buildkite/hooks/pre-exit"}
 
-The `FALLBACK_RETRY` flag prevents the fallback job and its automatic retry from uploading another fallback. The `limit: 1` value caps automatic retries of that step; it does not limit new steps created by uploads. The original job remains failed, so adding a successful fallback does not by itself make the build pass.
+The `FALLBACK_RETRY` flag prevents the diagnostic job and its automatic retry from uploading another diagnostic job. The `limit: 1` value caps automatic retries of that step; it does not limit new steps created by uploads.
 
 ## Testing dynamic pipelines
 
