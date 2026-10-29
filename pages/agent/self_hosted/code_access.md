@@ -4,9 +4,9 @@ Self-hosted Buildkite agents need credentials to clone private repositories. For
 
 Choose an authentication method for your repositories:
 
-- **Buildkite-managed GitHub App tokens:** Enable [GitHub App token checkout](#using-a-buildkite-issued-github-app-token) on a self-hosted queue. The agent retrieves short-lived, read-only credentials automatically. No GitHub App private key, token-generation hook, or checkout SSH key needs to be installed on your agents.
-- **Buildkite secrets:** For SSH access, store the SSH key centrally and reference it in your pipeline YAML. No key files need to be distributed to agent machines. This is the recommended SSH-based option for providers without managed checkout credentials.
-- **Managing keys on agent machines:** Place SSH key files directly in the agent user's `~/.ssh` directory on each machine.
+- **Buildkite-managed GitHub App tokens**: Enable [GitHub App token checkout](#using-a-buildkite-issued-github-app-token) on a self-hosted queue. The agent retrieves short-lived, read-only credentials automatically. No GitHub App private key, token-generation hook, or checkout SSH key needs to be installed on your agents.
+- **Buildkite secrets**: For SSH access, store the SSH key centrally as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. No key files need to be distributed to agent machines. This is the recommended SSH-based option for providers without managed checkout credentials.
+- **Managing keys on agent machines**: Place SSH key files directly in the agent user's `~/.ssh` directory on each machine.
 
 ## Using a Buildkite-issued GitHub App token
 
@@ -14,7 +14,11 @@ Enable GitHub App token checkout on a self-hosted queue to let Buildkite Pipelin
 
 ### Enable token checkout
 
+GitHub App token checkout requires Buildkite agent v3.63.0 or later. Upgrade older agents before enabling the setting or removing existing checkout credentials.
+
 Your Buildkite organization must have the full-access [GitHub App integration](/docs/pipelines/source-control/github#connect-your-buildkite-account-to-github-using-the-github-app) installed with access to the repositories you want to clone. The **GitHub (Limited Access)** integration does not provide code access. For GitHub Enterprise Server, use the [GitHub App integration](/docs/pipelines/source-control/github-enterprise#github-app) with **Code read access** enabled.
+
+Before enabling token checkout on existing agents, [record their Git configuration](#using-a-buildkite-issued-github-app-token-existing-credentials-and-disabling-token-checkout) so you can restore it if needed.
 
 A [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or organization administrator can enable the setting:
 
@@ -27,9 +31,9 @@ For GitHub Enterprise Server, set the pipeline's repository URL to HTTPS, for ex
 
 You can also enable the setting when [creating a self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue). To manage it as code, use one of the following:
 
-- **REST API:** Set `use_github_app_token` to `true` when [creating](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) or [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
-- **GraphQL API:** Set `useGithubAppToken` to `true` in [ClusterQueueCreateInput](/docs/apis/graphql/schemas/input-object/clusterqueuecreateinput) or [ClusterQueueUpdateInput](/docs/apis/graphql/schemas/input-object/clusterqueueupdateinput).
-- **Terraform:** Set `use_github_app_token = true` on the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue), using provider v1.43.0 or later.
+- **REST API**: Set `use_github_app_token` to `true` when [creating](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) or [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
+- **GraphQL API**: Set `useGithubAppToken` to `true` in [ClusterQueueCreateInput](/docs/apis/graphql/schemas/input-object/clusterqueuecreateinput) or [ClusterQueueUpdateInput](/docs/apis/graphql/schemas/input-object/clusterqueueupdateinput).
+- **Terraform**: Set `use_github_app_token = true` on the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue), using provider v1.43.0 or later.
 
 Run a build targeting the queue and check that the repository is fetched over HTTPS successfully. For GitHub.com, you don't need to change the pipeline's SSH repository URL: Buildkite Pipelines supplies an HTTPS URL to the job automatically. Custom checkout hooks and containers that run their own Git commands must preserve access to the agent's credential helper and job environment.
 
@@ -49,13 +53,32 @@ Treat temporary tokens as secrets. Don't print credentials, write them into repo
 > 🚧 Persistent Git configuration on agent machines
 > The agent installs its credential helper in the agent user's global Git configuration and configures GitHub.com SSH URLs to use HTTPS. These settings are not removed after the job. Use separate agent users or isolated agent environments for workloads that require different credential configurations. A separate queue alone does not isolate agents that share the same user and home directory.
 
-To stop using managed checkout credentials, clear **Use GitHub App token for checkout** in the queue's **Settings** tab, or set `use_github_app_token` to `false` using the REST API. Configure replacement credentials and restore the previous Git configuration on any reused agent environments. Disabling the queue setting does not revoke tokens that GitHub has already issued.
+Before enabling token checkout, run the following commands as the agent user on each reused agent environment and record the values, including which settings are unset:
+
+```bash
+git config --global --get-all credential.helper
+git config --global --get-all credential.useHttpPath
+git config --global --get-all url.https://github.com/.insteadOf
+```
+
+A command returns no output and exit status `1` if that setting is unset. Token checkout sets `credential.helper` to the agent's credential helper, `credential.useHttpPath` to `true`, and `url.https://github.com/.insteadOf` to `git@github.com:`.
+
+To stop using managed checkout credentials:
+
+1. Clear **Use GitHub App token for checkout** in the queue's **Settings** tab, or set `use_github_app_token` to `false` using the REST API.
+1. Configure replacement checkout credentials before running another build.
+1. As the agent user on each reused agent environment, restore the recorded values for the three Git settings:
+    * For a single value, use `git config --global --replace-all <key> <value>`.
+    * For multiple values, remove the managed setting with `git config --global --unset-all <key>`. Then restore each recorded value with `git config --global --add <key> <value>`.
+    * If a setting was previously unset, remove it with `git config --global --unset-all <key>`.
+
+Disabling the queue setting does not revoke tokens that GitHub has already issued.
 
 If authentication fails, check that the job targets the queue where you enabled the setting, the GitHub App installation includes the requested repository, and any additional repositories belong to the pipeline's GitHub account. Check for custom hooks or credential helpers that override the managed configuration. The managed helper fails authentication if it cannot obtain a token; it does not fall back to an SSH key.
 
 ## Using Buildkite secrets (recommended)
 
-If you need SSH-based checkout, store the private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it using `checkout.ssh_secret` in your pipeline YAML. This approach works with all source control providers (GitHub, GitLab, Bitbucket, and others) and eliminates the need to distribute SSH key files to every agent machine.
+If you need SSH-based checkout, store the private key as a Buildkite secret and reference it using `checkout.ssh_secret` in your pipeline YAML. This approach works with all source control providers (GitHub, GitLab, Bitbucket, and others) and eliminates the need to distribute SSH key files to every agent machine.
 
 To set this up:
 
