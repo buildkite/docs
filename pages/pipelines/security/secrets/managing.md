@@ -25,7 +25,7 @@ A secrets storage service can be used with either self-hosted agents in your own
 
 ## Without a secrets storage service
 
-For self-hosted agents without access to a secrets store, the following approaches load credentials from agent infrastructure. Conditional injection limits accidental exposure; enforce authorization separately using [workload and credential boundaries](/docs/platform/security/enforcing-security-controls#enforce-workload-and-credential-boundaries).
+For self-hosted agents without access to a secrets store, the following approaches load credentials from agent infrastructure. Conditional injection limits accidental exposure. Enforce authorization separately using [workload and credential boundaries](/docs/platform/security/enforcing-security-controls#enforce-workload-and-credential-boundaries).
 
 ### Exporting secrets with environment hooks
 
