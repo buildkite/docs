@@ -34,6 +34,12 @@ export function initSecurityChecklist() {
       `h2[id="${area.dataset.securityArea}"]`,
     );
     const section = heading.closest("section");
+    // The summary stays visible when expanded; keep only additional guidance here.
+    const introduction = heading.nextElementSibling;
+    introduction.firstChild.textContent = introduction.firstChild.textContent
+      .replace(area.dataset.securitySummary, "")
+      .trimStart();
+    if (!introduction.textContent.trim()) introduction.remove();
     const group = document.createElement("details");
     group.className = "SecurityChecklist";
     group.dataset.securityArea = area.dataset.securityArea;
