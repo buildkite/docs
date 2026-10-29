@@ -187,6 +187,8 @@ In the following example, we'll allow access to read an SSM Parameter Store key 
 }
 ```
 
+This policy grants only the parameter read, not permissions to deploy AWS resources. Add only the action and resource permissions your deployment actually requires.
+
 ## Step 4: Configure your pipeline to assume the role
 
 Finally, use the two Buildkite plugins to use the IAM role and to pull in the SSM parameter (added above):
@@ -203,7 +205,7 @@ agents:
 steps:
   - label: "\:aws\: Deploy to Production"
     key: deploy-to-production
-    command: echo "Example Deploy Key equals \$EXAMPLE_DEPLOY_KEY"
+    command: scripts/deploy
     env:
       AWS_DEFAULT_REGION: us-east-1
       AWS_REGION: us-east-1
@@ -212,11 +214,13 @@ steps:
           role-arn: arn\:aws\:iam::012345678910:role/example-pipeline-oidc-for-ssm
       - aws-ssm#v1.0.0:
           parameters:
-            EXAMPLE_DEPLOY_KEY: /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
+            EXAMPLE_DEPLOY_KEY: >-
+              /pipelines/example-pipeline/oidc-for-ssm/example-deploy-key
 ```
 
-> 📘
-> The backslash (`\`) before `$EXAMPLE_DEPLOY_KEY` in the example above prevents this environment variable from being interpolated during the pipeline's upload to Buildkite Pipelines. You could alternatively use a `$` symbol for this purpose (resulting in `$$EXAMPLE_DEPLOY_KEY`).
+Replace `scripts/deploy` with your repository's deployment script, which reads `EXAMPLE_DEPLOY_KEY` from its environment. Disable shell tracing before fetching credentials, and register runtime secret values with [`buildkite-agent redactor add`](/docs/agent/cli/reference/redactor) before anything can log them. Don't print the deploy key to test access. Use a harmless canary for [redaction checks](/docs/platform/security/checklist#secrets-management-audit-this-area).
+
+Keeping secret references in a script avoids [interpolating their values into uploaded pipeline commands](/docs/pipelines/security/secrets/risk-considerations#referencing-secrets-in-your-pipeline-yaml).
 
 ## Restricting access with Buildkite OIDC claims
 

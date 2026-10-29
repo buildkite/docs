@@ -18,7 +18,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```json
 {
   "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-  "scopes": ["read_build"],
+  "scopes": ["read_builds"],
   "description": "Development Token",
   "created_at": "2025-07-16 06:07:42 UTC",
   "expires_at": "2025-07-23 06:07:42 UTC",

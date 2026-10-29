@@ -45,6 +45,9 @@ See [build states](/docs/pipelines/configure/defining-steps#build-states) and [j
 
 ## Configuring
 
+> 📘 Plan availability
+> On the 2026 plans, the Amazon EventBridge notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new Amazon EventBridge notification services.
+
 In your Buildkite [Organization's Notification Settings](https://buildkite.com/organizations/-/services), add an Amazon EventBridge notification service:
 
 <%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
