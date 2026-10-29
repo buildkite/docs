@@ -7,6 +7,8 @@ Before any build step runs, by default the Buildkite agent checks out your sourc
 
 This page explains each checkout option and when to use it. For the full attribute reference, see the [command step checkout attributes](/docs/pipelines/configure/step-types/command-step#checkout-attributes).
 
+For GitHub and GitHub Enterprise Server repositories on self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the queue to use short-lived, read-only credentials instead of an SSH key. This is a queue setting, not a `checkout` YAML option. For other authentication methods, see [Self-hosted agent code access](/docs/agent/self-hosted/code-access).
+
 ## How checkout works
 
 When a Buildkite Pipelines job starts, the agent performs the following steps in order:

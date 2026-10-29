@@ -5,7 +5,7 @@ Buildkite can connect to a GitHub repository in your GitHub account or GitHub or
 To complete this integration, you need admin privileges for your GitHub repository.
 
 > 📘 Accessing private repositories
-> Connecting GitHub to Buildkite configures webhooks and commit statuses. If you use the full-access GitHub App with [Buildkite hosted agents](/docs/agent/buildkite-hosted), code access is included automatically. However, if you use [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) or the Limited Access GitHub App, you need to configure code access separately. The recommended approach is to store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) in your pipeline YAML. Alternatively, self-hosted agents can use [GitHub App installation access tokens](#using-github-app-installation-access-tokens). For all options, see [Configuring access to private repositories](/docs/pipelines/source-control#configure-access-to-private-repositories).
+> Connecting GitHub to Buildkite configures webhooks and commit statuses. The full-access GitHub App also provides checkout credentials automatically for [Buildkite hosted agents](/docs/agent/buildkite-hosted). For self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on a queue to use temporary, read-only credentials without installing SSH keys on your agents. If you use the Limited Access GitHub App or need SSH-based checkout, store an SSH key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it with [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets). For all options, see [Configuring access to private repositories](/docs/pipelines/source-control#configure-access-to-private-repositories).
 
 ## Connecting Buildkite and GitHub
 
@@ -552,6 +552,8 @@ A requested permission is only granted when it's allowed by all of the following
 - The selected workflow file must not exceed 128 KiB.
 
 ## Using GitHub App installation access tokens
+
+For automatic checkout credentials without managing your own GitHub App or private key, enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on your self-hosted queue instead. The instructions below are for creating and managing your own GitHub App and token-generation hook.
 
 > 📘 The difference between repository authentication and account connection
 > Configuring a GitHub App for repository authentication is different from using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect your Buildkite account to GitHub.
