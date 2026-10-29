@@ -29,6 +29,10 @@ The exported logs are available in [Datadog Log Management](https://docs.datadog
 
 ## Configuring the Datadog integration in Buildkite
 
+> 📘 Plan availability
+> On the 2026 plans, the Datadog Pipeline Visibility notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new Datadog Pipeline Visibility notification services.
+> This requirement does not apply to independently configured agent tracing or job log exports.
+
 To set up Datadog's CI Pipeline Visibility integration for Buildkite:
 
 1. As a [Buildkite organization administrator](/docs/pipelines/security/permissions#manage-teams-and-permissions-organization-level-permissions), go to **Settings** > **Notification Services** and select the **Add** button next to **Datadog Pipeline Visibility**.

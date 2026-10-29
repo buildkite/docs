@@ -17,6 +17,10 @@ To provide a build-wide view of Build performance, enable the OpenTelemetry Trac
 
 ### Creating a new service
 
+> 📘 Plan availability
+> On the 2026 plans, the OpenTelemetry tracing notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new OpenTelemetry tracing notification services.
+> This requirement does not apply to independently configured agent tracing.
+
 [Create a new OpenTelemetry Notification Service](https://buildkite.com/organizations/~/services/) in your organization's Notification Services settings (under Integrations).
 
 <%= image "form.png", width: 1110/2, height: 1110/2, alt: "Screenshot of OpenTelemetry Notification Service settings" %>
