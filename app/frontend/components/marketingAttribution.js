@@ -66,6 +66,7 @@ let lastCapturedPageview = "";
 let clickTrackingInitialized = false;
 let docsConsentClient;
 let marketingRequestController;
+let marketingConsentGeneration = 0;
 
 function sanitize(value, lowerCase = false) {
   if (typeof value !== "string") return "";
@@ -497,11 +498,20 @@ function enableTracking(client) {
 }
 
 function initializeMarketingPostHog() {
-  if (marketingPostHog()) {
-    enableTracking(marketingPostHog());
-    return;
-  }
   if (marketingPostHogInitializing) return;
+  let instanceName = "marketing";
+  const existingClient = marketingPostHog();
+  if (existingClient) {
+    if (
+      !marketingRequestController?.signal.aborted ||
+      clientOptedOut(existingClient)
+    ) {
+      enableTracking(existingClient);
+      return;
+    }
+    // Keep the old client and its retries on the permanently canceled connection.
+    instanceName = `marketing_consent_${++marketingConsentGeneration}`;
+  }
   if (
     typeof window.fetch !== "function" ||
     typeof window.AbortController !== "function"
@@ -541,6 +551,7 @@ function initializeMarketingPostHog() {
       : {}),
     loaded(client) {
       marketingPostHogInitializing = false;
+      window.posthog.marketing = client;
       enableTracking(client);
     },
     before_send(event) {
@@ -554,7 +565,7 @@ function initializeMarketingPostHog() {
     },
   };
 
-  window.posthog.init(MARKETING_POSTHOG_TOKEN, config, "marketing");
+  window.posthog.init(MARKETING_POSTHOG_TOKEN, config, instanceName);
 }
 
 function retryWhenPostHogIsReady() {

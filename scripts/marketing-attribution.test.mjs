@@ -76,6 +76,7 @@ function runAttribution({
   const marketingCaptures = [];
   const marketingInitCalls = [];
   const marketingOptOutCalls = [];
+  let marketingConfig;
   const docsOptOutCalls = [];
   const timers = [];
   const location = new URL(url);
@@ -121,6 +122,9 @@ function runAttribution({
   });
 
   const marketing = {
+    opt_in_capturing() {
+      marketingIsOptedOut = false;
+    },
     capture(name, properties) {
       if (!marketingIsOptedOut) marketingCaptures.push({ name, properties });
     },
@@ -139,6 +143,9 @@ function runAttribution({
   };
 
   const posthogMethods = {
+    opt_in_capturing() {
+      docsIsOptedOut = false;
+    },
     opt_out_capturing(...args) {
       docsIsOptedOut = true;
       docsOptOutCalls.push({ receiver: this, args });
@@ -151,6 +158,7 @@ function runAttribution({
       return docsIsOptedOut;
     },
     init(_token, config, name) {
+      marketingConfig = config;
       marketingInitCalls.push({ config, name, token: _token });
       config.loaded?.(marketing);
       this[name] = marketing;
@@ -189,6 +197,13 @@ function runAttribution({
 
   return {
     cookieJar,
+    get marketingConfig() {
+      return marketingConfig;
+    },
+    restoreConsent() {
+      posthog.opt_in_capturing();
+      marketing.opt_in_capturing();
+    },
     dispatchClick(target) {
       listeners.get("click")?.({ target });
     },
@@ -695,3 +710,24 @@ for (const unavailable of ["fetchAvailable", "abortControllerAvailable"]) {
     assert.equal(result.marketingInitCalls.length, 0);
   });
 }
+
+test("consent recovery creates a new client without reviving old retries", () => {
+  const result = runAttribution({
+    url: "https://buildkite.com/docs?utm_source=linkedin",
+  });
+  const oldOptions = result.marketingConfig.fetch_options;
+  result.withdrawDocsConsent();
+  result.restoreConsent();
+  result.reinitialize("https://buildkite.com/docs/pipelines");
+  const newOptions = result.marketingConfig.fetch_options;
+  assert.equal(result.marketingInitCalls.length, 2);
+  assert.equal(result.marketingInitCalls[1].name, "marketing_consent_1");
+  assert.notEqual(newOptions, oldOptions);
+  assert.equal(oldOptions.signal.aborted, true);
+  assert.equal(newOptions.signal.aborted, false);
+  assert.equal(result.decodedCookie("bk_marketing_tracking_allowed"), "1");
+  result.reinitialize("https://buildkite.com/docs/agent");
+  assert.equal(result.marketingConfig.fetch_options, newOptions);
+  result.withdrawDocsConsent();
+  assert.equal(newOptions.signal.aborted, true);
+});
