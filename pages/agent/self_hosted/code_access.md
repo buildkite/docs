@@ -23,13 +23,15 @@ A [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintaine
 1. On the queue's **Settings** tab, select **Use GitHub App token for checkout**.
 1. Select **Save Queue**.
 
+For GitHub Enterprise Server, set the pipeline's repository URL to HTTPS, for example `https://ghe.example.com/acme/app.git`, rather than `git@ghe.example.com:acme/app.git`. The automatic SSH-to-HTTPS rewrite covers GitHub.com, not ordinary GitHub Enterprise Server checkouts.
+
 You can also enable the setting when [creating a self-hosted queue](/docs/agent/queues/managing#create-a-self-hosted-queue). To manage it as code, use one of the following:
 
 - **REST API:** Set `use_github_app_token` to `true` when [creating](/docs/apis/rest-api/clusters/queues#create-a-self-hosted-queue) or [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
 - **GraphQL API:** Set `useGithubAppToken` to `true` in [ClusterQueueCreateInput](/docs/apis/graphql/schemas/input-object/clusterqueuecreateinput) or [ClusterQueueUpdateInput](/docs/apis/graphql/schemas/input-object/clusterqueueupdateinput).
 - **Terraform:** Set `use_github_app_token = true` on the [`buildkite_cluster_queue` resource](https://registry.terraform.io/providers/buildkite/buildkite/latest/docs/resources/cluster_queue), using provider v1.43.0 or later.
 
-Run a build targeting the queue and check that the repository is fetched over HTTPS successfully. You don't need to change the pipeline's GitHub SSH repository URL: Buildkite Pipelines supplies an HTTPS URL to the job automatically. Custom checkout hooks and containers that run their own Git commands must preserve access to the agent's credential helper and job environment.
+Run a build targeting the queue and check that the repository is fetched over HTTPS successfully. For GitHub.com, you don't need to change the pipeline's SSH repository URL: Buildkite Pipelines supplies an HTTPS URL to the job automatically. Custom checkout hooks and containers that run their own Git commands must preserve access to the agent's credential helper and job environment.
 
 ### Token scope and lifetime
 
@@ -45,7 +47,7 @@ Treat temporary tokens as secrets. Don't print credentials, write them into repo
 ### Existing credentials and disabling token checkout
 
 > 🚧 Persistent Git configuration on agent machines
-> The agent installs its credential helper in the agent user's global Git configuration and configures GitHub SSH URLs to use HTTPS. These settings are not removed after the job. Use separate agent users or isolated agent environments for workloads that require different credential configurations. A separate queue alone does not isolate agents that share the same user and home directory.
+> The agent installs its credential helper in the agent user's global Git configuration and configures GitHub.com SSH URLs to use HTTPS. These settings are not removed after the job. Use separate agent users or isolated agent environments for workloads that require different credential configurations. A separate queue alone does not isolate agents that share the same user and home directory.
 
 To stop using managed checkout credentials, clear **Use GitHub App token for checkout** in the queue's **Settings** tab, or set `use_github_app_token` to `false` using the REST API. Configure replacement credentials and restore the previous Git configuration on any reused agent environments. Disabling the queue setting does not revoke tokens that GitHub has already issued.
 

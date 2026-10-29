@@ -20,8 +20,8 @@ If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-u
 
 When you connect Buildkite to GitHub through a GitHub App, the **Repository Providers** page in your Buildkite organization settings presents two options:
 
-- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/buildkite-hosted), because Buildkite needs code access to clone your repository.
-- **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+- **GitHub** — a Buildkite GitHub App with full access permissions. This app has read access to your repository code and metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds on [Buildkite-hosted agents](/docs/agent/buildkite-hosted) or use Buildkite-managed GitHub App token checkout on self-hosted agents, because Buildkite needs code access to obtain checkout credentials.
+- **GitHub (Limited Access)** — a limited-permissions Buildkite GitHub App. This app does not have code access, but has read access to metadata, plus read and write access to checks, commit statuses, deployments, pull requests, and repository hooks. Use this option if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) with customer-managed checkout credentials.
 
 ### Permissions comparison
 
@@ -38,12 +38,12 @@ When you connect Buildkite to GitHub through a GitHub App, the **Repository Prov
 
 ### Choosing the right option
 
-Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/buildkite-hosted) to run builds.
+Select the full-access **GitHub** app if you use [Buildkite-hosted agents](/docs/agent/buildkite-hosted) or want Buildkite-managed GitHub App token checkout on self-hosted queues.
 
-Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture).
+Select the **GitHub (Limited Access)** app if you run builds exclusively on [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) and manage checkout credentials yourself. This app cannot provide Buildkite-managed checkout tokens.
 
 > 📘 Using both GitHub Apps
-> If you use both Buildkite-hosted and self-hosted agents, you can install both apps and scope each to the relevant repositories. Alternatively, you can install only the full access **GitHub** app, which works with both agent types.
+> You can install both apps and scope each to the relevant repositories. Use the full-access app for repositories that need managed checkout credentials on either agent type, and the Limited Access app for self-hosted repositories where you manage credentials yourself. Alternatively, install only the full-access **GitHub** app, which works with both agent types.
 
 ## Connect your Buildkite account to GitHub using the GitHub App
 
