@@ -18,7 +18,7 @@ Currently, only [Anthropic](/docs/apis/model-providers/anthropic) models are sup
 
 To connect to a model provider:
 
-1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Integrations > Model Providers** to access your organization's [**Model Providers**](https://buildkite.com/organizations/~/model-providers) page.
 
@@ -79,7 +79,7 @@ $BUILDKITE_AGENT_ENDPOINT/ai/anthropic
 
 To track your Buildkite organization's AI model usage through the Buildkite interface:
 
-1. Select **Settings** in the global navigation to access the to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
+1. Select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 1. Select **Usage** to access your Buildkite organization's usage [**Usage > Summary**](https://buildkite.com/organizations/~/usage) page.
 

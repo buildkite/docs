@@ -70,7 +70,7 @@ Your Buildkite pipeline should run, then report back to Phabricator.
 <%= image "phabricator_build_status.png", width: 1268/2, height: 934/2, alt: "Build status in Phabricator" %>
 <%= image "buildkite_pipeline.png", width: 1480/2, height: 1044/2, alt: "Build status in Buildkite" %>
 
-## Step 4: Configure builds on new commits
+## Step 5: Configure builds on new commits
 
 The Herald application acts as a "trigger" inside Phabricator. You can create a Herald rule that runs your Build Step on new commits.
 

@@ -131,7 +131,7 @@ If your log exceeds 2MB then we highly recommend reconfiguring your build tools 
 
 ## Storing the original log
 
-One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and passing it straight through unchanged to the next command.
+One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and pass it straight through unchanged to the next command.
 
 ```bash
 #!/bin/bash

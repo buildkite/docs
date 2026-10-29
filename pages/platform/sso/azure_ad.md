@@ -74,7 +74,7 @@ Buildkite customers on the [Enterprise plan](https://buildkite.com/pricing/) can
 
 ### Configuration instructions
 
-Adding and removing users accounts in Microsoft Entra ID is called provisioning. You need an enabled Microsoft Entra ID SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
+Adding and removing user accounts in Microsoft Entra ID is called provisioning. You need an enabled Microsoft Entra ID SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
 > 📘
 > User deprovisioning is an Enterprise plan-only feature and is automatically enabled. As an Enterprise plan customer, if you are using a [custom provider](/docs/platform/sso/custom-saml), please contact support@buildkite.com to have this feature enabled.

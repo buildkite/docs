@@ -50,7 +50,7 @@ GitHub has no native test intelligence—teams must rely on custom scripts or ma
 
 GitHub Actions uses per-minute billing that can lead to unexpected costs as teams grow.
 
-In Buildkite Pipelines, [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so short bursts don't inflate costs and you'll also be able to use your own compute including spot instances to educe costs further.
+In Buildkite Pipelines, [pricing](https://buildkite.com/pricing/) is based on agent concurrency using the 95th percentile, so short bursts don't inflate costs and you'll also be able to use your own compute including spot instances to reduce costs further.
 
 ## Job routing and priorities
 

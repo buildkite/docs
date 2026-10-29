@@ -81,6 +81,6 @@ You can migrate all of the pipelines in your organization at the same time using
 
 <%= image "bulk-migration.png", width: 1744/2, height: 446/2, alt: "Screenshot of the bulk pipeline migration panel and button" %>
 
-Click the migrate button to convert the steps of every in your organization into YAML. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps.
+Click the migrate button to convert the steps of every pipeline in your organization into YAML. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps.
 
 After migrating, please manually check each pipeline, ensuring that they have completed successfully.

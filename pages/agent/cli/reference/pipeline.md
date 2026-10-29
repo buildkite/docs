@@ -40,7 +40,7 @@ For example, the following pipeline substitutes a number of [Buildkite's default
     branch: "${BUILDKITE_BRANCH}"
 ```
 
-If you want an environment variable to be evaluated at runtime (for example, using the step's environment variables), ensure you escape the `$` character using `$$` or `\$`. For example:
+To defer a variable reference until the step runs, escape the `$` character using `$$` or `\$`. This applies to environment variables and shell variables assigned within the command. For example:
 
 ```yaml
 - command: "deploy.sh $$SERVER"
@@ -53,6 +53,12 @@ If you want an environment variable to be evaluated at runtime (for example, usi
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
 
 For example, using `$$USD` and `\$USD` will both result in the same value: `$USD`.
+
+The upload command removes these escapes, leaving the shell to expand the variables at runtime. Do not escape a reference when you want its value substituted at upload time.
+
+The `$` that starts a command substitution, such as `$(command)`, does not need escaping. Variable references inside the substitution still need escaping if they should be evaluated at runtime.
+
+These escapes apply to pipeline YAML, not to separate shell script files. In separate scripts, use normal shell syntax.
 
 ### Disabling interpolation
 

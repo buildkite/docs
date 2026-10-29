@@ -36,7 +36,7 @@ The Buildkite agents are small, reliable cross-platform build runners. Their mai
   </tr>
   <tr>
     <th><code>ip_address</code></th>
-    <td>IP address of the agent</td>
+    <td>IP address that the agent registered from (not updated after registration)</td>
   </tr>
   <tr>
     <th><code>user_agent</code></th>

@@ -285,7 +285,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>operator</code></th>
-    <td>The operation that will be apply to labels.<br><code>"add"</code> or <code>"remove"</code>.</td>
+    <td>The operation that will be applied to labels.<br><code>"add"</code> or <code>"remove"</code>.</td>
   </tr>
   <tr>
     <th><code>labels</code></th>

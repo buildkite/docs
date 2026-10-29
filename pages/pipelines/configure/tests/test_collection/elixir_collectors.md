@@ -12,7 +12,7 @@ You can also upload test results by importing [JSON](/docs/pipelines/configure/t
 
 ## ExUnit
 
-[ExUnit](https://hexdocs.pm/ex_unit/) is a Elixir unit test library.
+[ExUnit](https://hexdocs.pm/ex_unit/) is an Elixir unit test library.
 
 Before you start, make sure ExUnit runs with access to [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments).
 

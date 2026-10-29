@@ -4,6 +4,7 @@ import { initToc } from "../components/toc";
 import { attachCopyToClipboardButton } from "../components/copyToClipboardButton";
 import { themeToggle } from "../components/themeToggle";
 import { initPageCopyDropdown } from "../components/pageCopyDropdown";
+import { initPlainChat } from "../components/plainChat";
 import { initSecurityChecklist } from "../components/securityChecklist";
 import docsearch from "@docsearch/js";
 import {
@@ -87,6 +88,7 @@ function render() {
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();
+  initPlainChat();
 
   // Store cleanup function if component returns one
   const dropdownCleanup = initPageCopyDropdown();

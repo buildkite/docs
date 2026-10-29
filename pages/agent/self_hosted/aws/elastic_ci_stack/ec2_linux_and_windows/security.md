@@ -49,7 +49,7 @@ You don't need to create keys for the default deployment of Elastic CI Stack for
 
 * KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
 * KMS key for S3 SSE protection of secrets and artifacts
-* SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE)
+* SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE
 
 Remember that such keys are not intended to be public, and you must not grant public access to them.
 
@@ -93,8 +93,8 @@ To ensure your Elastic CI Stack for AWS has access to the secret:
 
 * Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter. An IAM policy with `kms:Decrypt` permission for this key is included in the CloudFormation template.
 * Use the CloudFormation stacks' *Resources* tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their Amazon Resource Name (ARN) in the policy below.
-* Secret Manager will capture a role's Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
-* Use the Secret Manager secret's resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
+* Secrets Manager will capture a role's Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
+* Use the Secrets Manager secret's resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
 
 ```json
 {
@@ -119,7 +119,7 @@ To ensure your Elastic CI Stack for AWS has access to the secret:
 ### Multi-region replication
 
 It is also possible to replicate your Buildkite agent token to multiple regions
-using AWS Secret Manager's [multi-region replication](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create-manage-multi-region-secrets.html). You
+using AWS Secrets Manager's [multi-region replication](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create-manage-multi-region-secrets.html). You
 can then deploy an Elastic CI Stack for AWS to each region and use the Parameter Store
 reference path to read the secret from the regionally replicated secret.
 

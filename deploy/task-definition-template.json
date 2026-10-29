@@ -49,6 +49,10 @@
         {
           "name": "BUGSNAG_API_KEY",
           "valueFrom": "/ecs/docs/BUGSNAG_API_KEY"
+        },
+        {
+          "name": "PLAIN_CHAT_APP_ID",
+          "valueFrom": "/ecs/docs/PLAIN_CHAT_APP_ID"
         }
       ],
       "logConfiguration": {

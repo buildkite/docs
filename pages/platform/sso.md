@@ -129,7 +129,7 @@ No, enabling SSO will not affect how much you are billed. However, whenever a ne
 Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/platform/sso/custom-saml#saml-user-attributes).
 
 ### I want to rename my Buildkite organization. Will it affect my SSO provider(s)?
-No, SSO providers are setup using a unique identifier and are unaffected when a Buildkite organization is renamed.
+No, SSO providers are set up using a unique identifier and are unaffected when a Buildkite organization is renamed.
 
 ### Can I merge two organizations that use different SSO providers?
 In short, yes, you can. However, merging Buildkite organizations that already have SSO providers might be a tricky scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.

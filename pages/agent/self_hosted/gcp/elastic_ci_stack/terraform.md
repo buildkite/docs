@@ -79,7 +79,7 @@ Custom images help teams ensure that their agents have all required tools and co
 
 ### Requirements
 
-To use the Packer templates provided, you will need to install the following installed on your system:
+To use the Packer templates provided, you will need to install the following on your system:
 
 - Docker
 - Make

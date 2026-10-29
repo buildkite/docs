@@ -13,9 +13,13 @@ Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/
 > 📘 Preview feature
 > OpenTelemetry Tracing Notification Service is currently in Preview.
 
-To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing
+To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing Notification Service.
 
 ### Creating a new service
+
+> 📘 Plan availability
+> On the 2026 plans, the OpenTelemetry tracing notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new OpenTelemetry tracing notification services.
+> This requirement does not apply to independently configured agent tracing.
 
 [Create a new OpenTelemetry Notification Service](https://buildkite.com/organizations/~/services/) in your organization's Notification Services settings (under Integrations).
 
@@ -23,7 +27,7 @@ To provide a build-wide view of Build performance, enable the OpenTelemetry Trac
 
 ### Endpoint
 
-Please provide the base URL for your OTLP endpoint. Do not include the `/v1/traces` path as that automatically appended by the Buildkite OpenTelemetry exporter.
+Please provide the base URL for your OTLP endpoint. Do not include the `/v1/traces` path as that is automatically appended by the Buildkite OpenTelemetry exporter.
 
 #### Limitations
 
@@ -231,7 +235,7 @@ The OpenTelemetry collector is an open source service for collecting, exporting 
 
 See [collector-config](https://github.com/buildkite/opentelemetry-notification-service-examples/tree/main/collector-config) for examples of OpenTelemetry collector configuration.
 
-If using the `otel/opentelemetry-collector-contrib` Docker image, you can configure the collector by mounting the your config file at `/etc/otelcol-contrib/config.yaml` or by overriding the `command` to `--config=env:OTEL_CONFIG` and setting the `OTEL_CONFIG` environment variable to the _contents_ of your config file.
+If using the `otel/opentelemetry-collector-contrib` Docker image, you can configure the collector by mounting your config file at `/etc/otelcol-contrib/config.yaml` or by overriding the `command` to `--config=env:OTEL_CONFIG` and setting the `OTEL_CONFIG` environment variable to the _contents_ of your config file.
 
 Consult the [Deployment](https://opentelemetry.io/docs/collector/deployment/) guide in the OpenTelemetry documentation for more information about hosting the collector.
 
@@ -267,7 +271,7 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 ### Propagating traces across triggered builds
 
 > 📘 Preview feature
-> Trace propagation across triggered builds is currently in preview. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+> Trace propagation across triggered builds is currently in preview. [Contact support](mailto:support@buildkite.com) to have this enabled for your organization.
 
 When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace. A multi-pipeline workflow then appears as a single distributed trace in your observability platform.
 
@@ -285,7 +289,7 @@ The Buildkite agent automatically receives the injected `TRACEPARENT` and uses i
 ### Propagating traces from external systems
 
 > 📘 Preview feature
-> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](https://buildkite.com/support) to have this enabled for your organization.
+> Propagating an external trace into Buildkite Pipelines control-plane spans is available on request. [Contact support](mailto:support@buildkite.com) to have this enabled for your organization.
 
 When you create a build using the REST API, you can pass a W3C [`traceparent`](https://www.w3.org/TR/trace-context/#traceparent-header) header to connect Buildkite Pipelines control-plane spans to your upstream distributed trace. When enabled, the `buildkite.build` span is nested under the caller's span. All control-plane spans (`buildkite.build`, `buildkite.job`, and `buildkite.step`) share the same trace ID as the upstream system.
 

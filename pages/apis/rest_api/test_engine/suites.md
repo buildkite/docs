@@ -23,7 +23,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "application_name": "Buildkite",
     "color": "#FFF700",
     "emoji": "🍋",
-    "oidc_policy": null
+    "oidc_policy": null,
+    "test_state_management": false,
+    "allowed_test_states": []
   }
 ]
 ```
@@ -59,7 +61,9 @@ curl -H "Authorization: Bearer $TOKEN" \
     "application_name": "Buildkite",
     "color": "#FFF700",
     "emoji": "🍋",
-    "oidc_policy": null
+    "oidc_policy": null,
+    "test_state_management": false,
+    "allowed_test_states": []
   }
 ]
 ```
@@ -88,7 +92,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "application_name": "Buildkite",
   "color": "#FFF700",
   "emoji": "🍋",
-  "oidc_policy": null
+  "oidc_policy": null,
+  "test_state_management": false,
+  "allowed_test_states": []
 }
 ```
 
@@ -131,7 +137,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "color": "#FFF700",
   "emoji": "🍋",
   "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA",
-  "oidc_policy": null
+  "oidc_policy": null,
+  "test_state_management": false,
+  "allowed_test_states": []
 }
 ```
 
@@ -159,13 +167,17 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>Return the suite's API token in the response.<br><em>Default value:</em> <code>false</code>.</td>
   </tr>
   <tr>
-    <th><code>teams_ids</code></th>
+    <th><code>team_ids</code></th>
     <td><p>An array of team UUIDs to add this suite to. You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the Settings page for a team. This property is only available if your organization has enabled Teams, in which case it is a required field.</p>
         <em>Example:</em> <code>"team_ids": ["3f4aa5ee-671b-41b0-9b44-b94831db6cc8"]</code></td>
   </tr>
   <tr>
     <th><code>application_name</code></th>
     <td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td>
+  </tr>
+  <tr>
+    <th><code>repo_url</code></th>
+    <td>HTTPS URL of the repository for the suite.<br><em>Example:</em> <code>"https://example.com/acme/app"</code>.</td>
   </tr>
   <tr>
     <th><code>color</code></th>
@@ -182,6 +194,14 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>flaky_detection</code></th>
     <td>Set to <code>false</code> if you don't want to create the <code>flaky</code> label and the default flaky test detection workflow. The default workflow is created only when your plan includes workflows. This option applies only when creating a suite.<br><em>Default value:</em> <code>true</code>.</td>
+  </tr>
+  <tr>
+    <th><code>test_state_management</code></th>
+    <td>Enable <a href="/docs/pipelines/configure/tests/test-suites/test-state-and-quarantine">test state management</a> for the suite. Requires a Pro or Enterprise plan.<br><em>Default value:</em> <code>false</code>.</td>
+  </tr>
+  <tr>
+    <th><code>allowed_test_states</code></th>
+    <td>An array of allowed quarantine states: <code>"muted"</code>, <code>"skipped"</code>, or both. Requires <code>test_state_management</code> to be enabled to use these states. Do not include <code>"enabled"</code>, which is always available.<br><em>Default value:</em> <code>[]</code>.<br><em>Example:</em> <code>["muted", "skipped"]</code>.</td>
   </tr>
 </tbody>
 </table>
@@ -215,7 +235,9 @@ curl -H "Authorization: Bearer $TOKEN" \
   "application_name": "Buildkite",
   "color": "#FFF700",
   "emoji": "🍋",
-  "oidc_policy": null
+  "oidc_policy": null,
+  "test_state_management": false,
+  "allowed_test_states": []
 }
 ```
 
@@ -225,7 +247,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>name</code></th>
-    <td>Name of the suite.<br><em>Example:</em> <code>"Jasmine"</code>.</td>
+    <td>Name of the suite. Changing the name regenerates the suite's <code>slug</code>. Use the returned <code>slug</code> or <code>url</code> for subsequent requests.<br><em>Example:</em> <code>"Jasmine"</code>.</td>
   </tr>
   <tr>
     <th><code>default_branch</code></th>
@@ -234,6 +256,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>application_name</code></th>
     <td>Application name for the suite.<br><em>Example:</em> <code>"Buildkite"</code></td>
+  </tr>
+  <tr>
+    <th><code>repo_url</code></th>
+    <td>HTTPS URL of the repository for the suite.<br><em>Example:</em> <code>"https://example.com/acme/app"</code>.</td>
   </tr>
   <tr>
     <th><code>color</code></th>
@@ -250,6 +276,14 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>oidc_policy</code></th>
     <td>The <a href="/docs/pipelines/configure/tests/test-collection/oidc">OIDC policy</a> for the suite, as a YAML string or a JSON array of policy statements. Pass <code>null</code> to clear the policy.<br><em>Example:</em> <code>"- iss: \"https://agent.buildkite.com\"\n  claims:\n    organization_slug: my-org\n    pipeline_slug: my-pipeline\n  scopes:\n    - read_suites\n    - write_uploads\n"</code></td>
+  </tr>
+  <tr>
+    <th><code>test_state_management</code></th>
+    <td>Enable or disable test state management for the suite. Requires a Pro or Enterprise plan. Disabling permanently resets all muted and skipped tests to enabled. Re-enabling does not restore their previous states.</td>
+  </tr>
+  <tr>
+    <th><code>allowed_test_states</code></th>
+    <td>Replace the allowed quarantine states with an array containing <code>"muted"</code>, <code>"skipped"</code>, or both. Do not include <code>"enabled"</code>, which is always available. A state cannot be removed while tests use it or it is the automatic-quarantine default. Pass <code>[]</code> to allow only enabled tests.<br><em>Example:</em> <code>["muted", "skipped"]</code>.</td>
   </tr>
 </tbody>
 </table>

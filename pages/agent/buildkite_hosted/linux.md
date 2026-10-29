@@ -16,7 +16,7 @@ Learn more about:
 
 ## Sizes
 
-Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs. The architectures supported include AMD64 (x64_86) and ARM64 (AArch64).
+Buildkite offers a selection of Linux instance types (each based on a different combination of size and architecture, known as an _instance shape_), allowing you to tailor your hosted agent resources to the demands of your jobs. The architectures supported include AMD64 (x86_64) and ARM64 (AArch64).
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_linux' %>
 

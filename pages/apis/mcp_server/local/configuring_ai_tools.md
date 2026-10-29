@@ -1,6 +1,6 @@
 # Configuring AI tools with the local MCP server
 
-Once you followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI tool or agent, you can then use the instructions on this page to configure your AI tool or agent to work with this [_local_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server).
+Once you have followed the required instructions on [Installing the Buildkite MCP server](/docs/apis/mcp-server/local/installing) to install the MCP server locally for your AI tool or agent, you can then use the instructions on this page to configure your AI tool or agent to work with this [_local_ Buildkite MCP server](/docs/apis/mcp-server#types-of-mcp-servers-local-mcp-server).
 
 > 📘
 > The Buildkite MCP server is available both [locally and remotely](/docs/apis/mcp-server#types-of-mcp-servers). This page is about configuring AI tools with the local MCP server. If you are working directly with an AI tool and would prefer it to use the _remote_ MCP server, proceed with the relevant instructions on its [Configuring AI tools](/docs/apis/mcp-server/remote/configuring-ai-tools) page.
@@ -195,7 +195,7 @@ When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-
 
 ## Goose
 
-You can configure your [Goose](https://github.com/aaif-goose/goose) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration the `extensions:` section of your [Goose `config.yaml` file](https://goose-docs.ai/docs/getting-started/using-extensions#config-entry).
+You can configure your [Goose](https://github.com/aaif-goose/goose) AI tool or agent to work with your local Buildkite MCP server, running [in Docker](#goose-docker) or [as a binary](#goose-binary). To do this, add the relevant configuration to the `extensions:` section of your [Goose `config.yaml` file](https://goose-docs.ai/docs/getting-started/using-extensions#config-entry).
 
 ### Docker
 
@@ -403,7 +403,7 @@ Alternatively, you can copy and paste the following configuration as a new entry
 
 [ToolHive](https://toolhive.dev/) is a tool that allows you to abstract the API access token handling processes for your local Buildkite MCP server, away from your other AI tool infrastructure and the Buildkite platform.
 
-You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed TooHive's [CLI tool](https://toolhive.dev/download) and do the following:
+You can configure ToolHive to run your local Buildkite MCP server from its registry using ToolHive's command line interface (CLI) tool. To do this, ensure you have installed ToolHive's [CLI tool](https://toolhive.dev/download) and do the following:
 
 1. Use ToolHive's `thv secret set` command to store your [Buildkite API access token](/docs/apis/mcp-server/local/installing#configure-an-api-access-token) as a secret.
 
@@ -419,7 +419,7 @@ You can configure ToolHive to run your local Buildkite MCP server from its regis
     thv run --secret buildkite-api-key,target=BUILDKITE_API_TOKEN buildkite
     ```
 
-You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed TooHive's [Desktop app](https://toolhive.dev/download) and do the following:
+You can also configure ToolHive to run your local Buildkite MCP server from its registry using the ToolHive interface. To do this, ensure you have installed ToolHive's [Desktop app](https://toolhive.dev/download) and do the following:
 
 1. Access [ToolHive's **Secrets** page](https://docs.stacklok.com/toolhive/guides-ui/secrets-management#manage-secrets).
 

@@ -156,7 +156,7 @@ For all read and write access, select both the [minimum access permissions](#con
       {
         "scope": "Write Pipelines",
         "scope_internal": "write_pipelines",
-        "access_permissions": "Create new pipelines, update update existing ones, and delete pipelines too."
+        "access_permissions": "Create new pipelines, update existing ones, and delete pipelines too."
       },
       {
         "scope": "Write Secrets",
@@ -289,7 +289,7 @@ buildkite-mcp-server stdio --api-token-from-1password="op://Private/Buildkite AP
 
 You can [install the Buildkite MCP server](#install-and-run-the-server-locally) as your own self-hosted server, which effectively behaves similarly to Buildkite's remote MCP server, but as one that operates in your own environment.
 
-To do this, use the following the following command, which runs the MCP server with streamable HTTP transport, and makes the server available through `http://localhost:3000/mcp`:
+To do this, use the following command, which runs the MCP server with streamable HTTP transport, and makes the server available through `http://localhost:3000/mcp`:
 
 ```bash
 buildkite-mcp-server http --api-token=${BUILDKITE_API_TOKEN}

@@ -2,7 +2,7 @@
 
 The [Buildkite pipeline converter](/docs/pipelines/converter) helps you convert your Jenkins pipeline jobs into Buildkite pipelines. Both the Scripted and Declarative forms of Jenkins pipelines are supported. The converter first analyzes the Jenkins pipeline to understand its structure and intent, and then generates a functionally equivalent Buildkite pipeline.
 
-Since Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, an AI Large Language Model (LLM) is used to get the best results in the translation process. The AI model _does not_ use any submitted data for its own training.
+Since Jenkins pipelines can be written using the Groovy scripting language, their potential for complexity is much greater than that of other YAML-based CI configuration formats. Therefore, to get the best results in the translation process, an AI Large Language Model (LLM) is used. The AI model _does not_ use any submitted data for its own training.
 
 The goal of the Buildkite pipeline converter is to give you a starting point, so you can see how patterns you're used to in Jenkins would function in Buildkite Pipelines. In cases where Jenkins' features don't have a direct Buildkite Pipelines equivalent, the pipeline converter includes comments with suggestions about possible solutions.
 
@@ -23,7 +23,7 @@ By default, Jenkins pipeline steps run serially, whereas Buildkite pipeline step
 
 ## Build parameters
 
-Jenkins supports a variety of different build parameter types natively (`string`, `text`, `boolean`, `choice`, and `password`), with additional types possible with the use of plugin. Buildkite only supports `string` and `select` (see [Input step](/docs/pipelines/configure/step-types/input-step) for more details), so Jenkins parameters will be translated as follows:
+Jenkins supports a variety of different build parameter types natively (`string`, `text`, `boolean`, `choice`, and `password`), with additional types possible with the use of plugins. Buildkite only supports `string` and `select` (see [Input step](/docs/pipelines/configure/step-types/input-step) for more details), so Jenkins parameters will be translated as follows:
 
 | Parameter type | Conversion |
 | --- | ---------- |

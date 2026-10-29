@@ -2,7 +2,7 @@
 
 This page provides details on how to manage [clusters](/docs/pipelines/glossary#cluster) within your Buildkite organization.
 
-Learn more about on how to set up queues within a cluster in [Manage queues](/docs/agent/queues/managing).
+Learn more about how to set up queues within a cluster in [Manage queues](/docs/agent/queues/managing).
 
 ## Setting up clusters
 
@@ -176,7 +176,7 @@ Learn more about this entire process from the detailed [Migrate from unclustered
 
 ## Restrict an agent token's access by IP address
 
-As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
+As a security measure, each agent token has an optional **Allowed IP Addresses** setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one of this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
 An agent token's **Allowed IP Addresses** setting can be set [when the token is created](/docs/agent/self-hosted/tokens#create-a-token), or this setting can be added to or modified on existing agent tokens by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator, using the [**Agent Tokens** page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), as well as Buildkite's [REST API](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) or [GraphQL API](#restrict-an-agent-tokens-access-by-ip-address-using-the-graphql-api).
 

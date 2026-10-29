@@ -243,7 +243,7 @@ For more GraphQL queries related to teams, see the [Teams cookbook](/docs/apis/g
 
 ## Define Buildkite secrets
 
-For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define a [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) for the pipelines that require them, within your cluster resources HCL file (for example, `clusters.tf`).
+For each of your Buildkite [clusters](#define-your-cluster-resources) managed in Terraform, define [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) for the pipelines that require them, within your cluster resources HCL file (for example, `clusters.tf`).
 
 Use the `buildkite_cluster_secret` resource to define, create and manage an encrypted key-value pair accessible by agents within a [Buildkite cluster](/docs/pipelines/security/clusters) (referenced by its `cluster_id` argument, which actually requires a cluster UUID value).
 
