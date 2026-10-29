@@ -1344,22 +1344,23 @@ Traversal starts at each positive pattern's literal prefix. Negative patterns do
 
 ### Event file
 
-With a linked webhook or explicit snapshot, `GITHUB_EVENT_PATH` contains the complete payload object, not the snapshot wrapper. Formatting can differ. Environment fallback events don't create it. The file is available to shell steps, JavaScript lifecycle hooks, composites, and Docker actions through posts; containers receive a read-only mount with a container-local path. It remains outside the checkout and writable runner temp and is removed at teardown. Environment overrides can't replace it.
-
-> 📘 Unreleased expression support
-> `github.event_path` expression support is not yet released. Released runtimes expose only `GITHUB_EVENT_PATH`.
-
-`github.event_path` resolves at runtime to the host file path or the mounted path in a job container. The expression is available in runtime environment values, step expressions and conditions, action input defaults, JavaScript lifecycle conditions, and composite and job outputs. Without an event file, `github.event_path` returns an empty string. The expression is unavailable in graph-time fields such as `runs-on` and concurrency, or job and reusable-call conditions evaluated before setup.
+With a linked webhook or explicit event snapshot, the complete event payload is available as a JSON file. Access its path with either the `GITHUB_EVENT_PATH` environment variable or the `${{ github.event_path }}` expression.
 
 ```yaml
 steps:
-  - run: jq -e '.issue.number == 42' "$GITHUB_EVENT_PATH" >/dev/null
-  - env:
+  - name: Read the event file with an environment variable
+    run: jq . "$GITHUB_EVENT_PATH"
+  - name: Read the event file with an expression
+    env:
       EVENT_FILE: ${{ github.event_path }}
-    run: jq -e '.issue.number == 42' "$EVENT_FILE" >/dev/null
+    run: jq . "$EVENT_FILE"
 ```
 
-Pass the expression through an input for Docker actions. Event-file paths in environment variables, including `INPUT_*`, translate to the container mount. Docker arguments remain literal strings and do not receive path translation; read `GITHUB_EVENT_PATH` or the input environment variable inside the container instead.
+The file contains the payload object, not the snapshot wrapper; formatting can differ. Each job has its own file outside the checkout and writable runner temp. The file remains available through action posts and is removed at teardown. Environment overrides cannot replace its path. Environment fallback events create no file; the expression returns an empty string.
+
+`github.event_path` is available in runtime environment values, step expressions and conditions, action input defaults, JavaScript lifecycle conditions, and composite and job outputs. Graph-time fields such as `runs-on` and concurrency, and job or reusable-call conditions evaluated before setup, cannot use the expression.
+
+Shell steps, JavaScript lifecycle hooks, composites, and Docker actions can read the file. Host jobs use the host path; job containers use `/github/workflow/event.json`. Containers mount the file read-only. Docker action environment paths, including `INPUT_*`, translate to the mount; arguments stay literal. Pass the expression through an input and read its environment variable, or read `GITHUB_EVENT_PATH` inside the action.
 
 See [event payload security](/docs/pipelines/migration/run-github-actions-workflows/security#repository-data-does-not-grant-authority-source-and-event-checks).
 
