@@ -42,7 +42,18 @@ Organizations on the Free plan without an active trial can see an **Overview** t
 - Limits that can't be measured against usage, such as concurrent job limits, show the limit only.
 - A **Need More?** prompt links to **Billing** to choose a different plan.
 
-Pro and Enterprise organizations, and organizations without this view available, are taken to the **Platform** tab when they select **Usage**.
+### Plan usage for Pro plan organizations
+
+Pro plan organizations that are eligible for a [spend alert](/docs/platform/spend-alerts) can also see an **Overview** tab, showing usage against their plan's inclusions, grouped by product, for the current billing cycle.
+
+The **Overview** tab shows:
+
+- The current billing cycle and the days remaining.
+- A table of usage against each plan inclusion, grouped by product, with a progress indicator and the amount over or remaining.
+
+This is the same usage shown on the **Billing** > **Usage & spend** page, without prices or other billing details.
+
+Organizations without an active trial or either plan-specific usage view are taken to the **Platform** tab when they select **Usage**.
 
 ## Viewing prepaid inclusions
 
