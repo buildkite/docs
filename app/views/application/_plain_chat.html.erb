@@ -13,15 +13,50 @@
       var docsTheme = localStorage.getItem('docs-theme') || 'system';
       var plainTheme = docsTheme === 'system' ? 'auto' : docsTheme;
 
+      function currentPageUrl() {
+        // Keep the section anchor, but exclude query parameters.
+        return window.location.origin + window.location.pathname + window.location.hash;
+      }
+
+      var lastPageUrl = currentPageUrl();
+      var isChatOpen = false;
+      var isChatReady = false;
+
+      function threadDetails(pageUrl) {
+        return {
+          tierIdentifier: { tierId: 'tier_01M5Z5V5EA3N28AQK1A708EX2D' },
+          threadFields: [{
+            key: 'feedbackescalation_url',
+            type: 'STRING',
+            stringValue: pageUrl,
+          }],
+        };
+      }
+
+      function syncPageContext() {
+        if (!isChatReady || !isChatOpen) return;
+        var pageUrl = currentPageUrl();
+        if (pageUrl === lastPageUrl) return;
+
+        // Plain.update also makes API requests; only sync changed URLs in open chats.
+        lastPageUrl = pageUrl;
+        // Plain replaces nested options, so include the tier on every update.
+        Plain.update({ threadDetails: threadDetails(pageUrl) });
+      }
+
+      // The Help button can open chat before Plain.init finishes.
+      Plain.onOpen(function() {
+        isChatOpen = true;
+        syncPageContext();
+      });
+      Plain.onClose(function() {
+        isChatOpen = false;
+      });
+
       Plain.init({
         appId: "<%= plain_chat_app_id %>",
         
-        threadDetails: {
-    		// Optional. A tier to be set on created threads.
-    		// To find a tier ID open the Plain app and go to 'Settings' -> 'Tiers'. Select a tier and then copy the ID from the URL.
-    		// You can also specify a tier by its external ID e.g { externalId: 'example_external_id' }
-    		tierIdentifier: { tierId: 'tier_01M5Z5V5EA3N28AQK1A708EX2D' },
-        },
+        threadDetails: threadDetails(lastPageUrl),
         
         // Optional. Hides the 'Powered by Plain' branding
         hideBranding: true,
@@ -81,6 +116,11 @@
               url: 'mailto:support@buildkite.com',
             },
           ],
+      }).then(function() {
+        isChatReady = true;
+        document.addEventListener('turbo:load', syncPageContext);
+        window.addEventListener('hashchange', syncPageContext);
+        syncPageContext();
       });
     };
     script.src = 'https://chat.cdn-plain.com/index.js';
