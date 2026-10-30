@@ -56,6 +56,8 @@ To create a new self-hosted agent queue using the Buildkite interface:
 
     **Note:** In the **Retry Agent Affinity** section, leave the default **Prefer Warmest Agent** setting unchanged. To learn more about this setting, see [Retry agent affinity](/docs/agent/self-hosted/prioritization#retry-agent-affinity). You can always change this setting later through your self-hosted queue's **Settings** tab.
 
+1. To clone GitHub repositories without installing long-lived checkout credentials on your agents, select **Use GitHub App token for checkout**. This requires a GitHub App connection with code access. You can also enable it later in the queue's **Settings** tab. See [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) for setup and credential behavior.
+
 1. Select **Create Queue**.
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.

@@ -154,6 +154,8 @@ after rotating and replicating the secret, and before revoking the old token.
 
 The Elastic CI Stack for AWS creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your private SSH keys for source control and environment variables that provide other secrets to your builds.
 
+For GitHub repositories, you can avoid storing checkout SSH keys or personal access tokens in this bucket by enabling [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the stack's self-hosted queue. The agents retrieve short-lived, read-only credentials automatically. This does not replace your Buildkite agent token or secrets needed by the build itself.
+
 ### S3 secret paths
 
 The following S3 objects are downloaded and processed:

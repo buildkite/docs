@@ -55,6 +55,10 @@
       <td>The custom image URL configured for the queue's hosted agents, or <code>null</code> when the queue uses its default image. Only present on Linux-based Buildkite hosted queues. Learn more about <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">specifying a custom image for a queue</a>.</td>
     </tr>
     <tr>
+      <th><code>use_github_app_token</code></th>
+      <td>Whether jobs on this self-hosted queue use short-lived, read-only GitHub App tokens for checkout. Defaults to <code>false</code>. See <a href="/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token">GitHub App token checkout</a> for connection requirements and credential behavior.</td>
+    </tr>
+    <tr>
       <th><code>created_at</code></th>
       <td>When the queue was created</td>
     </tr>
@@ -203,6 +207,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     If this property is omitted, then the value <code>prefer-warmest</code> is used.<br/>
     <em>Example:</em> <code>"prefer-different"</code>
     </td>
+  </tr>
+  <tr>
+    <th><code>use_github_app_token</code></th>
+    <td>Set to <code>true</code> to enable short-lived, read-only GitHub App tokens for checkout. Requires a GitHub or GitHub Enterprise Server App connection with code access. Defaults to <code>false</code>. Applies only to self-hosted queues. See <a href="/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token">GitHub App token checkout</a>.</td>
   </tr>
 </tbody>
 </table>
@@ -375,6 +383,10 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>retry_agent_affinity</code></th>
     <td>Controls how agents are selected for retries. Must be one of <code>prefer-warmest</code> or <code>prefer-different</code>.<br><em>Example:</em> <code>"prefer-warmest"</code></td>
+  </tr>
+  <tr>
+    <th><code>use_github_app_token</code></th>
+    <td>Set to <code>true</code> to enable short-lived, read-only GitHub App tokens for checkout, or <code>false</code> to disable them. Requires a GitHub or GitHub Enterprise Server App connection with code access. Applies only to self-hosted queues. Omitting this property leaves the setting unchanged; <code>null</code> is not accepted. See <a href="/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token">GitHub App token checkout</a> for migration considerations.</td>
   </tr>
   <tr>
     <th><code>hostedAgents</code></th>

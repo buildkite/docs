@@ -158,7 +158,7 @@ For other ways to start a build and help with builds that don't start, see [Star
 
 ### Using private repositories
 
-When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, ensure your agent's SSH keys are configured for code access (see relevant instructions for [self-hosted](/docs/agent/self-hosted/code-access) or [Buildkite hosted](/docs/agent/buildkite-hosted/code-access) agents) so your agent can check out the repository.
+When you create a new pipeline with a private repository URL, you'll see instructions for configuring your source control's webhooks. Once you've followed those instructions, configure repository access for your agents. For GitHub repositories on self-hosted agents, enable [GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the queue to use temporary, read-only credentials without installing SSH keys. For other options, see [self-hosted agent code access](/docs/agent/self-hosted/code-access) or [Buildkite hosted agent code access](/docs/agent/buildkite-hosted/code-access).
 
 ### Deriving a pipeline slug from the pipeline's name
 
