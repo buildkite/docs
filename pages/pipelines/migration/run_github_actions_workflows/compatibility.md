@@ -323,6 +323,8 @@ Branch-push `paths` and `paths-ignore` require linked GitHub webhook data, compl
 
 Normal and force pushes compare `before..after`. A new branch uses the parent of the oldest pushed commit only when the complete pushed set has one clear single-parent boundary. Added, modified, deleted, and type-changed paths can match. Ordered positive and negative patterns apply as for pull requests.
 
+A new branch with an explicitly empty webhook `commits` array has no changed paths. Workflows with `paths` or `paths-ignore` are skipped; workflows without path filters remain eligible. This does not apply to missing commit data or force pushes.
+
 Unsupported cases fail rather than guessing whether to run:
 
 - Deleted refs, non-GitHub sources, missing or shallow history, or mismatched identities
