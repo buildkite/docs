@@ -175,6 +175,7 @@ steps:
         commands:
           - sh scripts/with-ca-trust.sh yarn
           - sh scripts/with-ca-trust.sh npm run prettier-check
+          - sh scripts/with-ca-trust.sh npm run test:marketing-attribution
           - node --test spec/frontend/*_test.mjs
         agents:
           queue: hosted

@@ -2,7 +2,9 @@
   "name": "docs",
   "private": true,
   "devDependencies": {
+    "jsdom": "27.4.0",
     "netlify-cli": "^27.0.0",
+    "posthog-js": "1.441.1",
     "prettier": "3.9.10",
     "sass": "^1.66.1",
     "vite": "^8.0.0",
@@ -11,6 +13,7 @@
   "scripts": {
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",
     "validate-environment-variables-yaml": "npx --package ajv-cli ajv validate -s \"data/content/environment_variables.schema.yaml\" -d \"data/content/environment_variables.yaml\"",
+    "test:marketing-attribution": "node --test scripts/marketing-attribution*.test.mjs",
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/cli/help/*\"",
     "prettier-check": "prettier -c \"app/frontend/**/*.{js,scss}\"",
