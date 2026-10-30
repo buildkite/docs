@@ -7,7 +7,7 @@ Windows hosted agents are:
 - Configured as part of a _Buildkite hosted queue_, where the machine type is Windows, with a particular [size](#sizes) to efficiently manage jobs with varying requirements.
 
 > 📘 Public preview feature
-> Windows hosted agents are currently in public preview and available on [Trial, Pro, and Enterprise](https://buildkite.com/pricing) plans. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
+> Windows hosted agents are currently in public preview and available on [Trial, Pro, and Enterprise](https://buildkite.com/pricing/) plans. To provide feedback, contact the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com).
 
 Learn more about:
 
@@ -25,7 +25,7 @@ Windows hosted agents support the AMD64 architecture in four instance shapes:
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
 
-Larger instance shapes are available on Enterprise plans. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
+The Extra Large (XL) instance shape is only available on Enterprise plans. Contact [Buildkite Support](mailto:support@buildkite.com) to request access.
 
 ## Base image
 
@@ -39,11 +39,11 @@ Windows hosted agents can operate concurrently when running your Buildkite pipel
 
 <%= render_markdown partial: 'agent/buildkite_hosted/hosted_agents_concurrency_explanation' %>
 
-The number of Windows hosted agents (of a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue)) that can process your pipeline jobs concurrently is calculated by your Buildkite plan's _maximum combined vCPU_ value divided by your [instance shape's](#sizes) _vCPU_ value. See the [Buildkite pricing](https://buildkite.com/pricing/) page for details on the **Windows Concurrency** that applies to your plan.
+To calculate the maximum number of concurrent Windows hosted agents, divide your plan's Windows vCPU concurrency limit by the [instance shape's](#sizes) vCPU count. See [platform limits](/docs/platform/limits#pipelines-limits-hosted-agents-limits) for the default limits for each plan.
 
-For example, if your Buildkite plan provides you with a maximum combined vCPU value of up to 64, and you've configured a Buildkite hosted queue with the `WINDOWS_AMD64_4X16` (Medium) [instance shape](#sizes), whose vCPU value is 4, then the number of concurrent hosted agents that can run jobs on this queue is 16 (that is, 64 / 4 = 16).
+For example, the `WINDOWS_AMD64_4X16` (Medium) instance shape has a vCPU count of four. A Windows concurrency limit of 64 vCPU supports 16 concurrent agents of this shape.
 
-When concurrency limits are exceeded, additional jobs will be queued until sufficient capacity becomes available.
+Jobs that would exceed the limit remain queued until capacity becomes available.
 
 ## Security
 

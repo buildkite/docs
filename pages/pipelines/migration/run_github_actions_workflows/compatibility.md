@@ -134,7 +134,7 @@ On native Namespace runners, the runtime enables `default-load=true` for stored 
 
 ### Windows jobs
 
-`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or Agent API routing when your plan includes Windows hosted agents. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows queues](/docs/agent/buildkite-hosted/windows) are available on Trial, Pro, and Enterprise plans.
+`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or automatic Agent API routing. Automatic routing requires a plan that includes Windows hosted agents. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows queues](/docs/agent/buildkite-hosted/windows) are available on Trial, Pro, and Enterprise plans.
 
 When your plan includes Windows hosted agents, `windows-2025` and Depot `depot-windows-2025` labels, including `-4`, `-8`, `-16`, `-32`, and `-64`, can resolve through the Agent API to the same `windows-medium` queue. A warning explains that execution may use Server 2022 and doesn't preserve Depot hardware, caches, or networking. These aliases require an eligible existing hosted queue and Agent API resolution; they have no local preset or explicit Windows mapping. Native Server 2025 and Windows arm64 execution remain unsupported.
 
@@ -162,7 +162,7 @@ Runner resolution doesn't provision queues, grant access, or bypass trust policy
 | `missing_queue` | Check the importing cluster and hosted queue requirements, or map a compatible existing queue. |
 | `no_cluster` | Move the pipeline to a cluster containing compatible queues. |
 | Queue not found or platform mismatch | Correct the mapping to an active compatible queue in that cluster. |
-| Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check hosted access and routing availability. |
+| Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check that your plan includes Windows hosted agents. |
 | Windows variant has no local mapping | Use Agent API routing for the documented 2025 aliases, or select a 2022 label only if Server 2022 is suitable. |
 {: class="responsive-table"}
 
