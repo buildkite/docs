@@ -6,6 +6,8 @@ For security controls across your Buildkite organization, see the [Security chec
 
 ## Securely storing secrets
 
+For GitHub repository checkout, use [Buildkite-managed GitHub App tokens](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on self-hosted queues to avoid distributing long-lived SSH keys or personal access tokens to agents. Tokens are short-lived and read-only. Review the guide's repository access scope and agent isolation requirements before enabling the setting.
+
 For best practices and recommendations about secret storage in the agent, see [Managing pipeline secrets](/docs/pipelines/security/secrets/managing).
 
 Learn more about other secrets management approaches in Buildkite on the [Secrets overview](/docs/pipelines/security/secrets) page.

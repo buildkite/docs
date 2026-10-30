@@ -433,6 +433,8 @@ module "buildkite_stack" {
 
 ### SSH keys for source control
 
+For GitHub repositories, enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on the stack's self-hosted queue to use temporary, read-only credentials instead of storing checkout SSH keys in Secret Manager. Other build secrets and the Buildkite agent token are still managed separately.
+
 The Elastic CI Stack for GCP automatically loads SSH keys from [GCP Secret Manager](https://cloud.google.com/security/products/secret-manager) and adds them to an ephemeral `ssh-agent` for your builds. This allows your builds to clone private repositories without storing keys on disk.
 
 The agent's [environment hook](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/blob/main/packer/linux/conf/buildkite-agent/hooks/environment) checks for secrets in the following order:
