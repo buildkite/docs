@@ -38,7 +38,7 @@ Select a feature card to go to that feature.
 
 Organizations on the Free plan without an active trial can see an **Overview** tab showing their usage against the limits included in their plan, grouped by product, for the current usage period.
 
-- Limits with measurable usage show a progress indicator and how much usage remains before the limit is reached.
+- Limits with measurable usage, except the user limit, show a progress indicator and how much usage remains before the limit is reached. The user limit shows the current user count and the plan limit.
 - Limits that can't be measured against usage, such as concurrent job limits, show the limit only.
 - A **Need More?** prompt links to **Billing** to choose a different plan.
 
