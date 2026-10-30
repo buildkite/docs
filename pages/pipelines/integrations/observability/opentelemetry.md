@@ -270,18 +270,17 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 
 ### Propagating traces across triggered builds
 
-> 📘 Preview feature
-> Trace propagation across triggered builds is currently in preview. [Contact support](mailto:support@buildkite.com) to have this enabled for your organization.
+When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links agent spans across builds in a single distributed trace in your observability platform.
 
-When a build uses a [trigger step](/docs/pipelines/configure/step-types/trigger-step) to create another build, Buildkite Pipelines can automatically inject a W3C `TRACEPARENT` into the triggered build's environment. This links the triggered build's agent spans to the parent build's trace. A multi-pipeline workflow then appears as a single distributed trace in your observability platform.
-
-Trace propagation across triggered builds must be enabled for your organization before any of the following applies. Once enabled, Buildkite Pipelines resolves the `TRACEPARENT` to inject using the following precedence:
+Buildkite Pipelines resolves the `TRACEPARENT` to inject using the following precedence:
 
 1. **Trigger step override**: If the trigger step sets `TRACEPARENT` in its `env:` block, that value is always used.
 1. **Inherited TRACEPARENT**: If the parent build carries a valid `TRACEPARENT` in its environment—seeded via the [Create Build API](/docs/apis/rest-api/builds#create-a-build) or propagated from a build higher in the trigger chain—the triggered build inherits it and joins that existing trace.
-1. **Derived TRACEPARENT**: If the parent build carries no seeded `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This ensures that purely internal trigger chains appear as a single distributed trace even when no external trace context is provided.
+1. **Derived TRACEPARENT**: If the parent build carries no valid `TRACEPARENT` but its pipeline is covered by an enabled OpenTelemetry notification service, a `TRACEPARENT` is derived from the parent build's UUID. This allows agent spans across internal trigger chains to share a trace even when no external trace context is provided.
 
-The Buildkite agent automatically receives the injected `TRACEPARENT` and uses it in the triggered build's agent spans. See [OpenTelemetry tracing from Buildkite agent](#opentelemetry-tracing-from-buildkite-agent) for the required tracing configuration.
+For jobs that match an enabled OpenTelemetry notification service, the Buildkite agent uses the injected `TRACEPARENT` in its spans when OpenTelemetry tracing is enabled. See [OpenTelemetry tracing from Buildkite agent](#opentelemetry-tracing-from-buildkite-agent) for the required tracing configuration.
+
+Joining Buildkite Pipelines control-plane spans across builds is a separate feature available on request. [Contact support](mailto:support@buildkite.com) to enable control-plane trace joining for your organization.
 
 > 📘
 > Setting `TRACEPARENT` in a triggered pipeline's top-level `env:` block has no effect on propagation. Set it in the trigger step's `env:` block instead.
