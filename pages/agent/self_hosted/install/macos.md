@@ -12,9 +12,10 @@ We recommend installing the agent using [Homebrew](http://brew.sh/) so you can u
 
 To install the agent using Homebrew:
 
-1. On the command line, install the agent by running:
+1. On the command line, trust the `buildkite/buildkite` tap and then install the agent by running:
 
     ```shell
+    brew trust buildkite/buildkite
     brew install buildkite/buildkite/buildkite-agent
     ```
 
