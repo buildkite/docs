@@ -1,36 +1,73 @@
 ---
 template: "landing_page"
+toc: false
 ---
 
 # The Buildkite platform
 
-The Buildkite platform provides shared tools for managing access, security, automation, and usage across Buildkite products.
+Use these guides to manage access and security, automate workflows, monitor usage and billing, and configure shared workspace features for your Buildkite organization.
 
-Use these guides with [Buildkite Pipelines](/docs/pipelines), including its [test suites](/docs/pipelines/configure/tests), and [Buildkite Package Registries](/docs/package-registries). Choose a topic based on what you want to do.
+<ol class="CardsGrid">
+<li class="CardsGrid__item">
+<article class="Card CardsGrid__card">
+<%= image_tag vite_asset_path("images/pipelines/icon_pipelines_security.svg"), class: "Card__icon", alt: "" %>
+<h2 class="Card__title" id="manage-access-and-security">Manage access and security</h2>
+<p class="Card__content">Manage users and permissions, protect organization access, and review activity.</p>
+<ul>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/team-management">Team management</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/sso">Single sign-on (SSO)</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/security">Security</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/audit-log">Audit log</a></li>
+</ul>
+</article>
+</li>
+<li class="CardsGrid__item">
+<article class="Card CardsGrid__card">
+<%= image_tag vite_asset_path("images/pipelines/icon_pipelines_steps.svg"), class: "Card__icon", alt: "" %>
+<h2 class="Card__title" id="automate-your-workflows">Automate your workflows</h2>
+<p class="Card__content">Manage resources from your terminal or editor, define infrastructure as code, and connect AI tools.</p>
+<ul>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/cli">Buildkite CLI</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/vscode-extension">Visual Studio Code extension</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/terraform-provider">Terraform provider</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/apis/mcp-server">Buildkite MCP server</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/ai-agents">AI agents in Pipelines</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/apis">API reference</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/pipelines/integrations/notifications/slack-workspace">Slack notifications</a></li>
+</ul>
+</article>
+</li>
+<li class="CardsGrid__item">
+<article class="Card CardsGrid__card">
+<%= image_tag vite_asset_path("images/pipelines/icon_pipelines_architecture.svg"), class: "Card__icon", alt: "" %>
+<h2 class="Card__title" id="monitor-usage-and-billing">Monitor usage and billing</h2>
+<p class="Card__content">Check service quotas, understand artifact charges, and compare plan options.</p>
+<ul>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/limits">Limits</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/artifact-storage-and-transfer-billing">Artifacts billing</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/pricing-and-plans">Pricing and plans</a></li>
+</ul>
+</article>
+</li>
+<li class="CardsGrid__item">
+<article class="Card CardsGrid__card">
+<%= image_tag vite_asset_path("images/pipelines/icon_pipelines_tutorials.svg"), class: "Card__icon", alt: "" %>
+<h2 class="Card__title" id="workspace-features-and-policies">Workspace features and policies</h2>
+<p class="Card__content">Customize your workspace and review accessibility, availability, and legal policies.</p>
+<ul>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/emojis">Emojis</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/accessibility">Accessibility</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/service-level-agreement">Service level agreement</a></li>
+<li class="Card__list-item"><a class="Card__list-item-link" href="/docs/platform/legal-and-policies">Legal and policies</a></li>
+</ul>
+</article>
+</li>
+</ol>
 
-## Manage access and security
+## Product guides
 
-- [Team management](/docs/platform/team-management): Manage users, teams, and permissions.
-- [Single sign-on (SSO)](/docs/platform/sso): Configure an identity provider to protect access to your organization.
-- [Security](/docs/platform/security): Plan and verify security controls, manage credentials, and prepare for incidents.
-- [Audit log](/docs/platform/audit-log): Review and export organization activity.
+For product-specific configuration and usage, see:
 
-## Automate your workflows
-
-- [Buildkite CLI](/docs/platform/cli): Manage pipelines, builds, jobs, agents, and artifacts from your terminal.
-- [Visual Studio Code extension](/docs/platform/vscode-extension): Manage pipelines, builds, jobs, and agents from your editor.
-- [Terraform provider](/docs/platform/terraform-provider): Manage organization resources as version-controlled infrastructure.
-- [Slack notifications](/docs/pipelines/integrations/notifications/slack-workspace): Connect a Slack workspace for build and test workflow notifications.
-
-## Monitor usage and billing
-
-- [Limits](/docs/platform/limits): Check default service quotas, view your organization's limits, and request adjustments.
-- [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing): Understand artifact storage and transfer charges, with worked examples.
-- [Pricing and plans](/docs/platform/pricing-and-plans): Compare plan options and find pricing and usage information.
-
-## Workspace features and policies
-
-- [Emojis](/docs/platform/emojis): Distinguish pipelines, test suites, and registries with emojis.
-- [Accessibility](/docs/platform/accessibility): Find theme options, keyboard navigation, screen reader support, and reduced motion settings.
-- [Service level agreement](/docs/platform/service-level-agreement): Review availability commitments and find the status page.
-- [Legal and policies](/docs/platform/legal-and-policies): Find terms of service and other legal documents.
+- [Buildkite Pipelines](/docs/pipelines)
+- [Test suites](/docs/pipelines/configure/tests)
+- [Buildkite Package Registries](/docs/package-registries)

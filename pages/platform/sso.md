@@ -14,8 +14,6 @@ SSO access depends on each member's requirement in the [organization's user sett
 - **Required**: The member must use SSO to access your organization.
 - **Optional**: The member can use SSO or their email and password.
 
-Organization-wide SSO enforcement also requires [two-factor authentication (2FA) enforcement](/docs/platform/team-management/enforce-2fa) to be disabled. Disabling 2FA enforcement alone does not make SSO required for members with optional SSO.
-
 For related access controls, see the [Security checklist](/docs/platform/security/checklist). To prepare for compromised accounts or a loss of trusted SSO access, see [Incident response](/docs/platform/security/incident-response).
 
 ## Supported providers
@@ -66,7 +64,7 @@ If you'd like to have some help with the migration, contact support@buildkite.co
 
 ## SSO session duration
 
-SSO sessions can last between six hours and 8,760 hours (one year). Users are signed out when that duration elapses. Changes affect both new and existing sessions.
+SSO sessions do not expire by default. You can set a session duration between six hours and 8,760 hours (one year). Users are signed out when the configured duration elapses. Changes affect both new and existing sessions.
 
 Set the duration using the [GraphQL API](/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration) or the provider's settings:
 
