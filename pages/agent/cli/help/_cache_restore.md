@@ -42,6 +42,20 @@ Cleanup is not transactional. If cleanup fails, extraction for that cache does
 not start, but target paths may already have been modified. These failures remain
 fatal even when --cache-fail-on-error is false.
 
+--download-timeout (or BUILDKITE_CACHE_RESTORE_DOWNLOAD_TIMEOUT) sets one shared
+download allowance for all selected caches. The default is off; an explicit flag
+overrides the environment. Zero disables the timeout.
+Time counts only while at least one archive download is active; concurrent
+downloads count once, and time between downloads does not use the allowance.
+For example, --download-timeout 10m allows 10m of download-active time, not 10m
+per cache. Key calculation, registry lookup, archive verification, target cleanup,
+extraction and confirmation are not limited by this setting.
+On download timeout, active downloads stop and temporary files are removed;
+existing targets and remote caches are left untouched. Completed downloads can
+still be verified and extracted. The timeout is a miss by default, or an error
+with --cache-fail-on-error. Stopping writers and removing temporary files may
+take additional time. Job cancellation still applies throughout restore.
+
 ### Example
 
 ```shell
@@ -115,6 +129,7 @@ provide search diagnostics.
 <tr id="cache-config-file"><th><code>--cache-config-file string</code> <a class="Docs__attribute__link" href="#cache-config-file">#</a></th><td><p>Path to the cache configuration YAML file (defaults to .buildkite/cache.yml or .buildkite/cache.yaml)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_CACHE_CONFIG_FILE</code></p></td></tr>
 <tr id="concurrency"><th><code>--concurrency int</code> <a class="Docs__attribute__link" href="#concurrency">#</a></th><td><p>Number of concurrent cache operations (default: 2)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_CACHE_CONCURRENCY</code></p></td></tr>
 <tr id="cache-fail-on-error"><th><code>--cache-fail-on-error </code> <a class="Docs__attribute__link" href="#cache-fail-on-error">#</a></th><td><p>Fail the command (non-zero exit) when a cache save or restore fails. By default a cache is best-effort: failures are logged and skipped so they never fail the build<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_CACHE_FAIL_ON_ERROR</code></p></td></tr>
+<tr id="download-timeout"><th><code>--download-timeout duration</code> <a class="Docs__attribute__link" href="#download-timeout">#</a></th><td><p>Shared download-active time limit across selected caches (Go duration; 0 disables) (default: 0s)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_CACHE_RESTORE_DOWNLOAD_TIMEOUT</code></p></td></tr>
 </table>
 
 <!-- vale on -->
