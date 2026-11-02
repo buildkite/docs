@@ -477,6 +477,9 @@ The `checkout.commit_verification` key tells the Buildkite agent to verify that 
 
 During the [default checkout](#how-checkout-works), commit verification runs after fetching the source and before checking out the requested commit. The agent checks whether that commit appears in the named branch’s history. A commit passes if it is the branch’s latest commit or an earlier commit reachable through its history.
 
+> 🚧 Verification does not protect earlier job activity
+> Commit verification runs during the default checkout, after some job setup has already occurred. Secrets can be available, and hooks or plugins can execute, before the agent verifies branch membership. Even if `fail-closed` rejects the checkout and prevents the job’s commands from running, those earlier actions may already have occurred. Do not use commit verification alone to decide whether a job can receive secrets or other protected-branch privileges.
+
 For Buildkite agent v4, set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set it to `off` to skip commit verification. An empty value causes job bootstrap to fail.
 
 > 🚧 Strict mode does not require successful verification
