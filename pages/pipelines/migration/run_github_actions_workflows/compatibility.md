@@ -675,7 +675,16 @@ Alternate checkout repositories and private actions are unsupported. Approved pr
 
 ### GitHub token
 
-A job requests one short-lived event-repository token when it statically references `secrets.GITHUB_TOKEN`, workflow-authored `github.token`, or an effective action input default that can reach `github.token` for that provider. A provider guard can exclude GitHub token use for Origin. Native adapters ignore upstream defaults, so checkout alone doesn't request it. Tokens aren't automatically placed in the initial environment.
+A job requests one short-lived event-repository token when it references `secrets.GITHUB_TOKEN`, workflow-authored `github.token`, or an effective action input default that reads `github.token`. Reachable composite shell-step `env`, `run`, and `working-directory` expressions can also request it. Known input, matrix, condition, and provider guards can exclude token use. Runtime-dependent branches retain the request. Native adapters ignore upstream metadata. Checkout alone doesn't request it. Tokens aren't automatically placed in the initial environment.
+
+For example, this composite shell-step environment can use the job token without the caller passing a token input:
+
+```yaml
+env:
+  DEFAULT_GITHUB_TOKEN: ${{ inputs.fallback == 'cargo-binstall' && github.token || '' }}
+```
+
+Composite outputs, child-action `with` values, and whole-context serialization don't independently request a token. For those positions, pass an authorized token from the workflow through an action input. Composite metadata can't request ordinary secrets.
 
 Public support is limited to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) in `github.com` pipelines using the full-access **GitHub** repository provider. The pipeline's **Allow workflow-authorized GitHub access tokens** setting must be enabled. Existing pipelines default off; pipelines created with GitHub Actions setup mode default on.
 
