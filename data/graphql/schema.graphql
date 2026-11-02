@@ -13266,6 +13266,11 @@ An organization team
 """
 type Team implements Node {
   """
+  The number of archived pipelines associated with this team
+  """
+  archivedPipelinesCount: Int!
+
+  """
   The time when this team was created
   """
   createdAt: DateTime!
