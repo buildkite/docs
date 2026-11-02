@@ -61,6 +61,7 @@ Don't cache:
 
     * Order your Dockerfile's structure in such a way that immutable layers (OS packages and core dependencies) come first
     * Copy lockfiles before installation to maximize cache hits
+    * On Buildkite hosted agents, [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) cache layers automatically. If you build images on the agent instead, [store the layer cache in your internal container registry](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache)
 
 - For artifact caching, store heavyweight build outputs as artifacts between steps instead of re-building. See more in the following section.
 
@@ -169,7 +170,7 @@ You can also pass `--remote_cache` on the command line per build/test invocation
 
 > 📘 Non-deterministic behavior
 > Cache volumes on Buildkite hosted agents are [non-deterministic by nature](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature) and allow for dependency caching and Git mirror caching.
-> For deterministic caching in your pipeline, use Docker images with [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) which allow you to have fast Docker builds and the [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry).
+> For deterministic caching of Docker images and Docker layers, use your [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), which can also [store a Docker layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
 
 - What to cache:
     * Use cache volumes for local tool data that's expensive to refetch between ephemeral jobs, for example, Bazel repository cache and custom CLIs.
