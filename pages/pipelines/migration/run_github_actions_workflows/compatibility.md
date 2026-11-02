@@ -496,6 +496,8 @@ Inputs must exist in the selected commit's contract before the following restric
 
 Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous. Statically false job conditions can bypass checkout input restrictions, but step/runtime conditions don't hide invalid adapter inputs.
 
+Workflow steps default to `GIT_TERMINAL_PROMPT=0`. Missing Git credentials fail instead of waiting for terminal input. Later Git commands don't inherit checkout credentials or the agent's job credentials. Configure authentication explicitly for those commands. Disabling prompts doesn't grant repository access. Workflow environment settings can override this default.
+
 Submodules use native Git depth and relative URLs: true selects direct children, recursive selects nested children. Public/private GitHub submodules use job-authorized access. External HTTPS is anonymous; `git@github.com:` rewrites to HTTPS. Other SSH and non-HTTPS transports are unsupported.
 
 Sparse checkout defaults to `blob:none` unless a filter is explicit. Cone mode selects directories; non-cone mode uses Git ignore patterns. LFS installs repository-local filters without push/locking hooks and downloads selected materialized paths.
