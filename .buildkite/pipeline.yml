@@ -173,6 +173,8 @@ steps:
     steps:
       - label: ":prettier: Lint assets"
         commands:
+          # Node.js 26+ images no longer bundle Yarn v1, so install it with npm.
+          - sh scripts/with-ca-trust.sh npm install --global yarn@1.22.22
           - sh scripts/with-ca-trust.sh yarn
           - sh scripts/with-ca-trust.sh npm run prettier-check
           - sh scripts/with-ca-trust.sh npm run test:marketing-attribution

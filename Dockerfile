@@ -55,6 +55,9 @@ COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
 RUN sh /usr/local/bin/with-ca-trust true
 ENV NODE_OPTIONS="--use-openssl-ca"
 
+# Node.js 26+ images no longer bundle Yarn v1, so install it with npm.
+RUN npm install --global yarn@1.22.22
+
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
 
@@ -92,6 +95,8 @@ FROM trusted-ruby AS runtime
 
 RUN apt-get update \
     && apt-get upgrade -y \
+    # The Node.js 26+ binary copied from node-deps needs libatomic
+    && apt-get install -y --no-install-recommends libatomic1 \
     && sh /usr/local/bin/with-ca-trust true \
     && rm -rf /var/lib/apt/lists/*
 
