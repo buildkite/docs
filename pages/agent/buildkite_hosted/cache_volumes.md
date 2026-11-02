@@ -143,7 +143,7 @@ If, however, the volume is used less frequently and its data is relatively dynam
 
 Container cache volumes are types of volumes used to cache Docker images between builds.
 
-To reuse layers between Docker image builds, use [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders), or for builds on the hosted agent instance itself, [keep the layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in your internal container registry.
+Container cache volumes store images, not Docker's build cache. To learn how layers are reused between Docker image builds, see [How Docker image builds run](/docs/agent/buildkite-hosted/linux/remote-docker-builders#how-docker-image-builds-run).
 
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/agent/buildkite-hosted/linux).
@@ -156,7 +156,7 @@ To enable container cache volumes feature for Buildkite hosted agents on your cl
 
 1. Select the Buildkite cluster in which to enable the container cache volumes feature.
 
-1. Select **Cache Storage**, then select the **Settings** tab.
+1. Select **Cached Storage**, then select the **Settings** tab.
 
 1. Select **Enable container caching**, then select **Save cache settings** to enable container caching for the selected hosted cluster.
 
@@ -180,7 +180,7 @@ To enable Git mirror volumes feature for Buildkite hosted agents on your cluster
 
 1. Select the Buildkite cluster in which to enable the Git mirror volumes feature.
 
-1. Select **Cache Storage**, then select the **Settings** tab.
+1. Select **Cached Storage**, then select the **Settings** tab.
 
 1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
 
@@ -202,7 +202,7 @@ To view a list of volumes and delete one:
 
 1. Select the Buildkite cluster whose volume is to be deleted.
 
-1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all existing container cache and Git mirror volumes.
+1. Select **Cached Storage**, then select the **Volumes** tab to view a list of all existing container cache and Git mirror volumes.
 
 1. Select **Delete** for the volume you wish to remove.
 

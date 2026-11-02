@@ -61,7 +61,7 @@ Don't cache:
 
     * Order your Dockerfile's structure in such a way that immutable layers (OS packages and core dependencies) come first
     * Copy lockfiles before installation to maximize cache hits
-    * On Buildkite hosted agents, [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders) cache layers automatically. If you build images on the hosted agent instance instead, [keep the layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in your internal container registry.
+    * On Buildkite hosted agents, Docker layers are cached automatically, unless your step selects Docker's `default` builder. Learn more in [How Docker image builds run](/docs/agent/buildkite-hosted/linux/remote-docker-builders#how-docker-image-builds-run).
 
 - For artifact caching, store heavyweight build outputs as artifacts between steps instead of re-building. See more in the following section.
 

@@ -55,4 +55,4 @@ steps:
 
 ## Using your internal container registry as a Docker layer cache
 
-Your internal container registry can also store a Docker layer cache, so that image builds which run on your hosted agent instances, instead of on [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders), reuse unchanged layers between jobs. Learn more in [Keep the layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
+Your internal container registry can also store a Docker layer cache, so that image builds that use Docker's `default` builder on your hosted agent instances reuse unchanged layers between jobs. Learn more in [Keep the layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).

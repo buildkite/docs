@@ -3,7 +3,7 @@
 _Remote Docker builders_ are dedicated machines available to [Buildkite hosted agents](/docs/agent/buildkite-hosted), which are specifically designed and configured to handle the [building of Docker images](https://docs.docker.com/build/) with the `docker build` command and [Buildx](https://docs.docker.com/build/concepts/overview/#buildx) subcommands such as `docker buildx build` and `docker buildx bake`. This feature substantially speeds up the build times of pipelines that need to build Docker images.
 
 > 📘 Enterprise plan feature
-> Remote Docker builders are included in the [Enterprise](https://buildkite.com/pricing) plan. On other plans, Docker images are built on your hosted agent instances. Learn where each build runs and how its layers are cached in [How Docker image builds run](#how-docker-image-builds-run).
+> Remote Docker builders are included in the [Enterprise](https://buildkite.com/pricing) plan. On plans without them, Docker images are built on your hosted agent instances. Learn where each build runs and how its layers are cached in [How Docker image builds run](#how-docker-image-builds-run).
 
 ## How Docker image builds run
 
@@ -11,9 +11,9 @@ Where a Docker image build runs, and whether it reuses layers from earlier build
 
 | Setup | Where images are built | Layer cache |
 | --- | --- | --- |
-| Enterprise plan (default) | On [remote Docker builders](#remote-docker-builders-overview) | Kept on the remote Docker builder |
-| Plan without remote Docker builders (default) | On the hosted agent instance | Kept on a volume automatically, as described in [Layer caching without remote Docker builders](#layer-caching-without-remote-docker-builders) |
-| `BUILDX_BUILDER` set to `default`, on any plan | On the hosted agent instance | None, unless you [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) yourself |
+| Enterprise plan | On [remote Docker builders](#remote-docker-builders-overview) | Kept on the remote Docker builder |
+| Plan without remote Docker builders | On the hosted agent instance | Kept on a volume automatically, as described in [Layer caching without remote Docker builders](#layer-caching-without-remote-docker-builders) |
+| Any plan, with `BUILDX_BUILDER` set to `default` | On the hosted agent instance | None, unless you [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) yourself |
 
 ## Remote Docker builders overview
 
@@ -55,7 +55,7 @@ The remote Docker builders are dedicated machines with their own local file syst
 
 ## Building Docker images on the Buildkite hosted agent
 
-Since [remote Docker builders](#remote-docker-builders-overview) is a [default Enterprise plan feature](#default-enterprise-plan-feature), Docker image builds run on remote Docker builders unless you select another builder. To build Docker images on the hosted agent instance that runs the job, set the `BUILDX_BUILDER` environment variable to `default` for the step. This selects Docker's default local builder for every build command in the step, including `docker build`, `docker buildx build`, and `docker buildx bake`:
+On the Enterprise plan, Docker image builds run on [remote Docker builders](#remote-docker-builders-overview) unless you select another builder. To build Docker images on the hosted agent instance that runs the job instead, set the `BUILDX_BUILDER` environment variable to `default` for the step. This selects Docker's default local builder for every build command in the step, including `docker build`, `docker buildx build`, and `docker buildx bake`:
 
 ```yaml
 steps:
@@ -75,7 +75,7 @@ Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on 
 
 ### Keep the layer cache
 
-To reuse layers between builds on hosted agent instances, store the layer cache on a [cache volume](/docs/agent/buildkite-hosted/cache-volumes). Add a `cache` attribute to the step and export the cache to a directory on the volume. Each build writes a new copy of the cache and then replaces the old one, so the cache doesn't keep growing:
+To reuse layers between builds that use the `default` builder, store the layer cache on a [cache volume](/docs/agent/buildkite-hosted/cache-volumes). Add a `cache` attribute to the step and export the cache to a directory on the volume. Each build writes a new copy of the cache and then replaces the old one, so the cache doesn't keep growing:
 
 ```yaml
 steps:
@@ -100,7 +100,7 @@ steps:
 - The `mode=max` option also caches the intermediate stages of multi-stage builds, so these stages are reused when a later stage changes. The default mode doesn't cache them.
 - Write the cache in every build, including builds that don't push an image, so that pull request builds have a cache to reuse.
 - Use a separate cache directory for each image.
-- Builds on different branches share the volume unless you include the branch in its `name`.
+- Builds on all branches share the volume, so a build can start from the cache that another branch wrote.
 
 Volumes are [non-deterministic](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature). A volume only keeps the changes from jobs that pass, and a job can start with an empty or older copy of the volume, even right after another job has written to it. If every build needs the cache, store it in your cluster's [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry) instead. Each build then downloads and uploads the cache over the network, and jobs can read from and write to this registry without logging in:
 
@@ -129,4 +129,4 @@ These volumes appear in your [cluster](/docs/pipelines/security/clusters)'s volu
 
 Like other cache volumes, these volumes are [non-deterministic](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature), so some builds start without the cache. Builds that select the `default` builder, for example, by setting `BUILDX_BUILDER` to `default`, don't use these volumes.
 
-You can view all of your current cluster's volumes through its **Cached Storage > Volumes** page.
+You can view all of your current cluster's volumes through its **Cached Storage** > **Volumes** page.
