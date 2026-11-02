@@ -122,7 +122,7 @@ Optional attributes:
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br/>
+      The <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. An integer limit uses the <code>concurrency_group</code> attribute for the group name. You can also use a map with <code>limit</code>, <code>group</code>, and <code>method</code>, or <code>null</code> to disable concurrency. See <a href="#concurrency-attributes">Concurrency attributes</a>.<br/>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
@@ -498,6 +498,34 @@ To automatically cancel any remaining jobs as soon as any job in the build fails
 When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on_build_failing: true` are automatically canceled, including jobs that are already running and jobs that are still waiting to start. Waiting jobs can include jobs whose dependencies are incomplete or that are blocked by a concurrency limit. After all remaining jobs have finished or been canceled, the build is marked as _failed_ due to the initial job failure.
 
 Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
+
+## Concurrency attributes
+
+The `concurrency` attribute accepts an integer, a map, or `null`. You can group the limit, group name, and scheduling method in a map:
+
+```yaml
+steps:
+  - command: "deploy.sh"
+    concurrency:
+      limit: 1
+      group: "my-app/deploy"
+      method: ordered
+```
+
+The map accepts the following attributes:
+
+Attribute | Description
+--------- | -----------
+`limit` | The maximum number of jobs allowed to run at the same time. A positive limit requires a nonempty group name. Omitting the limit or setting it to `null` disables concurrency. Zero retains the same behavior as integer `concurrency: 0`; it is not equivalent to `null`.
+`group` | The concurrency group name. Jobs with the same name share a group across pipelines in the organization. Accepts a string or `null`.
+`method` | The scheduling method: `ordered` (the default) or `eager`. Use `eager` to let ready jobs run without waiting for earlier jobs that are not ready. A value of `null` selects the default method.
+{: class="two-column"}
+
+The integer syntax and top-level `concurrency_group` and `concurrency_method` attributes remain supported. Both syntaxes use the same concurrency groups and scheduling behavior.
+
+When you combine a map with top-level attributes, a nested `group` or `method` takes precedence before server validation. An omitted key inherits the corresponding top-level value. An explicit `null` clears that value instead of inheriting it. For example, `method: null` overrides `concurrency_method: eager` and selects `ordered`. Setting `group: null` with a positive limit is invalid, even if `concurrency_group` is set.
+
+For concurrency group behavior and examples, see [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency).
 
 ## Example
 
