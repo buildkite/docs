@@ -194,7 +194,7 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 ## Viewing and deleting volumes
 
-Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/buildkite-hosted/linux/remote-docker-builders#additional-volumes) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
+Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/buildkite-hosted/linux/remote-docker-builders#layer-caching-without-remote-docker-builders) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
 
 To view a list of volumes and delete one:
 
