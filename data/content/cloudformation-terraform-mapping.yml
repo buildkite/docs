@@ -42,8 +42,12 @@ BootstrapScriptUrl:
 BuildkiteAdditionalSudoPermissions:
   variable: buildkite_additional_sudo_permissions
   type: string
-BuildkiteAgentCancelCleanupTimeout: N/A
-BuildkiteAgentCancelSignalTimeout: N/A
+BuildkiteAgentCancelCleanupTimeout:
+  variable: buildkite_agent_cancel_cleanup_timeout
+  type: string
+BuildkiteAgentCancelSignalTimeout:
+  variable: buildkite_agent_cancel_signal_timeout
+  type: string
 BuildkiteAgentDisconnectAfterUptime:
   variable: buildkite_agent_disconnect_after_uptime
   type: number
@@ -56,7 +60,9 @@ BuildkiteAgentEnableGracefulShutdown:
 BuildkiteAgentExperiments:
   variable: buildkite_agent_experiments
   type: string
-BuildkiteAgentOpenTelemetryTracing: N/A
+BuildkiteAgentOpenTelemetryTracing:
+  variable: buildkite_agent_opentelemetry_tracing
+  type: bool
 BuildkiteAgentRelease:
   variable: buildkite_agent_release
   type: string
@@ -182,7 +188,9 @@ EnableVpcEndpoints: N/A
 ExperimentalEnableResourceLimits:
   variable: experimental_enable_resource_limits
   type: bool
-GitMirrorSeedBucket: N/A
+GitMirrorSeedBucket:
+  variable: git_mirror_seed_bucket
+  type: string
 IMDSv2Tokens:
   variable: imdsv2_tokens
   type: string
@@ -368,3 +376,4 @@ Subnets:
 VpcId:
   variable: vpc_id
   type: string
+WindowsLaunchTimeout: N/A

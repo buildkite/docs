@@ -475,6 +475,11 @@ steps:
 
 The `checkout.commit_verification` key tells the Buildkite agent to verify that the commit being built exists on the specified branch. This security feature is a branch-commit verification check, not GPG or SSH signature verification. This check helps protect against a scenario where a bad actor tries to trick CI into building a malicious commit that exists on a branch as though it is actually a commit on your `main` branch.
 
+During the [default checkout](#how-checkout-works), commit verification runs after fetching the source and before checking out the requested commit. The agent checks whether that commit appears in the named branch’s history. A commit passes if it is the branch’s latest commit or an earlier commit reachable through its history.
+
+> 🚧 Verification does not protect earlier job activity
+> Commit verification runs during the default checkout, after some job setup has already occurred. Secrets can be available, and hooks or plugins can execute, before the agent verifies branch membership. Even if `fail-closed` rejects the checkout and prevents the job’s commands from running, those earlier actions may already have occurred. Do not use commit verification alone to decide whether a job can receive secrets or other protected-branch privileges.
+
 For Buildkite agent v4, set the value to `strict` to fail the job when the agent determines that the commit is not on the branch. Set it to `off` to skip commit verification. An empty value causes job bootstrap to fail.
 
 > 🚧 Strict mode does not require successful verification
@@ -491,13 +496,15 @@ Agent v3 does not verify commits by default. Leave its configuration value empty
 
 Verification may be unable to complete if fetching the branch or deepening a shallow clone fails. In `strict` mode and in v3, this isn't a definitive failure: the agent warns and continues. Skipping checkout or replacing the default checkout with an agent or plugin `checkout` hook also bypasses the built-in check in these modes. Secrets can be available before verification runs. Hooks and plugins can also execute before verification runs.
 
-In `strict` mode and in v3, the agent skips verification in the following cases:
+In `strict` mode and in v3, the agent skips verification in the following cases. In `fail-closed` mode, it fails the job instead:
 
-- Tag builds
-- Pull request builds
-- Builds where the commit is `HEAD`
-- Builds with no branch set
-- Builds using a custom refspec
+- **Tag builds:** A tag names a particular commit independently of any branch. That commit might appear in several branches or none of them, so building a tag does not establish which branch’s history should be checked. The verifier does not currently perform a separate branch-membership check for tag builds.
+- **Pull request builds:** The agent can check out a generated merge commit that represents what the code would look like after merging the PR. That commit is available through a special PR ref but has not actually been merged into the target branch. Requiring it to appear in that branch’s history would reject a legitimate PR build. The verifier currently excludes all PR builds, including those that check out the PR head directly.
+- **Builds where the commit is `HEAD`:** A request with `commit: HEAD` asks the agent to fetch the named branch and build its current head, rather than supplying a particular commit independently of the branch.
+- **Builds with no branch set:** The agent needs both a commit and a branch to check their relationship. Without a branch name, it cannot determine which branch’s history the commit must belong to.
+- **Builds using a custom refspec:** A refspec controls which remote branches or other refs Git fetches and what names they receive locally. A custom refspec can produce a different layout from the standard branch checkout. These configurations remain unsupported because changes to the expected branch refs can cause false verification failures.
+
+Skipped and replacement checkouts also bypass verification in `strict` mode and in v3. The check is part of the default checkout implementation, so it does not run when checkout is skipped or replaced by an agent or plugin `checkout` hook. A replacement hook may use a different repository or checkout strategy, and its completion does not prove that the built-in ancestry check succeeded. `fail-closed` rejects both paths.
 
 ```yaml
 steps:
@@ -517,13 +524,13 @@ Set `--git-commit-verification` to `fail-closed` to require successful branch an
 
 `fail-closed` also rejects checkout paths that would otherwise skip or bypass verification:
 
-- Tag builds
-- Pull request builds
-- Builds where the commit is `HEAD`
-- Builds with no branch or no repository specified
-- Builds using a custom refspec
-- A skipped checkout (`BUILDKITE_SKIP_CHECKOUT`)
-- An agent or plugin `checkout` hook that replaces the default checkout
+- **Tag builds:** A tag identifies a commit independently of any branch, so it does not establish which branch’s history to verify.
+- **Pull request builds:** A generated PR merge commit can exist outside the target branch’s history. The verifier excludes PR builds as a category, including those that check out the PR head directly.
+- **Builds where the commit is `HEAD`:** Checkout selects the fetched branch head rather than a particular commit supplied independently of the branch.
+- **Builds with no branch or no repository specified:** The agent needs a repository containing both the commit and the named branch to check their relationship.
+- **Builds using a custom refspec:** A custom refspec can change which refs are fetched and their local names. The verifier does not support these checkout configurations.
+- **A skipped checkout (`BUILDKITE_SKIP_CHECKOUT`):** Skipping checkout also skips the default implementation containing the verification check.
+- **An agent or plugin `checkout` hook that replaces the default checkout:** The hook replaces the implementation containing the check. Completing a custom checkout does not establish that branch ancestry was verified.
 
 Verification must succeed within the same bootstrap invocation that runs the job's commands. If a hook sets `BUILDKITE_GIT_COMMIT_VERIFICATION` to `fail-closed` after the checkout phase, for example, in a pre-command hook, the agent rejects the command unless verification has already succeeded in that invocation.
 

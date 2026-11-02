@@ -173,8 +173,11 @@ steps:
     steps:
       - label: ":prettier: Lint assets"
         commands:
+          # Node.js 26+ images no longer bundle Yarn v1, so install it with npm.
+          - sh scripts/with-ca-trust.sh npm install --global yarn@1.22.22
           - sh scripts/with-ca-trust.sh yarn
           - sh scripts/with-ca-trust.sh npm run prettier-check
+          - sh scripts/with-ca-trust.sh npm run test:marketing-attribution
           - node --test spec/frontend/*_test.mjs
         agents:
           queue: hosted
@@ -189,7 +192,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: ":lint-roller: Linting text and markdown"
         agents:
@@ -217,7 +220,7 @@ steps:
           # version, is way faster because we don't have to wait for Ruby gems to
           # install.
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: "Validate YAML"
         command:
@@ -236,7 +239,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
         command: sh scripts/with-ca-trust.sh npm run -y mdlint
@@ -253,7 +256,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
       - label: ":snake: Linting markdown files for snake case"
         command: sh scripts/with-ca-trust.sh npx -y @ls-lint/ls-lint@2.1.0
@@ -270,7 +273,7 @@ steps:
               login: true
               account-ids: public.ecr.aws
           - docker#v5.14.0:
-              image: "public.ecr.aws/docker/library/node:24-alpine"
+              image: "public.ecr.aws/docker/library/node:26-alpine"
 
   - label: ":rspec: RSpec"
     depends_on: linting

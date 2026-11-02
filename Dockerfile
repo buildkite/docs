@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.9-slim-trixie@sha256:88f0d8f1f2f7829c8c85c5cfee774f7ac936a7ba460e904e8c873b6a7f96c311
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:24-trixie-slim@sha256:43b9ba1142b8dcf33fa8f922ca1be85714adc444e0586c7cf7726daaeabc1bea
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.9-slim-trixie@sha256:32fdd19c0a001077d1711f1afa6d8a0ac9d497c4eac20e47ae7e1c7f7a8c49df
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:26-trixie-slim@sha256:e4db4c914bf8ad241bd24804fc25d272d89bad97e68cdc8a1414862790a02c39
 
 FROM $BASE_IMAGE AS trusted-ruby
 
@@ -55,6 +55,9 @@ COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
 RUN sh /usr/local/bin/with-ca-trust true
 ENV NODE_OPTIONS="--use-openssl-ca"
 
+# Node.js 26+ images no longer bundle Yarn v1, so install it with npm.
+RUN npm install --global yarn@1.22.22
+
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
 
@@ -92,6 +95,8 @@ FROM trusted-ruby AS runtime
 
 RUN apt-get update \
     && apt-get upgrade -y \
+    # The Node.js 26+ binary copied from node-deps needs libatomic
+    && apt-get install -y --no-install-recommends libatomic1 \
     && sh /usr/local/bin/with-ca-trust true \
     && rm -rf /var/lib/apt/lists/*
 
