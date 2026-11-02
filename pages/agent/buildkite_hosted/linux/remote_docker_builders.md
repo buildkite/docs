@@ -71,7 +71,7 @@ You can also select this builder by running `docker buildx use default` in the s
 > 🚧 The default builder doesn't keep a layer cache
 > Each job starts with an empty Docker build cache, so the `default` builder rebuilds every layer in every job. This also applies on plans without remote Docker builders, because selecting the `default` builder bypasses their [layer caching volumes](#layer-caching-without-remote-docker-builders). To reuse unchanged layers between jobs, [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in your internal container registry.
 
-Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the hosted agent instance, but uses Docker's deprecated legacy builder, which can't store a layer cache in a registry.
+Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the hosted agent instance, but uses Docker's deprecated legacy builder, which doesn't support `--cache-to`, so it can't [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in a registry.
 
 ### Keep the layer cache
 
