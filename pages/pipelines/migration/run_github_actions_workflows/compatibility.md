@@ -567,6 +567,8 @@ Principal releases are:
 | v1.0.0 | [`3446296876d12d4e3a0f3145a3c87e67bf0a16b5`](https://github.com/actions/upload-artifact/tree/3446296876d12d4e3a0f3145a3c87e67bf0a16b5) |
 | v2.3.1 | [`82c141cc518b40d92cc801eee768e7aafc9c2fa2`](https://github.com/actions/upload-artifact/tree/82c141cc518b40d92cc801eee768e7aafc9c2fa2) |
 | v3.2.1 | [`ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5`](https://github.com/actions/upload-artifact/tree/ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5) |
+| v3.2.2 (GHES) | [`c6a366c94c3e0affe28c06c8df20a878f24da3cf`](https://github.com/actions/upload-artifact/tree/c6a366c94c3e0affe28c06c8df20a878f24da3cf) |
+| v3.2.2-node20 (GHES) | [`c6a3b2bd78b3985e4b2f15397fec357f0fd808de`](https://github.com/actions/upload-artifact/tree/c6a3b2bd78b3985e4b2f15397fec357f0fd808de) |
 | v4.6.0 | [`65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08`](https://github.com/actions/upload-artifact/tree/65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08) |
 | v4.6.2 | [`ea165f8d65b6e75b540449e92b4886f43607fa02`](https://github.com/actions/upload-artifact/tree/ea165f8d65b6e75b540449e92b4886f43607fa02) |
 | v5.0.0 | [`330a01c490aca151604b8cf639adc76d48f6c5d4`](https://github.com/actions/upload-artifact/tree/330a01c490aca151604b8cf639adc76d48f6c5d4) |
@@ -574,7 +576,9 @@ Principal releases are:
 | v7.0.1 | [`043fb46d1a93c77aae656e7c1c64a875d1fc6a0a`](https://github.com/actions/upload-artifact/tree/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a) |
 {: class="responsive-table"}
 
-Unknown valid resolved commits use stable v7.0.1 with `W_UPLOAD_ARTIFACT_UNKNOWN_COMMIT_FALLBACK`; the manifest can differ from upstream, but adapter limits don't widen and upstream JavaScript doesn't run. Malformed commits are rejected. Principal v1–v3 versions warn with `W_UPLOAD_ARTIFACT_LEGACY_RELEASE`. v3.2.2 and v3.2.2-node20 remain unsupported GitHub Enterprise Server-only backports. Snapshot refreshes follow runtime updates.
+The GitHub Enterprise Server (GHES) releases v3.2.2 and v3.2.2-node20 use their exact contracts, not the v7 fallback. Both exclude hidden files by default, accept `include-hidden-files: true`, and declare no action outputs.
+
+Unknown valid resolved commits use stable v7.0.1 with `W_UPLOAD_ARTIFACT_UNKNOWN_COMMIT_FALLBACK`; the manifest can differ from upstream, but adapter limits don't widen and upstream JavaScript doesn't run. Malformed commits are rejected. v1.0.0, v2.3.1, and v3.2.1 warn with `W_UPLOAD_ARTIFACT_LEGACY_RELEASE`; the current GHES releases do not. Snapshot refreshes follow runtime updates.
 
 <a id="actions-download-artifact-action"></a>
 
