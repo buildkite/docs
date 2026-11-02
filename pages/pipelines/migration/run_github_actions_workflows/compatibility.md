@@ -576,7 +576,7 @@ Principal releases are:
 | v7.0.1 | [`043fb46d1a93c77aae656e7c1c64a875d1fc6a0a`](https://github.com/actions/upload-artifact/tree/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a) |
 {: class="responsive-table"}
 
-The GitHub Enterprise Server (GHES) releases v3.2.2 and v3.2.2-node20 use their exact contracts, not the v7 fallback. Both exclude hidden files by default, accept `include-hidden-files: true`, and declare no action outputs.
+The GitHub Enterprise Server (GHES) releases v3.2.2 and v3.2.2-node20 require [buildkite-gha v0.118.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.118.0) or later. They use their exact contracts, not the v7 fallback. Both exclude hidden files by default, accept `include-hidden-files: true`, and declare no action outputs.
 
 Unknown valid resolved commits use stable v7.0.1 with `W_UPLOAD_ARTIFACT_UNKNOWN_COMMIT_FALLBACK`; the manifest can differ from upstream, but adapter limits don't widen and upstream JavaScript doesn't run. Malformed commits are rejected. v1.0.0, v2.3.1, and v3.2.1 warn with `W_UPLOAD_ARTIFACT_LEGACY_RELEASE`; the current GHES releases do not. Snapshot refreshes follow runtime updates.
 
