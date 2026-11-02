@@ -59,7 +59,7 @@ steps:
 You can also select this builder by running `docker buildx use default` in the step's command, or by passing the `--builder default` flag to a single command.
 
 > 🚧 Builds on the agent don't keep their layer cache
-> Each job starts with empty Docker storage, so the default local builder rebuilds every layer in every job. To reuse unchanged layers between jobs, [store the layer cache in your internal container registry](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
+> Each job starts with an empty Docker build cache, so the default local builder rebuilds every layer in every job. To reuse unchanged layers between jobs, [store the layer cache in your internal container registry](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
 
 Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the agent, but uses Docker's deprecated legacy builder, which can't store a layer cache in a registry.
 
@@ -81,7 +81,7 @@ steps:
 ```
 
 - The first build reports that the cache wasn't found and continues without it. Later builds reuse every unchanged layer.
-- The `mode=max` option also caches the intermediate stages of multi-stage builds, which the default mode doesn't.
+- The `mode=max` option also caches the intermediate stages of multi-stage builds, so these stages are reused when a later stage changes. The default mode doesn't cache them.
 - Write the cache in every build, including builds that don't push an image, so that pull request builds have a cache to reuse.
 - Use a separate cache reference for each image. When several builds write the same reference, the last build to finish replaces the cache.
 
