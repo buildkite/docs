@@ -30,13 +30,13 @@ deploy script in the next step.
 steps:
   - label: "\:rocket\: Push to \:kubernetes\:"
     command: script/buildkite/deploy
-    concurrency: 1
-    concurrency_group: deploy/tutorial
+    concurrency:
+      limit: 1
+      group: deploy/tutorial
 ```
 {: codeblock-file="pipeline.yml"}
 
-Set `concurrency` and `concurrency_group` when updating mutable state. These
-settings ensure only one step runs at a time.
+Set `limit` and `group` in the [concurrency map](/docs/pipelines/configure/step-types/command-step#concurrency-attributes) when updating mutable state. These settings ensure only one deployment job runs at a time.
 
 ## Writing the deploy script
 
@@ -254,8 +254,9 @@ steps:
            wait: true
            atomic: true
            timeout: 600s
-     concurrency: 1
-     concurrency_group: deploy/production
+     concurrency:
+       limit: 1
+       group: deploy/production
 ```
 {: codeblock-file=".buildkite/pipeline.deploy.yml"}
 
