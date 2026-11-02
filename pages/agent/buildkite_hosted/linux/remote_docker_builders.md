@@ -19,7 +19,7 @@ Where a Docker image build runs, and whether it reuses layers from earlier build
 
 When using the remote Docker builders feature, Docker image builds within your pipeline are directed to and run on an external [builder service](https://docs.docker.com/build/builders/) (the remote Docker builder), rather than being run on the Buildkite hosted agent instance itself. While the agent orchestrates and streams the build configuration to this remote builder service, the builder service itself builds the images and returns the completed images and metadata to the job that initiated the build on your agent. These completed images are also stored in your [container cache volumes](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes), if you've enabled this feature. Learn more about this in [Step-by-step remote Docker builder process](#step-by-step-remote-docker-builder-process).
 
-The remote builder service also maintains a [cache](https://docs.docker.com/build/cache/) of its built image layers (stored in the builder service's local file system, and in your [container cache volumes](/docs/agent/buildkite-hosted/cache-volumes#container-cache-volumes)). Images already stored in this local file system usually don't need to be re-built upon a subsequent build, and any images in your container cache volumes can be pulled to jobs requesting them, which in turn, speeds up your overall pipeline builds, since your Buildkite hosted agents running these pipelines are free to build the rest of your pipeline and conduct other work.
+The remote builder service maintains a [build cache](https://docs.docker.com/build/cache/) on its local file system, allowing subsequent builds to reuse unchanged layers. Container cache volumes store completed images for jobs to pull, not the builder's build cache.
 
 When using remote Docker builders, your first few pipeline builds will typically require more time to complete. However, once the required layers and their images have been built, any subsequent pipeline builds are completed much more rapidly. Learn more about how remote Docker builders improve the speed and performance of your pipeline builds in [Benefits of using remote Docker builders](#benefits-of-using-remote-docker-builders).
 
@@ -29,7 +29,7 @@ The following steps outline this remote Docker builder process in more detail:
 
 1. A Buildkite hosted agent runs a Docker image build command in one of its pipeline jobs—for example, `docker build`, `docker buildx build`, or `docker buildx bake`. Because the agent's active [Buildx](https://docs.docker.com/build/concepts/overview/#buildx) builder is pre-configured to target the remote [builder](https://docs.docker.com/build/builders/) service (which uses [BuildKit](https://docs.docker.com/build/concepts/overview/#buildkit)), the build is dispatched to the remote builder service. Learn more about Buildx and BuildKit in [Docker Build overview](https://docs.docker.com/build/concepts/overview/).
 
-1. The remote builder service executes stages in parallel where possible, reusing unchanged image layers in your container cache volumes and rebuilding images from only new layers that are needed.
+1. The remote builder service executes stages in parallel where possible, reusing unchanged layers from its local build cache and building only the new layers needed.
 
 1. The build outputs are delivered based on flags used on the command, for example, loaded back to the agent with no additional flags, or pushed to a registry or exported to an OCI archive with `--push`.
 
@@ -71,7 +71,7 @@ You can also select this builder by running `docker buildx use default` in the s
 > 🚧 The default builder doesn't keep a layer cache
 > Each job starts with an empty Docker build cache, so the `default` builder rebuilds every layer in every job. This also applies on plans without remote Docker builders, because selecting the `default` builder bypasses their [layer caching volumes](#layer-caching-without-remote-docker-builders). To reuse unchanged layers between jobs, [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in your internal container registry.
 
-Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the hosted agent instance, but uses Docker's deprecated legacy builder, which doesn't support `--cache-to`, so it can't [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in a registry.
+Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the hosted agent instance, but uses Docker's deprecated legacy builder. The legacy builder doesn't support `--cache-to`, so the [cache export examples below](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) require BuildKit.
 
 ### Keep the layer cache
 
