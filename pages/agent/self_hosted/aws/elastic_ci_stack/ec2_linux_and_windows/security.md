@@ -172,8 +172,11 @@ The following S3 objects are downloaded and processed:
 
 These files are encrypted using [AWS KMS](https://aws.amazon.com/kms/).
 
-> 🚧 Sourcing of environment variable files
-> The agent sources files such as `/env` or `/{pipeline-slug}/environment`. It is possible to include a shell script that will be executed by the agent in these files. However, including shell scripts in these files should be used with caution, as it can lead to unexpected behavior.
+> 🚧 Environment file format and secret redaction
+> Keep `env` and `environment` files limited to `KEY=VALUE` assignments, comments, and blank lines. Shell commands such as `set` or `if` cause parsing to fail for the entire file. The S3 secrets hook logs `Warning: failed to parse env file ...` and does not add any values from that file to the log redactor. The agent still executes the file as shell code, so secrets can be loaded without the hook registering them for redaction.
+> Put conditional logic in an [agent `environment` hook](/docs/pipelines/security/secrets/managing#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) instead of the S3 environment file.
+
+For environment files, the hook recognizes secret variable names containing `_SECRET`, `_SECRET_KEY`, `_PASSWORD`, `_TOKEN`, or `_ACCESS_KEY` for redaction. Use these names for values that need redaction.
 
 ### Using your own S3 bucket
 
@@ -201,7 +204,7 @@ aws s3 cp --acl private --sse aws:kms id_rsa_buildkite "s3://${SecretsBucket}/pr
 To set secrets that your builds can access, create a file that sets environment variables and upload it:
 
 ```bash
-echo "export MY_ENV_VAR=something secret" > myenv
+echo 'MY_SECRET="xxx-yyy-zzz"' > myenv
 aws s3 cp --acl private --sse aws:kms myenv "s3://${SecretsBucket}/env"
 rm myenv
 ```
