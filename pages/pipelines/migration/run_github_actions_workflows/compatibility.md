@@ -496,8 +496,6 @@ Inputs must exist in the selected commit's contract before the following restric
 
 Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous. Statically false job conditions can bypass checkout input restrictions, but step/runtime conditions don't hide invalid adapter inputs.
 
-Workflow steps default to `GIT_TERMINAL_PROMPT=0`. Missing Git credentials fail instead of waiting for terminal input. Later Git commands don't inherit checkout credentials or the agent's job credentials. Configure authentication explicitly for those commands. Disabling prompts doesn't grant repository access. Workflow environment settings can override this default.
-
 Submodules use native Git depth and relative URLs: true selects direct children, recursive selects nested children. Public/private GitHub submodules use job-authorized access. External HTTPS is anonymous; `git@github.com:` rewrites to HTTPS. Other SSH and non-HTTPS transports are unsupported.
 
 Sparse checkout defaults to `blob:none` unless a filter is explicit. Cone mode selects directories; non-cone mode uses Git ignore patterns. LFS installs repository-local filters without push/locking hooks and downloads selected materialized paths.
@@ -675,16 +673,7 @@ Alternate checkout repositories and private actions are unsupported. Approved pr
 
 ### GitHub token
 
-A job requests one short-lived event-repository token when it references `secrets.GITHUB_TOKEN`, workflow-authored `github.token`, or an effective action input default that reads `github.token`. Reachable composite shell-step `env`, `run`, and `working-directory` expressions can also request it. Known input, matrix, condition, and provider guards can exclude token use. Runtime-dependent branches retain the request. Native adapters ignore upstream metadata, so checkout alone doesn't request it. Tokens aren't automatically placed in the initial environment.
-
-For example, this composite shell-step environment can use the job token without the caller passing a token input:
-
-```yaml
-env:
-  DEFAULT_GITHUB_TOKEN: ${{ inputs.fallback == 'cargo-binstall' && github.token || '' }}
-```
-
-Composite outputs, child-action `with` values, and whole-context serialization don't independently request a token. For those positions, pass an authorized token from the workflow through an action input. Composite metadata can't request ordinary secrets.
+A job requests one short-lived event-repository token when it statically references `secrets.GITHUB_TOKEN`, workflow-authored `github.token`, or an effective action input default that can reach `github.token` for that provider. A provider guard can exclude GitHub token use for Origin. Native adapters ignore upstream defaults, so checkout alone doesn't request it. Tokens aren't automatically placed in the initial environment.
 
 Public support is limited to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) in `github.com` pipelines using the full-access **GitHub** repository provider. The pipeline's **Allow workflow-authorized GitHub access tokens** setting must be enabled. Existing pipelines default off; pipelines created with GitHub Actions setup mode default on.
 
