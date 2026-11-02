@@ -98,6 +98,7 @@ OpenAI spend | Model provider spend limits for OpenAI, per month in USD. | $50 d
 | **M4 Mac vCPU concurrency** | 12 vCPU | Not available | 48 vCPU | Custom |
 | **Linux vCPU minutes per month** | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
 | **M4 Mac vCPU minutes per month** | 3,000 included | Not available | Pay as you go | Volume discounts |
+{: class="responsive-table"}
 
 > 📘 Adjusting hosted agents limits
 > All Access Trial and Enterprise hosted agents limits can be increased on request. Contact Buildkite support at support@buildkite.com with details about your use case, or contact your Technical Account Manager if you have one.
