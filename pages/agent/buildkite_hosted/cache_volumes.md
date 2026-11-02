@@ -143,7 +143,7 @@ If, however, the volume is used less frequently and its data is relatively dynam
 
 Container cache volumes are types of volumes used to cache Docker images between builds.
 
-To reuse layers between Docker image builds, use [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders), or for builds on the agent itself, [store the layer cache in your internal container registry](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
+To reuse layers between Docker image builds, use [remote Docker builders](/docs/agent/buildkite-hosted/linux/remote-docker-builders), or for builds on the hosted agent instance itself, [keep the layer cache](/docs/agent/buildkite-hosted/linux/remote-docker-builders#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) in your internal container registry or on a cache volume.
 
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/agent/buildkite-hosted/linux).

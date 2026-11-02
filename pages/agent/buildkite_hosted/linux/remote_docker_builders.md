@@ -3,7 +3,7 @@
 _Remote Docker builders_ are dedicated machines available to [Buildkite hosted agents](/docs/agent/buildkite-hosted), which are specifically designed and configured to handle the [building of Docker images](https://docs.docker.com/build/) with the `docker build` command and [Buildx](https://docs.docker.com/build/concepts/overview/#buildx) subcommands such as `docker buildx build` and `docker buildx bake`. This feature substantially speeds up the build times of pipelines that need to build Docker images.
 
 > 📘 Default Enterprise plan feature
-> Remote Docker builders is a _default feature_ available to all new and existing Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan. This means that for Enterprise plan customers, this feature is used automatically whenever a `docker build`, `docker buildx build`, or `docker buildx bake` command is encountered within Buildkite pipelines. However, you can disable this feature, so that Docker images are built on the Buildkite hosted agents themselves. Learn more about how to do this in [Building Docker images on the Buildkite hosted agent](#building-docker-images-on-the-buildkite-hosted-agent). If your Buildkite organization doesn't have access to this feature, then [additional volumes](#additional-volumes) are created in your Buildkite clusters to cache Docker layers for image builds on your hosted agents.
+> Remote Docker builders is a _default feature_ available to all new and existing Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan. This means that for Enterprise plan customers, this feature is used automatically whenever a `docker build`, `docker buildx build`, or `docker buildx bake` command is encountered within Buildkite pipelines. However, you can disable this feature, so that Docker images are built on your hosted agent instances instead. Learn more about how to do this in [Building Docker images on the Buildkite hosted agent](#building-docker-images-on-the-buildkite-hosted-agent). If your Buildkite organization doesn't have access to this feature, then [additional volumes](#additional-volumes) are created in your Buildkite clusters to cache Docker layers for image builds on your hosted agent instances.
 
 ## Remote Docker builders overview
 
@@ -45,7 +45,7 @@ The remote Docker builders are dedicated machines with their own local file syst
 
 ## Building Docker images on the Buildkite hosted agent
 
-Since [remote Docker builders](#remote-docker-builders-overview) is a [default Enterprise plan feature](#default-enterprise-plan-feature), Docker image builds run on remote Docker builders unless you select another builder. To build Docker images on the Buildkite hosted agent itself, set the `BUILDX_BUILDER` environment variable to `default` for the step. This selects Docker's default local builder for every build command in the step, including `docker build`, `docker buildx build`, and `docker buildx bake`:
+Since [remote Docker builders](#remote-docker-builders-overview) is a [default Enterprise plan feature](#default-enterprise-plan-feature), Docker image builds run on remote Docker builders unless you select another builder. To build Docker images on the hosted agent instance that runs the job, set the `BUILDX_BUILDER` environment variable to `default` for the step. This selects Docker's default local builder for every build command in the step, including `docker build`, `docker buildx build`, and `docker buildx bake`:
 
 ```yaml
 steps:
@@ -58,14 +58,16 @@ steps:
 
 You can also select this builder by running `docker buildx use default` in the step's command, or by passing the `--builder default` flag to a single command.
 
-> 🚧 Builds on the agent don't keep their layer cache
-> Each job starts with an empty Docker build cache, so the default local builder rebuilds every layer in every job. To reuse unchanged layers between jobs, [store the layer cache in your internal container registry](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache).
+> 🚧 Builds on the hosted agent instance don't keep their layer cache
+> Each job starts with an empty Docker build cache, so the default local builder rebuilds every layer in every job. To reuse unchanged layers between jobs, [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) in your internal container registry or on a cache volume.
 
-Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the agent, but uses Docker's deprecated legacy builder, which can't store a layer cache in a registry.
+Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the hosted agent instance, but uses Docker's deprecated legacy builder, which can't store a layer cache in a registry.
 
 ### Keep the layer cache
 
-To reuse layers between builds on the agent, add `--cache-from` and `--cache-to` flags that point to your cluster's [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry). Jobs can read from and write to this registry without logging in:
+To reuse layers between builds on hosted agent instances, store the layer cache in your cluster's internal container registry or on a cache volume. Once a build has written the cache to the registry, every later build gets it. A cache volume keeps the cache next to the job instead of sending it over the network, but volumes are [non-deterministic](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature), so some builds start without the cache.
+
+To use the [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), add `--cache-from` and `--cache-to` flags that point to it. Jobs can read from and write to this registry without logging in:
 
 ```yaml
 steps:
@@ -85,10 +87,33 @@ steps:
 - Write the cache in every build, including builds that don't push an image, so that pull request builds have a cache to reuse.
 - Use a separate cache reference for each image. When several builds write the same reference, the last build to finish replaces the cache.
 
+To use a [cache volume](/docs/agent/buildkite-hosted/cache-volumes) instead, add a `cache` attribute to the step and export the cache to a directory on the volume. Each build writes a new copy of the cache and then replaces the old one, so the cache doesn't keep growing:
+
+```yaml
+steps:
+  - label: "\:docker\: Build Docker image locally with layer cache on a volume"
+    env:
+      BUILDX_BUILDER: "default"
+    cache:
+      paths:
+        - ".docker-cache"
+      name: "docker-layer-cache"
+    command: |
+      docker buildx build \
+        --cache-from "type=local,src=.docker-cache/current" \
+        --cache-to "type=local,dest=.docker-cache/next,mode=max" \
+        --tag my-image:latest \
+        .
+      rm -rf .docker-cache/current
+      mv .docker-cache/next .docker-cache/current
+```
+
+A volume only keeps the changes from jobs that pass, and a job can start with an empty or older copy of the volume, even right after another job has written to it. Builds on different branches share the volume unless you include the branch in its `name`.
+
 For `docker buildx bake`, set the `cache-from` and `cache-to` attributes on each target in your bake file.
 
 ## Additional volumes
 
-If your Buildkite organization doesn't have access to the [remote Docker builders](#remote-docker-builders-overview) feature, then new [volumes](/docs/agent/buildkite-hosted/cache-volumes) will appear in your [cluster](/docs/pipelines/security/clusters)'s volumes list—one for each unique Git repository used by a pipeline. These volumes hold the Docker layer cache for image builds that run on your Buildkite hosted agents, so these builds reuse unchanged layers without additional configuration. Builds that select the `default` builder, for example, by setting `BUILDX_BUILDER` to `default`, don't use these volumes. The naming convention for these volumes is based on your cloud-based Git service's account and repository name, and begins with "buildkite-local-builder-". For example, **buildkite-local-builder-my-account-my-repository**.
+If your Buildkite organization doesn't have access to the [remote Docker builders](#remote-docker-builders-overview) feature, then new [volumes](/docs/agent/buildkite-hosted/cache-volumes) will appear in your [cluster](/docs/pipelines/security/clusters)'s volumes list—one for each unique Git repository used by a pipeline. These volumes hold the Docker layer cache for image builds that run on your hosted agent instances, so these builds reuse unchanged layers without additional configuration. Builds that select the `default` builder, for example, by setting `BUILDX_BUILDER` to `default`, don't use these volumes. The naming convention for these volumes is based on your cloud-based Git service's account and repository name, and begins with "buildkite-local-builder-". For example, **buildkite-local-builder-my-account-my-repository**.
 
 You can view all of your current cluster's volumes through its **Cached Storage > Volumes** page.
