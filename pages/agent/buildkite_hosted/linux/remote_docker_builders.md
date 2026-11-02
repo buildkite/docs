@@ -68,20 +68,45 @@ steps:
 
 You can also select this builder by running `docker buildx use default` in the step's command, or by passing the `--builder default` flag to a single command.
 
-> 🚧 Builds on the hosted agent instance don't keep their layer cache
-> Each job starts with an empty Docker build cache, so the default local builder rebuilds every layer in every job. To reuse unchanged layers between jobs, [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) in your internal container registry or on a cache volume.
+> 🚧 The default builder doesn't keep a layer cache
+> Each job starts with an empty Docker build cache, so the `default` builder rebuilds every layer in every job. This also applies on plans without remote Docker builders, because selecting the `default` builder bypasses their [layer caching volumes](#layer-caching-without-remote-docker-builders). To reuse unchanged layers between jobs, [keep the layer cache](#building-docker-images-on-the-buildkite-hosted-agent-keep-the-layer-cache) on a cache volume or in your internal container registry.
 
 Setting the `DOCKER_BUILDKIT` environment variable to `0` also builds images on the hosted agent instance, but uses Docker's deprecated legacy builder, which can't store a layer cache in a registry.
 
 ### Keep the layer cache
 
-To reuse layers between builds on hosted agent instances, store the layer cache in your cluster's internal container registry or on a cache volume. Once a build has written the cache to the registry, every later build gets it. A cache volume keeps the cache next to the job instead of sending it over the network, but volumes are [non-deterministic](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature), so some builds start without the cache.
-
-To use the [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry), add `--cache-from` and `--cache-to` flags that point to it. Jobs can read from and write to this registry without logging in:
+To reuse layers between builds on hosted agent instances, store the layer cache on a [cache volume](/docs/agent/buildkite-hosted/cache-volumes). Add a `cache` attribute to the step and export the cache to a directory on the volume. Each build writes a new copy of the cache and then replaces the old one, so the cache doesn't keep growing:
 
 ```yaml
 steps:
   - label: "\:docker\: Build Docker image locally with layer cache"
+    env:
+      BUILDX_BUILDER: "default"
+    cache:
+      paths:
+        - ".docker-cache"
+      name: "docker-layer-cache"
+    command: |
+      docker buildx build \
+        --cache-from "type=local,src=.docker-cache/my-image" \
+        --cache-to "type=local,dest=.docker-cache/my-image-new,mode=max" \
+        --tag my-image:latest \
+        .
+      rm -rf .docker-cache/my-image
+      mv .docker-cache/my-image-new .docker-cache/my-image
+```
+
+- The first build reports that the cache wasn't found and continues without it. Later builds reuse every unchanged layer.
+- The `mode=max` option also caches the intermediate stages of multi-stage builds, so these stages are reused when a later stage changes. The default mode doesn't cache them.
+- Write the cache in every build, including builds that don't push an image, so that pull request builds have a cache to reuse.
+- Use a separate cache directory for each image.
+- Builds on different branches share the volume unless you include the branch in its `name`.
+
+Volumes are [non-deterministic](/docs/agent/buildkite-hosted/cache-volumes#lifecycle-non-deterministic-nature). A volume only keeps the changes from jobs that pass, and a job can start with an empty or older copy of the volume, even right after another job has written to it. If every build needs the cache, store it in your cluster's [internal container registry](/docs/agent/buildkite-hosted/internal-container-registry) instead. Each build then downloads and uploads the cache over the network, and jobs can read from and write to this registry without logging in:
+
+```yaml
+steps:
+  - label: "\:docker\: Build Docker image locally with layer cache in the registry"
     env:
       BUILDX_BUILDER: "default"
     command: |
@@ -92,33 +117,7 @@ steps:
         .
 ```
 
-- The first build reports that the cache wasn't found and continues without it. Later builds reuse every unchanged layer.
-- The `mode=max` option also caches the intermediate stages of multi-stage builds, so these stages are reused when a later stage changes. The default mode doesn't cache them.
-- Write the cache in every build, including builds that don't push an image, so that pull request builds have a cache to reuse.
-- Use a separate cache reference for each image. When several builds write the same reference, the last build to finish replaces the cache.
-
-To use a [cache volume](/docs/agent/buildkite-hosted/cache-volumes) instead, add a `cache` attribute to the step and export the cache to a directory on the volume. Each build writes a new copy of the cache and then replaces the old one, so the cache doesn't keep growing:
-
-```yaml
-steps:
-  - label: "\:docker\: Build Docker image locally with layer cache on a volume"
-    env:
-      BUILDX_BUILDER: "default"
-    cache:
-      paths:
-        - ".docker-cache"
-      name: "docker-layer-cache"
-    command: |
-      docker buildx build \
-        --cache-from "type=local,src=.docker-cache/current" \
-        --cache-to "type=local,dest=.docker-cache/next,mode=max" \
-        --tag my-image:latest \
-        .
-      rm -rf .docker-cache/current
-      mv .docker-cache/next .docker-cache/current
-```
-
-A volume only keeps the changes from jobs that pass, and a job can start with an empty or older copy of the volume, even right after another job has written to it. Builds on different branches share the volume unless you include the branch in its `name`.
+Use a separate cache reference for each image. When several builds write the same reference, the last build to finish replaces the cache.
 
 For `docker buildx bake`, set the `cache-from` and `cache-to` attributes on each target in your bake file.
 
