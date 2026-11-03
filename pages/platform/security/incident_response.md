@@ -41,8 +41,10 @@ To log a user out of all their sessions across the Buildkite platform, send the 
 
 Revoke any token that may have been exposed:
 
-- **Agent tokens:** [Revoke the agent token](/docs/agent/self-hosted/tokens#revoke-a-token) using the Buildkite interface, the REST API, or the GraphQL API. Revoking an agent token prevents new agents from registering with it, but doesn't disconnect agents that are already connected, so also stop or replace those agents.
-- **API access tokens:** [Remove your organization from the token](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token) on the API access audit page. The token's owner cannot add your organization back.
+- **Agent tokens:** Open [**Agents**](https://buildkite.com/organizations/-/agents), select the affected cluster, then select **Agent Tokens** and revoke the token. This prevents new agents from registering but doesn't disconnect agents that are already connected, so also stop or replace those agents. For API options, see [Revoke the agent token](/docs/agent/self-hosted/tokens#revoke-a-token).
+- **API access tokens you own:** Open [**API Access Tokens**](https://buildkite.com/user/api-access-tokens) and revoke the token. For other options, see [Managing API access tokens](/docs/apis/managing-api-tokens).
+- **API access tokens owned by another user:** A Buildkite organization administrator can open [**API Access Audit**](https://buildkite.com/organizations/~/api-access-audit), select the token, then select **Remove Organization from Token**. Removing the final organization from an explicitly organization-scoped token also revokes the token completely. The token's owner cannot add your organization back. For more information, see [Removing an organization from a token](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token).
+- **OAuth authorizations:** Open [**Connected Apps**](https://buildkite.com/user/connected-apps) and revoke the connection. This invalidates its Buildkite access and refresh tokens. For more information, see [Revoke access](/docs/platform/security/oauth#revoke-access).
 - **Other tokens:** Identify the token type from its prefix using [Token security](/docs/platform/security/tokens), and contact Buildkite support for any token you cannot revoke yourself.
 
 ### Rotate exposed secrets
