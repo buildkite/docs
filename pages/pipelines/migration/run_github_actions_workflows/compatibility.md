@@ -1258,6 +1258,7 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 | `github.actor`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_owner`, `sha`, `workflow_ref`, `workflow_sha` | Yes | Yes |
 | `github.event`, including projected/dynamic properties | Yes | Yes |
 | `github.server_url` | No | Composite steps only, from v0.105.0. |
+| `github.run_attempt` | Yes, including reusable-workflow calls. | Yes, including composite steps. |
 | `runner.os`, `runner.arch`, `runner.environment` | Yes | Yes |
 | `runner.temp`, `runner.debug` | No | Yes; debug is always absent. |
 | `needs.<job>.result`, `needs.<job>.outputs.<name>` | Yes | Yes |
@@ -1274,6 +1275,8 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 `hashFiles()` conditions accept 1–255 literal or direct-reference arguments. Reusable-call conditions use the narrower [caller scope](#workflow-syntax-reference-reusable-workflows). Event data remains the original event, including whole or dynamic access.
 
 Composite `github.server_url` conditions can distinguish providers, such as `github.server_url == 'https://github.com'`. Workflow job/step, reusable-call, and JavaScript lifecycle conditions don't gain this field. A composite condition doesn't grant token authority to its run body.
+
+Use `if: github.run_attempt == '1'` to run a job or step only on its first attempt, or `if: github.run_attempt != '1'` for retries. The value follows the [runtime identity mapping](#expressions-and-contexts-runtime-interpolation), so retrying one Buildkite Pipelines job doesn't change another job's attempt. Missing or invalid retry identity is an error. Import-time fields such as `runs-on`, matrices, and concurrency, and JavaScript `pre-if` and `post-if`, don't support `github.run_attempt`.
 
 ### Runtime interpolation
 
