@@ -402,6 +402,8 @@ Omitted or blank run names keep the static label. On non-dispatch events, declar
 
 Action admission doesn't guarantee that arbitrary code inside an action can use every GitHub service. Source, runtime, input, and service limits all apply. Start with action behavior and restrictions below; each native adapter's release inventory follows its usage details.
 
+Native checkout, upload, and download adapters skip input validation when the whole job's `if` condition is known to be false after reusable inputs and matrix values resolve. The job remains in the plan to report a `skipped` result. Reachable jobs, runtime-dependent job conditions, and false individual steps still validate adapter inputs.
+
 <a id="actions-action-sources-and-runtimes"></a>
 
 ### Action sources and runtimes
@@ -494,7 +496,7 @@ Inputs must exist in the selected commit's contract before the following restric
 | `github-server-url` | Omitted/empty or `https://github.com`. |
 {: class="responsive-table"}
 
-Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous. Statically false job conditions can bypass checkout input restrictions, but step/runtime conditions don't hide invalid adapter inputs.
+Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous.
 
 Workflow steps default to `GIT_TERMINAL_PROMPT=0`. Missing Git credentials fail instead of waiting for terminal input. Later Git commands don't inherit checkout credentials or the agent's job credentials. Configure authentication explicitly for those commands. Disabling prompts doesn't grant repository access. Workflow environment settings can override this default.
 
