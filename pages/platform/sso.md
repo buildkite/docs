@@ -97,6 +97,25 @@ To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graph
 1. In the resulting dialog, select the **Session IP Address Pinning** checkbox.
 1. Select **Save Session IP Address Pinning**.
 
+## Requiring SSO sign-in again
+
+As an organization administrator, you can revoke every active SSO session for your organization at once, for example, during a suspected security incident. Affected members, including you, must sign in through your identity provider again before they can access the organization.
+
+To require SSO sign-in again:
+
+1. Select **Settings** > **Security**.
+1. In the **SSO Sessions** section, select **Require SSO sign-in again**.
+1. Review the consequences, then select **Require SSO sign-in again** to confirm, or **Cancel** to go back without revoking any sessions.
+
+Requiring SSO sign-in again only revokes this organization's SSO sessions. It doesn't:
+
+- Affect sessions in your other organizations.
+- Affect members whose SSO is optional in this organization.
+- Revoke API access tokens or agent tokens. [Revoke these separately](/docs/platform/security/incident-response#revoke-compromised-tokens) if they may also be compromised.
+- Revoke existing OAuth access and refresh tokens, including those used by remote MCP and the Buildkite CLI. A new OAuth authorization that requires SSO must complete SSO again.
+
+This action cannot be undone. Confirm that you can sign in through your identity provider before continuing.
+
 ## Frequently asked questions
 
 These answers cover membership, provider changes, billing, and login issues.
