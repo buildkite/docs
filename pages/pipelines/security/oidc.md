@@ -43,18 +43,21 @@ Configure the service to check the organization and jobs represented by each tok
 
 > 🚧 Checking the issuer is not enough
 > All Buildkite organizations share the issuer `https://agent.buildkite.com`. A policy that checks only the issuer could accept tokens from another Buildkite organization.
+> See [Unit 42's analysis of OIDC misconfigurations in CI/CD](https://unit42.paloaltonetworks.com/oidc-misconfigurations-in-ci-cd/) for examples of how attackers exploit overly broad trust policies.
 
 Use the following claims where the service supports them:
 
 Claim | What to restrict
 ----- | ----------------
-`organization_id` | The immutable ID of the Buildkite organization allowed to authenticate
-`pipeline_id` | The immutable ID of the pipeline allowed to authenticate
+`organization_id` | The immutable UUID of the Buildkite organization allowed to authenticate
+`pipeline_id` | The immutable UUID of the pipeline allowed to authenticate
 `aud` (audience) | The intended service, matching the value in the token request
 `sub` (subject) | The job context or immutable identifier allowed to authenticate
 {: class="responsive-table"}
 
-Use immutable IDs rather than relying only on slugs. A pipeline slug alone does not identify an organization, and deleted organization and pipeline slugs can be reused. See the [OIDC token claim reference](/docs/agent/cli/reference/oidc#claims) for all claims and example values.
+The `organization_id` claim is a UUID, not the organization slug used in URLs. For example, `example-org` is a slug, while `00000000-0000-4000-8000-000000000001` is an example UUID. Obtain your organization's UUID from the `BUILDKITE_ORGANIZATION_ID` [environment variable](/docs/pipelines/configure/environment-variables) in a job or the `id` field in the [Get an organization REST API response](/docs/apis/rest-api/organizations#get-an-organization).
+
+Use immutable UUIDs rather than relying only on slugs. Organization and pipeline slugs can change, and deleted slugs can be reused. A pipeline slug alone does not identify an organization. If your policy also checks slugs, update those conditions when a slug changes. See the [OIDC token claim reference](/docs/agent/cli/reference/oidc#claims) for all claims and example values.
 
 By default, `sub` contains the organization slug, pipeline slug, Git ref, commit, and step key. For services that require an exact subject match, use `--subject-claim` to replace this compound value with an immutable ID. For example, to use the pipeline UUID:
 
@@ -64,7 +67,7 @@ OIDC_TOKEN=$(buildkite-agent oidc request-token \
   --subject-claim pipeline_id)
 ```
 
-Configure the service to match that pipeline UUID exactly. You can obtain it from the `BUILDKITE_PIPELINE_ID` [environment variable](/docs/pipelines/configure/environment-variables). Replacing the subject removes the ref, commit, and step information from `sub`. Enforce any required restrictions separately using claims the service supports. A service that checks only this subject cannot distinguish between branches or steps in the pipeline.
+Configure the service to match that pipeline UUID exactly. You can obtain it from the `BUILDKITE_PIPELINE_ID` environment variable. Replacing the subject removes the ref, commit, and step information from `sub`. Enforce any required restrictions separately using claims the service supports. A service that checks only this subject cannot distinguish between branches or steps in the pipeline.
 
 Other [custom subject claims](/docs/agent/cli/reference/oidc#custom-subject-claims), such as `cluster_id` or `organization_id`, allow broader access. Use them only when every job within that scope should be able to authenticate.
 
@@ -75,8 +78,9 @@ Trust rules determine which jobs can authenticate. Permissions determine what th
 Check | Recommendation
 ----- | --------------
 Claim restrictions | Mapping a claim to a provider attribute does not restrict accepted values. Add conditions or identity bindings that enforce the intended organization and jobs.
+Pipeline scope | Restrict access to the intended pipeline, not just its organization. Otherwise, a compromised pipeline in the same organization could obtain a token that grants access to resources intended for another pipeline.
 Other access rules | Review every rule that can grant access. A broader rule can bypass restrictions in another rule.
-Audience | Require the same `aud` value in the service configuration and token request. Audience validation does not replace organization and job restrictions.
+Audience | Require the same `aud` value in the service configuration and token request. Jobs choose this value with `--audience`, so audience validation does not replace organization and job restrictions.
 Untrusted code | Restrict who can trigger or change privileged pipelines using [pipeline permissions](/docs/pipelines/security/permissions). Keep untrusted pull requests out of pipelines that can authenticate to sensitive services. A branch condition alone does not guarantee trusted code.
 Permissions | Grant only the actions and resources each job needs. For example, a job that reads a package does not need permission to delete packages. Short token lifetimes do not correct broad trust or permissions.
 {: class="responsive-table responsive-table--nowrap-first-column"}
@@ -88,6 +92,7 @@ For service-specific restrictions, see [AWS access restrictions](/docs/pipelines
 Test against non-production resources before granting production access:
 
 1. Run the intended job and confirm that it can authenticate and perform a permitted action.
-1. Try authenticating from a different pipeline that should not have access, then from a disallowed branch or step if your policy restricts them. Confirm that each attempt fails.
+1. Try authenticating from a different pipeline that should not have access, using the expected audience. If you control a separate test organization, test from that organization too. Confirm that each attempt fails.
+1. Try authenticating from a disallowed branch or step if your policy restricts them. Confirm that each attempt fails.
 1. Request a token with a different audience and confirm that the service rejects it.
 1. From the permitted job, try a harmless action outside its permissions, such as reading a test resource it should not access. Confirm that authentication succeeds but the action is denied.
