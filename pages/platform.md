@@ -69,5 +69,5 @@ Use these guides to manage access and security, automate workflows, monitor usag
 For product-specific configuration and usage, see:
 
 - [Buildkite Pipelines](/docs/pipelines)
-- [Test suites](/docs/pipelines/configure/tests)
+- [Test Engine](/docs/pipelines/configure/tests)
 - [Buildkite Package Registries](/docs/package-registries)
