@@ -240,6 +240,8 @@ A Buildkite organization administrator can also delete organization members usin
 
 Removing a user blocks their active sessions from reading or changing your organization's data through the web interface or APIs. The user can still access their personal settings and any other organizations they belong to.
 
+If this is the user's final organization membership, removing them also revokes all their [API access tokens](/docs/apis/managing-api-tokens) and [OAuth authorizations](/docs/platform/security/oauth). If the user still belongs to another organization, credentials that retain access to that organization remain valid.
+
 Organization administrators cannot end a user's account-wide sessions. Buildkite accounts belong to individuals and can span multiple organizations.
 
 If you cannot work with the affected user, or several accounts are compromised, send the affected user IDs to [support@buildkite.com](mailto:support@buildkite.com). Ask Buildkite support to end all sessions for those users.
