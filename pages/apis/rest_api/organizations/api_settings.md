@@ -89,7 +89,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   }'
 ```
 
-`allowed_ip_addresses` and `allowed_ip_entries` are two representations of the same allowlist. Pass only one of them in a request—passing both, even if they describe the same list, returns a `422 Unprocessable Entity` error.
+`allowed_ip_addresses` and `allowed_ip_entries` are two representations of the same allowlist. Pass only one of them in a request. Passing both, even if they describe the same list, returns a `422 Unprocessable Entity` error.
 
 Required scope: `write_organization_settings`
 
