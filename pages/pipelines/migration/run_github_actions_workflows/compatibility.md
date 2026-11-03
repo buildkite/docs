@@ -1276,7 +1276,7 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 
 Composite `github.server_url` conditions can distinguish providers, such as `github.server_url == 'https://github.com'`. Workflow job/step, reusable-call, and JavaScript lifecycle conditions don't gain this field. A composite condition doesn't grant token authority to its run body.
 
-Use `if: github.run_attempt == '1'` to run a job or step only on its first attempt, or `if: github.run_attempt != '1'` for retries. The value follows the [runtime identity mapping](#expressions-and-contexts-runtime-interpolation), so retrying one Buildkite Pipelines job doesn't change another job's attempt. Missing or invalid retry identity is an error. Import-time fields such as `runs-on`, matrices, and concurrency, and JavaScript `pre-if` and `post-if`, don't support `github.run_attempt`.
+Use `if: github.run_attempt == '1'` to run a job or step only on its first attempt, or `if: github.run_attempt != '1'` for retries. The value follows the [runtime identity mapping](#expressions-and-contexts-runtime-interpolation). Retrying one Buildkite Pipelines job doesn't change another job's attempt. Missing or invalid retry identity is an error. Import-time fields such as `runs-on`, matrices, and concurrency, and JavaScript `pre-if` and `post-if`, don't support `github.run_attempt`.
 
 ### Runtime interpolation
 
