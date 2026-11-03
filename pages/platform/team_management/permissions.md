@@ -1,14 +1,23 @@
 # User and team permissions
 
-Customers on any [Buildkite plan](https://buildkite.com/pricing) can manage permissions using the _teams_ feature. Learn more about this feature in [Manage teams and permissions](#manage-teams-and-permissions).
+Teams control access to pipelines, test suites, and registries in your Buildkite organization. Teams are available on every [Buildkite plan](https://buildkite.com/pricing).
+
+To enable teams and assign permissions, follow [Manage teams and permissions](#manage-teams-and-permissions).
 
 For related authentication, token, and infrastructure controls, see the [Security overview](/docs/platform/security).
 
 ## Manage teams and permissions
 
-The _teams_ feature allows you to apply access permissions and functionality controls for one or more groups of users (that is, _teams_) on each pipeline, test suite, registry, or any combination of these, throughout your organization.
+Use _teams_ to assign permissions to groups of users. Each team can have access to pipelines, test suites, registries, or a combination of these resources.
 
-To manage teams across Buildkite's applications, a _Buildkite organization administrator_ first needs to enable this feature across their organization.
+A _Buildkite organization administrator_ must enable teams before you can manage team access. The following roles determine who can manage permissions:
+
+Role | Access management
+--- | ---
+Organization administrator | Manage all teams and resource permissions throughout the organization.
+Team maintainer | Manage their team's members and settings. Changing a resource's permissions requires [**Full Access**](#manage-teams-and-permissions-team-level-permissions) to that resource.
+Team member | Use resources at the access level assigned to their team. Team members cannot manage the team.
+{: class="two-column"}
 
 To access or enable the teams feature for your organization, or both:
 
@@ -26,80 +35,73 @@ Without the **Teams** feature activated, all users are able to access all items 
 
 ### Organization-level permissions
 
-A user who is a _Buildkite organization administrator_ can access the [**Organization Settings** page](https://buildkite.com/organizations/~/settings) by selecting **Settings** in the global navigation, and do the following throughout their Buildkite organization:
+A _Buildkite organization administrator_ can manage all teams and their resource permissions. Select **Settings** in the global navigation to open the [**Organization Settings** page](https://buildkite.com/organizations/~/settings).
 
-- Access the **Teams** feature and page, by selecting **Settings** in the global navigation > **Teams**.
+From **Settings** > **Teams**, administrators can:
 
-- From the **Teams** page:
+- Create a team using **New Team**.
+- Manage [team](#manage-teams-and-permissions-team-level-permissions), [pipeline](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) settings across the organization.
+- Delete a team by selecting the team > **Settings** > **Delete Team**.
+- [Enable or re-enable teams](#manage-teams-and-permissions).
+- Disable teams using **Disable Teams**, after deleting every team, including **Everyone**.
 
-    * Create a new team, using the **New Team** button.
-    * Administer (with full control) the [team-](#manage-teams-and-permissions-team-level-permissions), [pipeline-](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suite-](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) and [registry-](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions)level settings throughout their Buildkite organization.
+> 📘 Registry settings
+> Registry settings are available after [Buildkite Package Registries has been enabled](/docs/package-registries/security/permissions#enabling-buildkite-packages).
 
-        **Note:** Registry-level settings are only available once [Buildkite Package Registries has been enabled](/docs/package-registries/security/permissions#enabling-buildkite-packages).
-
-    * Delete an existing team, by selecting the team > **Settings** tab > **Delete Team** button.
-    * [Enable](#manage-teams-and-permissions) and disable the teams feature for their organization. This feature can only be disabled once all teams have been deleted from the organization (including the automatically-created **Everyone** team) using the **Disable Teams** button on the **Teams** page. Once the teams feature has been disabled, it can be [re-enabled](#manage-teams-and-permissions) at any time.
-
-- Configure other organization-level settings for Buildkite Pipelines and Package Registries, as well as various [integrations](/docs/pipelines/integrations) with Buildkite.
-
-- Access and view Buildkite Pipelines and Package Registries usage reports and [audit logs](/docs/platform/audit-log).
+Administrators can also configure organization settings for Buildkite Pipelines and Buildkite Package Registries, manage [integrations](/docs/pipelines/integrations), and view usage reports and [audit logs](/docs/platform/audit-log).
 
 ### Team-level permissions
 
-A user who is a _team maintainer_ on an existing team can:
+A _team maintainer_ manages a team's members, resource access, and settings. A **Team Member** can use the team's resources but cannot manage the team.
 
-- Access the **Teams** feature and page, by selecting **Teams** in the global navigation > **Teams**.
+To open a team, select **Teams** in the global navigation > **Teams**, then select the team. If you are also an organization administrator, use **Settings** > **Teams** instead, as described in [Organization-level permissions](#manage-teams-and-permissions-organization-level-permissions).
 
-    **Note:** If a team maintainer is also a Buildkite organization administrator, **Teams** is not available in the global navigation and instead, accessing this feature is performed as an [organization administrator](#manage-teams-and-permissions-organization-level-permissions).
+#### Manage team members
 
-- From the **Teams** page:
+Use the **Members** tab to:
 
-    * Add another existing user to this team, using the **Add Member** button from the **Members** tab.
+- Add an existing organization user using **Add Member**.
+- Filter by role using **Everyone**, **Team Member**, or **Team Maintainer** in the role dropdown.
+- Remove a user using their **Remove** button.
 
-    * Filter the **Members** tab list by role, using the role dropdown (**Everyone**, **Team Member**, or **Team Maintainer**) to find members with a specific role.
+#### Set resource permissions
 
-    * Remove a user from this team, by selecting the user's **Remove** button.
+Select the resource's tab, then its permission level. These permissions apply to all members of the team:
 
-    * Change the permission for all users in this team on any:
-        - [pipeline](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) in the team to **Full Access**, **Build & Read**, or **Read Only**.
-        - [test suite](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) in the team to **Full Access**, or **Read Only**.
-        - [registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) in the team to **Full Access**, **Read & Write**, or **Read Only**.
+Resource | Tab | Permission levels
+--- | --- | ---
+[Pipeline](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) | **Pipelines** | **Full Access**, **Build & Read**, **Read Only**
+[Test suite](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions) | **Test Suites** | **Full Access**, **Read Only**
+[Registry](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) | **Package Registries** | **Full Access**, **Read & Write**, **Read Only**
+{: class="responsive-table"}
 
-        To do this, select the appropriate tab (**Pipelines**, **Test Suites** or **Package Registries**) and then select the required permission for the item.
+Registry permissions are available after [Buildkite Package Registries has been enabled](/docs/package-registries/security/permissions#enabling-buildkite-packages).
 
-        **Note:** Managing team permissions for registries is only available once [Buildkite Package Registries has been enabled](/docs/package-registries/security/permissions#enabling-buildkite-packages).
-
-    * Edit the team's details and other settings using the **Settings** tab, which includes the ability to:
-
-        - Change the team's **Visibility**.
-        - **Automatically add new users to this team**.
-        - Set the **Default Member Role** (that is, team **Member** or **Maintainer**) for new users joining the team.
-        - Set the **Team Member Permissions**, which allows team members to do any combination of the following in this team:
-
-            * **Create pipelines**
-            * **Create test suites**
-            * **Create registries**
-            * **Delete registries**
-            * **Delete packages**
-
-            **Note:** If these permissions are removed from a team, all team maintainers in this team will still be able to create and add new pipelines, test suites and registries within the team.
-
-            **Note:** **Create test suites** only appears for organizations that have Test Engine available on their plan. If Test Engine is not available, this permission is hidden, and any previously configured setting for it is kept and restored if Test Engine becomes available again.
-
-        - Delete the team, using the **Delete** button.
-
-As indicated in the Buildkite interface, a user who is in a team is known as a **Team Member**, and such users have fewer permissions within the team (that is, no team management capabilities) than a **Team Maintainer**.
-
-All team members in a team have the same level of access to the [pipelines](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions), [test suites](/docs/pipelines/security/permissions#manage-teams-and-permissions-test-suite-level-permissions), and [registries](/docs/package-registries/security/permissions#manage-teams-and-permissions-registry-level-permissions) in the team. If you need to have more fine grained control over the pipelines, test suites or registries in a team, you can create more teams with different permissions.
+All team members receive the same access to each resource through that team. Create separate teams when groups need different access levels.
 
 > 📘 Pipeline-level permissions override team member permissions
-> When a user belongs to multiple teams that have access to the same pipeline, the highest pipeline-level permission across all of those teams applies. For example, if a user belongs to Team A, which has **Read Only** access to a pipeline, and also belongs to Team B, which has **Full Access** to the same pipeline, the user has **Full Access** to that pipeline. This means the user can edit pipeline settings, create builds, and manage access, regardless of the lower permission set through Team A.
+> A user receives the highest pipeline-level permission granted by any of their teams. For example, **Read Only** through Team A and **Full Access** through Team B gives the user **Full Access**. They can edit pipeline settings, create builds, and manage access.
 
-Permission levels also affect who can change a resource's access settings later.
+Check your own access before reducing a team's permissions:
 
 > 🚧 Changing **Full Access** permissions on pipelines, test suites and registries
-> As a team maintainer, once you change the permission on any of these items away from **Full Access**, you could lose the ability to change the permissions on that item again. This can happen if you are no longer a member of a team that provides **Full Access** to this item.
-> A [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) is required to change any item's permissions back to **Full Access** again.
+> Changing a resource away from **Full Access** can remove your ability to manage its permissions. You lose that ability if no other team gives you **Full Access** to the resource.
+> Ask a [Buildkite organization administrator](#manage-teams-and-permissions-organization-level-permissions) to restore access if needed.
+
+#### Configure team settings
+
+Use the team's **Settings** tab to configure:
+
+- **Visibility**: Control the team's visibility.
+- **Automatically add new users to this team**: Add new organization members to the team.
+- **Default Member Role**: Choose **Member** or **Maintainer** for new team members.
+- **Team Member Permissions**: Allow any combination of **Create pipelines**, **Create test suites**, **Create registries**, **Delete registries**, and **Delete packages**.
+
+Team maintainers can still create and add pipelines, test suites, and registries when these team member permissions are removed.
+
+The **Create test suites** permission appears only when your plan includes Test Engine. Otherwise, the setting is hidden. Any saved value is restored if Test Engine becomes available again.
+
+To delete the team, use **Delete** on the **Settings** tab.
 
 ### Programmatically managing teams
 
@@ -151,10 +153,13 @@ Yes, you can disable teams by deleting all your teams, and then selecting "Disab
 
 #### Can I automate the removal of users from Buildkite?
 
-Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens) to do it.
-You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name or email of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Next, use the first query to get the user ID (make sure to replace `your-organization-slug` with your Buildkite organization's slug and `Jane Doe` with the name or email of the user you want to remove), and then run the RemoveOrganizationMember mutation with the user ID to remove the user:
+Yes. Use the GraphQL API with a [GraphQL API token](https://buildkite.com/user/api-access-tokens) to remove organization members.
 
-```bash
+1. Find your organization's slug in [**Organization Settings**](https://buildkite.com/organizations/-/settings).
+1. Confirm the user's name or email in their [team](https://buildkite.com/organizations/-/teams).
+1. Run the query below. Replace `your-organization-slug` with your organization's slug and `Jane Doe` with the user's name or email. Verify the result before removing the user.
+
+```graphql
 query FindOrganizationMember {
   organization(slug: "your-organization-slug") {
     members(first: 1, search: "Jane Doe") {
@@ -175,7 +180,7 @@ query FindOrganizationMember {
 
 Copy the user ID you've received into the following mutation and run it to remove the user from your Buildkite organization:
 
-```bash
+```graphql
 mutation RemoveOrganizationMember {
   organizationMemberDelete(input: { id: "user-ID-you-copied-goes-here" }) {
     deletedOrganizationMemberID
@@ -185,7 +190,7 @@ mutation RemoveOrganizationMember {
 
 ## Removing users during a security incident
 
-If you believe that a user account has been compromised, the recommended incident response is to remove such a user from your Buildkite organization immediately. This will entirely remove their ability to impact your organization and protect you from any further actions that the user could take.
+Remove a suspected compromised user from your Buildkite organization immediately to revoke their access to organization data. If you use SSO, also [disable their access at the identity provider](#removing-users-during-a-security-incident-removing-users-from-an-organization-with-enabled-sso) to prevent them from rejoining.
 
 For the wider response, including token revocation, secret rotation, investigation, and recovery, follow [Incident response](/docs/platform/security/incident-response).
 
@@ -233,26 +238,28 @@ A Buildkite organization administrator can also delete organization members usin
 
 ### Security guarantees of removing a user
 
-When you remove a user from your organization, the active session tokens belonging to this user cannot make calls to the product that will return (or make changes to) any of the data available using the web UI, API, etc. So removing a compromised or rogue user is as effective as killing all sessions by the user.
+Removing a user blocks their active sessions from reading or changing your organization's data through the web interface or APIs. The user can still access their personal settings and any other organizations they belong to.
 
-Within Buildkite's access model, organizations don't own users, so they can't control users' sessions because users represent individuals who may be members of multiple organizations.
+If this is the user's final organization membership, removing them also revokes all their [API access tokens](/docs/apis/managing-api-tokens) and [OAuth authorizations](/docs/platform/security/oauth). If the user still belongs to another organization, credentials that retain access to that organization remain valid.
 
-Removing a compromised user from your organization immediately protects all the organization's resources from that user. The user will technically still be able to view their personal settings page.
+Organization administrators cannot end a user's account-wide sessions. Buildkite accounts belong to individuals and can span multiple organizations.
 
-In case of a non-responsive or rogue user, or if multiple accounts are compromised, you can send a list of impacted user IDs to [support@buildkite.com](mailto:support@buildkite.com) and ask the Buildkite support to log out the specific user or all the users out of all sessions.
+If you cannot work with the affected user, or several accounts are compromised, send the affected user IDs to [support@buildkite.com](mailto:support@buildkite.com). Ask Buildkite support to end all sessions for those users.
 
 > 📘 Enterprise plan
 > As a part of the Buildkite SLA, customers on the [Enterprise](https://buildkite.com/pricing/) plan have an emergency email available for operational and security incidents. Contact your Customer Success Manager for more information.
 
-If you suspect or have already detected a security breach, and the affected user is cooperative, they can also log out and [reset](https://buildkite.com/forgot-password) their password, which will automatically reset all of their active sessions. Then you can work with the affected user to ensure their account is safe and re-add them to your Buildkite organization.
+If the affected user can help, ask them to log out and [reset their password](https://buildkite.com/forgot-password) to reset all active sessions. Verify that their account is secure before adding them back to your organization.
 
-Note that resetting a password might not always be an option. If you have SSO enabled for your organization, the user in question may not even have a dedicated password for their Buildkite account.
+Password reset may not be available to SSO users who have no Buildkite password.
 
 ### Removing users from an organization with enabled SSO
 
-If you're using SSO, you also need to protect against the attackers regaining organization membership by logging in again with SSO. This _will not_ renew the revoked authorizations and _does not_ authorize any other sessions that might still be active for the user, as a new organization member will be created. However, if the attacker has access to a Buildkite session, they may also have access to a regular session with the permissions granted for your SSO session defaults. So it is important to disable or remove such a compromised user account from your SSO.
+Disable or remove the compromised account at your SSO provider as well as in Buildkite. Otherwise, an attacker with SSO access can log in again and create a new organization membership.
 
-If the attacker has control of the SSO, the scope of the security incident is beyond what could be remediated using Buildkite's tools only.
+Rejoining does not restore revoked authorizations or authorize other existing sessions. However, a new SSO login can grant access under your organization's default SSO permissions.
+
+If the attacker controls your SSO provider, changes in Buildkite alone cannot resolve the incident.
 
 ### Disabling and re-enabling SSO
 
@@ -261,8 +268,8 @@ The other control you have is the organization membership's SSO mode. If the mem
 > 🚧
 > Before you proceed, make sure that you have at least one user with SSO as an optional log in requirement in your organization to make it possible for someone to log back in!
 
-Admins of your Buildkite organization can disable and then re-enable the SSO, which will force all users in your organization to re-authorize with SSO. When you disable an SSO provider, it rescinds all active SSO authorizations for all users _including the admin who disables the SSO_! The admin will need to log back into the organization by using a non-SSO method.
+Disabling an SSO provider revokes its active SSO authorizations, including the administrator's. The administrator must log back in using a non-SSO method. After the provider is re-enabled, members required to use it must re-authorize.
 
 You can [disable](/docs/platform/sso/sso-setup-with-graphql#disabling-an-sso-provider) and [re-enable](/docs/platform/sso/sso-setup-with-graphql#setting-up-saml-google-cloud-identity-okta-onelogin-adfs-and-others-step-4) the SSO using GraphQL or the Buildkite UI.
 
-Remember that if an attacker had a fully authenticated session, they've potentially configured API tokens, which will not be subject to SSO requirements. Therefore, the only truly safe response is still to remove the compromised user from your Buildkite organization.
+An attacker with an authenticated session may have created API tokens, which are not subject to SSO requirements. Resetting SSO authorizations is not a substitute for removing the compromised user from your Buildkite organization.
