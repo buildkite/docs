@@ -1331,7 +1331,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | `runner.os`, `runner.arch` | `Linux`/`X64`, `Linux`/`ARM64`, `macOS`/`ARM64`, or `Windows`/`X64`. |
 | `runner.environment` | `self-hosted`, including Buildkite hosted agents. |
 | `runner.temp` | Canonical `RUNNER_TEMP`, available after setup in step fields and job outputs. |
-| `runner.tool_cache` | The selected [tool-cache directory](#runner-tools), matching `RUNNER_TOOL_CACHE`. Available after setup in step fields, action input defaults, lifecycle conditions, and composite and job outputs. Unavailable in graph-time fields, job environment, and job or reusable-call conditions. |
+| `runner.tool_cache` | The selected [tool-cache directory](#runners-and-tools-runner-tools), matching `RUNNER_TOOL_CACHE`. Available after setup in step fields, action input defaults, lifecycle conditions, and composite and job outputs. Unavailable in graph-time fields, job environment, and job or reusable-call conditions. |
 | `runner.debug` | Always absent; interpolation is empty and comparison to enabled value `1` is false. Available in step fields, outputs, lifecycle conditions, and action input defaults. |
 {: class="responsive-table"}
 
