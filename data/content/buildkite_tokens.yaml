@@ -20,7 +20,7 @@ tokens:
     url: /docs/agent/self-hosted/tokens
     prefix: bkct_
     usage: Self-hosted agents register with a cluster using `BUILDKITE_AGENT_TOKEN`.
-    scope: Any queue in one cluster.
+    scope: Configurable [Agent API permissions and queue access](/docs/agent/self-hosted/scoped-agent-tokens) within one cluster. Defaults to all permissions and all queues.
     lifetime: No expiry when created in the Buildkite interface. An optional expiry, at least 10 minutes in the future, can be set when created using the API.
   - key: unclustered_agent_token
     name: Unclustered agent token
@@ -50,7 +50,7 @@ tokens:
     internal: true
     prefix: bkaj_
     usage: Exposed to each job as `BUILDKITE_AGENT_ACCESS_TOKEN`, and used by agent CLI commands such as `annotate`, `artifact`, and `meta-data`.
-    scope: The job, plus metadata, annotations, and artifacts of other jobs in the same cluster.
+    scope: The job, plus metadata, annotations, and artifacts of other jobs in the same cluster, subject to the source agent token's permissions.
     lifetime: Until the job finishes.
   - key: registry_token
     name: Registry token
