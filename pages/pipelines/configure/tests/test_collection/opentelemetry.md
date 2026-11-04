@@ -9,7 +9,7 @@ In addition to viewing trace detail on individual test executions, you can also 
 
 <%= image "span_aggregates.png", width: 1122, height: 719, alt: "A summary of OpenTelemetry spans for a build" %>
 
-Many of the [Test Engine test collection libraries](https://github.com/buildkite/bktest) support OpenTelemetry.
+Some of the [Test Engine test collection libraries](https://github.com/buildkite/bktest) support OpenTelemetry.
 It is also possible to implement OpenTelemetry test ingestion without using a Buildkite Collector, see below.
 
 ## Writing your own OpenTelemetry ingestion
