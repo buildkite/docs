@@ -99,7 +99,9 @@ The Ruby collector can send RSpec results to Buildkite Test Engine as [OpenTelem
 > 🚧 Experimental RSpec support
 > OpenTelemetry collection is experimental and disabled by default. It supports RSpec only, not minitest. Use Ruby 3.3 or later. Suites that already configure OpenTelemetry are not yet supported by this experimental integration.
 
-1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Store its suite API token [securely](/docs/pipelines/security/secrets/managing) as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs RSpec.
+1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one.
+
+1. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token [securely](/docs/pipelines/security/secrets/managing) as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs RSpec.
 
 1. Add the collector and its optional OpenTelemetry dependencies to your `Gemfile`. Use collector version 2.16.0 or later and OTLP exporter version 0.29 or later:
 
