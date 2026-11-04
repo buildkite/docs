@@ -313,7 +313,7 @@ This baseline is complete when responders can reach the tested runbook and escal
 
 ### Advanced
 
-- **Rehearse SSO reauthorization safely:** In a test organization, rehearse [disabling and re-enabling SSO](/docs/platform/team-management/permissions#removing-users-during-a-security-incident-disabling-and-re-enabling-sso) with a dedicated optional-SSO administrator account ready. Disabling SSO rescinds every active SSO authorization, including the administrator's. API access tokens are unaffected, so this doesn't replace user and token revocation.
+- **Rehearse SSO reauthorization safely:** In a test organization, rehearse [requiring SSO sign-in again](/docs/platform/sso#requiring-sso-sign-in-again). Confirm that members required to use SSO must re-authenticate and that members with optional SSO retain access. API access tokens, agent tokens, and existing OAuth tokens remain usable, so this doesn't replace user and token revocation.
 - **Automate tested revocation and rotation:** Automate the revocation and rotation procedures you've already rehearsed. Test target selection, approvals, failure handling, and rejection of old credentials in a test environment. Keep a manual fallback if the automation or its credentials are unavailable.
 
 <%= audit_area.('incident-readiness') %>

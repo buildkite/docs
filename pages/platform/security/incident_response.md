@@ -61,7 +61,9 @@ A pipeline's webhook URL contains its secret. If a webhook URL has been compromi
 
 ### Force all users to re-authenticate
 
-If multiple accounts may be compromised, a Buildkite organization administrator can [require SSO sign-in again](/docs/platform/sso#requiring-sso-sign-in-again) to revoke every active SSO session in the organization at once, including the administrator's own. API access tokens and agent tokens are not subject to SSO requirements, so this action does not replace removing compromised users.
+If multiple accounts may be compromised and SSO is enabled, a Buildkite organization administrator can [require SSO sign-in again](/docs/platform/sso#requiring-sso-sign-in-again) to revoke every active SSO session in the organization at once, including the administrator's own. Members required to use SSO must re-authenticate. Members with optional SSO and sessions in other organizations are unaffected.
+
+This action does not revoke API access tokens, agent tokens, or existing OAuth access and refresh tokens. [Revoke compromised tokens separately](#contain-the-incident-revoke-compromised-tokens), and remove compromised users. To end account-wide sessions, contact Buildkite support as described in [Remove a compromised user](#contain-the-incident-remove-a-compromised-user).
 
 ## Investigate the incident
 

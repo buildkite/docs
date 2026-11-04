@@ -99,11 +99,11 @@ To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graph
 
 ## Requiring SSO sign-in again
 
-As an organization administrator, you can revoke every active SSO session for your organization at once, for example, during a suspected security incident. Affected members, including you, must sign in through your identity provider again before they can access the organization.
+As an organization administrator, you can revoke every active SSO session for your organization at once, for example, during a suspected security incident. SSO must be enabled for this action to be available. Members required to use SSO, including you if SSO is required for your account, must sign in through your identity provider again before they can access the organization. You don't need to disable any SSO providers.
 
 To require SSO sign-in again:
 
-1. Select **Settings** > **Security**.
+1. Select **Settings** > **Security** > **General**.
 1. In the **SSO Sessions** section, select **Require SSO sign-in again**.
 1. Review the consequences, then select **Require SSO sign-in again** to confirm, or **Cancel** to go back without revoking any sessions.
 
@@ -112,7 +112,7 @@ Requiring SSO sign-in again only revokes this organization's SSO sessions. This 
 - Affect sessions in your other organizations.
 - Affect members whose SSO is optional in this organization.
 - Revoke API access tokens or agent tokens. [Revoke these separately](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) if they may also be compromised.
-- Revoke existing OAuth access and refresh tokens, including those used by remote MCP and the Buildkite CLI. A new OAuth authorization that requires SSO must complete SSO again.
+- Revoke existing [OAuth access and refresh tokens](/docs/platform/security/oauth), including those used by remote MCP and the Buildkite CLI. A new OAuth authorization that requires SSO must complete SSO again.
 
 This action cannot be undone. Confirm that you can sign in through your identity provider before continuing.
 
