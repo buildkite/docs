@@ -80,6 +80,89 @@ To configure Jest:
     ```
     **Note:** The `"testLocationInResults": true` setting enables column and line capture for Test Engine.
 
+### Collecting Jest tests with OpenTelemetry
+
+The JavaScript collector can send Jest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
+
+Use Jest 29 or later with the default `jest-circus` runner. The setup below uses `buildkite-test-collector` version `1.13.0-beta.4`, available through the npm `beta` tag. OpenTelemetry collection is disabled by default and supports Jest only.
+
+1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Jest.
+
+1. Install the collector and its optional OpenTelemetry dependencies:
+
+    ```bash
+    npm install --save-dev buildkite-test-collector@1.13.0-beta.4 \
+      '@opentelemetry/api@~1.9.0' \
+      '@opentelemetry/sdk-trace-base@^2.0.0' \
+      '@opentelemetry/resources@^2.0.0' \
+      '@opentelemetry/exporter-trace-otlp-proto@>=0.200.0 <0.300.0' \
+      '@opentelemetry/context-async-hooks@^2.0.0'
+    ```
+
+    Use the OpenTelemetry JavaScript SDK 2.x dependencies shown here, not unversioned installs. SDK 3.x is not supported. These dependencies require Node.js 18.19 or later in the 18.x release line, or Node.js 20.6 or later.
+
+1. Configure both the reporter and the runtime in `jest.config.js`. Replace an existing Buildkite reporter entry instead of adding a second one:
+
+    ```javascript
+    module.exports = {
+      reporters: [
+        'default',
+        ['buildkite-test-collector/jest/reporter', { otelEnabled: true }],
+      ],
+      testEnvironment: 'node',
+      runtime: 'buildkite-test-collector/jest/runtime',
+      testLocationInResults: true,
+    };
+    ```
+
+    Keep your existing `testEnvironment` setting, such as `node`, `jsdom`, or a custom environment. If you used an earlier beta, remove `testEnvironment: 'buildkite-test-collector/jest/environment'` and add the runtime shown above. No environment wrapper is needed.
+
+1. Run Jest with its token and CI environment variables available:
+
+    ```bash
+    npx jest
+    ```
+
+1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
+
+The collector exports to `https://tests-otlp.buildkite.com/v1/traces` and detects run metadata from your CI environment. On Buildkite Pipelines, it uses `BUILDKITE_BUILD_ID` as the run key. Set `BUILDKITE_ANALYTICS_KEY` to share a run key across processes outside CI. The collector manages authentication and export settings; `OTEL_EXPORTER_OTLP_*` variables do not redirect its exports.
+
+OpenTelemetry spans replace JSON uploads for tests using the collector's runtime. Do not also upload the same executions using bktec or another upload method. Test names and scopes match JSON collection, preserving test history. However, OpenTelemetry collection does not apply `BUILDKITE_ANALYTICS_EXECUTION_NAME_PREFIX` or `BUILDKITE_ANALYTICS_EXECUTION_NAME_SUFFIX`. Keep OpenTelemetry disabled if you rely on these settings for test identity.
+
+No setup file is needed. The test span is active inside each test and its `beforeEach` and `afterEach` hooks. You can add manual child spans using the OpenTelemetry API:
+
+```javascript
+const { trace } = require('@opentelemetry/api');
+
+test('adds two numbers', async () => {
+  await trace.getTracer('my-suite').startActiveSpan('addition', async (span) => {
+    try {
+      expect(2 + 3).toBe(5);
+    } finally {
+      span.end();
+    }
+  });
+});
+```
+
+For automatic HTTP and Node.js `fetch` instrumentation, install compatible instrumentation packages:
+
+```bash
+npm install --save-dev \
+  '@opentelemetry/instrumentation-http@>=0.200.0 <0.300.0' \
+  '@opentelemetry/instrumentation-undici@>=0.11.0 <0.34.0'
+```
+
+The collector selects supported instrumentation declared in your project or workspace dependencies. Use `OTEL_NODE_ENABLED_INSTRUMENTATIONS` to select comma-separated names, or `OTEL_NODE_DISABLED_INSTRUMENTATIONS` to exclude names. Omit the `@opentelemetry/instrumentation-` prefix. For example, `OTEL_NODE_DISABLED_INSTRUMENTATIONS=http,undici` disables HTTP and fetch spans without disabling test results. HTTP instrumentation can add `traceparent` headers, which can affect exact-header assertions and snapshots.
+
+The collector does not export child spans from file loading, `beforeAll`, `afterAll`, or independent root traces. If your suite registers its own tracer provider, test results still export, but child spans go to that provider instead. Let the collector provide the tracer provider under Jest to collect child spans.
+
+For jsdom, install `jest-environment-jsdom` at the same version as Jest and keep `testEnvironment: 'jsdom'`. Per-file `@jest-environment` comments do not disable OpenTelemetry collection. To exclude a project, omit the collector's runtime from that project's configuration. Its results fall back to JSON collection.
+
+If OpenTelemetry dependencies are missing or incompatible, the collector warns and falls back to JSON. JSON fallback requires the reporter's `token` option or `BUILDKITE_ANALYTICS_TOKEN`. Export failures after setup do not trigger JSON fallback and do not change Jest's exit code. Check warnings containing `TEST RESULTS MISSING`, and allow requests to `tests-otlp.buildkite.com` if your suite mocks or blocks network access. Avoid `--forceExit`, which can interrupt exports.
+
+See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md) for supported instrumentation, batching options, and troubleshooting.
+
 ### Jasmine
 
 To configure Jasmine:
