@@ -6,6 +6,7 @@ import { themeToggle } from "../components/themeToggle";
 import { initPageCopyDropdown } from "../components/pageCopyDropdown";
 import { initPlainChat } from "../components/plainChat";
 import { initSecurityChecklist } from "../components/securityChecklist";
+import { initAnimations } from "../components/animations";
 import docsearch from "@docsearch/js";
 import {
   initSearchTracking,
@@ -85,6 +86,8 @@ function render() {
   preserveScroll();
   const checklistCleanup = initSecurityChecklist();
   if (checklistCleanup) cleanupFunctions.push(checklistCleanup);
+  const animationsCleanup = initAnimations();
+  if (animationsCleanup) cleanupFunctions.push(animationsCleanup);
   initToc();
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();

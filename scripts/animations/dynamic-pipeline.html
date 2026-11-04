@@ -1,0 +1,134 @@
+<!doctype html>
+<!--
+Editable source, adapted from the supplied dynamic-pipeline-mental-model prototype.
+To export, copy this file to examples/ in a checkout of buildkite/animation-hole.
+Run its scripts/stills.mjs at the beats below, then:
+  node scripts/render.mjs examples/dynamic-pipeline.html --poster 13
+Convert the resulting MP4 to WebM with ffmpeg. Copy the WebM and PNG to
+images/docs/pipelines/configure/dynamic_pipelines/ in the docs repository.
+The kit and its licensed fonts stay in animation-hole; do not copy them into docs.
+-->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic pipeline mental model</title>
+<link rel="stylesheet" href="../kit/kit.css">
+</head><body>
+<script>
+// Canvas height: outer margins + header + four rows + three gaps + bottom padding.
+window.CANVAS = { w: 1280, h: 32 + 56 + 4 * 40 + 3 * 8 + 8 + 32 };
+</script>
+<script src="../kit/kit.js"></script>
+<script src="../kit/motion.js"></script>
+<script>
+// Mental model: one runner can execute a fixed job's predefined tasks. A dynamic pipeline starts with a generator,
+// adds jobs to the running build, then dispatches those jobs to matching agents.
+const { E, el, op, tr, seg, win } = K;
+const { POP, phase, sequence, blendIcon, popTag } = K.motion;
+const { root } = K.stage();
+const all = el('g', {}, root);
+
+const M = 32, RH = 40, RG = 8;
+const [LEFT, RIGHT] = K.split([1, 1], M, 1280 - 2 * M);
+const CARD_H = 56 + 4 * RH + 3 * RG + 8;
+
+const FADE = .6;
+const START = .9;
+const RUN_START = 1.4;
+const FIXED = sequence([
+  { span: .6 },
+  { span: .6 },
+  { span: .6 },
+  { span: .6 },
+], RUN_START, 0);
+const DYNAMIC_START = FIXED[FIXED.length - 1].end + 1.2 + .6;
+const UPLOAD = DYNAMIC_START + 1.6;
+const ADD = [UPLOAD, UPLOAD + .6, UPLOAD + 1.2];
+// Stagger agent pickup so each agent tag arrives separately. The independent tests overlap.
+const GENERATED = ADD.map(at => ({ start: at + 1.8, end: at + 3.6 }));
+const GENERATED_END = GENERATED[GENERATED.length - 1].end;
+const FINAL_HOLD = 2.6;
+const DURATION = Math.ceil((GENERATED_END + POP + FINAL_HOLD + FADE) * 10) / 10;
+
+function makeCard(x, w, title, names) {
+  const card = K.card(all, { x, y: M, w, h: CARD_H, title, status: true });
+  const tag = K.pill(card.g, { y: card.hy, fs: 13 });
+  const rows = names.map((name, i) => K.stepRow(card.g, {
+    x: card.body.x, y: card.body.y + i * (RH + RG), w: card.body.w, h: RH, name,
+  }));
+  return { card, tag, rows };
+}
+
+const fixed = makeCard(LEFT.x, LEFT.w, 'Fixed job', ['Checkout', 'Test unit', 'Test integration', 'Test e2e']);
+const dynamic = makeCard(RIGHT.x, RIGHT.w, 'Dynamic pipeline', ['Generate pipeline', 'Test unit', 'Test integration', 'Test e2e']);
+
+function drawFixed(t) {
+  fixed.tag.at(LEFT.x + 48 + K.textW('Fixed job', 18) + 12);
+  if (t >= START) popTag(fixed.tag, ['one runner', 'neutral'], seg(t, START, START + POP, E.out));
+  else op(fixed.tag.g, 0);
+
+  FIXED.forEach((step, i) => {
+    const ph = phase(t, step.start, step.end);
+    fixed.rows[i].set({
+      state: ph.state === 'done' ? 'passed' : ph.state,
+      t,
+      k: ph.k,
+      tags: ph.state === 'running' ? [['same runner', 'neutral']] : [],
+    });
+    if (ph.state !== 'queued') blendIcon(fixed.rows[i].st, ph);
+  });
+
+  const fp = phase(t, RUN_START, FIXED[FIXED.length - 1].end);
+  fixed.card.st.set(fp.state === 'done' ? 'passed' : fp.state, t, fp.k);
+  if (fp.state !== 'queued') blendIcon(fixed.card.st, fp);
+}
+
+function drawDynamic(t) {
+  dynamic.tag.at(RIGHT.x + 48 + K.textW('Dynamic pipeline', 18) + 12);
+  if (t >= UPLOAD + .6) popTag(dynamic.tag, ['adds jobs at runtime', 'purple'], seg(t, UPLOAD + .6, UPLOAD + .6 + POP, E.out));
+  else op(dynamic.tag.g, 0);
+
+  const gp = phase(t, DYNAMIC_START, UPLOAD);
+  dynamic.rows[0].set({
+    state: gp.state === 'done' ? 'passed' : gp.state,
+    t,
+    k: gp.k,
+    tags: gp.state === 'done' ? [['uploaded jobs', 'purple']] : gp.state === 'running' ? [['agent 0', 'neutral']] : [],
+  });
+  if (gp.state !== 'queued') blendIcon(dynamic.rows[0].st, gp);
+
+  ADD.forEach((at, i) => {
+    const row = dynamic.rows[i + 1];
+    const k = seg(t, at, at + POP, E.out);
+    if (t < at) {
+      row.set({ state: 'queued' });
+      op(row.g, 0);
+      return;
+    }
+    const ph = phase(t, GENERATED[i].start, GENERATED[i].end);
+    row.set({
+      state: ph.state === 'done' ? 'passed' : ph.state,
+      t,
+      k: ph.k,
+      tags: ph.state === 'queued' ? [] : [[`agent ${i + 1}`, 'neutral']],
+    });
+    if (ph.state !== 'queued') blendIcon(row.st, ph);
+    op(row.g, k);
+    tr(row.g, 0, (1 - k) * 10);
+  });
+
+  const dp = phase(t, DYNAMIC_START, GENERATED_END);
+  dynamic.card.st.set(dp.state === 'done' ? 'passed' : dp.state, t, dp.k);
+  if (dp.state !== 'queued') blendIcon(dynamic.card.st, dp);
+}
+
+function render(t) {
+  op(all, win(t, 0, DURATION, FADE));
+  K.enter(fixed.card.g, t, 0);
+  op(dynamic.card.g, Math.min(K.enter(dynamic.card.g, t, 1), .45 + .55 * seg(t, DYNAMIC_START - .6, DYNAMIC_START, E.inOutSine)));
+  drawFixed(t);
+  drawDynamic(t);
+}
+
+window.BEATS = { START, RUN_START, FIXED, DYNAMIC_START, UPLOAD, ADD, GENERATED, GENERATED_END, DURATION };
+K.play({ duration: DURATION, render });
+</script>
+</body></html>

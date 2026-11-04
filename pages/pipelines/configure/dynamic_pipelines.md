@@ -9,10 +9,14 @@ Dynamic pipelines generate and upload new steps while a Buildkite Pipelines buil
 A generator script outputs YAML or JSON, which the [`buildkite-agent pipeline upload` command](/docs/agent/cli/reference/pipeline#uploading-pipelines) adds to the current build. Generated command steps run as jobs on matching [agents](/docs/agent) in the targeted [queues](/docs/agent/queues). Your generator can use any programming language that writes to standard output.
 
 <figure>
-  <video src="<%= image_path('dynamic-pipeline.webm') %>" controls muted playsinline preload="none" width="960" height="400" style="display: block; max-width: 100%; height: auto; aspect-ratio: 12 / 5; object-fit: contain; object-position: top; background: #0d0820;" aria-label="Dynamic pipeline upload animation" aria-describedby="dynamic-pipeline-animation-description" poster="<%= image_path('dynamic-pipeline.png') %>">
-    <%= image "dynamic-pipeline.png", width: 1920/2, height: 468/2, alt: "A generator uploads three test steps into the same running build, then matching agents run the jobs" %>
+  <video id="dynamic-pipeline-animation" src="<%= image_path('dynamic-pipeline.webm') %>" data-autoplay controls loop muted playsinline preload="none" width="960" height="234" style="display: block; max-width: 100%; height: auto;" aria-label="Fixed job and dynamic pipeline comparison animation" aria-describedby="dynamic-pipeline-animation-description" poster="<%= image_path('dynamic-pipeline.png') %>">
+    <%= image "dynamic-pipeline.png", width: 1920/2, height: 468/2, alt: "One fixed job runs test commands sequentially on one runner. A dynamic pipeline generates separate test jobs that run on different agents." %>
   </video>
-  <figcaption id="dynamic-pipeline-animation-description">A generator uploads new test steps into the running build. Matching agents then run the generated jobs.</figcaption>
+  <div data-animation-controls hidden>
+    <button type="button" class="Button Button--default Button--small Button--inline" data-animation-toggle aria-controls="dynamic-pipeline-animation">Play animation</button>
+    <a href="<%= image_path('dynamic-pipeline.webm') %>" target="_blank" rel="noopener">View full size</a>
+  </div>
+  <figcaption id="dynamic-pipeline-animation-description">A fixed job runs commands sequentially on one runner. An agent runs the pipeline generator, which adds separate jobs to the same running build. Independent jobs can run in parallel on matching agents. Static pipelines can also run jobs in parallel; dynamic generation determines which jobs exist at runtime. Use <a href="/docs/pipelines/configure/depends-on">dependencies</a> when jobs must run in order.</figcaption>
 </figure>
 
 ## When to use dynamic pipelines
