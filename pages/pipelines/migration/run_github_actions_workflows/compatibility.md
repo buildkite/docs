@@ -26,7 +26,7 @@ Use this table to identify migration work, then check the linked restrictions an
 | Checkout | Native adapter for the event repository | Pull requests check out the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
 | Artifacts | Native ZIP upload and download | Downloads require verified direct `needs` producers; no cross-run/repository or GitHub artifact API access. | [Upload](#actions-artifacts-and-caching-upload-artifact-action), [download](#actions-artifacts-and-caching-download-artifact-action) |
 | Caching | Admitted cache-v2 clients use Buildkite Results | Client versions and tools matter. Cache mode is best-effort, not authorization. | [Cache action](#actions-artifacts-and-caching-cache-action) |
-| Repositories and GitHub tokens | Public GitHub; authorized private GitHub/Origin access | Public workflow-token support requires eligible hosted GitHub.com jobs, the token setting enabled, and top-level permissions. | [Repositories](#credentials-and-deployments-repositories), [GitHub token](#credentials-and-deployments-github-token) |
+| Repositories and GitHub tokens | GitHub.com, GitHub Enterprise Server (GHES), and authorized private Origin access | Workflow tokens require eligible hosted GitHub.com or GHES App jobs, the token setting enabled, and top-level permissions. | [Repositories](#credentials-and-deployments-repositories), [GitHub token](#credentials-and-deployments-github-token) |
 | Secrets and OIDC | Buildkite Secrets; Buildkite-issued OIDC | GitHub secrets aren't copied. Cloud trust must use the Buildkite issuer and claims. | [Secrets and OIDC](#credentials-and-deployments-other-secrets-and-oidc) |
 | Deployment environments | Literal top-level-job names and approval gates | GitHub reviewer identity isn't enforced; several protection rules are rejected. URL is accepted but ignored; no deployment records are created. | [Deployment environments](#credentials-and-deployments-deployment-environments) |
 | Reusable workflows | Local, public, and approved private sources | Four-level nesting; private source access is off by default in native setup and requires support contact. Remote secret forwarding is unsupported. | [Reusable workflows](#workflow-syntax-reference-reusable-workflows) |
@@ -472,7 +472,7 @@ Dangling links, chains, absolute or escaping targets, hardlinks, special files, 
 
 ### Checkout action
 
-`actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository. Alternate checkout repositories, GitHub Enterprise Server, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
+`actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository, including [GHES repositories](#credentials-and-deployments-repositories-github-enterprise-server-execution). Alternate checkout repositories, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
 
 Inputs must exist in the selected commit's contract before the following restrictions apply:
 
@@ -493,14 +493,14 @@ Inputs must exist in the selected commit's contract before the following restric
 | `fetch-depth` | Omitted or nonnegative integer; zero means full history. Historical runner-plugin commits default to full history. |
 | `lfs` | Omitted, `true`, or `false`; true requires installed Git LFS. |
 | `submodules` | Omitted, `false`, `true`, or `recursive`, trimmed and case-insensitive. |
-| `github-server-url` | Omitted/empty or `https://github.com`. |
+| `github-server-url` | Omitted/empty or the event server URL, such as `https://github.com` or `https://github.example.com` for GHES. |
 {: class="responsive-table"}
 
 Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous.
 
 Workflow steps default to `GIT_TERMINAL_PROMPT=0`. Missing Git credentials fail instead of waiting for terminal input. Later Git commands don't inherit checkout credentials or the agent's job credentials. Configure authentication explicitly for those commands. Disabling prompts doesn't grant repository access. Workflow environment settings can override this default.
 
-Submodules use native Git depth and relative URLs: true selects direct children, recursive selects nested children. Public/private GitHub submodules use job-authorized access. External HTTPS is anonymous; `git@github.com:` rewrites to HTTPS. Other SSH and non-HTTPS transports are unsupported.
+Submodules use native Git depth and relative URLs: true selects direct children, recursive selects nested children. Public/private GitHub submodules use job-authorized access. External HTTPS is anonymous; `git@<event-host>:` rewrites to HTTPS on the same host. Other SSH and non-HTTPS transports are unsupported.
 
 Sparse checkout defaults to `blob:none` unless a filter is explicit. Cone mode selects directories; non-cone mode uses Git ignore patterns. LFS installs repository-local filters without push/locking hooks and downloads selected materialized paths.
 
@@ -673,9 +673,23 @@ Repository access, workflow tokens, ordinary secrets, cache credentials, and OID
 
 ### Repositories
 
-Public GitHub event repositories are supported. Private GitHub repositories require authorized repository-provider Git credentials, available to jobs on Buildkite hosted agents. Internal/private Origin repositories require those credentials and the exact pipeline `BUILDKITE_REPO` URL `https://origin.cursor.com/git/<namespace>/<repository>.git`. GitHub Enterprise Server and unlisted providers are unsupported.
+GitHub.com and GitHub Enterprise Server (GHES) event repositories are supported. Private repositories require authorized repository-provider Git credentials, available to jobs on Buildkite hosted agents. GHES requires the GitHub App integration described below. Internal/private Origin repositories require those credentials and the exact pipeline `BUILDKITE_REPO` URL `https://origin.cursor.com/git/<namespace>/<repository>.git`. Unlisted providers are unsupported.
 
 Alternate checkout repositories and private actions are unsupported. Approved private reusable sources are importer-only; see [reusable access](#workflow-syntax-reference-reusable-workflows). Public actions remain subject to their source and runtime limits.
+
+<a id="credentials-and-deployments-repositories-github-enterprise-server-execution"></a>
+
+#### GitHub Enterprise Server execution
+
+GHES workflow execution requires a [GHES GitHub App connection](/docs/pipelines/source-control/github-enterprise#github-app) with **Code Read Access** enabled and access to the pipeline repository. For custom importers, use `buildkite-gha` v0.109.1 or later.
+
+The selected App connection supplies the protected `GITHUB_SERVER_URL`; don't set this variable yourself. Checkout uses the exact GHES event repository and commit. Runtime server, REST API, and GraphQL API URLs use that instance, with `/api/v3` and `/api/graphql` for the APIs. Workflow tokens remain bound to the job, repository, App installation, and immutable top-level workflow permissions. There is no personal access token fallback.
+
+These limits apply:
+
+- Public action sources remain on `github.com`; GHES-hosted remote actions and private reusable sources are unsupported. Repository-local reusable workflows remain supported. GHES workflow tokens aren't sent to public action sources.
+- GHES environments, `vars`, native manual runs, and rebuilds aren't supported.
+- Existing trigger, ref, path-filter, and [token security](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-github-token) restrictions still apply. GHES support doesn't imply compatibility with every GHES version or GitHub service.
 
 <a id="repositories-credentials-and-github-services-github-token"></a>
 
@@ -692,9 +706,11 @@ env:
 
 Composite outputs, child-action `with` values, and whole-context serialization don't independently request a token. For those positions, pass an authorized token from the workflow through an action input. Composite metadata can't request ordinary secrets.
 
-Public support is limited to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) in `github.com` pipelines using the full-access **GitHub** repository provider. The pipeline's **Allow workflow-authorized GitHub access tokens** setting must be enabled. Existing pipelines default off; pipelines created with GitHub Actions setup mode default on.
+Public support is limited to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) using the full-access **GitHub** repository provider or a GHES GitHub App connection with code access enabled. The pipeline's **Allow workflow-authorized GitHub access tokens** setting must be enabled. Existing pipelines default off; pipelines created with GitHub Actions setup mode default on.
 
 The immutable top-level workflow must be a simple `.yml` or `.yaml` directly under `.github/workflows/`. Its [permission policy](#credentials-and-deployments-permissions) applies to every receiving job, including reusable jobs. Pull requests and their triggered/rebuilt descendants have a `contents: read` ceiling. Merge queues and descendants can't request workflow tokens. Backend provenance checks remain authoritative.
+
+For GitHub.com, pass the workflow token to the GitHub CLI as `GH_TOKEN`:
 
 ```yaml
 permissions:
@@ -706,6 +722,14 @@ jobs:
       - env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh api repos/{owner}/{repo}
+```
+
+For GHES, replace the step above with the following. Use `GH_ENTERPRISE_TOKEN` for authentication and select the hostname from the protected `GITHUB_SERVER_URL`:
+
+```yaml
+- env:
+    GH_ENTERPRISE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run: gh api --hostname "${GITHUB_SERVER_URL#https://}" "repos/$GITHUB_REPOSITORY"
 ```
 
 Follow the actual rejection diagnostic. A disabled-setting error links to the pipeline repository setting. From v0.104.0 with a compatible backend, known denial reasons identify who can act; older servers retain generic guidance. Permission or App-access errors can require checking top-level permissions and the Buildkite GitHub App's repository access; these checks aren't a universal fix for provenance, policy, rate-limit, or service failures. For an unexplained rejection, send support the diagnostic and build URL.
@@ -977,7 +1001,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 ### Repository and organization variables
 
-`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload. Providers other than GitHub.com don't make that request. The backend uses its own repository-restricted credentials.
+`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload. Providers other than GitHub.com don't make that request; GHES variables aren't supported. The backend uses its own repository-restricted credentials.
 
 | Position | Precedence |
 | --- | --- |
@@ -1319,6 +1343,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | `github.actor`, `event_name`, `ref`, `repository`, `sha` | Event identity. |
 | `github.repository_owner` | Owner from repository identity. |
 | `github.server_url` | Event repository provider URL. |
+| `github.api_url`, `github.graphql_url` | GitHub API URLs. GHES uses the event server URL with `/api/v3` and `/api/graphql`. |
 | `github.job`, `github.workflow` | Job ID and workflow name or fallback path. |
 | `github.workflow_ref`, `github.workflow_sha` | Top-level caller workflow identity, retained through reusable calls. |
 | `github.head_ref`, `github.base_ref` | Pull request branches; empty for other events. |
