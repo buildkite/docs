@@ -147,6 +147,8 @@ If you're using Docker with Docker images hosted on Docker Hub, note that as of 
 
 ## Authenticating private git repositories
 
+For GitHub repositories, enable [Buildkite-managed GitHub App token checkout](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) on your self-hosted queue to retrieve temporary, read-only credentials without mounting an SSH key or Git credentials file into the agent container. The following alternatives are for workloads that need customer-managed credentials.
+
 To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following
 [`environment` hook](/docs/agent/hooks#job-lifecycle-hooks) mounted to `/buildkite/hooks/environment`:
 

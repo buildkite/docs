@@ -245,11 +245,11 @@ extensions:
 
 ## Visual Studio Code
 
-You can configure [Visual Studio Code](https://code.visualstudio.com/) to work with your local Buildkite MCP server, running [in Docker](#visual-studio-code-docker) or [as a binary](#visual-studio-code-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+You can configure [Visual Studio Code](https://code.visualstudio.com/) to work with your local Buildkite MCP server, running [in Docker](#visual-studio-code-docker) or [as a binary](#visual-studio-code-binary). To do this, add the relevant configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/agents/reference/mcp-configuration#_configuration-file).
 
 ### Docker
 
-When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+When using [Docker](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-docker) to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/agents/reference/mcp-configuration#_configuration-file).
 
 ```json
 {
@@ -291,7 +291,7 @@ Alternatively, you can initiate this process through the Visual Studio Code inte
 
 ### Binary
 
-When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server).
+When using a [pre-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-using-a-pre-built-binary) or [source-built](/docs/apis/mcp-server/local/installing#install-and-run-the-server-locally-building-from-source) binary to run the MCP server, add the following JSON configuration to your [Visual Studio Code's `mcp.json` file](https://code.visualstudio.com/docs/agents/reference/mcp-configuration#_configuration-file).
 
 ```json
 {

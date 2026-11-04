@@ -55,32 +55,12 @@ steps:
     depends_on: "ecr-push"
     if: "!(build.creator.teams includes 'deploy') && build.branch == 'main'"
 
-  - label: ":docker::rocket:"
-    key: "deploy-ecs"
+  - label: ":kubernetes::rocket: Deploy to EKS"
+    key: "deploy-eks"
     branches: main
     depends_on:
       - "deploy-check-wait"
       - "deploy-check-block"
-    concurrency: 1
-    concurrency_group: docs-deploy
-    agents:
-      queue: hosted
-    command: scripts/deploy-ecs
-    plugins:
-      - aws-assume-role-with-web-identity#v1.8.1:
-          role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
-          session-tags:
-            - organization_slug
-            - organization_id
-            - pipeline_slug
-            - build_branch
-
-  # EKS migration (PB-3918). Runs after the ECS deploy so both backends serve
-  # the same image while traffic is split between them.
-  - label: ":kubernetes::rocket: Deploy to EKS"
-    key: "deploy-eks"
-    branches: main
-    depends_on: "deploy-ecs"
     concurrency: 1
     concurrency_group: docs-deploy-eks
     agents:

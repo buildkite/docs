@@ -1,10 +1,12 @@
 # Managing pipeline secrets
 
-This page provides guidance on best practices for managing your secrets in a [hybrid Buildkite architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture) with [self-hosted agents](/docs/agent/self-hosted) in your own infrastructure, or using [Buildkite hosted agents](/docs/agent/buildkite-hosted). These secrets may be required by your Buildkite pipelines to access 3rd party systems as part of your build or deployment processes. However, these best practice guidelines help ensure that your secrets stay safely within your infrastructure and are never stored in, or sent to Buildkite.
+Provide credentials to Buildkite Pipelines jobs without putting secret values in [pipeline configuration or logs](/docs/pipelines/security/secrets/risk-considerations). The options below support [self-hosted agents](/docs/agent/self-hosted) and [Buildkite hosted agents](/docs/agent/buildkite-hosted), unless stated otherwise.
+
+Prefer [OIDC](/docs/pipelines/security/oidc) when the target service supports short-lived credentials. If you need a stored credential, use [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) with an [access policy](/docs/pipelines/security/secrets/buildkite-secrets/access-policies), or an external secrets store your team manages.
 
 ## Using a secrets storage service
 
-The best practice for managing secrets with Buildkite is to house your secrets within your own _secrets storage service_, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
+If your team uses an external _secrets storage service_, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [HashiCorp Vault](https://www.vaultproject.io), you can keep managing credentials there and retrieve them at runtime.
 
 Buildkite provides various [plugins](/docs/pipelines/integrations/plugins) that integrate reading and exposing secrets to your build steps using secrets storage services, such as the following. If a plugin for the service you use is not listed below or in the [Buildkite plugins directory](https://buildkite.com/resources/plugins), please contact support.
 
@@ -23,7 +25,7 @@ A secrets storage service can be used with either self-hosted agents in your own
 
 ## Without a secrets storage service
 
-While using a [secrets storage service](#using-a-secrets-storage-service) is the best practice for managing your secrets, if you don't or cannot use such a service and you use self-hosted agents in your own infrastructure, as part of a [hybrid Buildkite architecture](/docs/pipelines/architecture#self-hosted-hybrid-architecture), this section provides alternative approaches to managing your pipeline secrets.
+For self-hosted agents without access to a secrets store, the following approaches load credentials from agent infrastructure. Conditional injection limits accidental exposure. Enforce authorization separately using [workload and credential boundaries](/docs/platform/security/enforcing-security-controls#enforce-workload-and-credential-boundaries).
 
 ### Exporting secrets with environment hooks
 
@@ -75,32 +77,27 @@ Since this script runs for every job, you can extend it to selectively export al
 
 ### Storing secrets with the Elastic CI Stack for AWS
 
-When using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) with your own AWS account and environment, you can store your secrets inside your stack's encrypted S3 bucket.
-Unlike hooks defined in [agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks),
-the Elastic CI Stack for AWS's `env` hooks are defined per-pipeline.
+When using the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) with your own AWS account and environment, you can store your secrets inside your stack's encrypted [S3 secrets bucket](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket).
+An `env` file at the root of the bucket applies to all pipelines using that bucket. To load secrets for a specific pipeline, put the file under a prefix matching the pipeline slug.
 
-For example, to expose a `GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN` environment
-variable to a step with identifier `trigger-github-deploy`, you would create the
-following `env` file on your local development machine:
+For example, to expose a `GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN` environment variable to jobs in the `my-app` pipeline, create the following `env` file on your local development machine:
 
 ```bash
-#!/bin/bash
-set -euo pipefail
-
-if [[ "$BUILDKITE_STEP_KEY" == "trigger-github-deploy" ]]; then
-  export GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN="bd0fa963610b..."
-fi
+GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN="xxx-yyy-zzz"
 ```
 {: codeblock-file="env"}
 
+> 🚧 Environment file format and secret redaction
+> Keep `env` and `environment` files limited to `KEY=VALUE` assignments, comments, and blank lines. Shell commands such as `set` or `if` cause parsing to fail for the entire file. The S3 secrets hook logs `Warning: failed to parse env file ...` and does not add any values from that file to the log redactor. The agent still executes the file as shell code, so secrets can be loaded without the hook registering them for redaction.
+
 You then upload the `env` file, encrypted, into the secrets S3 bucket with the
-following command:
+following command. Replace `your-secrets-bucket` with your bucket name:
 
 ```bash
 # Upload the env
-aws s3 cp --acl private --sse aws:kms env "s3://elastic-ci-stack-my-stack-secrets-bucket/env"
+aws s3 cp --acl private --sse aws:kms env "s3://your-secrets-bucket/my-app/env"
 # Remove the original file
 rm env
 ```
 
-See the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) readme for more information and examples.
+This file exposes the token to every job in `my-app`, not just a deployment step. For per-step secret injection, use an [agent `environment` hook](#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) instead of putting conditional shell logic in the S3 environment file.

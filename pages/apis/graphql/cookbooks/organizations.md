@@ -55,7 +55,9 @@ query getOrgMembersCount {
 
 ## Get the number of active users
 
-Get the average monthly active users for the organization's current [usage summary period](/docs/apis/rest-api/organizations/usage#usage-period), matching the number shown on the organization's **Usage > Platform** page.
+Get the average monthly active users for the organization's current usage summary period, matching the number shown on the organization's **Usage > Platform** page.
+
+The period follows the organization's subscription usage period. For annual subscriptions, it covers the current calendar month and the previous six calendar months. This differs from the REST usage API's default calendar month to date.
 
 ```graphql
 query getOrgActiveUsersCount {
@@ -507,4 +509,3 @@ mutation OrganizationBannerDelete {
   }
 }
 ```
-

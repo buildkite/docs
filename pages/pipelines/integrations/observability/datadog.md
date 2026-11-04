@@ -25,9 +25,13 @@ Once Datadog APM is integrated with Buildkite Pipelines, you gain full visibilit
 
 The Buildkite agent can export job logs as OpenTelemetry log records to the Datadog OTLP logs intake endpoint. Follow the [Datadog job log export instructions](/docs/agent/self-hosted/monitoring-and-observability/tracing#exporting-job-logs-as-opentelemetry-logs-sending-job-logs-to-datadog) to configure the export, endpoint, and authentication.
 
-The exported logs are available in [Datadog Log Management](https://docs.datadoghq.com/logs/). If you also send pipeline data to Datadog CI Pipeline Visibility through the [Datadog Pipeline Visibility notification service](#configuring-the-datadog-integration-in-buildkite), Datadog correlates the logs with the corresponding pipeline and job executions. For more information, see [Buildkite Setup for CI Visibility](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#collect-job-logs).
+The exported logs are available in [Datadog Log Management](https://docs.datadoghq.com/logs/). If you also send pipeline data to Datadog CI Pipeline Visibility through the [Datadog Pipeline Visibility notification service](#configuring-the-datadog-integration-in-buildkite), Datadog correlates the logs with the corresponding pipeline and job executions. For more information, see [Buildkite Setup for CI Visibility](https://docs.datadoghq.com/continuous_integration/pipelines/buildkite/#manage-job-logs).
 
 ## Configuring the Datadog integration in Buildkite
+
+> 📘 Plan availability
+> On the 2026 plans, the Datadog Pipeline Visibility notification service is an [Enterprise plan](https://buildkite.com/pricing/) feature. Organizations on legacy plans retain their existing access, including the ability to add new Datadog Pipeline Visibility notification services.
+> This requirement does not apply to independently configured agent tracing or job log exports.
 
 To set up Datadog's CI Pipeline Visibility integration for Buildkite:
 
