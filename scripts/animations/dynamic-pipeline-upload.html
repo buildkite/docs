@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dynamic pipeline upload</title>
+    <link rel="stylesheet" href="../../.amp/in/animation-hole/kit/kit.css" />
+  </head>
+  <body>
+    <script>
+      // Height from content: margin 32 + card (header 56 + 4 rows of 40 + 3 gaps of 8 + bottom padding 8 = 248) + margin 32.
+      window.CANVAS = { w: 1280, h: 32 + 56 + 4 * 40 + 3 * 8 + 8 + 32 };
+    </script>
+    <script src="../../.amp/in/animation-hole/kit/kit.js"></script>
+    <script src="../../.amp/in/animation-hole/kit/motion.js"></script>
+    <script>
+      // Dynamic pipeline: generated YAML is uploaded, then three new test steps appear in the same running build.
+      // One idea only: pipeline upload changes the shape of a build while it is running.
+      const { C, E, el, set, op, tr, seg, win, L } = K;
+      const { POP, blendIcon, popTag, phase } = K.motion;
+      const { root } = K.stage();
+      const all = el("g", {}, root);
+
+      const M = 32,
+        RH = 40,
+        RG = 8;
+      const [LEFT, RIGHT] = K.split([1, 1], M, 1280 - 2 * M);
+      const CARD_H = 56 + 4 * RH + 3 * RG + 8;
+
+      // ---------- Timeline (the one clock) ----------
+      // The YAML is generated first. The upload completes, then the build card brightens and each inserted step arrives.
+      const FADE = 0.6;
+      const REVEAL_START = 0.9;
+      const REVEAL_END = 3.3;
+      const UPLOAD_END = 4.1;
+      const BUILD_LIFT_END = 4.7;
+      const ADD = [4.7, 5.4, 6.1];
+      const ADDED_TAG = 6.8;
+      const GENERATED_START = 7.6;
+      const GENERATED_END = 9.6;
+      const FINAL_HOLD = 2.6;
+      const DURATION =
+        Math.ceil((GENERATED_END + POP + FINAL_HOLD + FADE) * 10) / 10;
+
+      // ---------- Generated YAML ----------
+      const YAML = `steps:
+  - label: "Test unit"
+    key: "test-unit"
+  - label: "Test integration"
+    key: "test-integration"
+  - label: "Test e2e"
+    key: "test-e2e"`;
+
+      const upload = K.card(all, {
+        x: LEFT.x,
+        y: M,
+        w: LEFT.w,
+        h: CARD_H,
+        title: "generator output",
+        status: true,
+      });
+      const uploadTag = K.pill(upload.g, { y: upload.hy, fs: 13 });
+      K.box(
+        upload.g,
+        upload.body.x,
+        upload.body.y,
+        upload.body.w,
+        upload.body.h,
+        { fill: "#07051a", fo: 0.9 },
+      );
+      const code = K.code(upload.g, {
+        x: upload.body.x + 8,
+        y: upload.body.y + 7,
+        w: upload.body.w - 16,
+        src: YAML,
+        fs: 14,
+        lh: 23,
+        numbers: false,
+      });
+
+      // ---------- Running build ----------
+      const build = K.card(all, {
+        x: RIGHT.x,
+        y: M,
+        w: RIGHT.w,
+        h: CARD_H,
+        title: "Build #42",
+        status: true,
+      });
+      const buildTag = K.pill(build.g, { y: build.hy, fs: 13 });
+      const names = [
+        "Generate pipeline",
+        "Test unit",
+        "Test integration",
+        "Test e2e",
+      ];
+      const rows = names.map((name, i) =>
+        K.stepRow(build.g, {
+          x: build.body.x,
+          y: build.body.y + i * (RH + RG),
+          w: build.body.w,
+          h: RH,
+          name,
+        }),
+      );
+
+      function drawUpload(t) {
+        const reveal = seg(t, REVEAL_START, REVEAL_END, E.linear);
+        code.reveal(Math.floor(code.length * reveal));
+        code.highlight(
+          t >= REVEAL_END && t < UPLOAD_END ? 0 : -1,
+          C.purple,
+          0.24,
+        );
+
+        if (t < REVEAL_START) upload.st.set("queued");
+        else if (t < UPLOAD_END) upload.st.set("running", t);
+        else
+          upload.st.set(
+            "passed",
+            t,
+            seg(t, UPLOAD_END, UPLOAD_END + POP, E.out),
+          );
+
+        set(upload.title, { fill: C.white });
+        if (t >= UPLOAD_END) {
+          uploadTag.at(LEFT.x + 48 + K.textW("generator output", 18) + 12);
+          popTag(
+            uploadTag,
+            ["uploaded", "purple"],
+            seg(t, UPLOAD_END, UPLOAD_END + POP, E.out),
+          );
+        } else {
+          op(uploadTag.g, 0);
+        }
+      }
+
+      function drawBuild(t) {
+        // The generator is already part of the build. It completes on the same frame as the upload.
+        if (t < REVEAL_START) rows[0].set({ state: "queued" });
+        else if (t < UPLOAD_END)
+          rows[0].set({
+            state: "running",
+            t,
+            dur: K.fmtDur(t - REVEAL_START),
+            tags: [["agent", "neutral"]],
+          });
+        else
+          rows[0].set({
+            state: "passed",
+            t,
+            k: seg(t, UPLOAD_END, UPLOAD_END + POP, E.out),
+            dur: "4.1s",
+            tags: [["uploaded steps", "purple"]],
+          });
+
+        ADD.forEach((at, i) => {
+          const row = rows[i + 1];
+          const k = seg(t, at, at + POP, E.out);
+          if (t < at) {
+            row.set({ state: "queued" });
+            op(row.g, 0);
+            return;
+          }
+          const ph = phase(t, GENERATED_START, GENERATED_END);
+          row.set({
+            state: ph.state === "done" ? "passed" : ph.state,
+            t,
+            k: ph.k,
+            tags: ph.state === "queued" ? [] : [["agent", "neutral"]],
+          });
+          if (ph.state !== "queued") blendIcon(row.st, ph);
+          op(row.g, k);
+          tr(row.g, 0, (1 - k) * 10);
+        });
+
+        if (t < REVEAL_START) build.st.set("queued");
+        else if (t < GENERATED_END) build.st.set("running", t);
+        else
+          build.st.set(
+            "passed",
+            t,
+            seg(t, GENERATED_END, GENERATED_END + POP, E.out),
+          );
+
+        if (t >= ADDED_TAG) {
+          buildTag.at(RIGHT.x + 48 + K.textW("Build #42", 18) + 12);
+          popTag(
+            buildTag,
+            ["3 steps added", "purple"],
+            seg(t, ADDED_TAG, ADDED_TAG + POP, E.out),
+          );
+        } else {
+          op(buildTag.g, 0);
+        }
+      }
+
+      function render(t) {
+        op(all, win(t, 0, DURATION, FADE));
+        K.enter(upload.g, t, 0);
+        const entered = K.enter(build.g, t, 1);
+        op(
+          build.g,
+          Math.min(
+            entered,
+            0.45 + 0.55 * seg(t, UPLOAD_END, BUILD_LIFT_END, E.inOutSine),
+          ),
+        );
+        drawUpload(t);
+        drawBuild(t);
+      }
+
+      window.BEATS = {
+        REVEAL_START,
+        REVEAL_END,
+        UPLOAD_END,
+        BUILD_LIFT_END,
+        ADD,
+        ADDED_TAG,
+        GENERATED_START,
+        GENERATED_END,
+        DURATION,
+      };
+      K.play({ duration: DURATION, render });
+    </script>
+  </body>
+</html>

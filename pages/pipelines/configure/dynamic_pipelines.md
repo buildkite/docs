@@ -9,8 +9,8 @@ Dynamic pipelines generate and upload new steps while a Buildkite Pipelines buil
 A generator script outputs YAML or JSON, which the [`buildkite-agent pipeline upload` command](/docs/agent/cli/reference/pipeline#uploading-pipelines) adds to the current build. Generated command steps run as jobs on matching [agents](/docs/agent) in the targeted [queues](/docs/agent/queues). Your generator can use any programming language that writes to standard output.
 
 <figure>
-  <video id="dynamic-pipeline-animation" src="<%= image_path('dynamic-pipeline.mp4') %>" data-autoplay controls loop muted playsinline preload="none" width="960" height="540" style="display: block; max-width: 100%; height: auto;" aria-label="Jobs and agents in a growing dynamic pipeline" aria-describedby="dynamic-pipeline-animation-description" poster="<%= image_path('dynamic-pipeline.png') %>">
-    <%= image "dynamic-pipeline.png", width: 1920/2, height: 1080/2, alt: "An agent runs a generator job, matching agents run its generated jobs, and one job adds deployment jobs to the same build." %>
+  <video id="dynamic-pipeline-animation" src="<%= image_path('dynamic-pipeline.mp4') %>" data-autoplay controls loop muted playsinline preload="none" width="960" height="372" style="display: block; max-width: 100%; height: auto;" aria-label="Jobs and agents in a growing dynamic pipeline" aria-describedby="dynamic-pipeline-animation-description" poster="<%= image_path('dynamic-pipeline.png') %>">
+    <%= image "dynamic-pipeline.png", width: 1920/2, height: 744/2, alt: "An agent runs a generator job, matching agents run its generated jobs, and one job adds deployment jobs to the same build." %>
   </video>
   <div data-animation-controls hidden>
     <button type="button" class="Button Button--default Button--small Button--inline" data-animation-toggle aria-controls="dynamic-pipeline-animation">Play animation</button>
@@ -52,6 +52,17 @@ steps:
 {: codeblock-file=".buildkite/pipeline.yml"}
 
 Configure your pipeline to [load this file from your repository](/docs/pipelines/configure/defining-steps#step-defaults-pipeline-dot-yml-file). The generated steps are inserted into the running build immediately after the bootstrap step. The shell options ensure that a failed generator or upload fails the bootstrap step.
+
+<figure>
+  <video id="dynamic-pipeline-upload-animation" src="<%= image_path('dynamic-pipeline-upload.webm') %>" data-autoplay controls loop muted playsinline preload="none" width="960" height="234" style="display: block; max-width: 100%; height: auto;" aria-label="Generated YAML adds test steps to a running build" aria-describedby="dynamic-pipeline-upload-animation-description" poster="<%= image_path('dynamic-pipeline-upload.png') %>">
+    <%= image "dynamic-pipeline-upload.png", width: 1920/2, height: 468/2, alt: "A generator outputs YAML and uploads it, adding unit, integration, and end-to-end test steps to the running build." %>
+  </video>
+  <div data-animation-controls hidden>
+    <button type="button" class="Button Button--default Button--small Button--inline" data-animation-toggle aria-controls="dynamic-pipeline-upload-animation">Play animation</button>
+    <a href="<%= image_path('dynamic-pipeline-upload.webm') %>" target="_blank" rel="noopener">View full size</a>
+  </div>
+  <figcaption id="dynamic-pipeline-upload-animation-description">The generator outputs YAML for three test steps. Uploading that YAML adds the steps to the same running build.</figcaption>
+</figure>
 
 ### An example pipeline generator script
 
