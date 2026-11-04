@@ -107,7 +107,7 @@ To require SSO sign-in again:
 1. In the **SSO Sessions** section, select **Require SSO sign-in again**.
 1. Review the consequences, then select **Require SSO sign-in again** to confirm, or **Cancel** to go back without revoking any sessions.
 
-Requiring SSO sign-in again only revokes this organization's SSO sessions. It doesn't:
+Requiring SSO sign-in again only revokes this organization's SSO sessions. This action doesn't:
 
 - Affect sessions in your other organizations.
 - Affect members whose SSO is optional in this organization.
