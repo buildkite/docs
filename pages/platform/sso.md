@@ -111,7 +111,7 @@ Requiring SSO sign-in again only revokes this organization's SSO sessions. This 
 
 - Affect sessions in your other organizations.
 - Affect members whose SSO is optional in this organization.
-- Revoke API access tokens or agent tokens. [Revoke these separately](/docs/platform/security/incident-response#revoke-compromised-tokens) if they may also be compromised.
+- Revoke API access tokens or agent tokens. [Revoke these separately](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens) if they may also be compromised.
 - Revoke existing OAuth access and refresh tokens, including those used by remote MCP and the Buildkite CLI. A new OAuth authorization that requires SSO must complete SSO again.
 
 This action cannot be undone. Confirm that you can sign in through your identity provider before continuing.
