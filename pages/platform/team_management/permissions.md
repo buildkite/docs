@@ -263,6 +263,8 @@ If the attacker controls your SSO provider, changes in Buildkite alone cannot re
 
 ### Disabling and re-enabling SSO
 
+To revoke all SSO sessions during an incident without disabling your providers, [require SSO sign-in again](/docs/platform/sso#requiring-sso-sign-in-again). The following procedure is only needed if you also need to disable a provider.
+
 The other control you have is the organization membership's SSO mode. If the membership requires SSO, the user will only have access to your organization in the particular sessions authenticated through your SSO provider.
 
 > 🚧
