@@ -12,7 +12,7 @@ In addition to viewing trace detail on individual test executions, you can also 
 Some of the [Test Engine test collection libraries](https://github.com/buildkite/bktest) support OpenTelemetry.
 It is also possible to implement OpenTelemetry test ingestion without using a Buildkite Collector, see below.
 
-For collector setup instructions, see [Collecting Jest tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-collecting-jest-tests-with-opentelemetry) or [Collecting RSpec tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/ruby-collectors#collecting-rspec-tests-with-opentelemetry).
+For collector setup instructions, see [Collecting Jest tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-collecting-jest-tests-with-opentelemetry), [Collecting pytest tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector-collecting-pytest-tests-with-opentelemetry), or [Collecting RSpec tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/ruby-collectors#collecting-rspec-tests-with-opentelemetry).
 
 ## Writing your own OpenTelemetry ingestion
 
