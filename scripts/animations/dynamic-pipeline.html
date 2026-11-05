@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dynamic pipelines: jobs, agents, and a growing build</title>
+    <link rel="stylesheet" href="../../.amp/in/animation-hole/kit/kit.css" />
+  </head>
+  <body>
+    <script>
+      // Content height: margin + build (header + three job rows + gaps + padding)
+      // + gutter + agents (header + one machine row + padding) + margin.
+      window.CANVAS = {
+        w: 1280,
+        h: 32 + (56 + 3 * 64 + 2 * 16 + 8) + 16 + (56 + 64 + 8) + 32,
+      };
+    </script>
+    <script src="../../.amp/in/animation-hole/kit/kit.js"></script>
+    <script src="../../.amp/in/animation-hole/kit/motion.js"></script>
+    <script>
+      // One idea: every command job runs on an agent, and jobs can upload more
+      // steps into the same running build. Based on animation-hole's overview.
+      const { C, E, el, set, op, tr, seg, win, L } = K;
+      const { POP, phase, blendIcon, popTag } = K.motion;
+      const T = {
+        generator: 0.9,
+        upload: 3.3,
+        workers: 4.3,
+        testDone: 6.1,
+        packageDone: 7.3,
+        secondUpload: 8.1,
+        buildDone: 8.8,
+        duration: 12,
+        fade: 0.6,
+      };
+      const { root, defs } = K.stage();
+      const all = el("g", {}, root);
+      const BUILD_H = 56 + 3 * 64 + 2 * 16 + 8;
+      const build = K.card(all, {
+        x: L.M,
+        y: L.M,
+        w: K.W - 2 * L.M,
+        h: BUILD_H,
+        title: "Build #42",
+        meta: "same running build",
+        status: true,
+      });
+      const added = K.pill(build.g, { y: build.hy });
+      const agents = K.card(all, {
+        x: L.M,
+        y: L.M + BUILD_H + L.G,
+        w: K.W - 2 * L.M,
+        h: 56 + 64 + 8,
+        title: "Matching agents",
+        meta: "each job runs on an agent",
+      });
+
+      const arrow = el(
+        "marker",
+        {
+          id: "arrow",
+          viewBox: "0 0 8 8",
+          refX: 7,
+          refY: 4,
+          markerWidth: 6,
+          markerHeight: 6,
+          orient: "auto",
+        },
+        defs,
+      );
+      el("path", { d: "M0 0 L8 4 L0 8", fill: C.purpleHi }, arrow);
+      const links = el("g", {}, build.g);
+      const firstLinks = [120, 200, 280].map((y) =>
+        el(
+          "path",
+          {
+            d: `M352 200 H420 V${y} H480`,
+            fill: "none",
+            stroke: C.purpleHi,
+            "stroke-width": 2,
+            "marker-end": "url(#arrow)",
+          },
+          links,
+        ),
+      );
+      const secondLinks = [160, 240].map((y) =>
+        el(
+          "path",
+          {
+            d: `M800 200 H864 V${y} H920`,
+            fill: "none",
+            stroke: C.purpleHi,
+            "stroke-width": 2,
+            "marker-end": "url(#arrow)",
+          },
+          links,
+        ),
+      );
+
+      const jobs = [
+        {
+          name: "Generate pipeline",
+          x: 40,
+          y: 168,
+          appears: 0,
+          start: T.generator,
+          end: T.upload,
+          agent: "Generator",
+          queue: "generator",
+        },
+        {
+          name: "Test",
+          x: 488,
+          y: 88,
+          appears: T.upload,
+          start: T.workers,
+          end: T.testDone,
+          agent: "Linux",
+          queue: "linux",
+        },
+        {
+          name: "Build",
+          x: 488,
+          y: 168,
+          appears: T.upload,
+          start: T.workers,
+          end: T.buildDone,
+          agent: "macOS",
+          queue: "macos",
+        },
+        {
+          name: "Package",
+          x: 488,
+          y: 248,
+          appears: T.upload,
+          start: T.workers,
+          end: T.packageDone,
+          agent: "GPU",
+          queue: "gpu",
+        },
+        { name: "Deploy region A", x: 928, y: 128, appears: T.secondUpload },
+        { name: "Deploy region B", x: 928, y: 208, appears: T.secondUpload },
+      ].map((job) => {
+        const g = el("g", {}, build.g);
+        const bg = K.box(g, job.x, job.y, 312, 64);
+        const st = K.status(g, job.x + 24, job.y + 23, 9);
+        el(
+          "text",
+          {
+            x: job.x + 44,
+            y: job.y + 29,
+            class: "mm",
+            "font-size": 18,
+            fill: C.navy200,
+            text: job.name,
+          },
+          g,
+        );
+        const detail = el(
+          "text",
+          {
+            x: job.x + 44,
+            y: job.y + 51,
+            class: "m",
+            "font-size": 14,
+            fill: C.navy300,
+          },
+          g,
+        );
+        return { ...job, g, bg, st, detail };
+      });
+
+      // Agents are machines, not additional jobs or dependency nodes. Show their
+      // assignment in a separate strip instead of drawing crossing agent links.
+      const machines = [jobs[0], jobs[1], jobs[2], jobs[3]].map((job, i) => {
+        const { x, w } = K.split([1, 1, 1, 1], agents.body.x, agents.body.w)[i];
+        const y = agents.body.y;
+        const g = el("g", {}, agents.g);
+        const bg = K.box(g, x, y, w, 64);
+        const machine = el("g", { stroke: C.purpleHi, fill: "none" }, g);
+        el(
+          "rect",
+          { x: x + 16, y: y + 19, width: 20, height: 26, rx: 4 },
+          machine,
+        );
+        el("path", { d: `M${x + 21} ${y + 27} h10 m-10 9 h10` }, machine);
+        el(
+          "text",
+          {
+            x: x + 48,
+            y: y + 27,
+            class: "mm",
+            "font-size": 17,
+            fill: C.navy200,
+            text: `${job.agent} agent`,
+          },
+          g,
+        );
+        const detail = el(
+          "text",
+          {
+            x: x + 48,
+            y: y + 49,
+            class: "m",
+            "font-size": 14,
+            fill: C.navy300,
+          },
+          g,
+        );
+        return { g, bg, detail, job };
+      });
+
+      function render(t) {
+        op(all, win(t, 0, T.duration, T.fade));
+        K.enter(build.g, t);
+        K.enter(agents.g, t, 1);
+        const buildPhase = phase(t, T.generator, T.duration);
+        build.st.set(buildPhase.state, t);
+        blendIcon(build.st, buildPhase);
+
+        const lastUpload = t >= T.secondUpload ? T.secondUpload : T.upload;
+        added.at(48 + L.M + build.title.getComputedTextLength() + 12);
+        if (t >= T.upload) {
+          popTag(
+            added,
+            [
+              t >= T.secondUpload ? "2 more jobs added" : "3 jobs added",
+              "purple",
+            ],
+            seg(t, lastUpload, lastUpload + POP, E.linear),
+          );
+        } else op(added.g, 0);
+
+        firstLinks.forEach((link) =>
+          op(link, seg(t, T.upload, T.upload + POP)),
+        );
+        secondLinks.forEach((link) =>
+          op(link, seg(t, T.secondUpload, T.secondUpload + POP)),
+        );
+        jobs.forEach((job, i) => {
+          const entrance = seg(t, job.appears, job.appears + POP, E.out);
+          op(job.g, entrance);
+          tr(job.g, 0, (1 - entrance) * 8);
+          const ph =
+            job.start === undefined
+              ? { state: "queued", k: 0 }
+              : phase(t, job.start, job.end);
+          job.st.set(ph.state === "done" ? "passed" : ph.state, t, ph.k);
+          if (job.start !== undefined) blendIcon(job.st, ph);
+          const uploaded =
+            (i === 0 && t >= T.upload) || (i === 2 && t >= T.secondUpload);
+          const detail = uploaded
+            ? i === 0
+              ? "uploaded 3 jobs"
+              : "uploaded 2 jobs"
+            : job.start === undefined
+              ? "added by Build · queued"
+              : t >= job.start
+                ? `on ${job.agent} agent`
+                : `queue: ${job.queue}`;
+          set(job.detail, {
+            text: detail,
+            fill: uploaded ? C.lilac : C.navy300,
+          });
+          const justAdded = i > 0 && t < job.appears + 1;
+          set(job.bg, {
+            stroke: uploaded || justAdded ? C.purpleHi : "#fff",
+            "stroke-opacity": uploaded || justAdded ? 0.6 : 0.09,
+          });
+        });
+        machines.forEach(({ g, bg, detail, job }) => {
+          const busy = t >= job.start && t < job.end;
+          op(g, t < job.start ? 0.45 : 1);
+          set(bg, {
+            stroke: busy ? C.purpleHi : "#fff",
+            "stroke-opacity": busy ? 0.6 : 0.09,
+          });
+          set(detail, {
+            text: busy
+              ? `runs ${job.name}`
+              : t >= job.end
+                ? `${job.name} complete`
+                : `queue: ${job.queue}`,
+            fill: busy ? C.lilac : C.navy300,
+          });
+        });
+      }
+
+      window.BEATS = T;
+      K.play({ duration: T.duration, render });
+    </script>
+  </body>
+</html>
