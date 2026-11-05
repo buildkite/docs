@@ -125,43 +125,7 @@ Use Jest 29 or later with the default `jest-circus` runner. The setup below uses
 
 1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
 
-The collector exports to `https://tests-otlp.buildkite.com/v1/traces` and detects run metadata from your CI environment. On Buildkite Pipelines, it uses `BUILDKITE_BUILD_ID` as the run key. Set `BUILDKITE_ANALYTICS_KEY` to share a run key across processes outside CI. The collector manages authentication and export settings; `OTEL_EXPORTER_OTLP_*` variables do not redirect its exports.
-
-OpenTelemetry spans replace JSON uploads for tests using the collector's runtime. Do not also upload the same executions using bktec or another upload method. Test names and scopes match JSON collection, preserving test history. However, OpenTelemetry collection does not apply `BUILDKITE_ANALYTICS_EXECUTION_NAME_PREFIX` or `BUILDKITE_ANALYTICS_EXECUTION_NAME_SUFFIX`. Keep OpenTelemetry disabled if you rely on these settings for test identity.
-
-No setup file is needed. The test span is active inside each test and its `beforeEach` and `afterEach` hooks. You can add manual child spans using the OpenTelemetry API:
-
-```javascript
-const { trace } = require('@opentelemetry/api');
-
-test('adds two numbers', async () => {
-  await trace.getTracer('my-suite').startActiveSpan('addition', async (span) => {
-    try {
-      expect(2 + 3).toBe(5);
-    } finally {
-      span.end();
-    }
-  });
-});
-```
-
-For automatic HTTP and Node.js `fetch` instrumentation, install compatible instrumentation packages:
-
-```bash
-npm install --save-dev \
-  '@opentelemetry/instrumentation-http@>=0.200.0 <0.300.0' \
-  '@opentelemetry/instrumentation-undici@>=0.11.0 <0.34.0'
-```
-
-The collector selects supported instrumentation declared in your project or workspace dependencies. Use `OTEL_NODE_ENABLED_INSTRUMENTATIONS` to select comma-separated names, or `OTEL_NODE_DISABLED_INSTRUMENTATIONS` to exclude names. Omit the `@opentelemetry/instrumentation-` prefix. For example, `OTEL_NODE_DISABLED_INSTRUMENTATIONS=http,undici` disables HTTP and fetch spans without disabling test results. HTTP instrumentation can add `traceparent` headers, which can affect exact-header assertions and snapshots.
-
-The collector does not export child spans from file loading, `beforeAll`, `afterAll`, or independent root traces. If your suite registers its own tracer provider, test results still export, but child spans go to that provider instead. Let the collector provide the tracer provider under Jest to collect child spans.
-
-For jsdom, install `jest-environment-jsdom` at the same version as Jest and keep `testEnvironment: 'jsdom'`. Per-file `@jest-environment` comments do not disable OpenTelemetry collection. To exclude a project, omit the collector's runtime from that project's configuration. Its results fall back to JSON collection.
-
-If OpenTelemetry dependencies are missing or incompatible, the collector warns and falls back to JSON. JSON fallback requires the reporter's `token` option or `BUILDKITE_ANALYTICS_TOKEN`. Export failures after setup do not trigger JSON fallback and do not change Jest's exit code. Check warnings containing `TEST RESULTS MISSING`, and allow requests to `tests-otlp.buildkite.com` if your suite mocks or blocks network access. Avoid `--forceExit`, which can interrupt exports.
-
-See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md) for supported instrumentation, batching options, and troubleshooting.
+See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md) for more details.
 
 ### Jasmine
 
