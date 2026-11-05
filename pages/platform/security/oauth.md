@@ -70,6 +70,26 @@ To revoke an OAuth application's access, open [**Connected Apps**](https://build
 
 Running `bk auth logout` removes locally stored CLI credentials but does not revoke the authorization in Buildkite. Use **Connected Apps** when you need to revoke access rather than only remove credentials from one machine.
 
+### Revoke OAuth access for an organization
+
+A Buildkite organization administrator can revoke existing OAuth access and refresh tokens for the organization, including those used by the Buildkite CLI and remote MCP.
+
+1. Select **Settings** > **Security** > **General**.
+1. In **OAuth Access**, select **Revoke OAuth access**.
+1. Review the consequences, then select **Revoke OAuth access** to confirm, or **Cancel** to leave access unchanged.
+
+Revocation runs in the background. If your plan includes the [audit log](/docs/platform/audit-log), check for `ORGANIZATION_OAUTH_GRANTS_REVOKED` to confirm completion. Otherwise, contact support@buildkite.com to confirm completion.
+
+This action includes your own OAuth access. Integrations and automations using the revoked tokens stop working until users authorize them again. Revocation cannot be undone. New authorizations created after you confirm are not affected.
+
+This action does not revoke:
+
+- OAuth access to other organizations
+- OAuth tokens issued without refresh tokens
+- Personal API access tokens, agent tokens, or browser sessions
+
+Revoke personal API access tokens and agent tokens separately as described in [Revoke compromised tokens](/docs/platform/security/incident-response#contain-the-incident-revoke-compromised-tokens). To require SSO authentication again, use [Require SSO sign-in again](/docs/platform/sso#requiring-sso-sign-in-again).
+
 ## API token authentication
 
 The remote MCP [API token pass-through endpoint](/docs/apis/mcp-server#api-token-pass-through-remote-mcp-server), local MCP server, and CLI can also use an existing API access token instead of OAuth. These connections do not use OAuth refresh and do not create the OAuth authorization audit event described below. Manage their scopes, storage, expiry, and revocation separately. See [Managing API access tokens](/docs/apis/managing-api-tokens).
