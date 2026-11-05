@@ -242,7 +242,7 @@ Buildkite Pipelines resolves `runs-on` labels to compatible queues. Common mappi
 | `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04` | `linux-medium`, with the corresponding Ubuntu environment |
 | `macos-latest` | `macos-medium` |
 | `macos-14`, `macos-15`, `macos-26`, or `macos-27` | Matching `macos-<version>-medium` queue, falling back to `macos-medium` |
-| `windows-latest` or `windows-2022` | `windows-medium`, when hosted Windows access and routing are enabled |
+| `windows-latest` or `windows-2022` | `windows-medium`, when your plan includes Windows hosted agents |
 {: class="responsive-table"}
 
 Queues must exist in the pipeline's cluster. A versioned macOS label that falls back to `macos-medium` doesn't guarantee that macOS version. All supported macOS jobs run on Apple silicon.
@@ -264,7 +264,7 @@ The runtime supports Linux arm64 jobs, but Linux arm64 labels don't have automat
 
 ### Run Windows jobs
 
-[Buildkite hosted Windows agents](/docs/agent/buildkite-hosted/windows) are in private preview. Contact the Buildkite Support team to confirm access and routing. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`.
+[Buildkite hosted Windows agents](/docs/agent/buildkite-hosted/windows) are in public preview and available on Trial, Pro, and Enterprise plans. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`.
 
 Windows jobs run on Windows Server 2022 x86-64 and default to the `pwsh` shell. Containers, services, Docker actions, and the `cmd` shell aren't supported. See the [Windows jobs reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs) for the complete requirements and limitations.
 
@@ -365,7 +365,7 @@ If a supported event doesn't appear in **Recent Deliveries**, check the reposito
 
 ### A runner is unavailable
 
-Check the diagnostic at the job's `runs-on` value and confirm that the pipeline's cluster contains a compatible queue. For macOS, confirm that the selected queue exists, has available capacity, and uses a suitable base image. For Windows, confirm hosted access and routing with the Buildkite Support team.
+Check the diagnostic at the job's `runs-on` value and confirm that the pipeline's cluster contains a compatible queue. For macOS, confirm that the selected queue exists, has available capacity, and uses a suitable base image. For Windows, confirm that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue.
 
 Don't edit generated jobs or add a plugin mapping to bypass runner validation. Contact support with the build URL, workflow path, requested `runs-on` label, and complete diagnostic if automatic resolution doesn't meet your requirements.
 

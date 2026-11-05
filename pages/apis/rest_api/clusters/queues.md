@@ -309,7 +309,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <br/>
     <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
     <br/>
-    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> hosted agents. Buildkite must allocate Windows access and capacity to your organization before you can create a Windows hosted queue.
+    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> hosted agents. Windows hosted queues require a Trial, Pro, or Enterprise plan.
     <br/>
     You cannot set a custom image URL when you create a queue. Buildkite ignores any <code>agentImageRef</code> you submit in this call and creates the queue with the default agent image. To use a custom image URL, <a href="#update-a-queue">update the queue</a> after creating it.
     <!--
@@ -588,6 +588,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 ## Instance shape values for Windows
 
-Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Buildkite must allocate Windows access and capacity to your organization before you can use these values.
+Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>

@@ -94,10 +94,14 @@ OpenAI spend | Model provider spend limits for OpenAI, per month in USD. | $50 d
 
 | Limit type | All Access Trial | Free | Pro | Enterprise |
 | --- | --- | --- | --- | --- |
-| **Linux vCPU concurrency** | 24 vCPU | 20 vCPU | 256 vCPU | Custom |
+| **Linux AMD64 vCPU concurrency** | 24 vCPU | 20 vCPU | 256 vCPU | Custom |
+| **Linux ARM64 vCPU concurrency** | 24 vCPU | Not available | 64 vCPU | Custom |
 | **M4 Mac vCPU concurrency** | 12 vCPU | Not available | 48 vCPU | Custom |
-| **Linux vCPU minutes per month** | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
+| **Windows vCPU concurrency** | 24 vCPU | Not available | 64 vCPU | Custom |
+| **Linux AMD64 vCPU minutes per month** | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
+| **Linux ARM64 vCPU minutes per month** | 4,000 included | Not available | Pay as you go | Volume discounts |
 | **M4 Mac vCPU minutes per month** | 3,000 included | Not available | Pay as you go | Volume discounts |
+| **Windows vCPU minutes per month** | 4,000 included | Not available | Pay as you go | Volume discounts |
 {: class="responsive-table"}
 
 > 📘 Adjusting hosted agents limits
@@ -105,8 +109,8 @@ OpenAI spend | Model provider spend limits for OpenAI, per month in USD. | $50 d
 
 To calculate the maximum number of concurrent jobs using one instance shape, divide your vCPU concurrency limit by the shape's vCPU count. For example:
 
-- The Free plan's 20-vCPU Linux limit supports up to 10 Small machines at two vCPU each.
-- The Pro plan's 256-vCPU Linux limit supports up to 128 Small machines, 64 Medium machines at four vCPU each, or 32 Large machines at eight vCPU each.
+- The Free plan's 20-vCPU Linux AMD64 limit supports up to 10 Small machines at two vCPU each.
+- The Pro plan's 256-vCPU Linux AMD64 limit supports up to 128 Small machines, 64 Medium machines at four vCPU each, or 32 Large machines at eight vCPU each.
 
 For a mix of shapes, the combined vCPU capacity must stay within the limit. Jobs that would exceed it remain queued until capacity becomes available.
 
@@ -117,7 +121,7 @@ The following default storage quotas apply to [hosted agent cache volumes](/docs
 | **Container cache volume** | 50 GB |
 | **Git mirror volume** | 5 GB |
 
-vCPU minute allowances and usage pricing are separate from concurrency limits. See [Pricing](https://buildkite.com/pricing/) for current usage rates, available [Linux](/docs/agent/buildkite-hosted/linux#sizes) and [macOS](/docs/agent/buildkite-hosted/macos#sizes) shapes, and hosted agent features included with each plan.
+vCPU minute allowances and usage pricing are separate from concurrency limits. See [Pricing](https://buildkite.com/pricing/) for current usage rates, available [Linux](/docs/agent/buildkite-hosted/linux#sizes), [macOS](/docs/agent/buildkite-hosted/macos#sizes), and [Windows](/docs/agent/buildkite-hosted/windows#sizes) shapes, and hosted agent features included with each plan.
 
 ## Test Engine limits
 

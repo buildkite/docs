@@ -108,7 +108,7 @@ Other selectors use the complete Agent API target and any fallback warnings. Eli
 | Runner rejection | Next step |
 | --- | --- |
 | `missing_queue` | Create the named hosted queue or configure a compatible mapping. |
-| `incompatible_labels` | Correct unsupported labels; for Windows, also check eligibility and routing. |
+| `incompatible_labels` | Correct unsupported labels; for Windows, also check that your plan includes Windows hosted agents. |
 | `no_cluster` | Use a cluster containing compatible queues. |
 | `queue_not_found` | Correct the mapping to an active queue in the importing cluster. |
 | `queue_platform_mismatch` | Map to a matching hosted OS and architecture. |
@@ -134,9 +134,9 @@ On native Namespace runners, the runtime enables `default-load=true` for stored 
 
 ### Windows jobs
 
-`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or enabled Agent API routing. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows access](/docs/agent/buildkite-hosted/windows) is separate from runtime support.
+`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or automatic Agent API routing. Automatic routing requires a plan that includes Windows hosted agents. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows queues](/docs/agent/buildkite-hosted/windows) are available on Trial, Pro, and Enterprise plans.
 
-With Windows routing enabled, `windows-2025` and Depot `depot-windows-2025` labels, including `-4`, `-8`, `-16`, `-32`, and `-64`, can resolve through the Agent API to the same `windows-medium` queue. A warning explains that execution may use Server 2022 and doesn't preserve Depot hardware, caches, or networking. These aliases require an eligible existing hosted queue and Agent API resolution; they have no local preset or explicit Windows mapping. Native Server 2025 and Windows arm64 execution remain unsupported.
+When your plan includes Windows hosted agents, `windows-2025` and Depot `depot-windows-2025` labels, including `-4`, `-8`, `-16`, `-32`, and `-64`, can resolve through the Agent API to the same `windows-medium` queue. A warning explains that execution may use Server 2022 and doesn't preserve Depot hardware, caches, or networking. These aliases require an eligible existing hosted queue and Agent API resolution; they have no local preset or explicit Windows mapping. Native Server 2025 and Windows arm64 execution remain unsupported.
 
 <a id="windows-jobs-runtime-boundaries"></a>
 
@@ -150,7 +150,7 @@ Use UTF-8 for environment files. Windows PowerShell needs `Out-File -Encoding ut
 
 #### Configure a Windows runner
 
-For a native GitHub Actions pipeline, confirm hosted Windows Medium access and automatic routing availability with the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com). The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify.
+For a native GitHub Actions pipeline, your organization's plan must include [Windows hosted agents](/docs/agent/buildkite-hosted/windows), and the pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify.
 
 Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes) for `windows-latest` or `windows-2022`. These aren't part of native setup. The Agent API validates that the queue exists in the importing job's cluster and, for hosted queues, matches `windows/amd64`.
 
@@ -158,11 +158,11 @@ Runner resolution doesn't provision queues, grant access, or bypass trust policy
 
 | Diagnostic | Next step |
 | --- | --- |
-| No Windows runner target is configured | Check hosted Windows access and routing with the Buildkite Support team. Offline validation has no Windows preset; this failure alone doesn't establish runtime incompatibility. |
+| No Windows runner target is configured | Check that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue. Offline validation has no Windows preset; this failure alone doesn't establish runtime incompatibility. |
 | `missing_queue` | Check the importing cluster and hosted queue requirements, or map a compatible existing queue. |
 | `no_cluster` | Move the pipeline to a cluster containing compatible queues. |
 | Queue not found or platform mismatch | Correct the mapping to an active compatible queue in that cluster. |
-| Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check hosted access and routing availability. |
+| Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check that your plan includes Windows hosted agents. |
 | Windows variant has no local mapping | Use Agent API routing for the documented 2025 aliases, or select a 2022 label only if Server 2022 is suitable. |
 {: class="responsive-table"}
 

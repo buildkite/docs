@@ -54,9 +54,6 @@ Creates a small Buildkite hosted queue using AMD64-based Linux Buildkite hosted 
 
 Learn more about the instance shapes available for [Linux](#instance-shape-values-for-linux), [macOS](#instance-shape-values-for-macos), and [Windows](#instance-shape-values-for-windows) Buildkite hosted agents.
 
-> 📘 Windows availability
-> Windows has no automatic or included allowance. Buildkite must allocate Windows access and capacity to your organization before you can create a Windows hosted queue.
-
 ## Change the instance shape of a Buildkite hosted queue's agents
 
 ```graphql
@@ -150,6 +147,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 ## Instance shape values for Windows
 
-Specify the appropriate **Instance shape** for the `instanceShape` value in your GraphQL API mutation. Buildkite must allocate Windows access and capacity to your organization before you can use these values.
+Specify the appropriate **Instance shape** for the `instanceShape` value in your GraphQL API mutation. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>

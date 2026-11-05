@@ -138,9 +138,6 @@ Buildkite hosted queues use [Buildkite hosted agent infrastructure](/docs/agent/
 
 When you create a Buildkite hosted queue, you can choose the machine type (Linux, macOS, or [Windows](/docs/agent/buildkite-hosted/windows)) and the capacity (small, medium, large, or extra large), known as the _instance shape_, of the Buildkite hosted agents that will run your builds.
 
-> 📘 Windows availability
-> Windows has no automatic or included allowance. If Buildkite hasn't allocated Windows access and capacity to your organization, selecting **Windows** causes a message to appear directing you to contact [Buildkite Support](mailto:support@buildkite.com).
-
 Only one instance shape can be configured on a Buildkite hosted queue. However, depending on your pipeline's requirements, multiple Buildkite hosted agents of the queue's configured instance shape can be spawned automatically by Buildkite.
 
 ### Using the Buildkite interface
@@ -197,7 +194,7 @@ where:
     }
     ```
 
-    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows access and capacity must be allocated to your organization before the request can succeed.
+    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <!--
     or for an example using a custom agent image:
@@ -274,7 +271,7 @@ where:
     }
     ```
 
-    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows access and capacity must be allocated to your organization before the mutation can succeed.
+    To create a Windows hosted queue, use one of the [Windows instance shape values](#create-a-buildkite-hosted-queue-instance-shape-values-for-windows), such as `WINDOWS_AMD64_2X8`. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <!--
     or for an example using a custom agent image:
@@ -305,7 +302,7 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 ### Instance shape values for Windows
 
-Specify the appropriate **Instance shape** for the `instanceShape` value in your API call. Windows access and capacity must be allocated to your organization before you can use these values.
+Specify the appropriate **Instance shape** for the `instanceShape` value in your API call. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>
 
