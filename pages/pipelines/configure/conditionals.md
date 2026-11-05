@@ -60,8 +60,12 @@ steps:
 
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
-> 🚧 Plugin execution and conditionals
-> Step-level `if` conditions only prevent commands from running but they _do not_ affect plugins. Plugins run during the job lifecycle, before the conditional is evaluated. To conditionally run plugins, use either [group steps](#conditionally-running-plugins-with-group-steps) or [dynamic pipeline uploads](#conditionally-running-plugins-with-dynamic-uploads).
+> 🚧 Plugin execution and shell conditionals
+> A shell `if` statement inside a step's `command` controls only the commands inside that statement. It does not control whether the step's plugins run. [Plugin hooks](/docs/agent/hooks#job-lifecycle-hooks) such as `environment` and `pre-command` run before the step's command, so they can execute even when the shell condition is false.
+>
+> This is different from the YAML `if` attribute on a step, which Buildkite Pipelines evaluates when the pipeline is uploaded to decide whether the step runs.
+>
+> To conditionally run a step and its plugins, use the step's YAML `if` attribute. For conditions that can only be checked at runtime, conditionally upload the steps containing the plugins using a [dynamic pipeline upload](#conditionally-running-plugins-with-dynamic-uploads).
 
 To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/configure/step-types/command-step) like in the example below:
 
@@ -100,7 +104,7 @@ Note that conditional expressions on the build state are only available at the p
 
 ## Conditionally running plugins with group steps
 
-To conditionally run plugins, use [group steps](/docs/pipelines/configure/step-types/group-step) rather than step-level `if` conditions. Group's conditional is evaluated before any steps within the group are created, which prevents plugins from executing entirely:
+To apply one condition to several steps and their plugins, put the steps in a [group](/docs/pipelines/configure/step-types/group-step) and set the YAML `if` attribute on the group.
 
 ```yaml
 steps:
@@ -126,7 +130,7 @@ For complex conditional logic, use dynamic pipeline uploads with conditional log
 steps:
   - label: "Docker Build"
     command: |
-      if [ -n "${DOCKER_PASSWORD}" ]; then
+      if [ -n "$${DOCKER_PASSWORD}" ]; then
         echo "Docker credentials found, uploading build steps..."
         cat <<EOF | buildkite-agent pipeline upload
       steps:
