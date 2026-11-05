@@ -10,10 +10,7 @@ Buildkite supports sending [OpenTelemetry Traces](https://opentelemetry.io/docs/
 
 ## OpenTelemetry tracing notification service
 
-> 📘 Preview feature
-> OpenTelemetry Tracing Notification Service is currently in Preview.
-
-To provide a build-wide view of Build performance, enable the OpenTelemetry Tracing Notification Service.
+To provide a build-wide view of build performance, enable the OpenTelemetry Tracing Notification Service.
 
 ### Creating a new service
 

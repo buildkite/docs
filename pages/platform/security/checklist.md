@@ -257,7 +257,7 @@ This baseline is complete when a named person runs the access review on a fixed 
 
 ### Recommended
 
-- **Stream audit events to your SIEM:** Use [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to send audit log events to your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system.
+- **Stream audit events to your SIEM:** Use [Amazon EventBridge](/docs/pipelines/integrations/observability/amazon-eventbridge) to send audit log events to your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system. Retain a write-protected or immutable copy that the users and services being monitored cannot alter or delete. This preserves evidence for incident investigations if one of those accounts is compromised.
 - **Alert on security-relevant events:** Create alerts for the [logged events](/docs/platform/audit-log#logged-events) that matter most, such as agent token and API access token changes, SSO provider changes, secret access, pipeline visibility changes, and terminal sessions. Also alert on unusual IP addresses, secret access patterns, and spikes in build frequency.
 - **Remove inactive users:** Review the [inactive user list](/docs/platform/team-management/inactive-user-list) regularly, and remove users who no longer need access (Enterprise plan only). To remove access as soon as a user is removed from your identity provider, [automate deprovisioning with SCIM](#authentication-and-access-control-recommended).
 - **Export metrics to your observability platform:** Send Buildkite Pipelines metrics to your monitoring platform, for example, using [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry), to maintain visibility across pipeline activity.
@@ -313,7 +313,7 @@ This baseline is complete when responders can reach the tested runbook and escal
 
 ### Advanced
 
-- **Rehearse SSO reauthorization safely:** In a test organization, rehearse [disabling and re-enabling SSO](/docs/platform/team-management/permissions#removing-users-during-a-security-incident-disabling-and-re-enabling-sso) with a dedicated optional-SSO administrator account ready. Disabling SSO rescinds every active SSO authorization, including the administrator's. API access tokens are unaffected, so this doesn't replace user and token revocation.
+- **Rehearse SSO reauthorization safely:** In a test organization, rehearse [requiring SSO sign-in again](/docs/platform/sso#requiring-sso-sign-in-again). Confirm that members required to use SSO must re-authenticate and that members with optional SSO retain access. API access tokens, agent tokens, and existing OAuth tokens remain usable, so this doesn't replace user and token revocation.
 - **Automate tested revocation and rotation:** Automate the revocation and rotation procedures you've already rehearsed. Test target selection, approvals, failure handling, and rejection of old credentials in a test environment. Keep a manual fallback if the automation or its credentials are unavailable.
 
 <%= audit_area.('incident-readiness') %>

@@ -467,13 +467,13 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Workflow-scoped GitHub access tokens
 
-Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
+Jobs in a GitHub.com or GitHub Enterprise Server (GHES) pipeline can request a short-lived, repository-scoped GitHub access token using a GitHub App connection with code access enabled. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
 
 To use this feature, the following requirements must be met:
 
-1. The pipeline uses the full-access **GitHub** repository provider. The **GitHub (Limited Access)** provider isn't supported because it doesn't provide code access.
+1. The pipeline uses the full-access [**GitHub** repository provider](#connect-your-buildkite-account-to-github-using-the-github-app) or a [GHES GitHub App connection](/docs/pipelines/source-control/github-enterprise#github-app) with code access enabled. The **GitHub (Limited Access)** provider and legacy GHES OAuth integration aren't supported.
 1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
-1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+1. Workflow-authorized GitHub access tokens are enabled for the pipeline. For GitHub.com, select **Allow workflow-authorized GitHub access tokens** in the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings. For GHES, [GitHub Actions setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) enables this setting automatically. The checkbox isn't available for GHES; contact the Buildkite Support team to change the setting.
 
 > 🚧 Protect workflow-scoped tokens
 > Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository.
@@ -543,7 +543,7 @@ A requested permission is only granted when it's allowed by all of the following
 
 ### Restrictions
 
-- Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
+- Only available for GitHub.com and GHES pipelines using a GitHub App connection with code access enabled. Tokens remain scoped to the pipeline repository and its App installation; there is no personal access token fallback.
 - Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
 - Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
 - The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.

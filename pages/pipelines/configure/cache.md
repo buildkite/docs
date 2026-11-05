@@ -89,6 +89,20 @@ By default, both commands discover `.buildkite/cache.yml` or `.buildkite/cache.y
 
 When `buildkite-agent cache save` processes more than one cache, it saves them concurrently. Use `--concurrency` or `BUILDKITE_CACHE_CONCURRENCY` to change how many run at once. The default is `2`, and setting `0` or a negative value uses the number of processors available to the agent.
 
+### Limit cache restore download time
+
+Add `--download-timeout` to set a shared time limit on `buildkite-agent cache restore` downloads, for cases where a slow download costs more time than rebuilding the cached data from scratch. This option requires Buildkite agent v4.9.0 or later:
+
+```bash
+buildkite-agent cache restore --download-timeout 10m
+```
+
+The limit applies only while an archive download is active. When a restore selects more than one cache, concurrent downloads count against the limit once, and time between downloads doesn't count at all. Key calculation, registry lookup, archive verification, target cleanup, extraction, and confirmation aren't subject to this limit.
+
+If the limit is reached, Buildkite Cache stops any unfinished downloads and removes their temporary files, leaving existing targets and remote caches unchanged. Downloads that completed before the limit was reached can still be verified and extracted. By default, reaching the limit is treated as a cache miss; add `--cache-fail-on-error` to fail the command instead.
+
+Set `BUILDKITE_CACHE_RESTORE_DOWNLOAD_TIMEOUT` to configure the same limit using an environment variable. An explicit `--download-timeout` flag overrides the environment variable. The limit is disabled by default; set it to `0` to disable it explicitly.
+
 ### Skip a command using its cached result
 
 `buildkite-agent cache exec` requires Buildkite agent v4.2.1 or later. The command combines restore and save and skips running the wrapped command when its cached result is already available.

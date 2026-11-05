@@ -10,10 +10,12 @@ Concurrency limits define the number of jobs that are allowed to run at any one 
 
 Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time, even if there are agents available.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file by adding `concurrency` attributes with limit values to these steps. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
+In your `pipeline.yml` file, add a `concurrency` map to a command step. Set `limit` to the maximum number of concurrent jobs and `group` to a name that identifies the shared resource. Steps in other pipelines can use the same group.
+
+See [Concurrency attributes](/docs/pipelines/configure/step-types/command-step#concurrency-attributes) for all map settings and compatibility with the supported integer syntax and top-level attributes.
 
 > 🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
-> This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.
+> A positive concurrency limit requires a group name. Set `group` inside the `concurrency` map, or set `concurrency_group` when using the integer syntax.
 
 ## Concurrency groups
 
@@ -33,14 +35,15 @@ The following is an example [command step](/docs/pipelines/configure/step-types/
   branches: 'main'
   agents:
     deploy: true
-  concurrency: 1
-  concurrency_group: 'our-payment-gateway/deploy'
+  concurrency:
+    limit: 1
+    group: 'our-payment-gateway/deploy'
 ```
 {: codeblock-file="pipeline.yml"}
 
-Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
+Make sure your concurrency group names are unique, unless they're accessing a shared resource like a deployment target.
 
-For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
+For example, if you have two pipelines that each deploy to a different target but you set `group: deploy` in both concurrency maps, they will be part of the same concurrency group. These pipelines will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
 
 With the `ordered` method and the same concurrency limit for all jobs, queued jobs take precedence according to their scheduling timestamp. Jobs inherit this timestamp from the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job if the job was dynamically uploaded. When pipeline uploads add more jobs to a build after it has started, these added jobs will inherit the creation time of the pipeline upload rather than the build.
 
@@ -63,7 +66,7 @@ Switching to the [eager method](#concurrency-and-parallelism-controlling-command
 
 ## Changing concurrency limits
 
-Buildkite Pipelines reads the `concurrency` and `concurrency_group` attributes from your pipeline configuration when it creates each job, and stores them on the job itself. Changing the `concurrency` value on a step only applies to jobs created after the change. Jobs already waiting in the concurrency group keep the limit they were created with. A single group can contain jobs with different limits. Retrying a job doesn't update its limit either, because a retried job is created from the same configuration as the original.
+Buildkite Pipelines reads the concurrency limit and group from your pipeline configuration when it creates each job, and stores them on the job itself. Changing `limit` in a step's `concurrency` map only applies to jobs created after the change. Jobs already waiting in the concurrency group keep the limit they were created with. A single group can contain jobs with different limits. Retrying a job doesn't update its limit either, because a retried job is created from the same configuration as the original.
 
 When jobs in a group have different limits, the group no longer behaves as a strict first-in, first-out queue. Each time the queue is processed, jobs are checked from the front of the queue against their own limits. With the default [ordered method](#concurrency-and-parallelism-controlling-command-order), a job can only start when the number of jobs holding a concurrency slot plus the number of jobs queued ahead of it is lower than that job's limit. A job that fails this check keeps its place in the queue, and processing continues with the jobs behind it, so a job with a higher limit can start before a job with a lower limit that's ahead of it. When all jobs in the group share the same limit, this preserves the creation-order behavior described in [Concurrency groups](#concurrency-groups) above.
 
@@ -80,13 +83,14 @@ In these situations, you can use _concurrency gates_ to control which jobs run i
 
 ### How concurrency gates work
 
-A concurrency gate is not a separate feature. It uses the same `concurrency_group` and `concurrency` attributes covered under [Concurrency groups](#concurrency-groups) above, applied to a pair of steps. The minimal shape of a gate is:
+A concurrency gate is not a separate feature. It uses the same concurrency settings covered under [Concurrency groups](#concurrency-groups) above, applied to a pair of steps. The minimal shape of a gate is:
 
 ```yaml
 steps:
   - command: echo "Open the gate"
-    concurrency_group: gate
-    concurrency: 1
+    concurrency:
+      limit: 1
+      group: gate
 
   - wait
 
@@ -95,12 +99,13 @@ steps:
   - wait
 
   - command: echo "Close the gate"
-    concurrency_group: gate
-    concurrency: 1
+    concurrency:
+      limit: 1
+      group: gate
 ```
 {: codeblock-file="pipeline.yml"}
 
-Both steps share the same `concurrency_group` and set `concurrency: 1`, so they compete for the same single slot in that group. No `key` or `depends_on` attribute is needed to make a gate work.
+Both steps share the same `group` and set `limit: 1` in their concurrency maps, so they compete for the same single slot in that group. No `key` or `depends_on` attribute is needed to make a gate work.
 
 This works because of how concurrency groups order jobs. Jobs in a group run in the order they were created, and every job in a build inherits that build's creation time, as described under [Concurrency groups](#concurrency-groups) above.
 
@@ -123,8 +128,9 @@ steps:
     key: unit-tests
 
   - command: echo "--> Start of concurrency gate"
-    concurrency_group: gate
-    concurrency: 1
+    concurrency:
+      limit: 1
+      group: gate
     key: start-gate
     depends_on: unit-tests
 
@@ -142,8 +148,9 @@ steps:
   - wait
 
   - command: echo "End of concurrency gate <--"
-    concurrency_group: gate
-    concurrency: 1
+    concurrency:
+      limit: 1
+      group: gate
     key: end-gate
 
   - command: echo "This and subsequent steps run independently"
@@ -157,7 +164,7 @@ If you leave out the closing gate step, the gate stops enforcing concurrency ove
 
 ### Using a concurrency limit greater than one
 
-Setting `concurrency` above `1` on both the opening and closing steps changes the gate from strict serialization to a bounded number of builds running through the gate at once. For example, with `concurrency: 2`, up to two builds can be inside the gate at the same time, each running its own gated work in parallel with the other. A third build's opening step isn't let through until one of the two builds currently inside the gate finishes its closing step and frees a slot. This is useful when you want to bound how many gated operations, such as deployments, can be in flight at once, without limiting it to exactly one.
+Setting `limit` above `1` in the concurrency maps on both the opening and closing steps changes the gate from strict serialization to a bounded number of builds running through the gate at once. For example, with `limit: 2`, up to two builds can be inside the gate at the same time, each running its own gated work in parallel with the other. A third build's opening step isn't let through until one of the two builds currently inside the gate finishes its closing step and frees a slot. This is useful when you want to bound how many gated operations, such as deployments, can be in flight at once, without limiting it to exactly one.
 
 ### Controlling command order
 
@@ -175,14 +182,15 @@ In that case, the default ordering of the jobs can work against you, as one step
 
 If your resource usage time is very different, for example if tests in pipeline A take 1 minute to run and tests in pipeline B take 10 minutes to run, the default ordering is not helpful because it means that the limited resource you're controlling concurrency for is not fully utilized.
 
-In that case, setting the concurrency method to `eager`, removes the ordering condition for that resource.
+In that case, setting `method: eager` in the concurrency map removes the ordering condition for that resource.
 
 ```yaml
 steps:
   - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
-    concurrency_group: saucelabs
-    concurrency: 10
-    concurrency_method: eager
+    concurrency:
+      limit: 10
+      group: saucelabs
+      method: eager
 ```
 {: codeblock-file="pipeline.yml"}
 

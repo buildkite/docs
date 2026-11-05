@@ -77,32 +77,27 @@ Since this script runs for every job, you can extend it to selectively export al
 
 ### Storing secrets with the Elastic CI Stack for AWS
 
-When using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) with your own AWS account and environment, you can store your secrets inside your stack's encrypted S3 bucket.
-Unlike hooks defined in [agent `hooks-path`](/docs/agent/hooks#hook-locations-agent-hooks),
-the Elastic CI Stack for AWS's `env` hooks are defined per-pipeline.
+When using the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) with your own AWS account and environment, you can store your secrets inside your stack's encrypted [S3 secrets bucket](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#s3-secrets-bucket).
+An `env` file at the root of the bucket applies to all pipelines using that bucket. To load secrets for a specific pipeline, put the file under a prefix matching the pipeline slug.
 
-For example, to expose a `GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN` environment
-variable to a step with identifier `trigger-github-deploy`, you would create the
-following `env` file on your local development machine:
+For example, to expose a `GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN` environment variable to jobs in the `my-app` pipeline, create the following `env` file on your local development machine:
 
 ```bash
-#!/bin/bash
-set -euo pipefail
-
-if [[ "$BUILDKITE_STEP_KEY" == "trigger-github-deploy" ]]; then
-  export GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN="bd0fa963610b..."
-fi
+GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN="xxx-yyy-zzz"
 ```
 {: codeblock-file="env"}
 
+> 🚧 Environment file format and secret redaction
+> Keep `env` and `environment` files limited to `KEY=VALUE` assignments, comments, and blank lines. Shell commands such as `set` or `if` cause parsing to fail for the entire file. The S3 secrets hook logs `Warning: failed to parse env file ...` and does not add any values from that file to the log redactor. The agent still executes the file as shell code, so secrets can be loaded without the hook registering them for redaction.
+
 You then upload the `env` file, encrypted, into the secrets S3 bucket with the
-following command:
+following command. Replace `your-secrets-bucket` with your bucket name:
 
 ```bash
 # Upload the env
-aws s3 cp --acl private --sse aws:kms env "s3://elastic-ci-stack-my-stack-secrets-bucket/env"
+aws s3 cp --acl private --sse aws:kms env "s3://your-secrets-bucket/my-app/env"
 # Remove the original file
 rm env
 ```
 
-See the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) readme for more information and examples.
+This file exposes the token to every job in `my-app`, not just a deployment step. For per-step secret injection, use an [agent `environment` hook](#without-a-secrets-storage-service-exporting-secrets-with-environment-hooks) instead of putting conditional shell logic in the S3 environment file.

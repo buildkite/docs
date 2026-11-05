@@ -99,6 +99,8 @@ muffet_cmd = [
   '--max-connections=10',
   '--timeout=15',
   '--buffer-size=16384',
+  # Some external documentation pages exceed Muffet's default 10 MB body limit.
+  '--max-response-body-size=20000000',
   '--format=json',
   # Capture successes as well as failures
   '--verbose',

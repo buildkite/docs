@@ -186,7 +186,7 @@ Important limits:
 - Incomplete or cyclic trigger and rebuild provenance is denied.
 - Native release builds need the GitHub Code Access App for server-side commit provenance.
 
-The exact step call `toJSON(github)` also requests a token because the retained context includes `token`. Before evaluating an authorized step context, the runtime registers the token with both Buildkite agent [redaction](/docs/pipelines/security/secrets/buildkite-secrets#redaction) and local redaction.
+The exact workflow-authored step call `toJSON(github)` also requests a token because the retained context includes `token`. Before evaluating an authorized step context, the runtime registers the token with both Buildkite agent [redaction](/docs/pipelines/security/secrets/buildkite-secrets#redaction) and local redaction.
 
 [Bounded workflow-token retries](/docs/pipelines/migration/run-github-actions-workflows/compatibility#repositories-credentials-and-github-services-github-token) keep the requested scope, but they don't make token issuance idempotent. A failed response can leave an additional token with the same scope valid until it expires. The runtime doesn't cache tokens across jobs or retry ambiguous transport failures.
 

@@ -15,6 +15,10 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/api-settings",
   "allowed_ip_addresses": "192.0.2.0/24 198.51.100.0/24",
+  "allowed_ip_entries": [
+    { "ip_address": "192.0.2.0/24", "description": "Office" },
+    { "ip_address": "198.51.100.0/24", "description": "" }
+  ],
   "revoke_inactive_tokens_after_days": 90,
   "restrict_user_api_token_creation": false,
   "features": {
@@ -58,6 +62,10 @@ curl -H "Authorization: Bearer $TOKEN" \
 {
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/api-settings",
   "allowed_ip_addresses": "192.0.2.0/24 198.51.100.0/24",
+  "allowed_ip_entries": [
+    { "ip_address": "192.0.2.0/24", "description": "Office" },
+    { "ip_address": "198.51.100.0/24", "description": "" }
+  ],
   "revoke_inactive_tokens_after_days": 90,
   "restrict_user_api_token_creation": true,
   "features": {
@@ -66,6 +74,22 @@ curl -H "Authorization: Bearer $TOKEN" \
   }
 }
 ```
+
+To add a description to each allowed IP address, pass `allowed_ip_entries` instead of `allowed_ip_addresses`:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/api-settings" \
+  -d '{
+    "allowed_ip_entries": [
+      { "ip_address": "192.0.2.0/24", "description": "Office" },
+      { "ip_address": "198.51.100.0/24" }
+    ]
+  }'
+```
+
+`allowed_ip_addresses` and `allowed_ip_entries` are two representations of the same allowlist. Pass only one of them in a request. Passing both, even if they describe the same list, returns a `422 Unprocessable Entity` error.
 
 Required scope: `write_organization_settings`
 
@@ -81,7 +105,7 @@ Error responses:
   </tr>
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
-    <td>A field value failed validation—for example, an IP address not in CIDR notation, a revocation period not in the set of allowed values, or a non-boolean value for <code>restrict_user_api_token_creation</code>.</td>
+    <td>A field value failed validation—for example, an invalid IP address or CIDR range, a revocation period not in the set of allowed values, a non-boolean value for <code>restrict_user_api_token_creation</code>, an <code>allowed_ip_entries</code> description over 255 characters, or both <code>allowed_ip_addresses</code> and <code>allowed_ip_entries</code> supplied in the same request.</td>
   </tr>
 </tbody>
 </table>
@@ -92,7 +116,11 @@ Error responses:
 <tbody>
   <tr>
     <th><code>allowed_ip_addresses</code></th>
-    <td>A space-separated string of CIDR ranges that are permitted to make API requests for this organization. Pass <code>null</code> to remove the allowlist. Requires the API IP allowlist plan feature; returns <code>403</code> if the organization is not entitled.</td>
+    <td>A space-separated string of IP addresses or CIDR ranges that are permitted to make API requests for this organization. Pass <code>null</code> to remove the allowlist. Cannot be supplied together with <code>allowed_ip_entries</code>. Requires the API IP allowlist plan feature; returns <code>403</code> if the organization is not entitled.</td>
+  </tr>
+  <tr>
+    <th><code>allowed_ip_entries</code></th>
+    <td>An array of objects that replaces the whole IP allowlist, letting you attach a description to each IP address or CIDR range. Each object has an <code>ip_address</code> (required, a single IP address or CIDR range) and a <code>description</code> (optional, up to 255 characters, defaults to an empty string when omitted). Pass an empty array to remove the allowlist. Cannot be supplied together with <code>allowed_ip_addresses</code>. Requires the API IP allowlist plan feature; returns <code>403</code> if the organization is not entitled.</td>
   </tr>
   <tr>
     <th><code>revoke_inactive_tokens_after_days</code></th>
@@ -115,7 +143,11 @@ Error responses:
   </tr>
   <tr>
     <th><code>allowed_ip_addresses</code></th>
-    <td>The current IP allowlist as a space-separated string of CIDR ranges, or <code>null</code> if no allowlist is configured.</td>
+    <td>The current IP allowlist as a space-separated string of IP addresses or CIDR ranges, or <code>null</code> if no allowlist is configured.</td>
+  </tr>
+  <tr>
+    <th><code>allowed_ip_entries</code></th>
+    <td>The current IP allowlist as an array of objects, each with an <code>ip_address</code> and a <code>description</code>. The array is empty if no allowlist is configured. Updates using <code>allowed_ip_addresses</code> preserve descriptions for retained addresses with identical spelling. Newly added addresses have an empty string <code>description</code>.</td>
   </tr>
   <tr>
     <th><code>revoke_inactive_tokens_after_days</code></th>
