@@ -136,7 +136,7 @@ The agent doesn't provide its own CPU or memory limits on macOS, Windows, or Lin
 
 ## Limit disk usage
 
-The agent checks out each pipeline into a directory under the [build path](/docs/agent/self-hosted/configure#build-path), named after the agent, the Buildkite organization, and the pipeline (`<build-path>/<agent-name>/<organization-slug>/<pipeline-slug>`). The agent reuses that directory for later jobs of the same pipeline on the same agent. It doesn't delete checkouts after jobs finish, and it doesn't limit their size.
+The agent checks out each pipeline into a directory under the [build path](/docs/agent/self-hosted/configure#build-path), named after the agent, the Buildkite organization, and the pipeline (`<build-path>/<agent-name>/<organization-slug>/<pipeline-slug>`). The agent reuses that directory for later jobs of the same pipeline on the same agent, but doesn't delete checkouts after jobs finish or limit their size.
 
 Before each checkout, the agent removes untracked and ignored files from the directory using the [`git-clean-flags`](/docs/agent/self-hosted/configure#git-clean-flags) setting. This only happens the next time that agent runs a job for that pipeline. Disk usage therefore grows with the number of agents on the host, the number of pipelines they build, and the files that jobs leave behind. [Git mirrors](/docs/agent/self-hosted/configure/git-mirrors), plugins, Docker images, and Docker build cache use additional disk space outside the checkouts.
 
