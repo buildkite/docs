@@ -19,7 +19,7 @@ CPU, memory, and process limits | Your operating system or container platform | 
 Disk space and workspace size | Your infrastructure | [Filesystem sizing, free-space checks, cleanup, and monitoring](#limit-disk-usage)
 {: class="responsive-table"}
 
-[Buildkite hosted agents](/docs/agent/buildkite-hosted) work differently. When you [create a Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), you choose the instance shape, and Buildkite manages the machine.
+[Buildkite-hosted agents](/docs/agent/buildkite-hosted) work differently. When you [create a Buildkite-hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue), you choose the instance shape, and Buildkite manages the machine.
 
 ## How the agent and its jobs share limits
 
