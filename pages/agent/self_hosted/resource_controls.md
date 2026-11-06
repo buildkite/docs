@@ -207,8 +207,10 @@ set -euo pipefail
 
 # Remove untracked and ignored files from the checkout when the job finishes
 checkout="${BUILDKITE_BUILD_CHECKOUT_PATH:-}"
+clean_flags="${BUILDKITE_GIT_CLEAN_FLAGS:--ffxdq}"
 if [[ -d "$checkout/.git" ]]; then
-  git -C "$checkout" clean ${BUILDKITE_GIT_CLEAN_FLAGS:--ffxdq}
+  # xargs splits the flags like the agent does, including quoted values
+  printf '%s' "$clean_flags" | xargs git -C "$checkout" clean
 fi
 ```
 {: codeblock-file="/etc/buildkite-agent/hooks/pre-exit"}
