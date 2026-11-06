@@ -64,6 +64,30 @@ The concurrency slot is not held continuously between attempts. When an attempt 
 
 Switching to the [eager method](#concurrency-and-parallelism-controlling-command-order) does not move retries to the back of the queue or guarantee that B runs before A's retry. Eager concurrency lets ready jobs bypass earlier jobs that are not ready and respects job priority.
 
+## Canceling jobs in progress
+
+Add `cancel_in_progress: true` to a step's `concurrency` map to let a job that's waiting for a concurrency slot ask Buildkite Pipelines to cancel blocking jobs in the same concurrency group, instead of waiting for them to finish naturally:
+
+```yaml
+steps:
+  - command: 'deploy.sh'
+    concurrency:
+      limit: 2
+      group: 'production'
+      cancel_in_progress: true
+```
+{: codeblock-file="pipeline.yml"}
+
+`cancel_in_progress` requires a positive `limit` and a nonempty `group`. Jobs targeted for cancellation don't need to set `cancel_in_progress` themselves.
+
+When jobs with `cancel_in_progress` enabled are in the `limited` state, Pipelines selects the last of those jobs in the group's scheduling order as the cancellation requester. Scheduling order is not necessarily arrival order: for example, `eager` concurrency accounts for job priority, and retries retain their original scheduling timestamp.
+
+Pipelines cancels blocking jobs in two passes: first queued jobs ahead of the requester, then jobs already holding a concurrency slot. Each pass works backwards through scheduling order, stopping when enough cancellations are expected to let the requester proceed. Jobs holding slots can be canceled regardless of where they fall in scheduling order.
+
+Cancellation happens asynchronously, separately from the scheduler that assigns concurrency slots. Canceling blocking jobs can help the requester run sooner, but doesn't guarantee that the requester receives the freed slot ahead of another waiting job. This behavior does not guarantee that only the latest job runs.
+
+See [Concurrency attributes](/docs/pipelines/configure/step-types/command-step#concurrency-attributes) for the full `concurrency` map reference.
+
 ## Changing concurrency limits
 
 Buildkite Pipelines reads the concurrency limit and group from your pipeline configuration when it creates each job, and stores them on the job itself. Changing `limit` in a step's `concurrency` map only applies to jobs created after the change. Jobs already waiting in the concurrency group keep the limit they were created with. A single group can contain jobs with different limits. Retrying a job doesn't update its limit either, because a retried job is created from the same configuration as the original.
