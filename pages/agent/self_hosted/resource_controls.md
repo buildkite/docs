@@ -65,7 +65,7 @@ CPUQuota=600%
 MemoryMax=12G
 MemorySwapMax=0
 TasksMax=4096
-# Only stop the process that ran out of memory, not the whole agent service
+# Keep the agent service running when the OOM killer stops one of its processes
 OOMPolicy=continue
 # Per-process limit, inherited by each job process
 LimitNOFILE=65536
@@ -90,14 +90,14 @@ systemctl show buildkite-agent \
 These settings work as follows:
 
 - `CPUQuota`: Sets the total CPU time available to the agent and its jobs, where `100%` is one CPU. Jobs that reach the quota are slowed down, not stopped.
-- `MemoryMax`: Sets the total memory available to the agent and its jobs. When they reach the limit, the Linux out-of-memory (OOM) killer stops a process in the service, usually the job process using the most memory. The job fails with exit status `137`, and its log shows `Killed`. To confirm the cause, check `journalctl -u buildkite-agent` for `A process of this unit has been killed by the OOM killer`.
+- `MemoryMax`: Sets the total memory available to the agent and its jobs. When they reach the limit, the Linux out-of-memory (OOM) killer stops a process in the service, usually the process using the most memory. Because all jobs share this limit, that process can belong to any running job, or be the agent itself. A job whose process is stopped fails with exit status `137`, and its log shows `Killed`. To confirm the cause, check `journalctl -u buildkite-agent` for `A process of this unit has been killed by the OOM killer`.
 - `MemorySwapMax`: Limits swap usage. On hosts with swap enabled, jobs can use swap to go beyond `MemoryMax` unless you set this to `0`.
 - `TasksMax`: Sets the maximum number of processes and threads across the agent and its jobs.
-- `OOMPolicy`: Controls what systemd does with the service when one of its processes runs out of memory. Use `continue` so that only the job that ran out of memory fails.
+- `OOMPolicy`: Controls what systemd does with the rest of the service after the OOM killer stops one of its processes. Use `continue` so that systemd doesn't stop the agent and its other jobs. This setting doesn't choose which process is stopped. To keep jobs from affecting each other, [set limits for each agent](#limit-cpu-and-memory-with-systemd-set-limits-for-each-agent).
 - `LimitNOFILE`: Sets the maximum number of open files for each process, including each job process.
 
 > 🚧 One job that runs out of memory can stop every worker on the host
-> By default, systemd stops a service when any of its processes is killed for running out of memory. Without `OOMPolicy=continue`, one job that exceeds `MemoryMax` stops the whole `buildkite-agent` service. The agent then stops gracefully: every worker stops accepting jobs and waits for its running job to finish before the agent exits. After that, systemd restarts the service, but the host doesn't accept new jobs until the longest-running job finishes.
+> By default, systemd stops a service when any of its processes is killed for running out of memory. Without `OOMPolicy=continue`, one OOM kill after the agent and its jobs reach `MemoryMax` stops the whole `buildkite-agent` service. The agent then stops gracefully: every worker stops accepting jobs and waits for its running job to finish before the agent exits. After that, systemd restarts the service, but the host doesn't accept new jobs until the longest-running job finishes.
 
 The `MemoryMax`, `MemorySwapMax`, and `AllowedCPUs` settings require the unified cgroup hierarchy (cgroup v2), which is the default on current Debian, Ubuntu, and Red Hat Enterprise Linux releases. For all available settings, see the [systemd.resource-control](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html) documentation.
 
@@ -110,6 +110,7 @@ Create a drop-in file for the template unit. The following example starts one wo
 ```conf
 [Service]
 Environment=BUILDKITE_AGENT_SPAWN=1
+Environment=BUILDKITE_AGENT_SPAWN_PER_CPU=0
 CPUQuota=200%
 MemoryMax=4G
 MemorySwapMax=0
@@ -117,7 +118,7 @@ OOMPolicy=continue
 ```
 {: codeblock-file="/etc/systemd/system/buildkite-agent@.service.d/resource-limits.conf"}
 
-All instances read the same agent configuration file. The `BUILDKITE_AGENT_SPAWN` environment variable takes precedence over the `spawn` setting in that file.
+All instances read the same agent configuration file. The `BUILDKITE_AGENT_SPAWN` and `BUILDKITE_AGENT_SPAWN_PER_CPU` environment variables take precedence over the `spawn` and `spawn-per-cpu` settings in that file. Set both, because a `spawn-per-cpu` value above `0` replaces `spawn` and would start several workers in each instance.
 
 Then replace the `buildkite-agent` service with the number of instances you need. For example, to run three agents:
 
@@ -245,7 +246,7 @@ steps:
 
 A container that exceeds its memory limit is stopped, and the job fails with exit status `137`. Learn more about container limits in the Docker [resource constraints](https://docs.docker.com/engine/containers/resource_constraints/) documentation.
 
-If you [run the agent in a Docker container](/docs/agent/self-hosted/install/docker), limits on the agent container apply to the agent and the jobs running inside it. They don't apply to containers that jobs start through a Docker socket mounted from the host.
+If you [run the agent in a Docker container](/docs/agent/self-hosted/install/docker), limits on the agent container apply to the agent and the jobs running inside it. These limits don't apply to containers that jobs start through a Docker socket mounted from the host.
 
 ### Kubernetes
 
