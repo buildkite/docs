@@ -1,7 +1,7 @@
 # Collecting tests with OpenTelemetry
 
 Buildkite Test Engine can ingest test results and instrumentation using [OpenTelemetry](https://opentelemetry.io/).
-Using OpenTelemetry for ingestion permits the inclusion of trace instrumentation with the basic pass/fail information for each execution, enabling a rich understanding of where your tests are spending their time.
+Using OpenTelemetry for ingestion permits the inclusion of trace instrumentation alongside the basic pass/fail information for each execution. This gives you a richer understanding of where your tests are spending their time.
 
 <%= image "trace.png", width: 814, height: 850, alt: "A Test Engine OpenTelemetry trace" %>
 
