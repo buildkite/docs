@@ -78,14 +78,14 @@ If you don't see branch names, build numbers, or commit hashes in Test Engine, t
 
 The Python collector can send pytest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
 
-Use Python 3.10 or later, pytest 7 or later, and `buildkite-test-collector` version `1.10.0b1` or higher. OpenTelemetry collection is disabled by default. This integration supports suites that do not already configure OpenTelemetry.
+Use Python 3.10 or later, pytest 7 or later, and `buildkite-test-collector` version `1.10.0` or higher. OpenTelemetry collection is disabled by default. This integration supports suites that do not already configure OpenTelemetry.
 
 1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs pytest.
 
 1. Install the collector with its optional OpenTelemetry dependencies:
 
     ```bash
-    python -m pip install "buildkite-test-collector[otel]>=1.10.0b1"
+    python -m pip install "buildkite-test-collector[otel]>=1.10.0"
     ```
 
     The `otel` extra installs the OpenTelemetry SDK and HTTP/protobuf exporter, both version 1.45 or later.
