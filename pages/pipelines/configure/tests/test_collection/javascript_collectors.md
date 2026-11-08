@@ -314,6 +314,75 @@ test: {
 }
 ```
 
+### Collecting Vitest tests with OpenTelemetry
+
+The JavaScript collector can send Vitest results to Buildkite Test Engine as OpenTelemetry spans. Each test becomes a root span, with hook phases, HTTP requests, and custom instrumentation recorded as child spans.
+
+OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default. Use Vitest 4.0.11 or later to collect child spans. Vitest 5 requires Node.js 22.12 or later.
+
+1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Vitest.
+
+1. Install the collector and its optional OpenTelemetry SDK 2.x dependencies:
+
+    ```bash
+    npm install --save-dev buildkite-test-collector@1.14.0 \
+      '@opentelemetry/api@~1.9.0' \
+      '@opentelemetry/sdk-trace-base@^2.0.0' \
+      '@opentelemetry/context-async-hooks@^2.0.0' \
+      '@opentelemetry/exporter-trace-otlp-proto@>=0.200.0 <0.300.0'
+    ```
+
+1. Enable the reporter and native tracing in `vitest.config.js`. Replace an existing Buildkite reporter entry instead of adding a second one:
+
+    ```javascript
+    import { createRequire } from 'node:module';
+    import { defineConfig } from 'vitest/config';
+
+    const require = createRequire(import.meta.url);
+
+    export default defineConfig({
+      test: {
+        reporters: [
+          'default',
+          ['buildkite-test-collector/vitest/reporter', { otelEnabled: true }],
+        ],
+        includeTaskLocation: true,
+        experimental: {
+          openTelemetry: {
+            enabled: true,
+            sdkPath: require.resolve('buildkite-test-collector/vitest/otel.js'),
+          },
+        },
+      },
+    });
+    ```
+
+    `require.resolve` supplies the filesystem path Vitest needs, including with pnpm and Yarn. For a CommonJS configuration, omit `createRequire` and use `require.resolve` directly. For multiple projects, configure tracing in the root configuration. When using Yarn without a `node_modules` directory, declare the dependencies in the root workspace.
+
+1. To capture HTTP and fetch calls, install the supported instrumentation packages:
+
+    ```bash
+    npm install --save-dev \
+      '@opentelemetry/instrumentation-http@>=0.200.0 <0.300.0' \
+      '@opentelemetry/instrumentation-undici@>=0.11.0 <0.34.0'
+    ```
+
+    Vitest supports only the `http` and `undici` instrumentation packages. Declare these dependencies in the project's `package.json` or a parent workspace's `package.json`.
+
+1. Run Vitest with its token and [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) available:
+
+    ```bash
+    npx vitest run
+    ```
+
+    Do not pass `--reporter` flags, which override the reporters in the configuration. Watch mode is not supported.
+
+1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
+
+Retries share one execution per test, with each attempt's phases and child spans underneath. Browser mode and Vitest 3 send test spans only. A custom SDK or missing native tracing configuration also limits collection to test spans. Vitest 1 and 2 do not upload results in OpenTelemetry mode. Configuration or upload failures do not fall back to JSON uploads. To return to JSON reporting, disable `otelEnabled`.
+
+See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#vitest) for more details, including configuration for bktec.
+
 ## Save the changes
 
 When your collector is installed, commit and push your changes:
