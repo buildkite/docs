@@ -84,7 +84,7 @@ To configure Jest:
 
 The JavaScript collector can send Jest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
 
-Use Jest 29 or later with the default `jest-circus` runner. OpenTelemetry collection requires `buildkite-test-collector` version `1.13.0` or later. The setup below uses version `1.14.0`. OpenTelemetry collection is disabled by default and supports Jest only.
+Use Jest 29 or later with the default `jest-circus` runner. OpenTelemetry collection requires `buildkite-test-collector` version `1.13.0` or later. The setup below uses version `1.14.0`. OpenTelemetry collection is disabled by default.
 
 1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Jest.
 
@@ -232,6 +232,49 @@ To configure Playwright:
       ]
     }
     ```
+
+### Collecting Playwright tests with OpenTelemetry
+
+The JavaScript collector can send Playwright results to Buildkite Test Engine as OpenTelemetry spans. Each test attempt, including retries and skipped tests, becomes a root span. Playwright steps, hooks, fixtures, assertions, and actions become nested child spans.
+
+OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default.
+
+1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Playwright.
+
+1. Install the collector and its optional OpenTelemetry SDK 2.x dependencies:
+
+    ```bash
+    npm install --save-dev buildkite-test-collector@1.14.0 \
+      '@opentelemetry/api@~1.9.0' \
+      '@opentelemetry/sdk-trace-base@^2.0.0' \
+      '@opentelemetry/context-async-hooks@^2.0.0' \
+      '@opentelemetry/exporter-trace-otlp-proto@>=0.200.0 <0.300.0'
+    ```
+
+1. Enable OpenTelemetry on the reporter in `playwright.config.js`. Replace an existing Buildkite reporter entry instead of adding a second one:
+
+    ```javascript
+    module.exports = {
+      reporter: [
+        ['line'],
+        ['buildkite-test-collector/playwright/reporter', { otelEnabled: true }],
+      ],
+    };
+    ```
+
+    No fixture changes or custom runtime are needed. Collection happens in the reporter and does not capture automatic HTTP or database spans, manual spans inside workers, or browser application traces.
+
+1. Run Playwright with its token and [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) available:
+
+    ```bash
+    npx playwright test
+    ```
+
+1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
+
+Configuration or upload failures do not fall back to JSON uploads. To return to JSON reporting, disable `otelEnabled`.
+
+See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#playwright) for more details.
 
 ### Vitest
 
