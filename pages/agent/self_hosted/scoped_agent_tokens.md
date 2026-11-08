@@ -86,7 +86,7 @@ The stack does not currently support independently scoped controller and job tok
 
 Start with a new token and a small set of agents. Test checkout, hooks, plugins, and job commands before migrating a larger fleet. Confirm both that permitted actions succeed and that the actions you withheld are denied.
 
-Permission edits can take up to one hour to reach existing agents and running jobs. Re-registration is not required. Removing `run_jobs` can interrupt logs, job completion, and connectivity. Drain agents before making that change; do not use permission edits as immediate credential revocation.
+After a permission change is saved, subsequent requests from connected agents and running jobs use the updated permissions. Re-registration is not required. Removing `run_jobs` can interrupt logs, job completion, and connectivity. Drain agents before making that change.
 
 Queue-access edits apply to new registrations, including registrations using previously issued job acquisition tokens, and to new stack batch JAT issuance. Explicit job acquisition, such as `--acquire-job`, also checks the source token's current queue bindings. Removing queue access after registration can prevent an already-registered agent from acquiring its job, including an agent registered using a JAT. Queue edits do not disconnect existing agents or cancel running jobs.
 
@@ -100,7 +100,7 @@ The following limits also apply:
 
 ## Troubleshooting
 
-A missing action permission returns `403` and names the required permission. Check the source agent token, including the stack token for JAT-backed jobs, and allow for the one-hour propagation window after edits.
+A missing action permission returns `403` and names the required permission. Check the source agent token, including the stack token for JAT-backed jobs.
 
 A queue-access denial during registration returns `401`. Check that the token permits the actual job or agent queue, including the default queue when none is specified. For a JAT-backed registration, the target job determines the queue, not tags supplied by the agent.
 

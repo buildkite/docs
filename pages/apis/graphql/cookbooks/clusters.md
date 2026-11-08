@@ -215,7 +215,7 @@ The `description` argument is required. Supply the token's existing `allowedIpAd
 
 Omit `permissions`, `allowAllQueues`, or `allowedQueueIds` to preserve the corresponding stored value. Supplied permission and queue arrays replace the existing arrays. To switch a restricted token to all queues, send `allowAllQueues: true` and `allowedQueueIds: []` together. Clearing the array while `allowAllQueues` is `false` denies all queues.
 
-Permission changes apply to existing agent sessions and jobs within one hour, without re-registering agents. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance.
+Saved permission changes take effect on subsequent requests from connected agents and running jobs, without re-registration. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance.
 
 Explicit job acquisition also checks current queue bindings. Removing queue access after registration can make the Agent API's `/acquire` endpoint return `404`, including for a JAT-backed agent. Queue edits do not disconnect existing agents or cancel running jobs.
 

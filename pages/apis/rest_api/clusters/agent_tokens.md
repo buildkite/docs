@@ -310,7 +310,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 To switch a restricted token to all queues, send `"allow_all_queues": true` and `"allowed_queue_ids": []` together. Clearing the array while `allow_all_queues` is `false` denies all queues.
 
-Permission changes apply to existing agent sessions and jobs within one hour, without re-registering agents. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance.
+Saved permission changes take effect on subsequent requests from connected agents and running jobs, without re-registration. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance.
 
 Explicit job acquisition also checks current queue bindings. Removing queue access after registration can make the Agent API's `/acquire` endpoint return `404`, including for a JAT-backed agent. Queue edits do not disconnect existing agents or cancel running jobs.
 
