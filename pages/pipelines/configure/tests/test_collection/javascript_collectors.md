@@ -84,14 +84,14 @@ To configure Jest:
 
 The JavaScript collector can send Jest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
 
-Use Jest 29 or later with the default `jest-circus` runner. The setup below uses `buildkite-test-collector` version `1.13.0-beta.4`, available through the npm `beta` tag. OpenTelemetry collection is disabled by default and supports Jest only.
+Use Jest 29 or later with the default `jest-circus` runner. OpenTelemetry collection requires `buildkite-test-collector` version `1.13.0` or later. The setup below uses version `1.14.0`. OpenTelemetry collection is disabled by default and supports Jest only.
 
 1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Jest.
 
 1. Install the collector and its optional OpenTelemetry dependencies:
 
     ```bash
-    npm install --save-dev buildkite-test-collector@1.13.0-beta.4 \
+    npm install --save-dev buildkite-test-collector@1.14.0 \
       '@opentelemetry/api@~1.9.0' \
       '@opentelemetry/sdk-trace-base@^2.0.0' \
       '@opentelemetry/resources@^2.0.0' \
