@@ -2,7 +2,7 @@
 
 An agent token is used to [connect agents to a Buildkite cluster](/docs/pipelines/security/clusters/manage#connect-agents-to-a-cluster).
 
-Use [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) to limit the Agent API actions agents can perform and the queues they can register into.
+Use [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) to limit the Agent API actions agents can perform and the queues where they can register and explicitly acquire jobs.
 
 Authenticate these requests with a personal [API access token](/docs/apis/managing-api-tokens), using the `read_clusters` scope for reads or `write_clusters` for writes. Your user must have the `manage_cluster` permission for the cluster. Creating a token also requires `see_cluster_tokens`. These management permissions are separate from the agent token's `permissions` array.
 
@@ -32,11 +32,11 @@ Authenticate these requests with a personal [API access token](/docs/apis/managi
   </tr>
   <tr>
     <th><code>allow_all_queues</code></th>
-    <td>Whether agents using the token can register with any queue in the cluster.</td>
+    <td>Whether agents using the token can register and explicitly acquire jobs in any queue in the cluster.</td>
   </tr>
   <tr>
     <th><code>allowed_queue_ids</code></th>
-    <td>An array of queue UUIDs in the same cluster. With <code>allow_all_queues: false</code>, agents can register only with these queues. An empty array with <code>allow_all_queues: false</code> denies all queues.</td>
+    <td>An array of queue UUIDs in the same cluster. With <code>allow_all_queues: false</code>, agents can register and explicitly acquire jobs only in these queues. An empty array with <code>allow_all_queues: false</code> denies all queues.</td>
   </tr>
   <tr>
     <th><code>token</code></th>
@@ -299,7 +299,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   </tr>
   <tr>
     <th><code>allow_all_queues</code></th>
-    <td>A boolean that controls whether agents can register with any queue. Omit to preserve the stored value.</td>
+    <td>A boolean that controls whether agents can register and explicitly acquire jobs in any queue. Omit to preserve the stored value.</td>
   </tr>
   <tr>
     <th><code>allowed_queue_ids</code></th>
@@ -310,7 +310,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 To switch a restricted token to all queues, send `"allow_all_queues": true` and `"allowed_queue_ids": []` together. Clearing the array while `allow_all_queues` is `false` denies all queues.
 
-Permission changes apply to existing agent sessions and jobs within one hour, without re-registering agents. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance. Queue changes do not invalidate existing agents or running jobs.
+Permission changes apply to existing agent sessions and jobs within one hour, without re-registering agents. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance.
+
+Explicit job acquisition also checks current queue bindings. Removing queue access after registration can make the Agent API's `/acquire` endpoint return `404`, including for a JAT-backed agent. Queue edits do not disconnect existing agents or cancel running jobs.
 
 Invalid permission or queue settings return `422 Unprocessable Entity` without changing the token. The same validation rules apply as when creating a token. The expiration date cannot be updated; supplying `expires_at` returns `400 Bad Request`.
 

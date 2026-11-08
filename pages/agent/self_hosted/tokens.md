@@ -312,7 +312,7 @@ where:
 
 An agent token belongs to one cluster within a Buildkite organization. By default, new tokens grant all permissions and allow registration into any [queue](/docs/agent/queues) in that cluster. You can restrict permitted API actions and queue access independently using [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens).
 
-Agent tokens cannot be shared between clusters or organizations. Session and job credentials inherit the source agent token's permissions, including when registration uses a job acquisition token. Queue restrictions apply to new registrations and JAT issuance, not every subsequent API operation.
+Agent tokens cannot be shared between clusters or organizations. Session and job credentials inherit the source agent token's permissions, including when registration uses a job acquisition token. Queue restrictions apply to new registrations, JAT issuance, and explicit job acquisition, not every subsequent API operation. Explicit acquisition checks current bindings, so a queue-access edit can prevent an already-registered agent from acquiring a job.
 
 ## Agent token lifetime
 

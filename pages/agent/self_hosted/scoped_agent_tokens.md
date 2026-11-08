@@ -5,7 +5,7 @@ Scoped [agent tokens](/docs/agent/self-hosted/tokens) let you restrict what self
 Each agent token has two independent controls:
 
 - Permissions: the Agent API actions it allows. This allow list is the token's _scope_. Agents and jobs inherit permissions from the token used to register them.
-- Queue access: the [queues](/docs/agent/queues) in its cluster where it can register agents.
+- Queue access: the [queues](/docs/agent/queues) in its cluster where agents using the token can register and explicitly acquire jobs.
 
 Configure these controls on the token, not in pipeline YAML. Jobs that need different permissions must use agents registered with different tokens.
 
@@ -29,7 +29,7 @@ Supply execution tokens to your agents using your existing [token configuration]
 
 Use a dedicated token and queue for trusted jobs that run `buildkite-agent pipeline upload`. Grant that token `run_jobs`, `upload_steps`, and the other permissions those jobs need.
 
-Give lint, test, or documentation agents a separate token without `upload_steps` or `write_steps`. Those jobs cannot upload new steps or update existing steps through the Agent API. Bind each token to its intended registration queues, and keep the trusted token and its infrastructure inaccessible to restricted jobs.
+Give lint, test, or documentation agents a separate token without `upload_steps` or `write_steps`. Those jobs cannot upload new steps or update existing steps through the Agent API. Bind each token to its intended queues, and keep the trusted token and its infrastructure inaccessible to restricted jobs.
 
 <%= image "restricted-permissions.png", width: 1746/2, height: 1480/2, alt: "Token permissions with Run jobs, Write build metadata, and Code repository access selected, and Upload steps and Write steps cleared" %>
 
@@ -72,7 +72,7 @@ Use the [agent-token REST API](/docs/apis/rest-api/clusters/agent-tokens) or the
 
 REST uses `permissions`, `allow_all_queues`, and `allowed_queue_ids`. GraphQL uses `permissions`, `allowAllQueues`, and `allowedQueueIds`. The REST queue identifiers are UUIDs; GraphQL requires encoded `ClusterQueue` IDs.
 
-Omitting permissions on creation grants all current permissions. Omitting them on update preserves the existing scope. An explicit array replaces the scope, and `[]` grants no permission-controlled actions. Queue access is independent: an empty queue selection with all-queues access disabled denies new registrations to every queue.
+Omitting permissions on creation grants all current permissions. Omitting them on update preserves the existing scope. An explicit array replaces the scope, and `[]` grants no permission-controlled actions. Queue access is independent: an empty queue selection with all-queues access disabled denies new registrations and explicit job acquisition in every queue.
 
 The Terraform provider does not currently expose agent-token permissions or queue access.
 
@@ -88,7 +88,9 @@ Start with a new token and a small set of agents. Test checkout, hooks, plugins,
 
 Permission edits can take up to one hour to reach existing agents and running jobs. Re-registration is not required. Removing `run_jobs` can interrupt logs, job completion, and connectivity. Drain agents before making that change; do not use permission edits as immediate credential revocation.
 
-Queue-access edits apply to new registrations, including registrations using previously issued job acquisition tokens, and to new stack batch JAT issuance. Existing agents and running jobs are unchanged. Bindings follow queue identity: renaming a queue preserves access, but deleting and recreating the same queue key does not.
+Queue-access edits apply to new registrations, including registrations using previously issued job acquisition tokens, and to new stack batch JAT issuance. Explicit job acquisition, such as `--acquire-job`, also checks the source token's current queue bindings. Removing queue access after registration can prevent an already-registered agent from acquiring its job, including an agent registered using a JAT. Queue edits do not disconnect existing agents or cancel running jobs.
+
+Bindings follow queue identity: renaming a queue preserves access, but deleting and recreating the same queue key does not.
 
 The following limits also apply:
 
@@ -101,3 +103,5 @@ The following limits also apply:
 A missing action permission returns `403` and names the required permission. Check the source agent token, including the stack token for JAT-backed jobs, and allow for the one-hour propagation window after edits.
 
 A queue-access denial during registration returns `401`. Check that the token permits the actual job or agent queue, including the default queue when none is specified. For a JAT-backed registration, the target job determines the queue, not tags supplied by the agent.
+
+A queue-access denial during explicit job acquisition returns `404` from `/acquire` without assigning the job or returning its payload. This can happen after successful registration if queue access changes. Check that the source token still permits the job's queue before retrying.
