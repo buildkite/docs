@@ -146,7 +146,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "scope": "build",
     "job_id": null,
     "priority": 3,
-    "body": "Read the [uploaded coverage report](artifact://coverage/index.html) :white_check_mark:",
+    "body": "Read the [uploaded coverage report](artifact://coverage/index.html) \:white_check_mark\:",
     "created_at": "2019-04-09T18:07:16.320Z",
     "updated_at": "2019-04-09T18:07:16.320Z"
   }
@@ -157,7 +157,7 @@ A `raw` body is the stored annotation body, which can be Markdown, plain text, o
 
 - Markdown is not converted to HTML.
 - `artifact://` links are not converted to signed artifact URLs.
-- Emoji codes, such as `:white_check_mark:`, are not replaced with emoji.
+- Emoji codes, such as `\:white_check_mark\:`, are not replaced with emoji.
 
 This value is the same as the `text` field of the [`AnnotationBody`](/docs/apis/graphql/schemas/object/annotationbody) object in the GraphQL API.
 
