@@ -6,7 +6,7 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 ## Conditionals in pipelines
 
-You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the pipeline's **Settings** page for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the main branch:
+To filter incoming webhooks before a build is created, use **Filter builds using a conditional** on the pipeline's **Settings** page for your repository provider. Builds are created only when the expression evaluates to `true`. Unlike step-level conditions, this setting controls build creation rather than which steps run. For example, to run only when a pull request is targeting the main branch:
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
