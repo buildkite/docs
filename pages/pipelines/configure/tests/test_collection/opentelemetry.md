@@ -5,12 +5,12 @@ Using OpenTelemetry for ingestion permits the inclusion of trace instrumentation
 
 <%= image "trace.png", width: 814, height: 850, alt: "A Test Engine OpenTelemetry trace" %>
 
-In addition to viewing trace detail on individual test executions, you can also assess aggregated trace information across builds, and across an entire test suite. This allows hot paths to be identified that may not show up in isolation, but have a cumulative cost across the whole suite.
+In addition to viewing trace detail on individual test executions, you can also assess aggregated trace information across builds and across an entire test suite. Use this information to identify hot paths that may not show up in isolation but have a cumulative cost across the whole suite.
 
 <%= image "span_aggregates.png", width: 1122, height: 719, alt: "A summary of OpenTelemetry spans for a build" %>
 
 Some of the [Test Engine test collection libraries](https://github.com/buildkite/bktest) support OpenTelemetry.
-It is also possible to implement OpenTelemetry test ingestion without using a Buildkite Collector, see below.
+You can also implement OpenTelemetry test ingestion without using a Buildkite collector, as described below.
 
 For collector setup instructions, see [Collecting Jest tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-collecting-jest-tests-with-opentelemetry), [Collecting Playwright tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-collecting-playwright-tests-with-opentelemetry), [Collecting Vitest tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/javascript-collectors#configure-the-test-framework-collecting-vitest-tests-with-opentelemetry), [Collecting pytest tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/python-collectors#pytest-collector-collecting-pytest-tests-with-opentelemetry), or [Collecting RSpec tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/ruby-collectors#collecting-rspec-tests-with-opentelemetry).
 
@@ -33,7 +33,7 @@ If you are using OpenTelemetry for instrumentation, you must use OpenTelemetry f
 
 In your test runner's hooks, start a new root span for each execution and end it after the test and its cleanup finish. Each execution must have its own trace, with no parent span. Create instrumented child spans while that root span is active so they share its trace ID.
 
-Set these attributes on each root span
+Set these attributes on each root span:
 
 Attribute | Description
 --------- | -----------
