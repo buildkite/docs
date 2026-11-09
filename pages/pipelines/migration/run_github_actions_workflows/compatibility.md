@@ -1050,7 +1050,7 @@ strategy:
         os: ubuntu-24.04
 ```
 
-Ordinary job matrices accept literal or compile-time `max-parallel` expressions producing a positive integer. Expressions can use supported `github` values, static inputs, and repository or organization `vars`, but not `matrix` or `strategy`. For example, use `${{ inputs.parallel }}` for a numeric input or `${{ fromJSON(vars.PARALLEL) }}` for a numeric string. Unresolved values and nonnumeric results are rejected. [Matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs) retain their separate dynamic form and limits.
+Ordinary job matrices accept literal or compile-time `max-parallel` expressions producing a positive integer. Expressions can use supported `github` values, static inputs, and repository or organization `vars`, but not `matrix` or `strategy`. For example, use `${{ inputs.parallel }}` for a numeric input or `${{ fromJSON(vars.PARALLEL) }}` for a numeric string. Unresolved values and results that are not numbers are rejected. [Matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs) retain their separate dynamic form and limits.
 
 Call matrices with multiple instances can't use `max-parallel`, because invocation-level parallelism can't be preserved. Expression-valued `max-parallel` on a reusable workflow invocation is unsupported. Jobs inside the called workflow can use its static inputs in timeout and parallelism expressions. Static call and callee matrices compose, including nested calls.
 
