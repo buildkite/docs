@@ -1284,6 +1284,7 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 | Context | Job condition | Step condition |
 | --- | --- | --- |
 | `github.actor`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_owner`, `sha`, `workflow_ref`, `workflow_sha` | Yes | Yes |
+| `github.actor_id`, `repository_id`, `repository_owner_id` | Yes, when the event supplies matching [identity IDs](#expressions-and-contexts-github-identity-ids), including reusable-workflow calls. | Yes, including composite steps. |
 | `github.event`, including projected/dynamic properties | Yes | Yes |
 | `github.server_url` | No | Composite steps only, from v0.105.0. |
 | `github.run_attempt` | Yes, including reusable-workflow calls. | Yes, including composite steps. |
@@ -1343,6 +1344,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | Retained runtime context | Value |
 | --- | --- |
 | `github.actor`, `event_name`, `ref`, `repository`, `sha` | Event identity. |
+| `github.actor_id`, `repository_id`, `repository_owner_id` | String IDs from the original GitHub event; see [identity IDs](#expressions-and-contexts-github-identity-ids). |
 | `github.repository_owner` | Owner from repository identity. |
 | `github.server_url` | Event repository provider URL. |
 | `github.api_url`, `github.graphql_url` | GitHub API URLs. GHES uses the event server URL with `/api/v3` and `/api/graphql`. |
@@ -1391,6 +1393,21 @@ Hashing uses SHA-256 file digests in lexical path order; multi-file results can 
 
 Traversal starts at each positive pattern's literal prefix. Negative patterns don't prune traversal. [Entry and time budgets](#limits-and-troubleshooting-key-limits) count inspected nonmatching entries and cover traversal, matching, sorting, hashing, and verification. Use narrower positive paths after a budget failure. Earlier deadlines and cancellation still apply; blocked filesystem calls can't be interrupted between operations. Errors identify step/field context and affected patterns.
 
+### GitHub identity IDs
+
+Use `github.actor_id`, `github.repository_id`, and `github.repository_owner_id` in supported compile-time fields, runtime fields, action input defaults, and conditions, including JavaScript lifecycle conditions. Values are strings from the original GitHub event:
+
+| Context | Event data |
+| --- | --- |
+| `github.actor_id` | `sender.id`, when `sender.login` matches the event actor. |
+| `github.repository_id` | `repository.id`, when `repository.full_name` matches the event repository. |
+| `github.repository_owner_id` | `repository.owner.id`, when the repository and owner login match the event identity. |
+{: class="responsive-table"}
+
+Names match case-insensitively. The event must contain positive integer IDs. Missing or mismatched identity data causes an evaluated ID reference to fail; `||` cannot supply a fallback for this error. Linked webhooks and explicit event snapshots can supply IDs. Buildkite Pipelines user IDs, names, and environment fallback values are not substitutes. These expressions don't populate `GITHUB_ACTOR_ID`, `GITHUB_REPOSITORY_ID`, or `GITHUB_REPOSITORY_OWNER_ID`; pass values through `env` when a command needs them.
+
+ID access doesn't grant token permissions or make a context available in a previously unsupported field. `github.triggering_actor` and `github.ref_protected` remain unsupported.
+
 ### Event file
 
 With a linked webhook or explicit event snapshot, the complete event payload is available as a JSON file. Access its path with either the `GITHUB_EVENT_PATH` environment variable or the `${{ github.event_path }}` expression.
@@ -1415,7 +1432,7 @@ See [event payload security](/docs/pipelines/migration/run-github-actions-workfl
 
 ### Compile-time expressions
 
-Statically resolvable fields support `github.actor`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_owner`, `sha`, and `workflow`, plus event data and the field-specific matrix, input, strategy, and variable contexts described above. Workflow concurrency has the additional [build-ID exception](#workflow-syntax-reference-concurrency) from v0.106.0. Computed indexes and projections work only when the complete value resolves before execution. Whole/dynamic `github` requires an event root. Action and workflow `uses` references remain static, regardless of event data.
+Statically resolvable fields support `github.actor`, `actor_id`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_id`, `repository_owner`, `repository_owner_id`, `sha`, and `workflow`, plus event data and the field-specific matrix, input, strategy, and variable contexts described above. The ID fields require matching [event identity data](#expressions-and-contexts-github-identity-ids). Workflow concurrency has the additional [build-ID exception](#workflow-syntax-reference-concurrency) from v0.106.0. Computed indexes and projections work only when the complete value resolves before execution. Whole/dynamic `github` requires an event root. Action and workflow `uses` references remain static, regardless of event data.
 
 <a id="runtime-behavior-and-limits"></a>
 
