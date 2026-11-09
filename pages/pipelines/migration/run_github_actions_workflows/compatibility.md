@@ -942,7 +942,7 @@ Jobs support static dependencies, outputs, runner selection, matrices, configura
 | `if` | Evaluated before the job starts; see [conditions](#expressions-and-contexts-conditions). |
 | `outputs` | [Output expressions](#expressions-and-contexts-runtime-interpolation) for downstream `needs`. Ambiguous matrix values fail rather than selecting a winner. See [size limits](#limits-and-troubleshooting-key-limits). |
 | `env`, `defaults.run` | [Normal precedence and field-specific expressions](#workflow-syntax-reference-environment-and-defaults). |
-| `timeout-minutes` | Literal number, at most 360. Expressions are rejected. |
+| `timeout-minutes` | Literal or compile-time expression producing a number greater than zero and at most 360, including fractional minutes. Expressions can use supported `github` values, static inputs, repository or organization `vars`, and concrete `matrix` and `strategy` values. Direct `needs` and deferred reusable inputs are unsupported. |
 | `continue-on-error` | Boolean literal or Boolean-valued expression. Tolerated failures remain visible as soft failures but report downstream success. |
 | `environment` | Literal top-level-job environment, resolved during compilation. |
 | `snapshot` | Accepted, no effect. Custom image creation isn't implemented. |
@@ -1050,7 +1050,9 @@ strategy:
         os: ubuntu-24.04
 ```
 
-Ordinary job matrices accept literal `max-parallel`; [matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs) provide a limited dynamic form. Call matrices with multiple instances can't use `max-parallel`, because invocation-level parallelism can't be preserved. Static call and callee matrices compose, including nested calls.
+Ordinary job matrices accept literal or compile-time `max-parallel` expressions producing a positive integer. Expressions can use supported `github` values, static inputs, and repository or organization `vars`, but not `matrix` or `strategy`. For example, use `${{ inputs.parallel }}` for a numeric input or `${{ fromJSON(vars.PARALLEL) }}` for a numeric string. Unresolved values and results that are not numbers are rejected. [Matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs) retain their separate dynamic form and limits.
+
+Call matrices with multiple instances can't use `max-parallel`, because invocation-level parallelism can't be preserved. Expression-valued `max-parallel` on a reusable workflow invocation is unsupported. Jobs inside the called workflow can use its static inputs in timeout and parallelism expressions. Static call and callee matrices compose, including nested calls.
 
 `fail-fast` is accepted but has no cancellation effect. Scalar `strategy` properties report `job-index` (zero-based final expansion order), `job-total`, configured `fail-fast` (default `true`), and `max-parallel` (default final row count). A non-matrix job uses index zero, total one, and parallel limit one. Reporting `fail-fast: true` doesn't enable it.
 
