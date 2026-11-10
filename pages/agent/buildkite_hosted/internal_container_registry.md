@@ -14,44 +14,9 @@ You can use built-in tools in your Buildkite hosted agents, such as [Docker Engi
 
 ## Using your internal container registry
 
-The following example pipeline demonstrates how to build and push a custom Docker image (customized using a `.buildkite/Dockerfile.build` file) to your internal container registry. Once the built image has been pushed up to this registry, the pipeline then uses this image as the base image for its next step, [parallelized](/docs/pipelines/best-practices/parallel-builds#parallel-jobs) into three jobs.
+Build and push images from your pipeline with Docker, using `BUILDKITE_HOSTED_REGISTRY_URL` as the registry URL. Jobs on Buildkite hosted agents can access their cluster's internal container registry without logging in.
 
-```yaml
-agents:
-  # Must run on a hosted queue
-  queue: "linux-small"
-
-steps:
-  - key: create_custom_base_image
-    label: "\:docker\: Create custom base image"
-    # Optionally only build on main branch
-    # if: build.branch == "main"
-    if_changed:
-      - ".buildkite/Dockerfile.build"
-      - ".buildkite/pipeline.yml"
-    # Use the agent image specified in the queue settings for this step
-    # Build and push a new image to the internal registry
-    # Optionally add --no-cache to rebuild from scratch
-    # without using cached layers
-    command: |
-      docker buildx build \
-        --file .buildkite/Dockerfile.build \
-        --build-arg BUILDKITE_BUILD_NUMBER="$$BUILDKITE_BUILD_NUMBER" \
-        --platform linux/amd64 \
-        --tag "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest" \
-        --progress plain \
-        --push .
-
-  - key: use_custom_base_image
-    label: ":package: Use custom base image"
-    # Use the latest custom built image from the internal registry
-    image: "${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
-    parallelism: 3
-    depends_on: create_custom_base_image
-    command: |
-      echo "Using ${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest built from Build #$(cat /build-number-marker)"
-```
-{: codeblock-file=".buildkite/pipeline.yml"}
+For a complete Dockerfile and pipeline example that builds, pushes, and runs jobs with a custom image, see [Create an agent image](/docs/agent/buildkite-hosted/linux/custom-agent-images#create-an-agent-image).
 
 ## Using your internal container registry as a Docker layer cache
 
