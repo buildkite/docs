@@ -51,7 +51,7 @@ Define a Dockerfile with the tools your jobs need, then add a pipeline step to b
 
     The first step builds and pushes the image using the queue's default agent image. The second step waits for the image to be pushed, then uses it to run three [parallel jobs](/docs/pipelines/best-practices/parallel-builds#parallel-jobs).
 
-Build the image for the architecture of the queue that will run it. For a Linux ARM64 hosted queue, change `--platform linux/amd64` to `--platform linux/arm64` and set `queue` to that queue's key. Keep the build and consuming steps in the same [cluster](/docs/pipelines/security/clusters), since each internal container registry belongs to a single cluster.
+Build the image for the architecture of the queue that will run it. For a Linux ARM64 hosted queue, change `--platform linux/amd64` to `--platform linux/arm64` and set `queue` to that queue's key. Keep the build and consuming steps in the same [cluster](/docs/pipelines/security/clusters). Each internal container registry belongs to a single cluster.
 
 ### Using agent hooks
 
