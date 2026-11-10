@@ -21,7 +21,7 @@ tokens:
     prefix: bkct_
     usage: Self-hosted agents register with a cluster using `BUILDKITE_AGENT_TOKEN`.
     scope: Any queue in one cluster.
-    lifetime: No expiry when created in the Buildkite interface. An optional expiry, at least 10 minutes in the future, can be set when created using the API.
+    lifetime: The **Token Expiry** selected at creation in the Buildkite interface, which defaults to **Never** (no expiry). An optional expiry, at least 10 minutes in the future, can be set when created using the API.
   - key: unclustered_agent_token
     name: Unclustered agent token
     url: /docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens

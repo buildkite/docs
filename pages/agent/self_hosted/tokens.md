@@ -45,6 +45,10 @@ To create an agent token for a cluster using the Buildkite interface:
 
     **Note:** Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
+1. Select a **Token Expiry** duration, or keep the default of **Never** so the token doesn't expire. Choose a preset duration, or select **Custom** to enter a specific expiry date.
+
+    **Note:** A token's expiry can't be changed after it's created. To use a different expiry, revoke the token and [create a new one](#create-a-token-using-the-buildkite-interface).
+
 1. Select **Create Token**.
 
     Follow the instructions to copy and save your token to a secure location and select **Okay, I'm done!**. The new agent token appears on the cluster's **Agent Tokens** page.
@@ -308,18 +312,18 @@ An agent token is specific to the cluster it was associated with when created (w
 
 ## Agent token lifetime
 
-Agent tokens [created using the Buildkite interface](#create-a-token-using-the-buildkite-interface) do not expire and need to be rotated manually.
+When you [create an agent token using the Buildkite interface](#create-a-token-using-the-buildkite-interface), select a **Token Expiry** duration to set when the token expires, or keep the default of **Never** so the token doesn't expire and needs to be rotated manually. The shortest preset duration is 24 hours, and choosing **Custom** lets you pick any date tomorrow or later.
 
-However, using Buildkite's APIs, you can specify an optional expiration date attribute with a timestamp value in your API call to create an agent token—[`expires_at` using the REST API](#create-a-token-using-the-rest-api) or [`expiresAt` using the GraphQL API](#create-a-token-using-the-graphql-api). The ability to set an expiration timestamp on an agent token is a security compliance and token lifecycle management feature, which allows you to implement an automated token rotation process using the Buildkite API, replacing any previous, more manual rotation processes for long-lived agent tokens. Note that the existing agent tokens will continue to work without expiration, unless they are manually revoked.
+Alternatively, using the Buildkite APIs, you can specify an optional expiration date attribute with a timestamp value in your API call to create an agent token—[`expires_at` using the REST API](#create-a-token-using-the-rest-api) or [`expiresAt` using the GraphQL API](#create-a-token-using-the-graphql-api). The ability to set an expiration timestamp on an agent token is a security compliance and token lifecycle management feature, which allows you to implement an automated token rotation process using the Buildkite API, replacing any previous, more manual rotation processes for long-lived agent tokens. Existing agent tokens will continue to work without expiration, unless they are manually revoked.
 
-There is no maximum expiration duration for an agent token, although a minimum of 10 minutes from the current time is required. After an agent token has expired, it is displayed with the following message in the Buildkite interface:
+There is no maximum expiration duration for an agent token, although the API requires a minimum of 10 minutes from the current time. After an agent token has expired, it is displayed with the following message in the Buildkite interface:
 
 ⚠️ **This token expired on ...**
 
 An expired agent token will prevent agents configured with this token from being able to re-connect to its Buildkite cluster. However, agents currently connected to their cluster at the time of expiration won't be affected.
 
 > 📘 Agent token expiration format
-> The timestamp must be set in ISO8601 format (for example, `2025-01-01T00:00:00Z`). This timestamp value cannot be changed on an existing agent token. An error is returned if an attempt is made to update the expiration date field of an existing agent token.
+> When using the API, the timestamp must be set in ISO8601 format (for example, `2025-01-01T00:00:00Z`). An expiration date cannot be changed on an existing agent token, regardless of whether it was created using the Buildkite interface or the API. An error is returned if an attempt is made to update the expiration date field of an existing agent token.
 
 ## Additional agent tokens
 
@@ -365,7 +369,7 @@ When an agent starts, it follows the token exchange process:
     <td>Agent token</td>
     <td>Buildkite organization admin or cluster maintainer</td>
     <td>Initial agent registration and authentication.</td>
-    <td>Forever unless expiration date is set during creation with GraphQL or REST API, or is manually revoked.</td>
+    <td>Until the expiry selected at creation in the Buildkite interface or set using the GraphQL or REST API, or until manually revoked. The interface defaults to <strong>Never</strong> (no expiry).</td>
   </tr>
   <tr>
     <td>Session token (internal)</td>
