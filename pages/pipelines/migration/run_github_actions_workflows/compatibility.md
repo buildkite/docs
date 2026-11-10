@@ -107,7 +107,7 @@ Other selectors use the complete Agent API target and any fallback warnings. Eli
 
 | Runner rejection | Next step |
 | --- | --- |
-| `missing_queue` | Create the named hosted queue or configure a compatible mapping. |
+| `missing_queue` | Use **Set up queue** when offered, then [run the workflow again](#runners-and-tools-set-up-a-missing-queue). Otherwise, create the named hosted queue or configure a compatible mapping. |
 | `incompatible_labels` | Correct unsupported labels; for Windows, also check that your plan includes Windows hosted agents. |
 | `no_cluster` | Use a cluster containing compatible queues. |
 | `queue_not_found` | Correct the mapping to an active queue in the importing cluster. |
@@ -117,6 +117,17 @@ Other selectors use the complete Agent API target and any fallback warnings. Eli
 An explicit rejection doesn't fall back to presets. Without mappings, an unreachable API can warn and fall back to local presets: `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, and `macos-latest`. Linux presets use corresponding Noble or Jammy hosted-toolchains images; configured immutable images can override them. Offline `validate` and `compile` don't verify cluster queues. `validate --profile hosted` admits only these local presets.
 
 An advanced custom importer's explicit mapping can attach one [hosted cache volume](/docs/agent/buildkite-hosted/cache-volumes), outside workflow syntax. Job containers and Windows jobs don't support these volumes.
+
+### Set up a missing queue
+
+When a `missing_queue` diagnostic identifies an absent hosted preset queue, **Set up queue** opens the cluster's [recommended queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-add-recommended-queues). To create the queue, you must be a cluster maintainer or Buildkite organization administrator.
+
+1. Select **Set up queue** in the diagnostic.
+1. Review the required queue, which is selected automatically if it is still missing and allowed by your organization's current plan and policy. Other recommendations remain unselected.
+1. Select **Create 1 queue**.
+1. Return to the build and rebuild it to run workflow preparation again. For GitHub Enterprise Server pipelines, use a matching workflow event instead; [native rebuilds are not supported](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
+
+Creating the queue does not resume or retry the failed diagnostic job. The setup link is not a remedy for unsupported runner labels, incompatible existing queues, or invalid explicit mappings. Correct those separately using the diagnostics above.
 
 <a id="runtime-behavior-and-limits-runner-tools"></a>
 
@@ -159,7 +170,7 @@ Runner resolution doesn't provision queues, grant access, or bypass trust policy
 | Diagnostic | Next step |
 | --- | --- |
 | No Windows runner target is configured | Check that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue. Offline validation has no Windows preset; this failure alone doesn't establish runtime incompatibility. |
-| `missing_queue` | Check the importing cluster and hosted queue requirements, or map a compatible existing queue. |
+| `missing_queue` | [Set up the missing queue](#runners-and-tools-set-up-a-missing-queue), check the importing cluster and hosted queue requirements, or map a compatible existing queue. |
 | `no_cluster` | Move the pipeline to a cluster containing compatible queues. |
 | Queue not found or platform mismatch | Correct the mapping to an active compatible queue in that cluster. |
 | Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check that your plan includes Windows hosted agents. |

@@ -110,6 +110,44 @@ Required scope: `read_clusters`
 
 Success response: `200 OK`
 
+## List queue recommendations
+
+Returns missing hosted queue presets allowed by your organization's current plan and policy. The response is a bounded array of queue creation objects, not a paginated list of existing queues. Existing queue keys are excluded, and this request does not create or change any queues.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/recommendations"
+```
+
+Example response:
+
+```json
+[
+  {
+    "key": "linux-arm64-medium",
+    "hostedAgents": {
+      "instanceShape": "linux_arm64_4x16"
+    }
+  },
+  {
+    "key": "windows-medium",
+    "hostedAgents": {
+      "instanceShape": "windows_amd64_4x16"
+    }
+  }
+]
+```
+
+Each object includes `key` and `hostedAgents.instanceShape`. Presets pinned to a macOS version also include `hostedAgents.macosVersion`. An empty array means there are no missing eligible presets.
+
+To create a recommended queue, send its object unchanged as the request body to [Create a Buildkite hosted queue](#create-a-buildkite-hosted-queue). Send a separate `POST` request for each queue you choose, using a token with the `write_clusters` scope. Do not submit the array as a bulk creation request. Creating these queues leaves existing queues and the cluster's default queue unchanged.
+
+Required scope: `read_clusters`
+
+Required permission: `manage_cluster` on the cluster. The token's user must be a cluster maintainer or Buildkite organization administrator.
+
+Success response: `200 OK`
+
 ## Get a queue
 
 ```bash

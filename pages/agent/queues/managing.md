@@ -157,6 +157,19 @@ To create a new Buildkite hosted queue using the Buildkite interface:
 
     The new queue's details are displayed, indicating the queue's key and its description (if configured) underneath this key. Select **Queues** on the interface again to list all configured queues in your cluster.
 
+### Add recommended queues
+
+To add missing hosted queues with preset keys and instance shapes, a cluster maintainer or Buildkite organization administrator can review the recommendations for any cluster:
+
+1. Select **Agents** in the global navigation, then select the cluster.
+1. On the **Queues** page, select **New Queue** > **Add recommended queues**. If the **Review queues** suggestion appears on the **Queues** page, you can select it instead.
+1. Select the queues you want to add. The review page groups missing hosted presets by platform and architecture, and only includes presets allowed by your organization's current plan and policy. No queues are selected by default.
+1. Select **Create 1 queue** or **Create N queues**, depending on the number of selected queues.
+
+Existing queues, their keys, and the cluster's default queue remain unchanged. If some queues cannot be created, successfully created queues remain available. Review the errors and retry the failed selections.
+
+You can also [list queue recommendations using the REST API](/docs/apis/rest-api/clusters/queues#list-queue-recommendations) and create each selected queue separately.
+
 ### Using the REST API
 
 To [create a new Buildkite hosted queue](/docs/apis/rest-api/clusters/queues#create-a-buildkite-hosted-queue) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
