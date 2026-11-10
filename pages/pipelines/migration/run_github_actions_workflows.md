@@ -260,7 +260,7 @@ See the [macOS hosted agent images and software](/docs/agent/buildkite-hosted/ma
 
 ### Run Linux arm64 jobs
 
-The runtime supports Linux arm64 jobs, but Linux arm64 labels don't have automatic queue resolution. Contact the Buildkite Support team to discuss the required queue mapping before using these labels in a GitHub Actions pipeline. A label alone doesn't provision a queue or enable x86-64 emulation.
+Use a [supported Linux arm64 runner label](/docs/pipelines/migration/run-github-actions-workflows/compatibility#runners-and-tools-queue-selection-and-mappings), such as `ubuntu-24.04-arm`, with the required hosted queue. A label alone doesn't provision a queue or enable x86-64 emulation.
 
 ### Run Windows jobs
 

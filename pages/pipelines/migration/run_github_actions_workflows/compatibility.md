@@ -20,7 +20,7 @@ Use this table to identify migration work, then check the linked restrictions an
 
 | Feature | Support | Main restriction or setup | Details |
 | --- | --- | --- | --- |
-| Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+; Linux arm64 needs an explicit queue mapping and support contact for native setup. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
+| Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+ and a compatible queue. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
 | Events and filters | Listed events and bounded filters | Native manual runs require matching `push` without `workflow_dispatch`. Delivery can require backend support and webhook setup. Path filters need linked data and local history. | [Events and triggers](#events-and-triggers) |
 | Actions | Local and public JavaScript/composite actions; Linux Docker actions | Private actions and direct workflow `docker://` calls are unsupported. Admission doesn't guarantee GitHub service access. | [Action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) |
 | Checkout | Native adapter for the event repository | Pull requests check out the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
@@ -93,13 +93,25 @@ Admission isn't execution, and a runtime release isn't proof of the version sele
 
 ## Runners and tools
 
-Buildkite agent v3.129 or newer is required. Generated jobs support Linux x86-64, Linux arm64 with an explicit queue mapping, native macOS arm64, and Windows Server 2022 x86-64. Contact the Buildkite Support team for Linux arm64 mapping in native pipeline setup. Buildkite Pipelines manages workflow preparation on Linux x86-64 or macOS arm64; an advanced custom importer can also run on Linux arm64. Windows agents run generated jobs only.
+Buildkite agent v3.129 or newer is required. Generated jobs support Linux x86-64, Linux arm64, native macOS arm64, and Windows Server 2022 x86-64. Buildkite Pipelines manages workflow preparation on Linux x86-64 or macOS arm64; an advanced custom importer can also run on Linux arm64. Windows agents run generated jobs only.
 
 ### Queue selection and mappings
 
 Native pipeline setup uses automatic runner resolution and doesn't expose custom mappings or generated-job cache volume configuration. Contact the Buildkite Support team if automatic resolution doesn't meet your requirements. Workflow-level caching is described under [Cache action](#actions-artifacts-and-caching-cache-action).
 
-Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes) to override automatic selection. They declare Linux x86-64 except for known Linux arm64 labels (`ubuntu-24.04-arm`, `ubuntu-22.04-arm`, and suffixes `-arm64` or `-aarch64`), known macOS labels, and Windows labels. Linux arm64 requires an explicit queue; arm64, macOS, and Windows mappings reject images. macOS x86-64 is unsupported.
+`ubuntu-26.04-arm`, `ubuntu-24.04-arm`, `ubuntu-22.04-arm`, and their `-arm64` aliases automatically select an active hosted Linux arm64 queue named `linux-arm64-medium` in the importing job's cluster. These labels use the queue's existing image, not a GitHub Ubuntu image. If the queue is absent, import reports `missing_queue`; it doesn't fall back to Linux x86-64.
+
+The following competitor labels select the same ARM64 queue. A warning explains that provider CPU, memory, disk, caches, and networking are not preserved. Only the listed versions and sizes are recognized; custom suffixes and compound selectors are not included.
+
+| Provider | Label forms | Versions and sizes |
+| --- | --- | --- |
+| [Depot](https://depot.dev/docs/github-actions/runner-types) | `depot-ubuntu-<version>-arm`, optionally followed by `-<size>` | Versions `22.04`, `24.04`; sizes `4`, `8`, `16`, `32`, `64` |
+| [Blacksmith](https://docs.blacksmith.sh/blacksmith-runners/overview) | `blacksmith-<size>vcpu-ubuntu-<version>-arm` | Versions `2204`, `2404`, `2604`; sizes `2`, `4`, `8`, `16`, `32` |
+| [WarpBuild](https://www.warpbuild.com/docs/ci/cloud-runners) | `warp-ubuntu-<version>-arm64-<size>x` | Versions `latest`, `2404`, `2604`; sizes `2`, `4`, `8`, `16`, `32`; also `warp-ubuntu-2604-arm64-6x-xfast` and `warp-ubuntu-2604-arm64-12x-xfast` (Linux, not macOS) |
+| [Ubicloud](https://www.ubicloud.com/docs/github-actions-integration/runner-types) | `ubicloud-arm`; `ubicloud-standard-<size>-arm`, optionally followed by `-ubuntu-<version>` | Versions `2204`, `2404`, `2604`; sizes `2`, `4`, `8`, `16`, `30` |
+{: class="responsive-table"}
+
+Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes) to override automatic selection. The Ubuntu and competitor ARM64 labels above, `arm64`, `aarch64`, and labels ending in `-arm64` or `-aarch64` declare Linux arm64. Known macOS and Windows labels declare their respective platforms. Custom labels default to Linux x86-64. Linux arm64, macOS, and Windows mappings reject images. macOS x86-64 is unsupported.
 
 During upload the job-scoped Agent API validates mapped queues in the importing cluster, including OS and architecture for hosted queues. Self-hosted validation checks existence only; operators must supply the declared platform. Mapped queue, image, and cache settings are preserved. Mapping validation must be acknowledged by a compatible backend or import fails.
 
