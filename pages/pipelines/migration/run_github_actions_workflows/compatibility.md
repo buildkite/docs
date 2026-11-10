@@ -31,7 +31,7 @@ Use this table to identify migration work, then check the linked restrictions an
 | Deployment environments | Literal top-level-job names and approval gates | GitHub reviewer identity isn't enforced; several protection rules are rejected. URL is accepted but ignored; no deployment records are created. | [Deployment environments](#credentials-and-deployments-deployment-environments) |
 | Reusable workflows | Local, public, and approved private sources | Four-level nesting; private source access is off by default in native setup and requires support contact. Remote secret forwarding is unsupported. | [Reusable workflows](#workflow-syntax-reference-reusable-workflows) |
 | Jobs, matrices, steps, and expressions | Listed syntax and bounded dynamic forms | Context access varies by field. Deferred expansion has source, graph, and scheduling limits. | [Workflow syntax reference](#workflow-syntax-reference), [jobs](#job-syntax), [steps](#step-syntax), [expressions](#expressions-and-contexts) |
-| Concurrency and fail-fast | Queued concurrency groups; fail-fast syntax accepted | Workflow `cancel-in-progress: true` warns but doesn't cancel. Matrix `fail-fast` has no cancellation effect. | [Concurrency](#workflow-syntax-reference-concurrency), [matrices](#job-syntax-matrix-strategies) |
+| Concurrency and fail-fast | Job cancellation and best-effort workflow cancellation; fail-fast syntax accepted | Workflow cancellation can leave older jobs running. Matrix `fail-fast` has no cancellation effect. | [Concurrency](#workflow-syntax-reference-concurrency), [matrices](#job-syntax-matrix-strategies) |
 {: class="responsive-table"}
 
 <a id="how-workflows-run-on-buildkite-pipelines"></a>
@@ -57,7 +57,7 @@ Check these differences before migrating:
 - **Secrets and tokens:** GitHub secrets aren't copied. Migrate them to [Buildkite Secrets](#credentials-and-deployments-other-secrets-and-oidc). Public [GitHub workflow-token support](#credentials-and-deployments-github-token) requires eligible hosted jobs and the pipeline's token setting enabled; immutable top-level [permissions](#credentials-and-deployments-permissions) apply to every receiving job.
 - **Cloud identity:** OIDC uses the [Buildkite issuer and claims](#credentials-and-deployments-other-secrets-and-oidc), not GitHub's. Update cloud trust before deploying.
 - **Deployment approval:** [Environment gates](#credentials-and-deployments-deployment-environments) don't enforce GitHub reviewer lists, self-review restrictions, or administrator bypass. Any user who can unblock the pipeline can approve.
-- **Cancellation:** Workflow [cancel-in-progress](#workflow-syntax-reference-concurrency) doesn't cancel superseded builds. Matrix `fail-fast` is accepted but has no cancellation effect.
+- **Cancellation:** Workflow [cancel-in-progress](#workflow-syntax-reference-concurrency) is best-effort, not whole-build cancellation. Already admitted jobs can continue and overlap with a newer workflow. Matrix `fail-fast` is accepted but has no cancellation effect.
 - **Trigger coverage:** `pull_request_target` is intentionally unsupported. Pipeline triggers don't support `repository_dispatch`, `workflow_run`, `check_run`, or `check_suite`. Check [event delivery and filtering](#events-and-triggers), including accepted-but-ignored filters, rather than assuming every GitHub trigger runs.
 
 <a id="validation"></a>
@@ -927,13 +927,21 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 ```
 
-Buildkite Pipelines queues every waiting entry rather than replacing GitHub's pending entry. `queue` is unsupported. Workflow-level `cancel-in-progress: true`, including a true expression, warns and leaves superseded builds running. Job-level `cancel-in-progress` is unsupported.
+`cancel-in-progress` accepts `true`, `false`, or an expression that resolves to a boolean. Expressions support compile-time `github`, `vars`, static reusable inputs, supported operators and pure functions, and job-level concrete `matrix` and `strategy` values. Job cancellation also works after deferred matrix expansion, including with a matrix-producer-derived group. Cancellation expressions can't read `needs`, deferred reusable inputs, or `github.run_id`.
+
+Job-level cancellation maps each expanded job to a Buildkite Pipelines job in the same group with a limit of one. When an opted-in job becomes concurrency-limited, Pipelines asynchronously selects the last opted-in limited request in scheduling order. It cancels queued predecessors, then occupied blockers, until enough capacity is expected to be released. Earlier jobs don't need to opt in. This isn't an atomic latest-wins guarantee. Matrix jobs sharing one group can cancel each other; include a matrix value in the group to keep variants separate.
+
+Jobs don't request cancellation when compilation proves their condition or an inherited reusable-call condition false. Conditions left for runtime can't prevent a request: Pipelines enforces concurrency before the runner evaluates them, so a job that later skips can still cancel other jobs.
+
+Workflow-level cancellation uses the generated opening concurrency gate only. A newer opener can cancel older gate steps and release the queue, but jobs whose opening gate already passed can continue or start later. Old and new workflows can overlap. The closing gate never requests cancellation. `W_WORKFLOW_CONCURRENCY_CANCEL_IN_PROGRESS_BEST_EFFORT` reports this difference. Use job-level groups when individual stale jobs must be cancellation targets; workflow cancellation doesn't stop all jobs or cancel the whole build.
+
+With `cancel-in-progress` false or omitted, Pipelines queues every waiting entry rather than replacing the pending entry as GitHub does. Such entries can still be canceled by another opted-in job in the group. `queue` is unsupported.
 
 Called workflows retain workflow-level concurrency around all their jobs, including static call-matrix instances and nested calls. Jobs inside a call remain parallel except for their own dependencies and job groups. Reusing an enclosing workflow group in a job or nested call is unsupported.
 
 Calls with `needs` require prerequisites with no concurrency or provably disjoint groups. Shared or unresolved groups and cycles involving dependencies and ordered queues are rejected, including transitive and matrix prerequisites. This check covers the generated pipeline, not other pipelines or later manual uploads.
 
-The call's gate waits for all external prerequisites, including failed and skipped ones, but reserves its queue position at upload, earlier than GitHub. Later calls can wait behind unfinished prerequisites; `W_REUSABLE_WORKFLOW_CONCURRENCY_QUEUED_BEFORE_PREREQUISITES` reports this difference. A statically false call omits its gate. A runtime-dependent call still enters and holds the group until its jobs finish, even if it skips; `W_REUSABLE_WORKFLOW_CONCURRENCY_ENTERED_BEFORE_CALL_CONDITION` reports this behavior.
+The call's gate waits for all external prerequisites, including failed and skipped ones, but reserves its queue position at upload, earlier than GitHub. The gate can't request cancellation until those prerequisites finish. Later calls can wait behind unfinished prerequisites; `W_REUSABLE_WORKFLOW_CONCURRENCY_QUEUED_BEFORE_PREREQUISITES` reports this difference. A statically false call omits its gate. A runtime-dependent call still enters the group before evaluating its condition, even if it skips; `W_REUSABLE_WORKFLOW_CONCURRENCY_ENTERED_BEFORE_CALL_CONDITION` reports this behavior. With cancellation enabled, this call can cancel older gate steps even when its condition is false.
 
 Workflow concurrency can't enclose or depend on deferred expansion as described under [matrices from outputs](#job-syntax-matrices-from-job-outputs). Cancel the whole build, not an individual job, when a workflow gate is active.
 

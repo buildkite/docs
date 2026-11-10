@@ -280,7 +280,7 @@ Important differences include:
 - GitHub secrets aren't copied automatically. Buildkite secret access policies determine which jobs can read them.
 - GitHub environment reviewer lists, wait timers, branch policies, and custom protection rules aren't reproduced. See the environment rules below.
 - Matrix `strategy.fail-fast` doesn't cancel other matrix jobs when one fails.
-- Workflow `concurrency.cancel-in-progress: true` produces a warning but doesn't cancel an older build. Don't substitute branch-wide cancellation for workflow concurrency in a server-dispatched pipeline.
+- Workflow `concurrency.cancel-in-progress: true` uses [best-effort gate cancellation](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-syntax-reference-concurrency), not whole-build cancellation. Don't substitute branch-wide cancellation for workflow concurrency in a server-dispatched pipeline.
 - Private actions aren't supported. Private reusable-workflow source access isn't enabled by default and isn't supported for GHES.
 - GitHub-issued OIDC claims and general GitHub service behavior aren't emulated.
 
