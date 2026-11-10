@@ -20,7 +20,6 @@ Define a Dockerfile with the tools your jobs need, then add a pipeline step to b
         make \
         && rm -rf /var/lib/apt/lists/*
     ```
-    {: codeblock-file=".buildkite/Dockerfile.build"}
 
 1. Add the following steps to your pipeline. Replace `linux-small` with your Linux AMD64 hosted queue's key. Buildkite hosted agents set `BUILDKITE_HOSTED_REGISTRY_URL` to the URL of the current cluster's internal container registry.
 
@@ -47,7 +46,6 @@ Define a Dockerfile with the tools your jobs need, then add a pipeline step to b
         command: |
           echo "Using ${BUILDKITE_HOSTED_REGISTRY_URL}/base:latest"
     ```
-    {: codeblock-file=".buildkite/pipeline.yml"}
 
     The first step builds and pushes the image using the queue's default agent image. The second step waits for the image to be pushed, then uses it to run three [parallel jobs](/docs/pipelines/best-practices/parallel-builds#parallel-jobs).
 
