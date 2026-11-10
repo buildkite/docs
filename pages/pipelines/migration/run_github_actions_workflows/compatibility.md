@@ -1300,6 +1300,7 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 | `github.server_url` | No | Composite steps only, from v0.105.0. |
 | `github.run_attempt` | Yes, including reusable-workflow calls. | Yes, including composite steps. |
 | `runner.os`, `runner.arch`, `runner.environment` | Yes | Yes |
+| `runner.name` | No | Yes, including composite steps; requires the name of the executing agent. |
 | `runner.temp`, `runner.debug` | No | Yes; debug is always absent. |
 | `needs.<job>.result`, `needs.<job>.outputs.<name>` | Yes | Yes |
 | Matrix values | Yes | Yes |
@@ -1372,6 +1373,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | `github.event` | Original verified event payload. |
 | `runner.os`, `runner.arch` | `Linux`/`X64`, `Linux`/`ARM64`, `macOS`/`ARM64`, or `Windows`/`X64`. |
 | `runner.environment` | `self-hosted`, including Buildkite hosted agents. |
+| `runner.name` | Available from [v0.127.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.127.0). Name of the executing Buildkite agent, from [`BUILDKITE_AGENT_NAME`](/docs/pipelines/configure/environment-variables#BUILDKITE_AGENT_NAME). Available in step fields, job outputs, action input defaults, and lifecycle conditions. Direct reads fail when the name is unavailable, with no hostname or GitHub runner-name fallback. Compile-time fields, job conditions, job environment/defaults, and service fields don't support it. |
 | `runner.temp` | Canonical `RUNNER_TEMP`, available after setup in step fields and job outputs. |
 | `runner.debug` | Always absent; interpolation is empty and comparison to enabled value `1` is false. Available in step fields, outputs, lifecycle conditions, and action input defaults. |
 {: class="responsive-table"}
