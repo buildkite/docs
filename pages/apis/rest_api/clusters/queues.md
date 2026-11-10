@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <th><code>hosted_agents.platform_settings.linux.agent_image_ref</code></th>
-      <td>The custom image URL configured for the queue's hosted agents, or <code>null</code> when the queue uses its default image. Only present on Linux-based Buildkite hosted queues. Learn more about <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">specifying a custom image for a queue</a>.</td>
+      <td>The custom image URL configured for the queue's hosted agents, or <code>null</code> when the queue uses its default image. Only present on Linux-based Buildkite hosted queues. To set this URL, <a href="#update-a-queue">update the queue</a>.</td>
     </tr>
     <tr>
       <th><code>use_github_app_token</code></th>
@@ -313,7 +313,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <br/>
     You cannot set a custom image URL when you create a queue. Buildkite ignores any <code>agentImageRef</code> you submit in this call and creates the queue with the default agent image. To use a custom image URL, <a href="#update-a-queue">update the queue</a> after creating it.
     <!--
-    <code>agentImageRef</code> (optional): A <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">custom image URL</a> to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>.
+    <code>agentImageRef</code> (optional): A URL for a <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images">custom agent image</a> to use for agents in this queue. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>.
     <br/>
     <em>Example:</em>
     <br/>
@@ -403,7 +403,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (for example, from macOS to Linux), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
     Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> Buildkite hosted agents.
     <br/><br/>
-    <code>agentImageRef</code> (optional): A <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">custom image URL</a> to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Setting this property requires access to the custom agent images feature.
+    <code>agentImageRef</code> (optional): A URL for a <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images">custom agent image</a> to use for agents in this queue. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Setting this property requires access to the custom agent images feature.
     <br/>
     To use an image that Buildkite builds for you, pass the <code>image_ref</code> value of an <a href="/docs/apis/rest-api/clusters/agent-images">agent image</a>. The value you set is returned as <code>hosted_agents.platform_settings.linux.agent_image_ref</code>.
     <br/>

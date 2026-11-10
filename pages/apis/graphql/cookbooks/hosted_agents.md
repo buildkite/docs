@@ -91,7 +91,7 @@ Learn more about the instance shapes available for [Linux](#instance-shape-value
 
 ## Set a custom image URL for a Buildkite hosted queue
 
-You can configure a Buildkite hosted queue to use a [custom image URL](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue). When set, this overrides the agent image selected through the Buildkite interface.
+You can configure a Buildkite hosted queue to use a [custom agent image](/docs/agent/buildkite-hosted/linux/custom-agent-images) by setting its image URL.
 
 ```graphql
 mutation {
