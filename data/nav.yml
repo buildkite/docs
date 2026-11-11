@@ -168,6 +168,8 @@
               path: "agent/self-hosted"
             - name: "Agent tokens"
               path: "agent/self-hosted/tokens"
+            - name: "Scoped agent tokens"
+              path: "agent/self-hosted/scoped-agent-tokens"
             - name: "Job acquisition tokens"
               path: "agent/self-hosted/job-acquisition-tokens"
             - name: "Code access"

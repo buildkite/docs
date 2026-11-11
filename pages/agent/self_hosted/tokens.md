@@ -6,6 +6,8 @@ For stack-managed ephemeral agents, use a short-lived [job acquisition token](/d
 
 A user who is a Buildkite organization administrator or a [maintainer of a cluster](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) within the organization can manage agent tokens for that cluster.
 
+Use [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) to choose which Agent API actions agents and jobs can perform, and which queues agents can register into. For example, allow pipeline uploads only on trusted agents, or create a metrics-only token that cannot run jobs.
+
 If you are managing agents in an unclustered environment, refer to [Working with unclustered agent tokens](/docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens) instead.
 
 ## The initial agent token
@@ -45,6 +47,7 @@ To create an agent token for a cluster using the Buildkite interface:
 
     **Note:** Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
+1. Choose **Queue access** and **Permissions** for the token. The defaults grant all permissions and access to all queues in the cluster. See [Configure a scoped token](/docs/agent/self-hosted/scoped-agent-tokens#configure-a-token) to restrict either setting.
 1. Select a **Token Expiry** duration, or keep the default of **Never** so the token doesn't expire. Choose a preset duration, or select **Custom** to enter a specific expiry date.
 
     **Note:** A token's expiry can't be changed after it's created. To use a different expiry, revoke the token and [create a new one](#create-a-token-using-the-buildkite-interface).
@@ -63,7 +66,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "A description",
-    "expires_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2030-01-01T00:00:00Z",
     "allowed_ip_addresses": "0.0.0.0/0"
   }'
 ```
@@ -97,7 +100,7 @@ mutation {
       organizationId: "organization-id"
       clusterId: "cluster-id"
       description: "A description"
-      expiresAt: "2026-01-01T00:00:00Z"
+      expiresAt: "2030-01-01T00:00:00Z"
       allowedIpAddresses: "0.0.0.0/0"
     }
   ) {
@@ -143,7 +146,7 @@ The new agent token appears on the cluster's **Agent Tokens** page.
 
 Agent tokens can be updated by a [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the [**Agent Tokens** page of a cluster](#update-a-token-using-the-buildkite-interface), as well as Buildkite's [REST API](#update-a-token-using-the-rest-api) or [GraphQL API](#update-a-token-using-the-graphql-api).
 
-Only the **Description** and **Allowed IP Addresses** of an existing agent token can be updated. **Expiration date** for a token cannot be updated.
+You can update an existing token's **Description**, **Allowed IP Addresses**, **Queue access**, and **Permissions**. The token's **Expiration date** cannot be updated. See [Scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) for permission and queue configuration, including how changes affect existing agents and jobs.
 
 For these API requests, the _cluster ID_ value submitted as part of the request is the target cluster the token is associated with.
 
@@ -160,6 +163,9 @@ To update a cluster's agent token using the Buildkite interface:
 
         Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
+    * **Queue access** controls which queues the token permits for new agent registrations.
+    * **Permissions** controls the Agent API actions agents and jobs can perform. See [Configure a scoped token](/docs/agent/self-hosted/scoped-agent-tokens#configure-a-token).
+
 1. Select **Save Token** to save your changes.
 
     The agent token's updates will appear on the cluster's **Agent Tokens** page.
@@ -174,7 +180,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "description": "A description",
-    "allowed_ip_addresses": "202.144.0.0/24 198.51.100.12"
+    "allowed_ip_addresses": "192.0.2.0/24 198.51.100.12"
   }'
 ```
 
@@ -192,7 +198,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/rest_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
+    Omit this field to preserve the existing IP restriction, or set it to `null` to clear the restriction. Learn more in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
 ### Using the GraphQL API
 
@@ -205,7 +211,7 @@ mutation {
       organizationId: "organization-id"
       id: "token-id"
       description: "A description"
-      allowedIpAddresses: "202.144.0.0/24 198.51.100.12"
+      allowedIpAddresses: "192.0.2.0/24 198.51.100.12"
     }
   ) {
     clusterAgentToken {
@@ -243,7 +249,7 @@ where:
 
 - <%= render_markdown partial: 'apis/descriptions/graphql_allowed_ip_addresses' %>
 
-    This field can be omitted (where the default value is `0.0.0.0/0`) if there is no need to restrict the use of this agent token by network address, or change the field's current value. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
+    Supply the existing `allowedIpAddresses` value to preserve the IP restriction. Omitting this field clears the restriction. Learn more in [Restrict an agent token's access by IP address](/docs/pipelines/security/clusters/manage#restrict-an-agent-tokens-access-by-ip-address).
 
 The agent token's updates will appear on the cluster's **Agent Tokens** page.
 
@@ -308,7 +314,9 @@ where:
 
 ## Scope of access
 
-An agent token is specific to the cluster it was associated with when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
+An agent token belongs to one cluster within a Buildkite organization. By default, new tokens grant all permissions and allow registration into any [queue](/docs/agent/queues) in that cluster. You can restrict permitted API actions and queue access independently using [scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens).
+
+Agent tokens cannot be shared between clusters or organizations. Session and job credentials inherit the source agent token's permissions, including when registration uses a job acquisition token. Queue restrictions apply to new registrations, JAT issuance, and explicit job acquisition, not every subsequent API operation. Explicit acquisition checks current bindings, so a queue-access edit can prevent an already-registered agent from acquiring a job.
 
 ## Agent token lifetime
 
@@ -338,6 +346,8 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 Job tokens are internal agent access tokens generated when each job starts. They expire when the job finishes. The job receives its token through the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`. The Buildkite agent uses the token to manage the job's lifecycle in the Buildkite control plane. CLI commands, including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline), also use the token for authorization.
 
 You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further limit a job token's lifetime.
+
+A job token also inherits its source agent token's [permissions](/docs/agent/self-hosted/scoped-agent-tokens#available-permissions). Those permissions restrict available actions without replacing the resource boundaries described below.
 
 In most cases, job tokens can only be used to perform operations on the job they refer to. For example, you couldn't use a job token to issue an OIDC token pretending to be another job, or to emit logs to another job.
 

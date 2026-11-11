@@ -320,6 +320,10 @@ security:
     - "platform/sso"
     - "package-registries/security"
   exact_paths:
+    - "agent/self-hosted/tokens"
+    - "agent/self-hosted/scoped-agent-tokens"
+    - "agent/self-hosted/job-acquisition-tokens"
+    - "apis/rest-api/clusters/agent-tokens"
     - "agent/buildkite-hosted/network-security"
     - "platform/team-management/enforce-2fa"
     - "platform/team-management/inactive-user-list"
