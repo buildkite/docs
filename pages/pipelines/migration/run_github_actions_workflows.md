@@ -17,7 +17,7 @@ Create a pipeline from your existing GitHub repository, add the secrets your wor
 
 ### Create a GitHub Actions pipeline
 
-Connect your repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options), which gives Buildkite Pipelines access to workflow files. **GitHub (Limited Access)** and GitHub Enterprise Server aren't supported for server-side dispatch.
+Connect your repository using the full-access [**GitHub** repository provider](/docs/pipelines/source-control/github#github-repository-provider-options) or a [GitHub Enterprise Server (GHES) GitHub App](/docs/pipelines/source-control/github-enterprise#github-app) with **Code Read Access** enabled. GitHub Actions Compatibility supports both providers. **GitHub (Limited Access)** and the legacy GHES OAuth integration aren't supported for workflow execution.
 
 1. From the Buildkite dashboard, select **New Pipeline**.
 1. Under **Git scope**, select your GitHub account or organization. Then select your repository.
@@ -33,7 +33,7 @@ Buildkite Pipelines creates the pipeline and one enabled **GitHub Actions** [pip
 
 If trigger validation fails, no pipeline is created. Correct the displayed error and retry. If webhook provisioning fails after creation, the pipeline and trigger remain. Select **Review GitHub connection** to recover the existing connection rather than creating another pipeline or trigger.
 
-The pipeline enables **Allow workflow-authorized GitHub access tokens** and disables pipeline-level commit status publishing. Review [token permissions and trust boundaries](#supported-functionality-and-limitations-credentials-secrets-and-oidc), and disable workflow access tokens in the pipeline's GitHub settings if your workflows don't need them.
+The pipeline enables workflow-authorized GitHub access tokens and disables pipeline-level commit status publishing. Review [token permissions, settings, and trust boundaries](#supported-functionality-and-limitations-credentials-secrets-and-oidc) before running your workflows.
 
 > 📘 Setup availability
 > GitHub Actions setup isn't available to organizations that require [pipeline templates](/docs/pipelines/governance/templates), or that use the legacy new pipeline page. Use the [equivalent manual setup](#add-a-github-actions-workflow-to-a-pipeline-configure-an-equivalent-pipeline-manually), respecting your organization's template requirements.
@@ -53,7 +53,9 @@ Don't copy `GITHUB_TOKEN` into a Buildkite secret. Buildkite Pipelines issues th
 
 ### Run a workflow manually
 
-Manual runs currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
+Native manual runs and rebuilds aren't supported for GHES pipelines. Use a matching GitHub event instead.
+
+For GitHub.com pipelines, manual runs currently require a workflow that declares `push` without `workflow_dispatch`. Its branch or tag filters must match the selected ref.
 
 To run a matching workflow without waiting for a GitHub event:
 
@@ -98,6 +100,8 @@ Workflow matching decides which builds to create. Traditional GitHub provider bu
 ### Configure an equivalent pipeline manually
 
 Use the interface for new pipelines unless you need CLI, API, or agent-based automation. Programmatic setup requires two requests: create the pipeline with the settings below, then create its GitHub Actions pipeline trigger. Uploading YAML alone doesn't provision either resource or its repository webhook.
+
+This example uses GitHub.com. For GHES, use the [GitHub Actions setup flow](#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline).
 
 Use an API access token with the `write_pipelines` [scope](/docs/apis/managing-api-tokens#token-scopes), permission to create pipelines, and **Full Access** to manage the pipeline's triggers. The repository must use the full-access **GitHub** repository provider, with GitHub App access to read workflows and manage repository webhooks.
 
@@ -238,7 +242,7 @@ Buildkite Pipelines resolves `runs-on` labels to compatible queues. Common mappi
 | `ubuntu-latest`, `ubuntu-24.04`, or `ubuntu-22.04` | `linux-medium`, with the corresponding Ubuntu environment |
 | `macos-latest` | `macos-medium` |
 | `macos-14`, `macos-15`, `macos-26`, or `macos-27` | Matching `macos-<version>-medium` queue, falling back to `macos-medium` |
-| `windows-latest` or `windows-2022` | `windows-medium`, when hosted Windows access and routing are enabled |
+| `windows-latest` or `windows-2022` | `windows-medium`, when your plan includes Windows hosted agents |
 {: class="responsive-table"}
 
 Queues must exist in the pipeline's cluster. A versioned macOS label that falls back to `macos-medium` doesn't guarantee that macOS version. All supported macOS jobs run on Apple silicon.
@@ -256,11 +260,11 @@ See the [macOS hosted agent images and software](/docs/agent/buildkite-hosted/ma
 
 ### Run Linux arm64 jobs
 
-The runtime supports Linux arm64 jobs, but Linux arm64 labels don't have automatic queue resolution. Contact the Buildkite Support team to discuss the required queue mapping before using these labels in a GitHub Actions pipeline. A label alone doesn't provision a queue or enable x86-64 emulation.
+Use a [supported Linux arm64 runner label](/docs/pipelines/migration/run-github-actions-workflows/compatibility#runners-and-tools-queue-selection-and-mappings), such as `ubuntu-24.04-arm`, with the required hosted queue. A label alone doesn't provision a queue or enable x86-64 emulation.
 
 ### Run Windows jobs
 
-[Buildkite hosted Windows agents](/docs/agent/buildkite-hosted/windows) are in private preview. Contact the Buildkite Support team to confirm access and routing. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`.
+[Buildkite hosted Windows agents](/docs/agent/buildkite-hosted/windows) are in public preview and available on Trial, Pro, and Enterprise plans. The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`.
 
 Windows jobs run on Windows Server 2022 x86-64 and default to the `pwsh` shell. Containers, services, Docker actions, and the `cmd` shell aren't supported. See the [Windows jobs reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs) for the complete requirements and limitations.
 
@@ -276,14 +280,16 @@ Important differences include:
 - GitHub secrets aren't copied automatically. Buildkite secret access policies determine which jobs can read them.
 - GitHub environment reviewer lists, wait timers, branch policies, and custom protection rules aren't reproduced. See the environment rules below.
 - Matrix `strategy.fail-fast` doesn't cancel other matrix jobs when one fails.
-- Workflow `concurrency.cancel-in-progress: true` produces a warning but doesn't cancel an older build. Don't substitute branch-wide cancellation for workflow concurrency in a server-dispatched pipeline.
-- GitHub Enterprise Server and private actions aren't supported. Private reusable-workflow source access isn't enabled by default.
+- Workflow `concurrency.cancel-in-progress: true` uses [best-effort gate cancellation](/docs/pipelines/migration/run-github-actions-workflows/compatibility#workflow-syntax-reference-concurrency), not whole-build cancellation. Don't substitute branch-wide cancellation for workflow concurrency in a server-dispatched pipeline.
+- Private actions aren't supported. Private reusable-workflow source access isn't enabled by default and isn't supported for GHES.
 - GitHub-issued OIDC claims and general GitHub service behavior aren't emulated.
 
 > 🚧 Treat workflow code as build code
 > All steps in a job share a workspace, environment changes, processes, and credentials available to that job. Containers provide packaging, not a security boundary. Use whole-job isolation and review the [security model](/docs/pipelines/migration/run-github-actions-workflows/security) before running untrusted contributions or granting write access.
 
 ### Deployment environments and variables
+
+GitHub environments and `vars` aren't supported for GHES pipelines. The following support applies to GitHub.com.
 
 Top-level jobs can declare a literal GitHub deployment `environment`. Buildkite Pipelines reads its protection rules, secret names, and variables from GitHub. The GitHub App installation needs **Actions: read** and **Environments: read**, plus **Variables: read** to resolve variables. If your installation predates these permissions, a GitHub organization owner must approve them.
 
@@ -297,7 +303,9 @@ Environment secret names resolve to `<ENVIRONMENT>_<NAME>` in Buildkite secrets.
 
 Private checkout, workflow secrets, and GitHub access tokens have separate authorization boundaries. Private checkout requires Buildkite repository-provider Git credentials and authorization for the repository. Workflow secrets require a Buildkite secret access policy that allows the job to read them.
 
-GitHub Actions pipeline creation enables **Allow workflow-authorized GitHub access tokens** by default. Disable this in the pipeline's GitHub settings if your workflow doesn't need `secrets.GITHUB_TOKEN` or `github.token`. Workflow access tokens require a job on a Buildkite hosted agent and a full-access **GitHub** repository connection.
+GitHub Actions pipeline creation enables workflow-authorized GitHub access tokens by default, including for GHES. Workflow access tokens require a job on a Buildkite hosted agent and a full-access **GitHub** repository connection or a GHES GitHub App connection with code access enabled.
+
+For GitHub.com pipelines, disable **Allow workflow-authorized GitHub access tokens** in the pipeline's GitHub settings if your workflow doesn't need `secrets.GITHUB_TOKEN` or `github.token`. This checkbox isn't available for GHES pipelines; contact the Buildkite Support team to change their token access setting.
 
 Top-level workflow `permissions` determine token scope. Without that declaration, the token receives only `contents: read`; GitHub repository and organization defaults aren't inherited. The `write-all` alias is rejected. List required write permissions explicitly. Pull request builds and their descendants can't receive more than `contents: read`, and merge queue builds can't receive a token. See the [GitHub token reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#repositories-credentials-and-github-services-github-token) for the complete restrictions.
 
@@ -357,7 +365,7 @@ If a supported event doesn't appear in **Recent Deliveries**, check the reposito
 
 ### A runner is unavailable
 
-Check the diagnostic at the job's `runs-on` value and confirm that the pipeline's cluster contains a compatible queue. For macOS, confirm that the selected queue exists, has available capacity, and uses a suitable base image. For Windows, confirm hosted access and routing with the Buildkite Support team.
+Check the diagnostic at the job's `runs-on` value and confirm that the pipeline's cluster contains a compatible queue. For macOS, confirm that the selected queue exists, has available capacity, and uses a suitable base image. For Windows, confirm that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue.
 
 Don't edit generated jobs or add a plugin mapping to bypass runner validation. Contact support with the build URL, workflow path, requested `runs-on` label, and complete diagnostic if automatic resolution doesn't meet your requirements.
 

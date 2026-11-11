@@ -20,18 +20,18 @@ Use this table to identify migration work, then check the linked restrictions an
 
 | Feature | Support | Main restriction or setup | Details |
 | --- | --- | --- | --- |
-| Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+; Linux arm64 needs an explicit queue mapping and support contact for native setup. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
+| Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+ and a compatible queue. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
 | Events and filters | Listed events and bounded filters | Native manual runs require matching `push` without `workflow_dispatch`. Delivery can require backend support and webhook setup. Path filters need linked data and local history. | [Events and triggers](#events-and-triggers) |
 | Actions | Local and public JavaScript/composite actions; Linux Docker actions | Private actions and direct workflow `docker://` calls are unsupported. Admission doesn't guarantee GitHub service access. | [Action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) |
 | Checkout | Native adapter for the event repository | Pull requests check out the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
 | Artifacts | Native ZIP upload and download | Downloads require verified direct `needs` producers; no cross-run/repository or GitHub artifact API access. | [Upload](#actions-artifacts-and-caching-upload-artifact-action), [download](#actions-artifacts-and-caching-download-artifact-action) |
 | Caching | Admitted cache-v2 clients use Buildkite Results | Client versions and tools matter. Cache mode is best-effort, not authorization. | [Cache action](#actions-artifacts-and-caching-cache-action) |
-| Repositories and GitHub tokens | Public GitHub; authorized private GitHub/Origin access | Public workflow-token support requires eligible hosted GitHub.com jobs, the token setting enabled, and top-level permissions. | [Repositories](#credentials-and-deployments-repositories), [GitHub token](#credentials-and-deployments-github-token) |
+| Repositories and GitHub tokens | GitHub.com, GitHub Enterprise Server (GHES), and authorized private Origin access | Workflow tokens require eligible hosted GitHub.com or GHES App jobs, the token setting enabled, and top-level permissions. | [Repositories](#credentials-and-deployments-repositories), [GitHub token](#credentials-and-deployments-github-token) |
 | Secrets and OIDC | Buildkite Secrets; Buildkite-issued OIDC | GitHub secrets aren't copied. Cloud trust must use the Buildkite issuer and claims. | [Secrets and OIDC](#credentials-and-deployments-other-secrets-and-oidc) |
 | Deployment environments | Literal top-level-job names and approval gates | GitHub reviewer identity isn't enforced; several protection rules are rejected. URL is accepted but ignored; no deployment records are created. | [Deployment environments](#credentials-and-deployments-deployment-environments) |
 | Reusable workflows | Local, public, and approved private sources | Four-level nesting; private source access is off by default in native setup and requires support contact. Remote secret forwarding is unsupported. | [Reusable workflows](#workflow-syntax-reference-reusable-workflows) |
 | Jobs, matrices, steps, and expressions | Listed syntax and bounded dynamic forms | Context access varies by field. Deferred expansion has source, graph, and scheduling limits. | [Workflow syntax reference](#workflow-syntax-reference), [jobs](#job-syntax), [steps](#step-syntax), [expressions](#expressions-and-contexts) |
-| Concurrency and fail-fast | Queued concurrency groups; fail-fast syntax accepted | Workflow `cancel-in-progress: true` warns but doesn't cancel. Matrix `fail-fast` has no cancellation effect. | [Concurrency](#workflow-syntax-reference-concurrency), [matrices](#job-syntax-matrix-strategies) |
+| Concurrency and fail-fast | Job cancellation and best-effort workflow cancellation; fail-fast syntax accepted | Workflow cancellation can leave older jobs running. Matrix `fail-fast` has no cancellation effect. | [Concurrency](#workflow-syntax-reference-concurrency), [matrices](#job-syntax-matrix-strategies) |
 {: class="responsive-table"}
 
 <a id="how-workflows-run-on-buildkite-pipelines"></a>
@@ -57,7 +57,7 @@ Check these differences before migrating:
 - **Secrets and tokens:** GitHub secrets aren't copied. Migrate them to [Buildkite Secrets](#credentials-and-deployments-other-secrets-and-oidc). Public [GitHub workflow-token support](#credentials-and-deployments-github-token) requires eligible hosted jobs and the pipeline's token setting enabled; immutable top-level [permissions](#credentials-and-deployments-permissions) apply to every receiving job.
 - **Cloud identity:** OIDC uses the [Buildkite issuer and claims](#credentials-and-deployments-other-secrets-and-oidc), not GitHub's. Update cloud trust before deploying.
 - **Deployment approval:** [Environment gates](#credentials-and-deployments-deployment-environments) don't enforce GitHub reviewer lists, self-review restrictions, or administrator bypass. Any user who can unblock the pipeline can approve.
-- **Cancellation:** Workflow [cancel-in-progress](#workflow-syntax-reference-concurrency) doesn't cancel superseded builds. Matrix `fail-fast` is accepted but has no cancellation effect.
+- **Cancellation:** Workflow [cancel-in-progress](#workflow-syntax-reference-concurrency) is best-effort, not whole-build cancellation. Already admitted jobs can continue and overlap with a newer workflow. Matrix `fail-fast` is accepted but has no cancellation effect.
 - **Trigger coverage:** `pull_request_target` is intentionally unsupported. Pipeline triggers don't support `repository_dispatch`, `workflow_run`, `check_run`, or `check_suite`. Check [event delivery and filtering](#events-and-triggers), including accepted-but-ignored filters, rather than assuming every GitHub trigger runs.
 
 <a id="validation"></a>
@@ -93,13 +93,25 @@ Admission isn't execution, and a runtime release isn't proof of the version sele
 
 ## Runners and tools
 
-Buildkite agent v3.129 or newer is required. Generated jobs support Linux x86-64, Linux arm64 with an explicit queue mapping, native macOS arm64, and Windows Server 2022 x86-64. Contact the Buildkite Support team for Linux arm64 mapping in native pipeline setup. Buildkite Pipelines manages workflow preparation on Linux x86-64 or macOS arm64; an advanced custom importer can also run on Linux arm64. Windows agents run generated jobs only.
+Buildkite agent v3.129 or newer is required. Generated jobs support Linux x86-64, Linux arm64, native macOS arm64, and Windows Server 2022 x86-64. Buildkite Pipelines manages workflow preparation on Linux x86-64 or macOS arm64; an advanced custom importer can also run on Linux arm64. Windows agents run generated jobs only.
 
 ### Queue selection and mappings
 
 Native pipeline setup uses automatic runner resolution and doesn't expose custom mappings or generated-job cache volume configuration. Contact the Buildkite Support team if automatic resolution doesn't meet your requirements. Workflow-level caching is described under [Cache action](#actions-artifacts-and-caching-cache-action).
 
-Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes) to override automatic selection. They declare Linux x86-64 except for known Linux arm64 labels (`ubuntu-24.04-arm`, `ubuntu-22.04-arm`, and suffixes `-arm64` or `-aarch64`), known macOS labels, and Windows labels. Linux arm64 requires an explicit queue; arm64, macOS, and Windows mappings reject images. macOS x86-64 is unsupported.
+`ubuntu-26.04-arm`, `ubuntu-24.04-arm`, `ubuntu-22.04-arm`, and their `-arm64` aliases automatically select an active hosted Linux arm64 queue named `linux-arm64-medium` in the importing job's cluster. These labels use the queue's existing image, not a GitHub Ubuntu image. If the queue is absent, import reports `missing_queue`; it doesn't fall back to Linux x86-64.
+
+The following competitor labels select the same ARM64 queue. A warning explains that provider CPU, memory, disk, caches, and networking are not preserved. Only the listed versions and sizes are recognized; custom suffixes and compound selectors are not included.
+
+| Provider | Label forms | Versions and sizes |
+| --- | --- | --- |
+| [Depot](https://depot.dev/docs/github-actions/runner-types) | `depot-ubuntu-<version>-arm`, optionally followed by `-<size>` | Versions `22.04`, `24.04`; sizes `4`, `8`, `16`, `32`, `64` |
+| [Blacksmith](https://docs.blacksmith.sh/blacksmith-runners/overview) | `blacksmith-<size>vcpu-ubuntu-<version>-arm` | Versions `2204`, `2404`, `2604`; sizes `2`, `4`, `8`, `16`, `32` |
+| [WarpBuild](https://www.warpbuild.com/docs/ci/cloud-runners) | `warp-ubuntu-<version>-arm64-<size>x` | Versions `latest`, `2404`, `2604`; sizes `2`, `4`, `8`, `16`, `32`; also `warp-ubuntu-2604-arm64-6x-xfast` and `warp-ubuntu-2604-arm64-12x-xfast` (Linux, not macOS) |
+| [Ubicloud](https://www.ubicloud.com/docs/github-actions-integration/runner-types) | `ubicloud-arm`; `ubicloud-standard-<size>-arm`, optionally followed by `-ubuntu-<version>` | Versions `2204`, `2404`, `2604`; sizes `2`, `4`, `8`, `16`, `30` |
+{: class="responsive-table"}
+
+Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes) to override automatic selection. The Ubuntu and competitor ARM64 labels above, `arm64`, `aarch64`, and labels ending in `-arm64` or `-aarch64` declare Linux arm64. Known macOS and Windows labels declare their respective platforms. Custom labels default to Linux x86-64. Linux arm64, macOS, and Windows mappings reject images. macOS x86-64 is unsupported.
 
 During upload the job-scoped Agent API validates mapped queues in the importing cluster, including OS and architecture for hosted queues. Self-hosted validation checks existence only; operators must supply the declared platform. Mapped queue, image, and cache settings are preserved. Mapping validation must be acknowledged by a compatible backend or import fails.
 
@@ -107,8 +119,8 @@ Other selectors use the complete Agent API target and any fallback warnings. Eli
 
 | Runner rejection | Next step |
 | --- | --- |
-| `missing_queue` | Create the named hosted queue or configure a compatible mapping. |
-| `incompatible_labels` | Correct unsupported labels; for Windows, also check eligibility and routing. |
+| `missing_queue` | Use **Set up queue** when offered, then [run the workflow again](#runners-and-tools-set-up-a-missing-queue). Otherwise, create the named hosted queue or configure a compatible mapping. |
+| `incompatible_labels` | Correct unsupported labels; for Windows, also check that your plan includes Windows hosted agents. |
 | `no_cluster` | Use a cluster containing compatible queues. |
 | `queue_not_found` | Correct the mapping to an active queue in the importing cluster. |
 | `queue_platform_mismatch` | Map to a matching hosted OS and architecture. |
@@ -117,6 +129,17 @@ Other selectors use the complete Agent API target and any fallback warnings. Eli
 An explicit rejection doesn't fall back to presets. Without mappings, an unreachable API can warn and fall back to local presets: `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, and `macos-latest`. Linux presets use corresponding Noble or Jammy hosted-toolchains images; configured immutable images can override them. Offline `validate` and `compile` don't verify cluster queues. `validate --profile hosted` admits only these local presets.
 
 An advanced custom importer's explicit mapping can attach one [hosted cache volume](/docs/agent/buildkite-hosted/cache-volumes), outside workflow syntax. Job containers and Windows jobs don't support these volumes.
+
+### Set up a missing queue
+
+When a `missing_queue` diagnostic identifies an absent hosted preset queue, **Set up queue** opens the cluster's [recommended queues](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-add-recommended-queues). To create the queue, you must be a cluster maintainer or Buildkite organization administrator.
+
+1. Select **Set up queue** in the diagnostic.
+1. Review the required queue, which is selected automatically if it is still missing and allowed by your organization's current plan and policy. Other recommendations remain unselected.
+1. Select **Create 1 queue**.
+1. Return to the build and rebuild it to run workflow preparation again. For GitHub Enterprise Server pipelines, use a matching workflow event instead; [native rebuilds are not supported](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-run-a-workflow-manually).
+
+Creating the queue does not resume or retry the failed diagnostic job. The setup link is not a remedy for unsupported runner labels, incompatible existing queues, or invalid explicit mappings. Correct those separately using the diagnostics above.
 
 <a id="runtime-behavior-and-limits-runner-tools"></a>
 
@@ -134,9 +157,9 @@ On native Namespace runners, the runtime enables `default-load=true` for stored 
 
 ### Windows jobs
 
-`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or enabled Agent API routing. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows access](/docs/agent/buildkite-hosted/windows) is separate from runtime support.
+`windows-latest` and `windows-2022` support Windows Server 2022 x86-64 through an explicit queue mapping or automatic Agent API routing. Automatic routing requires a plan that includes Windows hosted agents. There is no local Windows preset or silent Linux fallback. The queue must provide PowerShell 7 (`pwsh`) and Git on `PATH`. [Buildkite hosted Windows queues](/docs/agent/buildkite-hosted/windows) are available on Trial, Pro, and Enterprise plans.
 
-With Windows routing enabled, `windows-2025` and Depot `depot-windows-2025` labels, including `-4`, `-8`, `-16`, `-32`, and `-64`, can resolve through the Agent API to the same `windows-medium` queue. A warning explains that execution may use Server 2022 and doesn't preserve Depot hardware, caches, or networking. These aliases require an eligible existing hosted queue and Agent API resolution; they have no local preset or explicit Windows mapping. Native Server 2025 and Windows arm64 execution remain unsupported.
+When your plan includes Windows hosted agents, `windows-2025` and Depot `depot-windows-2025` labels, including `-4`, `-8`, `-16`, `-32`, and `-64`, can resolve through the Agent API to the same `windows-medium` queue. A warning explains that execution may use Server 2022 and doesn't preserve Depot hardware, caches, or networking. These aliases require an eligible existing hosted queue and Agent API resolution; they have no local preset or explicit Windows mapping. Native Server 2025 and Windows arm64 execution remain unsupported.
 
 <a id="windows-jobs-runtime-boundaries"></a>
 
@@ -150,7 +173,7 @@ Use UTF-8 for environment files. Windows PowerShell needs `Out-File -Encoding ut
 
 #### Configure a Windows runner
 
-For a native GitHub Actions pipeline, confirm hosted Windows Medium access and automatic routing availability with the Buildkite Support team at [support@buildkite.com](mailto:support@buildkite.com). The pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify.
+For a native GitHub Actions pipeline, your organization's plan must include [Windows hosted agents](/docs/agent/buildkite-hosted/windows), and the pipeline's cluster needs an active hosted Windows AMD64 **Medium** queue named `windows-medium`. A self-hosted, differently sized, wrong-platform, or other-cluster queue doesn't qualify.
 
 Advanced custom importers can use [explicit CLI mappings](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-choose-runners-and-runtimes) for `windows-latest` or `windows-2022`. These aren't part of native setup. The Agent API validates that the queue exists in the importing job's cluster and, for hosted queues, matches `windows/amd64`.
 
@@ -158,11 +181,11 @@ Runner resolution doesn't provision queues, grant access, or bypass trust policy
 
 | Diagnostic | Next step |
 | --- | --- |
-| No Windows runner target is configured | Check hosted Windows access and routing with the Buildkite Support team. Offline validation has no Windows preset; this failure alone doesn't establish runtime incompatibility. |
-| `missing_queue` | Check the importing cluster and hosted queue requirements, or map a compatible existing queue. |
+| No Windows runner target is configured | Check that your plan includes Windows hosted agents and that the cluster has a `windows-medium` queue. Offline validation has no Windows preset; this failure alone doesn't establish runtime incompatibility. |
+| `missing_queue` | [Set up the missing queue](#runners-and-tools-set-up-a-missing-queue), check the importing cluster and hosted queue requirements, or map a compatible existing queue. |
 | `no_cluster` | Move the pipeline to a cluster containing compatible queues. |
 | Queue not found or platform mismatch | Correct the mapping to an active compatible queue in that cluster. |
-| Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check hosted access and routing availability. |
+| Incompatible labels | Check the requested variant. For `windows-latest` or `windows-2022`, also check that your plan includes Windows hosted agents. |
 | Windows variant has no local mapping | Use Agent API routing for the documented 2025 aliases, or select a 2022 label only if Server 2022 is suitable. |
 {: class="responsive-table"}
 
@@ -402,6 +425,8 @@ Omitted or blank run names keep the static label. On non-dispatch events, declar
 
 Action admission doesn't guarantee that arbitrary code inside an action can use every GitHub service. Source, runtime, input, and service limits all apply. Start with action behavior and restrictions below; each native adapter's release inventory follows its usage details.
 
+Native checkout, upload, and download adapters skip input validation when the whole job's `if` condition is known to be false after reusable inputs and matrix values resolve. The job remains in the plan to report a `skipped` result. Reachable jobs, runtime-dependent job conditions, and false individual steps still validate adapter inputs.
+
 <a id="actions-action-sources-and-runtimes"></a>
 
 ### Action sources and runtimes
@@ -470,7 +495,7 @@ Dangling links, chains, absolute or escaping targets, hardlinks, special files, 
 
 ### Checkout action
 
-`actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository. Alternate checkout repositories, GitHub Enterprise Server, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
+`actions/checkout` uses a native adapter, not upstream JavaScript. Checkout remains detached at the workspace root or a fresh nested directory in the event repository, including [GHES repositories](#credentials-and-deployments-repositories-github-enterprise-server-execution). Alternate checkout repositories, persisted credentials, and existing-directory reuse are unsupported. See [checkout security](/docs/pipelines/migration/run-github-actions-workflows/security#checkout-and-submodules).
 
 Inputs must exist in the selected commit's contract before the following restrictions apply:
 
@@ -491,14 +516,14 @@ Inputs must exist in the selected commit's contract before the following restric
 | `fetch-depth` | Omitted or nonnegative integer; zero means full history. Historical runner-plugin commits default to full history. |
 | `lfs` | Omitted, `true`, or `false`; true requires installed Git LFS. |
 | `submodules` | Omitted, `false`, `true`, or `recursive`, trimmed and case-insensitive. |
-| `github-server-url` | Omitted/empty or `https://github.com`. |
+| `github-server-url` | Omitted/empty or the event server URL, such as `https://github.com` or `https://github.example.com` for GHES. |
 {: class="responsive-table"}
 
-Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous. Statically false job conditions can bypass checkout input restrictions, but step/runtime conditions don't hide invalid adapter inputs.
+Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous.
 
 Workflow steps default to `GIT_TERMINAL_PROMPT=0`. Missing Git credentials fail instead of waiting for terminal input. Later Git commands don't inherit checkout credentials or the agent's job credentials. Configure authentication explicitly for those commands. Disabling prompts doesn't grant repository access. Workflow environment settings can override this default.
 
-Submodules use native Git depth and relative URLs: true selects direct children, recursive selects nested children. Public/private GitHub submodules use job-authorized access. External HTTPS is anonymous; `git@github.com:` rewrites to HTTPS. Other SSH and non-HTTPS transports are unsupported.
+Submodules use native Git depth and relative URLs: true selects direct children, recursive selects nested children. Public/private GitHub submodules use job-authorized access. External HTTPS is anonymous; `git@<event-host>:` rewrites to HTTPS on the same host. Other SSH and non-HTTPS transports are unsupported.
 
 Sparse checkout defaults to `blob:none` unless a filter is explicit. Cone mode selects directories; non-cone mode uses Git ignore patterns. LFS installs repository-local filters without push/locking hooks and downloads selected materialized paths.
 
@@ -671,9 +696,23 @@ Repository access, workflow tokens, ordinary secrets, cache credentials, and OID
 
 ### Repositories
 
-Public GitHub event repositories are supported. Private GitHub repositories require authorized repository-provider Git credentials, available to jobs on Buildkite hosted agents. Internal/private Origin repositories require those credentials and the exact pipeline `BUILDKITE_REPO` URL `https://origin.cursor.com/git/<namespace>/<repository>.git`. GitHub Enterprise Server and unlisted providers are unsupported.
+GitHub.com and GitHub Enterprise Server (GHES) event repositories are supported. Private repositories require authorized repository-provider Git credentials, available to jobs on Buildkite hosted agents. GHES requires the GitHub App integration described below. Internal/private Origin repositories require those credentials and the exact pipeline `BUILDKITE_REPO` URL `https://origin.cursor.com/git/<namespace>/<repository>.git`. Unlisted providers are unsupported.
 
 Alternate checkout repositories and private actions are unsupported. Approved private reusable sources are importer-only; see [reusable access](#workflow-syntax-reference-reusable-workflows). Public actions remain subject to their source and runtime limits.
+
+<a id="credentials-and-deployments-repositories-github-enterprise-server-execution"></a>
+
+#### GitHub Enterprise Server execution
+
+GHES workflow execution requires a [GHES GitHub App connection](/docs/pipelines/source-control/github-enterprise#github-app) with **Code Read Access** enabled and access to the pipeline repository. For custom importers, use `buildkite-gha` v0.109.1 or later.
+
+The selected App connection supplies the protected `GITHUB_SERVER_URL`; don't set this variable yourself. Checkout uses the exact GHES event repository and commit. Runtime server, REST API, and GraphQL API URLs use that instance, with `/api/v3` and `/api/graphql` for the APIs. Workflow tokens remain bound to the job, repository, App installation, and immutable top-level workflow permissions. There is no personal access token fallback.
+
+These limits apply:
+
+- Public action sources remain on `github.com`; GHES-hosted remote actions and private reusable sources are unsupported. Repository-local reusable workflows remain supported. GHES workflow tokens aren't sent to public action sources.
+- GHES environments, `vars`, native manual runs, and rebuilds aren't supported.
+- Existing trigger, ref, path-filter, and [token security](/docs/pipelines/migration/run-github-actions-workflows/security#credential-boundaries-github-token) restrictions still apply. GHES support doesn't imply compatibility with every GHES version or GitHub service.
 
 <a id="repositories-credentials-and-github-services-github-token"></a>
 
@@ -690,9 +729,11 @@ env:
 
 Composite outputs, child-action `with` values, and whole-context serialization don't independently request a token. For those positions, pass an authorized token from the workflow through an action input. Composite metadata can't request ordinary secrets.
 
-Public support is limited to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) in `github.com` pipelines using the full-access **GitHub** repository provider. The pipeline's **Allow workflow-authorized GitHub access tokens** setting must be enabled. Existing pipelines default off; pipelines created with GitHub Actions setup mode default on.
+Public support is limited to running command jobs on [Buildkite hosted agents](/docs/agent/buildkite-hosted) using the full-access **GitHub** repository provider or a GHES GitHub App connection with code access enabled. The pipeline's **Allow workflow-authorized GitHub access tokens** setting must be enabled. Existing pipelines default off; pipelines created with GitHub Actions setup mode default on.
 
 The immutable top-level workflow must be a simple `.yml` or `.yaml` directly under `.github/workflows/`. Its [permission policy](#credentials-and-deployments-permissions) applies to every receiving job, including reusable jobs. Pull requests and their triggered/rebuilt descendants have a `contents: read` ceiling. Merge queues and descendants can't request workflow tokens. Backend provenance checks remain authoritative.
+
+For GitHub.com, pass the workflow token to the GitHub CLI as `GH_TOKEN`:
 
 ```yaml
 permissions:
@@ -704,6 +745,14 @@ jobs:
       - env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh api repos/{owner}/{repo}
+```
+
+For GHES, replace the step above with the following. Use `GH_ENTERPRISE_TOKEN` for authentication and select the hostname from the protected `GITHUB_SERVER_URL`:
+
+```yaml
+- env:
+    GH_ENTERPRISE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run: gh api --hostname "${GITHUB_SERVER_URL#https://}" "repos/$GITHUB_REPOSITORY"
 ```
 
 Follow the actual rejection diagnostic. A disabled-setting error links to the pipeline repository setting. From v0.104.0 with a compatible backend, known denial reasons identify who can act; older servers retain generic guidance. Permission or App-access errors can require checking top-level permissions and the Buildkite GitHub App's repository access; these checks aren't a universal fix for provenance, policy, rate-limit, or service failures. For an unexplained rejection, send support the diagnostic and build URL.
@@ -890,13 +939,21 @@ concurrency:
   cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 ```
 
-Buildkite Pipelines queues every waiting entry rather than replacing GitHub's pending entry. `queue` is unsupported. Workflow-level `cancel-in-progress: true`, including a true expression, warns and leaves superseded builds running. Job-level `cancel-in-progress` is unsupported.
+`cancel-in-progress` accepts `true`, `false`, or an expression that resolves to a boolean. Expressions support compile-time `github`, `vars`, static reusable inputs, supported operators and pure functions, and job-level concrete `matrix` and `strategy` values. Job cancellation also works after deferred matrix expansion, including with a matrix-producer-derived group. Cancellation expressions can't read `needs`, deferred reusable inputs, or `github.run_id`.
+
+Job-level cancellation maps each expanded job to a Buildkite Pipelines job in the same group with a limit of one. When an opted-in job becomes concurrency-limited, Pipelines asynchronously selects the last opted-in limited request in scheduling order. It cancels queued predecessors, then occupied blockers, until enough capacity is expected to be released. Earlier jobs don't need to opt in. This isn't an atomic latest-wins guarantee. Matrix jobs sharing one group can cancel each other; include a matrix value in the group to keep variants separate.
+
+Jobs don't request cancellation when compilation proves their condition or an inherited reusable-call condition false. Conditions left for runtime can't prevent a request: Pipelines enforces concurrency before the runner evaluates them, so a job that later skips can still cancel other jobs.
+
+Workflow-level cancellation uses the generated opening concurrency gate only. A newer opener can cancel older gate steps and release the queue, but jobs whose opening gate already passed can continue or start later. Old and new workflows can overlap. The closing gate never requests cancellation. `W_WORKFLOW_CONCURRENCY_CANCEL_IN_PROGRESS_BEST_EFFORT` reports this difference. Use job-level groups when individual stale jobs must be cancellation targets; workflow cancellation doesn't stop all jobs or cancel the whole build.
+
+With `cancel-in-progress` false or omitted, Pipelines queues every waiting entry rather than replacing the pending entry as GitHub does. Such entries can still be canceled by another opted-in job in the group. `queue` is unsupported.
 
 Called workflows retain workflow-level concurrency around all their jobs, including static call-matrix instances and nested calls. Jobs inside a call remain parallel except for their own dependencies and job groups. Reusing an enclosing workflow group in a job or nested call is unsupported.
 
 Calls with `needs` require prerequisites with no concurrency or provably disjoint groups. Shared or unresolved groups and cycles involving dependencies and ordered queues are rejected, including transitive and matrix prerequisites. This check covers the generated pipeline, not other pipelines or later manual uploads.
 
-The call's gate waits for all external prerequisites, including failed and skipped ones, but reserves its queue position at upload, earlier than GitHub. Later calls can wait behind unfinished prerequisites; `W_REUSABLE_WORKFLOW_CONCURRENCY_QUEUED_BEFORE_PREREQUISITES` reports this difference. A statically false call omits its gate. A runtime-dependent call still enters and holds the group until its jobs finish, even if it skips; `W_REUSABLE_WORKFLOW_CONCURRENCY_ENTERED_BEFORE_CALL_CONDITION` reports this behavior.
+The call's gate waits for all external prerequisites, including failed and skipped ones, but reserves its queue position at upload, earlier than GitHub. The gate can't request cancellation until those prerequisites finish. Later calls can wait behind unfinished prerequisites; `W_REUSABLE_WORKFLOW_CONCURRENCY_QUEUED_BEFORE_PREREQUISITES` reports this difference. A statically false call omits its gate. A runtime-dependent call still enters the group before evaluating its condition, even if it skips; `W_REUSABLE_WORKFLOW_CONCURRENCY_ENTERED_BEFORE_CALL_CONDITION` reports this behavior. With cancellation enabled, this call can cancel older gate steps even when its condition is false.
 
 Workflow concurrency can't enclose or depend on deferred expansion as described under [matrices from outputs](#job-syntax-matrices-from-job-outputs). Cancel the whole build, not an individual job, when a workflow gate is active.
 
@@ -916,7 +973,7 @@ Jobs support static dependencies, outputs, runner selection, matrices, configura
 | `if` | Evaluated before the job starts; see [conditions](#expressions-and-contexts-conditions). |
 | `outputs` | [Output expressions](#expressions-and-contexts-runtime-interpolation) for downstream `needs`. Ambiguous matrix values fail rather than selecting a winner. See [size limits](#limits-and-troubleshooting-key-limits). |
 | `env`, `defaults.run` | [Normal precedence and field-specific expressions](#workflow-syntax-reference-environment-and-defaults). |
-| `timeout-minutes` | Literal number, at most 360. Expressions are rejected. |
+| `timeout-minutes` | Literal or compile-time expression producing a number greater than zero and at most 360, including fractional minutes. Expressions can use supported `github` values, static inputs, repository or organization `vars`, and concrete `matrix` and `strategy` values. Direct `needs` and deferred reusable inputs are unsupported. |
 | `continue-on-error` | Boolean literal or Boolean-valued expression. Tolerated failures remain visible as soft failures but report downstream success. |
 | `environment` | Literal top-level-job environment, resolved during compilation. |
 | `snapshot` | Accepted, no effect. Custom image creation isn't implemented. |
@@ -975,7 +1032,7 @@ Use `validate` or `compile --format ir-json` to inspect the graph; `compile --fo
 
 ### Repository and organization variables
 
-`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload. Providers other than GitHub.com don't make that request. The backend uses its own repository-restricted credentials.
+`${{ vars.NAME }}` reads configuration, not secrets. Within a Buildkite job, applicable workflows, reusable calls, and action input defaults that reference `vars` trigger one repository/organization lookup per upload. Providers other than GitHub.com don't make that request; GHES variables aren't supported. The backend uses its own repository-restricted credentials.
 
 | Position | Precedence |
 | --- | --- |
@@ -1024,7 +1081,9 @@ strategy:
         os: ubuntu-24.04
 ```
 
-Ordinary job matrices accept literal `max-parallel`; [matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs) provide a limited dynamic form. Call matrices with multiple instances can't use `max-parallel`, because invocation-level parallelism can't be preserved. Static call and callee matrices compose, including nested calls.
+Ordinary job matrices accept literal or compile-time `max-parallel` expressions producing a positive integer. Expressions can use supported `github` values, static inputs, and repository or organization `vars`, but not `matrix` or `strategy`. For example, use `${{ inputs.parallel }}` for a numeric input or `${{ fromJSON(vars.PARALLEL) }}` for a numeric string. Unresolved values and results that are not numbers are rejected. [Matrix-producer outputs](#job-syntax-scheduling-from-matrix-producer-outputs) retain their separate dynamic form and limits.
+
+Call matrices with multiple instances can't use `max-parallel`, because invocation-level parallelism can't be preserved. Expression-valued `max-parallel` on a reusable workflow invocation is unsupported. Jobs inside the called workflow can use its static inputs in timeout and parallelism expressions. Static call and callee matrices compose, including nested calls.
 
 `fail-fast` is accepted but has no cancellation effect. Scalar `strategy` properties report `job-index` (zero-based final expansion order), `job-total`, configured `fail-fast` (default `true`), and `max-parallel` (default final row count). A non-matrix job uses index zero, total one, and parallel limit one. Reporting `fail-fast: true` doesn't enable it.
 
@@ -1256,9 +1315,12 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 | Context | Job condition | Step condition |
 | --- | --- | --- |
 | `github.actor`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_owner`, `sha`, `workflow_ref`, `workflow_sha` | Yes | Yes |
+| `github.actor_id`, `repository_id`, `repository_owner_id` | Yes, when the event supplies matching [identity IDs](#expressions-and-contexts-github-identity-ids), including reusable-workflow calls. | Yes, including composite steps. |
 | `github.event`, including projected/dynamic properties | Yes | Yes |
 | `github.server_url` | No | Composite steps only, from v0.105.0. |
+| `github.run_attempt` | Yes, including reusable-workflow calls. | Yes, including composite steps. |
 | `runner.os`, `runner.arch`, `runner.environment` | Yes | Yes |
+| `runner.name` | No | Yes, including composite steps; requires the name of the executing agent. |
 | `runner.temp`, `runner.debug` | No | Yes; debug is always absent. |
 | `needs.<job>.result`, `needs.<job>.outputs.<name>` | Yes | Yes |
 | Matrix values | Yes | Yes |
@@ -1274,6 +1336,8 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 `hashFiles()` conditions accept 1–255 literal or direct-reference arguments. Reusable-call conditions use the narrower [caller scope](#workflow-syntax-reference-reusable-workflows). Event data remains the original event, including whole or dynamic access.
 
 Composite `github.server_url` conditions can distinguish providers, such as `github.server_url == 'https://github.com'`. Workflow job/step, reusable-call, and JavaScript lifecycle conditions don't gain this field. A composite condition doesn't grant token authority to its run body.
+
+Use `if: github.run_attempt == '1'` to run a job or step only on its first attempt, or `if: github.run_attempt != '1'` for retries. The value follows the [runtime identity mapping](#expressions-and-contexts-runtime-interpolation). Retrying one Buildkite Pipelines job doesn't change another job's attempt. Missing or invalid retry identity is an error. Import-time fields such as `runs-on`, matrices, and concurrency, and JavaScript `pre-if` and `post-if`, don't support `github.run_attempt`.
 
 ### Runtime interpolation
 
@@ -1312,8 +1376,10 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | Retained runtime context | Value |
 | --- | --- |
 | `github.actor`, `event_name`, `ref`, `repository`, `sha` | Event identity. |
+| `github.actor_id`, `repository_id`, `repository_owner_id` | String IDs from the original GitHub event; see [identity IDs](#expressions-and-contexts-github-identity-ids). |
 | `github.repository_owner` | Owner from repository identity. |
 | `github.server_url` | Event repository provider URL. |
+| `github.api_url`, `github.graphql_url` | GitHub API URLs. GHES uses the event server URL with `/api/v3` and `/api/graphql`. |
 | `github.job`, `github.workflow` | Job ID and workflow name or fallback path. |
 | `github.workflow_ref`, `github.workflow_sha` | Top-level caller workflow identity, retained through reusable calls. |
 | `github.head_ref`, `github.base_ref` | Pull request branches; empty for other events. |
@@ -1327,6 +1393,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | `github.event` | Original verified event payload. |
 | `runner.os`, `runner.arch` | `Linux`/`X64`, `Linux`/`ARM64`, `macOS`/`ARM64`, or `Windows`/`X64`. |
 | `runner.environment` | `self-hosted`, including Buildkite hosted agents. |
+| `runner.name` | Available from [v0.127.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.127.0). Name of the executing Buildkite agent, from [`BUILDKITE_AGENT_NAME`](/docs/pipelines/configure/environment-variables#BUILDKITE_AGENT_NAME). Available in step fields, job outputs, action input defaults, and lifecycle conditions. Direct reads fail when the name is unavailable, with no hostname or GitHub runner-name fallback. Compile-time fields, job conditions, job environment/defaults, and service fields don't support it. |
 | `runner.temp` | Canonical `RUNNER_TEMP`, available after setup in step fields and job outputs. |
 | `runner.debug` | Always absent; interpolation is empty and comparison to enabled value `1` is false. Available in step fields, outputs, lifecycle conditions, and action input defaults. |
 {: class="responsive-table"}
@@ -1359,6 +1426,21 @@ Hashing uses SHA-256 file digests in lexical path order; multi-file results can 
 
 Traversal starts at each positive pattern's literal prefix. Negative patterns don't prune traversal. [Entry and time budgets](#limits-and-troubleshooting-key-limits) count inspected nonmatching entries and cover traversal, matching, sorting, hashing, and verification. Use narrower positive paths after a budget failure. Earlier deadlines and cancellation still apply; blocked filesystem calls can't be interrupted between operations. Errors identify step/field context and affected patterns.
 
+### GitHub identity IDs
+
+Use `github.actor_id`, `github.repository_id`, and `github.repository_owner_id` in supported compile-time fields, runtime fields, action input defaults, and conditions, including JavaScript lifecycle conditions. Values are strings from the original GitHub event:
+
+| Context | Event data |
+| --- | --- |
+| `github.actor_id` | `sender.id`, when `sender.login` matches the event actor. |
+| `github.repository_id` | `repository.id`, when `repository.full_name` matches the event repository. |
+| `github.repository_owner_id` | `repository.owner.id`, when the repository and owner login match the event identity. |
+{: class="responsive-table"}
+
+Names match case-insensitively. The event must contain positive integer IDs. Missing or mismatched identity data causes an evaluated ID reference to fail; `||` cannot supply a fallback for this error. Linked webhooks and explicit event snapshots can supply IDs. Buildkite Pipelines user IDs, names, and environment fallback values are not substitutes. These expressions don't populate `GITHUB_ACTOR_ID`, `GITHUB_REPOSITORY_ID`, or `GITHUB_REPOSITORY_OWNER_ID`; pass values through `env` when a command needs them.
+
+ID access doesn't grant token permissions or make a context available in a previously unsupported field. `github.triggering_actor` and `github.ref_protected` remain unsupported.
+
 ### Event file
 
 With a linked webhook or explicit event snapshot, the complete event payload is available as a JSON file. Access its path with either the `GITHUB_EVENT_PATH` environment variable or the `${{ github.event_path }}` expression.
@@ -1383,7 +1465,7 @@ See [event payload security](/docs/pipelines/migration/run-github-actions-workfl
 
 ### Compile-time expressions
 
-Statically resolvable fields support `github.actor`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_owner`, `sha`, and `workflow`, plus event data and the field-specific matrix, input, strategy, and variable contexts described above. Workflow concurrency has the additional [build-ID exception](#workflow-syntax-reference-concurrency) from v0.106.0. Computed indexes and projections work only when the complete value resolves before execution. Whole/dynamic `github` requires an event root. Action and workflow `uses` references remain static, regardless of event data.
+Statically resolvable fields support `github.actor`, `actor_id`, `base_ref`, `event_name`, `head_ref`, `ref`, `ref_name`, `ref_type`, `repository`, `repository_id`, `repository_owner`, `repository_owner_id`, `sha`, and `workflow`, plus event data and the field-specific matrix, input, strategy, and variable contexts described above. The ID fields require matching [event identity data](#expressions-and-contexts-github-identity-ids). Workflow concurrency has the additional [build-ID exception](#workflow-syntax-reference-concurrency) from v0.106.0. Computed indexes and projections work only when the complete value resolves before execution. Whole/dynamic `github` requires an event root. Action and workflow `uses` references remain static, regardless of event data.
 
 <a id="runtime-behavior-and-limits"></a>
 

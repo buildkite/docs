@@ -78,7 +78,7 @@ When a build is canceled, Buildkite Pipelines records why. The reason is returne
     </tr>
     <tr>
       <td><code>branch_deleted</code></td>
-      <td>The branch was deleted from GitHub, and the pipeline has the <strong>Cancel deleted branch builds</strong> <a href="/docs/pipelines/source-control/github#running-builds-on-pull-requests">GitHub setting</a> turned on.</td>
+      <td>The branch was deleted, and the pipeline has <strong>Cancel deleted branch builds</strong> turned on for its <a href="/docs/pipelines/source-control/github#running-builds-on-pull-requests">GitHub</a> or <a href="/docs/pipelines/source-control/origin#configure-build-triggers-branch-and-tag-pushes">Origin</a> repository provider.</td>
     </tr>
     <tr>
       <td><code>merge_group_destroyed</code></td>

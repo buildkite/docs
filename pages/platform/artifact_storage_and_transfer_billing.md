@@ -72,6 +72,13 @@ Where retention settings are available, organization administrators can choose a
 
 ## Viewing your usage
 
-The [**Usage** page](https://buildkite.com/organizations/~/usage) shows your artifact storage and transfer usage, the inclusions in your plan, and the projected charges for any usage above those inclusions. Reviewing usage during the billing period helps you estimate overage charges before they are invoiced.
+The **Artifacts** tab of the [**Usage** page](https://buildkite.com/organizations/~/usage) shows cards for storage, downloads, and uploads with usage for the current period against your plan's inclusion, and how much of that inclusion remains or by how much you've gone over:
+
+- Pro plans compare usage against the current monthly billing period.
+- Annual Enterprise plans compare usage against the current calendar month.
+
+Uploads usage is shown without an inclusion comparison, since uploads aren't billed.
+
+Each card links to a breakdown for that resource, showing usage by pipeline and, for storage, your current retention period and recent retention changes. Historical charts and tables below the cards cover the current period and the six preceding periods, compared against your plan's current inclusion.
 
 For more detail on tracking prepaid entitlements against actual usage, see [Viewing prepaid inclusions](/docs/platform/pricing-and-plans#viewing-prepaid-inclusions).

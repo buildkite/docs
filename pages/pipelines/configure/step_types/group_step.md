@@ -121,7 +121,7 @@ Optional attributes:
 
 ## Concurrency in groups
 
-The `concurrency`, `concurrency_group`, and `concurrency_method` attributes are not group step attributes. To limit how many jobs can run in parallel for work inside a group, set these attributes on the [command steps](/docs/pipelines/configure/step-types/command-step) within the group, not on the group step itself. See [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) for details.
+The `concurrency` attribute is not a group step attribute. To limit how many jobs can run in parallel for work inside a group, set a concurrency map on the [command steps](/docs/pipelines/configure/step-types/command-step#concurrency-attributes) within the group, not on the group step itself. The supported top-level alternatives, `concurrency_group` and `concurrency_method`, also apply only to command steps. See [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) for details.
 
 For example, to limit each service deploy in a group to one concurrent job:
 
@@ -133,12 +133,14 @@ steps:
     steps:
       - label: "Deploy auth"
         command: "make deploy-auth"
-        concurrency: 1
-        concurrency_group: "deploy/auth"
+        concurrency:
+          limit: 1
+          group: "deploy/auth"
       - label: "Deploy payments"
         command: "make deploy-payments"
-        concurrency: 1
-        concurrency_group: "deploy/payments"
+        concurrency:
+          limit: 1
+          group: "deploy/payments"
 ```
 {: codeblock-file="pipeline.yml"}
 

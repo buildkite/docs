@@ -271,6 +271,8 @@ The snapshot supplies compile-time context. Plans retain the event name, reposit
 
 The snapshot is compatibility data, not authorization.
 
+For [GitHub Enterprise Server (GHES)](/docs/pipelines/migration/run-github-actions-workflows/compatibility#credentials-and-deployments-repositories-github-enterprise-server-execution), the optional top-level `server_url` identifies the HTTPS server origin and is retained in the digest-bound job plan. Omission defaults to `https://github.com`. Server-selected imports use the protected `GITHUB_SERVER_URL` from the selected GHES App connection. Neither a snapshot field nor a user-set environment variable grants repository access.
+
 ## Compile a pipeline
 
 Render Buildkite pipeline YAML:
@@ -364,7 +366,7 @@ The runtime also validates these values before upload:
 
 - `BUILDKITE_GITHUB_WORKFLOW_PATH` must be a non-empty path without surrounding whitespace. If any of `GITHUB_EVENT_NAME`, `GITHUB_WORKFLOW`, `GITHUB_WORKFLOW_REF`, or `GITHUB_WORKFLOW_SHA` is set without it, the import fails.
 - `GITHUB_EVENT_NAME` or `BUILDKITE_GITHUB_EVENT` is required.
-- `GITHUB_WORKFLOW_REF` must name the same repository as a `github.com` `BUILDKITE_REPO`, and its event ref must match the event: `refs/heads/` or `refs/tags/` for `push` and `create`; `refs/pull/<number>/merge` for pull request and review events; `refs/tags/` for `release`; `refs/heads/` for the other events. Deployment events also accept a full commit SHA.
+- `GITHUB_WORKFLOW_REF` must name the same repository as `BUILDKITE_REPO` on the server identified by `GITHUB_SERVER_URL` (GitHub.com when absent). Its event ref must match the event: `refs/heads/` or `refs/tags/` for `push` and `create`; `refs/pull/<number>/merge` for pull request and review events; `refs/tags/` for `release`; `refs/heads/` for the other events. Deployment events also accept a full commit SHA.
 - `GITHUB_WORKFLOW_SHA` must be a full lowercase 40-character hexadecimal commit. Every event other than `push` and `pull_request` requires both `GITHUB_WORKFLOW_REF` and `GITHUB_WORKFLOW_SHA`.
 
 Server-selected imports don't require the importer step to have a `key`. The runtime uploads the event, runtime, and plan artifacts before uploading the dynamic pipeline, and scopes artifact reads to the importer job. It doesn't use the job ID as a dependency key. A custom importer that passes explicit workflow paths to `upload` still requires a step `key`, and generated workflow groups depend on it.
@@ -447,7 +449,7 @@ buildkite-gha upload \
   .github/workflows/ci.yml
 ```
 
-Linux arm64 mappings always require an explicit queue and never fall back to an amd64 image or emulation. When a selected workflow needs that runtime, a custom importer must supply the executable from the verified `buildkite-gha_Linux_arm64.tar.gz` release archive with `--runtime-distribution linux/arm64=<absolute-path>`. This artifact doesn't enable a Buildkite hosted agents Linux ARM64 queue.
+Linux arm64 jobs use [automatic queue resolution](/docs/pipelines/migration/run-github-actions-workflows/compatibility#runners-and-tools-queue-selection-and-mappings) or an explicit queue mapping. Neither falls back to an amd64 image or emulation. When a selected workflow needs that runtime, a custom importer must supply the executable from the verified `buildkite-gha_Linux_arm64.tar.gz` release archive with `--runtime-distribution linux/arm64=<absolute-path>`. This artifact doesn't enable a Buildkite hosted agents Linux ARM64 queue.
 
 The hosted preset accepts runner labels case-insensitively, so aliases such as `macOS-latest` and `Ubuntu-Latest` are equivalent to their lowercase forms. Local presets use Noble for `ubuntu-latest` and `ubuntu-24.04`, and Jammy for `ubuntu-22.04`. Backend resolution can instead select a native Linux environment through agent tags. Use `--runner-image` with an immutable digest to override the preset for a configured profile; backend tags never replace that explicit image. An explicit mapping declares its selector's platform from the known Linux, macOS, and Windows labels. The importer validates its queue and hosted platform through the job-scoped Agent API before upload, preserving the configured image. An import using explicit mappings stops if that validation is unavailable. The Agent API owns compatibility and returns the complete target for every other selector. The importer publishes returned warnings as annotations. See [Compatibility](/docs/pipelines/migration/run-github-actions-workflows/compatibility#job-syntax-job-configuration) for runner behavior. Runtime distribution paths must be absolute executables. The importer's platform defaults to its running executable; other platforms have no direct-upload default. `BUILDKITE_GHA_TARGET_QUEUE` and `BUILDKITE_GHA_RUNTIME_IMAGE` are no longer supported.
 

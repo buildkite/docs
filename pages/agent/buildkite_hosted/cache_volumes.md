@@ -143,6 +143,8 @@ If, however, the volume is used less frequently and its data is relatively dynam
 
 Container cache volumes are types of volumes used to cache Docker images between builds.
 
+Container cache volumes store images, not Docker's build cache. To learn how layers are reused between Docker image builds, see [How Docker image builds run](/docs/agent/buildkite-hosted/linux/remote-docker-builders#how-docker-image-builds-run).
+
 > 📘
 > This feature is only available to [Linux hosted agents](/docs/agent/buildkite-hosted/linux).
 
@@ -154,7 +156,7 @@ To enable container cache volumes feature for Buildkite hosted agents on your cl
 
 1. Select the Buildkite cluster in which to enable the container cache volumes feature.
 
-1. Select **Cache Storage**, then select the **Settings** tab.
+1. Select **Cached Storage**, then select the **Settings** tab.
 
 1. Select **Enable container caching**, then select **Save cache settings** to enable container caching for the selected hosted cluster.
 
@@ -178,7 +180,7 @@ To enable Git mirror volumes feature for Buildkite hosted agents on your cluster
 
 1. Select the Buildkite cluster in which to enable the Git mirror volumes feature.
 
-1. Select **Cache Storage**, then select the **Settings** tab.
+1. Select **Cached Storage**, then select the **Settings** tab.
 
 1. Select **Enable Git mirror**, then select **Save cache settings** to enable Git mirrors for the selected hosted cluster.
 
@@ -192,7 +194,7 @@ You can view all of your current cluster's volumes through its **Cached Storage*
 
 ## Viewing and deleting volumes
 
-Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/buildkite-hosted/linux/remote-docker-builders#additional-volumes) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
+Deleting a [container cache](#container-cache-volumes) or [Git mirror](#git-mirror-volumes) volume, or any additional [local builder volume](/docs/agent/buildkite-hosted/linux/remote-docker-builders#layer-caching-without-remote-docker-builders) (also listed on the **Cached Storage** > **Volumes** page) may affect the build time for the associated pipelines until the new volume is established.
 
 To view a list of volumes and delete one:
 
@@ -200,7 +202,7 @@ To view a list of volumes and delete one:
 
 1. Select the Buildkite cluster whose volume is to be deleted.
 
-1. Select **Cache Storage**, then select the **Volumes** tab to view a list of all existing container cache and Git mirror volumes.
+1. Select **Cached Storage**, then select the **Volumes** tab to view a list of all existing container cache and Git mirror volumes.
 
 1. Select **Delete** for the volume you wish to remove.
 

@@ -557,6 +557,7 @@ treemap
 Trivy
 trixie
 typosquatted
+Ubicloud
 udp
 uncached
 unmanaged

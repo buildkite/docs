@@ -1,22 +1,54 @@
+---
+description: "Organize Buildkite Pipelines logs, find failures, save complete command output, reduce noisy logs, and configure redaction and private log archives."
+---
+
 # Managing log output
 
-Buildkite uses our open-source [terminal-to-html](https://github.com/buildkite/terminal-to-html) tool to provide you with the best possible terminal rendering experience for your build logs, including ANSI terminal emulation to ensure spinners, progress bars, colors and emojis are rendered beautifully.
+Organize Buildkite Pipelines logs to find failures faster. Save complete command output while filtering or truncating noisy logs.
+
+- [Organize output](#grouping-log-output) into collapsible groups.
+- [Manage large logs](#log-output-limits) without losing the original command output.
+- [Protect sensitive values](#redacted-environment-variables) with log redaction.
+- [Summarize failures with a build annotation](/docs/pipelines/configure/annotations#create-a-build-annotation-from-within-a-builds-job) so readers don't need to search the full log.
 
 ## Grouping log output
 
-You can organize your build output into collapsible sections using different grouping methods, each providing a distinct visual presentation and default behavior. Build output appears under the most recently defined heading until you define a new heading.
+Print a grouping marker at the start of a line to create a log heading. Output belongs to that group until the next heading.
+
+Marker | Behavior
+------ | --------
+`---` | Starts a collapsed group
+`+++` | Starts an expanded group
+`~~~` | Starts a collapsed, de-emphasized group
+`^^^ +++` | Expands the previous group, optionally updating its title
+{: class="two-column"}
 
 ### Collapsed groups
 
-Use `---` to create collapsed groups that users can expand to view details:
+Use `---` for output that readers can expand when needed:
 
 ```bash
 echo "--- A section of the build"
 ```
 
+### Expanded groups
+
+Use `+++` for output that should be open by default:
+
+```bash
+echo "+++ A section of the build"
+```
+
+If no group is explicitly expanded (`+++`), the last regular collapsed group (`---`) opens instead. To prevent that fallback, add this empty-looking expanded group at the end of your output:
+
+```bash
+echo -e "+++ \032"
+# The \032 escape emits ASCII SUB (0x1A), not a space
+```
+
 ### De-emphasized groups
 
-Use `~~~` to create groups that by default are collapsed and visually de-emphasized through the use of non-bold text (can be useful for less important output):
+Use `~~~` for less important output. These groups start collapsed and use non-bold titles:
 
 ```bash
 echo "~~~ An unimportant section of the build"
@@ -25,75 +57,74 @@ echo "~~~ An unimportant section of the build"
 > 📘 Availability
 > The controls in this section are available to organizations where de-emphasized job log groups are enabled in the new build experience.
 
-In the [Buildkite Pipelines build page](/docs/pipelines/build-page), consecutive de-emphasized groups are folded into inline expander rows by default. Select an expander row to reveal those groups. Select **Show system groups** in the log toolbar to reveal all folded groups. The **Show system groups** tooltip shows how many groups are currently hidden. The button changes to **Hide system groups**, which folds them again.
+On the [Buildkite Pipelines build page](/docs/pipelines/build-page#core-actions-viewing-step-details), consecutive de-emphasized groups are folded into inline expander rows. Folding hides the group headings as well as their output. Expanding a group opens its output without revealing other folded groups.
 
-Select **Configure view** > **Show all system groups** to keep all de-emphasized groups visible. Your choice is remembered for future visits to the build page. The **Configure view** menu also lets you change the log's theme and toggle timestamps.
+- Select an expander row to reveal those groups temporarily.
+- Select **Show system groups** in the log toolbar to reveal all folded groups. Its tooltip shows the hidden group count. Select **Hide system groups** to fold them again.
+- Select **Configure view** > **Show all system groups** to keep de-emphasized groups visible on future visits. This menu also controls the log theme and timestamps.
+- Select **Expand groups** or **Collapse groups** to open or close all visible groups without revealing folded groups.
 
-The default group that reports your build's running script, commands, or command hooks (for example, **Running commands**) always stays visible. A de-emphasized group that's explicitly expanded using `^^^ +++` also stays visible. See [Advanced grouping techniques](#grouping-log-output-advanced-grouping-techniques) for details. While a job is running, its active group stays visible. The group is folded when the job finishes.
+The default group that reports the running script, commands, or [command hooks](/docs/agent/hooks#job-lifecycle-hooks), such as **Running commands**, stays visible. Groups explicitly expanded with `^^^ +++` also stay visible. While a job runs, its active group stays visible until the job finishes.
 
-If you open a link to a specific log line inside a folded group, that group is shown automatically. Other folded groups remain folded. Search results and groups revealed using expander rows are also shown temporarily. These actions don't change your saved **Show all system groups** preference.
-
-The **Expand groups** and **Collapse groups** buttons act on visible groups without revealing folded groups. Use them to open or close all visible groups at once.
-
-### Expanded groups
-
-Use `+++` to create groups that are open by default:
-
-```bash
-echo "+++ A section of the build"
-```
-
-If no group is explicitly expanded (`+++`), then the last collapsed regular group (`---`) gets expanded instead. If you _really_ want all groups to be collapsed, add an empty expanded group (using a single space character) at the end of your build:
-
-```bash
-echo -e "+++ \032"
-# The \032 escape sequence creates a single space character
-```
+Opening a link to a line inside a folded group reveals that group temporarily. Other groups remain folded. These actions don't change your saved **Show all system groups** preference.
 
 ### Advanced grouping techniques
 
-This section covers build log output grouping methods that go beyond formatting, collapsing, or expanding, and can be used for a better visual filtering of information, especially when it comes to long logs.
+Use these techniques to highlight failures and separate stages in long logs.
 
 #### Opening previous groups
 
-If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
-
-To also update the previous group's title, add the new title after `^^^ +++`:
+Use `^^^ +++` to open the previous group, for example, when a command fails. Add a title after the marker to rename the group:
 
 ```bash
 echo "--- Bundling"
-bundle
-if [[ $? -ne 0 ]]; then
+if bundle; then
+  echo "Bundling complete"
+else
+  status=$?
   echo "^^^ +++ Bundling failed"
-  echo "Bundler failed, oh no!!"
+  exit "$status"
 fi
 ```
 
-If the group you open with `^^^ +++` is a [de-emphasized](#grouping-log-output-de-emphasized-groups) (`~~~`) group, it stays visible on the build page even when de-emphasized groups are hidden by default.
+The guarded command allows failure handling even with Bash's `-e` option enabled. Save the original exit status before printing messages, then return it so the job still fails. See [Capturing exit status](/docs/pipelines/configure/writing-build-scripts#capturing-exit-status) for more examples.
+
+If the previous group is de-emphasized (`~~~`), expanding it with `^^^ +++` keeps it visible even when other de-emphasized groups are hidden.
 
 #### Creating section boundaries
 
-Different group types can be combined to create defined start and end markers for your log output. This is useful for creating distinct sections with clear boundaries:
+Combine group types to mark stages. Only print completion headings when the corresponding command succeeds:
 
 ```bash
-echo "--- Starting deployment..."
-./scripts/deployment.sh
-echo "~~~ Deployment complete!"
-echo "--- Running tests..."
-./scripts/tests.sh
-echo "~~~ Tests succeeded!"
+echo "--- Starting deployment"
+if ./scripts/deployment.sh; then
+  echo "~~~ Deployment complete"
+else
+  status=$?
+  echo "^^^ +++ Deployment failed"
+  exit "$status"
+fi
+
+echo "--- Running tests"
+if ./scripts/tests.sh; then
+  echo "~~~ Tests succeeded"
+else
+  status=$?
+  echo "^^^ +++ Tests failed"
+  exit "$status"
+fi
 ```
 
-You can even include colors and emojis!
+Use ANSI escape codes (terminal control codes) for colors and emoji shortcode syntax for group titles:
 
 ```bash
 echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 ```
 
-<%= image("collapsing_example.png", size: '261x127', alt: 'Screenshot of colored, emoji build output') %>
+<%= image "collapsing_example.png", width: 522/2, height: 254/2, alt: "Screenshot of colored, emoji build output" %>
 
 > 🚧 Emoji shortcode
-> The `:emoji_name:` shortcode syntax is only converted into an emoji within step labels and group header lines (text following `---`, `+++`, `~~~`, or `^^^ +++`). It is not substituted in regular command output. Use the actual Unicode character there instead.
+> Buildkite Pipelines converts `:emoji_name:` shortcode syntax into emojis only in step labels and group header lines (text following `---`, `+++`, `~~~`, or `^^^ +++`). Use the actual Unicode character in regular command output.
 
 ```yaml
 steps:
@@ -103,120 +134,135 @@ steps:
       echo "Checking environment..."
 
       echo "+++ \:rocket\: Running deploy script"
-      ./deploy.sh
-
-      if [[ $? -ne 0 ]]; then
+      if ./deploy.sh; then
+        echo "Deployment complete"
+      else
+        status=$?
         echo "^^^ +++"
-        echo "🚀 Deploy failed — check the logs above"
+        echo "🚀 Deploy failed. Check the logs above."
+        exit "$$status"
       fi
 ```
 
-The `echo` line inside the `if` block uses the literal 🚀 Unicode character directly. Writing `\:rocket\:` there would print as plain text rather than an emoji.
+The failure message uses the literal 🚀 character because a shortcode there would print as plain text. In pipeline YAML, `$$status` [defers variable expansion until the step runs](/docs/agent/cli/reference/pipeline#environment-variable-substitution-escaping-the-dollars-character).
 
 ## Searching log output
 
-On the Buildkite Pipelines build page, select **Search logs** above the build log. Enter a search term. Select **Previous** or **Next** to move between matches. Select **Match case sensitivity** (**Aa**) to require an exact-case match.
+To find text on the Buildkite Pipelines build page:
 
-Search includes text inside [folded de-emphasized groups](#grouping-log-output-de-emphasized-groups). Matching groups are revealed for the duration of the search. Closing search folds them again unless they were already visible.
+1. Select **Search logs** above the build log.
+1. Enter a search term.
+1. Select **Previous** or **Next** to move between matches.
+
+Select **Match case sensitivity** (**Aa**) to require an exact-case match.
+
+Search includes text inside folded de-emphasized groups. Matching groups appear for the duration of the search. Closing search folds them again unless they were already visible.
+
+If the same tests fail intermittently, [collect their results in Test Engine](/docs/pipelines/configure/tests/test-collection) to track failures across builds instead of comparing individual logs.
 
 ## ANSI timestamps
 
-Each line of log output begins with an ANSI timestamp. Agent v3 provided options to disable ANSI timestamps or replace them with plain-text timestamps.
+Buildkite agent v4 always emits ANSI timestamp codes in job logs. The v3 options to disable them or use plain-text timestamps were removed. See [Changes to job logs](/docs/agent/v3-v4-upgrade-guide#breaking-changes-in-v4-changes-to-job-logs). To change timestamp visibility on the build page, use **Configure view**.
 
 ## Log output limits
 
-If your build output exceeds 2MB then we'll only show the last 2MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed the default 1,024 MiB per-job log size limit. Buildkite Pipelines cancels jobs whose logs exceed this limit. For the full set of quotas and how to raise them, see [Pipelines limits](/docs/platform/limits#pipelines-limits).
+Buildkite Pipelines renders only the last two MB of output on the build page. This display limit is separate from the default 1,024 MiB per-job log size limit. Pipelines cancels jobs whose logs exceed the per-job limit. See [Pipelines limits](/docs/platform/limits#pipelines-limits) for quotas and how to request an increase.
 
-If your log exceeds 2MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
+To retrieve an existing job's stored output, [download the raw log using the REST API](/docs/apis/rest-api/jobs#get-a-jobs-log-output). This cannot recover output filtered out before upload. For future builds, reduce unnecessary tool output or save the original output before filtering or truncating it.
 
 ## Storing the original log
 
-One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and pass it straight through unchanged to the next command.
+Use `tee` to save command output to a file while also sending it to the job log. Merge standard error into standard output with `2>&1` so the file includes both streams:
 
 ```bash
 #!/bin/bash
 
 set -euo pipefail
 
-your_build_command | tee build.log | <filter command>
+your_build_command 2>&1 | tee build.log
 ```
 {: codeblock-file="build.sh"}
 
-When this script is run it will store the original output of `your_build_command` to the file `build.log`.
+The `pipefail` option makes the Bash pipeline fail if any command fails, including the build command or `tee`. The `-e` option then stops the script on that failure. Without `pipefail`, a successful final command can hide an earlier failure.
 
-To store this file alongside your build, add the `artifact_paths` attribute to the command step running your script:
+To upload `build.log` as a [build artifact](/docs/pipelines/configure/artifacts#upload-artifacts-with-a-command-step), add `artifact_paths` to the [command step](/docs/pipelines/configure/step-types/command-step) that runs the script:
 
 ```yaml
 steps:
-  - command: build.sh
+  - command: bash ./build.sh
     artifact_paths: "build.log"
 ```
 {: codeblock-file="pipeline.yml"}
 
-When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable from the "Artifacts" tab on your build page.
+After the command step finishes, the agent uploads `build.log`. Download it from the **Artifacts** tab on the build page.
 
-<%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
+<%= image "large_build_log.png", width: 1022/2, height: 482/2, alt: "Screenshot of build log available in the Artifacts tab" %>
 
-> 📘
-> The `tee` command almost always exits with a code of `0`, and so this command won't report on the preceding command. Capturing the status of the preceding command with `"${PIPESTATUS[0]}"` may help with error debugging.
+> 🚧 Review raw logs before uploading
+> `tee` saves output before job-log redaction. Do not assume that saved logs or uploaded artifacts are redacted. Avoid printing secrets, and review files before uploading or sharing them.
 
 ## Filtering with grep
 
-Grep is a Unix tool to help you filter lines of text that match a pattern. For example, the following script only sends Buildkite the matching lines as your log output, whilst storing the original log for artifact uploading.
+Use `grep` to show only matching lines in the Buildkite Pipelines job log while saving both output streams in `build.log`:
 
 ```bash
 #!/bin/bash
 
 set -euo pipefail
 
-your_build_command | tee build.log | grep 'some pattern'
+your_build_command 2>&1 | tee build.log | (
+  status=0
+  grep 'some pattern' || status=$?
+  if [[ "$status" -eq 1 ]]; then
+    exit 0
+  fi
+  exit "$status"
+)
 ```
+
+`grep` returns `1` when no lines match. The parenthesized filter treats that result as success but preserves actual `grep` errors. With `pipefail`, failures from the build command or `tee` still fail the script, even if no lines match.
 
 ## Truncating with tail
 
-Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding the per-job log size limit. For example, the following script only sends Buildkite the last 1000MB as your log output, while storing the original log for artifact uploading.
+Use `tail` to send only the last 100,000 bytes of command output to the Buildkite Pipelines job log while saving the full output in `build.log`:
 
 ```bash
 #!/bin/bash
 
 set -euo pipefail
 
-your_build_command | tee build.log | tail -c1000000000
+your_build_command 2>&1 | tee build.log | tail -c 100000
 ```
+
+This retains the end of the output, not a live rolling view. `tail` waits for the command's output to end before printing the retained bytes. Other job output still counts toward the per-job log limit.
 
 ## Improving Xcode logs with xcpretty
 
-[xcpretty](https://github.com/supermarin/xcpretty) is an open-source tool that helps to reduce, format and color-code your [Xcode](http://developer.apple.com/xcode) build output. Once you've installed xcpretty you can pipe the output of xcodebuild into it:
+[xcpretty](https://github.com/supermarin/xcpretty) reduces, formats, and color-codes [Xcode](https://developer.apple.com/xcode) build output. After installing it, pipe `xcodebuild` output through it. Replace `MyApp` with your scheme name:
 
 ```bash
 #!/bin/bash
 
 set -euo pipefail
 
-xcodebuild <build options> | tee -a build.log | xcpretty -c
+xcodebuild -scheme MyApp build 2>&1 | tee build.log | xcpretty -c
 ```
 
-Make sure to set the `-o pipefail` option in your buildscript as above, otherwise the build failure status might not be passed through correctly.
+Keep `pipefail` enabled so an `xcodebuild` failure fails the script even when xcpretty succeeds.
 
-<%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>
+<%= image "xcpretty.png", width: 1640/2, height: 790/2, alt: "Screenshot of xcpretty output" %>
 
 ## Encryption and security
 
-Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
+Buildkite-managed artifacts are stored in Amazon S3 with encryption at rest. See [Artifact storage, encryption, and retention](/docs/pipelines/configure/artifacts#storage-providers-encryption-and-retention) for key management and self-managed storage options.
 
-Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions mitigate against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
-
-If you choose to [host your build artifacts](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
-
-If you are a Buildkite customer on the [Enterprise](https://buildkite.com/pricing) plan, you can also set up a private AWS S3 job log archive location and store the job logs in your private bucket. See [Job log archiving](/docs/pipelines/governance/job-log-archiving).
-
-To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API access tokens that can access your organization's data using the REST and GraphQL API.
+Your organization controls the credentials and systems builds can access. Agent infrastructure responsibilities depend on whether agents are hosted or self-hosted. Review the [shared responsibility model](/docs/platform/security#shared-responsibility) for your setup.
 
 ## Redacted environment variables
 
-Agents can redact the values of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
+The Buildkite agent redacts matching [environment variable](/docs/pipelines/configure/environment-variables) values before uploading job logs. Variable names must match a configured pattern.
 
-If the environment variable's value is shorter than the minimum length of 6 bytes, then this value will not be redacted.
+Values shorter than six bytes are not redacted.
 
 The default environment variable name patterns are:
 
@@ -224,16 +270,18 @@ The default environment variable name patterns are:
 
 With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
 
-You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/self-hosted/configure#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
+Setting [`redacted-vars`](/docs/agent/self-hosted/configure#redacted-vars) replaces the default patterns. To add `FOO` while keeping the defaults, include every default pattern you want to retain:
 
 ```sh
-redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_SSH_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_API_KEY, *_SOME_VALUE, FOO"
+redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_PRIVATE_KEY, *_SSH_KEY, *_ACCESS_KEY, *_SECRET_KEY, *_CONNECTION_STRING, *_API_KEY, FOO"
 ```
 
-Setting `redacted-vars` replaces the default patterns, so list every default pattern you want to keep. Since the defaults differ between agent versions, listing your patterns explicitly also ensures that the same variables are redacted on every agent in your fleet.
+Defaults differ between agent versions. Listing your patterns explicitly keeps the configuration consistent across your fleet.
 
-> 📘 Setting environment variables
-> Note that if you _set_ or _interpolate_ a secret environment variable in your `pipeline.yml` it is not redacted, but doing that is [not recommended](/docs/pipelines/security/secrets/risk-considerations#storing-secrets-in-your-pipeline-dot-yml).
+<a id="setting-environment-variables"></a>
+
+> 🚧 Secrets in pipeline definitions
+> Log redaction does not hide secret values in uploaded pipeline definitions. Do not store secrets directly in `pipeline.yml` or substitute their values during upload. Follow the [guidance for referencing secrets in pipeline YAML](/docs/pipelines/security/secrets/risk-considerations#referencing-secrets-in-your-pipeline-yaml) to avoid exposing them outside the job log.
 
 <a id="private-build-log-archive-storage"></a>
 
@@ -242,3 +290,8 @@ Setting `redacted-vars` replaces the default patterns, so list every default pat
 By default, job logs are stored in encrypted form in Buildkite-managed Amazon S3 buckets. Customers on the [Enterprise](https://buildkite.com/pricing) plan can instead store archived job logs in their own private Amazon S3 bucket.
 
 For setup instructions, including bucket requirements and the required bucket policy, see [Job log archiving](/docs/pipelines/governance/job-log-archiving).
+
+## Next steps
+
+- **Investigate slow builds**: Use the [waterfall view](/docs/pipelines/insights/waterfall) to distinguish time waiting for an agent from time running commands.
+- **Open diagnostics directly**: [Add clickable links to log output](/docs/pipelines/configure/links-and-images-in-log-output#links) for reports and other saved artifacts.

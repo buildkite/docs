@@ -22,8 +22,9 @@ steps:
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'main'
-    concurrency: 1
-    concurrency_group: "my-app-deploy"
+    concurrency:
+      limit: 1
+      group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -63,8 +64,9 @@ steps:
   # test builds, no matter which test builds finish first.
   - label: "Concurrency gate"
     command: "exit 0"
-    concurrency: 1
-    concurrency_group: "my-app-deploy-concurrency-gate"
+    concurrency:
+      limit: 1
+      group: "my-app-deploy-concurrency-gate"
 
   - wait
 
@@ -85,8 +87,9 @@ steps:
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'main'
-    concurrency: 1
-    concurrency_group: "my-app-deploy"
+    concurrency:
+      limit: 1
+      group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -113,8 +116,9 @@ steps:
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'main'
-    concurrency_group: "my-app-deploy"
-    concurrency: 1
+    concurrency:
+      limit: 1
+      group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -133,8 +137,9 @@ steps:
   - block: "Deploy"
     prompt: "Deploy to production?"
   - label: "\:ecs\: 🚀"
-    concurrency: 1
-    concurrency_group: "rails-app-deploy"
+    concurrency:
+      limit: 1
+      group: "rails-app-deploy"
     plugins:
       - ecs-deploy#v1.3.0:
         cluster: "production"
