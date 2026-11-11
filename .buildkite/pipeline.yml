@@ -30,6 +30,7 @@ steps:
       - ".buildkite/steps/muffet_results_internal.json"
 
   - label: ":earth_asia: Check for external link issues"
+    timeout_in_minutes: 6
     env:
       RAILS_ENV: production
       LINK_CHECK_MODE: external
