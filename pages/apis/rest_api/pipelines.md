@@ -1758,7 +1758,7 @@ Properties available for Origin:
     </tr>
     <tr>
       <th><code>cancel_deleted_branch_builds</code></th>
-      <td>Whether to cancel a branch's active builds when the branch is deleted. Cancellation applies regardless of <code>build_branches</code> or any conditional filter, and does not cancel a build for a tag with the same name.
+      <td>Whether to cancel a branch's active builds when the branch is deleted. Cancellation applies regardless of <code>build_branches</code> or any conditional filter. It does not cancel a build for a tag with the same name.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code>. <em>Default:</em> <code>false</code></p>
       </td>
     </tr>
