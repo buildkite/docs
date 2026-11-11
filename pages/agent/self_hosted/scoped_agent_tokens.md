@@ -4,8 +4,8 @@ Scoped [agent tokens](/docs/agent/self-hosted/tokens) let you restrict what self
 
 Each agent token has two independent controls:
 
-- Permissions: the Agent API actions it allows. This allow list is the token's _scope_. Agents and jobs inherit permissions from the token used to register them.
-- Queue access: the [queues](/docs/agent/queues) in its cluster where agents using the token can register and explicitly acquire jobs.
+- **Permissions:** the Agent API actions it allows. This allow list is the token's _scope_. Agents and jobs inherit permissions from the token used to register them.
+- **Queue access:** the [queues](/docs/agent/queues) in its cluster where agents using the token can register and explicitly acquire jobs.
 
 Configure these controls on the token, not in pipeline YAML. Jobs that need different permissions must use agents registered with different tokens.
 
