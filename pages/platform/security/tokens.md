@@ -12,7 +12,7 @@ Choose the token type your workflow needs, grant only the required access, and p
 - **Set expiry and rotate credentials:** Set a **Token Expiry** when creating an API access token with the **Token** credential type, and follow the [rotation guidance](/docs/apis/managing-api-tokens#api-token-security-rotation). For agent tokens, [set a Token Expiry](/docs/agent/self-hosted/tokens#agent-token-lifetime) when creating the token using the Buildkite interface, or use the API to set an expiration date.
 - **Manage agent tokens:** [Create a token](/docs/agent/self-hosted/tokens#create-a-token) in the cluster that needs it, restrict its [permissions and queue access](/docs/agent/self-hosted/scoped-agent-tokens), and [revoke it](/docs/agent/self-hosted/tokens#revoke-a-token) when no longer needed. Revocation prevents new connections but doesn't disconnect existing agents.
 - **Review and remove API token access:** [Audit tokens](/docs/apis/managing-api-tokens#auditing-tokens) regularly. Organization administrators can [remove their organization from a token](/docs/apis/managing-api-tokens#auditing-tokens-removing-an-organization-from-a-token); token owners can [revoke the token entirely](/docs/apis/managing-api-tokens#faqs-can-i-delete-a-token).
-- **Prefer short-lived credentials where supported:** Use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) for services or [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) for ephemeral agents, rather than distributing long-lived tokens to them.
+- **Prefer short-lived credentials where supported:** Use [OAuth Token Exchange](/docs/apis/oauth-token-exchange) for services, [workload identity federation](/docs/apis/workload-identity-federation) for workloads whose platform issues OIDC tokens, or [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens) for ephemeral agents, rather than distributing long-lived tokens to them.
 - **Manage OAuth access:** Review [OAuth for remote MCP and the Buildkite CLI](/docs/platform/security/oauth) for refresh behavior, **Connected Apps** revocation, and authorization audit events. Running `bk auth logout` removes local credentials but doesn't revoke the authorization in Buildkite.
 
 ## Detect leaked tokens
@@ -71,7 +71,7 @@ curl --fail-with-body -sS \
 # Find files containing possible Buildkite tokens in this directory
 # Print filenames only, not the token values
 grep -rlE --exclude-dir=.git \
-  'bk(ua|tx|ct|ar|aa|aj|jat|pt|pat|ps)_[A-Za-z0-9]+' .
+  'bk(ua|tx|ct|ar|aa|aj|jat|pt|pat|ps|wi)_[A-Za-z0-9]+' .
 ```
 
 The [Buildkite CLI](/docs/platform/cli) must be authenticated. `bk api` uses organization-scoped REST endpoints, so use `bk auth token` with `curl` for the root `/access-token` endpoint. The file search checks the working directory and saved logs, not Git history or remote build logs. Matches are candidates, not proof that a token is valid; review them locally and revoke exposed credentials.
@@ -205,3 +205,10 @@ Buildkite [OAuth Token Exchange](/docs/apis/oauth-token-exchange) tokens are sho
 
 - Prefix: `<%= token.('oauth_token_exchange_token')['prefix'] %>`
 - Lifetime: <%= token.('oauth_token_exchange_token')['lifetime'] %>
+
+### Workload identity tokens
+
+Workload identity tokens are short-lived API tokens that a workload obtains with [workload identity federation](/docs/apis/workload-identity-federation), by exchanging the OpenID Connect (OIDC) token that its platform issues, instead of using a stored API access token.
+
+- Prefix: `<%= token.('workload_identity_token')['prefix'] %>`
+- Lifetime: <%= token.('workload_identity_token')['lifetime'] %>

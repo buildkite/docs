@@ -25,6 +25,8 @@ Follow the guide for the service your pipeline needs to access:
 
 Each guide explains the service's trust configuration, required audience, and how to use the token to access resources.
 
+To call the Buildkite REST API from a job, exchange its OIDC token for a short-lived API access token with [workload identity federation](/docs/apis/workload-identity-federation/buildkite-agents).
+
 ## Request a token from a pipeline step
 
 After configuring the service, use the [Buildkite agent's OIDC command](/docs/agent/cli/reference/oidc) in the job that needs access:
