@@ -185,7 +185,7 @@ Error responses:
 
 ## Disable hosted agents remote access
 
-Disables remote access for hosted agents in the organization. This action removes SSH access from Linux and macOS hosted agents and VNC access from supported macOS hosted jobs.
+Prevents Buildkite Pipelines from issuing new SSH and VNC credentials for hosted agents in the organization. This action does not revoke SSH keys already issued for Linux hosted jobs or close existing sessions. If you suspect unauthorized SSH access, disable remote access and cancel all running jobs. See [Deactivate and reactivate remote access on hosted agents](/docs/agent/buildkite-hosted/terminal-access#deactivate-and-reactivate-remote-access-on-hosted-agents) for the limitations of this setting.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
