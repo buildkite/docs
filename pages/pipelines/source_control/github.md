@@ -438,6 +438,7 @@ To reduce your GitHub API usage:
 
 - Disable **Create a status for each job** on pipelines with high job counts, and rely on the single pipeline-level commit status instead.
 - Review which pipelines have **Update commit statuses** enabled, and disable it for pipelines where GitHub status reporting is not needed.
+- For pipelines that pass most of the time, disable **Update commit statuses** (this also stops the per-job statuses from **Create a status for each job**) and use a conditional [`github_commit_status` notification](/docs/pipelines/configure/notify#github-commit-status-report-only-failures-and-recoveries) to report only failed builds and the first passing build after a failure. Read the limitations on that page before using this for a required status check.
 
 ### Raising your rate limit
 
