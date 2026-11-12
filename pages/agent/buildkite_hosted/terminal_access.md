@@ -73,7 +73,7 @@ To deactivate or reactivate remote access for hosted agents:
     * _Deactivate this feature_, select the **Disable Remote Access** button, followed by **Disable Hosted Agents Remote Access** in the confirmation message.
     * _Reactivate this feature_, select the **Enable Remote Access** button, followed by **Enable Hosted Agents Remote Access** in the confirmation message.
 
-Deactivating the setting prevents Buildkite Pipelines from issuing new SSH and VNC credentials across all clusters in your organization and hides the remote access buttons. Reactivating it allows new credentials to be issued and makes the buttons available again.
+Deactivating the setting prevents Buildkite Pipelines from issuing new SSH and VNC credentials across all clusters in your Buildkite organization and hides the remote access buttons. Reactivating it allows new credentials to be issued and makes the buttons available again.
 
 > 🚧 Deactivating remote access does not revoke existing SSH credentials
 > The setting controls credential issuance, not connection or credential lifetimes. Deactivating it does not revoke SSH keys already issued for Linux hosted jobs or close existing sessions. If you suspect unauthorized SSH access, deactivate remote access and cancel all running jobs. Deactivating remote access alone does not stop someone who already has access from continuing to run commands.
