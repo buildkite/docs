@@ -1900,7 +1900,7 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>issue_comment_command_word</code></th>
-      <td>The command word that a PR comment must match to trigger a build. Only used when <code>build_issue_comment_created</code> is <code>true</code>.
+      <td>The single command word that a PR comment must match to trigger a build. Only used when <code>build_issue_comment_created</code> is <code>true</code>. Leading and trailing whitespace is trimmed. Values containing multiple words, such as <code>/bk review</code>, return <code>422 Unprocessable Entity</code> without creating or updating the pipeline. Use <code>null</code> or an empty string to clear the command word. Matching follows <code>issue_comment_match_mode</code>.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>/bk</code></p>
       </td>
     </tr>
@@ -1918,19 +1918,19 @@ Additional properties available for GitHub and GitHub Enterprise:
     </tr>
     <tr>
       <th><code>review_comment_command_word</code></th>
-      <td>The command word that a PR review comment must match to trigger a build. Only used when <code>build_pull_request_review_comment_created</code> is <code>true</code>.
+      <td>The single command word that a PR review comment must match to trigger a build. Only used when <code>build_pull_request_review_comment_created</code> is <code>true</code>. Leading and trailing whitespace is trimmed. Values containing multiple words, such as <code>/bk review</code>, return <code>422 Unprocessable Entity</code> without creating or updating the pipeline. Use <code>null</code> or an empty string to clear the command word. Matching follows <code>review_comment_match_mode</code>.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>/bk</code></p>
       </td>
     </tr>
     <tr>
       <th><code>review_comment_match_mode</code></th>
-      <td>How the review comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the command word; <code>contains</code> matches if the command word appears anywhere in the comment. Both modes are case-insensitive.
+      <td>How the saved review comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the saved command word; <code>contains</code> matches if the saved command word appears anywhere in the comment. Both modes are case-insensitive.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
       </td>
     </tr>
     <tr>
       <th><code>issue_comment_match_mode</code></th>
-      <td>How the issue comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the command word; <code>contains</code> matches if the command word appears anywhere in the comment. Both modes are case-insensitive.
+      <td>How the saved issue comment command word is matched against the comment body. <code>exact</code> requires the entire whitespace-trimmed comment to equal the saved command word; <code>contains</code> matches if the saved command word appears anywhere in the comment. Both modes are case-insensitive.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>exact</code>, <code>contains</code>. <em>Default:</em> <code>exact</code></p>
       </td>
     </tr>
