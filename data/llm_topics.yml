@@ -331,6 +331,7 @@ security:
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
     - "apis/workload-identity-federation"
+    - "apis/workload-identity-federation/supported-endpoints"
     - "apis/workload-identity-federation/buildkite-agents"
     - "apis/workload-identity-federation/aws"
   related_topics:

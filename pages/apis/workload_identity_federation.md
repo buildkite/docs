@@ -125,6 +125,9 @@ The **Pipelines** setting in **Resource Access** limits which pipelines a worklo
 
 For other pipelines, the REST API returns `404 Not Found`. A token keeps the pipeline access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
 
+> 🚧 Limited API support
+> Workload identity federation currently supports Buildkite Pipelines only, with a subset of REST API endpoints and scopes. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations, including organization access. Support for additional endpoints and scopes is being added.
+
 ## Exchange an OIDC token
 
 A workload gets an OIDC token, exchanges it for an API access token, and then calls the REST API:
