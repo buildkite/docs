@@ -2,8 +2,6 @@
 
 _Workload identity federation_ lets a workload, such as a job running on a Buildkite agent or a workload on AWS, call the [Buildkite REST API](/docs/apis/rest-api) without a stored API access token. The workload exchanges the [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token from your identity provider for a short-lived [Buildkite API access token](/docs/apis/managing-api-tokens). There's no secret to create, store, rotate, or leak.
 
-Workload identity federation currently supports Buildkite Pipelines only, with a subset of REST API endpoints and scopes. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations, including organization access. Support for additional endpoints and scopes is being added.
-
 Access is denied by default. An administrator creates a _workload identity_, which works as a rule: OIDC tokens from this issuer, with claims that match these conditions, can reach these pipelines with these scopes. A new workload identity's tokens can't reach any pipelines until an administrator [selects them](#choose-pipeline-access).
 
 Workload identity federation is only as secure as the identity provider that signs the OIDC tokens and the workload identity that accepts them.
@@ -126,6 +124,9 @@ The **Pipelines** setting in **Resource Access** limits which pipelines a worklo
 - **All:** Every pipeline in your Buildkite organization, including pipelines created later.
 
 For other pipelines, the REST API returns `404 Not Found`. A token keeps the pipeline access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
+
+> 🚧 Limited API support
+> Workload identity federation currently supports Buildkite Pipelines only, with a subset of REST API endpoints and scopes. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations, including organization access. Support for additional endpoints and scopes is being added.
 
 ## Exchange an OIDC token
 
