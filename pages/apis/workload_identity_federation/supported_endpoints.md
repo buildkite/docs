@@ -13,7 +13,7 @@ API reference | Supported scopes | Workload identity limitations
 [Pipeline triggers API](/docs/apis/rest-api/pipeline-triggers) | `read_pipelines`, `write_pipelines` | Can read, update, and delete existing triggers, but can't create triggers.
 [Pipeline trigger deliveries API](/docs/apis/rest-api/pipeline-trigger-deliveries) | `read_pipelines` | Read-only.
 [Builds API](/docs/apis/rest-api/builds) | `read_builds`, `write_builds`, `retry_builds` | Can't rebuild merge queue builds. Retry operations accept either `write_builds` or `retry_builds`.
-[Jobs API](/docs/apis/rest-api/jobs) | `read_builds`, `write_builds`, `retry_builds`, `read_job_env` | Can't unblock jobs restricted to specific teams. Job retries accept either `write_builds` or `retry_builds`.
+[Jobs API](/docs/apis/rest-api/jobs) | `read_builds`, `write_builds`, `retry_builds`, `read_job_env` | Can't unblock jobs restricted to specific teams or reprioritize jobs in clusters that restrict job priority changes. Job retries accept either `write_builds` or `retry_builds`.
 [Job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output) | `read_build_logs` | Read-only. Can't delete job logs.
 [Hosted agent sessions](/docs/apis/rest-api/jobs#create-an-ssh-session) | `write_builds` | SSH and remote desktop sessions require session access to be enabled for the organization and an eligible job.
 [Annotations API](/docs/apis/rest-api/annotations) | `read_builds`, `write_builds` | Can read, create, and delete build and job annotations in accessible pipelines.
