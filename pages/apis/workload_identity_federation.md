@@ -2,7 +2,7 @@
 
 _Workload identity federation_ lets a workload, such as a job running on a Buildkite agent or a workload on AWS, call the [Buildkite REST API](/docs/apis/rest-api) without a stored API access token. The workload exchanges the [OpenID Connect (OIDC)](https://openid.net/developers/how-connect-works/) token from your identity provider for a short-lived [Buildkite API access token](/docs/apis/managing-api-tokens). There's no secret to create, store, rotate, or leak.
 
-Workload identity federation currently supports Buildkite Pipelines only, with a subset of REST API endpoints and scopes. Support for additional endpoints and scopes is being added.
+Workload identity federation currently supports Buildkite Pipelines only, with a subset of REST API endpoints and scopes. See [Supported APIs and scopes](/docs/apis/workload-identity-federation/supported-endpoints) for the supported operations, including organization access. Support for additional endpoints and scopes is being added.
 
 Access is denied by default. An administrator creates a _workload identity_, which works as a rule: OIDC tokens from this issuer, with claims that match these conditions, can reach these pipelines with these scopes. A new workload identity's tokens can't reach any pipelines until an administrator [selects them](#choose-pipeline-access).
 

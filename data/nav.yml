@@ -1083,6 +1083,8 @@
       children:
         - name: "Overview"
           path: "apis/workload-identity-federation"
+        - name: "Supported APIs and scopes"
+          path: "apis/workload-identity-federation/supported-endpoints"
         - name: "Working with Buildkite agents"
           path: "apis/workload-identity-federation/buildkite-agents"
         - name: "Working with AWS"
