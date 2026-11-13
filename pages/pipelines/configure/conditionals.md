@@ -405,6 +405,16 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.requested_reviewer</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The GitHub login of the reviewer targeted by the triggering pull request review-request event, from <code>requested_reviewer.login</code>. This identifies the event's target, not all outstanding review requests. Otherwise <code>null</code>, including when the original webhook is unavailable</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.requested_team</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The GitHub team slug targeted by the triggering pull request review-request event, from <code>requested_team.slug</code>. This is not a team display name, an <code>org/team</code> string, or a Buildkite team. Otherwise <code>null</code>, including when the original webhook is unavailable</td>
+	</tr>
+	<tr>
 		<td><code>build.merge_queue.base_branch</code></td>
 		<td><code>String</code>, <code>null</code></td>
 		<td>If a merge queue build, the target branch which the merge queue build will be merged into</td>
