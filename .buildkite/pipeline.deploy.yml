@@ -24,6 +24,9 @@ steps:
 
   - name: ":ecr: ECR Vulnerabilities Scan"
     command: "true"
+    env:
+      # v1.9.1 reads this variable instead of the declared plugin option.
+      FAIL_BUILD_ON_PLUGIN_FAILURE: "true"
     soft_fail:
       - exit_status: 75 # soft fail for scan timeouts
     agents:
@@ -39,7 +42,6 @@ steps:
             - build_branch
       - cultureamp/ecr-scan-results#v1.9.1:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
-          fail-build-on-plugin-failure: true
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
