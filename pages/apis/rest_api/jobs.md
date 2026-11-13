@@ -306,7 +306,7 @@ Each entry in `jobs_ahead.items` is in submission order, matching `jobs_ahead.or
 </tbody>
 </table>
 
-`jobs_ahead.items` is capped at 30 entries and filtered to jobs in pipelines the access token can view, without being refilled after filtering. `jobs_ahead.scope` and `jobs_ahead.notice` describe this: don't treat an empty `items` list as proof that nothing is blocking the job.
+`jobs_ahead.items` is capped and filtered to jobs in pipelines the access token can view, without being refilled after filtering. `jobs_ahead.scope` and `jobs_ahead.notice` describe this: don't treat an empty `items` list as proof that nothing is blocking the job.
 
 Required scope: `read_builds`
 
