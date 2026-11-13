@@ -15,6 +15,13 @@ tokens:
     usage: Services exchange a signed JWT assertion for a token, and call the APIs on behalf of a user.
     scope: The requested scopes, limited to the Token Exchange App's grantable scopes.
     lifetime: Up to the app's **Max Token TTL**, which defaults to one hour and can be set between 30 seconds and 24 hours.
+  - key: workload_identity_token
+    name: Workload identity token
+    url: /docs/apis/workload-identity-federation
+    prefix: bkwi_
+    usage: Workloads, such as jobs running on Buildkite agents, workloads on AWS, and GitHub Actions jobs, exchange an OIDC token for a token, and call the REST API as the workload identity.
+    scope: The requested scopes, limited to the workload identity's grantable scopes, for the pipelines that the workload identity's **Resource Access** setting allows.
+    lifetime: Up to the workload identity's **Maximum token lifetime (seconds)**, which defaults to one hour and can be set between 30 seconds and one hour. A token never outlives the OIDC token that it was exchanged for.
   - key: agent_token
     name: Agent token
     url: /docs/agent/self-hosted/tokens
@@ -97,6 +104,6 @@ tokens:
     name: OIDC token
     url: /docs/agent/cli/reference/oidc
     prefix: "—"
-    usage: Jobs present a signed JWT to cloud providers or Buildkite Package Registries, not to the Buildkite REST or GraphQL APIs. No Buildkite token prefix.
+    usage: Jobs present a signed JWT to cloud providers, Buildkite Package Registries, or the [workload identity federation](/docs/apis/workload-identity-federation) token endpoint, not to the Buildkite REST or GraphQL APIs. No Buildkite token prefix.
     scope: The intended audience, token claims, and receiving system's trust policy.
     lifetime: Five minutes by default for agent-issued tokens, configurable with `--lifetime`. [Buildkite Package Registries](/docs/package-registries/security/oidc) accepts tokens valid for no more than five minutes.

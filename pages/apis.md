@@ -28,6 +28,7 @@ Learn more about Buildkite's API access tokens and how to manage them in [Managi
 Buildkite also supports OAuth-based flows for issuing access tokens without manually creating one in the Buildkite interface:
 
 - [OAuth Token Exchange](/docs/apis/oauth-token-exchange) lets a service mint short-lived, scoped API access tokens for users by exchanging a signed JWT assertion, suitable for centralized token authorities and non-interactive automation.
+- [Workload identity federation](/docs/apis/workload-identity-federation) lets a trusted workload, such as a job running on a Buildkite agent, a workload on AWS, or a GitHub Actions job, exchange the OpenID Connect (OIDC) token that its platform issues for a short-lived API access token, without storing a secret. The token is limited to the pipelines and scopes that the workload identity allows.
 - [OAuth device authorization](/docs/apis/oauth-device-authorization) lets applications running in environments without browser access (such as SSH sessions, remote development environments, or constrained devices) authenticate by directing the user to complete authorization in a browser on any device.
 
 ### Webhook authentication

@@ -77,7 +77,7 @@ RSpec.describe LLMFullText do
         result = llm_full_text.generate
 
         expect(result).to include("`bkua_`", "`bkct_`", "`bkaj_`")
-        expect(result.scan(/^- Prefix: `[^`]+`$/).length).to eq(11)
+        expect(result.scan(/^- Prefix: `[^`]+`$/).length).to eq(12)
         expect(result).to include("| [API access token]", "| [Agent token]")
         [
           "Authentication and access control",

@@ -1078,6 +1078,15 @@
           path: "apis/oauth-token-exchange"
         - name: "OAuth Device Authorization"
           path: "apis/oauth-device-authorization"
+    - name: "Workload identity federation"
+      pill: "preview"
+      children:
+        - name: "Overview"
+          path: "apis/workload-identity-federation"
+        - name: "Working with Buildkite agents"
+          path: "apis/workload-identity-federation/buildkite-agents"
+        - name: "Working with AWS"
+          path: "apis/workload-identity-federation/aws"
     - name: "API differences"
       path: "apis/api-differences"
     - name: "REST"
@@ -1120,6 +1129,9 @@
               path: "apis/rest-api/repository-connections"
             - name: "Usage"
               path: "apis/rest-api/organizations/usage"
+            - name: "Workload identities"
+              path: "apis/rest-api/organizations/workload-identities"
+              pill: "preview"
         - name: "Package Registries "
           # Keep space at end to prevent "Packages" in global nav bar being
           # highlighted when any child page of "API > REST > Packages" is selected.

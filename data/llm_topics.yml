@@ -330,6 +330,9 @@ security:
     - "platform/tutorials/2fa"
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
+    - "apis/workload-identity-federation"
+    - "apis/workload-identity-federation/buildkite-agents"
+    - "apis/workload-identity-federation/aws"
   related_topics:
     - governance
     - user-management
@@ -368,6 +371,7 @@ user-management:
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
+    - "apis/workload-identity-federation"
   related_topics:
     - security
     - governance
