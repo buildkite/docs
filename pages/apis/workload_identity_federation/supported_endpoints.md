@@ -2,6 +2,8 @@
 
 Workload identity federation supports a subset of the REST API for Buildkite Pipelines and organization access. Use the API references below for endpoint paths, request parameters, and responses. This page lists the supported scopes and workload identity limitations.
 
+Support for additional resources is coming soon.
+
 ## Supported APIs
 
 A token needs both the operation's scope and access to its pipeline through the workload identity's **Resource Access** setting. Listing operations return only accessible resources. Requests for individual resources outside that access return `404 Not Found`, even for public pipelines.
