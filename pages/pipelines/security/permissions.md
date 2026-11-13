@@ -42,7 +42,7 @@ When you create a new pipeline in Buildkite:
 **Full Access** on a pipeline allows you to:
 
 - View and create builds or rebuilds.
-- Cancel builds, and retry, cancel, or reprioritize jobs.
+- Cancel builds, and retry, cancel, or reprioritize jobs. [Reprioritizing a job](/docs/apis/rest-api/jobs#reprioritize-a-job) also requires [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) or organization administrator permissions if the job's cluster [restricts job reprioritization](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers), and always requires organization administrator permissions if the job isn't assigned to a cluster.
 - Create or delete annotations on builds.
 - Delete job logs and artifacts.
 - Connect to running jobs on Buildkite hosted agents using [terminal access](/docs/agent/buildkite-hosted/terminal-access). This also requires [cluster maintainer](/docs/pipelines/security/clusters/manage#manage-maintainers-on-a-cluster) permissions on the pipeline's cluster, or Buildkite organization administrator permissions.

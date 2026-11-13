@@ -150,6 +150,33 @@ Only agents that register to the cluster after this change receive the selected 
 
 If the selected notification service later becomes unavailable—for example, if it's deleted, disabled, or narrowed to a subset of pipelines or branches—agents that register after that point don't receive tracing configuration. Select a valid replacement to resume automatic configuration.
 
+## Restrict job reprioritization to cluster maintainers
+
+By default, any user with [**Build** access](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions) to a pipeline can [reprioritize](/docs/apis/rest-api/jobs#reprioritize-a-job) that pipeline's waiting jobs. This can be undesirable when a cluster's agents are shared across pipelines owned by different teams, since reprioritizing a job changes the order in which jobs from other pipelines are dispatched from the same [queue](/docs/agent/queues/managing).
+
+Enabling **Restrict job reprioritization to cluster maintainers** on a cluster requires, in addition to the job's pipeline **Build** access, that a user is either a [maintainer of the job's cluster](#manage-maintainers-on-a-cluster) (directly or through a team) or a Buildkite organization administrator, before they can change that job's priority. Pipeline access granted through a [workload identity's resource grants](/docs/apis/rest-api/organizations/workload-identities#resource-grants) doesn't include cluster-maintainer access, so tokens using these grants also can't reprioritize jobs in a restricted cluster.
+
+This setting doesn't restrict:
+
+- Priority set in pipeline YAML, using the top-level or step-level `priority` key. Learn more in [Job priority](/docs/pipelines/configure/workflows/job-priority).
+- Priority set through [dynamic pipeline uploads](/docs/pipelines/configure/dynamic-pipelines).
+- Priority changes made using [`buildkite-agent step update priority`](/docs/agent/cli/reference/step#updating-a-step).
+
+It also doesn't affect any other **Build** access permissions, such as starting, canceling, or retrying builds.
+
+This setting is off by default, and can only be changed by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator. Changes to this setting are recorded in the organization's [audit log](/docs/platform/audit-log).
+
+> 📘 Unclustered jobs
+> Regardless of this setting, reprioritizing a job that isn't assigned to a cluster always requires Buildkite organization administrator access.
+
+To restrict job reprioritization to cluster maintainers:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster to configure.
+1. Select **Settings**.
+1. Under **Job prioritization**, select **Restrict job reprioritization to cluster maintainers**.
+1. Save your changes.
+
 ## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/self-hosted/tokens).
