@@ -121,7 +121,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27.3"
+          image: "golang:1.27.4"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
@@ -132,7 +132,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27.3"
+          image: "golang:1.27.4"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated agent configuration docs are out of date, or you edited their content in this repository. Run `scripts/update-agent-configuration.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/agent`."
 
@@ -143,7 +143,7 @@ steps:
       queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.14.0:
-          image: "golang:1.27.3"
+          image: "golang:1.27.4"
       - .buildkite/plugins/check-for-changes:
           fail_message: "The generated Buildkite CLI docs are out of date, or you edited their content in this repository. Run `scripts/update-bkcli-help.sh` to get the latest content. If you need to edit it, do so in the canonical source repository `buildkite/cli`."
 
@@ -367,7 +367,7 @@ steps:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
       - docker#v5.14.0:
-          image: "golang:1.27.3-bookworm"
+          image: "golang:1.27.4-bookworm"
           propagate-environment: true
           environment:
             - "BUILDKITE_AGENT_ACCESS_TOKEN"

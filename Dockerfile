@@ -63,7 +63,7 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.27.3-trixie AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.27.4-trixie AS gobuild
 
 COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
 RUN sh /usr/local/bin/with-ca-trust true
