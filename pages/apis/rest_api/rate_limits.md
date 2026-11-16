@@ -47,6 +47,15 @@ Per-user headers:
 - `RateLimit-User-Limit`: The per-user rate limit.
 - `RateLimit-User-Reset`: The number of seconds remaining until the per-user time window resets.
 
+Deep builds list headers:
+
+Requests that page deep into the [organization builds list](/docs/apis/rest-api/builds#list-builds-for-an-organization) (where `page × per_page` is greater than 1,000) also include headers for the [deep builds list rate limit](/docs/platform/limits#platform-and-organization-level-limits):
+
+- `RateLimit-DeepBuildsList-Scope`: The scope of the deep builds list rate limit. Set to `rest_deep_builds_list`.
+- `RateLimit-DeepBuildsList-Remaining`: The remaining requests within the current deep builds list time window.
+- `RateLimit-DeepBuildsList-Limit`: The deep builds list rate limit.
+- `RateLimit-DeepBuildsList-Reset`: The number of seconds remaining until the deep builds list time window resets.
+
 For example, the following response headers show an authenticated user with 35 requests remaining against their per-user limit of 50. The organization has 80 requests remaining against its limit of 200, reflecting usage from multiple users across the organization:
 
 ```js
@@ -80,9 +89,9 @@ The `429` response body includes additional context about which limit was exceed
 }
 ```
 
-The `scope` field indicates which limit was exceeded. For example, `rest` for the organization limit or `rest_user` for the per-user limit.
+The `scope` field indicates which limit was exceeded. For example, `rest` for the organization limit, `rest_user` for the per-user limit, or `rest_deep_builds_list` for the [deep builds list rate limit](/docs/platform/limits#platform-and-organization-level-limits).
 
-When a limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level) or `RateLimit-User-Warning` (per-user) header set to `You have exceeded your API rate limit.`. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
+When a limit is reached, the matching headers also include a `RateLimit-Warning` (organization-level), `RateLimit-User-Warning` (per-user), or `RateLimit-DeepBuildsList-Warning` (deep builds list) header set to `You have exceeded your API rate limit.`. These warning headers are only present while the relevant limit is exhausted, and are omitted again once requests are available within the time window.
 
 ## Best practices to avoid rate limits
 
