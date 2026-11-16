@@ -18,7 +18,7 @@ To view inactive users in your organization:
 Each entry displays the member's name, email address, and the date they were last active.
 
 > 📘 Last seen data
-> The inactive user list relies on each member's _last seen_ timestamp. Members who have never logged in appear in the list with a placeholder date of **30 July 2020**, indicating that no activity has been recorded for that user.
+> The inactive user list relies on each member's _last seen_ timestamp. Members with no recorded activity in the organization appear with **No activity recorded** instead of a date. This does not necessarily mean they have never logged in.
 
 ## Export inactive users to CSV
 
