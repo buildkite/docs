@@ -52,6 +52,10 @@ A [Buildkite cluster](/docs/pipelines/security/clusters) is an isolated set of a
     <td>Color hex code for the cluster</td>
   </tr>
   <tr>
+    <th><code>restrict_job_reprioritization</code></th>
+    <td>Whether job reprioritization is restricted to cluster maintainers</td>
+  </tr>
+  <tr>
     <th><code>maintainers</code></th>
     <td>The maintainers of the cluster</td>
   </tr>
@@ -117,6 +121,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     "description": "A place for safely running our open source builds",
     "emoji": "\:technologist\:",
     "color": "#FFE0F1",
+    "restrict_job_reprioritization": false,
     "maintainers": {
       "users": [],
       "teams": []
@@ -158,6 +163,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
+  "restrict_job_reprioritization": false,
   "maintainers": {
     "users": [
       {
@@ -231,6 +237,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
+  "restrict_job_reprioritization": false,
   "maintainers": {
     "users": [],
     "teams": []
@@ -282,6 +289,11 @@ Optional [request body properties](/docs/api#request-body-properties):
       <em>Example:</em> <code>"#FFE0F1"</code></td>
   </tr>
   <tr>
+    <th><code>restrict_job_reprioritization</code></th>
+    <td>Whether to restrict job reprioritization in this cluster to maintainers.<br/>
+      <em>Default:</em> <code>false</code></td>
+  </tr>
+  <tr>
     <th><code>agent_tracing_service_uuid</code></th>
     <td>UUID of an enabled OpenTelemetry notification service in the same organization, scoped to all pipelines with no branch filter. Use the service's UUID, not its GraphQL ID. Omit this property or set it to <code>null</code> to leave automatic agent tracing unconfigured. Agents need version 3.136.1 or later.<br><em>Example:</em> <code>"00000000-0000-4000-8000-000000000001"</code></td>
   </tr>
@@ -329,6 +341,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
+  "restrict_job_reprioritization": false,
   "maintainers": {
     "users": [],
     "teams": []
@@ -395,6 +408,10 @@ Omit this property to keep the current selection, or set it to `null` to disable
   <tr>
     <th><code>color</code></th>
     <td>Color hex code for the cluster.<br><em>Example:</em> <code>"#FFE0F1"</code></td>
+  </tr>
+  <tr>
+    <th><code>restrict_job_reprioritization</code></th>
+    <td>Whether to restrict job reprioritization in this cluster to maintainers. Omit this property to leave the setting unchanged. Requires permission to manage the cluster.<br><em>Example:</em> <code>true</code></td>
   </tr>
   <tr>
     <th><code>default_queue_id</code></th>
