@@ -45,7 +45,7 @@ To create a workload identity:
 
     **Note:** A trust policy that's too broad is a serious security risk, because it lets workloads that you didn't intend mint API access tokens for your Buildkite organization. Make the **OIDC subject** as restrictive as possible, and use claims and claim conditions to narrow it further.
 
-1. In **Resource Access**, restrict which pipelines tokens can reach. By default, tokens can't reach any pipelines. Learn more in [Choose pipeline access](#choose-pipeline-access).
+1. In **Resource Access**, select **Edit** in the **Pipelines** row. Choose **None**, **Selected**, or **All**, then select **Done** to apply the selection to the form. By default, tokens can't reach any pipelines. Learn more in [Choose pipeline access](#choose-pipeline-access).
 1. Expand **Grantable Scopes**, and select the maximum [REST API scopes](/docs/apis/managing-api-tokens#token-scopes) that a token can have. A token exchange request can ask for any subset of these scopes. **Resource Access** doesn't limit the `read_organizations` and `write_organizations` scopes, which let a token read your Buildkite organization and manage its members.
 1. Expand **Default Scopes**, and select the scopes that a token gets when the request doesn't specify any. Default scopes must be a subset of the grantable scopes.
 1. In **Security**, set the following:
@@ -120,8 +120,10 @@ Buildkite won't save an expression that:
 The **Pipelines** setting in **Resource Access** limits which pipelines a workload identity's tokens can reach:
 
 - **None:** No pipelines. A new workload identity starts with this option.
-- **Selected:** Up to 20 pipelines that you choose.
+- **Selected:** Up to 10 pipelines that you choose.
 - **All:** Every pipeline in your Buildkite organization, including pipelines created later.
+
+To change access, select **Edit** in the **Pipelines** row, choose an option, and select **Done**. Select **Cancel** or press Escape to discard changes in the popup. Selecting **Done** only updates the form. Submit the form to save the workload identity.
 
 For other pipelines, the REST API returns `404 Not Found`. A token keeps the pipeline access that the workload identity had when the token was minted. To remove access from existing tokens, disable the workload identity, which revokes them.
 
