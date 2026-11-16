@@ -440,8 +440,10 @@ remediation
 remediations
 repo
 repos
+reprioritization
 reprioritize
 reprioritizes
+reprioritizing
 reserver
 resizable
 retryable
