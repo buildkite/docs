@@ -89,7 +89,7 @@ Server-side dispatch isn't the same as GitHub's `workflow_dispatch` event. The w
 
 The `pull_request_target` event is intentionally unsupported because its privileged execution model would expose base-repository authority to untrusted contributions. The `repository_dispatch`, `workflow_run`, `check_run`, and `check_suite` events aren't supported yet.
 
-The trigger supports branch and tag pushes, plus same-repository pull requests. Supported filters include `branches`, `branches-ignore`, `tags`, and `tags-ignore`. Without an explicit `types` filter, a pull request workflow triggers on `opened`, `reopened`, and `synchronize`. Pull request builds use the head branch and commit. Fork pull requests, unsupported activity types, and unsupported filter patterns fail closed and appear in **Recent Deliveries**.
+The trigger supports branch and tag pushes, plus same-repository pull requests. Push filters include `branches`, `branches-ignore`, `tags`, and `tags-ignore`. Pull request branch filters use `branches` and `branches-ignore` to match the base branch. Without an explicit `types` filter, a pull request workflow triggers on `opened`, `reopened`, and `synchronize`. Pull request builds use the head branch and commit. Fork pull requests, unsupported activity types, and unsupported filter patterns fail closed and appear in **Recent Deliveries**.
 
 Fork pull requests are rejected before a build exists. There is no build to approve or unblock. See [Fork pull requests](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests) for the approval limitation and security boundaries.
 
