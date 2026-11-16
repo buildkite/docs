@@ -77,7 +77,7 @@ Buildkite compares claims as follows:
 - **Missing claims:** The token doesn't match.
 - **Nested and array claims:** Keys only name top-level claims, and a claim whose value is an array or an object never matches. Use [claim conditions](#write-claim-conditions) for these claims.
 
-**Claims** can hold up to 20 claims, and can't include `iss`, `aud`, `sub`, `exp`, `iat`, `nbf`, or `jti`, which Buildkite checks separately.
+**Claims** can hold up to 10 claims, and can't include `iss`, `aud`, `sub`, `exp`, `iat`, `nbf`, or `jti`, which Buildkite checks separately.
 
 ## Write claim conditions
 
