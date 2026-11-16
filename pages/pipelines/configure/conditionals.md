@@ -426,12 +426,12 @@ The following variables are supported by the `if` attribute. Note that you canno
 	</tr>
 	<tr>
 		<td><code>build.scm.committer.email</code></td>
-		<td><code>String</code></td>
+		<td><code>String</code>, <code>null</code></td>
 		<td>The email of the user that created the commit</td>
 	</tr>
 	<tr>
 		<td><code>build.scm.committer.name</code></td>
-		<td><code>String</code></td>
+		<td><code>String</code>, <code>null</code></td>
 		<td>The name of the user that created the commit</td>
 	</tr>
 	<tr>
