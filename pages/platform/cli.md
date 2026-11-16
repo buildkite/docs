@@ -75,10 +75,6 @@ For [Test Engine](/docs/pipelines/configure/tests) data, `bk build failed-tests`
 
 ### Review your Buildkite environment with a coding agent
 
-<!--
-Publish this section after https://github.com/buildkite/skills/pull/51 merges.
--->
-
 Use a coding agent with [Buildkite skills](https://github.com/buildkite/skills) to review Buildkite Pipelines settings and recent build history. The coding agent uses `bk` to gather evidence and suggest changes. This workflow runs in the coding agent, not as a separate CLI command.
 
 The following example uses Claude Code. See the [skill command reference](/docs/platform/cli/reference/skill) for other installation targets and options.
