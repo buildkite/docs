@@ -151,7 +151,7 @@ The `resource_grants` array holds one object for pipeline access, with the follo
   </tr>
   <tr>
     <th><code>ids</code></th>
-    <td>UUIDs of up to 20 pipelines in your Buildkite organization. Required when <code>access</code> is <code>selected</code>, with at least one UUID, and not allowed otherwise.</td>
+    <td>UUIDs of up to 10 pipelines in your Buildkite organization. Required when <code>access</code> is <code>selected</code>, with at least one UUID, and not allowed otherwise.</td>
   </tr>
 </tbody>
 </table>
