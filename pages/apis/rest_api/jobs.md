@@ -683,7 +683,7 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_builds`
 
-If the job's cluster [restricts job reprioritization to cluster maintainers](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers), the authenticated user must also be a maintainer of that cluster or a Buildkite organization administrator. Reprioritizing a job that isn't assigned to a cluster always requires Buildkite organization administrator access.
+If the job's cluster is set to [restrict job reprioritization to cluster maintainers](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers), the authenticated user must also be a maintainer of that cluster or a Buildkite organization administrator. This setting doesn't apply to a job that isn't assigned to a cluster.
 
 Success response: `200 OK`
 

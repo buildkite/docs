@@ -167,7 +167,7 @@ It also doesn't affect any other **Build** access permissions, such as starting,
 This setting is off by default, and can only be changed by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator. Changes to this setting are recorded in the organization's [audit log](/docs/platform/audit-log).
 
 > 📘 Unclustered jobs
-> Regardless of this setting, reprioritizing a job that isn't assigned to a cluster always requires Buildkite organization administrator access.
+> This setting doesn't apply to jobs that aren't assigned to a cluster.
 
 To restrict job reprioritization to cluster maintainers:
 

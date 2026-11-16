@@ -62,7 +62,7 @@ Priority does not reserve an agent for dependent jobs or guarantee that a sequen
 
 ## Restricting job reprioritization
 
-Priority set using the methods above is unaffected by cluster settings. However, a cluster maintainer or organization administrator can separately [restrict changing the priority of a cluster's waiting jobs to cluster maintainers](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers), for example, through the [reprioritize job REST API](/docs/apis/rest-api/jobs#reprioritize-a-job). This is useful when a cluster's agents are shared across pipelines owned by different teams.
+Cluster maintainers can [restrict reprioritizing waiting jobs](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers) through the [REST API](/docs/apis/rest-api/jobs#reprioritize-a-job). This setting doesn't affect priority set in pipeline YAML or dynamic pipelines.
 
 ## Example
 
