@@ -640,6 +640,8 @@
               path: "pipelines/configure/tests/test-collection/ci-environments"
             - name: "OIDC authentication"
               path: "pipelines/configure/tests/test-collection/oidc"
+        - name: "OpenTelemetry"
+          path: "pipelines/configure/tests/test-collection/opentelemetry"
         - name: "Workflows"
           children:
             - name: "Overview"

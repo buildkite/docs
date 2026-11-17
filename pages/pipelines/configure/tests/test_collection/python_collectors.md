@@ -74,6 +74,37 @@ Once you're done, in your Test Engine dashboard, you'll see analytics of test ex
 
 If you don't see branch names, build numbers, or commit hashes in Test Engine, then read [CI environments](/docs/pipelines/configure/tests/test-collection/ci-environments) to learn more about exporting your environment to the collector.
 
+### Collecting pytest tests with OpenTelemetry
+
+The Python collector can send pytest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
+
+Use Python 3.10 or later, pytest 7 or later, and `buildkite-test-collector` version `1.10.0` or higher. OpenTelemetry collection is disabled by default. This integration supports suites that do not already configure OpenTelemetry.
+
+1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs pytest.
+
+1. Install the collector with its optional OpenTelemetry dependencies:
+
+    ```bash
+    python -m pip install "buildkite-test-collector[otel]>=1.10.0"
+    ```
+
+    The `otel` extra installs the OpenTelemetry SDK and HTTP/protobuf exporter, both version 1.45 or later.
+
+1. Enable OpenTelemetry collection and run pytest with its token and CI environment variables available:
+
+    ```bash
+    export BUILDKITE_ANALYTICS_OTEL_ENABLED=true
+    pytest
+    ```
+
+    The collector registers automatically as a pytest plugin. No changes to `conftest.py` are needed to collect test results. To return to JSON uploads, unset `BUILDKITE_ANALYTICS_OTEL_ENABLED`.
+
+1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
+
+OpenTelemetry spans replace JSON uploads. Do not also upload the same executions using bktec or another upload method.
+
+See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-python/docs/opentelemetry.md) for child span instrumentation, configuration options, and troubleshooting.
+
 ### Upload custom tags for test executions
 
 You can group test executions using custom tags to compare metrics across different dimensions, such as:

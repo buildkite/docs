@@ -317,6 +317,7 @@
   pipelines/configure/tests/test-collection/ruby-collectors: "Setup instructions for Ruby test collectors supporting RSpec and minitest, plus a Tests Buildkite plugin example for RSpec."
   pipelines/configure/tests/test-collection/rust-collectors: "Setup instructions for the Rust cargo test collector."
   pipelines/configure/tests/test-collection/swift-collectors: "Setup instructions for the Swift XCTest test collector, including Xcode configuration."
+  pipelines/configure/tests/test-collection/opentelemetry: "Sending test results and traces to Test Engine using OpenTelemetry, including span attributes, transport, and authentication."
   pipelines/configure/tests/test-collection/other-collectors: "Options for unsupported test runners: JUnit XML import, JSON import, or custom collectors."
   pipelines/configure/tests/test-collection/importing-junit-xml: "Importing JUnit XML test results to Test Engine using the test-collector plugin or curl."
   pipelines/configure/tests/test-collection/importing-json: "JSON format specification and import methods for uploading test results to Test Engine."
