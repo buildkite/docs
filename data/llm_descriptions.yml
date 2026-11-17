@@ -541,5 +541,6 @@
   apis/agent-api/metrics: "Agent API endpoint returning idle/busy agent counts, job totals, and queue statistics."
   apis/agent-api/stacks: "Agent API endpoints for implementing a stack: listing and reserving jobs, issuing short-lived job acquisition tokens, starting agents, and reporting job states."
   apis/agent-api/internal-job: "Internal Unix socket API for querying and mutating job environment variables within a running agent."
-  apis/model-providers: "Overview of model providers for LLM access from pipelines, with Anthropic support and API key management."
+  apis/model-providers: "Overview of model providers for LLM access from pipelines, with Anthropic and OpenAI support and API key management."
   apis/model-providers/anthropic: "Anthropic model provider setup: Claude Code compatibility, supported models, base URL, and usage in pipelines."
+  apis/model-providers/openai: "OpenAI model provider setup: Responses API, job-token authentication, client configuration, billing, and limits."
