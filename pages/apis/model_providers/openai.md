@@ -90,7 +90,7 @@ The catalog identifies models and specific aliases or snapshots for billing. It 
 
 Buildkite tracks usage reported by `POST /v1/responses`, including completed and incomplete JSON responses and terminal `response.completed` or `response.incomplete` SSE events. An incomplete response can still incur token charges. Retrieving a response does not record its usage again.
 
-With Buildkite hosted tokens, token charges use OpenAI Standard processing rates. Omit `service_tier`, or set it to `"default"` or `"standard"`. Other service tiers are rejected for hosted tokens. BYO requests do not have this proxy restriction; upstream validation and billing still apply.
+With Buildkite hosted tokens, token charges use OpenAI Standard processing rates. Omit `service_tier`, or set it to `"default"`. Non-standard processing tiers are not supported with hosted tokens. BYO requests do not have this proxy restriction; upstream validation and billing still apply.
 
 Token accounting separates uncached input, cached input, visible output, and reasoning tokens. Reasoning tokens are charged at the output rate without counting them again as visible output. For GPT-6 models, paid 30-minute and 12-hour cache writes are accounted for separately from uncached input and cache reads. Requests with more than 272,000 input tokens use long-context rates for the whole request, not just tokens above the threshold. See [OpenAI pricing](https://developers.openai.com/api/docs/pricing) for provider rates.
 
