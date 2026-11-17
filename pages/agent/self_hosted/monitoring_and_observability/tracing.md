@@ -33,6 +33,10 @@ The agent automatically accepts trace context from the Buildkite control plane a
 
 Learn more about configuring the OpenTelemetry integration with Buildkite Pipelines from the [OpenTelemetry](/docs/pipelines/integrations/observability/opentelemetry) integrations page.
 
+### Pull request attributes
+
+When a job's build is associated with a pull request, the agent's spans include the pull request number as the `buildkite.pull_request` attribute. From Buildkite agent version [v4.11.0](https://github.com/buildkite/agent/releases/tag/v4.11.0), spans also include `buildkite.pull_request_draft`, set to `true` or `false` depending on whether the pull request was a draft. Both attributes are `n/a` for builds that aren't associated with a pull request.
+
 ### Trace context propagation
 
 Starting from Buildkite agent version [v3.100](https://github.com/buildkite/agent/releases/tag/v3.100.0), when a Buildkite agent executes a command (build script, hook, plugin, and so on), the current trace context is automatically propagated to the child process using [environment variables](/docs/pipelines/configure/environment-variables). This enables distributed tracing across job boundaries, and your build scripts can continue the trace started by the agent or the Buildkite Pipelines backend.
