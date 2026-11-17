@@ -31,6 +31,11 @@ RSpec.feature "reading pages" do
   end
 
   describe "markdown format" do
+    # Capybara resets the session only after examples that call visit or a finder,
+    # so without this, Accept headers from examples that only call page.driver.get
+    # make later examples receive Markdown instead of HTML
+    after { page.driver.header "Accept", nil }
+
     it "serves pages as HTML by default" do
       visit "/docs/platform"
       expect(page.response_headers["Content-Type"]).to include("text/html")
@@ -83,6 +88,8 @@ RSpec.feature "reading pages" do
       root.glob("**/*.md").each do |path|
         # Skip partials
         next if path.to_s.include?("/_")
+        # Published only as Markdown, so it has no navigation entry or HTML page
+        next if path.to_s.end_with?("/agent_setup/prompt.md")
 
         url = "/docs" + path.to_s.delete_prefix(root.to_s).delete_suffix(".md")
         puts "Visiting #{url}"
