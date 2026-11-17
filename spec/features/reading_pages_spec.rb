@@ -83,7 +83,22 @@ RSpec.feature "reading pages" do
   end
 
   describe "all pages" do
-    example "render" do
+    around do |example|
+      # Render the optional Datadog and Plain scripts too
+      original = ENV.to_h.slice("DD_RUM_ENABLED", "PLAIN_CHAT_APP_ID")
+      ENV["DD_RUM_ENABLED"] = "true"
+      ENV["PLAIN_CHAT_APP_ID"] = "liveChatApp_example"
+      example.run
+    ensure
+      ENV.delete("DD_RUM_ENABLED")
+      ENV.delete("PLAIN_CHAT_APP_ID")
+      ENV.update(original)
+    end
+
+    example "render with nonced inline scripts only in the head" do
+      inline_scripts = 'script:not([src]):not([type="application/ld+json"])'
+      first_head_scripts = nil
+
       root = Rails.root.join("pages")
       root.glob("**/*.md").each do |path|
         # Skip partials
@@ -97,6 +112,21 @@ RSpec.feature "reading pages" do
         if !page.status_code.in?([200, 403])
           raise "#{url} returned #{page.status_code}"
         end
+
+        csp = page.response_headers.fetch("Content-Security-Policy")
+        nonce = csp[/(?:\A|;\s*)script-src [^;]*'nonce-([^']+)'/, 1]
+        expect(nonce).to be_present, "expected script-src on #{url} to include a nonce"
+
+        head_scripts = page.all("head #{inline_scripts}", visible: false)
+        expect(head_scripts.map { |script| script[:nonce] }.uniq).to eql([nonce]), "expected inline scripts on #{url} to have the CSP nonce"
+
+        # After a Turbo visit, the browser blocks inline scripts in the body and
+        # head scripts that differ from the first page, because Turbo adds them
+        # without a nonce
+        expect(page).to have_no_css("body #{inline_scripts}", visible: false), "expected no inline scripts in the body of #{url}"
+        head_script_texts = head_scripts.map { |script| script.native.text }
+        first_head_scripts ||= head_script_texts
+        expect(head_script_texts).to eql(first_head_scripts), "expected inline head scripts on #{url} to match other pages"
       end
     end
   end

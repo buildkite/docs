@@ -7,6 +7,7 @@ import { initPageCopyDropdown } from "../components/pageCopyDropdown";
 import { initPlainChat } from "../components/plainChat";
 import { initSecurityChecklist } from "../components/securityChecklist";
 import { initAnimations } from "../components/animations";
+import { initPageRating } from "../components/pageRating";
 import docsearch from "@docsearch/js";
 import {
   initSearchTracking,
@@ -92,6 +93,7 @@ function render() {
   attachCopyToClipboardButton("pre.highlight");
   themeToggle();
   initPlainChat();
+  initPageRating();
 
   // Store cleanup function if component returns one
   const dropdownCleanup = initPageCopyDropdown();
