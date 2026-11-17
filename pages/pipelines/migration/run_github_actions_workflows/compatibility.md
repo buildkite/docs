@@ -151,6 +151,8 @@ From v0.105.2, host shell, JavaScript, and composite steps inherit host `JAVA_HO
 
 Linux tool cache selection follows the runner target. Hosted cache requests use `/opt/hostedtoolcache`, which must exist; targets disabling it use a job-private cache without changing preinstalled host tools. Native Namespace targets use private caches. Older image targets without a cache choice retain their hosted-toolcache behavior. macOS bootstrap creates writable `/Users/runner/hostedtoolcache` and needs noninteractive `sudo`, preserving prefixes required by actions such as `ruby/setup-ruby`. Windows uses a job-private cache.
 
+Job containers use a writable job-private tool cache inside the existing runner temp mount, not the configured host tool cache. The runtime translates `runner.tool_cache` and `RUNNER_TOOL_CACHE` to the same container path. This doesn't mount preinstalled host tools or make the cache persist between jobs.
+
 On native Namespace runners, the runtime enables `default-load=true` for stored single-node buildx builders using `remote`, `docker-container`, or `kubernetes`, so plain `docker build` loads the image for later `docker run`. Explicit `--push` or `--output` still controls output. Multi-node builders aren't changed and can still require explicit output/load choices. Setup problems warn rather than fail the job.
 
 <a id="windows-jobs"></a>
@@ -1331,6 +1333,7 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 | `github.server_url` | No | Composite steps only, from v0.105.0. |
 | `github.run_attempt` | Yes, including reusable-workflow calls. | Yes, including composite steps. |
 | `runner.os`, `runner.arch`, `runner.environment` | Yes | Yes |
+| `runner.tool_cache` | No | Yes |
 | `runner.name` | No | Yes, including composite steps; requires the name of the executing agent. |
 | `runner.temp`, `runner.debug` | No | Yes; debug is always absent. |
 | `needs.<job>.result`, `needs.<job>.outputs.<name>` | Yes | Yes |
@@ -1406,6 +1409,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | `runner.environment` | `self-hosted`, including Buildkite hosted agents. |
 | `runner.name` | Available from [v0.127.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.127.0). Name of the executing Buildkite agent, from [`BUILDKITE_AGENT_NAME`](/docs/pipelines/configure/environment-variables#BUILDKITE_AGENT_NAME). Available in step fields, job outputs, action input defaults, and lifecycle conditions. Direct reads fail when the name is unavailable, with no hostname or GitHub runner-name fallback. Compile-time fields, job conditions, job environment/defaults, and service fields don't support it. |
 | `runner.temp` | Canonical `RUNNER_TEMP`, available after setup in step fields and job outputs. |
+| `runner.tool_cache` | The selected [tool-cache directory](#runners-and-tools-runner-tools), matching `RUNNER_TOOL_CACHE`. Available after setup in step fields, action input defaults, lifecycle conditions, and composite and job outputs. Unavailable in graph-time fields, job environment, and job or reusable-call conditions. |
 | `runner.debug` | Always absent; interpolation is empty and comparison to enabled value `1` is false. Available in step fields, outputs, lifecycle conditions, and action input defaults. |
 {: class="responsive-table"}
 
