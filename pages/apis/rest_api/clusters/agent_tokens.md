@@ -62,6 +62,18 @@ Authenticate these requests with a personal [API access token](/docs/apis/managi
     <th><code>expires_at</code></th>
     <td>The ISO8601 timestamp at which point the token expires and prevents agents configured with this token from re-connecting to their Buildkite cluster.</td>
   </tr>
+  <tr>
+    <th><code>revoked_at</code></th>
+    <td>The ISO8601 timestamp at which point the token was revoked. <code>null</code> for a token that hasn't been revoked.</td>
+  </tr>
+  <tr>
+    <th><code>agent_access_revoked_at</code></th>
+    <td>The ISO8601 timestamp at which point agent access revocation was requested for the token. <code>null</code> if agent access hasn't been revoked.</td>
+  </tr>
+  <tr>
+    <th><code>agent_access_revocation_completed_at</code></th>
+    <td>The ISO8601 timestamp at which point agent access revocation finished applying to every agent sourced from the token. <code>null</code> while revocation is still being processed.</td>
+  </tr>
 </tbody>
 </table>
 
@@ -100,6 +112,13 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
+By default, revoked tokens are excluded from the list. Pass `include_revoked=true` to include them:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens?include_revoked=true"
+```
+
 Required scope: `read_clusters`
 
 Success response: `200 OK`
@@ -133,6 +152,13 @@ curl -H "Authorization: Bearer $TOKEN" \
     "created_at": "2013-08-29T10:10:03.000Z"
   }
 }
+```
+
+By default, a revoked token's ID returns `404 Not Found`. Pass `include_revoked=true` to retrieve it:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{token.id}?include_revoked=true"
 ```
 
 Required scope: `read_clusters`
@@ -349,6 +375,43 @@ Error responses:
   <tr>
     <th><code>422 Unprocessable Entity</code></th>
     <td><code>{ "message": "Reason the token couldn't be revoked" }</code></td>
+  </tr>
+</tbody>
+</table>
+
+## Revoke a token's agent access
+
+Rejects the session and job credentials derived from the token, including credentials issued through [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens). Use this to respond to a compromised token, rather than for routine rotation.
+
+This revokes the token itself if it hasn't already been revoked. Calling this endpoint again after agent access has already been revoked for the token is safe, and returns the same result without creating duplicate [audit log](/docs/platform/audit-log) events.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}/agent-access-revocation"
+```
+
+```json
+{
+  "id": "00000000-0000-4000-8000-000000000001",
+  "revoked_at": "2026-11-17T04:21:41.350Z",
+  "agent_access_revoked_at": "2026-11-17T04:21:41.350Z",
+  "agent_access_revocation_completed_at": null
+}
+```
+
+Revocation of existing agents' credentials is processed in the background in batches, so it can take a short time to complete. The `agent_access_revocation_completed_at` field remains `null` until every agent sourced from the token has been processed. Revoking agent access doesn't terminate agent processes or cancel running jobs, and doesn't affect requests already authorized before the revocation takes effect, established Agent Edge streams, or externally issued credentials and presigned storage URLs. This action can't be undone.
+
+Required scope: `write_clusters`
+
+Success response: `202 Accepted`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>503 Service Unavailable</code></th>
+    <td><code>{ "message": "Token revocation was saved, but agent access revocation couldn't be queued. Retry this operation." }</code></td>
   </tr>
 </tbody>
 </table>
