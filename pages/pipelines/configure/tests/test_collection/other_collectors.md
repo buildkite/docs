@@ -13,4 +13,5 @@ If a native Buildkite test collector is not available for your language or test 
     * [JUnit XML](/docs/pipelines/configure/tests/test-collection/importing-junit-xml)
     * [JSON](/docs/pipelines/configure/tests/test-collection/importing-json)
 
+- [Collecting tests with OpenTelemetry](/docs/pipelines/configure/tests/test-collection/opentelemetry).
 - [Writing your own test collector](/docs/pipelines/configure/tests/test-collection/your-own-collectors).

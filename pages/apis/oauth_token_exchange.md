@@ -5,7 +5,7 @@
 > 📘 Enterprise plan feature
 > OAuth Token Exchange is only available to Buildkite customers on [Enterprise](https://buildkite.com/pricing) plans, and must be enabled for your Buildkite organization by Buildkite. If you're on an Enterprise plan and don't see **Token Exchange Apps** in your organization's settings, contact support@buildkite.com to have this feature enabled.
 
-OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead.
+OAuth Token Exchange is ideal for security-conscious workflows where a central service mints tokens on behalf of users, avoiding long-lived tokens stored on individual machines. For interactive flows on devices without browser access, use [OAuth device authorization](/docs/apis/oauth-device-authorization) instead. For a workload whose platform already issues OpenID Connect (OIDC) tokens, such as a job running on a Buildkite agent, a workload on AWS, or a GitHub Actions job, use [workload identity federation](/docs/apis/workload-identity-federation) instead.
 
 Common use cases include:
 
@@ -210,7 +210,16 @@ The `client_assertion` is a JWT ([RFC 7523](https://datatracker.ietf.org/doc/htm
 | `jti` | A unique identifier for the JWT ([RFC 7519 §4.1.7](https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7)). If present, must be a non-empty string of at most 255 bytes. A UUID is a common format. After a successful token exchange, Buildkite rejects later requests that reuse the same `jti`. By default, JWTs without a `jti` are accepted. |
 | `nbf` | Not-before timestamp. If set, must not be in the future. |
 
-**Supported signing algorithms:** RS256 (RSA) and ES256 (ECDSA P-256).
+**Supported signing algorithms:**
+
+| Algorithm | Key |
+|-----------|-----|
+| RS256, RS384, RS512, PS256, PS384, PS512 | RSA |
+| ES256 | EC, P-256 curve |
+| ES384 | EC, P-384 curve |
+| ES512 | EC, P-521 curve |
+
+Buildkite rejects HMAC algorithms, such as HS256, and unsigned JWTs.
 
 ### Example JWT header
 

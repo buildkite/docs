@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.9-slim-trixie@sha256:32fdd19c0a001077d1711f1afa6d8a0ac9d497c4eac20e47ae7e1c7f7a8c49df
-ARG NODE_IMAGE=public.ecr.aws/docker/library/node:26-trixie-slim@sha256:e4db4c914bf8ad241bd24804fc25d272d89bad97e68cdc8a1414862790a02c39
+ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:4.0.9-slim-trixie@sha256:d8cb2c0714bdaba0f318af897a01d2dbde3cfa8e62d47e99cea55feb13c0e90d
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:26-trixie-slim@sha256:e6bedef217677b276c591795e169840edd9096dbf13f29df8ef8d1856b8820bc
 
 FROM $BASE_IMAGE AS trusted-ruby
 
@@ -63,7 +63,7 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 
 # ------------------------------------------------------------------
 
-FROM public.ecr.aws/docker/library/golang:1.27.3-trixie AS gobuild
+FROM public.ecr.aws/docker/library/golang:1.27.4-trixie AS gobuild
 
 COPY scripts/with-ca-trust.sh /usr/local/bin/with-ca-trust
 RUN sh /usr/local/bin/with-ca-trust true
@@ -151,7 +151,7 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 # make sense to us.
 #
 
-FROM raviqqe/muffet:2.11.7 AS muffet-scratch
+FROM raviqqe/muffet:2.11.8 AS muffet-scratch
 FROM trusted-ruby AS muffet
 
 RUN apt-get update && \

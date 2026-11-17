@@ -28,7 +28,7 @@ Concurrent agents:
 }
 ```
 
-Test executions:
+Test Engine usage:
 
 ```json
 {
@@ -38,6 +38,11 @@ Test executions:
       "value": 120000,
       "unit": "executions",
       "definition": "Total recorded test executions."
+    },
+    "otel_ingested_bytes": {
+      "value": 1500000000,
+      "unit": "bytes",
+      "definition": "Decoded OpenTelemetry trace bytes ingested, excluding test-result span bytes."
     }
   }
 }
@@ -56,10 +61,14 @@ Field | Meaning
 `generated_at` | UTC computation time. Responses are cached for five minutes; this is not an ingestion timestamp.
 `scope` | `organization`, or `organization_and_billing_children` for a parent and its direct billing children. Child requests exclude parents and siblings.
 `pipelines` | [Buildkite Pipelines](/docs/pipelines) self-hosted job minutes, hosted virtual CPU minutes by platform, and concurrency statistics.
-`test_engine` | [Buildkite Test Engine](/docs/pipelines/configure/tests) executions and managed tests: the sum of per-suite 90th-percentile (P90) daily distinct-test counts across included organizations.
+`test_engine` | [Buildkite Test Engine](/docs/pipelines/configure/tests) executions, managed tests (the sum of per-suite 90th-percentile (P90) daily distinct-test counts), and OpenTelemetry trace-ingestion bytes across included organizations.
 `packages` | [Buildkite Package Registries](/docs/package-registries) peak storage and transfer bytes.
 `artifacts` | [Artifact](/docs/pipelines/configure/artifacts) upload and download bytes, plus the latest storage snapshot within the reporting period. Storage is `null` if no snapshot is available.
 {: class="responsive-table"}
+
+The `test_engine.otel_ingested_bytes` metric reports metered, uncompressed OpenTelemetry trace bytes after plan-policy drops, excluding bytes carrying test results in root test spans. Other root spans remain included.
+
+This is the same byte meter used by the **Usage** page and billing, before conversion to gigabytes or any included allowance. The value is not the compressed upload size, a charge, or allowance-adjusted overage. The metric is `0` when no usage is recorded.
 
 ## Usage period
 

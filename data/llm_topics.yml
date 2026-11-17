@@ -320,12 +320,20 @@ security:
     - "platform/sso"
     - "package-registries/security"
   exact_paths:
+    - "agent/self-hosted/tokens"
+    - "agent/self-hosted/scoped-agent-tokens"
+    - "agent/self-hosted/job-acquisition-tokens"
+    - "apis/rest-api/clusters/agent-tokens"
     - "agent/buildkite-hosted/network-security"
     - "platform/team-management/enforce-2fa"
     - "platform/team-management/inactive-user-list"
     - "platform/tutorials/2fa"
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
+    - "apis/workload-identity-federation"
+    - "apis/workload-identity-federation/supported-endpoints"
+    - "apis/workload-identity-federation/buildkite-agents"
+    - "apis/workload-identity-federation/aws"
   related_topics:
     - governance
     - user-management
@@ -364,6 +372,7 @@ user-management:
     - "package-registries/security/permissions"
     - "apis/managing-api-tokens"
     - "apis/oauth-token-exchange"
+    - "apis/workload-identity-federation"
   related_topics:
     - security
     - governance

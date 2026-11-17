@@ -91,7 +91,7 @@ When defining Buildkite hosted queues for Linux hosted agents:
 
 - See the [Sizes section of Linux hosted agents](/docs/agent/buildkite-hosted/linux#sizes) for the available `instance_shape` argument values.
 
-- The optional `linux` argument and its required `agent_image_ref` value relates to the [custom image feature](/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue) for this queue.
+- The optional `linux` argument and its required `agent_image_ref` value relates to the [custom image feature](/docs/agent/buildkite-hosted/linux/custom-agent-images) for this queue.
 
 #### macOS hosted agents
 

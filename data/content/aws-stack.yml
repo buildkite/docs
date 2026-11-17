@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v7.10.0"
+Description: "Buildkite stack v7.11.1"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -729,10 +729,12 @@ Parameters:
 
   OnDemandPercentage:
     Description: >
-      Percentage of instances to launch as OnDemand vs Spot instances.
-      OnDemand instances provide guaranteed availability at higher cost.
-      Spot instances offer 60-90% cost savings but may be interrupted by AWS.
-      Use 100% for critical workloads, lower values when jobs can handle unexpected instance interruptions.
+      Percentage of instances above OnDemandBaseCapacity to launch as On-Demand rather than Spot instances.
+      The remaining capacity uses Spot instances, subject to availability.
+      If Spot capacity is unavailable, the Auto Scaling group keeps trying to launch Spot instances
+      and does not replace them with additional On-Demand instances.
+      Spot instances may be interrupted by AWS.
+      Use 100% for critical workloads, lower values when jobs can handle capacity shortages and unexpected instance interruptions.
     Type: Number
     Default: 100
     MinValue: 0
@@ -1509,6 +1511,14 @@ Conditions:
     HasVariableSize:
       !Not [ !Equals [ !Ref MaxSize, !Ref MinSize ] ]
 
+    IsExperimentalElasticCIMode:
+      !Equals [ !Ref ScalerEnableExperimentalElasticCIMode, "true" ]
+
+    ShouldDeployScaler:
+      !Or
+        - !Condition HasVariableSize
+        - !Condition IsExperimentalElasticCIMode
+
     UseCostAllocationTags:
       !Equals [ !Ref EnableCostAllocationTags, "true" ]
 
@@ -1642,14 +1652,14 @@ Conditions:
     IsLambdaArchitectureArm64:
       !Equals [ !Ref LambdaArchitecture, "arm64" ]
 
-    HasVariableSizeAndArm64:
+    ShouldDeployScalerAndArm64:
       !And
-        - !Condition HasVariableSize
+        - !Condition ShouldDeployScaler
         - !Condition IsLambdaArchitectureArm64
 
-    HasVariableSizeAndX8664:
+    ShouldDeployScalerAndX8664:
       !And
-        - !Condition HasVariableSize
+        - !Condition ShouldDeployScaler
         - !Not [ !Condition IsLambdaArchitectureArm64 ]
 
 Mappings:
@@ -1667,25 +1677,25 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-01e2a7d02ca074b76, linuxarm64: ami-0ffe82d3e9464edcb, windows: ami-072a6c95ab3e0f557, ubuntu2404amd64: ami-0dd0cf6f1bd444152, ubuntu2404arm64: ami-0cc64a3d31b371f5b }
-    us-east-2 : { linuxamd64: ami-09744c271e7b7c24d, linuxarm64: ami-05cb8322da543743a, windows: ami-074c8df8f19511ede, ubuntu2404amd64: ami-076577e7b3f286a59, ubuntu2404arm64: ami-0c2576a78c3261878 }
-    us-west-1 : { linuxamd64: ami-0fbf95392625d1888, linuxarm64: ami-0f9286b8756f861ab, windows: ami-0a27a319fc5512cce, ubuntu2404amd64: ami-0f59de8fba07603c1, ubuntu2404arm64: ami-0ef22f529625b7ba2 }
-    us-west-2 : { linuxamd64: ami-0ef03901ffab13827, linuxarm64: ami-09f0d378f24fae67a, windows: ami-07ae510afa59a587a, ubuntu2404amd64: ami-0bf45f23119f6d425, ubuntu2404arm64: ami-0f424addef8a301ef }
-    af-south-1 : { linuxamd64: ami-070a8deb3e0aca792, linuxarm64: ami-07a458de96eacc709, windows: ami-098250e1fcbdd9bd8, ubuntu2404amd64: ami-02f87147fb81d1d27, ubuntu2404arm64: ami-0db74af4600cbf1c1 }
-    ap-east-1 : { linuxamd64: ami-097e86c6eed562ff6, linuxarm64: ami-0fb56906e56bacd77, windows: ami-016da1f1f9f92126f, ubuntu2404amd64: ami-0020eaf9109815abd, ubuntu2404arm64: ami-0cb54b798eb21aac7 }
-    ap-south-1 : { linuxamd64: ami-011161c5a0d6e90a2, linuxarm64: ami-088beba749ddaa877, windows: ami-051ce087241044a61, ubuntu2404amd64: ami-0755da5f7d3372b0c, ubuntu2404arm64: ami-0b7b076b4c3b9b900 }
-    ap-northeast-2 : { linuxamd64: ami-0be00bf5c8bce5ced, linuxarm64: ami-0069c9b3294282efa, windows: ami-0b1719a0fd8aaa13f, ubuntu2404amd64: ami-0849645a64dbb3ac0, ubuntu2404arm64: ami-08c0f7bcbd6abc49b }
-    ap-northeast-1 : { linuxamd64: ami-015303e70586bfd91, linuxarm64: ami-09918de0f43eb0843, windows: ami-0b0cdbe5bd8f24a4d, ubuntu2404amd64: ami-053885225d78bfed3, ubuntu2404arm64: ami-0e78df30f81cbcfd7 }
-    ap-southeast-2 : { linuxamd64: ami-03ef0ad5cd8ef714d, linuxarm64: ami-0a8395644c44d31b1, windows: ami-06e72fc258c0602dd, ubuntu2404amd64: ami-0b34eeb246321dfa6, ubuntu2404arm64: ami-01705b9abd5aa3617 }
-    ap-southeast-1 : { linuxamd64: ami-013ad3e9a6d5b76e1, linuxarm64: ami-0a2d31338304e3eb6, windows: ami-0263dbe60a5e10a97, ubuntu2404amd64: ami-0d0c23161cfc067c6, ubuntu2404arm64: ami-0df8fe50732a49b8a }
-    ca-central-1 : { linuxamd64: ami-0ccb11bce12c19eef, linuxarm64: ami-04625a731da87c980, windows: ami-032713c9353136b28, ubuntu2404amd64: ami-096676c49dc79f5f4, ubuntu2404arm64: ami-031d60f43387bc73b }
-    eu-central-1 : { linuxamd64: ami-088c2e48f10e727ca, linuxarm64: ami-032155970b3c8e0bb, windows: ami-04192db5aa8817d9b, ubuntu2404amd64: ami-0464ce9fb3d7fb95d, ubuntu2404arm64: ami-0fa784ce1fe08059a }
-    eu-west-1 : { linuxamd64: ami-09b6e3e77753e68e4, linuxarm64: ami-07a6a307514a37e7e, windows: ami-0effd65f4390ee6d3, ubuntu2404amd64: ami-08a2686ceade91e34, ubuntu2404arm64: ami-0ec6ca11dd3fc6f74 }
-    eu-west-2 : { linuxamd64: ami-01c9e889aec58ef71, linuxarm64: ami-066dea4c5558eae08, windows: ami-0255838f2a7455ad5, ubuntu2404amd64: ami-02ea182c7f77e9c59, ubuntu2404arm64: ami-0336001d0a3311a6c }
-    eu-south-1 : { linuxamd64: ami-0b1306ce830cba3fd, linuxarm64: ami-08fb4084fd366240c, windows: ami-008a1f4a5267ac91e, ubuntu2404amd64: ami-0f0cf8e18c26ab04b, ubuntu2404arm64: ami-0f0134d42fc7d03e9 }
-    eu-west-3 : { linuxamd64: ami-0dec86ecf21d42249, linuxarm64: ami-0c700c47dec3220d4, windows: ami-0e205c114cc8366ee, ubuntu2404amd64: ami-0978617bba7bb0a11, ubuntu2404arm64: ami-0c186bd0db6a4c1fe }
-    eu-north-1 : { linuxamd64: ami-0e553c995e13f51a2, linuxarm64: ami-02da5bec9974681bb, windows: ami-0536356a8ef24367a, ubuntu2404amd64: ami-0d6fcf20886cc84ef, ubuntu2404arm64: ami-023c2a37a7449ca90 }
-    sa-east-1 : { linuxamd64: ami-069c8db323a0ea893, linuxarm64: ami-09564810e97faa338, windows: ami-0b9755081814a68f0, ubuntu2404amd64: ami-05b426e408ad931b3, ubuntu2404arm64: ami-06956213c397bfbee }
+    us-east-1 : { linuxamd64: ami-03cbf3561e7c862b3, linuxarm64: ami-0285c81eec2fe09d9, windows: ami-0403901d2a353bf36, ubuntu2404amd64: ami-05a0188d5956a6959, ubuntu2404arm64: ami-0a7d8fd8796cae03d }
+    us-east-2 : { linuxamd64: ami-0ab7908299deab259, linuxarm64: ami-01ac3851b72b28ef1, windows: ami-02de1b33bf76dfb6d, ubuntu2404amd64: ami-0222c434552a99d37, ubuntu2404arm64: ami-0a702e6d329d38847 }
+    us-west-1 : { linuxamd64: ami-05f68f1a3aba5e170, linuxarm64: ami-0bef0306a1d8d3d8b, windows: ami-07b7eb26dde6b5f7e, ubuntu2404amd64: ami-057d996102335c743, ubuntu2404arm64: ami-012c043d10efa2a56 }
+    us-west-2 : { linuxamd64: ami-0583d31f97301842d, linuxarm64: ami-0513494695c918356, windows: ami-01386a36f4c8a424f, ubuntu2404amd64: ami-0c7976ef5c3cd829d, ubuntu2404arm64: ami-0b38c67adbb412deb }
+    af-south-1 : { linuxamd64: ami-02edcc4049d8bc76c, linuxarm64: ami-0f6e9222fd4957504, windows: ami-02cc01cbda07ba246, ubuntu2404amd64: ami-08d7b4c67fad3514c, ubuntu2404arm64: ami-055e3f1b11ff9dcc6 }
+    ap-east-1 : { linuxamd64: ami-0e451c45b2931ab94, linuxarm64: ami-0b782ab326e8be40e, windows: ami-0d5348ab0b6f23fe6, ubuntu2404amd64: ami-02ca03942bed9241a, ubuntu2404arm64: ami-0995dc92d02a3d795 }
+    ap-south-1 : { linuxamd64: ami-02c0c79442175416e, linuxarm64: ami-04fa4257ca50f7d7e, windows: ami-0ad18ae03edbdb707, ubuntu2404amd64: ami-02390e3c85f78beea, ubuntu2404arm64: ami-099064e9a46e57720 }
+    ap-northeast-2 : { linuxamd64: ami-0f55d7fab7349a7ce, linuxarm64: ami-09016e5aab2a53220, windows: ami-027f32db0ac70c753, ubuntu2404amd64: ami-05dd5fc68a4745da7, ubuntu2404arm64: ami-03bbb5043911edefa }
+    ap-northeast-1 : { linuxamd64: ami-0aaeae4d6337a7e32, linuxarm64: ami-024c87bc23b46f5fd, windows: ami-059f6bfb32b143950, ubuntu2404amd64: ami-08d592382254f8259, ubuntu2404arm64: ami-02f98f8fb0b7a1f25 }
+    ap-southeast-2 : { linuxamd64: ami-0434b5aae6619970a, linuxarm64: ami-0bc9d44af494e7e17, windows: ami-0e3030cbd9d7c4381, ubuntu2404amd64: ami-0f9eccbb7d3f76aa8, ubuntu2404arm64: ami-0202f77e08025dbb3 }
+    ap-southeast-1 : { linuxamd64: ami-0a7fec9346cead319, linuxarm64: ami-0370bb331e494546a, windows: ami-0981d6b9a06f4dd4e, ubuntu2404amd64: ami-02ce23f025967d9d9, ubuntu2404arm64: ami-06ea5de94de381005 }
+    ca-central-1 : { linuxamd64: ami-07934e359c5ea9b6b, linuxarm64: ami-082c8ee4f1211962c, windows: ami-04d73d3a6c6f860c4, ubuntu2404amd64: ami-0ddbeb410dedf9191, ubuntu2404arm64: ami-0d80a348cad5037f6 }
+    eu-central-1 : { linuxamd64: ami-0ffd7a9bf7f505537, linuxarm64: ami-0ab67861a7c690283, windows: ami-0fc265c49a202db64, ubuntu2404amd64: ami-03532385782159375, ubuntu2404arm64: ami-0b9c6711c43c89689 }
+    eu-west-1 : { linuxamd64: ami-08913e3b2149af2dd, linuxarm64: ami-0494026b759219372, windows: ami-0700327292afa2427, ubuntu2404amd64: ami-05ec81668cbf19ab7, ubuntu2404arm64: ami-0f5bf4c7af53a3e0e }
+    eu-west-2 : { linuxamd64: ami-076e842265b412b0e, linuxarm64: ami-0acfb6265bc046545, windows: ami-0ead2edebb8623233, ubuntu2404amd64: ami-048f664f811b58d89, ubuntu2404arm64: ami-05ba90ba109d1acf5 }
+    eu-south-1 : { linuxamd64: ami-07860a6de6086a70a, linuxarm64: ami-0e8815c34217bbae6, windows: ami-0931e904f90a008cc, ubuntu2404amd64: ami-063b5af82f70a7dae, ubuntu2404arm64: ami-072694922fcad721f }
+    eu-west-3 : { linuxamd64: ami-09dc33c7ecd57f139, linuxarm64: ami-088c8d04b1802ecc1, windows: ami-02b01fbd5be84f7bc, ubuntu2404amd64: ami-05fa120ca05f551d1, ubuntu2404arm64: ami-0795fa4b8941232fb }
+    eu-north-1 : { linuxamd64: ami-0f4f3d1131ab7afbc, linuxarm64: ami-00bd7e3eac2cfc496, windows: ami-068804e4d6ec6f050, ubuntu2404amd64: ami-018862a50941536e1, ubuntu2404arm64: ami-01447c3a9d8b21061 }
+    sa-east-1 : { linuxamd64: ami-07b05c0c8c7502fd8, linuxarm64: ami-041443b86f3285631, windows: ami-0f2eeec22068db53d, ubuntu2404amd64: ami-00aa42cbd985a13ce, ubuntu2404arm64: ami-0d164d38b220ab2f6 }
 
 Resources:
   Vpc:
@@ -2451,7 +2461,7 @@ Resources:
                   $Env:DOCKER_NETWORKING_PROTOCOL="${DockerNetworkingProtocol}"
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v7.10.0"
+                  $Env:BUILDKITE_STACK_VERSION="v7.11.1"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_LAUNCH_HOOK_NAME="buildkite-agent-launch"
                   $Env:BUILDKITE_LAUNCH_TIMEOUT="${WindowsLaunchTimeout}"
@@ -2565,7 +2575,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v7.10.0" \
+                  BUILDKITE_STACK_VERSION="v7.11.1" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
@@ -3006,8 +3016,12 @@ Resources:
                   ],
                   DocumentName="AWS-RunShellScript",
                   Comment=f"Stopping BK agents in {stack_name}",
+                  # An instance with no running agent must not fail the command:
+                  # with the default MaxErrors of 0, one failure cancels every
+                  # invocation not yet started, leaving those agents running.
+                  MaxErrors="100%",
                   Parameters={
-                      "commands": ["sudo kill -s SIGTERM $(/bin/pidof buildkite-agent)"]
+                      "commands": ["sudo pkill -TERM -x buildkite-agent || true"]
                   }
               )
               logger.info(f"SSM command response: {response}")
@@ -3053,7 +3067,7 @@ Resources:
 
   Autoscaling:
     Type: AWS::Serverless::Application
-    Condition: HasVariableSizeAndX8664
+    Condition: ShouldDeployScalerAndX8664
     Properties:
       Location:
         ApplicationId: !FindInMap
@@ -3088,7 +3102,7 @@ Resources:
 
   AutoscalingArm64:
     Type: AWS::Serverless::Application
-    Condition: HasVariableSizeAndArm64
+    Condition: ShouldDeployScalerAndArm64
     Properties:
       Location:
         ApplicationId: !FindInMap

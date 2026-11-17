@@ -11,7 +11,7 @@ steps:
     agents:
       queue: hosted
     plugins:
-      - aws-assume-role-with-web-identity#v1.8.1:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -24,13 +24,16 @@ steps:
 
   - name: ":ecr: ECR Vulnerabilities Scan"
     command: "true"
+    env:
+      # v1.9.1 reads this variable instead of the declared plugin option.
+      FAIL_BUILD_ON_PLUGIN_FAILURE: "true"
     soft_fail:
       - exit_status: 75 # soft fail for scan timeouts
     agents:
       queue: hosted
     depends_on: "ecr-push"
     plugins:
-      - aws-assume-role-with-web-identity#v1.8.1:
+      - aws-assume-role-with-web-identity#v1.8.2:
           role-arn: arn:aws:iam::${ECR_ACCOUNT_ID}:role/pipeline-buildkite-docs-private
           session-tags:
             - organization_slug
@@ -39,7 +42,6 @@ steps:
             - build_branch
       - cultureamp/ecr-scan-results#v1.9.1:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
-          fail-build-on-plugin-failure: true
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying

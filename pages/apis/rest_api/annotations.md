@@ -32,7 +32,11 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
   </tr>
   <tr>
     <th><code>body_html</code></th>
-    <td>Rendered HTML of the annotation's body. The <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-build">List annotations for a build</a> endpoint omits this field when the request includes <code>omit_body=true</code>.</td>
+    <td>Rendered HTML of the annotation's body. The <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-build">List annotations for a build</a> and <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-job">List annotations for a job</a> endpoints omit this field when the request includes <code>body_format=raw</code> or <code>omit_body=true</code>.</td>
+  </tr>
+  <tr>
+    <th><code>body</code></th>
+    <td>The annotation's body exactly as submitted, which can be Markdown, plain text, or HTML. This field is only returned by the <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-build">List annotations for a build</a> and <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-job">List annotations for a job</a> endpoints when the request includes <code>body_format=raw</code>. Learn more in <a href="/docs/apis/rest-api/annotations#list-annotations-for-a-build-retrieve-raw-annotation-bodies">Retrieve raw annotation bodies</a>.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
@@ -93,8 +97,13 @@ Optional [query string parameters](/docs/api#query-string-parameters):
       <p class="Docs__api-param-eg"><em>Example:</em> <code>scope=all</code></p></td>
   </tr>
   <tr>
+    <th><code>body_format</code></th>
+    <td>The format of each annotation's body in the response. The <code>html</code> value returns the rendered body in the <code>body_html</code> field and is the default. The <code>raw</code> value returns the body exactly as submitted in the <code>body</code> field, and omits the <code>body_html</code> field. Learn more in <a href="#list-annotations-for-a-build-retrieve-raw-annotation-bodies">Retrieve raw annotation bodies</a>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>body_format=raw</code></p></td>
+  </tr>
+  <tr>
     <th><code>omit_body</code></th>
-    <td>Omits the <code>body_html</code> field from each annotation in the response when set to <code>true</code>. Use this parameter to fetch annotation metadata without response bodies. The default is <code>false</code>.
+    <td>Omits the annotation's body from each annotation in the response when set to <code>true</code>. Use this parameter to fetch annotation metadata without response bodies. This parameter takes precedence over <code>body_format</code>, so neither the <code>body_html</code> nor the <code>body</code> field is returned. The default is <code>false</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>omit_body=true</code></p></td>
   </tr>
 </tbody>
@@ -103,6 +112,59 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 Required scope: `read_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "body_format must be one of: html, raw" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "omit_body must be true or false" }</code></td>
+  </tr>
+</tbody>
+</table>
+
+### Retrieve raw annotation bodies
+
+By default, the annotation list endpoints return each annotation's body as rendered HTML in the `body_html` field. To retrieve the body exactly as it was submitted instead, add `body_format=raw` to the request:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations?body_format=raw"
+```
+
+```json
+[
+  {
+    "id": "5b3ceff6-78cb-4fe9-88ae-51be5f145977",
+    "context": "coverage",
+    "style": "info",
+    "scope": "build",
+    "job_id": null,
+    "priority": 3,
+    "body": "Read the [uploaded coverage report](artifact://coverage/index.html) \:white_check_mark\:",
+    "created_at": "2019-04-09T18:07:16.320Z",
+    "updated_at": "2019-04-09T18:07:16.320Z"
+  }
+]
+```
+
+A `raw` body is the stored annotation body, which can be Markdown, plain text, or HTML. Buildkite Pipelines does not render this body, so:
+
+- Markdown is not converted to HTML.
+- `artifact://` links are not converted to signed artifact URLs.
+- Emoji codes, such as `\:white_check_mark\:`, are not replaced with emoji.
+
+This value is the same as the `text` field of the [`AnnotationBody`](/docs/apis/graphql/schemas/object/annotationbody) object in the GraphQL API.
+
+The `body_format` parameter is supported by the [List annotations for a build](#list-annotations-for-a-build) and [List annotations for a job](#list-annotations-for-a-job) endpoints.
+
+> 🚧 Raw annotation bodies are not sanitized
+> A `raw` body can contain arbitrary HTML that Buildkite Pipelines would otherwise sanitize when rendering the annotation. Don't render a `raw` body as HTML as-is. Treat it as untrusted input, and sanitize or escape it before displaying it.
 
 ## Create an annotation on a build
 
@@ -224,9 +286,41 @@ curl -H "Authorization: Bearer $TOKEN" \
 ]
 ```
 
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>body_format</code></th>
+    <td>The format of each annotation's body in the response. The <code>html</code> value returns the rendered body in the <code>body_html</code> field and is the default. The <code>raw</code> value returns the body exactly as submitted in the <code>body</code> field, and omits the <code>body_html</code> field. Learn more in <a href="#list-annotations-for-a-build-retrieve-raw-annotation-bodies">Retrieve raw annotation bodies</a>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>body_format=raw</code></p></td>
+  </tr>
+  <tr>
+    <th><code>omit_body</code></th>
+    <td>Omits the annotation's body from each annotation in the response when set to <code>true</code>. Use this parameter to fetch annotation metadata without response bodies. This parameter takes precedence over <code>body_format</code>, so neither the <code>body_html</code> nor the <code>body</code> field is returned. The default is <code>false</code>.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>omit_body=true</code></p></td>
+  </tr>
+</tbody>
+</table>
+
 Required scope: `read_builds`
 
 Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "body_format must be one of: html, raw" }</code></td>
+  </tr>
+  <tr>
+    <th><code>422 Unprocessable Entity</code></th>
+    <td><code>{ "message": "omit_body must be true or false" }</code></td>
+  </tr>
+</tbody>
+</table>
 
 ## Create an annotation on a job
 

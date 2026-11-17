@@ -10,13 +10,15 @@ For older macOS versions, select a compatible agent release from the [macOS comp
 
 We recommend installing the agent using [Homebrew](http://brew.sh/) so you can use the [Buildkite formula repository](https://github.com/buildkite/homebrew-buildkite). If you don't use Homebrew you should follow the [Linux](/docs/agent/self-hosted/install/linux) install instructions.
 
-To install the agent using Homebrew:
+To install the Buildkite agent using Homebrew:
 
-1. On the command line, install the agent by running:
+1. On the command line, install the latest v4 agent by running:
 
     ```shell
-    brew install buildkite/buildkite/buildkite-agent
+    brew install buildkite/buildkite/buildkite-agent@4
     ```
+
+    **Note:** If you need Buildkite agent v3, run `brew install buildkite/buildkite/buildkite-agent@3` instead.
 
 1. Add your [agent token](/docs/agent/self-hosted/tokens) to authenticate the agent by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
 
@@ -30,6 +32,9 @@ To install the agent using Homebrew:
     ```shell
     buildkite-agent start
     ```
+
+> 🚧 Homebrew reports an untrusted tap
+> If installation fails with an untrusted tap error, run `brew trust buildkite/buildkite`, then run the install command again. Homebrew 7.0.13 can report this error for `buildkite-agent@3` even when installing `buildkite-agent@4`.
 
 ## SSH key configuration
 
@@ -50,7 +55,7 @@ File locations depend on your installation method and Mac hardware.
 
 ### Homebrew installation
 
-To see the paths to the agent's configuration, hooks, builds, and logs on your system, run `brew info buildkite-agent`.
+To see the paths to the agent's configuration, hooks, builds, and logs on your system, run `brew info buildkite/buildkite/buildkite-agent@4`. For v3, replace `@4` with `@3`.
 
 The typical paths for [Mac computers with Apple silicon](https://support.apple.com/en-gb/HT211814) (such as M1 chips) are:
 
@@ -85,8 +90,10 @@ On macOS, the Buildkite agent runs as the user who started the `launchd` service
 If you installed the agent using Homebrew you can run the following command to get instructions on how to install the correct plist and have buildkite-agent start on login:
 
 ```bash
-brew info buildkite-agent
+brew info buildkite/buildkite/buildkite-agent@4
 ```
+
+For v3, replace `@4` with `@3`.
 
 If you installed the buildkite-agent using the [Linux install script](linux) then you'll need to install the plist yourself using the following commands:
 
@@ -141,10 +148,12 @@ If your agents each need different configuration, you can create multiple `launc
 
 ## Upgrading
 
-If you installed the agent using Homebrew you can use the standard brew upgrade command to update the agent:
+If you installed Buildkite agent v4 using Homebrew, update it within the v4 release line by running:
 
 ```shell
-brew update && brew upgrade buildkite-agent
+brew update && brew upgrade buildkite/buildkite/buildkite-agent@4
 ```
 
-If you installed the buildkite-agent using the [Linux install script](linux) then you should run the installer script again and it will update your agent.
+To update within the v3 release line, replace `@4` with `@3`. Before moving from v3 to v4, read the [Agent v3 to v4 upgrade guide](/docs/agent/v3-v4-upgrade-guide) for breaking changes and migration instructions.
+
+If you installed the Buildkite agent using the [Linux install script](linux) then you should run the installer script again and it will update your agent.

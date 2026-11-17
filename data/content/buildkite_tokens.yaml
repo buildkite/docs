@@ -15,13 +15,20 @@ tokens:
     usage: Services exchange a signed JWT assertion for a token, and call the APIs on behalf of a user.
     scope: The requested scopes, limited to the Token Exchange App's grantable scopes.
     lifetime: Up to the app's **Max Token TTL**, which defaults to one hour and can be set between 30 seconds and 24 hours.
+  - key: workload_identity_token
+    name: Workload identity token
+    url: /docs/apis/workload-identity-federation
+    prefix: bkwi_
+    usage: Workloads, such as jobs running on Buildkite agents, workloads on AWS, and GitHub Actions jobs, exchange an OIDC token for a token, and call the REST API as the workload identity.
+    scope: The requested scopes, limited to the workload identity's grantable scopes, for the pipelines that the workload identity's **Resource Access** setting allows.
+    lifetime: Up to the workload identity's **Maximum token lifetime (seconds)**, which defaults to one hour and can be set between 30 seconds and one hour. A token never outlives the OIDC token that it was exchanged for.
   - key: agent_token
     name: Agent token
     url: /docs/agent/self-hosted/tokens
     prefix: bkct_
     usage: Self-hosted agents register with a cluster using `BUILDKITE_AGENT_TOKEN`.
-    scope: Any queue in one cluster.
-    lifetime: No expiry when created in the Buildkite interface. An optional expiry, at least 10 minutes in the future, can be set when created using the API.
+    scope: Configurable [Agent API permissions and queue access](/docs/agent/self-hosted/scoped-agent-tokens) within one cluster. Defaults to all permissions and all queues.
+    lifetime: The **Token Expiry** selected at creation in the Buildkite interface, which defaults to **Never** (no expiry). An optional expiry, at least 10 minutes in the future, can be set when created using the API.
   - key: unclustered_agent_token
     name: Unclustered agent token
     url: /docs/agent/self-hosted/tokens#working-with-unclustered-agent-tokens
@@ -50,7 +57,7 @@ tokens:
     internal: true
     prefix: bkaj_
     usage: Exposed to each job as `BUILDKITE_AGENT_ACCESS_TOKEN`, and used by agent CLI commands such as `annotate`, `artifact`, and `meta-data`.
-    scope: The job, plus metadata, annotations, and artifacts of other jobs in the same cluster.
+    scope: The job, plus metadata, annotations, and artifacts of other jobs in the same cluster, subject to the source agent token's permissions.
     lifetime: Until the job finishes.
   - key: registry_token
     name: Registry token
@@ -97,6 +104,6 @@ tokens:
     name: OIDC token
     url: /docs/agent/cli/reference/oidc
     prefix: "—"
-    usage: Jobs present a signed JWT to cloud providers or Buildkite Package Registries, not to the Buildkite REST or GraphQL APIs. No Buildkite token prefix.
+    usage: Jobs present a signed JWT to cloud providers, Buildkite Package Registries, or the [workload identity federation](/docs/apis/workload-identity-federation) token endpoint, not to the Buildkite REST or GraphQL APIs. No Buildkite token prefix.
     scope: The intended audience, token claims, and receiving system's trust policy.
     lifetime: Five minutes by default for agent-issued tokens, configurable with `--lifetime`. [Buildkite Package Registries](/docs/package-registries/security/oidc) accepts tokens valid for no more than five minutes.

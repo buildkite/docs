@@ -122,23 +122,19 @@ Optional attributes:
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br/>
-      <em>Example:</em> <code>3</code>
+      A map of concurrency settings: <code>limit</code>, <code>group</code>, <code>method</code>, and <code>cancel_in_progress</code>. Controls the <a href="/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-limits">maximum number of jobs</a> allowed to run at the same time. Also accepts an integer with top-level group and method attributes, or <code>null</code> to disable concurrency. See <a href="#concurrency-attributes">Concurrency attributes</a>.
     </td>
   </tr>
   <tr>
     <td><code>concurrency_group</code></td>
     <td>
-      A unique name for the concurrency group that you are creating. If you use this attribute, you must also define the <code>concurrency</code> attribute.<br/>
-      <em>Example:</em> <code>"my-app/deploy"</code>
+      Supported top-level alternative to <code>group</code> in the <a href="#concurrency-attributes">concurrency map</a>. Use the map for new configurations.
     </td>
   </tr>
   <tr>
     <td><code>concurrency_method</code></td>
     <td>
-      This attribute provides control of the scheduling method for jobs in a <a href="/docs/pipelines/configure/workflows/controlling-concurrency">concurrency group</a>. With the <code>"ordered"</code> value set, the jobs run sequentially in the order they were queued, while the <code>"eager"</code> value allows jobs to run as soon as resources become available. If you use this attribute, you must also define the <code>concurrency</code> and <code>concurrency_group</code> attributes.<br/>
-      <em>Default:</em> <code>"ordered"</code><br/>
-      <em>Example:</em> <code>"eager"</code>
+      Supported top-level alternative to <code>method</code> in the <a href="#concurrency-attributes">concurrency map</a>. Accepts <code>ordered</code> (the default) or <code>eager</code>. Use the map for new configurations.
     </td>
   </tr>
   <tr>
@@ -499,6 +495,49 @@ When a job fails, the build enters a _failing_ state. Other jobs with `cancel_on
 
 Jobs can also make the build enter `failing` before they finish by using [promise job failure](/docs/pipelines/configure/promise-job-failure). When a running job declares a promised hard failure, other running jobs with `cancel_on_build_failing: true` can be canceled before the declaring job exits.
 
+## Concurrency attributes
+
+Use the `concurrency` map to set a limit, group name, and scheduling method together:
+
+```yaml
+steps:
+  - command: "deploy.sh"
+    concurrency:
+      limit: 1
+      group: "my-app/deploy"
+      method: ordered
+```
+
+The map accepts the following attributes:
+
+Attribute | Description
+--------- | -----------
+`limit` | The maximum number of jobs allowed to run at the same time. A positive limit requires a nonempty group name. Omitting the limit or setting it to `null` disables concurrency. Zero retains the same behavior as integer `concurrency: 0`; it is not equivalent to `null`.
+`group` | The concurrency group name. Jobs with the same name share a group across pipelines in the organization. Accepts a string or `null`.
+`method` | The scheduling method: `ordered` (the default) or `eager`. Use `eager` to let ready jobs run without waiting for earlier jobs that are not ready. A value of `null` selects the default method.
+`cancel_in_progress` | When `true`, a job waiting for this concurrency group asks Buildkite Pipelines to cancel blocking jobs in the same group, instead of waiting for them to finish naturally. Cancellation is asynchronous and does not guarantee that only the latest job runs. Requires a positive `limit` and a nonempty `group`. Defaults to `false`. See [Canceling jobs in progress](/docs/pipelines/configure/workflows/controlling-concurrency#canceling-jobs-in-progress).
+{: class="two-column"}
+
+Set `concurrency: null` to disable concurrency for the step.
+
+### Compatibility with top-level attributes
+
+The integer syntax and top-level `concurrency_group` and `concurrency_method` attributes remain supported. Both syntaxes use the same concurrency groups and scheduling behavior. `cancel_in_progress` has no top-level equivalent, so set it inside the `concurrency` map.
+
+For example, this existing configuration is equivalent to the map above:
+
+```yaml
+steps:
+  - command: "deploy.sh"
+    concurrency: 1
+    concurrency_group: "my-app/deploy"
+    concurrency_method: ordered
+```
+
+When you combine a map with top-level attributes, a nested `group` or `method` takes precedence before server validation. An omitted key inherits the corresponding top-level value. An explicit `null` clears that value instead of inheriting it. For example, `method: null` overrides `concurrency_method: eager` and selects `ordered`. Setting `group: null` with a positive limit is invalid, even if `concurrency_group` is set.
+
+For concurrency group behavior and examples, see [Controlling concurrency](/docs/pipelines/configure/workflows/controlling-concurrency).
+
 ## Example
 
 ```yml
@@ -546,9 +585,10 @@ steps:
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
     branches: "main"
-    concurrency: 1
-    concurrency_group: "my-app/deploy"
-    concurrency_method: "eager"
+    concurrency:
+      limit: 1
+      group: "my-app/deploy"
+      method: eager
     retry:
       manual:
         allowed: false

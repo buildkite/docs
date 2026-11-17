@@ -82,6 +82,8 @@ To correctly transfer the OAuth ownership over your GitHub Enterprise Organizati
 
 With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.github.com/en/apps) on your GitHub Enterprise Server or GHE.com enterprise that receives webhooks to trigger builds and reports commit statuses back to your repositories and pull requests. You can optionally grant it code access so hosted agents and [self-hosted queues with token checkout enabled](/docs/agent/self-hosted/code-access#using-a-buildkite-issued-github-app-token) can clone private repositories.
 
+For GitHub Enterprise Server, the App integration also supports [GitHub Actions Compatibility](/docs/pipelines/migration/run-github-actions-workflows). Enable **Code Read Access** and install the App for the repositories whose workflows you want to run. The legacy OAuth integration doesn't support this workflow execution path.
+
 ### Set up the GitHub App
 
 1. Open your Buildkite organization's Settings and choose [**Repository Providers**](https://buildkite.com/organizations/~/repository-providers).
@@ -89,7 +91,7 @@ With the GitHub App integration, Buildkite creates a [GitHub App](https://docs.g
 1. Enter your settings:
     - **URL**: the URL of the GitHub Enterprise Server to connect, for example `https://github.example.com`.
     - **GitHub Enterprise Organization**: the organization on GitHub Enterprise Server to create the app in. For example, to create the app in `https://github.example.com/acme`, enter `acme`.
-    - **Code read access**: select this to grant the app read-only repository contents permission. This is required for hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories, and for the branch, tag, and release webhook events.
+    - **Code Read Access**: select this to grant the app read-only repository contents permission (unchecked by default). This is required for GitHub Actions Compatibility, hosted agents or self-hosted queues using GitHub App token checkout to clone private repositories, and branch, tag, and release webhook events.
     - If Buildkite reaches your GitHub Enterprise Server through a proxy, open **Advanced API settings** and set the **Public API URL**. See [Firewalled installs](#firewalled-installs) for the network configuration. For GHE.com, set the **Public API URL** to your enterprise's API host instead. See [GitHub Enterprise Cloud with data residency](#github-app-github-enterprise-cloud-with-data-residency).
 1. Select **Create**. Buildkite sends you to your GitHub Enterprise Server to create the app from a manifest. This step runs against your GitHub Enterprise Server URL directly, so you need browser access to it.
 1. On your GitHub Enterprise Server, review the app details and create the app. Your GitHub Enterprise Server will return you to Buildkite, which registers the provider and opens its settings page.

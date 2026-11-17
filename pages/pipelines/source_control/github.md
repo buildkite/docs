@@ -149,6 +149,30 @@ When you create a pull request, two builds are triggered: one for the pull reque
 > Rebuilding a pull request build replays the pull request data captured when the original build was created, including labels, draft state, base branch, and repository. A rebuild doesn't fetch the current pull request state from GitHub. If a label has been added or removed, or the pull request has been moved out of draft since the original build, the rebuild won't reflect those changes.
 > To run a build against the current pull request state, enable the relevant trigger from the pull request actions listed above. For example, **Build when pull request labels are changed** or **Build when pull request becomes ready for review**. Each trigger creates a new build from the webhook payload, so labels, draft state, and base branch reflect the pull request at the time of the event.
 
+### Filtering review requests
+
+To create builds only when a particular GitHub user or team is requested to review a pull request, enable **Build when a review is requested** and **Filter builds using a conditional** in the pipeline's GitHub settings. For example, this [pipeline-level conditional](/docs/pipelines/configure/conditionals#conditionals-in-pipelines) creates builds only for review requests targeting the GitHub user `octocat`:
+
+```text
+build.source_event == "pull_request" &&
+build.source_action == "review_requested" &&
+build.pull_request.requested_reviewer == "octocat"
+```
+
+To build only when the GitHub team `platform-engineering` is requested, use its slug instead of its display name:
+
+```text
+build.source_event == "pull_request" &&
+build.source_action == "review_requested" &&
+build.pull_request.requested_team == "platform-engineering"
+```
+
+These expressions exclude builds for other events. GitHub sends a separate webhook event for each requested reviewer or team. These variables identify the target of that specific event, not the person who sent the request or all outstanding review requests. A request for another reviewer does not match just because `octocat` is already requested on the pull request.
+
+Both variables preserve GitHub's values. String comparisons are case-sensitive. The reviewer variable is `null` for team requests, and the team variable is `null` for user requests. Both are `null` for unrelated events or actions, or when the original webhook is unavailable. The **Build when a review is requested** option does not trigger builds when a review request is removed.
+
+If [**Cancel Intermediate Builds**](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) is enabled, use the pipeline-level filter rather than only a step-level `if`. A nonmatching request then creates no build and does not cancel an existing build. Multiple requests that match the filter still follow the pipeline's normal branch-wide cancellation behavior.
+
 ### Building the test merge commit
 
 By default, Buildkite Pipelines runs pull request builds against the head commit of the pull request branch (`refs/pull/<N>/head`). You can instead have the Buildkite agent check out the GitHub-computed test merge commit (`refs/pull/<N>/merge`), which represents the speculative result of merging the change into its base branch.
@@ -467,13 +491,13 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Workflow-scoped GitHub access tokens
 
-Jobs in a GitHub.com pipeline can request a short-lived, repository-scoped GitHub access token using the [Buildkite GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) connection. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
+Jobs in a GitHub.com or GitHub Enterprise Server (GHES) pipeline can request a short-lived, repository-scoped GitHub access token using a GitHub App connection with code access enabled. Requested permissions are checked against a `permissions` map declared in a workflow file at the build's exact commit, so a job can only receive permissions the repository has explicitly allowed for that commit.
 
 To use this feature, the following requirements must be met:
 
-1. The pipeline uses the full-access **GitHub** repository provider. The **GitHub (Limited Access)** provider isn't supported because it doesn't provide code access.
+1. The pipeline uses the full-access [**GitHub** repository provider](#connect-your-buildkite-account-to-github-using-the-github-app) or a [GHES GitHub App connection](/docs/pipelines/source-control/github-enterprise#github-app) with code access enabled. The **GitHub (Limited Access)** provider and legacy GHES OAuth integration aren't supported.
 1. The job runs on a [Buildkite-hosted agent](/docs/agent/buildkite-hosted).
-1. In the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings, **Allow workflow-authorized GitHub access tokens** is selected. This checkbox only appears for pipelines connected to GitHub.com using the GitHub App (not GitHub Enterprise Server).
+1. Workflow-authorized GitHub access tokens are enabled for the pipeline. For GitHub.com, select **Allow workflow-authorized GitHub access tokens** in the **GitHub Workflow Access Tokens** section of the pipeline's GitHub settings. For GHES, [GitHub Actions setup](/docs/pipelines/migration/run-github-actions-workflows#add-a-github-actions-workflow-to-a-pipeline-create-a-github-actions-pipeline) enables this setting automatically. The checkbox isn't available for GHES; contact the Buildkite Support team to change the setting.
 
 > 🚧 Protect workflow-scoped tokens
 > Enabling this setting acknowledges that eligible jobs execute trusted code and may request write access to the pipeline's repository.
@@ -543,7 +567,7 @@ A requested permission is only granted when it's allowed by all of the following
 
 ### Restrictions
 
-- Only available for pipelines connected to GitHub.com using the GitHub App. GitHub Enterprise Server repositories aren't supported.
+- Only available for GitHub.com and GHES pipelines using a GitHub App connection with code access enabled. Tokens remain scoped to the pipeline repository and its App installation; there is no personal access token fallback.
 - Pull request builds, and any build triggered or rebuilt from a pull request build, can only request `contents: read`, regardless of what permissions the pull request's own workflow file declares.
 - Builds in a GitHub merge queue, including builds created by pushes to `gh-readonly-queue/*` branches, and any build triggered or rebuilt from one, can't request workflow-scoped tokens.
 - The build's commit must be a full, immutable commit SHA, and Buildkite must be able to resolve its complete trigger and rebuild history of up to 100 unique builds. Histories with more than 100 unique builds or incomplete histories are denied.

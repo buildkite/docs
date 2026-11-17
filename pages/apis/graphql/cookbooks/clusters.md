@@ -50,19 +50,24 @@ query getQueues {
 
 ## List agent tokens
 
-Get the first 10 agent tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
+Get the first ten agent tokens and their scopes for a particular cluster, specifying the cluster's UUID as the `id` argument of the `cluster` query:
 
 ```graphql
 query getAgentTokens {
   organization(slug: "organization-slug") {
+    id
     cluster(id: "cluster-uuid") {
-      agentTokens(first: 10){
-        edges{
-          node{
+      id
+      agentTokens(first: 10) {
+        edges {
+          node {
             id
             uuid
             description
             allowedIpAddresses
+            permissions
+            allowAllQueues
+            allowedQueueIds
           }
         }
       }
@@ -70,6 +75,10 @@ query getAgentTokens {
   }
 }
 ```
+
+Use a personal [API access token](/docs/apis/managing-api-tokens) with the `graphql` scope, shown as **Enable GraphQL API Access**. Listing agent tokens requires the `see_cluster_tokens` permission for the cluster. Creating or updating tokens requires `manage_cluster`; creation also requires `see_cluster_tokens`.
+
+The agent token mutations below use [GraphQL global IDs](/docs/apis/graphql-api#graphql-ids) for the organization, cluster, token, and queues. Use the returned `id` values, not REST UUIDs. The `allowedQueueIds` field contains global IDs for `ClusterQueue` objects. Get queue IDs using [List queues](#list-queues).
 
 > 🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
@@ -122,12 +131,93 @@ mutation createToken {
     organizationId: "organization-id",
     description: "A token with an expiration date",
     clusterId:"cluster-id",
-    expiresAt: "2026-01-01T00:00:00Z"
+    expiresAt: "2030-01-01T00:00:00Z"
   }) {
     tokenValue
+    clusterAgentToken {
+      id
+      permissions
+      allowAllQueues
+      allowedQueueIds
+    }
   }
 }
 ```
+
+Omitting `permissions` grants all current Agent API permissions. Omitting both queue fields allows all queues in the cluster. Copy `tokenValue` to secure storage immediately; the API returns this secret only when creating the token.
+
+## Create a scoped agent token
+
+Create a token that allows agents to run jobs, access code repositories through the Agent API, and write build metadata on a selected queue:
+
+```graphql
+mutation createScopedAgentToken {
+  clusterAgentTokenCreate(input: {
+    organizationId: "organization-id",
+    clusterId: "cluster-id",
+    description: "Windows agents",
+    allowedIpAddresses: "192.0.2.0/24",
+    permissions: ["run_jobs", "code_repository_access", "write_build_metadata"],
+    allowAllQueues: false,
+    allowedQueueIds: ["queue-id"]
+  }) {
+    tokenValue
+    clusterAgentToken {
+      id
+      description
+      allowedIpAddresses
+      permissions
+      allowAllQueues
+      allowedQueueIds
+    }
+  }
+}
+```
+
+Copy `tokenValue` to secure storage immediately. Subsequent queries and updates do not return the secret.
+
+Each permission grants only its own actions; `run_jobs` does not grant the other permissions. See [Scoped agent tokens](/docs/agent/self-hosted/scoped-agent-tokens) and the [available permissions](/docs/agent/self-hosted/scoped-agent-tokens#available-permissions) to select the actions your agents need.
+
+- Omit `permissions` to grant all current permissions. An explicit array grants only the supplied permissions, with duplicates removed. An empty array grants no permission-controlled actions.
+- Omit both queue fields to allow all queues. With `allowAllQueues: false`, supply `allowedQueueIds` containing queues from the same cluster. An empty array then denies all queues.
+- With `allowAllQueues: true`, `allowedQueueIds` must be empty.
+
+Unknown permission names, including `read_pipelines` and `modify_steps`, and `null` permissions are rejected. Invalid permission or queue settings reject the mutation without changing the token. Check the response's `errors` array even when the HTTP status is `200 OK`.
+
+## Update a scoped agent token
+
+Use the token's global ID from [List agent tokens](#list-agent-tokens) to replace its permissions and allowed queues:
+
+```graphql
+mutation updateScopedAgentToken {
+  clusterAgentTokenUpdate(input: {
+    organizationId: "organization-id",
+    id: "agent-token-id",
+    description: "Windows build agents",
+    allowedIpAddresses: "192.0.2.0/24",
+    permissions: ["run_jobs", "code_repository_access", "write_build_metadata"],
+    allowAllQueues: false,
+    allowedQueueIds: ["queue-id"]
+  }) {
+    clusterAgentToken {
+      id
+      description
+      allowedIpAddresses
+      permissions
+      allowAllQueues
+      allowedQueueIds
+    }
+  }
+}
+```
+
+The `description` argument is required. Supply the token's existing `allowedIpAddresses` value to preserve its IP restriction, as shown above. Omitting `allowedIpAddresses` clears the restriction.
+
+Omit `permissions`, `allowAllQueues`, or `allowedQueueIds` to preserve the corresponding stored value. Supplied permission and queue arrays replace the existing arrays. To switch a restricted token to all queues, send `allowAllQueues: true` and `allowedQueueIds: []` together. Clearing the array while `allowAllQueues` is `false` denies all queues.
+
+Saved permission changes take effect on subsequent requests from connected agents and running jobs, without re-registration. Queue changes apply to new registrations, including registrations using previously issued [job acquisition tokens](/docs/agent/self-hosted/job-acquisition-tokens), and new stack batch JAT issuance.
+
+Explicit job acquisition also checks current queue bindings. Removing queue access after registration can make the Agent API's `/acquire` endpoint return `404`, including for a JAT-backed agent. Queue edits do not disconnect existing agents or cancel running jobs.
 
 ## Revoke an agent token
 

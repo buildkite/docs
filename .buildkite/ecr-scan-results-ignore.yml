@@ -93,7 +93,15 @@ ignores:
     reason: |
       FTS5 heap overflow requires a prefix MATCH query over a detail=none table containing attacker-controlled negative rowids. The app opens no SQLite databases and does not use FTS5. libsqlite3 is present only as a dependency of liblastlog2.
 
-  # --- zlib (the vulnerable code is not in the Trixie package) ---
+  # --- zlib (gzip writer paths are unreachable or the vulnerable code is absent) ---
+  - id: CVE-2026-76844 # zlib 1:1.3.dfsg+really1.3.1-1+b1
+    reason: |
+      Trixie's zlib 1.3.1 is affected, but reaching this overflow requires a gz* write error, a call to gzclearerr(), and another gz* write on the same stream. No ELF file in the runtime image imports gzclearerr(). The only importers of the system libz gzip writer API are dpkg-deb and libapt-pkg, neither of which the serving process loads or invokes.
+
+      Ruby's zlib extension uses deflate/inflate directly, not the gz* file API. Node bundles its own zlib and does not link the system libz. The app does not resolve these functions dynamically. Debian has no fixed Trixie package yet; reassess this exception if gzip writer callers are added or the runtime changes.
+
+      https://nvd.nist.gov/vuln/detail/CVE-2026-76844
+      https://security-tracker.debian.org/tracker/CVE-2026-76844
   - id: CVE-2026-85091 # zlib 1:1.3.dfsg+really1.3.1-1+b1
     reason: |
       The overflow is in `gz_vacate()`, which upstream added in zlib 1.3.1.2 with non-blocking gz* support (madler/zlib@81cc0be). The advisory lists 1.3.1.2 through 1.3.2 as affected. Trixie ships 1.3.1 with no Debian patches, and its gzwrite.c contains no `gz_vacate` and no non-blocking handling, so the vulnerable code is absent. The scanner flags it because Debian's tracker still lists every release as vulnerable.

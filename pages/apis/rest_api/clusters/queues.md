@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <th><code>hosted_agents.platform_settings.linux.agent_image_ref</code></th>
-      <td>The custom image URL configured for the queue's hosted agents, or <code>null</code> when the queue uses its default image. Only present on Linux-based Buildkite hosted queues. Learn more about <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">specifying a custom image for a queue</a>.</td>
+      <td>The custom image URL configured for the queue's hosted agents, or <code>null</code> when the queue uses its default image. Only present on Linux-based Buildkite hosted queues. To set this URL, <a href="#update-a-queue">update the queue</a>.</td>
     </tr>
     <tr>
       <th><code>use_github_app_token</code></th>
@@ -107,6 +107,44 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 Required scope: `read_clusters`
+
+Success response: `200 OK`
+
+## List queue recommendations
+
+Returns missing hosted queue presets allowed by your organization's current plan and policy. The response is a bounded array of queue creation objects, not a paginated list of existing queues. Existing queue keys are excluded, and this request does not create or change any queues.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/recommendations"
+```
+
+Example response:
+
+```json
+[
+  {
+    "key": "linux-arm64-medium",
+    "hostedAgents": {
+      "instanceShape": "linux_arm64_4x16"
+    }
+  },
+  {
+    "key": "windows-medium",
+    "hostedAgents": {
+      "instanceShape": "windows_amd64_4x16"
+    }
+  }
+]
+```
+
+Each object includes `key` and `hostedAgents.instanceShape`. Presets pinned to a macOS version also include `hostedAgents.macosVersion`. An empty array means there are no missing eligible presets.
+
+To create a recommended queue, send its object unchanged as the request body to [Create a Buildkite hosted queue](#create-a-buildkite-hosted-queue). Send a separate `POST` request for each queue you choose, using a token with the `write_clusters` scope. Do not submit the array as a bulk creation request. Creating these queues leaves existing queues and the cluster's default queue unchanged.
+
+Required scope: `read_clusters`
+
+Required permission: `manage_cluster` on the cluster. The token's user must be a cluster maintainer or Buildkite organization administrator.
 
 Success response: `200 OK`
 
@@ -309,11 +347,11 @@ Optional [request body properties](/docs/api#request-body-properties):
     <br/>
     <code>instanceShape</code> (required when <code>hostedAgents</code> is specified): Describes the machine type, architecture, CPU, and RAM to provision for Buildkite hosted agent instances running jobs in this queue.
     <br/>
-    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> hosted agents. Buildkite must allocate Windows access and capacity to your organization before you can create a Windows hosted queue.
+    Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> hosted agents. Windows hosted queues require a Trial, Pro, or Enterprise plan.
     <br/>
     You cannot set a custom image URL when you create a queue. Buildkite ignores any <code>agentImageRef</code> you submit in this call and creates the queue with the default agent image. To use a custom image URL, <a href="#update-a-queue">update the queue</a> after creating it.
     <!--
-    <code>agentImageRef</code> (optional): A <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">custom image URL</a> to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>.
+    <code>agentImageRef</code> (optional): A URL for a <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images">custom agent image</a> to use for agents in this queue. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>.
     <br/>
     <em>Example:</em>
     <br/>
@@ -403,7 +441,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (for example, from macOS to Linux), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
     Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a>, <a href="#instance-shape-values-for-macos">macOS</a>, and <a href="#instance-shape-values-for-windows">Windows</a> Buildkite hosted agents.
     <br/><br/>
-    <code>agentImageRef</code> (optional): A <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-specify-a-custom-image-for-a-queue">custom image URL</a> to use for agents in this queue. When set, this overrides the <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Setting this property requires access to the custom agent images feature.
+    <code>agentImageRef</code> (optional): A URL for a <a href="/docs/agent/buildkite-hosted/linux/custom-agent-images">custom agent image</a> to use for agents in this queue. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Setting this property requires access to the custom agent images feature.
     <br/>
     To use an image that Buildkite builds for you, pass the <code>image_ref</code> value of an <a href="/docs/apis/rest-api/clusters/agent-images">agent image</a>. The value you set is returned as <code>hosted_agents.platform_settings.linux.agent_image_ref</code>.
     <br/>
@@ -588,6 +626,6 @@ Specify the appropriate **Instance shape** for the `instanceShape` value in your
 
 ## Instance shape values for Windows
 
-Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Buildkite must allocate Windows access and capacity to your organization before you can use these values.
+Specify the appropriate **Instance shape** for the `instanceShape` value in your REST API call. Windows hosted queues require a Trial, Pro, or Enterprise plan.
 
 <%= render_markdown partial: 'shared/buildkite_hosted_agents/instance_shape_table_windows' %>

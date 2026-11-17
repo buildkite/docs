@@ -1,22 +1,22 @@
 # Pricing and plans
 
-Buildkite offers a range of plans designed to suit teams of all sizes, from individual developers to large enterprises.
+Buildkite offers Free, Pro, and Enterprise plans. Plans differ in available features, usage limits, and support.
 
 ## Available plans
 
 Buildkite offers the following plans:
 
-- **Personal**: For individual developers exploring the Buildkite platform.
+- **Free**: For individual developers and small teams.
 - **Pro**: For growing teams that need more capacity and features.
 - **Enterprise**: For organizations that require advanced security, compliance, and dedicated support.
 
-Plans differ in the features available, usage limits, and level of support provided. For a detailed comparison of what each plan includes, visit the [Buildkite pricing page](https://buildkite.com/pricing/).
+Compare current features, inclusions, and rates on the [Buildkite pricing page](https://buildkite.com/pricing/). Legacy plans, such as Personal, can have different inclusions and retention limits.
 
 To find out which plan your organization is on or to manage your subscription, select **Settings** in the global navigation to access the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page.
 
 ## Usage and limits
 
-Each plan has default [service quotas](/docs/platform/limits) that define usage limits across the Buildkite platform. Buildkite organization administrators can view the quotas that apply to their organization in the [**Organization Settings**](https://buildkite.com/organizations/~/settings) page in the **Quotas** tab > **Service Quotas** section.
+Each plan has default [service quotas](/docs/platform/limits) that define usage limits across the Buildkite platform. To check your organization's actual limits as an administrator, select [**Organization Settings**](https://buildkite.com/organizations/~/settings) > **Quotas** to open **Service Quotas**.
 
 For how artifact storage and transfer usage in Buildkite-managed artifact storage is calculated and billed, see [Artifacts billing](/docs/platform/artifact-storage-and-transfer-billing).
 
@@ -57,12 +57,12 @@ Organizations without an active trial or either plan-specific usage view are tak
 
 ## Viewing prepaid inclusions
 
-Managed enterprise customers with the inclusions report enabled can view their prepaid entitlements and current usage from the **Billing** section of their organization settings. This helps you track consumption against what is included in your plan and estimate any overage charges before they are invoiced.
+Managed Enterprise customers with the inclusions report enabled can compare prepaid entitlements with current usage in **Billing**. The report helps you estimate overage charges before invoicing.
 
 To access the inclusions report, you need billing administration permissions for your organization. To view it:
 
 1. Select **Settings** in the global navigation, then select **Billing**.
-2. Select the **Inclusions** tab.
+1. Select the **Inclusions** tab.
 
 The **Inclusions** page shows your included entitlements versus actual usage for the current subscription period. The page displays the subscription period dates and the number of days remaining.
 

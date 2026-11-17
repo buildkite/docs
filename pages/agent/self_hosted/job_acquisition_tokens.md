@@ -58,6 +58,10 @@ By default, a JAT expires 15 minutes after issuance. A stack can request a lifet
 
 During agent registration, Buildkite checks that the agent token used to issue the JAT is still active and belongs to the expected organization and cluster. Any expiration or allowed IP address restrictions on the agent token also apply. The JAT doesn't contain the agent token value.
 
+Agents and jobs registered using a JAT inherit the source agent token's [permissions](/docs/agent/self-hosted/scoped-agent-tokens). The source token must allow `run_jobs` for registration. Its current queue access is checked at registration, including when the JAT was issued before a queue-access change. Issuing a JAT through the Stacks API requires `operate_stacks` separately.
+
+Explicit job acquisition checks the source token's current queue bindings again. If access to the job's queue is removed after registration but before acquisition, `/acquire` returns `404` without assigning the job or returning its payload. The agent session remains valid; the queue edit does not disconnect the agent or cancel a running job.
+
 Treat job acquisition tokens as bearer credentials:
 
 - Don't log these tokens or include them in persistent workload definitions.

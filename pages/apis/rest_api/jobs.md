@@ -204,6 +204,125 @@ Error responses:
 </tbody>
 </table>
 
+## Get job concurrency
+
+Returns a job's [concurrency group](/docs/pipelines/configure/workflows/controlling-concurrency#concurrency-groups), its own concurrency limit, and the active jobs ahead of it in that group's queue.
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/jobs/{job.id}/concurrency"
+```
+
+You can also use the build-scoped route if you have the pipeline slug and build number:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/concurrency"
+```
+
+```json
+{
+  "concurrency_group": {
+    "id": "018f1e2a-7c3d-7000-9b2a-1a2b3c4d5e6f",
+    "key": "deploy",
+    "scope": "custom",
+    "cluster_id": "018f1e2a-7c3d-7000-9b2a-6c7d8e9f0a1b"
+  },
+  "concurrency_limit": 3,
+  "state": "limited",
+  "jobs_ahead": {
+    "items": [
+      {
+        "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+        "name": ":package: Build",
+        "state": "running",
+        "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+        "pipeline_name": "my-pipeline",
+        "build_number": 1,
+        "current_state_since": "2015-05-09T21:06:05.000Z",
+        "concurrency_limit": 7,
+        "concurrency_method": "eager",
+        "priority": { "number": -4 }
+      }
+    ],
+    "order": ["scheduled_at", "position", "id"],
+    "scope": "subset_of_active_jobs_ahead_within_callers_scope_and_internal_limit",
+    "notice": "Submission order is not execution order. This is not a complete list of jobs holding up this job because of concurrency limits; an empty list does not establish that there are no blockers."
+  }
+}
+```
+
+### Response structure
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>concurrency_group</code></th>
+    <td>The job's concurrency group, or <code>null</code> when the job doesn't use one. <code>scope</code> is <code>custom</code> for a group named explicitly in the step's concurrency map, or <code>step</code> for a group key generated from the step itself. <code>cluster_id</code> is <code>null</code> for an unclustered group.</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_limit</code></th>
+    <td>The job's own concurrency limit, read from its step configuration at the time the job was created. <code>null</code> when the job has no concurrency group.</td>
+  </tr>
+  <tr>
+    <th><code>state</code></th>
+    <td>The job's current <a href="/docs/pipelines/configure/defining-steps#job-states">state</a>.</td>
+  </tr>
+  <tr>
+    <th><code>jobs_ahead</code></th>
+    <td>Other active jobs ahead of this job in the concurrency group's queue. <code>items</code> is always empty unless the job's own <code>state</code> is <code>limited</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+Each entry in `jobs_ahead.items` is in submission order, matching `jobs_ahead.order`:
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>id</code></th>
+    <td>The predecessor job's UUID</td>
+  </tr>
+  <tr>
+    <th><code>name</code>, <code>state</code>, <code>web_url</code>, <code>pipeline_name</code>, <code>build_number</code></th>
+    <td>Identifying details for the predecessor job. <code>name</code> falls back to the job's command, truncated to 50 characters, when the job has no name.</td>
+  </tr>
+  <tr>
+    <th><code>current_state_since</code></th>
+    <td>When the first item in the list entered its current state. <code>null</code> for every other item.</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_limit</code></th>
+    <td>That predecessor job's own concurrency limit</td>
+  </tr>
+  <tr>
+    <th><code>concurrency_method</code></th>
+    <td>That predecessor job's <a href="/docs/pipelines/configure/step-types/command-step#concurrency-attributes">scheduling method</a>, <code>ordered</code> or <code>eager</code>. <code>null</code> when the job's step configuration isn't available.</td>
+  </tr>
+  <tr>
+    <th><code>priority</code></th>
+    <td>That predecessor job's <a href="/docs/pipelines/configure/workflows/job-priority">priority</a></td>
+  </tr>
+</tbody>
+</table>
+
+`jobs_ahead.items` is capped and filtered to jobs in pipelines the access token can view, without being refilled after filtering. `jobs_ahead.scope` and `jobs_ahead.notice` describe this: don't treat an empty `items` list as proof that nothing is blocking the job.
+
+Required scope: `read_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>404 Not Found</code></th>
+    <td><code>{ "message": "No job found" }</code></td>
+  </tr>
+</tbody>
+</table>
+
 ## Create a remote desktop session
 
 Creates connection details for a running command job on a macOS hosted agent. The response includes a short-lived access token. Use this endpoint to connect a VNC client to the job's desktop.

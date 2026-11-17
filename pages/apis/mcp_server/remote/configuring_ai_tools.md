@@ -330,7 +330,7 @@ extensions:
 
 ## Visual Studio Code
 
-You can configure [Visual Studio Code](https://code.visualstudio.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [`mcp.json` file](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server) in Visual Studio Code.
+You can configure [Visual Studio Code](https://code.visualstudio.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [`mcp.json` file](https://code.visualstudio.com/docs/agents/reference/mcp-configuration#_configuration-file) in Visual Studio Code.
 
 ```json
 {

@@ -281,6 +281,40 @@ A token's REST API scopes are granular, and you can select some or all of the fo
   </tbody>
 </table>
 
+### Workload identities
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%">Feature and scopes</th>
+      <th style="width:55%">Description</th>
+      <th style="width:7%">Read</th>
+      <th style="width:7%">Write</th>
+      <th style="width:6%">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% [
+      {
+        name: "Workload Identities",
+        key: "read_workload_identities, write_workload_identities, delete_workload_identities",
+        description: "List and retrieve details of [workload identities](/docs/apis/rest-api/organizations/workload-identities)—create and update workload identities—delete workload identities. Requires an organization administrator.",
+        read: true, write: true, delete: true
+      }
+    ].each do |scope| %>
+      <tr>
+        <td><strong><%= scope[:name] %></strong><br><%= scope[:key].split(", ").map { |k| "<code>#{k}</code>" }.join(", ") %></td>
+        <td><%= render_markdown(text: scope[:description]) %></td>
+        <td><%= scope[:read] ? "✅" : "" %></td>
+        <td><%= scope[:write] ? "✅" : "" %></td>
+        <td><%= scope[:delete] ? "✅" : "" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+The **Workload Identities** scopes only appear when you belong to a Buildkite organization that has workload identities enabled.
+
 ### Test Engine
 
 <table>

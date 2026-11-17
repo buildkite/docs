@@ -557,6 +557,7 @@ treemap
 Trivy
 trixie
 typosquatted
+Ubicloud
 udp
 uncached
 unmanaged
@@ -756,3 +757,4 @@ backtraces
 multiline
 pipenv
 unkeyed
+jsdom
