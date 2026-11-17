@@ -23,7 +23,7 @@ Use this table to identify migration work, then check the linked restrictions an
 | Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+ and a compatible queue. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
 | Events and filters | Listed events and bounded filters | Native manual runs require matching `push` without `workflow_dispatch`. Delivery can require backend support and webhook setup. Path filters need linked data and local history. | [Events and triggers](#events-and-triggers) |
 | Actions | Local and public JavaScript/composite actions; Linux Docker actions | Private actions and direct workflow `docker://` calls are unsupported. Admission doesn't guarantee GitHub service access. | [Action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) |
-| Checkout | Native adapter for the event repository | Pull requests check out the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
+| Checkout | Native adapter for the event repository | Pull requests default to the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
 | Artifacts | Native ZIP upload and download | Downloads require verified direct `needs` producers; no cross-run/repository or GitHub artifact API access. | [Upload](#actions-artifacts-and-caching-upload-artifact-action), [download](#actions-artifacts-and-caching-download-artifact-action) |
 | Caching | Admitted cache-v2 clients use Buildkite Results | Client versions and tools matter. Cache mode is best-effort, not authorization. | [Cache action](#actions-artifacts-and-caching-cache-action) |
 | Repositories and GitHub tokens | GitHub.com, GitHub Enterprise Server (GHES), and authorized private Origin access | Workflow tokens require eligible hosted GitHub.com or GHES App jobs, the token setting enabled, and top-level permissions. | [Repositories](#credentials-and-deployments-repositories), [GitHub token](#credentials-and-deployments-github-token) |
@@ -53,7 +53,7 @@ Check these differences before migrating:
 
 - **Action access:** [Private actions](#actions-artifacts-and-caching-action-sources-and-runtimes) are unsupported, even inside private reusable workflows. An admitted public action can still depend on [unsupported GitHub services](#credentials-and-deployments-github-services).
 - **Runner parity:** Labels select a platform, not GitHub image, toolchain, hardware, or Xcode parity. Supply tools through your [queue and image](#runners-and-tools).
-- **Pull request checkout:** Workflows and [checkout](#actions-artifacts-and-caching-checkout-action) use the head commit, not GitHub's synthetic merge commit. Review events also use the head, not the reviewed commit.
+- **Pull request checkout:** Workflows and default [checkout](#actions-artifacts-and-caching-checkout-action) use the head commit, not GitHub's synthetic merge commit. Review events also default to the head, not the reviewed commit. An explicit checkout `ref` can select a pull request merge ref.
 - **Secrets and tokens:** GitHub secrets aren't copied. Migrate them to [Buildkite Secrets](#credentials-and-deployments-other-secrets-and-oidc). Public [GitHub workflow-token support](#credentials-and-deployments-github-token) requires eligible hosted jobs and the pipeline's token setting enabled; immutable top-level [permissions](#credentials-and-deployments-permissions) apply to every receiving job.
 - **Cloud identity:** OIDC uses the [Buildkite issuer and claims](#credentials-and-deployments-other-secrets-and-oidc), not GitHub's. Update cloud trust before deploying.
 - **Deployment approval:** [Environment gates](#credentials-and-deployments-deployment-environments) don't enforce GitHub reviewer lists, self-review restrictions, or administrator bypass. Any user who can unblock the pipeline can approve.
@@ -230,7 +230,7 @@ Native manual runs currently require a matching `push` declaration without `work
 
 Explicit `pull_request` activities may be `assigned`, `unassigned`, `labeled`, `unlabeled`, `opened`, `edited`, `closed`, `reopened`, `synchronize`, `converted_to_draft`, `locked`, `unlocked`, `enqueued`, `dequeued`, `milestoned`, `demilestoned`, `ready_for_review`, `review_requested`, `review_request_removed`, `auto_merge_enabled`, or `auto_merge_disabled`.
 
-Review events require v0.64.0 or later and don't support fork pull requests. Workflows and checkout use the head SHA, not the reviewed commit or synthetic merge commit; the ref remains `refs/pull/<number>/merge`. No default-branch-only requirement applies. Use payload head and base refs for branch conditions. CI-skip commit directives don't suppress review events. Same-repository reviews retain the pull request `contents: read` token ceiling, including approvals.
+Review events require v0.64.0 or later and don't support fork pull requests. Workflows and default checkout use the head SHA, not the reviewed commit or synthetic merge commit; the ref remains `refs/pull/<number>/merge`. No default-branch-only requirement applies. Use payload head and base refs for branch conditions. CI-skip commit directives don't suppress review events. Same-repository reviews retain the pull request `contents: read` token ceiling, including approvals.
 
 Release pipeline triggers require the GitHub Code Access App and use the peeled tag commit with `refs/tags/<tag_name>`. The tag, build, payload, and workflow identities must agree. Native builds without the App resolve the provided symbolic `HEAD` from checkout as a compatibility fallback. Deployment events use `deployment.sha` and its branch or tag ref. SHA-only deployments have empty Actions `ref` and `ref_name`, with workflow identity `<owner>/<repo>/<path>@<sha>`; no branch tip is substituted. Genuine deployment and status payload fields remain available in `github.event`.
 
@@ -502,7 +502,7 @@ Inputs must exist in the selected commit's contract before the following restric
 | Input | Supported values |
 | --- | --- |
 | `repository` | Omitted or the event `owner/repo`. |
-| `ref` | Omitted/empty, lowercase 40-hex commit, or static branch in the event repository. Direct `github.sha` or needs-output expressions must resolve to the exact event SHA. Tags and other dynamic commits are unsupported. |
+| `ref` | Omitted/empty, lowercase 40-hex commit, static branch, or `refs/pull/<number>/head` or `refs/pull/<number>/merge` in the event repository. Event expressions that compile to these values are supported. Direct `github.sha` or needs-output expressions must resolve to the exact event SHA. Tags and other dynamic commits are unsupported. |
 | `token` | Omitted only. |
 | `ssh-key`, `ssh-known-hosts` | Omitted or empty. |
 | `ssh-strict`, `set-safe-directory` | Omitted or `true`. |
@@ -518,6 +518,17 @@ Inputs must exist in the selected commit's contract before the following restric
 | `submodules` | Omitted, `false`, `true`, or `recursive`, trimmed and case-insensitive. |
 | `github-server-url` | Omitted/empty or the event server URL, such as `https://github.com` or `https://github.example.com` for GHES. |
 {: class="responsive-table"}
+
+Omitted or empty `ref` checks out the exact event SHA. An explicit branch or pull request ref checks out that ref's fetched commit, which can differ from the event SHA. Pull refs require [buildkite-gha v0.126.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.126.0) or later, a positive pull request number, and an existing ref in the event repository. Checkout remains detached, including when an expression selects a branch.
+
+For workflows triggered by branch pushes and pull requests, this expression selects the PR branch for a same-repository pull request and the event ref otherwise. Do not use this example for tag pushes or release events, because the fallback selects an unsupported tag ref:
+
+```yaml
+steps:
+  - uses: actions/checkout@v6
+    with:
+      ref: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) && github.event.pull_request.head.ref || github.ref }}
+```
 
 Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous.
 
