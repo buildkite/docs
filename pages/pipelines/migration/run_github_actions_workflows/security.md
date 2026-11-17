@@ -235,9 +235,9 @@ Git owns submodule parsing and recursion, so keep Git current and prefer a pinne
 
 Command scoping limits accidental spread. It doesn't stop a hostile concurrent process under the same job identity from reaching the agent or credential helper. Use a separate UID, sandbox, or pre-job credential broker for that boundary.
 
-## Error-reporting boundary
+## Telemetry
 
-Configured clients send [Bugsnag error reports](/docs/pipelines/migration/run-github-actions-workflows/cli#disable-telemetry-bugsnag-error-reports) directly to Bugsnag, not through the job-authenticated Agent API. Job-log redaction doesn't protect HTTP payloads, so reports omit raw messages and causes rather than relying on log masks. An embedded ingestion key is public to anyone who receives the binary, and build outputs such as release binaries can contain it.
+The importer and runtime send [telemetry and error reports](/docs/pipelines/migration/run-github-actions-workflows/cli#disable-telemetry) to the Buildkite backend through the job-authenticated Agent API.
 
 ## Operator checklist
 

@@ -512,7 +512,7 @@ During the transition, a custom importer can pass `upload --experimental-runner-
 
 ## Disable telemetry
 
-In Buildkite jobs, the importer and runtime send best-effort completion telemetry through the job-authenticated Agent API. Events contain the command, outcome, client version, duration, and bounded diagnostics. Diagnostics can identify a rejected feature with a `blocker` slug and bounded `blocker_detail`, such as `runner_label` and `windows-latest`. Distinct rejected values remain separate diagnostics even when they share a diagnostic code. Unsupported events use `trigger` and the event name; path-filter evaluation failures use `path_filter` and the event name. Runner rejections name a label only when that label caused the rejection. Trust, conflicting-target, and Agent API rejections use `runner_policy` with a stable reason code instead. These fields are telemetry attribution, not fields in processing-report JSON.
+In Buildkite Pipelines jobs, the importer and runtime send best-effort completion telemetry and error reports to the Buildkite backend through the job-authenticated Agent API. Completion events contain the command, outcome, client version, duration, and bounded diagnostics. Diagnostics can identify a rejected feature with a `blocker` slug and bounded `blocker_detail`, such as `runner_label` and `windows-latest`. Distinct rejected values remain separate diagnostics even when they share a diagnostic code. Unsupported events use `trigger` and the event name; path-filter evaluation failures use `path_filter` and the event name. Runner rejections name a label only when that label caused the rejection. Trust, conflicting-target, and Agent API rejections use `runner_policy` with a stable reason code instead. These fields provide telemetry attribution.
 
 Workflow diagnostics include their message and detail in `message`, even when the importer exits zero after uploading failing steps for rejected workflows. Messages are normalized to one line and retain at most their first 1,024 UTF-8 bytes; `message_truncated` is true when text was shortened. `workflow_path` identifies the root workflow being imported, relative to the checkout when possible. Paths over 1,024 bytes or containing invalid UTF-8 or control characters are omitted rather than shortened. Deduplication includes the bounded message and workflow path, subject to the limit of 20 diagnostics per command.
 
@@ -520,31 +520,12 @@ For an unsuccessful command, events also contain a normalized user-visible error
 
 Failed runs also carry a failure phase and a code from a fixed set. The code separates workflow-authored process exits (`E_STEP_PROCESS_EXIT`) from unsupported-feature rejections (`E_UNSUPPORTED_FEATURE`) and runtime integrity failures (`E_RUNTIME_INTEGRITY`), so a failing test suite isn't counted as a compatibility gap. Runtime rejections include the same blocker fields when the runtime can identify the rejected shell or action reference. Secret resolution failures use `E_SECRET_UNAVAILABLE`, making secret availability independently measurable. Workflow-token, OIDC-token, and cache credential acquisition failures use `E_WORKFLOW_TOKEN_UNAVAILABLE`, `E_OIDC_TOKEN_UNAVAILABLE`, and `E_CACHE_CREDENTIAL_UNAVAILABLE`, including Agent API client timeouts but not caller cancellation. A successful OIDC retry clears the recorded failure for that audience. Unsupported-feature and runtime integrity failures take precedence over token acquisition failures. When the failure code identifies a token or cache credential failure, `agent_api_http_status` contains the Agent API response status, if it's between 100 and 599. Invalid statuses are omitted without dropping the event. Other unclassified failures keep the `unknown` code and omit the status.
 
-Buildkite adds organization, pipeline, build, and job identifiers on the server. The client doesn't send workflow or event content, environment variables, command text, or secrets as separate properties. Blocker details come from workflow-authored configuration. Event-derived runner labels and environment expressions are omitted.
+Buildkite adds organization, pipeline, build, and job identifiers on the server. Blocker details come from workflow-authored configuration.
 
 Diagnostic messages and error output can include details already printed in the job log, such as workflow paths, action references, expressions, or invalid configuration values. Avoid putting secrets in error messages. Disable telemetry when this diagnostic context must stay inside the job.
 
-Set `BUILDKITE_GHA_TELEMETRY_DISABLED=true` to disable telemetry. A missing Agent endpoint, job ID, or job token also disables it. Telemetry failures don't change command results.
+Set `BUILDKITE_GHA_TELEMETRY_DISABLED=true` to disable completion telemetry and error reports.
 
-### Bugsnag error reports
+### Error reports
 
-In `buildkite-gha` v0.101.0 and later, when a Bugsnag ingestion key is configured, the client sends best-effort error reports directly to `https://notify.bugsnag.com`, independently of the Agent API. Tagged `buildkite-gha` releases embed the key at build time. The `BUGSNAG_API_KEY` environment variable overrides the embedded key. Without a valid key, no reports are sent. Setting `BUILDKITE_GHA_TELEMETRY_DISABLED=true` disables both Bugsnag reporting and completion telemetry.
-
-Reports cover unexpected runtime errors, runtime integrity and token-acquisition failures, final artifact and pipeline uploads during the initial workflow import, and authoritative result-publication failures. Deferred-stage and skipped-job uploads aren't instrumented.
-
-The following are excluded from reports:
-
-- Ordinary workflow process exits, including tolerated failures.
-- Unsupported features and import validation errors.
-- Classified runtime file-command and output validation errors.
-- Secret-availability errors.
-- Caller cancellation.
-- Workflow-owned job and step timeouts.
-
-Agent HTTP client timeouts and cleanup deadlines remain reportable. Excluded branches of joined errors don't suppress independent unexpected failures. Warnings and unhandled panics aren't reported. Container termination failures remain reportable even when the job tolerates the step failure. Reporting doesn't change `continue-on-error` behavior.
-
-Reports contain the CLI version, error type, stack methods and line numbers, command, failure phase and code, and the applicable Agent API status. Stack filenames are replaced with `[REDACTED]` to omit checkout and build paths. Development versions use the `development` release stage, and other versions use `production`. Standard Go errors have a stack at the reporting boundary, not the original failure site. Wrapped and joined errors retain the first captured stack in depth-first order when available. Command, phase, and failure code are part of the error class, so different categories don't share a group only because they reach the same reporting boundary.
-
-Reports omit raw error messages and causes, job output, diagnostics, workflow and event contents, Buildkite build and job IDs, environment values, and the hostname. Releases before v0.101.1 also included valid Buildkite build and job IDs and full stack filenames. Detailed error text remains in the job log. Automatic session tracking and the process-forking panic handler of the SDK aren't enabled.
-
-Delivery is synchronous, with a 1.5-second network timeout per report, no retries, and no redirects. Reporting failures are silent and don't change command results.
+Error reports cover unexpected CLI failures. They contain the CLI version, error type, stack methods and line numbers, command, failure phase and code, and the applicable Agent API status. Reports use generated error messages and replace stack filenames with `[REDACTED]`. Detailed error text remains in the job log.
