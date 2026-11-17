@@ -7,7 +7,10 @@ import { JSDOM } from "jsdom";
 import { gunzipSync } from "node:zlib";
 
 const sdk = readFileSync(
-  new URL("../node_modules/posthog-js/dist/array.js", import.meta.url),
+  new URL(
+    "../node_modules/posthog-js/dist/array.full.no-external.js",
+    import.meta.url,
+  ),
   "utf8",
 );
 const attribution = readFileSync(
@@ -26,6 +29,81 @@ async function waitFor(predicate, message, timeout = 10000) {
   while (!predicate() && Date.now() < deadline) await delay(20);
   assert.ok(predicate(), message);
 }
+
+test("bundled SDK preserves queued docs events without loading vendor scripts", async (t) => {
+  const analytics = readFileSync(
+    new URL("../app/views/application/_analytics.html.erb", import.meta.url),
+    "utf8",
+  );
+  const initializer = [
+    ...analytics.matchAll(
+      /<%= javascript_tag nonce: true do %>([\s\S]*?)<% end %>/g,
+    ),
+  ]
+    .map((match) => match[1])
+    .find((script) => script.includes("posthog.init("));
+  const dom = new JSDOM("<script></script>", {
+    url: "https://example.com/docs",
+    runScripts: "outside-only",
+    pretendToBeVisual: true,
+  });
+  t.after(() => dom.window.close());
+  const { window } = dom;
+  window.eval(initializer);
+  window.posthog.capture("docs:page_feedback", { rating: 4 });
+  assert.equal(window.document.querySelectorAll("script[src]").length, 0);
+
+  const requests = [];
+  Object.assign(window, { Headers, Response });
+  window.fetch = async (url) => {
+    requests.push(String(url));
+    const response = String(url).includes("/api/surveys/")
+      ? { surveys: [] }
+      : {
+          hasFeatureFlags: false,
+          supportedCompression: ["gzip-js"],
+          sessionRecording: { endpoint: "/s/", sampleRate: 1 },
+          surveys: true,
+        };
+    return new Response(JSON.stringify(response), {
+      headers: { "Content-Type": "application/json" },
+    });
+  };
+  const events = [];
+  window.posthog._i[0][1] = {
+    ...window.posthog._i[0][1],
+    request_batching: false,
+    api_transport: "fetch",
+    before_send: (event) => {
+      events.push(event);
+      return null;
+    },
+  };
+  window.eval(sdk);
+  window.posthog.capture("docs_search_query", { query: "pipeline" });
+  await waitFor(
+    () => events.some((event) => event.event === "$pageview"),
+    "automatic pageview is captured",
+  );
+  await waitFor(
+    () => window.posthog.sessionRecordingStarted(),
+    "bundled recorder starts from remote JSON configuration",
+  );
+  assert.ok(
+    requests.some((url) => new URL(url).pathname.endsWith("/config")),
+    "remote configuration is fetched as data",
+  );
+
+  const feedback = events.find((event) => event.event === "docs:page_feedback");
+  assert.equal(feedback.properties.rating, 4);
+  assert.equal(feedback.properties.app, "docs");
+  const search = events.find((event) => event.event === "docs_search_query");
+  assert.equal(search.properties.query, "pipeline");
+  assert.equal(search.properties.app, "docs");
+  assert.equal(events.filter((event) => event.event === "$pageview").length, 1);
+  assert.equal(window.posthog.config.defaults, "2026-01-30");
+  assert.equal(window.document.querySelectorAll("script[src]").length, 0);
+});
 
 test("real SDK cancels old retries and recovers across consent cycles", async (t) => {
   let fail = true;
@@ -48,7 +126,12 @@ test("real SDK cancels old retries and recovers across consent cycles", async (t
       response.writeHead(request.method === "POST" && fail ? 503 : 200, {
         "Content-Type": "application/json",
       });
-      response.end("{}");
+      response.end(
+        JSON.stringify({
+          hasFeatureFlags: false,
+          supportedCompression: ["gzip-js"],
+        }),
+      );
     });
   });
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
