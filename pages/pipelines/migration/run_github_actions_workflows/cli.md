@@ -369,11 +369,11 @@ The runtime also validates these values before upload:
 - `GITHUB_WORKFLOW_REF` must name the same repository as `BUILDKITE_REPO` on the server identified by `GITHUB_SERVER_URL` (GitHub.com when absent). Its event ref must match the event: `refs/heads/` or `refs/tags/` for `push` and `create`; `refs/pull/<number>/merge` for pull request and review events; `refs/tags/` for `release`; `refs/heads/` for the other events. Deployment events also accept a full commit SHA.
 - `GITHUB_WORKFLOW_SHA` must be a full lowercase 40-character hexadecimal commit. Every event other than `push` and `pull_request` requires both `GITHUB_WORKFLOW_REF` and `GITHUB_WORKFLOW_SHA`.
 
-Server-selected imports don't require the importer step to have a `key`. The runtime uploads the event, runtime, and plan artifacts before uploading the dynamic pipeline, and scopes artifact reads to the importer job. It doesn't use the job ID as a dependency key. A custom importer that passes explicit workflow paths to `upload` still requires a step `key`, and generated workflow groups depend on it.
+Server-selected imports don't require the importer step to have a `key`. The runtime uploads plan artifacts, plus event and executable artifacts when required by the [delivery mode](#upload-from-a-custom-importer-runtime-delivery), before uploading the dynamic pipeline. Artifact reads are scoped to the importer job. The runtime doesn't use the job ID as a dependency key. A custom importer that passes explicit workflow paths to `upload` still requires a step `key`, and generated workflow groups depend on it.
 
 A missing or untracked server-selected workflow path fails. The selected path must be a regular, tracked `.yml` or `.yaml` file inside the repository. Directories, tracked files missing from the checkout, symlinks, and globs are rejected. The runtime resolves the selected path from `BUILDKITE_BUILD_CHECKOUT_PATH`, not the command hook's working directory.
 
-The importer reuses its verified executable for jobs on the same platform. It downloads the other platform's distribution from the same release only when a workflow needs it. Runner mappings apply to generated jobs, not the importer.
+Runner mappings apply to generated jobs, not the importer.
 
 ### Select workflows
 
@@ -411,7 +411,7 @@ Event source precedence is:
 
 Every event source remains unsigned. An explicit path never reads Buildkite metadata. Webhook metadata must be one valid JSON object no larger than 25 MiB. Malformed, unreadable, or oversized data stops upload instead of falling back. The Buildkite repository mapping, commit, and ref remain authoritative.
 
-Raw webhook data isn't embedded in generated plans or pipeline YAML. Upload retains one content-addressed event artifact for linked webhooks and explicit snapshots, so every job and its retries can read the [event file](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-event-file). For reduced fallback snapshots, it retains the artifact only when runtime event expressions require it. Event data can't grant queues, secrets, or tokens.
+Raw webhook data isn't embedded in generated plans or pipeline YAML. With [host-selected runtime delivery](#upload-from-a-custom-importer-runtime-delivery), jobs read linked webhooks from reserved build metadata and verify the payload digest. Other delivery paths and explicit snapshots retain one content-addressed event artifact. Both provide the [event file](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-event-file) on jobs and retries. Reduced fallback snapshots retain an artifact only when runtime event expressions require it. Event data can't grant queues, secrets, or tokens.
 
 The selected snapshot establishes one event for applicability, compilation, workflow conditions, provider-check names, and explicit run-name evaluation. An explicit event is never replaced with live Buildkite fields.
 
@@ -427,13 +427,25 @@ Unsupported or uncertain filters replace only the affected workflow with a faili
 
 Buildkite Pipelines owns schedule identity, so every `on.schedule` workflow is eligible for every Buildkite scheduled build. Scheduled groups select the preserved GitHub event or, when it's absent, the Buildkite schedule source.
 
-After all applicable workflows have been attempted, the command uploads the exact executable, content-addressed plans, and synthetic failure steps in one artifact batch with a concurrency limit of 8. It then runs one:
+After all applicable workflows have been attempted, the command uploads content-addressed plans, synthetic failure steps, and any required executable artifacts in one artifact batch with a concurrency limit of 8. It then runs one:
 
 ```bash
 buildkite-agent pipeline upload --no-interpolation
 ```
 
 Buildkite agent v4 rejects pipeline uploads containing secrets by default.
+
+### Runtime delivery
+
+Compatible versions of the [GitHub Actions plugin](https://buildkite.com/resources/plugins/buildkite-plugins/github-actions-buildkite-plugin/) select each job's runtime on its execution host. The importer resolves `latest` once and passes the exact release version to generated jobs. Each worker downloads its platform's executable and verifies the release asset's SHA-256 digest. This supports Linux x86-64, Linux ARM64, macOS ARM64, Windows x86-64, and mixed-platform workflows. Windows remains an execution target, not an importer host.
+
+An explicit `binary` map is preserved in full so each worker selects its platform's HTTPS URL without an official-release fallback. A URL's optional `#sha256=` fragment pins and verifies the executable bytes. Use trusted publishers and compatible builds across the map.
+
+Host-selected delivery requires all runnable jobs in the import to have static targets, runner-user setup enabled, and no custom cache-volume setup. Older plugins, local invocation, and imports with deferred jobs retain their existing delivery paths. Artifact delivery reuses the importer's verified executable for jobs on the same platform and acquires other required platforms from the same release.
+
+Host-selected delivery uploads plans but no executables. Workers verify plan bytes, required capabilities, and target compatibility; new plans do not bind the compiler version or executable digest. Legacy plans retain their executable-digest checks. Webhook-backed jobs read the preserved event from build metadata and verify its payload digest; explicit event snapshots remain artifact-backed.
+
+Generated plugin steps preserve the importing plugin's tag, branch, or commit reference. Pin the plugin to an immutable reference when its code must also remain unchanged. A retry keeps the emitted exact runtime version or custom URL map.
 
 ### Choose runners and runtimes
 

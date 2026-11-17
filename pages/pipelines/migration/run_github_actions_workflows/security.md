@@ -93,13 +93,15 @@ Action locks record a sorted, unique `executable_paths` list alongside the sourc
 
 Linux and macOS verification always reads executable bits from the filesystem, so declared paths can't hide mode changes. On [Windows jobs](/docs/pipelines/migration/run-github-actions-workflows/compatibility#windows-jobs), where Unix modes aren't preserved, the source verifier uses the recorded paths instead. Content, additions, removals, and special files remain checked. Cache manifests keep their existing format and must match the verified tree. Stale or mismatched manifests fail rather than being rewritten from provenance.
 
-Plans without `executable_paths` remain readable. New plans require the matching runtime: `run-job` still rejects a compiler and runtime version mismatch. This optional field doesn't make plans portable between CLI versions.
+Plans without `executable_paths` remain readable. Runtime compatibility depends on the plan schema and required capabilities, not compiler-version equality. Legacy plans retain their executable-digest checks.
 
 Explicit and generated event snapshots provide compatibility context. They don't authorize path-filter admission, queues, secrets, or tokens.
 
-The compiler resolves ordinary scalar `github.event.*` references before it creates a plan. For linked webhooks and explicit event snapshots, the importer uploads one content-addressed payload artifact for every job's [`GITHUB_EVENT_PATH`](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-event-file), even when no expression reads the event. Reduced fallback snapshots are retained only when runtime event expressions need them. Plans retain the digest and transport and file markers, not the payload. Runtime jobs download from the exact importer job and verify the digest. This keeps matrix plans small and lets retries use the original event.
+The compiler resolves ordinary scalar `github.event.*` references before it creates a plan. Linked webhooks and explicit event snapshots provide every job's [`GITHUB_EVENT_PATH`](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-event-file), even when no expression reads the event. Reduced fallback snapshots are retained only when runtime event expressions need them. Plans retain the digest and transport and file markers, not the payload.
 
-The artifact is limited to 25 MiB and follows the Buildkite build's artifact access and retention settings. The artifact isn't redacted and isn't a secret store: anyone who can download the artifact can read user-provided values in the event.
+With [host-selected runtime delivery](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-runtime-delivery), runtime jobs read linked webhooks from reserved build metadata, normalize the JSON, and verify the plan's payload digest. Other delivery paths and explicit snapshots use one content-addressed event artifact, downloaded from the exact importer job and verified against the digest. Both paths keep matrix plans small and reject event changes on retries.
+
+Event payloads are limited to 25 MiB. Event artifacts follow the Buildkite Pipelines build's artifact access and retention settings. Event data isn't redacted and isn't a secret store: anyone who can read the metadata or download the artifact can read user-provided values in the event.
 
 The runtime doesn't log event file contents. The runtime creates a separate directory per job and removes it after post hooks. Host files are owner-readable. Docker jobs permit other image users to read the file through a read-only mount. The event directory isn't writable by those users and is outside the writable checkout and runner temp. This doesn't isolate mutually untrusted steps within one job or processes sharing the runner's user account.
 
@@ -190,7 +192,7 @@ The exact workflow-authored step call `toJSON(github)` also requests a token bec
 
 [Bounded workflow-token retries](/docs/pipelines/migration/run-github-actions-workflows/compatibility#repositories-credentials-and-github-services-github-token) keep the requested scope, but they don't make token issuance idempotent. A failed response can leave an additional token with the same scope valid until it expires. The runtime doesn't cache tokens across jobs or retry ambiguous transport failures.
 
-The serialized context contains only the fields listed in the [compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-runtime-interpolation). A runtime job also loads the verified event artifact when it requires `github.event`.
+The serialized context contains only the fields listed in the [compatibility reference](/docs/pipelines/migration/run-github-actions-workflows/compatibility#expressions-and-contexts-runtime-interpolation). A runtime job also loads the verified event payload when it requires `github.event`.
 
 For non-pull-request builds, a user who can create a build at any commit may choose code that requests the workflow's allowed permissions. Enable write tokens only when those build-creation paths are trusted.
 
