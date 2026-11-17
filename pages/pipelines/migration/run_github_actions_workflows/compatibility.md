@@ -968,7 +968,7 @@ Calls with `needs` require prerequisites with no concurrency or provably disjoin
 
 The call's gate waits for all external prerequisites, including failed and skipped ones, but reserves its queue position at upload, earlier than GitHub. The gate can't request cancellation until those prerequisites finish. Later calls can wait behind unfinished prerequisites; `W_REUSABLE_WORKFLOW_CONCURRENCY_QUEUED_BEFORE_PREREQUISITES` reports this difference. A statically false call omits its gate. A runtime-dependent call still enters the group before evaluating its condition, even if it skips; `W_REUSABLE_WORKFLOW_CONCURRENCY_ENTERED_BEFORE_CALL_CONDITION` reports this behavior. With cancellation enabled, this call can cancel older gate steps even when its condition is false.
 
-Workflow concurrency can't enclose or depend on deferred expansion as described under [matrices from outputs](#job-syntax-matrices-from-job-outputs). Cancel the whole build, not an individual job, when a workflow gate is active.
+Root workflow concurrency holds the group across [matrices from outputs](#job-syntax-matrices-from-job-outputs), including later expansion stages and downstream jobs. Ordinary manual and automatic retries remain supported. Automatic retries keep the group held until they finish. Manual retries after the group is released don't reacquire it and can overlap a later run; concurrency is best-effort for these retries, as it is for static workflows. Called-workflow concurrency can't enclose or depend on deferred expansion. Cancel the whole build, not an individual job, when a workflow gate is active.
 
 Leave [Cancel Intermediate Builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) and **Skip Intermediate Builds** disabled for server-side dispatch. These settings work by branch, not workflow concurrency group, and can cancel or skip sibling workflow builds from the same event.
 
@@ -1139,11 +1139,11 @@ The following limits apply to every stage:
 - The 256-instance and 1,024-expanded-job limits still apply. Deferred components share the remaining workflow budget equally after upfront jobs; chained stages consume that same component budget. Exceeding a share fails before upload, even if another component hasn't used its share.
 - The workflow must be tracked inside the repository and match the build commit. Outside, untracked, staged-only, or modified workflow source can't use deferred expansion.
 - Deferred execution uses the original event, variable snapshot, runner mappings, OIDC settings, workflow source, reusable source commits, and locked action revisions. Changed sources or incompatible graph changes fail with instructions to retry the build. Outputs never become workflow source or credential authority.
-- Root workflow concurrency is unsupported. A called workflow with workflow concurrency can't contain a deferred matrix or depend on deferred work; its gate would close before later jobs finish.
+- Root workflow concurrency follows the [workflow concurrency rules](#workflow-syntax-reference-concurrency). A called workflow with workflow concurrency can't contain a deferred matrix or depend on deferred work.
 - Generated job, placeholder, continuation, and approval-gate keys must remain unique. Collisions fail before execution. Protected environment jobs retain their shared approval gate through deferred uploads.
 - A failed, skipped, or cancelled producer skips its downstream placeholders, including `always()` dependants whose matrix is unknown. Healthy branches in a merged component still expand; shared joins skip. Earlier completed stages remain unchanged. Missing or invalid producer results are errors, not skips.
 - Any compilation error fails the whole deferred workflow rather than uploading only its static jobs. Other workflows in an aggregate upload can continue.
-- Retrying a deferred step verifies its previous upload and doesn't duplicate jobs. Retrying a producer after expansion invalidates the earlier result, even if the new output is identical. Retry the whole build instead.
+- Retrying a deferred step verifies its previous upload and doesn't duplicate jobs. Retrying a producer after expansion invalidates the earlier result, even if the new output is identical. Rebuild the whole build instead.
 
 Matrices derived from `steps`, compound needs expressions, or other dynamic sources remain unsupported. See [deferred upload setup](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-expand-a-matrix-inside-the-build) for importer and runtime requirements.
 
@@ -1493,7 +1493,7 @@ Use the result and diagnostic guidance below when a workflow validates but doesn
 ### Results, retries, and cancellation
 
 - A runtime-skipped job remains successful in Buildkite Pipelines, appends `(skipped)` to its label, and publishes logical `skipped` to downstream imported jobs.
-- Retry the whole build after ambiguous producer results/artifacts or a retried producer whose deferred jobs already expanded. A deferred step itself can be retried safely.
+- Retry the whole build after ambiguous producer results/artifacts or a retried producer whose deferred jobs already expanded. A deferred step itself can be retried without duplicating jobs. See the [workflow concurrency limits for late manual retries](#workflow-syntax-reference-concurrency).
 - Cancellation targets the process tree. Linux/macOS send `SIGINT`, then `SIGTERM` after 7.5 seconds, then `SIGKILL` after another 2.5 seconds. Windows terminates through a Job Object without signal grace.
 - Summary, annotation, or skipped-label publication failures warn without changing completed job results.
 
