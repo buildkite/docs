@@ -20,7 +20,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<%= csp_meta_tag %>
+<%# No csp_meta_tag: Turbo would copy its nonce onto scripts inside loaded frames,
+    so a script injected into a page could run. %>
 
 <meta name="referrer" content="origin-when-cross-origin" />
 
@@ -65,7 +66,7 @@
 
 <%= render 'plain_chat' %>
 
-<script>
+<%= javascript_tag nonce: true do %>
   (function() {
     var theme = localStorage.getItem('docs-theme') || 'system';
     var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -73,10 +74,10 @@
       document.documentElement.classList.add('dark');
     }
   })();
-</script>
+<% end %>
 
 <% if ENV.fetch("DD_RUM_ENABLED", false) %>
-<script>
+<%= javascript_tag nonce: true do %>
   (function(h,o,u,n,d) {
     h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
     d=o.createElement(u);d.async=1;d.src=n
@@ -100,5 +101,5 @@
 
     window.DD_RUM.startSessionReplayRecording();
   })
-</script>
+<% end %>
 <% end %>
