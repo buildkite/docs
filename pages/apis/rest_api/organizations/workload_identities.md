@@ -186,7 +186,7 @@ For example, include these fields when creating or updating a workload identity 
 }
 ```
 
-Replace the example UUIDs with resources from your Buildkite organization. The team grant doesn't add access to other pipelines, and the cluster grant doesn't enable cluster management. Setting a grant's `access` to `none`, or omitting the grant, denies access to that resource type.
+Replace the example UUIDs with resources from your Buildkite organization. The team grant doesn't add access to other pipelines. The cluster grant doesn't enable cluster management. Setting a grant's `access` to `none`, or omitting the grant, denies access to that resource type.
 
 ## List workload identities
 
