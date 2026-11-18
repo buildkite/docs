@@ -25,6 +25,8 @@ There's no need to configure this access token caching feature, as it's provided
 
 Connect your server using the [GitHub App integration](/docs/pipelines/source-control/github-enterprise#github-app). Enable **Code Read Access** and install the App with access to the pipeline's repository. Buildkite hosted agents receive checkout credentials automatically for repositories the App can access.
 
+Set the pipeline's repository URL to HTTPS, for example `https://github.example.com/acme/app.git`, rather than `git@github.example.com:acme/app.git`. GitHub Enterprise Server SSH URLs are not automatically rewritten to HTTPS for App token checkout.
+
 The agents must also be able to reach your server to clone repositories. See [Network security](/docs/agent/buildkite-hosted/network-security) for hosted agent networking requirements.
 
 ## Origin private repositories
