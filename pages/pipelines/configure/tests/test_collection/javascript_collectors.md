@@ -392,7 +392,7 @@ OpenTelemetry collection requires `buildkite-test-collector` 1.15.0 or later and
 
     `require.resolve` supplies the filesystem path Vitest needs, including with pnpm and Yarn. For a CommonJS configuration, omit `createRequire` and use `require.resolve` directly. For multiple projects, configure tracing in the root configuration. When using Yarn without a `node_modules` directory, declare the dependencies in the root workspace.
 
-1. Capture HTTP and fetch calls with SDK 3 by installing:
+1. To capture HTTP and fetch calls, install the instrumentation for your SDK. For SDK 3:
 
     ```bash
     npm install --save-dev \
@@ -408,7 +408,7 @@ OpenTelemetry collection requires `buildkite-test-collector` 1.15.0 or later and
       '@opentelemetry/instrumentation-undici@^0.33.0'
     ```
 
-    Collector 1.16.0 adds tracing for database and framework calls, including Express, GraphQL, PostgreSQL, and Redis. Install each package's instrumentation, such as `@opentelemetry/instrumentation-pg`, or use the bundle: `@opentelemetry/auto-instrumentations-node@0.83.1` for SDK 3, or `@opentelemetry/auto-instrumentations-node@~0.81.0` for SDK 2. Declare these dependencies in the project's `package.json` or a parent workspace's `package.json`. The bundle enables most instrumentation by default. Its [child spans](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#child-spans) are [billed by data ingested](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#billing) and require a plan that includes them. Set `OTEL_NODE_ENABLED_INSTRUMENTATIONS`, for example `http,undici,pg`, to record only what you need, or use `OTEL_NODE_DISABLED_INSTRUMENTATIONS` to exclude instrumentation.
+    With collector 1.16.0 or later, trace database and framework calls such as Express, GraphQL, PostgreSQL, and Redis. Install individual packages such as `@opentelemetry/instrumentation-pg`, or `@opentelemetry/auto-instrumentations-node@0.83.1` for SDK 3 or `@opentelemetry/auto-instrumentations-node@~0.81.0` for SDK 2. Declare them in your project's or parent workspace's `package.json`. The bundle enables most instrumentation by default. Its [child spans](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#child-spans) are [billed by data ingested](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#billing) and require a plan that includes them. Limit collection with `OTEL_NODE_ENABLED_INSTRUMENTATIONS` (for example, `http,undici,pg`), or exclude instrumentation with `OTEL_NODE_DISABLED_INSTRUMENTATIONS`.
 
     Some packages need extra setup under Vitest, such as `express` imported from an ES module; see the guide's [package instrumentation section](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#vitest-package-instrumentation).
 
