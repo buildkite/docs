@@ -22,6 +22,19 @@ Most Elastic CI Stack for AWS features are supported on both Linux and Windows. 
 - Amazon Linux 2023 (64-bit x86)
 - Amazon Linux 2023 (64-bit ARM, Graviton)
 - Windows Server 2022 (64-bit x86)
+- Windows Server 2025 (64-bit x86)
+
+### Choosing a Windows Server version
+
+Windows instances run Windows Server 2022 by default. To run Windows Server 2025 instead, set `InstanceOperatingSystem` to `windows` and the `WindowsServerVersion` parameter to `2025`. The `WindowsServerVersion` parameter has no effect on Linux instances, and existing stacks keep running Windows Server 2022 unless you change it.
+
+Windows Server 2025 AMIs are available in the released templates of Elastic CI Stack for AWS v7.12.0 and later. Templates published from the `main` branch don't include a Windows Server 2025 AMI. To use Windows Server 2025 with one of those templates, [create a custom AMI](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/creating-custom-amis) and set it with the `ImageId` or `ImageIdParameter` parameter.
+
+The Windows Server 2025 AMIs boot in UEFI mode, so the values of `InstanceTypes` must be [Nitro-based instance types that support UEFI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/launch-instance-boot-mode.html). Amazon EC2 rejects launches on Xen-based instance types, such as `t2`, `m4`, `c4`, and `r4`, and on bare metal instance types, with the error `Only instance types built on the Nitro System support UEFI`. If you use one of these instance types, switch to a supported Nitro-based instance type before setting `WindowsServerVersion` to `2025`, or keep Windows Server 2022.
+
+A Windows Server 2025 instance can run both `ltsc2025` and `ltsc2022` Windows container images with process isolation, which is the isolation mode Buildkite has tested. Learn more about which container images each Windows Server version supports in Microsoft's [Windows container version compatibility](https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility) guide. Microsoft recommends keeping both the container host and the container images up to date, so [update your stack](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#updating-your-stack) to new releases and rebuild your container images as Microsoft publishes updated base images.
+
+### Using the AWS CLI
 
 If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite agent token (and any [other config values](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/templates/aws-stack.yml)), and then run the below command:
 
