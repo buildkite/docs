@@ -683,6 +683,8 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_builds`
 
+If the job's cluster is set to [restrict job reprioritization to cluster maintainers](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers), the authenticated user must also be a maintainer of that cluster or a Buildkite organization administrator. This setting doesn't apply to a job that isn't assigned to a cluster, which only requires pipeline **Build** access to reprioritize.
+
 Success response: `200 OK`
 
 Error responses:
@@ -692,6 +694,10 @@ Error responses:
   <tr>
     <th><code>400 Bad Request</code></th>
     <td><code>{ "message": "Priority must be an integer" }</code></td>
+  </tr>
+  <tr>
+    <th><code>403 Forbidden</code></th>
+    <td><code>{ "message": "You don’t have the required permissions for this cluster. Contact a cluster maintainer or organization administrator." }</code></td>
   </tr>
 </tbody>
 </table>

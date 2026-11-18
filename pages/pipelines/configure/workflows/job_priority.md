@@ -60,6 +60,10 @@ For example, a job with priority `1000` depends on a job that is still running. 
 
 Priority does not reserve an agent for dependent jobs or guarantee that a sequence of jobs runs without jobs from other builds in between, even when all jobs target the same agent. Use dependencies to enforce step order within a build, rather than relying on priority alone.
 
+## Restricting job reprioritization
+
+Cluster maintainers can [restrict reprioritizing waiting jobs](/docs/pipelines/security/clusters/manage#restrict-job-reprioritization-to-cluster-maintainers) through the [REST API](/docs/apis/rest-api/jobs#reprioritize-a-job). This setting doesn't affect priority set in pipeline YAML or dynamic pipelines.
+
 ## Example
 
 Here's an example of prioritizing jobs running on a default branch before pull request jobs:
