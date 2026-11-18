@@ -84,22 +84,31 @@ To configure Jest:
 
 The JavaScript collector can send Jest results to Buildkite Test Engine as [OpenTelemetry spans](/docs/pipelines/configure/tests/test-collection/opentelemetry). Each test execution becomes a root span. Optional child spans show operations inside the test, such as HTTP requests and database queries.
 
-Use Jest 29 or later with the default `jest-circus` runner. OpenTelemetry collection requires `buildkite-test-collector` version `1.13.0` or later. The setup below uses version `1.14.0`. OpenTelemetry collection is disabled by default.
+Use Jest 29 or 30 with the default `jest-circus` runner. OpenTelemetry collection requires `buildkite-test-collector` version `1.13.0` or later. The setup below uses version `1.16.0`. OpenTelemetry collection is disabled by default.
 
 1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Jest.
 
-1. Install the collector and its optional OpenTelemetry dependencies:
+1. Install the collector and its optional OpenTelemetry SDK 3.x dependencies. SDK 3 requires Node.js 22.15 or later and OpenTelemetry API 1.10 or later:
 
     ```bash
-    npm install --save-dev buildkite-test-collector@1.14.0 \
-      '@opentelemetry/api@~1.9.0' \
-      '@opentelemetry/sdk-trace-base@^2.0.0' \
-      '@opentelemetry/resources@^2.0.0' \
-      '@opentelemetry/exporter-trace-otlp-proto@>=0.200.0 <0.300.0' \
-      '@opentelemetry/context-async-hooks@^2.0.0'
+    npm install --save-dev buildkite-test-collector@1.16.0 \
+      '@opentelemetry/api@^1.10' \
+      '@opentelemetry/sdk-trace@^3' \
+      '@opentelemetry/context-async-hooks@^3' \
+      '@opentelemetry/exporter-trace-otlp-proto@~0.301.0'
     ```
 
-    Use the OpenTelemetry JavaScript SDK 2.x dependencies shown here, not unversioned installs. SDK 3.x is not supported. These dependencies require Node.js 18.19 or later in the 18.x release line, or Node.js 20.6 or later.
+    For older Node.js versions, use SDK 2.9 or later in the 2.x release line instead. These dependencies require Node.js 18.19 or later in the 18.x release line, or Node.js 20.6 or later:
+
+    ```bash
+    npm install --save-dev buildkite-test-collector@1.16.0 \
+      '@opentelemetry/api@~1.9.0' \
+      '@opentelemetry/sdk-trace@^2.9' \
+      '@opentelemetry/context-async-hooks@^2' \
+      '@opentelemetry/exporter-trace-otlp-proto@~0.223.0'
+    ```
+
+    **Note:** If upgrading from `@opentelemetry/sdk-trace-base`, replace that direct dependency with `@opentelemetry/sdk-trace` using one of the package sets above. Since collector 1.15.0, OpenTelemetry mode warns and uploads nothing without it. Collector configuration is unchanged.
 
 1. Configure both the reporter and the runtime in `jest.config.js`. Replace an existing Buildkite reporter entry instead of adding a second one:
 
@@ -116,6 +125,8 @@ Use Jest 29 or later with the default `jest-circus` runner. OpenTelemetry collec
     ```
 
     Keep your existing `testEnvironment` setting, such as `node`, `jsdom`, or a custom environment. If you used an earlier beta, remove `testEnvironment: 'buildkite-test-collector/jest/environment'` and add the runtime shown above. No environment wrapper is needed.
+
+    With Jest 29 and `jsdom` or `happy-dom`, SDK 3 package instrumentation is skipped with a warning. Test results, HTTP, and fetch spans still work.
 
 1. Run Jest with its token and CI environment variables available:
 
@@ -237,19 +248,29 @@ To configure Playwright:
 
 The JavaScript collector can send Playwright results to Buildkite Test Engine as OpenTelemetry spans. Each test attempt, including retries and skipped tests, becomes a root span. Playwright steps, hooks, fixtures, assertions, and actions become nested child spans.
 
-OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default.
+OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default. The setup below uses version `1.16.0`. Use Playwright 1.41.2 or later.
 
 1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Playwright.
 
-1. Install the collector and its optional OpenTelemetry SDK 2.x dependencies:
+1. Install the collector and its optional OpenTelemetry SDK 3.x dependencies. SDK 3 requires Node.js 22.15 or later and OpenTelemetry API 1.10 or later:
 
     ```bash
-    npm install --save-dev buildkite-test-collector@1.14.0 \
-      '@opentelemetry/api@~1.9.0' \
-      '@opentelemetry/sdk-trace-base@^2.0.0' \
-      '@opentelemetry/context-async-hooks@^2.0.0' \
-      '@opentelemetry/exporter-trace-otlp-proto@>=0.200.0 <0.300.0'
+    npm install --save-dev buildkite-test-collector@1.16.0 \
+      '@opentelemetry/api@^1.10' \
+      '@opentelemetry/sdk-trace@^3' \
+      '@opentelemetry/exporter-trace-otlp-proto@~0.301.0'
     ```
+
+    For older Node.js versions, use SDK 2.9 or later in the 2.x release line instead. These dependencies require Node.js 18.19 or later in the 18.x release line, or Node.js 20.6 or later. Your Playwright version may require a newer Node.js version:
+
+    ```bash
+    npm install --save-dev buildkite-test-collector@1.16.0 \
+      '@opentelemetry/api@~1.9.0' \
+      '@opentelemetry/sdk-trace@^2.9' \
+      '@opentelemetry/exporter-trace-otlp-proto@~0.223.0'
+    ```
+
+    **Note:** If upgrading from `@opentelemetry/sdk-trace-base`, replace that direct dependency with `@opentelemetry/sdk-trace` using one of the package sets above. Since collector 1.15.0, OpenTelemetry mode warns and uploads nothing without it. Collector configuration is unchanged. Playwright does not need `@opentelemetry/context-async-hooks`.
 
 1. Enable OpenTelemetry on the reporter in `playwright.config.js`. Replace an existing Buildkite reporter entry instead of adding a second one:
 
@@ -316,21 +337,33 @@ test: {
 
 ### Collecting Vitest tests with OpenTelemetry
 
-The JavaScript collector can send Vitest results to Buildkite Test Engine as OpenTelemetry spans. Each test becomes a root span, with hook phases, HTTP requests, and custom instrumentation recorded as child spans.
+The JavaScript collector can send Vitest results to Buildkite Test Engine as OpenTelemetry spans. Each test becomes a root span, with hook phases, HTTP requests, package calls such as database queries, and custom instrumentation recorded as child spans.
 
-OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default. Use Vitest 4.0.11 or later to collect child spans. Vitest 5 requires Node.js 22.12 or later.
+OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or later and is disabled by default. The setup below uses version `1.16.0`, which adds package instrumentation. Use Vitest 4.0.11 or later to collect child spans. Vitest 5 requires Node.js 22.12 or later.
 
 1. [Create a test suite](/docs/pipelines/getting-started#add-a-test-suite-create-a-test-suite) if you do not have one. Configure [OIDC authentication](/docs/pipelines/configure/tests/test-collection/oidc), or store your suite API token securely as `BUILDKITE_ANALYTICS_TOKEN` in the environment that runs Vitest.
 
-1. Install the collector and its optional OpenTelemetry SDK 2.x dependencies:
+1. Install the collector and its optional OpenTelemetry SDK 3.x dependencies. SDK 3 requires Node.js 22.15 or later and OpenTelemetry API 1.10 or later, including with Vitest 4:
 
     ```bash
-    npm install --save-dev buildkite-test-collector@1.14.0 \
-      '@opentelemetry/api@~1.9.0' \
-      '@opentelemetry/sdk-trace-base@^2.0.0' \
-      '@opentelemetry/context-async-hooks@^2.0.0' \
-      '@opentelemetry/exporter-trace-otlp-proto@>=0.200.0 <0.300.0'
+    npm install --save-dev buildkite-test-collector@1.16.0 \
+      '@opentelemetry/api@^1.10' \
+      '@opentelemetry/sdk-trace@^3' \
+      '@opentelemetry/context-async-hooks@^3' \
+      '@opentelemetry/exporter-trace-otlp-proto@~0.301.0'
     ```
+
+    For older Node.js versions, use SDK 2.9 or later in the 2.x release line instead. These dependencies require Node.js 18.19 or later in the 18.x release line, or Node.js 20.6 or later. Your Vitest version may require a newer Node.js version:
+
+    ```bash
+    npm install --save-dev buildkite-test-collector@1.16.0 \
+      '@opentelemetry/api@~1.9.0' \
+      '@opentelemetry/sdk-trace@^2.9' \
+      '@opentelemetry/context-async-hooks@^2' \
+      '@opentelemetry/exporter-trace-otlp-proto@~0.223.0'
+    ```
+
+    **Note:** If upgrading from `@opentelemetry/sdk-trace-base`, replace that direct dependency with `@opentelemetry/sdk-trace` using one of the package sets above. Since collector 1.15.0, OpenTelemetry mode warns and uploads nothing without it. Collector configuration is unchanged.
 
 1. Enable the reporter and native tracing in `vitest.config.js`. Replace an existing Buildkite reporter entry instead of adding a second one:
 
@@ -359,15 +392,25 @@ OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or
 
     `require.resolve` supplies the filesystem path Vitest needs, including with pnpm and Yarn. For a CommonJS configuration, omit `createRequire` and use `require.resolve` directly. For multiple projects, configure tracing in the root configuration. When using Yarn without a `node_modules` directory, declare the dependencies in the root workspace.
 
-1. To capture HTTP and fetch calls, install the supported instrumentation packages:
+1. To capture HTTP and fetch calls with SDK 3, install:
 
     ```bash
     npm install --save-dev \
-      '@opentelemetry/instrumentation-http@>=0.200.0 <0.300.0' \
-      '@opentelemetry/instrumentation-undici@>=0.11.0 <0.34.0'
+      '@opentelemetry/instrumentation-http@^0.301.0' \
+      '@opentelemetry/instrumentation-undici@^0.35.0'
     ```
 
-    Vitest supports only the `http` and `undici` instrumentation packages. Declare these dependencies in the project's `package.json` or a parent workspace's `package.json`.
+    For SDK 2, use these versions instead:
+
+    ```bash
+    npm install --save-dev \
+      '@opentelemetry/instrumentation-http@^0.223.0' \
+      '@opentelemetry/instrumentation-undici@^0.33.0'
+    ```
+
+    For package instrumentation, including Express, GraphQL, PostgreSQL (`pg`), and Redis, install `@opentelemetry/auto-instrumentations-node@0.83.1` with SDK 3, or `@opentelemetry/auto-instrumentations-node@~0.81.0` with SDK 2. Declare instrumentation dependencies in the project's `package.json` or a parent workspace's `package.json`. Use `OTEL_NODE_ENABLED_INSTRUMENTATIONS` and `OTEL_NODE_DISABLED_INSTRUMENTATIONS` to select instrumentation.
+
+    Package spans depend on module loading. CommonJS `require()` records spans for the tested packages. ES module and TypeScript imports work for packages such as `pg` and `redis`, but `express` and `ioredis` need `require()` (using `createRequire` in ES modules). GraphQL imports need a resolver that selects its CommonJS build for both `graphql` and its subpaths. Packages inlined with `server.deps.inline` can lose package spans without a warning. When using Yarn without a `node_modules` directory, package tracing is best-effort. See the [guide's package instrumentation section](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#vitest-package-instrumentation) for the resolver and other limitations.
 
 1. Run Vitest with its token and [CI environment variables](/docs/pipelines/configure/tests/test-collection/ci-environments) available:
 
@@ -379,7 +422,7 @@ OpenTelemetry collection requires `buildkite-test-collector` version `1.14.0` or
 
 1. Open the new run in your Buildkite Test Engine suite. For upload problems, check the collector's warnings and the suite's [**Uploads** page](/docs/pipelines/configure/tests/test-suites/upload-health).
 
-Retries share one execution per test, with each attempt's phases and child spans underneath. Browser mode and Vitest 3 send test spans only. A custom SDK or missing native tracing configuration also limits collection to test spans. Vitest 1 and 2 do not upload results in OpenTelemetry mode. Configuration or upload failures do not fall back to JSON uploads. To return to JSON reporting, disable `otelEnabled`.
+Retries share one execution per test, with each attempt's phases and child spans underneath. Browser mode, VM pools (`vmThreads` and `vmForks`), and Vitest 3 send test spans only. Use `threads` or `forks` to collect child spans. A custom SDK or missing native tracing configuration also limits collection to test spans. Vitest 1 and 2 do not upload results in OpenTelemetry mode. Configuration or upload failures do not fall back to JSON uploads. To return to JSON reporting, disable `otelEnabled`.
 
 See the [collector's OpenTelemetry guide](https://github.com/buildkite/bktest/blob/main/test-collector-javascript/docs/opentelemetry.md#vitest) for more details, including configuration for bktec.
 
