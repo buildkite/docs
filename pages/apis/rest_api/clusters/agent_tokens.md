@@ -399,7 +399,11 @@ curl -H "Authorization: Bearer $TOKEN" \
 }
 ```
 
-Revocation of existing agents' credentials is processed in the background in batches, so it can take a short time to complete. The `agent_access_revocation_completed_at` field remains `null` until every agent sourced from the token has been processed. Revoking agent access doesn't terminate agent processes or cancel running jobs, and doesn't affect requests already authorized before the revocation takes effect, established Agent Edge streams, or externally issued credentials and presigned storage URLs. This action can't be undone.
+Revocation of existing agents' credentials is processed in the background in batches, so it can take a short time to complete. The `agent_access_revocation_completed_at` field remains `null` until every agent associated with the token has been processed. This action can't be undone.
+
+Agents generally shut down shortly after their access is revoked, stopping any running jobs, but neither outcome is guaranteed. Some older agent versions may keep running without being able to accept new work. After revoking agent access, check directly in your infrastructure that affected agents and jobs have stopped, and stop any that remain running. Agents with revoked access can't report their status to Buildkite Pipelines, so the Buildkite interface may temporarily show them as connected even after they've stopped.
+
+Revocation doesn't invalidate [OIDC tokens](/docs/pipelines/security/oidc) already issued to jobs or external credentials already obtained using those tokens, such as cloud provider credentials. These remain usable until they expire or the external provider invalidates them. Revocation also doesn't affect other externally issued credentials, requests already authorized before it takes effect, or presigned storage URLs.
 
 Required scope: `write_clusters`
 
