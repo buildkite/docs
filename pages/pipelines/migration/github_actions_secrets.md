@@ -8,10 +8,6 @@ GitHub doesn't let you read a secret's value after you save it. To move GitHub A
 
 GitHub Actions sends the selected values directly to Buildkite. The values don't pass through your machine.
 
-> 📘 Private preview
-> This feature is in private preview. Contact [Buildkite support](mailto:support@buildkite.com) to have it enabled for your organization.
-> Until it's enabled, `bk secret migrate github-actions run` can't start a migration.
-
 > 📘 Buildkite CLI version
 > Use Buildkite CLI version 3.59.1 or later. Check your version with `bk version`.
 
@@ -77,16 +73,18 @@ bk secret migrate github-actions run \
 
 The Buildkite CLI checks that the workflow on your default branch matches the reviewed workflow before it starts the migration. If the workflow has changed, the command stops.
 
-The command prints the GitHub Actions run URL:
+The command prints the GitHub Actions run URL when available:
 
 ```text
 Dispatch accepted for .github/workflows/migrate-buildkite-secrets.yml on main with 3 secrets. The migration is not complete until the GitHub Actions run succeeds.
 Actions: https://github.com/acme-inc/app/actions/runs/123456789
 ```
 
+If GitHub doesn't return a run URL, the command prints the workflow URL instead. Open that URL and select the migration run you just started.
+
 A successful command means GitHub started the workflow. The migration is complete only after the GitHub Actions run succeeds.
 
-To watch the run from your terminal:
+To watch the run from your terminal, use the numeric run ID at the end of the run URL (`123456789` in this example):
 
 ```bash
 gh run watch 123456789 --exit-status
