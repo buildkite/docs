@@ -77,6 +77,12 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/dependencyconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT DependencyConnection">
   <code>DependencyConnection</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/deploymentartifactconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT DeploymentArtifactConnection">
+  <code>DeploymentArtifactConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/deploymentartifactversionconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT DeploymentArtifactVersionConnection">
+  <code>DeploymentArtifactVersionConnection</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/emailconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailConnection">
   <code>EmailConnection</code>
 </a>
@@ -118,6 +124,21 @@ toc: false
 </a>
 <a href="/docs/apis/graphql/schemas/object/registryconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryConnection">
   <code>RegistryConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasecomponentconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseComponentConnection">
+  <code>ReleaseComponentConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasecomponentinstanceconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseComponentInstanceConnection">
+  <code>ReleaseComponentInstanceConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasecomponentinstancestatusconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseComponentInstanceStatusConnection">
+  <code>ReleaseComponentInstanceStatusConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releaseobservationconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseObservationConnection">
+  <code>ReleaseObservationConnection</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasetargetconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseTargetConnection">
+  <code>ReleaseTargetConnection</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/ruleconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RuleConnection">
   <code>RuleConnection</code>
