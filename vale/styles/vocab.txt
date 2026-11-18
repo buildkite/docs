@@ -163,6 +163,7 @@ deprovision
 dev
 dialog's
 dialogs
+digestless
 discoverability
 distro
 distutils
@@ -191,6 +192,7 @@ exfiltrated
 exfiltration
 explainshell
 extensionless
+externalId
 extglobs
 fallback_limit
 falsy
@@ -415,6 +417,7 @@ prepended
 prepends
 preprovisioned
 preselecting
+presigned
 proxied
 ptrace
 pty
@@ -440,6 +443,7 @@ remediation
 remediations
 repo
 repos
+repositoryUrl
 reprioritization
 reprioritize
 reprioritizes
@@ -759,3 +763,4 @@ backtraces
 multiline
 pipenv
 unkeyed
+jsdom

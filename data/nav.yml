@@ -640,6 +640,8 @@
               path: "pipelines/configure/tests/test-collection/ci-environments"
             - name: "OIDC authentication"
               path: "pipelines/configure/tests/test-collection/oidc"
+        - name: "OpenTelemetry"
+          path: "pipelines/configure/tests/test-collection/opentelemetry"
         - name: "Workflows"
           children:
             - name: "Overview"
@@ -1083,6 +1085,8 @@
       children:
         - name: "Overview"
           path: "apis/workload-identity-federation"
+        - name: "Supported APIs and scopes"
+          path: "apis/workload-identity-federation/supported-endpoints"
         - name: "Working with Buildkite agents"
           path: "apis/workload-identity-federation/buildkite-agents"
         - name: "Working with AWS"

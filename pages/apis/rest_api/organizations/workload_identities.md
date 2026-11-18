@@ -151,7 +151,7 @@ The `resource_grants` array holds one object for pipeline access, with the follo
   </tr>
   <tr>
     <th><code>ids</code></th>
-    <td>UUIDs of up to 20 pipelines in your Buildkite organization. Required when <code>access</code> is <code>selected</code>, with at least one UUID, and not allowed otherwise.</td>
+    <td>UUIDs of up to 10 pipelines in your Buildkite organization. Required when <code>access</code> is <code>selected</code>, with at least one UUID, and not allowed otherwise.</td>
   </tr>
 </tbody>
 </table>
@@ -320,7 +320,7 @@ Optional [request body properties](/docs/apis/rest-api#request-body-properties):
 <tbody>
   <tr>
     <th><code>oidc_claims</code></th>
-    <td>Object of top-level claims and the exact values that they must have in the OIDC token, up to 20. Learn more in <a href="/docs/apis/workload-identity-federation#lock-tokens-to-an-owner-with-claims">Lock tokens to an owner with claims</a>. Workload identities for <a href="/docs/apis/workload-identity-federation/buildkite-agents">Buildkite agents</a> need an <code>organization_id</code> or <code>organization_slug</code> claim.<p class="Docs__api-param-eg"><em>Example:</em> <code>{"organization_id": "00000000-0000-4000-8000-000000000001"}</code></p></td>
+    <td>Object of top-level claims and the exact values that they must have in the OIDC token, up to 10. Learn more in <a href="/docs/apis/workload-identity-federation#lock-tokens-to-an-owner-with-claims">Lock tokens to an owner with claims</a>. Workload identities for <a href="/docs/apis/workload-identity-federation/buildkite-agents">Buildkite agents</a> need an <code>organization_id</code> or <code>organization_slug</code> claim.<p class="Docs__api-param-eg"><em>Example:</em> <code>{"organization_id": "00000000-0000-4000-8000-000000000001"}</code></p></td>
   </tr>
   <tr>
     <th><code>oidc_claim_conditions</code></th>

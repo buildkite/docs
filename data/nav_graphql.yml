@@ -102,6 +102,16 @@
     path: apis/graphql/schemas/mutation/clusterqueueupdate
   - name: clusterUpdate
     path: apis/graphql/schemas/mutation/clusterupdate
+  - name: deploymentArtifactArchive
+    path: apis/graphql/schemas/mutation/deploymentartifactarchive
+  - name: deploymentArtifactCreate
+    path: apis/graphql/schemas/mutation/deploymentartifactcreate
+  - name: deploymentArtifactUnarchive
+    path: apis/graphql/schemas/mutation/deploymentartifactunarchive
+  - name: deploymentArtifactVersionPublish
+    path: apis/graphql/schemas/mutation/deploymentartifactversionpublish
+  - name: deploymentArtifactVersionYank
+    path: apis/graphql/schemas/mutation/deploymentartifactversionyank
   - name: emailCreate
     path: apis/graphql/schemas/mutation/emailcreate
   - name: emailResendVerification
@@ -170,6 +180,28 @@
     path: apis/graphql/schemas/mutation/pipelineunarchive
   - name: pipelineUpdate
     path: apis/graphql/schemas/mutation/pipelineupdate
+  - name: releaseComponentArchive
+    path: apis/graphql/schemas/mutation/releasecomponentarchive
+  - name: releaseComponentCreate
+    path: apis/graphql/schemas/mutation/releasecomponentcreate
+  - name: releaseComponentInstanceArchive
+    path: apis/graphql/schemas/mutation/releasecomponentinstancearchive
+  - name: releaseComponentInstanceCreate
+    path: apis/graphql/schemas/mutation/releasecomponentinstancecreate
+  - name: releaseComponentInstanceUnarchive
+    path: apis/graphql/schemas/mutation/releasecomponentinstanceunarchive
+  - name: releaseComponentUnarchive
+    path: apis/graphql/schemas/mutation/releasecomponentunarchive
+  - name: releaseObservationsReport
+    path: apis/graphql/schemas/mutation/releaseobservationsreport
+  - name: releaseTargetArchive
+    path: apis/graphql/schemas/mutation/releasetargetarchive
+  - name: releaseTargetCreate
+    path: apis/graphql/schemas/mutation/releasetargetcreate
+  - name: releaseTargetUnarchive
+    path: apis/graphql/schemas/mutation/releasetargetunarchive
+  - name: releaseTargetUpdate
+    path: apis/graphql/schemas/mutation/releasetargetupdate
   - name: ruleCreate
     path: apis/graphql/schemas/mutation/rulecreate
   - name: ruleDelete
@@ -414,6 +446,28 @@
     path: apis/graphql/schemas/object/dependencyconnection
   - name: DependencyEdge
     path: apis/graphql/schemas/object/dependencyedge
+  - name: DeploymentArtifact
+    path: apis/graphql/schemas/object/deploymentartifact
+  - name: DeploymentArtifactArchivePayload
+    path: apis/graphql/schemas/object/deploymentartifactarchivepayload
+  - name: DeploymentArtifactConnection
+    path: apis/graphql/schemas/object/deploymentartifactconnection
+  - name: DeploymentArtifactCreatePayload
+    path: apis/graphql/schemas/object/deploymentartifactcreatepayload
+  - name: DeploymentArtifactEdge
+    path: apis/graphql/schemas/object/deploymentartifactedge
+  - name: DeploymentArtifactUnarchivePayload
+    path: apis/graphql/schemas/object/deploymentartifactunarchivepayload
+  - name: DeploymentArtifactVersion
+    path: apis/graphql/schemas/object/deploymentartifactversion
+  - name: DeploymentArtifactVersionConnection
+    path: apis/graphql/schemas/object/deploymentartifactversionconnection
+  - name: DeploymentArtifactVersionEdge
+    path: apis/graphql/schemas/object/deploymentartifactversionedge
+  - name: DeploymentArtifactVersionPublishPayload
+    path: apis/graphql/schemas/object/deploymentartifactversionpublishpayload
+  - name: DeploymentArtifactVersionYankPayload
+    path: apis/graphql/schemas/object/deploymentartifactversionyankpayload
   - name: Email
     path: apis/graphql/schemas/object/email
   - name: EmailConnection
@@ -690,6 +744,64 @@
     path: apis/graphql/schemas/object/registryedge
   - name: RegistryToken
     path: apis/graphql/schemas/object/registrytoken
+  - name: ReleaseCatalogResolution
+    path: apis/graphql/schemas/object/releasecatalogresolution
+  - name: ReleaseComponent
+    path: apis/graphql/schemas/object/releasecomponent
+  - name: ReleaseComponentArchivePayload
+    path: apis/graphql/schemas/object/releasecomponentarchivepayload
+  - name: ReleaseComponentConnection
+    path: apis/graphql/schemas/object/releasecomponentconnection
+  - name: ReleaseComponentCreatePayload
+    path: apis/graphql/schemas/object/releasecomponentcreatepayload
+  - name: ReleaseComponentEdge
+    path: apis/graphql/schemas/object/releasecomponentedge
+  - name: ReleaseComponentInstance
+    path: apis/graphql/schemas/object/releasecomponentinstance
+  - name: ReleaseComponentInstanceArchivePayload
+    path: apis/graphql/schemas/object/releasecomponentinstancearchivepayload
+  - name: ReleaseComponentInstanceConnection
+    path: apis/graphql/schemas/object/releasecomponentinstanceconnection
+  - name: ReleaseComponentInstanceCreatePayload
+    path: apis/graphql/schemas/object/releasecomponentinstancecreatepayload
+  - name: ReleaseComponentInstanceEdge
+    path: apis/graphql/schemas/object/releasecomponentinstanceedge
+  - name: ReleaseComponentInstanceStatus
+    path: apis/graphql/schemas/object/releasecomponentinstancestatus
+  - name: ReleaseComponentInstanceStatusConnection
+    path: apis/graphql/schemas/object/releasecomponentinstancestatusconnection
+  - name: ReleaseComponentInstanceStatusEdge
+    path: apis/graphql/schemas/object/releasecomponentinstancestatusedge
+  - name: ReleaseComponentInstanceUnarchivePayload
+    path: apis/graphql/schemas/object/releasecomponentinstanceunarchivepayload
+  - name: ReleaseComponentUnarchivePayload
+    path: apis/graphql/schemas/object/releasecomponentunarchivepayload
+  - name: ReleaseObservation
+    path: apis/graphql/schemas/object/releaseobservation
+  - name: ReleaseObservationConnection
+    path: apis/graphql/schemas/object/releaseobservationconnection
+  - name: ReleaseObservationEdge
+    path: apis/graphql/schemas/object/releaseobservationedge
+  - name: ReleaseObservationResult
+    path: apis/graphql/schemas/object/releaseobservationresult
+  - name: ReleaseObservationsReportPayload
+    path: apis/graphql/schemas/object/releaseobservationsreportpayload
+  - name: ReleasePullRequest
+    path: apis/graphql/schemas/object/releasepullrequest
+  - name: ReleaseTarget
+    path: apis/graphql/schemas/object/releasetarget
+  - name: ReleaseTargetArchivePayload
+    path: apis/graphql/schemas/object/releasetargetarchivepayload
+  - name: ReleaseTargetConnection
+    path: apis/graphql/schemas/object/releasetargetconnection
+  - name: ReleaseTargetCreatePayload
+    path: apis/graphql/schemas/object/releasetargetcreatepayload
+  - name: ReleaseTargetEdge
+    path: apis/graphql/schemas/object/releasetargetedge
+  - name: ReleaseTargetUnarchivePayload
+    path: apis/graphql/schemas/object/releasetargetunarchivepayload
+  - name: ReleaseTargetUpdatePayload
+    path: apis/graphql/schemas/object/releasetargetupdatepayload
   - name: Repository
     path: apis/graphql/schemas/object/repository
   - name: RepositoryProviderBeanstalk
@@ -1042,6 +1154,12 @@
     path: apis/graphql/schemas/enum/registryaccesslevels
   - name: RegistryOrders
     path: apis/graphql/schemas/enum/registryorders
+  - name: ReleaseCatalogResolutionReason
+    path: apis/graphql/schemas/enum/releasecatalogresolutionreason
+  - name: ReleaseCatalogResolutionStatus
+    path: apis/graphql/schemas/enum/releasecatalogresolutionstatus
+  - name: ReleaseObservationType
+    path: apis/graphql/schemas/enum/releaseobservationtype
   - name: RevokeInactiveTokenPeriod
     path: apis/graphql/schemas/enum/revokeinactivetokenperiod
   - name: RuleAction
@@ -1146,6 +1264,16 @@
     path: apis/graphql/schemas/input-object/clusterqueueupdateinput
   - name: ClusterUpdateInput
     path: apis/graphql/schemas/input-object/clusterupdateinput
+  - name: DeploymentArtifactArchiveInput
+    path: apis/graphql/schemas/input-object/deploymentartifactarchiveinput
+  - name: DeploymentArtifactCreateInput
+    path: apis/graphql/schemas/input-object/deploymentartifactcreateinput
+  - name: DeploymentArtifactUnarchiveInput
+    path: apis/graphql/schemas/input-object/deploymentartifactunarchiveinput
+  - name: DeploymentArtifactVersionPublishInput
+    path: apis/graphql/schemas/input-object/deploymentartifactversionpublishinput
+  - name: DeploymentArtifactVersionYankInput
+    path: apis/graphql/schemas/input-object/deploymentartifactversionyankinput
   - name: EmailCreateInput
     path: apis/graphql/schemas/input-object/emailcreateinput
   - name: EmailResendVerificationInput
@@ -1246,6 +1374,32 @@
     path: apis/graphql/schemas/input-object/pipelineunarchiveinput
   - name: PipelineUpdateInput
     path: apis/graphql/schemas/input-object/pipelineupdateinput
+  - name: ReleaseComponentArchiveInput
+    path: apis/graphql/schemas/input-object/releasecomponentarchiveinput
+  - name: ReleaseComponentCreateInput
+    path: apis/graphql/schemas/input-object/releasecomponentcreateinput
+  - name: ReleaseComponentInstanceArchiveInput
+    path: apis/graphql/schemas/input-object/releasecomponentinstancearchiveinput
+  - name: ReleaseComponentInstanceCreateInput
+    path: apis/graphql/schemas/input-object/releasecomponentinstancecreateinput
+  - name: ReleaseComponentInstanceUnarchiveInput
+    path: apis/graphql/schemas/input-object/releasecomponentinstanceunarchiveinput
+  - name: ReleaseComponentUnarchiveInput
+    path: apis/graphql/schemas/input-object/releasecomponentunarchiveinput
+  - name: ReleaseObservationInput
+    path: apis/graphql/schemas/input-object/releaseobservationinput
+  - name: ReleaseObservationsReportInput
+    path: apis/graphql/schemas/input-object/releaseobservationsreportinput
+  - name: ReleasePullRequestInput
+    path: apis/graphql/schemas/input-object/releasepullrequestinput
+  - name: ReleaseTargetArchiveInput
+    path: apis/graphql/schemas/input-object/releasetargetarchiveinput
+  - name: ReleaseTargetCreateInput
+    path: apis/graphql/schemas/input-object/releasetargetcreateinput
+  - name: ReleaseTargetUnarchiveInput
+    path: apis/graphql/schemas/input-object/releasetargetunarchiveinput
+  - name: ReleaseTargetUpdateInput
+    path: apis/graphql/schemas/input-object/releasetargetupdateinput
   - name: RuleCreateInput
     path: apis/graphql/schemas/input-object/rulecreateinput
   - name: RuleDeleteInput

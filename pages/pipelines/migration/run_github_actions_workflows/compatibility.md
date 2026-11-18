@@ -23,7 +23,7 @@ Use this table to identify migration work, then check the linked restrictions an
 | Runners and tools | Linux x86-64/arm64, macOS arm64, Windows Server 2022 x86-64 | Agent v3.129+ and a compatible queue. Labels don't reproduce GitHub images or tools. | [Runners and tools](#runners-and-tools) |
 | Events and filters | Listed events and bounded filters | Native manual runs require matching `push` without `workflow_dispatch`. Delivery can require backend support and webhook setup. Path filters need linked data and local history. | [Events and triggers](#events-and-triggers) |
 | Actions | Local and public JavaScript/composite actions; Linux Docker actions | Private actions and direct workflow `docker://` calls are unsupported. Admission doesn't guarantee GitHub service access. | [Action sources and runtimes](#actions-artifacts-and-caching-action-sources-and-runtimes) |
-| Checkout | Native adapter for the event repository | Pull requests check out the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
+| Checkout | Native adapter for the event repository | Pull requests default to the head, not a merge. No alternate repositories or persisted credentials. | [Checkout action](#actions-artifacts-and-caching-checkout-action) |
 | Artifacts | Native ZIP upload and download | Downloads require verified direct `needs` producers; no cross-run/repository or GitHub artifact API access. | [Upload](#actions-artifacts-and-caching-upload-artifact-action), [download](#actions-artifacts-and-caching-download-artifact-action) |
 | Caching | Admitted cache-v2 clients use Buildkite Results | Client versions and tools matter. Cache mode is best-effort, not authorization. | [Cache action](#actions-artifacts-and-caching-cache-action) |
 | Repositories and GitHub tokens | GitHub.com, GitHub Enterprise Server (GHES), and authorized private Origin access | Workflow tokens require eligible hosted GitHub.com or GHES App jobs, the token setting enabled, and top-level permissions. | [Repositories](#credentials-and-deployments-repositories), [GitHub token](#credentials-and-deployments-github-token) |
@@ -53,7 +53,7 @@ Check these differences before migrating:
 
 - **Action access:** [Private actions](#actions-artifacts-and-caching-action-sources-and-runtimes) are unsupported, even inside private reusable workflows. An admitted public action can still depend on [unsupported GitHub services](#credentials-and-deployments-github-services).
 - **Runner parity:** Labels select a platform, not GitHub image, toolchain, hardware, or Xcode parity. Supply tools through your [queue and image](#runners-and-tools).
-- **Pull request checkout:** Workflows and [checkout](#actions-artifacts-and-caching-checkout-action) use the head commit, not GitHub's synthetic merge commit. Review events also use the head, not the reviewed commit.
+- **Pull request checkout:** Workflows and default [checkout](#actions-artifacts-and-caching-checkout-action) use the head commit, not GitHub's synthetic merge commit. Review events also default to the head, not the reviewed commit. An explicit checkout `ref` can select a pull request merge ref.
 - **Secrets and tokens:** GitHub secrets aren't copied. Migrate them to [Buildkite Secrets](#credentials-and-deployments-other-secrets-and-oidc). Public [GitHub workflow-token support](#credentials-and-deployments-github-token) requires eligible hosted jobs and the pipeline's token setting enabled; immutable top-level [permissions](#credentials-and-deployments-permissions) apply to every receiving job.
 - **Cloud identity:** OIDC uses the [Buildkite issuer and claims](#credentials-and-deployments-other-secrets-and-oidc), not GitHub's. Update cloud trust before deploying.
 - **Deployment approval:** [Environment gates](#credentials-and-deployments-deployment-environments) don't enforce GitHub reviewer lists, self-review restrictions, or administrator bypass. Any user who can unblock the pipeline can approve.
@@ -151,6 +151,8 @@ From v0.105.2, host shell, JavaScript, and composite steps inherit host `JAVA_HO
 
 Linux tool cache selection follows the runner target. Hosted cache requests use `/opt/hostedtoolcache`, which must exist; targets disabling it use a job-private cache without changing preinstalled host tools. Native Namespace targets use private caches. Older image targets without a cache choice retain their hosted-toolcache behavior. macOS bootstrap creates writable `/Users/runner/hostedtoolcache` and needs noninteractive `sudo`, preserving prefixes required by actions such as `ruby/setup-ruby`. Windows uses a job-private cache.
 
+Job containers use a writable job-private tool cache inside the existing runner temp mount, not the configured host tool cache. The runtime translates `runner.tool_cache` and `RUNNER_TOOL_CACHE` to the same container path. This doesn't mount preinstalled host tools or make the cache persist between jobs.
+
 On native Namespace runners, the runtime enables `default-load=true` for stored single-node buildx builders using `remote`, `docker-container`, or `kubernetes`, so plain `docker build` loads the image for later `docker run`. Explicit `--push` or `--output` still controls output. Multi-node builders aren't changed and can still require explicit output/load choices. Setup problems warn rather than fail the job.
 
 <a id="windows-jobs"></a>
@@ -202,8 +204,8 @@ Native manual runs currently require a matching `push` declaration without `work
 | Event | Selection, defaults, and limits |
 | --- | --- |
 | `push` | `branches`, `branches-ignore`, `tags`, and `tags-ignore` select their ref kind. Include arrays support ordered negative patterns. Branch-push path filters require the [local-diff conditions](#events-and-triggers-push-path-filters). Tag pushes ignore path filters. |
-| `pull_request` | Pipeline triggers [reject fork pull requests before creating a build](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests). Branch filters match the base branch. Default activities are `opened`, `synchronize`, and `reopened`. Explicit supported activities are listed below. [Path filters](#events-and-triggers-pull-request-path-filters) require linked data and local history. Tag and workflow filters are rejected. Checkout uses the head commit, not the synthetic merge. |
-| `merge_group` | Pipeline triggers require a compatible backend. Native builds require merge queue builds and **Merge groups** webhook delivery in pipeline GitHub settings. Branch filters match the base branch; default activity is `checks_requested`. Explicit `destroyed` is supported with the [qualification below](#events-and-triggers-merge-group-destruction). Path filters are ignored with a warning. Tag and workflow filters and unknown activities are rejected. |
+| `pull_request` | Pipeline triggers [reject fork pull requests before creating a build](/docs/pipelines/migration/run-github-actions-workflows/security#fork-pull-requests). Branch filters match the base branch. Default activities are `opened`, `synchronize`, and `reopened`. Explicit supported activities are listed below. [Path filters](#events-and-triggers-pull-request-path-filters) require linked data and local history. Checkout uses the head commit, not the synthetic merge. |
+| `merge_group` | Pipeline triggers require a compatible backend. Native builds require merge queue builds and **Merge groups** webhook delivery in pipeline GitHub settings. Branch filters match the base branch; default activity is `checks_requested`. Explicit `destroyed` is supported with the [qualification below](#events-and-triggers-merge-group-destruction). Path filters are ignored with a warning. Tag filters and unknown activities are rejected. |
 | `release` | Pipeline triggers accept `published`, `unpublished`, `created`, `edited`, `deleted`, `prereleased`, and `released`, all by default. Native builds require **Additional Webhooks** > **Releases** and **Code** trigger mode and deliver only `published`, `created`, and `released`; other selections warn with `W_NATIVE_RELEASE_ACTIVITIES_UNDELIVERED`. Draft `created`, `edited`, `deleted`, and `unpublished` deliveries don't run. |
 | `deployment`, `deployment_status` | Pipeline triggers with a compatible backend, or explicit snapshots. No activity types or other event filters. Statuses are `error`, `failure`, `in_progress`, `queued`, `pending`, `success`, and `waiting`; `inactive` doesn't run. Use conditions on payload environment or state, not trigger environment filters. No deployment creation or environment orchestration is added. |
 | `create`, `delete` | [Branch and tag lifecycle](#events-and-triggers-branch-and-tag-lifecycle-events). No activity types or other filters. |
@@ -220,7 +222,7 @@ Native manual runs currently require a matching `push` declaration without `work
 | `issue_comment` | Issue and pull request conversation comments. `created`, `edited`, and `deleted`, all by default. Pipeline triggers don't inherit native command-word, trusted-commenter, or pull-request-only gating. |
 | `pull_request_review` | Pipeline triggers support `submitted`, `edited`, and `dismissed`, all by default. `types` selects activities, not review states. For approval-only execution, use `if: github.event.review.state == 'approved'`. |
 | `pull_request_review_comment` | Pipeline triggers support inline diff-comment `created`, `edited`, and `deleted`, all by default. Distinct from submitted reviews and conversation comments. |
-| `workflow_dispatch` | Custom importers can select this event from an explicit snapshot or authoritative `GITHUB_EVENT_NAME` or `BUILDKITE_GITHUB_EVENT`. Native manual runs currently fail during preparation. Branch, tag, type, and workflow filters are unsupported. |
+| `workflow_dispatch` | Custom importers can select this event from an explicit snapshot or authoritative `GITHUB_EVENT_NAME` or `BUILDKITE_GITHUB_EVENT`. Native manual runs currently fail during preparation. Branch, tag, and type filters are unsupported. |
 | `schedule` | Buildkite Pipelines owns cron configuration. Every `on.schedule` workflow is eligible for every scheduled build; the runtime can't identify which cron expression started it. |
 | `workflow_call` | Reusable-workflow interface, not a top-level trigger for reusable-only files. |
 | `pull_request_target` | Intentionally unsupported. Its privileged base-repository execution model requires a separate trust boundary. Switching to `pull_request` alone doesn't make untrusted checkout safe. |
@@ -230,7 +232,7 @@ Native manual runs currently require a matching `push` declaration without `work
 
 Explicit `pull_request` activities may be `assigned`, `unassigned`, `labeled`, `unlabeled`, `opened`, `edited`, `closed`, `reopened`, `synchronize`, `converted_to_draft`, `locked`, `unlocked`, `enqueued`, `dequeued`, `milestoned`, `demilestoned`, `ready_for_review`, `review_requested`, `review_request_removed`, `auto_merge_enabled`, or `auto_merge_disabled`.
 
-Review events require v0.64.0 or later and don't support fork pull requests. Workflows and checkout use the head SHA, not the reviewed commit or synthetic merge commit; the ref remains `refs/pull/<number>/merge`. No default-branch-only requirement applies. Use payload head and base refs for branch conditions. CI-skip commit directives don't suppress review events. Same-repository reviews retain the pull request `contents: read` token ceiling, including approvals.
+Review events require v0.64.0 or later and don't support fork pull requests. Workflows and default checkout use the head SHA, not the reviewed commit or synthetic merge commit; the ref remains `refs/pull/<number>/merge`. No default-branch-only requirement applies. Use payload head and base refs for branch conditions. CI-skip commit directives don't suppress review events. Same-repository reviews retain the pull request `contents: read` token ceiling, including approvals.
 
 Release pipeline triggers require the GitHub Code Access App and use the peeled tag commit with `refs/tags/<tag_name>`. The tag, build, payload, and workflow identities must agree. Native builds without the App resolve the provided symbolic `HEAD` from checkout as a compatibility fallback. Deployment events use `deployment.sha` and its branch or tag ref. SHA-only deployments have empty Actions `ref` and `ref_name`, with workflow identity `<owner>/<repo>/<path>@<sha>`; no branch tip is substituted. Genuine deployment and status payload fields remain available in `github.event`.
 
@@ -325,7 +327,7 @@ The payload needs a discussion ID, number, and title; comments need a positive I
 
 ### Ignored event filters
 
-Except for `push`, `pull_request`, `merge_group`, `workflow_dispatch`, and `schedule`, the webhook events listed above accept but ignore `branches`, `branches-ignore`, `tags`, `tags-ignore`, `paths`, and `paths-ignore`. These filters don't protect execution or credentials. Activity selection and identity checks still apply. Unknown keys and unsupported activities are rejected. `pull_request` and `merge_group` tag filters remain unsupported.
+Except for `push`, `pull_request`, `merge_group`, `workflow_dispatch`, and `schedule`, the webhook events listed above accept but ignore `branches`, `branches-ignore`, `tags`, `tags-ignore`, `paths`, and `paths-ignore`. These filters don't protect execution or credentials. Activity selection and identity checks still apply. Unknown keys and unsupported activities are rejected. `merge_group` tag filters remain unsupported.
 
 Pipeline trigger `issues` and `issue_comment` builds select the latest verified default-branch SHA without native Buildkite issue/comment build gating, branch filters, or path filters. Native issue builds remain supported with linked payloads and their own build-creation settings.
 
@@ -502,7 +504,7 @@ Inputs must exist in the selected commit's contract before the following restric
 | Input | Supported values |
 | --- | --- |
 | `repository` | Omitted or the event `owner/repo`. |
-| `ref` | Omitted/empty, lowercase 40-hex commit, or static branch in the event repository. Direct `github.sha` or needs-output expressions must resolve to the exact event SHA. Tags and other dynamic commits are unsupported. |
+| `ref` | Omitted/empty, lowercase 40-hex commit, static branch, or `refs/pull/<number>/head` or `refs/pull/<number>/merge` in the event repository. Event expressions that compile to these values are supported. Direct `github.sha` or needs-output expressions must resolve to the exact event SHA. Tags and other dynamic commits are unsupported. |
 | `token` | Omitted only. |
 | `ssh-key`, `ssh-known-hosts` | Omitted or empty. |
 | `ssh-strict`, `set-safe-directory` | Omitted or `true`. |
@@ -518,6 +520,17 @@ Inputs must exist in the selected commit's contract before the following restric
 | `submodules` | Omitted, `false`, `true`, or `recursive`, trimmed and case-insensitive. |
 | `github-server-url` | Omitted/empty or the event server URL, such as `https://github.com` or `https://github.example.com` for GHES. |
 {: class="responsive-table"}
+
+Omitted or empty `ref` checks out the exact event SHA. An explicit branch or pull request ref checks out that ref's fetched commit, which can differ from the event SHA. Pull refs require [buildkite-gha v0.126.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.126.0) or later, a positive pull request number, and an existing ref in the event repository. Checkout remains detached, including when an expression selects a branch.
+
+For workflows triggered by branch pushes and pull requests, this expression selects the PR branch for a same-repository pull request and the event ref otherwise. Do not use this example for tag pushes or release events, because the fallback selects an unsupported tag ref:
+
+```yaml
+steps:
+  - uses: actions/checkout@v6
+    with:
+      ref: ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) && github.event.pull_request.head.ref || github.ref }}
+```
 
 Authorized repository-provider Git credentials are scoped to fetch, LFS, and submodule commands and never persisted; otherwise access is anonymous.
 
@@ -955,7 +968,7 @@ Calls with `needs` require prerequisites with no concurrency or provably disjoin
 
 The call's gate waits for all external prerequisites, including failed and skipped ones, but reserves its queue position at upload, earlier than GitHub. The gate can't request cancellation until those prerequisites finish. Later calls can wait behind unfinished prerequisites; `W_REUSABLE_WORKFLOW_CONCURRENCY_QUEUED_BEFORE_PREREQUISITES` reports this difference. A statically false call omits its gate. A runtime-dependent call still enters the group before evaluating its condition, even if it skips; `W_REUSABLE_WORKFLOW_CONCURRENCY_ENTERED_BEFORE_CALL_CONDITION` reports this behavior. With cancellation enabled, this call can cancel older gate steps even when its condition is false.
 
-Workflow concurrency can't enclose or depend on deferred expansion as described under [matrices from outputs](#job-syntax-matrices-from-job-outputs). Cancel the whole build, not an individual job, when a workflow gate is active.
+Root workflow concurrency holds the group across [matrices from outputs](#job-syntax-matrices-from-job-outputs), including later expansion stages and downstream jobs. Ordinary manual and automatic retries remain supported. Automatic retries keep the group held until they finish. Manual retries after the group is released don't reacquire it and can overlap a later run; concurrency is best-effort for these retries, as it is for static workflows. Called-workflow concurrency can't enclose or depend on deferred expansion. Cancel the whole build, not an individual job, when a workflow gate is active.
 
 Leave [Cancel Intermediate Builds](/docs/pipelines/configure/canceling-builds#cancel-running-intermediate-builds) and **Skip Intermediate Builds** disabled for server-side dispatch. These settings work by branch, not workflow concurrency group, and can cancel or skip sibling workflow builds from the same event.
 
@@ -1126,11 +1139,11 @@ The following limits apply to every stage:
 - The 256-instance and 1,024-expanded-job limits still apply. Deferred components share the remaining workflow budget equally after upfront jobs; chained stages consume that same component budget. Exceeding a share fails before upload, even if another component hasn't used its share.
 - The workflow must be tracked inside the repository and match the build commit. Outside, untracked, staged-only, or modified workflow source can't use deferred expansion.
 - Deferred execution uses the original event, variable snapshot, runner mappings, OIDC settings, workflow source, reusable source commits, and locked action revisions. Changed sources or incompatible graph changes fail with instructions to retry the build. Outputs never become workflow source or credential authority.
-- Root workflow concurrency is unsupported. A called workflow with workflow concurrency can't contain a deferred matrix or depend on deferred work; its gate would close before later jobs finish.
+- Root workflow concurrency follows the [workflow concurrency rules](#workflow-syntax-reference-concurrency). A called workflow with workflow concurrency can't contain a deferred matrix or depend on deferred work.
 - Generated job, placeholder, continuation, and approval-gate keys must remain unique. Collisions fail before execution. Protected environment jobs retain their shared approval gate through deferred uploads.
 - A failed, skipped, or cancelled producer skips its downstream placeholders, including `always()` dependants whose matrix is unknown. Healthy branches in a merged component still expand; shared joins skip. Earlier completed stages remain unchanged. Missing or invalid producer results are errors, not skips.
 - Any compilation error fails the whole deferred workflow rather than uploading only its static jobs. Other workflows in an aggregate upload can continue.
-- Retrying a deferred step verifies its previous upload and doesn't duplicate jobs. Retrying a producer after expansion invalidates the earlier result, even if the new output is identical. Retry the whole build instead.
+- Retrying a deferred step verifies its previous upload and doesn't duplicate jobs. Retrying a producer after expansion invalidates the earlier result, even if the new output is identical. Rebuild the whole build instead.
 
 Matrices derived from `steps`, compound needs expressions, or other dynamic sources remain unsupported. See [deferred upload setup](/docs/pipelines/migration/run-github-actions-workflows/cli#upload-from-a-custom-importer-expand-a-matrix-inside-the-build) for importer and runtime requirements.
 
@@ -1320,6 +1333,7 @@ Missing properties in available contexts evaluate to null; unavailable contexts 
 | `github.server_url` | No | Composite steps only, from v0.105.0. |
 | `github.run_attempt` | Yes, including reusable-workflow calls. | Yes, including composite steps. |
 | `runner.os`, `runner.arch`, `runner.environment` | Yes | Yes |
+| `runner.tool_cache` | No | Yes |
 | `runner.name` | No | Yes, including composite steps; requires the name of the executing agent. |
 | `runner.temp`, `runner.debug` | No | Yes; debug is always absent. |
 | `needs.<job>.result`, `needs.<job>.outputs.<name>` | Yes | Yes |
@@ -1395,6 +1409,7 @@ Workflow-authored `github.token` references are step-only. Effective action inpu
 | `runner.environment` | `self-hosted`, including Buildkite hosted agents. |
 | `runner.name` | Available from [v0.127.0](https://github.com/buildkite/buildkite-gha/releases/tag/v0.127.0). Name of the executing Buildkite agent, from [`BUILDKITE_AGENT_NAME`](/docs/pipelines/configure/environment-variables#BUILDKITE_AGENT_NAME). Available in step fields, job outputs, action input defaults, and lifecycle conditions. Direct reads fail when the name is unavailable, with no hostname or GitHub runner-name fallback. Compile-time fields, job conditions, job environment/defaults, and service fields don't support it. |
 | `runner.temp` | Canonical `RUNNER_TEMP`, available after setup in step fields and job outputs. |
+| `runner.tool_cache` | The selected [tool-cache directory](#runners-and-tools-runner-tools), matching `RUNNER_TOOL_CACHE`. Available after setup in step fields, action input defaults, lifecycle conditions, and composite and job outputs. Unavailable in graph-time fields, job environment, and job or reusable-call conditions. |
 | `runner.debug` | Always absent; interpolation is empty and comparison to enabled value `1` is false. Available in step fields, outputs, lifecycle conditions, and action input defaults. |
 {: class="responsive-table"}
 
@@ -1478,7 +1493,7 @@ Use the result and diagnostic guidance below when a workflow validates but doesn
 ### Results, retries, and cancellation
 
 - A runtime-skipped job remains successful in Buildkite Pipelines, appends `(skipped)` to its label, and publishes logical `skipped` to downstream imported jobs.
-- Retry the whole build after ambiguous producer results/artifacts or a retried producer whose deferred jobs already expanded. A deferred step itself can be retried safely.
+- Retry the whole build after ambiguous producer results/artifacts or a retried producer whose deferred jobs already expanded. A deferred step itself can be retried without duplicating jobs. See the [workflow concurrency limits for late manual retries](#workflow-syntax-reference-concurrency).
 - Cancellation targets the process tree. Linux/macOS send `SIGINT`, then `SIGTERM` after 7.5 seconds, then `SIGKILL` after another 2.5 seconds. Windows terminates through a Job Object without signal grace.
 - Summary, annotation, or skipped-label publication failures warn without changing completed job results.
 

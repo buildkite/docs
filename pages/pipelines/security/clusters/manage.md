@@ -164,7 +164,7 @@ This setting doesn't restrict:
 
 This setting also doesn't affect any other **Build** access permissions, such as starting, canceling, or retrying builds.
 
-This setting is off by default, and can only be changed by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the Buildkite interface, the [REST API](/docs/apis/rest-api/clusters#update-a-cluster), or the [GraphQL API](/docs/apis/graphql-api). Changes to this setting are recorded in the organization's [audit log](/docs/platform/audit-log).
+This setting is off by default, and can only be changed by a [cluster maintainer](#manage-maintainers-on-a-cluster) or Buildkite organization administrator using the Buildkite interface, the [REST API](/docs/apis/rest-api/clusters#clusters-update-a-cluster), or the [GraphQL API](/docs/apis/graphql-api). Changes to this setting are recorded in the organization's [audit log](/docs/platform/audit-log).
 
 > 📘 Unclustered jobs
 > This setting doesn't apply to jobs that aren't assigned to a cluster. Reprioritizing unclustered jobs only requires pipeline [**Build** access](/docs/pipelines/security/permissions#manage-teams-and-permissions-pipeline-level-permissions).

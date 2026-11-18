@@ -107,6 +107,12 @@ An object with an ID.
 <a href="/docs/apis/graphql/schemas/object/compositeregistryupstream" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT CompositeRegistryUpstream">
   <code>CompositeRegistryUpstream</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/deploymentartifact" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT DeploymentArtifact">
+  <code>DeploymentArtifact</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/deploymentartifactversion" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT DeploymentArtifactVersion">
+  <code>DeploymentArtifactVersion</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/email" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Email">
   <code>Email</code>
 </a>
@@ -202,6 +208,18 @@ An object with an ID.
 </a>
 <a href="/docs/apis/graphql/schemas/object/registrytoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RegistryToken">
   <code>RegistryToken</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasecomponent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseComponent">
+  <code>ReleaseComponent</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasecomponentinstance" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseComponentInstance">
+  <code>ReleaseComponentInstance</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releaseobservation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseObservation">
+  <code>ReleaseObservation</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/releasetarget" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ReleaseTarget">
+  <code>ReleaseTarget</code>
 </a>
 <a href="/docs/apis/graphql/schemas/object/rule" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Rule">
   <code>Rule</code>

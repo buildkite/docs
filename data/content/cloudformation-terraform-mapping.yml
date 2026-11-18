@@ -377,3 +377,6 @@ VpcId:
   variable: vpc_id
   type: string
 WindowsLaunchTimeout: N/A
+WindowsServerVersion:
+  variable: windows_server_version
+  type: string
