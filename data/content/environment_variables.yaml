@@ -6,6 +6,7 @@ variables:
     desc: |
       The agent session token for the job. The variable is read by the agent `artifact` and `meta-data` commands.
     modifiable: false
+    modification_note: "This value cannot be modified"
     example: "83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"
   - name: BUILDKITE_AGENT_CACHE_STORE_URL
     desc: |
@@ -16,6 +17,7 @@ variables:
     desc: |
       The value of the `debug` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     values:
       - true
       - false
@@ -35,6 +37,7 @@ variables:
     desc: |
       The value of the `endpoint` [agent configuration option](/docs/agent/self-hosted/configure). This is set as an environment variable by the bootstrap and then read by most of the `buildkite-agent` commands.
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     default_value: "https://agent.buildkite.com/v3"
   - name: BUILDKITE_AGENT_EXPERIMENT
     desc: |
@@ -65,6 +68,7 @@ variables:
     desc: |
       The process ID of the agent.
     modifiable: false
+    modification_note: "This value cannot be modified"
     example: "6"
   - name: BUILDKITE_ARTIFACT_PATHS
     desc: |
@@ -80,6 +84,7 @@ variables:
     desc: |
       The path to the directory containing the `buildkite-agent` binary.
     modifiable: false
+    modification_note: "This value cannot be modified"
     example: "/usr/local/bin"
   - name: BUILDKITE_BRANCH
     desc: |
@@ -91,6 +96,7 @@ variables:
   - name: BUILDKITE_BUILD_CHECKOUT_PATH
     desc: |
       The path where the agent has checked out your code for this build. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+    modifiable: true
     example: "/var/lib/buildkite-agent/builds/agent-1/pipeline-2"
   - name: BUILDKITE_BUILD_AUTHOR
     desc: |
@@ -146,6 +152,7 @@ variables:
     desc: |
       The value of the `build-path` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     example: "/var/lib/buildkite-agent/builds/"
   - name: BUILDKITE_BUILD_URL
     desc: |
@@ -170,6 +177,7 @@ variables:
   - name: BUILDKITE_CLEAN_CHECKOUT
     desc: |
       Whether the build should perform a clean checkout. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks.
+    modifiable: true
     values:
       - true
       - false
@@ -192,6 +200,7 @@ variables:
     desc: |
       The opposite of the value of the `no-command-eval` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     values:
       - true
       - false
@@ -220,8 +229,9 @@ variables:
     example: '"BUILDKITE_COMMIT_RESOLVED=true", "BUILDKITE_COMMIT_RESOLVED=false"'
   - name: BUILDKITE_CONFIG_PATH
     desc: |
-      The path to the agent config file.
+      The path to the agent config file. To select a different file, use the `--config` option or `BUILDKITE_AGENT_CONFIG` environment variable when [starting the agent](/docs/agent/self-hosted/configure#example-configuration-file).
     modifiable: false
+    modification_note: "This value cannot be modified except when selecting the agent configuration file"
     default_value: "/buildkite/buildkite-agent.cfg"
   - name: BUILDKITE_ENV_FILE
     desc: |
@@ -282,8 +292,8 @@ variables:
     example: "-v --prune"
   - name: BUILDKITE_GIT_LFS_ENABLED
     desc: |
-      Controls whether the agent downloads Git LFS objects during checkout. Set automatically from the `checkout.lfs` key in your pipeline YAML (which takes precedence over any value in `env`). When omitted, the agent uses its own `--git-lfs-enabled` configuration setting, which defaults to `false`.
-    modifiable: false
+      Controls whether the agent downloads Git LFS objects during checkout. Set automatically from the `checkout.lfs` key in your pipeline YAML (which takes precedence over any value in `env`). When omitted, the agent uses its own `--git-lfs-enabled` configuration setting, which defaults to `false`. The value can also be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+    modifiable: true
     values:
       - true
       - false
@@ -291,28 +301,36 @@ variables:
     desc: |
       The value of the `git-mirrors-path` [agent configuration option](/docs/agent/self-hosted/configure#git-mirrors-path). This can be set in `buildkite-agent.cfg` or using the `--git-mirrors-path` CLI flag when starting the agent. This value cannot be modified from within a job, hook, or plugin.
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     example: "/var/lib/git-mirrors"
   - name: BUILDKITE_GIT_REMOTE_MIRROR_URL
     desc: |
       The URL of the remote clone mirror configured for the pipeline. Only present when a clone mirror is configured on the pipeline. The primary repository variables (`BUILDKITE_REPO`, `BUILDKITE_REPO_SSH_HOST`) are not replaced and can be used to fall back to the primary repository when the mirror is unavailable.
+
+      To change this value for future jobs, update the clone mirror URL in the [pipeline settings](/docs/pipelines/source-control/origin#use-origin-as-a-clone-mirror-for-github).
     modifiable: false
+    modification_note: "This value cannot be modified except in the pipeline settings"
     example: "https://mirror.example.com/git/acme/my-project.git"
   - name: BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
     desc: |
-      The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When set to `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository.
-    modifiable: false
+      The value of the `git-skip-fetch-existing-commits` [agent configuration option](/docs/agent/self-hosted/configure). When set to `true`, the agent skips `git fetch` during checkout if the commit already exists in the local repository. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, unless the agent's `checkout-override-mode` is set to `strict`.
+    modifiable: true
     values:
       - true
       - false
   - name: BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS
     desc: |
       A comma-separated list of paths for [Git sparse checkout](https://git-scm.com/docs/git-sparse-checkout). Set automatically from the `checkout.sparse.paths` key in your pipeline YAML. When set, the agent performs a sparse checkout, populating only the listed paths in the working directory. Requires Git 2.26 or later; agents with an older Git version fall back to a full checkout. Agents that do not support sparse checkout ignore this variable, also producing a full checkout.
-    modifiable: false
+
+      The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, unless the agent's `checkout-override-mode` is set to `strict`.
+    modifiable: true
     example: ".buildkite/,src/"
   - name: BUILDKITE_GIT_SUBMODULES
     desc: |
       Controls whether the agent fetches git submodules. Set automatically from the `checkout.submodules` key in your pipeline YAML when the agent's checkout-override mode permits the pipeline value. When `checkout.submodules` is not set, the value reflects the opposite of the `no-git-submodules` [agent configuration option](/docs/agent/self-hosted/configure). In `from-job` or `strict` mode, the agent's `--no-git-submodules` flag forces this variable to `false` regardless of the pipeline value. In `none` mode, the pipeline can re-enable submodules.
-    modifiable: false
+
+      The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, unless the agent's `checkout-override-mode` is set to `strict`.
+    modifiable: true
     values:
       - true
       - false
@@ -380,6 +398,7 @@ variables:
     desc: |
       The value of the `hooks-path` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     example: "/etc/buildkite-agent/hooks/"
   - name: BUILDKITE_IGNORED_ENV
     desc: |
@@ -415,6 +434,7 @@ variables:
     desc: |
       The opposite of the value of the `no-local-hooks` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     values:
       - true
       - false
@@ -509,6 +529,7 @@ variables:
     desc: |
       The opposite of the value of the `no-plugins` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     values:
       - true
       - false
@@ -516,10 +537,12 @@ variables:
     desc: |
       The value of the `plugins-path` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     example: "/etc/buildkite-agent/plugins/"
   - name: BUILDKITE_PLUGIN_VALIDATION
     desc: |
       Whether to validate plugin configuration and requirements. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or in a `pipeline.yml` file. It can also be enabled using the `no-plugin-validation` [agent configuration option](/docs/agent/self-hosted/configure).
+    modifiable: true
     default_value: "false"
   - name: BUILDKITE_PULL_REQUEST
     desc: |
@@ -582,18 +605,21 @@ variables:
     modifiable: false
     example: "0"
   - name: BUILDKITE_S3_ACCESS_KEY_ID
+    modifiable: true
     desc: |
       The access key ID for your S3 IAM user, for use with [private S3 buckets](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
     example: "AKIAIOSFODNN7EXAMPLE"
   - name: BUILDKITE_S3_ACCESS_URL
     desc: |
       The access URL for your [private S3 bucket](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket), if you are using a proxy. The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+    modifiable: true
     example: "https://buildkite-artifacts.example.com/"
   - name: BUILDKITE_S3_ACL
     desc: |
       The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
       Must be one of the following values which map to [S3 Canned ACL grants](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl).
+    modifiable: true
     values:
       - private
       - public-read-write
@@ -605,19 +631,23 @@ variables:
   - name: BUILDKITE_S3_DEFAULT_REGION
     desc: |
       The region of your [private S3 bucket](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+    modifiable: true
     default_value: "us-east-1"
   - name: BUILDKITE_S3_SECRET_ACCESS_KEY
     desc: |
       The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks.
+    modifiable: true
     example: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
   - name: BUILDKITE_S3_SSE_ENABLED
     desc: |
       Whether to enable encryption for the artifacts in your [private S3 bucket](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+    modifiable: true
     default_value: "false"
   - name: BUILDKITE_SHELL
     desc: |
       The value of the `shell` [agent configuration option](/docs/agent/self-hosted/configure).
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     example: '"/bin/bash -e -c"'
   - name: BUILDKITE_SKIP_CHECKOUT
     desc: |
@@ -640,6 +670,7 @@ variables:
     desc: |
       The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/self-hosted/configure). In agent v4, this controls whether the default checkout uses OpenSSH's `StrictHostKeyChecking=accept-new` option. The environment variable name is retained for compatibility.
     modifiable: false
+    modification_note: "This value cannot be modified except in the agent configuration"
     values:
       - true
       - false

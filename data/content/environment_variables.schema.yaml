@@ -14,6 +14,8 @@ properties:
           type: string
         modifiable:
           type: boolean
+        modification_note:
+          type: string
       required:
         - name
         - desc

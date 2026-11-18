@@ -30,6 +30,38 @@ RSpec.feature "reading pages" do
     end
   end
 
+  describe "/docs/pipelines/configure/environment-variables" do
+    it "identifies where environment variable values can be modified" do
+      visit "/docs/pipelines/configure/environment-variables"
+
+      %w[
+        BUILDKITE_BUILD_CHECKOUT_PATH BUILDKITE_CLEAN_CHECKOUT
+        BUILDKITE_GIT_LFS_ENABLED BUILDKITE_GIT_SKIP_FETCH_EXISTING_COMMITS
+        BUILDKITE_GIT_SPARSE_CHECKOUT_PATHS BUILDKITE_GIT_SUBMODULES
+        BUILDKITE_PLUGIN_VALIDATION BUILDKITE_S3_ACCESS_KEY_ID
+        BUILDKITE_S3_ACCESS_URL BUILDKITE_S3_ACL BUILDKITE_S3_DEFAULT_REGION
+        BUILDKITE_S3_SECRET_ACCESS_KEY BUILDKITE_S3_SSE_ENABLED
+      ].each do |name|
+        expect(page.find("tr[id='#{name}'] th")).not_to have_css("small")
+      end
+
+      %w[BUILDKITE BUILDKITE_BRANCH BUILDKITE_BUILD_ID BUILDKITE_COMMAND CI].each do |name|
+        expect(page.find("tr[id='#{name}'] th small")).to have_text("Set by Buildkite", exact: true)
+      end
+
+      %w[BUILDKITE_AGENT_ACCESS_TOKEN BUILDKITE_AGENT_PID BUILDKITE_BIN_PATH].each do |name|
+        expect(page.find("tr[id='#{name}'] th small")).to have_text("This value cannot be modified", exact: true)
+      end
+
+      %w[BUILDKITE_AGENT_DEBUG BUILDKITE_COMMAND_EVAL BUILDKITE_GIT_MIRRORS_PATH].each do |name|
+        expect(page.find("tr[id='#{name}'] th small")).to have_text("This value cannot be modified except in the agent configuration", exact: true)
+      end
+
+      expect(page.find("tr[id='BUILDKITE_CONFIG_PATH'] th small")).to have_text("This value cannot be modified except when selecting the agent configuration file", exact: true)
+      expect(page.find("tr[id='BUILDKITE_GIT_REMOTE_MIRROR_URL'] th small")).to have_text("This value cannot be modified except in the pipeline settings", exact: true)
+    end
+  end
+
   describe "markdown format" do
     # Capybara resets the session only after examples that call visit or a finder,
     # so without this, Accept headers from examples that only call page.driver.get

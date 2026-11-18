@@ -9,7 +9,12 @@ For best practices and recommendations about using secrets in your environment v
 
 ## Buildkite environment variables
 
-The following environment variables may be visible in your commands, plugins, and hooks.
+The following environment variables may be visible in your commands, plugins, and hooks. The labels explain where values come from and where they can be changed:
+
+- **Set by Buildkite**: Buildkite or the agent supplies this value. Hooks can change its runtime value, but this does not necessarily update the recorded build metadata or reconfigure the agent. Later phases may overwrite the value again.
+- **This value cannot be modified**: The agent supplies this value and rejects changes exported from job lifecycle hooks, including `environment` and `pre-checkout`. Where an exception is listed, change the indicated setting instead. Agent configuration changes must be made before starting the agent. Pipeline setting changes apply to future jobs.
+
+Variables without a label can be configured using the methods in their descriptions. Check each variable's description for restrictions.
 
 > 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
@@ -42,8 +47,10 @@ The following environment variables may be visible in your commands, plugins, an
           <% end %>
           </ul>
         <% end %>
-        <% if !env['modifiable'] %>
-          <small>This value cannot be modified</small>
+        <% if env['modification_note'] %>
+          <small><%= env['modification_note'] %></small>
+        <% elsif !env['modifiable'] %>
+          <small>Set by Buildkite</small>
         <% end %>
       </th>
       <td>
