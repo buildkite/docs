@@ -1,6 +1,6 @@
 # Buildkite hosted agents code access
 
-Buildkite hosted agents can access private repositories in GitHub, Origin, and Code Storage natively when you authorize Buildkite to access the repositories. [Entire repositories](/docs/pipelines/source-control/entire) also use managed credentials, with an additional checkout plugin. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
+Buildkite hosted agents can access private repositories in GitHub, GitHub Enterprise Server, Origin, and Code Storage natively when you authorize Buildkite to access the repositories. [Entire repositories](/docs/pipelines/source-control/entire) also use managed credentials, with an additional checkout plugin. To access private repositories from another provider, you can use the [`checkout.ssh_secret`](/docs/pipelines/configure/git-checkout#ssh-key-from-buildkite-secrets) pipeline configuration to supply an SSH key from [Buildkite Secrets](/docs/pipelines/security/secrets/buildkite-secrets), or the [Git SSH Checkout](https://buildkite.com/resources/plugins/buildkite-plugins/git-ssh-checkout-buildkite-plugin/) plugin as an alternative.
 
 To learn more about changes that may need to be completed at an individual pipeline level, see [Pipeline migration](/docs/agent/buildkite-hosted/pipeline-migration).
 
@@ -20,6 +20,12 @@ Buildkite hosted agents provides a feature for temporarily caching access tokens
 Buildkite caches these GitHub access tokens for 50 minutes, where they remain encrypted on the Buildkite platform. This feature allows your hosted agents to use these GitHub access tokens and avoid hitting your GitHub rate limit, since these tokens can be re-used in subsequent builds.
 
 There's no need to configure this access token caching feature, as it's provided by default as part of [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+
+## GitHub Enterprise Server private repositories
+
+Connect your server using the [GitHub App integration](/docs/pipelines/source-control/github-enterprise#github-app). Enable **Code Read Access** and install the App with access to the pipeline's repository. Buildkite hosted agents receive checkout credentials automatically for repositories the App can access.
+
+The agents must also be able to reach your server to clone repositories. See [Network security](/docs/agent/buildkite-hosted/network-security) for hosted agent networking requirements.
 
 ## Origin private repositories
 
@@ -51,7 +57,7 @@ Buildkite does not require any special permissions to access public repositories
 
 ## Private repositories with other providers
 
-To use Buildkite hosted agents with a private repository on a provider other than GitHub, Origin, Code Storage, or Entire, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
+For connections without native code access, store an SSH private key as a [Buildkite secret](/docs/pipelines/security/secrets/buildkite-secrets) and reference it in your pipeline YAML. This includes GitHub Enterprise Server connections without App code access. The recommended approach is to use the `checkout.ssh_secret` attribute, which configures the agent to fetch the key at job startup and use it automatically during Git checkout.
 
 ### Specifying an SSH secret in YAML
 
