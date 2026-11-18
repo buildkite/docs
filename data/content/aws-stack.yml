@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v7.11.1"
+Description: "Buildkite stack v7.12.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite agent cluster. Use it to parallelize
@@ -87,6 +87,7 @@ Metadata:
         - ImageIdParameter
         - InstanceOperatingSystem
         - LinuxDistribution
+        - WindowsServerVersion
         - InstanceTypes
         - CpuCredits
         - NestedVirtualizationEnabled
@@ -929,6 +930,17 @@ Parameters:
       - ubuntu2404
     Default: "amazonlinux2023"
 
+  WindowsServerVersion:
+    Type: String
+    Description: >
+      The Windows Server version to run on the instances. Only applies when InstanceOperatingSystem is windows.
+      Windows Server 2025 boots in UEFI mode, so it requires a Nitro-based instance type that supports UEFI
+      (not Xen-based or bare metal instance types).
+    AllowedValues:
+      - "2022"
+      - "2025"
+    Default: "2022"
+
   ECRAccessPolicy:
     Type: String
     Description: >
@@ -1565,6 +1577,11 @@ Conditions:
         - !Equals [ !Ref InstanceOperatingSystem, "linux" ]
         - !Equals [ !Ref LinuxDistribution, "ubuntu2404" ]
 
+    UseWindows2025:
+      !And
+        - !Equals [ !Ref InstanceOperatingSystem, "windows" ]
+        - !Equals [ !Ref WindowsServerVersion, "2025" ]
+
     # Windows and Ubuntu AMIs root on /dev/sda1; Amazon Linux roots on /dev/xvda.
     # The root block device mapping must name the AMI's actual root device or the
     # RootVolumeSize override silently applies to a phantom device.
@@ -1677,25 +1694,25 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-03cbf3561e7c862b3, linuxarm64: ami-0285c81eec2fe09d9, windows: ami-0403901d2a353bf36, ubuntu2404amd64: ami-05a0188d5956a6959, ubuntu2404arm64: ami-0a7d8fd8796cae03d }
-    us-east-2 : { linuxamd64: ami-0ab7908299deab259, linuxarm64: ami-01ac3851b72b28ef1, windows: ami-02de1b33bf76dfb6d, ubuntu2404amd64: ami-0222c434552a99d37, ubuntu2404arm64: ami-0a702e6d329d38847 }
-    us-west-1 : { linuxamd64: ami-05f68f1a3aba5e170, linuxarm64: ami-0bef0306a1d8d3d8b, windows: ami-07b7eb26dde6b5f7e, ubuntu2404amd64: ami-057d996102335c743, ubuntu2404arm64: ami-012c043d10efa2a56 }
-    us-west-2 : { linuxamd64: ami-0583d31f97301842d, linuxarm64: ami-0513494695c918356, windows: ami-01386a36f4c8a424f, ubuntu2404amd64: ami-0c7976ef5c3cd829d, ubuntu2404arm64: ami-0b38c67adbb412deb }
-    af-south-1 : { linuxamd64: ami-02edcc4049d8bc76c, linuxarm64: ami-0f6e9222fd4957504, windows: ami-02cc01cbda07ba246, ubuntu2404amd64: ami-08d7b4c67fad3514c, ubuntu2404arm64: ami-055e3f1b11ff9dcc6 }
-    ap-east-1 : { linuxamd64: ami-0e451c45b2931ab94, linuxarm64: ami-0b782ab326e8be40e, windows: ami-0d5348ab0b6f23fe6, ubuntu2404amd64: ami-02ca03942bed9241a, ubuntu2404arm64: ami-0995dc92d02a3d795 }
-    ap-south-1 : { linuxamd64: ami-02c0c79442175416e, linuxarm64: ami-04fa4257ca50f7d7e, windows: ami-0ad18ae03edbdb707, ubuntu2404amd64: ami-02390e3c85f78beea, ubuntu2404arm64: ami-099064e9a46e57720 }
-    ap-northeast-2 : { linuxamd64: ami-0f55d7fab7349a7ce, linuxarm64: ami-09016e5aab2a53220, windows: ami-027f32db0ac70c753, ubuntu2404amd64: ami-05dd5fc68a4745da7, ubuntu2404arm64: ami-03bbb5043911edefa }
-    ap-northeast-1 : { linuxamd64: ami-0aaeae4d6337a7e32, linuxarm64: ami-024c87bc23b46f5fd, windows: ami-059f6bfb32b143950, ubuntu2404amd64: ami-08d592382254f8259, ubuntu2404arm64: ami-02f98f8fb0b7a1f25 }
-    ap-southeast-2 : { linuxamd64: ami-0434b5aae6619970a, linuxarm64: ami-0bc9d44af494e7e17, windows: ami-0e3030cbd9d7c4381, ubuntu2404amd64: ami-0f9eccbb7d3f76aa8, ubuntu2404arm64: ami-0202f77e08025dbb3 }
-    ap-southeast-1 : { linuxamd64: ami-0a7fec9346cead319, linuxarm64: ami-0370bb331e494546a, windows: ami-0981d6b9a06f4dd4e, ubuntu2404amd64: ami-02ce23f025967d9d9, ubuntu2404arm64: ami-06ea5de94de381005 }
-    ca-central-1 : { linuxamd64: ami-07934e359c5ea9b6b, linuxarm64: ami-082c8ee4f1211962c, windows: ami-04d73d3a6c6f860c4, ubuntu2404amd64: ami-0ddbeb410dedf9191, ubuntu2404arm64: ami-0d80a348cad5037f6 }
-    eu-central-1 : { linuxamd64: ami-0ffd7a9bf7f505537, linuxarm64: ami-0ab67861a7c690283, windows: ami-0fc265c49a202db64, ubuntu2404amd64: ami-03532385782159375, ubuntu2404arm64: ami-0b9c6711c43c89689 }
-    eu-west-1 : { linuxamd64: ami-08913e3b2149af2dd, linuxarm64: ami-0494026b759219372, windows: ami-0700327292afa2427, ubuntu2404amd64: ami-05ec81668cbf19ab7, ubuntu2404arm64: ami-0f5bf4c7af53a3e0e }
-    eu-west-2 : { linuxamd64: ami-076e842265b412b0e, linuxarm64: ami-0acfb6265bc046545, windows: ami-0ead2edebb8623233, ubuntu2404amd64: ami-048f664f811b58d89, ubuntu2404arm64: ami-05ba90ba109d1acf5 }
-    eu-south-1 : { linuxamd64: ami-07860a6de6086a70a, linuxarm64: ami-0e8815c34217bbae6, windows: ami-0931e904f90a008cc, ubuntu2404amd64: ami-063b5af82f70a7dae, ubuntu2404arm64: ami-072694922fcad721f }
-    eu-west-3 : { linuxamd64: ami-09dc33c7ecd57f139, linuxarm64: ami-088c8d04b1802ecc1, windows: ami-02b01fbd5be84f7bc, ubuntu2404amd64: ami-05fa120ca05f551d1, ubuntu2404arm64: ami-0795fa4b8941232fb }
-    eu-north-1 : { linuxamd64: ami-0f4f3d1131ab7afbc, linuxarm64: ami-00bd7e3eac2cfc496, windows: ami-068804e4d6ec6f050, ubuntu2404amd64: ami-018862a50941536e1, ubuntu2404arm64: ami-01447c3a9d8b21061 }
-    sa-east-1 : { linuxamd64: ami-07b05c0c8c7502fd8, linuxarm64: ami-041443b86f3285631, windows: ami-0f2eeec22068db53d, ubuntu2404amd64: ami-00aa42cbd985a13ce, ubuntu2404arm64: ami-0d164d38b220ab2f6 }
+    us-east-1 : { linuxamd64: ami-0feb7749aea82182e, linuxarm64: ami-08924ce5737fec9dc, windows: ami-0402973078388576d, ubuntu2404amd64: ami-0f69559b174a9f066, ubuntu2404arm64: ami-0161c7f7bd4a5e944, windows2025: ami-0a1824bd72980c9f4 }
+    us-east-2 : { linuxamd64: ami-07a9858252a616093, linuxarm64: ami-0caf8155f5742bbdb, windows: ami-07013f48d55144894, ubuntu2404amd64: ami-014c75b8adf4b1192, ubuntu2404arm64: ami-016957e0180495f6c, windows2025: ami-00328a7f8e47e5569 }
+    us-west-1 : { linuxamd64: ami-038bf85edeb99c048, linuxarm64: ami-09b901287db9eef04, windows: ami-00eb3a3e3e3c70914, ubuntu2404amd64: ami-02e7684691ddc1930, ubuntu2404arm64: ami-0b6c63df744ee844e, windows2025: ami-0f78bd76d3018984d }
+    us-west-2 : { linuxamd64: ami-0584f9a2348f51516, linuxarm64: ami-0cecc25d31eff21b3, windows: ami-058795ca655f1eff1, ubuntu2404amd64: ami-017483a60eb22e01f, ubuntu2404arm64: ami-0959f370a591f6805, windows2025: ami-08b5bc3aa76f3d217 }
+    af-south-1 : { linuxamd64: ami-052ef50377c0f2acd, linuxarm64: ami-00968aba4aa292b9e, windows: ami-065e193815e7248ad, ubuntu2404amd64: ami-0c651a172ecf1573e, ubuntu2404arm64: ami-041f2f1a297b0d187, windows2025: ami-0c94e7476f68a3656 }
+    ap-east-1 : { linuxamd64: ami-0d40971932aa7d141, linuxarm64: ami-0ef0acc5b6ad8feb1, windows: ami-01078c361fda85da2, ubuntu2404amd64: ami-0f79d99ebf37092fc, ubuntu2404arm64: ami-0fa7382ddbc60481c, windows2025: ami-0727c9114ea6aa236 }
+    ap-south-1 : { linuxamd64: ami-0d9798c8e8130f761, linuxarm64: ami-05c39ed3808f0e5cc, windows: ami-09d6cbd202711b704, ubuntu2404amd64: ami-0edd44de00dbd7388, ubuntu2404arm64: ami-059a36755c78c2799, windows2025: ami-0ec70712b3e140c1e }
+    ap-northeast-2 : { linuxamd64: ami-05e87c60279b8a055, linuxarm64: ami-00926d6afbebe69a8, windows: ami-08af9989e21bae4b2, ubuntu2404amd64: ami-0acdd021ca96bea3a, ubuntu2404arm64: ami-07b1a1c7efa942dde, windows2025: ami-0e04cdd6ca6c88b31 }
+    ap-northeast-1 : { linuxamd64: ami-0065b0b941ef0ce0d, linuxarm64: ami-0af16e08e81896937, windows: ami-0a0220cd157c95155, ubuntu2404amd64: ami-04a80fbbe6e353fb9, ubuntu2404arm64: ami-0f2edb77ae3ea5be1, windows2025: ami-0729337d48c0d5a63 }
+    ap-southeast-2 : { linuxamd64: ami-03dc4dabe475a6a05, linuxarm64: ami-0c1cb24ef27939c61, windows: ami-0df5b3050a904b8f5, ubuntu2404amd64: ami-007938861bb30d7f8, ubuntu2404arm64: ami-0ef532f0b068d9bf3, windows2025: ami-09943a7bcf0e771de }
+    ap-southeast-1 : { linuxamd64: ami-04332a8595084037f, linuxarm64: ami-00c41f42fcddb8467, windows: ami-062113599cffbca93, ubuntu2404amd64: ami-018449d956f79d8fc, ubuntu2404arm64: ami-0b0054a101a2cdcdf, windows2025: ami-047a49949deef91c8 }
+    ca-central-1 : { linuxamd64: ami-083f8997359bc58aa, linuxarm64: ami-00a00c7f0cc36f350, windows: ami-01f2d9ca8e63fa153, ubuntu2404amd64: ami-0c1942a9ba58c4814, ubuntu2404arm64: ami-02ef2fd66a328de57, windows2025: ami-0187eed3ee2e1455d }
+    eu-central-1 : { linuxamd64: ami-0f221658c68567042, linuxarm64: ami-0e5337385ba1f7649, windows: ami-0c88341b6e29ac66b, ubuntu2404amd64: ami-072057d68a8cf0567, ubuntu2404arm64: ami-066de6c57e2f3d8f3, windows2025: ami-0e99a97da158af175 }
+    eu-west-1 : { linuxamd64: ami-000fac5b0674b848a, linuxarm64: ami-0e38973dbba6f99f9, windows: ami-05ff9768daa9a9931, ubuntu2404amd64: ami-08e1d6054b6f0c6aa, ubuntu2404arm64: ami-0f0a7c7cb637f4e80, windows2025: ami-06bacd6476f6c48d0 }
+    eu-west-2 : { linuxamd64: ami-0654fae70c3f0ae5c, linuxarm64: ami-0f5ade6aa862f670d, windows: ami-003c6b81da4c06eb0, ubuntu2404amd64: ami-07af05a87a704e843, ubuntu2404arm64: ami-0eabb91751703b096, windows2025: ami-0c2d3844366108bb0 }
+    eu-south-1 : { linuxamd64: ami-08aba445a6634ac15, linuxarm64: ami-00cd10bfdae7a2ef7, windows: ami-0019b1c10c174c824, ubuntu2404amd64: ami-02f326f811ad75d8e, ubuntu2404arm64: ami-0919759d36bd42ae7, windows2025: ami-05aa40fe67073e6cc }
+    eu-west-3 : { linuxamd64: ami-04ef794480bc15487, linuxarm64: ami-076c0386e6c39ffc6, windows: ami-08a28938f98f5f5a4, ubuntu2404amd64: ami-01f0c15bbc64ca946, ubuntu2404arm64: ami-07ad6d54304f97054, windows2025: ami-080c909ec7b745ac4 }
+    eu-north-1 : { linuxamd64: ami-0829ae89c36eee93c, linuxarm64: ami-00da68f5b0679b495, windows: ami-027d802aa6d506168, ubuntu2404amd64: ami-0e9b94de9b2b04cf2, ubuntu2404arm64: ami-01acaebc9a8798ff9, windows2025: ami-08129d861055e3592 }
+    sa-east-1 : { linuxamd64: ami-0fc6de138b51b6477, linuxarm64: ami-0f4f8ff2279fa72fc, windows: ami-0778a7593a6b9aa0b, ubuntu2404amd64: ami-087aadbea691793a9, ubuntu2404arm64: ami-081f525babc304057, windows2025: ami-0126047a813de2f97 }
 
 Resources:
   Vpc:
@@ -2379,10 +2396,16 @@ Resources:
               - !GetAtt ImageIdParameterStack.Outputs.ImageId
               - !If
                 - UseWindowsAgents
-                - !FindInMap
-                  - AWSRegion2AMI
-                  - !Ref 'AWS::Region'
-                  - 'windows'
+                - !If
+                  - UseWindows2025
+                  - !FindInMap
+                    - AWSRegion2AMI
+                    - !Ref 'AWS::Region'
+                    - 'windows2025'
+                  - !FindInMap
+                    - AWSRegion2AMI
+                    - !Ref 'AWS::Region'
+                    - 'windows'
                 - !If
                   - UseUbuntu
                   - !If
@@ -2461,7 +2484,7 @@ Resources:
                   $Env:DOCKER_NETWORKING_PROTOCOL="${DockerNetworkingProtocol}"
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v7.11.1"
+                  $Env:BUILDKITE_STACK_VERSION="v7.12.0"
                   $Env:BUILDKITE_STACK_DEPLOYED_BY="cloudformation"
                   $Env:BUILDKITE_LAUNCH_HOOK_NAME="buildkite-agent-launch"
                   $Env:BUILDKITE_LAUNCH_TIMEOUT="${WindowsLaunchTimeout}"
@@ -2575,7 +2598,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v7.11.1" \
+                  BUILDKITE_STACK_VERSION="v7.12.0" \
                   BUILDKITE_STACK_DEPLOYED_BY="cloudformation" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
