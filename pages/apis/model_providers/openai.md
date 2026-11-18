@@ -1,6 +1,6 @@
 # OpenAI model provider
 
-The OpenAI model provider connects your Buildkite Pipelines jobs to the OpenAI Responses API. Use a Buildkite hosted token or your own OpenAI API key, while authenticating requests from jobs with a Buildkite [job token](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens).
+The OpenAI model provider connects your Buildkite Pipelines jobs to the [OpenAI Responses API](https://developers.openai.com/api/reference/resources/responses/). Use a Buildkite hosted token or your own OpenAI API key, while authenticating requests from jobs with a Buildkite [job token](/docs/agent/self-hosted/tokens#additional-agent-tokens-job-tokens).
 
 ## Connect OpenAI
 
@@ -59,7 +59,7 @@ The following endpoints are relative to the proxy base URL:
 - `GET /v1/models`: List models available to the upstream credentials.
 - `GET /v1/models/{model_id}`: Retrieve model information.
 
-Response-specific requests require a response ID recorded for your Buildkite organization. The [OpenAI Responses API reference](https://developers.openai.com/api/reference/resources/responses/) describes request and response fields, but only the endpoints listed above are proxied. The cancellation route does not provide background-execution recovery or background usage reconciliation.
+Response-specific requests require a response ID recorded for your Buildkite organization. The OpenAI Responses API reference describes request and response fields, but only the endpoints listed above are proxied. The cancellation route does not provide background-execution recovery or background usage reconciliation.
 
 ### Model selection
 

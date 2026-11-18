@@ -39,7 +39,7 @@ With the **Buildkite Hosted Token** authentication option, you can start using A
 - Configure additional infrastructure.
 
 > 📘
-> The Buildkite hosted token authentication option requires a paid [Pro or Enterprise](https://buildkite.com/pricing/) plan and a valid credit card on file. Model usage is billed through Buildkite.
+> The **Buildkite Hosted Token** authentication option requires a paid [Pro or Enterprise](https://buildkite.com/pricing/) plan and a valid credit card on file. Model usage is billed through Buildkite.
 
 ### Bring your own token
 
