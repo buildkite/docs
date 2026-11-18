@@ -48,6 +48,23 @@ The only required variable is `buildkite_agent_token`. For information on creati
 
 For the complete list of variables and their descriptions, see the [module documentation](https://registry.terraform.io/modules/buildkite/elastic-ci-stack-for-aws/buildkite/latest) on the Terraform Registry or the [configuration parameters](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters) reference.
 
+### Choosing a Windows Server version
+
+Windows instances run Windows Server 2022 by default. To run Windows Server 2025 instead, set `instance_operating_system` to `windows` and `windows_server_version` to `2025`:
+
+```terraform
+module "buildkite_stack" {
+  # ... your configuration
+
+  instance_operating_system = "windows"
+  windows_server_version    = "2025"
+}
+```
+
+The `windows_server_version` variable requires version 1.7.0 or later of the module. This variable has no effect on Linux instances. A stack that sets `image_id` or `image_id_parameter` uses that AMI and ignores `windows_server_version`.
+
+The Windows Server 2025 AMIs boot in UEFI mode. Each value of `instance_types` must therefore be a Nitro-based instance type that supports UEFI. For more information about this requirement and running Windows containers on Windows Server 2025, see [Choosing a Windows Server version](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/setup#before-you-start-choosing-a-windows-server-version) in the AWS CloudFormation setup guide.
+
 ## Example configurations
 
 The Terraform module repository includes several example configurations. You can check out the following examples in the [examples directory](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws/tree/main/examples):
